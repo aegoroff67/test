@@ -528,7 +528,7 @@ async def get_domains():
 @api_router.get("/questions")
 async def get_questions(domain_id: Optional[str] = None):
     query = {"domain_id": domain_id} if domain_id else {}
-    questions = await db.questions.find(query).sort("order").to_list(length=None)
+    questions = await db.questions.find(query, {"_id": 0}).sort("order").to_list(length=None)
     return questions
 
 # Include router
