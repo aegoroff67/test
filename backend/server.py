@@ -330,11 +330,11 @@ async def get_assessment(assessment_id: str, current_user: User = Depends(get_cu
         raise HTTPException(status_code=404, detail="Assessment not found")
     
     # Get all questions with domain info
-    questions = await db.questions.find().sort("order").to_list(length=None)
-    domains = await db.domains.find().sort("order").to_list(length=None)
+    questions = await db.questions.find({}, {"_id": 0}).sort("order").to_list(length=None)
+    domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
     
     # Get existing answers
-    answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+    answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
     answer_map = {answer["question_id"]: answer for answer in answers}
     
     # Build response
