@@ -440,9 +440,9 @@ async def get_assessment_summary(assessment_id: str, current_user: User = Depend
         raise HTTPException(status_code=404, detail="Assessment not found")
     
     # Get all domains, questions, and answers
-    domains = await db.domains.find().sort("order").to_list(length=None)
-    questions = await db.questions.find().to_list(length=None)
-    answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+    domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
+    questions = await db.questions.find({}, {"_id": 0}).to_list(length=None)
+    answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
     
     # Group questions by domain
     domain_questions = {}
