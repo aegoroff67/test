@@ -403,12 +403,19 @@ class AMSafeAPITester:
         )
         
         if response and 'overall_percentage' in response and 'domain_scores' in response:
-            # Validate summary structure
-            if len(response['domain_scores']) == 3:
-                self.log_test("Summary Structure Validation", True)
+            # Validate summary structure for 11 domains
+            if len(response['domain_scores']) == 11:
+                self.log_test("Summary Structure Validation (11 domains)", True)
+                
+                # Validate total questions count
+                if response.get('total_questions') == 88:
+                    self.log_test("Summary Total Questions Count", True)
+                else:
+                    self.log_test("Summary Total Questions Count", False, f"Expected 88 total questions, got {response.get('total_questions')}")
+                
                 return True
             else:
-                self.log_test("Summary Structure Validation", False, f"Expected 3 domain scores, got {len(response['domain_scores'])}")
+                self.log_test("Summary Structure Validation (11 domains)", False, f"Expected 11 domain scores, got {len(response['domain_scores'])}")
         
         return response is not None
 
