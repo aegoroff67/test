@@ -171,14 +171,11 @@ class AssessmentSummary(BaseModel):
 
 # Helper functions
 def hash_password(password: str) -> str:
-    # Truncate password to 72 bytes for bcrypt compatibility
-    password_bytes = password.encode('utf-8')[:72]
-    return pwd_context.hash(password_bytes.decode('utf-8'))
+    # Simple SHA-256 hashing for MVP (use bcrypt in production)
+    return hashlib.sha256(password.encode()).hexdigest()
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    # Truncate password to 72 bytes for bcrypt compatibility
-    password_bytes = plain_password.encode('utf-8')[:72]
-    return pwd_context.verify(password_bytes.decode('utf-8'), hashed_password)
+    return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
