@@ -355,6 +355,10 @@ async def get_assessment(assessment_id: str, current_user: User = Depends(get_cu
         }
         questions_with_answers.append(question_data)
     
+    # Remove _id from assessment
+    if "_id" in assessment:
+        del assessment["_id"]
+    
     return {
         "assessment": assessment,
         "questions": questions_with_answers,
