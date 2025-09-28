@@ -162,7 +162,7 @@ class AMSafeAPITester:
         return response is not None
 
     def test_get_questions(self):
-        """Test get questions"""
+        """Test get questions - Enhanced version with 88 questions"""
         response = self.run_test(
             "Get Questions",
             "GET",
@@ -170,18 +170,37 @@ class AMSafeAPITester:
             200
         )
         
-        if response and isinstance(response, list) and len(response) == 12:
-            # Check if we have 4 questions per domain
+        if response and isinstance(response, list) and len(response) == 88:
+            # Check if we have 8 questions per domain (11 domains × 8 questions = 88)
             domain_counts = {}
+            question_codes = []
             for q in response:
                 domain_id = q.get('domain_id')
                 domain_counts[domain_id] = domain_counts.get(domain_id, 0) + 1
+                question_codes.append(q.get('code', ''))
             
-            if len(domain_counts) == 3 and all(count == 4 for count in domain_counts.values()):
-                self.log_test("Questions Distribution Validation", True)
+            if len(domain_counts) == 11 and all(count == 8 for count in domain_counts.values()):
+                self.log_test("Questions Distribution Validation (8 per domain)", True)
+                
+                # Validate question codes format (e.g., FA-1, TR-1, etc.)
+                expected_prefixes = ['FA-', 'TR-', 'EX-', 'AC-', 'DI-', 'RE-', 'SE-', 'PR-', 'SA-', 'IN-', 'SU-']
+                code_validation = True
+                for prefix in expected_prefixes:
+                    prefix_codes = [code for code in question_codes if code.startswith(prefix)]
+                    if len(prefix_codes) != 8:
+                        code_validation = False
+                        break
+                
+                if code_validation:
+                    self.log_test("Question Codes Validation", True)
+                else:
+                    self.log_test("Question Codes Validation", False, "Not all domains have 8 properly coded questions")
+                
                 return True
             else:
-                self.log_test("Questions Distribution Validation", False, f"Expected 4 questions per domain, got {domain_counts}")
+                self.log_test("Questions Distribution Validation (8 per domain)", False, f"Expected 8 questions per domain for 11 domains, got {domain_counts}")
+        else:
+            self.log_test("Questions Count Validation", False, f"Expected 88 questions, got {len(response) if response else 0}")
         
         return response is not None
 
