@@ -136,7 +136,7 @@ class AMSafeAPITester:
         return response is not None
 
     def test_get_domains(self):
-        """Test get domains"""
+        """Test get domains - Enhanced version with 11 domains"""
         response = self.run_test(
             "Get Domains",
             "GET",
@@ -144,14 +144,20 @@ class AMSafeAPITester:
             200
         )
         
-        if response and isinstance(response, list) and len(response) == 3:
-            expected_domains = ["Fairness", "Accountability", "Security"]
+        if response and isinstance(response, list) and len(response) == 11:
+            expected_domains = [
+                "Fairness", "Transparency", "Explainability", "Accountability", 
+                "Data Integrity", "Reliability", "Security", "Privacy", 
+                "Safety", "Inclusivity", "Sustainability"
+            ]
             actual_domains = [d['name'] for d in response]
             if all(domain in actual_domains for domain in expected_domains):
-                self.log_test("Domain Content Validation", True)
+                self.log_test("Domain Content Validation (11 domains)", True)
                 return True
             else:
-                self.log_test("Domain Content Validation", False, f"Expected {expected_domains}, got {actual_domains}")
+                self.log_test("Domain Content Validation (11 domains)", False, f"Expected {expected_domains}, got {actual_domains}")
+        else:
+            self.log_test("Domain Count Validation", False, f"Expected 11 domains, got {len(response) if response else 0}")
         
         return response is not None
 
