@@ -253,11 +253,19 @@ class AMSafeAPITester:
         
         if response and 'assessment' in response and 'questions' in response:
             questions = response['questions']
-            if len(questions) == 12:
-                self.log_test("Assessment Questions Count", True)
+            if len(questions) == 88:
+                self.log_test("Assessment Questions Count (88 questions)", True)
+                
+                # Validate progress format
+                progress = response.get('progress', '')
+                if progress == '0/88':
+                    self.log_test("Assessment Progress Format", True)
+                else:
+                    self.log_test("Assessment Progress Format", False, f"Expected '0/88', got '{progress}'")
+                
                 return True
             else:
-                self.log_test("Assessment Questions Count", False, f"Expected 12 questions, got {len(questions)}")
+                self.log_test("Assessment Questions Count (88 questions)", False, f"Expected 88 questions, got {len(questions)}")
         
         return response is not None
 
