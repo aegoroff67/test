@@ -87,8 +87,10 @@ function AssessmentPage() {
   useEffect(() => {
     if (currentAnswer) {
       setNote(currentAnswer.note || '');
+      setOtherText(currentAnswer.other_text || '');
     } else {
       setNote('');
+      setOtherText('');
     }
   }, [currentQuestionIndex, currentAnswer]);
 
