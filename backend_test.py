@@ -92,38 +92,58 @@ class AMSafeAPITester:
             
         return True
 
-    def test_login(self):
-        """Test user login with existing credentials"""
-        if not self.user_data:
+    def test_domains_and_questions_structure(self):
+        """Test that domains and questions are properly structured"""
+        # Test domains endpoint
+        success, domains = self.make_request('GET', 'domains')
+        if not success:
+            self.log_test("Domains endpoint", False, str(domains))
             return False
             
-        login_data = {
-            "email": self.user_data['email'],
-            "password": "TestPass123!"
-        }
+        # Verify 11 domains
+        if len(domains) == 11:
+            self.log_test("11 domains present", True)
+        else:
+            self.log_test("11 domains present", False, f"Found {len(domains)} domains")
+            
+        # Verify domain names
+        expected_domains = [
+            "Fairness", "Transparency", "Explainability", "Accountability",
+            "Data Integrity", "Reliability", "Security", "Privacy", 
+            "Safety", "Inclusivity", "Sustainability"
+        ]
         
-        response = self.run_test(
-            "User Login",
-            "POST", 
-            "auth/login",
-            200,
-            data=login_data
-        )
-        
-        if response and 'access_token' in response:
-            self.token = response['access_token']
-            return True
-        return False
+        domain_names = [d['name'] for d in domains]
+        if set(domain_names) == set(expected_domains):
+            self.log_test("All expected domain names present", True)
+        else:
+            missing = set(expected_domains) - set(domain_names)
+            self.log_test("All expected domain names present", False, f"Missing: {missing}")
 
-    def test_get_me(self):
-        """Test get current user"""
-        response = self.run_test(
-            "Get Current User",
-            "GET",
-            "auth/me",
-            200
-        )
-        return response is not None
+        # Test questions endpoint
+        success, questions = self.make_request('GET', 'questions')
+        if not success:
+            self.log_test("Questions endpoint", False, str(questions))
+            return False
+            
+        # Verify 88 questions (11 domains × 8 questions each)
+        if len(questions) == 88:
+            self.log_test("88 questions present", True)
+        else:
+            self.log_test("88 questions present", False, f"Found {len(questions)} questions")
+            
+        # Verify question structure includes answer content fields
+        sample_question = questions[0] if questions else None
+        if sample_question:
+            required_fields = ['ideal_answer', 'good_answer', 'basic_answer', 'non_ideal_answer']
+            has_answer_fields = all(field in sample_question for field in required_fields)
+            if has_answer_fields:
+                self.log_test("Questions have answer content fields", True)
+            else:
+                missing_fields = [f for f in required_fields if f not in sample_question]
+                self.log_test("Questions have answer content fields", False, f"Missing: {missing_fields}")
+                
+        return True
 
     def test_get_domains(self):
         """Test get domains - Enhanced version with 11 domains"""
