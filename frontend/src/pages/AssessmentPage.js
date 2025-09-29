@@ -451,7 +451,7 @@ function AssessmentPage() {
                       <div className="flex-1">
                         <div className="font-medium text-gray-900 mb-1">Ideal (3 points)</div>
                         <div className="text-sm text-gray-600 leading-relaxed">
-                          {currentQuestion?.ideal_answer || 'Comprehensive implementation with best practices and full compliance'}
+                          Comprehensive implementation with best practices and full compliance
                         </div>
                       </div>
                     </div>
