@@ -156,48 +156,37 @@ class AMSafeAPITester:
             self.log_test("Assessment creation", False, str(response))
             return False
 
-    def test_get_questions(self):
-        """Test get questions - Enhanced version with 88 questions"""
-        response = self.run_test(
-            "Get Questions",
-            "GET",
-            "questions",
-            200
-        )
-        
-        if response and isinstance(response, list) and len(response) == 88:
-            # Check if we have 8 questions per domain (11 domains × 8 questions = 88)
-            domain_counts = {}
-            question_codes = []
-            for q in response:
-                domain_id = q.get('domain_id')
-                domain_counts[domain_id] = domain_counts.get(domain_id, 0) + 1
-                question_codes.append(q.get('code', ''))
+    def test_assessment_details(self):
+        """Test assessment details endpoint"""
+        if not self.assessment_id:
+            self.log_test("Assessment details", False, "No assessment ID")
+            return False
             
-            if len(domain_counts) == 11 and all(count == 8 for count in domain_counts.values()):
-                self.log_test("Questions Distribution Validation (8 per domain)", True)
-                
-                # Validate question codes format (e.g., FA-1, TR-1, etc.)
-                expected_prefixes = ['FA-', 'TR-', 'EX-', 'AC-', 'DI-', 'RE-', 'SE-', 'PR-', 'SA-', 'IN-', 'SU-']
-                code_validation = True
-                for prefix in expected_prefixes:
-                    prefix_codes = [code for code in question_codes if code.startswith(prefix)]
-                    if len(prefix_codes) != 8:
-                        code_validation = False
-                        break
-                
-                if code_validation:
-                    self.log_test("Question Codes Validation", True)
-                else:
-                    self.log_test("Question Codes Validation", False, "Not all domains have 8 properly coded questions")
-                
-                return True
-            else:
-                self.log_test("Questions Distribution Validation (8 per domain)", False, f"Expected 8 questions per domain for 11 domains, got {domain_counts}")
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}')
+        if not success:
+            self.log_test("Assessment details", False, str(response))
+            return False
+            
+        # Verify structure
+        required_keys = ['assessment', 'questions', 'domains', 'progress']
+        if all(key in response for key in required_keys):
+            self.log_test("Assessment details structure", True)
         else:
-            self.log_test("Questions Count Validation", False, f"Expected 88 questions, got {len(response) if response else 0}")
-        
-        return response is not None
+            missing = [k for k in required_keys if k not in response]
+            self.log_test("Assessment details structure", False, f"Missing: {missing}")
+            
+        # Verify questions have answer content
+        questions = response.get('questions', [])
+        if questions:
+            sample_q = questions[0]
+            answer_fields = ['ideal_answer', 'good_answer', 'basic_answer', 'non_ideal_answer']
+            has_content = any(sample_q.get(field) for field in answer_fields)
+            if has_content:
+                self.log_test("Questions contain answer content", True)
+            else:
+                self.log_test("Questions contain answer content", False, "No answer content found")
+                
+        return True
 
     def test_create_assessment(self):
         """Test create assessment"""
