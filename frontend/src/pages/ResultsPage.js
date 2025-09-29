@@ -32,11 +32,15 @@ const getScoreColor = (percentage) => {
 
 const getMaturityBadge = (maturity) => {
   switch (maturity) {
-    case 'HIGH':
+    case 'Excellent':
       return { color: 'bg-green-100 text-green-800', icon: CheckCircle2 };
-    case 'MODERATE':
+    case 'Good':
+      return { color: 'bg-blue-100 text-blue-800', icon: TrendingUp };
+    case 'Moderate':
       return { color: 'bg-yellow-100 text-yellow-800', icon: TrendingUp };
-    case 'LOW':
+    case 'Low':
+      return { color: 'bg-orange-100 text-orange-800', icon: AlertTriangle };
+    case 'Basic':
       return { color: 'bg-red-100 text-red-800', icon: AlertTriangle };
     default:
       return { color: 'bg-gray-100 text-gray-800', icon: BarChart3 };
