@@ -1339,5 +1339,94 @@ remaining_questions = [
         "non_ideal_answer": "No safety testing in realistic or high-risk scenarios has been conducted.",
         "domain_order": 9,
         "order": 8
+    },
+    # Inclusivity Domain (IN-1 to IN-8) - Domain order 10
+    {
+        "code": "IN-1",
+        "text": "How do you ensure your AI system is accessible to a diverse range of users, including those with disabilities or in underserved populations?",
+        "explanation": "AI systems should be designed to be accessible and inclusive, serving diverse user populations including those with disabilities or from underserved communities. This question examines your approach to inclusive design.\n\nFor example, a voice-controlled AI assistant should work for users with speech impediments, and a visual AI system should consider users with visual impairments. Inclusive design involves considering diverse user needs from the beginning of development, not as an afterthought.",
+        "ideal_answer": "Follow inclusive design principles throughout development, conduct accessibility testing, and engage with diverse user communities.",
+        "good_answer": "Consider accessibility requirements and test with some diverse user groups.",
+        "basic_answer": "Address accessibility reactively based on user feedback or compliance requirements.",
+        "non_ideal_answer": "No specific measures are taken to ensure accessibility or inclusivity.",
+        "domain_order": 10,
+        "order": 1
+    },
+    {
+        "code": "IN-2",
+        "text": "Were diverse perspectives considered during the design and development of the system?",
+        "explanation": "Including diverse perspectives during AI system development helps identify potential biases, use cases, and impacts that might be missed by homogeneous teams. This question examines whether you actively seek diverse input.\n\nFor instance, a hiring AI system designed only by technical staff might miss important considerations about bias that would be apparent to HR professionals or affected communities. Diverse teams and stakeholder input lead to more equitable and effective AI systems.",
+        "ideal_answer": "Actively involve diverse teams and stakeholders throughout design and development, including affected communities and domain experts.",
+        "good_answer": "Include some diverse perspectives in development, particularly from key stakeholder groups.",
+        "basic_answer": "Consider diverse perspectives informally or only during specific phases.",
+        "non_ideal_answer": "No efforts are made to include diverse perspectives in development.",
+        "domain_order": 10,
+        "order": 2
+    },
+    {
+        "code": "IN-3",
+        "text": "Have you audited the system for potential exclusionary outcomes or unintended impacts?",
+        "explanation": "AI systems can inadvertently exclude certain groups or create unintended negative impacts. This question examines whether you proactively audit for such exclusionary effects.\n\nFor example, a credit scoring AI might inadvertently discriminate against certain ethnic groups or geographic regions. Regular audits help identify and address exclusionary patterns before they cause significant harm to affected communities.",
+        "ideal_answer": "Conduct regular comprehensive audits for exclusionary outcomes using both quantitative analysis and qualitative community feedback.",
+        "good_answer": "Perform periodic audits focusing on key metrics and obvious exclusionary patterns.",
+        "basic_answer": "Review system outcomes occasionally or only when issues are reported.",
+        "non_ideal_answer": "No auditing for exclusionary outcomes is conducted.",
+        "domain_order": 10,
+        "order": 3
+    },
+    {
+        "code": "IN-4",
+        "text": "How do you ensure your AI system accounts for accessibility requirements (e.g., for users with disabilities)?",
+        "explanation": "Accessibility requirements ensure that AI systems can be used by people with various disabilities. This question examines your specific approach to accessibility compliance and inclusive design.\n\nFor instance, an AI-powered website should include screen reader compatibility, keyboard navigation, and alternative text for images. Following accessibility standards like WCAG (Web Content Accessibility Guidelines) helps ensure your system serves all users effectively.",
+        "ideal_answer": "Follow established accessibility standards (e.g., WCAG) and conduct testing with users with disabilities throughout development.",
+        "good_answer": "Implement basic accessibility features and conduct some accessibility testing.",
+        "basic_answer": "Address accessibility requirements based on compliance needs or user requests.",
+        "non_ideal_answer": "No specific accessibility requirements are considered or implemented.",
+        "domain_order": 10,
+        "order": 4
+    },
+    {
+        "code": "IN-5",
+        "text": "Are stakeholders from diverse backgrounds involved in the design and testing of the system?",
+        "explanation": "Involving diverse stakeholders in design and testing helps ensure AI systems meet varied needs and avoid unintended consequences. This question examines your stakeholder engagement practices.\n\nFor example, a healthcare AI system should involve patients from different backgrounds, healthcare providers, and community representatives in testing. Diverse stakeholder involvement helps identify issues and opportunities that might be missed by development teams alone.",
+        "ideal_answer": "Systematically involve diverse stakeholders throughout design and testing phases with structured feedback collection and incorporation.",
+        "good_answer": "Include diverse stakeholders in key phases like user testing and validation.",
+        "basic_answer": "Engage with some diverse stakeholders informally or on an ad hoc basis.",
+        "non_ideal_answer": "No diverse stakeholders are involved in design and testing processes.",
+        "domain_order": 10,
+        "order": 5
+    },
+    {
+        "code": "IN-6",
+        "text": "What steps are taken to ensure that the AI system serves underrepresented communities effectively?",
+        "explanation": "AI systems can inadvertently underserve or harm underrepresented communities if their needs aren't explicitly considered. This question examines your efforts to serve these populations effectively.\n\nFor instance, a language processing AI might perform poorly for speakers of minority dialects or languages. Addressing this could involve diverse training data, community engagement, and performance testing across different groups to ensure equitable service.",
+        "ideal_answer": "Actively engage with underrepresented communities, ensure representation in training data, and monitor performance across different groups.",
+        "good_answer": "Take some steps to consider underrepresented communities, such as diverse data collection or targeted testing.",
+        "basic_answer": "Address underrepresented community needs reactively when issues are identified.",
+        "non_ideal_answer": "No specific steps are taken to serve underrepresented communities.",
+        "domain_order": 10,
+        "order": 6
+    },
+    {
+        "code": "IN-7",
+        "text": "Are language, cultural, or regional differences considered in system design?",
+        "explanation": "AI systems operating across different languages, cultures, or regions must account for these variations to serve users effectively. This question examines your approach to cultural and regional inclusivity.\n\nFor example, an AI customer service system might need to understand cultural communication styles, regional slang, or different problem-solving approaches. Considering these differences ensures your system works well for users from various backgrounds.",
+        "ideal_answer": "Systematically consider language, cultural, and regional differences in design with appropriate localization and cultural adaptation.",
+        "good_answer": "Address key language and cultural differences for primary user populations.",
+        "basic_answer": "Consider obvious language or cultural differences but without systematic approach.",
+        "non_ideal_answer": "No consideration of language, cultural, or regional differences in system design.",
+        "domain_order": 10,
+        "order": 7
+    },
+    {
+        "code": "IN-8",
+        "text": "How do you evaluate whether the system is unintentionally excluding certain user groups?",
+        "explanation": "Regular evaluation helps identify when AI systems inadvertently exclude or disadvantage certain user groups. This question examines your monitoring and evaluation practices for inclusive outcomes.\n\nFor instance, tracking usage patterns, success rates, and user feedback across different demographic groups can reveal exclusionary effects. Ongoing evaluation enables you to identify and address inclusivity issues before they become entrenched.",
+        "ideal_answer": "Implement comprehensive monitoring systems that track performance and outcomes across diverse user groups with regular analysis and remediation.",
+        "good_answer": "Monitor key metrics across different user groups and investigate significant disparities.",
+        "basic_answer": "Evaluate inclusivity occasionally or only when exclusion issues are reported.",
+        "non_ideal_answer": "No evaluation of potential user group exclusion is conducted.",
+        "domain_order": 10,
+        "order": 8
     }
 ]
