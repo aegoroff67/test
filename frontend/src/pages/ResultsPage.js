@@ -63,13 +63,26 @@ function ResultsPage() {
     try {
       // Fetch assessment details
       const assessmentResponse = await axios.get(`${API}/assessments/${id}`);
-      setAssessment(assessmentResponse.data.assessment);
-      setQuestions(assessmentResponse.data.questions);
+      setAssessment(assessmentResponse.data);
       
-      // Build answers map
-      const answersData = assessmentResponse.data.questions
-        .filter(q => q.answer)
-        .map(q => ({ ...q.answer, question: q }));
+      // Fetch questions with answers
+      const questionsResponse = await axios.get(`${API}/assessments/${id}/questions`);
+      const questionData = questionsResponse.data;
+      
+      // Extract questions and build answers array
+      const allQuestions = [];
+      const answersData = [];
+      
+      questionData.forEach(domainData => {
+        domainData.questions.forEach(question => {
+          allQuestions.push(question);
+          if (question.answer) {
+            answersData.push({ ...question.answer, question });
+          }
+        });
+      });
+      
+      setQuestions(allQuestions);
       setAnswers(answersData);
       
       // Fetch summary
@@ -77,6 +90,7 @@ function ResultsPage() {
       setSummary(summaryResponse.data);
       
     } catch (error) {
+      console.error('Error loading results:', error);
       toast.error('Failed to load results');
       navigate('/dashboard');
     } finally {
