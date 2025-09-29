@@ -106,16 +106,16 @@
 
 ## backend:
   - task: "Remove incorrect generated explanations and pre-defined answers from server.py"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-        - working: false
+        - working: true
         - agent: "main"
-        - comment: "Original spreadsheet has NO explanations or predefined answer text - all empty. Current server.py has generated content that user reported as incorrect. Need to clean up seeding to provide only question text without placeholder explanations."
+        - comment: "COMPLETED: Cleaned server.py seeding to remove all incorrect generated explanations and predefined answers. Database now contains only clean question text from original spreadsheet (88 questions across 11 domains). No placeholder or generated content remains."
 
 ## frontend:
   - task: "Verify question display shows complete explanations"
