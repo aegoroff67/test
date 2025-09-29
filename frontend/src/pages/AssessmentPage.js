@@ -546,7 +546,7 @@ function AssessmentPage() {
                       <div className="flex-1">
                         <div className="font-medium text-gray-900 mb-1">Basic (1 point)</div>
                         <div className="text-sm text-gray-600 leading-relaxed">
-                          Minimal implementation, significant gaps exist
+                          {currentQuestion?.predefined_answers?.basic || 'Minimal implementation, significant gaps exist'}
                         </div>
                       </div>
                     </div>
