@@ -323,9 +323,15 @@ function ResultsPage() {
                         </div>
                         
                         <div className="grid grid-cols-4 gap-2">
-                          {domainQuestions.map((question) => {
-                            const answer = domainAnswers.find(a => a.question_id === question.id);
-                            const score = answer ? answer.numeric_score : 0;
+                          {domainQuestions
+                            .map((question) => {
+                              const answer = domainAnswers.find(a => a.question_id === question.id);
+                              const score = answer ? answer.numeric_score : 0;
+                              return { ...question, score };
+                            })
+                            .sort((a, b) => a.score - b.score) // Sort by score, lowest first
+                            .map((question) => {
+                            const score = question.score;
                             const percentage = (score / 3) * 100; // Max score is 3
                             const colors = getScoreColor(percentage);
                             
