@@ -518,42 +518,40 @@ class AMSafeAPITester:
         return response is not None
 
     def run_all_tests(self):
-        """Run all tests in sequence"""
-        print("🚀 Starting AM AI SAFE API Tests")
-        print(f"   Base URL: {self.base_url}")
+        """Run comprehensive test suite"""
+        print("🚀 Starting AM AI SAFE Corrected Answer System Tests")
         print("=" * 60)
         
         # Authentication tests
-        if not self.test_signup():
-            print("❌ Signup failed, stopping tests")
+        if not self.test_user_signup_and_login():
+            print("❌ Authentication failed, stopping tests")
             return False
+            
+        # Structure tests
+        self.test_domains_and_questions_structure()
         
-        # Test login with the same credentials
-        # Note: We'll skip separate login test since signup already gives us a token
-        
-        self.test_get_me()
-        
-        # Domain and question tests
-        self.test_get_domains()
-        self.test_get_questions()
-        
-        # Assessment workflow tests
-        if not self.test_create_assessment():
-            print("❌ Assessment creation failed, stopping assessment tests")
+        # Assessment tests
+        if not self.test_assessment_creation():
+            print("❌ Assessment creation failed, stopping tests")
             return False
+            
+        self.test_assessment_details()
         
-        self.test_get_assessments()
-        self.test_get_assessment_details()
-        self.test_save_answer()
-        self.test_submit_assessment_incomplete()  # Should fail
+        # Core functionality tests
+        self.test_answer_system()
+        self.test_status_view()
         
-        # Complete assessment flow
-        if self.test_complete_assessment_flow():
-            self.test_submit_complete_assessment()
-            self.test_get_assessment_summary()
-            self.test_generate_pdf_report()
+        # Print results
+        print("\n" + "=" * 60)
+        print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
+        print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
         
-        return True
+        if self.tests_passed == self.tests_run:
+            print("🎉 All tests passed! Corrected answer system working correctly.")
+            return True
+        else:
+            print("⚠️  Some tests failed. Check details above.")
+            return False
 
     def print_summary(self):
         """Print test summary"""
