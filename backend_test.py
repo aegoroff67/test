@@ -1344,6 +1344,58 @@ class AMSafeAPITester:
         
         return True
 
+    def test_edge_cases_and_error_messages(self):
+        """Test edge cases and error messages for submit assessment"""
+        print("\n🔍 TESTING EDGE CASES AND ERROR MESSAGES")
+        print("-" * 60)
+        
+        # Test 1: Submit non-existent assessment
+        fake_assessment_id = "non-existent-assessment-id"
+        success, response = self.make_request('POST', f'assessments/{fake_assessment_id}/submit', expected_status=404)
+        if success:
+            self.log_test("Submit non-existent assessment returns 404", True)
+            print(f"   📝 Error message: {response}")
+        else:
+            self.log_test("Submit non-existent assessment returns 404", False, "Should return 404 for non-existent assessment")
+        
+        # Test 2: Create assessment with different user and try to submit with current user (unauthorized)
+        # This would require creating another user, but let's test with current user's assessment
+        
+        # Test 3: Test various incomplete states
+        success, response = self.make_request('POST', 'assessments', {})
+        if success:
+            edge_case_assessment_id = response['id']
+            
+            # Test submitting with 0 answers
+            success, response = self.make_request('POST', f'assessments/{edge_case_assessment_id}/submit', expected_status=400)
+            if success:
+                self.log_test("Submit assessment with 0 answers returns 400", True)
+                print(f"   📝 Error message: {response}")
+            else:
+                self.log_test("Submit assessment with 0 answers returns 400", False, "Should return 400 for 0 answers")
+            
+            # Answer exactly 1 question and test
+            success, questions_response = self.make_request('GET', f'assessments/{edge_case_assessment_id}/questions')
+            if success and questions_response:
+                first_question = questions_response[0]['questions'][0]
+                answer_data = {
+                    "question_id": first_question['id'],
+                    "option": "BASIC",
+                    "note": "Single answer test"
+                }
+                
+                self.make_request('POST', f'assessments/{edge_case_assessment_id}/answer', answer_data)
+                
+                # Try to submit with only 1 answer
+                success, response = self.make_request('POST', f'assessments/{edge_case_assessment_id}/submit', expected_status=400)
+                if success:
+                    self.log_test("Submit assessment with 1 answer returns 400", True)
+                    print(f"   📝 Error message: {response}")
+                else:
+                    self.log_test("Submit assessment with 1 answer returns 400", False, "Should return 400 for incomplete assessment")
+        
+        return True
+
     def run_specific_fix_tests(self):
         """Run tests specifically for the submit assessment issue"""
         print("🚀 Testing Submit Assessment Issue Investigation")
@@ -1359,6 +1411,9 @@ class AMSafeAPITester:
             
         # Run the detailed submit assessment flow test
         self.test_submit_assessment_flow_detailed()
+        
+        # Test edge cases and error messages
+        self.test_edge_cases_and_error_messages()
         
         # Print results
         print("\n" + "=" * 80)
