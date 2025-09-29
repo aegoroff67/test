@@ -21,9 +21,9 @@ class AMSafeAPITester:
         self.tests_run += 1
         if success:
             self.tests_passed += 1
-            print(f"✅ {name} - PASSED")
+            print(f"✅ {name}")
         else:
-            print(f"❌ {name} - FAILED: {details}")
+            print(f"❌ {name} - {details}")
         
         self.test_results.append({
             "test": name,
