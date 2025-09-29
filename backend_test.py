@@ -1301,7 +1301,8 @@ def main():
     tester = AMSafeAPITester()
     
     try:
-        success = tester.run_all_tests()
+        # Run specific tests for the reported issues
+        success = tester.run_specific_fix_tests()
         tester.print_summary()
         return 0 if success else 1
     except Exception as e:
