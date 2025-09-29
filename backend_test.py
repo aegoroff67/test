@@ -599,9 +599,148 @@ class AMSafeAPITester:
         
         return response is not None
 
+    def test_complete_question_data_with_explanations(self):
+        """Test that questions now have complete data including explanations"""
+        # Test GET /api/questions endpoint
+        success, questions = self.make_request('GET', 'questions')
+        if not success:
+            self.log_test("GET /api/questions endpoint", False, str(questions))
+            return False
+        
+        self.log_test("GET /api/questions endpoint", True)
+        
+        # Verify questions have explanation field with actual content
+        questions_with_explanations = 0
+        questions_with_predefined_answers = 0
+        fa1_found = False
+        fa1_explanation_correct = False
+        
+        for question in questions:
+            # Check for explanation field with content
+            if question.get('explanation') and question['explanation'].strip():
+                questions_with_explanations += 1
+            
+            # Check for predefined answer fields
+            predefined_fields = ['ideal_answer', 'good_answer', 'basic_answer', 'non_ideal_answer']
+            if all(question.get(field) and question[field].strip() for field in predefined_fields):
+                questions_with_predefined_answers += 1
+            
+            # Spot check FA-1 specifically
+            if question.get('code') == 'FA-1':
+                fa1_found = True
+                explanation = question.get('explanation', '')
+                if explanation.startswith("We employ a multi-faceted approach to identify and mitigate biases"):
+                    fa1_explanation_correct = True
+        
+        # Log results
+        if questions_with_explanations == len(questions):
+            self.log_test("All questions have explanation field with content", True)
+        else:
+            self.log_test("All questions have explanation field with content", False, 
+                        f"Only {questions_with_explanations}/{len(questions)} questions have explanations")
+        
+        if questions_with_predefined_answers == len(questions):
+            self.log_test("All questions have predefined answer fields populated", True)
+        else:
+            self.log_test("All questions have predefined answer fields populated", False,
+                        f"Only {questions_with_predefined_answers}/{len(questions)} questions have predefined answers")
+        
+        if fa1_found:
+            self.log_test("Question FA-1 found", True)
+            if fa1_explanation_correct:
+                self.log_test("FA-1 explanation content correct", True)
+            else:
+                self.log_test("FA-1 explanation content correct", False, "Explanation doesn't start with expected text")
+        else:
+            self.log_test("Question FA-1 found", False, "FA-1 question not found")
+        
+        return questions_with_explanations == len(questions) and questions_with_predefined_answers == len(questions) and fa1_explanation_correct
+
+    def test_assessment_questions_with_complete_data(self):
+        """Test GET /api/assessments/{id}/questions endpoint with complete data"""
+        if not self.assessment_id:
+            self.log_test("Assessment questions complete data test", False, "No assessment ID")
+            return False
+            
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success:
+            self.log_test("GET /api/assessments/{id}/questions endpoint", False, str(response))
+            return False
+            
+        self.log_test("GET /api/assessments/{id}/questions endpoint", True)
+        
+        # Verify structure and complete data
+        total_questions = 0
+        questions_with_explanations = 0
+        questions_with_predefined_answers = 0
+        
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            total_questions += len(questions)
+            
+            for question in questions:
+                # Check explanation field
+                if question.get('explanation') and question['explanation'].strip():
+                    questions_with_explanations += 1
+                
+                # Check predefined_answers field in response
+                predefined_answers = question.get('predefined_answers', {})
+                if (predefined_answers.get('ideal') and predefined_answers.get('good') and 
+                    predefined_answers.get('basic') and predefined_answers.get('non_ideal')):
+                    questions_with_predefined_answers += 1
+        
+        if questions_with_explanations == total_questions:
+            self.log_test("Assessment questions include explanation fields", True)
+        else:
+            self.log_test("Assessment questions include explanation fields", False,
+                        f"Only {questions_with_explanations}/{total_questions} questions have explanations")
+        
+        if questions_with_predefined_answers == total_questions:
+            self.log_test("Assessment questions include predefined_answers fields", True)
+        else:
+            self.log_test("Assessment questions include predefined_answers fields", False,
+                        f"Only {questions_with_predefined_answers}/{total_questions} questions have predefined_answers")
+        
+        return questions_with_explanations == total_questions and questions_with_predefined_answers == total_questions
+
+    def test_answer_submission_post_method(self):
+        """Test that answer submission works with POST method (not PATCH)"""
+        if not self.assessment_id:
+            self.log_test("Answer submission POST method test", False, "No assessment ID")
+            return False
+            
+        # Get first question
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success or not response:
+            self.log_test("Get questions for POST answer test", False, "No questions available")
+            return False
+            
+        first_domain = response[0] if response else None
+        if not first_domain or not first_domain.get('questions'):
+            self.log_test("Get questions for POST answer test", False, "No questions in first domain")
+            return False
+            
+        first_question = first_domain['questions'][0]
+        question_id = first_question['id']
+        
+        # Test POST method for answer submission
+        answer_data = {
+            "question_id": question_id,
+            "option": "IDEAL",
+            "note": "Test note for POST method"
+        }
+        
+        success, response = self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
+        if success and response.get('status') == 'success':
+            self.log_test("Answer submission using POST method", True)
+            return True
+        else:
+            self.log_test("Answer submission using POST method", False, str(response))
+            return False
+
     def run_all_tests(self):
-        """Run comprehensive test suite focusing on data cleanup verification"""
-        print("🚀 Starting AM AI SAFE Data Cleanup Verification Tests")
+        """Run comprehensive test suite focusing on complete question data verification"""
+        print("🚀 Starting AM AI SAFE Complete Question Data Verification Tests")
         print("=" * 60)
         
         # Authentication tests
@@ -609,19 +748,19 @@ class AMSafeAPITester:
             print("❌ Authentication failed, stopping tests")
             return False
             
-        # Structure and data cleanup tests
-        self.test_domains_and_questions_structure()
-        self.test_data_cleanup_verification()
+        # Test complete question data with explanations
+        self.test_complete_question_data_with_explanations()
         
         # Assessment tests
         if not self.test_assessment_creation():
             print("❌ Assessment creation failed, stopping tests")
             return False
             
-        self.test_assessment_questions_clean_data()
+        # Test assessment questions with complete data
+        self.test_assessment_questions_with_complete_data()
         
-        # Core functionality tests to ensure system still works
-        self.test_answer_system()
+        # Test answer submission with POST method
+        self.test_answer_submission_post_method()
         
         # Print results
         print("\n" + "=" * 60)
@@ -629,7 +768,7 @@ class AMSafeAPITester:
         print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All tests passed! Data cleanup successful and system working correctly.")
+            print("🎉 All tests passed! Complete question data with explanations working correctly.")
             return True
         else:
             print("⚠️  Some tests failed. Check details above.")
