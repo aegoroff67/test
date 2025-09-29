@@ -260,7 +260,9 @@ function ResultsPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4" data-testid="domain-scores-list">
-                {summary.domain_scores.map((domain, index) => {
+                {[...summary.domain_scores]
+                  .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
+                  .map((domain, index) => {
                   const colors = getScoreColor(domain.percentage);
                   return (
                     <div key={domain.domain_id} className="space-y-2">
@@ -270,7 +272,7 @@ function ResultsPage() {
                           className={`${colors.bg} ${colors.text}`}
                           data-testid={`domain-score-${domain.domain_name.toLowerCase()}`}
                         >
-                          {domain.percentage}%
+                          {domain.percentage.toFixed(1)}%
                         </Badge>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
