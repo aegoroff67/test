@@ -145,6 +145,62 @@ class AMSafeAPITester:
                 
         return True
 
+    def test_data_cleanup_verification(self):
+        """Test that data cleanup was successful - no generated content remains"""
+        # Test questions endpoint for clean data
+        success, questions = self.make_request('GET', 'questions')
+        if not success:
+            self.log_test("Questions endpoint for cleanup verification", False, str(questions))
+            return False
+            
+        if not questions:
+            self.log_test("Questions data cleanup verification", False, "No questions found")
+            return False
+            
+        # Check all questions for clean data
+        generated_fields = ['help_text', 'ideal_answer', 'good_answer', 'basic_answer', 'non_ideal_answer']
+        clean_questions = 0
+        problematic_questions = []
+        
+        for i, question in enumerate(questions):
+            is_clean = True
+            problematic_fields = []
+            
+            for field in generated_fields:
+                if field in question and question[field] is not None and question[field] != "":
+                    is_clean = False
+                    problematic_fields.append(f"{field}: '{question[field][:50]}...'")
+            
+            if is_clean:
+                clean_questions += 1
+            else:
+                problematic_questions.append(f"Q{i+1} ({question.get('code', 'unknown')}): {', '.join(problematic_fields)}")
+        
+        if clean_questions == len(questions):
+            self.log_test("All questions have clean data (no generated content)", True)
+        else:
+            self.log_test("All questions have clean data (no generated content)", False, 
+                        f"Found {len(questions) - clean_questions} questions with generated content")
+            # Log first few problematic questions for debugging
+            for prob in problematic_questions[:3]:
+                print(f"   ⚠️  {prob}")
+        
+        # Verify basic required fields are present
+        basic_fields = ['id', 'domain_id', 'code', 'text', 'order']
+        questions_with_basic_fields = 0
+        
+        for question in questions:
+            if all(field in question and question[field] is not None for field in basic_fields):
+                questions_with_basic_fields += 1
+        
+        if questions_with_basic_fields == len(questions):
+            self.log_test("All questions have required basic fields", True)
+        else:
+            self.log_test("All questions have required basic fields", False, 
+                        f"Only {questions_with_basic_fields}/{len(questions)} questions have all basic fields")
+        
+        return clean_questions == len(questions) and questions_with_basic_fields == len(questions)
+
     def test_assessment_creation(self):
         """Test assessment creation"""
         success, response = self.make_request('POST', 'assessments', {})
