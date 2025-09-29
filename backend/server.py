@@ -457,13 +457,7 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
     for question in questions:
         if question["domain_id"] in domain_questions:
             question["answer"] = answer_lookup.get(question["id"])
-            # Add predefined answers to the response
-            question["predefined_answers"] = {
-                "ideal": question.get("ideal_answer"),
-                "good": question.get("good_answer"), 
-                "basic": question.get("basic_answer"),
-                "non_ideal": question.get("non_ideal_answer")
-            }
+            # No predefined answers available in cleaned dataset
             domain_questions[question["domain_id"]]["questions"].append(question)
     
     return [dq for dq in domain_questions.values() if dq["questions"]]
