@@ -212,37 +212,69 @@ class AMSafeAPITester:
             self.log_test("Assessment creation", False, str(response))
             return False
 
-    def test_assessment_details(self):
-        """Test assessment details endpoint"""
+    def test_assessment_questions_clean_data(self):
+        """Test assessment questions endpoint returns clean data"""
         if not self.assessment_id:
-            self.log_test("Assessment details", False, "No assessment ID")
+            self.log_test("Assessment questions clean data test", False, "No assessment ID")
             return False
             
-        success, response = self.make_request('GET', f'assessments/{self.assessment_id}')
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
         if not success:
-            self.log_test("Assessment details", False, str(response))
+            self.log_test("Assessment questions endpoint", False, str(response))
             return False
             
-        # Verify structure
-        required_keys = ['assessment', 'questions', 'domains', 'progress']
-        if all(key in response for key in required_keys):
-            self.log_test("Assessment details structure", True)
-        else:
-            missing = [k for k in required_keys if k not in response]
-            self.log_test("Assessment details structure", False, f"Missing: {missing}")
+        # Verify we get domain-grouped questions
+        if not isinstance(response, list):
+            self.log_test("Assessment questions structure", False, "Response is not a list of domains")
+            return False
             
-        # Verify questions have answer content
-        questions = response.get('questions', [])
-        if questions:
-            sample_q = questions[0]
-            answer_fields = ['ideal_answer', 'good_answer', 'basic_answer', 'non_ideal_answer']
-            has_content = any(sample_q.get(field) for field in answer_fields)
-            if has_content:
-                self.log_test("Questions contain answer content", True)
-            else:
-                self.log_test("Questions contain answer content", False, "No answer content found")
+        # Verify 11 domains
+        if len(response) == 11:
+            self.log_test("Assessment returns 11 domains", True)
+        else:
+            self.log_test("Assessment returns 11 domains", False, f"Found {len(response)} domains")
+            
+        # Check questions in each domain for clean data
+        total_questions = 0
+        clean_questions = 0
+        problematic_questions = []
+        
+        generated_fields = ['help_text', 'ideal_answer', 'good_answer', 'basic_answer', 'non_ideal_answer']
+        
+        for domain_data in response:
+            domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+            questions = domain_data.get('questions', [])
+            total_questions += len(questions)
+            
+            for question in questions:
+                is_clean = True
+                problematic_fields = []
                 
-        return True
+                for field in generated_fields:
+                    if field in question and question[field] is not None and question[field] != "":
+                        is_clean = False
+                        problematic_fields.append(f"{field}: '{str(question[field])[:30]}...'")
+                
+                if is_clean:
+                    clean_questions += 1
+                else:
+                    problematic_questions.append(f"{domain_name} - {question.get('code', 'unknown')}: {', '.join(problematic_fields)}")
+        
+        if total_questions == 88:
+            self.log_test("Assessment questions total count (88)", True)
+        else:
+            self.log_test("Assessment questions total count (88)", False, f"Found {total_questions} questions")
+            
+        if clean_questions == total_questions:
+            self.log_test("Assessment questions have clean data", True)
+        else:
+            self.log_test("Assessment questions have clean data", False, 
+                        f"Found {total_questions - clean_questions} questions with generated content")
+            # Log first few problematic questions
+            for prob in problematic_questions[:3]:
+                print(f"   ⚠️  {prob}")
+                
+        return clean_questions == total_questions
 
     def test_answer_system(self):
         """Test the corrected answer system with 4 standard options + Other"""
