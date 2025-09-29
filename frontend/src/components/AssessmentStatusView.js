@@ -8,7 +8,7 @@ import { CheckCircle2, Circle, X } from 'lucide-react';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-function AssessmentStatusView({ assessmentId, onClose }) {
+function AssessmentStatusView({ assessmentId, onClose, onQuestionClick }) {
   const [statusData, setStatusData] = useState(null);
   const [loading, setLoading] = useState(true);
 
