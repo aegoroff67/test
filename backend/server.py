@@ -107,13 +107,22 @@ class Assessment(BaseModel):
     completed_at: Optional[datetime] = None
     progress: int = 0  # Number of questions answered
 
+class AnswerOption(str, Enum):
+    IDEAL = "IDEAL"
+    GOOD = "GOOD"
+    BASIC = "BASIC"
+    NON_IDEAL = "NON_IDEAL"
+    OTHER = "OTHER"
+
 class Answer(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     assessment_id: str
     question_id: str
-    option: str  # Changed from AnswerOption enum to string
+    option: AnswerOption
     numeric_score: int
+    other_text: Optional[str] = None  # For "Other" responses
     note: Optional[str] = None
+    needs_review: bool = False  # Flag for "Other" responses
     answered_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class Report(BaseModel):
