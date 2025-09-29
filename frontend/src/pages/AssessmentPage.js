@@ -50,30 +50,45 @@ function AssessmentPage() {
 
   const fetchAssessment = async () => {
     try {
-      const response = await axios.get(`${API}/assessments/${id}`);
-      const data = response.data;
+      // Fetch assessment metadata
+      const assessmentResponse = await axios.get(`${API}/assessments/${id}`);
+      setAssessment(assessmentResponse.data);
       
-      setAssessment(data.assessment);
-      setQuestions(data.questions);
-      setDomains(data.domains);
+      // Fetch questions with domains and answers
+      const questionsResponse = await axios.get(`${API}/assessments/${id}/questions`);
+      const domainQuestionData = questionsResponse.data;
+      
+      // Extract domains and flatten questions
+      const domainsData = [];
+      const questionsData = [];
+      
+      domainQuestionData.forEach(dq => {
+        domainsData.push(dq.domain);
+        questionsData.push(...dq.questions);
+      });
+      
+      setDomains(domainsData);
+      setQuestions(questionsData);
       
       // Build answers map
       const answersMap = {};
-      data.questions.forEach(q => {
+      questionsData.forEach(q => {
         if (q.answer) {
           answersMap[q.id] = {
             option: q.answer.option,
-            note: q.answer.note || ''
+            note: q.answer.note || '',
+            other_text: q.answer.other_text || ''
           };
         }
       });
       setAnswers(answersMap);
       
       // Set current question (first unanswered or first question)
-      const firstUnanswered = data.questions.findIndex(q => !q.answer);
+      const firstUnanswered = questionsData.findIndex(q => !q.answer);
       setCurrentQuestionIndex(firstUnanswered >= 0 ? firstUnanswered : 0);
       
     } catch (error) {
+      console.error('Error loading assessment:', error);
       toast.error('Failed to load assessment');
       navigate('/dashboard');
     } finally {
