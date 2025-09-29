@@ -135,6 +135,12 @@
         - working: true
         - agent: "main"
         - comment: "FIXED: Updated AssessmentPage.js to remove references to help_text, ideal_answer, good_answer, basic_answer, non_ideal_answer fields. Replaced dynamic content access with static answer option descriptions. Application now loads without React errors."
+        - working: false
+        - agent: "user"
+        - comment: "Still getting React errors when clicking 'Resume Assessment' - errors during concurrent rendering"
+        - working: true
+        - agent: "main"
+        - comment: "ADDITIONAL FIX: Found and resolved two more issues: 1) Backend get_assessment_questions endpoint was trying to add predefined_answers with references to removed fields, 2) Frontend fetchAssessment function was incorrectly expecting single endpoint to return assessment+questions+domains, but backend has separate endpoints. Fixed frontend to call both /assessments/{id} and /assessments/{id}/questions endpoints correctly. Services restarted and application now loads without React errors."
 
 ## metadata:
   created_by: "main_agent"
