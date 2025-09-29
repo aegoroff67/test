@@ -444,8 +444,9 @@ async def save_answer(assessment_id: str, answer_data: AnswerSubmit, current_use
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
     
-    # Calculate numeric score
-    numeric_score = SCORING_MAP[answer_data.option]
+    # Calculate numeric score using predefined answers
+    predefined_answers = question.get("predefined_answers", [])
+    numeric_score = calculate_answer_score(answer_data.option, predefined_answers)
     
     # Upsert answer
     answer = Answer(
