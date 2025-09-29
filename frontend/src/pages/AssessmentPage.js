@@ -411,18 +411,32 @@ function AssessmentPage() {
                     const domainQuestions = questions.filter(q => q.domain_id === domain.id);
                     const domainAnswered = domainQuestions.filter(q => answers[q.id]).length;
                     const domainProgress = (domainAnswered / domainQuestions.length) * 100;
+                    const isCurrentDomain = currentQuestion && currentQuestion.domain_id === domain.id;
                     
                     return (
-                      <div key={domain.id} className="space-y-1">
+                      <div key={domain.id} className={`space-y-1 p-2 rounded-lg ${
+                        isCurrentDomain ? 'bg-teal-50 border border-teal-200' : ''
+                      }`}>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">{domain.name}</span>
-                          <span className="font-medium">
+                          <span className={`${
+                            isCurrentDomain ? 'text-teal-900 font-medium' : 'text-gray-600'
+                          }`}>
+                            {domain.name}
+                            {isCurrentDomain && <span className="ml-1 text-xs">(Current)</span>}
+                          </span>
+                          <span className={`font-medium ${
+                            isCurrentDomain ? 'text-teal-700' : 'text-gray-700'
+                          }`}>
                             {domainAnswered}/{domainQuestions.length}
                           </span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
-                            className="bg-teal-600 h-2 rounded-full progress-bar"
+                            className={`h-2 rounded-full progress-bar ${
+                              domainAnswered === domainQuestions.length 
+                                ? 'bg-green-600' 
+                                : isCurrentDomain ? 'bg-teal-600' : 'bg-gray-400'
+                            }`}
                             style={{ width: `${domainProgress}%` }}
                           ></div>
                         </div>
