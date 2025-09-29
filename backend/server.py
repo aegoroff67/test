@@ -420,16 +420,8 @@ async def submit_answer(
             {"$set": {"progress": answered_count}}
         )
         
-        # Check if assessment is complete
-        total_questions = await db.questions.count_documents({})
-        if answered_count >= total_questions:
-            await db.assessments.update_one(
-                {"id": assessment_id},
-                {"$set": {
-                    "status": AssessmentStatus.COMPLETED,
-                    "completed_at": datetime.now(timezone.utc)
-                }}
-            )
+        # Don't auto-complete assessment - wait for explicit submission
+        # Assessment remains INCOMPLETE until user clicks "Submit Assessment"
     
     return {"status": "success"}
 
