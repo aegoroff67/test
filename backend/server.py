@@ -108,7 +108,7 @@ class Answer(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     assessment_id: str
     question_id: str
-    option: AnswerOption
+    option: str  # Changed from AnswerOption enum to string
     numeric_score: int
     note: Optional[str] = None
     answered_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
