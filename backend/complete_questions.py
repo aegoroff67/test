@@ -1250,5 +1250,94 @@ remaining_questions = [
         "non_ideal_answer": "No specific steps are taken to ensure cross-border privacy compliance.",
         "domain_order": 8,
         "order": 8
+    },
+    # Safety Domain (SA-1 to SA-8) - Domain order 9
+    {
+        "code": "SA-1",
+        "text": "Have you conducted a safety impact assessment for the AI system?",
+        "explanation": "A safety impact assessment evaluates the potential risks and harms that an AI system could cause to users, society, or the environment. This question examines whether you proactively assess safety implications before deployment.\n\nFor example, an AI system controlling industrial equipment should undergo rigorous safety analysis to identify scenarios where malfunctions could cause injury. Safety assessments help identify mitigation strategies and ensure responsible deployment of AI systems.",
+        "ideal_answer": "Conduct comprehensive safety impact assessments using established frameworks and involving safety experts.",
+        "good_answer": "Perform basic safety evaluations focusing on obvious risks and high-impact scenarios.",
+        "basic_answer": "Consider safety informally during development without structured assessment.",
+        "non_ideal_answer": "No safety impact assessment has been conducted.",
+        "domain_order": 9,
+        "order": 1
+    },
+    {
+        "code": "SA-2",
+        "text": "How do you ensure that the system does not cause harm in unintended ways?",
+        "explanation": "AI systems can cause harm through unintended consequences or edge case behaviors that weren't anticipated during development. This question examines your approach to preventing unexpected harms.\n\nFor instance, a content recommendation system might inadvertently promote harmful content or create filter bubbles that polarize users. Preventing unintended harm requires thorough testing, diverse stakeholder input, and ongoing monitoring for unexpected behaviors.",
+        "ideal_answer": "Use comprehensive testing, diverse stakeholder feedback, and continuous monitoring to identify and prevent unintended harms.",
+        "good_answer": "Conduct testing and review processes to identify potential unintended consequences.",
+        "basic_answer": "Address unintended harms reactively when they are identified or reported.",
+        "non_ideal_answer": "No specific measures are in place to prevent unintended harm.",
+        "domain_order": 9,
+        "order": 2
+    },
+    {
+        "code": "SA-3",
+        "text": "Are there monitoring tools in place to detect unsafe system behavior in real-time?",
+        "explanation": "Real-time monitoring for unsafe behavior helps detect and respond to safety issues as they occur. This question evaluates your capability to identify dangerous system states or outputs during operation.\n\nFor example, an autonomous vehicle system might monitor for erratic driving patterns or sensor anomalies that could indicate safety risks. Real-time safety monitoring enables immediate intervention to prevent harm and maintains system reliability.",
+        "ideal_answer": "Implement comprehensive real-time monitoring systems with automated alerts and intervention capabilities for unsafe behavior.",
+        "good_answer": "Use monitoring tools that detect key safety indicators and alert operators to potential issues.",
+        "basic_answer": "Perform periodic safety checks or rely on user reports to identify unsafe behavior.",
+        "non_ideal_answer": "No real-time monitoring for unsafe behavior is in place.",
+        "domain_order": 9,
+        "order": 3
+    },
+    {
+        "code": "SA-4",
+        "text": "How do you handle situations where the system's actions conflict with human safety requirements?",
+        "explanation": "AI systems may sometimes make decisions that conflict with human safety needs, requiring clear protocols for resolution. This question examines your approach to prioritizing human safety in such conflicts.\n\nFor instance, an AI system optimizing energy usage might suggest actions that could compromise building safety systems. Clear hierarchies that prioritize human safety over other objectives ensure that AI systems don't endanger people in pursuit of their programmed goals.",
+        "ideal_answer": "Implement clear safety hierarchies with human oversight and intervention capabilities to resolve conflicts in favor of human safety.",
+        "good_answer": "Have protocols for human review and intervention when safety conflicts are identified.",
+        "basic_answer": "Address safety conflicts on a case-by-case basis without established protocols.",
+        "non_ideal_answer": "No specific approach exists for handling safety conflicts.",
+        "domain_order": 9,
+        "order": 4
+    },
+    {
+        "code": "SA-5",
+        "text": "Are there emergency protocols for shutting down the system in case of unsafe behavior?",
+        "explanation": "Emergency shutdown capabilities are critical safety features that allow immediate system termination when dangerous behavior is detected. This question examines your emergency response capabilities.\n\nFor example, a robotic system in a manufacturing environment should have multiple emergency stop mechanisms accessible to operators. Clear shutdown protocols ensure that dangerous situations can be quickly controlled and prevented from escalating.",
+        "ideal_answer": "Maintain comprehensive emergency shutdown protocols with multiple activation methods and clear operator training.",
+        "good_answer": "Have basic emergency shutdown capabilities and procedures for operators.",
+        "basic_answer": "Emergency shutdown is possible but protocols are informal or not well-documented.",
+        "non_ideal_answer": "No emergency shutdown protocols or capabilities exist.",
+        "domain_order": 9,
+        "order": 5
+    },
+    {
+        "code": "SA-6",
+        "text": "What steps have you taken to identify and mitigate potential risks or harm caused by the AI system?",
+        "explanation": "Systematic risk identification and mitigation are essential for safe AI deployment. This question examines your comprehensive approach to managing AI-related risks.\n\nFor example, a medical AI system might pose risks through misdiagnosis, so mitigation could include human oversight requirements, confidence thresholds, and fallback procedures. Thorough risk management demonstrates responsible AI development and deployment.",
+        "ideal_answer": "Conduct systematic risk analysis using established frameworks and implement comprehensive mitigation strategies for identified risks.",
+        "good_answer": "Identify obvious risks and implement basic mitigation measures.",
+        "basic_answer": "Consider risks informally and address them as they arise.",
+        "non_ideal_answer": "No systematic approach to risk identification and mitigation exists.",
+        "domain_order": 9,
+        "order": 6
+    },
+    {
+        "code": "SA-7",
+        "text": "Are there fail-safe mechanisms or redundancies in place to address unexpected system behaviors?",
+        "explanation": "Fail-safe mechanisms and redundancies help maintain safety even when primary systems fail or behave unexpectedly. This question examines your backup safety measures.\n\nFor instance, an AI-controlled traffic management system might include fail-safe modes that default to standard traffic light patterns if the AI system malfunctions. Redundancies ensure continued safe operation even when primary systems fail.",
+        "ideal_answer": "Implement comprehensive fail-safe mechanisms and redundancies designed to maintain safety under all failure modes.",
+        "good_answer": "Have basic fail-safe measures for key system components or high-risk scenarios.",
+        "basic_answer": "Include some redundancy but without comprehensive fail-safe design.",
+        "non_ideal_answer": "No fail-safe mechanisms or redundancies are implemented.",
+        "domain_order": 9,
+        "order": 7
+    },
+    {
+        "code": "SA-8",
+        "text": "Have you conducted safety testing in realistic or high-risk scenarios?",
+        "explanation": "Safety testing in realistic conditions helps validate that AI systems perform safely under actual operating conditions and stress situations. This question examines your safety validation practices.\n\nFor example, an autonomous vehicle system should be tested in various weather conditions, traffic scenarios, and emergency situations. Realistic safety testing identifies potential failures and validates safety measures before real-world deployment.",
+        "ideal_answer": "Conduct extensive safety testing in realistic conditions, including high-risk scenarios and stress testing.",
+        "good_answer": "Perform safety testing under key operational scenarios and some high-risk conditions.",
+        "basic_answer": "Conduct basic safety testing under standard conditions.",
+        "non_ideal_answer": "No safety testing in realistic or high-risk scenarios has been conducted.",
+        "domain_order": 9,
+        "order": 8
     }
 ]
