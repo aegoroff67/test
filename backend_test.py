@@ -266,25 +266,51 @@ class AMSafeAPITester:
             
         return True
 
-    def test_get_assessments(self):
-        """Test get assessments"""
-        response = self.run_test(
-            "Get Assessments",
-            "GET",
-            "assessments",
-            200
-        )
-        
-        if response and isinstance(response, list) and len(response) >= 1:
-            # Check if our created assessment is in the list
-            assessment_ids = [a['id'] for a in response]
-            if hasattr(self, 'assessment_id') and self.assessment_id in assessment_ids:
-                self.log_test("Assessment List Validation", True)
-                return True
-            else:
-                self.log_test("Assessment List Validation", False, "Created assessment not found in list")
-        
-        return response is not None
+    def test_status_view(self):
+        """Test the status view endpoint for View All functionality"""
+        if not self.assessment_id:
+            self.log_test("Status view test", False, "No assessment ID")
+            return False
+            
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/status')
+        if not success:
+            self.log_test("Status endpoint", False, str(response))
+            return False
+            
+        # Verify structure for View All screen
+        required_keys = ['status_overview', 'total_questions', 'answered_questions', 'completion_percentage']
+        if all(key in response for key in required_keys):
+            self.log_test("Status endpoint structure", True)
+        else:
+            missing = [k for k in required_keys if k not in response]
+            self.log_test("Status endpoint structure", False, f"Missing: {missing}")
+            
+        # Verify 11 domains in status overview
+        status_overview = response.get('status_overview', [])
+        if len(status_overview) == 11:
+            self.log_test("Status shows 11 domains", True)
+        else:
+            self.log_test("Status shows 11 domains", False, f"Found {len(status_overview)} domains")
+            
+        # Verify each domain has 8 questions
+        all_domains_have_8_questions = True
+        for domain in status_overview:
+            if len(domain.get('questions', [])) != 8:
+                all_domains_have_8_questions = False
+                break
+                
+        if all_domains_have_8_questions:
+            self.log_test("Each domain has 8 questions in status", True)
+        else:
+            self.log_test("Each domain has 8 questions in status", False, "Some domains don't have 8 questions")
+            
+        # Verify total questions is 88
+        if response.get('total_questions') == 88:
+            self.log_test("Status shows 88 total questions", True)
+        else:
+            self.log_test("Status shows 88 total questions", False, f"Shows {response.get('total_questions')}")
+            
+        return True
 
     def test_get_assessment_details(self):
         """Test get assessment details"""
