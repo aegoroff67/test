@@ -358,4 +358,93 @@ COMPLETE_QUESTIONS_DATA = [
         "domain_order": 4,
         "order": 8
     }
+    # Data Integrity Domain (DI-1 to DI-8) - Domain order 5
+    {
+        "code": "DI-1",
+        "text": "How do you validate the accuracy, completeness, and quality of the data used in your AI systems?",
+        "explanation": "Data integrity is foundational to an AI system's performance and reliability. This question asks about the measures you take to ensure your data is accurate, complete, and of high quality.\n\nFor instance, if you're developing a predictive maintenance system for manufacturing, inaccurate sensor data could lead to false alerts or missed failures. Validation methods might include statistical analyses, automated checks for missing or inconsistent values, and human review. Ensuring data integrity prevents errors from propagating through your system and undermining its effectiveness.",
+        "ideal_answer": "Use automated tools and manual reviews to regularly validate data for accuracy, completeness, and quality.",
+        "good_answer": "Perform validation during initial data ingestion and periodically review datasets.",
+        "basic_answer": "Validate data only during initial stages of project setup, with limited follow-up.",
+        "non_ideal_answer": "No formal validation processes are in place.",
+        "domain_order": 5,
+        "order": 1
+    },
+    {
+        "code": "DI-2",
+        "text": "What processes do you have for managing data lineage and tracking changes to data over time?",
+        "explanation": "Data lineage refers to tracking the origin, movement, and transformation of data throughout its lifecycle. This question evaluates your ability to maintain a clear record of where data comes from, how it's processed, and where it's used.\n\nFor example, in a financial application, tracking data lineage ensures transparency and traceability for audit purposes. Using tools like metadata management systems or version control for datasets can help you monitor changes, identify errors, and maintain compliance with regulations.",
+        "ideal_answer": "Maintain detailed records of data lineage, including origin, transformations, and usage, with automated tracking tools.",
+        "good_answer": "Document data lineage manually and update records periodically.",
+        "basic_answer": "Data lineage is loosely tracked through informal processes or team knowledge.",
+        "non_ideal_answer": "Data lineage is not tracked or managed.",
+        "domain_order": 5,
+        "order": 2
+    },
+    {
+        "code": "DI-3",
+        "text": "Are there governance policies for data collection, usage, retention, and disposal?",
+        "explanation": "Clear governance policies ensure that data is handled responsibly and in compliance with legal and ethical standards. This question examines whether you have defined rules for how data is collected, used, stored, and discarded.\n\nFor example, a healthcare AI system might require policies to ensure patient data is anonymized, used only for its intended purpose, retained only as long as necessary, and securely deleted afterward. Governance policies help prevent misuse of data and build trust with stakeholders.",
+        "ideal_answer": "Comprehensive governance policies are documented, regularly reviewed, and enforced to cover all aspects of data lifecycle management.",
+        "good_answer": "Governance policies exist but are inconsistently applied or not updated regularly.",
+        "basic_answer": "Governance policies are informal or only address certain aspects of data management.",
+        "non_ideal_answer": "No governance policies are in place for data management.",
+        "domain_order": 5,
+        "order": 3
+    },
+    {
+        "code": "DI-4",
+        "text": "How do you ensure the data used in your AI systems is up-to-date and accurate?",
+        "explanation": "Outdated or inaccurate data can lead to incorrect AI predictions or decisions. This question explores the steps you take to maintain data freshness and accuracy.\n\nFor instance, a real-time pricing algorithm for an e-commerce platform might rely on frequent updates to product availability and competitor pricing data. Processes such as automated data updates, regular validation checks, and alerts for stale data ensure your AI system remains reliable and relevant.",
+        "ideal_answer": "Implement automated processes for regular data updates and validation to ensure accuracy.",
+        "good_answer": "Perform periodic manual checks and updates to maintain data accuracy.",
+        "basic_answer": "Update data reactively when issues are identified.",
+        "non_ideal_answer": "No processes are in place to ensure data is up-to-date or accurate.",
+        "domain_order": 5,
+        "order": 4
+    },
+    {
+        "code": "DI-5",
+        "text": "What processes are in place to address missing or incomplete data?",
+        "explanation": "Incomplete data can undermine an AI system's performance and lead to biased or inaccurate results. This question assesses how you handle gaps in your datasets.\n\nFor example, in a credit scoring system, missing income information might skew predictions. Approaches to address this issue include data imputation (estimating missing values based on other data), flagging incomplete records for further review, or excluding such records from training and analysis. Clear processes ensure data gaps don't compromise your system's integrity.",
+        "ideal_answer": "Use advanced techniques like data imputation, alerts for missing data, and strategies to address gaps proactively.",
+        "good_answer": "Identify and flag missing data during preprocessing, with limited mitigation measures.",
+        "basic_answer": "Address missing data reactively on a case-by-case basis.",
+        "non_ideal_answer": "No processes are in place to address missing or incomplete data.",
+        "domain_order": 5,
+        "order": 5
+    },
+    {
+        "code": "DI-6",
+        "text": "How do you manage data preprocessing (e.g., cleaning, normalization)?",
+        "explanation": "Preprocessing is the foundation of a robust AI system, ensuring data is clean, consistent, and formatted correctly for analysis. This question examines how you handle tasks like removing duplicates, normalizing data scales, or correcting errors.\n\nFor instance, in an AI-powered sales forecasting system, inconsistent formatting of date fields could lead to errors in temporal analysis. Proper preprocessing ensures that raw data is transformed into a high-quality input for your AI system, minimizing risks of poor performance.",
+        "ideal_answer": "Use automated tools and established workflows to clean, normalize, and preprocess data consistently.",
+        "good_answer": "Perform preprocessing manually or semi-automatically based on established guidelines.",
+        "basic_answer": "Preprocessing is done inconsistently or only when specific issues arise.",
+        "non_ideal_answer": "Data preprocessing is not performed.",
+        "domain_order": 5,
+        "order": 6
+    },
+    {
+        "code": "DI-7",
+        "text": "Are third-party data sources evaluated for quality and reliability?",
+        "explanation": "If you rely on third-party data, its quality and reliability directly affect your AI system's outcomes. This question asks how you assess the trustworthiness of external data providers.\n\nFor example, a weather prediction AI might use data from multiple providers, requiring checks for consistency and accuracy across sources. Vetting processes could include reviewing the provider's methodology, validating sample data, or establishing contracts that define quality standards. Ensuring third-party data reliability mitigates risks and builds confidence in your system.",
+        "ideal_answer": "Conduct thorough evaluations of third-party data sources, including audits and performance testing.",
+        "good_answer": "Perform basic checks on third-party data sources for quality and reliability.",
+        "basic_answer": "Use third-party data without formal evaluation but rely on vendor reputation.",
+        "non_ideal_answer": "No evaluation of third-party data sources is conducted.",
+        "domain_order": 5,
+        "order": 7
+    },
+    {
+        "code": "DI-8",
+        "text": "How do you track data lineage to ensure traceability across the AI lifecycle?",
+        "explanation": "Data lineage tracking provides transparency into how data flows through your AI system, from collection to final output. This question assesses your ability to trace data transformations and maintain accountability.\n\nFor instance, in a pharmaceutical AI system analyzing clinical trial data, you need to trace how patient data was collected, processed, and used in model training. Comprehensive lineage tracking enables you to identify data quality issues, comply with regulations, and ensure reproducibility of results.",
+        "ideal_answer": "Implement comprehensive data lineage tracking with automated tools that document every data transformation and movement.",
+        "good_answer": "Maintain basic lineage records for key data flows and transformations.",
+        "basic_answer": "Track lineage informally or only for critical data sources.",
+        "non_ideal_answer": "No data lineage tracking is performed.",
+        "domain_order": 5,
+        "order": 8
+    }
 ]
