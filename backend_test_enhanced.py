@@ -170,9 +170,9 @@ class EnhancedAPITester:
             return False
             
         # Verify question codes follow domain pattern (FA-1, FA-2, etc.)
-        sample_codes = [q['code'] for q in questions[:16]]  # First 16 questions
-        fa_codes = [code for code in sample_codes if code.startswith('FA-')]
-        tr_codes = [code for code in sample_codes if code.startswith('TR-')]
+        all_codes = [q['code'] for q in questions]
+        fa_codes = [code for code in all_codes if code.startswith('FA-')]
+        tr_codes = [code for code in all_codes if code.startswith('TR-')]
         
         if len(fa_codes) != 8:
             self.log(f"Expected 8 FA codes, got {len(fa_codes)}: {fa_codes}")
