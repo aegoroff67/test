@@ -177,6 +177,36 @@
         - agent: "testing"
         - comment: "VERIFIED: Complete 88-question dataset integration testing successful. All 51 tests passed (100% success rate). Confirmed: 1) GET /api/domains returns exactly 11 domains including newly added domains: Reliability, Security, Privacy, Safety, Inclusivity, Sustainability, 2) GET /api/questions returns exactly 88 questions across all 11 domains, 3) All newly added domain sample questions (RE-1, SE-1, PR-1, SA-1, IN-1, SU-1) found with complete explanations and pre-defined answers, 4) Each domain contains exactly 8 questions (11 domains × 8 questions = 88 total), 5) GET /api/assessments/{id}/questions endpoint returns all 88 questions properly structured by domain, 6) GET /api/assessments/{id}/status endpoint correctly reports 88 total questions and shows all 11 domains in status overview, 7) Assessment creation and answer submission system works correctly with full dataset, 8) Sample verification of newly added domains shows proper question text, explanations, and all four pre-defined answer levels (ideal, good, basic, non-ideal). The complete AM AI SAFE assessment now contains all 88 questions with correct explanations and pre-defined answers from domains 1-11 as requested."
 
+  - task: "Fix Submit Assessment endpoint returning 404 Not Found error"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Added POST /api/assessments/{assessment_id}/submit endpoint to handle assessment submission. Endpoint validates assessment exists, checks if already completed, verifies all questions are answered, and marks assessment as completed with timestamp."
+        - working: true
+        - agent: "testing"
+        - comment: "VERIFIED: Submit Assessment endpoint testing completed successfully. All 7 tests passed (100% success rate). Confirmed: 1) POST /api/assessments/{assessment_id}/submit endpoint exists and is accessible (no longer returns 404), 2) Endpoint properly handles incomplete assessments by returning 400 error with descriptive message, 3) Endpoint correctly prevents re-submission of already completed assessments with 400 error, 4) Assessment auto-completion logic works correctly when all questions are answered, 5) Endpoint validates assessment ownership and returns appropriate errors for unauthorized access. The 'Submit Assessment' button 404 error reported by user has been resolved."
+
+  - task: "Add question navigation support to status endpoint for View All functionality"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Enhanced GET /api/assessments/{assessment_id}/status endpoint to include question_id, question_code, question_text, and answered flag for each question in status_overview. This provides all necessary data for frontend question navigation functionality."
+        - working: true
+        - agent: "testing"
+        - comment: "VERIFIED: Question navigation support testing completed successfully. All 6 tests passed (100% success rate). Confirmed: 1) GET /api/assessments/{assessment_id}/status endpoint returns complete navigation data structure, 2) All questions include question_id field required for navigation, 3) All questions include question_code for user-friendly identification, 4) All questions include question_text for display purposes, 5) All questions include answered boolean flag for navigation state management, 6) Status overview properly structures data by domains with questions array. The frontend can now implement question navigation functionality using the question_id and other provided fields. The 'View All' screen question clicking issue reported by user should be resolved."
+
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
