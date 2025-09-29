@@ -179,7 +179,7 @@ COMPLETE_QUESTIONS_DATA = [
         "non_ideal_answer": "No transparency reports or documentation are published.",
         "domain_order": 2,
         "order": 8
-    }
+    },
     # Explainability Domain (EX-1 to EX-8) - Domain order 3
     {
         "code": "EX-1",
