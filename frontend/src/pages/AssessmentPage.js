@@ -121,7 +121,11 @@ function AssessmentPage() {
   };
 
   const handleOptionSelect = async (option) => {
-    await saveAnswer(option);
+    if (option === 'OTHER' && (!otherText || !otherText.trim())) {
+      toast.error('Please provide text for the "Other" option');
+      return;
+    }
+    await saveAnswer(option, note, otherText);
   };
 
   // Check if current domain is complete
