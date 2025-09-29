@@ -159,7 +159,8 @@ class AssessmentResponse(BaseModel):
 
 class AnswerSubmit(BaseModel):
     question_id: str
-    option: str  # Changed from AnswerOption enum to string to accept predefined answers
+    option: AnswerOption
+    other_text: Optional[str] = None  # Required when option is OTHER
     note: Optional[str] = None
 
 class DomainScore(BaseModel):
