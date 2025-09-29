@@ -165,6 +165,18 @@
         - agent: "testing"
         - comment: "VERIFIED: Status endpoint testing completed successfully. All 16 tests passed (100% success rate). Confirmed: 1) GET /api/assessments/{id}/status endpoint exists and returns 200, 2) Response contains all required fields: assessment_id, total_questions, answered_questions, completion_percentage, status_overview, 3) Status overview is properly structured array of domains with questions, 4) Each domain contains domain_id, domain_name, and questions array, 5) Each question contains question_id, question_code, question_text, and answered boolean, 6) Endpoint correctly tracks answered questions and completion percentage, 7) All data types are correct. Status endpoint is fully functional for View All button functionality. NOTE: Database currently contains 16 questions (FA-1 to FA-8, TR-1 to TR-8) from complete_questions.py instead of full 88 questions - this is a data completeness issue, not a functionality issue."
 
+  - task: "Complete 88-question dataset integration with domains 6-11"
+    implemented: true
+    working: true
+    file: "/app/backend/complete_questions.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "testing"
+        - comment: "VERIFIED: Complete 88-question dataset integration testing successful. All 51 tests passed (100% success rate). Confirmed: 1) GET /api/domains returns exactly 11 domains including newly added domains: Reliability, Security, Privacy, Safety, Inclusivity, Sustainability, 2) GET /api/questions returns exactly 88 questions across all 11 domains, 3) All newly added domain sample questions (RE-1, SE-1, PR-1, SA-1, IN-1, SU-1) found with complete explanations and pre-defined answers, 4) Each domain contains exactly 8 questions (11 domains × 8 questions = 88 total), 5) GET /api/assessments/{id}/questions endpoint returns all 88 questions properly structured by domain, 6) GET /api/assessments/{id}/status endpoint correctly reports 88 total questions and shows all 11 domains in status overview, 7) Assessment creation and answer submission system works correctly with full dataset, 8) Sample verification of newly added domains shows proper question text, explanations, and all four pre-defined answer levels (ideal, good, basic, non-ideal). The complete AM AI SAFE assessment now contains all 88 questions with correct explanations and pre-defined answers from domains 1-11 as requested."
+
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
