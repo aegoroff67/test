@@ -357,7 +357,7 @@ COMPLETE_QUESTIONS_DATA = [
         "non_ideal_answer": "No mechanisms exist to address disputes or concerns.",
         "domain_order": 4,
         "order": 8
-    }
+    },
     # Data Integrity Domain (DI-1 to DI-8) - Domain order 5
     {
         "code": "DI-1",
