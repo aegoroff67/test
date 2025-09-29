@@ -415,13 +415,7 @@ function AssessmentPage() {
                   {/* Help button removed - no help_text available */}
                 </div>
                 
-                {currentQuestion.help_text && (
-                  <div className="mt-4 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
-                    <p className="text-sm text-blue-800">
-                      <strong>Context:</strong> {currentQuestion.help_text}
-                    </p>
-                  </div>
-                )}
+                {/* Context section removed - no help_text available */}
               </CardHeader>
               
               <CardContent className="space-y-6">
