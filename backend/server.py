@@ -88,6 +88,7 @@ class Question(BaseModel):
     code: str
     text: str
     help_text: Optional[str] = None
+    explanation: Optional[str] = None
     ideal_answer: Optional[str] = None
     good_answer: Optional[str] = None
     basic_answer: Optional[str] = None
