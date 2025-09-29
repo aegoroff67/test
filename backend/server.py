@@ -42,6 +42,14 @@ class AssessmentStatus(str, Enum):
     INCOMPLETE = "INCOMPLETE"
     COMPLETED = "COMPLETED"
 
+# AnswerOption enum needs to be defined before scoring map
+class AnswerOption(str, Enum):
+    IDEAL = "IDEAL"
+    GOOD = "GOOD"
+    BASIC = "BASIC"
+    NON_IDEAL = "NON_IDEAL"
+    OTHER = "OTHER"
+
 # Standard scoring map
 SCORING_MAP = {
     AnswerOption.IDEAL: 3,
