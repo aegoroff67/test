@@ -211,12 +211,16 @@ function ResultsPage() {
               
               <div className="max-w-2xl mx-auto">
                 <p className="text-lg text-gray-600 mb-6">
-                  {summary.overall_maturity === 'HIGH' && 
-                    'Excellent! Your organization demonstrates strong AI governance practices across most domains. Continue to maintain and refine your current approaches.'}
-                  {summary.overall_maturity === 'MODERATE' && 
-                    'Good foundation! Your organization has implemented basic AI governance measures. Focus on strengthening practices in lower-scoring domains.'}
-                  {summary.overall_maturity === 'LOW' && 
-                    'Opportunity for improvement. Your organization is in the early stages of AI governance. Prioritize implementing fundamental safeguards and controls.'}
+                  {summary.overall_maturity === 'Excellent' && 
+                    'Outstanding! Your organization demonstrates strong alignment with best practices across all domains. Systems, processes, and policies are well-developed, consistently implemented, and frequently reviewed for improvement.'}
+                  {summary.overall_maturity === 'Good' && 
+                    'Strong performance! Your organization has implemented many best practices and performs well in most areas. While there are minor gaps, they are not critical and can be addressed with targeted improvements.'}
+                  {summary.overall_maturity === 'Moderate' && 
+                    'Good foundation! Your organization has taken steps toward implementing best practices but demonstrates inconsistencies or significant gaps in key areas. Structured improvement efforts are needed.'}
+                  {summary.overall_maturity === 'Low' && 
+                    'Attention required! Your organization shows limited alignment with best practices and significant deficiencies across multiple domains. A reactive or ad hoc approach to AI governance requires immediate attention.'}
+                  {summary.overall_maturity === 'Basic' && 
+                    'Critical improvement needed! Your organization has minimal or no processes in place to address AI governance and risk management. Fundamental improvements are necessary to mitigate potential failures.'}
                 </p>
                 
                 <div className="flex justify-center space-x-4">
