@@ -305,7 +305,9 @@ function ResultsPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-6" data-testid="assessment-heatmap">
-                  {summary.domain_scores.map((domain) => {
+                  {[...summary.domain_scores]
+                    .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
+                    .map((domain) => {
                     const domainQuestions = questions.filter(q => q.domain_id === domain.domain_id);
                     const domainAnswers = answers.filter(a => 
                       domainQuestions.some(q => q.id === a.question_id)
@@ -316,7 +318,7 @@ function ResultsPage() {
                         <div className="flex items-center justify-between mb-3">
                           <h4 className="font-medium text-gray-900">{domain.domain_name}</h4>
                           <Badge variant="outline" className="text-xs">
-                            {domain.percentage}%
+                            {domain.percentage.toFixed(1)}%
                           </Badge>
                         </div>
                         
