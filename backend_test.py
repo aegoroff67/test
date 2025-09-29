@@ -31,54 +31,28 @@ class AMSafeAPITester:
             "details": details
         })
 
-    def run_test(self, name, method, endpoint, expected_status, data=None, headers=None):
-        """Run a single API test"""
+    def make_request(self, method, endpoint, data=None, expected_status=200):
+        """Make API request with error handling"""
         url = f"{self.api_url}/{endpoint}"
-        test_headers = {'Content-Type': 'application/json'}
-        
+        headers = {'Content-Type': 'application/json'}
         if self.token:
-            test_headers['Authorization'] = f'Bearer {self.token}'
-        
-        if headers:
-            test_headers.update(headers)
+            headers['Authorization'] = f'Bearer {self.token}'
 
-        print(f"\n🔍 Testing {name}...")
-        print(f"   URL: {url}")
-        
         try:
             if method == 'GET':
-                response = requests.get(url, headers=test_headers, timeout=10)
+                response = requests.get(url, headers=headers)
             elif method == 'POST':
-                response = requests.post(url, json=data, headers=test_headers, timeout=10)
+                response = requests.post(url, json=data, headers=headers)
             elif method == 'PATCH':
-                response = requests.patch(url, json=data, headers=test_headers, timeout=10)
-
-            print(f"   Status: {response.status_code}")
-            
-            success = response.status_code == expected_status
-            details = ""
-            
-            if not success:
-                details = f"Expected {expected_status}, got {response.status_code}"
-                try:
-                    error_data = response.json()
-                    details += f" - {error_data.get('detail', 'No error details')}"
-                except:
-                    details += f" - Response: {response.text[:200]}"
-
-            self.log_test(name, success, details)
-            
-            if success:
-                try:
-                    return response.json()
-                except:
-                    return {}
+                response = requests.patch(url, json=data, headers=headers)
             else:
-                return None
+                return False, f"Unsupported method: {method}"
+
+            success = response.status_code == expected_status
+            return success, response.json() if success else response.text
 
         except Exception as e:
-            self.log_test(name, False, f"Exception: {str(e)}")
-            return None
+            return False, str(e)
 
     def test_signup(self):
         """Test user signup"""
