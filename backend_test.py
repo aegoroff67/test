@@ -1221,12 +1221,135 @@ class AMSafeAPITester:
         
         return navigation_ready
 
+    def test_submit_assessment_flow_detailed(self):
+        """Test the specific submit assessment flow as described in the review request"""
+        print("\n🔍 DETAILED SUBMIT ASSESSMENT FLOW TEST")
+        print("-" * 60)
+        
+        # Step 1: Create a new assessment
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create new assessment for submit flow test", False, str(response))
+            return False
+            
+        test_assessment_id = response['id']
+        self.log_test("Create new assessment for submit flow test", True)
+        
+        # Step 2: Get all questions
+        success, response = self.make_request('GET', f'assessments/{test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for submit flow test", False, str(response))
+            return False
+            
+        # Collect all questions
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        total_questions = len(all_questions)
+        self.log_test(f"Retrieved {total_questions} questions", True)
+        
+        # Step 3: Answer only a few questions (not all) - let's answer 5 questions
+        questions_to_answer_partially = 5
+        for i in range(questions_to_answer_partially):
+            question = all_questions[i]
+            answer_data = {
+                "question_id": question['id'],
+                "option": "GOOD",
+                "note": f"Partial answer {i+1}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{test_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer question {i+1} partially", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered {questions_to_answer_partially} questions (partial completion)", True)
+        
+        # Step 4: Check assessment status - should be INCOMPLETE
+        success, assessment_response = self.make_request('GET', f'assessments/{test_assessment_id}')
+        if success:
+            status = assessment_response.get('status')
+            if status == 'INCOMPLETE':
+                self.log_test("Assessment status is INCOMPLETE after partial answers", True)
+            else:
+                self.log_test("Assessment status is INCOMPLETE after partial answers", False, f"Status is {status}")
+        else:
+            self.log_test("Check assessment status after partial answers", False, str(assessment_response))
+        
+        # Step 5: Try to submit incomplete assessment (should fail)
+        success, submit_response = self.make_request('POST', f'assessments/{test_assessment_id}/submit', expected_status=400)
+        if success:
+            self.log_test("Submit incomplete assessment returns 400 error", True)
+            print(f"   📝 Error message: {submit_response}")
+        else:
+            self.log_test("Submit incomplete assessment returns 400 error", False, "Should have returned 400 error")
+        
+        # Step 6: Answer all remaining questions
+        remaining_questions = all_questions[questions_to_answer_partially:]
+        for i, question in enumerate(remaining_questions):
+            answer_data = {
+                "question_id": question['id'],
+                "option": "IDEAL",
+                "note": f"Remaining answer {i+1}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{test_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer remaining question {i+1}", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered all remaining {len(remaining_questions)} questions", True)
+        
+        # Step 7: Check assessment status again - should still be INCOMPLETE (not auto-completed)
+        success, assessment_response = self.make_request('GET', f'assessments/{test_assessment_id}')
+        if success:
+            status = assessment_response.get('status')
+            if status == 'INCOMPLETE':
+                self.log_test("Assessment status remains INCOMPLETE after all questions answered", True)
+            else:
+                self.log_test("Assessment status remains INCOMPLETE after all questions answered", False, f"Status is {status} - should not auto-complete")
+        else:
+            self.log_test("Check assessment status after all answers", False, str(assessment_response))
+        
+        # Step 8: Test the submit endpoint - should work without "already submitted" error
+        success, submit_response = self.make_request('POST', f'assessments/{test_assessment_id}/submit')
+        if success:
+            self.log_test("Submit complete assessment works without error", True)
+            print(f"   📝 Success response: {submit_response}")
+        else:
+            self.log_test("Submit complete assessment works without error", False, f"Submit failed: {submit_response}")
+            print(f"   📝 Error details: {submit_response}")
+            return False
+        
+        # Step 9: Verify assessment is now COMPLETED
+        success, assessment_response = self.make_request('GET', f'assessments/{test_assessment_id}')
+        if success:
+            status = assessment_response.get('status')
+            if status == 'COMPLETED':
+                self.log_test("Assessment status is COMPLETED after submission", True)
+            else:
+                self.log_test("Assessment status is COMPLETED after submission", False, f"Status is {status}")
+        else:
+            self.log_test("Check assessment status after submission", False, str(assessment_response))
+        
+        # Step 10: Test edge case - try to submit already completed assessment
+        success, submit_response = self.make_request('POST', f'assessments/{test_assessment_id}/submit', expected_status=400)
+        if success:
+            self.log_test("Submit already completed assessment returns 400 error", True)
+            print(f"   📝 Expected error message: {submit_response}")
+        else:
+            self.log_test("Submit already completed assessment returns 400 error", False, "Should have returned 400 error for already completed")
+        
+        return True
+
     def run_specific_fix_tests(self):
-        """Run tests specifically for the two reported issues"""
-        print("🚀 Testing Specific Fixes for User-Reported Issues")
+        """Run tests specifically for the submit assessment issue"""
+        print("🚀 Testing Submit Assessment Issue Investigation")
         print("=" * 80)
-        print("ISSUE 1: Submit Assessment button gives 'Not Found' error")
-        print("ISSUE 2: Clicking questions in 'View All' screen doesn't navigate")
+        print("INVESTIGATING: 'Assessment already submitted' error when trying to submit")
+        print("CONTEXT: User reports 400 errors for submit attempts")
         print("=" * 80)
         
         # Authentication tests
@@ -1234,28 +1357,8 @@ class AMSafeAPITester:
             print("❌ Authentication failed, stopping tests")
             return False
             
-        # Assessment creation
-        if not self.test_assessment_creation():
-            print("❌ Assessment creation failed, stopping tests")
-            return False
-            
-        print("\n🔍 TESTING ISSUE 1: Submit Assessment Endpoint")
-        print("-" * 50)
-        
-        # Test submit endpoint exists and works
-        self.test_submit_assessment_endpoint_exists()
-        
-        # Test error handling for incomplete assessment
-        self.test_submit_assessment_incomplete_error()
-        
-        # Test error handling for already submitted assessment
-        self.test_submit_assessment_already_submitted_error()
-        
-        print("\n🔍 TESTING ISSUE 2: Question Navigation Support")
-        print("-" * 50)
-        
-        # Test status endpoint returns proper question IDs and navigation data
-        self.test_status_endpoint_question_ids()
+        # Run the detailed submit assessment flow test
+        self.test_submit_assessment_flow_detailed()
         
         # Print results
         print("\n" + "=" * 80)
@@ -1263,7 +1366,7 @@ class AMSafeAPITester:
         print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All specific fix tests passed! Both reported issues should be resolved.")
+            print("🎉 All submit assessment tests passed!")
             return True
         else:
             print("⚠️  Some tests failed. Check details above.")
