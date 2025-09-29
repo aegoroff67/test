@@ -998,6 +998,245 @@ class AMSafeAPITester:
         
         return total_questions == 88 and len(status_overview) == 11 and total_questions_in_overview == 88
 
+    def test_submit_assessment_endpoint_exists(self):
+        """Test that the submit assessment endpoint exists and returns 200 OK (not 404)"""
+        if not self.assessment_id:
+            self.log_test("Submit Assessment Endpoint Exists", False, "No assessment ID")
+            return False
+            
+        # First, answer all questions to make assessment complete
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for submit test", False, str(response))
+            return False
+            
+        # Answer all questions quickly
+        question_count = 0
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            for question in questions:
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": "IDEAL",
+                    "note": "Test answer for submit endpoint test"
+                }
+                
+                success_answer, _ = self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
+                if success_answer:
+                    question_count += 1
+        
+        self.log_test(f"Answered {question_count} questions for submit test", True)
+        
+        # Now test the submit endpoint
+        success, response = self.make_request('POST', f'assessments/{self.assessment_id}/submit')
+        if success:
+            self.log_test("Submit Assessment Endpoint Returns 200 OK", True)
+            return True
+        else:
+            self.log_test("Submit Assessment Endpoint Returns 200 OK", False, f"Got error: {response}")
+            return False
+
+    def test_submit_assessment_incomplete_error(self):
+        """Test error handling for incomplete assessment submission"""
+        # Create a new assessment for this test
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for incomplete test", False, str(response))
+            return False
+            
+        incomplete_assessment_id = response['id']
+        
+        # Try to submit without answering any questions
+        success, response = self.make_request('POST', f'assessments/{incomplete_assessment_id}/submit', expected_status=400)
+        if success:
+            self.log_test("Submit Incomplete Assessment Returns 400 Error", True)
+            return True
+        else:
+            self.log_test("Submit Incomplete Assessment Returns 400 Error", False, "Should have returned 400 error")
+            return False
+
+    def test_submit_assessment_already_submitted_error(self):
+        """Test error handling for already submitted assessment"""
+        # Create a new assessment and complete it
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for already submitted test", False, str(response))
+            return False
+            
+        already_submitted_id = response['id']
+        
+        # Get questions and answer them all
+        success, response = self.make_request('GET', f'assessments/{already_submitted_id}/questions')
+        if not success:
+            self.log_test("Get questions for already submitted test", False, str(response))
+            return False
+            
+        # Answer all questions
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            for question in questions:
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": "GOOD",
+                    "note": "Test answer for already submitted test"
+                }
+                self.make_request('POST', f'assessments/{already_submitted_id}/answer', answer_data)
+        
+        # Submit the assessment first time (should succeed)
+        success, response = self.make_request('POST', f'assessments/{already_submitted_id}/submit')
+        if not success:
+            self.log_test("First submission for already submitted test", False, str(response))
+            return False
+            
+        self.log_test("First submission successful", True)
+        
+        # Try to submit again (should fail with 400)
+        success, response = self.make_request('POST', f'assessments/{already_submitted_id}/submit', expected_status=400)
+        if success:
+            self.log_test("Submit Already Submitted Assessment Returns 400 Error", True)
+            return True
+        else:
+            self.log_test("Submit Already Submitted Assessment Returns 400 Error", False, "Should have returned 400 error for already submitted assessment")
+            return False
+
+    def test_status_endpoint_question_ids(self):
+        """Test that status endpoint returns question IDs correctly for navigation"""
+        if not self.assessment_id:
+            self.log_test("Status Endpoint Question IDs Test", False, "No assessment ID")
+            return False
+            
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/status')
+        if not success:
+            self.log_test("Status Endpoint Accessible", False, str(response))
+            return False
+            
+        self.log_test("Status Endpoint Accessible", True)
+        
+        # Verify status_overview structure includes question_id for each question
+        status_overview = response.get('status_overview', [])
+        if not status_overview:
+            self.log_test("Status Overview Present", False, "No status_overview in response")
+            return False
+            
+        self.log_test("Status Overview Present", True)
+        
+        # Check each domain and question for required navigation fields
+        total_questions_checked = 0
+        questions_with_ids = 0
+        questions_with_codes = 0
+        questions_with_text = 0
+        questions_with_answered_flag = 0
+        
+        for domain in status_overview:
+            domain_name = domain.get('domain_name', 'Unknown')
+            questions = domain.get('questions', [])
+            
+            for question in questions:
+                total_questions_checked += 1
+                
+                # Check for question_id (required for navigation)
+                if 'question_id' in question and question['question_id']:
+                    questions_with_ids += 1
+                
+                # Check for question_code (helpful for navigation)
+                if 'question_code' in question and question['question_code']:
+                    questions_with_codes += 1
+                
+                # Check for question_text (helpful for navigation)
+                if 'question_text' in question and question['question_text']:
+                    questions_with_text += 1
+                
+                # Check for answered flag (required for navigation state)
+                if 'answered' in question and isinstance(question['answered'], bool):
+                    questions_with_answered_flag += 1
+        
+        # Log results for each required field
+        if questions_with_ids == total_questions_checked:
+            self.log_test("All questions have question_id for navigation", True)
+        else:
+            self.log_test("All questions have question_id for navigation", False, 
+                        f"Only {questions_with_ids}/{total_questions_checked} questions have question_id")
+        
+        if questions_with_codes == total_questions_checked:
+            self.log_test("All questions have question_code for navigation", True)
+        else:
+            self.log_test("All questions have question_code for navigation", False,
+                        f"Only {questions_with_codes}/{total_questions_checked} questions have question_code")
+        
+        if questions_with_text == total_questions_checked:
+            self.log_test("All questions have question_text for navigation", True)
+        else:
+            self.log_test("All questions have question_text for navigation", False,
+                        f"Only {questions_with_text}/{total_questions_checked} questions have question_text")
+        
+        if questions_with_answered_flag == total_questions_checked:
+            self.log_test("All questions have answered flag for navigation", True)
+        else:
+            self.log_test("All questions have answered flag for navigation", False,
+                        f"Only {questions_with_answered_flag}/{total_questions_checked} questions have answered flag")
+        
+        # Overall navigation support check
+        navigation_ready = (questions_with_ids == total_questions_checked and 
+                          questions_with_codes == total_questions_checked and
+                          questions_with_text == total_questions_checked and
+                          questions_with_answered_flag == total_questions_checked)
+        
+        if navigation_ready:
+            self.log_test("Status endpoint supports frontend navigation functionality", True)
+        else:
+            self.log_test("Status endpoint supports frontend navigation functionality", False,
+                        "Missing required fields for navigation")
+        
+        return navigation_ready
+
+    def run_specific_fix_tests(self):
+        """Run tests specifically for the two reported issues"""
+        print("🚀 Testing Specific Fixes for User-Reported Issues")
+        print("=" * 80)
+        print("ISSUE 1: Submit Assessment button gives 'Not Found' error")
+        print("ISSUE 2: Clicking questions in 'View All' screen doesn't navigate")
+        print("=" * 80)
+        
+        # Authentication tests
+        if not self.test_user_signup_and_login():
+            print("❌ Authentication failed, stopping tests")
+            return False
+            
+        # Assessment creation
+        if not self.test_assessment_creation():
+            print("❌ Assessment creation failed, stopping tests")
+            return False
+            
+        print("\n🔍 TESTING ISSUE 1: Submit Assessment Endpoint")
+        print("-" * 50)
+        
+        # Test submit endpoint exists and works
+        self.test_submit_assessment_endpoint_exists()
+        
+        # Test error handling for incomplete assessment
+        self.test_submit_assessment_incomplete_error()
+        
+        # Test error handling for already submitted assessment
+        self.test_submit_assessment_already_submitted_error()
+        
+        print("\n🔍 TESTING ISSUE 2: Question Navigation Support")
+        print("-" * 50)
+        
+        # Test status endpoint returns proper question IDs and navigation data
+        self.test_status_endpoint_question_ids()
+        
+        # Print results
+        print("\n" + "=" * 80)
+        print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
+        print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
+        
+        if self.tests_passed == self.tests_run:
+            print("🎉 All specific fix tests passed! Both reported issues should be resolved.")
+            return True
+        else:
+            print("⚠️  Some tests failed. Check details above.")
+            return False
+
     def run_all_tests(self):
         """Run comprehensive test suite for 88-question dataset integration verification"""
         print("🚀 Starting Comprehensive Backend Tests for 88-Question Dataset Integration")
