@@ -279,6 +279,15 @@ function AssessmentPage() {
               <Button 
                 variant="outline" 
                 size="sm"
+                onClick={() => setShowStatusView(true)}
+                data-testid="view-status-overview-btn"
+              >
+                <BarChart3 className="h-4 w-4 mr-2" />
+                Status
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
                 onClick={() => setShowQuestionGrid(!showQuestionGrid)}
                 data-testid="view-all-questions-btn"
               >
