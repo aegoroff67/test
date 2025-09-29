@@ -85,6 +85,7 @@ class Question(BaseModel):
     code: str
     text: str
     help_text: Optional[str] = None
+    predefined_answers: List[str] = []
     order: int
 
 class Assessment(BaseModel):
