@@ -283,12 +283,18 @@ class AMSafeAPITester:
             return False
             
         # Get first question
-        success, response = self.make_request('GET', f'assessments/{self.assessment_id}')
-        if not success or not response.get('questions'):
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success or not response:
             self.log_test("Get questions for answer test", False, "No questions available")
             return False
             
-        first_question = response['questions'][0]
+        # Get first question from first domain
+        first_domain = response[0] if response else None
+        if not first_domain or not first_domain.get('questions'):
+            self.log_test("Get questions for answer test", False, "No questions in first domain")
+            return False
+            
+        first_question = first_domain['questions'][0]
         question_id = first_question['id']
         
         # Test each standard answer option
