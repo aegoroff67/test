@@ -559,7 +559,7 @@ async def generate_report(assessment_id: str, current_user: UserResponse = Depen
 # Admin endpoints
 @api_router.get("/domains", response_model=List[Domain])
 async def get_domains():
-    domains = await db.domains.find().sort("order").to_list(length=None)
+    domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
     return [Domain(**domain) for domain in domains]
 
 @api_router.get("/questions")
