@@ -42,21 +42,26 @@ class AssessmentStatus(str, Enum):
     INCOMPLETE = "INCOMPLETE"
     COMPLETED = "COMPLETED"
 
-class AnswerOption(str, Enum):
-    NON_IDEAL = "NON_IDEAL"
-    BASIC = "BASIC"
-    GOOD = "GOOD"
-    IDEAL = "IDEAL"
-    OTHER = "OTHER"
-
-# Scoring map
-SCORING_MAP = {
-    AnswerOption.NON_IDEAL: 0,
-    AnswerOption.BASIC: 1,
-    AnswerOption.GOOD: 2,
-    AnswerOption.IDEAL: 3,
-    AnswerOption.OTHER: 0
-}
+# Answer scoring based on predefined answer position or keywords
+def calculate_answer_score(answer_text: str, predefined_answers: List[str]) -> int:
+    """Calculate score based on answer text and predefined options"""
+    if not answer_text or not predefined_answers:
+        return 0
+    
+    # If answer matches a predefined option, score based on position
+    # Earlier options (index 0-2) = higher maturity, later options = lower maturity
+    for i, predefined in enumerate(predefined_answers):
+        if answer_text.strip() == predefined.strip():
+            # Reverse scoring: first options are more mature
+            if i < len(predefined_answers) // 3:
+                return 3  # IDEAL
+            elif i < 2 * len(predefined_answers) // 3:
+                return 2  # GOOD
+            else:
+                return 1  # BASIC
+    
+    # Default score for non-matching answers
+    return 0
 
 # Models
 class Organization(BaseModel):
