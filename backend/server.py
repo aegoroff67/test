@@ -621,122 +621,24 @@ async def seed_data():
         domains.append(domain)
         await db.domains.insert_one(domain.dict())
     
-    # Complete question set - all 88 questions from the AMAISAFE_Qs_and_As.xlsx spreadsheet
-    # Note: Original spreadsheet contains only question text, no explanations or pre-defined answers
-    questions_data = [
-        # Fairness Domain (FA-1 to FA-8)
-        {"domain_id": domains[0].id, "code": "FA-1", "text": "What measures have you implemented to identify and mitigate biases in your AI system?", "order": 1},
-        {"domain_id": domains[0].id, "code": "FA-2", "text": "How do you ensure the training data represents all relevant demographics or groups?", "order": 2},
-        {"domain_id": domains[0].id, "code": "FA-3", "text": "Have you evaluated the system's outputs for potential disparities across user groups?", "order": 3},
-        {"domain_id": domains[0].id, "code": "FA-4", "text": "How do you measure fairness in your AI system's outputs?", "order": 4},
-        {"domain_id": domains[0].id, "code": "FA-5", "text": "Have you tested the system for potential biases in real-world scenarios?", "order": 5},
-        {"domain_id": domains[0].id, "code": "FA-6", "text": "Are you using any frameworks or tools (e.g., Fairlearn) to assess and mitigate bias?", "order": 6},
-        {"domain_id": domains[0].id, "code": "FA-7", "text": "How do you ensure fairness in decision-making for minority or underserved groups?", "order": 7},
-        {"domain_id": domains[0].id, "code": "FA-8", "text": "Is fairness embedded in your AI model's design process, or is it addressed post-deployment?", "order": 8},
+    # Use complete question data from COMPLETE_QUESTIONS_DATA with explanations
+    for question_data in COMPLETE_QUESTIONS_DATA:
+        # Map domain order to domain ID
+        domain_order = question_data.get("domain_order", 1)
+        domain_id = domains[domain_order - 1].id  # Convert 1-based order to 0-based index
         
-        # Transparency Domain (TR-1 to TR-8)
-        {"domain_id": domains[1].id, "code": "TR-1", "text": "What level of detail about the AI system's functionality and limitations is communicated to users or stakeholders?", "order": 1},
-        {"domain_id": domains[1].id, "code": "TR-2", "text": "How do you document the data sources, algorithms, and processes used in your AI system?", "order": 2},
-        {"domain_id": domains[1].id, "code": "TR-3", "text": "Are there mechanisms for external parties (e.g., regulators or customers) to understand how your AI system works?", "order": 3},
-        {"domain_id": domains[1].id, "code": "TR-4", "text": "How is information about your AI system shared with internal teams and external stakeholders?", "order": 4},
-        {"domain_id": domains[1].id, "code": "TR-5", "text": "Are there any \"black-box\" components in your system that could impede transparency?", "order": 5},
-        {"domain_id": domains[1].id, "code": "TR-6", "text": "How do you disclose the sources of data and algorithms used in the AI system?", "order": 6},
-        {"domain_id": domains[1].id, "code": "TR-7", "text": "Are users made aware when they are interacting with an AI system?", "order": 7},
-        {"domain_id": domains[1].id, "code": "TR-8", "text": "Do you publish any transparency reports or documentation for regulators or customers?", "order": 8},
-        
-        # Explainability Domain (EX-1 to EX-8)
-        {"domain_id": domains[2].id, "code": "EX-1", "text": "How do you decide the level of explainability required for your AI system?", "order": 1},
-        {"domain_id": domains[2].id, "code": "EX-2", "text": "What methods are used to test whether explanations are understandable by non-technical users?", "order": 2},
-        {"domain_id": domains[2].id, "code": "EX-3", "text": "Do you provide explanations in different formats (e.g., visualizations, text summaries) for different audiences?", "order": 3},
-        {"domain_id": domains[2].id, "code": "EX-4", "text": "How do you evaluate the accuracy and completeness of the explanations provided?", "order": 4},
-        {"domain_id": domains[2].id, "code": "EX-5", "text": "Are there trade-offs between model complexity and explainability in your system design?", "order": 5},
-        {"domain_id": domains[2].id, "code": "EX-6", "text": "How do you ensure the decisions made by your AI system are interpretable by users?", "order": 6},
-        {"domain_id": domains[2].id, "code": "EX-7", "text": "What tools or techniques (e.g., SHAP, LIME) do you use to make complex models more explainable?", "order": 7},
-        {"domain_id": domains[2].id, "code": "EX-8", "text": "Are there specific groups (e.g., end-users, regulators, or internal teams) for whom explanations of AI outputs are tailored?", "order": 8},
-        
-        # Accountability Domain (AC-1 to AC-8)
-        {"domain_id": domains[3].id, "code": "AC-1", "text": "How is accountability for AI system failures managed within your organization?", "order": 1},
-        {"domain_id": domains[3].id, "code": "AC-2", "text": "What governance structures (e.g., AI oversight boards) are in place to monitor AI outcomes?", "order": 2},
-        {"domain_id": domains[3].id, "code": "AC-3", "text": "Are there policies for escalating issues identified in the AI system?", "order": 3},
-        {"domain_id": domains[3].id, "code": "AC-4", "text": "How do you handle customer complaints or disputes related to AI outputs?", "order": 4},
-        {"domain_id": domains[3].id, "code": "AC-5", "text": "Are roles and responsibilities for AI governance clearly defined across teams?", "order": 5},
-        {"domain_id": domains[3].id, "code": "AC-6", "text": "Who is responsible for monitoring and managing the AI system throughout its lifecycle?", "order": 6},
-        {"domain_id": domains[3].id, "code": "AC-7", "text": "Are there audit trails or logs that document the AI system's decision-making process?", "order": 7},
-        {"domain_id": domains[3].id, "code": "AC-8", "text": "What mechanisms are in place to address disputes or concerns about the system's outcomes?", "order": 8},
-        
-        # Data Integrity Domain (DI-1 to DI-8)
-        {"domain_id": domains[4].id, "code": "DI-1", "text": "How do you validate the accuracy, completeness, and quality of the data used in your AI systems?", "order": 1},
-        {"domain_id": domains[4].id, "code": "DI-2", "text": "What processes do you have for managing data lineage and tracking changes to data over time?", "order": 2},
-        {"domain_id": domains[4].id, "code": "DI-3", "text": "Are there governance policies for data collection, usage, retention, and disposal?", "order": 3},
-        {"domain_id": domains[4].id, "code": "DI-4", "text": "How do you ensure the data used in your AI systems is up-to-date and accurate?", "order": 4},
-        {"domain_id": domains[4].id, "code": "DI-5", "text": "What processes are in place to address missing or incomplete data?", "order": 5},
-        {"domain_id": domains[4].id, "code": "DI-6", "text": "How do you manage data preprocessing (e.g., cleaning, normalization)?", "order": 6},
-        {"domain_id": domains[4].id, "code": "DI-7", "text": "Are third-party data sources evaluated for quality and reliability?", "order": 7},
-        {"domain_id": domains[4].id, "code": "DI-8", "text": "How do you track data lineage to ensure traceability across the AI lifecycle?", "order": 8},
-        
-        # Reliability Domain (RE-1 to RE-8)
-        {"domain_id": domains[5].id, "code": "RE-1", "text": "How do you test the AI system to ensure consistent performance under different conditions?", "order": 1},
-        {"domain_id": domains[5].id, "code": "RE-2", "text": "Have you conducted stress tests or simulations to evaluate the system's robustness?", "order": 2},
-        {"domain_id": domains[5].id, "code": "RE-3", "text": "What mechanisms are in place to monitor the system for issues like model drift or degradation?", "order": 3},
-        {"domain_id": domains[5].id, "code": "RE-4", "text": "How do you define success metrics for the reliability of your AI system?", "order": 4},
-        {"domain_id": domains[5].id, "code": "RE-5", "text": "Have you identified potential failure points in the system?", "order": 5},
-        {"domain_id": domains[5].id, "code": "RE-6", "text": "How do you ensure the system performs consistently under varying conditions (e.g., edge cases)?", "order": 6},
-        {"domain_id": domains[5].id, "code": "RE-7", "text": "Are there mechanisms for detecting and addressing system downtime or errors?", "order": 7},
-        {"domain_id": domains[5].id, "code": "RE-8", "text": "How often is the AI model tested and retrained to maintain reliability?", "order": 8},
-        
-        # Security Domain (SE-1 to SE-8)
-        {"domain_id": domains[6].id, "code": "SE-1", "text": "What measures are in place to protect your AI models and data from unauthorized access or tampering?", "order": 1},
-        {"domain_id": domains[6].id, "code": "SE-2", "text": "How do you handle adversarial risks, such as attacks designed to manipulate the AI's outputs?", "order": 2},
-        {"domain_id": domains[6].id, "code": "SE-3", "text": "Do you conduct regular security audits or penetration testing on your AI systems?", "order": 3},
-        {"domain_id": domains[6].id, "code": "SE-4", "text": "How do you secure the AI model during training, deployment, and operation?", "order": 4},
-        {"domain_id": domains[6].id, "code": "SE-5", "text": "Are there safeguards to prevent unauthorized modifications to the AI model?", "order": 5},
-        {"domain_id": domains[6].id, "code": "SE-6", "text": "What measures are in place to protect the system against adversarial attacks (e.g., input manipulation)?", "order": 6},
-        {"domain_id": domains[6].id, "code": "SE-7", "text": "How do you protect sensitive data in your AI pipelines (e.g., encryption, tokenization)?", "order": 7},
-        {"domain_id": domains[6].id, "code": "SE-8", "text": "Are there regular vulnerability assessments and penetration tests performed on the AI system?", "order": 8},
-        
-        # Privacy Domain (PR-1 to PR-8)
-        {"domain_id": domains[7].id, "code": "PR-1", "text": "How do you ensure compliance with data privacy laws, such as GDPR or the Australian Privacy Act?", "order": 1},
-        {"domain_id": domains[7].id, "code": "PR-2", "text": "What techniques (e.g., anonymization, pseudonymization) do you use to protect personal data in your AI workflows?", "order": 2},
-        {"domain_id": domains[7].id, "code": "PR-3", "text": "How do you manage user consent for data collection and processing?", "order": 3},
-        {"domain_id": domains[7].id, "code": "PR-4", "text": "How do you ensure that personal data is not used beyond its original purpose?", "order": 4},
-        {"domain_id": domains[7].id, "code": "PR-5", "text": "What methods do you use to anonymize or pseudonymize personal data?", "order": 5},
-        {"domain_id": domains[7].id, "code": "PR-6", "text": "How do you monitor and prevent privacy violations during system operation?", "order": 6},
-        {"domain_id": domains[7].id, "code": "PR-7", "text": "Are privacy risks evaluated during both the development and deployment phases?", "order": 7},
-        {"domain_id": domains[7].id, "code": "PR-8", "text": "What steps are taken to ensure compliance with cross-border data protection laws?", "order": 8},
-        
-        # Safety Domain (SA-1 to SA-8)
-        {"domain_id": domains[8].id, "code": "SA-1", "text": "Have you conducted a safety impact assessment for the AI system?", "order": 1},
-        {"domain_id": domains[8].id, "code": "SA-2", "text": "How do you ensure that the system does not cause harm in unintended ways?", "order": 2},
-        {"domain_id": domains[8].id, "code": "SA-3", "text": "Are there monitoring tools in place to detect unsafe system behavior in real-time?", "order": 3},
-        {"domain_id": domains[8].id, "code": "SA-4", "text": "How do you handle situations where the system's actions conflict with human safety requirements?", "order": 4},
-        {"domain_id": domains[8].id, "code": "SA-5", "text": "Are there emergency protocols for shutting down the system in case of unsafe behavior?", "order": 5},
-        {"domain_id": domains[8].id, "code": "SA-6", "text": "What steps have you taken to identify and mitigate potential risks or harm caused by the AI system?", "order": 6},
-        {"domain_id": domains[8].id, "code": "SA-7", "text": "Are there fail-safe mechanisms or redundancies in place to address unexpected system behaviors?", "order": 7},
-        {"domain_id": domains[8].id, "code": "SA-8", "text": "Have you conducted safety testing in realistic or high-risk scenarios?", "order": 8},
-        
-        # Inclusivity Domain (IN-1 to IN-8)
-        {"domain_id": domains[9].id, "code": "IN-1", "text": "How do you ensure your AI system is accessible to a diverse range of users, including those with disabilities or in underserved populations?", "order": 1},
-        {"domain_id": domains[9].id, "code": "IN-2", "text": "Were diverse perspectives considered during the design and development of the system?", "order": 2},
-        {"domain_id": domains[9].id, "code": "IN-3", "text": "Have you audited the system for potential exclusionary outcomes or unintended impacts?", "order": 3},
-        {"domain_id": domains[9].id, "code": "IN-4", "text": "How do you ensure your AI system accounts for accessibility requirements (e.g., for users with disabilities)?", "order": 4},
-        {"domain_id": domains[9].id, "code": "IN-5", "text": "Are stakeholders from diverse backgrounds involved in the design and testing of the system?", "order": 5},
-        {"domain_id": domains[9].id, "code": "IN-6", "text": "What steps are taken to ensure that the AI system serves underrepresented communities effectively?", "order": 6},
-        {"domain_id": domains[9].id, "code": "IN-7", "text": "Are language, cultural, or regional differences considered in system design?", "order": 7},
-        {"domain_id": domains[9].id, "code": "IN-8", "text": "How do you evaluate whether the system is unintentionally excluding certain user groups?", "order": 8},
-        
-        # Sustainability Domain (SU-1 to SU-8)
-        {"domain_id": domains[10].id, "code": "SU-1", "text": "What is the environmental impact of training and deploying your AI system (e.g., energy usage, carbon footprint)?", "order": 1},
-        {"domain_id": domains[10].id, "code": "SU-2", "text": "Have you explored opportunities to optimize algorithms for greater computational efficiency?", "order": 2},
-        {"domain_id": domains[10].id, "code": "SU-3", "text": "Are you using cloud services or infrastructure that prioritizes renewable energy sources?", "order": 3},
-        {"domain_id": domains[10].id, "code": "SU-4", "text": "What is the estimated carbon footprint of training and deploying your AI system?", "order": 4},
-        {"domain_id": domains[10].id, "code": "SU-5", "text": "Have you optimized your algorithms to reduce computational resource requirements?", "order": 5},
-        {"domain_id": domains[10].id, "code": "SU-6", "text": "Are you using hardware or cloud platforms that prioritize energy efficiency?", "order": 6},
-        {"domain_id": domains[10].id, "code": "SU-7", "text": "How do you balance sustainability goals with performance requirements?", "order": 7},
-        {"domain_id": domains[10].id, "code": "SU-8", "text": "Do you track the environmental impact of your AI systems over time?", "order": 8}
-    ]
-    
-    for question_data in questions_data:
-        question = Question(**question_data)
+        question = Question(
+            domain_id=domain_id,
+            code=question_data["code"],
+            text=question_data["text"],
+            explanation=question_data.get("explanation"),
+            order=question_data["order"],
+            # Add standard pre-defined answers for all questions
+            ideal_answer="Comprehensive implementation with best practices and full compliance",
+            good_answer="Solid implementation with room for improvement", 
+            basic_answer="Minimal implementation, significant gaps exist",
+            non_ideal_answer="Little to no implementation or consideration"
+        )
         await db.questions.insert_one(question.dict())
     
-    logger.info(f"Database seeded with {len(domains)} domains and {len(questions_data)} questions")
+    logger.info(f"Database seeded with {len(domains)} domains and {len(COMPLETE_QUESTIONS_DATA)} questions with explanations")
