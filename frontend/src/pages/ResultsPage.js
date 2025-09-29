@@ -101,7 +101,7 @@ function ResultsPage() {
   const generateReport = async () => {
     setGeneratingReport(true);
     try {
-      const response = await axios.post(`${API}/reports/${id}/pdf`);
+      const response = await axios.get(`${API}/assessments/${id}/report`);
       window.open(response.data.url, '_blank');
       toast.success('Report generated successfully!');
     } catch (error) {
