@@ -539,6 +539,65 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
         answered_questions=len(answers)
     )
 
+@api_router.get("/assessments/{assessment_id}/status")
+async def get_assessment_status(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
+    # Verify assessment belongs to user's organization
+    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Get domains, questions and answers
+    domains = await db.domains.find().sort("order").to_list(length=None)
+    questions = await db.questions.find().to_list(length=None)
+    answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+    
+    # Create lookups
+    domain_lookup = {domain["id"]: domain for domain in domains}
+    answer_lookup = {answer["question_id"]: answer for answer in answers}
+    
+    # Build status overview by domain
+    status_overview = []
+    total_questions = len(questions)
+    answered_questions = len(answers)
+    
+    # Group questions by domain
+    domain_questions = {}
+    for domain in domains:
+        domain_questions[domain["id"]] = {
+            "domain": domain,
+            "questions": []
+        }
+    
+    for question in questions:
+        if question["domain_id"] in domain_questions:
+            question_status = {
+                "question_id": question["id"],
+                "question_code": question["code"],
+                "question_text": question["text"],
+                "answered": question["id"] in answer_lookup
+            }
+            domain_questions[question["domain_id"]]["questions"].append(question_status)
+    
+    # Build the status overview
+    for domain_id, domain_data in domain_questions.items():
+        if domain_data["questions"]:
+            status_overview.append({
+                "domain_id": domain_id,
+                "domain_name": domain_data["domain"]["name"],
+                "questions": domain_data["questions"]
+            })
+    
+    # Calculate completion percentage
+    completion_percentage = round((answered_questions / total_questions * 100) if total_questions > 0 else 0, 1)
+    
+    return {
+        "assessment_id": assessment_id,
+        "total_questions": total_questions,
+        "answered_questions": answered_questions,
+        "completion_percentage": completion_percentage,
+        "status_overview": status_overview
+    }
+
 @api_router.get("/assessments/{assessment_id}/report")
 async def generate_report(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization  
