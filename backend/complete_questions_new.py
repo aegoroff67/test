@@ -1,0 +1,94 @@
+# Complete question data from AMAISAFE_Qs_and_As.csv spreadsheet
+# This contains all 88 questions across 11 domains with complete explanations and pre-defined answers
+
+COMPLETE_QUESTIONS_DATA = [
+    # Fairness Domain (FA-1 to FA-8)
+    {
+        "code": "FA-1",
+        "text": "What measures have you implemented to identify and mitigate biases in your AI system?",
+        "explanation": "Bias in AI systems can lead to unfair treatment or exclusion of certain groups, undermining the credibility and effectiveness of the system. This question seeks to determine what proactive steps you've taken to identify and reduce biases. Measures might include bias detection tools, manual data reviews, or conducting fairness audits throughout the development lifecycle.\n\nFor example, if an AI system is used for hiring, it could favor certain demographics based on historical biases in the training data. Mitigation strategies could involve rebalancing datasets, removing biased features, or incorporating fairness constraints into model training.",
+        "ideal_answer": "Regularly audit datasets for imbalances or biases and use tools like Fairlearn to detect and mitigate issues.",
+        "good_answer": "Implement fairness constraints during model training and review model outcomes for biases before deployment.",
+        "basic_answer": "Conduct ad hoc reviews of the system to check for fairness concerns.",
+        "non_ideal_answer": "No specific measures have been implemented yet.",
+        "domain_order": 1,
+        "order": 1
+    },
+    {
+        "code": "FA-2",
+        "text": "How do you ensure the training data represents all relevant demographics or groups?",
+        "explanation": "AI systems learn from the data they are trained on. If the data lacks representation from certain demographics, the system might perform poorly or unfairly for those groups. This question assesses your practices for ensuring training data is diverse and representative of the populations the AI will interact with.\n\nFor example, if a facial recognition system is trained primarily on images of light-skinned individuals, it might not accurately recognize darker-skinned individuals. To address this, you might source data from multiple demographic groups and evaluate its representativeness.",
+        "ideal_answer": "Conduct demographic analysis and source additional data to address gaps in representation.",
+        "good_answer": "Use synthetic data to improve representation where demographic gaps exist.",
+        "basic_answer": "Use third-party data sources but perform minimal validation for demographic representation.",
+        "non_ideal_answer": "No specific actions are taken to ensure demographic representation.",
+        "domain_order": 1,
+        "order": 2
+    },
+    {
+        "code": "FA-3",
+        "text": "Have you evaluated the system's outputs for potential disparities across user groups?",
+        "explanation": "This question focuses on whether you've analyzed the AI system's outputs to identify if certain groups experience unequal treatment or outcomes.\n\nFor instance, a loan approval system might disproportionately deny loans to specific racial or gender groups. Evaluating outputs involves comparing decision rates, accuracy, or other metrics across groups to identify disparities. Tools such as disparity analysis or fairness dashboards can assist in uncovering issues during testing or post-deployment.",
+        "ideal_answer": "Conduct detailed quantitative analysis and qualitative testing with diverse focus groups to identify disparities.",
+        "good_answer": "Regularly monitor outputs during operation for potential discrepancies across groups.",
+        "basic_answer": "Limited evaluation performed only during system testing phases.",
+        "non_ideal_answer": "No evaluations have been conducted.",
+        "domain_order": 1,
+        "order": 3
+    },
+    {
+        "code": "FA-4",
+        "text": "How do you measure fairness in your AI system's outputs?",
+        "explanation": "Fairness is a multifaceted concept that varies depending on the context. This question asks you to define and measure fairness within your use case.\n\nFor example, in healthcare, fairness might mean equal diagnostic accuracy across demographics, while in credit scoring, it might mean equal access to credit opportunities. Common fairness metrics include demographic parity, equal opportunity, and predictive parity. By defining measurable fairness objectives, you create a clear benchmark for evaluation.",
+        "ideal_answer": "Use fairness metrics such as demographic parity or equal opportunity and conduct regular evaluations against these benchmarks.",
+        "good_answer": "Conduct statistical comparisons across user groups to identify potential inequities.",
+        "basic_answer": "Monitor fairness qualitatively through user feedback and sporadic reviews.",
+        "non_ideal_answer": "No specific fairness metrics are defined or monitored.",
+        "domain_order": 1,
+        "order": 4
+    },
+    {
+        "code": "FA-5",
+        "text": "Have you tested the system for potential biases in real-world scenarios?",
+        "explanation": "AI systems can behave differently in controlled environments versus real-world applications. This question ensures that your system has been tested in the environments it is intended for, to identify hidden biases.\n\nFor example, an AI chatbot might work equally well across demographics during development but fail to understand slang or dialects used by certain groups in practice. Testing in real-world scenarios helps uncover such gaps and ensures fairness in deployment.",
+        "ideal_answer": "Conduct comprehensive testing with real-world data and scenarios before deployment.",
+        "good_answer": "Perform pilot programs in controlled real-world environments to assess biases.",
+        "basic_answer": "Conduct periodic testing post-deployment but limited pre-deployment analysis.",
+        "non_ideal_answer": "No real-world bias testing has been conducted.",
+        "domain_order": 1,
+        "order": 5
+    },
+    {
+        "code": "FA-6",
+        "text": "Are you using any frameworks or tools (e.g., Fairlearn) to assess and mitigate bias?",
+        "explanation": "Frameworks and tools like Fairlearn, Aequitas, or IBM's AI Fairness 360 can help automate bias detection and mitigation, providing actionable insights. This question evaluates whether you've leveraged such resources to enhance your AI system's fairness.\n\nFor example, Fairlearn offers disparity metrics and bias mitigation algorithms, allowing you to iteratively refine your model to reduce bias. Using these tools demonstrates a structured approach to fairness.",
+        "ideal_answer": "Use frameworks like Fairlearn, Aequitas, or IBM AI Fairness 360 to identify and mitigate biases systematically.",
+        "good_answer": "Use in-house frameworks or processes for bias detection and mitigation.",
+        "basic_answer": "Researching frameworks but have not yet implemented any tools.",
+        "non_ideal_answer": "No frameworks or tools are being used at this time.",
+        "domain_order": 1,
+        "order": 6
+    },
+    {
+        "code": "FA-7",
+        "text": "How do you ensure fairness in decision-making for minority or underserved groups?",
+        "explanation": "AI systems can inadvertently perpetuate systemic inequalities, making it critical to safeguard fairness for minority or underserved populations. This question examines whether your design and evaluation processes prioritize equitable treatment for such groups.\n\nFor instance, a job-matching platform might weigh features differently for candidates from underserved communities to account for historical disadvantages. Tailored fairness policies or post-processing adjustments to outputs can address such disparities.",
+        "ideal_answer": "Introduce fairness weights or adjustments during model training and evaluate outputs specifically for underserved groups.",
+        "good_answer": "Perform targeted testing and involve stakeholders from minority communities during the design and evaluation phases.",
+        "basic_answer": "Review decisions occasionally for fairness but lack structured measures for minority groups.",
+        "non_ideal_answer": "No specific measures are implemented to ensure fairness for underserved groups.",
+        "domain_order": 1,
+        "order": 7
+    },
+    {
+        "code": "FA-8",
+        "text": "Is fairness embedded in your AI model's design process, or is it addressed post-deployment?",
+        "explanation": "Embedding fairness into the design phase is more effective and cost-efficient than addressing it after deployment. This question explores whether fairness considerations are integral to your AI lifecycle or if they are treated as reactive fixes.\n\nFor example, you might incorporate fairness objectives during data collection, model selection, and training. Conversely, addressing fairness post-deployment might involve auditing outputs and retrofitting models with mitigation strategies. Proactively embedding fairness minimizes risks and ensures a more ethical AI system.",
+        "ideal_answer": "Fairness considerations are embedded throughout the design and development process.",
+        "good_answer": "Address fairness primarily during pre-deployment testing and adjustments.",
+        "basic_answer": "Evaluate fairness reactively, post-deployment, as issues arise.",
+        "non_ideal_answer": "Fairness is not currently a structured consideration in the workflow.",
+        "domain_order": 1,
+        "order": 8
+    }
+]
