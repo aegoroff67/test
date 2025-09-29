@@ -460,19 +460,19 @@ function AssessmentPage() {
                   <Label className="text-base font-medium text-gray-900">
                     Select your response:
                   </Label>
-                  {answerOptions.map((option) => {
-                    const isSelected = currentAnswer?.option === option.value;
+                  {(currentQuestion?.predefined_answers || []).map((option, index) => {
+                    const isSelected = currentAnswer?.option === option;
                     return (
                       <div
-                        key={option.value}
+                        key={index}
                         className={`custom-radio ${isSelected ? 'selected' : ''}`}
-                        onClick={() => handleOptionSelect(option.value)}
-                        data-testid={`answer-option-${option.value.toLowerCase()}`}
+                        onClick={() => handleOptionSelect(option)}
+                        data-testid={`answer-option-${index}`}
                       >
                         <input
                           type="radio"
                           name="answer"
-                          value={option.value}
+                          value={option}
                           checked={isSelected}
                           onChange={() => {}} // Handled by onClick
                         />
@@ -487,8 +487,9 @@ function AssessmentPage() {
                             )}
                           </div>
                           <div className="flex-1">
-                            <div className="font-medium text-gray-900">{option.label}</div>
-                            <div className="text-sm text-gray-600">{option.description}</div>
+                            <div className="font-medium text-gray-900 text-sm leading-relaxed">
+                              {option}
+                            </div>
                           </div>
                         </div>
                       </div>
