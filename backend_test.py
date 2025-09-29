@@ -145,31 +145,16 @@ class AMSafeAPITester:
                 
         return True
 
-    def test_get_domains(self):
-        """Test get domains - Enhanced version with 11 domains"""
-        response = self.run_test(
-            "Get Domains",
-            "GET",
-            "domains",
-            200
-        )
-        
-        if response and isinstance(response, list) and len(response) == 11:
-            expected_domains = [
-                "Fairness", "Transparency", "Explainability", "Accountability", 
-                "Data Integrity", "Reliability", "Security", "Privacy", 
-                "Safety", "Inclusivity", "Sustainability"
-            ]
-            actual_domains = [d['name'] for d in response]
-            if all(domain in actual_domains for domain in expected_domains):
-                self.log_test("Domain Content Validation (11 domains)", True)
-                return True
-            else:
-                self.log_test("Domain Content Validation (11 domains)", False, f"Expected {expected_domains}, got {actual_domains}")
+    def test_assessment_creation(self):
+        """Test assessment creation"""
+        success, response = self.make_request('POST', 'assessments', {})
+        if success and 'id' in response:
+            self.assessment_id = response['id']
+            self.log_test("Assessment creation", True)
+            return True
         else:
-            self.log_test("Domain Count Validation", False, f"Expected 11 domains, got {len(response) if response else 0}")
-        
-        return response is not None
+            self.log_test("Assessment creation", False, str(response))
+            return False
 
     def test_get_questions(self):
         """Test get questions - Enhanced version with 88 questions"""
