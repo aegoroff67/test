@@ -92,29 +92,41 @@ function AssessmentPage() {
     }
   }, [currentQuestionIndex, currentAnswer]);
 
-  const saveAnswer = async (option, noteText = note) => {
+  const saveAnswer = async (option, noteText = note, otherTextValue = '') => {
     if (!currentQuestion) return;
     
     setSaving(true);
     try {
-      await axios.patch(`${API}/assessments/${id}/answer`, {
+      const payload = {
         question_id: currentQuestion.id,
         option: option,
         note: noteText || null
-      });
+      };
+      
+      if (option === 'OTHER') {
+        payload.other_text = otherTextValue;
+      }
+      
+      const response = await axios.patch(`${API}/assessments/${id}/answer`, payload);
       
       // Update local state
       setAnswers(prev => ({
         ...prev,
         [currentQuestion.id]: {
           option: option,
-          note: noteText || ''
+          note: noteText || '',
+          other_text: otherTextValue || '',
+          needs_review: response.data.needs_review || false
         }
       }));
       
-      toast.success('Answer saved!');
+      if (response.data.needs_review) {
+        toast.success('Answer saved and flagged for review!');
+      } else {
+        toast.success('Answer saved!');
+      }
     } catch (error) {
-      toast.error('Failed to save answer');
+      toast.error(error.response?.data?.detail || 'Failed to save answer');
     } finally {
       setSaving(false);
     }
