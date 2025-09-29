@@ -1072,5 +1072,94 @@ remaining_questions = [
         "non_ideal_answer": "No regular testing or retraining schedule is followed.",
         "domain_order": 6,
         "order": 8
+    },
+    # Security Domain (SE-1 to SE-8) - Domain order 7
+    {
+        "code": "SE-1",
+        "text": "What measures are in place to protect your AI models and data from unauthorized access or tampering?",
+        "explanation": "AI models and their training data can be valuable targets for attackers seeking to steal intellectual property or manipulate system behavior. This question examines your security measures to prevent unauthorized access or tampering.\n\nFor example, a proprietary recommendation algorithm might be protected through encryption, access controls, and secure deployment environments. Protecting both the model and its data ensures system integrity and prevents malicious exploitation.",
+        "ideal_answer": "Implement comprehensive security measures including encryption, access controls, secure deployment, and regular security audits.",
+        "good_answer": "Use basic security measures like access controls and encryption for sensitive components.",
+        "basic_answer": "Rely on standard IT security practices without AI-specific protections.",
+        "non_ideal_answer": "No specific measures are in place to protect AI models and data.",
+        "domain_order": 7,
+        "order": 1
+    },
+    {
+        "code": "SE-2",
+        "text": "How do you handle adversarial risks, such as attacks designed to manipulate the AI's outputs?",
+        "explanation": "Adversarial attacks attempt to manipulate AI systems by providing crafted inputs designed to cause incorrect outputs. This question assesses your defenses against such threats.\n\nFor instance, an image recognition system might be vulnerable to adversarial examples—images with imperceptible modifications that cause misclassification. Defense strategies could include adversarial training, input validation, and anomaly detection to identify and reject suspicious inputs.",
+        "ideal_answer": "Implement adversarial defenses including robust training, input validation, and anomaly detection systems.",
+        "good_answer": "Use basic input validation and monitoring to detect unusual patterns.",
+        "basic_answer": "Address adversarial risks reactively when attacks are detected.",
+        "non_ideal_answer": "No measures are in place to handle adversarial risks.",
+        "domain_order": 7,
+        "order": 2
+    },
+    {
+        "code": "SE-3",
+        "text": "Do you conduct regular security audits or penetration testing on your AI systems?",
+        "explanation": "Regular security audits and penetration testing help identify vulnerabilities in AI systems before they can be exploited. This question evaluates your proactive security assessment practices.\n\nFor example, a penetration test on an AI-powered authentication system might reveal vulnerabilities in the model's decision-making process or implementation flaws that could be exploited. Regular audits ensure ongoing security and compliance with security standards.",
+        "ideal_answer": "Conduct regular security audits and penetration testing with both internal and external security experts.",
+        "good_answer": "Perform periodic security assessments focusing on key system components.",
+        "basic_answer": "Conduct security reviews occasionally or only when required by compliance.",
+        "non_ideal_answer": "No regular security audits or penetration testing is performed.",
+        "domain_order": 7,
+        "order": 3
+    },
+    {
+        "code": "SE-4",
+        "text": "How do you secure the AI model during training, deployment, and operation?",
+        "explanation": "AI models face different security challenges at each stage of their lifecycle. This question examines your security measures across training, deployment, and operational phases.\n\nFor instance, during training, you might secure training data and computing resources; during deployment, you could use secure containers and encrypted communications; during operation, you might implement runtime monitoring and access controls. Comprehensive security requires protection throughout the entire lifecycle.",
+        "ideal_answer": "Implement security measures tailored to each lifecycle stage, including secure training environments, encrypted deployment, and runtime protection.",
+        "good_answer": "Apply security measures during key phases like deployment and operation.",
+        "basic_answer": "Use basic security practices but without lifecycle-specific considerations.",
+        "non_ideal_answer": "No specific security measures are applied across the AI model lifecycle.",
+        "domain_order": 7,
+        "order": 4
+    },
+    {
+        "code": "SE-5",
+        "text": "Are there safeguards to prevent unauthorized modifications to the AI model?",
+        "explanation": "Unauthorized modifications to AI models could compromise their integrity, performance, or security. This question assesses your controls to prevent tampering with model parameters, configurations, or code.\n\nFor example, model versioning systems, digital signatures, and access controls could prevent unauthorized changes to a production model. Such safeguards ensure model integrity and maintain trust in system outputs.",
+        "ideal_answer": "Use version control, digital signatures, access controls, and audit trails to prevent and detect unauthorized model modifications.",
+        "good_answer": "Implement basic access controls and change tracking for model modifications.",
+        "basic_answer": "Rely on general IT security practices without model-specific protections.",
+        "non_ideal_answer": "No safeguards exist to prevent unauthorized model modifications.",
+        "domain_order": 7,
+        "order": 5
+    },
+    {
+        "code": "SE-6",
+        "text": "What measures are in place to protect the system against adversarial attacks (e.g., input manipulation)?",
+        "explanation": "Adversarial attacks can exploit vulnerabilities in AI systems through carefully crafted inputs. This question examines your specific defenses against input-based attacks.\n\nFor instance, an AI system processing user uploads might validate file formats, scan for malicious content, and use adversarial training to resist manipulation attempts. Protective measures help maintain system reliability and security against sophisticated attacks.",
+        "ideal_answer": "Deploy comprehensive defenses including input validation, adversarial training, and real-time attack detection.",
+        "good_answer": "Use input validation and basic anomaly detection to identify suspicious inputs.",
+        "basic_answer": "Implement standard input sanitization without AI-specific protections.",
+        "non_ideal_answer": "No specific measures protect against adversarial attacks.",
+        "domain_order": 7,
+        "order": 6
+    },
+    {
+        "code": "SE-7",
+        "text": "How do you protect sensitive data in your AI pipelines (e.g., encryption, tokenization)?",
+        "explanation": "AI systems often process sensitive data that requires protection throughout processing pipelines. This question evaluates your data protection measures during AI operations.\n\nFor example, a healthcare AI system might use encryption for data in transit and at rest, tokenization to replace sensitive identifiers, and secure processing environments to protect patient information. Comprehensive data protection maintains privacy and compliance while enabling AI functionality.",
+        "ideal_answer": "Use encryption, tokenization, secure processing environments, and data minimization techniques to protect sensitive data.",
+        "good_answer": "Implement encryption and basic data protection measures for sensitive information.",
+        "basic_answer": "Use standard data protection practices without AI-specific considerations.",
+        "non_ideal_answer": "No specific measures protect sensitive data in AI pipelines.",
+        "domain_order": 7,
+        "order": 7
+    },
+    {
+        "code": "SE-8",
+        "text": "Are there regular vulnerability assessments and penetration tests performed on the AI system?",
+        "explanation": "Regular vulnerability assessments and penetration testing are essential for identifying and addressing security weaknesses in AI systems. This question examines your ongoing security evaluation practices.\n\nFor instance, automated vulnerability scans might check for known security issues, while manual penetration tests could explore AI-specific attack vectors like model inversion or membership inference attacks. Regular assessments help maintain security posture as threats evolve.",
+        "ideal_answer": "Conduct regular vulnerability assessments and penetration tests using both automated tools and manual techniques.",
+        "good_answer": "Perform periodic security assessments with some automated scanning.",
+        "basic_answer": "Conduct security assessments occasionally or only when issues arise.",
+        "non_ideal_answer": "No regular vulnerability assessments or penetration tests are performed.",
+        "domain_order": 7,
+        "order": 8
     }
 ]
