@@ -138,8 +138,7 @@
 
 ## test_plan:
   current_focus:
-    - "Update complete_questions.py with correct explanations from spreadsheet"
-    - "Update server.py seeding logic to use complete question data"
+    - "Remove incorrect generated explanations and pre-defined answers from server.py"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
