@@ -367,19 +367,23 @@ function ResultsPage() {
                   <div className="flex items-center space-x-6">
                     <div className="flex items-center space-x-2">
                       <div className="w-4 h-4 bg-red-500 rounded"></div>
-                      <span className="text-sm text-gray-600">0-24% (Non-Ideal)</span>
+                      <span className="text-sm text-gray-600">0-40% (Basic)</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="w-4 h-4 bg-orange-500 rounded"></div>
-                      <span className="text-sm text-gray-600">25-49% (Basic)</span>
+                      <span className="text-sm text-gray-600">41-60% (Low)</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="w-4 h-4 bg-yellow-500 rounded"></div>
-                      <span className="text-sm text-gray-600">50-74% (Good)</span>
+                      <span className="text-sm text-gray-600">61-80% (Moderate)</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-4 h-4 bg-blue-500 rounded"></div>
+                      <span className="text-sm text-gray-600">81-90% (Good)</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="w-4 h-4 bg-green-500 rounded"></div>
-                      <span className="text-sm text-gray-600">75-100% (Ideal)</span>
+                      <span className="text-sm text-gray-600">91-100% (Excellent)</span>
                     </div>
                   </div>
                 </div>
