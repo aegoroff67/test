@@ -41,8 +41,8 @@ function AssessmentPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [showQuestionGrid, setShowQuestionGrid] = useState(false);
   const [showStatusView, setShowStatusView] = useState(false);
+  const [otherText, setOtherText] = useState('');
 
   useEffect(() => {
     fetchAssessment();
