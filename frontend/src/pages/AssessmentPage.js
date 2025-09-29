@@ -512,41 +512,185 @@ function AssessmentPage() {
                   <Label className="text-base font-medium text-gray-900">
                     Select your response:
                   </Label>
-                  {(currentQuestion?.predefined_answers || []).map((option, index) => {
-                    const isSelected = currentAnswer?.option === option;
-                    return (
-                      <div
-                        key={index}
-                        className={`custom-radio ${isSelected ? 'selected' : ''}`}
-                        onClick={() => handleOptionSelect(option)}
-                        data-testid={`answer-option-${index}`}
-                      >
-                        <input
-                          type="radio"
-                          name="answer"
-                          value={option}
-                          checked={isSelected}
-                          onChange={() => {}} // Handled by onClick
-                        />
-                        <div className="flex items-start space-x-3">
-                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
-                            isSelected 
-                              ? 'border-teal-600 bg-teal-600' 
-                              : 'border-gray-300'
-                          }`}>
-                            {isSelected && (
-                              <div className="w-2 h-2 rounded-full bg-white"></div>
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <div className="font-medium text-gray-900 text-sm leading-relaxed">
-                              {option}
-                            </div>
-                          </div>
+                  
+                  {/* Ideal Option */}
+                  <div
+                    className={`custom-radio ${currentAnswer?.option === 'IDEAL' ? 'selected' : ''}`}
+                    onClick={() => handleOptionSelect('IDEAL')}
+                    data-testid="answer-option-ideal"
+                  >
+                    <input
+                      type="radio"
+                      name="answer"
+                      value="IDEAL"
+                      checked={currentAnswer?.option === 'IDEAL'}
+                      onChange={() => {}}
+                    />
+                    <div className="flex items-start space-x-3">
+                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                        currentAnswer?.option === 'IDEAL' 
+                          ? 'border-teal-600 bg-teal-600' 
+                          : 'border-gray-300'
+                      }`}>
+                        {currentAnswer?.option === 'IDEAL' && (
+                          <div className="w-2 h-2 rounded-full bg-white"></div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900 mb-1">Ideal (3 points)</div>
+                        <div className="text-sm text-gray-600 leading-relaxed">
+                          {currentQuestion?.ideal_answer || 'Comprehensive implementation with best practices and full compliance'}
                         </div>
                       </div>
-                    );
-                  })}
+                    </div>
+                  </div>
+                  
+                  {/* Good Option */}
+                  <div
+                    className={`custom-radio ${currentAnswer?.option === 'GOOD' ? 'selected' : ''}`}
+                    onClick={() => handleOptionSelect('GOOD')}
+                    data-testid="answer-option-good"
+                  >
+                    <input
+                      type="radio"
+                      name="answer"
+                      value="GOOD"
+                      checked={currentAnswer?.option === 'GOOD'}
+                      onChange={() => {}}
+                    />
+                    <div className="flex items-start space-x-3">
+                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                        currentAnswer?.option === 'GOOD' 
+                          ? 'border-teal-600 bg-teal-600' 
+                          : 'border-gray-300'
+                      }`}>
+                        {currentAnswer?.option === 'GOOD' && (
+                          <div className="w-2 h-2 rounded-full bg-white"></div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900 mb-1">Good (2 points)</div>
+                        <div className="text-sm text-gray-600 leading-relaxed">
+                          {currentQuestion?.good_answer || 'Solid implementation with room for improvement'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Basic Option */}
+                  <div
+                    className={`custom-radio ${currentAnswer?.option === 'BASIC' ? 'selected' : ''}`}
+                    onClick={() => handleOptionSelect('BASIC')}
+                    data-testid="answer-option-basic"
+                  >
+                    <input
+                      type="radio"
+                      name="answer"
+                      value="BASIC"
+                      checked={currentAnswer?.option === 'BASIC'}
+                      onChange={() => {}}
+                    />
+                    <div className="flex items-start space-x-3">
+                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                        currentAnswer?.option === 'BASIC' 
+                          ? 'border-teal-600 bg-teal-600' 
+                          : 'border-gray-300'
+                      }`}>
+                        {currentAnswer?.option === 'BASIC' && (
+                          <div className="w-2 h-2 rounded-full bg-white"></div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900 mb-1">Basic (1 point)</div>
+                        <div className="text-sm text-gray-600 leading-relaxed">
+                          {currentQuestion?.basic_answer || 'Minimal implementation, significant gaps exist'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Non-Ideal Option */}
+                  <div
+                    className={`custom-radio ${currentAnswer?.option === 'NON_IDEAL' ? 'selected' : ''}`}
+                    onClick={() => handleOptionSelect('NON_IDEAL')}
+                    data-testid="answer-option-non-ideal"
+                  >
+                    <input
+                      type="radio"
+                      name="answer"
+                      value="NON_IDEAL"
+                      checked={currentAnswer?.option === 'NON_IDEAL'}
+                      onChange={() => {}}
+                    />
+                    <div className="flex items-start space-x-3">
+                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                        currentAnswer?.option === 'NON_IDEAL' 
+                          ? 'border-teal-600 bg-teal-600' 
+                          : 'border-gray-300'
+                      }`}>
+                        {currentAnswer?.option === 'NON_IDEAL' && (
+                          <div className="w-2 h-2 rounded-full bg-white"></div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900 mb-1">Non-Ideal (0 points)</div>
+                        <div className="text-sm text-gray-600 leading-relaxed">
+                          {currentQuestion?.non_ideal_answer || 'Little to no implementation or consideration'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Other Option */}
+                  <div
+                    className={`custom-radio ${currentAnswer?.option === 'OTHER' ? 'selected' : ''}`}
+                    data-testid="answer-option-other"
+                  >
+                    <div 
+                      onClick={() => {
+                        // Focus on text input instead of selecting immediately
+                        document.getElementById('other-text-input')?.focus();
+                      }}
+                      className="flex items-start space-x-3"
+                    >
+                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                        currentAnswer?.option === 'OTHER' 
+                          ? 'border-teal-600 bg-teal-600' 
+                          : 'border-gray-300'
+                      }`}>
+                        {currentAnswer?.option === 'OTHER' && (
+                          <div className="w-2 h-2 rounded-full bg-white"></div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900 mb-2">Other (Requires Review)</div>
+                        <Textarea
+                          id="other-text-input"
+                          placeholder="Please describe your specific situation or approach..."
+                          value={otherText}
+                          onChange={(e) => {
+                            setOtherText(e.target.value);
+                            // Auto-select OTHER when user starts typing
+                            if (e.target.value.trim() && currentAnswer?.option !== 'OTHER') {
+                              // This will trigger the selection without calling the API yet
+                            }
+                          }}
+                          className="min-h-[80px] focus:ring-teal focus:border-teal-500"
+                          data-testid="other-text-input"
+                        />
+                        {otherText.trim() && (
+                          <Button
+                            onClick={() => handleOptionSelect('OTHER')}
+                            className="mt-2 bg-teal-600 hover:bg-teal-700"
+                            size="sm"
+                            data-testid="save-other-btn"
+                          >
+                            Save Other Response
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Notes Section */}
