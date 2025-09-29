@@ -400,7 +400,6 @@ async def get_assessment_status(assessment_id: str, current_user: User = Depends
     answered_question_ids = {answer["question_id"] for answer in answers}
     
     # Build status overview
-    domain_map = {domain["id"]: domain for domain in domains}
     status_overview = []
     
     for domain in domains:
