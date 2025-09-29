@@ -674,20 +674,25 @@ async def seed_data():
         # Fairness Domain (FA-1 to FA-8)
         {
             "domain_id": domains[0].id,
-            "code": "FA-1", 
+            "code": "FA-1",
             "text": "What measures have you implemented to identify and mitigate biases in your AI system?",
-            "help_text": "Bias in AI systems can lead to unfair treatment or exclusion of certain groups, undermining the credibility and effectiveness of the system.",
-            "predefined_answers": [
-                "Bias detection techniques applied to data and model outputs",
-                "Regular audits for fairness metrics across different demographic groups", 
-                "Implementation of bias mitigation algorithms (e.g., re-weighting, adversarial debiasing)",
-                "Cross-functional team review of potential bias scenarios",
-                "User feedback mechanisms specifically for fairness concerns",
-                "Benchmarking against fairness standards and best practices",
-                "No specific measures implemented",
-                "Other (please specify)"
-            ],
+            "help_text": "We employ a multi-faceted approach to identify and mitigate biases. This includes conducting thorough data audits to detect representational imbalances, using bias detection tools to analyze model outputs across different demographic groups, and implementing debiasing techniques during model training and post-processing. We also perform regular bias assessments in simulated and real-world scenarios.",
+            "ideal_answer": "We have established a comprehensive bias identification and mitigation framework. This involves conducting regular audits of our training data to identify under- or over-representation of specific demographic groups. We utilize statistical fairness metrics and bias detection tools (e.g., demographic parity, equalized odds, Disparate Impact analysis) to evaluate model performance across these groups. For mitigation, we employ techniques such as re-sampling, re-weighting, adversarial debiasing, and post-processing adjustments to equalize outcomes. We also maintain a bias register to track identified biases and their resolution.",
+            "good_answer": "We actively work to identify and reduce bias. This includes analyzing our training data for representation issues and using fairness metrics to check if the AI's predictions are significantly different for various user groups. We apply methods like data augmentation or model adjustments to correct for identified biases. We also monitor the system's performance post-deployment to catch any emerging biases.",
+            "basic_answer": "We try to ensure our data is diverse and we check if the system performs differently for different groups of people. If we find a problem, we try to fix it.",
+            "non_ideal_answer": "We don't have specific measures in place, or we assume the data is unbiased.",
             "order": 1
+        },
+        {
+            "domain_id": domains[0].id,
+            "code": "FA-2",
+            "text": "How do you ensure the training data represents all relevant demographics or groups?",
+            "help_text": "AI systems learn from the data they are trained on. If the data lacks representation from certain demographics, the system might perform poorly or unfairly for those groups. This question assesses your practices for ensuring training data is diverse and representative of the populations the AI will interact with. For example, if a facial recognition system is trained primarily on images of light-skinned individuals, it might not accurately recognize darker-skinned individuals. To address this, you might source data from multiple demographic groups and evaluate its representativeness.",
+            "ideal_answer": "Conduct demographic analysis and source additional data to address gaps in representation.",
+            "good_answer": "Use synthetic data to improve representation where demographic gaps exist.",
+            "basic_answer": "Use third-party data sources but perform minimal validation for demographic representation.",
+            "non_ideal_answer": "No specific actions are taken to ensure demographic representation.",
+            "order": 2
         },
         {
             "domain_id": domains[0].id,
