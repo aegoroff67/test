@@ -427,7 +427,17 @@ function AssessmentPage() {
                       {currentQuestion.text}
                     </CardTitle>
                   </div>
-                  {/* Help button removed - no help_text available */}
+                  {currentQuestion.explanation && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-gray-400 hover:text-gray-600"
+                      title="Help"
+                      data-testid="question-help-btn"
+                    >
+                      <HelpCircle className="h-4 w-4" />
+                    </Button>
+                  )}
                 </div>
                 
                 {/* Context section removed - no help_text available */}
