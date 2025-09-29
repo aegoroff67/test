@@ -445,9 +445,15 @@ async def save_answer(assessment_id: str, answer_data: AnswerSubmit, current_use
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
     
-    # Calculate numeric score using predefined answers
-    predefined_answers = question.get("predefined_answers", [])
-    numeric_score = calculate_answer_score(answer_data.option, predefined_answers)
+    # Validate "Other" option has text
+    if answer_data.option == AnswerOption.OTHER and (not answer_data.other_text or not answer_data.other_text.strip()):
+        raise HTTPException(status_code=400, detail="Other text is required when selecting 'Other' option")
+    
+    # Calculate numeric score
+    numeric_score = SCORING_MAP[answer_data.option]
+    
+    # Determine if needs review (Other responses)
+    needs_review = answer_data.option == AnswerOption.OTHER
     
     # Upsert answer
     answer = Answer(
@@ -455,7 +461,9 @@ async def save_answer(assessment_id: str, answer_data: AnswerSubmit, current_use
         question_id=answer_data.question_id,
         option=answer_data.option,
         numeric_score=numeric_score,
-        note=answer_data.note
+        other_text=answer_data.other_text,
+        note=answer_data.note,
+        needs_review=needs_review
     )
     
     await db.answers.replace_one(
@@ -471,7 +479,7 @@ async def save_answer(assessment_id: str, answer_data: AnswerSubmit, current_use
         {"$set": {"progress": total_answers}}
     )
     
-    return {"saved": True, "score": numeric_score}
+    return {"saved": True, "score": numeric_score, "needs_review": needs_review}
 
 @api_router.post("/assessments/{assessment_id}/submit")
 async def submit_assessment(assessment_id: str, current_user: User = Depends(get_current_user)):
