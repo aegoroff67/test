@@ -91,7 +91,10 @@ class Question(BaseModel):
     code: str
     text: str
     help_text: Optional[str] = None
-    predefined_answers: List[str] = []
+    ideal_answer: Optional[str] = None
+    good_answer: Optional[str] = None
+    basic_answer: Optional[str] = None
+    non_ideal_answer: Optional[str] = None
     order: int
 
 class Assessment(BaseModel):
