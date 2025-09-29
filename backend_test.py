@@ -852,40 +852,189 @@ class AMSafeAPITester:
         
         return all_predefined_correct and actual_explanation.startswith(expected_explanation_start)
 
+    def test_newly_added_domains_6_11(self):
+        """Test sample questions from newly added domains 6-11 (Reliability, Security, Privacy, Safety, Inclusivity, Sustainability)"""
+        # Test GET /api/questions endpoint
+        success, questions = self.make_request('GET', 'questions')
+        if not success:
+            self.log_test("GET /api/questions for domains 6-11 verification", False, str(questions))
+            return False
+        
+        self.log_test("GET /api/questions endpoint accessible for domains 6-11", True)
+        
+        # Define the newly added domain questions to test
+        new_domain_questions = {
+            'RE-1': 'Reliability',
+            'SE-1': 'Security', 
+            'PR-1': 'Privacy',
+            'SA-1': 'Safety',
+            'IN-1': 'Inclusivity',
+            'SU-1': 'Sustainability'
+        }
+        
+        found_questions = {}
+        
+        # Find each question from the new domains
+        for question in questions:
+            question_code = question.get('code')
+            if question_code in new_domain_questions:
+                found_questions[question_code] = question
+        
+        # Verify all new domain questions are found
+        for code, domain_name in new_domain_questions.items():
+            if code in found_questions:
+                self.log_test(f"{code} ({domain_name}) question found", True)
+                
+                question = found_questions[code]
+                
+                # Check explanation field
+                explanation = question.get('explanation', '')
+                if explanation and explanation.strip():
+                    self.log_test(f"{code} has explanation content", True)
+                else:
+                    self.log_test(f"{code} has explanation content", False, "Missing or empty explanation")
+                
+                # Check pre-defined answers
+                predefined_fields = ['ideal_answer', 'good_answer', 'basic_answer', 'non_ideal_answer']
+                all_answers_present = True
+                for field in predefined_fields:
+                    answer_text = question.get(field, '')
+                    if not answer_text or not answer_text.strip():
+                        all_answers_present = False
+                        break
+                
+                if all_answers_present:
+                    self.log_test(f"{code} has all pre-defined answers", True)
+                else:
+                    self.log_test(f"{code} has all pre-defined answers", False, "Missing or empty pre-defined answers")
+                    
+            else:
+                self.log_test(f"{code} ({domain_name}) question found", False, f"{code} question not found in dataset")
+        
+        return len(found_questions) == len(new_domain_questions)
+
+    def test_88_questions_in_assessment_context(self):
+        """Test that assessment questions endpoint returns all 88 questions from 11 domains"""
+        if not self.assessment_id:
+            self.log_test("Assessment 88 questions test", False, "No assessment ID")
+            return False
+            
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success:
+            self.log_test("GET /api/assessments/{id}/questions for 88 questions", False, str(response))
+            return False
+            
+        self.log_test("GET /api/assessments/{id}/questions endpoint accessible", True)
+        
+        # Count total questions across all domains
+        total_questions = 0
+        domain_count = len(response)
+        
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            total_questions += len(questions)
+        
+        # Verify 11 domains
+        if domain_count == 11:
+            self.log_test("Assessment returns 11 domains", True)
+        else:
+            self.log_test("Assessment returns 11 domains", False, f"Found {domain_count} domains")
+        
+        # Verify 88 total questions
+        if total_questions == 88:
+            self.log_test("Assessment returns 88 total questions", True)
+        else:
+            self.log_test("Assessment returns 88 total questions", False, f"Found {total_questions} questions")
+        
+        # Verify each domain has 8 questions
+        all_domains_have_8_questions = True
+        for domain_data in response:
+            domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+            question_count = len(domain_data.get('questions', []))
+            if question_count != 8:
+                self.log_test(f"Domain '{domain_name}' has 8 questions", False, f"Found {question_count} questions")
+                all_domains_have_8_questions = False
+            else:
+                self.log_test(f"Domain '{domain_name}' has 8 questions", True)
+        
+        return domain_count == 11 and total_questions == 88 and all_domains_have_8_questions
+
+    def test_status_endpoint_88_questions(self):
+        """Test that status endpoint correctly reports 88 questions"""
+        if not self.assessment_id:
+            self.log_test("Status endpoint 88 questions test", False, "No assessment ID")
+            return False
+            
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/status')
+        if not success:
+            self.log_test("GET /api/assessments/{id}/status for 88 questions", False, str(response))
+            return False
+            
+        self.log_test("Status endpoint accessible", True)
+        
+        # Verify total_questions field shows 88
+        total_questions = response.get('total_questions', 0)
+        if total_questions == 88:
+            self.log_test("Status endpoint reports 88 total questions", True)
+        else:
+            self.log_test("Status endpoint reports 88 total questions", False, f"Reports {total_questions} questions")
+        
+        # Verify status_overview structure
+        status_overview = response.get('status_overview', [])
+        if len(status_overview) == 11:
+            self.log_test("Status overview shows 11 domains", True)
+        else:
+            self.log_test("Status overview shows 11 domains", False, f"Shows {len(status_overview)} domains")
+        
+        # Count questions in status overview
+        total_questions_in_overview = 0
+        for domain in status_overview:
+            total_questions_in_overview += len(domain.get('questions', []))
+        
+        if total_questions_in_overview == 88:
+            self.log_test("Status overview contains 88 questions", True)
+        else:
+            self.log_test("Status overview contains 88 questions", False, f"Contains {total_questions_in_overview} questions")
+        
+        return total_questions == 88 and len(status_overview) == 11 and total_questions_in_overview == 88
+
     def run_all_tests(self):
-        """Run comprehensive test suite including FA-1 verification and system validation"""
-        print("🚀 Starting Comprehensive Backend Tests with FA-1 Verification")
-        print("=" * 60)
+        """Run comprehensive test suite for 88-question dataset integration verification"""
+        print("🚀 Starting Comprehensive Backend Tests for 88-Question Dataset Integration")
+        print("=" * 80)
         
         # Authentication tests
         if not self.test_user_signup_and_login():
             print("❌ Authentication failed, stopping tests")
             return False
             
-        # Test domains and questions structure
+        # Test domains and questions structure (should show 88 questions, 11 domains)
         self.test_domains_and_questions_structure()
         
-        # Test FA-1 question specifically
-        self.test_fa1_question_specific_verification()
+        # Test newly added domains 6-11 specifically
+        self.test_newly_added_domains_6_11()
         
         # Assessment tests
         if not self.test_assessment_creation():
             print("❌ Assessment creation failed, stopping tests")
             return False
             
-        # Test FA-1 in assessment questions context
-        self.test_fa1_in_assessment_questions()
+        # Test assessment questions with 88 questions
+        self.test_88_questions_in_assessment_context()
+        
+        # Test status endpoint with 88 questions
+        self.test_status_endpoint_88_questions()
         
         # Test answer system
         self.test_answer_system()
         
         # Print results
-        print("\n" + "=" * 60)
+        print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
         print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All tests passed! FA-1 question has correct explanation and pre-defined answers, and system is working correctly.")
+            print("🎉 All tests passed! 88-question dataset with domains 6-11 successfully integrated.")
             return True
         else:
             print("⚠️  Some tests failed. Check details above.")
