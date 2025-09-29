@@ -312,7 +312,7 @@ class AMSafeAPITester:
                 "note": f"Test note for {option}"
             }
             
-            success, response = self.make_request('PATCH', f'assessments/{self.assessment_id}/answer', answer_data)
+            success, response = self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
             if success:
                 if response.get('score') == expected_score:
                     self.log_test(f"Answer option {option} (score {expected_score})", True)
