@@ -105,19 +105,7 @@
 ## user_problem_statement: Fix incomplete question explanations and pre-defined answer content in AM AI SAFE application
 
 ## backend:
-  - task: "Update complete_questions.py with correct explanations from spreadsheet"
-    implemented: false
-    working: false
-    file: "/app/backend/complete_questions.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: true
-    status_history:
-        - working: false
-        - agent: "main"
-        - comment: "Current file has incomplete data - only first 2 questions have complete explanations, others are missing or incomplete"
-  
-  - task: "Update server.py seeding logic to use complete question data"
+  - task: "Remove incorrect generated explanations and pre-defined answers from server.py"
     implemented: false
     working: false
     file: "/app/backend/server.py"
@@ -127,7 +115,7 @@
     status_history:
         - working: false
         - agent: "main"
-        - comment: "Current seeding logic mixes complete and incomplete question data, needs to be updated to use complete dataset"
+        - comment: "Original spreadsheet has NO explanations or predefined answer text - all empty. Current server.py has generated content that user reported as incorrect. Need to clean up seeding to provide only question text without placeholder explanations."
 
 ## frontend:
   - task: "Verify question display shows complete explanations"
