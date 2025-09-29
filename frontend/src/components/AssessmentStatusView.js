@@ -75,83 +75,73 @@ function AssessmentStatusView({ assessmentId, onClose }) {
           </div>
         </CardHeader>
         
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <CardContent className="flex-1 overflow-hidden">
+          {/* Compact grid layout - all domains in one view without scrolling */}
+          <div className="grid grid-cols-11 gap-2 h-full">
             {statusData.status_overview.map((domain) => {
               const domainAnswered = domain.questions.filter(q => q.answered).length;
               const domainTotal = domain.questions.length;
-              const domainPercentage = (domainAnswered / domainTotal) * 100;
               
               return (
-                <Card key={domain.domain_name} className="border-2">
-                  <CardHeader className="pb-3">
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="text-base font-semibold text-gray-900">
-                        {domain.domain_name}
-                      </CardTitle>
-                      <Badge 
-                        variant={domainAnswered === domainTotal ? "default" : "secondary"}
-                        className={domainAnswered === domainTotal ? "bg-green-100 text-green-800" : ""}
-                      >
-                        {domainAnswered}/{domainTotal}
-                      </Badge>
+                <div key={domain.domain_name} className="flex flex-col">
+                  {/* Domain Header */}
+                  <div className="mb-2 text-center">
+                    <div className="text-xs font-semibold text-gray-900 mb-1 truncate" title={domain.domain_name}>
+                      {domain.domain_name}
                     </div>
-                    
-                    {/* Domain Progress Bar */}
-                    <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                      <div 
-                        className={`h-2 rounded-full progress-bar ${
-                          domainAnswered === domainTotal ? 'bg-green-600' : 'bg-teal-600'
-                        }`}
-                        style={{ width: `${domainPercentage}%` }}
-                      ></div>
-                    </div>
-                  </CardHeader>
+                    <Badge 
+                      variant={domainAnswered === domainTotal ? "default" : "secondary"}
+                      className={`text-xs ${domainAnswered === domainTotal ? "bg-green-100 text-green-800" : ""}`}
+                    >
+                      {domainAnswered}/{domainTotal}
+                    </Badge>
+                  </div>
                   
-                  <CardContent className="pt-0">
-                    <div className="grid grid-cols-4 gap-2">
-                      {domain.questions.map((question) => (
-                        <div
-                          key={question.question_id}
-                          className={`p-2 rounded-lg border text-center text-xs font-medium transition-all ${
-                            question.answered
-                              ? 'bg-green-50 border-green-200 text-green-700'
-                              : 'bg-gray-50 border-gray-200 text-gray-500'
-                          }`}
-                          title={`${question.question_code} - ${question.answered ? 'Answered' : 'Not answered'}`}
-                          data-testid={`status-${question.question_code}`}
-                        >
-                          <div className="flex items-center justify-center space-x-1">
-                            {question.answered ? (
-                              <CheckCircle2 className="h-3 w-3" />
-                            ) : (
-                              <Circle className="h-3 w-3" />
-                            )}
-                            <span>{question.question_code}</span>
-                          </div>
+                  {/* Questions Grid */}
+                  <div className="flex-1 space-y-1">
+                    {domain.questions.map((question) => (
+                      <div
+                        key={question.question_id}
+                        className={`p-2 rounded text-center text-xs font-medium border transition-all ${
+                          question.answered
+                            ? 'bg-green-100 border-green-300 text-green-800'
+                            : 'bg-gray-50 border-gray-200 text-gray-500'
+                        }`}
+                        title={`${question.question_code} - ${question.answered ? 'Answered ✓' : 'Not answered'}`}
+                        data-testid={`status-${question.question_code}`}
+                      >
+                        <div className="flex items-center justify-center space-x-1">
+                          {question.answered ? (
+                            <CheckCircle2 className="h-3 w-3 text-green-600" />
+                          ) : (
+                            <Circle className="h-3 w-3 text-gray-400" />
+                          )}
                         </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                        <div className="mt-1 text-xs font-semibold">
+                          {question.question_code}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               );
             })}
           </div>
           
-          {/* Summary */}
-          <div className="mt-6 p-4 bg-teal-50 rounded-lg border border-teal-200">
+          {/* Summary at bottom */}
+          <div className="mt-4 p-3 bg-teal-50 rounded-lg border border-teal-200">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-medium text-teal-900">Overall Progress</h3>
                 <p className="text-sm text-teal-700">
-                  Complete {statusData.total_questions - statusData.answered_questions} more questions to finish your assessment
+                  {statusData.answered_questions} of {statusData.total_questions} questions completed
                 </p>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-teal-900">
+                <div className="text-xl font-bold text-teal-900">
                   {statusData.completion_percentage}%
                 </div>
-                <div className="text-sm text-teal-700">Complete</div>
+                <div className="text-xs text-teal-700">Complete</div>
               </div>
             </div>
           </div>
