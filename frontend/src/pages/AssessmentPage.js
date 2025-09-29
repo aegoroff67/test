@@ -124,7 +124,7 @@ function AssessmentPage() {
         payload.other_text = otherTextValue;
       }
       
-      const response = await axios.patch(`${API}/assessments/${id}/answer`, payload);
+      const response = await axios.post(`${API}/assessments/${id}/answer`, payload);
       
       // Update local state
       setAnswers(prev => ({
