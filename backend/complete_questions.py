@@ -891,5 +891,94 @@ COMPLETE_QUESTIONS_DATA = [
         "non_ideal_answer": "No evaluation of potential user group exclusion is conducted.",
         "domain_order": 10,
         "order": 8
+    },
+    # Sustainability Domain (SU-1 to SU-8) - Domain order 11
+    {
+        "code": "SU-1",
+        "text": "What is the environmental impact of training and deploying your AI system (e.g., energy usage, carbon footprint)?",
+        "explanation": "AI systems, particularly large models, can have significant environmental impacts through energy consumption during training and inference. This question examines your awareness and measurement of these impacts.\n\nFor example, training large language models can consume the equivalent energy of hundreds of homes for weeks. Understanding your system's environmental footprint is the first step toward responsible AI development and helps inform decisions about model complexity and deployment strategies.",
+        "ideal_answer": "Measure and track the carbon footprint and energy consumption of AI training and deployment with detailed environmental impact assessments.",
+        "good_answer": "Monitor basic energy usage and estimate environmental impact of AI operations.",
+        "basic_answer": "Have general awareness of environmental impact but no detailed measurement.",
+        "non_ideal_answer": "No consideration or measurement of environmental impact.",
+        "domain_order": 11,
+        "order": 1
+    },
+    {
+        "code": "SU-2",
+        "text": "Have you explored opportunities to optimize algorithms for greater computational efficiency?",
+        "explanation": "Algorithm optimization can significantly reduce the computational resources required for AI systems, lowering both costs and environmental impact. This question examines your efforts to improve efficiency.\n\nFor instance, techniques like model pruning, quantization, or knowledge distillation can reduce model size and computational requirements while maintaining performance. Efficient algorithms demonstrate responsible resource use and can make AI systems more accessible and sustainable.",
+        "ideal_answer": "Systematically apply optimization techniques like pruning, quantization, and efficient architectures to minimize computational requirements.",
+        "good_answer": "Use some optimization techniques to improve computational efficiency of AI models.",
+        "basic_answer": "Consider efficiency during development but without systematic optimization efforts.",
+        "non_ideal_answer": "No efforts to optimize algorithms for computational efficiency.",
+        "domain_order": 11,
+        "order": 2
+    },
+    {
+        "code": "SU-3",
+        "text": "Are you using cloud services or infrastructure that prioritizes renewable energy sources?",
+        "explanation": "The choice of computing infrastructure can significantly impact the environmental footprint of AI systems. This question examines whether you consider renewable energy in your infrastructure decisions.\n\nFor example, some cloud providers offer carbon-neutral or renewable energy-powered data centers. Choosing such providers for AI training and deployment can substantially reduce your system's environmental impact while potentially improving your organization's sustainability profile.",
+        "ideal_answer": "Prioritize cloud providers and infrastructure powered by renewable energy and actively seek carbon-neutral computing options.",
+        "good_answer": "Consider renewable energy as a factor in infrastructure decisions and use some green computing options.",
+        "basic_answer": "Occasionally consider environmental factors in infrastructure choices.",
+        "non_ideal_answer": "No consideration of renewable energy or environmental factors in infrastructure decisions.",
+        "domain_order": 11,
+        "order": 3
+    },
+    {
+        "code": "SU-4",
+        "text": "What is the estimated carbon footprint of training and deploying your AI system?",
+        "explanation": "Quantifying the carbon footprint provides concrete data about your AI system's environmental impact and enables informed decisions about sustainability trade-offs. This question examines your carbon footprint measurement capabilities.\n\nFor instance, AI training might produce several tons of CO2 equivalent, while inference might have ongoing but smaller per-query impacts. Accurate measurement enables you to set reduction targets, choose appropriate mitigation strategies, and communicate environmental responsibility to stakeholders.",
+        "ideal_answer": "Calculate detailed carbon footprint estimates for both training and deployment phases with regular monitoring and reporting.",
+        "good_answer": "Estimate carbon footprint for major system components with basic calculation methods.",
+        "basic_answer": "Have rough estimates of environmental impact but no detailed carbon footprint analysis.",
+        "non_ideal_answer": "No estimation of carbon footprint is conducted.",
+        "domain_order": 11,
+        "order": 4
+    },
+    {
+        "code": "SU-5",
+        "text": "Have you optimized your algorithms to reduce computational resource requirements?",
+        "explanation": "Algorithmic optimization directly reduces resource consumption, making AI systems more sustainable and cost-effective. This question examines your specific optimization efforts beyond basic efficiency considerations.\n\nFor example, using more efficient neural network architectures, implementing model compression techniques, or optimizing data processing pipelines can significantly reduce computational requirements. These optimizations demonstrate commitment to sustainable AI development.",
+        "ideal_answer": "Implement comprehensive optimization strategies including efficient architectures, compression techniques, and resource-aware design principles.",
+        "good_answer": "Apply optimization techniques to reduce resource requirements for key system components.",
+        "basic_answer": "Make basic optimizations but without systematic resource reduction focus.",
+        "non_ideal_answer": "No specific optimization efforts to reduce computational resource requirements.",
+        "domain_order": 11,
+        "order": 5
+    },
+    {
+        "code": "SU-6",
+        "text": "Are you using hardware or cloud platforms that prioritize energy efficiency?",
+        "explanation": "Hardware and platform choices significantly impact the energy efficiency of AI systems. This question examines whether you consider energy efficiency in your technology stack decisions.\n\nFor instance, newer generations of GPUs or specialized AI chips often provide better performance per watt, while some cloud platforms offer energy-optimized instances. Choosing efficient hardware demonstrates environmental responsibility and can reduce operational costs.",
+        "ideal_answer": "Systematically choose energy-efficient hardware and cloud platforms with regular evaluation of efficiency improvements.",
+        "good_answer": "Consider energy efficiency as a factor in hardware and platform selection decisions.",
+        "basic_answer": "Occasionally consider energy efficiency but prioritize other factors like performance or cost.",
+        "non_ideal_answer": "No consideration of energy efficiency in hardware or platform choices.",
+        "domain_order": 11,
+        "order": 6
+    },
+    {
+        "code": "SU-7",
+        "text": "How do you balance sustainability goals with performance requirements?",
+        "explanation": "Balancing sustainability and performance requires thoughtful trade-off decisions and optimization strategies. This question examines your approach to managing potentially competing objectives.\n\nFor example, you might choose a slightly less accurate but much more efficient model, or implement tiered service levels where high-performance options are available but energy-efficient defaults are used. Effective balancing demonstrates mature consideration of sustainability in AI development.",
+        "ideal_answer": "Implement systematic frameworks for evaluating sustainability-performance trade-offs with clear criteria and stakeholder input.",
+        "good_answer": "Consider sustainability alongside performance requirements and make informed trade-off decisions.",
+        "basic_answer": "Occasionally consider sustainability but generally prioritize performance requirements.",
+        "non_ideal_answer": "No systematic approach to balancing sustainability and performance goals.",
+        "domain_order": 11,
+        "order": 7
+    },
+    {
+        "code": "SU-8",
+        "text": "Do you track the environmental impact of your AI systems over time?",
+        "explanation": "Ongoing tracking of environmental impact enables continuous improvement and demonstrates accountability for sustainability goals. This question examines your environmental monitoring and reporting practices.\n\nFor instance, monitoring metrics like energy consumption per inference, carbon footprint trends, and resource utilization patterns helps identify improvement opportunities and track progress toward sustainability goals. Regular tracking also enables reporting to stakeholders and compliance with environmental standards.",
+        "ideal_answer": "Implement comprehensive environmental monitoring with regular reporting and continuous improvement initiatives.",
+        "good_answer": "Track key environmental metrics periodically and use data to guide sustainability improvements.",
+        "basic_answer": "Occasionally monitor environmental impact but without systematic tracking or improvement processes.",
+        "non_ideal_answer": "No tracking of environmental impact over time.",
+        "domain_order": 11,
+        "order": 8
     }
 ]# Remaining domains 6-11 for complete_questions.py
