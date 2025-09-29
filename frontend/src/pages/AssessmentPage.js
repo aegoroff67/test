@@ -171,8 +171,9 @@ function AssessmentPage() {
   };
 
   const nextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    const nextIndex = getNextQuestion();
+    if (nextIndex !== null && nextIndex < questions.length) {
+      setCurrentQuestionIndex(nextIndex);
     }
   };
 
