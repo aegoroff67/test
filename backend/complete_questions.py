@@ -6,7 +6,11 @@ COMPLETE_QUESTIONS_DATA = [
     {
         "code": "FA-1",
         "text": "What measures have you implemented to identify and mitigate biases in your AI system?",
-        "explanation": "We employ a multi-faceted approach to identify and mitigate biases. This includes conducting thorough data audits to detect representational imbalances, using bias detection tools to analyze model outputs across different demographic groups, and implementing debiasing techniques during model training and post-processing. We also perform regular bias assessments in simulated and real-world scenarios.",
+        "explanation": "Bias in AI systems can lead to unfair treatment or exclusion of certain groups, undermining the credibility and effectiveness of the system. This question seeks to determine what proactive steps you've taken to identify and reduce biases. Measures might include bias detection tools, manual data reviews, or conducting fairness audits throughout the development lifecycle. For example, if an AI system is used for hiring, it could favor certain demographics based on historical biases in the training data. Mitigation strategies could involve rebalancing datasets, removing biased features, or incorporating fairness constraints into model training.",
+        "ideal_answer": "Regularly audit datasets for imbalances or biases and use tools like Fairlearn to detect and mitigate issues.",
+        "good_answer": "Implement fairness constraints during model training and review model outcomes for biases before deployment.",
+        "basic_answer": "Conduct ad hoc reviews of the system to check for fairness concerns.",
+        "non_ideal_answer": "No specific measures have been implemented yet.",
         "domain_order": 1,
         "order": 1
     },
