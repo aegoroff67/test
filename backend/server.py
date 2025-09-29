@@ -439,9 +439,9 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
         raise HTTPException(status_code=404, detail="Assessment not found")
     
     # Get domains with questions
-    domains = await db.domains.find().sort("order").to_list(length=None)
-    questions = await db.questions.find().sort([("domain_id", 1), ("order", 1)]).to_list(length=None)
-    answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+    domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
+    questions = await db.questions.find({}, {"_id": 0}).sort([("domain_id", 1), ("order", 1)]).to_list(length=None)
+    answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
     
     # Create answer lookup
     answer_lookup = {answer["question_id"]: answer for answer in answers}
