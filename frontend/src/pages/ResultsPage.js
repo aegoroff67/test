@@ -198,7 +198,7 @@ function ResultsPage() {
                   <MaturityIcon className="h-12 w-12 text-teal-600" />
                 </div>
                 <h1 className="text-4xl font-bold text-gray-900 mb-2" data-testid="overall-score">
-                  {summary.overall_percentage}%
+                  {summary.overall_percentage.toFixed(1)}%
                 </h1>
                 <Badge className={`text-lg px-4 py-2 ${maturityInfo.color}`} data-testid="maturity-level">
                   {summary.overall_maturity} AI MATURITY
