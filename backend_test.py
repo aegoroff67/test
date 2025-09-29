@@ -351,7 +351,7 @@ class AMSafeAPITester:
             # No other_text provided
         }
         
-        success, response = self.make_request('PATCH', f'assessments/{self.assessment_id}/answer', 
+        success, response = self.make_request('POST', f'assessments/{self.assessment_id}/answer', 
                                             invalid_other_data, expected_status=400)
         if success:
             self.log_test("OTHER option validation (requires text)", True)
