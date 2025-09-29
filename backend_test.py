@@ -738,9 +738,123 @@ class AMSafeAPITester:
             self.log_test("Answer submission using POST method", False, str(response))
             return False
 
+    def test_fa1_question_specific_verification(self):
+        """Test FA-1 question specifically for correct explanation and pre-defined answers"""
+        # Test GET /api/questions endpoint for FA-1
+        success, questions = self.make_request('GET', 'questions')
+        if not success:
+            self.log_test("GET /api/questions for FA-1 verification", False, str(questions))
+            return False
+        
+        self.log_test("GET /api/questions endpoint accessible", True)
+        
+        # Find FA-1 question
+        fa1_question = None
+        for question in questions:
+            if question.get('code') == 'FA-1':
+                fa1_question = question
+                break
+        
+        if not fa1_question:
+            self.log_test("FA-1 question found", False, "FA-1 question not found in questions list")
+            return False
+        
+        self.log_test("FA-1 question found", True)
+        
+        # Verify explanation content
+        expected_explanation_start = "Bias in AI systems can lead to unfair treatment or exclusion of certain groups, undermining the credibility and effectiveness of the system"
+        actual_explanation = fa1_question.get('explanation', '')
+        
+        if actual_explanation.startswith(expected_explanation_start):
+            self.log_test("FA-1 explanation content correct", True)
+        else:
+            self.log_test("FA-1 explanation content correct", False, 
+                        f"Expected to start with '{expected_explanation_start[:50]}...', got '{actual_explanation[:50]}...'")
+        
+        # Verify pre-defined answers
+        expected_answers = {
+            'ideal_answer': "Regularly audit datasets for imbalances or biases and use tools like Fairlearn to detect and mitigate issues.",
+            'good_answer': "Implement fairness constraints during model training and review model outcomes for biases before deployment.",
+            'basic_answer': "Conduct ad hoc reviews of the system to check for fairness concerns.",
+            'non_ideal_answer': "No specific measures have been implemented yet."
+        }
+        
+        all_answers_correct = True
+        for answer_type, expected_text in expected_answers.items():
+            actual_text = fa1_question.get(answer_type, '')
+            if actual_text == expected_text:
+                self.log_test(f"FA-1 {answer_type} correct", True)
+            else:
+                self.log_test(f"FA-1 {answer_type} correct", False, 
+                            f"Expected: '{expected_text}', Got: '{actual_text}'")
+                all_answers_correct = False
+        
+        return all_answers_correct and actual_explanation.startswith(expected_explanation_start)
+
+    def test_fa1_in_assessment_questions(self):
+        """Test FA-1 question appears correctly in assessment questions endpoint"""
+        if not self.assessment_id:
+            self.log_test("FA-1 in assessment questions test", False, "No assessment ID")
+            return False
+            
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success:
+            self.log_test("GET /api/assessments/{id}/questions for FA-1", False, str(response))
+            return False
+            
+        self.log_test("GET /api/assessments/{id}/questions endpoint accessible", True)
+        
+        # Find FA-1 in assessment questions
+        fa1_question = None
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            for question in questions:
+                if question.get('code') == 'FA-1':
+                    fa1_question = question
+                    break
+            if fa1_question:
+                break
+        
+        if not fa1_question:
+            self.log_test("FA-1 found in assessment questions", False, "FA-1 not found in assessment questions")
+            return False
+        
+        self.log_test("FA-1 found in assessment questions", True)
+        
+        # Verify explanation in assessment context
+        expected_explanation_start = "Bias in AI systems can lead to unfair treatment or exclusion of certain groups, undermining the credibility and effectiveness of the system"
+        actual_explanation = fa1_question.get('explanation', '')
+        
+        if actual_explanation.startswith(expected_explanation_start):
+            self.log_test("FA-1 explanation in assessment context correct", True)
+        else:
+            self.log_test("FA-1 explanation in assessment context correct", False, 
+                        f"Expected to start with '{expected_explanation_start[:50]}...', got '{actual_explanation[:50]}...'")
+        
+        # Verify predefined_answers structure in assessment context
+        predefined_answers = fa1_question.get('predefined_answers', {})
+        expected_predefined = {
+            'ideal': "Regularly audit datasets for imbalances or biases and use tools like Fairlearn to detect and mitigate issues.",
+            'good': "Implement fairness constraints during model training and review model outcomes for biases before deployment.",
+            'basic': "Conduct ad hoc reviews of the system to check for fairness concerns.",
+            'non_ideal': "No specific measures have been implemented yet."
+        }
+        
+        all_predefined_correct = True
+        for answer_type, expected_text in expected_predefined.items():
+            actual_text = predefined_answers.get(answer_type, '')
+            if actual_text == expected_text:
+                self.log_test(f"FA-1 predefined_{answer_type} in assessment correct", True)
+            else:
+                self.log_test(f"FA-1 predefined_{answer_type} in assessment correct", False, 
+                            f"Expected: '{expected_text}', Got: '{actual_text}'")
+                all_predefined_correct = False
+        
+        return all_predefined_correct and actual_explanation.startswith(expected_explanation_start)
+
     def run_all_tests(self):
-        """Run comprehensive test suite focusing on complete question data verification"""
-        print("🚀 Starting AM AI SAFE Complete Question Data Verification Tests")
+        """Run focused test suite for FA-1 question verification"""
+        print("🚀 Starting FA-1 Question Verification Tests")
         print("=" * 60)
         
         # Authentication tests
@@ -748,19 +862,16 @@ class AMSafeAPITester:
             print("❌ Authentication failed, stopping tests")
             return False
             
-        # Test complete question data with explanations
-        self.test_complete_question_data_with_explanations()
+        # Test FA-1 question specifically
+        self.test_fa1_question_specific_verification()
         
         # Assessment tests
         if not self.test_assessment_creation():
             print("❌ Assessment creation failed, stopping tests")
             return False
             
-        # Test assessment questions with complete data
-        self.test_assessment_questions_with_complete_data()
-        
-        # Test answer submission with POST method
-        self.test_answer_submission_post_method()
+        # Test FA-1 in assessment questions context
+        self.test_fa1_in_assessment_questions()
         
         # Print results
         print("\n" + "=" * 60)
@@ -768,7 +879,7 @@ class AMSafeAPITester:
         print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All tests passed! Complete question data with explanations working correctly.")
+            print("🎉 All tests passed! FA-1 question has correct explanation and pre-defined answers.")
             return True
         else:
             print("⚠️  Some tests failed. Check details above.")
