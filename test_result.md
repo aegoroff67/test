@@ -158,4 +158,4 @@
 
 ## agent_communication:
     - agent: "main"
-    - message: "Starting data correction process - extracted data from uploaded spreadsheet shows explanations are available but current backend implementation is incomplete. Need to systematically update complete_questions.py with all 88 questions and their full explanations."
+    - message: "IMPORTANT DISCOVERY: Original spreadsheet contains NO explanations - all explanation fields are empty. Current server.py has GENERATED explanations/help_text and predefined answers that user reported as incorrect. The complete_questions.py file is unused. Need to update server.py seeding to remove incorrect generated content and provide clean question structure without placeholder explanations."
