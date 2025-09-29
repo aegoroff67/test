@@ -514,7 +514,7 @@ function AssessmentPage() {
                       <div className="flex-1">
                         <div className="font-medium text-gray-900 mb-1">Good (2 points)</div>
                         <div className="text-sm text-gray-600 leading-relaxed">
-                          Solid implementation with room for improvement
+                          {currentQuestion?.predefined_answers?.good || 'Solid implementation with room for improvement'}
                         </div>
                       </div>
                     </div>
