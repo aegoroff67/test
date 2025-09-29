@@ -624,5 +624,94 @@ COMPLETE_QUESTIONS_DATA = [
         "non_ideal_answer": "No regular vulnerability assessments or penetration tests are performed.",
         "domain_order": 7,
         "order": 8
+    },
+    # Privacy Domain (PR-1 to PR-8) - Domain order 8
+    {
+        "code": "PR-1",
+        "text": "How do you ensure compliance with data privacy laws, such as GDPR or the Australian Privacy Act?",
+        "explanation": "Data privacy laws impose specific requirements on how personal data is collected, processed, and stored. This question examines your compliance practices with relevant privacy regulations.\n\nFor example, GDPR requires explicit consent for data processing, the right to data deletion, and privacy by design principles. Compliance might involve implementing consent management systems, data subject access request procedures, and privacy impact assessments. Proper compliance protects both users and your organization from legal risks.",
+        "ideal_answer": "Implement comprehensive privacy compliance programs including privacy by design, consent management, and data subject rights fulfillment.",
+        "good_answer": "Follow key privacy law requirements with documented procedures and regular compliance reviews.",
+        "basic_answer": "Address privacy compliance reactively based on legal guidance when needed.",
+        "non_ideal_answer": "No specific measures are in place to ensure privacy law compliance.",
+        "domain_order": 8,
+        "order": 1
+    },
+    {
+        "code": "PR-2",
+        "text": "What techniques (e.g., anonymization, pseudonymization) do you use to protect personal data in your AI workflows?",
+        "explanation": "Privacy-preserving techniques help protect personal data while enabling AI functionality. This question evaluates your use of methods like anonymization, pseudonymization, or differential privacy.\n\nFor instance, a healthcare AI system might use anonymization to remove direct identifiers from patient records or pseudonymization to replace names with codes. Advanced techniques like differential privacy add mathematical guarantees about privacy protection. These methods enable AI development while minimizing privacy risks.",
+        "ideal_answer": "Use advanced privacy-preserving techniques like differential privacy, secure multi-party computation, or federated learning.",
+        "good_answer": "Apply anonymization and pseudonymization techniques to protect personal data in AI workflows.",
+        "basic_answer": "Use basic data masking or removal of obvious identifiers.",
+        "non_ideal_answer": "No specific techniques are used to protect personal data in AI workflows.",
+        "domain_order": 8,
+        "order": 2
+    },
+    {
+        "code": "PR-3",
+        "text": "How do you manage user consent for data collection and processing?",
+        "explanation": "User consent is a fundamental principle of privacy protection, requiring clear communication about data use and genuine choice for users. This question examines your consent management practices.\n\nFor example, a mobile app using AI for personalization might present clear consent options explaining what data is collected, how it's used for AI training, and allowing users to opt out. Effective consent management includes granular controls, easy withdrawal mechanisms, and regular consent renewal processes.",
+        "ideal_answer": "Implement granular consent management with clear explanations, easy withdrawal options, and regular consent validation.",
+        "good_answer": "Obtain user consent with clear information about data use and basic withdrawal options.",
+        "basic_answer": "Use general terms of service or basic consent notices without granular controls.",
+        "non_ideal_answer": "No specific consent management processes are in place.",
+        "domain_order": 8,
+        "order": 3
+    },
+    {
+        "code": "PR-4",
+        "text": "How do you ensure that personal data is not used beyond its original purpose?",
+        "explanation": "Purpose limitation is a key privacy principle requiring that personal data is only used for the specific purposes disclosed during collection. This question examines your controls to prevent purpose creep in AI systems.\n\nFor instance, data collected for fraud detection should not be repurposed for marketing without additional consent. Controls might include data governance policies, access restrictions based on purpose, and regular audits to ensure compliance with stated purposes. Purpose limitation builds user trust and ensures legal compliance.",
+        "ideal_answer": "Implement strict purpose limitation controls with governance policies, access restrictions, and regular audits to prevent unauthorized use.",
+        "good_answer": "Use data governance policies and access controls to limit data use to stated purposes.",
+        "basic_answer": "Rely on informal guidelines or team awareness to limit data use.",
+        "non_ideal_answer": "No specific controls prevent data use beyond its original purpose.",
+        "domain_order": 8,
+        "order": 4
+    },
+    {
+        "code": "PR-5",
+        "text": "What methods do you use to anonymize or pseudonymize personal data?",
+        "explanation": "Anonymization and pseudonymization are important techniques for protecting privacy while enabling data analysis. This question examines your specific methods for de-identifying personal data.\n\nFor example, k-anonymity ensures that records cannot be distinguished from at least k-1 others, while pseudonymization replaces identifiers with reversible codes. The choice of method depends on your use case, risk tolerance, and regulatory requirements. Proper implementation provides privacy protection while maintaining data utility.",
+        "ideal_answer": "Use sophisticated anonymization techniques like k-anonymity, l-diversity, or t-closeness based on risk assessment and regulatory requirements.",
+        "good_answer": "Apply standard anonymization methods like data masking or identifier removal.",
+        "basic_answer": "Use simple techniques like removing obvious identifiers without comprehensive anonymization.",
+        "non_ideal_answer": "No anonymization or pseudonymization methods are used.",
+        "domain_order": 8,
+        "order": 5
+    },
+    {
+        "code": "PR-6",
+        "text": "How do you monitor and prevent privacy violations during system operation?",
+        "explanation": "Ongoing monitoring is essential to detect and prevent privacy violations in operational AI systems. This question examines your privacy monitoring and incident response capabilities.\n\nFor instance, automated monitoring might detect unusual data access patterns, unauthorized data transfers, or policy violations. Privacy dashboards could track consent status, data retention periods, and access logs. Proactive monitoring helps prevent privacy incidents and demonstrates due diligence in privacy protection.",
+        "ideal_answer": "Implement automated privacy monitoring with alerts, dashboards, and incident response procedures to detect and prevent violations.",
+        "good_answer": "Use monitoring tools to track data access and basic privacy compliance metrics.",
+        "basic_answer": "Perform periodic manual reviews of privacy practices and data handling.",
+        "non_ideal_answer": "No monitoring is in place to detect or prevent privacy violations.",
+        "domain_order": 8,
+        "order": 6
+    },
+    {
+        "code": "PR-7",
+        "text": "Are privacy risks evaluated during both the development and deployment phases?",
+        "explanation": "Privacy risks can emerge at different stages of AI system development and deployment, requiring ongoing evaluation and mitigation. This question examines whether you conduct privacy risk assessments throughout the system lifecycle.\n\nFor example, development phase assessments might evaluate training data privacy risks, while deployment assessments could examine operational data handling. Privacy Impact Assessments (PIAs) or Data Protection Impact Assessments (DPIAs) provide systematic frameworks for risk evaluation and mitigation.",
+        "ideal_answer": "Conduct comprehensive privacy risk assessments at all lifecycle stages using frameworks like PIAs or DPIAs.",
+        "good_answer": "Perform privacy risk assessments during key phases like development and initial deployment.",
+        "basic_answer": "Evaluate privacy risks informally or only during development.",
+        "non_ideal_answer": "No privacy risk evaluations are conducted during development or deployment.",
+        "domain_order": 8,
+        "order": 7
+    },
+    {
+        "code": "PR-8",
+        "text": "What steps are taken to ensure compliance with cross-border data protection laws?",
+        "explanation": "Cross-border data transfers often involve multiple privacy jurisdictions with different requirements. This question examines your approach to international privacy compliance.\n\nFor instance, transferring personal data from the EU to other countries requires adequate protection levels or specific safeguards like Standard Contractual Clauses. Understanding and complying with various privacy laws (GDPR, CCPA, etc.) ensures legal operation across jurisdictions and builds global user trust.",
+        "ideal_answer": "Implement comprehensive cross-border compliance programs with adequate safeguards, standard contractual clauses, and jurisdiction-specific requirements.",
+        "good_answer": "Use standard contractual clauses and basic safeguards for international data transfers.",
+        "basic_answer": "Address cross-border compliance reactively based on legal guidance.",
+        "non_ideal_answer": "No specific steps are taken to ensure cross-border privacy compliance.",
+        "domain_order": 8,
+        "order": 8
     }
 ]# Remaining domains 6-11 for complete_questions.py
