@@ -617,6 +617,47 @@ async def generate_report(assessment_id: str, current_user: UserResponse = Depen
     
     return {"url": static_pdf_url}
 
+@api_router.post("/assessments/{assessment_id}/submit")
+async def submit_assessment(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
+    # Verify assessment belongs to user's organization
+    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Check if assessment is already completed
+    if assessment.get("status") == AssessmentStatus.COMPLETED:
+        raise HTTPException(status_code=400, detail="Assessment is already submitted")
+    
+    # Get total questions and answered questions count
+    total_questions = await db.questions.count_documents({})
+    answered_questions = await db.answers.count_documents({"assessment_id": assessment_id})
+    
+    # Verify all questions are answered
+    if answered_questions < total_questions:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Cannot submit assessment. {total_questions - answered_questions} questions remain unanswered."
+        )
+    
+    # Mark assessment as completed
+    await db.assessments.update_one(
+        {"id": assessment_id},
+        {
+            "$set": {
+                "status": AssessmentStatus.COMPLETED,
+                "completed_at": datetime.now(timezone.utc),
+                "progress": total_questions
+            }
+        }
+    )
+    
+    return {
+        "status": "success",
+        "message": "Assessment submitted successfully",
+        "assessment_id": assessment_id,
+        "completed_at": datetime.now(timezone.utc).isoformat()
+    }
+
 # Admin endpoints
 @api_router.get("/domains", response_model=List[Domain])
 async def get_domains():
