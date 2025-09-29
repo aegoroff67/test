@@ -103,13 +103,6 @@ class Assessment(BaseModel):
     completed_at: Optional[datetime] = None
     progress: int = 0  # Number of questions answered
 
-class AnswerOption(str, Enum):
-    IDEAL = "IDEAL"
-    GOOD = "GOOD"
-    BASIC = "BASIC"
-    NON_IDEAL = "NON_IDEAL"
-    OTHER = "OTHER"
-
 class Answer(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     assessment_id: str
