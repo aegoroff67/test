@@ -150,6 +150,21 @@
         - agent: "testing"
         - comment: "FIXED AND VERIFIED: Updated backend seeding code to use specific pre-defined answers from question_data with fallback to generic ones. Cleared database and reseeded with correct data. Comprehensive testing completed successfully (28/28 tests passed, 100% success rate). Confirmed: 1) FA-1 explanation starts correctly with 'Bias in AI systems can lead to unfair treatment...', 2) FA-1 ideal_answer: 'Regularly audit datasets for imbalances or biases and use tools like Fairlearn to detect and mitigate issues.', 3) FA-1 good_answer: 'Implement fairness constraints during model training and review model outcomes for biases before deployment.', 4) FA-1 basic_answer: 'Conduct ad hoc reviews of the system to check for fairness concerns.', 5) FA-1 non_ideal_answer: 'No specific measures have been implemented yet.', 6) All answers appear correctly in both GET /api/questions and GET /api/assessments/{id}/questions endpoints, 7) Overall system functionality verified with user authentication, assessment creation, and answer submission working correctly."
 
+  - task: "Add status endpoint for View All button functionality"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Added GET /api/assessments/{assessment_id}/status endpoint to support View All button functionality. Endpoint returns assessment_id, total_questions, answered_questions, completion_percentage, and status_overview with domains and questions structure."
+        - working: true
+        - agent: "testing"
+        - comment: "VERIFIED: Status endpoint testing completed successfully. All 16 tests passed (100% success rate). Confirmed: 1) GET /api/assessments/{id}/status endpoint exists and returns 200, 2) Response contains all required fields: assessment_id, total_questions, answered_questions, completion_percentage, status_overview, 3) Status overview is properly structured array of domains with questions, 4) Each domain contains domain_id, domain_name, and questions array, 5) Each question contains question_id, question_code, question_text, and answered boolean, 6) Endpoint correctly tracks answered questions and completion percentage, 7) All data types are correct. Status endpoint is fully functional for View All button functionality. NOTE: Database currently contains 16 questions (FA-1 to FA-8, TR-1 to TR-8) from complete_questions.py instead of full 88 questions - this is a data completeness issue, not a functionality issue."
+
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
