@@ -54,30 +54,43 @@ class AMSafeAPITester:
         except Exception as e:
             return False, str(e)
 
-    def test_signup(self):
-        """Test user signup"""
+    def test_user_signup_and_login(self):
+        """Test user registration and authentication"""
         timestamp = datetime.now().strftime('%H%M%S')
+        test_email = f"test_user_{timestamp}@example.com"
+        
+        # Test signup
         signup_data = {
             "name": f"Test User {timestamp}",
-            "email": f"test{timestamp}@example.com",
+            "email": test_email,
             "password": "TestPass123!",
             "organization_name": f"Test Org {timestamp}",
             "industry": "Technology"
         }
         
-        response = self.run_test(
-            "User Signup",
-            "POST",
-            "auth/signup",
-            200,
-            data=signup_data
-        )
-        
-        if response and 'access_token' in response:
+        success, response = self.make_request('POST', 'auth/signup', signup_data)
+        if success and 'access_token' in response:
             self.token = response['access_token']
             self.user_data = response['user']
-            return True
-        return False
+            self.log_test("User signup", True)
+            self.log_test("Authentication token received", True)
+        else:
+            self.log_test("User signup", False, str(response))
+            return False
+
+        # Test login with same credentials
+        login_data = {
+            "email": test_email,
+            "password": "TestPass123!"
+        }
+        
+        success, response = self.make_request('POST', 'auth/login', login_data)
+        if success and 'access_token' in response:
+            self.log_test("User login", True)
+        else:
+            self.log_test("User login", False, str(response))
+            
+        return True
 
     def test_login(self):
         """Test user login with existing credentials"""
