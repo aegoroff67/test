@@ -135,6 +135,21 @@
         - agent: "testing"
         - comment: "VERIFIED: Complete question data testing successful. All 13 tests passed (100% success rate). Confirmed: 1) GET /api/questions endpoint returns all 88 questions with explanation field containing actual content, 2) All questions have predefined answer fields populated with standard descriptions, 3) Spot check of FA-1 question confirmed explanation starts with 'We employ a multi-faceted approach to identify and mitigate biases...', 4) GET /api/assessments/{id}/questions endpoint includes explanation and predefined_answers fields, 5) Answer submission works correctly using POST method (not PATCH). Complete question data with explanations is now working correctly."
 
+  - task: "Fix FA-1 question to use specific pre-defined answers instead of generic ones"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+        - agent: "testing"
+        - comment: "ISSUE IDENTIFIED: During FA-1 specific verification testing, discovered that backend was using generic pre-defined answers instead of the specific ones from complete_questions.py. FA-1 explanation was correct, but pre-defined answers were generic ('Comprehensive implementation with best practices...' instead of 'Regularly audit datasets for imbalances or biases...'). Backend seeding code was hardcoding standard answers instead of using question-specific data."
+        - working: true
+        - agent: "testing"
+        - comment: "FIXED AND VERIFIED: Updated backend seeding code to use specific pre-defined answers from question_data with fallback to generic ones. Cleared database and reseeded with correct data. Comprehensive testing completed successfully (28/28 tests passed, 100% success rate). Confirmed: 1) FA-1 explanation starts correctly with 'Bias in AI systems can lead to unfair treatment...', 2) FA-1 ideal_answer: 'Regularly audit datasets for imbalances or biases and use tools like Fairlearn to detect and mitigate issues.', 3) FA-1 good_answer: 'Implement fairness constraints during model training and review model outcomes for biases before deployment.', 4) FA-1 basic_answer: 'Conduct ad hoc reviews of the system to check for fairness concerns.', 5) FA-1 non_ideal_answer: 'No specific measures have been implemented yet.', 6) All answers appear correctly in both GET /api/questions and GET /api/assessments/{id}/questions endpoints, 7) Overall system functionality verified with user authentication, assessment creation, and answer submission working correctly."
+
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
