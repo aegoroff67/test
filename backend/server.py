@@ -653,14 +653,24 @@ async def seed_data():
         domains.append(domain)
         await db.domains.insert_one(domain.dict())
     
-    # Complete question set - all 88 questions from the spreadsheet
+    # Complete question set - all 88 questions from the AMAISAFE_Qs_and_As.xlsx spreadsheet
     questions_data = [
         # Fairness Domain (FA-1 to FA-8)
         {
             "domain_id": domains[0].id,
-            "code": "FA-1",
+            "code": "FA-1", 
             "text": "What measures have you implemented to identify and mitigate biases in your AI system?",
             "help_text": "Bias in AI systems can lead to unfair treatment or exclusion of certain groups, undermining the credibility and effectiveness of the system.",
+            "predefined_answers": [
+                "Bias detection techniques applied to data and model outputs",
+                "Regular audits for fairness metrics across different demographic groups", 
+                "Implementation of bias mitigation algorithms (e.g., re-weighting, adversarial debiasing)",
+                "Cross-functional team review of potential bias scenarios",
+                "User feedback mechanisms specifically for fairness concerns",
+                "Benchmarking against fairness standards and best practices",
+                "No specific measures implemented",
+                "Other (please specify)"
+            ],
             "order": 1
         },
         {
