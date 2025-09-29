@@ -102,13 +102,14 @@ function AssessmentStatusView({ assessmentId, onClose, onQuestionClick }) {
                     {domain.questions.map((question) => (
                       <div
                         key={question.question_id}
-                        className={`p-2 rounded text-center text-xs font-medium border transition-all ${
+                        className={`p-2 rounded text-center text-xs font-medium border transition-all cursor-pointer hover:shadow-md ${
                           question.answered
-                            ? 'bg-green-100 border-green-300 text-green-800'
-                            : 'bg-gray-50 border-gray-200 text-gray-500'
+                            ? 'bg-green-100 border-green-300 text-green-800 hover:bg-green-200'
+                            : 'bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100'
                         }`}
-                        title={`${question.question_code} - ${question.answered ? 'Answered ✓' : 'Not answered'}`}
+                        title={`${question.question_code} - ${question.answered ? 'Answered ✓' : 'Not answered'} - Click to navigate`}
                         data-testid={`status-${question.question_code}`}
+                        onClick={() => onQuestionClick && onQuestionClick(question.question_id)}
                       >
                         <div className="flex items-center justify-center space-x-1">
                           {question.answered ? (
