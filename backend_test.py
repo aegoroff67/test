@@ -853,8 +853,8 @@ class AMSafeAPITester:
         return all_predefined_correct and actual_explanation.startswith(expected_explanation_start)
 
     def run_all_tests(self):
-        """Run focused test suite for FA-1 question verification"""
-        print("🚀 Starting FA-1 Question Verification Tests")
+        """Run comprehensive test suite including FA-1 verification and system validation"""
+        print("🚀 Starting Comprehensive Backend Tests with FA-1 Verification")
         print("=" * 60)
         
         # Authentication tests
@@ -862,6 +862,9 @@ class AMSafeAPITester:
             print("❌ Authentication failed, stopping tests")
             return False
             
+        # Test domains and questions structure
+        self.test_domains_and_questions_structure()
+        
         # Test FA-1 question specifically
         self.test_fa1_question_specific_verification()
         
@@ -873,13 +876,16 @@ class AMSafeAPITester:
         # Test FA-1 in assessment questions context
         self.test_fa1_in_assessment_questions()
         
+        # Test answer system
+        self.test_answer_system()
+        
         # Print results
         print("\n" + "=" * 60)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
         print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All tests passed! FA-1 question has correct explanation and pre-defined answers.")
+            print("🎉 All tests passed! FA-1 question has correct explanation and pre-defined answers, and system is working correctly.")
             return True
         else:
             print("⚠️  Some tests failed. Check details above.")
