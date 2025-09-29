@@ -316,75 +316,12 @@ function AssessmentPage() {
         </div>
       </header>
 
-      {/* Status Overview */}
+      {/* Status Overview - Single screen without scrolling */}
       {showStatusView && (
         <AssessmentStatusView 
           assessmentId={id}
           onClose={() => setShowStatusView(false)}
         />
-      )}
-
-      {/* Question Grid Overlay */}
-      {showQuestionGrid && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <Card className="w-full max-w-4xl max-h-[80vh] overflow-auto">
-            <CardHeader>
-              <div className="flex justify-between items-center">
-                <CardTitle>Assessment Questions</CardTitle>
-                <Button 
-                  variant="ghost" 
-                  onClick={() => setShowQuestionGrid(false)}
-                  data-testid="close-question-grid-btn"
-                >
-                  ×
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {domains.map(domain => {
-                  const domainQuestions = questions.filter(q => q.domain_id === domain.id);
-                  return (
-                    <div key={domain.id}>
-                      <h3 className="font-semibold text-gray-900 mb-3">{domain.name}</h3>
-                      <div className="grid grid-cols-4 gap-2">
-                        {domainQuestions.map((question, index) => {
-                          const questionIndex = questions.findIndex(q => q.id === question.id);
-                          const isAnswered = answers[question.id];
-                          const isCurrent = questionIndex === currentQuestionIndex;
-                          
-                          return (
-                            <button
-                              key={question.id}
-                              onClick={() => goToQuestion(questionIndex)}
-                              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all ${
-                                isCurrent 
-                                  ? 'border-teal-500 bg-teal-50 text-teal-700' 
-                                  : isAnswered 
-                                    ? 'border-green-200 bg-green-50 text-green-700' 
-                                    : 'border-gray-200 bg-white text-gray-600 hover:border-teal-300'
-                              }`}
-                              data-testid={`question-nav-${question.code}`}
-                            >
-                              <div className="flex items-center justify-center space-x-1">
-                                {isAnswered ? (
-                                  <CheckCircle2 className="h-4 w-4" />
-                                ) : (
-                                  <Circle className="h-4 w-4" />
-                                )}
-                                <span>{question.code}</span>
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       )}
 
       {/* Main Content */}
