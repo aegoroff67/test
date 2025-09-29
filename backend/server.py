@@ -330,27 +330,43 @@ async def get_assessment(assessment_id: str, current_user: User = Depends(get_cu
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
-    # Get all questions with domain info
-    questions = await db.questions.find({}, {"_id": 0}).sort("order").to_list(length=None)
+    # Get all questions with domain info, sorted domain by domain
     domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
+    questions = await db.questions.find({}, {"_id": 0}).sort([("domain_id", 1), ("order", 1)]).to_list(length=None)
+    
+    # Group questions by domain for domain-by-domain progression
+    domain_questions = {}
+    for domain in domains:
+        domain_questions[domain["id"]] = []
+    
+    for question in questions:
+        if question["domain_id"] in domain_questions:
+            domain_questions[question["domain_id"]].append(question)
+    
+    # Flatten questions in domain order
+    ordered_questions = []
+    for domain in domains:
+        ordered_questions.extend(domain_questions[domain["id"]])
     
     # Get existing answers
     answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
     answer_map = {answer["question_id"]: answer for answer in answers}
     
-    # Build response
+    # Build response with domain-grouped structure
     domain_map = {domain["id"]: domain for domain in domains}
     
     questions_with_answers = []
-    for question in questions:
+    for question in ordered_questions:
         domain = domain_map.get(question["domain_id"])
         question_data = {
             "id": question["id"],
             "code": question["code"],
             "text": question["text"],
             "help_text": question.get("help_text"),
+            "predefined_answers": question.get("predefined_answers", []),
             "domain_name": domain["name"] if domain else "Unknown",
             "domain_id": question["domain_id"],
+            "domain_order": domain["order"] if domain else 0,
             "order": question["order"],
             "answer": answer_map.get(question["id"])
         }
@@ -365,6 +381,50 @@ async def get_assessment(assessment_id: str, current_user: User = Depends(get_cu
         "questions": questions_with_answers,
         "domains": domains,
         "progress": f"{len(answers)}/{len(questions)}"
+    }
+
+@api_router.get("/assessments/{assessment_id}/status")
+async def get_assessment_status(assessment_id: str, current_user: User = Depends(get_current_user)):
+    """Get simplified status overview for all questions"""
+    assessment = await db.assessments.find_one({"id": assessment_id, "user_id": current_user.id})
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Get domains and questions
+    domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
+    questions = await db.questions.find({}, {"_id": 0}).sort([("domain_id", 1), ("order", 1)]).to_list(length=None)
+    
+    # Get answers
+    answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
+    answered_question_ids = {answer["question_id"] for answer in answers}
+    
+    # Build status overview
+    domain_map = {domain["id"]: domain for domain in domains}
+    status_overview = []
+    
+    for domain in domains:
+        domain_questions = [q for q in questions if q["domain_id"] == domain["id"]]
+        domain_status = {
+            "domain_name": domain["name"],
+            "domain_order": domain["order"],
+            "questions": []
+        }
+        
+        for question in domain_questions:
+            question_status = {
+                "question_id": question["id"],
+                "question_code": question["code"],
+                "answered": question["id"] in answered_question_ids
+            }
+            domain_status["questions"].append(question_status)
+        
+        status_overview.append(domain_status)
+    
+    return {
+        "status_overview": status_overview,
+        "total_questions": len(questions),
+        "answered_questions": len(answers),
+        "completion_percentage": round((len(answers) / len(questions)) * 100, 1) if questions else 0
     }
 
 @api_router.patch("/assessments/{assessment_id}/answer")
