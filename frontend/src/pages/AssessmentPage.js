@@ -547,7 +547,7 @@ function AssessmentPage() {
                       <div className="flex-1">
                         <div className="font-medium text-gray-900 mb-1">Non-Ideal (0 points)</div>
                         <div className="text-sm text-gray-600 leading-relaxed">
-                          {currentQuestion?.non_ideal_answer || 'Little to no implementation or consideration'}
+                          Little to no implementation or consideration
                         </div>
                       </div>
                     </div>
