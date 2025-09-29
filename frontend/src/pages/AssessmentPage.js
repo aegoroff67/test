@@ -23,13 +23,7 @@ import {
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const answerOptions = [
-  { value: 'IDEAL', label: 'Ideal', description: 'Comprehensive implementation with best practices' },
-  { value: 'GOOD', label: 'Good', description: 'Solid implementation with room for improvement' },
-  { value: 'BASIC', label: 'Basic', description: 'Minimal implementation, significant gaps exist' },
-  { value: 'NON_IDEAL', label: 'Non-Ideal', description: 'Little to no implementation' },
-  { value: 'OTHER', label: 'Other', description: 'Please specify in the notes section' }
-];
+// Answer options will be dynamically loaded from question data
 
 function AssessmentPage() {
   const { id } = useParams();
