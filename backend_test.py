@@ -330,7 +330,7 @@ class AMSafeAPITester:
             "note": "Test note for OTHER option"
         }
         
-        success, response = self.make_request('PATCH', f'assessments/{self.assessment_id}/answer', other_answer_data)
+        success, response = self.make_request('POST', f'assessments/{self.assessment_id}/answer', other_answer_data)
         if success:
             if response.get('needs_review') == True:
                 self.log_test("OTHER option flags for review", True)
