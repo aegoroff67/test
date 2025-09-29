@@ -1103,13 +1103,13 @@ class AMSafeAPITester:
             
         already_submitted_id = response['id']
         
-        # Get questions and answer them all
+        # Get questions and answer them all (this will auto-complete the assessment)
         success, response = self.make_request('GET', f'assessments/{already_submitted_id}/questions')
         if not success:
             self.log_test("Get questions for already submitted test", False, str(response))
             return False
             
-        # Answer all questions
+        # Answer all questions (this will automatically mark assessment as COMPLETED)
         for domain_data in response:
             questions = domain_data.get('questions', [])
             for question in questions:
@@ -1120,21 +1120,15 @@ class AMSafeAPITester:
                 }
                 self.make_request('POST', f'assessments/{already_submitted_id}/answer', answer_data)
         
-        # Submit the assessment first time (should succeed)
-        success, response = self.make_request('POST', f'assessments/{already_submitted_id}/submit')
-        if not success:
-            self.log_test("First submission for already submitted test", False, str(response))
-            return False
-            
-        self.log_test("First submission successful", True)
+        self.log_test("All questions answered (assessment auto-completed)", True)
         
-        # Try to submit again (should fail with 400)
+        # Try to submit the already completed assessment (should fail with 400)
         success, response = self.make_request('POST', f'assessments/{already_submitted_id}/submit', expected_status=400)
-        if success:
-            self.log_test("Submit Already Submitted Assessment Returns 400 Error", True)
+        if success and "already submitted" in str(response).lower():
+            self.log_test("Submit Already Completed Assessment Returns 400 Error", True)
             return True
         else:
-            self.log_test("Submit Already Submitted Assessment Returns 400 Error", False, "Should have returned 400 error for already submitted assessment")
+            self.log_test("Submit Already Completed Assessment Returns 400 Error", False, "Should have returned 400 error for already completed assessment")
             return False
 
     def test_status_endpoint_question_ids(self):
