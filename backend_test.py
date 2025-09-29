@@ -188,19 +188,83 @@ class AMSafeAPITester:
                 
         return True
 
-    def test_create_assessment(self):
-        """Test create assessment"""
-        response = self.run_test(
-            "Create Assessment",
-            "POST",
-            "assessments",
-            200
-        )
+    def test_answer_system(self):
+        """Test the corrected answer system with 4 standard options + Other"""
+        if not self.assessment_id:
+            self.log_test("Answer system test", False, "No assessment ID")
+            return False
+            
+        # Get first question
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}')
+        if not success or not response.get('questions'):
+            self.log_test("Get questions for answer test", False, "No questions available")
+            return False
+            
+        first_question = response['questions'][0]
+        question_id = first_question['id']
         
-        if response and 'id' in response:
-            self.assessment_id = response['id']
-            return True
-        return False
+        # Test each standard answer option
+        standard_options = [
+            ('IDEAL', 3),
+            ('GOOD', 2), 
+            ('BASIC', 1),
+            ('NON_IDEAL', 0)
+        ]
+        
+        for option, expected_score in standard_options:
+            answer_data = {
+                "question_id": question_id,
+                "option": option,
+                "note": f"Test note for {option}"
+            }
+            
+            success, response = self.make_request('PATCH', f'assessments/{self.assessment_id}/answer', answer_data)
+            if success:
+                if response.get('score') == expected_score:
+                    self.log_test(f"Answer option {option} (score {expected_score})", True)
+                else:
+                    self.log_test(f"Answer option {option} (score {expected_score})", False, 
+                                f"Expected score {expected_score}, got {response.get('score')}")
+            else:
+                self.log_test(f"Answer option {option}", False, str(response))
+                
+        # Test OTHER option with text
+        other_answer_data = {
+            "question_id": question_id,
+            "option": "OTHER",
+            "other_text": "This is a custom response that should be flagged for review",
+            "note": "Test note for OTHER option"
+        }
+        
+        success, response = self.make_request('PATCH', f'assessments/{self.assessment_id}/answer', other_answer_data)
+        if success:
+            if response.get('needs_review') == True:
+                self.log_test("OTHER option flags for review", True)
+            else:
+                self.log_test("OTHER option flags for review", False, "needs_review not set to True")
+                
+            if response.get('score') == 0:
+                self.log_test("OTHER option score (0)", True)
+            else:
+                self.log_test("OTHER option score (0)", False, f"Expected 0, got {response.get('score')}")
+        else:
+            self.log_test("OTHER option submission", False, str(response))
+            
+        # Test OTHER option validation (should fail without text)
+        invalid_other_data = {
+            "question_id": question_id,
+            "option": "OTHER"
+            # No other_text provided
+        }
+        
+        success, response = self.make_request('PATCH', f'assessments/{self.assessment_id}/answer', 
+                                            invalid_other_data, expected_status=400)
+        if success:
+            self.log_test("OTHER option validation (requires text)", True)
+        else:
+            self.log_test("OTHER option validation (requires text)", False, "Should have failed without other_text")
+            
+        return True
 
     def test_get_assessments(self):
         """Test get assessments"""
