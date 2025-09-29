@@ -685,10 +685,10 @@ function AssessmentPage() {
               </Button>
 
               <div className="flex space-x-4">
-                {currentQuestionIndex === questions.length - 1 ? (
+                {answeredCount >= questions.length ? (
                   <Button 
                     onClick={submitAssessment}
-                    disabled={submitting || answeredCount < questions.length}
+                    disabled={submitting}
                     className="bg-green-600 hover:bg-green-700"
                     data-testid="submit-assessment-btn"
                   >
