@@ -606,8 +606,8 @@ class AMSafeAPITester:
         return response is not None
 
     def run_all_tests(self):
-        """Run comprehensive test suite"""
-        print("🚀 Starting AM AI SAFE Corrected Answer System Tests")
+        """Run comprehensive test suite focusing on data cleanup verification"""
+        print("🚀 Starting AM AI SAFE Data Cleanup Verification Tests")
         print("=" * 60)
         
         # Authentication tests
@@ -615,19 +615,19 @@ class AMSafeAPITester:
             print("❌ Authentication failed, stopping tests")
             return False
             
-        # Structure tests
+        # Structure and data cleanup tests
         self.test_domains_and_questions_structure()
+        self.test_data_cleanup_verification()
         
         # Assessment tests
         if not self.test_assessment_creation():
             print("❌ Assessment creation failed, stopping tests")
             return False
             
-        self.test_assessment_details()
+        self.test_assessment_questions_clean_data()
         
-        # Core functionality tests
+        # Core functionality tests to ensure system still works
         self.test_answer_system()
-        self.test_status_view()
         
         # Print results
         print("\n" + "=" * 60)
@@ -635,7 +635,7 @@ class AMSafeAPITester:
         print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All tests passed! Corrected answer system working correctly.")
+            print("🎉 All tests passed! Data cleanup successful and system working correctly.")
             return True
         else:
             print("⚠️  Some tests failed. Check details above.")
