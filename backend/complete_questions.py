@@ -180,6 +180,182 @@ COMPLETE_QUESTIONS_DATA = [
         "domain_order": 2,
         "order": 8
     }
-    # Continue with remaining domains - this is a placeholder
-    # The file will be completed with all 88 questions
+    # Explainability Domain (EX-1 to EX-8) - Domain order 3
+    {
+        "code": "EX-1",
+        "text": "How do you decide the level of explainability required for your AI system?",
+        "explanation": "The level of explainability required for an AI system depends on its use case, stakeholders, and potential impact. This question asks how you determine the depth and complexity of explanations needed.\n\nFor example, a medical diagnosis AI system may require detailed explanations to help doctors trust its recommendations, while a simple AI-driven shopping assistant might only need basic reasoning for its suggestions. Consider who interacts with the system (e.g., end-users, regulators, or internal teams) and the consequences of its decisions when defining explainability requirements.",
+        "ideal_answer": "Explainability requirements are determined based on the criticality of the AI system, potential impacts, and stakeholder needs, with clear criteria established.",
+        "good_answer": "Explainability is tailored to regulatory requirements and specific user groups (e.g., technical vs. non-technical stakeholders).",
+        "basic_answer": "Explainability needs are addressed reactively, focusing on feedback or complaints from users.",
+        "non_ideal_answer": "Explainability is not currently a formal consideration in system design.",
+        "domain_order": 3,
+        "order": 1
+    },
+    {
+        "code": "EX-2",
+        "text": "What methods are used to test whether explanations are understandable by non-technical users?",
+        "explanation": "Explainability isn't just about providing an explanation; it's about ensuring the explanation is accessible to its intended audience. This question examines how you test whether non-technical users can comprehend the explanations provided by the system.\n\nFor instance, you might use user testing sessions where participants evaluate the clarity of explanations. An AI system used in loan applications, for example, could include reasons for denial in plain language, such as \"Your credit score is below the required threshold,\" rather than presenting technical metrics.",
+        "ideal_answer": "Conduct user testing with diverse, non-technical participants and iterate based on their feedback to ensure clarity.",
+        "good_answer": "Collect feedback from end-users during system trials or pilot programs and adjust explanations as needed.",
+        "basic_answer": "Use internal reviews and heuristic evaluations to gauge understandability.",
+        "non_ideal_answer": "No testing is conducted to determine whether explanations are understandable.",
+        "domain_order": 3,
+        "order": 2
+    },
+    {
+        "code": "EX-3",
+        "text": "Do you provide explanations in different formats (e.g., visualizations, text summaries) for different audiences?",
+        "explanation": "Different audiences may require explanations in varying formats to suit their needs and expertise. This question assesses whether you tailor your system's explainability features accordingly.\n\nFor example, a financial AI system might use visualizations like bar graphs to show how different factors influence loan approvals for analysts, while providing simple text summaries for customers. Offering multiple formats ensures that both technical and non-technical stakeholders can understand the system's reasoning.",
+        "ideal_answer": "Provide multiple explanation formats (e.g., graphs for analysts, text summaries for end-users) tailored to the needs of diverse audiences.",
+        "good_answer": "Offer explanations in at least one format designed for the primary audience of the system.",
+        "basic_answer": "Explanations are limited to a single, general-purpose format.",
+        "non_ideal_answer": "Explanations are not currently provided in any format.",
+        "domain_order": 3,
+        "order": 3
+    },
+    {
+        "code": "EX-4",
+        "text": "How do you evaluate the accuracy and completeness of the explanations provided?",
+        "explanation": "Explanations must accurately reflect the system's decision-making process and include all relevant details. This question ensures you have processes to validate the accuracy and completeness of your explanations.\n\nFor example, if an AI model predicts a customer's likelihood to churn, the explanation should detail all contributing factors, such as reduced spending or lower engagement. Regular audits and user feedback can help identify gaps or inaccuracies in explanations and improve their quality.",
+        "ideal_answer": "Regularly validate explanations through user feedback, audits, and comparison with the system's decision logic.",
+        "good_answer": "Conduct periodic reviews of explanations and refine them based on stakeholder input.",
+        "basic_answer": "Perform ad hoc evaluations of explanations without structured processes.",
+        "non_ideal_answer": "No formal evaluation process for explanation accuracy is in place.",
+        "domain_order": 3,
+        "order": 4
+    },
+    {
+        "code": "EX-5",
+        "text": "Are there trade-offs between model complexity and explainability in your system design?",
+        "explanation": "Complex AI models, such as deep learning, often provide better performance but are harder to explain, while simpler models are more interpretable but may sacrifice accuracy. This question explores how you manage these trade-offs in your system's design.\n\nFor instance, you might use a simpler, interpretable model for high-stakes applications like loan approvals, where explainability is critical, while deploying more complex models for lower-risk tasks like product recommendations. Balancing performance and explainability ensures the system meets both operational and ethical requirements.",
+        "ideal_answer": "Explicitly balance complexity and explainability, simplifying models or using interpretable methods where appropriate.",
+        "good_answer": "Leverage tools like SHAP or LIME to explain complex models without simplifying them.",
+        "basic_answer": "Recognize the trade-off but prioritize model performance over explainability.",
+        "non_ideal_answer": "No trade-offs are considered; explainability is not prioritized.",
+        "domain_order": 3,
+        "order": 5
+    },
+    {
+        "code": "EX-6",
+        "text": "How do you ensure the decisions made by your AI system are interpretable by users?",
+        "explanation": "Interpretability refers to making it clear why the AI system made a specific decision. This question asks how you design the system to provide explanations that users can understand and trust.\n\nFor example, an AI system used in hiring could highlight the key skills and experiences from a candidate's profile that influenced its ranking. Designing interfaces that clearly present the reasoning behind decisions can help users trust and engage with the system.",
+        "ideal_answer": "Provide user-friendly interfaces that present clear reasoning and key factors influencing decisions.",
+        "good_answer": "Incorporate explainability tools to help users interpret decisions.",
+        "basic_answer": "Offer explanations only in technical terms, requiring domain knowledge to interpret.",
+        "non_ideal_answer": "No specific measures are taken to ensure decision interpretability.",
+        "domain_order": 3,
+        "order": 6
+    },
+    {
+        "code": "EX-7",
+        "text": "What tools or techniques (e.g., SHAP, LIME) do you use to make complex models more explainable?",
+        "explanation": "Explainability tools like SHAP (SHapley Additive exPlanations) or LIME (Local Interpretable Model-Agnostic Explanations) help make complex models understandable. This question evaluates whether you're using these or similar tools to enhance explainability.\n\nFor instance, SHAP can show the contribution of each feature to a model's prediction, helping users understand why an AI system made a certain decision. Employing such tools demonstrates your commitment to transparency and accountability.",
+        "ideal_answer": "Use advanced tools like SHAP, LIME, or similar techniques to systematically explain model outputs.",
+        "good_answer": "Develop in-house tools or techniques tailored to specific models to enhance explainability.",
+        "basic_answer": "Use basic rule-based approaches or manual interpretation to explain decisions.",
+        "non_ideal_answer": "No tools or techniques are currently used for improving explainability.",
+        "domain_order": 3,
+        "order": 7
+    },
+    {
+        "code": "EX-8",
+        "text": "Are there specific groups (e.g., end-users, regulators, or internal teams) for whom explanations of AI outputs are tailored?",
+        "explanation": "Different groups interacting with your AI system may require explanations tailored to their needs and expertise. This question examines whether you customize explanations based on the audience.\n\nFor example, regulators may need detailed documentation of how the system complies with laws, while end-users may need simple, actionable reasons for outputs. Tailoring explanations ensures that all stakeholders, regardless of technical background, can understand and engage with the system effectively.",
+        "ideal_answer": "Explanations are customized for each group (e.g., simplified for end-users, detailed for regulators, and actionable for internal teams).",
+        "good_answer": "Explanations are tailored for at least one key audience, such as end-users or regulators.",
+        "basic_answer": "Explanations are standardized and not customized for specific groups.",
+        "non_ideal_answer": "No explanations are provided for any group.",
+        "domain_order": 3,
+        "order": 8
+    },
+    # Accountability Domain (AC-1 to AC-8) - Domain order 4
+    {
+        "code": "AC-1",
+        "text": "How is accountability for AI system failures managed within your organization?",
+        "explanation": "Accountability ensures that there are clear processes and responsible parties to address AI system failures. This question assesses your organization's ability to identify and resolve issues when things go wrong.\n\nFor example, if an AI-driven hiring system rejects qualified candidates due to a bias in its algorithm, who is responsible for investigating and resolving the issue? Effective management involves documenting failure protocols, assigning roles, and ensuring all stakeholders know their responsibilities when a failure occurs.",
+        "ideal_answer": "Clear accountability protocols are established, with designated teams responsible for identifying, resolving, and documenting failures.",
+        "good_answer": "General guidelines for managing failures exist, but roles and responsibilities are not explicitly assigned.",
+        "basic_answer": "Failures are addressed on an ad hoc basis without formal protocols.",
+        "non_ideal_answer": "There is no process in place to manage AI system failures.",
+        "domain_order": 4,
+        "order": 1
+    },
+    {
+        "code": "AC-2",
+        "text": "What governance structures (e.g., AI oversight boards) are in place to monitor AI outcomes?",
+        "explanation": "Governance structures are critical for overseeing AI systems and ensuring they operate within ethical, legal, and performance standards. This question examines whether you have mechanisms like AI oversight boards, committees, or policies in place to regularly review the outcomes of your AI systems.\n\nFor instance, a financial services company might establish a governance board to review algorithmic fairness and compliance with regulatory requirements. These structures provide a framework for accountability and continuous improvement.",
+        "ideal_answer": "A dedicated AI oversight board or committee is in place to regularly review and monitor system outcomes.",
+        "good_answer": "Governance structures exist but operate informally or without regular reviews.",
+        "basic_answer": "Governance responsibilities are delegated to individual teams without overarching oversight.",
+        "non_ideal_answer": "No governance structures are in place to monitor AI outcomes.",
+        "domain_order": 4,
+        "order": 2
+    },
+    {
+        "code": "AC-3",
+        "text": "Are there policies for escalating issues identified in the AI system?",
+        "explanation": "Not all issues can be resolved at the operational level; some may require escalation to higher authorities or specialized teams. This question ensures you have clear escalation policies in place for handling significant issues.\n\nFor example, if a critical safety flaw is detected in an AI-powered autonomous vehicle system, does your escalation policy ensure rapid communication to executives and external regulators? Having defined escalation paths helps prevent delays in addressing high-stakes problems.",
+        "ideal_answer": "Formal escalation policies are documented, with clear paths for resolving critical issues efficiently.",
+        "good_answer": "Escalation policies exist but are inconsistently applied or understood.",
+        "basic_answer": "Issues are escalated informally, relying on individual discretion.",
+        "non_ideal_answer": "There are no policies in place for escalating issues.",
+        "domain_order": 4,
+        "order": 3
+    },
+    {
+        "code": "AC-4",
+        "text": "How do you handle customer complaints or disputes related to AI outputs?",
+        "explanation": "Customer complaints or disputes over AI decisions must be handled transparently and efficiently to maintain trust. This question evaluates whether you have processes for addressing such concerns.\n\nFor example, if a customer disputes a credit denial made by your AI system, do you offer a clear path for appeal or manual review? Providing explanations for decisions and offering a human review option when disputes arise ensures accountability and user satisfaction.",
+        "ideal_answer": "A structured process is in place for addressing complaints, including a clear escalation path and manual review options.",
+        "good_answer": "Customer complaints are reviewed and addressed, but processes are informal or inconsistent.",
+        "basic_answer": "Complaints are handled reactively on a case-by-case basis without formal procedures.",
+        "non_ideal_answer": "There is no process in place for handling customer complaints or disputes.",
+        "domain_order": 4,
+        "order": 4
+    },
+    {
+        "code": "AC-5",
+        "text": "Are roles and responsibilities for AI governance clearly defined across teams?",
+        "explanation": "AI governance requires collaboration across technical, legal, and operational teams, and clearly defined roles are essential for accountability. This question seeks to determine whether responsibilities, such as monitoring outcomes, managing data, or ensuring compliance, are allocated and understood.\n\nFor instance, does the data science team oversee model accuracy, while the compliance team monitors adherence to regulations? Clarity in roles minimizes confusion and ensures that accountability is shared appropriately.",
+        "ideal_answer": "Roles and responsibilities are clearly defined, documented, and regularly reviewed to ensure alignment across teams.",
+        "good_answer": "Roles and responsibilities are defined but not consistently communicated or updated.",
+        "basic_answer": "Governance responsibilities are loosely defined, often leading to overlap or confusion.",
+        "non_ideal_answer": "Roles and responsibilities for AI governance are not defined.",
+        "domain_order": 4,
+        "order": 5
+    },
+    {
+        "code": "AC-6",
+        "text": "Who is responsible for monitoring and managing the AI system throughout its lifecycle?",
+        "explanation": "AI systems require ongoing monitoring and management to address changes in data, usage, or external conditions. This question examines whether you have designated individuals or teams to oversee the system's performance and compliance over time.\n\nFor example, an e-commerce AI recommendation system may need periodic updates to reflect changes in customer behavior. Assigning lifecycle management responsibilities ensures consistent performance and mitigates risks such as model drift or outdated assumptions.",
+        "ideal_answer": "Dedicated teams or individuals are assigned to monitor and manage the AI system at all stages of its lifecycle.",
+        "good_answer": "Monitoring and management responsibilities are assigned but may lack clear handoffs between lifecycle stages.",
+        "basic_answer": "Monitoring and management occur sporadically or only when issues arise.",
+        "non_ideal_answer": "No one is explicitly responsible for lifecycle monitoring and management.",
+        "domain_order": 4,
+        "order": 6
+    },
+    {
+        "code": "AC-7",
+        "text": "Are there audit trails or logs that document the AI system's decision-making process?",
+        "explanation": "Audit trails and logs provide a record of how the AI system made specific decisions, which is essential for accountability and troubleshooting. This question assesses whether you maintain comprehensive logs that can be used to explain decisions, identify errors, or respond to regulatory inquiries.\n\nFor example, an AI fraud detection system might log the features and thresholds that flagged a transaction as suspicious. Well-maintained audit trails enhance transparency and make it easier to address disputes or investigate failures.",
+        "ideal_answer": "Comprehensive audit trails and logs are maintained, regularly reviewed, and easily accessible for investigations or compliance.",
+        "good_answer": "Audit trails and logs are maintained but reviewed inconsistently or not readily accessible.",
+        "basic_answer": "Some logs are kept, but they are incomplete or not systematically reviewed.",
+        "non_ideal_answer": "No audit trails or logs are maintained.",
+        "domain_order": 4,
+        "order": 7
+    },
+    {
+        "code": "AC-8",
+        "text": "What mechanisms are in place to address disputes or concerns about the system's outcomes?",
+        "explanation": "Disputes or concerns about an AI system's outcomes require clear mechanisms for resolution to maintain stakeholder trust. This question examines whether you have processes, such as appeals or review boards, to address such issues.\n\nFor instance, if an AI system used for employee performance reviews produces an unfair evaluation, do you provide a process for employees to contest the results? Implementing mechanisms like manual reviews or appeals processes ensures that users and stakeholders have recourse when issues arise.",
+        "ideal_answer": "Established mechanisms, such as appeals processes or review boards, are in place to address disputes and ensure resolution.",
+        "good_answer": "Disputes are reviewed and resolved, but processes are informal or inconsistently applied.",
+        "basic_answer": "Disputes are handled reactively on a case-by-case basis without structured mechanisms.",
+        "non_ideal_answer": "No mechanisms exist to address disputes or concerns.",
+        "domain_order": 4,
+        "order": 8
+    }
 ]
