@@ -121,6 +121,40 @@ function AssessmentPage() {
     await saveAnswer(option);
   };
 
+  // Check if current domain is complete
+  const isCurrentDomainComplete = () => {
+    if (!currentQuestion || !questions.length) return false;
+    
+    const currentDomainId = currentQuestion.domain_id;
+    const domainQuestions = questions.filter(q => q.domain_id === currentDomainId);
+    const domainAnswers = domainQuestions.filter(q => answers[q.id]);
+    
+    return domainAnswers.length === domainQuestions.length;
+  };
+
+  // Get next question (domain-aware)
+  const getNextQuestion = () => {
+    if (currentQuestionIndex >= questions.length - 1) return null;
+    
+    const currentDomainId = currentQuestion.domain_id;
+    const nextQuestion = questions[currentQuestionIndex + 1];
+    
+    // If still in same domain or domain is complete, move to next question
+    if (nextQuestion.domain_id === currentDomainId || isCurrentDomainComplete()) {
+      return currentQuestionIndex + 1;
+    }
+    
+    // If domain not complete, find next unanswered question in current domain
+    const currentDomainQuestions = questions.filter(q => q.domain_id === currentDomainId);
+    const nextUnansweredInDomain = currentDomainQuestions.find(q => !answers[q.id]);
+    
+    if (nextUnansweredInDomain) {
+      return questions.findIndex(q => q.id === nextUnansweredInDomain.id);
+    }
+    
+    return currentQuestionIndex + 1;
+  };
+
   const handleNoteChange = (value) => {
     setNote(value);
   };
