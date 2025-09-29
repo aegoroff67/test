@@ -983,5 +983,94 @@ remaining_questions = [
         "non_ideal_answer": "No tracking of environmental impact over time.",
         "domain_order": 11,
         "order": 8
+    },
+    # Reliability Domain (RE-1 to RE-8) - Domain order 6
+    {
+        "code": "RE-1",
+        "text": "How do you test the AI system to ensure consistent performance under different conditions?",
+        "explanation": "AI systems must perform reliably across varied scenarios, environments, and user interactions. This question examines your testing strategies to validate consistent performance.\n\nFor example, an AI-powered navigation system should work reliably whether it's used during rush hour or off-peak times, in different weather conditions, or across diverse geographic locations. Testing approaches might include stress testing, scenario-based testing, and simulation of edge cases to ensure the system maintains performance standards under varying conditions.",
+        "ideal_answer": "Conduct comprehensive testing under diverse scenarios, including stress tests and edge cases, with automated testing frameworks.",
+        "good_answer": "Perform regular testing under key operational scenarios with both manual and automated approaches.",
+        "basic_answer": "Test the system occasionally or only under standard conditions.",
+        "non_ideal_answer": "No testing for performance under different conditions is conducted.",
+        "domain_order": 6,
+        "order": 1
+    },
+    {
+        "code": "RE-2",
+        "text": "Have you conducted stress tests or simulations to evaluate the system's robustness?",
+        "explanation": "Stress testing pushes an AI system beyond normal operating conditions to identify its breaking points and assess robustness. This question evaluates whether you proactively test your system's limits.\n\nFor instance, a fraud detection system might be stress-tested by simulating a sudden spike in transaction volumes or unusual attack patterns. Such testing helps identify potential failure modes and ensures the system can handle unexpected scenarios without catastrophic failure.",
+        "ideal_answer": "Regularly conduct stress tests and simulations to identify failure points and validate system robustness.",
+        "good_answer": "Perform stress tests periodically, focusing on key system components or scenarios.",
+        "basic_answer": "Conduct stress tests occasionally or only after issues arise.",
+        "non_ideal_answer": "No stress testing or robustness evaluation is performed.",
+        "domain_order": 6,
+        "order": 2
+    },
+    {
+        "code": "RE-3",
+        "text": "What mechanisms are in place to monitor the system for issues like model drift or degradation?",
+        "explanation": "AI systems can degrade over time as real-world data patterns change, leading to model drift. This question assesses your monitoring capabilities for detecting and addressing such issues.\n\nFor example, a customer behavior prediction model trained on pre-pandemic data might become less accurate as shopping patterns change. Monitoring mechanisms could include performance metrics tracking, data distribution analysis, and automated alerts when performance falls below thresholds.",
+        "ideal_answer": "Implement automated monitoring systems that detect model drift, performance degradation, and data distribution changes in real-time.",
+        "good_answer": "Monitor key performance metrics regularly and investigate significant changes.",
+        "basic_answer": "Perform periodic manual reviews of system performance.",
+        "non_ideal_answer": "No monitoring mechanisms are in place for model drift or degradation.",
+        "domain_order": 6,
+        "order": 3
+    },
+    {
+        "code": "RE-4",
+        "text": "How do you define success metrics for the reliability of your AI system?",
+        "explanation": "Clear success metrics provide benchmarks for measuring and maintaining AI system reliability. This question examines whether you have defined quantifiable criteria for reliability assessment.\n\nFor instance, reliability metrics for an AI customer service chatbot might include uptime percentage, response accuracy rate, and user satisfaction scores. Well-defined metrics enable you to track performance over time, identify improvement areas, and communicate system reliability to stakeholders.",
+        "ideal_answer": "Define comprehensive, quantifiable reliability metrics aligned with business objectives and regularly track performance against these benchmarks.",
+        "good_answer": "Establish basic reliability metrics and monitor them periodically.",
+        "basic_answer": "Use informal or subjective measures to assess reliability.",
+        "non_ideal_answer": "No success metrics for reliability are defined.",
+        "domain_order": 6,
+        "order": 4
+    },
+    {
+        "code": "RE-5",
+        "text": "Have you identified potential failure points in the system?",
+        "explanation": "Proactively identifying potential failure points helps prevent system breakdowns and enables you to implement appropriate safeguards. This question assesses whether you conduct failure mode analysis for your AI system.\n\nFor example, in an autonomous vehicle system, potential failure points might include sensor malfunctions, network connectivity loss, or adverse weather conditions. By identifying these risks, you can design redundancies, failsafes, and contingency plans to maintain system reliability.",
+        "ideal_answer": "Conduct systematic failure mode analysis to identify and document potential failure points, with mitigation strategies for each.",
+        "good_answer": "Identify obvious failure points and implement basic safeguards.",
+        "basic_answer": "Address failure points reactively as they are discovered.",
+        "non_ideal_answer": "No analysis of potential failure points has been conducted.",
+        "domain_order": 6,
+        "order": 5
+    },
+    {
+        "code": "RE-6",
+        "text": "How do you ensure the system performs consistently under varying conditions (e.g., edge cases)?",
+        "explanation": "Consistent performance under varying conditions, including edge cases, is crucial for AI system reliability. This question examines your strategies for maintaining performance across diverse scenarios.\n\nFor instance, a speech recognition system should work reliably for users with different accents, background noise levels, or speaking patterns. Approaches might include diverse training data, robustness testing, and adaptive algorithms that can handle unusual inputs gracefully.",
+        "ideal_answer": "Use diverse training data, robust algorithms, and comprehensive testing to ensure consistent performance across all conditions.",
+        "good_answer": "Test performance under key edge cases and implement adaptive mechanisms.",
+        "basic_answer": "Address performance issues in edge cases reactively when they occur.",
+        "non_ideal_answer": "No specific measures are taken to ensure performance under varying conditions.",
+        "domain_order": 6,
+        "order": 6
+    },
+    {
+        "code": "RE-7",
+        "text": "Are there mechanisms for detecting and addressing system downtime or errors?",
+        "explanation": "Quick detection and resolution of system downtime or errors is essential for maintaining reliability. This question evaluates your incident response and monitoring capabilities.\n\nFor example, an e-commerce recommendation system might use automated monitoring to detect when the system stops responding or produces error messages, triggering immediate alerts and backup procedures. Effective mechanisms minimize downtime and ensure rapid recovery from failures.",
+        "ideal_answer": "Implement automated monitoring, alerting, and recovery mechanisms to quickly detect and address downtime or errors.",
+        "good_answer": "Use monitoring tools with manual response procedures for addressing issues.",
+        "basic_answer": "Rely on user reports or periodic checks to identify system issues.",
+        "non_ideal_answer": "No mechanisms exist for detecting or addressing system downtime or errors.",
+        "domain_order": 6,
+        "order": 7
+    },
+    {
+        "code": "RE-8",
+        "text": "How often is the AI model tested and retrained to maintain reliability?",
+        "explanation": "Regular testing and retraining help maintain AI system reliability as data patterns and requirements evolve. This question assesses your approach to ongoing model maintenance.\n\nFor instance, a financial fraud detection model might require monthly retraining to adapt to new fraud patterns and quarterly testing to validate performance. Establishing regular maintenance schedules ensures your system remains effective and reliable over time.",
+        "ideal_answer": "Follow a scheduled approach to testing and retraining based on performance metrics, data changes, and business requirements.",
+        "good_answer": "Conduct testing and retraining periodically, though not on a fixed schedule.",
+        "basic_answer": "Test and retrain the model occasionally or when significant issues arise.",
+        "non_ideal_answer": "No regular testing or retraining schedule is followed.",
+        "domain_order": 6,
+        "order": 8
     }
 ]
