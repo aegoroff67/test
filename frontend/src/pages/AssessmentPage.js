@@ -17,8 +17,10 @@ import {
   Circle,
   Grid3X3,
   HelpCircle,
-  Save
+  Save,
+  BarChart3
 } from 'lucide-react';
+import AssessmentStatusView from '../components/AssessmentStatusView';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
