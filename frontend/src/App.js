@@ -81,7 +81,11 @@ function App() {
             />
             <Route 
               path="/results/:id" 
-              element={<ResultsPage />}
+              element={
+                <ProtectedRoute>
+                  <ResultsPage />
+                </ProtectedRoute>
+              } 
             />
             <Route path="/" element={<Navigate to="/dashboard" />} />
           </Routes>
