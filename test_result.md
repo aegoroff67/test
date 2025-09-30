@@ -207,6 +207,18 @@
         - agent: "testing"
         - comment: "VERIFIED: Question navigation support testing completed successfully. All 6 tests passed (100% success rate). Confirmed: 1) GET /api/assessments/{assessment_id}/status endpoint returns complete navigation data structure, 2) All questions include question_id field required for navigation, 3) All questions include question_code for user-friendly identification, 4) All questions include question_text for display purposes, 5) All questions include answered boolean flag for navigation state management, 6) Status overview properly structures data by domains with questions array. The frontend can now implement question navigation functionality using the question_id and other provided fields. The 'View All' screen question clicking issue reported by user should be resolved."
 
+  - task: "Redesign ResultsPage to fit single screen (1920x1080) without scrolling"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Completely redesigned ResultsPage.js based on user mockup to fit within single screen (1920x1080) without scrolling. Key changes: 1) Compact header with logo and back button, 2) Horizontal summary section with circular score display (left), organization info and action buttons (right), 3) Two-column main content area using full viewport height - left: Domain Scores with progress bars, right: Assessment Heatmap with color-coded grid, 4) Removed 'Next Steps' section, 5) Used flexbox layout with h-screen to prevent scrolling. Layout matches user's mockup design while maintaining all existing functionality (sorting, API calls, data processing)."
+
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
