@@ -150,84 +150,91 @@ function ResultsPage() {
   const MaturityIcon = maturityInfo.icon;
 
   return (
-    <div className="min-h-screen bg-gradient-bg">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+    <div className="h-screen bg-gray-50 flex flex-col">
+      {/* Compact Header */}
+      <header className="bg-white shadow-sm border-b flex-shrink-0">
+        <div className="max-w-full px-6">
+          <div className="flex justify-between items-center h-14">
             {/* Logo & Title */}
-            <div className="flex items-center space-x-4">
-              <div className="bg-teal-600 p-2 rounded-lg">
-                <Shield className="h-6 w-6 text-white" />
+            <div className="flex items-center space-x-3">
+              <div className="bg-teal-600 p-1.5 rounded-lg">
+                <Shield className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-gray-900">AM AI SAFE</h1>
+                <h1 className="text-base font-bold text-gray-900">AM AI SAFE</h1>
                 <p className="text-xs text-teal-600">Assessment Results</p>
               </div>
             </div>
 
-            {/* Assessment Info */}
-            <div className="text-center">
-              <p className="text-sm font-medium text-gray-900">{assessment?.name}</p>
-              <p className="text-xs text-gray-500 flex items-center justify-center space-x-1">
-                <Building2 className="h-3 w-3" />
-                <span>{user?.organization_name}</span>
-              </p>
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center space-x-2">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => navigate('/dashboard')}
-                data-testid="back-dashboard-btn"
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Dashboard
-              </Button>
-            </div>
+            {/* Back Button */}
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => navigate('/dashboard')}
+              data-testid="back-dashboard-btn"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Dashboard
+            </Button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Overall Score Card */}
-        <Card className="mb-8 border-0 shadow-lg">
-          <CardContent className="p-8">
-            <div className="text-center">
-              <div className="mb-6">
-                <div className="inline-flex items-center justify-center p-4 bg-teal-100 rounded-full mb-4">
-                  <MaturityIcon className="h-12 w-12 text-teal-600" />
+      {/* Summary Section */}
+      <div className="bg-white border-b flex-shrink-0">
+        <div className="max-w-full px-6 py-4">
+          <div className="flex items-center space-x-8">
+            {/* Left Side - Score Circle */}
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <div className="w-20 h-20 rounded-full border-4 border-gray-200 flex items-center justify-center bg-white">
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-gray-900" data-testid="overall-score">
+                      {summary.overall_percentage.toFixed(1)}%
+                    </div>
+                  </div>
                 </div>
-                <h1 className="text-4xl font-bold text-gray-900 mb-2" data-testid="overall-score">
-                  {summary.overall_percentage.toFixed(1)}%
-                </h1>
-                <Badge className={`text-lg px-4 py-2 ${maturityInfo.color}`} data-testid="maturity-level">
+              </div>
+              <div>
+                <Badge className={`text-sm px-3 py-1 ${maturityInfo.color}`} data-testid="maturity-level">
                   {summary.overall_maturity} AI MATURITY
                 </Badge>
               </div>
-              
-              <div className="max-w-2xl mx-auto">
-                <p className="text-lg text-gray-600 mb-6">
-                  {summary.overall_maturity === 'Excellent' && 
-                    'Outstanding! Your organization demonstrates strong alignment with best practices across all domains. Systems, processes, and policies are well-developed, consistently implemented, and frequently reviewed for improvement.'}
-                  {summary.overall_maturity === 'Good' && 
-                    'Strong performance! Your organization has implemented many best practices and performs well in most areas. While there are minor gaps, they are not critical and can be addressed with targeted improvements.'}
-                  {summary.overall_maturity === 'Moderate' && 
-                    'Good foundation! Your organization has taken steps toward implementing best practices but demonstrates inconsistencies or significant gaps in key areas. Structured improvement efforts are needed.'}
-                  {summary.overall_maturity === 'Low' && 
-                    'Attention required! Your organization shows limited alignment with best practices and significant deficiencies across multiple domains. A reactive or ad hoc approach to AI governance requires immediate attention.'}
-                  {summary.overall_maturity === 'Basic' && 
-                    'Critical improvement needed! Your organization has minimal or no processes in place to address AI governance and risk management. Fundamental improvements are necessary to mitigate potential failures.'}
-                </p>
+            </div>
+
+            {/* Right Side - Organization Info and Actions */}
+            <div className="flex-1">
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <div className="mb-2">
+                    <p className="text-sm font-bold text-gray-900">Organisation: {user?.organization_name}</p>
+                    <p className="text-sm text-gray-600">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-gray-900 mb-1">Results Summary:</p>
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      {summary.overall_maturity === 'Excellent' && 
+                        'Outstanding! Your organization demonstrates strong alignment with best practices across all domains.'}
+                      {summary.overall_maturity === 'Good' && 
+                        'Strong performance! Your organization has implemented many best practices and performs well in most areas.'}
+                      {summary.overall_maturity === 'Moderate' && 
+                        'Good foundation! Your organization has taken steps toward implementing best practices but demonstrates inconsistencies.'}
+                      {summary.overall_maturity === 'Low' && 
+                        'Attention required! Your organization shows limited alignment with best practices and significant deficiencies across multiple domains.'}
+                      {summary.overall_maturity === 'Basic' && 
+                        'Critical improvement needed! Your organization has minimal or no processes in place to address AI governance.'}
+                    </p>
+                    <p className="text-sm text-gray-700 mt-2">
+                      The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas.
+                    </p>
+                  </div>
+                </div>
                 
-                <div className="flex justify-center space-x-4">
+                <div className="flex flex-col justify-center space-y-3">
                   <Button 
                     onClick={generateReport}
                     disabled={generatingReport}
-                    className="bg-teal-600 hover:bg-teal-700 btn-hover"
+                    className="bg-teal-600 hover:bg-teal-700 w-full"
                     data-testid="generate-report-btn"
                   >
                     {generatingReport ? (
@@ -245,7 +252,7 @@ function ResultsPage() {
                   
                   <Button 
                     variant="outline"
-                    className="btn-hover"
+                    className="w-full"
                     data-testid="request-consultation-btn"
                   >
                     <MessageSquare className="h-4 w-4 mr-2" />
@@ -254,205 +261,108 @@ function ResultsPage() {
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Domain Scores */}
-          <div className="lg:col-span-1">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <BarChart3 className="h-5 w-5 text-teal-600" />
-                  <span>Domain Scores</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4" data-testid="domain-scores-list">
-                {[...summary.domain_scores]
-                  .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
-                  .map((domain, index) => {
-                  const colors = getScoreColor(domain.percentage);
-                  return (
-                    <div key={domain.domain_id} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="font-medium text-gray-900">{domain.domain_name}</span>
-                        <Badge 
-                          className={`${colors.bg} ${colors.text}`}
-                          data-testid={`domain-score-${domain.domain_name.toLowerCase()}`}
-                        >
-                          {domain.percentage.toFixed(1)}%
-                        </Badge>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div 
-                          className={`${colors.bg} h-2 rounded-full progress-bar`}
-                          style={{ width: `${domain.percentage}%` }}
-                        ></div>
-                      </div>
-                      <p className="text-xs text-gray-600">
-                        {domain.score} out of {domain.max_score} points
-                      </p>
-                    </div>
-                  );
-                })}
-              </CardContent>
-            </Card>
           </div>
+        </div>
+      </div>
 
-          {/* Heatmap */}
-          <div className="lg:col-span-2">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Shield className="h-5 w-5 text-teal-600" />
-                  <span>Assessment Heatmap</span>
-                </CardTitle>
-                <p className="text-sm text-gray-600">
-                  Visual representation of your responses across all domains and questions
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6" data-testid="assessment-heatmap">
-                  {[...summary.domain_scores]
-                    .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
-                    .map((domain) => {
-                    const domainQuestions = questions.filter(q => q.domain_id === domain.domain_id);
-                    const domainAnswers = answers.filter(a => 
-                      domainQuestions.some(q => q.id === a.question_id)
-                    );
-                    
-                    return (
-                      <div key={domain.domain_id}>
-                        <div className="flex items-center justify-between mb-3">
-                          <h4 className="font-medium text-gray-900">{domain.domain_name}</h4>
-                          <Badge variant="outline" className="text-xs">
-                            {domain.percentage.toFixed(1)}%
-                          </Badge>
-                        </div>
-                        
-                        <div className="grid grid-cols-4 gap-2">
-                          {domainQuestions
-                            .map((question) => {
-                              const answer = domainAnswers.find(a => a.question_id === question.id);
-                              const score = answer ? answer.numeric_score : 0;
-                              return { ...question, score };
-                            })
-                            .sort((a, b) => a.score - b.score) // Sort by score, lowest first
-                            .map((question) => {
-                            const score = question.score;
-                            const percentage = (score / 3) * 100; // Max score is 3
-                            const colors = getScoreColor(percentage);
-                            
-                            return (
-                              <div
-                                key={question.id}
-                                className={`heatmap-cell p-3 rounded-lg border-2 text-center ${colors.bg} ${colors.text} border-transparent`}
-                                title={`${question.code}: ${question.text} (Score: ${score}/3)`}
-                                data-testid={`heatmap-cell-${question.code}`}
-                              >
-                                <div className="font-bold text-sm">{question.code}</div>
-                                <div className="text-xs opacity-90">{score}/3</div>
-                              </div>
-                            );
-                          })}
-                        </div>
+      {/* Main Content - Two Column Layout */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Domain Scores Column */}
+        <div className="w-1/3 bg-white border-r overflow-y-auto">
+          <div className="p-6">
+            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+              <BarChart3 className="h-5 w-5 text-teal-600" />
+              <span>Domain Scores</span>
+            </h2>
+            
+            <div className="space-y-4" data-testid="domain-scores-list">
+              {[...summary.domain_scores]
+                .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
+                .map((domain, index) => {
+                const colors = getScoreColor(domain.percentage);
+                return (
+                  <div key={domain.domain_id} className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium text-gray-900 text-sm">{domain.domain_name}</span>
+                      <div className={`px-2 py-1 rounded text-xs font-bold ${colors.bg} ${colors.text}`}>
+                        {domain.percentage.toFixed(1)}%
                       </div>
-                    );
-                  })}
-                </div>
-                
-                {/* Legend */}
-                <div className="mt-6 pt-4 border-t">
-                  <h5 className="font-medium text-gray-900 mb-3">Score Legend</h5>
-                  <div className="flex items-center space-x-6">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-4 h-4 bg-red-500 rounded"></div>
-                      <span className="text-sm text-gray-600">0-40% (Basic)</span>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-4 h-4 bg-orange-500 rounded"></div>
-                      <span className="text-sm text-gray-600">41-60% (Low)</span>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className={`${colors.bg} h-2 rounded-full transition-all duration-300`}
+                        style={{ width: `${domain.percentage}%` }}
+                      ></div>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-4 h-4 bg-yellow-500 rounded"></div>
-                      <span className="text-sm text-gray-600">61-80% (Moderate)</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                      <span className="text-sm text-gray-600">81-90% (Good)</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-4 h-4 bg-green-500 rounded"></div>
-                      <span className="text-sm text-gray-600">91-100% (Excellent)</span>
-                    </div>
+                    <p className="text-xs text-gray-600">
+                      {domain.score} out of {domain.max_score} points
+                    </p>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Next Steps */}
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <TrendingUp className="h-5 w-5 text-teal-600" />
-              <span>Next Steps</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="bg-teal-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <FileText className="h-8 w-8 text-teal-600" />
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Download Report</h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Get a comprehensive PDF report with detailed recommendations and action items.
-                </p>
-                <Button 
-                  onClick={generateReport}
-                  disabled={generatingReport}
-                  size="sm"
-                  className="bg-teal-600 hover:bg-teal-700"
-                >
-                  Generate PDF
-                </Button>
-              </div>
-              
-              <div className="text-center">
-                <div className="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <MessageSquare className="h-8 w-8 text-blue-600" />
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Expert Consultation</h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Discuss your results with our AI governance experts to develop an action plan.
-                </p>
-                <Button variant="outline" size="sm">
-                  Request Consultation
-                </Button>
-              </div>
-              
-              <div className="text-center">
-                <div className="bg-green-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <BarChart3 className="h-8 w-8 text-green-600" />
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Track Progress</h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Conduct regular assessments to monitor improvements in your AI governance.
-                </p>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => navigate('/dashboard')}
-                >
-                  View All Assessments
-                </Button>
-              </div>
+        {/* Assessment Heatmap Column */}
+        <div className="flex-1 bg-white overflow-y-auto">
+          <div className="p-6">
+            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+              <Shield className="h-5 w-5 text-teal-600" />
+              <span>Assessment Heatmap</span>
+            </h2>
+            
+            <div className="space-y-4" data-testid="assessment-heatmap">
+              {[...summary.domain_scores]
+                .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
+                .map((domain) => {
+                const domainQuestions = questions.filter(q => q.domain_id === domain.domain_id);
+                const domainAnswers = answers.filter(a => 
+                  domainQuestions.some(q => q.id === a.question_id)
+                );
+                
+                return (
+                  <div key={domain.domain_id}>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-medium text-gray-900 text-sm">{domain.domain_name}</h4>
+                      <div className="text-xs text-gray-600 font-medium">
+                        {domain.percentage.toFixed(1)}%
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-8 gap-1 mb-4">
+                      {domainQuestions
+                        .map((question) => {
+                          const answer = domainAnswers.find(a => a.question_id === question.id);
+                          const score = answer ? answer.numeric_score : 0;
+                          return { ...question, score };
+                        })
+                        .sort((a, b) => a.score - b.score) // Sort by score, lowest first
+                        .map((question) => {
+                        const score = question.score;
+                        const percentage = (score / 3) * 100; // Max score is 3
+                        const colors = getScoreColor(percentage);
+                        
+                        return (
+                          <div
+                            key={question.id}
+                            className={`p-2 rounded text-center ${colors.bg} ${colors.text} border border-gray-300`}
+                            title={`${question.code}: ${question.text} (Score: ${score}/3)`}
+                            data-testid={`heatmap-cell-${question.code}`}
+                          >
+                            <div className="font-bold text-xs">{question.code}</div>
+                            <div className="text-xs opacity-90">{score}/3</div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          </CardContent>
-        </Card>
-      </main>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
