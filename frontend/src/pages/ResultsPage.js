@@ -336,35 +336,35 @@ function ResultsPage() {
 
       {/* Main Content - Two Column Layout */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Domain Scores Column */}
-        <div className="w-1/3 bg-white border-r overflow-y-auto">
-          <div className="p-6">
-            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
-              <BarChart3 className="h-5 w-5 text-teal-600" />
+        {/* Domain Scores Column - Half the previous width */}
+        <div className="w-1/6 bg-white border-r overflow-y-auto">
+          <div className="p-4">
+            <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+              <BarChart3 className="h-4 w-4 text-teal-600" />
               <span>Domain Scores</span>
             </h2>
             
-            <div className="space-y-4" data-testid="domain-scores-list">
+            <div className="space-y-3" data-testid="domain-scores-list">
               {[...summary.domain_scores]
                 .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
                 .map((domain, index) => {
                 const colors = getScoreColor(domain.percentage);
                 return (
-                  <div key={domain.domain_id} className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium text-gray-900 text-sm">{domain.domain_name}</span>
-                      <div className={`px-2 py-1 rounded text-xs font-bold ${colors.bg} ${colors.text}`}>
+                  <div key={domain.domain_id} className="space-y-1">
+                    <div className="flex flex-col">
+                      <span className="font-medium text-gray-900 text-xs">{domain.domain_name}</span>
+                      <div className={`px-1 py-0.5 rounded text-xs font-bold ${colors.bg} ${colors.text} self-start mt-1`}>
                         {domain.percentage.toFixed(1)}%
                       </div>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-gray-200 rounded-full h-1.5">
                       <div 
-                        className={`${colors.bg} h-2 rounded-full transition-all duration-300`}
+                        className={`${colors.bg} h-1.5 rounded-full transition-all duration-300`}
                         style={{ width: `${domain.percentage}%` }}
                       ></div>
                     </div>
                     <p className="text-xs text-gray-600">
-                      {domain.score} out of {domain.max_score} points
+                      {domain.score} / {domain.max_score}
                     </p>
                   </div>
                 );
@@ -373,15 +373,15 @@ function ResultsPage() {
           </div>
         </div>
 
-        {/* Assessment Heatmap Column */}
+        {/* Assessment Heatmap Column - Takes up remaining space */}
         <div className="flex-1 bg-white overflow-y-auto">
-          <div className="p-6">
+          <div className="p-4">
             <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
               <Shield className="h-5 w-5 text-teal-600" />
               <span>Assessment Heatmap</span>
             </h2>
             
-            <div className="space-y-4" data-testid="assessment-heatmap">
+            <div className="space-y-2" data-testid="assessment-heatmap">
               {[...summary.domain_scores]
                 .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
                 .map((domain) => {
@@ -391,15 +391,15 @@ function ResultsPage() {
                 );
                 
                 return (
-                  <div key={domain.domain_id}>
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-gray-900 text-sm">{domain.domain_name}</h4>
-                      <div className="text-xs text-gray-600 font-medium">
-                        {domain.percentage.toFixed(1)}%
-                      </div>
+                  <div key={domain.domain_id} className="flex items-center py-1">
+                    {/* Domain name on the left */}
+                    <div className="w-32 flex-shrink-0 pr-4">
+                      <div className="text-sm font-medium text-gray-900">{domain.domain_name}</div>
+                      <div className="text-xs text-gray-600">({domain.percentage.toFixed(1)}%)</div>
                     </div>
                     
-                    <div className="grid grid-cols-8 gap-1 mb-4">
+                    {/* Question buttons on the same row */}
+                    <div className="flex-1 grid grid-cols-8 gap-1">
                       {domainQuestions
                         .map((question) => {
                           const answer = domainAnswers.find(a => a.question_id === question.id);
