@@ -65,15 +65,85 @@ function ResultsPage() {
 
   const fetchResults = async () => {
     try {
-      // Fetch assessment details
+      // TESTING: Use mock data for layout testing
+      if (id === 'test-assessment-id') {
+        // Mock assessment data
+        setAssessment({
+          id: 'test-assessment-id',
+          user_id: 'test-user-id',
+          status: 'COMPLETED',
+          created_at: new Date().toISOString()
+        });
+        
+        // Mock questions data
+        const mockQuestions = [];
+        const mockAnswers = [];
+        
+        // Create mock questions for 11 domains with 8 questions each
+        const domains = [
+          { id: 1, name: 'Fairness & Bias' },
+          { id: 2, name: 'Transparency' },
+          { id: 3, name: 'Reliability' },
+          { id: 4, name: 'Security' },
+          { id: 5, name: 'Privacy' },
+          { id: 6, name: 'Safety' },
+          { id: 7, name: 'Inclusivity' },
+          { id: 8, name: 'Sustainability' },
+          { id: 9, name: 'Accountability' },
+          { id: 10, name: 'Human Oversight' },
+          { id: 11, name: 'Robustness' }
+        ];
+        
+        domains.forEach(domain => {
+          for (let i = 1; i <= 8; i++) {
+            const questionId = `${domain.id}-${i}`;
+            const question = {
+              id: questionId,
+              domain_id: domain.id,
+              code: `${domain.name.substring(0, 2).toUpperCase()}-${i}`,
+              text: `Sample question ${i} for ${domain.name} domain`,
+              order: i
+            };
+            mockQuestions.push(question);
+            
+            // Mock answer with random score
+            const score = Math.floor(Math.random() * 4); // 0-3
+            mockAnswers.push({
+              question_id: questionId,
+              numeric_score: score,
+              question: question
+            });
+          }
+        });
+        
+        setQuestions(mockQuestions);
+        setAnswers(mockAnswers);
+        
+        // Mock summary data
+        const mockSummary = {
+          overall_percentage: 67.5,
+          overall_maturity: 'Good',
+          domain_scores: domains.map(domain => ({
+            domain_id: domain.id,
+            domain_name: domain.name,
+            score: Math.floor(Math.random() * 20) + 5, // 5-24
+            max_score: 24,
+            percentage: Math.floor(Math.random() * 60) + 20 // 20-80%
+          }))
+        };
+        
+        setSummary(mockSummary);
+        setLoading(false);
+        return;
+      }
+      
+      // Original API calls for real data
       const assessmentResponse = await axios.get(`${API}/assessments/${id}`);
       setAssessment(assessmentResponse.data);
       
-      // Fetch questions with answers
       const questionsResponse = await axios.get(`${API}/assessments/${id}/questions`);
       const questionData = questionsResponse.data;
       
-      // Extract questions and build answers array
       const allQuestions = [];
       const answersData = [];
       
@@ -89,7 +159,6 @@ function ResultsPage() {
       setQuestions(allQuestions);
       setAnswers(answersData);
       
-      // Fetch summary
       const summaryResponse = await axios.get(`${API}/assessments/${id}/summary`);
       setSummary(summaryResponse.data);
       
