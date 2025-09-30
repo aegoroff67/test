@@ -52,6 +52,15 @@ function ResultsPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   
+  // TESTING: Mock user for layout testing
+  const testUser = user || {
+    id: 'test-user-id',
+    email: 'testuser@example.com',
+    full_name: 'Test User',
+    organization_name: 'Test Organization Ltd',
+    industry: 'Technology'
+  };
+  
   const [assessment, setAssessment] = useState(null);
   const [summary, setSummary] = useState(null);
   const [questions, setQuestions] = useState([]);
