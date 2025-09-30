@@ -15,6 +15,19 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // TESTING: Provide mock user for results page testing
+    if (window.location.pathname.includes('/results/')) {
+      setUser({
+        id: 'test-user-id',
+        email: 'testuser@example.com',
+        full_name: 'Test User',
+        organization_name: 'Test Organization Ltd',
+        industry: 'Technology'
+      });
+      setLoading(false);
+      return;
+    }
+    
     const token = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
     
