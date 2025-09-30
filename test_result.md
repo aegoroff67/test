@@ -251,8 +251,7 @@
   run_ui: false
 
 ## test_plan:
-  current_focus:
-    - "Redesign ResultsPage to fit single screen (1920x1080) without scrolling"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
