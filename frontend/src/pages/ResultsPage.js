@@ -285,7 +285,7 @@ function ResultsPage() {
               <div className="grid grid-cols-2 gap-8">
                 <div>
                   <div className="mb-2">
-                    <p className="text-sm font-bold text-gray-900">Organisation: {user?.organization_name}</p>
+                    <p className="text-sm font-bold text-gray-900">Organisation: {testUser?.organization_name}</p>
                     <p className="text-sm text-gray-600">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                   </div>
                   <div>
