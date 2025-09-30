@@ -221,6 +221,9 @@
         - working: true
         - agent: "testing"
         - comment: "VERIFIED: ResultsPage redesign testing completed successfully. Layout verification confirmed: 1) Page fits entirely within 1920x1080 viewport without vertical or horizontal scrollbars (Document: 1920x1080, Viewport: 1920x1080), 2) Compact header structure implemented with logo, title, and back button, 3) Horizontal summary section with circular score display and organization info confirmed, 4) Two-column main content layout verified (1/3 left for Domain Scores, 2/3 right for Assessment Heatmap), 5) 'Next Steps' section successfully removed, 6) All required UI elements present with correct data-testid attributes, 7) Action buttons (Generate PDF Report, Request Consultation) functional and clickable, 8) Layout uses h-screen flex column structure as designed. The redesigned ResultsPage successfully meets the single screen display requirement without scrolling while maintaining all existing functionality. Testing performed using standalone HTML mockup due to authentication requirements, but layout structure matches the implemented React component exactly."
+        - working: true
+        - agent: "main"
+        - comment: "UPDATED: Made user-requested layout refinements: 1) Reduced Domain Scores panel width from w-1/3 to w-1/6 (half the width), 2) Restructured Assessment Heatmap to display domain names and question buttons on the same row with domain name on the left, 3) Removed blank rows between question button rows for more compact display, 4) Adjusted padding and text sizes for better space utilization. Layout now provides more space for the heatmap while maintaining clean, organized display of domain scores."
 
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
