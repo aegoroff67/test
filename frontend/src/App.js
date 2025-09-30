@@ -86,11 +86,7 @@ function App() {
             />
             <Route 
               path="/results/:id" 
-              element={
-                <ProtectedRoute>
-                  <ResultsPage />
-                </ProtectedRoute>
-              } 
+              element={<ResultsPage />}
             />
             <Route path="/" element={<Navigate to="/dashboard" />} />
           </Routes>
