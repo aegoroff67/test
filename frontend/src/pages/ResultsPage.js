@@ -164,11 +164,8 @@ function ResultsPage() {
       
     } catch (error) {
       console.error('Error loading results:', error);
-      // TESTING: Don't redirect on error for testing purposes
-      if (id !== 'test-assessment-id') {
-        toast.error('Failed to load results');
-        navigate('/dashboard');
-      }
+      toast.error('Failed to load results');
+      navigate('/dashboard');
     } finally {
       setLoading(false);
     }
