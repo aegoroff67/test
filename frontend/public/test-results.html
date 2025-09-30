@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results Page Layout Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .loading-spinner {
+            border: 2px solid #f3f4f6;
+            border-top: 2px solid #0d9488;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="h-screen bg-gray-50 flex flex-col">
+        <!-- Compact Header -->
+        <header class="bg-white shadow-sm border-b flex-shrink-0">
+            <div class="max-w-full px-6">
+                <div class="flex justify-between items-center h-14">
+                    <!-- Logo & Title -->
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-teal-600 p-1.5 rounded-lg">
+                            <i data-lucide="shield" class="h-5 w-5 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-base font-bold text-gray-900">AM AI SAFE</h1>
+                            <p class="text-xs text-teal-600">Assessment Results</p>
+                        </div>
+                    </div>
+
+                    <!-- Back Button -->
+                    <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500" data-testid="back-dashboard-btn">
+                        <i data-lucide="arrow-left" class="h-4 w-4 mr-2"></i>
+                        Dashboard
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Summary Section -->
+        <div class="bg-white border-b flex-shrink-0">
+            <div class="max-w-full px-6 py-4">
+                <div class="flex items-center space-x-8">
+                    <!-- Left Side - Score Circle -->
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <div class="w-20 h-20 rounded-full border-4 border-gray-200 flex items-center justify-center bg-white">
+                                <div class="text-center">
+                                    <div class="text-lg font-bold text-gray-900" data-testid="overall-score">
+                                        67.5%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800" data-testid="maturity-level">
+                                Good AI MATURITY
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right Side - Organization Info and Actions -->
+                    <div class="flex-1">
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="mb-2">
+                                    <p class="text-sm font-bold text-gray-900">Organisation: Test Organization Ltd</p>
+                                    <p class="text-sm text-gray-600">Report Date: 30 September 2025</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-gray-900 mb-1">Results Summary:</p>
+                                    <p class="text-sm text-gray-700 leading-relaxed">
+                                        Strong performance! Your organization has implemented many best practices and performs well in most areas.
+                                    </p>
+                                    <p class="text-sm text-gray-700 mt-2">
+                                        The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col justify-center space-y-3">
+                                <button class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 w-full" data-testid="generate-report-btn">
+                                    <i data-lucide="download" class="h-4 w-4 mr-2"></i>
+                                    Generate PDF Report
+                                </button>
+                                
+                                <button class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 w-full" data-testid="request-consultation-btn">
+                                    <i data-lucide="message-square" class="h-4 w-4 mr-2"></i>
+                                    Request Consultation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content - Two Column Layout -->
+        <div class="flex-1 flex overflow-hidden">
+            <!-- Domain Scores Column -->
+            <div class="w-1/3 bg-white border-r overflow-y-auto">
+                <div class="p-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                        <i data-lucide="bar-chart-3" class="h-5 w-5 text-teal-600"></i>
+                        <span>Domain Scores</span>
+                    </h2>
+                    
+                    <div class="space-y-4" data-testid="domain-scores-list">
+                        <!-- Sample domain scores -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-gray-900 text-sm">Fairness & Bias</span>
+                                <div class="px-2 py-1 rounded text-xs font-bold bg-red-500 text-white">
+                                    25.0%
+                                </div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-red-500 h-2 rounded-full transition-all duration-300" style="width: 25%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600">6 out of 24 points</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-gray-900 text-sm">Security</span>
+                                <div class="px-2 py-1 rounded text-xs font-bold bg-orange-500 text-white">
+                                    45.8%
+                                </div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-orange-500 h-2 rounded-full transition-all duration-300" style="width: 45.8%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600">11 out of 24 points</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-gray-900 text-sm">Privacy</span>
+                                <div class="px-2 py-1 rounded text-xs font-bold bg-yellow-500 text-white">
+                                    62.5%
+                                </div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-yellow-500 h-2 rounded-full transition-all duration-300" style="width: 62.5%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600">15 out of 24 points</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-gray-900 text-sm">Transparency</span>
+                                <div class="px-2 py-1 rounded text-xs font-bold bg-green-500 text-white">
+                                    83.3%
+                                </div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full transition-all duration-300" style="width: 83.3%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600">20 out of 24 points</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assessment Heatmap Column -->
+            <div class="flex-1 bg-white overflow-y-auto">
+                <div class="p-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                        <i data-lucide="shield" class="h-5 w-5 text-teal-600"></i>
+                        <span>Assessment Heatmap</span>
+                    </h2>
+                    
+                    <div class="space-y-4" data-testid="assessment-heatmap">
+                        <!-- Sample heatmap for Fairness & Bias -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-medium text-gray-900 text-sm">Fairness & Bias</h4>
+                                <div class="text-xs text-gray-600 font-medium">25.0%</div>
+                            </div>
+                            
+                            <div class="grid grid-cols-8 gap-1 mb-4">
+                                <div class="p-2 rounded text-center bg-red-500 text-white border border-gray-300" data-testid="heatmap-cell-FA-1">
+                                    <div class="font-bold text-xs">FA-1</div>
+                                    <div class="text-xs opacity-90">0/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-red-500 text-white border border-gray-300" data-testid="heatmap-cell-FA-2">
+                                    <div class="font-bold text-xs">FA-2</div>
+                                    <div class="text-xs opacity-90">1/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-orange-500 text-white border border-gray-300" data-testid="heatmap-cell-FA-3">
+                                    <div class="font-bold text-xs">FA-3</div>
+                                    <div class="text-xs opacity-90">1/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-yellow-500 text-white border border-gray-300" data-testid="heatmap-cell-FA-4">
+                                    <div class="font-bold text-xs">FA-4</div>
+                                    <div class="text-xs opacity-90">2/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-yellow-500 text-white border border-gray-300" data-testid="heatmap-cell-FA-5">
+                                    <div class="font-bold text-xs">FA-5</div>
+                                    <div class="text-xs opacity-90">2/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-green-500 text-white border border-gray-300" data-testid="heatmap-cell-FA-6">
+                                    <div class="font-bold text-xs">FA-6</div>
+                                    <div class="text-xs opacity-90">3/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-green-500 text-white border border-gray-300" data-testid="heatmap-cell-FA-7">
+                                    <div class="font-bold text-xs">FA-7</div>
+                                    <div class="text-xs opacity-90">3/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-green-500 text-white border border-gray-300" data-testid="heatmap-cell-FA-8">
+                                    <div class="font-bold text-xs">FA-8</div>
+                                    <div class="text-xs opacity-90">3/3</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sample heatmap for Security -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-medium text-gray-900 text-sm">Security</h4>
+                                <div class="text-xs text-gray-600 font-medium">45.8%</div>
+                            </div>
+                            
+                            <div class="grid grid-cols-8 gap-1 mb-4">
+                                <div class="p-2 rounded text-center bg-red-500 text-white border border-gray-300" data-testid="heatmap-cell-SE-1">
+                                    <div class="font-bold text-xs">SE-1</div>
+                                    <div class="text-xs opacity-90">0/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-orange-500 text-white border border-gray-300" data-testid="heatmap-cell-SE-2">
+                                    <div class="font-bold text-xs">SE-2</div>
+                                    <div class="text-xs opacity-90">1/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-orange-500 text-white border border-gray-300" data-testid="heatmap-cell-SE-3">
+                                    <div class="font-bold text-xs">SE-3</div>
+                                    <div class="text-xs opacity-90">1/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-yellow-500 text-white border border-gray-300" data-testid="heatmap-cell-SE-4">
+                                    <div class="font-bold text-xs">SE-4</div>
+                                    <div class="text-xs opacity-90">2/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-yellow-500 text-white border border-gray-300" data-testid="heatmap-cell-SE-5">
+                                    <div class="font-bold text-xs">SE-5</div>
+                                    <div class="text-xs opacity-90">2/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-yellow-500 text-white border border-gray-300" data-testid="heatmap-cell-SE-6">
+                                    <div class="font-bold text-xs">SE-6</div>
+                                    <div class="text-xs opacity-90">2/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-green-500 text-white border border-gray-300" data-testid="heatmap-cell-SE-7">
+                                    <div class="font-bold text-xs">SE-7</div>
+                                    <div class="text-xs opacity-90">3/3</div>
+                                </div>
+                                <div class="p-2 rounded text-center bg-green-500 text-white border border-gray-300" data-testid="heatmap-cell-SE-8">
+                                    <div class="font-bold text-xs">SE-8</div>
+                                    <div class="text-xs opacity-90">3/3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
