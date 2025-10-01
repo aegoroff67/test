@@ -594,22 +594,175 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
 
 @api_router.get("/assessments/{assessment_id}/report")
 async def generate_report(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
-    # Verify assessment belongs to user's organization  
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
-    if not assessment:
-        raise HTTPException(status_code=404, detail="Assessment not found")
+    """Generate and download PDF report for assessment."""
+    from fastapi.responses import StreamingResponse
+    from weasyprint import HTML, CSS
+    from weasyprint.text.fonts import FontConfiguration
+    from jinja2 import Environment, FileSystemLoader
+    import io
+    import os
+    from pathlib import Path
     
-    # For MVP, return a static PDF URL
-    static_pdf_url = "https://example.com/assessment-report.pdf"
+    try:
+        # Verify assessment belongs to user's organization  
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        if not assessment:
+            raise HTTPException(status_code=404, detail="Assessment not found")
+        
+        # Check if assessment is completed
+        if assessment.get("status") != "COMPLETED":
+            raise HTTPException(status_code=400, detail="Assessment must be completed before generating report")
+        
+        # Get assessment data (questions, answers, summary)
+        questions_response = await get_assessment_questions(assessment_id, current_user)
+        summary_response = await get_assessment_summary(assessment_id, current_user)
+        
+        # Prepare heatmap data
+        heatmap_data = []
+        for domain_data in questions_response:
+            domain_questions = []
+            for question in domain_data["questions"]:
+                score = question.get("answer", {}).get("numeric_score", 0) if question.get("answer") else 0
+                domain_questions.append({
+                    "code": question["code"],
+                    "score": score,
+                    "text": question["text"]
+                })
+            
+            heatmap_data.append({
+                "domain_name": domain_data["domain_name"],
+                "questions": domain_questions
+            })
+        
+        # Generate recommendations based on low scores
+        recommendations = generate_recommendations(questions_response)
+        
+        # Prepare template data
+        template_data = {
+            "organization_name": current_user.organization_name or "Organization",
+            "assessment_date": assessment.get("created_at", datetime.now(timezone.utc)).strftime("%d %B %Y"),
+            "overall_percentage": summary_response["overall_percentage"],
+            "overall_maturity": summary_response["overall_maturity"],
+            "heatmap_data": heatmap_data,
+            "recommendations": recommendations
+        }
+        
+        # Setup Jinja2 environment
+        template_dir = Path(__file__).parent / "templates"
+        env = Environment(loader=FileSystemLoader(str(template_dir)))
+        
+        # Add custom filters
+        env.filters['round'] = lambda x, precision=1: round(float(x), precision)
+        
+        # Render HTML template
+        template = env.get_template("reports/assessment_report.html")
+        html_content = template.render(**template_data)
+        
+        # Generate PDF
+        font_config = FontConfiguration()
+        html_doc = HTML(string=html_content, base_url=str(template_dir))
+        
+        # Create PDF buffer
+        pdf_buffer = io.BytesIO()
+        html_doc.write_pdf(pdf_buffer, font_config=font_config)
+        pdf_buffer.seek(0)
+        
+        # Generate filename
+        safe_org_name = "".join(c for c in current_user.organization_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
+        filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.pdf"
+        
+        # Store report record in database
+        report = Report(
+            assessment_id=assessment_id,
+            url=f"/reports/{filename}",  # Store relative path
+        )
+        await db.reports.insert_one(report.dict())
+        
+        # Return PDF as streaming response
+        return StreamingResponse(
+            io.BytesIO(pdf_buffer.getvalue()),
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f"attachment; filename=\"{filename}\"",
+                "Content-Type": "application/pdf"
+            }
+        )
+        
+    except Exception as e:
+        print(f"Error generating PDF report: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate report: {str(e)}")
+
+
+def generate_recommendations(questions_data):
+    """Generate recommendations based on low-scoring questions."""
+    high_priority = []
+    medium_priority = []
+    low_priority = []
     
-    # Store report record
-    report = Report(
-        assessment_id=assessment_id,
-        url=static_pdf_url
-    )
-    await db.reports.insert_one(report.dict())
+    # Define recommendation templates based on common patterns
+    recommendation_templates = {
+        "FA": {
+            "1": "Regularly audit datasets for imbalances or biases and use tools like Fairlearn to detect and mitigate issues.",
+            "2": "Implement fairness constraints during model training and review model outcomes for biases before deployment.",
+            "3": "Conduct regular bias testing across different demographic groups and maintain bias mitigation protocols.",
+            "4": "Establish clear fairness metrics and thresholds that must be met before model deployment.",
+            "5": "Create diverse training datasets and implement bias detection in data collection processes.",
+            "6": "Develop fairness-aware machine learning practices and regular bias auditing procedures.",
+            "7": "Implement algorithmic impact assessments to evaluate potential discriminatory effects.",
+            "8": "Establish processes for ongoing bias monitoring and correction in deployed models."
+        },
+        "TR": {
+            "1": "Implement comprehensive model documentation including architecture, training data, and decision logic.",
+            "2": "Develop user-friendly explanations of AI decision-making processes for stakeholders.",
+            "3": "Create transparent reporting mechanisms for AI system performance and limitations.",
+            "4": "Establish clear communication protocols about AI system capabilities and constraints.",
+            "5": "Implement model interpretability tools and provide accessible explanation interfaces.",
+            "6": "Develop transparency reports that detail AI system operations and decision criteria.",
+            "7": "Create public-facing documentation about AI system governance and oversight.",
+            "8": "Establish regular transparency audits and public reporting on AI system performance."
+        }
+        # Add more templates for other domains as needed
+    }
     
-    return {"url": static_pdf_url}
+    # Analyze questions and generate recommendations
+    for domain_data in questions_data:
+        domain_name = domain_data["domain_name"]
+        
+        for question in domain_data["questions"]:
+            score = question.get("answer", {}).get("numeric_score", 0) if question.get("answer") else 0
+            question_code = question["code"]
+            
+            # Extract domain and question number
+            domain_code = question_code.split("-")[0]
+            question_num = question_code.split("-")[1] if "-" in question_code else "1"
+            
+            # Get recommendation template or create generic one
+            if domain_code in recommendation_templates and question_num in recommendation_templates[domain_code]:
+                recommendation_text = recommendation_templates[domain_code][question_num]
+            else:
+                recommendation_text = f"Review and improve practices related to {question['text'].lower()}"
+            
+            recommendation_item = {
+                "domain": domain_name,
+                "question_id": question_code,
+                "recommendation": recommendation_text
+            }
+            
+            # Categorize by priority based on score
+            if score <= 1:  # Poor performance
+                high_priority.append(recommendation_item)
+            elif score <= 2:  # Fair performance
+                medium_priority.append(recommendation_item)
+            elif score < 3:  # Good but not excellent
+                low_priority.append(recommendation_item)
+    
+    # Limit recommendations to keep report manageable
+    return {
+        "high": high_priority[:10],  # Top 10 high priority
+        "medium": medium_priority[:8],  # Top 8 medium priority
+        "low": low_priority[:5]  # Top 5 low priority
+    }
 
 @api_router.post("/assessments/{assessment_id}/submit")
 async def submit_assessment(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
