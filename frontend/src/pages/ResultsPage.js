@@ -344,7 +344,7 @@ function ResultsPage() {
                 ) : (
                   <div className="flex flex-col items-center">
                     <Download className="h-3 w-3 mb-1" />
-                    <span>Generate PDF Report</span>
+                    <span>Generate Report</span>
                   </div>
                 )}
               </Button>
