@@ -239,6 +239,18 @@
         - working: true
         - agent: "main"
         - comment: "HEATMAP EXPLANATION UPDATE: Appended 'Generate a report for further details.' to the end of the heatmap explanation sentence in the results summary panel. Updated text now reads: 'The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas. Generate a report for further details.' This addition will appear in all future reports and serves as a call-to-action directing users to generate the PDF report for comprehensive assessment details and recommendations."
+
+  - task: "Implement PDF report generation with WeasyPrint and HTML templates"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Complete PDF generation functionality using WeasyPrint integration. Features: 1) Installed WeasyPrint and Jinja2 dependencies, 2) Created HTML template structure (/app/backend/templates/) matching Word document sample, 3) Implemented generate_report endpoint that replaces static URL with actual PDF generation, 4) Added dynamic heatmap generation with color-coded scoring, 5) Added recommendation generation based on low-scoring questions, 6) Updated frontend to handle PDF blob download instead of URL redirect, 7) Template includes: executive summary, assessment heatmap, prioritized recommendations tables, proper page breaks and styling. Ready for testing to verify PDF generation and download functionality."
         - working: true
         - agent: "testing"
         - comment: "VERIFIED: ResultsPage layout refinements testing completed successfully through code analysis and authentication testing attempts. CODE ANALYSIS CONFIRMED: 1) Domain Scores panel width correctly reduced from w-1/3 to w-1/6 (line 340: 'w-1/6 bg-white border-r'), providing ~16.7% width vs previous ~33.3%, 2) Assessment Heatmap restructured with domain names and question buttons on same row (line 394: 'flex items-center py-1'), 3) Domain names positioned on left with w-32 class (lines 396-399), 4) Question buttons use flex-1 grid grid-cols-8 layout on same row (lines 402-427), 5) Compact row spacing implemented with space-y-2 (line 384), removing blank rows between domains, 6) Space optimization achieved - heatmap now has ~83.3% width vs previous ~66.7%. AUTHENTICATION TESTING: Successfully created test account and reached dashboard, confirming frontend functionality. Mock data path (test-assessment-id) implemented for layout testing. All layout refinements are correctly implemented in code and ready for user acceptance testing. The updated layout provides significantly more space for the assessment heatmap while maintaining compact, organized display of domain scores."
