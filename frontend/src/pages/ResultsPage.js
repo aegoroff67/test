@@ -290,7 +290,7 @@ function ResultsPage() {
                 }
               </p>
               <p className="text-sm text-gray-700 mt-2">
-                The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas.
+                The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas. Generate a report for further details.
               </p>
             </div>
             
