@@ -287,7 +287,8 @@
   run_ui: false
 
 ## test_plan:
-  current_focus: []
+  current_focus:
+    - "Implement PDF report generation with WeasyPrint and HTML templates"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
