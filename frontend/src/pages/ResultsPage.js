@@ -175,19 +175,21 @@ function ResultsPage() {
     setGeneratingReport(true);
     try {
       const response = await axios.get(`${API}/assessments/${id}/report`, {
-        responseType: 'blob', // Important for handling binary PDF data
+        responseType: 'blob', // Important for handling binary DOCX data
         headers: {
-          'Accept': 'application/pdf'
+          'Accept': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         }
       });
       
       // Create blob URL and trigger download
-      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const blob = new Blob([response.data], { 
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+      });
       const url = window.URL.createObjectURL(blob);
       
       // Extract filename from response headers or create default
       const contentDisposition = response.headers['content-disposition'];
-      let filename = 'AM_AI_SAFE_Assessment_Report.pdf';
+      let filename = 'AM_AI_SAFE_Assessment_Report.docx';
       
       if (contentDisposition) {
         const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
