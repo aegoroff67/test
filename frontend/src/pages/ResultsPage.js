@@ -277,7 +277,7 @@ function ResultsPage() {
             <div className="px-6" style={{ width: '62.5%' }}>
               <p className="text-sm font-bold text-gray-900 mb-1">Results Summary:</p>
               <p className="text-sm text-gray-700 leading-relaxed">
-                The results indicate that {user?.organization_name} has achieved an overall AI maturity score of {summary.overall_percentage.toFixed(1)}%, placing the organization within the {summary.overall_maturity} AI Maturity category. This rating reflects {
+                The results indicate that <strong>{user?.organization_name}</strong> has achieved an overall AI maturity score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing the organization within the <strong>{summary.overall_maturity}</strong> AI Maturity category. This rating reflects {
                   summary.overall_maturity === 'Excellent' 
                     ? 'outstanding alignment with AI governance best practices across all domains, with well-developed systems, processes, and policies that are consistently implemented and frequently reviewed for continuous improvement.'
                     : summary.overall_maturity === 'Good'
