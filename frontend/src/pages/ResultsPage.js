@@ -254,7 +254,7 @@ function ResultsPage() {
         <div className="max-w-full px-6 py-4">
           <div className="flex items-center">
             {/* First 1/8 - Overall Maturity Score */}
-            <div className="w-1/8 flex flex-col items-center">
+            <div className="flex flex-col items-center" style={{ width: '12.5%' }}>
               <div className="w-20 h-20 rounded-full border-4 border-gray-200 flex items-center justify-center bg-white mb-2">
                 <div className="text-center">
                   <div className="text-lg font-bold text-gray-900" data-testid="overall-score">
