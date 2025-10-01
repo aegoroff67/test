@@ -294,7 +294,7 @@ function ResultsPage() {
             </div>
             
             {/* Last 1/8 - Action Buttons */}
-            <div className="w-1/8 flex flex-col space-y-3">
+            <div className="flex flex-col space-y-3" style={{ width: '12.5%' }}>
               <Button 
                 onClick={generateReport}
                 disabled={generatingReport}
