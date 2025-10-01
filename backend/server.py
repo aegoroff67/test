@@ -736,7 +736,7 @@ def generate_recommendations(questions_data):
     
     # Analyze questions and generate recommendations
     for domain_data in questions_data:
-        domain_name = domain_data["domain_name"]
+        domain_name = domain_data["domain"]["name"]
         
         for question in domain_data["questions"]:
             score = question.get("answer", {}).get("numeric_score", 0) if question.get("answer") else 0
