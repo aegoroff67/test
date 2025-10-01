@@ -619,13 +619,6 @@ async def generate_report(assessment_id: str, current_user: UserResponse = Depen
         questions_response = await get_assessment_questions(assessment_id, current_user)
         summary_response = await get_assessment_summary(assessment_id, current_user)
         
-        # Debug: Print structure
-        print(f"Questions response structure: {type(questions_response)}")
-        if questions_response:
-            print(f"First domain keys: {list(questions_response[0].keys())}")
-            if "domain" in questions_response[0]:
-                print(f"Domain structure: {list(questions_response[0]['domain'].keys())}")
-        
         # Prepare heatmap data
         heatmap_data = []
         for domain_data in questions_response:
