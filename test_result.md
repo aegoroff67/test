@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-## user_problem_statement: Implement PDF report generation functionality for AM AI SAFE assessment reports based on uploaded Word document template structure
+## user_problem_statement: Implement automated DOCX report generation using template-based approach with dynamic heatmap images and prioritized recommendations
 
 ## backend:
   - task: "Remove incorrect generated explanations and pre-defined answers from server.py"
