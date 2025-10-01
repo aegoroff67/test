@@ -2543,8 +2543,8 @@ def main():
     tester = AMSafeAPITester()
     
     try:
-        # Run specific tests for the reported issues
-        success = tester.run_specific_fix_tests()
+        # Run comprehensive tests including DOCX report generation
+        success = tester.run_all_tests()
         tester.print_summary()
         return 0 if success else 1
     except Exception as e:
