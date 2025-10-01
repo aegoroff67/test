@@ -252,83 +252,78 @@ function ResultsPage() {
       {/* Summary Section */}
       <div className="bg-white border-b flex-shrink-0">
         <div className="max-w-full px-6 py-4">
-          <div className="flex items-center space-x-8">
-            {/* Left Side - Score Circle */}
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <div className="w-20 h-20 rounded-full border-4 border-gray-200 flex items-center justify-center bg-white">
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-gray-900" data-testid="overall-score">
-                      {summary.overall_percentage.toFixed(1)}%
-                    </div>
+          <div className="flex items-center">
+            {/* First 1/8 - Overall Maturity Score */}
+            <div className="w-1/8 flex flex-col items-center">
+              <div className="w-20 h-20 rounded-full border-4 border-gray-200 flex items-center justify-center bg-white mb-2">
+                <div className="text-center">
+                  <div className="text-lg font-bold text-gray-900" data-testid="overall-score">
+                    {summary.overall_percentage.toFixed(1)}%
                   </div>
                 </div>
               </div>
-              <div>
-                <Badge className={`text-sm px-3 py-1 ${maturityInfo.color}`} data-testid="maturity-level">
-                  {summary.overall_maturity} AI MATURITY
-                </Badge>
-              </div>
+              <Badge className={`text-xs px-2 py-1 ${maturityInfo.color}`} data-testid="maturity-level">
+                {summary.overall_maturity} AI MATURITY
+              </Badge>
             </div>
 
-            {/* Right Side - Organization Info and Actions */}
-            <div className="flex-1">
-              <div className="grid grid-cols-2 gap-8">
-                <div>
-                  <div className="mb-2">
-                    <p className="text-sm font-bold text-gray-900">Organisation: {user?.organization_name}</p>
-                    <p className="text-sm text-gray-600">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-gray-900 mb-1">Results Summary:</p>
-                    <p className="text-sm text-gray-700 leading-relaxed">
-                      {summary.overall_maturity === 'Excellent' && 
-                        'Outstanding! Your organization demonstrates strong alignment with best practices across all domains.'}
-                      {summary.overall_maturity === 'Good' && 
-                        'Strong performance! Your organization has implemented many best practices and performs well in most areas.'}
-                      {summary.overall_maturity === 'Moderate' && 
-                        'Good foundation! Your organization has taken steps toward implementing best practices but demonstrates inconsistencies.'}
-                      {summary.overall_maturity === 'Low' && 
-                        'Attention required! Your organization shows limited alignment with best practices and significant deficiencies across multiple domains.'}
-                      {summary.overall_maturity === 'Basic' && 
-                        'Critical improvement needed! Your organization has minimal or no processes in place to address AI governance.'}
-                    </p>
-                    <p className="text-sm text-gray-700 mt-2">
-                      The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col justify-center space-y-3">
-                  <Button 
-                    onClick={generateReport}
-                    disabled={generatingReport}
-                    className="bg-teal-600 hover:bg-teal-700 w-full"
-                    data-testid="generate-report-btn"
-                  >
-                    {generatingReport ? (
-                      <div className="flex items-center space-x-2">
-                        <div className="loading-spinner w-4 h-4"></div>
-                        <span>Generating...</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center space-x-2">
-                        <Download className="h-4 w-4" />
-                        <span>Generate PDF Report</span>
-                      </div>
-                    )}
-                  </Button>
-                  
-                  <Button 
-                    variant="outline"
-                    className="w-full"
-                    data-testid="request-consultation-btn"
-                  >
-                    <MessageSquare className="h-4 w-4 mr-2" />
-                    Request Consultation
-                  </Button>
-                </div>
+            {/* 4/8 (1/2) - Results Summary Text */}
+            <div className="w-1/2 px-6">
+              <div className="mb-2">
+                <p className="text-sm font-bold text-gray-900">Organisation: {user?.organization_name}</p>
+                <p className="text-sm text-gray-600">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
               </div>
+              <div>
+                <p className="text-sm font-bold text-gray-900 mb-1">Results Summary:</p>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  {summary.overall_maturity === 'Excellent' && 
+                    'Outstanding! Your organization demonstrates strong alignment with best practices across all domains.'}
+                  {summary.overall_maturity === 'Good' && 
+                    'Strong performance! Your organization has implemented many best practices and performs well in most areas.'}
+                  {summary.overall_maturity === 'Moderate' && 
+                    'Good foundation! Your organization has taken steps toward implementing best practices but demonstrates inconsistencies.'}
+                  {summary.overall_maturity === 'Low' && 
+                    'Attention required! Your organization shows limited alignment with best practices and significant deficiencies across multiple domains.'}
+                  {summary.overall_maturity === 'Basic' && 
+                    'Critical improvement needed! Your organization has minimal or no processes in place to address AI governance.'}
+                </p>
+                <p className="text-sm text-gray-700 mt-2">
+                  The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas.
+                </p>
+              </div>
+            </div>
+            
+            {/* Last 1/8 - Action Buttons */}
+            <div className="w-1/8 flex flex-col space-y-3">
+              <Button 
+                onClick={generateReport}
+                disabled={generatingReport}
+                className="bg-teal-600 hover:bg-teal-700 text-xs px-3 py-2"
+                data-testid="generate-report-btn"
+              >
+                {generatingReport ? (
+                  <div className="flex flex-col items-center">
+                    <div className="loading-spinner w-3 h-3 mb-1"></div>
+                    <span>Generating...</span>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center">
+                    <Download className="h-3 w-3 mb-1" />
+                    <span>Generate PDF Report</span>
+                  </div>
+                )}
+              </Button>
+              
+              <Button 
+                variant="outline"
+                className="text-xs px-3 py-2"
+                data-testid="request-consultation-btn"
+              >
+                <div className="flex flex-col items-center">
+                  <MessageSquare className="h-3 w-3 mb-1" />
+                  <span>Request Consultation</span>
+                </div>
+              </Button>
             </div>
           </div>
         </div>
