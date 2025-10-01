@@ -643,8 +643,8 @@ async def generate_report(assessment_id: str, current_user: UserResponse = Depen
         template_data = {
             "organization_name": current_user.organization_name or "Organization",
             "assessment_date": assessment.get("created_at", datetime.now(timezone.utc)).strftime("%d %B %Y"),
-            "overall_percentage": summary_response["overall_percentage"],
-            "overall_maturity": summary_response["overall_maturity"],
+            "overall_percentage": summary_response.overall_percentage,
+            "overall_maturity": summary_response.overall_maturity,
             "heatmap_data": heatmap_data,
             "recommendations": recommendations
         }
