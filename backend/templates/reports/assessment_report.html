@@ -1,0 +1,271 @@
+{% extends "base/layout.html" %}
+
+{% block title %}A M AI SAFE Framework Assessment for {{ organization_name }}{% endblock %}
+
+{% block content %}
+<!-- Report Header -->
+<div class="report-header">
+    <div class="report-title">A M AI SAFE Framework Assessment for {{ organization_name }}</div>
+    <div class="report-date">{{ assessment_date }}</div>
+    <div class="report-subtitle">Automated Version</div>
+</div>
+
+<!-- Table of Contents -->
+<div class="content-section">
+    <h1>Table of Contents</h1>
+    <div class="toc">
+        <div class="toc-item">
+            <span class="toc-title">1. Executive Summary</span>
+            <span class="toc-page">3</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-title">2. Assessment Results</span>
+            <span class="toc-page">4</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-title">&nbsp;&nbsp;&nbsp;&nbsp;Figure 1. {{ organization_name }} AI Maturity Heatmap</span>
+            <span class="toc-page">4</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-title">3. Recommendations</span>
+            <span class="toc-page">5</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-title">&nbsp;&nbsp;&nbsp;&nbsp;3.1. High Priority Recommendations</span>
+            <span class="toc-page">5</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table 1. High Priority Recommendations</span>
+            <span class="toc-page">5</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-title">&nbsp;&nbsp;&nbsp;&nbsp;3.2. Medium Priority Recommendations</span>
+            <span class="toc-page">6</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table 2. Medium Priority Recommendations</span>
+            <span class="toc-page">6</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-title">&nbsp;&nbsp;&nbsp;&nbsp;3.3. Low Priority Recommendations</span>
+            <span class="toc-page">6</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table 3. Low Priority Recommendations</span>
+            <span class="toc-page">6</span>
+        </div>
+    </div>
+</div>
+
+<!-- Executive Summary -->
+<div class="page-break">
+    <h1>1. Executive Summary</h1>
+    <div class="executive-summary">
+        <p>
+            This document presents the results of the <strong>A M AI SAFE framework</strong> assessment conducted for 
+            <strong>{{ organization_name }}</strong>. The assessment evaluates AI maturity across <strong>11 domains</strong> 
+            covering <strong>88 questions</strong>, with responses scored on a scale from <strong>0 (lowest) to 3 (highest)</strong>.
+        </p>
+        
+        <div class="summary-grid">
+            <div class="summary-item">
+                <div class="summary-label">Overall AI Maturity Score</div>
+                <div class="summary-value">{{ overall_percentage | round(1) }}%</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">AI Maturity Category</div>
+                <div class="summary-value">{{ overall_maturity }}</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">Assessment Date</div>
+                <div class="summary-value">{{ assessment_date }}</div>
+            </div>
+        </div>
+        
+        <p>
+            Based on this assessment, <strong>{{ organization_name }}</strong> has achieved an overall AI maturity score of 
+            <strong>{{ overall_percentage | round(1) }}%</strong>, placing the organization within the 
+            <strong>{{ overall_maturity }}</strong> AI Maturity category.
+        </p>
+        
+        <p>
+            The assessment framework encompasses the following 11 domains:
+            <strong>Fairness</strong>, <strong>Transparency</strong>, <strong>Explainability</strong>, 
+            <strong>Accountability</strong>, <strong>Data Integrity</strong>, <strong>Reliability</strong>, 
+            <strong>Security</strong>, <strong>Privacy</strong>, <strong>Safety</strong>, 
+            <strong>Inclusivity</strong>, and <strong>Sustainability</strong>.
+        </p>
+    </div>
+</div>
+
+<!-- Assessment Results -->
+<div class="page-break">
+    <h1>2. Assessment Results</h1>
+    
+    <p>
+        The overall AI maturity score of <strong>{{ overall_percentage | round(1) }}%</strong> places 
+        <strong>{{ organization_name }}</strong> in the <strong>{{ overall_maturity }}</strong> category. 
+        This assessment provides a comprehensive evaluation of the organization's AI governance capabilities 
+        across all critical domains.
+    </p>
+    
+    <p>
+        The scoring methodology evaluates each question on a scale from 0 (lowest) to 3 (highest), 
+        with the overall percentage calculated as the total achieved score divided by the maximum 
+        possible score across all 88 questions.
+    </p>
+    
+    <!-- AI Maturity Heatmap -->
+    <div class="heatmap-container">
+        <div class="heatmap-title">Figure 1. {{ organization_name }} AI Maturity Heatmap</div>
+        <div class="heatmap-description">
+            The heatmap below illustrates the assessment results across all domains and questions. 
+            Each cell represents an individual question, with color coding indicating the achieved score. 
+            The domains and questions are organized to facilitate identification of areas requiring attention.
+        </div>
+        
+        <div class="heatmap-grid">
+            <!-- Header row -->
+            <div class="heatmap-header"></div>
+            {% for i in range(8) %}
+                <div class="heatmap-header">Q{{ i + 1 }}</div>
+            {% endfor %}
+            
+            <!-- Data rows -->
+            {% for domain in heatmap_data %}
+            <div class="heatmap-row-label">{{ domain.domain_name }}</div>
+            {% for question in domain.questions %}
+                {% set score_class = 'score-excellent' if question.score >= 2.5 else 
+                                    'score-good' if question.score >= 2.0 else 
+                                    'score-fair' if question.score >= 1.0 else 
+                                    'score-poor' %}
+                <div class="heatmap-cell {{ score_class }}">
+                    {{ question.code }}<br>{{ question.score }}/3
+                </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+        
+        <p class="small text-center" style="margin-top: 15pt;">
+            <strong>Color Legend:</strong> 
+            <span style="background: #22c55e; color: white; padding: 2pt 5pt; margin: 0 3pt;">Excellent (2.5-3.0)</span>
+            <span style="background: #84cc16; color: white; padding: 2pt 5pt; margin: 0 3pt;">Good (2.0-2.4)</span>
+            <span style="background: #eab308; color: white; padding: 2pt 5pt; margin: 0 3pt;">Fair (1.0-1.9)</span>
+            <span style="background: #ef4444; color: white; padding: 2pt 5pt; margin: 0 3pt;">Poor (0.0-0.9)</span>
+        </p>
+    </div>
+</div>
+
+<!-- Recommendations -->
+<div class="page-break">
+    <h1>3. Recommendations</h1>
+    
+    <p>
+        Based on the assessment results, the following recommendations are provided to help 
+        <strong>{{ organization_name }}</strong> improve its AI maturity. The recommendations are 
+        categorized by priority level to facilitate strategic planning and resource allocation.
+    </p>
+    
+    <!-- High Priority Recommendations -->
+    <div class="priority-section">
+        <h2>3.1. High Priority Recommendations</h2>
+        
+        <p>
+            High priority recommendations address critical gaps that pose significant risks to AI governance 
+            and should be addressed immediately. These recommendations focus on fundamental requirements 
+            for responsible AI deployment.
+        </p>
+        
+        <h3>Table 1. High Priority Recommendations</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Domain</th>
+                    <th style="width: 15%;">Question ID</th>
+                    <th style="width: 65%;">Recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rec in recommendations.high %}
+                <tr>
+                    <td>{{ rec.domain }}</td>
+                    <td>{{ rec.question_id }}</td>
+                    <td>{{ rec.recommendation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Medium Priority Recommendations -->
+    <div class="priority-section">
+        <h2>3.2. Medium Priority Recommendations</h2>
+        
+        <p>
+            Medium priority recommendations address important areas for improvement that, while not 
+            immediately critical, should be addressed within the next planning cycle to enhance 
+            overall AI maturity.
+        </p>
+        
+        <h3>Table 2. Medium Priority Recommendations</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Domain</th>
+                    <th style="width: 15%;">Question ID</th>
+                    <th style="width: 65%;">Recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rec in recommendations.medium %}
+                <tr>
+                    <td>{{ rec.domain }}</td>
+                    <td>{{ rec.question_id }}</td>
+                    <td>{{ rec.recommendation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Low Priority Recommendations -->
+    <div class="priority-section">
+        <h2>3.3. Low Priority Recommendations</h2>
+        
+        <p>
+            Low priority recommendations represent opportunities for enhancement and optimization. 
+            These can be addressed as resources become available and after higher priority items 
+            have been completed.
+        </p>
+        
+        <h3>Table 3. Low Priority Recommendations</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Domain</th>
+                    <th style="width: 15%;">Question ID</th>
+                    <th style="width: 65%;">Recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rec in recommendations.low %}
+                <tr>
+                    <td>{{ rec.domain }}</td>
+                    <td>{{ rec.question_id }}</td>
+                    <td>{{ rec.recommendation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Footer -->
+<div style="margin-top: 30pt; text-align: center; font-size: 9pt; color: #666;">
+    <p>
+        This report was generated using the A M AI SAFE Framework Assessment platform.<br>
+        For questions about this assessment, please contact your assessment administrator.
+    </p>
+</div>
+
+{% endblock %}
