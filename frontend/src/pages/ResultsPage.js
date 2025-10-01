@@ -267,8 +267,8 @@ function ResultsPage() {
               </Badge>
             </div>
 
-            {/* 4/8 (1/2) - Results Summary Text */}
-            <div className="w-1/2 px-6">
+            {/* Remaining space (75%) - Results Summary Text */}
+            <div className="flex-1 px-6">
               <div className="mb-2">
                 <p className="text-sm font-bold text-gray-900">Organisation: {user?.organization_name}</p>
                 <p className="text-sm text-gray-600">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
