@@ -632,7 +632,7 @@ async def generate_report(assessment_id: str, current_user: UserResponse = Depen
                 })
             
             heatmap_data.append({
-                "domain_name": domain_data["domain_name"],
+                "domain_name": domain_data["domain"]["name"],
                 "questions": domain_questions
             })
         
