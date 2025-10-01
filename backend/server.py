@@ -691,6 +691,9 @@ async def generate_report(assessment_id: str, current_user: UserResponse = Depen
             }
         )
         
+    except HTTPException:
+        # Re-raise HTTP exceptions to preserve status codes
+        raise
     except Exception as e:
         print(f"Error generating PDF report: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to generate report: {str(e)}")
