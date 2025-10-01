@@ -253,11 +253,11 @@ function ResultsPage() {
       <div className="bg-white border-b flex-shrink-0">
         <div className="max-w-full px-6 py-4">
           <div className="flex items-center">
-            {/* First 1/8 - Overall Maturity Score */}
+            {/* First 12.5% - Overall Maturity Score */}
             <div className="flex flex-col items-center" style={{ width: '12.5%' }}>
-              <div className="w-20 h-20 rounded-full border-4 border-gray-200 flex items-center justify-center bg-white mb-2">
+              <div className={`w-20 h-20 rounded-full border-4 flex items-center justify-center mb-2 ${getScoreColor(summary.overall_percentage).bg.replace('bg-', 'border-')} ${getScoreColor(summary.overall_percentage).bg}`}>
                 <div className="text-center">
-                  <div className="text-lg font-bold text-gray-900" data-testid="overall-score">
+                  <div className="text-lg font-bold text-white" data-testid="overall-score">
                     {summary.overall_percentage.toFixed(1)}%
                   </div>
                 </div>
@@ -267,33 +267,33 @@ function ResultsPage() {
               </Badge>
             </div>
 
-            {/* Remaining space (75%) - Results Summary Text */}
-            <div className="flex-1 px-6">
-              <div className="mb-2">
-                <p className="text-sm font-bold text-gray-900">Organisation: {user?.organization_name}</p>
-                <p className="text-sm text-gray-600">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-              </div>
-              <div>
-                <p className="text-sm font-bold text-gray-900 mb-1">Results Summary:</p>
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  {summary.overall_maturity === 'Excellent' && 
-                    'Outstanding! Your organization demonstrates strong alignment with best practices across all domains.'}
-                  {summary.overall_maturity === 'Good' && 
-                    'Strong performance! Your organization has implemented many best practices and performs well in most areas.'}
-                  {summary.overall_maturity === 'Moderate' && 
-                    'Good foundation! Your organization has taken steps toward implementing best practices but demonstrates inconsistencies.'}
-                  {summary.overall_maturity === 'Low' && 
-                    'Attention required! Your organization shows limited alignment with best practices and significant deficiencies across multiple domains.'}
-                  {summary.overall_maturity === 'Basic' && 
-                    'Critical improvement needed! Your organization has minimal or no processes in place to address AI governance.'}
-                </p>
-                <p className="text-sm text-gray-700 mt-2">
-                  The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas.
-                </p>
-              </div>
+            {/* Second 12.5% - Organization Info */}
+            <div className="px-4" style={{ width: '12.5%' }}>
+              <p className="text-sm font-bold text-gray-900">Organisation: {user?.organization_name}</p>
+              <p className="text-sm font-bold text-gray-900">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+            </div>
+
+            {/* Third 62.5% - Results Summary Text */}
+            <div className="px-6" style={{ width: '62.5%' }}>
+              <p className="text-sm font-bold text-gray-900 mb-1">Results Summary:</p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                {summary.overall_maturity === 'Excellent' && 
+                  'Outstanding! Your organization demonstrates strong alignment with best practices across all domains.'}
+                {summary.overall_maturity === 'Good' && 
+                  'Strong performance! Your organization has implemented many best practices and performs well in most areas.'}
+                {summary.overall_maturity === 'Moderate' && 
+                  'Good foundation! Your organization has taken steps toward implementing best practices but demonstrates inconsistencies.'}
+                {summary.overall_maturity === 'Low' && 
+                  'Attention required! Your organization shows limited alignment with best practices and significant deficiencies across multiple domains.'}
+                {summary.overall_maturity === 'Basic' && 
+                  'Critical improvement needed! Your organization has minimal or no processes in place to address AI governance.'}
+              </p>
+              <p className="text-sm text-gray-700 mt-2">
+                The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas.
+              </p>
             </div>
             
-            {/* Last 1/8 - Action Buttons */}
+            {/* Last 12.5% - Action Buttons */}
             <div className="flex flex-col space-y-3" style={{ width: '12.5%' }}>
               <Button 
                 onClick={generateReport}
@@ -318,6 +318,7 @@ function ResultsPage() {
                 variant="outline"
                 className="text-xs px-3 py-2"
                 data-testid="request-consultation-btn"
+                onClick={() => window.open('https://vciso.one/contact', '_blank')}
               >
                 <div className="flex flex-col items-center">
                   <MessageSquare className="h-3 w-3 mb-1" />
