@@ -2469,8 +2469,8 @@ class AMSafeAPITester:
             return False, str(e)
 
     def run_all_tests(self):
-        """Run comprehensive test suite for 88-question dataset integration verification"""
-        print("🚀 Starting Comprehensive Backend Tests for 88-Question Dataset Integration")
+        """Run comprehensive test suite including DOCX report generation testing"""
+        print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
         print("=" * 80)
         
         # Authentication tests
@@ -2498,13 +2498,24 @@ class AMSafeAPITester:
         # Test answer system
         self.test_answer_system()
         
+        # DOCX Report Generation Tests (NEW - as requested in review)
+        print("\n🔍 STARTING DOCX REPORT GENERATION TESTING")
+        print("=" * 60)
+        
+        self.test_docx_report_generation()
+        self.test_amreport_generator_functionality()
+        self.test_heatmap_generation()
+        self.test_priority_mapping_rules()
+        self.test_json_model_compliance()
+        self.test_docx_template_processing()
+        
         # Print results
         print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
         print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All tests passed! 88-question dataset with domains 6-11 successfully integrated.")
+            print("🎉 All tests passed! DOCX report generation system fully functional.")
             return True
         else:
             print("⚠️  Some tests failed. Check details above.")
