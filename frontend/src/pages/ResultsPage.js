@@ -277,16 +277,17 @@ function ResultsPage() {
             <div className="px-6" style={{ width: '62.5%' }}>
               <p className="text-sm font-bold text-gray-900 mb-1">Results Summary:</p>
               <p className="text-sm text-gray-700 leading-relaxed">
-                {summary.overall_maturity === 'Excellent' && 
-                  'Outstanding! Your organization demonstrates strong alignment with best practices across all domains.'}
-                {summary.overall_maturity === 'Good' && 
-                  'Strong performance! Your organization has implemented many best practices and performs well in most areas.'}
-                {summary.overall_maturity === 'Moderate' && 
-                  'Good foundation! Your organization has taken steps toward implementing best practices but demonstrates inconsistencies.'}
-                {summary.overall_maturity === 'Low' && 
-                  'Attention required! Your organization shows limited alignment with best practices and significant deficiencies across multiple domains.'}
-                {summary.overall_maturity === 'Basic' && 
-                  'Critical improvement needed! Your organization has minimal or no processes in place to address AI governance.'}
+                The results indicate that {user?.organization_name} has achieved an overall AI maturity score of {summary.overall_percentage.toFixed(1)}%, placing the organization within the {summary.overall_maturity} AI Maturity category. This rating reflects {
+                  summary.overall_maturity === 'Excellent' 
+                    ? 'outstanding alignment with AI governance best practices across all domains, with well-developed systems, processes, and policies that are consistently implemented and frequently reviewed for continuous improvement.'
+                    : summary.overall_maturity === 'Good'
+                    ? 'strong performance in AI governance with many best practices implemented across most areas. While there are minor gaps, they are not critical and can be addressed with targeted improvements.'
+                    : summary.overall_maturity === 'Moderate'
+                    ? 'a foundation of AI governance practices with some critical areas requiring enhancement to meet industry best practices and mitigate emerging risks. Structured improvement efforts are needed for consistency.'
+                    : summary.overall_maturity === 'Low'
+                    ? 'limited alignment with AI governance best practices and significant deficiencies across multiple domains. The organization requires immediate attention to address gaps and implement comprehensive governance measures.'
+                    : 'minimal or no AI governance processes in place, indicating critical improvement needs. Fundamental governance frameworks must be established to mitigate potential failures and ensure responsible AI deployment.'
+                }
               </p>
               <p className="text-sm text-gray-700 mt-2">
                 The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas.
