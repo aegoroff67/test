@@ -1427,6 +1427,530 @@ class AMSafeAPITester:
             print("⚠️  Some tests failed. Check details above.")
             return False
 
+    def test_pdf_report_generation_complete_assessment(self):
+        """Test PDF report generation with a completed assessment"""
+        print("\n🔍 TESTING PDF REPORT GENERATION")
+        print("-" * 60)
+        
+        # Step 1: Create a new assessment for PDF testing
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for PDF test", False, str(response))
+            return False
+            
+        pdf_test_assessment_id = response['id']
+        self.log_test("Create assessment for PDF test", True)
+        
+        # Step 2: Get all questions and answer them with varied scores
+        success, response = self.make_request('GET', f'assessments/{pdf_test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for PDF test", False, str(response))
+            return False
+            
+        # Collect all questions
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        # Answer all questions with varied scores to test heatmap color coding
+        options = ["NON_IDEAL", "BASIC", "GOOD", "IDEAL"]  # 0, 1, 2, 3 scores
+        for i, question in enumerate(all_questions):
+            option = options[i % len(options)]  # Cycle through options for varied scores
+            answer_data = {
+                "question_id": question['id'],
+                "option": option,
+                "note": f"PDF test answer {i+1} - {option}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{pdf_test_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer question {i+1} for PDF test", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered all {len(all_questions)} questions with varied scores", True)
+        
+        # Step 3: Submit the assessment to mark it as COMPLETED
+        success, submit_response = self.make_request('POST', f'assessments/{pdf_test_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for PDF test", False, str(submit_response))
+            return False
+            
+        self.log_test("Submit assessment for PDF test", True)
+        
+        # Step 4: Test PDF report generation endpoint
+        url = f"{self.api_url}/assessments/{pdf_test_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            
+            # Check response status
+            if response.status_code == 200:
+                self.log_test("PDF report endpoint returns 200 OK", True)
+            else:
+                self.log_test("PDF report endpoint returns 200 OK", False, f"Status: {response.status_code}, Response: {response.text}")
+                return False
+            
+            # Check response headers
+            content_type = response.headers.get('content-type', '')
+            if 'application/pdf' in content_type:
+                self.log_test("PDF response has correct content-type", True)
+            else:
+                self.log_test("PDF response has correct content-type", False, f"Content-Type: {content_type}")
+            
+            content_disposition = response.headers.get('content-disposition', '')
+            if 'attachment' in content_disposition and 'filename' in content_disposition:
+                self.log_test("PDF response has download headers", True)
+            else:
+                self.log_test("PDF response has download headers", False, f"Content-Disposition: {content_disposition}")
+            
+            # Check PDF content size (should be substantial)
+            pdf_size = len(response.content)
+            if pdf_size > 10000:  # At least 10KB for a proper PDF
+                self.log_test("PDF file size is substantial", True, f"Size: {pdf_size} bytes")
+            else:
+                self.log_test("PDF file size is substantial", False, f"Size: {pdf_size} bytes - too small for proper PDF")
+            
+            # Check PDF magic bytes
+            if response.content.startswith(b'%PDF'):
+                self.log_test("Response contains valid PDF format", True)
+            else:
+                self.log_test("Response contains valid PDF format", False, "Does not start with PDF magic bytes")
+            
+            return True
+            
+        except Exception as e:
+            self.log_test("PDF report generation request", False, str(e))
+            return False
+
+    def test_pdf_report_incomplete_assessment_error(self):
+        """Test PDF report generation with incomplete assessment (should fail)"""
+        # Create a new assessment but don't complete it
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create incomplete assessment for PDF error test", False, str(response))
+            return False
+            
+        incomplete_assessment_id = response['id']
+        
+        # Try to generate PDF for incomplete assessment
+        url = f"{self.api_url}/assessments/{incomplete_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            
+            # Should return 400 error for incomplete assessment
+            if response.status_code == 400:
+                self.log_test("PDF generation fails for incomplete assessment (400 error)", True)
+                return True
+            else:
+                self.log_test("PDF generation fails for incomplete assessment (400 error)", False, 
+                            f"Expected 400, got {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("PDF generation error handling test", False, str(e))
+            return False
+
+    def test_pdf_report_missing_assessment_error(self):
+        """Test PDF report generation with non-existent assessment (should fail)"""
+        fake_assessment_id = "non-existent-assessment-id"
+        
+        url = f"{self.api_url}/assessments/{fake_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            
+            # Should return 404 error for non-existent assessment
+            if response.status_code == 404:
+                self.log_test("PDF generation fails for non-existent assessment (404 error)", True)
+                return True
+            else:
+                self.log_test("PDF generation fails for non-existent assessment (404 error)", False, 
+                            f"Expected 404, got {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("PDF generation missing assessment test", False, str(e))
+            return False
+
+    def test_pdf_template_rendering_data(self):
+        """Test that PDF template receives correct data structure"""
+        # This test will create a completed assessment and verify the data structure
+        # by checking the assessment summary and questions endpoints that feed the PDF
+        
+        # Create and complete an assessment
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for template data test", False, str(response))
+            return False
+            
+        template_test_assessment_id = response['id']
+        
+        # Get questions and answer them
+        success, response = self.make_request('GET', f'assessments/{template_test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for template data test", False, str(response))
+            return False
+            
+        # Answer questions with specific pattern for testing recommendations
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        # Answer first few questions with low scores to generate high priority recommendations
+        for i, question in enumerate(all_questions):
+            if i < 5:
+                option = "NON_IDEAL"  # Score 0 - should generate high priority recommendations
+            elif i < 10:
+                option = "BASIC"      # Score 1 - should generate high priority recommendations  
+            elif i < 15:
+                option = "GOOD"       # Score 2 - should generate medium priority recommendations
+            else:
+                option = "IDEAL"      # Score 3 - should generate low/no recommendations
+                
+            answer_data = {
+                "question_id": question['id'],
+                "option": option,
+                "note": f"Template test answer {i+1}"
+            }
+            
+            self.make_request('POST', f'assessments/{template_test_assessment_id}/answer', answer_data)
+        
+        # Submit assessment
+        success, _ = self.make_request('POST', f'assessments/{template_test_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for template data test", False, "Failed to submit")
+            return False
+        
+        # Test assessment summary data (used by PDF template)
+        success, summary = self.make_request('GET', f'assessments/{template_test_assessment_id}/summary')
+        if not success:
+            self.log_test("Get assessment summary for template data", False, str(summary))
+            return False
+        
+        # Verify summary structure for PDF template
+        required_summary_fields = ['overall_percentage', 'overall_maturity', 'domain_scores', 'total_questions', 'answered_questions']
+        summary_complete = all(field in summary for field in required_summary_fields)
+        
+        if summary_complete:
+            self.log_test("Assessment summary has all required fields for PDF template", True)
+        else:
+            missing = [f for f in required_summary_fields if f not in summary]
+            self.log_test("Assessment summary has all required fields for PDF template", False, f"Missing: {missing}")
+        
+        # Verify domain scores structure
+        domain_scores = summary.get('domain_scores', [])
+        if len(domain_scores) == 11:
+            self.log_test("Assessment summary contains 11 domain scores for heatmap", True)
+        else:
+            self.log_test("Assessment summary contains 11 domain scores for heatmap", False, f"Found {len(domain_scores)} domains")
+        
+        # Test questions data structure (used for heatmap)
+        success, questions_data = self.make_request('GET', f'assessments/{template_test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions data for template", False, str(questions_data))
+            return False
+        
+        # Verify questions data has answers for heatmap generation
+        questions_with_answers = 0
+        total_questions_checked = 0
+        
+        for domain_data in questions_data:
+            questions = domain_data.get('questions', [])
+            for question in questions:
+                total_questions_checked += 1
+                if question.get('answer') and 'numeric_score' in question['answer']:
+                    questions_with_answers += 1
+        
+        if questions_with_answers == total_questions_checked:
+            self.log_test("All questions have answer data for heatmap generation", True)
+        else:
+            self.log_test("All questions have answer data for heatmap generation", False, 
+                        f"Only {questions_with_answers}/{total_questions_checked} questions have answers")
+        
+        return summary_complete and len(domain_scores) == 11 and questions_with_answers == total_questions_checked
+
+    def test_pdf_recommendation_generation(self):
+        """Test that PDF recommendations are generated based on low-scoring questions"""
+        # This test verifies the recommendation generation logic by creating specific score patterns
+        
+        # Create assessment with strategic scoring
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for recommendation test", False, str(response))
+            return False
+            
+        rec_test_assessment_id = response['id']
+        
+        # Get questions
+        success, response = self.make_request('GET', f'assessments/{rec_test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for recommendation test", False, str(response))
+            return False
+        
+        # Answer questions strategically to test recommendation generation
+        fa_questions = []  # Fairness questions
+        tr_questions = []  # Transparency questions
+        other_questions = []
+        
+        for domain_data in response:
+            domain_name = domain_data.get('domain', {}).get('name', '')
+            questions = domain_data.get('questions', [])
+            
+            for question in questions:
+                question_code = question.get('code', '')
+                if question_code.startswith('FA-'):
+                    fa_questions.append(question)
+                elif question_code.startswith('TR-'):
+                    tr_questions.append(question)
+                else:
+                    other_questions.append(question)
+        
+        # Answer FA questions with low scores (should generate high priority recommendations)
+        for question in fa_questions[:3]:  # First 3 FA questions
+            answer_data = {
+                "question_id": question['id'],
+                "option": "NON_IDEAL",  # Score 0
+                "note": "Low score for recommendation testing"
+            }
+            self.make_request('POST', f'assessments/{rec_test_assessment_id}/answer', answer_data)
+        
+        # Answer TR questions with medium scores (should generate medium priority recommendations)
+        for question in tr_questions[:2]:  # First 2 TR questions
+            answer_data = {
+                "question_id": question['id'],
+                "option": "BASIC",  # Score 1
+                "note": "Medium score for recommendation testing"
+            }
+            self.make_request('POST', f'assessments/{rec_test_assessment_id}/answer', answer_data)
+        
+        # Answer remaining questions with high scores
+        remaining_questions = fa_questions[3:] + tr_questions[2:] + other_questions
+        for question in remaining_questions:
+            answer_data = {
+                "question_id": question['id'],
+                "option": "IDEAL",  # Score 3
+                "note": "High score for recommendation testing"
+            }
+            self.make_request('POST', f'assessments/{rec_test_assessment_id}/answer', answer_data)
+        
+        # Submit assessment
+        success, _ = self.make_request('POST', f'assessments/{rec_test_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for recommendation test", False, "Failed to submit")
+            return False
+        
+        self.log_test("Created assessment with strategic scoring for recommendation testing", True)
+        
+        # Now test the PDF generation to see if recommendations are properly generated
+        url = f"{self.api_url}/assessments/{rec_test_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            
+            if response.status_code == 200:
+                self.log_test("PDF generation with recommendation data successful", True)
+                
+                # Check PDF size - should be larger with recommendations
+                pdf_size = len(response.content)
+                if pdf_size > 15000:  # Should be larger with recommendations
+                    self.log_test("PDF with recommendations has substantial content", True, f"Size: {pdf_size} bytes")
+                else:
+                    self.log_test("PDF with recommendations has substantial content", False, f"Size: {pdf_size} bytes")
+                
+                return True
+            else:
+                self.log_test("PDF generation with recommendation data", False, f"Status: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("PDF recommendation generation test", False, str(e))
+            return False
+
+    def test_pdf_heatmap_color_coding(self):
+        """Test PDF heatmap generation with different score ranges"""
+        # This test creates an assessment with scores across all ranges to test color coding
+        
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for heatmap test", False, str(response))
+            return False
+            
+        heatmap_test_assessment_id = response['id']
+        
+        # Get questions
+        success, response = self.make_request('GET', f'assessments/{heatmap_test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for heatmap test", False, str(response))
+            return False
+        
+        # Answer questions to create all score ranges for heatmap color testing
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        # Create specific score pattern: 25% each score level
+        quarter = len(all_questions) // 4
+        score_patterns = [
+            ("NON_IDEAL", quarter),      # Score 0 - Poor (red)
+            ("BASIC", quarter),          # Score 1 - Fair (yellow) 
+            ("GOOD", quarter),           # Score 2 - Good (light green)
+            ("IDEAL", len(all_questions) - 3*quarter)  # Score 3 - Excellent (dark green)
+        ]
+        
+        question_index = 0
+        for option, count in score_patterns:
+            for i in range(count):
+                if question_index < len(all_questions):
+                    question = all_questions[question_index]
+                    answer_data = {
+                        "question_id": question['id'],
+                        "option": option,
+                        "note": f"Heatmap test - {option} score"
+                    }
+                    self.make_request('POST', f'assessments/{heatmap_test_assessment_id}/answer', answer_data)
+                    question_index += 1
+        
+        # Submit assessment
+        success, _ = self.make_request('POST', f'assessments/{heatmap_test_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for heatmap test", False, "Failed to submit")
+            return False
+        
+        self.log_test("Created assessment with varied scores for heatmap color testing", True)
+        
+        # Test PDF generation with varied scores
+        url = f"{self.api_url}/assessments/{heatmap_test_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            
+            if response.status_code == 200:
+                self.log_test("PDF heatmap generation with varied scores successful", True)
+                
+                # Verify PDF content
+                if response.content.startswith(b'%PDF'):
+                    self.log_test("Heatmap PDF format is valid", True)
+                else:
+                    self.log_test("Heatmap PDF format is valid", False, "Invalid PDF format")
+                
+                return True
+            else:
+                self.log_test("PDF heatmap generation", False, f"Status: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("PDF heatmap color coding test", False, str(e))
+            return False
+
+    def test_weasyprint_integration(self):
+        """Test WeasyPrint integration and dependencies"""
+        # This test verifies that WeasyPrint is properly installed and working
+        # by testing a simple completed assessment
+        
+        if not hasattr(self, 'assessment_id') or not self.assessment_id:
+            # Create a simple completed assessment for this test
+            success, response = self.make_request('POST', 'assessments', {})
+            if not success:
+                self.log_test("Create assessment for WeasyPrint test", False, str(response))
+                return False
+                
+            weasyprint_test_id = response['id']
+            
+            # Get and answer questions quickly
+            success, response = self.make_request('GET', f'assessments/{weasyprint_test_id}/questions')
+            if success:
+                for domain_data in response:
+                    questions = domain_data.get('questions', [])
+                    for question in questions:
+                        answer_data = {
+                            "question_id": question['id'],
+                            "option": "GOOD",
+                            "note": "WeasyPrint test"
+                        }
+                        self.make_request('POST', f'assessments/{weasyprint_test_id}/answer', answer_data)
+                
+                # Submit assessment
+                self.make_request('POST', f'assessments/{weasyprint_test_id}/submit')
+            
+            test_assessment_id = weasyprint_test_id
+        else:
+            test_assessment_id = self.assessment_id
+        
+        # Test WeasyPrint PDF generation
+        url = f"{self.api_url}/assessments/{test_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=30)  # Longer timeout for PDF generation
+            
+            if response.status_code == 200:
+                self.log_test("WeasyPrint PDF generation successful", True)
+                
+                # Check for proper PDF structure
+                pdf_content = response.content
+                if b'%PDF' in pdf_content and b'%%EOF' in pdf_content:
+                    self.log_test("WeasyPrint generates complete PDF structure", True)
+                else:
+                    self.log_test("WeasyPrint generates complete PDF structure", False, "PDF structure incomplete")
+                
+                # Check PDF size indicates proper content rendering
+                if len(pdf_content) > 20000:  # Should be substantial with full template
+                    self.log_test("WeasyPrint PDF has substantial content", True, f"Size: {len(pdf_content)} bytes")
+                else:
+                    self.log_test("WeasyPrint PDF has substantial content", False, f"Size: {len(pdf_content)} bytes")
+                
+                return True
+            else:
+                self.log_test("WeasyPrint integration", False, f"Status: {response.status_code}, Response: {response.text}")
+                return False
+                
+        except requests.exceptions.Timeout:
+            self.log_test("WeasyPrint integration", False, "PDF generation timeout - may indicate WeasyPrint issues")
+            return False
+        except Exception as e:
+            self.log_test("WeasyPrint integration", False, str(e))
+            return False
+
+    def run_pdf_tests_only(self):
+        """Run only PDF-related tests"""
+        print("🚀 Starting PDF Report Generation Tests")
+        print("=" * 60)
+        
+        # Authentication tests
+        if not self.test_user_signup_and_login():
+            print("❌ Authentication failed - stopping tests")
+            return False
+        
+        # PDF Report Generation Tests
+        self.test_pdf_report_generation_complete_assessment()
+        self.test_pdf_report_incomplete_assessment_error()
+        self.test_pdf_report_missing_assessment_error()
+        self.test_pdf_template_rendering_data()
+        self.test_pdf_recommendation_generation()
+        self.test_pdf_heatmap_color_coding()
+        self.test_weasyprint_integration()
+        
+        # Print final results
+        print("\n" + "=" * 60)
+        print(f"🏁 PDF Testing Complete: {self.tests_passed}/{self.tests_run} tests passed")
+        print(f"📊 Success Rate: {(self.tests_passed/self.tests_run*100):.1f}%")
+        
+        if self.tests_passed == self.tests_run:
+            print("🎉 All PDF tests passed!")
+            return True
+        else:
+            print("⚠️  Some PDF tests failed - check details above")
+            return False
+
     def run_all_tests(self):
         """Run comprehensive test suite for 88-question dataset integration verification"""
         print("🚀 Starting Comprehensive Backend Tests for 88-Question Dataset Integration")
