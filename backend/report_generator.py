@@ -167,7 +167,7 @@ class AMReportGenerator:
                 "name": user_data.get('organization_name', 'Organization')
             },
             "assessment": {
-                "date": assessment_info.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d'),
+                "date": self._format_assessment_date(assessment_info.get('created_at', datetime.now(timezone.utc))),
                 "version": "1.0.0"
             },
             "overall": {
