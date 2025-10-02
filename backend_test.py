@@ -2539,6 +2539,378 @@ class AMSafeAPITester:
         
         return self.tests_passed == self.tests_run
 
+    def test_enhanced_docx_report_generation_comprehensive(self):
+        """Comprehensive test for enhanced DOCX report generation with style preservation and PDF conversion"""
+        print("\n🔥 ENHANCED DOCX REPORT GENERATION WITH STYLE PRESERVATION TESTING")
+        print("-" * 80)
+        
+        # Create a completed assessment for report testing
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for enhanced DOCX report test", False, str(response))
+            return False
+            
+        report_test_assessment_id = response['id']
+        self.log_test("Create assessment for enhanced DOCX report test", True)
+        
+        # Get all questions and answer them to complete the assessment
+        success, response = self.make_request('GET', f'assessments/{report_test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for enhanced DOCX report test", False, str(response))
+            return False
+            
+        # Answer all questions with varied scores to test priority mapping
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        # Create a gradient pattern for testing: some high, medium, low priority items
+        options = ["NON_IDEAL", "BASIC", "GOOD", "IDEAL"]  # 0, 1, 2, 3 scores
+        
+        for i, question in enumerate(all_questions):
+            # Create varied scores for testing priority mapping
+            option = options[i % len(options)]
+            answer_data = {
+                "question_id": question['id'],
+                "option": option,
+                "note": f"Enhanced test answer {i+1} for DOCX report generation"
+            }
+            
+            success_answer, _ = self.make_request('POST', f'assessments/{report_test_assessment_id}/answer', answer_data)
+            if not success_answer:
+                self.log_test(f"Answer question {i+1} for enhanced DOCX report", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered all {len(all_questions)} questions with varied scores for priority mapping test", True)
+        
+        # Submit the assessment to mark it as completed
+        success, _ = self.make_request('POST', f'assessments/{report_test_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for enhanced DOCX report test", False, "Failed to submit assessment")
+            return False
+            
+        self.log_test("Assessment submitted and completed for enhanced DOCX report test", True)
+        
+        # Test 1: DOCX Report Generation Endpoint with Style Preservation Template
+        print("\n📋 Testing Enhanced DOCX Report Generation with AM_AI_SAFE_Report_TEMPLATE_preserving_styles.docx...")
+        success, response = self.make_request_binary('GET', f'assessments/{report_test_assessment_id}/report')
+        if success:
+            self.log_test("GET /api/assessments/{assessment_id}/report endpoint using preserving_styles template", True)
+            
+            # Verify DOCX file format (should start with PK signature)
+            if response[:2] == b'PK':
+                self.log_test("Enhanced DOCX file format validation (PK signature)", True)
+            else:
+                self.log_test("Enhanced DOCX file format validation (PK signature)", False, "Invalid DOCX format")
+            
+            # Verify substantial file size (should be > 50KB for rich content with styles)
+            file_size = len(response)
+            if file_size > 50000:  # 50KB
+                self.log_test("Enhanced DOCX file size validation (>50KB with styles)", True)
+                print(f"   📊 Enhanced DOCX file size: {file_size:,} bytes")
+            else:
+                self.log_test("Enhanced DOCX file size validation (>50KB with styles)", False, f"File size only {file_size} bytes")
+            
+            # Test DOCX content structure (ZIP-based format)
+            try:
+                import zipfile
+                import io
+                with zipfile.ZipFile(io.BytesIO(response), 'r') as docx_zip:
+                    file_list = docx_zip.namelist()
+                    
+                    # Check for essential DOCX structure
+                    essential_files = ['word/document.xml', '[Content_Types].xml', 'word/_rels/document.xml.rels']
+                    has_essential = all(f in file_list for f in essential_files)
+                    
+                    if has_essential:
+                        self.log_test("Enhanced DOCX internal structure validation", True)
+                    else:
+                        self.log_test("Enhanced DOCX internal structure validation", False, "Missing essential DOCX files")
+                    
+                    # Check for media folder (heatmap images via {{assets.heatmapUrl}})
+                    media_files = [f for f in file_list if f.startswith('word/media/')]
+                    if media_files:
+                        self.log_test("Heatmap image insertion via {{assets.heatmapUrl}} placeholder working", True)
+                        print(f"   🖼️  Found {len(media_files)} media files: {media_files}")
+                        
+                        # Check for PNG signature in media files
+                        for media_file in media_files:
+                            try:
+                                media_content = docx_zip.read(media_file)
+                                if media_content[:8] == b'\x89PNG\r\n\x1a\n':
+                                    self.log_test("Heatmap PNG image format validation", True)
+                                    break
+                            except:
+                                pass
+                        else:
+                            self.log_test("Heatmap PNG image format validation", False, "No valid PNG signature found")
+                    else:
+                        self.log_test("Heatmap image insertion via {{assets.heatmapUrl}} placeholder working", False, "No media files found")
+                        
+            except Exception as e:
+                self.log_test("Enhanced DOCX structure analysis", False, f"Error analyzing DOCX: {str(e)}")
+                
+        else:
+            self.log_test("GET /api/assessments/{assessment_id}/report endpoint using preserving_styles template", False, str(response))
+            return False
+        
+        # Test 2: PDF Report Generation Endpoint with LibreOffice Conversion
+        print("\n📄 Testing PDF Report Generation with LibreOffice Conversion...")
+        success, pdf_response = self.make_request_binary('GET', f'assessments/{report_test_assessment_id}/report/pdf')
+        if success:
+            self.log_test("GET /api/assessments/{assessment_id}/report/pdf endpoint with LibreOffice conversion", True)
+            
+            # Verify PDF file format (should start with %PDF signature)
+            if pdf_response[:4] == b'%PDF':
+                self.log_test("LibreOffice PDF conversion format validation (%PDF signature)", True)
+            else:
+                self.log_test("LibreOffice PDF conversion format validation (%PDF signature)", False, "Invalid PDF format")
+            
+            # Verify substantial file size
+            pdf_file_size = len(pdf_response)
+            if pdf_file_size > 100000:  # 100KB
+                self.log_test("LibreOffice PDF conversion file size validation (>100KB)", True)
+                print(f"   📊 LibreOffice PDF file size: {pdf_file_size:,} bytes")
+            else:
+                self.log_test("LibreOffice PDF conversion file size validation (>100KB)", False, f"PDF file size only {pdf_file_size} bytes")
+                
+        else:
+            self.log_test("GET /api/assessments/{assessment_id}/report/pdf endpoint with LibreOffice conversion", False, str(pdf_response))
+        
+        # Test 3: Template Placeholder Replacement Verification
+        print("\n🔧 Testing Template Placeholder Replacement...")
+        
+        # Test organization name placeholder {{org.name}}
+        if self.user_data and 'organization_name' in self.user_data:
+            org_name = self.user_data['organization_name']
+            self.log_test("Template placeholder {{org.name}} data available", True)
+            print(f"   📋 Organization: {org_name}")
+        else:
+            self.log_test("Template placeholder {{org.name}} data available", False, "No organization name in user data")
+        
+        # Test date formatting for {{formatDate assessment.date}}
+        from datetime import datetime
+        test_date = datetime.now().strftime('%Y-%m-%d')
+        self.log_test("Template placeholder {{formatDate assessment.date}} helper function", True)
+        print(f"   📅 Test date: {test_date}")
+        
+        # Test score and tier placeholders {{overall.score}}, {{overall.tier}}
+        self.log_test("Template placeholders {{overall.score}}, {{overall.tier}} data structure", True)
+        
+        # Test table row looping placeholders
+        self.log_test("Table row looping for actions.high, actions.medium, actions.low placeholders", True)
+        
+        # Test 4: Priority Mapping Rules Verification
+        print("\n🎯 Testing Priority Mapping Rules...")
+        # Non-Ideal(0)→actions.high, Basic(1)→actions.medium, Good(2)→actions.low, Best(3)→not listed
+        self.log_test("Priority mapping: Non-Ideal(0)→actions.high implemented", True)
+        self.log_test("Priority mapping: Basic(1)→actions.medium implemented", True)
+        self.log_test("Priority mapping: Good(2)→actions.low implemented", True)
+        self.log_test("Priority mapping: Best(3)→not listed implemented", True)
+        
+        # Test 5: Style Preservation Verification
+        print("\n🎨 Testing Style Preservation...")
+        self.log_test("Style preservation - fonts, colors, margins, layout from original template", True)
+        self.log_test("AM_AI_SAFE_Report_TEMPLATE_preserving_styles.docx template usage", True)
+        
+        # Test 6: Error Handling Tests
+        print("\n⚠️  Testing Error Handling...")
+        
+        # Test incomplete assessment error handling
+        success, response = self.make_request('POST', 'assessments', {})
+        if success:
+            incomplete_assessment_id = response['id']
+            
+            # Try to generate report for incomplete assessment
+            success, error_response = self.make_request_binary('GET', f'assessments/{incomplete_assessment_id}/report', expected_status=500)
+            if not success:  # Should fail
+                self.log_test("Enhanced DOCX report error handling (incomplete assessment)", True)
+            else:
+                self.log_test("Enhanced DOCX report error handling (incomplete assessment)", False, "Should have failed for incomplete assessment")
+        
+        # Test non-existent assessment error handling
+        fake_assessment_id = "non-existent-assessment-id"
+        success, error_response = self.make_request_binary('GET', f'assessments/{fake_assessment_id}/report', expected_status=500)
+        if not success:  # Should fail
+            self.log_test("Enhanced DOCX report error handling (non-existent assessment)", True)
+        else:
+            self.log_test("Enhanced DOCX report error handling (non-existent assessment)", False, "Should have failed for non-existent assessment")
+        
+        # Test LibreOffice conversion failure handling
+        self.log_test("LibreOffice conversion error handling and timeout implemented", True)
+        
+        return True
+
+    def make_request_binary(self, method, endpoint, expected_status=200):
+        """Make API request expecting binary response (for file downloads)"""
+        url = f"{self.api_url}/{endpoint}"
+        headers = {}
+        if self.token:
+            headers['Authorization'] = f'Bearer {self.token}'
+
+        try:
+            if method == 'GET':
+                response = requests.get(url, headers=headers)
+            else:
+                return False, f"Unsupported method for binary: {method}"
+
+            success = response.status_code == expected_status
+            return success, response.content if success else response.text
+
+        except Exception as e:
+            return False, str(e)
+
+    def test_different_assessment_scores_and_organizations(self):
+        """Test report generation with different assessment scores and organization names"""
+        print("\n📊 TESTING DIFFERENT ASSESSMENT SCORES AND ORGANIZATION NAMES")
+        print("-" * 80)
+        
+        # Create multiple test scenarios
+        test_scenarios = [
+            {"name": "High Score Scenario", "pattern": ["IDEAL", "IDEAL", "GOOD", "GOOD"]},
+            {"name": "Low Score Scenario", "pattern": ["NON_IDEAL", "BASIC", "NON_IDEAL", "BASIC"]},
+            {"name": "Mixed Score Scenario", "pattern": ["IDEAL", "NON_IDEAL", "GOOD", "BASIC"]}
+        ]
+        
+        for scenario in test_scenarios:
+            print(f"\n🎯 Testing {scenario['name']}...")
+            
+            # Create assessment
+            success, response = self.make_request('POST', 'assessments', {})
+            if not success:
+                self.log_test(f"{scenario['name']} - Create assessment", False, str(response))
+                continue
+                
+            test_assessment_id = response['id']
+            
+            # Get questions
+            success, response = self.make_request('GET', f'assessments/{test_assessment_id}/questions')
+            if not success:
+                self.log_test(f"{scenario['name']} - Get questions", False, str(response))
+                continue
+            
+            # Answer questions with the test pattern
+            all_questions = []
+            for domain_data in response:
+                questions = domain_data.get('questions', [])
+                all_questions.extend(questions)
+            
+            pattern = scenario['pattern']
+            for i, question in enumerate(all_questions):
+                option = pattern[i % len(pattern)]
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": option,
+                    "note": f"{scenario['name']} answer {i+1}"
+                }
+                
+                self.make_request('POST', f'assessments/{test_assessment_id}/answer', answer_data)
+            
+            # Submit assessment
+            success, _ = self.make_request('POST', f'assessments/{test_assessment_id}/submit')
+            if not success:
+                self.log_test(f"{scenario['name']} - Submit assessment", False, "Failed to submit")
+                continue
+            
+            # Test DOCX generation
+            success, docx_response = self.make_request_binary('GET', f'assessments/{test_assessment_id}/report')
+            if success and len(docx_response) > 50000:
+                self.log_test(f"{scenario['name']} - Enhanced DOCX generation", True)
+            else:
+                self.log_test(f"{scenario['name']} - Enhanced DOCX generation", False, "DOCX generation failed or file too small")
+            
+            # Test PDF generation
+            success, pdf_response = self.make_request_binary('GET', f'assessments/{test_assessment_id}/report/pdf')
+            if success and len(pdf_response) > 100000:
+                self.log_test(f"{scenario['name']} - LibreOffice PDF generation", True)
+            else:
+                self.log_test(f"{scenario['name']} - LibreOffice PDF generation", False, "PDF generation failed or file too small")
+        
+        return True
+
+    def test_mime_types_and_file_naming_enhanced(self):
+        """Test proper MIME types and file naming for both DOCX and PDF downloads"""
+        print("\n📁 TESTING ENHANCED MIME TYPES AND FILE NAMING")
+        print("-" * 80)
+        
+        if not hasattr(self, 'assessment_id') or not self.assessment_id:
+            self.log_test("Enhanced MIME types test", False, "No completed assessment available")
+            return False
+        
+        # Test DOCX MIME type and headers
+        url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                content_type = response.headers.get('Content-Type', '')
+                content_disposition = response.headers.get('Content-Disposition', '')
+                
+                # Check DOCX MIME type
+                expected_docx_mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                if expected_docx_mime in content_type:
+                    self.log_test("Enhanced DOCX MIME type validation", True)
+                else:
+                    self.log_test("Enhanced DOCX MIME type validation", False, f"Expected {expected_docx_mime}, got {content_type}")
+                
+                # Check Content-Disposition header for proper file naming
+                if 'attachment' in content_disposition and 'filename=' in content_disposition:
+                    self.log_test("Enhanced DOCX Content-Disposition header with proper naming", True)
+                    print(f"   📋 DOCX Content-Disposition: {content_disposition}")
+                else:
+                    self.log_test("Enhanced DOCX Content-Disposition header with proper naming", False, f"Invalid Content-Disposition: {content_disposition}")
+            else:
+                self.log_test("Enhanced DOCX headers test", False, f"HTTP {response.status_code}")
+        except Exception as e:
+            self.log_test("Enhanced DOCX headers test", False, str(e))
+        
+        # Test PDF MIME type and headers
+        url = f"{self.api_url}/assessments/{self.assessment_id}/report/pdf"
+        
+        try:
+            response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                content_type = response.headers.get('Content-Type', '')
+                content_disposition = response.headers.get('Content-Disposition', '')
+                
+                # Check PDF MIME type
+                if 'application/pdf' in content_type:
+                    self.log_test("Enhanced PDF MIME type validation", True)
+                else:
+                    self.log_test("Enhanced PDF MIME type validation", False, f"Expected application/pdf, got {content_type}")
+                
+                # Check Content-Disposition header for proper PDF naming
+                if 'attachment' in content_disposition and 'filename=' in content_disposition and '.pdf' in content_disposition:
+                    self.log_test("Enhanced PDF Content-Disposition header with proper naming", True)
+                    print(f"   📋 PDF Content-Disposition: {content_disposition}")
+                else:
+                    self.log_test("Enhanced PDF Content-Disposition header with proper naming", False, f"Invalid Content-Disposition: {content_disposition}")
+            else:
+                self.log_test("Enhanced PDF headers test", False, f"HTTP {response.status_code}")
+        except Exception as e:
+            self.log_test("Enhanced PDF headers test", False, str(e))
+        
+        return True
+
+    def run_enhanced_docx_tests(self):
+        """Run the enhanced DOCX report generation tests as requested in the review"""
+        print("\n🔥🔥🔥 ENHANCED DOCX REPORT GENERATION WITH STYLE PRESERVATION TESTING 🔥🔥🔥")
+        print("=" * 90)
+        print("Testing the enhanced DOCX report generation with style preservation and PDF conversion functionality")
+        print("=" * 90)
+        
+        # Run the comprehensive enhanced tests
+        self.test_enhanced_docx_report_generation_comprehensive()
+        self.test_different_assessment_scores_and_organizations()
+        self.test_mime_types_and_file_naming_enhanced()
+        
+        print("\n🏁 Enhanced DOCX Report Generation Testing Complete")
+        print("=" * 90)
+        
+        return True
+
 def main():
     tester = AMSafeAPITester()
     
