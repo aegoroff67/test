@@ -44,16 +44,25 @@ class AMReportGenerator:
         backend_dir = Path(__file__).parent
         return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_simple_fixed.docx")
     
-    def format_date(self, date_str: str) -> str:
+    def format_date(self, date_input) -> str:
         """Format date for the template."""
         try:
-            if isinstance(date_str, str):
-                date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+            if isinstance(date_input, str):
+                # Try different date formats
+                for fmt in ['%Y-%m-%d', '%Y-%m-%dT%H:%M:%S', '%Y-%m-%dT%H:%M:%S.%f']:
+                    try:
+                        date_obj = datetime.strptime(date_input, fmt)
+                        return date_obj.strftime('%d %B %Y')
+                    except ValueError:
+                        continue
+                # If parsing fails, return as-is
+                return str(date_input)
+            elif hasattr(date_input, 'strftime'):
+                return date_input.strftime('%d %B %Y')
             else:
-                date_obj = date_str
-            return date_obj.strftime('%d %B %Y')
+                return str(date_input)
         except:
-            return date_str
+            return str(date_input)
     
     async def generate_report(self, assessment_id: str, assessment_data: Dict[str, Any], 
                             user_data: Dict[str, Any]) -> Tuple[bytes, bytes]:
