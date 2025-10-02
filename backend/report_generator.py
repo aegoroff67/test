@@ -40,9 +40,20 @@ class AMReportGenerator:
         }
     
     def _get_default_template_path(self) -> str:
-        """Get the default template path."""
+        """Get the default template path - now using the preserving styles template."""
         backend_dir = Path(__file__).parent
-        return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE.docx")
+        return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_preserving_styles.docx")
+    
+    def format_date(self, date_str: str) -> str:
+        """Format date for the template."""
+        try:
+            if isinstance(date_str, str):
+                date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+            else:
+                date_obj = date_str
+            return date_obj.strftime('%d %B %Y')
+        except:
+            return date_str
     
     async def generate_report(self, assessment_id: str, assessment_data: Dict[str, Any], 
                             user_data: Dict[str, Any]) -> Tuple[bytes, bytes]:
