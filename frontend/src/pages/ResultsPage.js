@@ -380,7 +380,7 @@ function ResultsPage() {
               <Button 
                 onClick={generateReport}
                 disabled={generatingReport}
-                className="bg-teal-600 hover:bg-teal-700 text-xs px-3 py-2"
+                className="bg-teal-600 hover:bg-teal-700 text-xs px-3 py-2 mb-2"
                 data-testid="generate-report-btn"
               >
                 {generatingReport ? (
@@ -391,7 +391,26 @@ function ResultsPage() {
                 ) : (
                   <div className="flex flex-col items-center">
                     <Download className="h-3 w-3 mb-1" />
-                    <span>Generate Report</span>
+                    <span>DOCX Report</span>
+                  </div>
+                )}
+              </Button>
+              
+              <Button 
+                onClick={generatePDFReport}
+                disabled={generatingReport}
+                className="bg-blue-600 hover:bg-blue-700 text-xs px-3 py-2"
+                data-testid="generate-pdf-report-btn"
+              >
+                {generatingReport ? (
+                  <div className="flex flex-col items-center">
+                    <div className="loading-spinner w-3 h-3 mb-1"></div>
+                    <span>Generating...</span>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center">
+                    <Download className="h-3 w-3 mb-1" />
+                    <span>PDF Report</span>
                   </div>
                 )}
               </Button>
