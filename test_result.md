@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-## user_problem_statement: Implement automated DOCX report generation using template-based approach with dynamic heatmap images and prioritized recommendations
+## user_problem_statement: Implement DOCX report generation with style preservation using AM_AI_SAFE_Report_TEMPLATE_preserving_styles.docx and add PDF conversion capability
 
 ## backend:
   - task: "Remove incorrect generated explanations and pre-defined answers from server.py"
