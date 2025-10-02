@@ -214,11 +214,11 @@ class AMReportGenerator:
         """
         Generate prioritized actions based on question scores using the priority mapping rules.
         
-        Priority Mapping Rules:
-        - Questions scored Non-Ideal (=0) → actions.high
-        - Basic (=1) → actions.medium  
-        - Good (=2) → actions.low
-        - Best (=3) → not listed as a gap
+        Priority Mapping Rules (as per specification):
+        - Score 0 (Non-Ideal) → High Priority → actions.high
+        - Score 1 (Basic) → Medium Priority → actions.medium  
+        - Score 2 (Good) → Low Priority → actions.low
+        - Score 3 (Best) → not included in report
         """
         actions = {
             "high": [],
@@ -226,16 +226,62 @@ class AMReportGenerator:
             "low": []
         }
         
-        # Recommendation templates based on domain and score
+        # Enhanced recommendation templates based on domain and question patterns
         recommendation_templates = {
-            "high": {
-                "default": "Immediate action required to address critical gap in {domain}. Implement comprehensive {domain_lower} framework and policies."
+            "Fairness": {
+                0: "Establish comprehensive bias detection and mitigation processes for AI systems",
+                1: "Enhance existing fairness practices with regular bias audits and diverse datasets",
+                2: "Optimize fairness monitoring with advanced algorithmic fairness tools"
             },
-            "medium": {
-                "default": "Enhance {domain} practices to meet industry standards. Review and update existing {domain_lower} procedures."
+            "Transparency": {
+                0: "Implement comprehensive AI system documentation and explainability frameworks",
+                1: "Improve transparency measures with detailed model documentation and user communication",
+                2: "Enhance transparency reporting with advanced interpretability tools"
             },
-            "low": {
-                "default": "Optimize {domain} processes for best practice alignment. Consider advanced {domain_lower} implementation strategies."
+            "Explainability": {
+                0: "Develop comprehensive explainable AI capabilities and user-friendly explanations",
+                1: "Strengthen model interpretability with improved explanation mechanisms",
+                2: "Optimize explainability tools with advanced visualization and reporting"
+            },
+            "Accountability": {
+                0: "Establish clear AI governance structures and accountability frameworks",
+                1: "Enhance accountability processes with defined roles and responsibilities",
+                2: "Optimize accountability mechanisms with advanced governance tools"
+            },
+            "Data Integrity": {
+                0: "Implement comprehensive data quality management and validation processes",
+                1: "Strengthen data integrity practices with enhanced validation and monitoring",
+                2: "Optimize data management with advanced quality assurance tools"
+            },
+            "Reliability": {
+                0: "Establish robust AI system reliability and performance monitoring frameworks",
+                1: "Enhance system reliability with improved testing and validation processes",
+                2: "Optimize reliability monitoring with advanced performance analytics"
+            },
+            "Security": {
+                0: "Implement comprehensive AI security frameworks and threat protection measures",
+                1: "Strengthen AI security practices with enhanced protection and monitoring",
+                2: "Optimize security measures with advanced threat detection and response"
+            },
+            "Privacy": {
+                0: "Establish comprehensive privacy protection and data handling frameworks for AI",
+                1: "Enhance privacy practices with improved data protection and consent mechanisms",
+                2: "Optimize privacy controls with advanced data anonymization and protection tools"
+            },
+            "Safety": {
+                0: "Implement comprehensive AI safety frameworks and risk mitigation strategies",
+                1: "Strengthen safety practices with enhanced risk assessment and monitoring",
+                2: "Optimize safety measures with advanced risk management and testing tools"
+            },
+            "Inclusivity": {
+                0: "Establish comprehensive inclusivity frameworks and diverse stakeholder engagement",
+                1: "Enhance inclusivity practices with improved accessibility and representation",
+                2: "Optimize inclusivity measures with advanced accessibility tools and diverse testing"
+            },
+            "Sustainability": {
+                0: "Implement comprehensive environmental impact assessment and sustainable AI practices",
+                1: "Enhance sustainability practices with improved energy efficiency and resource optimization",
+                2: "Optimize sustainability measures with advanced environmental monitoring and green AI tools"
             }
         }
         
@@ -249,26 +295,32 @@ class AMReportGenerator:
                     score = question['answer'].get('numeric_score', 0)
                 
                 question_code = question.get('code', 'Q-?')
+                question_text = question.get('text', 'Unknown question')
                 
                 # Apply priority mapping rules
                 priority = None
-                if score == 0:  # Non-Ideal
+                if score == 0:  # Non-Ideal → High Priority
                     priority = "high"
-                elif score == 1:  # Basic
+                elif score == 1:  # Basic → Medium Priority
                     priority = "medium"
-                elif score == 2:  # Good
+                elif score == 2:  # Good → Low Priority
                     priority = "low"
-                # Score 3 (Best) doesn't get listed as a gap
+                # Score 3 (Best) → not included
                 
                 if priority:
-                    # Generate recommendation text
-                    template = recommendation_templates[priority]["default"]
-                    recommendation_text = template.format(
-                        domain=domain_name,
-                        domain_lower=domain_name.lower()
-                    )
+                    # Get domain-specific recommendation or use generic one
+                    if domain_name in recommendation_templates and score in recommendation_templates[domain_name]:
+                        recommendation_text = recommendation_templates[domain_name][score]
+                    else:
+                        # Generic recommendation based on score level
+                        if score == 0:
+                            recommendation_text = f"Address critical gap: {question_text.lower()}"
+                        elif score == 1:
+                            recommendation_text = f"Enhance current practices for: {question_text.lower()}"
+                        else:  # score == 2
+                            recommendation_text = f"Optimize existing approach to: {question_text.lower()}"
                     
-                    # Create action item
+                    # Create action item matching the JSON structure specification
                     action_item = {
                         "domain": domain_name,
                         "question_id": question_code,
@@ -276,6 +328,10 @@ class AMReportGenerator:
                     }
                     
                     actions[priority].append(action_item)
+        
+        # Sort by domain and question_id for consistency
+        for priority in actions:
+            actions[priority] = sorted(actions[priority], key=lambda x: (x["domain"], x["question_id"]))
         
         # Limit recommendations to keep report manageable
         actions["high"] = actions["high"][:15]  # Max 15 high priority
