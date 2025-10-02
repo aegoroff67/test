@@ -64,6 +64,18 @@ class AMReportGenerator:
         except:
             return str(date_input)
     
+    def _format_assessment_date(self, date_input) -> str:
+        """Format assessment date for JSON structure."""
+        try:
+            if isinstance(date_input, str):
+                return date_input  # Already a string, return as-is
+            elif hasattr(date_input, 'strftime'):
+                return date_input.strftime('%Y-%m-%d')
+            else:
+                return str(date_input)
+        except:
+            return str(date_input)
+    
     async def generate_report(self, assessment_id: str, assessment_data: Dict[str, Any], 
                             user_data: Dict[str, Any]) -> Tuple[bytes, bytes]:
         """
