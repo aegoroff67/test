@@ -595,7 +595,7 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
     }
 
 @api_router.get("/assessments/{assessment_id}/report")
-async def generate_report(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
+async def generate_report_docx(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     """Generate and download DOCX report for assessment using DOCX template."""
     from report_generator import AMReportGenerator
     
@@ -630,6 +630,53 @@ async def generate_report(assessment_id: str, current_user: UserResponse = Depen
         raise
     except Exception as e:
         print(f"Error generating DOCX report: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate report: {str(e)}")
+
+
+@api_router.get("/assessments/{assessment_id}/report/pdf")
+async def generate_report_pdf(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
+    """Generate and download PDF report for assessment using DOCX template."""
+    from report_generator import AMReportGenerator
+    
+    try:
+        # Initialize report generator
+        report_generator = AMReportGenerator()
+        
+        # Generate both DOCX and PDF
+        docx_bytes, pdf_bytes = await report_generator.generate_report_full(
+            assessment_id, db, current_user
+        )
+        
+        # Generate PDF filename
+        safe_org_name = "".join(c for c in current_user.organization_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
+        
+        # Get assessment date
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.pdf"
+        
+        # Store report record in database
+        report = Report(
+            assessment_id=assessment_id,
+            url=f"/reports/{filename}",  # Store relative path
+        )
+        await db.reports.insert_one(report.dict())
+        
+        # Return PDF as streaming response
+        return StreamingResponse(
+            io.BytesIO(pdf_bytes),
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f"attachment; filename=\"{filename}\"",
+                "Content-Type": "application/pdf"
+            }
+        )
+        
+    except HTTPException:
+        # Re-raise HTTP exceptions to preserve status codes
+        raise
+    except Exception as e:
+        print(f"Error generating PDF report: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to generate report: {str(e)}")
 
 @api_router.post("/assessments/{assessment_id}/submit")
