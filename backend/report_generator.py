@@ -516,3 +516,103 @@ class AMReportGenerator:
         filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.docx"
         
         return docx_bytes, filename
+    
+    async def generate_report_full(self, assessment_id: str, db, current_user) -> Tuple[bytes, bytes]:
+        """
+        Generate both DOCX and PDF reports for a specific assessment ID.
+        
+        Args:
+            assessment_id: Assessment ID to generate report for
+            db: Database connection
+            current_user: Current user object
+            
+        Returns:
+            Tuple of (docx_bytes, pdf_bytes)
+        """
+        # Get assessment data (reuse the existing logic)
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        if not assessment:
+            raise Exception("Assessment not found")
+        
+        if assessment.get("status") != "COMPLETED":
+            raise Exception("Assessment must be completed before generating report")
+        
+        # Get questions and answers data
+        questions_pipeline = [
+            {"$match": {"id": assessment_id}},
+            {"$lookup": {
+                "from": "questions",
+                "localField": "id", 
+                "foreignField": "assessment_id",
+                "as": "questions"
+            }},
+            {"$lookup": {
+                "from": "answers",
+                "localField": "id",
+                "foreignField": "assessment_id", 
+                "as": "answers"
+            }},
+            {"$lookup": {
+                "from": "domains",
+                "localField": "questions.domain_id",
+                "foreignField": "id",
+                "as": "domains"
+            }}
+        ]
+        
+        assessment_results = await db.assessments.aggregate(questions_pipeline).to_list(length=1)
+        if not assessment_results:
+            raise Exception("Could not retrieve assessment data")
+        
+        assessment_full = assessment_results[0]
+        
+        # Get summary data
+        summary_pipeline = [
+            {"$match": {"assessment_id": assessment_id}},
+            {"$lookup": {
+                "from": "domains",
+                "localField": "domain_scores.domain_id",
+                "foreignField": "id", 
+                "as": "domain_details"
+            }}
+        ]
+        
+        summary_results = await db.summaries.aggregate(summary_pipeline).to_list(length=1)
+        summary_data = summary_results[0] if summary_results else {}
+        
+        # Organize data by domain
+        questions_by_domain = {}
+        answers_by_question = {answer["question_id"]: answer for answer in assessment_full.get("answers", [])}
+        domains_by_id = {domain["id"]: domain for domain in assessment_full.get("domains", [])}
+        
+        for question in assessment_full.get("questions", []):
+            domain_id = question["domain_id"]
+            if domain_id not in questions_by_domain:
+                questions_by_domain[domain_id] = []
+            
+            # Add answer data to question
+            question["answer"] = answers_by_question.get(question["id"])
+            questions_by_domain[domain_id].append(question)
+        
+        # Create structured questions data
+        questions_data = []
+        for domain_id, questions in questions_by_domain.items():
+            domain_info = domains_by_id.get(domain_id, {"name": "Unknown Domain"})
+            questions_data.append({
+                "domain": domain_info,
+                "questions": sorted(questions, key=lambda q: q.get("order", 0))
+            })
+        
+        # Prepare assessment data for report generation
+        assessment_data = {
+            "assessment": assessment,
+            "questions_data": questions_data,
+            "summary": summary_data
+        }
+        
+        user_data = {
+            "organization_name": current_user.organization_name
+        }
+        
+        # Generate both DOCX and PDF
+        return await self.generate_report(assessment_id, assessment_data, user_data)
