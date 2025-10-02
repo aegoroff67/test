@@ -359,23 +359,23 @@ class AMReportGenerator:
             # Create inline image for heatmap - preserve original sizing in template
             heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(5.5))
             
-            # Prepare template context with formatted data to avoid Jinja2 syntax issues
+            # Prepare template context with formatted data
             template_context = {
                 # Organization information
                 'org': {
-                    'name': report_data['org']['name']
+                    'name': report_data.get('org', {}).get('name', 'Organization')
                 },
                 
                 # Assessment information with pre-formatted date
                 'assessment': {
-                    'date': self.format_date(report_data['assessment']['date']),
-                    'version': report_data['assessment']['version']
+                    'date': self.format_date(report_data.get('assessment', {}).get('date', 'Unknown Date')),
+                    'version': report_data.get('assessment', {}).get('version', '1.0.0')
                 },
                 
                 # Overall scores
                 'overall': {
-                    'score': report_data['overall']['score'],
-                    'tier': report_data['overall']['tier']
+                    'score': report_data.get('overall', {}).get('score', 0),
+                    'tier': report_data.get('overall', {}).get('tier', 'Basic')
                 },
                 
                 # Assets (heatmap image)
@@ -383,12 +383,10 @@ class AMReportGenerator:
                     'heatmapUrl': heatmap_inline  # Replace URL placeholder with inline image
                 },
                 
-                # Actions for different priority levels
-                'actions': {
-                    'high': report_data['actions']['high'],
-                    'medium': report_data['actions']['medium'],
-                    'low': report_data['actions']['low']
-                }
+                # Actions for different priority levels (simplified to avoid loops for now)
+                'high_count': len(report_data.get('actions', {}).get('high', [])),
+                'medium_count': len(report_data.get('actions', {}).get('medium', [])),
+                'low_count': len(report_data.get('actions', {}).get('low', []))
             }
             
             # Render the template - this will preserve all original fonts, colors, margins, layout
