@@ -359,16 +359,16 @@ class AMReportGenerator:
             # Create inline image for heatmap - preserve original sizing in template
             heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(5.5))
             
-            # Prepare template context matching the exact placeholder names in the template
+            # Prepare template context with formatted data to avoid Jinja2 syntax issues
             template_context = {
                 # Organization information
                 'org': {
                     'name': report_data['org']['name']
                 },
                 
-                # Assessment information
+                # Assessment information with pre-formatted date
                 'assessment': {
-                    'date': report_data['assessment']['date'],
+                    'date': self.format_date(report_data['assessment']['date']),
                     'version': report_data['assessment']['version']
                 },
                 
@@ -388,10 +388,7 @@ class AMReportGenerator:
                     'high': report_data['actions']['high'],
                     'medium': report_data['actions']['medium'],
                     'low': report_data['actions']['low']
-                },
-                
-                # Helper function for date formatting
-                'formatDate': self.format_date
+                }
             }
             
             # Render the template - this will preserve all original fonts, colors, margins, layout
