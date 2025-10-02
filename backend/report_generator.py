@@ -77,10 +77,56 @@ class AMReportGenerator:
         # Generate DOCX report
         docx_bytes = self._generate_docx_report(report_data, heatmap_image)
         
-        # Convert DOCX to PDF (placeholder - would need LibreOffice or similar)
-        pdf_bytes = docx_bytes  # For now, return DOCX as PDF placeholder
+        # Convert DOCX to PDF using LibreOffice
+        pdf_bytes = self._convert_docx_to_pdf(docx_bytes)
         
         return docx_bytes, pdf_bytes
+    
+    def _convert_docx_to_pdf(self, docx_bytes: bytes) -> bytes:
+        """Convert DOCX to PDF using LibreOffice headless."""
+        import subprocess
+        import tempfile
+        import os
+        
+        try:
+            # Create temporary files
+            with tempfile.NamedTemporaryFile(suffix='.docx', delete=False) as docx_file:
+                docx_file.write(docx_bytes)
+                docx_path = docx_file.name
+            
+            # Create output directory
+            output_dir = tempfile.mkdtemp()
+            
+            # Convert using LibreOffice
+            cmd = [
+                'libreoffice', '--headless', '--convert-to', 'pdf',
+                '--outdir', output_dir, docx_path
+            ]
+            
+            subprocess.run(cmd, check=True, capture_output=True, timeout=30)
+            
+            # Read the generated PDF
+            pdf_filename = os.path.splitext(os.path.basename(docx_path))[0] + '.pdf'
+            pdf_path = os.path.join(output_dir, pdf_filename)
+            
+            with open(pdf_path, 'rb') as pdf_file:
+                pdf_bytes = pdf_file.read()
+            
+            # Cleanup
+            os.unlink(docx_path)
+            os.unlink(pdf_path)
+            os.rmdir(output_dir)
+            
+            return pdf_bytes
+            
+        except subprocess.CalledProcessError as e:
+            print(f"LibreOffice conversion error: {e.stderr.decode()}")
+            # Return DOCX bytes as fallback
+            return docx_bytes
+        except Exception as e:
+            print(f"PDF conversion error: {str(e)}")
+            # Return DOCX bytes as fallback
+            return docx_bytes
     
     def _transform_assessment_data(self, assessment_data: Dict[str, Any], 
                                  user_data: Dict[str, Any]) -> Dict[str, Any]:
