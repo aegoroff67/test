@@ -305,26 +305,50 @@ class AMReportGenerator:
         return img_bytes
     
     def _generate_docx_report(self, report_data: Dict[str, Any], heatmap_image: bytes) -> bytes:
-        """Generate DOCX report using template and data."""
+        """Generate DOCX report using template and data while preserving all styles."""
         try:
             # Load the template
             doc = DocxTemplate(self.template_path)
             
-            # Create inline image for heatmap
-            heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(6))
+            # Create inline image for heatmap - preserve original sizing in template
+            heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(5.5))
             
-            # Update report data with heatmap image
+            # Prepare template context matching the exact placeholder names in the template
             template_context = {
-                'org': report_data['org'],
-                'assessment': report_data['assessment'],
-                'overall': report_data['overall'],
-                'actions': report_data['actions'],
-                'heatmap_image': heatmap_inline,
-                # Helper functions for template
-                'formatDate': lambda date_str: datetime.strptime(date_str, '%Y-%m-%d').strftime('%d %B %Y')
+                # Organization information
+                'org': {
+                    'name': report_data['org']['name']
+                },
+                
+                # Assessment information
+                'assessment': {
+                    'date': report_data['assessment']['date'],
+                    'version': report_data['assessment']['version']
+                },
+                
+                # Overall scores
+                'overall': {
+                    'score': report_data['overall']['score'],
+                    'tier': report_data['overall']['tier']
+                },
+                
+                # Assets (heatmap image)
+                'assets': {
+                    'heatmapUrl': heatmap_inline  # Replace URL placeholder with inline image
+                },
+                
+                # Actions for different priority levels
+                'actions': {
+                    'high': report_data['actions']['high'],
+                    'medium': report_data['actions']['medium'],
+                    'low': report_data['actions']['low']
+                },
+                
+                # Helper function for date formatting
+                'formatDate': self.format_date
             }
             
-            # Render the template
+            # Render the template - this will preserve all original fonts, colors, margins, layout
             doc.render(template_context)
             
             # Save to bytes
@@ -336,6 +360,8 @@ class AMReportGenerator:
             
         except Exception as e:
             print(f"Error generating DOCX report: {str(e)}")
+            import traceback
+            traceback.print_exc()
             raise Exception(f"Failed to generate DOCX report: {str(e)}")
     
     async def generate_report_for_assessment(self, assessment_id: str, db, current_user) -> Tuple[bytes, str]:
