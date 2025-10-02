@@ -436,7 +436,7 @@ class AMReportGenerator:
             # Create inline image for heatmap - preserve original sizing in template
             heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(5.5))
             
-            # Prepare template context with formatted data
+            # Prepare template context with formatted data matching template expectations
             template_context = {
                 # Organization information
                 'org': {
@@ -460,10 +460,12 @@ class AMReportGenerator:
                     'heatmapUrl': heatmap_inline  # Replace URL placeholder with inline image
                 },
                 
-                # Actions for different priority levels (simplified to avoid loops for now)
-                'high_count': len(report_data.get('actions', {}).get('high', [])),
-                'medium_count': len(report_data.get('actions', {}).get('medium', [])),
-                'low_count': len(report_data.get('actions', {}).get('low', []))
+                # Actions for different priority levels - exactly as specified
+                'actions': {
+                    'high': report_data.get('actions', {}).get('high', []),
+                    'medium': report_data.get('actions', {}).get('medium', []),
+                    'low': report_data.get('actions', {}).get('low', [])
+                }
             }
             
             # Render the template - this will preserve all original fonts, colors, margins, layout
