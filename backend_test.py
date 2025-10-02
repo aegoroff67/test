@@ -2509,6 +2509,12 @@ class AMSafeAPITester:
         self.test_json_model_compliance()
         self.test_docx_template_processing()
         
+        # Enhanced DOCX Report Generation Tests (as specifically requested in review)
+        print("\n🔥 ENHANCED DOCX REPORT GENERATION WITH STYLE PRESERVATION")
+        print("=" * 80)
+        
+        self.run_enhanced_docx_tests()
+        
         # Print results
         print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
