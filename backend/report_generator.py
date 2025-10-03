@@ -40,7 +40,7 @@ class AMReportGenerator:
         }
     
     def _get_default_template_path(self) -> str:
-        """Get the default template path - using USER PROVIDED v5 template with proper table formatting."""
+        """Get the default template path - using simplified approach for v5 template compatibility."""  
         backend_dir = Path(__file__).parent
         return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_USER_v5.docx")
     
