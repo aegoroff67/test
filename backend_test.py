@@ -3960,6 +3960,20 @@ class AMSafeAPITester:
         if hasattr(self, 'run_enhanced_docx_tests'):
             self.run_enhanced_docx_tests()
         
+        # NEW TESTS FOR V7 TEMPLATE FIX - MAIN FOCUS OF REVIEW REQUEST
+        print("\n" + "🎯" * 20 + " V7 TEMPLATE TESTING " + "🎯" * 20)
+        print("Testing the v7 template fix for table row iteration issue:")
+        print("- Previous v5 template only rendered single row per priority table")
+        print("- v7 template should fix Jinja2 loop issue and render multiple rows")
+        print("- Testing both DOCX and PDF generation with multiple recommendations")
+        print("=" * 80)
+        
+        self.test_docx_report_generation_v7_template()
+        self.test_pdf_report_generation_v7_template()
+        self.test_v7_template_table_row_iteration()
+        self.test_priority_mapping_rules_v7()
+        self.test_backend_logs_for_report_generation()
+        
         # Print results
         print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
