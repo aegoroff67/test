@@ -741,6 +741,79 @@ Each cell represents the score for a specific question, enabling identification 
         else:
             return "a basic"
     
+    def _populate_recommendation_tables(self, doc: DocxTemplate, report_data: Dict[str, Any]) -> None:
+        """
+        Programmatically populate the recommendation tables with multiple rows.
+        This fixes the issue where Jinja2 loops don't properly create table rows in Word.
+        """
+        from docx.oxml import OxmlElement
+        from docx.oxml.ns import qn
+        from docx.shared import Pt, RGBColor
+        
+        # Get the underlying python-docx Document object
+        docx_doc = doc.docx
+        
+        # Find the three recommendation tables (they should be the last 3 tables in the document)
+        tables = docx_doc.tables
+        if len(tables) < 3:
+            print(f"Warning: Expected at least 3 tables in template, found {len(tables)}")
+            return
+        
+        # Get the last 3 tables (High, Medium, Low priority)
+        high_table = tables[-3]
+        medium_table = tables[-2]
+        low_table = tables[-1]
+        
+        # Get recommendations from report_data
+        actions = report_data.get('actions', {})
+        high_actions = actions.get('high', [])
+        medium_actions = actions.get('medium', [])
+        low_actions = actions.get('low', [])
+        
+        print(f"Populating tables: High={len(high_actions)}, Medium={len(medium_actions)}, Low={len(low_actions)}")
+        
+        # Populate each table
+        self._populate_table_with_actions(high_table, high_actions)
+        self._populate_table_with_actions(medium_table, medium_actions)
+        self._populate_table_with_actions(low_table, low_actions)
+    
+    def _populate_table_with_actions(self, table, actions: List[Dict[str, Any]]) -> None:
+        """
+        Populate a table with action recommendations, creating one row per action.
+        Assumes table has a header row and may have a template data row to remove.
+        """
+        # If table has more than 1 row (header + template row), remove template rows
+        while len(table.rows) > 1:
+            self._remove_row(table, 1)
+        
+        # Add a new row for each action
+        for action in actions:
+            row = table.add_row()
+            
+            # Populate cells: Domain | Question ID | Recommendation
+            domain_cell = row.cells[0]
+            question_id_cell = row.cells[1]
+            recommendation_cell = row.cells[2]
+            
+            # Set cell text
+            domain_cell.text = action.get('domain', '')
+            question_id_cell.text = action.get('question_id', '')
+            recommendation_cell.text = action.get('text', '')
+            
+            # Apply consistent formatting to match template style
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.name = 'Arial'
+                        run.font.size = Pt(10)
+    
+    def _remove_row(self, table, row_idx: int) -> None:
+        """Remove a row from a table."""
+        from docx.oxml.table import CT_Row
+        tbl = table._tbl
+        tr = table.rows[row_idx]._tr
+        tbl.remove(tr)
+    
     def _generate_docx_report(self, report_data: Dict[str, Any], heatmap_image: bytes) -> bytes:
         """Generate DOCX report using template and data while preserving all styles."""
         try:
