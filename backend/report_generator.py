@@ -637,6 +637,15 @@ The assessment methodology ensures objective evaluation through standardized cri
         
         return roadmap
     
+    def _create_heatmap_for_template(self, heatmap_bytes: bytes) -> str:
+        """Create a heatmap representation for the template."""
+        if not heatmap_bytes:
+            return 'HEATMAP_IMAGE_PLACEHOLDER'
+        
+        # For now, we'll use a placeholder since InlineImage was causing issues
+        # In the future, this can be enhanced to properly embed the image
+        return f'[HEATMAP IMAGE - {len(heatmap_bytes)} bytes generated]'
+    
     def _generate_executive_summary(self, report_data: Dict[str, Any], user_data: Dict[str, Any]) -> str:
         """Generate comprehensive executive summary."""
         org_name = user_data.get('organization_name', 'Organization')
