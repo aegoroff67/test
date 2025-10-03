@@ -726,48 +726,108 @@ class AMReportGenerator:
         if assessment.get("status") != "COMPLETED":
             raise Exception("Assessment must be completed before generating report")
         
-        # Get questions and answers data
-        questions_pipeline = [
-            {"$match": {"id": assessment_id}},
-            {"$lookup": {
-                "from": "questions",
-                "localField": "id", 
-                "foreignField": "assessment_id",
-                "as": "questions"
-            }},
-            {"$lookup": {
-                "from": "answers",
-                "localField": "id",
-                "foreignField": "assessment_id", 
-                "as": "answers"
-            }},
-            {"$lookup": {
-                "from": "domains",
-                "localField": "questions.domain_id",
-                "foreignField": "id",
-                "as": "domains"
-            }}
-        ]
+        # Get actual data from the real database structure
+        # Get all answers for this assessment
+        answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
         
-        assessment_results = await db.assessments.aggregate(questions_pipeline).to_list(length=1)
-        if not assessment_results:
-            raise Exception("Could not retrieve assessment data")
+        # Get all domains 
+        domains = await db.domains.find().to_list(length=None)
         
-        assessment_full = assessment_results[0]
+        # Create questions structure from answers (since questions collection is empty)
+        # Group answers by domain
+        domains_by_id = {domain["id"]: domain for domain in domains}
         
-        # Get summary data
-        summary_pipeline = [
-            {"$match": {"assessment_id": assessment_id}},
-            {"$lookup": {
-                "from": "domains",
-                "localField": "domain_scores.domain_id",
-                "foreignField": "id", 
-                "as": "domain_details"
-            }}
-        ]
+        # Get all unique question patterns from answers to reconstruct question structure
+        questions_by_domain = {}
         
-        summary_results = await db.summaries.aggregate(summary_pipeline).to_list(length=1)
-        summary_data = summary_results[0] if summary_results else {}
+        for answer in answers:
+            # Extract domain from question_id pattern (e.g., FA-1 -> Fairness domain)
+            question_code = answer.get("question_id", "")
+            domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+            
+            # Map domain prefixes to domain IDs (this is a workaround)
+            domain_mapping = {
+                "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
+                "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
+                "SE": "Security", "PR": "Privacy", "SA": "Safety", 
+                "IN": "Inclusivity", "SU": "Sustainability"
+            }
+            
+            domain_name = domain_mapping.get(domain_prefix, "Unknown")
+            
+            # Find matching domain by name
+            matching_domain = None
+            for domain in domains:
+                if domain["name"] == domain_name:
+                    matching_domain = domain
+                    break
+            
+            if matching_domain:
+                domain_id = matching_domain["id"]
+                
+                if domain_id not in questions_by_domain:
+                    questions_by_domain[domain_id] = []
+                
+                # Create question object from answer data
+                question = {
+                    "id": answer["question_id"],
+                    "code": question_code,
+                    "text": answer.get("question_text", f"Question {question_code}"),
+                    "domain_id": domain_id,
+                    "answer": {
+                        "numeric_score": answer.get("score", 0),
+                        "text": answer.get("answer_text", ""),
+                        "question_id": answer["question_id"]
+                    }
+                }
+                questions_by_domain[domain_id].append(question)
+        
+        # Calculate summary data since summaries collection is empty
+        total_score = 0
+        total_possible = 0
+        domain_scores = []
+        
+        for domain_id, questions in questions_by_domain.items():
+            domain = domains_by_id.get(domain_id, {"name": "Unknown"})
+            domain_total = sum(q["answer"]["numeric_score"] for q in questions)
+            domain_possible = len(questions) * 3
+            domain_percentage = (domain_total / domain_possible * 100) if domain_possible > 0 else 0
+            
+            domain_scores.append({
+                "domain_id": domain_id,
+                "percentage": domain_percentage
+            })
+            
+            total_score += domain_total
+            total_possible += domain_possible
+        
+        overall_percentage = (total_score / total_possible * 100) if total_possible > 0 else 0
+        
+        # Calculate maturity tier
+        if overall_percentage >= 90:
+            overall_maturity = "Excellent"
+        elif overall_percentage >= 75:
+            overall_maturity = "High–Excellent" 
+        elif overall_percentage >= 60:
+            overall_maturity = "Moderate–High"
+        elif overall_percentage >= 40:
+            overall_maturity = "Low–Moderate"
+        elif overall_percentage >= 25:
+            overall_maturity = "Basic–Low"
+        else:
+            overall_maturity = "Basic"
+        
+        summary_data = {
+            "overall_percentage": overall_percentage,
+            "overall_maturity": overall_maturity,
+            "domain_scores": domain_scores
+        }
+        
+        # Create assessment_full structure 
+        assessment_full = {
+            "answers": answers,
+            "domains": domains
+        }
         
         # Organize data by domain
         questions_by_domain = {}
