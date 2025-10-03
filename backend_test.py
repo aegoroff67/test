@@ -3423,28 +3423,19 @@ class AMSafeAPITester:
         # Test answer system
         self.test_answer_system()
         
-        # DOCX Report Generation Tests (NEW - as requested in review)
-        print("\n🔍 STARTING DOCX REPORT GENERATION TESTING")
+        # COMPREHENSIVE REPORT GENERATION TESTING (MAIN FOCUS - as requested in review)
+        print("\n🔍 STARTING COMPREHENSIVE REPORT GENERATION TESTING")
+        print("=" * 60)
+        print("Testing the updated report generation system to verify it addresses user's reported issues:")
+        print("1. Template content verification (DOCX and PDF generation)")
+        print("2. Heatmap data structure testing (multiple domains, proper scoring)")
+        print("3. Recommendations table population (High/Medium/Low priority)")
+        print("4. Data mapping and content verification")
+        print("5. File format and download testing")
         print("=" * 60)
         
-        # Comprehensive DOCX and PDF report generation testing
-        self.test_docx_report_generation_comprehensive()
-        
-        # Review-specific tests for DOCX and PDF report generation
-        if hasattr(self, 'test_docx_report_generation_review_request'):
-            self.test_docx_report_generation_review_request()
-        if hasattr(self, 'test_pdf_report_generation_review_request'):
-            self.test_pdf_report_generation_review_request()
-        if hasattr(self, 'test_report_error_handling_review_request'):
-            self.test_report_error_handling_review_request()
-        if hasattr(self, 'test_template_and_priority_mapping_review_request'):
-            self.test_template_and_priority_mapping_review_request()
-        
-        # Additional existing tests
-        if hasattr(self, 'test_docx_report_generation'):
-            self.test_docx_report_generation()
-        if hasattr(self, 'test_amreport_generator_functionality'):
-            self.test_amreport_generator_functionality()
+        # Run the comprehensive report generation testing
+        self.test_report_generation_comprehensive()
         if hasattr(self, 'test_heatmap_generation'):
             self.test_heatmap_generation()
         if hasattr(self, 'test_priority_mapping_rules'):
