@@ -340,28 +340,56 @@ class AMReportGenerator:
         
         return actions
     
-    def _prepare_heatmap_data(self, questions_data: List[Dict[str, Any]]) -> List[List[float]]:
-        """Prepare heatmap data matrix from questions data."""
-        heatmap_matrix = []
+    def _prepare_heatmap_data(self, questions_data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Prepare heatmap data exactly matching the results summary format."""
+        # Collect all domain data with scores
+        domains_with_scores = []
         
         for domain_data in questions_data:
-            domain_scores = []
-            for question in domain_data.get('questions', []):
+            domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+            questions = domain_data.get('questions', [])
+            
+            # Collect question scores with codes
+            question_scores = []
+            total_score = 0
+            
+            for question in questions:
                 score = 0
                 if question.get('answer'):
                     score = question['answer'].get('numeric_score', 0)
-                # Normalize to 0-1 scale for heatmap
-                normalized_score = score / 3.0
-                domain_scores.append(normalized_score)
+                
+                question_code = question.get('code', 'Q-?')
+                question_scores.append({
+                    'code': question_code,
+                    'score': score,
+                    'question_id': question.get('id', '')
+                })
+                total_score += score
             
-            # Pad or truncate to 8 questions per domain
-            while len(domain_scores) < 8:
-                domain_scores.append(0.0)
-            domain_scores = domain_scores[:8]
+            # Sort questions by score (lowest first, as shown in heatmap)
+            question_scores.sort(key=lambda x: x['score'])
             
-            heatmap_matrix.append(domain_scores)
+            # Pad to 8 questions if needed
+            while len(question_scores) < 8:
+                question_scores.append({'code': 'N/A', 'score': 0, 'question_id': ''})
+            
+            # Take only first 8 questions
+            question_scores = question_scores[:8]
+            
+            domains_with_scores.append({
+                'name': domain_name,
+                'questions': question_scores,
+                'total_score': total_score,
+                'avg_score': total_score / len(questions) if questions else 0
+            })
         
-        return heatmap_matrix
+        # Sort domains by total score (lowest first, as shown in heatmap)
+        domains_with_scores.sort(key=lambda x: x['total_score'])
+        
+        return {
+            'domains': domains_with_scores,
+            'matrix': [[q['score'] for q in domain['questions']] for domain in domains_with_scores]
+        }
     
     def _generate_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
         """Generate heatmap image matching the exact format shown in the report."""
