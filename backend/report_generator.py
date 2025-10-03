@@ -627,21 +627,12 @@ Each cell represents the score for a specific question, enabling identification 
                     'heatmapUrl': heatmap_inline  # Replace URL placeholder with inline image
                 },
                 
-                # Comprehensive template data structure
+                # Actions for v2 template - it expects actions.dynamic for all three tables
                 'actions': {
-                    'high': report_data.get('actions', {}).get('high', []),
-                    'medium': report_data.get('actions', {}).get('medium', []),
-                    'low': report_data.get('actions', {}).get('low', [])
+                    'dynamic': report_data.get('actions', {}).get('high', []) + 
+                              report_data.get('actions', {}).get('medium', []) + 
+                              report_data.get('actions', {}).get('low', [])
                 },
-                
-                # Executive summary data (extract org name from report_data)
-                'executive_summary': self._generate_executive_summary(report_data, {'organization_name': report_data.get('org', {}).get('name', 'Organization')}),
-                
-                # Assessment results details  
-                'assessment_results': self._generate_assessment_results(report_data),
-                
-                # Comprehensive statistics
-                'statistics': self._generate_statistics(report_data),
                 
                 # Helper function for date formatting in template
                 'formatDate': self.format_date
