@@ -627,11 +627,11 @@ Each cell represents the score for a specific question, enabling identification 
                     'heatmapUrl': heatmap_inline  # Replace URL placeholder with inline image
                 },
                 
-                # Actions for final v2 template with separate arrays for each priority table
+                # Actions for user v2 template - uses actions.dynamic for all tables
                 'actions': {
-                    'high': report_data.get('actions', {}).get('high', []),
-                    'medium': report_data.get('actions', {}).get('medium', []),
-                    'low': report_data.get('actions', {}).get('low', [])
+                    'dynamic': report_data.get('actions', {}).get('high', []) + 
+                              report_data.get('actions', {}).get('medium', []) + 
+                              report_data.get('actions', {}).get('low', [])
                 },
                 
                 # Helper function for date formatting in template
