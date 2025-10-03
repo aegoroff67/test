@@ -838,6 +838,14 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 for i in range(3):
                     cell = cells[i]
+                    
+                    # Remove cell shading (background color) from header
+                    tcPr = cell.find('.//w:tcPr', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'})
+                    if tcPr is not None:
+                        shd = tcPr.find('.//w:shd', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'})
+                        if shd is not None:
+                            tcPr.remove(shd)
+                    
                     # Clear existing content
                     for p in cell.findall('.//w:p', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}):
                         cell.remove(p)
