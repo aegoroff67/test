@@ -1000,8 +1000,7 @@ Each cell represents the score for a specific question, enabling identification 
         
         # Use the already-built questions_by_domain structure from above
         # questions_by_domain = {}  # Already built above
-        answers_by_question = {answer["question_id"]: answer for answer in assessment_full.get("answers", [])}
-        domains_by_id = {domain["id"]: domain for domain in assessment_full.get("domains", [])}
+        # domains_by_id is already available from earlier in the method
         
         # Skip this loop since questions_by_domain is already built above
         pass
@@ -1200,8 +1199,7 @@ Each cell represents the score for a specific question, enabling identification 
         
         # Use the already-built questions_by_domain structure from above
         # questions_by_domain = {}  # Already built above
-        answers_by_question = {answer["question_id"]: answer for answer in assessment_full.get("answers", [])}
-        domains_by_id = {domain["id"]: domain for domain in assessment_full.get("domains", [])}
+        # domains_by_id is already available from earlier in the method
         
         # Skip this loop since questions_by_domain is already built above
         pass
