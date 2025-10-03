@@ -436,16 +436,16 @@ class AMReportGenerator:
             # Create inline image for heatmap - preserve original sizing in template
             heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(5.5))
             
-            # Prepare template context with formatted data matching template expectations
+            # Prepare template context matching the exact template structure and placeholders
             template_context = {
                 # Organization information
                 'org': {
                     'name': report_data.get('org', {}).get('name', 'Organization')
                 },
                 
-                # Assessment information with pre-formatted date
+                # Assessment information (date will be formatted by formatDate function)
                 'assessment': {
-                    'date': self.format_date(report_data.get('assessment', {}).get('date', 'Unknown Date')),
+                    'date': report_data.get('assessment', {}).get('date', '2025-01-01'),
                     'version': report_data.get('assessment', {}).get('version', '1.0.0')
                 },
                 
@@ -460,12 +460,18 @@ class AMReportGenerator:
                     'heatmapUrl': heatmap_inline  # Replace URL placeholder with inline image
                 },
                 
-                # Actions for different priority levels - exactly as specified
+                # Actions for template loops - using 'dynamic' as general loop and specific priorities
                 'actions': {
+                    'dynamic': report_data.get('actions', {}).get('high', []) + 
+                              report_data.get('actions', {}).get('medium', []) + 
+                              report_data.get('actions', {}).get('low', []),
                     'high': report_data.get('actions', {}).get('high', []),
                     'medium': report_data.get('actions', {}).get('medium', []),
                     'low': report_data.get('actions', {}).get('low', [])
-                }
+                },
+                
+                # Helper function for date formatting in template
+                'formatDate': self.format_date
             }
             
             # Render the template - this will preserve all original fonts, colors, margins, layout
