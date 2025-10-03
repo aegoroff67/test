@@ -282,9 +282,36 @@ class AMReportGenerator:
                     
                     actions[priority].append(recommendation)
         
-        # Sort by domain and question_id for consistency
+        # Sort by domain and question_id for consistency, and group by domain to reduce repetition
         for priority in actions:
+            # Sort first by domain, then by question_id
             actions[priority] = sorted(actions[priority], key=lambda x: (x["domain"], x["question_id"]))
+            
+            # Group consecutive items with the same domain to improve table readability
+            grouped_actions = []
+            current_domain = None
+            
+            for action in actions[priority]:
+                action_domain = action.get("domain", "")
+                
+                # Only show domain name for the first occurrence in each group
+                if action_domain != current_domain:
+                    current_domain = action_domain
+                    display_domain = action_domain
+                else:
+                    display_domain = ""  # Empty for subsequent items in same domain
+                
+                # Create action with potentially empty domain for cleaner table display
+                grouped_action = {
+                    "domain": display_domain,
+                    "question_id": action.get("question_id", ""),
+                    "text": action.get("text", ""),
+                    "full_domain": action_domain  # Keep original domain for reference
+                }
+                
+                grouped_actions.append(grouped_action)
+            
+            actions[priority] = grouped_actions
         
         # Limit recommendations to keep report manageable
         actions["high"] = actions["high"][:15]  # Max 15 high priority
