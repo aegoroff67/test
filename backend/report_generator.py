@@ -780,46 +780,74 @@ Each cell represents the score for a specific question, enabling identification 
     def _populate_table_with_actions(self, table, actions: List[Dict[str, Any]]) -> None:
         """
         Populate a table with action recommendations, creating one row per action.
-        Assumes table has a header row and may have a template data row to remove.
+        Creates rows with exactly 3 cells to avoid extra empty columns.
         """
         from docx.oxml import OxmlElement
         from docx.oxml.ns import qn
-        from copy import deepcopy
         
-        # If table has more than 1 row (header + template row), remove template rows
+        # Remove all rows except header
         while len(table.rows) > 1:
             self._remove_row(table, 1)
         
-        # Get the header row to use as a template for cell structure
-        header_row = table.rows[0]
+        # Get table element
+        tbl = table._element
         
-        # Add a new row for each action
+        # Add rows with exactly 3 cells for each action
         for action in actions:
-            # Instead of add_row(), create a row by cloning header structure
-            # This ensures we get exactly 3 cells, not copying any merged cell issues
-            new_row = table.add_row()
+            # Create new row element
+            tr = OxmlElement('w:tr')
             
-            # Force exactly 3 cells by clearing and rebuilding if needed
-            actual_cells = len(new_row.cells)
-            print(f"DEBUG: Row created with {actual_cells} cells, trimming to 3")
+            # Create exactly 3 cells
+            for i, value in enumerate([
+                action.get('domain', ''),
+                action.get('question_id', ''),
+                action.get('text', '')
+            ]):
+                # Create cell
+                tc = OxmlElement('w:tc')
+                
+                # Add cell properties
+                tcPr = OxmlElement('w:tcPr')
+                tcW = OxmlElement('w:tcW')
+                tcW.set(qn('w:w'), '0')
+                tcW.set(qn('w:type'), 'auto')
+                tcPr.append(tcW)
+                tc.append(tcPr)
+                
+                # Add paragraph with text
+                p = OxmlElement('w:p')
+                pPr = OxmlElement('w:pPr')
+                p.append(pPr)
+                
+                if value:
+                    r = OxmlElement('w:r')
+                    rPr = OxmlElement('w:rPr')
+                    
+                    # Set font
+                    rFonts = OxmlElement('w:rFonts')
+                    rFonts.set(qn('w:ascii'), 'Arial')
+                    rFonts.set(qn('w:hAnsi'), 'Arial')
+                    rPr.append(rFonts)
+                    
+                    # Set font size
+                    sz = OxmlElement('w:sz')
+                    sz.set(qn('w:val'), '20')  # 10pt = 20 half-points
+                    rPr.append(sz)
+                    
+                    r.append(rPr)
+                    
+                    t = OxmlElement('w:t')
+                    t.text = value
+                    r.append(t)
+                    p.append(r)
+                
+                tc.append(p)
+                tr.append(tc)
             
-            # Only populate first 3 cells regardless of how many exist
-            cells_to_populate = min(3, len(new_row.cells))
-            
-            if cells_to_populate >= 1:
-                new_row.cells[0].text = action.get('domain', '')
-            if cells_to_populate >= 2:
-                new_row.cells[1].text = action.get('question_id', '')
-            if cells_to_populate >= 3:
-                new_row.cells[2].text = action.get('text', '')
-            
-            # Apply consistent formatting to first 3 cells only
-            for i in range(cells_to_populate):
-                cell = new_row.cells[i]
-                for paragraph in cell.paragraphs:
-                    for run in paragraph.runs:
-                        run.font.name = 'Arial'
-                        run.font.size = Pt(10)
+            # Append row to table
+            tbl.append(tr)
+        
+        print(f"DEBUG: Added {len(actions)} rows with exactly 3 cells each")
     
     def _remove_row(self, table, row_idx: int) -> None:
         """Remove a row from a table."""
