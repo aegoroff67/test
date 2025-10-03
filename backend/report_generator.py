@@ -471,7 +471,7 @@ class AMReportGenerator:
                 },
                 
                 # Helper function for date formatting in template
-                'formatDate': self.format_date
+                'formatDate': lambda date_str: self.format_date(date_str)
             }
             
             # Render the template - this will preserve all original fonts, colors, margins, layout
