@@ -509,11 +509,8 @@ class AMReportGenerator:
                     'heatmapUrl': heatmap_inline  # Replace URL placeholder with inline image
                 },
                 
-                # Actions for template loops - using 'dynamic' as general loop and specific priorities
+                # Actions for template loops - structured for proper Jinja2 loops
                 'actions': {
-                    'dynamic': report_data.get('actions', {}).get('high', []) + 
-                              report_data.get('actions', {}).get('medium', []) + 
-                              report_data.get('actions', {}).get('low', []),
                     'high': report_data.get('actions', {}).get('high', []),
                     'medium': report_data.get('actions', {}).get('medium', []),
                     'low': report_data.get('actions', {}).get('low', [])
