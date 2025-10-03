@@ -4581,8 +4581,16 @@ def main():
     tester = AMSafeAPITester()
     
     try:
-        # Run comprehensive tests including DOCX report generation
-        success = tester.run_all_tests()
+        # Run authentication first
+        if not tester.test_user_signup_and_login():
+            print("❌ Authentication failed, stopping tests")
+            return 1
+        
+        # Run the critical test for the review request
+        print("🔧 Running PROGRAMMATIC TABLE POPULATION FIX TEST")
+        print("=" * 60)
+        success = tester.test_programmatic_table_population_fix()
+        
         tester.print_summary()
         return 0 if success else 1
     except Exception as e:
