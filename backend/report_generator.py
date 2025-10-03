@@ -40,9 +40,9 @@ class AMReportGenerator:
         }
     
     def _get_default_template_path(self) -> str:
-        """Get the default template path - using v8 template with proper {%tr %} docxtpl syntax."""  
+        """Get the default template path - using v7 template with proper {%tr %} docxtpl syntax."""  
         backend_dir = Path(__file__).parent
-        return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_v8_Jinja2_rows_single_run.docx")
+        return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_USER_v7_JINJA2_ROWS.docx")
     
     def format_date(self, date_input) -> str:
         """Format date for the template."""
