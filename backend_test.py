@@ -3181,11 +3181,18 @@ class AMSafeAPITester:
         print("\n🔍 STARTING DOCX REPORT GENERATION TESTING")
         print("=" * 60)
         
+        # Comprehensive DOCX and PDF report generation testing
+        self.test_docx_report_generation_comprehensive()
+        
         # Review-specific tests for DOCX and PDF report generation
-        self.test_docx_report_generation_review_request()
-        self.test_pdf_report_generation_review_request()
-        self.test_report_error_handling_review_request()
-        self.test_template_and_priority_mapping_review_request()
+        if hasattr(self, 'test_docx_report_generation_review_request'):
+            self.test_docx_report_generation_review_request()
+        if hasattr(self, 'test_pdf_report_generation_review_request'):
+            self.test_pdf_report_generation_review_request()
+        if hasattr(self, 'test_report_error_handling_review_request'):
+            self.test_report_error_handling_review_request()
+        if hasattr(self, 'test_template_and_priority_mapping_review_request'):
+            self.test_template_and_priority_mapping_review_request()
         
         # Additional existing tests
         if hasattr(self, 'test_docx_report_generation'):
