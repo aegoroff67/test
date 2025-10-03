@@ -15,7 +15,7 @@ import matplotlib.patches as patches
 import seaborn as sns
 import numpy as np
 from docxtpl import DocxTemplate, InlineImage
-from docx.shared import Inches
+from docx.shared import Inches, Pt, RGBColor
 import requests
 
 
