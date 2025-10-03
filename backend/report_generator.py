@@ -888,6 +888,7 @@ Each cell represents the score for a specific question, enabling identification 
         # Get all unique question patterns from answers to reconstruct question structure
         questions_by_domain = {}
         
+        processed_answers = 0
         for answer in answers:
             # Get question UUID and map to code using questions collection
             question_uuid = answer.get("question_id", "")
@@ -896,6 +897,7 @@ Each cell represents the score for a specific question, enabling identification 
             question_code = question_uuid_to_code.get(question_uuid)
             
             if question_code:
+                processed_answers += 1
                 # Get full question details from COMPLETE_QUESTIONS_DATA
                 question_details = questions_by_code.get(question_code)
                 
@@ -1083,6 +1085,7 @@ Each cell represents the score for a specific question, enabling identification 
         # Get all unique question patterns from answers to reconstruct question structure
         questions_by_domain = {}
         
+        processed_answers = 0
         for answer in answers:
             # Get question UUID and map to code using questions collection
             question_uuid = answer.get("question_id", "")
@@ -1091,6 +1094,7 @@ Each cell represents the score for a specific question, enabling identification 
             question_code = question_uuid_to_code.get(question_uuid)
             
             if question_code:
+                processed_answers += 1
                 # Get full question details from COMPLETE_QUESTIONS_DATA
                 question_details = questions_by_code.get(question_code)
                 
