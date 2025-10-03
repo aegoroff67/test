@@ -880,11 +880,8 @@ Each cell represents the score for a specific question, enabling identification 
             template_context['formatDate'] = self.format_date
             
             # Render the template - this will preserve all original fonts, colors, margins, layout
+            # The v8 template uses proper {%tr for ... %} syntax for dynamic table rows
             doc.render(template_context)
-            
-            # Now programmatically populate the tables with recommendations
-            # This fixes the issue where Jinja2 loops in Word tables don't create separate rows
-            self._populate_recommendation_tables(doc, report_data)
             
             # Save to bytes
             output_buffer = io.BytesIO()
