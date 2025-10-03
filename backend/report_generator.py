@@ -1003,14 +1003,8 @@ Each cell represents the score for a specific question, enabling identification 
         answers_by_question = {answer["question_id"]: answer for answer in assessment_full.get("answers", [])}
         domains_by_id = {domain["id"]: domain for domain in assessment_full.get("domains", [])}
         
-        for question in assessment_full.get("questions", []):
-            domain_id = question["domain_id"]
-            if domain_id not in questions_by_domain:
-                questions_by_domain[domain_id] = []
-            
-            # Add answer data to question
-            question["answer"] = answers_by_question.get(question["id"])
-            questions_by_domain[domain_id].append(question)
+        # Skip this loop since questions_by_domain is already built above
+        pass
         
         # Create structured questions data
         questions_data = []
@@ -1209,14 +1203,8 @@ Each cell represents the score for a specific question, enabling identification 
         answers_by_question = {answer["question_id"]: answer for answer in assessment_full.get("answers", [])}
         domains_by_id = {domain["id"]: domain for domain in assessment_full.get("domains", [])}
         
-        for question in assessment_full.get("questions", []):
-            domain_id = question["domain_id"]
-            if domain_id not in questions_by_domain:
-                questions_by_domain[domain_id] = []
-            
-            # Add answer data to question
-            question["answer"] = answers_by_question.get(question["id"])
-            questions_by_domain[domain_id].append(question)
+        # Skip this loop since questions_by_domain is already built above
+        pass
         
         # Create structured questions data
         questions_data = []
