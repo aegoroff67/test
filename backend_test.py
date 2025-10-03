@@ -4164,6 +4164,17 @@ class AMSafeAPITester:
         self.test_priority_mapping_rules_v7()
         self.test_backend_logs_for_report_generation()
         
+        # CRITICAL TEST: Programmatic Table Population Fix
+        print("\n" + "🔧" * 15 + " PROGRAMMATIC TABLE POPULATION FIX " + "🔧" * 15)
+        print("Testing the programmatic table population fix for DOCX report generation:")
+        print("- v7 template Jinja2 loops were concatenating recommendations into single rows")
+        print("- New programmatic approach uses python-docx to directly add table rows")
+        print("- Each recommendation should appear in its own table row")
+        print("- Testing High/Medium/Low priority tables for multiple separate rows")
+        print("=" * 80)
+        
+        self.test_programmatic_table_population_fix()
+        
         # Print results
         print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
