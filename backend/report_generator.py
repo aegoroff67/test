@@ -566,6 +566,24 @@ class AMReportGenerator:
         # Get all domains 
         domains = await db.domains.find().to_list(length=None)
         
+        # Get all questions to map UUIDs to codes
+        questions = await db.questions.find().to_list(length=None)
+        
+        # Import COMPLETE_QUESTIONS_DATA to get full question details
+        from complete_questions import COMPLETE_QUESTIONS_DATA
+        
+        # Create mapping from question code to question details
+        questions_by_code = {}
+        for question_data in COMPLETE_QUESTIONS_DATA:
+            code = question_data.get('code')
+            if code:
+                questions_by_code[code] = question_data
+        
+        # Create mapping from question UUID to question code
+        question_uuid_to_code = {}
+        for question in questions:
+            question_uuid_to_code[question["id"]] = question["code"]
+        
         # Create questions structure from answers (since questions collection is empty)
         # Group answers by domain
         domains_by_id = {domain["id"]: domain for domain in domains}
@@ -732,6 +750,24 @@ class AMReportGenerator:
         
         # Get all domains 
         domains = await db.domains.find().to_list(length=None)
+        
+        # Get all questions to map UUIDs to codes
+        questions = await db.questions.find().to_list(length=None)
+        
+        # Import COMPLETE_QUESTIONS_DATA to get full question details
+        from complete_questions import COMPLETE_QUESTIONS_DATA
+        
+        # Create mapping from question code to question details
+        questions_by_code = {}
+        for question_data in COMPLETE_QUESTIONS_DATA:
+            code = question_data.get('code')
+            if code:
+                questions_by_code[code] = question_data
+        
+        # Create mapping from question UUID to question code
+        question_uuid_to_code = {}
+        for question in questions:
+            question_uuid_to_code[question["id"]] = question["code"]
         
         # Create questions structure from answers (since questions collection is empty)
         # Group answers by domain
