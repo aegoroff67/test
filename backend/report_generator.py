@@ -782,30 +782,44 @@ Each cell represents the score for a specific question, enabling identification 
         Populate a table with action recommendations, creating one row per action.
         Assumes table has a header row and may have a template data row to remove.
         """
+        from docx.oxml import OxmlElement
+        from docx.oxml.ns import qn
+        from copy import deepcopy
+        
         # If table has more than 1 row (header + template row), remove template rows
         while len(table.rows) > 1:
             self._remove_row(table, 1)
         
+        # Get the header row to use as a template for cell structure
+        header_row = table.rows[0]
+        
         # Add a new row for each action
         for action in actions:
-            row = table.add_row()
+            # Instead of add_row(), create a row by cloning header structure
+            # This ensures we get exactly 3 cells, not copying any merged cell issues
+            new_row = table.add_row()
             
-            # Debug: Check how many cells are in the row
-            print(f"DEBUG: Row has {len(row.cells)} cells")
+            # Force exactly 3 cells by clearing and rebuilding if needed
+            actual_cells = len(new_row.cells)
+            print(f"DEBUG: Row created with {actual_cells} cells, trimming to 3")
             
-            # Populate only the first 3 cells: Domain | Question ID | Recommendation
-            if len(row.cells) >= 3:
-                row.cells[0].text = action.get('domain', '')
-                row.cells[1].text = action.get('question_id', '')
-                row.cells[2].text = action.get('text', '')
-                
-                # Apply consistent formatting to only first 3 cells
-                for i in range(min(3, len(row.cells))):
-                    cell = row.cells[i]
-                    for paragraph in cell.paragraphs:
-                        for run in paragraph.runs:
-                            run.font.name = 'Arial'
-                            run.font.size = Pt(10)
+            # Only populate first 3 cells regardless of how many exist
+            cells_to_populate = min(3, len(new_row.cells))
+            
+            if cells_to_populate >= 1:
+                new_row.cells[0].text = action.get('domain', '')
+            if cells_to_populate >= 2:
+                new_row.cells[1].text = action.get('question_id', '')
+            if cells_to_populate >= 3:
+                new_row.cells[2].text = action.get('text', '')
+            
+            # Apply consistent formatting to first 3 cells only
+            for i in range(cells_to_populate):
+                cell = new_row.cells[i]
+                for paragraph in cell.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.name = 'Arial'
+                        run.font.size = Pt(10)
     
     def _remove_row(self, table, row_idx: int) -> None:
         """Remove a row from a table."""
