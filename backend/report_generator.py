@@ -183,7 +183,7 @@ class AMReportGenerator:
                 "version": "1.0.0"
             },
             "overall": {
-                "score": int(overall_percentage),
+                "score": round(overall_percentage, 1),
                 "tier": overall_tier
             },
             "assets": {
