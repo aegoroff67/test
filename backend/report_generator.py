@@ -476,6 +476,167 @@ class AMReportGenerator:
         
         return img_bytes
     
+    def _generate_comprehensive_executive_summary(self, report_data: Dict[str, Any]) -> str:
+        """Generate a comprehensive multi-paragraph executive summary."""
+        org_name = report_data.get('org', {}).get('name', 'Organization')
+        overall_score = report_data.get('overall', {}).get('score', 0)
+        overall_tier = report_data.get('overall', {}).get('tier', 'Basic')
+        
+        actions = report_data.get('actions', {})
+        high_count = len(actions.get('high', []))
+        medium_count = len(actions.get('medium', []))
+        low_count = len(actions.get('low', []))
+        
+        return f"""The AM AI SAFE Framework Assessment for {org_name} has been completed, representing a comprehensive evaluation of the organization's artificial intelligence systems against 88 detailed questions spanning 11 critical domains of AI safety, ethics, and governance. This assessment provides {org_name} with a thorough analysis of their current AI maturity level and a strategic roadmap for improvement.
+
+ASSESSMENT SCOPE AND METHODOLOGY:
+The evaluation encompasses the complete spectrum of AI governance, examining Fairness, Transparency, Explainability, Accountability, Data Integrity, Reliability, Security, Privacy, Safety, Inclusivity, and Sustainability. Each domain contains 8 targeted questions designed to assess current practices against industry best practices and regulatory expectations.
+
+KEY FINDINGS SUMMARY:
+{org_name} has achieved an overall AI maturity score of {overall_score}%, positioning the organization within the {overall_tier} maturity category. This assessment reveals both areas of strength and significant opportunities for improvement across the AI safety framework.
+
+The evaluation has identified {high_count + medium_count + low_count} specific recommendations for enhancement, categorized by priority and implementation timeline:
+• {high_count} High Priority actions addressing critical gaps requiring immediate attention and resource allocation
+• {medium_count} Medium Priority initiatives for systematic improvement over the next 6-12 months
+• {low_count} Low Priority strategic enhancements for long-term competitive advantage and industry leadership
+
+STRATEGIC IMPLICATIONS:
+The assessment results indicate that {org_name} has established foundational AI practices but requires focused investment in key areas to achieve industry-leading AI governance standards. The identified recommendations provide a clear pathway for systematic improvement, risk mitigation, and competitive advantage in AI deployment.
+
+This report serves as both a comprehensive audit of current capabilities and a strategic roadmap for AI excellence, enabling {org_name} to prioritize investments, allocate resources effectively, and implement systematic improvements that will enhance AI safety, ethical compliance, and operational excellence."""
+    
+    def _generate_assessment_methodology(self) -> str:
+        """Generate detailed assessment methodology description."""
+        return """ASSESSMENT METHODOLOGY AND FRAMEWORK:
+
+The AM AI SAFE Framework Assessment employs a rigorous, multi-dimensional evaluation approach designed to provide comprehensive insights into organizational AI maturity across 11 critical domains. Each assessment question is evaluated using a standardized 4-point scoring scale:
+
+• Score 0 (Non-Ideal): Indicates fundamental gaps or absence of required practices, representing critical risks that demand immediate attention and corrective action.
+
+• Score 1 (Basic): Demonstrates initial awareness and basic implementation of AI safety practices, but lacks comprehensive coverage or systematic approach.
+
+• Score 2 (Good): Shows solid implementation of AI safety practices with systematic approaches, though opportunities remain for enhancement and optimization.
+
+• Score 3 (Best Practice): Represents industry-leading implementation with comprehensive coverage, proactive management, and continuous improvement processes.
+
+The assessment methodology ensures objective evaluation through standardized criteria, comprehensive coverage of AI safety domains, and actionable recommendations aligned with regulatory expectations and industry best practices. Results provide both current state analysis and forward-looking guidance for systematic improvement."""
+    
+    def _generate_domain_analysis(self, report_data: Dict[str, Any]) -> str:
+        """Generate detailed domain-by-domain analysis."""
+        heatmap_data = report_data.get('heatmap_data', {})
+        domains = heatmap_data.get('domains', [])
+        
+        analysis = "DOMAIN-SPECIFIC PERFORMANCE ANALYSIS:\n\n"
+        
+        for domain in domains:
+            domain_name = domain.get('name', 'Unknown')
+            questions = domain.get('questions', [])
+            scores = [q.get('score', 0) for q in questions if q.get('code') != 'N/A']
+            
+            if scores:
+                avg_score = sum(scores) / len(scores)
+                max_score = max(scores)
+                min_score = min(scores)
+                
+                # Determine domain maturity level
+                if avg_score >= 2.5:
+                    maturity = "High"
+                elif avg_score >= 1.5:
+                    maturity = "Moderate"
+                elif avg_score >= 0.5:
+                    maturity = "Developing"
+                else:
+                    maturity = "Foundational"
+                
+                analysis += f"{domain_name} Domain ({maturity} Maturity):\n"
+                analysis += f"Average Score: {avg_score:.1f}/3.0 | Range: {min_score}-{max_score} | Questions Evaluated: {len(scores)}\n"
+                
+                # Add domain-specific insights
+                if avg_score < 1.0:
+                    analysis += f"Critical Focus Area: {domain_name} requires immediate attention with systematic capability building and resource investment.\n"
+                elif avg_score < 2.0:
+                    analysis += f"Development Opportunity: {domain_name} shows foundational practices with clear opportunities for systematic enhancement.\n"
+                else:
+                    analysis += f"Strength Area: {domain_name} demonstrates solid practices with opportunities for optimization and industry leadership.\n"
+                
+                analysis += "\n"
+        
+        return analysis
+    
+    def _generate_key_findings(self, report_data: Dict[str, Any]) -> str:
+        """Generate key findings and insights."""
+        overall_score = report_data.get('overall', {}).get('score', 0)
+        actions = report_data.get('actions', {})
+        
+        findings = "KEY FINDINGS AND STRATEGIC INSIGHTS:\n\n"
+        
+        findings += "1. OVERALL AI MATURITY ASSESSMENT:\n"
+        if overall_score >= 75:
+            findings += "The organization demonstrates advanced AI maturity with comprehensive governance frameworks and systematic risk management practices.\n\n"
+        elif overall_score >= 50:
+            findings += "The organization shows moderate AI maturity with established foundational practices and clear pathways for systematic improvement.\n\n"
+        elif overall_score >= 25:
+            findings += "The organization exhibits developing AI maturity with basic practices in place but requiring focused investment in key capability areas.\n\n"
+        else:
+            findings += "The organization is in the foundational stage of AI maturity, requiring comprehensive capability building and systematic framework implementation.\n\n"
+        
+        findings += "2. PRIORITY FOCUS AREAS:\n"
+        
+        high_actions = actions.get('high', [])
+        if high_actions:
+            findings += f"Critical Gaps Identified: {len(high_actions)} high-priority areas require immediate attention to address fundamental risks and compliance requirements.\n"
+        
+        medium_actions = actions.get('medium', [])
+        if medium_actions:
+            findings += f"Systematic Improvements: {len(medium_actions)} medium-priority initiatives will strengthen foundational capabilities and enhance operational excellence.\n"
+        
+        low_actions = actions.get('low', [])
+        if low_actions:
+            findings += f"Strategic Enhancements: {len(low_actions)} low-priority opportunities will drive competitive advantage and industry leadership positioning.\n\n"
+        
+        findings += "3. IMPLEMENTATION SUCCESS FACTORS:\n"
+        findings += "• Executive leadership commitment and resource allocation for systematic AI governance improvement\n"
+        findings += "• Cross-functional collaboration between IT, legal, compliance, and business stakeholders\n"
+        findings += "• Phased implementation approach with clear milestones and success metrics\n"
+        findings += "• Continuous monitoring and improvement processes to maintain and enhance AI safety standards\n"
+        
+        return findings
+    
+    def _generate_implementation_roadmap(self, report_data: Dict[str, Any]) -> str:
+        """Generate implementation roadmap and next steps."""
+        actions = report_data.get('actions', {})
+        
+        roadmap = "IMPLEMENTATION ROADMAP AND STRATEGIC RECOMMENDATIONS:\n\n"
+        
+        roadmap += "PHASE 1: IMMEDIATE ACTIONS (0-3 months)\n"
+        roadmap += "Priority: Address critical gaps and compliance requirements\n"
+        high_actions = actions.get('high', [])
+        if high_actions:
+            roadmap += f"Focus Areas: {len(high_actions)} high-priority recommendations addressing fundamental risks\n"
+            roadmap += "Success Metrics: Risk mitigation, compliance adherence, foundational capability establishment\n\n"
+        
+        roadmap += "PHASE 2: SYSTEMATIC IMPROVEMENTS (3-12 months)\n"
+        roadmap += "Priority: Build comprehensive AI governance capabilities\n"
+        medium_actions = actions.get('medium', [])
+        if medium_actions:
+            roadmap += f"Focus Areas: {len(medium_actions)} medium-priority initiatives for systematic enhancement\n"
+            roadmap += "Success Metrics: Process maturity, operational excellence, stakeholder confidence\n\n"
+        
+        roadmap += "PHASE 3: STRATEGIC OPTIMIZATION (12+ months)\n"
+        roadmap += "Priority: Achieve industry leadership and competitive advantage\n"
+        low_actions = actions.get('low', [])
+        if low_actions:
+            roadmap += f"Focus Areas: {len(low_actions)} strategic enhancements for market differentiation\n"
+            roadmap += "Success Metrics: Industry recognition, innovative practices, sustainable competitive advantage\n\n"
+        
+        roadmap += "CONTINUOUS IMPROVEMENT FRAMEWORK:\n"
+        roadmap += "• Quarterly assessment reviews and progress monitoring\n"
+        roadmap += "• Annual comprehensive re-evaluation and strategic planning\n"
+        roadmap += "• Ongoing stakeholder engagement and feedback integration\n"
+        roadmap += "• Emerging technology and regulatory landscape monitoring\n"
+        
+        return roadmap
+    
     def _generate_executive_summary(self, report_data: Dict[str, Any], user_data: Dict[str, Any]) -> str:
         """Generate comprehensive executive summary."""
         org_name = user_data.get('organization_name', 'Organization')
