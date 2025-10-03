@@ -942,6 +942,15 @@ Each cell represents the score for a specific question, enabling identification 
                         }
                         questions_by_domain[domain_id].append(question)
         
+        
+        print(f"DEBUG: Processed answers: {processed_answers}/{len(answers)}")
+        print(f"DEBUG: Domains in heatmap: {len(questions_by_domain)}")
+        for domain_id in list(questions_by_domain.keys())[:3]:  # Show first 3 domains
+            domain = domains_by_id.get(domain_id, {"name": "Unknown"})
+            questions = questions_by_domain[domain_id]
+            print(f"  Domain: {domain['name']} - Questions: {len(questions)}")
+            for question in questions[:2]:  # Show first 2 questions per domain
+                print(f"    Question {question.get('code', 'N/A')}: Score {question.get('answer', {}).get('numeric_score', 'N/A')}")
         # Calculate summary data since summaries collection is empty
         total_score = 0
         total_possible = 0
