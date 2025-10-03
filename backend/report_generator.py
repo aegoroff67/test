@@ -312,10 +312,8 @@ class AMReportGenerator:
             for action in actions[priority]:
                 action.pop("domain_score", None)
         
-        # Limit recommendations to keep report manageable
-        actions["high"] = actions["high"][:15]  # Max 15 high priority
-        actions["medium"] = actions["medium"][:10]  # Max 10 medium priority  
-        actions["low"] = actions["low"][:8]  # Max 8 low priority
+        # No artificial limits - include all recommendations
+        # This ensures all high/medium/low priority items are reported
         
         return actions
     
