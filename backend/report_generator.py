@@ -803,38 +803,80 @@ Each cell represents the score for a specific question, enabling identification 
     def _populate_table_with_actions(self, table, actions: List[Dict[str, Any]]) -> None:
         """
         Populate a table with action recommendations, creating one row per action.
-        Uses table.add_row() but only populates the first 3 cells properly.
+        Creates rows with exactly 3 cells by copying header row structure.
         """
+        from docx.oxml import OxmlElement
+        from docx.oxml.ns import qn
+        from copy import deepcopy
+        
         # Remove all rows except header
         while len(table.rows) > 1:
             self._remove_row(table, 1)
         
-        # Get the column widths from the header row to preserve table structure
+        # Get the header row to copy its structure
         header_row = table.rows[0]
+        header_tr = header_row._tr
         
-        # Add rows for each action
+        # Get table element
+        tbl = table._element
+        
+        # Add rows with exactly 3 cells for each action
         for action in actions:
-            # Add a new row (this will create cells matching the table structure)
-            row = table.add_row()
+            # Clone the header row structure to get proper column widths
+            tr = deepcopy(header_tr)
             
-            # Only populate the first 3 cells and clear any extra cells
-            row.cells[0].text = action.get('domain', '')
-            row.cells[1].text = action.get('question_id', '')
-            row.cells[2].text = action.get('text', '')
+            # Clear the text from the cloned cells and set new values
+            cells = tr.findall('.//w:tc', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'})
             
-            # Apply formatting to the first 3 cells
-            for i in range(min(3, len(row.cells))):
-                cell = row.cells[i]
-                for paragraph in cell.paragraphs:
-                    for run in paragraph.runs:
-                        run.font.name = 'Arial'
-                        run.font.size = Pt(10)
+            # We should have at least 3 cells from the header
+            if len(cells) >= 3:
+                values = [
+                    action.get('domain', ''),
+                    action.get('question_id', ''),
+                    action.get('text', '')
+                ]
+                
+                for i in range(3):
+                    cell = cells[i]
+                    # Clear existing content
+                    for p in cell.findall('.//w:p', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}):
+                        cell.remove(p)
+                    
+                    # Add new paragraph with text
+                    p = OxmlElement('w:p')
+                    
+                    if values[i]:
+                        r = OxmlElement('w:r')
+                        rPr = OxmlElement('w:rPr')
+                        
+                        # Set font
+                        rFonts = OxmlElement('w:rFonts')
+                        rFonts.set(qn('w:ascii'), 'Arial')
+                        rFonts.set(qn('w:hAnsi'), 'Arial')
+                        rPr.append(rFonts)
+                        
+                        # Set font size
+                        sz = OxmlElement('w:sz')
+                        sz.set(qn('w:val'), '20')  # 10pt = 20 half-points
+                        rPr.append(sz)
+                        
+                        r.append(rPr)
+                        
+                        t = OxmlElement('w:t')
+                        t.text = values[i]
+                        r.append(t)
+                        p.append(r)
+                    
+                    cell.append(p)
+                
+                # Remove extra cells beyond the first 3
+                for i in range(3, len(cells)):
+                    tr.remove(cells[i])
             
-            # Clear any extra cells beyond the first 3
-            for i in range(3, len(row.cells)):
-                row.cells[i].text = ''
+            # Append row to table
+            tbl.append(tr)
         
-        print(f"DEBUG: Added {len(actions)} rows to table")
+        print(f"DEBUG: Added {len(actions)} rows with 3 cells each (copied from header structure)")
     
     def _remove_row(self, table, row_idx: int) -> None:
         """Remove a row from a table."""
