@@ -4150,30 +4150,18 @@ class AMSafeAPITester:
         if hasattr(self, 'run_enhanced_docx_tests'):
             self.run_enhanced_docx_tests()
         
-        # NEW TESTS FOR V7 TEMPLATE FIX - MAIN FOCUS OF REVIEW REQUEST
-        print("\n" + "🎯" * 20 + " V7 TEMPLATE TESTING " + "🎯" * 20)
-        print("Testing the v7 template fix for table row iteration issue:")
-        print("- Previous v5 template only rendered single row per priority table")
-        print("- v7 template should fix Jinja2 loop issue and render multiple rows")
-        print("- Testing both DOCX and PDF generation with multiple recommendations")
+        # NEW TESTS FOR V8 TEMPLATE WITH PROPER DOCXTPL SYNTAX - MAIN FOCUS OF REVIEW REQUEST
+        print("\n" + "🎯" * 20 + " V8 TEMPLATE TESTING " + "🎯" * 20)
+        print("Testing the v8 template with proper docxtpl {%tr for ... %} syntax:")
+        print("- Switched from programmatic table population to native docxtpl row iteration")
+        print("- v8 template contains proper {%tr for action in actions.high/medium/low %} syntax")
+        print("- This is the correct docxtpl approach for creating dynamic table rows")
+        print("- Template has 3 tables, each with 3 columns and proper Jinja2 loop syntax")
         print("=" * 80)
         
-        self.test_docx_report_generation_v7_template()
-        self.test_pdf_report_generation_v7_template()
-        self.test_v7_template_table_row_iteration()
-        self.test_priority_mapping_rules_v7()
-        self.test_backend_logs_for_report_generation()
-        
-        # CRITICAL TEST: Programmatic Table Population Fix
-        print("\n" + "🔧" * 15 + " PROGRAMMATIC TABLE POPULATION FIX " + "🔧" * 15)
-        print("Testing the programmatic table population fix for DOCX report generation:")
-        print("- v7 template Jinja2 loops were concatenating recommendations into single rows")
-        print("- New programmatic approach uses python-docx to directly add table rows")
-        print("- Each recommendation should appear in its own table row")
-        print("- Testing High/Medium/Low priority tables for multiple separate rows")
-        print("=" * 80)
-        
-        self.test_programmatic_table_population_fix()
+        self.test_v8_template_docx_generation()
+        self.test_table_row_verification_detailed()
+        self.test_priority_mapping_verification()
         
         # Print results
         print("\n" + "=" * 80)
