@@ -634,8 +634,8 @@ Each cell represents the score for a specific question, enabling identification 
                     'low': report_data.get('actions', {}).get('low', [])
                 },
                 
-                # Executive summary data
-                'executive_summary': self._generate_executive_summary(report_data, user_data),
+                # Executive summary data (extract org name from report_data)
+                'executive_summary': self._generate_executive_summary(report_data, {'organization_name': report_data.get('org', {}).get('name', 'Organization')}),
                 
                 # Assessment results details  
                 'assessment_results': self._generate_assessment_results(report_data),
