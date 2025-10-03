@@ -803,74 +803,38 @@ Each cell represents the score for a specific question, enabling identification 
     def _populate_table_with_actions(self, table, actions: List[Dict[str, Any]]) -> None:
         """
         Populate a table with action recommendations, creating one row per action.
-        Creates rows with exactly 3 cells to avoid extra empty columns.
+        Uses table.add_row() but only populates the first 3 cells properly.
         """
-        from docx.oxml import OxmlElement
-        from docx.oxml.ns import qn
-        
         # Remove all rows except header
         while len(table.rows) > 1:
             self._remove_row(table, 1)
         
-        # Get table element
-        tbl = table._element
+        # Get the column widths from the header row to preserve table structure
+        header_row = table.rows[0]
         
-        # Add rows with exactly 3 cells for each action
+        # Add rows for each action
         for action in actions:
-            # Create new row element
-            tr = OxmlElement('w:tr')
+            # Add a new row (this will create cells matching the table structure)
+            row = table.add_row()
             
-            # Create exactly 3 cells
-            for i, value in enumerate([
-                action.get('domain', ''),
-                action.get('question_id', ''),
-                action.get('text', '')
-            ]):
-                # Create cell
-                tc = OxmlElement('w:tc')
-                
-                # Add cell properties
-                tcPr = OxmlElement('w:tcPr')
-                tcW = OxmlElement('w:tcW')
-                tcW.set(qn('w:w'), '0')
-                tcW.set(qn('w:type'), 'auto')
-                tcPr.append(tcW)
-                tc.append(tcPr)
-                
-                # Add paragraph with text
-                p = OxmlElement('w:p')
-                pPr = OxmlElement('w:pPr')
-                p.append(pPr)
-                
-                if value:
-                    r = OxmlElement('w:r')
-                    rPr = OxmlElement('w:rPr')
-                    
-                    # Set font
-                    rFonts = OxmlElement('w:rFonts')
-                    rFonts.set(qn('w:ascii'), 'Arial')
-                    rFonts.set(qn('w:hAnsi'), 'Arial')
-                    rPr.append(rFonts)
-                    
-                    # Set font size
-                    sz = OxmlElement('w:sz')
-                    sz.set(qn('w:val'), '20')  # 10pt = 20 half-points
-                    rPr.append(sz)
-                    
-                    r.append(rPr)
-                    
-                    t = OxmlElement('w:t')
-                    t.text = value
-                    r.append(t)
-                    p.append(r)
-                
-                tc.append(p)
-                tr.append(tc)
+            # Only populate the first 3 cells and clear any extra cells
+            row.cells[0].text = action.get('domain', '')
+            row.cells[1].text = action.get('question_id', '')
+            row.cells[2].text = action.get('text', '')
             
-            # Append row to table
-            tbl.append(tr)
+            # Apply formatting to the first 3 cells
+            for i in range(min(3, len(row.cells))):
+                cell = row.cells[i]
+                for paragraph in cell.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.name = 'Arial'
+                        run.font.size = Pt(10)
+            
+            # Clear any extra cells beyond the first 3
+            for i in range(3, len(row.cells)):
+                row.cells[i].text = ''
         
-        print(f"DEBUG: Added {len(actions)} rows with exactly 3 cells each")
+        print(f"DEBUG: Added {len(actions)} rows to table")
     
     def _remove_row(self, table, row_idx: int) -> None:
         """Remove a row from a table."""
