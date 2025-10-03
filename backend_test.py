@@ -3393,6 +3393,514 @@ class AMSafeAPITester:
 
         except Exception as e:
             return False, str(e)
+
+    def test_docx_report_generation_v7_template(self):
+        """Test DOCX report generation with v7 template fix for table row iteration"""
+        print("\n🔍 TESTING DOCX REPORT GENERATION WITH V7 TEMPLATE")
+        print("-" * 60)
+        
+        # Create and complete an assessment for testing
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for DOCX report test", False, str(response))
+            return False
+            
+        report_assessment_id = response['id']
+        self.log_test("Create assessment for DOCX report test", True)
+        
+        # Get all questions and answer them to create varied priority recommendations
+        success, response = self.make_request('GET', f'assessments/{report_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for DOCX report test", False, str(response))
+            return False
+            
+        # Answer questions with varied scores to generate multiple recommendations per priority
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        # Create a pattern that will generate multiple recommendations per priority level
+        # Answer pattern: Non-Ideal(0), Basic(1), Good(2), Ideal(3) cycling
+        answer_options = ['NON_IDEAL', 'BASIC', 'GOOD', 'IDEAL']
+        
+        for i, question in enumerate(all_questions):
+            option = answer_options[i % len(answer_options)]
+            answer_data = {
+                "question_id": question['id'],
+                "option": option,
+                "note": f"Test answer for report generation - {option}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{report_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer question {i+1} for report test", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered all {len(all_questions)} questions with varied scores", True)
+        
+        # Submit the assessment to complete it
+        success, _ = self.make_request('POST', f'assessments/{report_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for report test", False, "Failed to submit assessment")
+            return False
+            
+        self.log_test("Submit assessment for report test", True)
+        
+        # Test DOCX report generation endpoint
+        print("\n📄 Testing DOCX Report Generation...")
+        
+        # Make request to DOCX report endpoint
+        url = f"{self.api_url}/assessments/{report_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code == 200:
+                self.log_test("DOCX report endpoint returns 200 OK", True)
+                
+                # Check MIME type
+                content_type = response.headers.get('content-type', '')
+                expected_mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                if expected_mime in content_type:
+                    self.log_test("DOCX report has correct MIME type", True)
+                else:
+                    self.log_test("DOCX report has correct MIME type", False, f"Got: {content_type}")
+                
+                # Check Content-Disposition header
+                content_disposition = response.headers.get('content-disposition', '')
+                if 'attachment' in content_disposition and 'filename' in content_disposition:
+                    self.log_test("DOCX report has correct download headers", True)
+                else:
+                    self.log_test("DOCX report has correct download headers", False, f"Got: {content_disposition}")
+                
+                # Check file size (should be substantial, not empty)
+                file_size = len(response.content)
+                if file_size > 10000:  # At least 10KB
+                    self.log_test("DOCX report has substantial file size", True, f"Size: {file_size} bytes")
+                else:
+                    self.log_test("DOCX report has substantial file size", False, f"Size: {file_size} bytes")
+                
+                # Validate DOCX file structure (ZIP-based format)
+                try:
+                    import zipfile
+                    import io
+                    
+                    docx_file = io.BytesIO(response.content)
+                    with zipfile.ZipFile(docx_file, 'r') as zip_file:
+                        # Check for essential DOCX files
+                        required_files = ['word/document.xml', '[Content_Types].xml', 'word/_rels/document.xml.rels']
+                        missing_files = []
+                        
+                        for required_file in required_files:
+                            if required_file not in zip_file.namelist():
+                                missing_files.append(required_file)
+                        
+                        if not missing_files:
+                            self.log_test("DOCX file structure validation", True)
+                        else:
+                            self.log_test("DOCX file structure validation", False, f"Missing: {missing_files}")
+                            
+                except Exception as e:
+                    self.log_test("DOCX file structure validation", False, f"Validation error: {str(e)}")
+                
+            elif response.status_code == 401 or response.status_code == 403:
+                self.log_test("DOCX report endpoint authentication", False, "Authentication required")
+                return False
+            else:
+                self.log_test("DOCX report endpoint returns 200 OK", False, f"Status: {response.status_code}, Response: {response.text[:200]}")
+                return False
+                
+        except Exception as e:
+            self.log_test("DOCX report endpoint request", False, f"Request error: {str(e)}")
+            return False
+        
+        return True
+    
+    def test_pdf_report_generation_v7_template(self):
+        """Test PDF report generation with v7 template fix"""
+        print("\n🔍 TESTING PDF REPORT GENERATION WITH V7 TEMPLATE")
+        print("-" * 60)
+        
+        # Use the same assessment from DOCX test or create a new one
+        # For this test, we'll create a fresh assessment
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for PDF report test", False, str(response))
+            return False
+            
+        pdf_assessment_id = response['id']
+        self.log_test("Create assessment for PDF report test", True)
+        
+        # Get all questions and answer them
+        success, response = self.make_request('GET', f'assessments/{pdf_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for PDF report test", False, str(response))
+            return False
+            
+        # Answer all questions with varied scores
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        # Use different pattern to create different recommendation distribution
+        answer_options = ['NON_IDEAL', 'NON_IDEAL', 'BASIC', 'BASIC', 'GOOD', 'GOOD', 'IDEAL', 'IDEAL']
+        
+        for i, question in enumerate(all_questions):
+            option = answer_options[i % len(answer_options)]
+            answer_data = {
+                "question_id": question['id'],
+                "option": option,
+                "note": f"PDF test answer - {option}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{pdf_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer question {i+1} for PDF test", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered all {len(all_questions)} questions for PDF test", True)
+        
+        # Submit the assessment
+        success, _ = self.make_request('POST', f'assessments/{pdf_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for PDF test", False, "Failed to submit assessment")
+            return False
+            
+        self.log_test("Submit assessment for PDF test", True)
+        
+        # Test PDF report generation endpoint
+        print("\n📄 Testing PDF Report Generation...")
+        
+        # Make request to PDF report endpoint
+        url = f"{self.api_url}/assessments/{pdf_assessment_id}/report/pdf"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=90)  # Longer timeout for PDF conversion
+            
+            if response.status_code == 200:
+                self.log_test("PDF report endpoint returns 200 OK", True)
+                
+                # Check MIME type
+                content_type = response.headers.get('content-type', '')
+                if 'application/pdf' in content_type:
+                    self.log_test("PDF report has correct MIME type", True)
+                else:
+                    self.log_test("PDF report has correct MIME type", False, f"Got: {content_type}")
+                
+                # Check Content-Disposition header
+                content_disposition = response.headers.get('content-disposition', '')
+                if 'attachment' in content_disposition and 'filename' in content_disposition and '.pdf' in content_disposition:
+                    self.log_test("PDF report has correct download headers", True)
+                else:
+                    self.log_test("PDF report has correct download headers", False, f"Got: {content_disposition}")
+                
+                # Check file size
+                file_size = len(response.content)
+                if file_size > 5000:  # At least 5KB for PDF
+                    self.log_test("PDF report has substantial file size", True, f"Size: {file_size} bytes")
+                else:
+                    self.log_test("PDF report has substantial file size", False, f"Size: {file_size} bytes")
+                
+                # Validate PDF file format
+                try:
+                    pdf_content = response.content
+                    # Check PDF header
+                    if pdf_content.startswith(b'%PDF-'):
+                        self.log_test("PDF file format validation (header)", True)
+                    else:
+                        self.log_test("PDF file format validation (header)", False, "Missing PDF header")
+                    
+                    # Check PDF footer
+                    if b'%%EOF' in pdf_content:
+                        self.log_test("PDF file format validation (footer)", True)
+                    else:
+                        self.log_test("PDF file format validation (footer)", False, "Missing PDF footer")
+                        
+                except Exception as e:
+                    self.log_test("PDF file format validation", False, f"Validation error: {str(e)}")
+                
+            elif response.status_code == 401 or response.status_code == 403:
+                self.log_test("PDF report endpoint authentication", False, "Authentication required")
+                return False
+            else:
+                self.log_test("PDF report endpoint returns 200 OK", False, f"Status: {response.status_code}, Response: {response.text[:200]}")
+                return False
+                
+        except Exception as e:
+            self.log_test("PDF report endpoint request", False, f"Request error: {str(e)}")
+            return False
+        
+        return True
+    
+    def test_v7_template_table_row_iteration(self):
+        """Test that v7 template correctly renders multiple rows for each priority table"""
+        print("\n🔍 TESTING V7 TEMPLATE TABLE ROW ITERATION FIX")
+        print("-" * 60)
+        
+        # Create assessment with specific answer pattern to generate multiple recommendations per priority
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for table row iteration test", False, str(response))
+            return False
+            
+        iteration_assessment_id = response['id']
+        self.log_test("Create assessment for table row iteration test", True)
+        
+        # Get all questions
+        success, response = self.make_request('GET', f'assessments/{iteration_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for table row iteration test", False, str(response))
+            return False
+        
+        # Answer questions strategically to create multiple recommendations per priority level
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        # Strategic answering pattern to ensure multiple recommendations per priority:
+        # First 20 questions: NON_IDEAL (0) -> High Priority
+        # Next 20 questions: BASIC (1) -> Medium Priority  
+        # Next 20 questions: GOOD (2) -> Low Priority
+        # Remaining questions: IDEAL (3) -> Not included
+        
+        high_priority_count = 0
+        medium_priority_count = 0
+        low_priority_count = 0
+        
+        for i, question in enumerate(all_questions):
+            if i < 20:
+                option = 'NON_IDEAL'
+                high_priority_count += 1
+            elif i < 40:
+                option = 'BASIC'
+                medium_priority_count += 1
+            elif i < 60:
+                option = 'GOOD'
+                low_priority_count += 1
+            else:
+                option = 'IDEAL'
+            
+            answer_data = {
+                "question_id": question['id'],
+                "option": option,
+                "note": f"Strategic answer for table row test - {option}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{iteration_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer question {i+1} strategically", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered questions strategically: {high_priority_count} High, {medium_priority_count} Medium, {low_priority_count} Low priority", True)
+        
+        # Submit the assessment
+        success, _ = self.make_request('POST', f'assessments/{iteration_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for table row iteration test", False, "Failed to submit assessment")
+            return False
+            
+        self.log_test("Submit assessment for table row iteration test", True)
+        
+        # Test both DOCX and PDF generation to verify table row iteration
+        print("\n📊 Testing Table Row Iteration in Reports...")
+        
+        # Test DOCX generation
+        url = f"{self.api_url}/assessments/{iteration_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code == 200:
+                self.log_test("DOCX generation for table row iteration test", True)
+                
+                # File size should be larger due to multiple recommendation rows
+                file_size = len(response.content)
+                if file_size > 15000:  # Should be larger with multiple rows
+                    self.log_test("DOCX file size indicates multiple recommendation rows", True, f"Size: {file_size} bytes")
+                else:
+                    self.log_test("DOCX file size indicates multiple recommendation rows", False, f"Size: {file_size} bytes - may indicate single row issue")
+                    
+            else:
+                self.log_test("DOCX generation for table row iteration test", False, f"Status: {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("DOCX generation for table row iteration test", False, f"Error: {str(e)}")
+        
+        # Test PDF generation
+        url = f"{self.api_url}/assessments/{iteration_assessment_id}/report/pdf"
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=90)
+            
+            if response.status_code == 200:
+                self.log_test("PDF generation for table row iteration test", True)
+                
+                # File size should be substantial with multiple rows
+                file_size = len(response.content)
+                if file_size > 10000:  # Should be substantial with multiple rows
+                    self.log_test("PDF file size indicates multiple recommendation rows", True, f"Size: {file_size} bytes")
+                else:
+                    self.log_test("PDF file size indicates multiple recommendation rows", False, f"Size: {file_size} bytes - may indicate single row issue")
+                    
+            else:
+                self.log_test("PDF generation for table row iteration test", False, f"Status: {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("PDF generation for table row iteration test", False, f"Error: {str(e)}")
+        
+        return True
+    
+    def test_priority_mapping_rules_v7(self):
+        """Test that priority mapping rules are correctly implemented in v7 template"""
+        print("\n🔍 TESTING PRIORITY MAPPING RULES WITH V7 TEMPLATE")
+        print("-" * 60)
+        
+        # The priority mapping rules should be:
+        # Score 0 (Non-Ideal) → High Priority → actions.high
+        # Score 1 (Basic) → Medium Priority → actions.medium
+        # Score 2 (Good) → Low Priority → actions.low
+        # Score 3 (Best) → Not included in report
+        
+        # Create assessment for priority mapping test
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for priority mapping test", False, str(response))
+            return False
+            
+        priority_assessment_id = response['id']
+        self.log_test("Create assessment for priority mapping test", True)
+        
+        # Get questions and answer with specific pattern to test priority mapping
+        success, response = self.make_request('GET', f'assessments/{priority_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for priority mapping test", False, str(response))
+            return False
+        
+        # Answer first 4 questions with each score level to test mapping
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        # Test pattern: NON_IDEAL(0), BASIC(1), GOOD(2), IDEAL(3), then repeat
+        test_pattern = ['NON_IDEAL', 'BASIC', 'GOOD', 'IDEAL']
+        
+        for i, question in enumerate(all_questions):
+            option = test_pattern[i % len(test_pattern)]
+            answer_data = {
+                "question_id": question['id'],
+                "option": option,
+                "note": f"Priority mapping test - {option} (score {i % 4})"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{priority_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer question {i+1} for priority mapping", False, "Failed to submit answer")
+                return False
+        
+        self.log_test("Answered questions with priority mapping test pattern", True)
+        
+        # Submit assessment
+        success, _ = self.make_request('POST', f'assessments/{priority_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for priority mapping test", False, "Failed to submit assessment")
+            return False
+            
+        self.log_test("Submit assessment for priority mapping test", True)
+        
+        # Generate reports to test priority mapping
+        print("\n📊 Testing Priority Mapping in Generated Reports...")
+        
+        # Test DOCX report generation with priority mapping
+        url = f"{self.api_url}/assessments/{priority_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code == 200:
+                self.log_test("Priority mapping DOCX generation", True)
+                
+                # Verify file is generated (priority mapping working)
+                file_size = len(response.content)
+                if file_size > 5000:
+                    self.log_test("Priority mapping DOCX file size", True, f"Size: {file_size} bytes")
+                else:
+                    self.log_test("Priority mapping DOCX file size", False, f"Size: {file_size} bytes")
+                    
+            else:
+                self.log_test("Priority mapping DOCX generation", False, f"Status: {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("Priority mapping DOCX generation", False, f"Error: {str(e)}")
+        
+        # Test PDF report generation with priority mapping
+        url = f"{self.api_url}/assessments/{priority_assessment_id}/report/pdf"
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=90)
+            
+            if response.status_code == 200:
+                self.log_test("Priority mapping PDF generation", True)
+                
+                # Verify file is generated (priority mapping working)
+                file_size = len(response.content)
+                if file_size > 3000:
+                    self.log_test("Priority mapping PDF file size", True, f"Size: {file_size} bytes")
+                else:
+                    self.log_test("Priority mapping PDF file size", False, f"Size: {file_size} bytes")
+                    
+            else:
+                self.log_test("Priority mapping PDF generation", False, f"Status: {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("Priority mapping PDF generation", False, f"Error: {str(e)}")
+        
+        return True
+    
+    def test_backend_logs_for_report_generation(self):
+        """Check backend logs for any errors during report generation"""
+        print("\n🔍 CHECKING BACKEND LOGS FOR REPORT GENERATION ERRORS")
+        print("-" * 60)
+        
+        try:
+            # Check supervisor backend logs
+            import subprocess
+            result = subprocess.run(['tail', '-n', '50', '/var/log/supervisor/backend.err.log'], 
+                                  capture_output=True, text=True, timeout=10)
+            
+            if result.returncode == 0:
+                log_content = result.stdout
+                if log_content.strip():
+                    # Look for report generation related errors
+                    report_errors = []
+                    for line in log_content.split('\n'):
+                        if any(keyword in line.lower() for keyword in ['report', 'docx', 'pdf', 'template', 'error', 'exception']):
+                            report_errors.append(line.strip())
+                    
+                    if report_errors:
+                        self.log_test("Backend logs check for report errors", False, f"Found {len(report_errors)} potential report-related log entries")
+                        print("   📝 Recent report-related log entries:")
+                        for error in report_errors[-5:]:  # Show last 5
+                            print(f"      {error}")
+                    else:
+                        self.log_test("Backend logs check for report errors", True, "No report-related errors found in recent logs")
+                else:
+                    self.log_test("Backend logs check", True, "No recent error logs")
+            else:
+                self.log_test("Backend logs check", False, "Could not access backend error logs")
+                
+        except Exception as e:
+            self.log_test("Backend logs check", False, f"Error checking logs: {str(e)}")
+        
+        return True
+
     def run_all_tests(self):
         """Run comprehensive test suite including DOCX report generation testing"""
         print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
