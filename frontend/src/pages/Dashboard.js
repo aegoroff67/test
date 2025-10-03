@@ -342,25 +342,14 @@ function Dashboard() {
                         </Badge>
                       </div>
                       
-                      <div className="flex space-x-2">
-                        <Button 
-                          onClick={() => navigate(`/results/${assessment.id}`)}
-                          variant="outline"
-                          className="flex-1"
-                          data-testid={`view-results-${assessment.id}`}
-                        >
-                          <BarChart3 className="h-4 w-4 mr-2" />
-                          View Results
-                        </Button>
-                        <Button 
-                          onClick={() => navigate(`/results/${assessment.id}`)}
-                          className="flex-1 bg-teal-600 hover:bg-teal-700"
-                          data-testid={`generate-report-${assessment.id}`}
-                        >
-                          <FileText className="h-4 w-4 mr-2" />
-                          Generate Report
-                        </Button>
-                      </div>
+                      <Button 
+                        onClick={() => navigate(`/results/${assessment.id}`)}
+                        className="w-full bg-blue-600 hover:bg-blue-700"
+                        data-testid={`view-results-${assessment.id}`}
+                      >
+                        <BarChart3 className="h-4 w-4 mr-2" />
+                        View Results
+                      </Button>
                     </CardContent>
                   </Card>
                 ))
