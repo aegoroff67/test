@@ -210,6 +210,29 @@ class AMReportGenerator:
         else:
             return "Basic"
     
+    def _load_recommendations_lookup(self) -> Dict[str, Any]:
+        """Load recommendations lookup from JSON file."""
+        import json
+        backend_dir = Path(__file__).parent
+        recommendations_path = backend_dir / "AMAI_SAFE_recommendations_lookup.json"
+        
+        try:
+            with open(recommendations_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Warning: Could not load recommendations lookup: {e}")
+            return {"recommendations": {}}
+    
+    def _get_recommendation_text(self, question_code: str, recommendations_lookup: Dict[str, Any], domain_name: str) -> str:
+        """Get specific recommendation text for a question code."""
+        recommendations = recommendations_lookup.get("recommendations", {})
+        
+        if question_code in recommendations:
+            return recommendations[question_code].get("default_recommendation", f"Implement comprehensive {domain_name.lower()} improvements to achieve best practices.")
+        else:
+            # Fallback to generic recommendation
+            return f"Implement comprehensive {domain_name.lower()} improvements to achieve best practices in this area."
+    
     def _generate_actions_from_questions(self, questions_data: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
         """
         Generate prioritized actions based on question scores using the priority mapping rules.
