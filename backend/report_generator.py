@@ -783,9 +783,9 @@ Each cell represents the score for a specific question, enabling identification 
                     'tier': report_data.get('overall', {}).get('tier', 'Basic')
                 },
                 
-                # Assets (heatmap image)
+                # Assets (heatmap image) - use string placeholder for now to avoid XML issues
                 'assets': {
-                    'heatmapUrl': heatmap_inline  # Replace URL placeholder with inline image
+                    'heatmapUrl': 'HEATMAP_IMAGE_PLACEHOLDER'  # Simple placeholder to avoid XML namespace issues
                 },
                 
                 # Actions for working template with separate priority arrays
