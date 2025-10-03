@@ -792,9 +792,9 @@ Each cell represents the score for a specific question, enabling identification 
                     'tier': report_data.get('overall', {}).get('tier', 'Basic')
                 },
                 
-                # Assets (heatmap image) - generate and embed properly
+                # Assets (heatmap image) - generate and embed properly  
                 'assets': {
-                    'heatmapUrl': self._create_heatmap_for_template(heatmap_image_bytes) if heatmap_image_bytes else 'HEATMAP_IMAGE_PLACEHOLDER'
+                    'heatmapUrl': self._create_heatmap_for_template(heatmap_image) if heatmap_image else 'HEATMAP_IMAGE_PLACEHOLDER'
                 },
                 
                 # Actions for working template with separate priority arrays
