@@ -790,22 +790,22 @@ Each cell represents the score for a specific question, enabling identification 
         for action in actions:
             row = table.add_row()
             
-            # Populate cells: Domain | Question ID | Recommendation
-            domain_cell = row.cells[0]
-            question_id_cell = row.cells[1]
-            recommendation_cell = row.cells[2]
+            # Debug: Check how many cells are in the row
+            print(f"DEBUG: Row has {len(row.cells)} cells")
             
-            # Set cell text
-            domain_cell.text = action.get('domain', '')
-            question_id_cell.text = action.get('question_id', '')
-            recommendation_cell.text = action.get('text', '')
-            
-            # Apply consistent formatting to match template style
-            for cell in row.cells:
-                for paragraph in cell.paragraphs:
-                    for run in paragraph.runs:
-                        run.font.name = 'Arial'
-                        run.font.size = Pt(10)
+            # Populate only the first 3 cells: Domain | Question ID | Recommendation
+            if len(row.cells) >= 3:
+                row.cells[0].text = action.get('domain', '')
+                row.cells[1].text = action.get('question_id', '')
+                row.cells[2].text = action.get('text', '')
+                
+                # Apply consistent formatting to only first 3 cells
+                for i in range(min(3, len(row.cells))):
+                    cell = row.cells[i]
+                    for paragraph in cell.paragraphs:
+                        for run in paragraph.runs:
+                            run.font.name = 'Arial'
+                            run.font.size = Pt(10)
     
     def _remove_row(self, table, row_idx: int) -> None:
         """Remove a row from a table."""
