@@ -242,6 +242,8 @@ class AMReportGenerator:
         - Score 1 (Basic) → Medium Priority → actions.medium  
         - Score 2 (Good) → Low Priority → actions.low
         - Score 3 (Best) → not included in report
+        
+        Ordering: Recommendations are sorted by domain score (lowest first), then by question within domain.
         """
         actions = {
             "high": [],
@@ -252,9 +254,18 @@ class AMReportGenerator:
         # Load recommendations lookup
         recommendations_lookup = self._load_recommendations_lookup()
         
+        # Calculate domain scores for sorting
+        domain_scores = {}
+        for domain in questions_data:
+            domain_name = domain["domain"]["name"]
+            questions = domain["questions"]
+            total_score = sum(q["answer"]["numeric_score"] for q in questions if q.get("answer"))
+            domain_scores[domain_name] = total_score
+        
         # Generate recommendations based on question scores
         for domain in questions_data:
             domain_name = domain["domain"]["name"]
+            domain_score = domain_scores.get(domain_name, 0)
             
             for question in domain["questions"]:
                 score = question["answer"]["numeric_score"] if question.get("answer") else None
@@ -274,18 +285,26 @@ class AMReportGenerator:
                     # Get specific recommendation from lookup or create default
                     recommendation_text = self._get_recommendation_text(question_code, recommendations_lookup, domain_name)
                     
+                    # Remove the prefix if present
+                    prefix = "Implement the following to meet AM AI SAFE expectations: "
+                    if recommendation_text.startswith(prefix):
+                        recommendation_text = recommendation_text[len(prefix):]
+                    
                     recommendation = {
                         "domain": domain_name,
+                        "domain_score": domain_score,  # Add for sorting
                         "question_id": question_code,
                         "text": recommendation_text
                     }
                     
                     actions[priority].append(recommendation)
         
-        # Sort by domain and question_id for consistency
+        # Sort by domain score (lowest first), then by question_id within domain
         for priority in actions:
-            # Sort first by domain, then by question_id
-            actions[priority] = sorted(actions[priority], key=lambda x: (x["domain"], x["question_id"]))
+            actions[priority] = sorted(actions[priority], key=lambda x: (x["domain_score"], x["domain"], x["question_id"]))
+            # Remove domain_score from final output (it was just for sorting)
+            for action in actions[priority]:
+                action.pop("domain_score", None)
         
         # Limit recommendations to keep report manageable
         actions["high"] = actions["high"][:15]  # Max 15 high priority
