@@ -2951,18 +2951,32 @@ class AMSafeAPITester:
         print("\n🔍 STARTING DOCX REPORT GENERATION TESTING")
         print("=" * 60)
         
-        self.test_docx_report_generation()
-        self.test_amreport_generator_functionality()
-        self.test_heatmap_generation()
-        self.test_priority_mapping_rules()
-        self.test_json_model_compliance()
-        self.test_docx_template_processing()
+        # Review-specific tests for DOCX and PDF report generation
+        self.test_docx_report_generation_review_request()
+        self.test_pdf_report_generation_review_request()
+        self.test_report_error_handling_review_request()
+        self.test_template_and_priority_mapping_review_request()
+        
+        # Additional existing tests
+        if hasattr(self, 'test_docx_report_generation'):
+            self.test_docx_report_generation()
+        if hasattr(self, 'test_amreport_generator_functionality'):
+            self.test_amreport_generator_functionality()
+        if hasattr(self, 'test_heatmap_generation'):
+            self.test_heatmap_generation()
+        if hasattr(self, 'test_priority_mapping_rules'):
+            self.test_priority_mapping_rules()
+        if hasattr(self, 'test_json_model_compliance'):
+            self.test_json_model_compliance()
+        if hasattr(self, 'test_docx_template_processing'):
+            self.test_docx_template_processing()
         
         # Enhanced DOCX Report Generation Tests (as specifically requested in review)
         print("\n🔥 ENHANCED DOCX REPORT GENERATION WITH STYLE PRESERVATION")
         print("=" * 80)
         
-        self.run_enhanced_docx_tests()
+        if hasattr(self, 'run_enhanced_docx_tests'):
+            self.run_enhanced_docx_tests()
         
         # Print results
         print("\n" + "=" * 80)
