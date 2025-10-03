@@ -196,17 +196,23 @@ class AMReportGenerator:
         return report_data
     
     def _calculate_tier(self, percentage: float) -> str:
-        """Calculate the maturity tier based on percentage score."""
-        if percentage >= 90:
+        """Calculate the maturity tier based on percentage score.
+        
+        Categories:
+        1. Excellent (91–100%) 
+        2. Good (81–90%) 
+        3. Moderate (61–80%) 
+        4. Low (41–60%) 
+        5. Basic (0–40%)
+        """
+        if percentage >= 91:
             return "Excellent"
-        elif percentage >= 75:
-            return "High–Excellent" 
-        elif percentage >= 60:
-            return "Moderate–High"
-        elif percentage >= 40:
-            return "Low–Moderate"
-        elif percentage >= 25:
-            return "Basic–Low"
+        elif percentage >= 81:
+            return "Good"
+        elif percentage >= 61:
+            return "Moderate"
+        elif percentage >= 41:
+            return "Low"
         else:
             return "Basic"
     
