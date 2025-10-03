@@ -637,10 +637,10 @@ Each cell represents the score for a specific question, enabling identification 
                 # Executive summary data
                 'executive_summary': self._generate_executive_summary(report_data, user_data),
                 
-                # Assessment results details
+                # Assessment results details  
                 'assessment_results': self._generate_assessment_results(report_data),
                 
-                # Comprehensive statistics 
+                # Comprehensive statistics
                 'statistics': self._generate_statistics(report_data),
                 
                 # Helper function for date formatting in template
