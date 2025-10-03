@@ -634,6 +634,13 @@ Each cell represents the score for a specific question, enabling identification 
                     'low': report_data.get('actions', {}).get('low', [])
                 },
                 
+                # Add comprehensive content sections that will make the report much longer
+                'executive_summary': self._generate_comprehensive_executive_summary(report_data),
+                'assessment_methodology': self._generate_assessment_methodology(),
+                'domain_analysis': self._generate_domain_analysis(report_data),
+                'key_findings': self._generate_key_findings(report_data),
+                'implementation_roadmap': self._generate_implementation_roadmap(report_data),
+                
                 # Helper function for date formatting in template
                 'formatDate': self.format_date
             }
