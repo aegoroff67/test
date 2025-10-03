@@ -998,8 +998,8 @@ Each cell represents the score for a specific question, enabling identification 
             "domains": domains
         }
         
-        # Organize data by domain
-        questions_by_domain = {}
+        # Use the already-built questions_by_domain structure from above
+        # questions_by_domain = {}  # Already built above
         answers_by_question = {answer["question_id"]: answer for answer in assessment_full.get("answers", [])}
         domains_by_id = {domain["id"]: domain for domain in assessment_full.get("domains", [])}
         
@@ -1198,8 +1198,8 @@ Each cell represents the score for a specific question, enabling identification 
             "domains": domains
         }
         
-        # Organize data by domain
-        questions_by_domain = {}
+        # Use the already-built questions_by_domain structure from above
+        # questions_by_domain = {}  # Already built above
         answers_by_question = {answer["question_id"]: answer for answer in assessment_full.get("answers", [])}
         domains_by_id = {domain["id"]: domain for domain in assessment_full.get("domains", [])}
         
