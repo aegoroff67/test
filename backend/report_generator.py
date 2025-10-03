@@ -574,8 +574,8 @@ class AMReportGenerator:
         questions_by_domain = {}
         
         for answer in answers:
-            # Extract domain from question_id pattern (e.g., FA-1 -> Fairness domain)
-            question_code = answer.get("question_id", "")
+            # Get question UUID and map to code using questions collection
+            question_uuid = answer.get("question_id", "")
             domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
             
             # Map domain prefixes to domain IDs (this is a workaround)
@@ -741,8 +741,8 @@ class AMReportGenerator:
         questions_by_domain = {}
         
         for answer in answers:
-            # Extract domain from question_id pattern (e.g., FA-1 -> Fairness domain)
-            question_code = answer.get("question_id", "")
+            # Get question UUID and map to code using questions collection
+            question_uuid = answer.get("question_id", "")
             domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
             
             # Map domain prefixes to domain IDs (this is a workaround)
