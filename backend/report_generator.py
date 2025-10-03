@@ -364,63 +364,83 @@ class AMReportGenerator:
         return heatmap_matrix
     
     def _generate_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
-        """Generate heatmap image from assessment data."""
+        """Generate heatmap image matching the exact format shown in the report."""
         heatmap_data = report_data.get('heatmap_data', [])
         
         if not heatmap_data:
             # Create empty heatmap if no data
-            heatmap_data = [[0.5] * 8 for _ in range(11)]
+            heatmap_data = [[0] * 8 for _ in range(11)]
         
-        # Create figure and axis
-        fig, ax = plt.subplots(figsize=(12, 8))
-        
-        # Convert to numpy array
-        data_array = np.array(heatmap_data)
-        
-        # Create heatmap
-        im = ax.imshow(data_array, cmap='RdYlGn', aspect='auto', vmin=0, vmax=1)
-        
-        # Add domain labels (y-axis)
+        # Domain names as shown in the image
         domain_names = [
             'Fairness', 'Transparency', 'Explainability', 'Accountability', 
             'Data Integrity', 'Reliability', 'Security', 'Privacy', 
             'Safety', 'Inclusivity', 'Sustainability'
         ]
         
-        # Ensure we have the right number of labels
-        y_labels = domain_names[:len(heatmap_data)]
-        ax.set_yticks(range(len(y_labels)))
-        ax.set_yticklabels(y_labels)
+        # Create figure matching the style in the report
+        fig, ax = plt.subplots(figsize=(10, 6))
         
-        # Add question number labels (x-axis)  
-        ax.set_xticks(range(8))
-        ax.set_xticklabels([f'Q{i+1}' for i in range(8)])
+        # Define colors matching the report (Red, Orange, Yellow, Green)
+        def get_color(score):
+            if score == 0:
+                return '#FF4444'  # Red
+            elif score == 1:
+                return '#FF8844'  # Orange  
+            elif score == 2:
+                return '#FFDD44'  # Yellow
+            else:  # score == 3
+                return '#44BB44'  # Green
         
-        # Add score text in each cell
-        for i in range(len(heatmap_data)):
-            for j in range(len(heatmap_data[i])):
-                score = int(heatmap_data[i][j] * 3)  # Convert back to 0-3 scale
-                text_color = 'white' if heatmap_data[i][j] < 0.5 else 'black'
-                ax.text(j, i, f'{score}', ha='center', va='center', 
-                       color=text_color, fontweight='bold', fontsize=10)
+        # Create the heatmap grid
+        for i, domain_scores in enumerate(heatmap_data[:11]):  # Only 11 domains
+            for j, score in enumerate(domain_scores[:8]):  # Only 8 questions per domain
+                # Convert normalized score back to 0-3 scale
+                actual_score = int(score * 3) if isinstance(score, float) else score
+                
+                # Draw colored rectangle
+                color = get_color(actual_score)
+                rect = patches.Rectangle((j, len(heatmap_data)-1-i), 1, 1, 
+                                       linewidth=1, edgecolor='white', facecolor=color)
+                ax.add_patch(rect)
+                
+                # Add question code and score text
+                domain_code = domain_names[i][:2].upper()  # FA, TR, EX, etc.
+                question_code = f'{domain_code}-{j+1}'
+                
+                # White text on colored background
+                ax.text(j+0.5, len(heatmap_data)-1-i+0.3, question_code, 
+                       ha='center', va='center', color='white', fontsize=8, fontweight='bold')
+                ax.text(j+0.5, len(heatmap_data)-1-i+0.7, str(actual_score), 
+                       ha='center', va='center', color='white', fontsize=8, fontweight='bold')
         
-        # Add title and labels
-        ax.set_title('AM AI SAFE Assessment Heatmap', fontsize=16, fontweight='bold', pad=20)
-        ax.set_xlabel('Questions', fontsize=12)
-        ax.set_ylabel('Domains', fontsize=12)
+        # Add domain labels on the left
+        for i, domain in enumerate(domain_names[:len(heatmap_data)]):
+            ax.text(-0.1, len(heatmap_data)-1-i+0.5, domain, 
+                   ha='right', va='center', fontsize=10, fontweight='normal')
         
-        # Add colorbar
-        cbar = plt.colorbar(im, ax=ax)
-        cbar.set_label('Score (0-3 scale)', rotation=270, labelpad=20)
-        cbar.set_ticks([0, 0.33, 0.67, 1.0])
-        cbar.set_ticklabels(['0', '1', '2', '3'])
+        # Set axis properties
+        ax.set_xlim(0, 8)
+        ax.set_ylim(0, len(heatmap_data))
+        ax.set_aspect('equal')
+        
+        # Remove ticks and labels
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.axis('off')
+        
+        # Add title below the heatmap (as in the report)
+        fig.text(0.5, 0.02, 'Figure 1. AI Maturity Heatmap', 
+                ha='center', va='bottom', fontsize=12, fontweight='normal')
         
         # Adjust layout
         plt.tight_layout()
+        plt.subplots_adjust(bottom=0.1, left=0.15)
         
         # Save to bytes
         img_buffer = io.BytesIO()
-        plt.savefig(img_buffer, format='png', dpi=300, bbox_inches='tight')
+        plt.savefig(img_buffer, format='png', dpi=300, bbox_inches='tight', 
+                   facecolor='white', edgecolor='none')
         img_buffer.seek(0)
         img_bytes = img_buffer.getvalue()
         plt.close(fig)
