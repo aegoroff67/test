@@ -802,6 +802,19 @@ Each cell represents the score for a specific question, enabling identification 
                 'key_findings': self._generate_key_findings(report_data),
                 'implementation_roadmap': self._generate_implementation_roadmap(report_data),
                 
+                # Debug output for troubleshooting
+                print(f"Generated report data structure:")
+                print(f"  Organization: {template_context['org']['name']}")
+                print(f"  Overall score: {template_context['overall']['score']}")
+                print(f"  High priority actions: {len(template_context['actions']['high'])}")
+                print(f"  Medium priority actions: {len(template_context['actions']['medium'])}")
+                print(f"  Low priority actions: {len(template_context['actions']['low'])}")
+                
+                # Show sample actions for debugging
+                if template_context['actions']['high']:
+                    sample_high = template_context['actions']['high'][0]
+                    print(f"  Sample high action: {sample_high.get('domain', 'N/A')} | {sample_high.get('question_id', 'N/A')}")
+                
                 # Helper function for date formatting in template
                 'formatDate': self.format_date
             }
