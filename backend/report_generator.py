@@ -40,9 +40,9 @@ class AMReportGenerator:
         }
     
     def _get_default_template_path(self) -> str:
-        """Get the default template path - using USER PROVIDED v2 template exactly as specified."""
+        """Get the default template path - using USER PROVIDED v2 template with syntax fixes."""
         backend_dir = Path(__file__).parent
-        return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_USER_PROVIDED_v2.docx")
+        return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_USER_PROVIDED_v2_SYNTAX_FIXED.docx")
     
     def format_date(self, date_input) -> str:
         """Format date for the template."""
