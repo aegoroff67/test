@@ -1102,16 +1102,15 @@ Each cell represents the score for a specific question, enabling identification 
         overall_percentage = (total_score / total_possible * 100) if total_possible > 0 else 0
         
         # Calculate maturity tier
-        if overall_percentage >= 90:
+        # Categories: Excellent (91–100%), Good (81–90%), Moderate (61–80%), Low (41–60%), Basic (0–40%)
+        if overall_percentage >= 91:
             overall_maturity = "Excellent"
-        elif overall_percentage >= 75:
-            overall_maturity = "High–Excellent" 
-        elif overall_percentage >= 60:
-            overall_maturity = "Moderate–High"
-        elif overall_percentage >= 40:
-            overall_maturity = "Low–Moderate"
-        elif overall_percentage >= 25:
-            overall_maturity = "Basic–Low"
+        elif overall_percentage >= 81:
+            overall_maturity = "Good"
+        elif overall_percentage >= 61:
+            overall_maturity = "Moderate"
+        elif overall_percentage >= 41:
+            overall_maturity = "Low"
         else:
             overall_maturity = "Basic"
         
@@ -1297,16 +1296,15 @@ Each cell represents the score for a specific question, enabling identification 
         overall_percentage = (total_score / total_possible * 100) if total_possible > 0 else 0
         
         # Calculate maturity tier
-        if overall_percentage >= 90:
+        # Categories: Excellent (91–100%), Good (81–90%), Moderate (61–80%), Low (41–60%), Basic (0–40%)
+        if overall_percentage >= 91:
             overall_maturity = "Excellent"
-        elif overall_percentage >= 75:
-            overall_maturity = "High–Excellent" 
-        elif overall_percentage >= 60:
-            overall_maturity = "Moderate–High"
-        elif overall_percentage >= 40:
-            overall_maturity = "Low–Moderate"
-        elif overall_percentage >= 25:
-            overall_maturity = "Basic–Low"
+        elif overall_percentage >= 81:
+            overall_maturity = "Good"
+        elif overall_percentage >= 61:
+            overall_maturity = "Moderate"
+        elif overall_percentage >= 41:
+            overall_maturity = "Low"
         else:
             overall_maturity = "Basic"
         
