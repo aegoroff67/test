@@ -509,15 +509,21 @@ class AMReportGenerator:
                     'heatmapUrl': heatmap_inline  # Replace URL placeholder with inline image
                 },
                 
-                # Actions for template loops - using 'dynamic' for v2 template compatibility
+                # Comprehensive template data structure
                 'actions': {
-                    'dynamic': report_data.get('actions', {}).get('high', []) + 
-                              report_data.get('actions', {}).get('medium', []) + 
-                              report_data.get('actions', {}).get('low', []),
                     'high': report_data.get('actions', {}).get('high', []),
                     'medium': report_data.get('actions', {}).get('medium', []),
                     'low': report_data.get('actions', {}).get('low', [])
                 },
+                
+                # Executive summary data
+                'executive_summary': self._generate_executive_summary(report_data, user_data),
+                
+                # Assessment results details
+                'assessment_results': self._generate_assessment_results(report_data),
+                
+                # Comprehensive statistics 
+                'statistics': self._generate_statistics(report_data),
                 
                 # Helper function for date formatting in template
                 'formatDate': self.format_date
