@@ -476,6 +476,124 @@ class AMReportGenerator:
         
         return img_bytes
     
+    def _generate_executive_summary(self, report_data: Dict[str, Any], user_data: Dict[str, Any]) -> str:
+        """Generate comprehensive executive summary."""
+        org_name = user_data.get('organization_name', 'Organization')
+        overall_score = report_data.get('overall', {}).get('score', 0)
+        overall_tier = report_data.get('overall', {}).get('tier', 'Basic')
+        
+        # Count recommendations by priority
+        high_count = len(report_data.get('actions', {}).get('high', []))
+        medium_count = len(report_data.get('actions', {}).get('medium', []))
+        low_count = len(report_data.get('actions', {}).get('low', []))
+        
+        summary = f"""The AM AI SAFE Framework Assessment for {org_name} has been completed, evaluating the organization's artificial intelligence systems against 88 questions across 11 critical domains of AI safety and ethics.
+
+The assessment methodology follows the AM AI SAFE framework, examining key areas including Fairness, Transparency, Explainability, Accountability, Data Integrity, Reliability, Security, Privacy, Safety, Inclusivity, and Sustainability.
+
+KEY FINDINGS:
+• Overall AI Maturity Score: {overall_score}%
+• AI Maturity Category: {overall_tier}
+• Total Assessment Questions: 88 questions across 11 domains
+• Identified Recommendations: {high_count + medium_count + low_count} actionable items
+
+ASSESSMENT OVERVIEW:
+{org_name} demonstrates {self._get_maturity_description(overall_score)} level of AI maturity. The assessment revealed specific areas of strength and opportunities for improvement across the AI safety framework.
+
+PRIORITY RECOMMENDATIONS:
+• {high_count} High Priority actions addressing critical gaps requiring immediate attention
+• {medium_count} Medium Priority initiatives for moderate-term enhancement 
+• {low_count} Low Priority strategic improvements for long-term development
+
+The detailed assessment results, including the AI Maturity Heatmap and comprehensive recommendations, provide {org_name} with a clear roadmap for enhancing their AI safety and ethical practices."""
+
+        return summary
+    
+    def _generate_assessment_results(self, report_data: Dict[str, Any]) -> str:
+        """Generate detailed assessment results section."""
+        overall_score = report_data.get('overall', {}).get('score', 0)
+        overall_tier = report_data.get('overall', {}).get('tier', 'Basic')
+        
+        # Analyze domain performance
+        heatmap_data = report_data.get('heatmap_data', {})
+        domains = heatmap_data.get('domains', [])
+        
+        highest_domain = max(domains, key=lambda x: x['avg_score']) if domains else None
+        lowest_domain = min(domains, key=lambda x: x['avg_score']) if domains else None
+        
+        results = f"""The comprehensive assessment of AI systems has yielded an overall AI maturity score of {overall_score}%, placing the organization within the {overall_tier} category.
+
+PERFORMANCE ANALYSIS:
+The assessment evaluated 88 specific questions across 11 domains, with each question scored on a 4-point scale (0=Non-Ideal, 1=Basic, 2=Good, 3=Best Practice).
+
+DOMAIN PERFORMANCE HIGHLIGHTS:"""
+
+        if highest_domain and lowest_domain:
+            results += f"""
+• Highest Performing Domain: {highest_domain['name']} ({highest_domain['avg_score']:.1f}/3.0 average)
+• Area for Greatest Improvement: {lowest_domain['name']} ({lowest_domain['avg_score']:.1f}/3.0 average)"""
+
+        results += f"""
+
+HEATMAP VISUALIZATION:
+The AI Maturity Heatmap below provides a visual representation of performance across all domains and questions. The heatmap is organized with:
+• Rows representing the 11 AI safety domains, sorted by total score (lowest performing at the top)
+• Columns representing the 8 questions within each domain, arranged by score (lowest scores on the left)
+• Color coding indicating performance levels: Red (critical gaps), Orange (below average), Yellow (moderate performance), Green (high performance)
+
+Each cell represents the score for a specific question, enabling identification of precise areas requiring attention and those demonstrating strong performance."""
+
+        return results
+    
+    def _generate_statistics(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Generate comprehensive statistics for the report."""
+        actions = report_data.get('actions', {})
+        heatmap_data = report_data.get('heatmap_data', {})
+        domains = heatmap_data.get('domains', [])
+        
+        # Count questions by score level
+        score_counts = {'non_ideal': 0, 'basic': 0, 'good': 0, 'best': 0}
+        total_questions = 0
+        
+        for domain in domains:
+            for question in domain.get('questions', []):
+                total_questions += 1
+                score = question.get('score', 0)
+                if score == 0:
+                    score_counts['non_ideal'] += 1
+                elif score == 1:
+                    score_counts['basic'] += 1
+                elif score == 2:
+                    score_counts['good'] += 1
+                elif score == 3:
+                    score_counts['best'] += 1
+        
+        return {
+            'total_questions': total_questions,
+            'total_domains': len(domains),
+            'score_distribution': score_counts,
+            'recommendations_count': {
+                'high': len(actions.get('high', [])),
+                'medium': len(actions.get('medium', [])),
+                'low': len(actions.get('low', []))
+            }
+        }
+    
+    def _get_maturity_description(self, score: float) -> str:
+        """Get descriptive text for maturity level."""
+        if score >= 90:
+            return "an excellent"
+        elif score >= 75:
+            return "a high to excellent"
+        elif score >= 60:
+            return "a moderate to high"
+        elif score >= 40:
+            return "a low to moderate"
+        elif score >= 25:
+            return "a basic to low"
+        else:
+            return "a basic"
+    
     def _generate_docx_report(self, report_data: Dict[str, Any], heatmap_image: bytes) -> bytes:
         """Generate DOCX report using template and data while preserving all styles."""
         try:
