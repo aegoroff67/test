@@ -1,0 +1,444 @@
+{
+  "recommendations": {
+    "FA-1": {
+      "domain": "Fairness",
+      "question": "What measures have you implemented to identify and mitigate biases in your AI system?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Regularly audit datasets for imbalances or biases and use tools like Fairlearn to detect and mitigate issues."
+    },
+    "FA-2": {
+      "domain": "Fairness",
+      "question": "How do you ensure the training data represents all relevant demographics or groups?",
+      "default_recommendation": "Conduct demographic analysis and source additional data to address gaps in representation."
+    },
+    "FA-3": {
+      "domain": "Fairness",
+      "question": "Have you evaluated the system’s outputs for potential disparities across user groups?",
+      "default_recommendation": "Conduct detailed quantitative analysis and qualitative testing with diverse focus groups to identify disparities."
+    },
+    "FA-4": {
+      "domain": "Fairness",
+      "question": "How do you measure fairness in your AI system’s outputs?",
+      "default_recommendation": "Use fairness metrics such as demographic parity or equal opportunity and conduct regular evaluations against these benchmarks."
+    },
+    "FA-5": {
+      "domain": "Fairness",
+      "question": "Have you tested the system for potential biases in real-world scenarios?",
+      "default_recommendation": "Conduct comprehensive testing with real-world data and scenarios before deployment."
+    },
+    "FA-6": {
+      "domain": "Fairness",
+      "question": "Are you using any frameworks or tools (e.g., Fairlearn) to assess and mitigate bias?",
+      "default_recommendation": "Use frameworks like Fairlearn, Aequitas, or IBM AI Fairness 360 to identify and mitigate biases systematically."
+    },
+    "FA-7": {
+      "domain": "Fairness",
+      "question": "How do you ensure fairness in decision-making for minority or underserved groups?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Introduce fairness weights or adjustments during model training and evaluate outputs specifically for underserved groups."
+    },
+    "FA-8": {
+      "domain": "Fairness",
+      "question": "Is fairness embedded in your AI model’s design process, or is it addressed post-deployment?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Fairness considerations are embedded throughout the design and development process."
+    },
+    "TR-1": {
+      "domain": "Transparency",
+      "question": "What level of detail about the AI system's functionality and limitations is communicated to users or stakeholders?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Detailed user guides and technical documentation, including functionality and limitations, are provided to all relevant stakeholders."
+    },
+    "TR-2": {
+      "domain": "Transparency",
+      "question": "How do you document the data sources, algorithms, and processes used in your AI system?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Comprehensive documentation of data sources, preprocessing steps, algorithms, and processes is maintained and regularly updated."
+    },
+    "TR-3": {
+      "domain": "Transparency",
+      "question": "Are there mechanisms for external parties (e.g., regulators or customers) to understand how your AI system works?",
+      "default_recommendation": "Provide transparency reports, detailed system documentation, or interactive dashboards for external review."
+    },
+    "TR-4": {
+      "domain": "Transparency",
+      "question": "How is information about your AI system shared with internal teams and external stakeholders?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Information is shared through structured processes, including regular presentations, training sessions, and detailed documentation."
+    },
+    "TR-5": {
+      "domain": "Transparency",
+      "question": "Are there any “black-box” components in your system that could impede transparency?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: No, the system is fully explainable with no black-box components."
+    },
+    "TR-6": {
+      "domain": "Transparency",
+      "question": "How do you disclose the sources of data and algorithms used in the AI system?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Fully disclose data sources and algorithmic details, including limitations and provenance, to stakeholders."
+    },
+    "TR-7": {
+      "domain": "Transparency",
+      "question": "Are users made aware when they are interacting with an AI system?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Users are clearly notified through explicit messages or labels (e.g., “This is an AI system”)."
+    },
+    "TR-8": {
+      "domain": "Transparency",
+      "question": "Do you publish any transparency reports or documentation for regulators or customers?",
+      "default_recommendation": "Publish regular, comprehensive transparency reports detailing system functionality, performance, and compliance."
+    },
+    "EX-1": {
+      "domain": "Explainability",
+      "question": "How do you decide the level of explainability required for your AI system?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Explainability requirements are determined based on the criticality of the AI system, potential impacts, and stakeholder needs, with clear criteria established."
+    },
+    "EX-2": {
+      "domain": "Explainability",
+      "question": "What methods are used to test whether explanations are understandable by non-technical users?",
+      "default_recommendation": "Conduct user testing with diverse, non-technical participants and iterate based on their feedback to ensure clarity."
+    },
+    "EX-3": {
+      "domain": "Explainability",
+      "question": "Do you provide explanations in different formats (e.g., visualizations, text summaries) for different audiences?",
+      "default_recommendation": "Provide multiple explanation formats (e.g., graphs for analysts, text summaries for end-users) tailored to the needs of diverse audiences."
+    },
+    "EX-4": {
+      "domain": "Explainability",
+      "question": "How do you evaluate the accuracy and completeness of the explanations provided?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Regularly validate explanations through user feedback, audits, and comparison with the system’s decision logic."
+    },
+    "EX-5": {
+      "domain": "Explainability",
+      "question": "Are there trade-offs between model complexity and explainability in your system design?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Explicitly balance complexity and explainability, simplifying models or using interpretable methods where appropriate."
+    },
+    "EX-6": {
+      "domain": "Explainability",
+      "question": "How do you ensure the decisions made by your AI system are interpretable by users?",
+      "default_recommendation": "Provide user-friendly interfaces that present clear reasoning and key factors influencing decisions."
+    },
+    "EX-7": {
+      "domain": "Explainability",
+      "question": "What tools or techniques (e.g., SHAP, LIME) do you use to make complex models more explainable?",
+      "default_recommendation": "Use advanced tools like SHAP, LIME, or similar techniques to systematically explain model outputs."
+    },
+    "EX-8": {
+      "domain": "Explainability",
+      "question": "Are there specific groups (e.g., end-users, regulators, or internal teams) for whom explanations of AI outputs are tailored?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Explanations are customized for each group (e.g., simplified for end-users, detailed for regulators, and actionable for internal teams)."
+    },
+    "AC-1": {
+      "domain": "Accountability",
+      "question": "How is accountability for AI system failures managed within your organization?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Clear accountability protocols are established, with designated teams responsible for identifying, resolving, and documenting failures."
+    },
+    "AC-2": {
+      "domain": "Accountability",
+      "question": "What governance structures (e.g., AI oversight boards) are in place to monitor AI outcomes?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: A dedicated AI oversight board or committee is in place to regularly review and monitor system outcomes."
+    },
+    "AC-3": {
+      "domain": "Accountability",
+      "question": "Are there policies for escalating issues identified in the AI system?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Formal escalation policies are documented, with clear paths for resolving critical issues efficiently."
+    },
+    "AC-4": {
+      "domain": "Accountability",
+      "question": "How do you handle customer complaints or disputes related to AI outputs?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: A structured process is in place for addressing complaints, including a clear escalation path and manual review options."
+    },
+    "AC-5": {
+      "domain": "Accountability",
+      "question": "Are roles and responsibilities for AI governance clearly defined across teams?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Roles and responsibilities are clearly defined, documented, and regularly reviewed to ensure alignment across teams."
+    },
+    "AC-6": {
+      "domain": "Accountability",
+      "question": "Who is responsible for monitoring and managing the AI system throughout its lifecycle?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Dedicated teams or individuals are assigned to monitor and manage the AI system at all stages of its lifecycle."
+    },
+    "AC-7": {
+      "domain": "Accountability",
+      "question": "Are there audit trails or logs that document the AI system’s decision-making process?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Comprehensive audit trails and logs are maintained, regularly reviewed, and easily accessible for investigations or compliance."
+    },
+    "AC-8": {
+      "domain": "Accountability",
+      "question": "What mechanisms are in place to address disputes or concerns about the system’s outcomes?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Established mechanisms, such as appeals processes or review boards, are in place to address disputes and ensure resolution."
+    },
+    "DI-1": {
+      "domain": "Data Integrity",
+      "question": "How do you validate the accuracy, completeness, and quality of the data used in your AI systems?",
+      "default_recommendation": "Use automated tools and manual reviews to regularly validate data for accuracy, completeness, and quality."
+    },
+    "DI-2": {
+      "domain": "Data Integrity",
+      "question": "What processes do you have for managing data lineage and tracking changes to data over time?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Maintain detailed records of data lineage, including origin, transformations, and usage, with automated tracking tools."
+    },
+    "DI-3": {
+      "domain": "Data Integrity",
+      "question": "Are there governance policies for data collection, usage, retention, and disposal?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Comprehensive governance policies are documented, regularly reviewed, and enforced to cover all aspects of data lifecycle management."
+    },
+    "DI-4": {
+      "domain": "Data Integrity",
+      "question": "How do you ensure the data used in your AI systems is up-to-date and accurate?",
+      "default_recommendation": "Implement automated processes for regular data updates and validation to ensure accuracy."
+    },
+    "DI-5": {
+      "domain": "Data Integrity",
+      "question": "What processes are in place to address missing or incomplete data?",
+      "default_recommendation": "Use advanced techniques like data imputation, alerts for missing data, and strategies to address gaps proactively."
+    },
+    "DI-6": {
+      "domain": "Data Integrity",
+      "question": "How do you manage data preprocessing (e.g., cleaning, normalization)?",
+      "default_recommendation": "Use automated tools and established workflows to clean, normalize, and preprocess data consistently."
+    },
+    "DI-7": {
+      "domain": "Data Integrity",
+      "question": "Are third-party data sources evaluated for quality and reliability?",
+      "default_recommendation": "Conduct thorough evaluations of third-party data sources, including audits and performance testing."
+    },
+    "Di-8": {
+      "domain": "Data Integrity",
+      "question": "How do you track data lineage to ensure traceability across the AI lifecycle?",
+      "default_recommendation": "Use automated tools to maintain traceability of data across its entire lifecycle, from source to usage."
+    },
+    "RE-1": {
+      "domain": "Reliability",
+      "question": "How do you test the AI system to ensure consistent performance under different conditions?",
+      "default_recommendation": "Conduct comprehensive testing across diverse scenarios, including edge cases, stress conditions, and varied data inputs."
+    },
+    "RE-2": {
+      "domain": "Reliability",
+      "question": "Have you conducted stress tests or simulations to evaluate the system’s robustness?",
+      "default_recommendation": "Perform regular stress tests and simulations to evaluate system robustness under extreme conditions and scenarios."
+    },
+    "RE-3": {
+      "domain": "Reliability",
+      "question": "What mechanisms are in place to monitor the system for issues like model drift or degradation?",
+      "default_recommendation": "Implement continuous monitoring systems with alerts for issues like model drift, degradation, or anomalies."
+    },
+    "RE-4": {
+      "domain": "Reliability",
+      "question": "How do you define success metrics for the reliability of your AI system?",
+      "default_recommendation": "Define and regularly track clear, measurable success metrics that align with business goals and stakeholder expectations."
+    },
+    "RE-5": {
+      "domain": "Reliability",
+      "question": "Have you identified potential failure points in the system?",
+      "default_recommendation": "Conduct systematic analyses to identify and document all potential failure points, with mitigation plans in place."
+    },
+    "RE-6": {
+      "domain": "Reliability",
+      "question": "How do you ensure the system performs consistently under varying conditions (e.g., edge cases)?",
+      "default_recommendation": "Test extensively with synthetic data, adversarial inputs, and real-world edge cases to ensure consistent performance."
+    },
+    "RE-7": {
+      "domain": "Reliability",
+      "question": "Are there mechanisms for detecting and addressing system downtime or errors?",
+      "default_recommendation": "Implement automated monitoring, alert systems, and recovery mechanisms to detect and resolve downtime or errors promptly."
+    },
+    "RE-8": {
+      "domain": "Reliability",
+      "question": "How often is the AI model tested and retrained to maintain reliability?",
+      "default_recommendation": "Perform regular testing and retraining based on a defined schedule and monitored performance thresholds."
+    },
+    "SE-1": {
+      "domain": "Security",
+      "question": "What measures are in place to protect your AI models and data from unauthorized access or tampering?",
+      "default_recommendation": "Use encryption, access controls, secure APIs, and tamper-proof logging to protect models and data."
+    },
+    "SE-2": {
+      "domain": "Security",
+      "question": "How do you handle adversarial risks, such as attacks designed to manipulate the AI’s outputs?",
+      "default_recommendation": "Conduct adversarial training, implement input validation checks, and monitor for adversarial patterns."
+    },
+    "SE-3": {
+      "domain": "Security",
+      "question": "Do you conduct regular security audits or penetration testing on your AI systems?",
+      "default_recommendation": "Conduct regular security audits and penetration testing to identify and address vulnerabilities in the AI system."
+    },
+    "SE-4": {
+      "domain": "Security",
+      "question": "How do you secure the AI model during training, deployment, and operation?",
+      "default_recommendation": "Use secure environments for training, encrypt model artifacts during deployment, and monitor runtime operations for threats."
+    },
+    "SE-5": {
+      "domain": "Security",
+      "question": "Are there safeguards to prevent unauthorized modifications to the AI model?",
+      "default_recommendation": "Implement version control, checksum validations, and strict access controls to prevent unauthorized changes."
+    },
+    "SE-6": {
+      "domain": "Security",
+      "question": "What measures are in place to protect the system against adversarial attacks (e.g., input manipulation)?",
+      "default_recommendation": "Use adversarial training, anomaly detection systems, and input validation mechanisms to mitigate risks."
+    },
+    "SE-7": {
+      "domain": "Security",
+      "question": "How do you protect sensitive data in your AI pipelines (e.g., encryption, tokenization)?",
+      "default_recommendation": "Use encryption, tokenization, and secure storage for all sensitive data in AI pipelines."
+    },
+    "SE-8": {
+      "domain": "Security",
+      "question": "Are there regular vulnerability assessments and penetration tests performed on the AI system?",
+      "default_recommendation": "Perform regular vulnerability assessments and penetration tests tailored to AI-specific risks."
+    },
+    "PR-1": {
+      "domain": "Privacy",
+      "question": "How do you ensure compliance with data privacy laws, such as GDPR or the Australian Privacy Act?",
+      "default_recommendation": "Conduct regular audits and implement privacy-by-design principles to ensure compliance with all applicable laws."
+    },
+    "PR-2": {
+      "domain": "Privacy",
+      "question": "What techniques (e.g., anonymization, pseudonymization) do you use to protect personal data in your AI workflows?",
+      "default_recommendation": "Use advanced techniques such as anonymization, pseudonymization, and encryption throughout the data lifecycle."
+    },
+    "PR-3": {
+      "domain": "Privacy",
+      "question": "How do you manage user consent for data collection and processing?",
+      "default_recommendation": "Implement clear, user-friendly consent mechanisms with options for withdrawal, and log all consent activities."
+    },
+    "PR-4": {
+      "domain": "Privacy",
+      "question": "How do you ensure that personal data is not used beyond its original purpose?",
+      "default_recommendation": "Use purpose-limitation tags, access controls, and audits to ensure data is only used for its intended purpose."
+    },
+    "PR-5": {
+      "domain": "Privacy",
+      "question": "What methods do you use to anonymize or pseudonymize personal data?",
+      "default_recommendation": "Use state-of-the-art anonymization and pseudonymization techniques, validated through regular testing."
+    },
+    "PR-6": {
+      "domain": "Privacy",
+      "question": "How do you monitor and prevent privacy violations during system operation?",
+      "default_recommendation": "Implement continuous monitoring systems and automated alerts to detect and prevent privacy violations."
+    },
+    "PR-7": {
+      "domain": "Privacy",
+      "question": "Are privacy risks evaluated during both the development and deployment phases?",
+      "default_recommendation": "Conduct privacy impact assessments (PIAs) during both development and deployment, with regular reviews."
+    },
+    "PR-8": {
+      "domain": "Privacy",
+      "question": "What steps are taken to ensure compliance with cross-border data protection laws?",
+      "default_recommendation": "Implement region-specific compliance measures, including data localization and cross-border transfer agreements."
+    },
+    "SA-1": {
+      "domain": "Safety",
+      "question": "Have you conducted a safety impact assessment for the AI system?",
+      "default_recommendation": "Conduct comprehensive safety impact assessments during development and deployment, with updates as the system evolves."
+    },
+    "SA-2": {
+      "domain": "Safety",
+      "question": "How do you ensure that the system does not cause harm in unintended ways?",
+      "default_recommendation": "Implement proactive risk identification, monitoring, and mitigation strategies, including safety constraints in design."
+    },
+    "SA-3": {
+      "domain": "Safety",
+      "question": "Are there monitoring tools in place to detect unsafe system behavior in real-time?",
+      "default_recommendation": "Use automated real-time monitoring tools with alert systems to detect and respond to unsafe behavior."
+    },
+    "SA-4": {
+      "domain": "Safety",
+      "question": "How do you handle situations where the system’s actions conflict with human safety requirements?",
+      "default_recommendation": "Implement safety protocols, including fail-safe mechanisms and human override capabilities, to ensure human safety."
+    },
+    "SA-5": {
+      "domain": "Safety",
+      "question": "Are there emergency protocols for shutting down the system in case of unsafe behavior?",
+      "default_recommendation": "Establish and regularly test automated emergency shutdown protocols to address unsafe behavior."
+    },
+    "SA-6": {
+      "domain": "Safety",
+      "question": "What steps have you taken to identify and mitigate potential risks or harm caused by the AI system?",
+      "default_recommendation": "Conduct systematic risk assessments, identify mitigation strategies, and document all steps taken to reduce harm."
+    },
+    "SA-7": {
+      "domain": "Safety",
+      "question": "Are there fail-safe mechanisms or redundancies in place to address unexpected system behaviors?",
+      "default_recommendation": "Implement robust fail-safe mechanisms and redundancies, tested regularly to ensure reliability."
+    },
+    "SA-8": {
+      "domain": "Safety",
+      "question": "Have you conducted safety testing in realistic or high-risk scenarios?",
+      "default_recommendation": "Conduct extensive safety testing in realistic and high-risk scenarios, incorporating user feedback and system improvements."
+    },
+    "IN-1": {
+      "domain": "Inclusivity",
+      "question": "How do you ensure your AI system is accessible to a diverse range of users, including those with disabilities or in underserved populations?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Design the system with accessibility features such as screen readers, multilingual support, and offline functionality to serve all user groups, including those with disabilities and underserved populations."
+    },
+    "IN-2": {
+      "domain": "Inclusivity",
+      "question": "Were diverse perspectives considered during the design and development of the system?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Actively engage stakeholders from diverse backgrounds and incorporate their input throughout the design and development process."
+    },
+    "IN-3": {
+      "domain": "Inclusivity",
+      "question": "Have you audited the system for potential exclusionary outcomes or unintended impacts?",
+      "default_recommendation": "Conduct regular, comprehensive audits for exclusionary outcomes and take corrective actions when needed."
+    },
+    "IN-4": {
+      "domain": "Inclusivity",
+      "question": "How do you ensure your AI system accounts for accessibility requirements (e.g., for users with disabilities)?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Integrate accessibility standards (e.g., WCAG) and test the system with users with disabilities to ensure compliance and usability."
+    },
+    "IN-5": {
+      "domain": "Inclusivity",
+      "question": "Are stakeholders from diverse backgrounds involved in the design and testing of the system?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Actively involve stakeholders from diverse backgrounds at every stage, from design to testing."
+    },
+    "IN-6": {
+      "domain": "Inclusivity",
+      "question": "What steps are taken to ensure that the AI system serves underrepresented communities effectively?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Design the system with features and strategies specifically tailored to meet the needs of underrepresented communities (e.g., offline functionality, low-resource language support)."
+    },
+    "IN-7": {
+      "domain": "Inclusivity",
+      "question": "Are language, cultural, or regional differences considered in system design?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Design the system with full localization, including support for multiple languages, cultural nuances, and region-specific needs."
+    },
+    "IN-8": {
+      "domain": "Inclusivity",
+      "question": "How do you evaluate whether the system is unintentionally excluding certain user groups?",
+      "default_recommendation": "Use regular evaluations, including data analysis, user feedback, and testing, to identify and mitigate exclusionary impacts."
+    },
+    "SU-1": {
+      "domain": "Sustainability",
+      "question": "What is the environmental impact of training and deploying your AI system (e.g., energy usage, carbon footprint)?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Regularly measure and report the environmental impact of AI training and deployment, including energy usage and carbon emissions."
+    },
+    "SU-2": {
+      "domain": "Sustainability",
+      "question": "Have you explored opportunities to optimize algorithms for greater computational efficiency?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Actively optimize algorithms for efficiency using advanced techniques like pruning, quantization, or model distillation."
+    },
+    "SU-3": {
+      "domain": "Sustainability",
+      "question": "Are you using cloud services or infrastructure that prioritizes renewable energy sources?",
+      "default_recommendation": "Use cloud platforms or on-premises infrastructure that relies entirely on renewable energy sources."
+    },
+    "SU-4": {
+      "domain": "Sustainability",
+      "question": "What is the estimated carbon footprint of training and deploying your AI system?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Quantify and track the carbon footprint of all training and deployment processes, with goals for reduction."
+    },
+    "SU-5": {
+      "domain": "Sustainability",
+      "question": "Have you optimized your algorithms to reduce computational resource requirements?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Continuously optimize algorithms to reduce computational costs, balancing performance and sustainability."
+    },
+    "SU-6": {
+      "domain": "Sustainability",
+      "question": "Are you using hardware or cloud platforms that prioritize energy efficiency?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Select hardware or cloud platforms designed for energy efficiency (e.g., TPUs, green-certified data centers)."
+    },
+    "SU-7": {
+      "domain": "Sustainability",
+      "question": "How do you balance sustainability goals with performance requirements?",
+      "default_recommendation": "Implement the following to meet AM AI SAFE expectations: Clearly define and implement a balance between sustainability and performance, incorporating trade-offs into the design process."
+    },
+    "SU-8": {
+      "domain": "Sustainability",
+      "question": "Do you track the environmental impact of your AI systems over time?",
+      "default_recommendation": "Implement ongoing tracking of environmental metrics such as energy use and carbon emissions, with regular reporting."
+    }
+  }
+}
