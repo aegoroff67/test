@@ -992,11 +992,7 @@ Each cell represents the score for a specific question, enabling identification 
             "domain_scores": domain_scores
         }
         
-        # Create assessment_full structure 
-        assessment_full = {
-            "answers": answers,
-            "domains": domains
-        }
+        # The questions_by_domain structure is already built above, no need to recreate it
         
         # Use the already-built questions_by_domain structure from above
         # questions_by_domain = {}  # Already built above
@@ -1191,11 +1187,7 @@ Each cell represents the score for a specific question, enabling identification 
             "domain_scores": domain_scores
         }
         
-        # Create assessment_full structure 
-        assessment_full = {
-            "answers": answers,
-            "domains": domains
-        }
+        # The questions_by_domain structure is already built above, no need to recreate it
         
         # Use the already-built questions_by_domain structure from above
         # questions_by_domain = {}  # Already built above
