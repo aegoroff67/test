@@ -819,7 +819,6 @@ Each cell represents the score for a specific question, enabling identification 
             
             # Helper function for date formatting in template
             template_context['formatDate'] = self.format_date
-            }
             
             # Render the template - this will preserve all original fonts, colors, margins, layout
             doc.render(template_context)
