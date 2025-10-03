@@ -4589,7 +4589,14 @@ def main():
         # Run the critical test for the review request
         print("🔧 Running PROGRAMMATIC TABLE POPULATION FIX TEST")
         print("=" * 60)
-        success = tester.test_programmatic_table_population_fix()
+        success1 = tester.test_programmatic_table_population_fix()
+        
+        # Also run the comprehensive DOCX test
+        print("\n📋 Running COMPREHENSIVE DOCX REPORT GENERATION TEST")
+        print("=" * 60)
+        success2 = tester.test_docx_report_generation_comprehensive()
+        
+        success = success1 and success2
         
         tester.print_summary()
         return 0 if success else 1
