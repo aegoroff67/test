@@ -594,44 +594,54 @@ class AMReportGenerator:
         for answer in answers:
             # Get question UUID and map to code using questions collection
             question_uuid = answer.get("question_id", "")
-            domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
             
-            # Map domain prefixes to domain IDs (this is a workaround)
-            domain_mapping = {
-                "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
-                "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
-                "SE": "Security", "PR": "Privacy", "SA": "Safety", 
-                "IN": "Inclusivity", "SU": "Sustainability"
-            }
+            # Get question code from UUID
+            question_code = question_uuid_to_code.get(question_uuid)
             
-            domain_name = domain_mapping.get(domain_prefix, "Unknown")
-            
-            # Find matching domain by name
-            matching_domain = None
-            for domain in domains:
-                if domain["name"] == domain_name:
-                    matching_domain = domain
-                    break
-            
-            if matching_domain:
-                domain_id = matching_domain["id"]
+            if question_code:
+                # Get full question details from COMPLETE_QUESTIONS_DATA
+                question_details = questions_by_code.get(question_code)
                 
-                if domain_id not in questions_by_domain:
-                    questions_by_domain[domain_id] = []
-                
-                # Create question object from answer data
-                question = {
-                    "id": answer["question_id"],
-                    "code": question_code,
-                    "text": f"Question {question_code}",  # We don't have question text in answers
-                    "domain_id": domain_id,
-                    "answer": {
-                        "numeric_score": answer.get("numeric_score", 0),  # Correct field name
-                        "text": answer.get("option", ""),
-                        "question_id": answer["question_id"]
+                if question_details:
+                    # Extract domain from question code (e.g., FA-1 -> Fairness domain)
+                    domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                    
+                    # Map domain prefixes to domain names
+                    domain_mapping = {
+                        "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
+                        "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
+                        "SE": "Security", "PR": "Privacy", "SA": "Safety", 
+                        "IN": "Inclusivity", "SU": "Sustainability"
                     }
-                }
-                questions_by_domain[domain_id].append(question)
+                    
+                    domain_name = domain_mapping.get(domain_prefix, "Unknown")
+                    
+                    # Find matching domain in database
+                    matching_domain = None
+                    for domain in domains:
+                        if domain["name"] == domain_name:
+                            matching_domain = domain
+                            break
+                    
+                    if matching_domain:
+                        domain_id = matching_domain["id"]
+                        
+                        if domain_id not in questions_by_domain:
+                            questions_by_domain[domain_id] = []
+                        
+                        # Create question object with correct data
+                        question = {
+                            "id": question_uuid,
+                            "code": question_code,
+                            "text": question_details.get('text', f'Question {question_code}'),
+                            "domain_id": domain_id,
+                            "answer": {
+                                "numeric_score": answer.get("numeric_score", 0),
+                                "text": answer.get("option", ""),
+                                "question_id": question_uuid
+                            }
+                        }
+                        questions_by_domain[domain_id].append(question)
         
         # Calculate summary data since summaries collection is empty
         total_score = 0
@@ -779,44 +789,54 @@ class AMReportGenerator:
         for answer in answers:
             # Get question UUID and map to code using questions collection
             question_uuid = answer.get("question_id", "")
-            domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
             
-            # Map domain prefixes to domain IDs (this is a workaround)
-            domain_mapping = {
-                "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
-                "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
-                "SE": "Security", "PR": "Privacy", "SA": "Safety", 
-                "IN": "Inclusivity", "SU": "Sustainability"
-            }
+            # Get question code from UUID
+            question_code = question_uuid_to_code.get(question_uuid)
             
-            domain_name = domain_mapping.get(domain_prefix, "Unknown")
-            
-            # Find matching domain by name
-            matching_domain = None
-            for domain in domains:
-                if domain["name"] == domain_name:
-                    matching_domain = domain
-                    break
-            
-            if matching_domain:
-                domain_id = matching_domain["id"]
+            if question_code:
+                # Get full question details from COMPLETE_QUESTIONS_DATA
+                question_details = questions_by_code.get(question_code)
                 
-                if domain_id not in questions_by_domain:
-                    questions_by_domain[domain_id] = []
-                
-                # Create question object from answer data
-                question = {
-                    "id": answer["question_id"],
-                    "code": question_code,
-                    "text": f"Question {question_code}",  # We don't have question text in answers
-                    "domain_id": domain_id,
-                    "answer": {
-                        "numeric_score": answer.get("numeric_score", 0),  # Correct field name
-                        "text": answer.get("option", ""),
-                        "question_id": answer["question_id"]
+                if question_details:
+                    # Extract domain from question code (e.g., FA-1 -> Fairness domain)
+                    domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                    
+                    # Map domain prefixes to domain names
+                    domain_mapping = {
+                        "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
+                        "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
+                        "SE": "Security", "PR": "Privacy", "SA": "Safety", 
+                        "IN": "Inclusivity", "SU": "Sustainability"
                     }
-                }
-                questions_by_domain[domain_id].append(question)
+                    
+                    domain_name = domain_mapping.get(domain_prefix, "Unknown")
+                    
+                    # Find matching domain in database
+                    matching_domain = None
+                    for domain in domains:
+                        if domain["name"] == domain_name:
+                            matching_domain = domain
+                            break
+                    
+                    if matching_domain:
+                        domain_id = matching_domain["id"]
+                        
+                        if domain_id not in questions_by_domain:
+                            questions_by_domain[domain_id] = []
+                        
+                        # Create question object with correct data
+                        question = {
+                            "id": question_uuid,
+                            "code": question_code,
+                            "text": question_details.get('text', f'Question {question_code}'),
+                            "domain_id": domain_id,
+                            "answer": {
+                                "numeric_score": answer.get("numeric_score", 0),
+                                "text": answer.get("option", ""),
+                                "question_id": question_uuid
+                            }
+                        }
+                        questions_by_domain[domain_id].append(question)
         
         # Calculate summary data since summaries collection is empty
         total_score = 0
