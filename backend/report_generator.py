@@ -605,11 +605,11 @@ class AMReportGenerator:
                 question = {
                     "id": answer["question_id"],
                     "code": question_code,
-                    "text": answer.get("question_text", f"Question {question_code}"),
+                    "text": f"Question {question_code}",  # We don't have question text in answers
                     "domain_id": domain_id,
                     "answer": {
-                        "numeric_score": answer.get("score", 0),
-                        "text": answer.get("answer_text", ""),
+                        "numeric_score": answer.get("numeric_score", 0),  # Correct field name
+                        "text": answer.get("option", ""),
                         "question_id": answer["question_id"]
                     }
                 }
@@ -772,11 +772,11 @@ class AMReportGenerator:
                 question = {
                     "id": answer["question_id"],
                     "code": question_code,
-                    "text": answer.get("question_text", f"Question {question_code}"),
+                    "text": f"Question {question_code}",  # We don't have question text in answers
                     "domain_id": domain_id,
                     "answer": {
-                        "numeric_score": answer.get("score", 0),
-                        "text": answer.get("answer_text", ""),
+                        "numeric_score": answer.get("numeric_score", 0),  # Correct field name
+                        "text": answer.get("option", ""),
                         "question_id": answer["question_id"]
                     }
                 }
