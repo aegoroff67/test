@@ -435,8 +435,9 @@ function AssessmentPage() {
                 </div>
 
                 {/* Domain Progress */}
-                <div className="space-y-3 sm:space-y-4">
+                <div className="space-y-3 sm:space-y-4 domain-progress-expanded">
                   <h4 className="font-medium text-gray-900 text-sm sm:text-base mb-2">Domain Progress</h4>
+                  <div className="space-y-2">
                   {domains.map(domain => {
                     const domainQuestions = questions.filter(q => q.domain_id === domain.id);
                     const domainAnswered = domainQuestions.filter(q => answers[q.id]).length;
