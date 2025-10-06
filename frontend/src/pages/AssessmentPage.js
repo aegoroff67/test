@@ -314,17 +314,20 @@ function AssessmentPage() {
                 size="sm"
                 onClick={() => setShowStatusView(true)}
                 data-testid="view-all-questions-btn"
+                className="text-xs sm:text-sm px-2 sm:px-3"
               >
-                <BarChart3 className="h-4 w-4 mr-2" />
-                View All
+                <BarChart3 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">View All</span>
+                <span className="sm:hidden">All</span>
               </Button>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => navigate('/dashboard')}
                 data-testid="return-dashboard-btn"
+                className="px-2 sm:px-3"
               >
-                <Home className="h-4 w-4" />
+                <Home className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
             </div>
           </div>
