@@ -43,6 +43,7 @@ function AssessmentPage() {
   const [submitting, setSubmitting] = useState(false);
   const [showStatusView, setShowStatusView] = useState(false);
   const [otherText, setOtherText] = useState('');
+  const [uploadedFiles, setUploadedFiles] = useState([]);
 
   useEffect(() => {
     fetchAssessment();
