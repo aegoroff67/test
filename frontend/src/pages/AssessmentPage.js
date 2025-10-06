@@ -644,8 +644,8 @@ function AssessmentPage() {
                 </div>
 
                 {/* Notes Section */}
-                <div className="space-y-3">
-                  <Label htmlFor="note" className="text-base font-medium text-gray-900">
+                <div className="space-y-2 sm:space-y-3">
+                  <Label htmlFor="note" className="text-sm sm:text-base font-medium text-gray-900">
                     Additional Notes (Optional)
                   </Label>
                   <Textarea
@@ -653,7 +653,7 @@ function AssessmentPage() {
                     placeholder="Add any relevant details, context, or explanations..."
                     value={note}
                     onChange={(e) => handleNoteChange(e.target.value)}
-                    className="min-h-[100px] focus:ring-teal focus:border-teal-500"
+                    className="min-h-[80px] sm:min-h-[100px] focus:ring-teal focus:border-teal-500 text-sm sm:text-base"
                     data-testid="question-note-textarea"
                   />
                   {note !== (currentAnswer?.note || '') && (
@@ -661,10 +661,10 @@ function AssessmentPage() {
                       onClick={handleNoteSave}
                       disabled={saving}
                       size="sm"
-                      className="bg-teal-600 hover:bg-teal-700"
+                      className="bg-teal-600 hover:bg-teal-700 text-sm sm:text-base"
                       data-testid="save-note-btn"
                     >
-                      <Save className="h-4 w-4 mr-2" />
+                      <Save className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                       {saving ? 'Saving...' : 'Save Note'}
                     </Button>
                   )}
