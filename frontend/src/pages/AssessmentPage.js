@@ -279,27 +279,27 @@ function AssessmentPage() {
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="flex justify-between items-center h-16">
             {/* Logo & Title */}
-            <div className="flex items-center space-x-4">
-              <div className="bg-teal-600 p-2 rounded-lg">
-                <Shield className="h-6 w-6 text-white" />
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="bg-teal-600 p-1.5 sm:p-2 rounded-lg">
+                <Shield className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
               </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-900">AM AI SAFE</h1>
-                <p className="text-xs text-teal-600">Assessment in Progress</p>
+              <div className="min-w-0">
+                <h1 className="text-sm sm:text-lg font-bold text-gray-900 truncate">AM AI SAFE</h1>
+                <p className="text-xs text-teal-600 hidden sm:block">Assessment in Progress</p>
               </div>
             </div>
 
-            {/* Progress */}
-            <div className="flex items-center space-x-4">
+            {/* Progress - Hidden on small screens, shown in compact form on medium+ */}
+            <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
               <div className="text-right">
-                <p className="text-sm font-medium text-gray-900">
+                <p className="text-xs lg:text-sm font-medium text-gray-900">
                   {answeredCount} of {questions.length} answered
                 </p>
                 <p className="text-xs text-gray-500">
                   {Math.round(progressPercentage)}% complete
                 </p>
               </div>
-              <div className="w-32 bg-gray-200 rounded-full h-2">
+              <div className="w-20 lg:w-32 bg-gray-200 rounded-full h-2">
                 <div 
                   className="bg-teal-600 h-2 rounded-full progress-bar"
                   style={{ width: `${progressPercentage}%` }}
@@ -308,7 +308,7 @@ function AssessmentPage() {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               <Button 
                 variant="outline" 
                 size="sm"
