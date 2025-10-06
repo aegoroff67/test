@@ -690,17 +690,17 @@ function AssessmentPage() {
                   <Button 
                     onClick={submitAssessment}
                     disabled={submitting}
-                    className="bg-green-600 hover:bg-green-700"
+                    className="bg-green-600 hover:bg-green-700 flex-1 sm:flex-initial text-sm sm:text-base"
                     data-testid="submit-assessment-btn"
                   >
                     {submitting ? (
                       <div className="flex items-center space-x-2">
-                        <div className="loading-spinner w-4 h-4"></div>
+                        <div className="loading-spinner w-3 h-3 sm:w-4 sm:h-4"></div>
                         <span>Submitting...</span>
                       </div>
                     ) : (
                       <div className="flex items-center space-x-2">
-                        <CheckCircle2 className="h-4 w-4" />
+                        <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4" />
                         <span>Submit Assessment</span>
                       </div>
                     )}
@@ -709,11 +709,11 @@ function AssessmentPage() {
                   <Button 
                     onClick={nextQuestion}
                     disabled={currentQuestionIndex === questions.length - 1}
-                    className="bg-teal-600 hover:bg-teal-700"
+                    className="bg-teal-600 hover:bg-teal-700 flex-1 sm:flex-initial text-sm sm:text-base"
                     data-testid="next-question-btn"
                   >
                     Next
-                    <ArrowRight className="h-4 w-4 ml-2" />
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-2" />
                   </Button>
                 )}
               </div>
