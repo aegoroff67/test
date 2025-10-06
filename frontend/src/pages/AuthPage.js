@@ -96,7 +96,7 @@ function AuthPage() {
                   AM AI SAFE
                 </h1>
                 <p className="text-sm text-teal-600 font-medium">
-                  POWERING TRUST IN AI
+                  EMPOWERING TRUST IN AI
                 </p>
               </div>
             </div>
