@@ -444,7 +444,7 @@ function AssessmentPage() {
                     const isCurrentDomain = currentQuestion && currentQuestion.domain_id === domain.id;
                     
                     return (
-                      <div key={domain.id} className={`space-y-0.5 p-1 sm:p-1.5 rounded-lg ${
+                      <div key={domain.id} className={`space-y-1 p-2 sm:p-2.5 rounded-lg mb-2 ${
                         isCurrentDomain ? 'bg-teal-50 border border-teal-200' : ''
                       }`}>
                         <div className="flex justify-between text-sm">
