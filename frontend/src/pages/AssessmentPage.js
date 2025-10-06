@@ -196,9 +196,55 @@ function AssessmentPage() {
     setNote(value);
   };
 
-  const handleNoteSave = async () => {
+  const handleFileUpload = async (files) => {
+    if (!files || files.length === 0) return;
+    
+    const newFiles = Array.from(files);
+    
+    // Validate file sizes (max 10MB per file)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    const oversizedFiles = newFiles.filter(file => file.size > maxSize);
+    
+    if (oversizedFiles.length > 0) {
+      toast.error(`Some files are too large. Maximum size is 10MB per file.`);
+      return;
+    }
+    
+    // Add to uploaded files state
+    setUploadedFiles(prev => [...prev, ...newFiles]);
+    
+    // If there's already an answer, save the files with it
     if (currentAnswer) {
-      await saveAnswer(currentAnswer.option, note);
+      await saveFilesWithAnswer(currentAnswer.option, newFiles);
+    }
+    
+    toast.success(`${newFiles.length} file${newFiles.length > 1 ? 's' : ''} uploaded successfully`);
+  };
+
+  const removeFile = (indexToRemove) => {
+    setUploadedFiles(prev => prev.filter((_, index) => index !== indexToRemove));
+  };
+
+  const saveFilesWithAnswer = async (option, files = uploadedFiles) => {
+    if (!currentQuestion || files.length === 0) return;
+    
+    try {
+      const formData = new FormData();
+      formData.append('question_id', currentQuestion.id);
+      formData.append('option', option);
+      
+      files.forEach((file, index) => {
+        formData.append(`evidence_${index}`, file);
+      });
+      
+      await axios.post(`${API}/assessments/${id}/answer/evidence`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+    } catch (error) {
+      console.error('Error uploading evidence files:', error);
+      toast.error('Failed to upload evidence files');
     }
   };
 
