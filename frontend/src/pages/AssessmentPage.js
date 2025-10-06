@@ -433,7 +433,7 @@ function AssessmentPage() {
                         {currentQuestion.domain_name}
                       </Badge>
                     </div>
-                    <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gray-900 leading-relaxed">
+                    <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gray-900 leading-relaxed compact-title">
                       {currentQuestion.text}
                     </CardTitle>
                   </div>
