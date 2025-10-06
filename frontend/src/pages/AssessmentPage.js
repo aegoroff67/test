@@ -529,7 +529,7 @@ function AssessmentPage() {
                   
                   {/* Basic Option */}
                   <div
-                    className={`custom-radio ${currentAnswer?.option === 'BASIC' ? 'selected' : ''}`}
+                    className={`custom-radio ${currentAnswer?.option === 'BASIC' ? 'selected' : ''} p-3 sm:p-4`}
                     onClick={() => handleOptionSelect('BASIC')}
                     data-testid="answer-option-basic"
                   >
@@ -540,19 +540,19 @@ function AssessmentPage() {
                       checked={currentAnswer?.option === 'BASIC'}
                       onChange={() => {}}
                     />
-                    <div className="flex items-start space-x-3">
-                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                    <div className="flex items-start space-x-2 sm:space-x-3">
+                      <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center mt-0.5 flex-shrink-0 ${
                         currentAnswer?.option === 'BASIC' 
                           ? 'border-teal-600 bg-teal-600' 
                           : 'border-gray-300'
                       }`}>
                         {currentAnswer?.option === 'BASIC' && (
-                          <div className="w-2 h-2 rounded-full bg-white"></div>
+                          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
                         )}
                       </div>
-                      <div className="flex-1">
-                        <div className="font-medium text-gray-900 mb-1">Basic (1 point)</div>
-                        <div className="text-sm text-gray-600 leading-relaxed">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Basic (1 point)</div>
+                        <div className="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
                           {currentQuestion?.predefined_answers?.basic || 'Minimal implementation, significant gaps exist'}
                         </div>
                       </div>
