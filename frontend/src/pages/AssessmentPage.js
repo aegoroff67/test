@@ -417,8 +417,8 @@ function AssessmentPage() {
           </div>
 
           {/* Main Question Area */}
-          <div className="lg:col-span-3">
-            <Card className="mb-6">
+          <div className="lg:col-span-9 xl:col-span-10">
+            <Card className="mb-4 sm:mb-6">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
