@@ -459,7 +459,7 @@ function AssessmentPage() {
                 )}
               </CardHeader>
               
-              <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4 lg:p-5">
+              <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4 lg:p-5 assessment-card assessment-spacing">
                 {/* Answer Options */}
                 <div className="space-y-1.5 sm:space-y-2">
                   <Label className="text-sm sm:text-base font-medium text-gray-900">
