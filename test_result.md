@@ -313,8 +313,27 @@
   test_sequence: 1
   run_ui: false
 
+  - task: "Test navigation button visibility after whitespace reduction changes"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/pages/AssessmentPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+        - agent: "testing"
+        - comment: "NAVIGATION VISIBILITY TESTING COMPLETED: Comprehensive testing of navigation button visibility after whitespace reduction changes completed using standalone HTML layout test. RESULTS: 1) ✅ 1920x1080 (Standard Desktop): PASS - Navigation buttons (Previous/Next) visible without scrolling at y=958px within 1080px viewport, page height exactly matches viewport (1080px), 2) ❌ 1366x768 (Common Laptop): FAIL - Navigation buttons at y=1014px extend beyond viewport (bottom at 1056px vs 768px viewport), page overflow of 304px requires scrolling, 3) ❌ 1440x900 (MacBook): FAIL - Navigation buttons at y=1014px extend beyond viewport (bottom at 1056px vs 900px viewport), page overflow of 172px requires scrolling. CRITICAL FINDING: While whitespace reduction has improved layout for standard desktop resolution (1920x1080), navigation buttons are still not visible without scrolling on common laptop resolutions (1366x768, 1440x900). Additional whitespace reduction is needed to ensure navigation buttons are accessible within smaller viewport heights. The current layout requires approximately 1072px total height, which exceeds common laptop screen heights."
+
+## metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
 ## test_plan:
-  current_focus: []
+  current_focus:
+    - "Test navigation button visibility after whitespace reduction changes"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
