@@ -468,7 +468,7 @@ function AssessmentPage() {
                   
                   {/* Ideal Option */}
                   <div
-                    className={`custom-radio ${currentAnswer?.option === 'IDEAL' ? 'selected' : ''} p-3 sm:p-4`}
+                    className={`custom-radio ${currentAnswer?.option === 'IDEAL' ? 'selected' : ''} p-2 sm:p-3`}
                     onClick={() => handleOptionSelect('IDEAL')}
                     data-testid="answer-option-ideal"
                   >
