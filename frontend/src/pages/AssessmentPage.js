@@ -18,7 +18,10 @@ import {
   Grid3X3,
   HelpCircle,
   Save,
-  BarChart3
+  BarChart3,
+  Paperclip,
+  Upload,
+  X
 } from 'lucide-react';
 import AssessmentStatusView from '../components/AssessmentStatusView';
 
