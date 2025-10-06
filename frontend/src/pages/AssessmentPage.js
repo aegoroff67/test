@@ -354,7 +354,7 @@ function AssessmentPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 xl:grid-cols-12 gap-3 sm:gap-4 lg:gap-6 xl:gap-8">
           {/* Sidebar - Question Navigation */}
           <div className="lg:col-span-3 xl:col-span-2">
-            <Card className="sticky top-4 lg:top-8">
+            <Card className="sticky top-2 lg:top-4">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center space-x-2">
                   <Shield className="h-5 w-5 text-teal-600" />
