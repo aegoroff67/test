@@ -500,7 +500,7 @@ function AssessmentPage() {
                   
                   {/* Good Option */}
                   <div
-                    className={`custom-radio ${currentAnswer?.option === 'GOOD' ? 'selected' : ''} p-3 sm:p-4`}
+                    className={`custom-radio ${currentAnswer?.option === 'GOOD' ? 'selected' : ''} p-2 sm:p-3`}
                     onClick={() => handleOptionSelect('GOOD')}
                     data-testid="answer-option-good"
                   >
