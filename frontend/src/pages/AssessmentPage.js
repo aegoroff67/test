@@ -673,18 +673,19 @@ function AssessmentPage() {
             </Card>
 
             {/* Navigation */}
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-0">
               <Button 
                 variant="outline"
                 onClick={prevQuestion}
                 disabled={currentQuestionIndex === 0}
                 data-testid="prev-question-btn"
+                className="order-2 sm:order-1 text-sm sm:text-base"
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
+                <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                 Previous
               </Button>
 
-              <div className="flex space-x-4">
+              <div className="flex space-x-2 sm:space-x-4 order-1 sm:order-2">
                 {answeredCount >= questions.length ? (
                   <Button 
                     onClick={submitAssessment}
