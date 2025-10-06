@@ -238,6 +238,39 @@ body {
   .btn-hover:hover {
     transform: none;
   }
+
+  /* Mobile-specific custom radio adjustments */
+  .custom-radio {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Reduce padding for smaller screens */
+  .custom-radio .space-x-3 {
+    gap: 0.5rem;
+  }
+}
+
+/* Enhanced responsive breakpoints */
+@media (max-width: 640px) {
+  /* Extra small screens */
+  .custom-radio {
+    border-width: 1px;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* Large screens - maximize space utilization */
+  .assessment-container {
+    max-width: none !important;
+  }
+}
+
+@media (min-width: 1536px) {
+  /* Extra large screens */
+  .assessment-main-content {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 /* Print styles */
