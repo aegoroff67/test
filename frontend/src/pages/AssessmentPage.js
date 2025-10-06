@@ -656,7 +656,7 @@ function AssessmentPage() {
                     placeholder="Add any relevant details, context, or explanations..."
                     value={note}
                     onChange={(e) => handleNoteChange(e.target.value)}
-                    className="min-h-[60px] sm:min-h-[80px] focus:ring-teal focus:border-teal-500 text-sm sm:text-base"
+                    className="min-h-[60px] sm:min-h-[80px] focus:ring-teal focus:border-teal-500 text-sm sm:text-base compact-textarea"
                     data-testid="question-note-textarea"
                   />
                   {note !== (currentAnswer?.note || '') && (
