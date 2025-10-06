@@ -351,7 +351,7 @@ function AssessmentPage() {
 
       {/* Main Content */}
       <main className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-2 sm:py-3 lg:py-4 compact-main">
-        <div className="grid grid-cols-1 lg:grid-cols-12 xl:grid-cols-12 gap-3 sm:gap-4 lg:gap-6 xl:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 xl:grid-cols-12 gap-3 sm:gap-4 lg:gap-6 xl:gap-8 assessment-spacing">
           {/* Sidebar - Question Navigation */}
           <div className="lg:col-span-3 xl:col-span-2">
             <Card className="sticky top-2 lg:top-4">
