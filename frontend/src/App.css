@@ -347,20 +347,19 @@ body {
 /* Progress sidebar height matching */
 @media (min-width: 1024px) {
   .progress-sidebar {
-    min-height: calc(100vh - 200px);
+    height: fit-content;
+    max-height: calc(100vh - 120px);
   }
   
   .progress-content {
     display: flex;
     flex-direction: column;
-    min-height: 600px;
   }
   
   .domain-progress-expanded {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 0.5rem;
   }
 }
 
