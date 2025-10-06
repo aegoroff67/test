@@ -532,7 +532,7 @@ function AssessmentPage() {
                   
                   {/* Basic Option */}
                   <div
-                    className={`custom-radio ${currentAnswer?.option === 'BASIC' ? 'selected' : ''} p-3 sm:p-4`}
+                    className={`custom-radio ${currentAnswer?.option === 'BASIC' ? 'selected' : ''} p-2 sm:p-3`}
                     onClick={() => handleOptionSelect('BASIC')}
                     data-testid="answer-option-basic"
                   >
