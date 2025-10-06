@@ -628,7 +628,7 @@ function AssessmentPage() {
                               // This will trigger the selection without calling the API yet
                             }
                           }}
-                          className="min-h-[50px] sm:min-h-[60px] focus:ring-teal focus:border-teal-500 text-sm sm:text-base"
+                          className="min-h-[50px] sm:min-h-[60px] focus:ring-teal focus:border-teal-500 text-sm sm:text-base compact-textarea"
                           data-testid="other-text-input"
                         />
                         {otherText.trim() && (
