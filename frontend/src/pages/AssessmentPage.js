@@ -676,7 +676,7 @@ function AssessmentPage() {
             </Card>
 
             {/* Navigation */}
-            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-0">
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 sm:gap-0 mt-2">
               <Button 
                 variant="outline"
                 onClick={prevQuestion}
