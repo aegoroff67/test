@@ -456,10 +456,10 @@ function AssessmentPage() {
                 )}
               </CardHeader>
               
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-4 sm:space-y-6 p-4 sm:p-6">
                 {/* Answer Options */}
-                <div className="space-y-3">
-                  <Label className="text-base font-medium text-gray-900">
+                <div className="space-y-2 sm:space-y-3">
+                  <Label className="text-sm sm:text-base font-medium text-gray-900">
                     Select your response:
                   </Label>
                   
