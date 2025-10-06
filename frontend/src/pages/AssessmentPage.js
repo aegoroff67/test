@@ -420,9 +420,9 @@ function AssessmentPage() {
                   <span>Progress</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-1.5 sm:space-y-2 p-3 sm:p-4">
+              <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4 pb-6 sm:pb-8">
                 {/* Current Question Info */}
-                <div className="p-1.5 sm:p-2 bg-teal-50 rounded-lg border border-teal-200">
+                <div className="p-2 sm:p-3 bg-teal-50 rounded-lg border border-teal-200">
                   <div className="flex items-center justify-between mb-2">
                     <Badge className="bg-teal-600">{currentQuestion.code}</Badge>
                     <span className="text-sm text-teal-700">
