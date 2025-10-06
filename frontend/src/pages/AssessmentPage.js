@@ -127,6 +127,11 @@ function AssessmentPage() {
       
       const response = await axios.post(`${API}/assessments/${id}/answer`, payload);
       
+      // Upload files if any are selected
+      if (uploadedFiles.length > 0) {
+        await saveFilesWithAnswer(option, uploadedFiles);
+      }
+      
       // Update local state
       setAnswers(prev => ({
         ...prev,
@@ -134,7 +139,8 @@ function AssessmentPage() {
           option: option,
           note: noteText || '',
           other_text: otherTextValue || '',
-          needs_review: response.data.needs_review || false
+          needs_review: response.data.needs_review || false,
+          evidence_files: uploadedFiles.length
         }
       }));
       
