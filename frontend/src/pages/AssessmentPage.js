@@ -596,7 +596,7 @@ function AssessmentPage() {
                   
                   {/* Other Option */}
                   <div
-                    className={`custom-radio ${currentAnswer?.option === 'OTHER' ? 'selected' : ''} p-3 sm:p-4`}
+                    className={`custom-radio ${currentAnswer?.option === 'OTHER' ? 'selected' : ''} p-2 sm:p-3`}
                     data-testid="answer-option-other"
                   >
                     <div 
