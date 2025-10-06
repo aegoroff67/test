@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AM AI SAFE Assessment - Layout Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-radio {
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .custom-radio:hover {
+            border-color: #14b8a6;
+            background-color: #f0fdfa;
+        }
+        .custom-radio.selected {
+            border-color: #14b8a6;
+            background-color: #f0fdfa;
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        .loading-spinner {
+            border: 2px solid #f3f4f6;
+            border-top: 2px solid #14b8a6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+            <div class="flex justify-between items-center h-12 sm:h-14">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <div class="bg-teal-600 p-1.5 sm:p-2 rounded-lg">
+                        <svg class="h-4 w-4 sm:h-6 sm:w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <div class="min-w-0">
+                        <h1 class="text-sm sm:text-lg font-bold text-gray-900 truncate">AM AI SAFE</h1>
+                        <p class="text-xs text-teal-600 hidden sm:block">Assessment in Progress</p>
+                    </div>
+                </div>
+
+                <!-- Progress - Hidden on small screens, shown in compact form on medium+ -->
+                <div class="hidden md:flex items-center space-x-2 lg:space-x-4">
+                    <div class="text-right">
+                        <p class="text-xs lg:text-sm font-medium text-gray-900">
+                            15 of 88 answered
+                        </p>
+                        <p class="text-xs text-gray-500">
+                            17% complete
+                        </p>
+                    </div>
+                    <div class="w-20 lg:w-32 bg-gray-200 rounded-full h-2">
+                        <div class="bg-teal-600 h-2 rounded-full progress-bar" style="width: 17%"></div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center space-x-1 sm:space-x-2">
+                    <button class="inline-flex items-center px-2 sm:px-3 py-1.5 border border-gray-300 text-xs sm:text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500" data-testid="view-all-questions-btn">
+                        <svg class="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        <span class="hidden sm:inline">View All</span>
+                        <span class="sm:hidden">All</span>
+                    </button>
+                    <button class="inline-flex items-center px-2 sm:px-3 py-1.5 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500" data-testid="return-dashboard-btn">
+                        <svg class="h-3 w-3 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-2 sm:py-3 lg:py-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 xl:grid-cols-12 gap-3 sm:gap-4 lg:gap-6 xl:gap-8">
+            <!-- Sidebar - Question Navigation -->
+            <div class="lg:col-span-3 xl:col-span-2">
+                <div class="bg-white shadow rounded-lg border sticky top-2 lg:top-4">
+                    <div class="px-4 py-3 border-b border-gray-200">
+                        <h3 class="text-lg font-medium flex items-center space-x-2">
+                            <svg class="h-5 w-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                            <span>Progress</span>
+                        </h3>
+                    </div>
+                    <div class="space-y-1.5 sm:space-y-2 p-3 sm:p-4">
+                        <!-- Current Question Info -->
+                        <div class="p-1.5 sm:p-2 bg-teal-50 rounded-lg border border-teal-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-600 text-white">FA-1</span>
+                                <span class="text-sm text-teal-700">1 of 88</span>
+                            </div>
+                            <p class="text-sm font-medium text-teal-900">Fairness</p>
+                        </div>
+
+                        <!-- Domain Progress -->
+                        <div class="space-y-1.5 sm:space-y-2">
+                            <h4 class="font-medium text-gray-900 text-sm sm:text-base">Domain Progress</h4>
+                            <div class="space-y-0.5 p-1 sm:p-1.5 rounded-lg bg-teal-50 border border-teal-200">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-teal-900 font-medium">Fairness (Current)</span>
+                                    <span class="font-medium text-teal-700">2/8</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-teal-600 h-2 rounded-full progress-bar" style="width: 25%"></div>
+                                </div>
+                            </div>
+                            <div class="space-y-0.5 p-1 sm:p-1.5 rounded-lg">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600">Transparency</span>
+                                    <span class="font-medium text-gray-700">0/8</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-gray-400 h-2 rounded-full progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Question Area -->
+            <div class="lg:col-span-9 xl:col-span-10">
+                <div class="bg-white shadow rounded-lg border mb-3 sm:mb-4">
+                    <div class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4 lg:py-5 border-b border-gray-200">
+                        <div class="flex flex-col sm:flex-row items-start justify-between gap-2 sm:gap-0">
+                            <div class="flex-1">
+                                <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-white text-teal-600 border border-teal-300">FA-1</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-gray-100 text-gray-800">Fairness</span>
+                                </div>
+                                <h2 class="text-lg sm:text-xl lg:text-2xl text-gray-900 leading-relaxed font-medium">
+                                    How do you identify and mitigate bias in your AI system's training data and algorithms?
+                                </h2>
+                            </div>
+                            <button class="text-gray-400 hover:text-gray-600 p-1" title="Help" data-testid="question-help-btn">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="mt-2 sm:mt-3 p-2 sm:p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                            <p class="text-sm sm:text-base text-blue-800">
+                                <strong>Context:</strong> Bias in AI systems can lead to unfair treatment of individuals or groups. This question examines your approach to identifying potential biases in training data and implementing measures to mitigate them throughout the AI development lifecycle.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 sm:space-y-4 p-3 sm:p-4 lg:p-5">
+                        <!-- Answer Options -->
+                        <div class="space-y-1.5 sm:space-y-2">
+                            <label class="text-sm sm:text-base font-medium text-gray-900">
+                                Select your response:
+                            </label>
+                            
+                            <!-- Ideal Option -->
+                            <div class="custom-radio selected p-2 sm:p-3" data-testid="answer-option-ideal">
+                                <div class="flex items-start space-x-2 sm:space-x-3">
+                                    <div class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-teal-600 bg-teal-600 flex items-center justify-center mt-0.5 flex-shrink-0">
+                                        <div class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="font-medium text-gray-900 mb-1 text-sm sm:text-base">Ideal (3 points)</div>
+                                        <div class="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
+                                            Regularly audit datasets for imbalances or biases and use tools like Fairlearn to detect and mitigate issues.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Good Option -->
+                            <div class="custom-radio p-2 sm:p-3" data-testid="answer-option-good">
+                                <div class="flex items-start space-x-2 sm:space-x-3">
+                                    <div class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mt-0.5 flex-shrink-0"></div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="font-medium text-gray-900 mb-1 text-sm sm:text-base">Good (2 points)</div>
+                                        <div class="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
+                                            Implement fairness constraints during model training and review model outcomes for biases before deployment.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Basic Option -->
+                            <div class="custom-radio p-2 sm:p-3" data-testid="answer-option-basic">
+                                <div class="flex items-start space-x-2 sm:space-x-3">
+                                    <div class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mt-0.5 flex-shrink-0"></div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="font-medium text-gray-900 mb-1 text-sm sm:text-base">Basic (1 point)</div>
+                                        <div class="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
+                                            Conduct ad hoc reviews of the system to check for fairness concerns.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Non-Ideal Option -->
+                            <div class="custom-radio p-2 sm:p-3" data-testid="answer-option-non-ideal">
+                                <div class="flex items-start space-x-2 sm:space-x-3">
+                                    <div class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mt-0.5 flex-shrink-0"></div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="font-medium text-gray-900 mb-1 text-sm sm:text-base">Non-Ideal (0 points)</div>
+                                        <div class="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
+                                            No specific measures have been implemented yet.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Other Option -->
+                            <div class="custom-radio p-2 sm:p-3" data-testid="answer-option-other">
+                                <div class="flex items-start space-x-2 sm:space-x-3">
+                                    <div class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mt-0.5 flex-shrink-0"></div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="font-medium text-gray-900 mb-2 text-sm sm:text-base">Other (Requires Review)</div>
+                                        <textarea placeholder="Please describe your specific situation or approach..." class="w-full min-h-[50px] sm:min-h-[60px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base" data-testid="other-text-input"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notes Section -->
+                        <div class="space-y-1.5 sm:space-y-2">
+                            <label class="text-sm sm:text-base font-medium text-gray-900">
+                                Additional Notes (Optional)
+                            </label>
+                            <textarea placeholder="Add any relevant details, context, or explanations..." class="w-full min-h-[60px] sm:min-h-[80px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base" data-testid="question-note-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 sm:gap-0 mt-2">
+                    <button class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm sm:text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed order-2 sm:order-1" disabled data-testid="prev-question-btn">
+                        <svg class="h-3 w-3 sm:h-4 sm:w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                        Previous
+                    </button>
+
+                    <div class="flex space-x-2 sm:space-x-4 order-1 sm:order-2">
+                        <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm sm:text-base font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 flex-1 sm:flex-initial" data-testid="next-question-btn">
+                            Next
+                            <svg class="h-3 w-3 sm:h-4 sm:w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
