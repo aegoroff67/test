@@ -422,7 +422,7 @@ function AssessmentPage() {
           {/* Main Question Area */}
           <div className="lg:col-span-9 xl:col-span-10">
             <Card className="mb-3 sm:mb-4">
-              <CardHeader className="p-4 sm:p-6">
+              <CardHeader className="p-3 sm:p-4 lg:p-5">
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-2 sm:gap-0">
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
