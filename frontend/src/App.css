@@ -261,38 +261,75 @@ body {
 /* Compact layout for smaller viewport heights (laptops) */
 @media (max-height: 900px) {
   .custom-radio {
-    padding: 0.375rem 0.75rem;
-  }
-  
-  .custom-radio .space-x-2 {
-    gap: 0.375rem;
+    padding: 0.375rem 0.75rem !important;
+    margin-bottom: 0.25rem !important;
   }
   
   /* Reduce card padding on smaller heights */
   .assessment-card {
-    padding: 0.75rem !important;
+    padding: 0.5rem !important;
   }
   
   /* Make textareas more compact */
   .compact-textarea {
-    min-height: 2.5rem !important;
+    min-height: 2rem !important;
+  }
+  
+  /* Reduce header height */
+  .compact-header {
+    height: 2.5rem !important;
+  }
+  
+  /* Reduce main content padding */
+  .compact-main {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
   }
 }
 
 @media (max-height: 768px) {
   /* Extra compact for common laptop heights */
   .custom-radio {
-    padding: 0.25rem 0.5rem;
-    margin-bottom: 0.25rem;
+    padding: 0.25rem 0.5rem !important;
+    margin-bottom: 0.125rem !important;
   }
   
   /* Further reduce spacing */
   .assessment-spacing {
-    gap: 0.25rem !important;
+    gap: 0.125rem !important;
   }
   
   .compact-textarea {
-    min-height: 2rem !important;
+    min-height: 1.5rem !important;
+  }
+  
+  /* Ultra compact header for laptops */
+  .compact-header {
+    height: 2rem !important;
+  }
+  
+  /* Ultra compact main content */
+  .compact-main {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+  
+  /* Reduce card header and content padding */
+  .assessment-card {
+    padding: 0.375rem !important;
+  }
+  
+  /* Compact question title */
+  .compact-title {
+    font-size: 1rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Compact explanation */
+  .compact-explanation {
+    padding: 0.375rem !important;
+    margin-top: 0.25rem !important;
   }
 }
 
