@@ -422,15 +422,15 @@ function AssessmentPage() {
               <CardHeader className="p-4 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-2 sm:gap-0">
                   <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <Badge variant="outline" className="text-teal-600 border-teal-300">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                      <Badge variant="outline" className="text-teal-600 border-teal-300 text-xs sm:text-sm">
                         {currentQuestion.code}
                       </Badge>
-                      <Badge variant="secondary">
+                      <Badge variant="secondary" className="text-xs sm:text-sm">
                         {currentQuestion.domain_name}
                       </Badge>
                     </div>
-                    <CardTitle className="text-xl text-gray-900 leading-relaxed">
+                    <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gray-900 leading-relaxed">
                       {currentQuestion.text}
                     </CardTitle>
                   </div>
