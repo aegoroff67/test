@@ -419,8 +419,8 @@ function AssessmentPage() {
           {/* Main Question Area */}
           <div className="lg:col-span-9 xl:col-span-10">
             <Card className="mb-4 sm:mb-6">
-              <CardHeader>
-                <div className="flex items-start justify-between">
+              <CardHeader className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-2 sm:gap-0">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
                       <Badge variant="outline" className="text-teal-600 border-teal-300">
