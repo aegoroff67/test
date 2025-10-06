@@ -361,7 +361,7 @@ function AssessmentPage() {
                   <span>Progress</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3 sm:space-y-4 p-4 sm:p-6">
+              <CardContent className="space-y-2 sm:space-y-3 p-3 sm:p-4">
                 {/* Current Question Info */}
                 <div className="p-2 sm:p-3 bg-teal-50 rounded-lg border border-teal-200">
                   <div className="flex items-center justify-between mb-2">
