@@ -350,7 +350,7 @@ function AssessmentPage() {
       )}
 
       {/* Main Content */}
-      <main className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-6 lg:py-8">
+      <main className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-2 sm:py-3 lg:py-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 xl:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 xl:gap-10">
           {/* Sidebar - Question Navigation */}
           <div className="lg:col-span-3 xl:col-span-2">
