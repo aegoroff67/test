@@ -277,7 +277,7 @@ function AssessmentPage() {
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="flex justify-between items-center h-12 sm:h-14">
+          <div className="flex justify-between items-center h-12 sm:h-14 compact-header">
             {/* Logo & Title */}
             <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="bg-teal-600 p-1.5 sm:p-2 rounded-lg">
