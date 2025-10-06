@@ -616,7 +616,7 @@ function AssessmentPage() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 mb-2 text-sm sm:text-base">Other (Requires Review)</div>
+                        <div className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Other (Requires Review)</div>
                         <Textarea
                           id="other-text-input"
                           placeholder="Please describe your specific situation or approach..."
