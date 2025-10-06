@@ -276,7 +276,7 @@ function AssessmentPage() {
     <div className="min-h-screen bg-gradient-bg">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="flex justify-between items-center h-16">
             {/* Logo & Title */}
             <div className="flex items-center space-x-4">
