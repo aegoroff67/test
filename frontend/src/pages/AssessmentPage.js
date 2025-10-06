@@ -361,7 +361,7 @@ function AssessmentPage() {
                   <span>Progress</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2 sm:space-y-3 p-3 sm:p-4">
+              <CardContent className="space-y-1.5 sm:space-y-2 p-3 sm:p-4">
                 {/* Current Question Info */}
                 <div className="p-2 sm:p-3 bg-teal-50 rounded-lg border border-teal-200">
                   <div className="flex items-center justify-between mb-2">
@@ -376,7 +376,7 @@ function AssessmentPage() {
                 </div>
 
                 {/* Domain Progress */}
-                <div className="space-y-2 sm:space-y-3">
+                <div className="space-y-1.5 sm:space-y-2">
                   <h4 className="font-medium text-gray-900 text-sm sm:text-base">Domain Progress</h4>
                   {domains.map(domain => {
                     const domainQuestions = questions.filter(q => q.domain_id === domain.id);
@@ -461,7 +461,7 @@ function AssessmentPage() {
               
               <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4 lg:p-5">
                 {/* Answer Options */}
-                <div className="space-y-2 sm:space-y-3">
+                <div className="space-y-1.5 sm:space-y-2">
                   <Label className="text-sm sm:text-base font-medium text-gray-900">
                     Select your response:
                   </Label>
@@ -647,7 +647,7 @@ function AssessmentPage() {
                 </div>
 
                 {/* Notes Section */}
-                <div className="space-y-2 sm:space-y-3">
+                <div className="space-y-1.5 sm:space-y-2">
                   <Label htmlFor="note" className="text-sm sm:text-base font-medium text-gray-900">
                     Additional Notes (Optional)
                   </Label>
