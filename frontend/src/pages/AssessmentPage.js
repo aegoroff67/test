@@ -593,7 +593,7 @@ function AssessmentPage() {
                   
                   {/* Other Option */}
                   <div
-                    className={`custom-radio ${currentAnswer?.option === 'OTHER' ? 'selected' : ''}`}
+                    className={`custom-radio ${currentAnswer?.option === 'OTHER' ? 'selected' : ''} p-3 sm:p-4`}
                     data-testid="answer-option-other"
                   >
                     <div 
@@ -601,19 +601,19 @@ function AssessmentPage() {
                         // Focus on text input instead of selecting immediately
                         document.getElementById('other-text-input')?.focus();
                       }}
-                      className="flex items-start space-x-3"
+                      className="flex items-start space-x-2 sm:space-x-3"
                     >
-                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                      <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center mt-0.5 flex-shrink-0 ${
                         currentAnswer?.option === 'OTHER' 
                           ? 'border-teal-600 bg-teal-600' 
                           : 'border-gray-300'
                       }`}>
                         {currentAnswer?.option === 'OTHER' && (
-                          <div className="w-2 h-2 rounded-full bg-white"></div>
+                          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
                         )}
                       </div>
-                      <div className="flex-1">
-                        <div className="font-medium text-gray-900 mb-2">Other (Requires Review)</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-gray-900 mb-2 text-sm sm:text-base">Other (Requires Review)</div>
                         <Textarea
                           id="other-text-input"
                           placeholder="Please describe your specific situation or approach..."
@@ -625,13 +625,13 @@ function AssessmentPage() {
                               // This will trigger the selection without calling the API yet
                             }
                           }}
-                          className="min-h-[80px] focus:ring-teal focus:border-teal-500"
+                          className="min-h-[60px] sm:min-h-[80px] focus:ring-teal focus:border-teal-500 text-sm sm:text-base"
                           data-testid="other-text-input"
                         />
                         {otherText.trim() && (
                           <Button
                             onClick={() => handleOptionSelect('OTHER')}
-                            className="mt-2 bg-teal-600 hover:bg-teal-700"
+                            className="mt-2 bg-teal-600 hover:bg-teal-700 text-sm sm:text-base"
                             size="sm"
                             data-testid="save-other-btn"
                           >
