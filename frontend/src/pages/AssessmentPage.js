@@ -474,6 +474,7 @@ function AssessmentPage() {
                       </div>
                     );
                   })}
+                  </div>
                 </div>
               </CardContent>
             </Card>
