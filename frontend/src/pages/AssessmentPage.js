@@ -451,7 +451,7 @@ function AssessmentPage() {
                 </div>
                 
                 {currentQuestion.explanation && (
-                  <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                  <div className="mt-2 sm:mt-3 p-2 sm:p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
                     <p className="text-sm sm:text-base text-blue-800">
                       <strong>Context:</strong> {currentQuestion.explanation}
                     </p>
