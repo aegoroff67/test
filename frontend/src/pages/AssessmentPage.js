@@ -646,30 +646,61 @@ function AssessmentPage() {
                   </div>
                 </div>
 
-                {/* Notes Section */}
-                <div className="space-y-1.5 sm:space-y-2">
-                  <Label htmlFor="note" className="text-sm sm:text-base font-medium text-gray-900">
-                    Additional Notes (Optional)
+                {/* Evidence Upload Section */}
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium text-gray-900 flex items-center">
+                    <svg className="h-3 w-3 mr-1 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                    </svg>
+                    Upload Evidence (Optional)
                   </Label>
-                  <Textarea
-                    id="note"
-                    placeholder="Add any relevant details, context, or explanations..."
-                    value={note}
-                    onChange={(e) => handleNoteChange(e.target.value)}
-                    className="min-h-[60px] sm:min-h-[80px] focus:ring-teal focus:border-teal-500 text-sm sm:text-base compact-textarea"
-                    data-testid="question-note-textarea"
-                  />
-                  {note !== (currentAnswer?.note || '') && (
-                    <Button 
-                      onClick={handleNoteSave}
-                      disabled={saving}
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="file"
+                      id="evidence-upload"
+                      multiple
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xlsx,.xls"
+                      className="hidden"
+                      onChange={(e) => handleFileUpload(e.target.files)}
+                      data-testid="evidence-upload-input"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
                       size="sm"
-                      className="bg-teal-600 hover:bg-teal-700 text-sm sm:text-base"
-                      data-testid="save-note-btn"
+                      onClick={() => document.getElementById('evidence-upload')?.click()}
+                      className="text-xs px-2 py-1 h-7"
+                      data-testid="evidence-upload-btn"
                     >
-                      <Save className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
-                      {saving ? 'Saving...' : 'Save Note'}
+                      <svg className="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      Choose Files
                     </Button>
+                    {uploadedFiles?.length > 0 && (
+                      <span className="text-xs text-green-600 font-medium">
+                        {uploadedFiles.length} file{uploadedFiles.length > 1 ? 's' : ''} uploaded
+                      </span>
+                    )}
+                  </div>
+                  {uploadedFiles?.length > 0 && (
+                    <div className="mt-1">
+                      <div className="flex flex-wrap gap-1">
+                        {uploadedFiles.map((file, index) => (
+                          <span key={index} className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-teal-50 text-teal-700 border border-teal-200">
+                            {file.name}
+                            <button
+                              onClick={() => removeFile(index)}
+                              className="ml-1 text-teal-500 hover:text-teal-700"
+                            >
+                              <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   )}
                 </div>
               </CardContent>
