@@ -564,7 +564,7 @@ function AssessmentPage() {
                   
                   {/* Non-Ideal Option */}
                   <div
-                    className={`custom-radio ${currentAnswer?.option === 'NON_IDEAL' ? 'selected' : ''} p-3 sm:p-4`}
+                    className={`custom-radio ${currentAnswer?.option === 'NON_IDEAL' ? 'selected' : ''} p-2 sm:p-3`}
                     onClick={() => handleOptionSelect('NON_IDEAL')}
                     data-testid="answer-option-non-ideal"
                   >
