@@ -344,7 +344,7 @@ function AssessmentPage() {
               </div>
               <div className="min-w-0">
                 <h1 className="text-sm sm:text-lg font-bold text-gray-900 truncate">AM AI SAFE</h1>
-                <p className="text-xs text-teal-600 hidden sm:block">Assessment in Progress</p>
+                <p className="text-xs text-teal-600 hidden sm:block">EMPOWERING TRUST IN AI</p>
               </div>
             </div>
 
