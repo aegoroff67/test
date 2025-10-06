@@ -478,7 +478,7 @@ function ResultsPage() {
               <span>Assessment Heatmap</span>
             </h2>
             
-            <div className="space-y-2" data-testid="assessment-heatmap">
+            <div className="space-y-1" data-testid="assessment-heatmap">
               {[...summary.domain_scores]
                 .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
                 .map((domain) => {
