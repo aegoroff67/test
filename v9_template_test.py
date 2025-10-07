@@ -108,7 +108,15 @@ class V9TemplateAPITester:
 
         if question_count >= 88:
             self.log_test("Complete assessment (88 questions)", True)
-            return True
+            
+            # Submit the assessment to mark it as completed
+            success, response = self.make_request('POST', f'assessments/{self.assessment_id}/submit')
+            if success:
+                self.log_test("Submit completed assessment", True)
+                return True
+            else:
+                self.log_test("Submit completed assessment", False, str(response))
+                return False
         else:
             self.log_test("Complete assessment (88 questions)", False, f"Only answered {question_count}")
             return False
