@@ -437,11 +437,11 @@ class AMReportGenerator:
                            ha='center', va='center', color='white', 
                            fontsize=10, fontweight='bold')
             
-            # Add domain name and percentage on the left (like in screenshot)
-            ax.text(-0.5, row_pos+0.3, domain_name, 
-                   ha='right', va='center', fontsize=10, fontweight='normal')
-            ax.text(-0.5, row_pos+0.7, f'({percentage:.1f}%)', 
-                   ha='right', va='center', fontsize=8, color='gray')
+            # Add domain name aligned left with percentage immediately to the right on same line
+            ax.text(-1.9, row_pos+0.5, domain_name, 
+                   ha='left', va='center', fontsize=10, fontweight='normal')
+            ax.text(-1.9 + len(domain_name) * 0.08, row_pos+0.5, f' ({percentage:.1f}%)', 
+                   ha='left', va='center', fontsize=8, color='gray')
         
         # Set axis properties to match screenshot layout
         ax.set_xlim(-2, 8)
