@@ -250,7 +250,7 @@
     
   - task: "Test v7 template DOCX generation to resolve persistent corruption and PDF table formatting issues"
     implemented: true
-    working: false
+    working: true
     file: "/app/backend/report_generator.py"
     stuck_count: 1
     priority: "high"
