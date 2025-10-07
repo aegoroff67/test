@@ -5546,6 +5546,17 @@ class AMSafeAPITester:
         self.test_file_integrity_verification_corruption_fix()
         self.test_backend_error_monitoring_corruption_fix()
         
+        # CRITICAL: Test for coroutine/async errors in report generation (REVIEW REQUEST FOCUS)
+        print("\n" + "🚨" * 20 + " COROUTINE/ASYNC ERROR INVESTIGATION " + "🚨" * 20)
+        print("CRITICAL INVESTIGATION: Testing for coroutine/async errors in report generation:")
+        print("1. Looking for 'object of type 'coroutine' has no len()' error")
+        print("2. Testing both DOCX and PDF generation endpoints")
+        print("3. Monitoring backend logs for async/sync mismatches")
+        print("4. Testing rapid sequential requests to trigger race conditions")
+        print("=" * 80)
+        
+        self.test_report_generation_coroutine_investigation()
+        
         # Print results
         print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
