@@ -966,9 +966,6 @@ Each cell represents the score for a specific question, enabling identification 
             # Render the template - this will preserve all original fonts, colors, margins, layout
             doc.render(template_context)
             
-            # Populate recommendation tables programmatically (for v7 template)
-            self._populate_recommendation_tables(doc, report_data)
-            
             # Save to bytes
             output_buffer = io.BytesIO()
             doc.save(output_buffer)
