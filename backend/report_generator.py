@@ -189,7 +189,7 @@ class AMReportGenerator:
                 print(f"Cleanup error: {cleanup_error}")
                 # Don't raise cleanup errors
                 
-    def _generate_pdf_fallback(self, original_docx_bytes: bytes) -> bytes:
+    def _generate_pdf_fallback(self, report_data: Dict[str, Any], questions_data: List[Dict[str, Any]]) -> bytes:
         """Generate PDF using DOCX template without InlineImage (fallback for LibreOffice compatibility)."""
         import tempfile
         import subprocess
@@ -200,23 +200,32 @@ class AMReportGenerator:
             # Create a simplified DOCX without InlineImage for PDF conversion
             doc = DocxTemplate(self.template_path)
             
-            # Create simplified context without heatmap image
-            simple_context = {
-                'org': {'name': 'Organization'},
-                'assessment': {'date': '2025-10-07'},
-                'overall': {'score': '75.0', 'tier': 'Good'},
+            # Use the same report data but without InlineImage
+            template_context = {
+                'org': report_data.get('org', {}),
+                'assessment': report_data.get('assessment', {}),
+                'overall': report_data.get('overall', {}),
                 'assets': {
-                    'heatmapUrl': '[Heatmap image available in DOCX format]'  # Text placeholder
+                    'heatmapUrl': '[Heatmap image not available in PDF format - please use DOCX for full visualization]'  # Text placeholder
                 },
-                'actions': {
-                    'high': [{'domain': 'Sample Domain', 'question_id': 'TEST-01', 'text': 'Sample high priority recommendation'}],
-                    'medium': [{'domain': 'Sample Domain', 'question_id': 'TEST-02', 'text': 'Sample medium priority recommendation'}],
-                    'low': [{'domain': 'Sample Domain', 'question_id': 'TEST-03', 'text': 'Sample low priority recommendation'}]
-                }
+                'actions': report_data.get('actions', {}),
+                
+                # Additional content sections with real data
+                'executive_summary': self._generate_comprehensive_executive_summary(report_data),
+                'assessment_methodology': self._generate_assessment_methodology(),
+                'domain_analysis': self._generate_domain_analysis(report_data),
+                'key_findings': self._generate_key_findings(report_data),
+                'implementation_roadmap': self._generate_implementation_roadmap(report_data),
+                
+                # Helper function for date formatting
+                'formatDate': self.format_date
             }
             
+            print(f"Fallback PDF: Using real data for org: {template_context['org'].get('name', 'Unknown')}")
+            print(f"Fallback PDF: Actions - High: {len(template_context['actions'].get('high', []))}, Medium: {len(template_context['actions'].get('medium', []))}, Low: {len(template_context['actions'].get('low', []))}")
+            
             # Render without InlineImage
-            doc.render(simple_context)
+            doc.render(template_context)
             
             # Save to temporary file
             with tempfile.NamedTemporaryFile(suffix='.docx', delete=False) as temp_docx:
@@ -243,6 +252,7 @@ class AMReportGenerator:
                     pdf_bytes = pdf_file.read()
                 
                 if pdf_bytes.startswith(b'%PDF'):
+                    print(f"Fallback PDF generation successful: {len(pdf_bytes)} bytes")
                     return pdf_bytes
             
             return None
