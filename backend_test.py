@@ -5640,6 +5640,220 @@ class AMSafeAPITester:
             print(f"   ❌ Could not submit assessment: {response}")
             return False
 
+    def test_report_generation_after_string_int_fixes(self):
+        """Test AM AI SAFE report generation after fixing string/integer comparison issues"""
+        print("\n🔍 TESTING REPORT GENERATION AFTER STRING/INT FIXES")
+        print("-" * 60)
+        
+        # Create a new assessment for report testing
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for report test", False, str(response))
+            return False
+            
+        report_assessment_id = response['id']
+        self.log_test("Create assessment for report test", True)
+        
+        # Get all questions and answer them to complete the assessment
+        success, response = self.make_request('GET', f'assessments/{report_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for report test", False, str(response))
+            return False
+            
+        # Answer all questions with varied responses to test type conversion
+        all_questions = []
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+        
+        # Use different answer patterns to test string/int comparison fixes
+        answer_options = ['IDEAL', 'GOOD', 'BASIC', 'NON_IDEAL']
+        
+        for i, question in enumerate(all_questions):
+            option = answer_options[i % len(answer_options)]
+            answer_data = {
+                "question_id": question['id'],
+                "option": option,
+                "note": f"Test answer {i+1} for report generation"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{report_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer question {i+1} for report", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered all {len(all_questions)} questions for report test", True)
+        
+        # Submit the assessment to mark it as completed
+        success, _ = self.make_request('POST', f'assessments/{report_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for report test", False, "Failed to submit assessment")
+            return False
+            
+        self.log_test("Submit assessment for report test", True)
+        
+        # Test DOCX report generation endpoint
+        print("\n📄 Testing DOCX Report Generation...")
+        url = f"{self.api_url}/assessments/{report_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code == 200:
+                self.log_test("DOCX Report Generation API Returns 200 OK", True)
+                
+                # Check content type
+                content_type = response.headers.get('content-type', '')
+                expected_docx_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                if expected_docx_type in content_type:
+                    self.log_test("DOCX Report Has Correct MIME Type", True)
+                else:
+                    self.log_test("DOCX Report Has Correct MIME Type", False, f"Got: {content_type}")
+                
+                # Check file size (should be substantial, not corrupted)
+                file_size = len(response.content)
+                if file_size > 100000:  # > 100KB indicates substantial content
+                    self.log_test("DOCX Report Has Substantial File Size", True, f"Size: {file_size} bytes")
+                else:
+                    self.log_test("DOCX Report Has Substantial File Size", False, f"Size: {file_size} bytes (expected >100KB)")
+                
+                # Check if file is valid DOCX (ZIP-based format)
+                if response.content.startswith(b'PK'):  # ZIP file signature
+                    self.log_test("DOCX Report Has Valid ZIP Structure", True)
+                else:
+                    self.log_test("DOCX Report Has Valid ZIP Structure", False, "Not a valid ZIP file")
+                
+                # Check content-disposition header for download
+                content_disposition = response.headers.get('content-disposition', '')
+                if 'attachment' in content_disposition and 'filename' in content_disposition:
+                    self.log_test("DOCX Report Has Download Headers", True)
+                else:
+                    self.log_test("DOCX Report Has Download Headers", False, f"Got: {content_disposition}")
+                    
+            else:
+                self.log_test("DOCX Report Generation API Returns 200 OK", False, f"Status: {response.status_code}, Body: {response.text[:200]}")
+                
+        except Exception as e:
+            self.log_test("DOCX Report Generation API", False, f"Exception: {str(e)}")
+        
+        # Test PDF report generation endpoint
+        print("\n📄 Testing PDF Report Generation...")
+        url = f"{self.api_url}/assessments/{report_assessment_id}/report/pdf"
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code == 200:
+                self.log_test("PDF Report Generation API Returns 200 OK", True)
+                
+                # Check content type
+                content_type = response.headers.get('content-type', '')
+                if 'application/pdf' in content_type:
+                    self.log_test("PDF Report Has Correct MIME Type", True)
+                else:
+                    self.log_test("PDF Report Has Correct MIME Type", False, f"Got: {content_type}")
+                
+                # Check file size
+                file_size = len(response.content)
+                if file_size > 100000:  # > 100KB indicates substantial content
+                    self.log_test("PDF Report Has Substantial File Size", True, f"Size: {file_size} bytes")
+                else:
+                    self.log_test("PDF Report Has Substantial File Size", False, f"Size: {file_size} bytes (expected >100KB)")
+                
+                # Check if file is valid PDF
+                if response.content.startswith(b'%PDF'):
+                    self.log_test("PDF Report Has Valid PDF Structure", True)
+                else:
+                    self.log_test("PDF Report Has Valid PDF Structure", False, "Not a valid PDF file")
+                
+                # Check for PDF end marker
+                if b'%%EOF' in response.content:
+                    self.log_test("PDF Report Has Valid End Marker", True)
+                else:
+                    self.log_test("PDF Report Has Valid End Marker", False, "Missing %%EOF marker")
+                    
+            else:
+                self.log_test("PDF Report Generation API Returns 200 OK", False, f"Status: {response.status_code}, Body: {response.text[:200]}")
+                
+        except Exception as e:
+            self.log_test("PDF Report Generation API", False, f"Exception: {str(e)}")
+        
+        # Test error handling for incomplete assessment
+        print("\n🔍 Testing Error Handling...")
+        
+        # Create incomplete assessment
+        success, response = self.make_request('POST', 'assessments', {})
+        if success:
+            incomplete_id = response['id']
+            
+            # Try to generate report for incomplete assessment
+            url = f"{self.api_url}/assessments/{incomplete_id}/report"
+            try:
+                response = requests.get(url, headers=headers, timeout=30)
+                if response.status_code in [400, 500]:
+                    self.log_test("Incomplete Assessment Report Returns Error", True, f"Status: {response.status_code}")
+                else:
+                    self.log_test("Incomplete Assessment Report Returns Error", False, f"Should return error, got: {response.status_code}")
+            except Exception as e:
+                self.log_test("Incomplete Assessment Report Error Test", False, f"Exception: {str(e)}")
+        
+        # Test authentication error
+        print("\n🔍 Testing Authentication...")
+        url = f"{self.api_url}/assessments/{report_assessment_id}/report"
+        try:
+            response = requests.get(url, timeout=30)  # No auth header
+            if response.status_code in [401, 403]:
+                self.log_test("Unauthenticated Report Request Returns 401/403", True)
+            else:
+                self.log_test("Unauthenticated Report Request Returns 401/403", False, f"Got: {response.status_code}")
+        except Exception as e:
+            self.log_test("Authentication Error Test", False, f"Exception: {str(e)}")
+        
+        return True
+
+    def test_template_processing_verification(self):
+        """Test that template processing works without string/int comparison errors"""
+        print("\n🔍 TESTING TEMPLATE PROCESSING VERIFICATION")
+        print("-" * 60)
+        
+        # Check backend logs for any string/int comparison errors
+        try:
+            # Check supervisor backend logs
+            result = subprocess.run(['tail', '-n', '100', '/var/log/supervisor/backend.err.log'], 
+                                  capture_output=True, text=True, timeout=10)
+            
+            if result.returncode == 0:
+                log_content = result.stdout
+                
+                # Look for string/int comparison errors
+                error_patterns = [
+                    "'>=' not supported between instances of 'str' and 'int'",
+                    "'<=' not supported between instances of 'str' and 'int'",
+                    "'>' not supported between instances of 'str' and 'int'",
+                    "'<' not supported between instances of 'str' and 'int'",
+                    "TypeError: unsupported operand type(s)",
+                    "can't compare str and int"
+                ]
+                
+                errors_found = []
+                for pattern in error_patterns:
+                    if pattern in log_content:
+                        errors_found.append(pattern)
+                
+                if not errors_found:
+                    self.log_test("No String/Int Comparison Errors in Backend Logs", True)
+                else:
+                    self.log_test("No String/Int Comparison Errors in Backend Logs", False, f"Found: {errors_found}")
+                    
+            else:
+                self.log_test("Backend Log Check", False, "Could not read backend logs")
+                
+        except Exception as e:
+            self.log_test("Backend Log Check", False, f"Exception: {str(e)}")
+        
+        return True
+
     def run_all_tests(self):
         """Run comprehensive test suite including DOCX report generation testing"""
         print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
