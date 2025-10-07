@@ -6416,50 +6416,78 @@ class AMSafeAPITester:
 def main():
     tester = AMSafeAPITester()
     
-    try:
-        print("🎯 AM AI SAFE REPORT GENERATION TESTING - NEW TEMPLATE v8")
-        print("=" * 80)
-        print("Testing the updated report generation system with AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx")
-        print("=" * 80)
+    # Check if specific test argument is provided
+    if len(sys.argv) > 1:
+        test_type = sys.argv[1].lower()
         
-        # Run authentication first
-        if not tester.test_user_signup_and_login():
-            print("❌ Authentication failed, stopping tests")
-            return 1
-        
-        # Run basic system verification
-        print("\n🔧 BASIC SYSTEM VERIFICATION")
-        print("=" * 60)
-        if not tester.test_domains_and_questions_structure():
-            print("❌ Basic system verification failed")
-            return 1
-        
-        if not tester.test_assessment_creation():
-            print("❌ Assessment creation failed")
-            return 1
-        
-        # Run the comprehensive new template test (MAIN FOCUS)
-        print("\n🎯 NEW TEMPLATE v8 COMPREHENSIVE TESTING")
-        print("=" * 60)
-        success = tester.test_new_template_v8_comprehensive()
-        
-        # Print final results
-        tester.print_summary()
-        
-        if success:
-            print("\n✅ NEW TEMPLATE v8 TESTING COMPLETED SUCCESSFULLY")
-            print("🎉 The AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx template is working correctly!")
+        if test_type == "docx":
+            print("🎯 Running DOCX Report Generation Tests Only")
+            success = tester.run_docx_tests_only()
+        elif test_type == "docx-fix":
+            print("🎯 Running DOCX Corruption Fix Tests Only")
+            success = tester.run_docx_corruption_fix_tests()
+        elif test_type == "pdf":
+            print("🎯 Running PDF Report Generation Tests Only")
+            success = tester.run_pdf_tests_only()
+        elif test_type == "submit":
+            print("🎯 Running Submit Assessment Issue Investigation")
+            success = tester.run_specific_fix_tests()
+        elif test_type == "v8":
+            # Original v8 template testing
+            try:
+                print("🎯 AM AI SAFE REPORT GENERATION TESTING - NEW TEMPLATE v8")
+                print("=" * 80)
+                print("Testing the updated report generation system with AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx")
+                print("=" * 80)
+                
+                # Run authentication first
+                if not tester.test_user_signup_and_login():
+                    print("❌ Authentication failed, stopping tests")
+                    return 1
+                
+                # Run basic system verification
+                print("\n🔧 BASIC SYSTEM VERIFICATION")
+                print("=" * 60)
+                if not tester.test_domains_and_questions_structure():
+                    print("❌ Basic system verification failed")
+                    return 1
+                
+                if not tester.test_assessment_creation():
+                    print("❌ Assessment creation failed")
+                    return 1
+                
+                # Run the comprehensive new template test (MAIN FOCUS)
+                print("\n🎯 NEW TEMPLATE v8 COMPREHENSIVE TESTING")
+                print("=" * 60)
+                success = tester.test_new_template_v8_comprehensive()
+                
+                # Print final results
+                tester.print_summary()
+                
+                if success:
+                    print("\n✅ NEW TEMPLATE v8 TESTING COMPLETED SUCCESSFULLY")
+                    print("🎉 The AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx template is working correctly!")
+                else:
+                    print("\n❌ NEW TEMPLATE v8 TESTING FAILED")
+                    print("⚠️  Issues found with the new template implementation")
+                
+                return 0 if success else 1
+                
+            except Exception as e:
+                print(f"❌ Test execution failed: {str(e)}")
+                import traceback
+                traceback.print_exc()
+                return 1
         else:
-            print("\n❌ NEW TEMPLATE v8 TESTING FAILED")
-            print("⚠️  Issues found with the new template implementation")
-        
-        return 0 if success else 1
-        
-    except Exception as e:
-        print(f"❌ Test execution failed: {str(e)}")
-        import traceback
-        traceback.print_exc()
-        return 1
+            print("❌ Unknown test type. Available options: docx, docx-fix, pdf, submit, v8")
+            print("Usage: python backend_test.py [docx|docx-fix|pdf|submit|v8]")
+            return 1
+    else:
+        # Run DOCX corruption fix tests by default for this review request
+        success = tester.run_docx_corruption_fix_tests()
+    
+    # Return appropriate exit code
+    return 0 if success else 1
 
     def test_v8_template_docx_generation(self):
         """Test v8 template DOCX generation with proper table row iteration"""
