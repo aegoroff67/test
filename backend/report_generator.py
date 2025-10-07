@@ -430,14 +430,12 @@ class AMReportGenerator:
                                        linewidth=1, edgecolor='white', facecolor=color)
                 ax.add_patch(rect)
                 
-                # Add question code and score text (white text on colored background)
+                # Add question code text (white text on colored background)
+                # Score numbers removed as color coding makes them redundant
                 if question_code != 'N/A':
-                    ax.text(j+0.5, row_pos+0.3, question_code, 
+                    ax.text(j+0.5, row_pos+0.5, question_code, 
                            ha='center', va='center', color='white', 
-                           fontsize=8, fontweight='bold')
-                    ax.text(j+0.5, row_pos+0.7, str(score), 
-                           ha='center', va='center', color='white', 
-                           fontsize=8, fontweight='bold')
+                           fontsize=10, fontweight='bold')
             
             # Add domain name and percentage on the left (like in screenshot)
             ax.text(-0.5, row_pos+0.3, domain_name, 
