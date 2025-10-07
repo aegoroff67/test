@@ -4645,6 +4645,15 @@ class AMSafeAPITester:
         self.test_report_generation_heatmap_accuracy()
         self.test_pdf_generation_failure_investigation()
         
+        # MAIN FOCUS: Test report generation after LibreOffice installation
+        print("\n" + "🎯" * 20 + " LIBREOFFICE INSTALLATION TESTING " + "🎯" * 20)
+        print("Testing report generation system after LibreOffice installation:")
+        print("1. PDF Generation - Should now work after LibreOffice installation")
+        print("2. Heatmap Data Accuracy - Double-check heatmaps show correct assessment data")
+        print("=" * 80)
+        
+        self.test_report_generation_after_libreoffice_install()
+        
         # Print results
         print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
