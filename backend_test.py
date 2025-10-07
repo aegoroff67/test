@@ -4978,7 +4978,8 @@ class AMSafeAPITester:
             all_questions.extend(questions)
         
         # Answer questions with varied responses to create interesting heatmap
-        answer_patterns = ['NON_IDEAL', 'BASIC', 'GOOD', 'IDEAL']  # This will create varied colors
+        # Use different patterns for different domains to create varied scores
+        answer_patterns = ['NON_IDEAL', 'NON_IDEAL', 'BASIC', 'GOOD', 'GOOD', 'IDEAL', 'IDEAL', 'IDEAL']
         
         for i, question in enumerate(all_questions):
             option = answer_patterns[i % len(answer_patterns)]
