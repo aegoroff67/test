@@ -915,8 +915,8 @@ Each cell represents the score for a specific question, enabling identification 
             # Load the template
             doc = DocxTemplate(self.template_path)
             
-            # Create inline image for heatmap - preserve original sizing in template
-            heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(5.5))
+            # Create inline image for heatmap - set to requested width
+            heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(6.27))
             
             # Prepare template context matching the exact template structure and placeholders
             template_context = {
