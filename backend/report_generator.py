@@ -922,7 +922,7 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 # Assets (heatmap image) - generate and embed properly  
                 'assets': {
-                    'heatmapUrl': self._create_heatmap_for_template(heatmap_image) if heatmap_image else 'HEATMAP_IMAGE_PLACEHOLDER'
+                    'heatmapUrl': self._create_heatmap_for_template(doc, heatmap_image) if heatmap_image else None
                 },
                 
                 # Actions for working template with separate priority arrays
