@@ -4397,6 +4397,16 @@ class AMSafeAPITester:
         self.test_table_row_verification_detailed()
         self.test_priority_mapping_verification()
         
+        # SPECIFIC TESTS FOR REVIEW REQUEST ISSUES
+        print("\n" + "🔍" * 20 + " REVIEW REQUEST ISSUE TESTING " + "🔍" * 20)
+        print("Testing specific issues reported in the review request:")
+        print("1. Heatmap Data Accuracy - Verify correct assessment data in heatmaps")
+        print("2. PDF Generation Failure - Identify and diagnose PDF conversion issues")
+        print("=" * 80)
+        
+        self.test_report_generation_heatmap_accuracy()
+        self.test_pdf_generation_failure_investigation()
+        
         # Print results
         print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
