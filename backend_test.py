@@ -4830,6 +4830,401 @@ class AMSafeAPITester:
             self.log_test("PDF Report Generation with Heatmap", False, str(response))
             return False
 
+    def test_report_generation_docx_corruption_fix(self):
+        """Test DOCX report generation for file corruption fix verification (Review Request Focus)"""
+        print("\n🔍 TESTING DOCX REPORT GENERATION - FILE CORRUPTION FIX")
+        print("-" * 60)
+        
+        if not self.assessment_id:
+            self.log_test("DOCX Report Generation", False, "No assessment ID available")
+            return False
+        
+        # First complete the assessment to enable report generation
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if success and response:
+            # Answer all questions to complete assessment
+            for domain_data in response:
+                questions = domain_data.get('questions', [])
+                for question in questions:
+                    answer_data = {
+                        "question_id": question['id'],
+                        "option": "GOOD",
+                        "note": "Test answer for report generation"
+                    }
+                    self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
+            
+            # Submit the assessment
+            self.make_request('POST', f'assessments/{self.assessment_id}/submit')
+            self.log_test("Assessment completed for report generation", True)
+        
+        # Test DOCX report generation endpoint
+        url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, stream=True)
+            
+            # Check HTTP status
+            if response.status_code == 200:
+                self.log_test("DOCX Report Generation - HTTP 200 OK", True)
+            else:
+                self.log_test("DOCX Report Generation - HTTP 200 OK", False, f"Got {response.status_code}")
+                return False
+            
+            # Check MIME type
+            content_type = response.headers.get('content-type', '')
+            expected_mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            if expected_mime in content_type:
+                self.log_test("DOCX Report - Correct MIME Type", True)
+            else:
+                self.log_test("DOCX Report - Correct MIME Type", False, f"Got {content_type}")
+            
+            # Check Content-Disposition header
+            content_disposition = response.headers.get('content-disposition', '')
+            if 'attachment' in content_disposition and 'filename' in content_disposition:
+                self.log_test("DOCX Report - Download Headers Present", True)
+            else:
+                self.log_test("DOCX Report - Download Headers Present", False, f"Got {content_disposition}")
+            
+            # Get file content
+            docx_content = response.content
+            file_size = len(docx_content)
+            
+            # Check file size (should be substantial, not empty)
+            if file_size > 10000:  # At least 10KB
+                self.log_test(f"DOCX Report - Substantial File Size ({file_size} bytes)", True)
+            else:
+                self.log_test(f"DOCX Report - Substantial File Size ({file_size} bytes)", False, "File too small")
+            
+            # Verify DOCX file structure (ZIP-based format)
+            if docx_content.startswith(b'PK'):
+                self.log_test("DOCX Report - Valid ZIP-based Structure", True)
+            else:
+                self.log_test("DOCX Report - Valid ZIP-based Structure", False, "Not a valid ZIP file")
+                return False
+            
+            # Test ZIP file integrity
+            import zipfile
+            import io
+            try:
+                with zipfile.ZipFile(io.BytesIO(docx_content), 'r') as zip_file:
+                    # Check for essential DOCX files
+                    file_list = zip_file.namelist()
+                    essential_files = ['word/document.xml', '[Content_Types].xml', 'word/_rels/document.xml.rels']
+                    
+                    missing_files = [f for f in essential_files if f not in file_list]
+                    if not missing_files:
+                        self.log_test("DOCX Report - Essential Files Present", True)
+                    else:
+                        self.log_test("DOCX Report - Essential Files Present", False, f"Missing: {missing_files}")
+                    
+                    # Check for media files (heatmap images)
+                    media_files = [f for f in file_list if f.startswith('word/media/')]
+                    if media_files:
+                        self.log_test(f"DOCX Report - Media Files Present ({len(media_files)} files)", True)
+                    else:
+                        self.log_test("DOCX Report - Media Files Present", False, "No media files found")
+                    
+                    # Test file corruption by trying to read document.xml
+                    try:
+                        document_xml = zip_file.read('word/document.xml')
+                        if b'<?xml' in document_xml and b'</w:document>' in document_xml:
+                            self.log_test("DOCX Report - Document XML Valid", True)
+                        else:
+                            self.log_test("DOCX Report - Document XML Valid", False, "Invalid XML structure")
+                    except Exception as e:
+                        self.log_test("DOCX Report - Document XML Valid", False, f"XML read error: {str(e)}")
+                        
+            except zipfile.BadZipFile:
+                self.log_test("DOCX Report - ZIP File Integrity", False, "Corrupted ZIP file")
+                return False
+            except Exception as e:
+                self.log_test("DOCX Report - ZIP File Integrity", False, f"ZIP error: {str(e)}")
+                return False
+            
+            self.log_test("DOCX Report - ZIP File Integrity", True)
+            return True
+            
+        except Exception as e:
+            self.log_test("DOCX Report Generation", False, f"Request error: {str(e)}")
+            return False
+
+    def test_report_generation_pdf_corruption_fix(self):
+        """Test PDF report generation for file corruption fix verification (Review Request Focus)"""
+        print("\n🔍 TESTING PDF REPORT GENERATION - FILE CORRUPTION FIX")
+        print("-" * 60)
+        
+        if not self.assessment_id:
+            self.log_test("PDF Report Generation", False, "No assessment ID available")
+            return False
+        
+        # Test PDF report generation endpoint
+        url = f"{self.api_url}/assessments/{self.assessment_id}/report/pdf"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, stream=True)
+            
+            # Check HTTP status
+            if response.status_code == 200:
+                self.log_test("PDF Report Generation - HTTP 200 OK", True)
+            else:
+                self.log_test("PDF Report Generation - HTTP 200 OK", False, f"Got {response.status_code}")
+                return False
+            
+            # Check MIME type
+            content_type = response.headers.get('content-type', '')
+            if 'application/pdf' in content_type:
+                self.log_test("PDF Report - Correct MIME Type", True)
+            else:
+                self.log_test("PDF Report - Correct MIME Type", False, f"Got {content_type}")
+                # Check if it's returning DOCX instead of PDF (common issue)
+                if 'wordprocessingml' in content_type:
+                    self.log_test("PDF Report - LibreOffice Conversion Issue", False, "Returning DOCX instead of PDF")
+            
+            # Check Content-Disposition header
+            content_disposition = response.headers.get('content-disposition', '')
+            if 'attachment' in content_disposition and 'filename' in content_disposition:
+                self.log_test("PDF Report - Download Headers Present", True)
+            else:
+                self.log_test("PDF Report - Download Headers Present", False, f"Got {content_disposition}")
+            
+            # Get file content
+            pdf_content = response.content
+            file_size = len(pdf_content)
+            
+            # Check file size (should be substantial, not empty)
+            if file_size > 10000:  # At least 10KB
+                self.log_test(f"PDF Report - Substantial File Size ({file_size} bytes)", True)
+            else:
+                self.log_test(f"PDF Report - Substantial File Size ({file_size} bytes)", False, "File too small")
+            
+            # Verify PDF file structure
+            if pdf_content.startswith(b'%PDF'):
+                self.log_test("PDF Report - Valid PDF Header", True)
+            else:
+                self.log_test("PDF Report - Valid PDF Header", False, "Not a valid PDF file")
+                # Check if it's actually a DOCX file
+                if pdf_content.startswith(b'PK'):
+                    self.log_test("PDF Report - LibreOffice Conversion Failed", False, "PDF endpoint returning DOCX content")
+                return False
+            
+            # Check for PDF end marker
+            if b'%%EOF' in pdf_content:
+                self.log_test("PDF Report - Valid PDF End Marker", True)
+            else:
+                self.log_test("PDF Report - Valid PDF End Marker", False, "Missing PDF end marker")
+            
+            # Test PDF structure integrity
+            try:
+                # Basic PDF validation - check for essential PDF objects
+                pdf_str = pdf_content.decode('latin-1', errors='ignore')
+                if '/Type /Catalog' in pdf_str and '/Type /Pages' in pdf_str:
+                    self.log_test("PDF Report - Essential PDF Objects Present", True)
+                else:
+                    self.log_test("PDF Report - Essential PDF Objects Present", False, "Missing essential PDF objects")
+            except Exception as e:
+                self.log_test("PDF Report - PDF Structure Validation", False, f"Validation error: {str(e)}")
+            
+            return True
+            
+        except Exception as e:
+            self.log_test("PDF Report Generation", False, f"Request error: {str(e)}")
+            return False
+
+    def test_heatmap_image_embedding_corruption_fix(self):
+        """Test heatmap image embedding in DOCX reports (Review Request Focus)"""
+        print("\n🔍 TESTING HEATMAP IMAGE EMBEDDING - CORRUPTION FIX")
+        print("-" * 60)
+        
+        if not self.assessment_id:
+            self.log_test("Heatmap Image Embedding Test", False, "No assessment ID available")
+            return False
+        
+        # Get DOCX report content
+        url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, stream=True)
+            if response.status_code != 200:
+                self.log_test("Get DOCX for Heatmap Test", False, f"HTTP {response.status_code}")
+                return False
+            
+            docx_content = response.content
+            
+            # Analyze DOCX content for heatmap images
+            import zipfile
+            import io
+            
+            with zipfile.ZipFile(io.BytesIO(docx_content), 'r') as zip_file:
+                file_list = zip_file.namelist()
+                
+                # Check for media files (images)
+                media_files = [f for f in file_list if f.startswith('word/media/')]
+                image_files = [f for f in media_files if any(ext in f.lower() for ext in ['.png', '.jpg', '.jpeg'])]
+                
+                if image_files:
+                    self.log_test(f"Heatmap Images Found ({len(image_files)} images)", True)
+                    
+                    # Check image file sizes
+                    for img_file in image_files:
+                        img_data = zip_file.read(img_file)
+                        img_size = len(img_data)
+                        if img_size > 1000:  # At least 1KB
+                            self.log_test(f"Image {img_file} - Valid Size ({img_size} bytes)", True)
+                        else:
+                            self.log_test(f"Image {img_file} - Valid Size ({img_size} bytes)", False, "Image too small")
+                else:
+                    self.log_test("Heatmap Images Found", False, "No image files in DOCX")
+                    return False
+                
+                # Check document.xml for image references
+                try:
+                    document_xml = zip_file.read('word/document.xml').decode('utf-8')
+                    
+                    # Look for image references in the XML
+                    if '<w:drawing>' in document_xml and '<a:blip' in document_xml:
+                        self.log_test("Image References in Document XML", True)
+                    else:
+                        self.log_test("Image References in Document XML", False, "No image references found")
+                    
+                    # Check for InlineImage Alt-Text replacement
+                    if 'heatmap' in document_xml.lower() or 'assessment' in document_xml.lower():
+                        self.log_test("Heatmap Alt-Text Present", True)
+                    else:
+                        self.log_test("Heatmap Alt-Text Present", False, "No heatmap alt-text found")
+                        
+                except Exception as e:
+                    self.log_test("Document XML Analysis", False, f"XML analysis error: {str(e)}")
+                
+                # Check relationships file for image links
+                try:
+                    rels_file = 'word/_rels/document.xml.rels'
+                    if rels_file in file_list:
+                        rels_xml = zip_file.read(rels_file).decode('utf-8')
+                        image_rels = rels_xml.count('Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"')
+                        if image_rels > 0:
+                            self.log_test(f"Image Relationships ({image_rels} relationships)", True)
+                        else:
+                            self.log_test("Image Relationships", False, "No image relationships found")
+                    else:
+                        self.log_test("Relationships File Present", False, "Missing relationships file")
+                        
+                except Exception as e:
+                    self.log_test("Relationships Analysis", False, f"Relationships error: {str(e)}")
+            
+            return True
+            
+        except Exception as e:
+            self.log_test("Heatmap Image Embedding Test", False, f"Error: {str(e)}")
+            return False
+
+    def test_backend_error_monitoring_corruption_fix(self):
+        """Test backend error monitoring during report generation (Review Request Focus)"""
+        print("\n🔍 TESTING BACKEND ERROR MONITORING - CORRUPTION FIX")
+        print("-" * 60)
+        
+        # Test with invalid assessment ID
+        invalid_id = "invalid-assessment-id-12345"
+        
+        # Test DOCX generation with invalid ID
+        success, response = self.make_request('GET', f'assessments/{invalid_id}/report', expected_status=404)
+        if success:
+            self.log_test("Invalid Assessment ID - DOCX Returns 404", True)
+        else:
+            self.log_test("Invalid Assessment ID - DOCX Returns 404", False, "Should return 404")
+        
+        # Test PDF generation with invalid ID
+        success, response = self.make_request('GET', f'assessments/{invalid_id}/report/pdf', expected_status=404)
+        if success:
+            self.log_test("Invalid Assessment ID - PDF Returns 404", True)
+        else:
+            self.log_test("Invalid Assessment ID - PDF Returns 404", False, "Should return 404")
+        
+        # Test with unauthenticated request
+        url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+        try:
+            response = requests.get(url)  # No auth headers
+            if response.status_code in [401, 403]:
+                self.log_test("Unauthenticated Request - Returns 401/403", True)
+            else:
+                self.log_test("Unauthenticated Request - Returns 401/403", False, f"Got {response.status_code}")
+        except Exception as e:
+            self.log_test("Unauthenticated Request Test", False, f"Request error: {str(e)}")
+        
+        return True
+
+    def test_file_integrity_verification_corruption_fix(self):
+        """Test comprehensive file integrity verification (Review Request Focus)"""
+        print("\n🔍 TESTING FILE INTEGRITY VERIFICATION - CORRUPTION FIX")
+        print("-" * 60)
+        
+        if not self.assessment_id:
+            self.log_test("File Integrity Verification", False, "No assessment ID available")
+            return False
+        
+        # Get both DOCX and PDF reports
+        docx_url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+        pdf_url = f"{self.api_url}/assessments/{self.assessment_id}/report/pdf"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            # Test DOCX integrity
+            docx_response = requests.get(docx_url, headers=headers)
+            if docx_response.status_code == 200:
+                docx_content = docx_response.content
+                
+                # DOCX integrity checks
+                import zipfile
+                import io
+                
+                try:
+                    with zipfile.ZipFile(io.BytesIO(docx_content), 'r') as zip_file:
+                        # Test ZIP file integrity
+                        bad_files = zip_file.testzip()
+                        if bad_files is None:
+                            self.log_test("DOCX File - ZIP Integrity Check", True)
+                        else:
+                            self.log_test("DOCX File - ZIP Integrity Check", False, f"Corrupted files: {bad_files}")
+                        
+                        # Check file completeness
+                        file_count = len(zip_file.namelist())
+                        if file_count > 10:  # Should have many files in a complete DOCX
+                            self.log_test(f"DOCX File - Complete Structure ({file_count} files)", True)
+                        else:
+                            self.log_test(f"DOCX File - Complete Structure ({file_count} files)", False, "Too few files")
+                            
+                except zipfile.BadZipFile:
+                    self.log_test("DOCX File - ZIP Integrity Check", False, "Corrupted ZIP structure")
+                except Exception as e:
+                    self.log_test("DOCX File - ZIP Integrity Check", False, f"ZIP error: {str(e)}")
+            
+            # Test PDF integrity
+            pdf_response = requests.get(pdf_url, headers=headers)
+            if pdf_response.status_code == 200:
+                pdf_content = pdf_response.content
+                
+                # PDF integrity checks
+                if pdf_content.startswith(b'%PDF') and pdf_content.endswith(b'%%EOF\n'):
+                    self.log_test("PDF File - Header and Footer Integrity", True)
+                elif pdf_content.startswith(b'%PDF') and b'%%EOF' in pdf_content:
+                    self.log_test("PDF File - Header and Footer Integrity", True)
+                else:
+                    self.log_test("PDF File - Header and Footer Integrity", False, "Invalid PDF structure")
+                
+                # Check PDF size consistency
+                if len(pdf_content) > len(docx_content) * 0.5:  # PDF should be reasonable size compared to DOCX
+                    self.log_test("PDF File - Size Consistency", True)
+                else:
+                    self.log_test("PDF File - Size Consistency", False, "PDF suspiciously small")
+            
+            return True
+            
+        except Exception as e:
+            self.log_test("File Integrity Verification", False, f"Error: {str(e)}")
+            return False
+
     def run_all_tests(self):
         """Run comprehensive test suite including DOCX report generation testing"""
         print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
