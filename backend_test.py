@@ -7,6 +7,8 @@ import subprocess
 import asyncio
 import traceback
 from datetime import datetime
+import zipfile
+import io
 
 class AMSafeAPITester:
     def __init__(self, base_url="https://reportgen-5.preview.emergentagent.com"):
