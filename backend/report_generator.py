@@ -962,6 +962,10 @@ Each cell represents the score for a specific question, enabling identification 
             # Helper function for date formatting in template
             template_context['formatDate'] = self.format_date
             
+            # Add heatmap image after template is loaded
+            if heatmap_image:
+                template_context['assets']['heatmapUrl'] = self._create_heatmap_for_template(doc, heatmap_image)
+            
             # Render the template - this will preserve all original fonts, colors, margins, layout
             doc.render(template_context)
             
