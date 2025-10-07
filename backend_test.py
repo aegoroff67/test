@@ -4978,21 +4978,39 @@ class AMSafeAPITester:
             all_questions.extend(questions)
         
         # Answer questions with varied responses to create interesting heatmap
-        # Use different patterns for different domains to create varied scores
-        answer_patterns = ['NON_IDEAL', 'NON_IDEAL', 'BASIC', 'GOOD', 'GOOD', 'IDEAL', 'IDEAL', 'IDEAL']
+        # Create different patterns for different domains to ensure varied scores
+        domain_patterns = [
+            ['NON_IDEAL'] * 8,  # Domain 1: All 0s (0%)
+            ['NON_IDEAL'] * 6 + ['BASIC'] * 2,  # Domain 2: Mostly 0s, some 1s (12.5%)
+            ['BASIC'] * 8,  # Domain 3: All 1s (33.3%)
+            ['BASIC'] * 4 + ['GOOD'] * 4,  # Domain 4: Mix of 1s and 2s (50%)
+            ['GOOD'] * 8,  # Domain 5: All 2s (66.7%)
+            ['GOOD'] * 4 + ['IDEAL'] * 4,  # Domain 6: Mix of 2s and 3s (83.3%)
+            ['IDEAL'] * 8,  # Domain 7: All 3s (100%)
+            ['NON_IDEAL'] * 2 + ['GOOD'] * 6,  # Domain 8: Mix (62.5%)
+            ['BASIC'] * 2 + ['IDEAL'] * 6,  # Domain 9: Mix (75%)
+            ['NON_IDEAL'] * 4 + ['IDEAL'] * 4,  # Domain 10: Mix (50%)
+            ['BASIC'] * 6 + ['IDEAL'] * 2  # Domain 11: Mix (41.7%)
+        ]
         
-        for i, question in enumerate(all_questions):
-            option = answer_patterns[i % len(answer_patterns)]
-            answer_data = {
-                "question_id": question['id'],
-                "option": option,
-                "note": f"Test answer for heatmap layout verification - {option}"
-            }
+        question_index = 0
+        for domain_index, domain_data in enumerate(response):
+            questions = domain_data.get('questions', [])
+            pattern = domain_patterns[domain_index % len(domain_patterns)]
             
-            success, _ = self.make_request('POST', f'assessments/{heatmap_assessment_id}/answer', answer_data)
-            if not success:
-                self.log_test(f"Answer question {i+1} for heatmap test", False, "Failed to submit answer")
-                return False
+            for q_index, question in enumerate(questions):
+                option = pattern[q_index % len(pattern)]
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": option,
+                    "note": f"Test answer for heatmap layout verification - {option}"
+                }
+                
+                success, _ = self.make_request('POST', f'assessments/{heatmap_assessment_id}/answer', answer_data)
+                if not success:
+                    self.log_test(f"Answer question {question_index+1} for heatmap test", False, "Failed to submit answer")
+                    return False
+                question_index += 1
         
         self.log_test(f"Answered all {len(all_questions)} questions with varied responses", True)
         
