@@ -393,8 +393,8 @@ class AMReportGenerator:
             # Create minimal empty heatmap
             domains = [{'name': 'No Data', 'questions': [{'code': 'N/A', 'score': 0} for _ in range(8)]}]
         
-        # Create figure with reduced height for more compact rows
-        fig, ax = plt.subplots(figsize=(12, 6))
+        # Create figure with optimized height for compact rows
+        fig, ax = plt.subplots(figsize=(12, 6.5))
         
         # Define colors exactly matching the screenshot
         def get_color(score):
