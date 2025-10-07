@@ -431,7 +431,7 @@
 
 ## test_plan:
   current_focus:
-    - "Test updated acronym highlighting on AM AI SAFE sign-in page"
+    - "Test AM AI SAFE report generation system after fixing file corruption issue"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
