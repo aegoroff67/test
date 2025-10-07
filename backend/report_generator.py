@@ -99,7 +99,12 @@ class AMReportGenerator:
         docx_bytes = self._generate_docx_report(report_data, heatmap_image)
         
         # Convert DOCX to PDF using LibreOffice
-        pdf_bytes = self._convert_docx_to_pdf(docx_bytes)
+        try:
+            pdf_bytes = self._convert_docx_to_pdf(docx_bytes)
+        except Exception as e:
+            print(f"PDF conversion failed: {str(e)}")
+            # Return None for PDF if conversion fails
+            pdf_bytes = None
         
         return docx_bytes, pdf_bytes
     
