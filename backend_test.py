@@ -6381,9 +6381,9 @@ class AMSafeAPITester:
         return True
 
     def run_all_tests(self):
-        """Run all tests in sequence"""
-        print("🚀 Starting AM AI SAFE API Testing - PDF Conversion Fix Verification")
-        print("=" * 60)
+        """Run all tests in sequence - FINAL COMPLETE VERIFICATION"""
+        print("🚀 Starting AM AI SAFE API Testing - FINAL DOCX/PDF REPORT VERIFICATION")
+        print("=" * 80)
         
         # Core functionality tests
         if not self.test_user_signup_and_login():
@@ -6394,28 +6394,28 @@ class AMSafeAPITester:
             print("❌ Assessment creation failed")
             return
             
-        # Critical PDF conversion and DOCX generation tests
-        print("\n🎯 CRITICAL VERIFICATION: PDF CONVERSION FIXES")
-        print("=" * 60)
+        # FINAL VERIFICATION: DOCX and PDF Report Generation with Fallback System
+        print("\n🎯 FINAL COMPLETE VERIFICATION: DOCX AND PDF REPORT GENERATION")
+        print("=" * 80)
         
-        self.test_docx_report_generation()
-        self.test_pdf_report_generation()
-        self.test_report_file_integrity()
-        self.test_temp_file_cleanup()
-        self.test_api_error_handling()
+        self.test_docx_pdf_report_generation_final_verification()
         
         # Print final summary
-        print("\n" + "=" * 60)
-        print("🏁 PDF CONVERSION FIX TESTING COMPLETE")
-        print("=" * 60)
+        print("\n" + "=" * 80)
+        print("🏁 FINAL VERIFICATION COMPLETE")
+        print("=" * 80)
         print(f"Tests Run: {self.tests_run}")
         print(f"Tests Passed: {self.tests_passed}")
         print(f"Success Rate: {(self.tests_passed/self.tests_run*100):.1f}%")
         
         if self.tests_passed == self.tests_run:
             print("🎉 ALL TESTS PASSED!")
+            print("✅ DOCX and PDF report generation system is working correctly")
+            print("✅ File corruption issues have been resolved")
+            print("✅ Fallback PDF generation system is functional")
         else:
             print(f"⚠️  {self.tests_run - self.tests_passed} TESTS FAILED")
+            print("❌ Some issues remain with the report generation system")
             
         return self.tests_passed == self.tests_run
 
