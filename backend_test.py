@@ -8771,6 +8771,44 @@ def main():
             # Run the critical test
             success = tester.test_async_sync_fix_verification()
             
+        elif test_type == "v7":
+            # V7 template testing (Review Request Focus)
+            print("🎯 V7 TEMPLATE TESTING - REVIEW REQUEST FOCUS")
+            print("=" * 80)
+            print("Testing the v7 template with programmatic table population and heatmap embedding")
+            print("Objective: Verify v7 template resolves DOCX corruption and PDF table formatting issues")
+            print("=" * 80)
+            
+            # Run authentication first
+            if not tester.test_user_signup_and_login():
+                print("❌ Authentication failed, stopping tests")
+                return 1
+            
+            # Create assessment
+            if not tester.test_assessment_creation():
+                print("❌ Assessment creation failed, stopping tests")
+                return 1
+            
+            # Run the V7 template tests (MAIN FOCUS)
+            print("\n🎯 V7 TEMPLATE COMPREHENSIVE TESTING")
+            print("=" * 80)
+            
+            success1 = tester.test_v7_template_docx_generation_comprehensive()
+            success2 = tester.test_v7_template_programmatic_table_population()
+            success3 = tester.test_v7_template_heatmap_embedding()
+            
+            success = success1 and success2 and success3
+            
+            # Print final results
+            tester.print_summary()
+            
+            if success:
+                print("\n✅ V7 TEMPLATE TESTING COMPLETED SUCCESSFULLY")
+                print("🎉 The v7 template is working correctly with proper table population and heatmap embedding!")
+            else:
+                print("\n❌ V7 TEMPLATE TESTING FAILED")
+                print("⚠️  Issues found with the v7 template implementation")
+            
         elif test_type == "v8":
             # V8 template testing (Review Request Focus)
             print("🎯 V8 TEMPLATE TESTING - REVIEW REQUEST FOCUS")
