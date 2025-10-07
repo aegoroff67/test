@@ -108,6 +108,11 @@ class AMReportGenerator:
         import subprocess
         import tempfile
         import os
+        import shutil
+        
+        docx_path = None
+        output_dir = None
+        pdf_path = None
         
         try:
             # Create temporary files
@@ -118,36 +123,57 @@ class AMReportGenerator:
             # Create output directory
             output_dir = tempfile.mkdtemp()
             
-            # Convert using LibreOffice
+            # Set up environment for headless LibreOffice
+            env = os.environ.copy()
+            env['DISPLAY'] = ':99'  # Use xvfb display
+            
+            # Convert using LibreOffice with proper environment
             cmd = [
-                'libreoffice', '--headless', '--convert-to', 'pdf',
-                '--outdir', output_dir, docx_path
+                'xvfb-run', '-a', 'libreoffice', '--headless', '--invisible',
+                '--nodefault', '--nolockcheck', '--nologo', '--norestore',
+                '--convert-to', 'pdf', '--outdir', output_dir, docx_path
             ]
             
-            subprocess.run(cmd, check=True, capture_output=True, timeout=30)
+            print(f"Converting DOCX to PDF: {cmd}")
+            result = subprocess.run(cmd, check=True, capture_output=True, timeout=60, env=env)
+            print(f"LibreOffice conversion successful")
             
             # Read the generated PDF
             pdf_filename = os.path.splitext(os.path.basename(docx_path))[0] + '.pdf'
             pdf_path = os.path.join(output_dir, pdf_filename)
             
+            if not os.path.exists(pdf_path):
+                raise FileNotFoundError(f"PDF file not generated at: {pdf_path}")
+            
             with open(pdf_path, 'rb') as pdf_file:
                 pdf_bytes = pdf_file.read()
             
-            # Cleanup
-            os.unlink(docx_path)
-            os.unlink(pdf_path)
-            os.rmdir(output_dir)
+            # Verify it's actually a PDF
+            if not pdf_bytes.startswith(b'%PDF'):
+                raise ValueError("Generated file is not a valid PDF")
             
+            print(f"PDF conversion successful: {len(pdf_bytes)} bytes")
             return pdf_bytes
             
         except subprocess.CalledProcessError as e:
-            print(f"LibreOffice conversion error: {e.stderr.decode()}")
-            # Return DOCX bytes as fallback
-            return docx_bytes
+            error_msg = e.stderr.decode() if e.stderr else "Unknown LibreOffice error"
+            print(f"LibreOffice conversion error: {error_msg}")
+            raise Exception(f"PDF conversion failed: {error_msg}")
         except Exception as e:
             print(f"PDF conversion error: {str(e)}")
-            # Return DOCX bytes as fallback
-            return docx_bytes
+            raise Exception(f"PDF conversion failed: {str(e)}")
+        finally:
+            # Cleanup temporary files
+            try:
+                if docx_path and os.path.exists(docx_path):
+                    os.unlink(docx_path)
+                if pdf_path and os.path.exists(pdf_path):
+                    os.unlink(pdf_path)
+                if output_dir and os.path.exists(output_dir):
+                    shutil.rmtree(output_dir)
+            except Exception as cleanup_error:
+                print(f"Cleanup error: {cleanup_error}")
+                # Don't raise cleanup errors
     
     def _transform_assessment_data(self, assessment_data: Dict[str, Any], 
                                  user_data: Dict[str, Any]) -> Dict[str, Any]:
