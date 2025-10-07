@@ -458,7 +458,7 @@
 
 ## test_plan:
   current_focus:
-    - "Investigate coroutine/async error in AM AI SAFE report generation system"
+    - "Test AM AI SAFE report generation after fixing async/sync mismatch to ensure files are no longer corrupted"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
