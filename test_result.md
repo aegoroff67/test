@@ -288,7 +288,20 @@
         - agent: "testing"
         - comment: "COMPREHENSIVE TESTING COMPLETED: New template v8 integration fully verified. Results: ✅ DOCX Generation (HTTP 200, >35KB files, valid ZIP structure), ✅ PDF Generation (HTTP 200, >35KB PDFs, valid format), ✅ Template Variables (org.name, assessment.date, overall.score, overall.tier all populated correctly), ✅ Action Tables (High/Medium/Low priority recommendations properly categorized), ✅ File Structure (new template exists and accessible), ✅ Error Handling (proper 404/401 responses). Test Success Rate: 100% (23/23 tests passed). The AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx template is fully functional and production-ready."
 
-  - task: "Fix report generation bugs based on user feedback"
+  - task: "Fix PDF report corruption issue - Adobe Acrobat error when opening PDF files"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/report_generator.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported PDF reports generate but show Adobe Acrobat error when opening: 'Adobe Acrobat could not open AM_AI_SAFE_Assessment_vCISOOne_2025-10-07 (05).pdf because it is either not a supported file type or because the file has been damaged (for example, it was sent as an email attachment and wasn't correctly decoded)'"
+        - working: "NA"
+        - agent: "main"
+        - comment: "DIAGNOSED AND FIXED: Root cause was LibreOffice not being installed, causing PDF conversion to silently fail and return DOCX bytes with PDF MIME type. Fixed by: 1) Installing LibreOffice 7.4.7.2, 2) Improving error handling in _convert_docx_to_pdf method with proper validation, 3) Adding PDF format validation (magic number check, file size check), 4) Updating error handling to raise exceptions instead of returning corrupted data, 5) Increasing timeout from 30s to 60s for conversion. Backend restarted to apply changes."
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
