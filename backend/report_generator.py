@@ -637,14 +637,13 @@ The assessment methodology ensures objective evaluation through standardized cri
             # Fallback to generic recommendation
             return f"Implement comprehensive {domain_name.lower()} improvements to achieve best practices in this area."
     
-    def _create_heatmap_for_template(self, heatmap_bytes: bytes) -> str:
-        """Create a heatmap representation for the template."""
+    def _create_heatmap_for_template(self, doc: DocxTemplate, heatmap_bytes: bytes) -> InlineImage:
+        """Create a heatmap InlineImage for the template."""
         if not heatmap_bytes:
-            return 'HEATMAP_IMAGE_PLACEHOLDER'
+            return None
         
-        # For now, we'll use a placeholder since InlineImage was causing issues
-        # In the future, this can be enhanced to properly embed the image
-        return f'[HEATMAP IMAGE - {len(heatmap_bytes)} bytes generated]'
+        # Create InlineImage object for docxtpl template replacement
+        return InlineImage(doc, io.BytesIO(heatmap_bytes), width=Inches(6.0))
     
     def _generate_executive_summary(self, report_data: Dict[str, Any], user_data: Dict[str, Any]) -> str:
         """Generate comprehensive executive summary."""
