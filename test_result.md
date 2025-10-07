@@ -434,7 +434,7 @@
 
 ## test_plan:
   current_focus:
-    - "Test AM AI SAFE report generation system after fixing file corruption issue"
+    - "Investigate coroutine/async error in AM AI SAFE report generation system"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
