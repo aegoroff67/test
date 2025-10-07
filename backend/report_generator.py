@@ -195,7 +195,7 @@ class AMReportGenerator:
         
         return report_data
     
-    def _calculate_tier(self, percentage: float) -> str:
+    def _calculate_tier(self, percentage) -> str:
         """Calculate the maturity tier based on percentage score.
         
         Categories:
@@ -205,6 +205,15 @@ class AMReportGenerator:
         4. Low (41–60%) 
         5. Basic (0–40%)
         """
+        # Convert to float if it's a string
+        if isinstance(percentage, str):
+            try:
+                percentage = float(percentage)
+            except (ValueError, TypeError):
+                percentage = 0
+        elif percentage is None:
+            percentage = 0
+            
         if percentage >= 91:
             return "Excellent"
         elif percentage >= 81:
