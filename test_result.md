@@ -273,6 +273,22 @@
         - agent: "testing"
         - comment: "NEW TEMPLATE v8 COMPREHENSIVE TESTING COMPLETED SUCCESSFULLY: Final comprehensive testing of the AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx template completed with 100% success rate (23/23 tests passed). CRITICAL SUCCESS CRITERIA VERIFIED: 1) ✅ DOCX Report Generation: GET /api/assessments/{assessment_id}/report returns 200 OK with correct MIME type (application/vnd.openxmlformats-officedocument.wordprocessingml.document), substantial file size (>35KB), and valid ZIP-based DOCX structure, 2) ✅ PDF Report Generation: GET /api/assessments/{assessment_id}/report/pdf returns 200 OK with correct PDF MIME type, substantial file size (>35KB), and valid PDF format (%PDF header and %%EOF marker), 3) ✅ Template Variable Population: All template variables properly populated - org.name (organization name), assessment.date (formatted date), overall.score (percentage), overall.tier (maturity level), 4) ✅ Action Tables Population: High/Medium/Low priority recommendation tables correctly populated based on score mapping (Non-Ideal(0)→High, Basic(1)→Medium, Good(2)→Low, Best(3)→excluded), 5) ✅ Error Handling: Proper error responses for non-existent assessments (404) and unauthenticated requests (401/403), 6) ✅ File Structure Verification: New template file AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx exists and is accessible by report generator. TECHNICAL IMPLEMENTATION VERIFIED: LibreOffice installed and working for PDF conversion, template processing with proper Jinja2 syntax, heatmap image generation and embedding, comprehensive content sections (Executive Summary, Assessment Results, Recommendations tables, Heatmap visualization). The new template v8 integration is fully functional and addresses all requirements specified in the review request. The report generation system is production-ready with the updated template."
 
+  - task: "Update report generation system to use new template v8_10072025"
+    implemented: true
+    working: true
+    file: "/app/backend/report_generator.py, /app/backend/templates/docx/AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Updated report generation system to use the new template AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx provided by user. Changes: 1) Downloaded new template file (173,209 bytes) to /app/backend/templates/docx/, 2) Updated _get_default_template_path() method in report_generator.py to reference the new template, 3) Verified template compatibility with existing Jinja2 variable structure (org.name, assessment.date, overall.score, overall.tier, actions.high/medium/low), 4) Maintained backward compatibility with existing data structures."
+        - working: true  
+        - agent: "testing"
+        - comment: "COMPREHENSIVE TESTING COMPLETED: New template v8 integration fully verified. Results: ✅ DOCX Generation (HTTP 200, >35KB files, valid ZIP structure), ✅ PDF Generation (HTTP 200, >35KB PDFs, valid format), ✅ Template Variables (org.name, assessment.date, overall.score, overall.tier all populated correctly), ✅ Action Tables (High/Medium/Low priority recommendations properly categorized), ✅ File Structure (new template exists and accessible), ✅ Error Handling (proper 404/401 responses). Test Success Rate: 100% (23/23 tests passed). The AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx template is fully functional and production-ready."
+
+  - task: "Fix report generation bugs based on user feedback"
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
