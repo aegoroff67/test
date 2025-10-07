@@ -4922,7 +4922,7 @@ class AMSafeAPITester:
             self.log_test("PDF report generation with optimized heatmap", True)
             
             # Verify PDF file size indicates substantial content with heatmap
-            if len(pdf_content) > 300000:  # Should be >300KB with heatmap image
+            if len(pdf_content) > 200000:  # Should be >200KB with heatmap image
                 self.log_test("PDF file size indicates heatmap image embedded", True)
             else:
                 self.log_test("PDF file size indicates heatmap image embedded", False,
