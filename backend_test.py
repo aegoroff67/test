@@ -5838,11 +5838,11 @@ def main():
         tester.print_summary()
         
         if success:
-            print("\n✅ NEW TEMPLATE v8 TESTING COMPLETED SUCCESSFULLY")
-            print("🎉 The AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx template is working correctly!")
+            print("\n✅ HEATMAP LAYOUT OVERLAP FIX TESTING COMPLETED SUCCESSFULLY")
+            print("🎉 The heatmap layout overlap issue has been resolved!")
         else:
-            print("\n❌ NEW TEMPLATE v8 TESTING FAILED")
-            print("⚠️  Issues found with the new template implementation")
+            print("\n❌ HEATMAP LAYOUT OVERLAP FIX TESTING FAILED")
+            print("⚠️  Issues found with the heatmap layout implementation")
         
         return 0 if success else 1
         
