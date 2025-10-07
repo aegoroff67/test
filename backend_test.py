@@ -7744,6 +7744,219 @@ class AMSafeAPITester:
             self.log_test("Heatmap Embedding Test", False, f"Exception: {str(e)}")
             return False
 
+    def test_v9_template_comprehensive_testing(self):
+        """Test the new v9 template provided by user to ensure DOCX and PDF generation work correctly"""
+        print("\n🔍 V9 TEMPLATE COMPREHENSIVE TESTING (REVIEW REQUEST)")
+        print("-" * 80)
+        
+        if not self.assessment_id:
+            self.log_test("V9 Template Testing", False, "No assessment ID available")
+            return False
+        
+        # Test 1: DOCX Generation with v9 Template
+        print("\n📄 Testing DOCX Generation with V9 Template...")
+        
+        # Make request to DOCX endpoint
+        url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            
+            if response.status_code == 200:
+                self.log_test("V9 Template DOCX Generation - HTTP 200 OK", True)
+                
+                # Check MIME type
+                content_type = response.headers.get('content-type', '')
+                expected_mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                if expected_mime in content_type:
+                    self.log_test("V9 Template DOCX - Correct MIME Type", True)
+                else:
+                    self.log_test("V9 Template DOCX - Correct MIME Type", False, f"Got: {content_type}")
+                
+                # Check file size (should be substantial for v9 template)
+                file_size = len(response.content)
+                if file_size > 35000:  # 35KB minimum
+                    self.log_test("V9 Template DOCX - Substantial File Size", True, f"Generated {file_size} bytes")
+                else:
+                    self.log_test("V9 Template DOCX - Substantial File Size", False, f"File too small: {file_size} bytes")
+                
+                # Test ZIP structure integrity (DOCX is ZIP-based)
+                try:
+                    zip_buffer = io.BytesIO(response.content)
+                    with zipfile.ZipFile(zip_buffer, 'r') as zip_file:
+                        file_list = zip_file.namelist()
+                        essential_files = ['word/document.xml', '[Content_Types].xml', 'word/_rels/document.xml.rels']
+                        
+                        if all(f in file_list for f in essential_files):
+                            self.log_test("V9 Template DOCX - Valid ZIP Structure", True)
+                        else:
+                            missing = [f for f in essential_files if f not in file_list]
+                            self.log_test("V9 Template DOCX - Valid ZIP Structure", False, f"Missing: {missing}")
+                            
+                        # Check for proper document structure
+                        if len(file_list) >= 10:  # Should have multiple files
+                            self.log_test("V9 Template DOCX - Complete Document Structure", True, f"{len(file_list)} files")
+                        else:
+                            self.log_test("V9 Template DOCX - Complete Document Structure", False, f"Only {len(file_list)} files")
+                            
+                except Exception as e:
+                    self.log_test("V9 Template DOCX - ZIP Structure Validation", False, f"ZIP validation error: {str(e)}")
+                    
+            else:
+                self.log_test("V9 Template DOCX Generation - HTTP 200 OK", False, f"Got status {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_test("V9 Template DOCX Generation", False, f"Request error: {str(e)}")
+        
+        # Test 2: PDF Generation with v9 Template  
+        print("\n📄 Testing PDF Generation with V9 Template...")
+        
+        url = f"{self.api_url}/assessments/{self.assessment_id}/report/pdf"
+        
+        try:
+            response = requests.get(url, headers=headers)
+            
+            if response.status_code == 200:
+                self.log_test("V9 Template PDF Generation - HTTP 200 OK", True)
+                
+                # Check MIME type
+                content_type = response.headers.get('content-type', '')
+                if 'application/pdf' in content_type:
+                    self.log_test("V9 Template PDF - Correct MIME Type", True)
+                else:
+                    self.log_test("V9 Template PDF - Correct MIME Type", False, f"Got: {content_type}")
+                
+                # Check PDF format
+                if response.content.startswith(b'%PDF'):
+                    self.log_test("V9 Template PDF - Valid PDF Format", True)
+                else:
+                    self.log_test("V9 Template PDF - Valid PDF Format", False, "Does not start with %PDF header")
+                
+                # Check for PDF end marker
+                if b'%%EOF' in response.content:
+                    self.log_test("V9 Template PDF - Valid PDF End Marker", True)
+                else:
+                    self.log_test("V9 Template PDF - Valid PDF End Marker", False, "Missing %%EOF marker")
+                
+                # Check file size
+                file_size = len(response.content)
+                if file_size > 20000:  # 20KB minimum
+                    self.log_test("V9 Template PDF - Substantial File Size", True, f"Generated {file_size} bytes")
+                else:
+                    self.log_test("V9 Template PDF - Substantial File Size", False, f"File too small: {file_size} bytes")
+                    
+            else:
+                self.log_test("V9 Template PDF Generation - HTTP 200 OK", False, f"Got status {response.status_code}: {response.text}")
+                
+        except Exception as e:
+            self.log_test("V9 Template PDF Generation", False, f"Request error: {str(e)}")
+        
+        # Test 3: Template Variable Population Verification
+        print("\n🔧 Testing Template Variable Population...")
+        
+        # Get assessment summary to verify data is available for template
+        success, summary = self.make_request('GET', f'assessments/{self.assessment_id}/summary')
+        if success:
+            # Check organization name (should be vCISO.One or user's org)
+            org_name = self.user_data.get('organization_name', 'Unknown')
+            if org_name and org_name != 'Unknown':
+                self.log_test("Organization Name Available for {{org.name}}", True, f"Org: {org_name}")
+            else:
+                self.log_test("Organization Name Available for {{org.name}}", False, "No organization name found")
+            
+            # Check domain scores for heatmap
+            domain_scores = summary.get('domain_scores', [])
+            if len(domain_scores) == 11:
+                self.log_test("Domain Scores Available for Heatmap", True, "11 domains present")
+            else:
+                self.log_test("Domain Scores Available for Heatmap", False, f"Found {len(domain_scores)} domains")
+            
+            # Check overall score and maturity
+            overall_percentage = summary.get('overall_percentage')
+            overall_maturity = summary.get('overall_maturity')
+            if overall_percentage is not None and overall_maturity:
+                self.log_test("Overall Score and Maturity Available", True, f"{overall_percentage}% - {overall_maturity}")
+            else:
+                self.log_test("Overall Score and Maturity Available", False, "Missing overall metrics")
+                
+            # Check assessment date
+            success_assess, assessment = self.make_request('GET', f'assessments/{self.assessment_id}')
+            if success_assess and assessment.get('started_at'):
+                self.log_test("Assessment Date Available for Template", True)
+            else:
+                self.log_test("Assessment Date Available for Template", False, "No assessment date found")
+                
+        else:
+            self.log_test("Assessment Summary for Template Variables", False, f"Failed to get summary: {summary}")
+        
+        # Test 4: Native Jinja2 Rendering Verification
+        print("\n🔧 Testing Native Jinja2 Template Structure...")
+        
+        # Verify template file exists and is accessible
+        try:
+            import os
+            template_path = "/app/backend/templates/docx/AM_AI_SAFE_Report_TEMPLATE_v9_10072025_NEW.docx"
+            if os.path.exists(template_path):
+                file_size = os.path.getsize(template_path)
+                if file_size > 30000:  # Should be substantial template
+                    self.log_test("V9 Template File Exists and Accessible", True, f"Template size: {file_size} bytes")
+                else:
+                    self.log_test("V9 Template File Exists and Accessible", False, f"Template too small: {file_size} bytes")
+            else:
+                self.log_test("V9 Template File Exists and Accessible", False, "Template file not found")
+        except Exception as e:
+            self.log_test("V9 Template File Verification", False, f"Error: {str(e)}")
+        
+        # Test 5: File Integrity and Word Compatibility
+        print("\n🔧 Testing File Integrity for Word Compatibility...")
+        
+        # Test multiple DOCX generations for consistency
+        file_sizes = []
+        for i in range(3):
+            try:
+                response = requests.get(f"{self.api_url}/assessments/{self.assessment_id}/report", headers=headers)
+                if response.status_code == 200:
+                    file_sizes.append(len(response.content))
+            except:
+                pass
+        
+        if len(file_sizes) >= 2:
+            # Check consistency (should be within 10% variance)
+            avg_size = sum(file_sizes) / len(file_sizes)
+            variance = max(abs(size - avg_size) / avg_size for size in file_sizes) * 100
+            
+            if variance < 10:  # Less than 10% variance
+                self.log_test("V9 Template DOCX - Consistent Generation", True, f"Variance: {variance:.1f}%")
+            else:
+                self.log_test("V9 Template DOCX - Consistent Generation", False, f"High variance: {variance:.1f}%")
+        
+        # Test 6: Error Handling
+        print("\n⚠️  Testing Error Handling...")
+        
+        # Test with non-existent assessment
+        try:
+            response = requests.get(f"{self.api_url}/assessments/non-existent-id/report", headers=headers)
+            if response.status_code == 404:
+                self.log_test("V9 Template Error Handling - Non-existent Assessment", True)
+            else:
+                self.log_test("V9 Template Error Handling - Non-existent Assessment", False, f"Got status {response.status_code}")
+        except Exception as e:
+            self.log_test("V9 Template Error Handling - Non-existent Assessment", False, f"Request error: {str(e)}")
+        
+        # Test without authentication
+        try:
+            response = requests.get(f"{self.api_url}/assessments/{self.assessment_id}/report")
+            if response.status_code in [401, 403]:
+                self.log_test("V9 Template Error Handling - Unauthenticated", True)
+            else:
+                self.log_test("V9 Template Error Handling - Unauthenticated", False, f"Got status {response.status_code}")
+        except Exception as e:
+            self.log_test("V9 Template Error Handling - Unauthenticated", False, f"Request error: {str(e)}")
+        
+        print("\n✅ V9 Template Testing Complete")
+        return True
+
     def run_all_tests(self):
         """Run all tests in sequence - FINAL COMPLETE VERIFICATION"""
         print("🚀 Starting AM AI SAFE API Testing - FINAL DOCX/PDF REPORT VERIFICATION")
