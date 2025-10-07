@@ -5712,6 +5712,16 @@ class AMSafeAPITester:
         self.test_table_row_verification_detailed()
         self.test_priority_mapping_verification()
         
+        # CRITICAL ASYNC/SYNC FIX VERIFICATION - MAIN FOCUS OF CURRENT REVIEW REQUEST
+        print("\n" + "🚨" * 20 + " ASYNC/SYNC FIX VERIFICATION " + "🚨" * 20)
+        print("CRITICAL VERIFICATION: Testing AM AI SAFE report generation after fixing async/sync mismatch")
+        print("URGENT OBJECTIVE: Verify that corrected async/sync implementation produces valid, openable files")
+        print("ROOT CAUSE FIXED: Changed generate_report() back to async def with proper await statements")
+        print("SUCCESS CRITERIA: DOCX generation returns actual bytes, not coroutine objects")
+        print("=" * 80)
+        
+        self.test_async_sync_fix_verification()
+        
         # SPECIFIC TESTS FOR REVIEW REQUEST ISSUES
         print("\n" + "🔍" * 20 + " REVIEW REQUEST ISSUE TESTING " + "🔍" * 20)
         print("Testing specific issues reported in the review request:")
