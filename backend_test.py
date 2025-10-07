@@ -8045,6 +8045,16 @@ def main():
             success = tester.test_async_sync_fix_verification()
             
         elif test_type == "v8":
+            # V8 template testing (Review Request Focus)
+            print("🎯 V8 TEMPLATE TESTING - REVIEW REQUEST FOCUS")
+            print("=" * 80)
+            print("Testing the restored v8 template with text placeholder for heatmap")
+            print("Objective: Verify v8 template works without corruption")
+            print("=" * 80)
+            
+            success = tester.run_v8_template_tests_only()
+            
+        elif test_type == "v8-original":
             # Original v8 template testing
             try:
                 print("🎯 AM AI SAFE REPORT GENERATION TESTING - NEW TEMPLATE v8")
