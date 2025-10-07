@@ -167,8 +167,9 @@ class AMReportGenerator:
             # Try fallback: Generate DOCX without InlineImage and convert
             try:
                 print("Attempting PDF generation fallback without heatmap image...")
-                fallback_pdf = self._generate_pdf_fallback(docx_bytes)
-                if fallback_pdf:
+                # We need to get the report data and questions data for the fallback
+                # This is a workaround - ideally we'd pass this data to the method
+                fallback_pdf = None  # Will implement proper data passing below
                     print(f"Fallback PDF conversion successful: {len(fallback_pdf)} bytes")
                     return fallback_pdf
             except Exception as fallback_error:
