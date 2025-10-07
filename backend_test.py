@@ -5032,6 +5032,21 @@ class AMSafeAPITester:
         
         self.test_heatmap_refinements_in_reports()
         
+        # HEATMAP LAYOUT OPTIMIZATION TESTING (REVIEW REQUEST FOCUS)
+        print("\n🎯 HEATMAP LAYOUT OPTIMIZATION TESTING (REVIEW REQUEST FOCUS)")
+        print("=" * 80)
+        print("Testing the optimized heatmap layout with requested changes:")
+        print("1. Verify domain names and percentages are on same horizontal line (not stacked)")
+        print("2. Confirm domain names are aligned to the left")
+        print("3. Check percentage scores are placed immediately to right of domain names")
+        print("4. Validate rows have reduced height making heatmap more compact")
+        print("5. Test both DOCX and PDF generation with new layout")
+        print("6. Ensure layout is more space-efficient while maintaining readability")
+        print("7. Confirm all other functionality (color coding, question codes) still works")
+        print("=" * 80)
+        
+        self.test_heatmap_layout_optimization()
+        
         # Enhanced DOCX Report Generation Tests (as specifically requested in review)
         print("\n🔥 ENHANCED DOCX REPORT GENERATION WITH STYLE PRESERVATION")
         print("=" * 80)
