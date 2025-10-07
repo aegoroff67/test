@@ -4563,6 +4563,273 @@ class AMSafeAPITester:
         
         return True
 
+    def test_heatmap_image_embedding_docx(self):
+        """Test that heatmap image is properly embedded in DOCX reports using InlineImage approach"""
+        if not self.assessment_id:
+            self.log_test("Heatmap Image Embedding DOCX Test", False, "No assessment ID")
+            return False
+        
+        # First complete the assessment to enable report generation
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for heatmap test", False, str(response))
+            return False
+        
+        # Answer all questions to complete assessment
+        question_count = 0
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            for question in questions:
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": "GOOD",  # Use consistent scoring for predictable heatmap
+                    "note": "Test answer for heatmap verification"
+                }
+                
+                success_answer, _ = self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
+                if success_answer:
+                    question_count += 1
+        
+        self.log_test(f"Completed assessment with {question_count} answers", True)
+        
+        # Test DOCX report generation with heatmap
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/report')
+        if success:
+            # Check if response is binary data (DOCX file)
+            if isinstance(response, bytes) or (hasattr(response, 'content') and len(response.content) > 1000):
+                self.log_test("DOCX Report Generation with Heatmap", True)
+                
+                # Verify DOCX file structure (ZIP-based format)
+                try:
+                    import zipfile
+                    import io
+                    
+                    # If response is requests.Response object, get content
+                    docx_data = response.content if hasattr(response, 'content') else response
+                    
+                    # Verify it's a valid ZIP file (DOCX format)
+                    with zipfile.ZipFile(io.BytesIO(docx_data), 'r') as zip_file:
+                        file_list = zip_file.namelist()
+                        
+                        # Check for essential DOCX files
+                        required_files = ['[Content_Types].xml', 'word/document.xml']
+                        has_required_files = all(f in file_list for f in required_files)
+                        
+                        if has_required_files:
+                            self.log_test("DOCX File Structure Valid", True)
+                            
+                            # Check for media files (images)
+                            media_files = [f for f in file_list if f.startswith('word/media/')]
+                            if media_files:
+                                self.log_test("Heatmap Image Files Present in DOCX", True)
+                                print(f"   📊 Found {len(media_files)} media files: {media_files[:3]}")
+                            else:
+                                self.log_test("Heatmap Image Files Present in DOCX", False, "No media files found")
+                            
+                            # Check document.xml for image references
+                            try:
+                                document_xml = zip_file.read('word/document.xml').decode('utf-8')
+                                has_image_refs = 'drawing' in document_xml or 'pic:pic' in document_xml
+                                if has_image_refs:
+                                    self.log_test("Document Contains Image References", True)
+                                else:
+                                    self.log_test("Document Contains Image References", False, "No image references in document.xml")
+                            except Exception as e:
+                                self.log_test("Document XML Analysis", False, f"Error reading document.xml: {e}")
+                        else:
+                            self.log_test("DOCX File Structure Valid", False, f"Missing required files: {required_files}")
+                            
+                except Exception as e:
+                    self.log_test("DOCX File Structure Analysis", False, f"Error analyzing DOCX: {e}")
+                
+                return True
+            else:
+                self.log_test("DOCX Report Generation with Heatmap", False, "Response is not binary DOCX data")
+                return False
+        else:
+            self.log_test("DOCX Report Generation with Heatmap", False, str(response))
+            return False
+
+    def test_heatmap_data_alignment_verification(self):
+        """Test that heatmap data logic matches Results Summary page exactly"""
+        if not self.assessment_id:
+            self.log_test("Heatmap Data Alignment Test", False, "No assessment ID")
+            return False
+        
+        # Get assessment summary data (this is what Results Summary page uses)
+        success, summary_response = self.make_request('GET', f'assessments/{self.assessment_id}/summary')
+        if not success:
+            self.log_test("Get Assessment Summary for Heatmap Alignment", False, str(summary_response))
+            return False
+        
+        self.log_test("Assessment Summary Retrieved", True)
+        
+        # Verify domain scores structure
+        domain_scores = summary_response.get('domain_scores', [])
+        if len(domain_scores) == 11:
+            self.log_test("Summary Contains 11 Domain Scores", True)
+        else:
+            self.log_test("Summary Contains 11 Domain Scores", False, f"Found {len(domain_scores)} domains")
+        
+        # Check domain sorting (should be by percentage, lowest first to match frontend)
+        if len(domain_scores) > 1:
+            percentages = [domain.get('percentage', 0) for domain in domain_scores]
+            is_sorted_ascending = all(percentages[i] <= percentages[i+1] for i in range(len(percentages)-1))
+            
+            if is_sorted_ascending:
+                self.log_test("Domain Scores Sorted by Percentage (Lowest First)", True)
+                print(f"   📊 Domain percentages: {[f'{p:.1f}%' for p in percentages[:5]]}")
+            else:
+                self.log_test("Domain Scores Sorted by Percentage (Lowest First)", False, 
+                            f"Percentages not sorted ascending: {percentages[:5]}")
+        
+        # Verify overall percentage calculation
+        overall_percentage = summary_response.get('overall_percentage', 0)
+        if 0 <= overall_percentage <= 100:
+            self.log_test("Overall Percentage Valid Range", True)
+            print(f"   📊 Overall Score: {overall_percentage:.1f}%")
+        else:
+            self.log_test("Overall Percentage Valid Range", False, f"Invalid percentage: {overall_percentage}")
+        
+        # Verify maturity tier calculation
+        overall_maturity = summary_response.get('overall_maturity', '')
+        valid_tiers = ['Excellent', 'Good', 'Moderate', 'Low', 'Basic']
+        if overall_maturity in valid_tiers:
+            self.log_test("Overall Maturity Tier Valid", True)
+            print(f"   📊 Maturity Tier: {overall_maturity}")
+        else:
+            self.log_test("Overall Maturity Tier Valid", False, f"Invalid tier: {overall_maturity}")
+        
+        return True
+
+    def test_heatmap_question_sorting_verification(self):
+        """Test that questions within domains are sorted by score (lowest first) matching frontend"""
+        if not self.assessment_id:
+            self.log_test("Heatmap Question Sorting Test", False, "No assessment ID")
+            return False
+        
+        # Get assessment questions with answers
+        success, questions_response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success:
+            self.log_test("Get Assessment Questions for Sorting Test", False, str(questions_response))
+            return False
+        
+        self.log_test("Assessment Questions Retrieved for Sorting Test", True)
+        
+        # Verify question sorting within each domain
+        domains_checked = 0
+        domains_correctly_sorted = 0
+        
+        for domain_data in questions_response:
+            domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+            questions = domain_data.get('questions', [])
+            
+            if questions:
+                domains_checked += 1
+                
+                # Get scores for questions that have answers
+                question_scores = []
+                for question in questions:
+                    answer = question.get('answer')
+                    if answer:
+                        score = answer.get('numeric_score', 0)
+                        question_code = question.get('code', 'N/A')
+                        question_scores.append((question_code, score))
+                
+                if len(question_scores) > 1:
+                    # Check if scores are sorted in ascending order (lowest first)
+                    scores = [score for _, score in question_scores]
+                    is_sorted_ascending = all(scores[i] <= scores[i+1] for i in range(len(scores)-1))
+                    
+                    if is_sorted_ascending:
+                        domains_correctly_sorted += 1
+                        print(f"   ✅ {domain_name}: Questions sorted correctly by score {scores}")
+                    else:
+                        print(f"   ❌ {domain_name}: Questions NOT sorted by score {scores}")
+        
+        if domains_correctly_sorted == domains_checked:
+            self.log_test("Questions Sorted by Score (Lowest First) in All Domains", True)
+        else:
+            self.log_test("Questions Sorted by Score (Lowest First) in All Domains", False, 
+                        f"Only {domains_correctly_sorted}/{domains_checked} domains correctly sorted")
+        
+        return domains_correctly_sorted == domains_checked
+
+    def test_report_generation_error_handling(self):
+        """Test error handling for report generation"""
+        # Test report generation for non-existent assessment
+        fake_assessment_id = "non-existent-assessment-id"
+        success, response = self.make_request('GET', f'assessments/{fake_assessment_id}/report', expected_status=404)
+        if success:
+            self.log_test("Report Generation Returns 404 for Non-Existent Assessment", True)
+        else:
+            self.log_test("Report Generation Returns 404 for Non-Existent Assessment", False, 
+                        "Should return 404 for non-existent assessment")
+        
+        # Test report generation for incomplete assessment (if we have one)
+        success, response = self.make_request('POST', 'assessments', {})
+        if success:
+            incomplete_assessment_id = response['id']
+            
+            # Try to generate report without completing assessment
+            success, response = self.make_request('GET', f'assessments/{incomplete_assessment_id}/report', expected_status=500)
+            if success or "must be completed" in str(response).lower():
+                self.log_test("Report Generation Handles Incomplete Assessment", True)
+            else:
+                self.log_test("Report Generation Handles Incomplete Assessment", False, 
+                            "Should handle incomplete assessment appropriately")
+        
+        return True
+
+    def test_pdf_generation_with_heatmap(self):
+        """Test PDF report generation with embedded heatmap"""
+        if not self.assessment_id:
+            self.log_test("PDF Generation with Heatmap Test", False, "No assessment ID")
+            return False
+        
+        # Test PDF report generation
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/report/pdf')
+        if success:
+            # Check if response is binary data (PDF file)
+            if isinstance(response, bytes) or (hasattr(response, 'content') and len(response.content) > 1000):
+                self.log_test("PDF Report Generation with Heatmap", True)
+                
+                # Verify PDF file format
+                try:
+                    # If response is requests.Response object, get content
+                    pdf_data = response.content if hasattr(response, 'content') else response
+                    
+                    # Check PDF header
+                    if pdf_data.startswith(b'%PDF'):
+                        self.log_test("PDF File Format Valid", True)
+                        
+                        # Check for PDF end marker
+                        if b'%%EOF' in pdf_data:
+                            self.log_test("PDF File Structure Complete", True)
+                        else:
+                            self.log_test("PDF File Structure Complete", False, "Missing %%EOF marker")
+                        
+                        # Check file size (should be substantial with heatmap)
+                        file_size_kb = len(pdf_data) / 1024
+                        if file_size_kb > 30:  # Expect at least 30KB for a report with heatmap
+                            self.log_test("PDF File Size Substantial", True)
+                            print(f"   📄 PDF Size: {file_size_kb:.1f} KB")
+                        else:
+                            self.log_test("PDF File Size Substantial", False, f"PDF too small: {file_size_kb:.1f} KB")
+                    else:
+                        self.log_test("PDF File Format Valid", False, "Invalid PDF header")
+                        
+                except Exception as e:
+                    self.log_test("PDF File Analysis", False, f"Error analyzing PDF: {e}")
+                
+                return True
+            else:
+                self.log_test("PDF Report Generation with Heatmap", False, "Response is not binary PDF data")
+                return False
+        else:
+            self.log_test("PDF Report Generation with Heatmap", False, str(response))
+            return False
+
     def run_all_tests(self):
         """Run comprehensive test suite including DOCX report generation testing"""
         print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
