@@ -247,6 +247,14 @@
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+    
+  - task: "Test v7 template DOCX generation to resolve persistent corruption and PDF table formatting issues"
+    implemented: true
+    working: false
+    file: "/app/backend/report_generator.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
     status_history:
         - working: false
         - agent: "user"
