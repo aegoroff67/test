@@ -6887,6 +6887,14 @@ class AMSafeAPITester:
             print("❌ Assessment creation failed")
             return
             
+        # V9 TEMPLATE SPECIFIC TESTS (Focus of this review)
+        print("\n🎯 V9 TEMPLATE TESTING (REVIEW FOCUS)")
+        print("=" * 80)
+        self.test_v9_template_docx_generation()
+        self.test_v9_template_pdf_generation()
+        self.test_v9_template_content_population()
+        self.test_v9_template_file_integrity()
+        
         # CRITICAL: Test the two specific fixes mentioned in review request
         print("\n🎯 CRITICAL FIXES VERIFICATION: PDF Variable Scope & DOCX Template Corruption")
         print("=" * 80)
