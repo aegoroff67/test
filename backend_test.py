@@ -5423,6 +5423,223 @@ class AMSafeAPITester:
         
         return True
 
+    def test_async_sync_fix_verification(self):
+        """Test AM AI SAFE report generation after fixing async/sync mismatch"""
+        print("\n🔍 ASYNC/SYNC FIX VERIFICATION - AM AI SAFE REPORT GENERATION")
+        print("-" * 80)
+        
+        if not self.assessment_id:
+            self.log_test("Async/Sync Fix Verification", False, "No assessment ID")
+            return False
+        
+        # First, complete the assessment to enable report generation
+        if not self._complete_assessment_for_report_testing():
+            self.log_test("Assessment Completion for Report Testing", False, "Could not complete assessment")
+            return False
+        
+        # Test 1: DOCX Generation Endpoint
+        print("\n📄 Testing DOCX Generation Endpoint...")
+        try:
+            docx_response = requests.get(f"{self.api_url}/assessments/{self.assessment_id}/report", 
+                                       headers={'Authorization': f'Bearer {self.token}'})
+            
+            if docx_response.status_code == 200:
+                self.log_test("DOCX Generation Endpoint Returns 200 OK", True)
+                
+                # Check response headers for proper MIME type
+                content_type = docx_response.headers.get('content-type', '')
+                if 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' in content_type:
+                    self.log_test("DOCX Response Has Correct MIME Type", True)
+                else:
+                    self.log_test("DOCX Response Has Correct MIME Type", False, f"Got: {content_type}")
+                
+                # Check Content-Disposition header
+                content_disposition = docx_response.headers.get('content-disposition', '')
+                if 'attachment' in content_disposition and '.docx' in content_disposition:
+                    self.log_test("DOCX Response Has Correct Download Headers", True)
+                else:
+                    self.log_test("DOCX Response Has Correct Download Headers", False, f"Got: {content_disposition}")
+                    
+            else:
+                self.log_test("DOCX Generation Endpoint Returns 200 OK", False, f"HTTP {docx_response.status_code}: {docx_response.text}")
+                return False
+                
+        except Exception as e:
+            self.log_test("DOCX Generation Endpoint Test", False, f"Request error: {str(e)}")
+            return False
+        
+        # Test 2: PDF Generation Endpoint
+        print("\n📄 Testing PDF Generation Endpoint...")
+        try:
+            pdf_response = requests.get(f"{self.api_url}/assessments/{self.assessment_id}/report/pdf", 
+                                      headers={'Authorization': f'Bearer {self.token}'})
+            
+            if pdf_response.status_code == 200:
+                self.log_test("PDF Generation Endpoint Returns 200 OK", True)
+                
+                # Check response headers for proper MIME type
+                content_type = pdf_response.headers.get('content-type', '')
+                if 'application/pdf' in content_type:
+                    self.log_test("PDF Response Has Correct MIME Type", True)
+                else:
+                    self.log_test("PDF Response Has Correct MIME Type", False, f"Got: {content_type}")
+            else:
+                self.log_test("PDF Generation Endpoint Returns 200 OK", False, f"HTTP {pdf_response.status_code}: {pdf_response.text}")
+                
+        except Exception as e:
+            self.log_test("PDF Generation Endpoint Test", False, f"Request error: {str(e)}")
+        
+        # Test 3: File Integrity Verification
+        print("\n🔍 Testing File Integrity...")
+        
+        try:
+            import zipfile
+            import io
+            
+            docx_content = docx_response.content
+            
+            # Check file size (should be substantial, not tiny)
+            if len(docx_content) > 10000:  # At least 10KB for a real report
+                self.log_test("DOCX File Has Substantial Size", True, f"Size: {len(docx_content)} bytes")
+            else:
+                self.log_test("DOCX File Has Substantial Size", False, f"Size: {len(docx_content)} bytes - too small for real report")
+            
+            # Check ZIP structure (DOCX is ZIP-based)
+            try:
+                with zipfile.ZipFile(io.BytesIO(docx_content), 'r') as zip_file:
+                    file_list = zip_file.namelist()
+                    
+                    # Check for essential DOCX files
+                    essential_files = ['word/document.xml', '[Content_Types].xml', 'word/_rels/document.xml.rels']
+                    has_essential_files = all(f in file_list for f in essential_files)
+                    
+                    if has_essential_files:
+                        self.log_test("DOCX Has Valid ZIP Structure", True, f"Contains {len(file_list)} files")
+                    else:
+                        missing = [f for f in essential_files if f not in file_list]
+                        self.log_test("DOCX Has Valid ZIP Structure", False, f"Missing essential files: {missing}")
+                    
+                    # Check for corruption by reading document.xml
+                    try:
+                        document_xml = zip_file.read('word/document.xml')
+                        if b'<?xml' in document_xml and b'</w:document>' in document_xml:
+                            self.log_test("DOCX Document XML Is Valid", True)
+                        else:
+                            self.log_test("DOCX Document XML Is Valid", False, "Document XML appears corrupted")
+                    except Exception as e:
+                        self.log_test("DOCX Document XML Is Valid", False, f"Error reading document.xml: {str(e)}")
+                        
+            except zipfile.BadZipFile:
+                self.log_test("DOCX Has Valid ZIP Structure", False, "File is not a valid ZIP file")
+            except Exception as e:
+                self.log_test("DOCX Has Valid ZIP Structure", False, f"Error checking ZIP structure: {str(e)}")
+                
+        except Exception as e:
+            self.log_test("File Integrity Verification", False, f"Error during integrity check: {str(e)}")
+        
+        # Test 4: Verify No Coroutine Objects in Response
+        print("\n🔍 Testing for Coroutine Object Issues...")
+        
+        try:
+            # Check that response content is bytes, not a string representation of a coroutine
+            content_str = str(docx_content[:1000])  # Check first 1000 chars
+            
+            if 'coroutine' not in content_str.lower() and '<coroutine object' not in content_str:
+                self.log_test("No Coroutine Objects in DOCX Response", True)
+            else:
+                self.log_test("No Coroutine Objects in DOCX Response", False, "Response contains coroutine references")
+            
+            # Check content-length header exists and is reasonable
+            content_length = docx_response.headers.get('content-length')
+            if content_length and int(content_length) > 10000:
+                self.log_test("DOCX Response Has Valid Content-Length", True, f"Length: {content_length}")
+            else:
+                self.log_test("DOCX Response Has Valid Content-Length", False, f"Length: {content_length}")
+                
+        except Exception as e:
+            self.log_test("Coroutine Object Test", False, f"Error during coroutine test: {str(e)}")
+        
+        # Test 5: Error Handling for Incomplete Assessments
+        print("\n🔍 Testing Error Handling...")
+        
+        try:
+            # Create a new incomplete assessment
+            success, new_assessment = self.make_request('POST', 'assessments', {})
+            if success:
+                incomplete_id = new_assessment['id']
+                
+                # Try to generate report for incomplete assessment
+                incomplete_response = requests.get(f"{self.api_url}/assessments/{incomplete_id}/report", 
+                                                 headers={'Authorization': f'Bearer {self.token}'})
+                
+                if incomplete_response.status_code in [400, 500]:  # Should return error
+                    self.log_test("Error Handling for Incomplete Assessment", True, f"HTTP {incomplete_response.status_code}")
+                else:
+                    self.log_test("Error Handling for Incomplete Assessment", False, f"Should return error, got HTTP {incomplete_response.status_code}")
+            else:
+                self.log_test("Error Handling Test Setup", False, "Could not create test assessment")
+                
+        except Exception as e:
+            self.log_test("Error Handling Test", False, f"Error during error handling test: {str(e)}")
+        
+        # Test 6: Authentication Error Handling
+        print("\n🔍 Testing Authentication Error Handling...")
+        
+        try:
+            # Try to generate report without authentication
+            unauth_response = requests.get(f"{self.api_url}/assessments/{self.assessment_id}/report")
+            
+            if unauth_response.status_code in [401, 403]:
+                self.log_test("Authentication Error Handling", True, f"HTTP {unauth_response.status_code}")
+            else:
+                self.log_test("Authentication Error Handling", False, f"Should return 401/403, got HTTP {unauth_response.status_code}")
+                
+        except Exception as e:
+            self.log_test("Authentication Error Handling Test", False, f"Error during auth test: {str(e)}")
+        
+        return True
+    
+    def _complete_assessment_for_report_testing(self):
+        """Complete the assessment to enable report generation"""
+        print("📝 Completing assessment for report testing...")
+        
+        # Get all questions
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success:
+            print(f"   ❌ Could not get questions: {response}")
+            return False
+        
+        # Answer all questions with varied responses for realistic report
+        question_count = 0
+        options = ["IDEAL", "GOOD", "BASIC", "NON_IDEAL"]
+        
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            for i, question in enumerate(questions):
+                # Use different answer options to create realistic data
+                option = options[i % len(options)]
+                
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": option,
+                    "note": f"Test answer for report generation - {option}"
+                }
+                
+                success_answer, _ = self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
+                if success_answer:
+                    question_count += 1
+        
+        print(f"   ✅ Answered {question_count} questions")
+        
+        # Submit the assessment
+        success, response = self.make_request('POST', f'assessments/{self.assessment_id}/submit')
+        if success:
+            print("   ✅ Assessment submitted successfully")
+            return True
+        else:
+            print(f"   ❌ Could not submit assessment: {response}")
+            return False
+
     def run_all_tests(self):
         """Run comprehensive test suite including DOCX report generation testing"""
         print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
