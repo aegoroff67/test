@@ -525,7 +525,7 @@
 
 ## test_plan:
   current_focus:
-    - "Test AM AI SAFE report generation after fixing async/sync mismatch to ensure files are no longer corrupted"
+    - "Verify critical report generation fixes: PDF variable scope and DOCX template corruption"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
