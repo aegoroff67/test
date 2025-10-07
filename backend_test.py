@@ -6618,6 +6618,14 @@ class AMSafeAPITester:
             print("❌ Assessment creation failed")
             return
             
+        # CRITICAL: Test the two specific fixes mentioned in review request
+        print("\n🎯 CRITICAL FIXES VERIFICATION: PDF Variable Scope & DOCX Template Corruption")
+        print("=" * 80)
+        
+        if not self.test_critical_report_generation_fixes():
+            print("❌ Critical report generation fixes failed")
+            return
+        
         # FINAL VERIFICATION: DOCX and PDF Report Generation with Fallback System
         print("\n🎯 FINAL COMPLETE VERIFICATION: DOCX AND PDF REPORT GENERATION")
         print("=" * 80)
