@@ -353,15 +353,20 @@ class AMReportGenerator:
             # Take only first 8 questions
             question_scores = question_scores[:8]
             
+            # Calculate percentage to match frontend logic
+            max_possible = len([q for q in questions if q['code'] != 'N/A']) * 3
+            percentage = (total_score / max_possible * 100) if max_possible > 0 else 0
+            
             domains_with_scores.append({
                 'name': domain_name,
                 'questions': question_scores,
                 'total_score': total_score,
-                'avg_score': total_score / len(questions) if questions else 0
+                'avg_score': total_score / len(questions) if questions else 0,
+                'percentage': percentage
             })
         
-        # Sort domains by total score (lowest first, as shown in heatmap)
-        domains_with_scores.sort(key=lambda x: x['total_score'])
+        # Sort domains by percentage (lowest first, matching frontend)
+        domains_with_scores.sort(key=lambda x: x['percentage'])
         
         return {
             'domains': domains_with_scores,
