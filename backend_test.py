@@ -4654,6 +4654,22 @@ class AMSafeAPITester:
         
         self.test_report_generation_after_libreoffice_install()
         
+        # HEATMAP IMAGE EMBEDDING TESTS (Review Request Focus)
+        print("\n" + "🔍" * 20 + " HEATMAP IMAGE EMBEDDING TESTS " + "🔍" * 20)
+        print("Testing the updated heatmap image embedding system as requested in review:")
+        print("1. Verify heatmap image is properly embedded in DOCX reports using InlineImage approach")
+        print("2. Confirm data alignment - heatmap matches Results Summary page exactly")
+        print("3. Verify domain sorting by percentage (lowest first) - matching frontend")
+        print("4. Verify question sorting by score (lowest first) - matching frontend")
+        print("5. Test error handling and PDF generation with heatmap")
+        print("=" * 80)
+        
+        self.test_heatmap_image_embedding_docx()
+        self.test_heatmap_data_alignment_verification()
+        self.test_heatmap_question_sorting_verification()
+        self.test_report_generation_error_handling()
+        self.test_pdf_generation_with_heatmap()
+        
         # Print results
         print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
