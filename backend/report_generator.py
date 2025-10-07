@@ -942,6 +942,9 @@ Each cell represents the score for a specific question, enabling identification 
                     'heatmapUrl': self._create_heatmap_for_template(heatmap_image) if heatmap_image else 'HEATMAP_IMAGE_PLACEHOLDER'
                 },
                 
+                # Heatmap image for direct placeholder replacement
+                'heatmap_image': heatmap_inline,
+                
                 # Actions for working template with separate priority arrays
                 'actions': {
                     'high': report_data.get('actions', {}).get('high', []),
