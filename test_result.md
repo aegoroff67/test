@@ -305,6 +305,18 @@
         - working: true
         - agent: "testing"
         - comment: "COMPREHENSIVE PDF CORRUPTION FIX VERIFIED: Extensive testing completed successfully addressing all review request requirements. CRITICAL SUCCESS CRITERIA: ✅ 1. PDF endpoint accessibility: GET /api/assessments/{assessment_id}/report/pdf returns HTTP 200 OK with proper MIME type (application/pdf), ✅ 2. PDF files properly generated and not corrupted: File size 199,839 bytes (substantial content), valid ZIP-free PDF format, ✅ 3. Correct MIME type and headers: Content-Type application/pdf, proper Content-Disposition attachment headers, ✅ 4. PDF file content and format validation: Starts with %PDF-1.6 magic number, ends with %%EOF marker, contains xref/trailer structure, ✅ 5. File size reasonable: 199KB+ indicating comprehensive report content (not corrupted small files), ✅ 6. LibreOffice conversion process working: LibreOffice 7.4.7.2 installed and successfully converting DOCX to PDF, ✅ 7. Error handling for edge cases: 401/403 for unauthenticated requests, proper validation. ADOBE ACROBAT COMPATIBILITY CONFIRMED: PDF files now start with proper %PDF magic number and have complete PDF structure, resolving the original Adobe Acrobat error. The user's reported issue of corrupted PDF files that couldn't be opened has been completely resolved. Testing included creating assessment with varied answers, completing submission, and generating both DOCX (112KB) and PDF (203KB) reports successfully."
+
+  - task: "Implement heatmap image generation and insertion into Word document template"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/report_generator.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Backend heatmap image generation functionality added. Changes: 1) Downloaded new template AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx with {{heatmap_image}} placeholder, 2) Updated _get_default_template_path() to use v9 template, 3) Added heatmap_image to template context as InlineImage object for docxtpl, 4) Heatmap generation already existed (_generate_heatmap_image method) that creates matplotlib visualization matching frontend results page, 5) Backend restarted to apply changes. The heatmap will now be programmatically inserted into Word documents at the {{heatmap_image}} placeholder location."
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
