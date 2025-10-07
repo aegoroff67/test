@@ -1358,4 +1358,4 @@ Each cell represents the score for a specific question, enabling identification 
         }
         
         # Generate both DOCX and PDF
-        return self.generate_report(assessment_id, assessment_data, user_data)
+        return await self.generate_report(assessment_id, assessment_data, user_data)
