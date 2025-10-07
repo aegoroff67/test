@@ -93,14 +93,14 @@ class V9TemplateTester:
             self.log_test("Test Assessment Creation", False, str(response))
             return False
 
-        # Answer some questions to create realistic assessment data
+        # Answer ALL questions to create complete assessment data
         success, questions_response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
         if success:
-            # Answer questions with varied responses to create realistic data
+            # Answer ALL questions with varied responses to create realistic data
             question_count = 0
             for domain_data in questions_response:
                 questions = domain_data.get('questions', [])
-                for i, question in enumerate(questions[:4]):  # Answer 4 questions per domain
+                for i, question in enumerate(questions):  # Answer ALL questions
                     options = ['IDEAL', 'GOOD', 'BASIC', 'NON_IDEAL']
                     option = options[i % len(options)]
                     
@@ -115,6 +115,13 @@ class V9TemplateTester:
                         question_count += 1
             
             self.log_test(f"Test Data Setup ({question_count} answers)", True)
+            
+            # Submit the assessment to complete it
+            success, submit_response = self.make_request('POST', f'assessments/{self.assessment_id}/submit')
+            if success:
+                self.log_test("Assessment Completion", True)
+            else:
+                self.log_test("Assessment Completion", False, str(submit_response))
         else:
             self.log_test("Test Data Setup", False, "Failed to get questions")
             return False
