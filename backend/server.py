@@ -647,6 +647,13 @@ async def generate_report_pdf(assessment_id: str, current_user: UserResponse = D
             assessment_id, db, current_user
         )
         
+        # Check if PDF conversion was successful
+        if pdf_bytes is None:
+            raise HTTPException(
+                status_code=503, 
+                detail="PDF generation is temporarily unavailable. Please try downloading the DOCX format instead."
+            )
+        
         # Generate PDF filename
         safe_org_name = "".join(c for c in current_user.organization_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
         safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
