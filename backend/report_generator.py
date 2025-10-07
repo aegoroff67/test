@@ -1164,7 +1164,7 @@ Each cell represents the score for a specific question, enabling identification 
         }
         
         # Generate the report
-        docx_bytes, pdf_bytes = self.generate_report(assessment_id, assessment_data, user_data)
+        docx_bytes, pdf_bytes = await self.generate_report(assessment_id, assessment_data, user_data)
         
         # Generate filename
         safe_org_name = "".join(c for c in current_user.organization_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
