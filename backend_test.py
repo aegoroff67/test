@@ -4916,6 +4916,20 @@ class AMSafeAPITester:
         
         self.test_heatmap_image_generation_and_insertion()
         
+        # HEATMAP REFINEMENTS TESTING (REVIEW REQUEST FOCUS)
+        print("\n🎯 HEATMAP REFINEMENTS TESTING (REVIEW REQUEST FOCUS)")
+        print("=" * 80)
+        print("Testing the refined heatmap image generation with user's requested changes:")
+        print("1. Verify heatmap image width is now 6.27 inches in generated documents")
+        print("2. Confirm score numbers removed from question cells, showing only question codes")
+        print("3. Check question codes are properly centered and readable (font size 10)")
+        print("4. Test both DOCX and PDF generation with refined heatmap")
+        print("5. Validate color coding still works correctly for score visualization")
+        print("6. Ensure cleaner appearance improves readability without losing functionality")
+        print("=" * 80)
+        
+        self.test_heatmap_refinements_in_reports()
+        
         # Enhanced DOCX Report Generation Tests (as specifically requested in review)
         print("\n🔥 ENHANCED DOCX REPORT GENERATION WITH STYLE PRESERVATION")
         print("=" * 80)
