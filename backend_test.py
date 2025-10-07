@@ -5829,10 +5829,10 @@ def main():
             print("❌ Assessment creation failed")
             return 1
         
-        # Run the comprehensive new template test (MAIN FOCUS)
-        print("\n🎯 NEW TEMPLATE v8 COMPREHENSIVE TESTING")
+        # Run the heatmap layout overlap fix test (MAIN FOCUS FOR THIS REVIEW)
+        print("\n🎯 HEATMAP LAYOUT OVERLAP FIX TESTING")
         print("=" * 60)
-        success = tester.test_new_template_v8_comprehensive()
+        success = tester.test_heatmap_layout_overlap_fix()
         
         # Print final results
         tester.print_summary()
