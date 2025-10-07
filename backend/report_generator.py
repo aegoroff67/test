@@ -124,14 +124,28 @@ class AMReportGenerator:
                 '--outdir', output_dir, docx_path
             ]
             
-            subprocess.run(cmd, check=True, capture_output=True, timeout=30)
+            result = subprocess.run(cmd, check=True, capture_output=True, timeout=60)
+            print(f"LibreOffice conversion successful. Stdout: {result.stdout.decode()}")
             
             # Read the generated PDF
             pdf_filename = os.path.splitext(os.path.basename(docx_path))[0] + '.pdf'
             pdf_path = os.path.join(output_dir, pdf_filename)
             
+            if not os.path.exists(pdf_path):
+                raise Exception(f"PDF file was not created at expected path: {pdf_path}")
+            
             with open(pdf_path, 'rb') as pdf_file:
                 pdf_bytes = pdf_file.read()
+            
+            # Validate PDF content
+            if len(pdf_bytes) < 100:  # PDF files should be at least 100 bytes
+                raise Exception(f"Generated PDF is too small ({len(pdf_bytes)} bytes)")
+            
+            # Check PDF magic number
+            if not pdf_bytes.startswith(b'%PDF'):
+                raise Exception("Generated file is not a valid PDF")
+            
+            print(f"PDF conversion successful. Generated {len(pdf_bytes)} bytes")
             
             # Cleanup
             os.unlink(docx_path)
@@ -141,13 +155,15 @@ class AMReportGenerator:
             return pdf_bytes
             
         except subprocess.CalledProcessError as e:
-            print(f"LibreOffice conversion error: {e.stderr.decode()}")
-            # Return DOCX bytes as fallback
-            return docx_bytes
+            error_msg = f"LibreOffice conversion failed: {e.stderr.decode() if e.stderr else 'Unknown error'}"
+            print(error_msg)
+            # Don't return DOCX bytes as PDF - raise an exception instead
+            raise Exception(error_msg)
         except Exception as e:
-            print(f"PDF conversion error: {str(e)}")
-            # Return DOCX bytes as fallback
-            return docx_bytes
+            error_msg = f"PDF conversion error: {str(e)}"
+            print(error_msg)
+            # Don't return DOCX bytes as PDF - raise an exception instead
+            raise Exception(error_msg)
     
     def _transform_assessment_data(self, assessment_data: Dict[str, Any], 
                                  user_data: Dict[str, Any]) -> Dict[str, Any]:
