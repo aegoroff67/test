@@ -76,7 +76,7 @@ class AMReportGenerator:
         except:
             return str(date_input)
     
-    def generate_report(self, assessment_id: str, assessment_data: Dict[str, Any], 
+    async def generate_report(self, assessment_id: str, assessment_data: Dict[str, Any], 
                             user_data: Dict[str, Any]) -> Tuple[bytes, bytes]:
         """
         Generate DOCX and PDF reports from assessment data.
