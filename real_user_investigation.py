@@ -284,6 +284,13 @@ class RealUserInvestigation:
             if success:
                 answered_count += 1
         
+        # Submit the assessment to complete it
+        success, submit_response = self.make_request('POST', f'assessments/{assessment_id}/submit')
+        if success:
+            self.log_test(f"Complete assessment for problematic data testing", True, "Assessment submitted successfully")
+        else:
+            self.log_test(f"Complete assessment for problematic data testing", False, f"Failed to submit: {submit_response}")
+        
         self.log_test(f"Simulate problematic answers", True, f"Answered {answered_count}/{len(all_questions)} questions with problematic patterns")
     
     def test_docx_generation_with_problematic_data(self, assessment_id):
