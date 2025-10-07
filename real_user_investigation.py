@@ -409,6 +409,13 @@ class RealUserInvestigation:
                     "note": "Standard test answer"
                 }
                 self.make_request('POST', f'assessments/{test_assessment_id}/answer', answer_data)
+            
+            # Submit the assessment to complete it
+            success, submit_response = self.make_request('POST', f'assessments/{test_assessment_id}/submit')
+            if success:
+                self.log_test(f"Complete comparison assessment", True, "Assessment submitted successfully")
+            else:
+                self.log_test(f"Complete comparison assessment", False, f"Failed to submit: {submit_response}")
         
         # Test report generation with standard data
         self.test_docx_generation_with_standard_data(test_assessment_id)
