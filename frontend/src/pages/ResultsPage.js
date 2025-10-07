@@ -460,9 +460,6 @@ function ResultsPage() {
                         style={{ width: `${domain.percentage}%` }}
                       ></div>
                     </div>
-                    <p className="text-xs text-gray-600">
-                      {domain.score} / {domain.max_score}
-                    </p>
                   </div>
                 );
               })}
