@@ -5012,7 +5012,7 @@ class AMSafeAPITester:
                     return False
                 question_index += 1
         
-        self.log_test(f"Answered all {len(all_questions)} questions with varied responses", True)
+        self.log_test(f"Answered all {question_index} questions with varied responses across domains", True)
         
         # Submit the assessment to complete it
         success, submit_response = self.make_request('POST', f'assessments/{heatmap_assessment_id}/submit')
