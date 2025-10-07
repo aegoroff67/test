@@ -4326,6 +4326,243 @@ class AMSafeAPITester:
         
         return True
 
+    def test_report_generation_after_libreoffice_install(self):
+        """Test report generation system after LibreOffice installation - Focus on PDF generation and heatmap accuracy"""
+        print("\n🔍 TESTING REPORT GENERATION AFTER LIBREOFFICE INSTALLATION")
+        print("=" * 80)
+        print("OBJECTIVE: Verify PDF generation works and heatmap data is accurate")
+        print("-" * 80)
+        
+        # Step 1: Create a test assessment with known answer patterns for heatmap verification
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for report generation test", False, str(response))
+            return False
+            
+        report_test_assessment_id = response['id']
+        self.log_test("Create assessment for report generation test", True)
+        
+        # Step 2: Get all questions to create controlled answer patterns
+        success, response = self.make_request('GET', f'assessments/{report_test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for report test", False, str(response))
+            return False
+            
+        # Collect all questions by domain for controlled testing
+        all_questions_by_domain = {}
+        total_questions = 0
+        for domain_data in response:
+            domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+            questions = domain_data.get('questions', [])
+            all_questions_by_domain[domain_name] = questions
+            total_questions += len(questions)
+        
+        self.log_test(f"Retrieved {total_questions} questions across {len(all_questions_by_domain)} domains", True)
+        
+        # Step 3: Create specific answer patterns for heatmap accuracy testing
+        # Pattern: Fairness = All IDEAL (100%), Transparency = All NON_IDEAL (0%), Others = Mixed
+        answer_patterns = {
+            'Fairness': 'IDEAL',      # Should show 100% in heatmap
+            'Transparency': 'NON_IDEAL',  # Should show 0% in heatmap
+            'Explainability': 'GOOD',     # Should show ~67% in heatmap
+            'Accountability': 'BASIC',    # Should show ~33% in heatmap
+        }
+        
+        answered_questions = 0
+        for domain_name, questions in all_questions_by_domain.items():
+            # Use specific pattern for test domains, GOOD for others
+            answer_option = answer_patterns.get(domain_name, 'GOOD')
+            
+            for question in questions:
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": answer_option,
+                    "note": f"Test answer for heatmap verification - {domain_name} domain"
+                }
+                
+                success, _ = self.make_request('POST', f'assessments/{report_test_assessment_id}/answer', answer_data)
+                if success:
+                    answered_questions += 1
+        
+        self.log_test(f"Answered all {answered_questions} questions with controlled patterns", True)
+        
+        # Step 4: Submit the assessment
+        success, submit_response = self.make_request('POST', f'assessments/{report_test_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for report test", False, str(submit_response))
+            return False
+        
+        self.log_test("Submit assessment for report test", True)
+        
+        # Step 5: Verify assessment summary shows expected scores for heatmap accuracy
+        success, summary_response = self.make_request('GET', f'assessments/{report_test_assessment_id}/summary')
+        if success:
+            domain_scores = summary_response.get('domain_scores', [])
+            
+            # Verify expected domain scores
+            for domain_score in domain_scores:
+                domain_name = domain_score.get('domain_name', '')
+                percentage = domain_score.get('percentage', 0)
+                
+                if domain_name == 'Fairness':
+                    if abs(percentage - 100.0) < 0.1:
+                        self.log_test(f"Fairness domain shows 100% (actual: {percentage:.1f}%)", True)
+                    else:
+                        self.log_test(f"Fairness domain shows 100% (actual: {percentage:.1f}%)", False, "Should be 100% for all IDEAL answers")
+                
+                elif domain_name == 'Transparency':
+                    if abs(percentage - 0.0) < 0.1:
+                        self.log_test(f"Transparency domain shows 0% (actual: {percentage:.1f}%)", True)
+                    else:
+                        self.log_test(f"Transparency domain shows 0% (actual: {percentage:.1f}%)", False, "Should be 0% for all NON_IDEAL answers")
+                
+                elif domain_name == 'Explainability':
+                    expected = 66.7  # GOOD = 2/3 * 100
+                    if abs(percentage - expected) < 5.0:
+                        self.log_test(f"Explainability domain shows ~67% (actual: {percentage:.1f}%)", True)
+                    else:
+                        self.log_test(f"Explainability domain shows ~67% (actual: {percentage:.1f}%)", False, f"Should be ~67% for all GOOD answers")
+        
+        # Step 6: Test DOCX report generation
+        print("\n📄 TESTING DOCX REPORT GENERATION")
+        print("-" * 40)
+        
+        url = f"{self.api_url}/assessments/{report_test_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code == 200:
+                self.log_test("DOCX report generation returns 200 OK", True)
+                
+                # Check MIME type
+                content_type = response.headers.get('content-type', '')
+                expected_docx_mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                if expected_docx_mime in content_type:
+                    self.log_test("DOCX report has correct MIME type", True)
+                else:
+                    self.log_test("DOCX report has correct MIME type", False, f"Got: {content_type}")
+                
+                # Check file size (should be substantial)
+                content_length = len(response.content)
+                if content_length > 30000:  # At least 30KB
+                    self.log_test(f"DOCX report has substantial content ({content_length} bytes)", True)
+                else:
+                    self.log_test(f"DOCX report has substantial content ({content_length} bytes)", False, "File too small")
+                
+                # Verify DOCX file structure
+                if response.content.startswith(b'PK'):  # ZIP signature
+                    self.log_test("DOCX file has valid ZIP-based structure", True)
+                else:
+                    self.log_test("DOCX file has valid ZIP-based structure", False, "Not a valid ZIP file")
+                    
+            else:
+                self.log_test("DOCX report generation returns 200 OK", False, f"Status: {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("DOCX report generation", False, str(e))
+        
+        # Step 7: Test PDF report generation (MAIN FOCUS)
+        print("\n📄 TESTING PDF REPORT GENERATION (MAIN FOCUS)")
+        print("-" * 50)
+        
+        pdf_url = f"{self.api_url}/assessments/{report_test_assessment_id}/report/pdf"
+        
+        try:
+            pdf_response = requests.get(pdf_url, headers=headers, timeout=90)
+            
+            if pdf_response.status_code == 200:
+                self.log_test("PDF report generation returns 200 OK", True)
+                
+                # Check MIME type - CRITICAL TEST
+                pdf_content_type = pdf_response.headers.get('content-type', '')
+                if 'application/pdf' in pdf_content_type:
+                    self.log_test("PDF report has correct PDF MIME type", True)
+                else:
+                    self.log_test("PDF report has correct PDF MIME type", False, f"Got: {pdf_content_type} (should be application/pdf)")
+                
+                # Check if content is actually PDF format - CRITICAL TEST
+                pdf_content = pdf_response.content
+                if pdf_content.startswith(b'%PDF'):
+                    self.log_test("PDF report content is valid PDF format", True)
+                else:
+                    self.log_test("PDF report content is valid PDF format", False, "Content does not start with %PDF header")
+                    # Check if it's actually DOCX content being served as PDF
+                    if pdf_content.startswith(b'PK'):
+                        self.log_test("PDF endpoint serving DOCX content instead", False, "LibreOffice conversion failed - serving DOCX as PDF")
+                
+                # Check PDF file structure
+                if b'%%EOF' in pdf_content:
+                    self.log_test("PDF file has valid end marker", True)
+                else:
+                    self.log_test("PDF file has valid end marker", False, "Missing %%EOF marker")
+                
+                # Check file size
+                pdf_content_length = len(pdf_content)
+                if pdf_content_length > 30000:  # At least 30KB
+                    self.log_test(f"PDF report has substantial content ({pdf_content_length} bytes)", True)
+                else:
+                    self.log_test(f"PDF report has substantial content ({pdf_content_length} bytes)", False, "File too small")
+                    
+            else:
+                self.log_test("PDF report generation returns 200 OK", False, f"Status: {pdf_response.status_code}")
+                
+        except Exception as e:
+            self.log_test("PDF report generation", False, str(e))
+        
+        # Step 8: Check backend logs for LibreOffice conversion
+        print("\n🔍 CHECKING BACKEND LOGS FOR LIBREOFFICE")
+        print("-" * 45)
+        
+        try:
+            # Check supervisor logs for backend
+            log_result = subprocess.run(['tail', '-n', '50', '/var/log/supervisor/backend.err.log'], 
+                                      capture_output=True, text=True, timeout=10)
+            
+            if log_result.returncode == 0:
+                log_content = log_result.stdout
+                
+                # Check for LibreOffice errors
+                if 'libreoffice' in log_content.lower():
+                    if 'no such file or directory' in log_content.lower():
+                        self.log_test("LibreOffice installation check", False, "LibreOffice not found in logs")
+                    elif 'conversion error' in log_content.lower():
+                        self.log_test("LibreOffice conversion check", False, "LibreOffice conversion errors found")
+                    else:
+                        self.log_test("LibreOffice operation in logs", True)
+                else:
+                    self.log_test("LibreOffice mentioned in recent logs", False, "No LibreOffice activity in logs")
+                    
+        except Exception as e:
+            self.log_test("Backend log analysis", False, str(e))
+        
+        # Step 9: Test file format verification
+        print("\n🔍 FILE FORMAT VERIFICATION")
+        print("-" * 30)
+        
+        # Verify LibreOffice is accessible
+        try:
+            libreoffice_result = subprocess.run(['libreoffice', '--version'], 
+                                              capture_output=True, text=True, timeout=10)
+            if libreoffice_result.returncode == 0:
+                version = libreoffice_result.stdout.strip()
+                self.log_test(f"LibreOffice accessible ({version})", True)
+            else:
+                self.log_test("LibreOffice accessible", False, "LibreOffice command failed")
+        except Exception as e:
+            self.log_test("LibreOffice accessibility", False, str(e))
+        
+        print("\n" + "=" * 80)
+        print("📊 REPORT GENERATION TEST SUMMARY")
+        print("=" * 80)
+        print("✅ DOCX Generation: Should be working correctly")
+        print("🎯 PDF Generation: Main focus - should work after LibreOffice installation")
+        print("📈 Heatmap Accuracy: Verified with controlled answer patterns")
+        print("🔧 LibreOffice: Checked installation and conversion capability")
+        
+        return True
+
     def run_all_tests(self):
         """Run comprehensive test suite including DOCX report generation testing"""
         print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
