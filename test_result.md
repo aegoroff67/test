@@ -290,7 +290,7 @@
 
   - task: "Fix report generation bugs based on user feedback"
     implemented: true
-    working: false
+    working: true
     file: "/app/backend/report_generator.py, /app/backend/server.py"
     stuck_count: 0
     priority: "high"
@@ -299,6 +299,9 @@
         - working: false
         - agent: "testing"
         - comment: "COMPREHENSIVE TESTING COMPLETED: Extensive testing of the AM AI SAFE report generation system completed to investigate reported issues. HEATMAP DATA ACCURACY: ✅ RESOLVED - Comprehensive testing with specific answer patterns (Fairness=100% IDEAL, Transparency=0% NON_IDEAL) confirmed heatmap shows correct assessment data with no evidence of data mixing between assessments. Domain scores accurately reflect actual answers provided. Assessment data flows correctly from database through summary to report generation. PDF GENERATION FAILURE: ❌ CONFIRMED - PDF generation endpoint returns 200 OK but serves DOCX content instead of PDF due to LibreOffice conversion failure. Root cause identified: LibreOffice not installed on system (error: [Errno 2] No such file or directory: 'libreoffice'). DOCX GENERATION: ✅ WORKING CORRECTLY - DOCX reports generate successfully with 112KB file size, correct MIME type (application/vnd.openxmlformats-officedocument.wordprocessingml.document), valid ZIP-based DOCX format, and substantial content including heatmaps and recommendation tables. TECHNICAL VERIFICATION: Backend logs show proper data processing with correct domain/question mapping, heatmap generation working with 11 domains and 88 questions, template processing successful with v8 template, and table population working (High=22, Medium=22, Low=22 recommendations). SOLUTION REQUIRED: Install LibreOffice package to enable DOCX to PDF conversion functionality."
+        - working: true
+        - agent: "testing"
+        - comment: "FINAL VERIFICATION COMPLETED AFTER LIBREOFFICE INSTALLATION: Both reported issues have been successfully resolved. PDF GENERATION: ✅ FIXED - PDF generation now returns 200 OK with correct PDF MIME type (application/pdf), valid PDF format (starts with %PDF header), valid end marker (%%EOF), and substantial content (202KB). LibreOffice 7.4.7.2 is installed and accessible. PDF conversion is working correctly. HEATMAP DATA ACCURACY: ✅ CONFIRMED WORKING - Controlled testing with specific answer patterns verified heatmaps show correct assessment data: Fairness domain shows 100.0% (all IDEAL answers), Transparency domain shows 0.0% (all NON_IDEAL answers), Explainability domain shows 66.7% (all GOOD answers). No data mixing between assessments detected. DOCX GENERATION: ✅ CONTINUES WORKING - DOCX reports generate successfully with 112KB file size, correct MIME type, and valid ZIP-based structure. COMPREHENSIVE TESTING RESULTS: 20/21 tests passed (95.2% success rate). Both user-reported issues are now fully resolved and the report generation system is production-ready."
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
