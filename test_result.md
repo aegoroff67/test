@@ -470,7 +470,7 @@
 
 ## test_plan:
   current_focus: 
-    - "Test optimized heatmap layout with domain names and percentages on same horizontal line"
+    - "Fix heatmap layout text overlapping issue with vertical stacking"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
