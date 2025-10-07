@@ -7163,6 +7163,435 @@ class AMSafeAPITester:
             print(f"   ❌ Error completing assessment: {e}")
             return False
 
+    def test_v7_template_docx_generation_comprehensive(self):
+        """Test comprehensive DOCX generation with v7 template focusing on corruption and table issues"""
+        print("\n🔍 V7 TEMPLATE COMPREHENSIVE DOCX GENERATION TEST")
+        print("-" * 80)
+        
+        # Create a complete assessment for testing
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for v7 template test", False, str(response))
+            return False
+            
+        v7_assessment_id = response['id']
+        self.log_test("Create assessment for v7 template test", True)
+        
+        # Get all questions and answer them to create realistic data
+        success, questions_response = self.make_request('GET', f'assessments/{v7_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for v7 template test", False, str(questions_response))
+            return False
+            
+        # Answer all questions with varied responses to create realistic recommendation data
+        question_count = 0
+        answer_patterns = ['NON_IDEAL', 'BASIC', 'GOOD', 'IDEAL']  # This will create high/medium/low priority recommendations
+        
+        for domain_data in questions_response:
+            questions = domain_data.get('questions', [])
+            for i, question in enumerate(questions):
+                # Use pattern to create varied scores for realistic recommendations
+                option = answer_patterns[i % len(answer_patterns)]
+                
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": option,
+                    "note": f"Test answer for v7 template - {option}"
+                }
+                
+                success, _ = self.make_request('POST', f'assessments/{v7_assessment_id}/answer', answer_data)
+                if success:
+                    question_count += 1
+        
+        self.log_test(f"Answered {question_count} questions with varied responses", True)
+        
+        # Submit the assessment to complete it
+        success, _ = self.make_request('POST', f'assessments/{v7_assessment_id}/submit')
+        if success:
+            self.log_test("Assessment completed for v7 template test", True)
+        else:
+            self.log_test("Assessment completed for v7 template test", False, "Failed to complete assessment")
+            return False
+        
+        # Test DOCX generation with v7 template
+        print("\n📄 TESTING V7 TEMPLATE DOCX GENERATION")
+        print("-" * 50)
+        
+        url = f"{self.api_url}/assessments/{v7_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            # Check response status
+            if response.status_code == 200:
+                self.log_test("V7 Template DOCX Generation - HTTP 200 OK", True)
+            else:
+                self.log_test("V7 Template DOCX Generation - HTTP 200 OK", False, f"Got {response.status_code}")
+                return False
+            
+            # Check MIME type
+            content_type = response.headers.get('content-type', '')
+            expected_mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            if expected_mime in content_type:
+                self.log_test("V7 Template DOCX - Correct MIME Type", True)
+            else:
+                self.log_test("V7 Template DOCX - Correct MIME Type", False, f"Got {content_type}")
+            
+            # Check file size (should be substantial for v7 template)
+            docx_bytes = response.content
+            file_size_kb = len(docx_bytes) / 1024
+            if file_size_kb > 50:  # Expect substantial file size
+                self.log_test(f"V7 Template DOCX - Substantial File Size ({file_size_kb:.1f}KB)", True)
+            else:
+                self.log_test(f"V7 Template DOCX - Substantial File Size ({file_size_kb:.1f}KB)", False, "File too small")
+            
+            # Test DOCX file structure integrity (ZIP-based format)
+            try:
+                docx_zip = zipfile.ZipFile(io.BytesIO(docx_bytes))
+                
+                # Check essential DOCX files
+                essential_files = [
+                    'word/document.xml',
+                    '[Content_Types].xml',
+                    'word/_rels/document.xml.rels'
+                ]
+                
+                zip_files = docx_zip.namelist()
+                missing_files = [f for f in essential_files if f not in zip_files]
+                
+                if not missing_files:
+                    self.log_test("V7 Template DOCX - Valid ZIP Structure", True)
+                else:
+                    self.log_test("V7 Template DOCX - Valid ZIP Structure", False, f"Missing: {missing_files}")
+                
+                # Check for media files (heatmap images)
+                media_files = [f for f in zip_files if f.startswith('word/media/')]
+                if media_files:
+                    self.log_test(f"V7 Template DOCX - Heatmap Images Embedded ({len(media_files)} files)", True)
+                    print(f"   📸 Media files: {media_files}")
+                else:
+                    self.log_test("V7 Template DOCX - Heatmap Images Embedded", False, "No media files found")
+                
+                # Check document.xml for corruption indicators
+                try:
+                    document_xml = docx_zip.read('word/document.xml').decode('utf-8')
+                    
+                    # Check for XML well-formedness indicators
+                    if document_xml.startswith('<?xml') and '</w:document>' in document_xml:
+                        self.log_test("V7 Template DOCX - Document XML Well-Formed", True)
+                    else:
+                        self.log_test("V7 Template DOCX - Document XML Well-Formed", False, "XML structure issues")
+                    
+                    # Check for organization name in content
+                    if 'vCISO.One' in document_xml:
+                        self.log_test("V7 Template DOCX - Organization Name Present", True)
+                    else:
+                        self.log_test("V7 Template DOCX - Organization Name Present", False, "Organization name not found")
+                    
+                    # Check for table content (recommendations)
+                    table_count = document_xml.count('<w:tbl>')
+                    if table_count >= 3:  # Should have at least High/Medium/Low priority tables
+                        self.log_test(f"V7 Template DOCX - Recommendation Tables Present ({table_count} tables)", True)
+                    else:
+                        self.log_test(f"V7 Template DOCX - Recommendation Tables Present ({table_count} tables)", False, "Insufficient tables")
+                    
+                except Exception as xml_error:
+                    self.log_test("V7 Template DOCX - Document XML Analysis", False, str(xml_error))
+                
+                docx_zip.close()
+                
+            except Exception as zip_error:
+                self.log_test("V7 Template DOCX - ZIP Structure Analysis", False, str(zip_error))
+            
+            # Test PDF generation with v7 template
+            print("\n📄 TESTING V7 TEMPLATE PDF GENERATION")
+            print("-" * 50)
+            
+            pdf_url = f"{self.api_url}/assessments/{v7_assessment_id}/report/pdf"
+            pdf_response = requests.get(pdf_url, headers=headers, timeout=60)
+            
+            if pdf_response.status_code == 200:
+                self.log_test("V7 Template PDF Generation - HTTP 200 OK", True)
+                
+                # Check PDF MIME type
+                pdf_content_type = pdf_response.headers.get('content-type', '')
+                if 'application/pdf' in pdf_content_type:
+                    self.log_test("V7 Template PDF - Correct MIME Type", True)
+                else:
+                    self.log_test("V7 Template PDF - Correct MIME Type", False, f"Got {pdf_content_type}")
+                
+                # Check PDF file format
+                pdf_bytes = pdf_response.content
+                pdf_size_kb = len(pdf_bytes) / 1024
+                
+                if pdf_bytes.startswith(b'%PDF'):
+                    self.log_test(f"V7 Template PDF - Valid PDF Format ({pdf_size_kb:.1f}KB)", True)
+                else:
+                    self.log_test(f"V7 Template PDF - Valid PDF Format ({pdf_size_kb:.1f}KB)", False, "Invalid PDF header")
+                
+                # Check for PDF end marker
+                if pdf_bytes.endswith(b'%%EOF') or b'%%EOF' in pdf_bytes[-100:]:
+                    self.log_test("V7 Template PDF - Valid PDF End Marker", True)
+                else:
+                    self.log_test("V7 Template PDF - Valid PDF End Marker", False, "Missing %%EOF marker")
+                
+            else:
+                self.log_test("V7 Template PDF Generation - HTTP 200 OK", False, f"Got {pdf_response.status_code}")
+                if pdf_response.status_code == 503:
+                    print("   ⚠️  PDF conversion service temporarily unavailable")
+            
+            return True
+            
+        except Exception as e:
+            self.log_test("V7 Template Report Generation", False, f"Exception: {str(e)}")
+            return False
+
+    def test_v7_template_programmatic_table_population(self):
+        """Test the programmatic table population specifically for v7 template"""
+        print("\n🔍 V7 TEMPLATE PROGRAMMATIC TABLE POPULATION TEST")
+        print("-" * 80)
+        
+        # Create assessment with strategic answer pattern to generate specific recommendations
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for table population test", False, str(response))
+            return False
+            
+        table_test_assessment_id = response['id']
+        
+        # Get questions and answer strategically to create known recommendation counts
+        success, questions_response = self.make_request('GET', f'assessments/{table_test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for table population test", False, str(questions_response))
+            return False
+        
+        # Answer questions to create specific priority distributions
+        high_priority_count = 0
+        medium_priority_count = 0
+        low_priority_count = 0
+        
+        for domain_idx, domain_data in enumerate(questions_response):
+            questions = domain_data.get('questions', [])
+            for question_idx, question in enumerate(questions):
+                # Create specific pattern: 
+                # First 2 questions per domain = NON_IDEAL (High priority)
+                # Next 2 questions = BASIC (Medium priority)  
+                # Next 2 questions = GOOD (Low priority)
+                # Last 2 questions = IDEAL (No recommendations)
+                
+                if question_idx < 2:
+                    option = 'NON_IDEAL'
+                    high_priority_count += 1
+                elif question_idx < 4:
+                    option = 'BASIC'
+                    medium_priority_count += 1
+                elif question_idx < 6:
+                    option = 'GOOD'
+                    low_priority_count += 1
+                else:
+                    option = 'IDEAL'
+                
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": option,
+                    "note": f"Strategic answer for table test - {option}"
+                }
+                
+                self.make_request('POST', f'assessments/{table_test_assessment_id}/answer', answer_data)
+        
+        print(f"   📊 Expected recommendations: High={high_priority_count}, Medium={medium_priority_count}, Low={low_priority_count}")
+        
+        # Complete the assessment
+        success, _ = self.make_request('POST', f'assessments/{table_test_assessment_id}/submit')
+        if not success:
+            self.log_test("Complete assessment for table test", False, "Failed to submit")
+            return False
+        
+        # Generate DOCX report and analyze table structure
+        url = f"{self.api_url}/assessments/{table_test_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code != 200:
+                self.log_test("Generate report for table analysis", False, f"HTTP {response.status_code}")
+                return False
+            
+            docx_bytes = response.content
+            file_size_kb = len(docx_bytes) / 1024
+            
+            # Analyze file size - should be substantial with multiple table rows
+            if file_size_kb > 80:  # Expect larger file with multiple recommendation rows
+                self.log_test(f"Table Population - Substantial File Size ({file_size_kb:.1f}KB)", True)
+            else:
+                self.log_test(f"Table Population - Substantial File Size ({file_size_kb:.1f}KB)", False, "File may be too small for multiple rows")
+            
+            # Analyze DOCX structure for table content
+            try:
+                docx_zip = zipfile.ZipFile(io.BytesIO(docx_bytes))
+                document_xml = docx_zip.read('word/document.xml').decode('utf-8')
+                
+                # Count table rows (excluding headers)
+                table_row_count = document_xml.count('<w:tr>') - document_xml.count('<w:tblHeader/>')
+                expected_min_rows = high_priority_count + medium_priority_count + low_priority_count + 3  # +3 for headers
+                
+                if table_row_count >= expected_min_rows:
+                    self.log_test(f"Table Population - Multiple Rows Created ({table_row_count} rows)", True)
+                else:
+                    self.log_test(f"Table Population - Multiple Rows Created ({table_row_count} rows)", False, f"Expected at least {expected_min_rows}")
+                
+                # Check for specific table cell content patterns
+                cell_count = document_xml.count('<w:tc>')
+                if cell_count >= (expected_min_rows * 3):  # Each recommendation row should have 3 cells
+                    self.log_test(f"Table Population - Proper Cell Structure ({cell_count} cells)", True)
+                else:
+                    self.log_test(f"Table Population - Proper Cell Structure ({cell_count} cells)", False, "Insufficient cells for proper table structure")
+                
+                # Check for domain names in table content (indicates proper population)
+                domain_names = ['Fairness', 'Transparency', 'Explainability', 'Accountability', 'Data Integrity']
+                domains_found = sum(1 for domain in domain_names if domain in document_xml)
+                
+                if domains_found >= 3:
+                    self.log_test(f"Table Population - Domain Names in Tables ({domains_found} domains)", True)
+                else:
+                    self.log_test(f"Table Population - Domain Names in Tables ({domains_found} domains)", False, "Domain names not properly populated")
+                
+                # Check for question codes in table content
+                question_code_pattern = r'[A-Z]{2}-[0-9]'
+                import re
+                question_codes = re.findall(question_code_pattern, document_xml)
+                
+                if len(question_codes) >= 10:  # Should have multiple question codes
+                    self.log_test(f"Table Population - Question Codes Present ({len(question_codes)} codes)", True)
+                else:
+                    self.log_test(f"Table Population - Question Codes Present ({len(question_codes)} codes)", False, "Insufficient question codes")
+                
+                docx_zip.close()
+                
+            except Exception as analysis_error:
+                self.log_test("Table Population - Document Analysis", False, str(analysis_error))
+            
+            return True
+            
+        except Exception as e:
+            self.log_test("Table Population Test", False, f"Exception: {str(e)}")
+            return False
+
+    def test_v7_template_heatmap_embedding(self):
+        """Test InlineImage heatmap embedding specifically for v7 template"""
+        print("\n🔍 V7 TEMPLATE HEATMAP EMBEDDING TEST")
+        print("-" * 80)
+        
+        # Use existing assessment if available, or create new one
+        if not hasattr(self, 'assessment_id') or not self.assessment_id:
+            success, response = self.make_request('POST', 'assessments', {})
+            if not success:
+                self.log_test("Create assessment for heatmap test", False, str(response))
+                return False
+            test_assessment_id = response['id']
+            
+            # Answer questions and complete assessment
+            success, questions_response = self.make_request('GET', f'assessments/{test_assessment_id}/questions')
+            if success:
+                for domain_data in questions_response:
+                    for question in domain_data.get('questions', []):
+                        answer_data = {
+                            "question_id": question['id'],
+                            "option": 'GOOD',
+                            "note": "Test answer for heatmap"
+                        }
+                        self.make_request('POST', f'assessments/{test_assessment_id}/answer', answer_data)
+                
+                self.make_request('POST', f'assessments/{test_assessment_id}/submit')
+        else:
+            test_assessment_id = self.assessment_id
+        
+        # Generate report and analyze heatmap embedding
+        url = f"{self.api_url}/assessments/{test_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code != 200:
+                self.log_test("Generate report for heatmap test", False, f"HTTP {response.status_code}")
+                return False
+            
+            docx_bytes = response.content
+            
+            # Analyze heatmap embedding
+            try:
+                docx_zip = zipfile.ZipFile(io.BytesIO(docx_bytes))
+                
+                # Check for media files (heatmap images)
+                zip_files = docx_zip.namelist()
+                media_files = [f for f in zip_files if f.startswith('word/media/')]
+                
+                if media_files:
+                    self.log_test(f"Heatmap Embedding - Media Files Present ({len(media_files)} files)", True)
+                    
+                    # Check media file sizes
+                    total_media_size = 0
+                    for media_file in media_files:
+                        media_data = docx_zip.read(media_file)
+                        media_size_kb = len(media_data) / 1024
+                        total_media_size += media_size_kb
+                        print(f"   📸 {media_file}: {media_size_kb:.1f}KB")
+                    
+                    if total_media_size > 10:  # Expect substantial image data
+                        self.log_test(f"Heatmap Embedding - Substantial Image Data ({total_media_size:.1f}KB)", True)
+                    else:
+                        self.log_test(f"Heatmap Embedding - Substantial Image Data ({total_media_size:.1f}KB)", False, "Images may be too small")
+                else:
+                    self.log_test("Heatmap Embedding - Media Files Present", False, "No media files found")
+                
+                # Check document relationships for image references
+                try:
+                    rels_xml = docx_zip.read('word/_rels/document.xml.rels').decode('utf-8')
+                    image_relationships = rels_xml.count('Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"')
+                    
+                    if image_relationships > 0:
+                        self.log_test(f"Heatmap Embedding - Image Relationships ({image_relationships} refs)", True)
+                    else:
+                        self.log_test("Heatmap Embedding - Image Relationships", False, "No image relationships found")
+                        
+                except Exception as rels_error:
+                    self.log_test("Heatmap Embedding - Relationship Analysis", False, str(rels_error))
+                
+                # Check document.xml for image references
+                try:
+                    document_xml = docx_zip.read('word/document.xml').decode('utf-8')
+                    
+                    # Look for drawing elements (images)
+                    drawing_count = document_xml.count('<w:drawing>')
+                    if drawing_count > 0:
+                        self.log_test(f"Heatmap Embedding - Drawing Elements ({drawing_count} drawings)", True)
+                    else:
+                        self.log_test("Heatmap Embedding - Drawing Elements", False, "No drawing elements found")
+                    
+                    # Look for inline shapes (InlineImage)
+                    inline_count = document_xml.count('<wp:inline>')
+                    if inline_count > 0:
+                        self.log_test(f"Heatmap Embedding - Inline Images ({inline_count} inline)", True)
+                    else:
+                        self.log_test("Heatmap Embedding - Inline Images", False, "No inline images found")
+                        
+                except Exception as doc_error:
+                    self.log_test("Heatmap Embedding - Document Analysis", False, str(doc_error))
+                
+                docx_zip.close()
+                
+            except Exception as zip_error:
+                self.log_test("Heatmap Embedding - ZIP Analysis", False, str(zip_error))
+            
+            return True
+            
+        except Exception as e:
+            self.log_test("Heatmap Embedding Test", False, f"Exception: {str(e)}")
+            return False
+
     def run_all_tests(self):
         """Run all tests in sequence - FINAL COMPLETE VERIFICATION"""
         print("🚀 Starting AM AI SAFE API Testing - FINAL DOCX/PDF REPORT VERIFICATION")
