@@ -103,8 +103,16 @@ class AMReportGenerator:
             pdf_bytes = self._convert_docx_to_pdf(docx_bytes)
         except Exception as e:
             print(f"PDF conversion failed: {str(e)}")
-            # Return None for PDF if conversion fails
-            pdf_bytes = None
+            print("Attempting fallback PDF generation with real data...")
+            try:
+                pdf_bytes = self._generate_pdf_fallback(report_data, questions_data)
+                if pdf_bytes:
+                    print(f"Fallback PDF generation successful: {len(pdf_bytes)} bytes")
+                else:
+                    pdf_bytes = None
+            except Exception as fallback_error:
+                print(f"Fallback PDF generation also failed: {fallback_error}")
+                pdf_bytes = None
         
         return docx_bytes, pdf_bytes
     
