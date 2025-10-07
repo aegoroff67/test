@@ -106,8 +106,8 @@ function AuthPage() {
                 AI Governance and Risk Assessment Framework
               </h2>
               <p className="text-lg text-gray-600">
-                Assessment and Monitoring for Artificial Intelligence Security, 
-                Accountability, Fairness, and Explainability
+                <span className="font-bold">A</span>ssessment and <span className="font-bold">M</span>onitoring for <span className="font-bold">A</span>rtificial <span className="font-bold">I</span>ntelligence <span className="font-bold">S</span>ecurity, 
+                <span className="font-bold">A</span>ccountability, <span className="font-bold">F</span>airness, and <span className="font-bold">E</span>xplainability
               </p>
             </div>
           </div>
