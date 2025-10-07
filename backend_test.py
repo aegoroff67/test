@@ -5227,6 +5227,202 @@ class AMSafeAPITester:
             self.log_test("File Integrity Verification", False, f"Error: {str(e)}")
             return False
 
+    def test_report_generation_coroutine_investigation(self):
+        """
+        CRITICAL INVESTIGATION: Test report generation system for coroutine/async errors.
+        This test specifically looks for the "object of type 'coroutine' has no len()" error.
+        """
+        print("\n🔍 COROUTINE/ASYNC ERROR INVESTIGATION")
+        print("-" * 60)
+        
+        if not self.assessment_id:
+            self.log_test("Report Generation Coroutine Investigation", False, "No assessment ID available")
+            return False
+        
+        # First, complete the assessment to enable report generation
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for report test", False, str(response))
+            return False
+        
+        # Answer all questions to complete the assessment
+        question_count = 0
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            for question in questions:
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": "GOOD",
+                    "note": "Test answer for report generation"
+                }
+                
+                success_answer, _ = self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
+                if success_answer:
+                    question_count += 1
+        
+        self.log_test(f"Completed assessment with {question_count} answers", True)
+        
+        # Submit the assessment
+        success, _ = self.make_request('POST', f'assessments/{self.assessment_id}/submit')
+        if success:
+            self.log_test("Assessment submitted successfully", True)
+        else:
+            self.log_test("Assessment submission", False, "Failed to submit assessment")
+            return False
+        
+        # Test DOCX report generation with detailed error capture
+        print("\n📄 Testing DOCX Report Generation...")
+        try:
+            url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+            headers = {'Authorization': f'Bearer {self.token}'}
+            
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code == 200:
+                # Check content type
+                content_type = response.headers.get('content-type', '')
+                if 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' in content_type:
+                    self.log_test("DOCX Report Generation - HTTP 200 OK", True)
+                    self.log_test("DOCX Report Generation - Correct MIME Type", True)
+                    
+                    # Check file size
+                    content_length = len(response.content)
+                    if content_length > 1000:  # Should be substantial
+                        self.log_test(f"DOCX Report Generation - File Size ({content_length} bytes)", True)
+                    else:
+                        self.log_test(f"DOCX Report Generation - File Size ({content_length} bytes)", False, "File too small")
+                    
+                    # Try to validate DOCX structure (ZIP-based)
+                    try:
+                        import zipfile
+                        import io
+                        
+                        docx_zip = zipfile.ZipFile(io.BytesIO(response.content))
+                        file_list = docx_zip.namelist()
+                        
+                        # Check for essential DOCX files
+                        essential_files = ['word/document.xml', '[Content_Types].xml', 'word/_rels/document.xml.rels']
+                        has_essential = all(f in file_list for f in essential_files)
+                        
+                        if has_essential:
+                            self.log_test("DOCX Report Generation - Valid ZIP Structure", True)
+                        else:
+                            self.log_test("DOCX Report Generation - Valid ZIP Structure", False, f"Missing essential files. Found: {file_list[:5]}")
+                        
+                        docx_zip.close()
+                        
+                    except Exception as zip_error:
+                        self.log_test("DOCX Report Generation - ZIP Validation", False, f"ZIP validation error: {str(zip_error)}")
+                    
+                else:
+                    self.log_test("DOCX Report Generation - Correct MIME Type", False, f"Got: {content_type}")
+                    
+            elif response.status_code == 500:
+                # This is where we might catch the coroutine error
+                try:
+                    error_text = response.text
+                    if 'coroutine' in error_text.lower():
+                        self.log_test("DOCX Report Generation - COROUTINE ERROR DETECTED", False, f"Found coroutine error: {error_text[:200]}...")
+                        print(f"   🚨 CRITICAL: Coroutine error found in DOCX generation!")
+                        print(f"   📝 Error details: {error_text}")
+                    else:
+                        self.log_test("DOCX Report Generation - Server Error", False, f"500 error: {error_text[:200]}...")
+                except:
+                    self.log_test("DOCX Report Generation - Server Error", False, f"500 error (no details)")
+            else:
+                self.log_test("DOCX Report Generation - HTTP Status", False, f"Got {response.status_code}: {response.text[:200]}")
+                
+        except Exception as e:
+            self.log_test("DOCX Report Generation - Request Error", False, f"Request failed: {str(e)}")
+        
+        # Test PDF report generation with detailed error capture
+        print("\n📄 Testing PDF Report Generation...")
+        try:
+            url = f"{self.api_url}/assessments/{self.assessment_id}/report/pdf"
+            headers = {'Authorization': f'Bearer {self.token}'}
+            
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            if response.status_code == 200:
+                # Check content type
+                content_type = response.headers.get('content-type', '')
+                if 'application/pdf' in content_type:
+                    self.log_test("PDF Report Generation - HTTP 200 OK", True)
+                    self.log_test("PDF Report Generation - Correct MIME Type", True)
+                    
+                    # Check file size
+                    content_length = len(response.content)
+                    if content_length > 1000:  # Should be substantial
+                        self.log_test(f"PDF Report Generation - File Size ({content_length} bytes)", True)
+                    else:
+                        self.log_test(f"PDF Report Generation - File Size ({content_length} bytes)", False, "File too small")
+                    
+                    # Try to validate PDF structure
+                    try:
+                        content = response.content
+                        if content.startswith(b'%PDF'):
+                            self.log_test("PDF Report Generation - Valid PDF Header", True)
+                        else:
+                            self.log_test("PDF Report Generation - Valid PDF Header", False, f"Invalid header: {content[:20]}")
+                        
+                        if b'%%EOF' in content:
+                            self.log_test("PDF Report Generation - Valid PDF Footer", True)
+                        else:
+                            self.log_test("PDF Report Generation - Valid PDF Footer", False, "Missing %%EOF marker")
+                            
+                    except Exception as pdf_error:
+                        self.log_test("PDF Report Generation - PDF Validation", False, f"PDF validation error: {str(pdf_error)}")
+                    
+                else:
+                    self.log_test("PDF Report Generation - Correct MIME Type", False, f"Got: {content_type}")
+                    # Check if we got DOCX instead of PDF (common issue)
+                    if 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' in content_type:
+                        self.log_test("PDF Report Generation - DOCX Instead of PDF", False, "PDF endpoint returned DOCX content")
+                    
+            elif response.status_code == 500:
+                # This is where we might catch the coroutine error
+                try:
+                    error_text = response.text
+                    if 'coroutine' in error_text.lower():
+                        self.log_test("PDF Report Generation - COROUTINE ERROR DETECTED", False, f"Found coroutine error: {error_text[:200]}...")
+                        print(f"   🚨 CRITICAL: Coroutine error found in PDF generation!")
+                        print(f"   📝 Error details: {error_text}")
+                    else:
+                        self.log_test("PDF Report Generation - Server Error", False, f"500 error: {error_text[:200]}...")
+                except:
+                    self.log_test("PDF Report Generation - Server Error", False, f"500 error (no details)")
+            else:
+                self.log_test("PDF Report Generation - HTTP Status", False, f"Got {response.status_code}: {response.text[:200]}")
+                
+        except Exception as e:
+            self.log_test("PDF Report Generation - Request Error", False, f"Request failed: {str(e)}")
+        
+        # Test multiple rapid requests to trigger potential race conditions
+        print("\n⚡ Testing Rapid Sequential Requests...")
+        for i in range(3):
+            try:
+                url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+                headers = {'Authorization': f'Bearer {self.token}'}
+                
+                response = requests.get(url, headers=headers, timeout=30)
+                
+                if response.status_code == 200:
+                    self.log_test(f"Rapid Request {i+1} - Success", True)
+                elif response.status_code == 500:
+                    error_text = response.text
+                    if 'coroutine' in error_text.lower():
+                        self.log_test(f"Rapid Request {i+1} - COROUTINE ERROR", False, f"Coroutine error in rapid request: {error_text[:100]}...")
+                        print(f"   🚨 CRITICAL: Coroutine error in rapid request {i+1}!")
+                    else:
+                        self.log_test(f"Rapid Request {i+1} - Server Error", False, f"500 error: {error_text[:100]}...")
+                else:
+                    self.log_test(f"Rapid Request {i+1} - HTTP Error", False, f"Status {response.status_code}")
+                    
+            except Exception as e:
+                self.log_test(f"Rapid Request {i+1} - Exception", False, f"Exception: {str(e)}")
+        
+        return True
+
     def run_all_tests(self):
         """Run comprehensive test suite including DOCX report generation testing"""
         print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
