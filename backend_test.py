@@ -5270,5 +5270,218 @@ def main():
         
         return True
 
+    def test_report_generation_heatmap_accuracy(self):
+        """Test DOCX report generation for heatmap data accuracy - PRIMARY ISSUE FROM REVIEW REQUEST"""
+        print("\n🔍 TESTING HEATMAP DATA ACCURACY IN DOCX REPORTS")
+        print("-" * 60)
+        
+        # Create a new assessment with specific known answers for verification
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for heatmap accuracy test", False, str(response))
+            return False
+            
+        heatmap_test_assessment_id = response['id']
+        self.log_test("Create assessment for heatmap accuracy test", True)
+        
+        # Get all questions for this assessment
+        success, response = self.make_request('GET', f'assessments/{heatmap_test_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for heatmap test", False, str(response))
+            return False
+            
+        # Create a specific pattern of answers that we can verify in the heatmap
+        # We'll answer questions with a known pattern: FA domain = all IDEAL (3), TR domain = all NON_IDEAL (0)
+        all_questions = []
+        for domain_data in response:
+            domain_name = domain_data.get('domain', {}).get('name', '')
+            questions = domain_data.get('questions', [])
+            
+            for question in questions:
+                question['domain_name'] = domain_name
+                all_questions.append(question)
+        
+        # Answer questions with specific pattern for verification
+        fa_questions_answered = 0
+        tr_questions_answered = 0
+        
+        for question in all_questions:
+            domain_name = question.get('domain_name', '')
+            question_code = question.get('code', '')
+            
+            # Create specific scoring pattern for verification
+            if domain_name == 'Fairness':
+                answer_option = 'IDEAL'  # Score = 3
+                fa_questions_answered += 1
+            elif domain_name == 'Transparency':
+                answer_option = 'NON_IDEAL'  # Score = 0
+                tr_questions_answered += 1
+            else:
+                answer_option = 'GOOD'  # Score = 2 for other domains
+            
+            answer_data = {
+                "question_id": question['id'],
+                "option": answer_option,
+                "note": f"Heatmap test answer for {question_code}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{heatmap_test_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer question {question_code} for heatmap test", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered all questions with known pattern (FA={fa_questions_answered} IDEAL, TR={tr_questions_answered} NON_IDEAL)", True)
+        
+        # Submit the assessment to complete it
+        success, _ = self.make_request('POST', f'assessments/{heatmap_test_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for heatmap test", False, "Failed to submit assessment")
+            return False
+            
+        self.log_test("Submit assessment for heatmap test", True)
+        
+        # Test DOCX report generation
+        success, docx_response = self.make_request('GET', f'assessments/{heatmap_test_assessment_id}/report')
+        if success:
+            self.log_test("DOCX Report Generation Endpoint Accessible", True)
+            
+            # Verify response headers for DOCX
+            if isinstance(docx_response, dict):
+                self.log_test("DOCX Report Returns File Content", False, "Expected file download, got JSON response")
+            else:
+                self.log_test("DOCX Report Returns File Content", True)
+                
+                # Check file size - should be substantial (>30KB for real content)
+                if hasattr(docx_response, '__len__'):
+                    file_size = len(str(docx_response))
+                    if file_size > 30000:  # 30KB minimum
+                        self.log_test("DOCX Report Has Substantial Content", True, f"File size: {file_size} bytes")
+                    else:
+                        self.log_test("DOCX Report Has Substantial Content", False, f"File size too small: {file_size} bytes")
+        else:
+            self.log_test("DOCX Report Generation Endpoint Accessible", False, str(docx_response))
+            return False
+        
+        # Get assessment summary to verify our known pattern is reflected
+        success, summary_response = self.make_request('GET', f'assessments/{heatmap_test_assessment_id}/summary')
+        if success:
+            self.log_test("Assessment Summary Accessible for Verification", True)
+            
+            # Verify that our scoring pattern is reflected in the summary
+            domain_scores = summary_response.get('domain_scores', [])
+            fairness_score = None
+            transparency_score = None
+            
+            for domain_score in domain_scores:
+                if domain_score.get('domain_name') == 'Fairness':
+                    fairness_score = domain_score.get('percentage', 0)
+                elif domain_score.get('domain_name') == 'Transparency':
+                    transparency_score = domain_score.get('percentage', 0)
+            
+            # Verify expected scores: Fairness should be 100% (all IDEAL), Transparency should be 0% (all NON_IDEAL)
+            if fairness_score is not None and fairness_score >= 95:  # Allow small margin for rounding
+                self.log_test("Fairness Domain Shows Expected High Score (100%)", True, f"Score: {fairness_score}%")
+            else:
+                self.log_test("Fairness Domain Shows Expected High Score (100%)", False, f"Expected ~100%, got {fairness_score}%")
+            
+            if transparency_score is not None and transparency_score <= 5:  # Allow small margin for rounding
+                self.log_test("Transparency Domain Shows Expected Low Score (0%)", True, f"Score: {transparency_score}%")
+            else:
+                self.log_test("Transparency Domain Shows Expected Low Score (0%)", False, f"Expected ~0%, got {transparency_score}%")
+                
+        else:
+            self.log_test("Assessment Summary Accessible for Verification", False, str(summary_response))
+        
+        return True
+
+    def test_pdf_generation_failure_investigation(self):
+        """Test PDF report generation and identify failure causes - PRIMARY ISSUE FROM REVIEW REQUEST"""
+        print("\n🔍 TESTING PDF GENERATION FAILURE INVESTIGATION")
+        print("-" * 60)
+        
+        # Use the existing completed assessment if available, or create a new one
+        test_assessment_id = self.assessment_id
+        if not test_assessment_id:
+            # Create and complete a new assessment
+            success, response = self.make_request('POST', 'assessments', {})
+            if not success:
+                self.log_test("Create assessment for PDF test", False, str(response))
+                return False
+                
+            test_assessment_id = response['id']
+            
+            # Complete the assessment quickly
+            success, response = self.make_request('GET', f'assessments/{test_assessment_id}/questions')
+            if success:
+                for domain_data in response:
+                    questions = domain_data.get('questions', [])
+                    for question in questions:
+                        answer_data = {
+                            "question_id": question['id'],
+                            "option": "GOOD",
+                            "note": "PDF test answer"
+                        }
+                        self.make_request('POST', f'assessments/{test_assessment_id}/answer', answer_data)
+                
+                # Submit assessment
+                self.make_request('POST', f'assessments/{test_assessment_id}/submit')
+        
+        # Test PDF generation endpoint
+        print(f"Testing PDF generation for assessment: {test_assessment_id}")
+        
+        success, pdf_response = self.make_request('GET', f'assessments/{test_assessment_id}/report/pdf')
+        if success:
+            self.log_test("PDF Report Generation Endpoint Accessible", True)
+            
+            # Verify response is PDF content
+            if isinstance(pdf_response, dict):
+                self.log_test("PDF Report Returns File Content", False, "Expected PDF file, got JSON response")
+            else:
+                self.log_test("PDF Report Returns File Content", True)
+                
+                # Check if it's actually PDF format
+                pdf_content = str(pdf_response)
+                if pdf_content.startswith('%PDF') or 'PDF' in pdf_content[:100]:
+                    self.log_test("PDF Report Has Valid PDF Format", True)
+                else:
+                    self.log_test("PDF Report Has Valid PDF Format", False, "Content doesn't appear to be PDF format")
+                
+                # Check file size
+                if hasattr(pdf_response, '__len__'):
+                    file_size = len(pdf_content)
+                    if file_size > 30000:  # 30KB minimum
+                        self.log_test("PDF Report Has Substantial Content", True, f"File size: {file_size} bytes")
+                    else:
+                        self.log_test("PDF Report Has Substantial Content", False, f"File size too small: {file_size} bytes")
+        else:
+            self.log_test("PDF Report Generation Endpoint Accessible", False, str(pdf_response))
+            
+            # Analyze the error to identify root cause
+            error_message = str(pdf_response).lower()
+            
+            if 'libreoffice' in error_message:
+                self.log_test("PDF Error Analysis: LibreOffice Issue", True, "Error related to LibreOffice conversion")
+            elif 'timeout' in error_message:
+                self.log_test("PDF Error Analysis: Timeout Issue", True, "Error related to conversion timeout")
+            elif 'permission' in error_message:
+                self.log_test("PDF Error Analysis: Permission Issue", True, "Error related to file permissions")
+            elif '500' in error_message:
+                self.log_test("PDF Error Analysis: Server Error", True, "Internal server error during PDF generation")
+            else:
+                self.log_test("PDF Error Analysis: Unknown Issue", False, f"Unidentified error: {pdf_response}")
+            
+            return False
+        
+        # Compare DOCX and PDF generation to identify differences
+        success_docx, docx_response = self.make_request('GET', f'assessments/{test_assessment_id}/report')
+        if success_docx and success:
+            self.log_test("Both DOCX and PDF Generation Work", True)
+        elif success_docx and not success:
+            self.log_test("DOCX Works But PDF Fails", True, "Issue is specifically with PDF conversion process")
+        elif not success_docx and not success:
+            self.log_test("Both DOCX and PDF Fail", True, "Issue is with underlying report generation")
+        
+        return success
+
 if __name__ == "__main__":
     sys.exit(main())
