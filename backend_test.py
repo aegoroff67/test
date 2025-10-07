@@ -5808,9 +5808,9 @@ def main():
     tester = AMSafeAPITester()
     
     try:
-        print("🎯 AM AI SAFE REPORT GENERATION TESTING - NEW TEMPLATE v8")
+        print("🎯 AM AI SAFE HEATMAP LAYOUT OVERLAP FIX TESTING")
         print("=" * 80)
-        print("Testing the updated report generation system with AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx")
+        print("Testing the fixed heatmap layout to resolve text overlapping issue")
         print("=" * 80)
         
         # Run authentication first
