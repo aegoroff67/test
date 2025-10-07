@@ -6868,6 +6868,27 @@ def main():
         elif test_type == "submit":
             print("🎯 Running Submit Assessment Issue Investigation")
             success = tester.run_specific_fix_tests()
+        elif test_type == "async-fix":
+            print("🚨 CRITICAL ASYNC/SYNC FIX VERIFICATION TEST")
+            print("=" * 80)
+            print("URGENT OBJECTIVE: Verify that corrected async/sync implementation produces valid, openable files")
+            print("ROOT CAUSE FIXED: Changed generate_report() back to async def with proper await statements")
+            print("SUCCESS CRITERIA: DOCX generation returns actual bytes, not coroutine objects")
+            print("=" * 80)
+            
+            # Run authentication first
+            if not tester.test_user_signup_and_login():
+                print("❌ Authentication failed, stopping tests")
+                return 1
+            
+            # Create assessment
+            if not tester.test_assessment_creation():
+                print("❌ Assessment creation failed, stopping tests")
+                return 1
+            
+            # Run the critical test
+            success = tester.test_async_sync_fix_verification()
+            
         elif test_type == "v8":
             # Original v8 template testing
             try:
