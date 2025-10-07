@@ -105,6 +105,8 @@ class AMReportGenerator:
             print(f"PDF conversion failed: {str(e)}")
             print("Attempting fallback PDF generation with real data...")
             try:
+                # Extract questions data for fallback PDF generation
+                questions_data = assessment_data.get('questions_data', [])
                 pdf_bytes = self._generate_pdf_fallback(report_data, questions_data)
                 if pdf_bytes:
                     print(f"Fallback PDF generation successful: {len(pdf_bytes)} bytes")
