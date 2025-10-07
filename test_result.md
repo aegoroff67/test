@@ -289,6 +289,16 @@
         - comment: "COMPREHENSIVE TESTING COMPLETED: New template v8 integration fully verified. Results: ✅ DOCX Generation (HTTP 200, >35KB files, valid ZIP structure), ✅ PDF Generation (HTTP 200, >35KB PDFs, valid format), ✅ Template Variables (org.name, assessment.date, overall.score, overall.tier all populated correctly), ✅ Action Tables (High/Medium/Low priority recommendations properly categorized), ✅ File Structure (new template exists and accessible), ✅ Error Handling (proper 404/401 responses). Test Success Rate: 100% (23/23 tests passed). The AM_AI_SAFE_Report_TEMPLATE_v8_10072025.docx template is fully functional and production-ready."
 
   - task: "Fix report generation bugs based on user feedback"
+    implemented: true
+    working: false
+    file: "/app/backend/report_generator.py, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+        - agent: "testing"
+        - comment: "COMPREHENSIVE TESTING COMPLETED: Extensive testing of the AM AI SAFE report generation system completed to investigate reported issues. HEATMAP DATA ACCURACY: ✅ RESOLVED - Comprehensive testing with specific answer patterns (Fairness=100% IDEAL, Transparency=0% NON_IDEAL) confirmed heatmap shows correct assessment data with no evidence of data mixing between assessments. Domain scores accurately reflect actual answers provided. Assessment data flows correctly from database through summary to report generation. PDF GENERATION FAILURE: ❌ CONFIRMED - PDF generation endpoint returns 200 OK but serves DOCX content instead of PDF due to LibreOffice conversion failure. Root cause identified: LibreOffice not installed on system (error: [Errno 2] No such file or directory: 'libreoffice'). DOCX GENERATION: ✅ WORKING CORRECTLY - DOCX reports generate successfully with 112KB file size, correct MIME type (application/vnd.openxmlformats-officedocument.wordprocessingml.document), valid ZIP-based DOCX format, and substantial content including heatmaps and recommendation tables. TECHNICAL VERIFICATION: Backend logs show proper data processing with correct domain/question mapping, heatmap generation working with 11 domains and 88 questions, template processing successful with v8 template, and table population working (High=22, Medium=22, Low=22 recommendations). SOLUTION REQUIRED: Install LibreOffice package to enable DOCX to PDF conversion functionality."
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
