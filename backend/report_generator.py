@@ -443,8 +443,8 @@ class AMReportGenerator:
             ax.text(-1.9 + len(domain_name) * 0.08, row_pos+0.5, f' ({percentage:.1f}%)', 
                    ha='left', va='center', fontsize=8, color='gray')
         
-        # Set axis properties to match screenshot layout
-        ax.set_xlim(-2, 8)
+        # Set axis properties for compact layout
+        ax.set_xlim(-2.2, 8)
         ax.set_ylim(0, num_domains)
         ax.set_aspect('equal')
         
