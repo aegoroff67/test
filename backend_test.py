@@ -4758,6 +4758,21 @@ class AMSafeAPITester:
         if hasattr(self, 'test_docx_template_processing'):
             self.test_docx_template_processing()
         
+        # HEATMAP IMAGE GENERATION AND INSERTION TEST (NEW V9 TEMPLATE FUNCTIONALITY)
+        print("\n🖼️ HEATMAP IMAGE GENERATION AND INSERTION TESTING")
+        print("=" * 80)
+        print("Testing the new v9 template heatmap image generation and insertion functionality:")
+        print("- Heatmap image generation using matplotlib with Results Summary format")
+        print("- Image insertion at {{heatmap_image}} placeholder in v9 template")
+        print("- Domains sorted by lowest score first (vertically)")
+        print("- Questions within domains sorted by lowest score first (horizontally)")
+        print("- Color coding: Red (0), Orange (1), Yellow (2), Green (3)")
+        print("- Question codes and scores displayed on each cell")
+        print("- Domain names and percentages on the left side")
+        print("=" * 80)
+        
+        self.test_heatmap_image_generation_and_insertion()
+        
         # Enhanced DOCX Report Generation Tests (as specifically requested in review)
         print("\n🔥 ENHANCED DOCX REPORT GENERATION WITH STYLE PRESERVATION")
         print("=" * 80)
