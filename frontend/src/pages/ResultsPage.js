@@ -447,7 +447,7 @@ function ResultsPage() {
                 .map((domain, index) => {
                 const colors = getScoreColor(domain.percentage);
                 return (
-                  <div key={domain.domain_id} className="space-y-1">
+                  <div key={domain.domain_id} className="space-y-0.5">
                     <div className="flex flex-col">
                       <span className="font-medium text-gray-900 text-xs">{domain.domain_name}</span>
                       <div className={`px-1 py-0.5 rounded text-xs font-bold ${colors.bg} ${colors.text} self-start mt-1`}>
