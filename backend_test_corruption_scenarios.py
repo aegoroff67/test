@@ -527,7 +527,8 @@ class CorruptionScenariosTest:
         print(f"\n📊 TEST SUMMARY:")
         print(f"Tests Run: {self.tests_run}")
         print(f"Tests Passed: {self.tests_passed}")
-        print(f"Success Rate: {(self.tests_passed/self.tests_run*100):.1f}%")
+        success_rate = (self.tests_passed/self.tests_run*100) if self.tests_run > 0 else 0
+        print(f"Success Rate: {success_rate:.1f}%")
         
         print(f"\n🚨 CORRUPTION FINDINGS:")
         if self.corruption_scenarios:
