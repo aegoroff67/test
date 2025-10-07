@@ -6920,6 +6920,37 @@ class AMSafeAPITester:
             
         return self.tests_passed == self.tests_run
 
+    def run_v8_template_tests_only(self):
+        """Run only the V8 template tests (focus of current review request)"""
+        print("🎯 V8 TEMPLATE TESTING - REVIEW REQUEST FOCUS")
+        print("=" * 60)
+        
+        # Authentication first
+        if not self.test_user_signup_and_login():
+            print("❌ Authentication failed - stopping tests")
+            return False
+        
+        # Create assessment for testing
+        if not self.test_assessment_creation():
+            print("❌ Assessment creation failed - stopping tests")
+            return False
+        
+        # Run V8 template specific tests
+        self.test_v8_template_docx_generation()
+        self.test_v8_template_content_verification()
+        self.test_v8_template_pdf_generation()
+        self.test_v8_template_heatmap_text_placeholder()
+        
+        # Print focused summary
+        print("\n" + "=" * 60)
+        print("🎯 V8 TEMPLATE TEST SUMMARY")
+        print("=" * 60)
+        print(f"Total V8 Tests: {self.tests_run}")
+        print(f"Passed: {self.tests_passed}")
+        print(f"Failed: {self.tests_run - self.tests_passed}")
+        print(f"Success Rate: {(self.tests_passed/self.tests_run*100):.1f}%")
+        
+        return self.tests_passed == self.tests_run
     def print_summary(self):
         """Print test summary"""
         print("\n" + "=" * 60)
