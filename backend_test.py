@@ -5955,6 +5955,20 @@ class AMSafeAPITester:
         
         self.test_report_generation_after_libreoffice_install()
         
+        # CRITICAL: STRING/INTEGER COMPARISON FIX VERIFICATION (MAIN FOCUS OF CURRENT REVIEW REQUEST)
+        print("\n" + "🚨" * 20 + " STRING/INTEGER COMPARISON FIX VERIFICATION " + "🚨" * 20)
+        print("CRITICAL VERIFICATION: Testing AM AI SAFE report generation after fixing string/integer comparison issues")
+        print("URGENT OBJECTIVE: Verify that type conversion fixes have resolved file corruption issue")
+        print("KEY FIXES APPLIED:")
+        print("1. Fixed _calculate_tier method to handle string inputs")
+        print("2. Fixed _generate_key_findings method to convert score strings to floats before comparisons")
+        print("3. Template file verification confirmed we're using the correct user-uploaded template")
+        print("SUCCESS CRITERIA: Files generate without string/int comparison errors and have proper structure")
+        print("=" * 80)
+        
+        self.test_report_generation_after_string_int_fixes()
+        self.test_template_processing_verification()
+        
         # HEATMAP IMAGE EMBEDDING TESTS (Review Request Focus)
         print("\n" + "🔍" * 20 + " HEATMAP IMAGE EMBEDDING TESTS " + "🔍" * 20)
         print("Testing the updated heatmap image embedding system as requested in review:")
