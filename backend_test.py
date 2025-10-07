@@ -51,15 +51,16 @@ class AMSafeAPITester:
             success = response.status_code == expected_status
             
             # Handle binary responses (like DOCX/PDF files)
-            if success and 'application/' in response.headers.get('content-type', ''):
+            content_type = response.headers.get('content-type', '')
+            if success and ('application/vnd.openxmlformats' in content_type or 'application/pdf' in content_type):
                 return success, response.content
             
             # Handle JSON responses
             try:
                 return success, response.json() if success else response.text
             except:
-                # If JSON parsing fails, return raw content
-                return success, response.content if success else response.text
+                # If JSON parsing fails, return text
+                return success, response.text
 
         except Exception as e:
             return False, str(e)
