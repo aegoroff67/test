@@ -925,9 +925,9 @@ Each cell represents the score for a specific question, enabling identification 
                     'tier': report_data.get('overall', {}).get('tier', 'Basic')
                 },
                 
-                # Assets (heatmap image) - generate and embed properly  
+                # Assets (heatmap image) - will be added after template is loaded
                 'assets': {
-                    'heatmapUrl': self._create_heatmap_for_template(doc, heatmap_image) if heatmap_image else None
+                    'heatmapUrl': None  # Will be set after template is loaded
                 },
                 
                 # Actions for working template with separate priority arrays
