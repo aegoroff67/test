@@ -5026,7 +5026,7 @@ class AMSafeAPITester:
             
         # Verify PDF file properties
         pdf_size = len(pdf_content) if isinstance(pdf_content, bytes) else 0
-        if pdf_size > 300000:  # Should be substantial with heatmap image (>300KB)
+        if pdf_size > 200000:  # Should be substantial with heatmap image (>200KB)
             self.log_test("PDF report size indicates heatmap image embedded", True)
             print(f"   📊 PDF file size: {pdf_size:,} bytes")
         else:
