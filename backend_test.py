@@ -5939,6 +5939,480 @@ class AMSafeAPITester:
         
         return True
 
+    def test_docx_report_generation_corruption_fix(self):
+        """Test DOCX report generation after fixing file corruption issue"""
+        print("\n🔍 TESTING DOCX REPORT GENERATION CORRUPTION FIX")
+        print("-" * 60)
+        
+        # Create a complete assessment for report generation
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for DOCX report test", False, str(response))
+            return False
+            
+        report_assessment_id = response['id']
+        self.log_test("Create assessment for DOCX report test", True)
+        
+        # Get all questions and answer them to complete the assessment
+        success, response = self.make_request('GET', f'assessments/{report_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for DOCX report test", False, str(response))
+            return False
+            
+        # Answer all questions with varied responses to create realistic data
+        question_count = 0
+        options = ["IDEAL", "GOOD", "BASIC", "NON_IDEAL"]
+        
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            for i, question in enumerate(questions):
+                option = options[i % len(options)]  # Cycle through options
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": option,
+                    "note": f"Test answer for DOCX report generation - {option}"
+                }
+                
+                success_answer, _ = self.make_request('POST', f'assessments/{report_assessment_id}/answer', answer_data)
+                if success_answer:
+                    question_count += 1
+        
+        self.log_test(f"Answered all {question_count} questions for DOCX report", True)
+        
+        # Submit the assessment to mark it as completed
+        success, _ = self.make_request('POST', f'assessments/{report_assessment_id}/submit')
+        if success:
+            self.log_test("Submit assessment for DOCX report generation", True)
+        else:
+            self.log_test("Submit assessment for DOCX report generation", False, "Failed to submit assessment")
+            return False
+        
+        # Test DOCX report generation endpoint
+        url = f"{self.api_url}/assessments/{report_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=60)
+            
+            # Check response status
+            if response.status_code == 200:
+                self.log_test("DOCX Report Generation Returns 200 OK", True)
+            else:
+                self.log_test("DOCX Report Generation Returns 200 OK", False, f"Status: {response.status_code}")
+                return False
+            
+            # Check content type
+            content_type = response.headers.get('content-type', '')
+            expected_mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            if expected_mime in content_type:
+                self.log_test("DOCX Report Has Correct MIME Type", True)
+            else:
+                self.log_test("DOCX Report Has Correct MIME Type", False, f"Got: {content_type}")
+            
+            # Check content disposition header
+            content_disposition = response.headers.get('content-disposition', '')
+            if 'attachment' in content_disposition and '.docx' in content_disposition:
+                self.log_test("DOCX Report Has Correct Download Headers", True)
+            else:
+                self.log_test("DOCX Report Has Correct Download Headers", False, f"Got: {content_disposition}")
+            
+            # Check file size (should be substantial, not empty)
+            file_size = len(response.content)
+            if file_size > 50000:  # At least 50KB for a substantial report
+                self.log_test("DOCX Report Has Substantial File Size", True)
+                print(f"   📊 File size: {file_size:,} bytes ({file_size/1024:.1f} KB)")
+            else:
+                self.log_test("DOCX Report Has Substantial File Size", False, f"Only {file_size} bytes")
+            
+            # Test file integrity - DOCX files are ZIP archives
+            import zipfile
+            import io
+            
+            try:
+                with zipfile.ZipFile(io.BytesIO(response.content), 'r') as zip_file:
+                    # Check essential DOCX files
+                    essential_files = [
+                        'word/document.xml',
+                        '[Content_Types].xml',
+                        'word/_rels/document.xml.rels'
+                    ]
+                    
+                    zip_files = zip_file.namelist()
+                    missing_files = [f for f in essential_files if f not in zip_files]
+                    
+                    if not missing_files:
+                        self.log_test("DOCX File Has Proper ZIP Structure", True)
+                        print(f"   📁 ZIP contains {len(zip_files)} files")
+                    else:
+                        self.log_test("DOCX File Has Proper ZIP Structure", False, f"Missing: {missing_files}")
+                    
+                    # Check for embedded images (heatmap)
+                    media_files = [f for f in zip_files if f.startswith('word/media/')]
+                    if media_files:
+                        self.log_test("DOCX Contains Embedded Images (Heatmap)", True)
+                        print(f"   🖼️  Found {len(media_files)} media files: {media_files}")
+                    else:
+                        self.log_test("DOCX Contains Embedded Images (Heatmap)", False, "No media files found")
+                    
+                    # Test document.xml readability
+                    try:
+                        document_xml = zip_file.read('word/document.xml')
+                        if b'<?xml' in document_xml and b'</w:document>' in document_xml:
+                            self.log_test("DOCX Document XML Is Well-Formed", True)
+                        else:
+                            self.log_test("DOCX Document XML Is Well-Formed", False, "Invalid XML structure")
+                    except Exception as e:
+                        self.log_test("DOCX Document XML Is Well-Formed", False, str(e))
+                        
+            except zipfile.BadZipFile:
+                self.log_test("DOCX File Has Proper ZIP Structure", False, "Not a valid ZIP file")
+                return False
+            
+            return True
+            
+        except requests.exceptions.Timeout:
+            self.log_test("DOCX Report Generation (Timeout)", False, "Request timed out after 60 seconds")
+            return False
+        except Exception as e:
+            self.log_test("DOCX Report Generation", False, str(e))
+            return False
+
+    def test_template_context_verification(self):
+        """Test that all required template variables are properly populated"""
+        print("\n🔍 TESTING TEMPLATE CONTEXT VERIFICATION")
+        print("-" * 60)
+        
+        # Use existing assessment if available, or create one
+        if not hasattr(self, 'assessment_id') or not self.assessment_id:
+            success, response = self.make_request('POST', 'assessments', {})
+            if not success:
+                self.log_test("Create assessment for template context test", False, str(response))
+                return False
+            test_assessment_id = response['id']
+            
+            # Complete the assessment quickly
+            success, response = self.make_request('GET', f'assessments/{test_assessment_id}/questions')
+            if success:
+                for domain_data in response:
+                    questions = domain_data.get('questions', [])
+                    for question in questions:
+                        answer_data = {
+                            "question_id": question['id'],
+                            "option": "GOOD",
+                            "note": "Template context test"
+                        }
+                        self.make_request('POST', f'assessments/{test_assessment_id}/answer', answer_data)
+                
+                # Submit assessment
+                self.make_request('POST', f'assessments/{test_assessment_id}/submit')
+        else:
+            test_assessment_id = self.assessment_id
+        
+        # Test assessment summary endpoint to verify data structure
+        success, summary_response = self.make_request('GET', f'assessments/{test_assessment_id}/summary')
+        if not success:
+            self.log_test("Get Assessment Summary for Template Context", False, str(summary_response))
+            return False
+        
+        self.log_test("Get Assessment Summary for Template Context", True)
+        
+        # Verify required template variables are present in summary
+        required_fields = [
+            'overall_percentage',
+            'overall_maturity', 
+            'domain_scores',
+            'total_questions',
+            'answered_questions'
+        ]
+        
+        missing_fields = [field for field in required_fields if field not in summary_response]
+        if not missing_fields:
+            self.log_test("All Required Template Variables Present in Summary", True)
+        else:
+            self.log_test("All Required Template Variables Present in Summary", False, f"Missing: {missing_fields}")
+        
+        # Verify organization data is available
+        if hasattr(self, 'user_data') and self.user_data:
+            org_name = self.user_data.get('organization_name', '')
+            if org_name:
+                self.log_test("Organization Name Available for Template", True)
+            else:
+                self.log_test("Organization Name Available for Template", False, "No organization name")
+        
+        # Verify domain scores structure
+        domain_scores = summary_response.get('domain_scores', [])
+        if len(domain_scores) == 11:
+            self.log_test("Template Has All 11 Domain Scores", True)
+        else:
+            self.log_test("Template Has All 11 Domain Scores", False, f"Found {len(domain_scores)} domains")
+        
+        # Verify each domain has required fields
+        if domain_scores:
+            sample_domain = domain_scores[0]
+            domain_required_fields = ['domain_name', 'percentage', 'score', 'max_score']
+            domain_missing = [field for field in domain_required_fields if field not in sample_domain]
+            
+            if not domain_missing:
+                self.log_test("Domain Scores Have Required Fields", True)
+            else:
+                self.log_test("Domain Scores Have Required Fields", False, f"Missing: {domain_missing}")
+        
+        return True
+
+    def test_error_elimination_verification(self):
+        """Test that removal of duplicate InlineImage creation doesn't cause issues"""
+        print("\n🔍 TESTING ERROR ELIMINATION VERIFICATION")
+        print("-" * 60)
+        
+        # Test multiple report generations to ensure no duplicate image issues
+        test_results = []
+        
+        for i in range(3):  # Test 3 report generations
+            print(f"   Testing report generation #{i+1}")
+            
+            # Create a new assessment for each test
+            success, response = self.make_request('POST', 'assessments', {})
+            if not success:
+                self.log_test(f"Create assessment #{i+1} for error elimination test", False, str(response))
+                continue
+                
+            test_assessment_id = response['id']
+            
+            # Complete assessment quickly
+            success, response = self.make_request('GET', f'assessments/{test_assessment_id}/questions')
+            if success:
+                for domain_data in response:
+                    questions = domain_data.get('questions', [])
+                    for question in questions[:5]:  # Answer first 5 questions per domain
+                        answer_data = {
+                            "question_id": question['id'],
+                            "option": "IDEAL",
+                            "note": f"Error elimination test #{i+1}"
+                        }
+                        self.make_request('POST', f'assessments/{test_assessment_id}/answer', answer_data)
+                
+                # Answer remaining questions to complete
+                for domain_data in response:
+                    questions = domain_data.get('questions', [])
+                    for question in questions[5:]:  # Answer remaining questions
+                        answer_data = {
+                            "question_id": question['id'],
+                            "option": "GOOD",
+                            "note": f"Error elimination test #{i+1}"
+                        }
+                        self.make_request('POST', f'assessments/{test_assessment_id}/answer', answer_data)
+                
+                # Submit assessment
+                self.make_request('POST', f'assessments/{test_assessment_id}/submit')
+            
+            # Test DOCX generation
+            url = f"{self.api_url}/assessments/{test_assessment_id}/report"
+            headers = {'Authorization': f'Bearer {self.token}'}
+            
+            try:
+                response = requests.get(url, headers=headers, timeout=30)
+                
+                if response.status_code == 200:
+                    file_size = len(response.content)
+                    test_results.append({
+                        'success': True,
+                        'file_size': file_size,
+                        'test_number': i+1
+                    })
+                    print(f"   ✅ Report #{i+1}: {file_size:,} bytes")
+                else:
+                    test_results.append({
+                        'success': False,
+                        'error': f"HTTP {response.status_code}",
+                        'test_number': i+1
+                    })
+                    print(f"   ❌ Report #{i+1}: HTTP {response.status_code}")
+                    
+            except Exception as e:
+                test_results.append({
+                    'success': False,
+                    'error': str(e),
+                    'test_number': i+1
+                })
+                print(f"   ❌ Report #{i+1}: {str(e)}")
+        
+        # Analyze results
+        successful_tests = [r for r in test_results if r['success']]
+        
+        if len(successful_tests) == 3:
+            self.log_test("Multiple DOCX Generations Successful (No Duplicate Image Errors)", True)
+        else:
+            self.log_test("Multiple DOCX Generations Successful (No Duplicate Image Errors)", False, 
+                        f"Only {len(successful_tests)}/3 successful")
+        
+        # Check file size consistency (should be similar)
+        if len(successful_tests) >= 2:
+            file_sizes = [r['file_size'] for r in successful_tests]
+            size_variance = max(file_sizes) - min(file_sizes)
+            avg_size = sum(file_sizes) / len(file_sizes)
+            variance_percent = (size_variance / avg_size) * 100
+            
+            if variance_percent < 20:  # Less than 20% variance is acceptable
+                self.log_test("DOCX File Sizes Consistent (No Corruption)", True)
+                print(f"   📊 Size variance: {variance_percent:.1f}% (avg: {avg_size:,.0f} bytes)")
+            else:
+                self.log_test("DOCX File Sizes Consistent (No Corruption)", False, 
+                            f"High variance: {variance_percent:.1f}%")
+        
+        return len(successful_tests) >= 2
+
+    def test_heatmap_image_embedding(self):
+        """Test that heatmap images are properly embedded without corruption"""
+        print("\n🔍 TESTING HEATMAP IMAGE EMBEDDING")
+        print("-" * 60)
+        
+        # Create assessment with specific answer pattern for heatmap testing
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            self.log_test("Create assessment for heatmap test", False, str(response))
+            return False
+            
+        heatmap_assessment_id = response['id']
+        
+        # Get questions and create a specific pattern for heatmap visualization
+        success, response = self.make_request('GET', f'assessments/{heatmap_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for heatmap test", False, str(response))
+            return False
+        
+        # Create varied scores for interesting heatmap
+        domain_count = 0
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+            
+            # Create different score patterns per domain for visual variety
+            if domain_count % 4 == 0:
+                option = "IDEAL"  # High scores
+            elif domain_count % 4 == 1:
+                option = "NON_IDEAL"  # Low scores
+            elif domain_count % 4 == 2:
+                option = "GOOD"  # Medium-high scores
+            else:
+                option = "BASIC"  # Medium-low scores
+            
+            for question in questions:
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": option,
+                    "note": f"Heatmap test - {domain_name} pattern"
+                }
+                self.make_request('POST', f'assessments/{heatmap_assessment_id}/answer', answer_data)
+            
+            domain_count += 1
+        
+        # Submit assessment
+        success, _ = self.make_request('POST', f'assessments/{heatmap_assessment_id}/submit')
+        if not success:
+            self.log_test("Submit assessment for heatmap test", False, "Failed to submit")
+            return False
+        
+        self.log_test("Create Assessment with Varied Score Pattern for Heatmap", True)
+        
+        # Generate DOCX report and check for heatmap embedding
+        url = f"{self.api_url}/assessments/{heatmap_assessment_id}/report"
+        headers = {'Authorization': f'Bearer {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=45)
+            
+            if response.status_code != 200:
+                self.log_test("Generate DOCX for Heatmap Test", False, f"HTTP {response.status_code}")
+                return False
+            
+            self.log_test("Generate DOCX for Heatmap Test", True)
+            
+            # Check for embedded images in DOCX
+            import zipfile
+            import io
+            
+            with zipfile.ZipFile(io.BytesIO(response.content), 'r') as zip_file:
+                zip_files = zip_file.namelist()
+                
+                # Look for media files (images)
+                media_files = [f for f in zip_files if f.startswith('word/media/')]
+                
+                if media_files:
+                    self.log_test("Heatmap Images Embedded in DOCX", True)
+                    print(f"   🖼️  Found {len(media_files)} embedded images")
+                    
+                    # Check image file sizes
+                    for media_file in media_files:
+                        try:
+                            image_data = zip_file.read(media_file)
+                            image_size = len(image_data)
+                            print(f"   📊 {media_file}: {image_size:,} bytes")
+                            
+                            if image_size > 1000:  # At least 1KB for a real image
+                                self.log_test(f"Heatmap Image {media_file} Has Substantial Size", True)
+                            else:
+                                self.log_test(f"Heatmap Image {media_file} Has Substantial Size", False, 
+                                            f"Only {image_size} bytes")
+                        except Exception as e:
+                            self.log_test(f"Read Heatmap Image {media_file}", False, str(e))
+                else:
+                    self.log_test("Heatmap Images Embedded in DOCX", False, "No media files found")
+                
+                # Check document relationships for image references
+                try:
+                    rels_content = zip_file.read('word/_rels/document.xml.rels')
+                    image_relationships = rels_content.count(b'image')
+                    
+                    if image_relationships > 0:
+                        self.log_test("Document Contains Image Relationships", True)
+                        print(f"   🔗 Found {image_relationships} image relationships")
+                    else:
+                        self.log_test("Document Contains Image Relationships", False, "No image relationships")
+                        
+                except Exception as e:
+                    self.log_test("Check Document Image Relationships", False, str(e))
+            
+            return True
+            
+        except Exception as e:
+            self.log_test("Generate DOCX for Heatmap Test", False, str(e))
+            return False
+
+    def run_docx_corruption_fix_tests(self):
+        """Run DOCX corruption fix tests specifically for the review request"""
+        print("🎯 Starting DOCX Report Generation Corruption Fix Testing")
+        print("=" * 80)
+        print("FOCUS: Testing AM AI SAFE report generation after removing duplicate InlineImage creation")
+        print("=" * 80)
+        
+        # Authentication and basic setup
+        if not self.test_user_signup_and_login():
+            print("❌ Authentication failed - stopping tests")
+            return False
+        
+        # DOCX Report Generation Tests (Focus of Review Request)
+        print("\n" + "🎯 DOCX REPORT GENERATION TESTING (REVIEW REQUEST FOCUS)" + "\n" + "=" * 80)
+        self.test_docx_report_generation_corruption_fix()
+        self.test_template_context_verification()
+        self.test_error_elimination_verification()
+        self.test_heatmap_image_embedding()
+        
+        # Print final results
+        print("\n" + "=" * 80)
+        print("🏁 DOCX CORRUPTION FIX TESTING COMPLETE")
+        print("=" * 80)
+        print(f"📊 Tests Run: {self.tests_run}")
+        print(f"✅ Tests Passed: {self.tests_passed}")
+        print(f"❌ Tests Failed: {self.tests_run - self.tests_passed}")
+        print(f"📈 Success Rate: {(self.tests_passed/self.tests_run*100):.1f}%")
+        
+        if self.tests_passed == self.tests_run:
+            print("🎉 ALL DOCX CORRUPTION FIX TESTS PASSED!")
+            return True
+        else:
+            print("⚠️  Some tests failed - check details above")
+            return False
+
 def main():
     tester = AMSafeAPITester()
     
