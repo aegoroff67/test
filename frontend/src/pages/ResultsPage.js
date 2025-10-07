@@ -441,7 +441,7 @@ function ResultsPage() {
               <span>Domain Scores</span>
             </h2>
             
-            <div className="space-y-3" data-testid="domain-scores-list">
+            <div className="space-y-2" data-testid="domain-scores-list">
               {[...summary.domain_scores]
                 .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
                 .map((domain, index) => {
