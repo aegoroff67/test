@@ -257,6 +257,10 @@
     needs_retesting: false
     status_history:
         - working: false
+        - agent: "testing"
+        - comment: "V7 TEMPLATE CRITICAL TESTING COMPLETED (REVIEW REQUEST): Comprehensive testing of the user-provided v7 template completed with 76.0% success rate (19/25 tests passed). CRITICAL ISSUES IDENTIFIED: ❌ 1. TEMPLATE STRUCTURE PROBLEM: Backend logs show 'Warning: Expected at least 3 tables in template, found 0' - the v7 template does not contain the required recommendation tables structure, 2. ❌ PROGRAMMATIC TABLE POPULATION FAILING: Table population shows 0 rows created instead of expected 69 rows, indicating the _populate_recommendation_tables() method cannot find tables to populate, 3. ❌ ORGANIZATION NAME MISSING: Template variable {{org.name}} not being populated correctly, 4. ❌ HTTP 500 ERRORS: Some report generation requests failing with 'Assessment must be completed before generating report' error. SUCCESSFUL ASPECTS: ✅ DOCX Generation: Files generate with substantial size (314.5KB), proper MIME type, and valid ZIP structure, ✅ Heatmap Embedding: Images properly embedded (2 files: image1.JPG, image2.png), ✅ PDF Generation: PDF conversion working correctly (189.7KB files with valid format). ROOT CAUSE: The v7 template provided by the user appears to lack the table structure required for programmatic population. The template may need to be recreated with proper table placeholders for High/Medium/Low priority recommendations. RECOMMENDATION: The v7 template needs structural fixes to include recommendation tables before it can resolve the user's reported DOCX corruption and PDF table formatting issues."
+    status_history:
+        - working: false
         - agent: "user"
         - comment: "User reported that generated DOCX file was nonsensical and did not resemble the provided template in any way. The v2 template has formatting issues with broken Jinja2 syntax."
         - working: true
