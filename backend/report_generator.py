@@ -1099,9 +1099,10 @@ Each cell represents the score for a specific question, enabling identification 
             # Helper function for date formatting in template
             template_context['formatDate'] = self.format_date
             
-            # Add heatmap image after template is loaded
+            # Add heatmap - use text placeholder for v8 template compatibility
             if heatmap_image:
-                template_context['assets']['heatmapUrl'] = self._create_heatmap_for_template(doc, heatmap_image)
+                # For v8 template compatibility, use text description instead of InlineImage
+                template_context['assets']['heatmapUrl'] = '[Assessment Heatmap - Visual representation shows domain performance across 11 critical AI governance areas. Please refer to the Results Summary page in the application for the interactive heatmap visualization.]'
             
             # Render the template - this will preserve all original fonts, colors, margins, layout
             doc.render(template_context)
