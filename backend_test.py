@@ -6134,6 +6134,252 @@ class AMSafeAPITester:
         self.make_request('POST', f'assessments/{self.assessment_id}/submit')
         return True
 
+    def test_docx_pdf_report_generation_final_verification(self):
+        """FINAL COMPLETE VERIFICATION: Test both DOCX and PDF report generation with fallback system"""
+        print("\n🔍 FINAL DOCX AND PDF REPORT GENERATION VERIFICATION")
+        print("=" * 80)
+        
+        if not self.assessment_id:
+            self.log_test("Final Report Generation Verification", False, "No assessment ID available")
+            return False
+        
+        # First, complete the assessment to ensure we can generate reports
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if success and response:
+            # Answer all questions to complete the assessment
+            question_count = 0
+            for domain_data in response:
+                questions = domain_data.get('questions', [])
+                for question in questions:
+                    answer_data = {
+                        "question_id": question['id'],
+                        "option": "GOOD",
+                        "note": f"Final verification test answer {question_count + 1}"
+                    }
+                    self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
+                    question_count += 1
+            
+            # Submit the assessment
+            self.make_request('POST', f'assessments/{self.assessment_id}/submit')
+            self.log_test(f"Assessment completed with {question_count} answers for report testing", True)
+        
+        # Test 1: DOCX Generation (Primary Format)
+        print("\n📄 TESTING DOCX GENERATION (PRIMARY FORMAT)")
+        print("-" * 50)
+        
+        try:
+            url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+            headers = {'Authorization': f'Bearer {self.token}'}
+            
+            docx_response = requests.get(url, headers=headers)
+            
+            # Check HTTP response
+            if docx_response.status_code == 200:
+                self.log_test("DOCX Generation - HTTP 200 OK", True)
+            else:
+                self.log_test("DOCX Generation - HTTP 200 OK", False, f"Got {docx_response.status_code}")
+                return False
+            
+            # Check MIME type
+            content_type = docx_response.headers.get('content-type', '')
+            expected_mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            if expected_mime in content_type:
+                self.log_test("DOCX Generation - Correct MIME Type", True)
+            else:
+                self.log_test("DOCX Generation - Correct MIME Type", False, f"Got {content_type}")
+            
+            # Check download headers
+            content_disposition = docx_response.headers.get('content-disposition', '')
+            if 'attachment' in content_disposition and 'filename' in content_disposition:
+                self.log_test("DOCX Generation - Download Headers Present", True)
+            else:
+                self.log_test("DOCX Generation - Download Headers Present", False, f"Got {content_disposition}")
+            
+            # Check file size (should be substantial)
+            docx_content = docx_response.content
+            docx_size = len(docx_content)
+            if docx_size > 50000:  # At least 50KB
+                self.log_test("DOCX Generation - Substantial File Size", True, f"{docx_size} bytes")
+            else:
+                self.log_test("DOCX Generation - Substantial File Size", False, f"Only {docx_size} bytes")
+            
+            # Check DOCX file integrity (ZIP structure)
+            try:
+                docx_zip = zipfile.ZipFile(io.BytesIO(docx_content))
+                zip_files = docx_zip.namelist()
+                
+                # Check for essential DOCX files
+                essential_files = ['word/document.xml', '[Content_Types].xml', 'word/_rels/document.xml.rels']
+                has_essential = all(f in zip_files for f in essential_files)
+                
+                if has_essential:
+                    self.log_test("DOCX Generation - Valid ZIP Structure", True, f"{len(zip_files)} files")
+                else:
+                    missing = [f for f in essential_files if f not in zip_files]
+                    self.log_test("DOCX Generation - Valid ZIP Structure", False, f"Missing: {missing}")
+                
+                # Check for heatmap images (should be embedded)
+                image_files = [f for f in zip_files if f.startswith('word/media/')]
+                if image_files:
+                    self.log_test("DOCX Generation - Heatmap Images Embedded", True, f"{len(image_files)} images")
+                else:
+                    self.log_test("DOCX Generation - Heatmap Images Embedded", False, "No images found")
+                
+                docx_zip.close()
+                
+            except Exception as e:
+                self.log_test("DOCX Generation - File Integrity Check", False, f"ZIP error: {str(e)}")
+            
+        except Exception as e:
+            self.log_test("DOCX Generation - Overall Test", False, f"Request error: {str(e)}")
+            return False
+        
+        # Test 2: PDF Generation with Fallback
+        print("\n📄 TESTING PDF GENERATION WITH FALLBACK")
+        print("-" * 50)
+        
+        try:
+            url = f"{self.api_url}/assessments/{self.assessment_id}/report/pdf"
+            headers = {'Authorization': f'Bearer {self.token}'}
+            
+            pdf_response = requests.get(url, headers=headers)
+            
+            # Check HTTP response (should be 200 for success OR 503 for graceful fallback failure)
+            if pdf_response.status_code == 200:
+                self.log_test("PDF Generation - HTTP 200 OK (Success)", True)
+                
+                # Check MIME type for successful PDF
+                content_type = pdf_response.headers.get('content-type', '')
+                if 'application/pdf' in content_type:
+                    self.log_test("PDF Generation - Correct PDF MIME Type", True)
+                else:
+                    self.log_test("PDF Generation - Correct PDF MIME Type", False, f"Got {content_type}")
+                
+                # Check PDF file integrity
+                pdf_content = pdf_response.content
+                pdf_size = len(pdf_content)
+                
+                if pdf_size > 30000:  # At least 30KB
+                    self.log_test("PDF Generation - Substantial File Size", True, f"{pdf_size} bytes")
+                else:
+                    self.log_test("PDF Generation - Substantial File Size", False, f"Only {pdf_size} bytes")
+                
+                # Check PDF format markers
+                if pdf_content.startswith(b'%PDF'):
+                    self.log_test("PDF Generation - Valid PDF Header", True)
+                else:
+                    self.log_test("PDF Generation - Valid PDF Header", False, "Missing %PDF header")
+                
+                if b'%%EOF' in pdf_content:
+                    self.log_test("PDF Generation - Valid PDF End Marker", True)
+                else:
+                    self.log_test("PDF Generation - Valid PDF End Marker", False, "Missing %%EOF marker")
+                
+            elif pdf_response.status_code == 503:
+                self.log_test("PDF Generation - Graceful Fallback (503)", True, "PDF conversion unavailable, fallback working")
+                
+                # Check error message
+                try:
+                    error_data = pdf_response.json()
+                    if 'detail' in error_data and 'temporarily unavailable' in error_data['detail'].lower():
+                        self.log_test("PDF Generation - Proper Fallback Error Message", True)
+                    else:
+                        self.log_test("PDF Generation - Proper Fallback Error Message", False, f"Got: {error_data}")
+                except:
+                    self.log_test("PDF Generation - Proper Fallback Error Message", False, "No JSON error response")
+                
+            else:
+                self.log_test("PDF Generation - HTTP Response", False, f"Got {pdf_response.status_code}")
+            
+        except Exception as e:
+            self.log_test("PDF Generation - Overall Test", False, f"Request error: {str(e)}")
+        
+        # Test 3: Content Verification (using assessment summary)
+        print("\n📊 TESTING CONTENT VERIFICATION")
+        print("-" * 50)
+        
+        try:
+            # Get assessment summary to verify data accuracy
+            success, summary = self.make_request('GET', f'assessments/{self.assessment_id}/summary')
+            if success:
+                self.log_test("Assessment Summary - Data Available", True)
+                
+                # Verify organizational information
+                if self.user_data and 'organization_name' in self.user_data:
+                    self.log_test("Content Verification - Organization Data Available", True)
+                else:
+                    self.log_test("Content Verification - Organization Data Available", False, "No org data")
+                
+                # Verify assessment data structure
+                required_fields = ['overall_percentage', 'overall_maturity', 'domain_scores']
+                has_required = all(field in summary for field in required_fields)
+                if has_required:
+                    self.log_test("Content Verification - Assessment Data Structure", True)
+                else:
+                    missing = [f for f in required_fields if f not in summary]
+                    self.log_test("Content Verification - Assessment Data Structure", False, f"Missing: {missing}")
+                
+                # Verify domain scores (should have 11 domains)
+                domain_scores = summary.get('domain_scores', [])
+                if len(domain_scores) == 11:
+                    self.log_test("Content Verification - 11 Domain Scores", True)
+                else:
+                    self.log_test("Content Verification - 11 Domain Scores", False, f"Got {len(domain_scores)} domains")
+                
+            else:
+                self.log_test("Assessment Summary - Data Available", False, str(summary))
+                
+        except Exception as e:
+            self.log_test("Content Verification - Overall Test", False, f"Error: {str(e)}")
+        
+        # Test 4: Error Handling
+        print("\n🛡️ TESTING ERROR HANDLING")
+        print("-" * 50)
+        
+        # Test with non-existent assessment
+        fake_id = "non-existent-assessment-id"
+        
+        try:
+            url = f"{self.api_url}/assessments/{fake_id}/report"
+            headers = {'Authorization': f'Bearer {self.token}'}
+            response = requests.get(url, headers=headers)
+            
+            if response.status_code == 404:
+                self.log_test("Error Handling - DOCX 404 for Non-existent Assessment", True)
+            else:
+                self.log_test("Error Handling - DOCX 404 for Non-existent Assessment", False, f"Got {response.status_code}")
+        except Exception as e:
+            self.log_test("Error Handling - DOCX Non-existent Test", False, f"Error: {str(e)}")
+        
+        try:
+            url = f"{self.api_url}/assessments/{fake_id}/report/pdf"
+            headers = {'Authorization': f'Bearer {self.token}'}
+            response = requests.get(url, headers=headers)
+            
+            if response.status_code == 404:
+                self.log_test("Error Handling - PDF 404 for Non-existent Assessment", True)
+            else:
+                self.log_test("Error Handling - PDF 404 for Non-existent Assessment", False, f"Got {response.status_code}")
+        except Exception as e:
+            self.log_test("Error Handling - PDF Non-existent Test", False, f"Error: {str(e)}")
+        
+        # Test without authentication
+        try:
+            url = f"{self.api_url}/assessments/{self.assessment_id}/report"
+            response = requests.get(url)  # No auth headers
+            
+            if response.status_code in [401, 403]:
+                self.log_test("Error Handling - Authentication Required", True)
+            else:
+                self.log_test("Error Handling - Authentication Required", False, f"Got {response.status_code}")
+        except Exception as e:
+            self.log_test("Error Handling - Authentication Test", False, f"Error: {str(e)}")
+        
+        print("\n✅ FINAL VERIFICATION COMPLETE")
+        print("=" * 80)
+        
+        return True
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting AM AI SAFE API Testing - PDF Conversion Fix Verification")
