@@ -559,6 +559,15 @@ The assessment methodology ensures objective evaluation through standardized cri
         overall_score = report_data.get('overall', {}).get('score', 0)
         actions = report_data.get('actions', {})
         
+        # Convert overall_score to float for comparisons
+        if isinstance(overall_score, str):
+            try:
+                overall_score = float(overall_score)
+            except (ValueError, TypeError):
+                overall_score = 0
+        elif overall_score is None:
+            overall_score = 0
+        
         findings = "KEY FINDINGS AND STRATEGIC INSIGHTS:\n\n"
         
         findings += "1. OVERALL AI MATURITY ASSESSMENT:\n"
