@@ -5178,6 +5178,21 @@ class AMSafeAPITester:
         
         self.test_heatmap_layout_optimization()
         
+        # HEATMAP LAYOUT OVERLAP FIX TESTING (PRIMARY REVIEW REQUEST FOCUS)
+        print("\n🎯 HEATMAP LAYOUT OVERLAP FIX TESTING (PRIMARY REVIEW REQUEST FOCUS)")
+        print("=" * 80)
+        print("Testing the fixed heatmap layout to resolve text overlapping issue:")
+        print("1. Verify domain names and percentages no longer overlap")
+        print("2. Confirm percentages are positioned under domain names (not side-by-side)")
+        print("3. Check vertical spacing is minimized to keep rows compact")
+        print("4. Validate font sizes are appropriate for readability (domain: 9, percentage: 7)")
+        print("5. Test both DOCX and PDF generation with corrected layout")
+        print("6. Ensure layout is still more compact than original while being readable")
+        print("7. Confirm all other functionality (color coding, question codes) still works")
+        print("=" * 80)
+        
+        self.test_heatmap_layout_overlap_fix()
+        
         # Enhanced DOCX Report Generation Tests (as specifically requested in review)
         print("\n🔥 ENHANCED DOCX REPORT GENERATION WITH STYLE PRESERVATION")
         print("=" * 80)
