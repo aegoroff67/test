@@ -5332,6 +5332,22 @@ class AMSafeAPITester:
         self.test_report_generation_error_handling()
         self.test_pdf_generation_with_heatmap()
         
+        # FOCUSED CORRUPTION FIX TESTS (Review Request Primary Focus)
+        print("\n" + "🎯" * 20 + " FILE CORRUPTION FIX TESTS " + "🎯" * 20)
+        print("Testing the AM AI SAFE report generation system after fixing file corruption issue:")
+        print("1. DOCX Generation Test - verify reports generate without backend errors")
+        print("2. PDF Generation Test - verify PDF conversion completes successfully")
+        print("3. File Integrity Verification - check DOCX has proper ZIP structure and PDF has proper headers")
+        print("4. InlineImage Integration Test - verify heatmap images are properly embedded")
+        print("5. Backend Error Analysis - monitor logs during generation")
+        print("=" * 80)
+        
+        self.test_report_generation_docx_corruption_fix()
+        self.test_report_generation_pdf_corruption_fix()
+        self.test_heatmap_image_embedding_corruption_fix()
+        self.test_file_integrity_verification_corruption_fix()
+        self.test_backend_error_monitoring_corruption_fix()
+        
         # Print results
         print("\n" + "=" * 80)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
