@@ -1020,13 +1020,26 @@ Each cell represents the score for a specific question, enabling identification 
         Returns:
             Tuple of (docx_bytes, filename)
         """
+        print(f"DEBUG: Generating report for assessment_id: {assessment_id}")
+        print(f"DEBUG: Current user org_id: {getattr(current_user, 'org_id', 'NOT SET')}")
+        print(f"DEBUG: Current user: {current_user}")
+        
         # Get assessment data
         assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        print(f"DEBUG: Assessment found: {assessment is not None}")
+        
         if not assessment:
-            raise Exception("Assessment not found")
+            # Try to find assessment without org_id restriction for debugging
+            assessment_debug = await db.assessments.find_one({"id": assessment_id})
+            print(f"DEBUG: Assessment exists without org_id filter: {assessment_debug is not None}")
+            if assessment_debug:
+                print(f"DEBUG: Assessment org_id: {assessment_debug.get('org_id', 'NOT SET')}")
+                print(f"DEBUG: Assessment status: {assessment_debug.get('status', 'NOT SET')}")
+            raise Exception(f"Assessment not found for user org_id: {current_user.org_id}")
         
         if assessment.get("status") != "COMPLETED":
-            raise Exception("Assessment must be completed before generating report")
+            print(f"DEBUG: Assessment status: {assessment.get('status')}")
+            raise Exception(f"Assessment must be completed before generating report. Current status: {assessment.get('status')}")
         
         # Get actual data from the real database structure
         # Get all answers for this assessment
