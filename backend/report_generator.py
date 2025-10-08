@@ -47,6 +47,11 @@ class AMReportGenerator:
         backend_dir = Path(__file__).parent
         return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx")
     
+    def _get_html_template_path(self) -> str:
+        """Get the HTML template path for PDF generation."""
+        backend_dir = Path(__file__).parent
+        return str(backend_dir / "templates" / "html" / "pdf_report_template.html")
+    
     def format_date(self, date_input) -> str:
         """Format date for the template."""
         try:
