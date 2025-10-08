@@ -111,6 +111,70 @@ class AMReportGenerator:
         
         return docx_bytes, pdf_bytes
     
+    def _generate_html_pdf(self, report_data: Dict[str, Any]) -> bytes:
+        """Generate PDF directly from HTML template using WeasyPrint."""
+        try:
+            html_template_path = self._get_html_template_path()
+            
+            if not os.path.exists(html_template_path):
+                raise Exception(f"HTML template not found: {html_template_path}")
+            
+            # Set up Jinja2 environment
+            template_dir = os.path.dirname(html_template_path)
+            template_name = os.path.basename(html_template_path)
+            
+            env = Environment(loader=FileSystemLoader(template_dir))
+            template = env.get_template(template_name)
+            
+            # Generate heatmap as data URL for embedding in HTML
+            heatmap_data_url = self._generate_heatmap_data_url(report_data)
+            
+            # Prepare template context (same as DOCX)
+            template_context = self._prepare_template_context(report_data)
+            template_context['heatmap_image'] = heatmap_data_url
+            
+            # Render HTML
+            html_content = template.render(**template_context)
+            
+            print("DEBUG: HTML template rendered successfully")
+            
+            # Convert HTML to PDF using WeasyPrint
+            html_doc = HTML(string=html_content)
+            pdf_bytes = html_doc.write_pdf()
+            
+            print(f"HTML-to-PDF conversion successful. Generated {len(pdf_bytes)} bytes")
+            return pdf_bytes
+            
+        except Exception as e:
+            print(f"ERROR: HTML-to-PDF conversion failed: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            raise Exception(f"Failed to generate PDF from HTML: {str(e)}")
+
+    def _generate_heatmap_data_url(self, report_data: Dict[str, Any]) -> str:
+        """Generate heatmap and return as data URL for HTML embedding."""
+        try:
+            # Generate heatmap image bytes
+            heatmap_bytes = self._generate_heatmap_image(report_data)
+            
+            # Convert to data URL
+            import base64
+            encoded = base64.b64encode(heatmap_bytes).decode('utf-8')
+            data_url = f"data:image/png;base64,{encoded}"
+            
+            return data_url
+            
+        except Exception as e:
+            print(f"ERROR: Failed to generate heatmap data URL: {str(e)}")
+            # Return placeholder data URL
+            return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+
+    def _prepare_template_context(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Prepare template context for both DOCX and HTML templates."""
+        # This method should contain the logic to transform report_data 
+        # into the template context used by both DOCX and HTML templates
+        return self._transform_assessment_data(report_data, report_data.get('user_data', {}))
+    
     def _convert_docx_to_pdf(self, docx_bytes: bytes) -> bytes:
         """Convert DOCX to PDF. First try LibreOffice, then fallback to returning DOCX."""
         
