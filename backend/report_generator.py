@@ -184,25 +184,7 @@ class AMReportGenerator:
             # Return placeholder data URL
             return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
 
-    def _prepare_template_context(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Prepare template context for both DOCX and HTML templates."""
-        print(f"DEBUG: _prepare_template_context input report_data keys: {list(report_data.keys())}")
-        print(f"DEBUG: user_data in report_data: {report_data.get('user_data', 'NOT SET')}")
-        
-        # Transform the report data to the expected template format
-        transformed_data = self._transform_assessment_data(report_data, report_data.get('user_data', {}))
-        
-        # Debug output to see what we're passing to template
-        print("DEBUG: Template context data:")
-        print(f"  org.name: {transformed_data.get('org', {}).get('name', 'NOT SET')}")
-        print(f"  overall.score: {transformed_data.get('overall', {}).get('score', 'NOT SET')}")
-        print(f"  overall.tier: {transformed_data.get('overall', {}).get('tier', 'NOT SET')}")
-        print(f"  assessment.date: {transformed_data.get('assessment', {}).get('date', 'NOT SET')}")
-        print(f"  actions.high count: {len(transformed_data.get('actions', {}).get('high', []))}")
-        print(f"  actions.medium count: {len(transformed_data.get('actions', {}).get('medium', []))}")
-        print(f"  actions.low count: {len(transformed_data.get('actions', {}).get('low', []))}")
-        
-        return transformed_data
+    # NOTE: _prepare_template_context method removed - now using direct template context
     
     def _convert_docx_to_pdf(self, docx_bytes: bytes) -> bytes:
         """Convert DOCX to PDF. First try LibreOffice, then fallback to returning DOCX."""
