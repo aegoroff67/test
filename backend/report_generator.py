@@ -17,6 +17,7 @@ import numpy as np
 from docxtpl import DocxTemplate, InlineImage
 from docx.shared import Inches, Pt, RGBColor
 import requests
+import subprocess
 
 
 class AMReportGenerator:
