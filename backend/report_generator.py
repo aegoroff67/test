@@ -120,7 +120,7 @@ class AMReportGenerator:
             
             # Convert using LibreOffice
             cmd = [
-                'libreoffice', '--headless', '--convert-to', 'pdf',
+                '/usr/bin/libreoffice', '--headless', '--convert-to', 'pdf',
                 '--outdir', output_dir, docx_path
             ]
             
