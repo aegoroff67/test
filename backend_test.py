@@ -5101,6 +5101,287 @@ class AMSafeAPITester:
         
         return True
 
+    def test_docx_report_generation_critical(self):
+        """CRITICAL: Test DOCX report generation functionality after LibreOffice installation"""
+        print("\n🔍 CRITICAL DOCX REPORT GENERATION TEST")
+        print("-" * 60)
+        
+        if not self.assessment_id:
+            # Create and complete an assessment for testing
+            if not self.create_and_complete_assessment_for_reports():
+                self.log_test("DOCX Report Generation - Setup", False, "Failed to create completed assessment")
+                return False
+        
+        # Test DOCX report generation endpoint
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/report')
+        
+        if not success:
+            self.log_test("DOCX Report Generation - Endpoint Access", False, f"Failed to access endpoint: {response}")
+            return False
+        
+        self.log_test("DOCX Report Generation - Endpoint Access", True)
+        
+        # Verify response is binary DOCX content
+        if isinstance(response, bytes):
+            file_size = len(response)
+            self.log_test("DOCX Report Generation - Binary Response", True)
+            
+            # Check file size (should be substantial, >200KB as mentioned in review)
+            if file_size > 200000:  # 200KB
+                self.log_test("DOCX Report Generation - File Size (>200KB)", True, f"File size: {file_size} bytes")
+            else:
+                self.log_test("DOCX Report Generation - File Size (>200KB)", False, f"File size only {file_size} bytes")
+            
+            # Verify DOCX file structure (ZIP-based format)
+            if response.startswith(b'PK'):  # ZIP file signature
+                self.log_test("DOCX Report Generation - Valid DOCX Format", True)
+            else:
+                self.log_test("DOCX Report Generation - Valid DOCX Format", False, "File doesn't start with ZIP signature")
+            
+            return file_size > 200000 and response.startswith(b'PK')
+        else:
+            self.log_test("DOCX Report Generation - Binary Response", False, "Response is not binary data")
+            return False
+
+    def test_pdf_report_generation_critical(self):
+        """CRITICAL: Test PDF report generation functionality after LibreOffice installation"""
+        print("\n🔍 CRITICAL PDF REPORT GENERATION TEST")
+        print("-" * 60)
+        
+        if not self.assessment_id:
+            # Create and complete an assessment for testing
+            if not self.create_and_complete_assessment_for_reports():
+                self.log_test("PDF Report Generation - Setup", False, "Failed to create completed assessment")
+                return False
+        
+        # Test PDF report generation endpoint
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/report/pdf')
+        
+        if not success:
+            self.log_test("PDF Report Generation - Endpoint Access", False, f"Failed to access endpoint: {response}")
+            return False
+        
+        self.log_test("PDF Report Generation - Endpoint Access", True)
+        
+        # Verify response is binary PDF content
+        if isinstance(response, bytes):
+            file_size = len(response)
+            self.log_test("PDF Report Generation - Binary Response", True)
+            
+            # Check file size (should be substantial, >250KB as mentioned in review)
+            if file_size > 250000:  # 250KB
+                self.log_test("PDF Report Generation - File Size (>250KB)", True, f"File size: {file_size} bytes")
+            else:
+                self.log_test("PDF Report Generation - File Size (>250KB)", False, f"File size only {file_size} bytes")
+            
+            # Verify PDF file format
+            if response.startswith(b'%PDF'):  # PDF file signature
+                self.log_test("PDF Report Generation - Valid PDF Format", True)
+            else:
+                self.log_test("PDF Report Generation - Valid PDF Format", False, "File doesn't start with PDF signature")
+            
+            # Check for PDF end marker
+            if b'%%EOF' in response:
+                self.log_test("PDF Report Generation - Complete PDF Structure", True)
+            else:
+                self.log_test("PDF Report Generation - Complete PDF Structure", False, "PDF doesn't contain end marker")
+            
+            return file_size > 250000 and response.startswith(b'%PDF') and b'%%EOF' in response
+        else:
+            self.log_test("PDF Report Generation - Binary Response", False, "Response is not binary data")
+            return False
+
+    def test_heatmap_image_embedding(self):
+        """Test that heatmap images are properly embedded in reports"""
+        print("\n🔍 HEATMAP IMAGE EMBEDDING TEST")
+        print("-" * 60)
+        
+        if not self.assessment_id:
+            if not self.create_and_complete_assessment_for_reports():
+                self.log_test("Heatmap Embedding - Setup", False, "Failed to create completed assessment")
+                return False
+        
+        # Test DOCX with heatmap
+        success, docx_response = self.make_request('GET', f'assessments/{self.assessment_id}/report')
+        docx_success = False
+        if success and isinstance(docx_response, bytes):
+            docx_size = len(docx_response)
+            # Heatmap images should significantly increase file size
+            if docx_size > 200000:  # 200KB - larger than text-only reports
+                self.log_test("Heatmap Embedding - DOCX Size Indicates Images", True, f"DOCX size: {docx_size} bytes")
+                docx_success = True
+            else:
+                self.log_test("Heatmap Embedding - DOCX Size Indicates Images", False, f"DOCX size only {docx_size} bytes")
+        
+        # Test PDF with heatmap
+        success, pdf_response = self.make_request('GET', f'assessments/{self.assessment_id}/report/pdf')
+        pdf_success = False
+        if success and isinstance(pdf_response, bytes):
+            pdf_size = len(pdf_response)
+            # PDF with images should be larger than DOCX
+            if pdf_size > 250000:  # 250KB as mentioned in review
+                self.log_test("Heatmap Embedding - PDF Size Indicates Images", True, f"PDF size: {pdf_size} bytes")
+                pdf_success = True
+            else:
+                self.log_test("Heatmap Embedding - PDF Size Indicates Images", False, f"PDF size only {pdf_size} bytes")
+        
+        return docx_success and pdf_success
+
+    def test_report_generation_performance(self):
+        """Test report generation performance (should be <30 seconds as mentioned in review)"""
+        print("\n🔍 REPORT GENERATION PERFORMANCE TEST")
+        print("-" * 60)
+        
+        if not self.assessment_id:
+            if not self.create_and_complete_assessment_for_reports():
+                self.log_test("Performance Test - Setup", False, "Failed to create completed assessment")
+                return False
+        
+        import time
+        
+        # Test DOCX generation time
+        start_time = time.time()
+        success, docx_response = self.make_request('GET', f'assessments/{self.assessment_id}/report')
+        docx_time = time.time() - start_time
+        
+        docx_performance_ok = False
+        if success:
+            if docx_time < 30:  # Should be under 30 seconds
+                self.log_test("DOCX Generation Performance (<30s)", True, f"Generated in {docx_time:.2f} seconds")
+                docx_performance_ok = True
+            else:
+                self.log_test("DOCX Generation Performance (<30s)", False, f"Took {docx_time:.2f} seconds")
+        else:
+            self.log_test("DOCX Generation Performance", False, "DOCX generation failed")
+        
+        # Test PDF generation time
+        start_time = time.time()
+        success, pdf_response = self.make_request('GET', f'assessments/{self.assessment_id}/report/pdf')
+        pdf_time = time.time() - start_time
+        
+        pdf_performance_ok = False
+        if success:
+            if pdf_time < 30:  # Should be under 30 seconds
+                self.log_test("PDF Generation Performance (<30s)", True, f"Generated in {pdf_time:.2f} seconds")
+                pdf_performance_ok = True
+            else:
+                self.log_test("PDF Generation Performance (<30s)", False, f"Took {pdf_time:.2f} seconds")
+        else:
+            self.log_test("PDF Generation Performance", False, "PDF generation failed")
+        
+        return docx_performance_ok and pdf_performance_ok
+
+    def test_report_error_handling(self):
+        """Test error handling for report generation"""
+        print("\n🔍 REPORT ERROR HANDLING TEST")
+        print("-" * 60)
+        
+        # Test with non-existent assessment
+        fake_id = "non-existent-assessment-id"
+        success, response = self.make_request('GET', f'assessments/{fake_id}/report', expected_status=404)
+        docx_error_ok = success
+        if success:
+            self.log_test("DOCX Report - Non-existent Assessment Error", True)
+        else:
+            self.log_test("DOCX Report - Non-existent Assessment Error", False, "Should return 404")
+        
+        success, response = self.make_request('GET', f'assessments/{fake_id}/report/pdf', expected_status=404)
+        pdf_error_ok = success
+        if success:
+            self.log_test("PDF Report - Non-existent Assessment Error", True)
+        else:
+            self.log_test("PDF Report - Non-existent Assessment Error", False, "Should return 404")
+        
+        return docx_error_ok and pdf_error_ok
+
+    def create_and_complete_assessment_for_reports(self):
+        """Helper method to create and complete an assessment for report testing"""
+        # Create assessment
+        success, response = self.make_request('POST', 'assessments', {})
+        if not success:
+            return False
+        
+        self.assessment_id = response['id']
+        
+        # Get questions
+        success, response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+        if not success:
+            return False
+        
+        # Answer all questions with varied responses for realistic heatmap
+        options = ["IDEAL", "GOOD", "BASIC", "NON_IDEAL"]
+        question_count = 0
+        
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            for question in questions:
+                # Use different options to create varied scores
+                option = options[question_count % len(options)]
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": option,
+                    "note": f"Test answer for report generation - {option}"
+                }
+                
+                success, _ = self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
+                if not success:
+                    return False
+                question_count += 1
+        
+        # Submit assessment to complete it
+        success, _ = self.make_request('POST', f'assessments/{self.assessment_id}/submit')
+        return success
+
+    def run_critical_report_tests(self):
+        """Run critical report generation tests as requested in review"""
+        print("🚀 CRITICAL PRODUCTION FIX VERIFICATION - Report Generation Testing")
+        print("=" * 80)
+        print("Testing LibreOffice installation and report generation functionality")
+        print("=" * 80)
+        
+        # Authentication
+        if not self.test_user_signup_and_login():
+            print("❌ Authentication failed - stopping tests")
+            return False
+        
+        # Critical report generation tests
+        docx_success = self.test_docx_report_generation_critical()
+        pdf_success = self.test_pdf_report_generation_critical()
+        heatmap_success = self.test_heatmap_image_embedding()
+        performance_success = self.test_report_generation_performance()
+        error_handling_success = self.test_report_error_handling()
+        
+        # Print summary
+        print("\n" + "=" * 80)
+        print("🏁 CRITICAL REPORT GENERATION TEST SUMMARY")
+        print("=" * 80)
+        print(f"Total tests run: {self.tests_run}")
+        print(f"Tests passed: {self.tests_passed}")
+        print(f"Tests failed: {self.tests_run - self.tests_passed}")
+        print(f"Success rate: {(self.tests_passed/self.tests_run*100):.1f}%")
+        
+        # Critical success criteria
+        critical_success = docx_success and pdf_success and heatmap_success and performance_success
+        
+        if critical_success:
+            print("🎉 CRITICAL TESTS PASSED - Production fix verified!")
+            print("✅ DOCX generation working")
+            print("✅ PDF generation working") 
+            print("✅ Heatmap images embedded")
+            print("✅ Performance acceptable")
+        else:
+            print("⚠️  CRITICAL TESTS FAILED - Production issues remain")
+            if not docx_success:
+                print("❌ DOCX generation issues")
+            if not pdf_success:
+                print("❌ PDF generation issues")
+            if not heatmap_success:
+                print("❌ Heatmap embedding issues")
+            if not performance_success:
+                print("❌ Performance issues")
+        
+        return critical_success
+
     def run_all_tests(self):
         """Run comprehensive test suite including DOCX report generation testing"""
         print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
