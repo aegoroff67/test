@@ -139,7 +139,9 @@ class AMReportGenerator:
             except Exception as ve:
                 print(f"DEBUG: Version check failed: {str(ve)}")
             
-            result = subprocess.run(cmd, check=True, capture_output=True, timeout=60)
+            # Try with shell=True to handle PATH issues
+            cmd_str = ' '.join(cmd)
+            result = subprocess.run(cmd_str, shell=True, check=True, capture_output=True, timeout=60)
             print(f"LibreOffice conversion successful. Stdout: {result.stdout.decode()}")
             
             # Read the generated PDF
