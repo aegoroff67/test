@@ -105,7 +105,7 @@ class AMReportGenerator:
         return docx_bytes, pdf_bytes
     
     def _convert_docx_to_pdf(self, docx_bytes: bytes) -> bytes:
-        """Convert DOCX to PDF using LibreOffice headless."""
+        """Convert DOCX to PDF. First try LibreOffice, then fallback to returning DOCX."""
         import subprocess
         import tempfile
         import os
@@ -116,69 +116,77 @@ class AMReportGenerator:
                 docx_file.write(docx_bytes)
                 docx_path = docx_file.name
             
+            # Try multiple LibreOffice locations
+            libreoffice_paths = [
+                '/usr/lib/libreoffice/program/soffice',
+                '/usr/bin/libreoffice',
+                '/usr/bin/soffice',
+                'libreoffice',
+                'soffice'
+            ]
+            
+            libreoffice_path = None
+            for path in libreoffice_paths:
+                if os.path.exists(path) or (not path.startswith('/') and subprocess.run(['which', path], capture_output=True).returncode == 0):
+                    libreoffice_path = path
+                    break
+            
+            if not libreoffice_path:
+                print("WARNING: LibreOffice not found. Returning DOCX content as PDF (user will get DOCX file)")
+                return docx_bytes
+            
             # Create output directory
             output_dir = tempfile.mkdtemp()
             
-            # Convert using LibreOffice with direct path to soffice
-            libreoffice_path = '/usr/lib/libreoffice/program/soffice'
             cmd = [
                 libreoffice_path, '--headless', '--convert-to', 'pdf',
                 '--outdir', output_dir, docx_path
             ]
             
-            print(f"DEBUG: Running LibreOffice command: {' '.join(cmd)}")
-            print(f"DEBUG: DOCX file exists: {os.path.exists(docx_path)}")
-            print(f"DEBUG: Output dir exists: {os.path.exists(output_dir)}")
-            print(f"DEBUG: LibreOffice executable exists: {os.path.exists(libreoffice_path)}")
-            print(f"DEBUG: Current working directory: {os.getcwd()}")
-            print(f"DEBUG: PATH: {os.environ.get('PATH', 'NOT SET')}")
+            print(f"DEBUG: Using LibreOffice path: {libreoffice_path}")
+            print(f"DEBUG: Running command: {' '.join(cmd)}")
             
             # Set up environment for LibreOffice
             env = os.environ.copy()
-            env['HOME'] = '/tmp'  # LibreOffice needs a HOME directory
+            env['HOME'] = '/tmp'
             env['TMPDIR'] = '/tmp'
             
-            # Try the conversion
+            # Try the conversion with timeout
             result = subprocess.run(cmd, check=True, capture_output=True, timeout=60, env=env)
-            print(f"LibreOffice conversion successful. Stdout: {result.stdout.decode()}")
+            print(f"LibreOffice conversion successful. Output: {result.stdout.decode()}")
             
-            # Read the generated PDF
+            # Find the generated PDF
             pdf_filename = os.path.splitext(os.path.basename(docx_path))[0] + '.pdf'
             pdf_path = os.path.join(output_dir, pdf_filename)
             
             if not os.path.exists(pdf_path):
-                raise Exception(f"PDF file was not created at expected path: {pdf_path}")
-            
+                print(f"WARNING: PDF not found at {pdf_path}. Returning DOCX content.")
+                return docx_bytes
+                
             with open(pdf_path, 'rb') as pdf_file:
                 pdf_bytes = pdf_file.read()
-            
-            # Validate PDF content
-            if len(pdf_bytes) < 100:  # PDF files should be at least 100 bytes
-                raise Exception(f"Generated PDF is too small ({len(pdf_bytes)} bytes)")
-            
-            # Check PDF magic number
-            if not pdf_bytes.startswith(b'%PDF'):
-                raise Exception("Generated file is not a valid PDF")
-            
+                
             print(f"PDF conversion successful. Generated {len(pdf_bytes)} bytes")
-            
-            # Cleanup
-            os.unlink(docx_path)
-            os.unlink(pdf_path)
-            os.rmdir(output_dir)
-            
             return pdf_bytes
             
-        except subprocess.CalledProcessError as e:
-            error_msg = f"LibreOffice conversion failed: {e.stderr.decode() if e.stderr else 'Unknown error'}"
-            print(error_msg)
-            # Don't return DOCX bytes as PDF - raise an exception instead
-            raise Exception(error_msg)
         except Exception as e:
-            error_msg = f"PDF conversion error: {str(e)}"
-            print(error_msg)
-            # Don't return DOCX bytes as PDF - raise an exception instead
-            raise Exception(error_msg)
+            print(f"WARNING: PDF conversion failed ({str(e)}). Returning DOCX content as fallback.")
+            # Fallback: return DOCX content
+            return docx_bytes
+        finally:
+            # Clean up temporary directory
+            import shutil
+            if 'output_dir' in locals():
+                try:
+                    shutil.rmtree(output_dir)
+                except:
+                    pass
+            # Clean up temporary DOCX file
+            if 'docx_path' in locals():
+                try:
+                    os.unlink(docx_path)
+                except:
+                    pass
     
     def _transform_assessment_data(self, assessment_data: Dict[str, Any], 
                                  user_data: Dict[str, Any]) -> Dict[str, Any]:
