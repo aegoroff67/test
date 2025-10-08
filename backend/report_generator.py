@@ -143,6 +143,12 @@ class AMReportGenerator:
             html_content = template.render(**template_context)
             
             print("DEBUG: HTML template rendered successfully")
+            # Check if placeholders are being replaced
+            if '{{ org.name }}' in html_content:
+                print("WARNING: Template placeholders not being replaced!")
+                print(f"Sample content: {html_content[:500]}")
+            else:
+                print("DEBUG: Template placeholders successfully replaced")
             
             # Convert HTML to PDF using WeasyPrint
             html_doc = HTML(string=html_content)
