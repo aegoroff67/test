@@ -137,7 +137,7 @@ class AMReportGenerator:
             
             # Prepare template context (same as DOCX)
             template_context = self._prepare_template_context(report_data)
-            template_context['heatmap_image'] = heatmap_data_url
+            template_context['heatmap_image_src'] = heatmap_data_url
             
             # Render HTML
             html_content = template.render(**template_context)
