@@ -6108,25 +6108,16 @@ def main():
     tester = AMSafeAPITester()
     
     try:
-        print("🎯 AM AI SAFE HEATMAP LAYOUT OVERLAP FIX TESTING")
-        print("=" * 80)
-        print("Testing the fixed heatmap layout to resolve text overlapping issue")
-        print("=" * 80)
+        # Run the critical report generation tests as requested in the review
+        success = tester.run_critical_report_tests()
         
-        # Run authentication first
-        if not tester.test_user_signup_and_login():
-            print("❌ Authentication failed, stopping tests")
-            return 1
-        
-        # Run basic system verification
-        print("\n🔧 BASIC SYSTEM VERIFICATION")
-        print("=" * 60)
-        if not tester.test_domains_and_questions_structure():
-            print("❌ Basic system verification failed")
-            return 1
-        
-        if not tester.test_assessment_creation():
-            print("❌ Assessment creation failed")
+        if success:
+            print("\n🎉 SUCCESS: All critical report generation tests passed!")
+            print("Production fix has been verified - LibreOffice installation successful")
+            return 0
+        else:
+            print("\n❌ FAILURE: Critical report generation tests failed!")
+            print("Production issues remain - further investigation needed")
             return 1
         
         # Run the heatmap layout overlap fix test (MAIN FOCUS FOR THIS REVIEW)
