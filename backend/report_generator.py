@@ -118,8 +118,8 @@ class AMReportGenerator:
             # Create output directory
             output_dir = tempfile.mkdtemp()
             
-            # Convert using LibreOffice with full path and environment setup
-            libreoffice_path = '/usr/bin/libreoffice'
+            # Convert using LibreOffice with direct path to soffice
+            libreoffice_path = '/usr/lib/libreoffice/program/soffice'
             cmd = [
                 libreoffice_path, '--headless', '--convert-to', 'pdf',
                 '--outdir', output_dir, docx_path
