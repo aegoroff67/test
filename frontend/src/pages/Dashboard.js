@@ -89,7 +89,7 @@ function Dashboard() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">AM AI SAFE</h1>
-                <p className="text-xs text-teal-600 font-medium">POWERING TRUST IN AI</p>
+                <p className="text-xs text-teal-600 font-medium">EMPOWERING TRUST IN AI</p>
               </div>
             </div>
 
