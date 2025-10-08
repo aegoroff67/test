@@ -124,6 +124,21 @@ class AMReportGenerator:
                 '--outdir', output_dir, docx_path
             ]
             
+            print(f"DEBUG: Running LibreOffice command: {' '.join(cmd)}")
+            print(f"DEBUG: DOCX file exists: {os.path.exists(docx_path)}")
+            print(f"DEBUG: Output dir exists: {os.path.exists(output_dir)}")
+            print(f"DEBUG: LibreOffice executable exists: {os.path.exists('/usr/bin/libreoffice')}")
+            
+            # Check if we can run libreoffice --version first
+            try:
+                version_result = subprocess.run(['/usr/bin/libreoffice', '--version'], 
+                                              capture_output=True, timeout=10)
+                print(f"DEBUG: LibreOffice version check: {version_result.returncode}")
+                print(f"DEBUG: Version stdout: {version_result.stdout.decode()}")
+                print(f"DEBUG: Version stderr: {version_result.stderr.decode()}")
+            except Exception as ve:
+                print(f"DEBUG: Version check failed: {str(ve)}")
+            
             result = subprocess.run(cmd, check=True, capture_output=True, timeout=60)
             print(f"LibreOffice conversion successful. Stdout: {result.stdout.decode()}")
             
