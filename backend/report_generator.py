@@ -183,6 +183,9 @@ class AMReportGenerator:
 
     def _prepare_template_context(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
         """Prepare template context for both DOCX and HTML templates."""
+        print(f"DEBUG: _prepare_template_context input report_data keys: {list(report_data.keys())}")
+        print(f"DEBUG: user_data in report_data: {report_data.get('user_data', 'NOT SET')}")
+        
         # Transform the report data to the expected template format
         transformed_data = self._transform_assessment_data(report_data, report_data.get('user_data', {}))
         
