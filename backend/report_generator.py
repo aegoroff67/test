@@ -117,7 +117,7 @@ class AMReportGenerator:
         
         return docx_bytes, pdf_bytes
     
-    def _generate_html_pdf(self, report_data: Dict[str, Any]) -> bytes:
+    def _generate_html_pdf(self, assessment_data: Dict[str, Any], user_data: Dict[str, Any]) -> bytes:
         """Generate PDF directly from HTML template using WeasyPrint."""
         try:
             html_template_path = self._get_html_template_path()
@@ -132,11 +132,14 @@ class AMReportGenerator:
             env = Environment(loader=FileSystemLoader(template_dir))
             template = env.get_template(template_name)
             
+            # Transform the assessment data to report format
+            report_data = self._transform_assessment_data(assessment_data, user_data)
+            
             # Generate heatmap as data URL for embedding in HTML
             heatmap_data_url = self._generate_heatmap_data_url(report_data)
             
-            # Prepare template context (same as DOCX)
-            template_context = self._prepare_template_context(report_data)
+            # Use the transformed report data directly as template context
+            template_context = report_data
             template_context['heatmap_image_src'] = heatmap_data_url
             
             # Render HTML
