@@ -737,7 +737,7 @@ DOMAIN PERFORMANCE HIGHLIGHTS:"""
 • Highest Performing Domain: {highest_domain['name']} ({highest_domain['avg_score']:.1f}/3.0 average)
 • Area for Greatest Improvement: {lowest_domain['name']} ({lowest_domain['avg_score']:.1f}/3.0 average)"""
 
-        results += f"""
+        results += """
 
 HEATMAP VISUALIZATION:
 The AI Maturity Heatmap below provides a visual representation of performance across all domains and questions. The heatmap is organized with:
@@ -805,7 +805,6 @@ Each cell represents the score for a specific question, enabling identification 
         """
         from docx.oxml import OxmlElement
         from docx.oxml.ns import qn
-        from docx.shared import Pt, RGBColor
         
         # Get the underlying python-docx Document object
         docx_doc = doc.docx
@@ -980,7 +979,7 @@ Each cell represents the score for a specific question, enabling identification 
             }
             
             # Debug output for troubleshooting
-            print(f"Generated report data structure:")
+            print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
             print(f"  Overall score: {template_context['overall']['score']}")
             print(f"  High priority actions: {len(template_context['actions']['high'])}")
