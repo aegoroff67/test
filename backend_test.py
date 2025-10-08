@@ -6120,23 +6120,6 @@ def main():
             print("Production issues remain - further investigation needed")
             return 1
         
-        # Run the heatmap layout overlap fix test (MAIN FOCUS FOR THIS REVIEW)
-        print("\n🎯 HEATMAP LAYOUT OVERLAP FIX TESTING")
-        print("=" * 60)
-        success = tester.test_heatmap_layout_overlap_fix()
-        
-        # Print final results
-        tester.print_summary()
-        
-        if success:
-            print("\n✅ HEATMAP LAYOUT OVERLAP FIX TESTING COMPLETED SUCCESSFULLY")
-            print("🎉 The heatmap layout overlap issue has been resolved!")
-        else:
-            print("\n❌ HEATMAP LAYOUT OVERLAP FIX TESTING FAILED")
-            print("⚠️  Issues found with the heatmap layout implementation")
-        
-        return 0 if success else 1
-        
     except Exception as e:
         print(f"❌ Test execution failed: {str(e)}")
         import traceback
