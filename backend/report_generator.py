@@ -106,9 +106,6 @@ class AMReportGenerator:
     
     def _convert_docx_to_pdf(self, docx_bytes: bytes) -> bytes:
         """Convert DOCX to PDF. First try LibreOffice, then fallback to returning DOCX."""
-        import subprocess
-        import tempfile
-        import os
         
         try:
             # Create temporary files
