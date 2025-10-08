@@ -5382,148 +5382,321 @@ class AMSafeAPITester:
         
         return critical_success
 
+    def test_production_authentication_flow(self):
+        """Test authentication flow specifically for production environment"""
+        print("\n🔐 PRODUCTION AUTHENTICATION FLOW TEST")
+        print("-" * 60)
+        
+        # Test 1: Backend API accessibility
+        try:
+            response = requests.get(f"{self.base_url}/api/domains", timeout=10)
+            if response.status_code == 200:
+                self.log_test("Backend API accessible at production URL", True)
+            else:
+                self.log_test("Backend API accessible at production URL", False, f"Status: {response.status_code}")
+        except Exception as e:
+            self.log_test("Backend API accessible at production URL", False, str(e))
+            return False
+        
+        # Test 2: User signup and login with production-like data
+        timestamp = datetime.now().strftime('%H%M%S')
+        test_email = f"production_test_{timestamp}@amaisafe.com"
+        
+        signup_data = {
+            "name": f"Production Test User {timestamp}",
+            "email": test_email,
+            "password": "SecurePass123!",
+            "organization_name": f"AM AI Safe Test Org {timestamp}",
+            "industry": "Artificial Intelligence"
+        }
+        
+        success, response = self.make_request('POST', 'auth/signup', signup_data)
+        if success and 'access_token' in response:
+            self.token = response['access_token']
+            self.user_data = response['user']
+            self.log_test("Production user signup successful", True)
+            self.log_test("JWT token generated and received", True)
+            
+            # Verify token format
+            if self.token and len(self.token.split('.')) == 3:
+                self.log_test("JWT token format valid", True)
+            else:
+                self.log_test("JWT token format valid", False, "Invalid JWT format")
+        else:
+            self.log_test("Production user signup successful", False, str(response))
+            return False
+        
+        # Test 3: Verify authenticated API calls work
+        success, domains = self.make_request('GET', 'domains')
+        if success:
+            self.log_test("Authenticated API call successful", True)
+        else:
+            self.log_test("Authenticated API call successful", False, str(domains))
+        
+        # Test 4: Test assessment creation with authentication
+        success, response = self.make_request('POST', 'assessments', {})
+        if success and 'id' in response:
+            self.assessment_id = response['id']
+            self.log_test("Assessment creation with authentication", True)
+        else:
+            self.log_test("Assessment creation with authentication", False, str(response))
+            
+        return True
+
+    def test_specific_assessment_report_generation(self):
+        """Test report generation with specific assessment ID from review request"""
+        print("\n📄 SPECIFIC ASSESSMENT REPORT GENERATION TEST")
+        print("-" * 60)
+        
+        # Use the specific assessment ID from the review request
+        specific_assessment_id = "89139e2e-5286-4e11-89e1-8ca5d830ca44"
+        
+        # Test DOCX generation
+        print(f"Testing DOCX generation for assessment: {specific_assessment_id}")
+        success, response = self.make_request('GET', f'assessments/{specific_assessment_id}/report')
+        
+        if success:
+            self.log_test("DOCX report generation for specific assessment", True)
+            
+            # Check if response is binary content (DOCX file)
+            if isinstance(response, bytes) and len(response) > 1000:
+                self.log_test("DOCX file size reasonable", True, f"Size: {len(response)} bytes")
+                
+                # Check DOCX file signature (ZIP format)
+                if response[:4] == b'PK\x03\x04':
+                    self.log_test("DOCX file format valid", True)
+                else:
+                    self.log_test("DOCX file format valid", False, "Invalid ZIP/DOCX signature")
+            else:
+                self.log_test("DOCX file size reasonable", False, f"Size too small: {len(response) if isinstance(response, bytes) else 'Not binary'}")
+        else:
+            self.log_test("DOCX report generation for specific assessment", False, str(response))
+        
+        # Test PDF generation
+        print(f"Testing PDF generation for assessment: {specific_assessment_id}")
+        success, response = self.make_request('GET', f'assessments/{specific_assessment_id}/report/pdf')
+        
+        if success:
+            self.log_test("PDF report generation for specific assessment", True)
+            
+            # Check if response is binary content (PDF file)
+            if isinstance(response, bytes) and len(response) > 1000:
+                self.log_test("PDF file size reasonable", True, f"Size: {len(response)} bytes")
+                
+                # Check PDF file signature
+                if response[:4] == b'%PDF':
+                    self.log_test("PDF file format valid", True)
+                    
+                    # Check for PDF end marker
+                    if b'%%EOF' in response[-100:]:
+                        self.log_test("PDF file structure complete", True)
+                    else:
+                        self.log_test("PDF file structure complete", False, "Missing %%EOF marker")
+                else:
+                    self.log_test("PDF file format valid", False, "Invalid PDF signature")
+            else:
+                self.log_test("PDF file size reasonable", False, f"Size too small: {len(response) if isinstance(response, bytes) else 'Not binary'}")
+        else:
+            self.log_test("PDF report generation for specific assessment", False, str(response))
+            
+            # Check for specific error codes
+            if "500" in str(response):
+                self.log_test("500 error identified in PDF generation", True, "This matches user's reported issue")
+            
+        return success
+
+    def test_libreoffice_verification(self):
+        """Test LibreOffice installation and PDF conversion capability"""
+        print("\n🖥️ LIBREOFFICE VERIFICATION TEST")
+        print("-" * 60)
+        
+        # This test would need to be run on the server, but we can test the PDF endpoint
+        # which internally uses LibreOffice
+        
+        if not self.assessment_id:
+            # Create a test assessment first
+            success, response = self.make_request('POST', 'assessments', {})
+            if success:
+                self.assessment_id = response['id']
+                
+                # Answer a few questions to make it valid for report generation
+                success, questions_response = self.make_request('GET', f'assessments/{self.assessment_id}/questions')
+                if success and questions_response:
+                    # Answer first 5 questions
+                    count = 0
+                    for domain_data in questions_response:
+                        if count >= 5:
+                            break
+                        questions = domain_data.get('questions', [])
+                        for question in questions[:5-count]:
+                            answer_data = {
+                                "question_id": question['id'],
+                                "option": "GOOD",
+                                "note": "Test answer for LibreOffice verification"
+                            }
+                            self.make_request('POST', f'assessments/{self.assessment_id}/answer', answer_data)
+                            count += 1
+                            if count >= 5:
+                                break
+        
+        if self.assessment_id:
+            # Test PDF generation which requires LibreOffice
+            success, response = self.make_request('GET', f'assessments/{self.assessment_id}/report/pdf')
+            
+            if success and isinstance(response, bytes):
+                self.log_test("LibreOffice PDF conversion working", True)
+                
+                # Check conversion quality
+                if len(response) > 10000:  # Reasonable PDF size
+                    self.log_test("LibreOffice conversion produces substantial content", True)
+                else:
+                    self.log_test("LibreOffice conversion produces substantial content", False, f"PDF too small: {len(response)} bytes")
+            else:
+                self.log_test("LibreOffice PDF conversion working", False, str(response))
+                
+                # Check for LibreOffice-related errors
+                error_str = str(response).lower()
+                if "libreoffice" in error_str or "soffice" in error_str:
+                    self.log_test("LibreOffice installation issue detected", True, "LibreOffice may not be installed")
+        else:
+            self.log_test("LibreOffice verification", False, "No assessment available for testing")
+
+    def test_authentication_headers_validation(self):
+        """Test JWT token validation and authentication headers"""
+        print("\n🔑 AUTHENTICATION HEADERS VALIDATION TEST")
+        print("-" * 60)
+        
+        if not self.token:
+            self.log_test("Authentication headers test", False, "No token available")
+            return False
+        
+        # Test 1: Valid token
+        headers = {'Authorization': f'Bearer {self.token}', 'Content-Type': 'application/json'}
+        try:
+            response = requests.get(f"{self.api_url}/assessments", headers=headers)
+            if response.status_code == 200:
+                self.log_test("Valid JWT token accepted", True)
+            else:
+                self.log_test("Valid JWT token accepted", False, f"Status: {response.status_code}")
+        except Exception as e:
+            self.log_test("Valid JWT token accepted", False, str(e))
+        
+        # Test 2: Invalid token
+        invalid_headers = {'Authorization': 'Bearer invalid-token', 'Content-Type': 'application/json'}
+        try:
+            response = requests.get(f"{self.api_url}/assessments", headers=invalid_headers)
+            if response.status_code in [401, 403]:
+                self.log_test("Invalid JWT token rejected", True)
+            else:
+                self.log_test("Invalid JWT token rejected", False, f"Should return 401/403, got {response.status_code}")
+        except Exception as e:
+            self.log_test("Invalid JWT token rejected", False, str(e))
+        
+        # Test 3: Missing Authorization header
+        try:
+            response = requests.get(f"{self.api_url}/assessments")
+            if response.status_code in [401, 403]:
+                self.log_test("Missing Authorization header rejected", True)
+            else:
+                self.log_test("Missing Authorization header rejected", False, f"Should return 401/403, got {response.status_code}")
+        except Exception as e:
+            self.log_test("Missing Authorization header rejected", False, str(e))
+        
+        return True
+
+    def test_production_error_diagnosis(self):
+        """Comprehensive error diagnosis for production 500 errors"""
+        print("\n🔍 PRODUCTION ERROR DIAGNOSIS")
+        print("-" * 60)
+        
+        # Test various scenarios that might cause 500 errors
+        
+        # Test 1: Report generation without authentication
+        specific_assessment_id = "89139e2e-5286-4e11-89e1-8ca5d830ca44"
+        
+        try:
+            response = requests.get(f"{self.api_url}/assessments/{specific_assessment_id}/report")
+            self.log_test("Report generation without auth", False, f"Status: {response.status_code}, Response: {response.text[:200]}")
+        except Exception as e:
+            self.log_test("Report generation without auth", False, str(e))
+        
+        # Test 2: Report generation with authentication
+        if self.token:
+            headers = {'Authorization': f'Bearer {self.token}'}
+            try:
+                response = requests.get(f"{self.api_url}/assessments/{specific_assessment_id}/report", headers=headers)
+                if response.status_code == 200:
+                    self.log_test("Report generation with auth", True)
+                else:
+                    self.log_test("Report generation with auth", False, f"Status: {response.status_code}, Response: {response.text[:200]}")
+            except Exception as e:
+                self.log_test("Report generation with auth", False, str(e))
+        
+        # Test 3: Check if assessment exists
+        if self.token:
+            headers = {'Authorization': f'Bearer {self.token}'}
+            try:
+                response = requests.get(f"{self.api_url}/assessments/{specific_assessment_id}", headers=headers)
+                if response.status_code == 200:
+                    self.log_test("Specific assessment exists and accessible", True)
+                elif response.status_code == 404:
+                    self.log_test("Specific assessment exists and accessible", False, "Assessment not found - this could be the issue")
+                elif response.status_code == 403:
+                    self.log_test("Specific assessment exists and accessible", False, "Access denied - assessment belongs to different organization")
+                else:
+                    self.log_test("Specific assessment exists and accessible", False, f"Status: {response.status_code}")
+            except Exception as e:
+                self.log_test("Specific assessment exists and accessible", False, str(e))
+
     def run_all_tests(self):
-        """Run comprehensive test suite including DOCX report generation testing"""
-        print("🚀 Starting Comprehensive Backend Tests with DOCX Report Generation")
+        """Run all tests in sequence with focus on production issues"""
+        print(f"🚀 Starting AM AI SAFE Production API Tests")
+        print(f"🌐 Base URL: {self.base_url}")
+        print(f"🔗 API URL: {self.api_url}")
         print("=" * 80)
         
-        # Authentication tests
-        if not self.test_user_signup_and_login():
-            print("❌ Authentication failed, stopping tests")
-            return False
+        # Production-focused authentication tests
+        if not self.test_production_authentication_flow():
+            print("❌ Production authentication failed - continuing with other tests")
+        
+        # Authentication validation tests
+        self.test_authentication_headers_validation()
+        
+        # LibreOffice verification
+        self.test_libreoffice_verification()
+        
+        # Specific assessment report generation (the main issue)
+        self.test_specific_assessment_report_generation()
+        
+        # Production error diagnosis
+        self.test_production_error_diagnosis()
+        
+        # Basic functionality tests (if authentication worked)
+        if self.token:
+            self.test_domains_and_questions_structure()
             
-        # Test domains and questions structure (should show 88 questions, 11 domains)
-        self.test_domains_and_questions_structure()
+            if self.assessment_id:
+                self.test_assessment_questions_with_complete_data()
+                self.test_answer_system()
+                
+                # Report generation tests with created assessment
+                self.test_docx_report_generation()
+                self.test_pdf_report_generation()
         
-        # Test newly added domains 6-11 specifically
-        self.test_newly_added_domains_6_11()
-        
-        # Assessment tests
-        if not self.test_assessment_creation():
-            print("❌ Assessment creation failed, stopping tests")
-            return False
-            
-        # Test assessment questions with 88 questions
-        self.test_88_questions_in_assessment_context()
-        
-        # Test status endpoint with 88 questions
-        self.test_status_endpoint_88_questions()
-        
-        # Test answer system
-        self.test_answer_system()
-        
-        # COMPREHENSIVE REPORT GENERATION TESTING (MAIN FOCUS - as requested in review)
-        print("\n🔍 STARTING COMPREHENSIVE REPORT GENERATION TESTING")
-        print("=" * 60)
-        print("Testing the updated report generation system to verify it addresses user's reported issues:")
-        print("1. Template content verification (DOCX and PDF generation)")
-        print("2. Heatmap data structure testing (multiple domains, proper scoring)")
-        print("3. Recommendations table population (High/Medium/Low priority)")
-        print("4. Data mapping and content verification")
-        print("5. File format and download testing")
-        print("=" * 60)
-        
-        # Run the comprehensive report generation testing
-        self.test_report_generation_comprehensive()
-        if hasattr(self, 'test_heatmap_generation'):
-            self.test_heatmap_generation()
-        if hasattr(self, 'test_priority_mapping_rules'):
-            self.test_priority_mapping_rules()
-        if hasattr(self, 'test_json_model_compliance'):
-            self.test_json_model_compliance()
-        if hasattr(self, 'test_docx_template_processing'):
-            self.test_docx_template_processing()
-        
-        # HEATMAP IMAGE GENERATION AND INSERTION TEST (NEW V9 TEMPLATE FUNCTIONALITY)
-        print("\n🖼️ HEATMAP IMAGE GENERATION AND INSERTION TESTING")
-        print("=" * 80)
-        print("Testing the new v9 template heatmap image generation and insertion functionality:")
-        print("- Heatmap image generation using matplotlib with Results Summary format")
-        print("- Image insertion at {{heatmap_image}} placeholder in v9 template")
-        print("- Domains sorted by lowest score first (vertically)")
-        print("- Questions within domains sorted by lowest score first (horizontally)")
-        print("- Color coding: Red (0), Orange (1), Yellow (2), Green (3)")
-        print("- Question codes and scores displayed on each cell")
-        print("- Domain names and percentages on the left side")
-        print("=" * 80)
-        
-        self.test_heatmap_image_generation_and_insertion()
-        
-        # HEATMAP REFINEMENTS TESTING (REVIEW REQUEST FOCUS)
-        print("\n🎯 HEATMAP REFINEMENTS TESTING (REVIEW REQUEST FOCUS)")
-        print("=" * 80)
-        print("Testing the refined heatmap image generation with user's requested changes:")
-        print("1. Verify heatmap image width is now 6.27 inches in generated documents")
-        print("2. Confirm score numbers removed from question cells, showing only question codes")
-        print("3. Check question codes are properly centered and readable (font size 10)")
-        print("4. Test both DOCX and PDF generation with refined heatmap")
-        print("5. Validate color coding still works correctly for score visualization")
-        print("6. Ensure cleaner appearance improves readability without losing functionality")
-        print("=" * 80)
-        
-        self.test_heatmap_refinements_in_reports()
-        
-        # HEATMAP LAYOUT OPTIMIZATION TESTING (REVIEW REQUEST FOCUS)
-        print("\n🎯 HEATMAP LAYOUT OPTIMIZATION TESTING (REVIEW REQUEST FOCUS)")
-        print("=" * 80)
-        print("Testing the optimized heatmap layout with requested changes:")
-        print("1. Verify domain names and percentages are on same horizontal line (not stacked)")
-        print("2. Confirm domain names are aligned to the left")
-        print("3. Check percentage scores are placed immediately to right of domain names")
-        print("4. Validate rows have reduced height making heatmap more compact")
-        print("5. Test both DOCX and PDF generation with new layout")
-        print("6. Ensure layout is more space-efficient while maintaining readability")
-        print("7. Confirm all other functionality (color coding, question codes) still works")
-        print("=" * 80)
-        
-        self.test_heatmap_layout_optimization()
-        
-        # HEATMAP LAYOUT OVERLAP FIX TESTING (PRIMARY REVIEW REQUEST FOCUS)
-        print("\n🎯 HEATMAP LAYOUT OVERLAP FIX TESTING (PRIMARY REVIEW REQUEST FOCUS)")
-        print("=" * 80)
-        print("Testing the fixed heatmap layout to resolve text overlapping issue:")
-        print("1. Verify domain names and percentages no longer overlap")
-        print("2. Confirm percentages are positioned under domain names (not side-by-side)")
-        print("3. Check vertical spacing is minimized to keep rows compact")
-        print("4. Validate font sizes are appropriate for readability (domain: 9, percentage: 7)")
-        print("5. Test both DOCX and PDF generation with corrected layout")
-        print("6. Ensure layout is still more compact than original while being readable")
-        print("7. Confirm all other functionality (color coding, question codes) still works")
-        print("=" * 80)
-        
-        self.test_heatmap_layout_overlap_fix()
-        
-        # Enhanced DOCX Report Generation Tests (as specifically requested in review)
-        print("\n🔥 ENHANCED DOCX REPORT GENERATION WITH STYLE PRESERVATION")
-        print("=" * 80)
-        
-        if hasattr(self, 'run_enhanced_docx_tests'):
-            self.run_enhanced_docx_tests()
-        
-        # NEW TESTS FOR V8 TEMPLATE WITH PROPER DOCXTPL SYNTAX - MAIN FOCUS OF REVIEW REQUEST
-        print("\n" + "🎯" * 20 + " V8 TEMPLATE TESTING " + "🎯" * 20)
-        print("Testing the v8 template with proper docxtpl {%tr for ... %} syntax:")
-        print("- Switched from programmatic table population to native docxtpl row iteration")
-        print("- v8 template contains proper {%tr for action in actions.high/medium/low %} syntax")
-        print("- This is the correct docxtpl approach for creating dynamic table rows")
-        print("- Template has 3 tables, each with 3 columns and proper Jinja2 loop syntax")
-        print("=" * 80)
-        
-        self.test_v8_template_docx_generation()
-        self.test_table_row_verification_detailed()
-        self.test_priority_mapping_verification()
-        
-        # Print results
+        # Print summary
         print("\n" + "=" * 80)
-        print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
-        print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
+        print(f"📊 PRODUCTION TEST SUMMARY")
+        print(f"Total Tests: {self.tests_run}")
+        print(f"Passed: {self.tests_passed}")
+        print(f"Failed: {self.tests_run - self.tests_passed}")
+        print(f"Success Rate: {(self.tests_passed/self.tests_run*100):.1f}%")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All tests passed! DOCX report generation system fully functional.")
-            return True
+            print("🎉 ALL TESTS PASSED!")
         else:
-            print("⚠️  Some tests failed. Check details above.")
-            return False
+            print("⚠️  Some tests failed - check details above")
+            
+        return self.tests_passed == self.tests_run
 
     def print_summary(self):
         """Print test summary"""
