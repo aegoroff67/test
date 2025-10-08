@@ -108,7 +108,7 @@ class AMReportGenerator:
         
         # Generate PDF using HTML-to-PDF conversion (WeasyPrint)
         try:
-            pdf_bytes = self._generate_html_pdf(report_data)
+            pdf_bytes = self._generate_html_pdf(assessment_data, user_data)
             print("DEBUG: Using HTML-to-PDF conversion successfully")
         except Exception as e:
             print(f"WARNING: HTML-to-PDF failed ({str(e)}), falling back to LibreOffice conversion")
