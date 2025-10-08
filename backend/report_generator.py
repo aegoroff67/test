@@ -106,8 +106,14 @@ class AMReportGenerator:
         # Generate DOCX report
         docx_bytes = self._generate_docx_report(report_data, heatmap_image)
         
-        # Convert DOCX to PDF using LibreOffice
-        pdf_bytes = self._convert_docx_to_pdf(docx_bytes)
+        # Generate PDF using HTML-to-PDF conversion (WeasyPrint)
+        try:
+            pdf_bytes = self._generate_html_pdf(report_data)
+            print("DEBUG: Using HTML-to-PDF conversion successfully")
+        except Exception as e:
+            print(f"WARNING: HTML-to-PDF failed ({str(e)}), falling back to LibreOffice conversion")
+            # Fallback to LibreOffice conversion
+            pdf_bytes = self._convert_docx_to_pdf(docx_bytes)
         
         return docx_bytes, pdf_bytes
     
