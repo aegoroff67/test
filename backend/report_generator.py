@@ -118,30 +118,27 @@ class AMReportGenerator:
             # Create output directory
             output_dir = tempfile.mkdtemp()
             
-            # Convert using LibreOffice
+            # Convert using LibreOffice with full path and environment setup
+            libreoffice_path = '/usr/bin/libreoffice'
             cmd = [
-                '/usr/bin/libreoffice', '--headless', '--convert-to', 'pdf',
+                libreoffice_path, '--headless', '--convert-to', 'pdf',
                 '--outdir', output_dir, docx_path
             ]
             
             print(f"DEBUG: Running LibreOffice command: {' '.join(cmd)}")
             print(f"DEBUG: DOCX file exists: {os.path.exists(docx_path)}")
             print(f"DEBUG: Output dir exists: {os.path.exists(output_dir)}")
-            print(f"DEBUG: LibreOffice executable exists: {os.path.exists('/usr/bin/libreoffice')}")
+            print(f"DEBUG: LibreOffice executable exists: {os.path.exists(libreoffice_path)}")
+            print(f"DEBUG: Current working directory: {os.getcwd()}")
+            print(f"DEBUG: PATH: {os.environ.get('PATH', 'NOT SET')}")
             
-            # Check if we can run libreoffice --version first
-            try:
-                version_result = subprocess.run(['/usr/bin/libreoffice', '--version'], 
-                                              capture_output=True, timeout=10)
-                print(f"DEBUG: LibreOffice version check: {version_result.returncode}")
-                print(f"DEBUG: Version stdout: {version_result.stdout.decode()}")
-                print(f"DEBUG: Version stderr: {version_result.stderr.decode()}")
-            except Exception as ve:
-                print(f"DEBUG: Version check failed: {str(ve)}")
+            # Set up environment for LibreOffice
+            env = os.environ.copy()
+            env['HOME'] = '/tmp'  # LibreOffice needs a HOME directory
+            env['TMPDIR'] = '/tmp'
             
-            # Try with shell=True to handle PATH issues
-            cmd_str = ' '.join(cmd)
-            result = subprocess.run(cmd_str, shell=True, check=True, capture_output=True, timeout=60)
+            # Try the conversion
+            result = subprocess.run(cmd, check=True, capture_output=True, timeout=60, env=env)
             print(f"LibreOffice conversion successful. Stdout: {result.stdout.decode()}")
             
             # Read the generated PDF
