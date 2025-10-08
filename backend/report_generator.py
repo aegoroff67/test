@@ -18,6 +18,8 @@ from docxtpl import DocxTemplate, InlineImage
 from docx.shared import Inches, Pt, RGBColor
 import requests
 import subprocess
+from jinja2 import Environment, FileSystemLoader
+from weasyprint import HTML, CSS
 
 
 class AMReportGenerator:
