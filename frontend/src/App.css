@@ -384,3 +384,10 @@ body {
     display: none !important;
   }
 }
+
+/* Hide Emergent badge to prevent interference with navigation */
+#emergent-badge,
+#emergent-badge > div {
+    display: none !important;
+    visibility: hidden !important;
+}
