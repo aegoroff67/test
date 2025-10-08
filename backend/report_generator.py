@@ -1300,9 +1300,14 @@ Each cell represents the score for a specific question, enabling identification 
             "summary": summary_data
         }
         
+        print(f"DEBUG: current_user type: {type(current_user)}")
+        print(f"DEBUG: current_user.organization_name: {getattr(current_user, 'organization_name', 'NOT SET')}")
+        
         user_data = {
             "organization_name": current_user.organization_name
         }
+        
+        print(f"DEBUG: user_data: {user_data}")
         
         # Generate the report
         docx_bytes, pdf_bytes = await self.generate_report(assessment_id, assessment_data, user_data)
