@@ -1,232 +1,301 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>AM AI SAFE – AI Framework Assessment – {{ org.name }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AM AI SAFE – AI Framework Assessment Report</title>
   <style>
-    /* ---------- Page & Print ---------- */
-    @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
-    @media print { .no-print { display: none !important; } }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color:#111; line-height:1.35; }
-    .container { max-width: 800px; margin: 0 auto; }
-    .title { text-align:center; margin: 48px 0 8px; font-size: 26px; font-weight: 700; }
-    .subtitle { text-align:center; margin: 0 0 32px; font-size: 16px; color:#444; }
-    .meta { text-align:center; margin: 6px 0 40px; color:#555; }
-    h1 { font-size: 22px; margin: 28px 0 10px; }
-    h2 { font-size: 18px; margin: 24px 0 8px; }
-    h3 { font-size: 15px; margin: 18px 0 6px; }
-    p { margin: 10px 0; }
-    ul { margin: 8px 0 16px 22px; }
-    .muted { color:#666; }
-    .legend { display:flex; gap:12px; flex-wrap: wrap; margin: 8px 0 0; }
-    .legend .chip { display:inline-flex; align-items:center; gap:6px; }
-    .chip i { display:inline-block; width:10px; height:10px; border-radius:2px; }
-    .chip .red    { background:#e63946; }
-    .chip .orange { background:#f59e0b; }
-    .chip .yellow { background:#facc15; }
-    .chip .green  { background:#22c55e; }
+    /* --- Base / Word-like look --- */
+    :root {
+      --page-margin: 2.54cm; /* Word default margins */
+      --text-color: #111;
+      --muted: #606060;
+      --primary: #0b6efd;
+      --table-border: #d0d0d0;
+      --table-header-bg: #f3f6fb;
+      --caption: #444;
+      --h1-size: 22pt;
+      --h2-size: 16pt;
+      --h3-size: 13pt;
+      --body-size: 11pt;
+      --line-height: 1.45;
+    }
 
-    /* ---------- Figure / images ---------- */
-    .figure { text-align:center; margin: 14px 0; }
-    .figure img { max-width: 100%; height: auto; border:1px solid #e5e7eb; }
-    .caption { font-size: 12px; color:#555; margin-top: 6px; }
+    html, body {
+      background: #fff;
+      color: var(--text-color);
+      font-family: Calibri, "Segoe UI", Arial, Helvetica, sans-serif; /* close to DOCX default */
+      font-size: var(--body-size);
+      line-height: var(--line-height);
+    }
 
-    /* ---------- Tables ---------- */
-    table { width:100%; border-collapse:collapse; margin: 10px 0 18px; table-layout: fixed; }
-    thead th { background:#f3f4f6; font-weight:600; border:1px solid #e5e7eb; padding:8px; text-align:left; }
-    tbody td { border:1px solid #e5e7eb; padding:8px; vertical-align: top; }
-    .col-domain { width:25%; }
-    .col-id     { width:15%; }
-    .col-reco   { width:60%; }
+    .page {
+      max-width: 800px; /* ~ A4 text width with margins */
+      margin: 0 auto;
+      padding: var(--page-margin);
+    }
 
-    /* ---------- Page breaks for PDF ---------- */
-    .page-break { break-before: page; }
+    header, footer { color: var(--muted); font-size: 10pt; }
 
-    /* ---------- Footer (optional for HTML preview; for PDF use headless header/footer) ---------- */
-    .footer { text-align:center; font-size:11px; color:#666; margin-top: 24px; }
+    h1, h2, h3 { color: #000; margin: 0 0 8px 0; font-weight: 700; }
+    h1 { font-size: var(--h1-size); border-bottom: 2px solid #e6e6e6; padding-bottom: 6px; }
+    h2 { font-size: var(--h2-size); margin-top: 28px; }
+    h3 { font-size: var(--h3-size); margin-top: 18px; }
+
+    p { margin: 0 0 12px 0; }
+    ul { margin: 0 0 12px 24px; }
+
+    .cover {
+      text-align: center;
+      margin: 40px 0 48px 0;
+    }
+    .cover h1 { border: 0; padding: 0; margin-bottom: 6px; }
+    .subtitle { font-size: 12pt; color: var(--muted); }
+
+    /* --- Table of contents (anchor-based) --- */
+    .toc {
+      border: 1px solid var(--table-border);
+      padding: 16px;
+      background: #fafafa;
+      margin: 24px 0 32px 0;
+    }
+    .toc h3 { margin: 0 0 8px 0; font-size: 12pt; color: #222; }
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .toc a { text-decoration: none; color: #1a1a1a; }
+
+    /* --- Figure / caption --- */
+    figure { margin: 18px 0; }
+    figcaption { font-size: 10pt; color: var(--caption); text-align: center; margin-top: 6px; }
+
+    /* --- Tables --- */
+    table { width: 100%; border-collapse: collapse; margin: 10px 0 24px 0; }
+    th, td {
+      border: 1px solid var(--table-border);
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+    thead th {
+      background: var(--table-header-bg);
+      font-weight: 700;
+      text-align: left;
+    }
+
+    /* --- Helpers --- */
+    .small { font-size: 10pt; }
+    .muted { color: var(--muted); }
+    .mb-0 { margin-bottom: 0; }
+    .mb-8 { margin-bottom: 8px; }
+    .mb-12 { margin-bottom: 12px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .mt-0 { margin-top: 0; }
+
+    /* --- Print (A4-ish) --- */
+    @media print {
+      @page { size: A4; margin: var(--page-margin); }
+      a[href^="#"]::after { content: ""; } /* remove hash URLs when printing */
+      header, .toc a { color: #000; }
+      .page { box-shadow: none; padding: 0; }
+      h1 { page-break-before: avoid; }
+      h2, h3 { page-break-after: avoid; }
+      figure, table { page-break-inside: avoid; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="page">
 
-    <!-- Title -->
-    <div class="title">AM AI SAFE – AI Framework Assessment</div>
-    <div class="subtitle">for <strong>{{ org.name }}</strong></div>
-    <div class="meta">Date: {{ assessment.date }}</div>
+    <!-- Cover -->
+    <section class="cover">
+      <h1>AM AI SAFE<br/>AI Framework Assessment</h1>
+      <p class="subtitle">for</p>
+      <h2 class="mt-0">{{ org.name }}</h2>
+      <p class="small">{{ assessment.date }}</p>
+      <p class="muted">Automated Version</p>
+    </section>
+
+    <!-- Table of Contents (anchor links) -->
+    <nav class="toc" aria-label="Table of contents">
+      <h3 class="mb-8">Table of Contents</h3>
+      <ol>
+        <li><a href="#executive-summary">Executive Summary</a></li>
+        <li><a href="#assessment-results">Assessment Results</a></li>
+        <li><a href="#recommendations">Recommendations</a></li>
+        <li><a href="#high-priority">High Priority Recommendations</a></li>
+        <li><a href="#medium-priority">Medium Priority Recommendations</a></li>
+        <li><a href="#low-priority">Low Priority Recommendations</a></li>
+      </ol>
+    </nav>
 
     <!-- Executive Summary -->
-    <h1>1. Executive Summary</h1>
-    <p>
-      The objective of this assessment is to evaluate {{ org.name }}'s AI maturity across critical domains to identify strengths, weaknesses,
-      and opportunities for improvement in the use and governance of artificial intelligence.
-    </p>
-    <p>The assessment covers 11 domains:</p>
-    <ul>
-      <li>Fairness</li><li>Transparency</li><li>Explainability</li><li>Accountability</li><li>Data Integrity</li>
-      <li>Reliability</li><li>Security</li><li>Privacy</li><li>Safety</li><li>Inclusivity</li><li>Sustainability</li>
-    </ul>
-    <p class="muted">
-      These domains encompass 88 targeted questions designed to provide a comprehensive view of {{ org.name }}'s AI capabilities and risks.
-    </p>
+    <section id="executive-summary">
+      <h1>Executive Summary</h1>
+      <p>
+        The objective of this assessment was to evaluate {{ org.name }}'s AI maturity across critical domains to identify
+        strengths, weaknesses, and opportunities for improvement in their use and governance of artificial intelligence.
+      </p>
+      <p>
+        Using the AM AI SAFE framework, the assessment covered 11 key domains:
+      </p>
+      <ul>
+        <li>Fairness</li>
+        <li>Transparency</li>
+        <li>Explainability</li>
+        <li>Accountability</li>
+        <li>Data Integrity</li>
+        <li>Reliability</li>
+        <li>Security</li>
+        <li>Privacy</li>
+        <li>Safety</li>
+        <li>Inclusivity</li>
+        <li>Sustainability</li>
+      </ul>
+      <p>
+        These domains encompass 88 targeted questions designed to provide a comprehensive view of {{ org.name }}'s AI
+        capabilities and risks.
+      </p>
+    </section>
 
     <!-- Assessment Results -->
-    <h1>2. Assessment Results</h1>
-    <p>
-      {{ org.name }} achieved an overall AI maturity score of <strong>{{ overall.score }}%</strong>, placing the
-      organisation within the <strong>{{ overall.tier }}</strong> AI Maturity category.
-    </p>
-    <p>
-      The heatmap below visualises performance across all domains and questions (0 = lowest, 3 = highest). After submission, domains
-      are sorted by total score (descending) and answers arranged left-to-right from lowest scores to highest, supporting prioritisation.
-    </p>
-    <div class="legend">
-      <span class="chip"><i class="red"></i> Red: Significant gaps</span>
-      <span class="chip"><i class="orange"></i> Orange: Below average</span>
-      <span class="chip"><i class="yellow"></i> Yellow: Moderate</span>
-      <span class="chip"><i class="green"></i> Green: Strong</span>
-    </div>
+    <section id="assessment-results">
+      <h1>Assessment Results</h1>
+      <p>
+        The results indicate that {{ org.name }} has achieved an overall AI maturity score of
+        <strong>{{ overall.score }}%</strong>, placing the organization within the
+        <strong>{{ overall.tier }}</strong> AI Maturity category.
+      </p>
+      <p>
+        The heatmap below provides a visual representation of {{ org.name }}'s performance across the 11 domains and the corresponding 88
+        assessment questions. Each cell in the heatmap represents the score for a specific question, with colours indicating the level of performance:
+      </p>
+      <ul>
+        <li><strong>Red</strong>: Lowest scoring questions, indicating significant gaps that require immediate attention.</li>
+        <li><strong>Orange</strong>: Below-average performance, highlighting areas for improvement.</li>
+        <li><strong>Yellow</strong>: Moderate performance, reflecting foundational practices with room for growth.</li>
+        <li><strong>Green</strong>: High performance, demonstrating strong alignment with best practices.</li>
+      </ul>
+      <p>
+        The heatmap is organized as follows:
+      </p>
+      <ul>
+        <li>Rows represent the 11 domains of the AM AI SAFE Framework.</li>
+        <li>Columns represent the 8 questions associated with each domain, scored on a scale from 0 (lowest) to 3 (highest).</li>
+      </ul>
+      <p>
+        After all answers have been collected, scores are calculated and heatmap arranged with domains sorted by total score in descending order, and individual answer scores arranged from left to right, with lowest scores to the left.
+      </p>
+      <p>
+        This provides an intuitive view of your organization's overall AI maturity status from both a domain and individual control perspective and allows for prioritisation of recommendations.
+      </p>
 
-    <!-- Heatmap image (data URL or absolute URL) -->
-    <div class="figure">
-      <img alt="AI Maturity Heatmap" src="{{ heatmap_image }}">
-      <div class="caption">Figure 1. {{ org.name }} AI Maturity Heatmap</div>
-    </div>
+      <!-- Heatmap Image: accept either a direct URL or a data URL -->
+      <figure>
+        <img src="{{ heatmap_image_src }}" alt="AI Maturity Heatmap for {{ org.name }}" style="width:100%; height:auto;" />
+        <figcaption>Figure 1. {{ org.name }} AI Maturity Heatmap</figcaption>
+      </figure>
+    </section>
 
-    <!-- Recommendations -->
-    <div class="page-break"></div>
-    <h1>3. Recommendations</h1>
-    <p>
-      The following actions are proposed to help {{ org.name }} enhance AI governance and achieve a higher level of maturity.
-      Items are grouped by priority based on the assessment results.
-    </p>
+    <!-- Recommendations Intro -->
+    <section id="recommendations">
+      <h1>Recommendations</h1>
+      <p>
+        Based on the findings of the AI Maturity Assessment, the following key recommendations are proposed to help {{ org.name }}
+        enhance its AI governance and achieve a higher level of AI maturity:
+      </p>
+    </section>
 
     <!-- High Priority -->
-    <h2>3.1. High Priority Recommendations</h2>
-    <p class="muted">
-      Actions responding to the lowest "Non-Ideal" scoring questions. Addressing these closes critical gaps and reduces near-term risk.
-    </p>
-    {% if actions.high and actions.high|length %}
-    <table aria-label="High Priority Recommendations">
-      <thead>
-        <tr>
-          <th class="col-domain">Domain</th>
-          <th class="col-id">Question&nbsp;ID</th>
-          <th class="col-reco">Recommendation</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for action in actions.high %}
-        <tr>
-          <td>{{ action.domain | default('—') }}</td>
-          <td>{{ action.question_id | default('—') }}</td>
-          <td>{{ action.text | default('No recommendation provided.') }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <table aria-label="High Priority Recommendations (None)">
-      <thead>
-        <tr>
-          <th class="col-domain">Domain</th>
-          <th class="col-id">Question&nbsp;ID</th>
-          <th class="col-reco">Recommendation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>—</td><td>—</td><td>No high-priority actions found.</td>
-        </tr>
-      </tbody>
-    </table>
-    {% endif %}
+    <section id="high-priority">
+      <h2>High Priority Recommendations</h2>
+      <p class="mb-12">
+        These High Priority actions recommended for {{ org.name }} are in response to the lowest 'Non-Ideal' scoring questions from the AI Maturity Assessment.
+        These represent critical gaps that require urgent attention to mitigate risks and align {{ org.name }}'s AI practices with best-in-class standards.
+        Addressing these actions will strengthen foundational aspects of AI governance and build momentum for broader improvements.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 22%">Domain</th>
+            <th style="width: 18%">Question ID</th>
+            <th>Recommendation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for action in actions.high %}
+          <tr>
+            <td>{{ action.domain }}</td>
+            <td>{{ action.question_id }}</td>
+            <td>{{ action.text }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="small muted">Table 1. High Priority Recommendations</p>
+    </section>
 
     <!-- Medium Priority -->
-    <h2>3.2. Medium Priority Recommendations</h2>
-    <p class="muted">
-      Initiatives for "Basic" scoring questions—moderate effort, targeted uplift within the next 6–12 months.
-    </p>
-    {% if actions.medium and actions.medium|length %}
-    <table aria-label="Medium Priority Recommendations">
-      <thead>
-        <tr>
-          <th class="col-domain">Domain</th>
-          <th class="col-id">Question&nbsp;ID</th>
-          <th class="col-reco">Recommendation</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for action in actions.medium %}
-        <tr>
-          <td>{{ action.domain | default('—') }}</td>
-          <td>{{ action.question_id | default('—') }}</td>
-          <td>{{ action.text | default('No recommendation provided.') }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <table aria-label="Medium Priority Recommendations (None)">
-      <thead>
-        <tr>
-          <th class="col-domain">Domain</th>
-          <th class="col-id">Question&nbsp;ID</th>
-          <th class="col-reco">Recommendation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>—</td><td>—</td><td>No medium-priority actions found.</td>
-        </tr>
-      </tbody>
-    </table>
-    {% endif %}
+    <section id="medium-priority">
+      <h2>Medium Priority Recommendations</h2>
+      <p class="mb-12">
+        These Medium Priority recommendations focus on addressing gaps identified in the set of 'Basic' scoring questions from the AI Maturity Assessment.
+        These initiatives build on the immediate actions by targeting areas that require moderate effort and investment but are crucial for enhancing {{ org.name }}'s AI maturity within the next 6–12 months.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 22%">Domain</th>
+            <th style="width: 18%">Question ID</th>
+            <th>Recommendation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for action in actions.medium %}
+          <tr>
+            <td>{{ action.domain }}</td>
+            <td>{{ action.question_id }}</td>
+            <td>{{ action.text }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="small muted">Table 2. Medium Priority Recommendations</p>
+    </section>
 
     <!-- Low Priority -->
-    <h2>3.3. Low Priority Recommendations</h2>
-    <p class="muted">
-      Longer-term improvements mapped to "Good" scoring questions (1–3 years), focusing on sustained capability uplift.
-    </p>
-    {% if actions.low and actions.low|length %}
-    <table aria-label="Low Priority Recommendations">
-      <thead>
-        <tr>
-          <th class="col-domain">Domain</th>
-          <th class="col-id">Question&nbsp;ID</th>
-          <th class="col-reco">Recommendation</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for action in actions.low %}
-        <tr>
-          <td>{{ action.domain | default('—') }}</td>
-          <td>{{ action.question_id | default('—') }}</td>
-          <td>{{ action.text | default('No recommendation provided.') }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <table aria-label="Low Priority Recommendations (None)">
-      <thead>
-        <tr>
-          <th class="col-domain">Domain</th>
-          <th class="col-id">Question&nbsp;ID</th>
-          <th class="col-reco">Recommendation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>—</td><td>—</td><td>No low-priority actions found.</td>
-        </tr>
-      </tbody>
-    </table>
-    {% endif %}
+    <section id="low-priority">
+      <h2>Low Priority Recommendations</h2>
+      <p class="mb-12">
+        These Low Priority recommendations focus on addressing gaps identified as 'Good' scoring questions from the AI Maturity Assessment.
+        These initiatives are designed to drive sustained improvement and align {{ org.name }}'s AI practices with industry-leading standards over the next 1–3 years.
+        The long-term strategy emphasizes strategic investments, cultural shifts, and innovative approaches to AI governance.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 22%">Domain</th>
+            <th style="width: 18%">Question ID</th>
+            <th>Recommendation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for action in actions.low %}
+          <tr>
+            <td>{{ action.domain }}</td>
+            <td>{{ action.question_id }}</td>
+            <td>{{ action.text }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="small muted">Table 3. Low Priority Recommendations</p>
+    </section>
 
-    <div class="footer">
-      AM AI SAFE – Automated Version • {{ org.name }} • {{ assessment.date }}
-    </div>
+    <footer>
+      <p class="small">AM AI SAFE – AI Framework Assessment | {{ org.name }} | {{ assessment.date }}</p>
+    </footer>
   </div>
 </body>
 </html>
