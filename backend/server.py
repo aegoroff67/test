@@ -232,6 +232,12 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
 # Auth endpoints
 @api_router.post("/auth/signup", response_model=Token)
 async def signup(user_data: UserSignUp):
+    # Temporary access control - only allow andrew@vciso.one account
+    raise HTTPException(
+        status_code=http_status.HTTP_403_FORBIDDEN,
+        detail="Registration is temporarily disabled"
+    )
+    
     # Check if user already exists
     existing_user = await db.users.find_one({"email": user_data.email})
     if existing_user:
