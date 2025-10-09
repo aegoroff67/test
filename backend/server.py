@@ -283,6 +283,13 @@ async def signup(user_data: UserSignUp):
 
 @api_router.post("/auth/login", response_model=Token)
 async def login(user_data: UserLogin):
+    # Temporary access control - only allow andrew@vciso.one
+    if user_data.email != "andrew@vciso.one":
+        raise HTTPException(
+            status_code=http_status.HTTP_403_FORBIDDEN,
+            detail="Access temporarily restricted"
+        )
+    
     user = await db.users.find_one({"email": user_data.email})
     if not user or not verify_password(user_data.password, user["hashed_password"]):
         raise HTTPException(
