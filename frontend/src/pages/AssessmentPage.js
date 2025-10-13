@@ -213,6 +213,17 @@ function AssessmentPage() {
     setNote(value);
   };
 
+  const handleOpenHelp = () => {
+    if (currentQuestion && currentQuestion.code) {
+      const content = helpContent[currentQuestion.code];
+      setCurrentHelpContent({
+        title: `Help: ${currentQuestion.code} - ${currentQuestion.domain_name}`,
+        content: content || null
+      });
+      setShowHelpModal(true);
+    }
+  };
+
   const handleFileUpload = async (files) => {
     if (!files || files.length === 0) return;
     
