@@ -827,6 +827,14 @@ function AssessmentPage() {
           </div>
         </div>
       </main>
+
+      {/* Help Modal */}
+      <HelpModal 
+        isOpen={showHelpModal}
+        onClose={() => setShowHelpModal(false)}
+        title={currentHelpContent?.title || ''}
+        content={currentHelpContent?.content || null}
+      />
     </div>
   );
 }
