@@ -509,12 +509,6 @@ function AssessmentPage() {
                       <Badge variant="secondary" className="text-xs sm:text-sm">
                         {currentQuestion.domain_name}
                       </Badge>
-                      {helpContent[currentQuestion.code] && (
-                        <InfoBadge 
-                          title="Click for detailed help and compliance guidance"
-                          onClick={handleOpenHelp}
-                        />
-                      )}
                     </div>
                     <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gray-900 leading-relaxed compact-title">
                       {currentQuestion.text}
