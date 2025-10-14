@@ -41,7 +41,7 @@ for
 
 **\**
 
-# Executive Summary {#executive-summary .Heading01}
+# Executive Summary {% raw %}{#executive-summary .Heading01}{% endraw %}
 
 The objective of this assessment was to evaluate **{{org.name}}**'s AI
 maturity across critical domains to identify strengths, weaknesses, and
