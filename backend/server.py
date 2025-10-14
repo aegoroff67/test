@@ -653,29 +653,59 @@ async def generate_report_docx(assessment_id: str, current_user: UserResponse = 
 
 @api_router.get("/assessments/{assessment_id}/report/pdf")
 async def generate_report_pdf(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
-    """Generate and download PDF report for assessment using DOCX template."""
-    from report_generator import AMReportGenerator
+    """Generate and download PDF report for assessment using Pandoc from Markdown template."""
+    from pandoc_report_generator import PandocReportGenerator
     
     try:
-        # Initialize report generator
-        report_generator = AMReportGenerator()
-        
-        # Generate both DOCX and PDF
-        docx_bytes, pdf_bytes = await report_generator.generate_report_full(
-            assessment_id, db, current_user
-        )
-        
-        # Generate PDF filename
-        safe_org_name = "".join(c for c in current_user.organization_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
-        safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
-        
-        # Get assessment date
+        # Get assessment
         assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        if not assessment:
+            raise HTTPException(status_code=404, detail="Assessment not found")
+        
+        # Initialize Pandoc report generator
+        report_generator = PandocReportGenerator()
+        
+        # Prepare assessment data
+        assessment_data = {
+            'overall_score': assessment.get('total_score', 0),
+            'recommendations': []  # TODO: Fetch from recommendations lookup
+        }
+        
+        # Prepare user data
+        user_data = {
+            'organization_name': current_user.organization_name or 'Organization'
+        }
+        
+        # Generate PDF report
+        pdf_bytes = report_generator.generate_pdf_report(assessment_data, user_data)
+        
+        # Generate filename
+        safe_org_name = "".join(c for c in user_data['organization_name'] if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
         filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.pdf"
         
         # Store report record in database
         report = Report(
             assessment_id=assessment_id,
+            url=f"/reports/{filename}",
+        )
+        await db.reports.insert_one(report.dict())
+        
+        # Return PDF as streaming response
+        return StreamingResponse(
+            io.BytesIO(pdf_bytes),
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f"attachment; filename=\"{filename}\"",
+                "Content-Type": "application/pdf"
+            }
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error generating PDF report: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to generate PDF report: {str(e)}")
             url=f"/reports/{filename}",  # Store relative path
         )
         await db.reports.insert_one(report.dict())
