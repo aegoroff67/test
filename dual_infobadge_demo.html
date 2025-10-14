@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual InfoBadge Demo - AM AI SAFE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+        .modal-container {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-width: 42rem;
+            width: 100%;
+            max-height: 80vh;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="bg-teal-600 p-2 rounded-lg">
+                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">AM AI SAFE - Dual InfoBadge Setup</h1>
+                        <p class="text-sm text-teal-600">Two contextual help locations</p>
+                    </div>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                    <p class="text-sm text-blue-900">
+                        <strong>✅ Final Implementation:</strong> Two InfoBadges - one at the top (placeholder for future general guidance) and one with the evidence upload section (active with FA-1 to FA-8 content).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Demo Question Card -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <!-- Top Panel - Question Header WITH InfoBadge (Placeholder) -->
+                <div class="mb-4 pb-4 border-b border-gray-200">
+                    <div class="flex flex-wrap items-center gap-3 mb-3">
+                        <span class="px-3 py-1 text-sm font-medium border-2 border-teal-300 text-teal-600 rounded">FA-1</span>
+                        <span class="px-3 py-1 text-sm font-medium bg-gray-100 text-gray-700 rounded">Fairness</span>
+                        
+                        <!-- InfoBadge #1 - TOP (Placeholder for future general question guidance) -->
+                        <button
+                            id="topInfoBadge"
+                            type="button"
+                            aria-label="More info"
+                            title="General question guidance (coming soon)"
+                            class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-blue-600 text-white opacity-80 hover:opacity-100 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                        >
+                            <svg viewBox="0 0 24 24" aria-hidden="true" class="h-3.5 w-3.5">
+                                <path fill="currentColor" d="M11 10h2v8h-2v-8zm0-4h2v2h-2V6z" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <h2 class="text-xl font-semibold text-gray-900 leading-relaxed">
+                        Identify and mitigate bias in AI systems
+                    </h2>
+                    
+                    <div class="mt-3 p-3 bg-purple-50 border-l-4 border-purple-400 rounded">
+                        <p class="text-sm text-purple-900">
+                            <strong>📍 Top InfoBadge (ⓘ):</strong> Placeholder for future general question guidance. Currently shows "coming soon" toast notification.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Answer Options Section -->
+                <div class="space-y-3 mb-6">
+                    <p class="text-sm font-medium text-gray-700">Select your response:</p>
+                    <div class="p-4 border-2 border-gray-200 rounded-lg bg-gray-50">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mt-0.5"></div>
+                            <div>
+                                <div class="font-medium text-gray-900">Ideal (3 points)</div>
+                                <div class="text-sm text-gray-600">Comprehensive implementation with best practices and full compliance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evidence Upload Section WITH InfoBadge #2 (Active) -->
+                <div class="bg-gradient-to-r from-teal-50 to-blue-50 p-6 rounded-lg border-2 border-teal-200">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="h-4 w-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                        </svg>
+                        <span class="text-sm font-semibold text-gray-900">Upload Evidence (Optional)</span>
+                        
+                        <!-- InfoBadge #2 - EVIDENCE (Active with content) -->
+                        <button
+                            id="evidenceInfoBadge"
+                            type="button"
+                            aria-label="More info"
+                            title="Click for evidence requirements and compliance guidance"
+                            class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-blue-600 text-white opacity-80 hover:opacity-100 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                        >
+                            <svg viewBox="0 0 24 24" aria-hidden="true" class="h-3.5 w-3.5">
+                                <path fill="currentColor" d="M11 10h2v8h-2v-8zm0-4h2v2h-2V6z" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-2 text-sm border-2 border-gray-300 rounded-lg bg-white hover:bg-gray-50 flex items-center gap-2">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            Choose Files
+                        </button>
+                    </div>
+                    
+                    <div class="mt-3 p-3 bg-white rounded-lg border border-teal-200">
+                        <p class="text-sm text-gray-700">
+                            <strong>📍 Evidence InfoBadge (ⓘ):</strong> Click to view detailed evidence requirements and compliance guidance for FA-1 to FA-8. Opens modal with full content.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Changes Summary -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mt-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Final Implementation</h3>
+                <div class="space-y-3 text-sm">
+                    <div class="flex items-start gap-2">
+                        <span class="text-purple-600 font-bold text-lg">1️⃣</span>
+                        <div>
+                            <p class="font-semibold text-gray-900">Top InfoBadge (Placeholder)</p>
+                            <p class="text-gray-600">Located in question header, next to badges. Shows "coming soon" notification. Ready for future general question guidance content.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-teal-600 font-bold text-lg">2️⃣</span>
+                        <div>
+                            <p class="font-semibold text-gray-900">Evidence InfoBadge (Active)</p>
+                            <p class="text-gray-600">Located with "Upload Evidence" label. Opens modal with evidence types and compliance requirements for FA-1 to FA-8.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-blue-600 font-bold text-lg">📝</span>
+                        <div>
+                            <p class="font-semibold text-gray-900">Modal Title Fixed</p>
+                            <p class="text-gray-600">Now displays: <code class="bg-gray-100 px-2 py-0.5 rounded">Help: FA-1 - Evidence Types</code> (previously showed "undefined")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="hidden">
+        <div class="modal-backdrop" onclick="closeModal()"></div>
+        <div class="modal-container">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="flex items-center justify-between p-4 border-b border-gray-200 bg-blue-50">
+                    <h3 class="text-lg font-semibold text-gray-900">Help: FA-1 - Evidence Types</h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Content -->
+                <div class="p-6 overflow-y-auto max-h-[60vh]">
+                    <div class="text-gray-700 leading-relaxed space-y-4">
+                        <p class="text-sm">
+                            To demonstrate compliance with <strong>FA-1</strong> ("Identify and mitigate bias in AI systems"), look for evidence showing both <strong>proactive</strong> and <strong>reactive</strong> bias-mitigation measures across the AI lifecycle.
+                        </p>
+                        
+                        <h4 class="font-semibold text-gray-900 text-base mt-4 mb-2">Key evidence types:</h4>
+                        
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li class="text-sm">
+                                <strong class="font-semibold text-gray-900">Policies & Governance:</strong> A Bias Mitigation Policy or Fairness Framework outlining responsibilities, oversight committees, and escalation processes for bias incidents.
+                            </li>
+                            <li class="text-sm">
+                                <strong class="font-semibold text-gray-900">Data & Model Practices:</strong> Documentation proving datasets are diverse and representative, preprocessing steps to rebalance or anonymize data, and fairness testing or audits of models using tools such as <em>Fairlearn</em>, <em>AI Fairness 360</em>, <em>SHAP</em>, or <em>LIME</em>.
+                            </li>
+                            <li class="text-sm">
+                                <strong class="font-semibold text-gray-900">Training & Awareness:</strong> Records of staff training or workshops on bias awareness and ethical AI practices.
+                            </li>
+                        </ul>
+                        
+                        <p class="text-sm leading-relaxed">
+                            <strong class="font-semibold text-gray-900">In short:</strong> Compliance requires documented processes, technical evidence of fairness testing, clear accountability, and continuous monitoring.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Footer -->
+                <div class="flex justify-end p-4 border-t border-gray-200 bg-gray-50">
+                    <button
+                        onclick="closeModal()"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden fixed top-4 right-4 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-pulse">
+        <p class="text-sm font-medium">General question guidance coming soon!</p>
+    </div>
+
+    <script>
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        function openModal() {
+            document.getElementById('helpModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('helpModal').classList.add('hidden');
+        }
+
+        // Top InfoBadge shows toast
+        document.getElementById('topInfoBadge').addEventListener('click', showToast);
+        
+        // Evidence InfoBadge opens modal
+        document.getElementById('evidenceInfoBadge').addEventListener('click', openModal);
+    </script>
+</body>
+</html>
