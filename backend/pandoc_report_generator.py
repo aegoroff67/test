@@ -86,6 +86,8 @@ class PandocReportGenerator:
         Fetch and prepare assessment data from database.
         This replicates the logic from the old report_generator.py
         """
+        logger.info(f"Fetching assessment data for ID: {assessment_id}")
+        
         # Get assessment
         assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
         
@@ -95,23 +97,30 @@ class PandocReportGenerator:
         if assessment.get("status") != "COMPLETED":
             raise Exception(f"Assessment must be completed before generating report. Current status: {assessment.get('status')}")
         
+        logger.info(f"Assessment found: status={assessment.get('status')}")
+        
         # Get all answers for this assessment
         answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+        logger.info(f"Found {len(answers)} answers")
         
         # Get all domains 
         domains = await db.domains.find().to_list(length=None)
+        logger.info(f"Found {len(domains)} domains")
         
         # Get all questions
         questions = await db.questions.find().to_list(length=None)
+        logger.info(f"Found {len(questions)} questions")
         
         # Import complete questions data
         from complete_questions import COMPLETE_QUESTIONS_DATA
+        logger.info(f"Loaded {len(COMPLETE_QUESTIONS_DATA)} complete questions")
         
         # Load recommendations lookup
         import json
         recommendations_lookup_path = self.backend_dir / "AMAI_SAFE_recommendations_lookup.json"
         with open(recommendations_lookup_path, 'r') as f:
             recommendations_data = json.load(f)
+        logger.info(f"Loaded {len(recommendations_data)} recommendations from lookup")
         
         # Create mappings
         questions_by_code = {q.get('code'): q for q in COMPLETE_QUESTIONS_DATA if q.get('code')}
@@ -154,9 +163,12 @@ class PandocReportGenerator:
                         'text': question_details.get('text', '')
                     })
         
+        logger.info(f"Processed {len(question_scores)} question scores")
+        
         # Calculate overall score
         all_scores = [q['score'] for q in question_scores]
         overall_score = (sum(all_scores) / (len(all_scores) * 3) * 100) if all_scores else 0
+        logger.info(f"Calculated overall score: {overall_score:.1f}%")
         
         # Get recommendations based on scores
         recommendations = []
@@ -174,6 +186,8 @@ class PandocReportGenerator:
                     'score': score,
                     'recommendation_text': rec_text
                 })
+        
+        logger.info(f"Found {len(recommendations)} recommendations")
         
         return {
             'assessment': assessment,
