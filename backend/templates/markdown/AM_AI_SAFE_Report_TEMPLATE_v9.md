@@ -124,7 +124,7 @@ Based on the findings of the AI Maturity Assessment, the following key
 recommendations are proposed to help **{{org.name}}** enhance its AI
 governance and achieve a higher level of AI maturity:
 
-1.  []{#_Toc210400671 .anchor}High Priority Recommendations
+1.  []{%raw%}{#_Toc210400671 .anchor}{%endraw%}High Priority Recommendations
 
 These High Priority actions recommended for **{{org.name}}** are in
 response to the lowest '**Non-Ideal**' scoring questions from the AI
