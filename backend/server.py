@@ -596,22 +596,41 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
 
 @api_router.get("/assessments/{assessment_id}/report")
 async def generate_report_docx(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
-    """Generate and download DOCX report for assessment using DOCX template."""
-    from report_generator import AMReportGenerator
+    """Generate and download DOCX report for assessment using Pandoc from Markdown template."""
+    from pandoc_report_generator import PandocReportGenerator
     
     try:
-        # Initialize report generator
-        report_generator = AMReportGenerator()
+        # Get assessment
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        if not assessment:
+            raise HTTPException(status_code=404, detail="Assessment not found")
         
-        # Generate report
-        docx_bytes, filename = await report_generator.generate_report_for_assessment(
-            assessment_id, db, current_user
-        )
+        # Initialize Pandoc report generator
+        report_generator = PandocReportGenerator()
+        
+        # Prepare assessment data
+        assessment_data = {
+            'overall_score': assessment.get('total_score', 0),
+            'recommendations': []  # TODO: Fetch from recommendations lookup
+        }
+        
+        # Prepare user data
+        user_data = {
+            'organization_name': current_user.organization_name or 'Organization'
+        }
+        
+        # Generate DOCX report
+        docx_bytes = report_generator.generate_docx_report(assessment_data, user_data)
+        
+        # Generate filename
+        safe_org_name = "".join(c for c in user_data['organization_name'] if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
+        filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.docx"
         
         # Store report record in database
         report = Report(
             assessment_id=assessment_id,
-            url=f"/reports/{filename}",  # Store relative path
+            url=f"/reports/{filename}",
         )
         await db.reports.insert_one(report.dict())
         
@@ -626,11 +645,10 @@ async def generate_report_docx(assessment_id: str, current_user: UserResponse = 
         )
         
     except HTTPException:
-        # Re-raise HTTP exceptions to preserve status codes
         raise
     except Exception as e:
-        print(f"Error generating DOCX report: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate report: {str(e)}")
+        logger.error(f"Error generating DOCX report: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to generate DOCX report: {str(e)}")
 
 
 @api_router.get("/assessments/{assessment_id}/report/pdf")
