@@ -649,19 +649,11 @@ async def generate_report_pdf(assessment_id: str, current_user: UserResponse = D
     from pandoc_report_generator import PandocReportGenerator
     
     try:
-        # Get assessment
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
-        if not assessment:
-            raise HTTPException(status_code=404, detail="Assessment not found")
-        
         # Initialize Pandoc report generator
         report_generator = PandocReportGenerator()
         
-        # Prepare assessment data
-        assessment_data = {
-            'overall_score': assessment.get('total_score', 0),
-            'recommendations': []  # TODO: Fetch from recommendations lookup
-        }
+        # Fetch assessment data from database
+        assessment_data = await report_generator.fetch_assessment_data(assessment_id, db, current_user)
         
         # Prepare user data
         user_data = {
@@ -674,7 +666,7 @@ async def generate_report_pdf(assessment_id: str, current_user: UserResponse = D
         # Generate filename
         safe_org_name = "".join(c for c in user_data['organization_name'] if c.isalnum() or c in (' ', '-', '_')).rstrip()
         safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
-        filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.pdf"
+        filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment_data['assessment'].get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.pdf"
         
         # Store report record in database
         report = Report(
