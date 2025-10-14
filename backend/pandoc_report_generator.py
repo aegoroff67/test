@@ -124,8 +124,19 @@ class PandocReportGenerator:
         with open(self.template_path, 'r', encoding='utf-8') as f:
             template_content = f.read()
         
-        # Create Jinja2 template
-        template = Template(template_content)
+        # Create Jinja2 environment with custom delimiters to avoid conflicts with markdown ##
+        from jinja2 import Environment
+        env = Environment(
+            block_start_string='{%',
+            block_end_string='%}',
+            variable_start_string='{{',
+            variable_end_string='}}',
+            comment_start_string='{#',
+            comment_end_string='#}'
+        )
+        
+        # Create template
+        template = env.from_string(template_content)
         
         # Render template
         rendered = template.render(**context)
