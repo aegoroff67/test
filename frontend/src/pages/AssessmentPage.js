@@ -217,11 +217,17 @@ function AssessmentPage() {
     if (currentQuestion && currentQuestion.code) {
       const content = helpContent[currentQuestion.code];
       setCurrentHelpContent({
-        title: `Help: ${currentQuestion.code} - ${currentQuestion.domain_name}`,
+        title: `Help: ${currentQuestion.code} - Evidence Types`,
         content: content || null
       });
       setShowHelpModal(true);
     }
+  };
+
+  const handleOpenQuestionHelp = () => {
+    // Placeholder for future general question guidance
+    // For now, we can show a "coming soon" message or do nothing
+    toast.info('General question guidance coming soon!');
   };
 
   const handleFileUpload = async (files) => {
