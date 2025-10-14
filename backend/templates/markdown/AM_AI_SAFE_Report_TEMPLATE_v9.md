@@ -157,9 +157,9 @@ crucial for enhancing **{{org.name}}**'s AI maturity within the next
 | {% for action in actions.medium %}{{ action.domain }} | {{ action.question_id }} | {{ action.text }}{% endfor %} |
 +----------------+--------------------+-----------------------------------------+
 
-: []{#_Toc187324589 .anchor}Table 2. Medium Priority Recommendations
+: []{%raw%}{#_Toc187324589 .anchor}{%endraw%}Table 2. Medium Priority Recommendations
 
-3.  []{#_Toc210400675 .anchor}Low Priority Recommendations
+3.  []{%raw%}{#_Toc210400675 .anchor}{%endraw%}Low Priority Recommendations
 
 These Low Priority recommendations focus on addressing gaps identified
 as '**Good**' scoring questions from the AI Maturity Assessment. These
