@@ -116,9 +116,9 @@ The heatmap is organized as follows:
 
 {{heatmap_image}}
 
-[]{#_Toc210400669 .anchor}Figure 1. {{org.name}} AI Maturity Heatmap
+[]{%raw%}{#_Toc210400669 .anchor}{%endraw%}Figure 1. {{org.name}} AI Maturity Heatmap
 
-# Recommendations {#recommendations .Heading01}
+# Recommendations {% raw %}{#recommendations .Heading01}{% endraw %}
 
 Based on the findings of the AI Maturity Assessment, the following key
 recommendations are proposed to help **{{org.name}}** enhance its AI
