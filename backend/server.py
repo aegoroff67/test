@@ -706,26 +706,6 @@ async def generate_report_pdf(assessment_id: str, current_user: UserResponse = D
     except Exception as e:
         logger.error(f"Error generating PDF report: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to generate PDF report: {str(e)}")
-            url=f"/reports/{filename}",  # Store relative path
-        )
-        await db.reports.insert_one(report.dict())
-        
-        # Return PDF as streaming response
-        return StreamingResponse(
-            io.BytesIO(pdf_bytes),
-            media_type="application/pdf",
-            headers={
-                "Content-Disposition": f"attachment; filename=\"{filename}\"",
-                "Content-Type": "application/pdf"
-            }
-        )
-        
-    except HTTPException:
-        # Re-raise HTTP exceptions to preserve status codes
-        raise
-    except Exception as e:
-        print(f"Error generating PDF report: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate report: {str(e)}")
 
 @api_router.post("/assessments/{assessment_id}/submit")
 async def submit_assessment(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
