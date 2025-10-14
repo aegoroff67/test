@@ -184,6 +184,7 @@ class PandocReportGenerator:
         }
     
     def _prepare_template_context(self, assessment_data: dict, user_data: dict) -> dict:
+        """Prepare context data for template rendering."""
         
         # Extract organization name
         org_name = user_data.get('organization_name', 'Organization')
@@ -215,6 +216,15 @@ class PandocReportGenerator:
             'heatmap_image': heatmap_image,
             'actions': actions_by_priority
         }
+        
+        # Debug logging
+        logger.info(f"Template context prepared:")
+        logger.info(f"  - Organization: {org_name}")
+        logger.info(f"  - Overall Score: {overall_score:.1f}%")
+        logger.info(f"  - Maturity Tier: {overall_tier}")
+        logger.info(f"  - High Priority Actions: {len(actions_by_priority.get('high', []))}")
+        logger.info(f"  - Medium Priority Actions: {len(actions_by_priority.get('medium', []))}")
+        logger.info(f"  - Low Priority Actions: {len(actions_by_priority.get('low', []))}")
         
         return context
     
