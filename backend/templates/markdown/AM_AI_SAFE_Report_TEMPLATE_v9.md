@@ -75,7 +75,7 @@ Using the AM AI SAFE framework, the assessment covered 11 key domains:
 These domains encompass 88 targeted questions designed to provide a
 comprehensive view of **{{org.name}}**'s AI capabilities and risks.
 
-# Assessment Results {#assessment-results .Heading01}
+# Assessment Results {% raw %}{#assessment-results .Heading01}{% endraw %}
 
 The results indicate that {{org.name}} has achieved an overall AI
 maturity score of **{{overall.score}}%**, placing the organization
