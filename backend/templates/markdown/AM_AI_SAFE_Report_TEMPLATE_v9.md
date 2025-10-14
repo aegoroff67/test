@@ -18,25 +18,25 @@ for
 
 [2. Assessment Results [3](#assessment-results)](#assessment-results)
 
-[Figure 1. {{org.name}} AI Maturity Heatmap\
+[Figure 1. {{org.name}} AI Maturity Heatmap
 [4](#_Toc210400669)](#_Toc210400669)
 
 [3. Recommendations [4](#recommendations)](#recommendations)
 
 [3.1. High Priority Recommendations [4](#_Toc210400671)](#_Toc210400671)
 
-[Table 1. High Priority Recommendations\
+[Table 1. High Priority Recommendations
 [4](#_Toc210400672)](#_Toc210400672)
 
-[3.2. Medium Priority Recommendations\
+[3.2. Medium Priority Recommendations
 [4](#_Toc210400673)](#_Toc210400673)
 
-[Table 2. Medium Priority Recommendations\
+[Table 2. Medium Priority Recommendations
 [5](#_Toc187324589)](#_Toc187324589)
 
 [3.3. Low Priority Recommendations [5](#_Toc210400675)](#_Toc210400675)
 
-[Table 3. Low Priority Recommendations\
+[Table 3. Low Priority Recommendations
 [5](#_Toc187324590)](#_Toc187324590)
 
 **\**
@@ -135,10 +135,10 @@ foundational aspects of AI governance and build momentum for broader
 improvements.
 
 +---------------+--------------------+-----------------------------------------+
-| ## **Domain** | ## **Question ID** | ## **Recommendation**                   |
+| **Domain**    | **Question ID**    | **Recommendation**                      |
 +===============+====================+=========================================+
-| {% for action in actions.high %}{{ action.domain }} | {{ action.question_id }} | {{ action.text }}{% endfor %} |
-+---------------+--------------------+-----------------------------------------+
+{% for action in actions.high %}| {{ action.domain }} | {{ action.question_id }} | {{ action.text }} |
+{% endfor %}+---------------+--------------------+-----------------------------------------+
 
 : []{#_Toc210400672 .anchor}Table 1. High Priority Recommendations
 
@@ -152,10 +152,10 @@ crucial for enhancing **{{org.name}}**'s AI maturity within the next
 6--12 months.
 
 +----------------+--------------------+-----------------------------------------+
-| ## **Domain**  | ## **Question ID** | ## **Recommendation**                   |
+| **Domain**     | **Question ID**    | **Recommendation**                      |
 +================+====================+=========================================+
-| {% for action in actions.medium %}{{ action.domain }} | {{ action.question_id }} | {{ action.text }}{% endfor %} |
-+----------------+--------------------+-----------------------------------------+
+{% for action in actions.medium %}| {{ action.domain }} | {{ action.question_id }} | {{ action.text }} |
+{% endfor %}+----------------+--------------------+-----------------------------------------+
 
 : []{#_Toc187324589 .anchor}Table 2. Medium Priority Recommendations
 
@@ -170,9 +170,9 @@ investments, cultural shifts, and innovative approaches to AI
 governance.
 
 +---------------+--------------------+-----------------------------------------+
-| ## **Domain** | ## **Question ID** | ## **Recommendation**                   |
+| **Domain**    | **Question ID**    | **Recommendation**                      |
 +===============+====================+=========================================+
-| {% for action in actions.low %}{{ action.domain }} | {{ action.question_id }} | {{ action.text }}{% endfor %} |
-+---------------+--------------------+-----------------------------------------+
+{% for action in actions.low %}| {{ action.domain }} | {{ action.question_id }} | {{ action.text }} |
+{% endfor %}+---------------+--------------------+-----------------------------------------+
 
 : []{#_Toc187324590 .anchor}Table 3. Low Priority Recommendations
