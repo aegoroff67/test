@@ -41,7 +41,7 @@ for
 
 **\**
 
-# Executive Summary {% raw %}{#executive-summary .Heading01}{% endraw %}
+# Executive Summary {#executive-summary .Heading01}
 
 The objective of this assessment was to evaluate **{{org.name}}**'s AI
 maturity across critical domains to identify strengths, weaknesses, and
@@ -75,7 +75,7 @@ Using the AM AI SAFE framework, the assessment covered 11 key domains:
 These domains encompass 88 targeted questions designed to provide a
 comprehensive view of **{{org.name}}**'s AI capabilities and risks.
 
-# Assessment Results {% raw %}{#assessment-results .Heading01}{% endraw %}
+# Assessment Results {#assessment-results .Heading01}
 
 The results indicate that {{org.name}} has achieved an overall AI
 maturity score of **{{overall.score}}%**, placing the organization
@@ -116,15 +116,15 @@ The heatmap is organized as follows:
 
 {{heatmap_image}}
 
-[]{%raw%}{#_Toc210400669 .anchor}{%endraw%}Figure 1. {{org.name}} AI Maturity Heatmap
+[]{#_Toc210400669 .anchor}Figure 1. {{org.name}} AI Maturity Heatmap
 
-# Recommendations {% raw %}{#recommendations .Heading01}{% endraw %}
+# Recommendations {#recommendations .Heading01}
 
 Based on the findings of the AI Maturity Assessment, the following key
 recommendations are proposed to help **{{org.name}}** enhance its AI
 governance and achieve a higher level of AI maturity:
 
-1.  []{%raw%}{#_Toc210400671 .anchor}{%endraw%}High Priority Recommendations
+1.  []{#_Toc210400671 .anchor}High Priority Recommendations
 
 These High Priority actions recommended for **{{org.name}}** are in
 response to the lowest '**Non-Ideal**' scoring questions from the AI
@@ -140,9 +140,9 @@ improvements.
 | {% for action in actions.high %}{{ action.domain }} | {{ action.question_id }} | {{ action.text }}{% endfor %} |
 +---------------+--------------------+-----------------------------------------+
 
-: []{%raw%}{#_Toc210400672 .anchor}{%endraw%}Table 1. High Priority Recommendations
+: []{#_Toc210400672 .anchor}Table 1. High Priority Recommendations
 
-2.  []{%raw%}{#_Toc210400673 .anchor}{%endraw%}Medium Priority Recommendations
+2.  []{#_Toc210400673 .anchor}Medium Priority Recommendations
 
 These Medium Priority recommendations focus on addressing gaps
 identified in the set of '**Basic**' scoring questions from the AI
@@ -157,9 +157,9 @@ crucial for enhancing **{{org.name}}**'s AI maturity within the next
 | {% for action in actions.medium %}{{ action.domain }} | {{ action.question_id }} | {{ action.text }}{% endfor %} |
 +----------------+--------------------+-----------------------------------------+
 
-: []{%raw%}{#_Toc187324589 .anchor}{%endraw%}Table 2. Medium Priority Recommendations
+: []{#_Toc187324589 .anchor}Table 2. Medium Priority Recommendations
 
-3.  []{%raw%}{#_Toc210400675 .anchor}{%endraw%}Low Priority Recommendations
+3.  []{#_Toc210400675 .anchor}Low Priority Recommendations
 
 These Low Priority recommendations focus on addressing gaps identified
 as '**Good**' scoring questions from the AI Maturity Assessment. These
@@ -175,4 +175,4 @@ governance.
 | {% for action in actions.low %}{{ action.domain }} | {{ action.question_id }} | {{ action.text }}{% endfor %} |
 +---------------+--------------------+-----------------------------------------+
 
-: []{%raw%}{#_Toc187324590 .anchor}{%endraw%}Table 3. Low Priority Recommendations
+: []{#_Toc187324590 .anchor}Table 3. Low Priority Recommendations
