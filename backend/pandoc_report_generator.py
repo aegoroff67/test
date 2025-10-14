@@ -288,7 +288,7 @@ class PandocReportGenerator:
         
         try:
             # Path to reference DOCX template for styling
-            reference_docx = self.backend_dir / "templates" / "docx" / "AM_AI_SAFE_reference_template.docx"
+            reference_docx = self.backend_dir / "templates" / "docx" / "reference.docx"
             
             # Run Pandoc command with reference document
             cmd = [
