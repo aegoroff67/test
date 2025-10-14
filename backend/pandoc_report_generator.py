@@ -149,12 +149,12 @@ class PandocReportGenerator:
                     domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
                     domain_name = domain_mapping.get(domain_prefix, "Unknown")
                     
-                    # Get score from answer
-                    score = answer.get("score", 0)
+                    # Get score from answer - field is 'numeric_score' not 'score'
+                    score = answer.get("numeric_score", 0)
                     
                     # Debug: Log first few scores
                     if len(question_scores) < 5:
-                        logger.info(f"  Question {question_code}: score={score}, answer keys={list(answer.keys())}")
+                        logger.info(f"  Question {question_code}: score={score}, numeric_score={answer.get('numeric_score')}")
                     
                     if domain_name not in domain_scores:
                         domain_scores[domain_name] = []
