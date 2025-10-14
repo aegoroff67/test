@@ -81,7 +81,107 @@ class PandocReportGenerator:
             logger.error(f"Error generating PDF report: {str(e)}", exc_info=True)
             raise
     
-    def _prepare_template_context(self, assessment_data: dict, user_data: dict) -> dict:
+    async def fetch_assessment_data(self, assessment_id: str, db, current_user):
+        """
+        Fetch and prepare assessment data from database.
+        This replicates the logic from the old report_generator.py
+        """
+        # Get assessment
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        
+        if not assessment:
+            raise Exception(f"Assessment not found for user org_id: {current_user.org_id}")
+        
+        if assessment.get("status") != "COMPLETED":
+            raise Exception(f"Assessment must be completed before generating report. Current status: {assessment.get('status')}")
+        
+        # Get all answers for this assessment
+        answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+        
+        # Get all domains 
+        domains = await db.domains.find().to_list(length=None)
+        
+        # Get all questions
+        questions = await db.questions.find().to_list(length=None)
+        
+        # Import complete questions data
+        from complete_questions import COMPLETE_QUESTIONS_DATA
+        
+        # Load recommendations lookup
+        import json
+        recommendations_lookup_path = self.backend_dir / "AMAI_SAFE_recommendations_lookup.json"
+        with open(recommendations_lookup_path, 'r') as f:
+            recommendations_data = json.load(f)
+        
+        # Create mappings
+        questions_by_code = {q.get('code'): q for q in COMPLETE_QUESTIONS_DATA if q.get('code')}
+        question_uuid_to_code = {q["id"]: q["code"] for q in questions}
+        domains_by_id = {domain["id"]: domain for domain in domains}
+        
+        # Domain mapping
+        domain_mapping = {
+            "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
+            "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
+            "SE": "Security", "PR": "Privacy", "SA": "Safety", 
+            "IN": "Inclusivity", "SU": "Sustainability"
+        }
+        
+        # Process answers and build domain scores
+        domain_scores = {}
+        question_scores = []
+        
+        for answer in answers:
+            question_uuid = answer.get("question_id", "")
+            question_code = question_uuid_to_code.get(question_uuid)
+            
+            if question_code:
+                question_details = questions_by_code.get(question_code)
+                if question_details:
+                    domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                    domain_name = domain_mapping.get(domain_prefix, "Unknown")
+                    
+                    # Get score from answer
+                    score = answer.get("score", 0)
+                    
+                    if domain_name not in domain_scores:
+                        domain_scores[domain_name] = []
+                    domain_scores[domain_name].append(score)
+                    
+                    question_scores.append({
+                        'code': question_code,
+                        'domain': domain_name,
+                        'score': score,
+                        'text': question_details.get('text', '')
+                    })
+        
+        # Calculate overall score
+        all_scores = [q['score'] for q in question_scores]
+        overall_score = (sum(all_scores) / (len(all_scores) * 3) * 100) if all_scores else 0
+        
+        # Get recommendations based on scores
+        recommendations = []
+        for question in question_scores:
+            question_code = question['code']
+            score = question['score']
+            
+            # Get recommendation from lookup
+            rec_key = f"{question_code}_{score}"
+            if rec_key in recommendations_data:
+                rec_text = recommendations_data[rec_key]
+                recommendations.append({
+                    'domain': question['domain'],
+                    'question_code': question_code,
+                    'score': score,
+                    'recommendation_text': rec_text
+                })
+        
+        return {
+            'assessment': assessment,
+            'overall_score': overall_score,
+            'domain_scores': domain_scores,
+            'question_scores': question_scores,
+            'recommendations': recommendations
+        }
         """Prepare context data for template rendering."""
         
         # Extract organization name
