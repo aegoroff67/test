@@ -152,6 +152,10 @@ class PandocReportGenerator:
                     # Get score from answer
                     score = answer.get("score", 0)
                     
+                    # Debug: Log first few scores
+                    if len(question_scores) < 5:
+                        logger.info(f"  Question {question_code}: score={score}, answer keys={list(answer.keys())}")
+                    
                     if domain_name not in domain_scores:
                         domain_scores[domain_name] = []
                     domain_scores[domain_name].append(score)
@@ -168,6 +172,7 @@ class PandocReportGenerator:
         # Calculate overall score
         all_scores = [q['score'] for q in question_scores]
         overall_score = (sum(all_scores) / (len(all_scores) * 3) * 100) if all_scores else 0
+        logger.info(f"Score calculation: sum={sum(all_scores)}, count={len(all_scores)}, max_possible={len(all_scores) * 3}")
         logger.info(f"Calculated overall score: {overall_score:.1f}%")
         
         # Get recommendations based on scores
