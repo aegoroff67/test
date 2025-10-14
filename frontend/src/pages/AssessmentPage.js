@@ -515,6 +515,11 @@ function AssessmentPage() {
                       <Badge variant="secondary" className="text-xs sm:text-sm">
                         {currentQuestion.domain_name}
                       </Badge>
+                      {/* Placeholder InfoBadge for future general question guidance */}
+                      <InfoBadge 
+                        title="General question guidance (coming soon)"
+                        onClick={handleOpenQuestionHelp}
+                      />
                     </div>
                     <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gray-900 leading-relaxed compact-title">
                       {currentQuestion.text}
