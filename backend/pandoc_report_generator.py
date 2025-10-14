@@ -177,20 +177,22 @@ class PandocReportGenerator:
         
         # Get recommendations based on scores
         recommendations = []
+        recommendations_dict = recommendations_data.get("recommendations", {})
+        
         for question in question_scores:
             question_code = question['code']
             score = question['score']
             
-            # Get recommendation from lookup
-            rec_key = f"{question_code}_{score}"
-            if rec_key in recommendations_data:
-                rec_text = recommendations_data[rec_key]
-                recommendations.append({
-                    'domain': question['domain'],
-                    'question_code': question_code,
-                    'score': score,
-                    'recommendation_text': rec_text
-                })
+            # Get recommendation from lookup (structure is: recommendations[question_code][default_recommendation])
+            if question_code in recommendations_dict:
+                rec_text = recommendations_dict[question_code].get("default_recommendation", "")
+                if rec_text:
+                    recommendations.append({
+                        'domain': question['domain'],
+                        'question_code': question_code,
+                        'score': score,
+                        'recommendation_text': rec_text
+                    })
         
         logger.info(f"Found {len(recommendations)} recommendations")
         
