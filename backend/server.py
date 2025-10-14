@@ -634,45 +634,86 @@ async def generate_report_docx(assessment_id: str, current_user: UserResponse = 
 
 @api_router.get("/assessments/{assessment_id}/report/pdf")
 async def generate_report_pdf(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
-    """Generate and download PDF report for assessment using Pandoc from Markdown template."""
-    from pandoc_report_generator import PandocReportGenerator
+    """Generate and download PDF report by converting DOCX using LibreOffice."""
+    from report_generator import AMReportGenerator
+    import subprocess
+    import tempfile
+    from pathlib import Path
     
     try:
-        # Initialize Pandoc report generator
-        report_generator = PandocReportGenerator()
+        # Initialize report generator
+        report_generator = AMReportGenerator()
         
-        # Fetch assessment data from database
-        assessment_data = await report_generator.fetch_assessment_data(assessment_id, db, current_user)
-        
-        # Prepare user data
-        user_data = {
-            'organization_name': current_user.organization_name or 'Organization'
-        }
-        
-        # Generate PDF report
-        pdf_bytes = report_generator.generate_pdf_report(assessment_data, user_data)
-        
-        # Generate filename
-        safe_org_name = "".join(c for c in user_data['organization_name'] if c.isalnum() or c in (' ', '-', '_')).rstrip()
-        safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
-        filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment_data['assessment'].get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.pdf"
-        
-        # Store report record in database
-        report = Report(
-            assessment_id=assessment_id,
-            url=f"/reports/{filename}",
+        # Generate DOCX first
+        docx_bytes, _ = await report_generator.generate_report_for_assessment(
+            assessment_id, db, current_user
         )
-        await db.reports.insert_one(report.dict())
         
-        # Return PDF as streaming response
-        return StreamingResponse(
-            io.BytesIO(pdf_bytes),
-            media_type="application/pdf",
-            headers={
-                "Content-Disposition": f"attachment; filename=\"{filename}\"",
-                "Content-Type": "application/pdf"
-            }
-        )
+        # Save DOCX to temp file
+        with tempfile.NamedTemporaryFile(suffix='.docx', delete=False) as docx_temp:
+            docx_temp.write(docx_bytes)
+            docx_path = docx_temp.name
+        
+        # Convert to PDF using LibreOffice
+        output_dir = tempfile.mkdtemp()
+        try:
+            cmd = [
+                'libreoffice',
+                '--headless',
+                '--convert-to', 'pdf',
+                '--outdir', output_dir,
+                docx_path
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=60
+            )
+            
+            if result.returncode != 0:
+                logger.error(f"LibreOffice conversion error: {result.stderr}")
+                raise RuntimeError(f"PDF conversion failed: {result.stderr}")
+            
+            # Find the generated PDF
+            pdf_files = list(Path(output_dir).glob('*.pdf'))
+            if not pdf_files:
+                raise RuntimeError("PDF file not generated")
+            
+            pdf_path = pdf_files[0]
+            with open(pdf_path, 'rb') as f:
+                pdf_bytes = f.read()
+            
+            # Generate filename
+            safe_org_name = "".join(c for c in current_user.organization_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+            safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
+            
+            assessment = await db.assessments.find_one({"id": assessment_id})
+            filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.pdf"
+            
+            # Store report record
+            report = Report(
+                assessment_id=assessment_id,
+                url=f"/reports/{filename}",
+            )
+            await db.reports.insert_one(report.dict())
+            
+            # Return PDF
+            return StreamingResponse(
+                io.BytesIO(pdf_bytes),
+                media_type="application/pdf",
+                headers={
+                    "Content-Disposition": f"attachment; filename=\"{filename}\"",
+                    "Content-Type": "application/pdf"
+                }
+            )
+            
+        finally:
+            # Cleanup temp files
+            Path(docx_path).unlink(missing_ok=True)
+            import shutil
+            shutil.rmtree(output_dir, ignore_errors=True)
         
     except HTTPException:
         raise
