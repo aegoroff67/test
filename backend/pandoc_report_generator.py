@@ -182,7 +182,8 @@ class PandocReportGenerator:
             'question_scores': question_scores,
             'recommendations': recommendations
         }
-        """Prepare context data for template rendering."""
+    
+    def _prepare_template_context(self, assessment_data: dict, user_data: dict) -> dict:
         
         # Extract organization name
         org_name = user_data.get('organization_name', 'Organization')
