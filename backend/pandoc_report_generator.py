@@ -277,7 +277,7 @@ class PandocReportGenerator:
         return rendered
     
     def _convert_to_docx(self, markdown_content: str) -> bytes:
-        """Convert Markdown to DOCX using Pandoc."""
+        """Convert Markdown to DOCX using Pandoc with reference document for styling."""
         
         with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as md_file:
             md_file.write(markdown_content)
@@ -287,14 +287,20 @@ class PandocReportGenerator:
             docx_file_path = docx_file.name
         
         try:
-            # Run Pandoc command
+            # Path to reference DOCX template for styling
+            reference_docx = self.backend_dir / "templates" / "docx" / "AM_AI_SAFE_reference_template.docx"
+            
+            # Run Pandoc command with reference document
             cmd = [
                 'pandoc',
                 md_file_path,
                 '-o', docx_file_path,
                 '--from', 'markdown+pipe_tables',
-                '--to', 'docx'
+                '--to', 'docx',
+                '--reference-doc', str(reference_docx)
             ]
+            
+            logger.info(f"Running Pandoc with reference doc: {reference_docx}")
             
             result = subprocess.run(
                 cmd,
@@ -311,6 +317,7 @@ class PandocReportGenerator:
             with open(docx_file_path, 'rb') as f:
                 docx_bytes = f.read()
             
+            logger.info(f"DOCX generated successfully, size: {len(docx_bytes)} bytes")
             return docx_bytes
             
         finally:
