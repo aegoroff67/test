@@ -140,9 +140,9 @@ improvements.
 | {% for action in actions.high %}{{ action.domain }} | {{ action.question_id }} | {{ action.text }}{% endfor %} |
 +---------------+--------------------+-----------------------------------------+
 
-: []{#_Toc210400672 .anchor}Table 1. High Priority Recommendations
+: []{%raw%}{#_Toc210400672 .anchor}{%endraw%}Table 1. High Priority Recommendations
 
-2.  []{#_Toc210400673 .anchor}Medium Priority Recommendations
+2.  []{%raw%}{#_Toc210400673 .anchor}{%endraw%}Medium Priority Recommendations
 
 These Medium Priority recommendations focus on addressing gaps
 identified in the set of '**Basic**' scoring questions from the AI
