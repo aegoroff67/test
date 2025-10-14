@@ -175,4 +175,4 @@ governance.
 | {% for action in actions.low %}{{ action.domain }} | {{ action.question_id }} | {{ action.text }}{% endfor %} |
 +---------------+--------------------+-----------------------------------------+
 
-: []{#_Toc187324590 .anchor}Table 3. Low Priority Recommendations
+: []{%raw%}{#_Toc187324590 .anchor}{%endraw%}Table 3. Low Priority Recommendations
