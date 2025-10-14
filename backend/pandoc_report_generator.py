@@ -394,17 +394,15 @@ class PandocReportGenerator:
         }
         
         for rec in recommendations:
-            priority = rec.get('priority', 'medium').lower()
-            
-            # Map question score to priority if not explicitly set
+            # Map question score to priority
             score = rec.get('score', 2)
-            if priority == 'medium':  # Default, determine from score
-                if score == 0:
-                    priority = 'high'
-                elif score == 1:
-                    priority = 'medium'
-                else:
-                    priority = 'low'
+            
+            if score == 0:
+                priority = 'high'
+            elif score == 1:
+                priority = 'medium'
+            else:  # score 2 or 3
+                priority = 'low'
             
             recommendation_item = {
                 'domain': rec.get('domain', 'N/A'),
@@ -412,7 +410,6 @@ class PandocReportGenerator:
                 'text': rec.get('recommendation_text', 'No recommendation available')
             }
             
-            if priority in categorized:
-                categorized[priority].append(recommendation_item)
+            categorized[priority].append(recommendation_item)
         
         return categorized
