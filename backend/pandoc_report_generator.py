@@ -26,7 +26,7 @@ class PandocReportGenerator:
         Generate DOCX report from Markdown template using Pandoc.
         
         Args:
-            assessment_data: Assessment data including scores and recommendations
+            assessment_data: Assessment data including scores and recommendations (from fetch_assessment_data)
             user_data: User information
             
         Returns:
