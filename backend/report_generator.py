@@ -19,7 +19,7 @@ from docx.shared import Inches, Pt, RGBColor
 import requests
 import subprocess
 from jinja2 import Environment, FileSystemLoader
-from weasyprint import HTML, CSS
+# from weasyprint import HTML, CSS  # Not needed for DOCX generation
 
 
 class AMReportGenerator:
