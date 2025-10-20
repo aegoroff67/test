@@ -569,6 +569,128 @@ class AMReportGenerator:
         
         return img_bytes
     
+    def _generate_radar_chart_image(self, report_data: Dict[str, Any]) -> bytes:
+        """Generate radar chart showing domain scores."""
+        try:
+            domain_scores = report_data.get('domain_scores', {})
+            
+            if not domain_scores:
+                # Return empty image if no data
+                fig, ax = plt.subplots(figsize=(6, 6))
+                ax.text(0.5, 0.5, 'No data available', ha='center', va='center')
+                ax.axis('off')
+                img_buffer = io.BytesIO()
+                plt.savefig(img_buffer, format='png', dpi=150, bbox_inches='tight')
+                plt.close(fig)
+                img_buffer.seek(0)
+                return img_buffer.getvalue()
+            
+            # Prepare data for radar chart
+            domains = []
+            scores = []
+            
+            for domain_name, score_list in domain_scores.items():
+                avg_score = sum(score_list) / len(score_list) if score_list else 0
+                percentage = (avg_score / 3) * 100
+                domains.append(domain_name)
+                scores.append(percentage)
+            
+            # Number of variables
+            num_vars = len(domains)
+            
+            # Compute angle for each axis
+            angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
+            
+            # Complete the loop
+            scores += scores[:1]
+            angles += angles[:1]
+            
+            # Create figure
+            fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(projection='polar'))
+            
+            # Plot data
+            ax.plot(angles, scores, 'o-', linewidth=2, color='#14b8a6', label='Score')
+            ax.fill(angles, scores, alpha=0.25, color='#14b8a6')
+            
+            # Fix axis to go in the right order
+            ax.set_theta_offset(np.pi / 2)
+            ax.set_theta_direction(-1)
+            
+            # Set labels
+            ax.set_xticks(angles[:-1])
+            ax.set_xticklabels(domains, size=9)
+            
+            # Set y-axis limits
+            ax.set_ylim(0, 100)
+            ax.set_yticks([25, 50, 75, 100])
+            ax.set_yticklabels(['25%', '50%', '75%', '100%'], size=8)
+            
+            # Add grid
+            ax.grid(True, linestyle='--', alpha=0.7)
+            
+            # Add title
+            ax.set_title('Domain Performance Radar Chart', size=12, pad=20, fontweight='bold')
+            
+            # Save to bytes
+            img_buffer = io.BytesIO()
+            plt.savefig(img_buffer, format='png', dpi=150, bbox_inches='tight', 
+                       facecolor='white', edgecolor='none')
+            img_buffer.seek(0)
+            img_bytes = img_buffer.getvalue()
+            plt.close(fig)
+            
+            return img_bytes
+            
+        except Exception as e:
+            print(f"Error generating radar chart: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            # Return empty placeholder image
+            fig, ax = plt.subplots(figsize=(6, 6))
+            ax.text(0.5, 0.5, 'Error generating chart', ha='center', va='center')
+            ax.axis('off')
+            img_buffer = io.BytesIO()
+            plt.savefig(img_buffer, format='png', dpi=150, bbox_inches='tight')
+            plt.close(fig)
+            img_buffer.seek(0)
+            return img_buffer.getvalue()
+    
+    def _format_top_3_strengths(self, report_data: Dict[str, Any]) -> list:
+        """Get top 3 highest scoring domains."""
+        domain_scores = report_data.get('domain_scores', {})
+        
+        # Calculate average percentage for each domain
+        domain_percentages = []
+        for domain_name, score_list in domain_scores.items():
+            avg_score = sum(score_list) / len(score_list) if score_list else 0
+            percentage = (avg_score / 3) * 100
+            domain_percentages.append({
+                'domain': domain_name,
+                'percentage': f"{percentage:.1f}%"
+            })
+        
+        # Sort by percentage (highest first) and take top 3
+        domain_percentages.sort(key=lambda x: float(x['percentage'].rstrip('%')), reverse=True)
+        return domain_percentages[:3]
+    
+    def _format_top_3_gaps(self, report_data: Dict[str, Any]) -> list:
+        """Get top 3 lowest scoring domains."""
+        domain_scores = report_data.get('domain_scores', {})
+        
+        # Calculate average percentage for each domain
+        domain_percentages = []
+        for domain_name, score_list in domain_scores.items():
+            avg_score = sum(score_list) / len(score_list) if score_list else 0
+            percentage = (avg_score / 3) * 100
+            domain_percentages.append({
+                'domain': domain_name,
+                'percentage': f"{percentage:.1f}%"
+            })
+        
+        # Sort by percentage (lowest first) and take top 3
+        domain_percentages.sort(key=lambda x: float(x['percentage'].rstrip('%')))
+        return domain_percentages[:3]
+    
     def _generate_comprehensive_executive_summary(self, report_data: Dict[str, Any]) -> str:
         """Generate a comprehensive multi-paragraph executive summary."""
         org_name = report_data.get('org', {}).get('name', 'Organization')
