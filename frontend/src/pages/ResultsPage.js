@@ -16,8 +16,10 @@ import {
   AlertTriangle,
   CheckCircle2,
   FileText,
-  Building2
+  Building2,
+  Award
 } from 'lucide-react';
+import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Tooltip } from 'recharts';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
