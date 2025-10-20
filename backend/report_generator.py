@@ -1139,6 +1139,14 @@ Each cell represents the score for a specific question, enabling identification 
             # Create inline image for heatmap - set to requested width
             heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(6.27))
             
+            # Generate radar chart image
+            radar_chart_image = self._generate_radar_chart_image(report_data)
+            radar_chart_inline = InlineImage(doc, io.BytesIO(radar_chart_image), width=Inches(3.5))
+            
+            # Get top 3 strengths and gaps
+            top_3_strengths = self._format_top_3_strengths(report_data)
+            top_3_gaps = self._format_top_3_gaps(report_data)
+            
             # Prepare template context matching the exact template structure and placeholders
             template_context = {
                 # Organization information
@@ -1165,6 +1173,13 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 # Heatmap image for direct placeholder replacement
                 'heatmap_image': heatmap_inline,
+                
+                # Radar chart image for direct placeholder replacement
+                'radar_chart_image': radar_chart_inline,
+                
+                # Top 3 strengths and gaps
+                'top_3_strengths': top_3_strengths,
+                'top_3_gaps': top_3_gaps,
                 
                 # Actions for working template with separate priority arrays
                 'actions': {
