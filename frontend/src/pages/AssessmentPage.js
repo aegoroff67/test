@@ -526,9 +526,9 @@ function AssessmentPage() {
                       <Badge variant="secondary" className="text-xs sm:text-sm">
                         {currentQuestion.domain_name}
                       </Badge>
-                      {/* Placeholder InfoBadge for future general question guidance */}
+                      {/* Top InfoBadge for additional question guidance */}
                       <InfoBadge 
-                        title="General question guidance (coming soon)"
+                        title="Click for additional guidance and best practices"
                         onClick={handleOpenQuestionHelp}
                       />
                     </div>
