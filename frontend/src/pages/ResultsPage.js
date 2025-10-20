@@ -397,25 +397,6 @@ function ResultsPage() {
               </Button>
               
               <Button 
-                onClick={generatePDFReport}
-                disabled={generatingReport}
-                className="bg-blue-600 hover:bg-blue-700 text-xs px-3 py-2"
-                data-testid="generate-pdf-report-btn"
-              >
-                {generatingReport ? (
-                  <div className="flex flex-col items-center">
-                    <div className="loading-spinner w-3 h-3 mb-1"></div>
-                    <span>Generating...</span>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center">
-                    <Download className="h-3 w-3 mb-1" />
-                    <span>PDF Report</span>
-                  </div>
-                )}
-              </Button>
-              
-              <Button 
                 variant="outline"
                 className="text-xs px-3 py-2"
                 data-testid="request-consultation-btn"
