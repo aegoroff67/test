@@ -596,28 +596,17 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
 
 @api_router.get("/assessments/{assessment_id}/report")
 async def generate_report_docx(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
-    """Generate and download DOCX report using Pandoc from Markdown template."""
-    from pandoc_report_generator import PandocReportGenerator
+    """Generate and download DOCX report for assessment using DOCX template."""
+    from report_generator import AMReportGenerator
     
     try:
-        # Initialize Pandoc report generator
-        report_generator = PandocReportGenerator()
+        # Initialize report generator
+        report_generator = AMReportGenerator()
         
-        # Fetch assessment data from database
-        assessment_data = await report_generator.fetch_assessment_data(assessment_id, db, current_user)
-        
-        # Prepare user data
-        user_data = {
-            'organization_name': current_user.organization_name or 'Organization'
-        }
-        
-        # Generate DOCX report
-        docx_bytes = report_generator.generate_docx_report(assessment_data, user_data)
-        
-        # Generate filename
-        safe_org_name = "".join(c for c in user_data['organization_name'] if c.isalnum() or c in (' ', '-', '_')).rstrip()
-        safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
-        filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment_data['assessment'].get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.docx"
+        # Generate report
+        docx_bytes, filename = await report_generator.generate_report_for_assessment(
+            assessment_id, db, current_user
+        )
         
         # Store report record in database
         report = Report(
