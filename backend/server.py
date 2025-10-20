@@ -643,54 +643,6 @@ async def generate_report_docx(assessment_id: str, current_user: UserResponse = 
         raise HTTPException(status_code=500, detail=f"Failed to generate DOCX report: {str(e)}")
 
 
-@api_router.get("/assessments/{assessment_id}/report/pdf")
-async def generate_report_pdf(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
-    """Generate and download PDF report using Pandoc from Markdown template."""
-    from pandoc_report_generator import PandocReportGenerator
-    
-    try:
-        # Initialize Pandoc report generator
-        report_generator = PandocReportGenerator()
-        
-        # Fetch assessment data from database
-        assessment_data = await report_generator.fetch_assessment_data(assessment_id, db, current_user)
-        
-        # Prepare user data
-        user_data = {
-            'organization_name': current_user.organization_name or 'Organization'
-        }
-        
-        # Generate PDF report
-        pdf_bytes = report_generator.generate_pdf_report(assessment_data, user_data)
-        
-        # Generate filename
-        safe_org_name = "".join(c for c in user_data['organization_name'] if c.isalnum() or c in (' ', '-', '_')).rstrip()
-        safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
-        filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment_data['assessment'].get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.pdf"
-        
-        # Store report record in database
-        report = Report(
-            assessment_id=assessment_id,
-            url=f"/reports/{filename}",
-        )
-        await db.reports.insert_one(report.dict())
-        
-        # Return PDF as streaming response
-        return StreamingResponse(
-            io.BytesIO(pdf_bytes),
-            media_type="application/pdf",
-            headers={
-                "Content-Disposition": f"attachment; filename=\"{filename}\"",
-                "Content-Type": "application/pdf"
-            }
-        )
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error generating PDF report: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Failed to generate PDF report: {str(e)}")
-
 @api_router.post("/assessments/{assessment_id}/submit")
 async def submit_assessment(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
