@@ -367,10 +367,10 @@ function ResultsPage() {
         </div>
       </div>
 
-      {/* Main Content - Two Column Layout */}
+      {/* Main Content - Three Column Layout */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Domain Scores Column - Half the previous width */}
-        <div className="w-1/6 bg-white border-r overflow-y-auto">
+        {/* Left Panel - 25% width */}
+        <div className="w-1/4 bg-white border-r overflow-y-auto">
           <div className="p-4">
             <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
               <BarChart3 className="h-4 w-4 text-teal-600" />
@@ -403,8 +403,8 @@ function ResultsPage() {
           </div>
         </div>
 
-        {/* Assessment Heatmap Column - Takes up remaining space */}
-        <div className="flex-1 bg-white overflow-y-auto">
+        {/* Center Panel - Assessment Heatmap - 50% width */}
+        <div className="w-1/2 bg-white border-r overflow-y-auto">
           <div className="p-4">
             <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
               <Shield className="h-5 w-5 text-teal-600" />
@@ -459,6 +459,18 @@ function ResultsPage() {
                 );
               })}
             </div>
+          </div>
+        </div>
+
+        {/* Right Panel - 25% width */}
+        <div className="w-1/4 bg-white overflow-y-auto">
+          <div className="p-4">
+            <h2 className="text-base font-bold text-gray-900 mb-3">
+              Additional Information
+            </h2>
+            <p className="text-sm text-gray-600">
+              This panel can be used for additional insights, recommendations, or actions.
+            </p>
           </div>
         </div>
       </div>
