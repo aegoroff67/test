@@ -467,12 +467,106 @@ function ResultsPage() {
         {/* Right Panel - 25% width */}
         <div className="w-1/4 bg-white overflow-y-auto">
           <div className="p-4">
-            <h2 className="text-base font-bold text-gray-900 mb-3">
-              Additional Information
-            </h2>
-            <p className="text-sm text-gray-600">
-              This panel can be used for additional insights, recommendations, or actions.
-            </p>
+            {/* Radar Chart - Top Half */}
+            <div className="mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                <TrendingUp className="h-4 w-4 text-teal-600" />
+                <span>Domain Performance</span>
+              </h2>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart data={summary.domain_scores.map(domain => ({
+                    domain: domain.domain_name,
+                    score: domain.percentage
+                  }))}>
+                    <PolarGrid stroke="#e5e7eb" />
+                    <PolarAngleAxis 
+                      dataKey="domain" 
+                      tick={{ fill: '#6b7280', fontSize: 10 }}
+                    />
+                    <PolarRadiusAxis 
+                      angle={90} 
+                      domain={[0, 100]}
+                      tick={{ fill: '#6b7280', fontSize: 10 }}
+                    />
+                    <Radar 
+                      name="Score" 
+                      dataKey="score" 
+                      stroke="#0d9488" 
+                      fill="#14b8a6" 
+                      fillOpacity={0.5}
+                    />
+                    <Tooltip 
+                      formatter={(value) => `${value.toFixed(1)}%`}
+                      contentStyle={{ 
+                        backgroundColor: 'white', 
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '0.375rem',
+                        fontSize: '12px'
+                      }}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Top 3 Strengths */}
+            <div className="mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                <span>Top 3 Strengths</span>
+              </h2>
+              <div className="space-y-2">
+                {[...summary.domain_scores]
+                  .sort((a, b) => b.percentage - a.percentage) // Sort highest first
+                  .slice(0, 3)
+                  .map((domain, index) => {
+                    const colors = getScoreColor(domain.percentage);
+                    return (
+                      <div key={domain.domain_id} className="flex items-center space-x-2 p-2 bg-green-50 rounded border border-green-200">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-xs font-bold">
+                          {index + 1}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-medium text-gray-900 truncate">{domain.domain_name}</div>
+                        </div>
+                        <div className={`px-2 py-0.5 rounded text-xs font-bold ${colors.bg} ${colors.text}`}>
+                          {domain.percentage.toFixed(1)}%
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+
+            {/* Top 3 Gaps */}
+            <div>
+              <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                <AlertTriangle className="h-4 w-4 text-red-600" />
+                <span>Top 3 Gaps</span>
+              </h2>
+              <div className="space-y-2">
+                {[...summary.domain_scores]
+                  .sort((a, b) => a.percentage - b.percentage) // Sort lowest first
+                  .slice(0, 3)
+                  .map((domain, index) => {
+                    const colors = getScoreColor(domain.percentage);
+                    return (
+                      <div key={domain.domain_id} className="flex items-center space-x-2 p-2 bg-red-50 rounded border border-red-200">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-bold">
+                          {index + 1}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-medium text-gray-900 truncate">{domain.domain_name}</div>
+                        </div>
+                        <div className={`px-2 py-0.5 rounded text-xs font-bold ${colors.bg} ${colors.text}`}>
+                          {domain.percentage.toFixed(1)}%
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
