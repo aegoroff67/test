@@ -226,9 +226,19 @@ function AssessmentPage() {
   };
 
   const handleOpenQuestionHelp = () => {
-    // Placeholder for future general question guidance
-    // For now, we can show a "coming soon" message or do nothing
-    toast.info('General question guidance coming soon!');
+    // Show additional guidance for the current question
+    if (currentQuestion && currentQuestion.code) {
+      const guidance = questionGuidanceData[currentQuestion.code];
+      if (guidance) {
+        setCurrentHelpContent({
+          title: `${currentQuestion.code} - Additional Guidance`,
+          content: guidance
+        });
+        setShowHelpModal(true);
+      } else {
+        toast.info('No additional guidance available for this question.');
+      }
+    }
   };
 
   const handleFileUpload = async (files) => {
