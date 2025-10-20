@@ -39,8 +39,8 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                 {content ? (
                   <div className="text-gray-700 leading-relaxed space-y-4">
                     {content.split('\n\n').map((paragraph, index) => {
-                      // Handle bold text
-                      if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+                      // Handle bold text headers
+                      if (paragraph.startsWith('**') && paragraph.endsWith('**') && !paragraph.includes('\n')) {
                         return (
                           <h4 key={index} className="font-semibold text-gray-900 text-base mt-4 mb-2">
                             {paragraph.replace(/\*\*/g, '')}
@@ -48,8 +48,38 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                         );
                       }
                       
-                      // Handle bullet points
-                      if (paragraph.includes('- **')) {
+                      // Handle bullet points with • character
+                      if (paragraph.includes('•')) {
+                        const items = paragraph.split('\n').filter(line => line.trim() && line.includes('•'));
+                        if (items.length > 0) {
+                          return (
+                            <ul key={index} className="list-none pl-0 space-y-2">
+                              {items.map((item, itemIndex) => {
+                                const cleanItem = item.replace(/^[•\s]+/, '').trim();
+                                // Parse bold sections in list items
+                                const parts = cleanItem.split(/\*\*(.*?)\*\*/);
+                                return (
+                                  <li key={itemIndex} className="text-sm flex">
+                                    <span className="mr-2 text-teal-600">•</span>
+                                    <span>
+                                      {parts.map((part, partIndex) => 
+                                        partIndex % 2 === 1 ? (
+                                          <strong key={partIndex} className="font-semibold text-gray-900">{part}</strong>
+                                        ) : (
+                                          <span key={partIndex}>{part}</span>
+                                        )
+                                      )}
+                                    </span>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          );
+                        }
+                      }
+                      
+                      // Handle bullet points with - character (fallback)
+                      if (paragraph.includes('- **') || paragraph.startsWith('- ')) {
                         const items = paragraph.split('\n').filter(line => line.trim());
                         return (
                           <ul key={index} className="list-disc pl-5 space-y-2">
