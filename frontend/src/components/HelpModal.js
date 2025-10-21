@@ -46,8 +46,21 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                       }
                       
                       // Handle bold headings (starts and ends with **)
-                      // But NOT if it contains a colon (like "Key evidence types:")
-                      if (paragraph.startsWith('**') && paragraph.endsWith('**') && !paragraph.includes(':')) {
+                      // Titles like "**Additional Guidance: ...**" should be headings
+                      // But NOT labels before bullets like "**Key evidence types:**"
+                      // Check if next paragraph (if exists) starts with bullets to determine if it's a label
+                      const isTitle = paragraph.startsWith('**') && paragraph.endsWith('**');
+                      const startsWithAdditionalGuidance = paragraph.includes('Additional Guidance:');
+                      
+                      if (isTitle && startsWithAdditionalGuidance) {
+                        // This is a title heading - render bold and larger
+                        return (
+                          <h4 key={index} className="font-bold text-gray-900 text-base mt-4 mb-3">
+                            {paragraph.replace(/\*\*/g, '')}
+                          </h4>
+                        );
+                      } else if (isTitle && !paragraph.includes(':')) {
+                        // Regular heading without colon
                         return (
                           <h4 key={index} className="font-semibold text-gray-900 text-base mt-4 mb-2">
                             {paragraph.replace(/\*\*/g, '')}
