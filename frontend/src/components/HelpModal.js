@@ -75,13 +75,14 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             const cleanItem = line.substring(4);
                             let fullText = cleanItem;
                             
-                            // Look ahead for continuation lines (start with 2 spaces but no dash)
+                            // Look ahead for continuation lines (start with 2 or 4 spaces but no dash)
                             let j = i + 1;
                             while (j < lines.length) {
                               const nextLine = lines[j];
                               const nextTrimmed = nextLine.trim();
                               
-                              // Continuation: starts with exactly 2 spaces, then text (no dash, no bullet)
+                              // Continuation: starts with 2-4 spaces, then text (no dash, no bullet)
+                              // Matches "  text" or "    text" but not "  - " or "• "
                               if (nextLine.match(/^  [^ -•]/) && nextTrimmed) {
                                 fullText += ' ' + nextTrimmed;
                                 j++;
