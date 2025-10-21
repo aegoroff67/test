@@ -56,9 +56,16 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             {lines.map((line, lineIndex) => {
                               const trimmed = line.trim();
                               // Check if it's a sub-bullet (starts with whitespace + dash)
-                              const isSubBullet = line.match(/^\s{2,}- /);
-                              const bulletChar = trimmed.startsWith('•') ? '•' : '-';
-                              const cleanItem = trimmed.replace(/^[•-]\s*/, '');
+                              const isSubBullet = line.match(/^\s{2,}-\s/);
+                              
+                              // Remove bullet character or dash from the start
+                              // Use negative lookbehind to avoid matching dash in middle of words
+                              let cleanItem = trimmed;
+                              if (trimmed.startsWith('•')) {
+                                cleanItem = trimmed.substring(1).trim();
+                              } else if (trimmed.startsWith('-')) {
+                                cleanItem = trimmed.substring(1).trim();
+                              }
                               
                               // Parse bold sections and italic sections
                               const renderText = (text) => {
