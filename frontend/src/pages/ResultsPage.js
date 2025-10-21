@@ -459,37 +459,91 @@ function ResultsPage() {
         {/* Right Panel - 25% width */}
         <div className="w-1/4 bg-white overflow-y-auto">
           <div className="p-4">
-            {/* Radar Chart - Top Half */}
+            {/* Pie Chart - Answer Score Distribution */}
             <div className="mb-6">
               <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
-                <TrendingUp className="h-4 w-4 text-teal-600" />
-                <span>Domain Performance</span>
+                <BarChart3 className="h-4 w-4 text-teal-600" />
+                <span>Answer Score Distribution</span>
               </h2>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart data={summary.domain_scores.map(domain => ({
-                    domain: domain.domain_name,
-                    score: domain.percentage
-                  }))}>
-                    <PolarGrid stroke="#e5e7eb" />
-                    <PolarAngleAxis 
-                      dataKey="domain" 
-                      tick={{ fill: '#6b7280', fontSize: 10 }}
-                    />
-                    <PolarRadiusAxis 
-                      angle={90} 
-                      domain={[0, 100]}
-                      tick={{ fill: '#6b7280', fontSize: 10 }}
-                    />
-                    <Radar 
-                      name="Score" 
-                      dataKey="score" 
-                      stroke="#0d9488" 
-                      fill="#14b8a6" 
-                      fillOpacity={0.5}
-                    />
+                  <PieChart>
+                    <Pie
+                      data={(() => {
+                        // Calculate distribution of answers by score category
+                        const distribution = {
+                          'Non-Ideal': 0,
+                          'Basic': 0,
+                          'Good': 0,
+                          'Excellent': 0
+                        };
+                        
+                        // Count all answered questions
+                        answers.forEach(answer => {
+                          const percentage = (answer.numeric_score / 3) * 100;
+                          if (percentage < 25) {
+                            distribution['Non-Ideal']++;
+                          } else if (percentage < 50) {
+                            distribution['Basic']++;
+                          } else if (percentage < 75) {
+                            distribution['Good']++;
+                          } else {
+                            distribution['Excellent']++;
+                          }
+                        });
+                        
+                        // Convert to array format for pie chart
+                        return Object.entries(distribution)
+                          .filter(([_, value]) => value > 0) // Only show categories with data
+                          .map(([name, value]) => ({ name, value }));
+                      })()}
+                      cx="50%"
+                      cy="45%"
+                      innerRadius={0}
+                      outerRadius={70}
+                      paddingAngle={2}
+                      dataKey="value"
+                      label={(entry) => `${entry.name}: ${entry.value}`}
+                      labelLine={{ stroke: '#666', strokeWidth: 1 }}
+                    >
+                      {(() => {
+                        // Define colors matching heatmap
+                        const colorMap = {
+                          'Non-Ideal': '#ef4444',  // red-500
+                          'Basic': '#f97316',       // orange-500
+                          'Good': '#eab308',        // yellow-500
+                          'Excellent': '#22c55e'    // green-500
+                        };
+                        
+                        const distribution = {
+                          'Non-Ideal': 0,
+                          'Basic': 0,
+                          'Good': 0,
+                          'Excellent': 0
+                        };
+                        
+                        answers.forEach(answer => {
+                          const percentage = (answer.numeric_score / 3) * 100;
+                          if (percentage < 25) {
+                            distribution['Non-Ideal']++;
+                          } else if (percentage < 50) {
+                            distribution['Basic']++;
+                          } else if (percentage < 75) {
+                            distribution['Good']++;
+                          } else {
+                            distribution['Excellent']++;
+                          }
+                        });
+                        
+                        return Object.entries(distribution)
+                          .filter(([_, value]) => value > 0)
+                          .map(([name, _], index) => (
+                            <Cell key={`cell-${index}`} fill={colorMap[name]} />
+                          ));
+                      })()}
+                    </Pie>
                     <Tooltip 
-                      formatter={(value) => `${value.toFixed(1)}%`}
+                      formatter={(value) => `${value} questions`}
                       contentStyle={{ 
                         backgroundColor: 'white', 
                         border: '1px solid #e5e7eb',
@@ -497,7 +551,7 @@ function ResultsPage() {
                         fontSize: '12px'
                       }}
                     />
-                  </RadarChart>
+                  </PieChart>
                 </ResponsiveContainer>
               </div>
             </div>
