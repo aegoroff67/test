@@ -274,6 +274,12 @@ function ResultsPage() {
               </div>
             </div>
 
+            {/* Center - Organization Info */}
+            <div className="flex flex-col items-center">
+              <p className="text-sm font-bold text-gray-900">Organisation: {user?.organization_name}</p>
+              <p className="text-sm font-bold text-gray-900">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+            </div>
+
             {/* Back Button */}
             <Button 
               variant="outline" 
