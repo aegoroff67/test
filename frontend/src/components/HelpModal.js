@@ -180,22 +180,37 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             {/* Text before bullets */}
                             {textBeforeBullets.length > 0 && (
                               (() => {
-                                const beforeText = textBeforeBullets.join(' ');
-                                // Check if this is a label (like "Key evidence types:")
-                                const isLabel = beforeText.trim().endsWith(':');
+                                // Check if the last line is a label (ends with colon)
+                                const lastLine = textBeforeBullets[textBeforeBullets.length - 1];
+                                const isLastLineLabel = lastLine.trim().endsWith(':');
                                 
-                                if (isLabel) {
-                                  // Render as a label/subheading
+                                if (isLastLineLabel && textBeforeBullets.length > 1) {
+                                  // We have both intro text AND a label
+                                  const introText = textBeforeBullets.slice(0, -1).join(' ');
+                                  const labelText = lastLine;
+                                  
                                   return (
-                                    <p className="text-sm font-semibold leading-relaxed mb-2 mt-3">
-                                      {renderText(beforeText)}
+                                    <>
+                                      <p className="text-sm leading-relaxed mb-3">
+                                        {renderText(introText)}
+                                      </p>
+                                      <p className="text-sm font-semibold leading-relaxed mb-2">
+                                        {renderText(labelText)}
+                                      </p>
+                                    </>
+                                  );
+                                } else if (isLastLineLabel) {
+                                  // Only a label, no intro text
+                                  return (
+                                    <p className="text-sm font-semibold leading-relaxed mb-2">
+                                      {renderText(lastLine)}
                                     </p>
                                   );
                                 } else {
-                                  // Regular paragraph
+                                  // No label, just regular text
                                   return (
                                     <p className="text-sm leading-relaxed mb-3">
-                                      {renderText(beforeText)}
+                                      {renderText(textBeforeBullets.join(' '))}
                                     </p>
                                   );
                                 }
