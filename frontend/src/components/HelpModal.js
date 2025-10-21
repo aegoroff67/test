@@ -63,11 +63,32 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                         const processedItems = [];
                         let textBeforeBullets = [];
                         let textAfterBullets = [];
-                        let inBulletSection = false;
-                        let bulletSectionEnded = false;
                         let i = 0;
                         
-                        // First pass: separate text and process bullets
+                        // First, find where bullets start and end
+                        let firstBulletIndex = -1;
+                        let lastBulletIndex = -1;
+                        
+                        for (let j = 0; j < lines.length; j++) {
+                          const line = lines[j];
+                          const trimmed = line.trim();
+                          const isSubBullet = line.match(/^  - /);
+                          const isRootBullet = !isSubBullet && (trimmed.startsWith('•') || trimmed.startsWith('- '));
+                          
+                          if (isRootBullet || isSubBullet) {
+                            if (firstBulletIndex === -1) firstBulletIndex = j;
+                            lastBulletIndex = j;
+                          } else if (line.match(/^    /) && lastBulletIndex > -1) {
+                            // Continuation line of a sub-bullet
+                            lastBulletIndex = j;
+                          } else if (line.match(/^  /) && !isSubBullet && lastBulletIndex > -1 && j === lastBulletIndex + 1) {
+                            // Continuation line of a root bullet
+                            lastBulletIndex = j;
+                          }
+                        }
+                        
+                        // Now process with proper section detection
+                        i = 0;
                         while (i < lines.length) {
                           const line = lines[i];
                           const trimmed = line.trim();
@@ -77,68 +98,59 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             continue;
                           }
                           
-                          // Check if this is a bullet line
-                          const isSubBullet = line.match(/^  - /);
-                          const isRootBullet = !isSubBullet && (trimmed.startsWith('•') || trimmed.startsWith('- '));
-                          
-                          if (isSubBullet) {
-                            inBulletSection = true;
-                            const cleanItem = line.substring(4);
-                            let fullText = cleanItem;
-                            
-                            let j = i + 1;
-                            while (j < lines.length) {
-                              const nextLine = lines[j];
-                              const nextTrimmed = nextLine.trim();
-                              
-                              if (nextLine.match(/^    /) && nextTrimmed && !nextLine.match(/^  - /)) {
-                                fullText += ' ' + nextTrimmed;
-                                j++;
-                              } else {
-                                break;
-                              }
-                            }
-                            
-                            processedItems.push({ type: 'sub', text: fullText });
-                            i = j;
-                          }
-                          else if (isRootBullet) {
-                            inBulletSection = true;
-                            const cleanItem = trimmed.startsWith('•') 
-                              ? trimmed.substring(1).trim() 
-                              : trimmed.substring(2).trim();
-                            let fullText = cleanItem;
-                            
-                            let j = i + 1;
-                            while (j < lines.length) {
-                              const nextLine = lines[j];
-                              const nextTrimmed = nextLine.trim();
-                              
-                              // Continuation line: starts with 2 spaces but NOT a dash (not a sub-bullet)
-                              if (nextLine.match(/^  /) && !nextLine.match(/^  - /) && nextTrimmed) {
-                                fullText += ' ' + nextTrimmed;
-                                j++;
-                              } else {
-                                break;
-                              }
-                            }
-                            
-                            processedItems.push({ type: 'root', text: fullText });
-                            i = j;
-                          }
-                          else {
-                            // This is regular text
-                            if (!inBulletSection) {
-                              textBeforeBullets.push(trimmed);
-                            } else if (bulletSectionEnded) {
-                              textAfterBullets.push(trimmed);
-                            }
-                            // Check if this marks end of bullet section
-                            // (non-bullet, non-continuation text after we've seen bullets)
-                            if (inBulletSection && !line.match(/^  /) && trimmed) {
-                              bulletSectionEnded = true;
-                            }
+                          // Determine which section this line belongs to
+                          if (firstBulletIndex === -1 || i < firstBulletIndex) {
+                            // Before bullets
+                            textBeforeBullets.push(trimmed);
                             i++;
+                          } else if (i > lastBulletIndex) {
+                            // After bullets
+                            textAfterBullets.push(trimmed);
+                            i++;
+                          } else {
+                            // Within bullet section - process bullets
+                            const isSubBullet = line.match(/^  - /);
+                            const isRootBullet = !isSubBullet && (trimmed.startsWith('•') || trimmed.startsWith('- '));
+                            
+                            if (isSubBullet) {
+                              const cleanItem = line.substring(4);
+                              let fullText = cleanItem;
+                              
+                              let j = i + 1;
+                              while (j < lines.length && lines[j].match(/^    /)) {
+                                fullText += ' ' + lines[j].trim();
+                                j++;
+                              }
+                              
+                              processedItems.push({ type: 'sub', text: fullText });
+                              i = j;
+                            }
+                            else if (isRootBullet) {
+                              const cleanItem = trimmed.startsWith('•') 
+                                ? trimmed.substring(1).trim() 
+                                : trimmed.substring(2).trim();
+                              let fullText = cleanItem;
+                              
+                              let j = i + 1;
+                              while (j < lines.length) {
+                                const nextLine = lines[j];
+                                const nextTrimmed = nextLine.trim();
+                                
+                                // Continuation: starts with 2 spaces but not a sub-bullet
+                                if (nextLine.match(/^  /) && !nextLine.match(/^  - /) && nextTrimmed) {
+                                  fullText += ' ' + nextTrimmed;
+                                  j++;
+                                } else {
+                                  break;
+                                }
+                              }
+                              
+                              processedItems.push({ type: 'root', text: fullText });
+                              i = j;
+                            }
+                            else {
+                              i++;
+                            }
                           }
                         }
                         
