@@ -292,9 +292,9 @@ function ResultsPage() {
       <div className="bg-white border-b flex-shrink-0">
         <div className="max-w-full px-6 py-4">
           <div className="flex items-center">
-            {/* First 12.5% - Maturity Donut Chart */}
+            {/* First 12.5% - Maturity Stacked Column */}
             <div className="flex flex-col items-center justify-center" style={{ width: '12.5%' }}>
-              <MaturityDonutChart score={summary.overall_percentage} />
+              <MaturityStackedColumn score={summary.overall_percentage} />
             </div>
 
             {/* Second 12.5% - Organization Info */}
