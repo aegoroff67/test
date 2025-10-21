@@ -38,7 +38,8 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
               <div className="prose prose-sm max-w-none">
                 {content ? (
                   <div className="text-gray-700 leading-relaxed space-y-4">
-                    {content.split('\n\n').map((paragraph, index) => {
+                    {/* Remove trailing --- separator before processing */}
+                    {content.replace(/\n---$/, '').split('\n\n').map((paragraph, index) => {
                       // Skip separator lines
                       if (paragraph.trim() === '---' || paragraph.trim() === '**---**') {
                         return null;
