@@ -26,9 +26,9 @@ const MaturityStackedColumn = ({ score }) => {
   const arrowPosition = score;
 
   return (
-    <div className="flex items-center justify-center gap-2" style={{ height: '120px' }}>
-      {/* Stacked Column */}
-      <div className="relative flex flex-col" style={{ width: '60px', height: '100px' }}>
+    <div className="flex items-center justify-between w-full" style={{ height: '120px' }}>
+      {/* Stacked Column - Far Left */}
+      <div className="relative flex flex-col" style={{ width: '50px', height: '100px' }}>
         {tiers.map((tier, index) => (
           <div
             key={index}
@@ -44,9 +44,6 @@ const MaturityStackedColumn = ({ score }) => {
             <div className="text-center px-1">
               <div className="text-[7px] font-semibold leading-tight text-gray-900">
                 {tier.name}
-              </div>
-              <div className="text-[6px] leading-tight text-gray-800">
-                {tier.min}-{tier.max}%
               </div>
             </div>
           </div>
@@ -73,12 +70,12 @@ const MaturityStackedColumn = ({ score }) => {
         </div>
       </div>
 
-      {/* Score Display */}
-      <div className="flex flex-col items-start">
+      {/* Score Display - Far Right */}
+      <div className="flex flex-col items-center">
         <div className="text-2xl font-bold text-gray-900">
           {Math.round(score)}%
         </div>
-        <div className="text-[10px] font-semibold text-gray-700 leading-tight">
+        <div className="text-[10px] font-semibold text-gray-700 leading-tight text-center">
           {currentTier}
         </div>
       </div>
