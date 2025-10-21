@@ -63,14 +63,8 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             continue;
                           }
                           
-                          // Check if it's a root bullet (starts with •)
-                          if (trimmed.startsWith('•')) {
-                            const cleanItem = trimmed.substring(1).trim();
-                            processedItems.push({ type: 'root', text: cleanItem });
-                            i++;
-                          }
-                          // Check if it's a sub-bullet (line starts with exactly 2 spaces, then dash, then space)
-                          else if (line.match(/^  - /)) {
+                          // Check if it's a sub-bullet FIRST (line starts with exactly 2 spaces, then dash, then space)
+                          if (line.match(/^  - /)) {
                             // Remove the "  - " prefix
                             const cleanItem = line.substring(4);
                             let fullText = cleanItem;
@@ -82,7 +76,7 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                               const nextTrimmed = nextLine.trim();
                               
                               // Continuation: starts with 2-4 spaces, then text (no dash, no bullet)
-                              // Matches "  text" or "    text" but not "  - " or "• "
+                              // Matches "  text" or "    text" but not "  - " or "• " or "- "
                               if (nextLine.match(/^  [^ -•]/) && nextTrimmed) {
                                 fullText += ' ' + nextTrimmed;
                                 j++;
@@ -94,8 +88,35 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             processedItems.push({ type: 'sub', text: fullText });
                             i = j;
                           }
+                          // Check if it's a root bullet (starts with • or - at the beginning, no indentation)
+                          else if (trimmed.startsWith('•') || trimmed.startsWith('- ')) {
+                            // Remove bullet character (• or -)
+                            const cleanItem = trimmed.startsWith('•') 
+                              ? trimmed.substring(1).trim() 
+                              : trimmed.substring(2).trim();
+                            let fullText = cleanItem;
+                            
+                            // Look ahead for continuation lines (indented text that's not a sub-bullet)
+                            let j = i + 1;
+                            while (j < lines.length) {
+                              const nextLine = lines[j];
+                              const nextTrimmed = nextLine.trim();
+                              
+                              // Continuation: starts with 2 spaces but NOT a dash (not a sub-bullet)
+                              // OR just regular text continuation
+                              if (nextLine.match(/^  [^ -]/) && nextTrimmed && !nextLine.match(/^  - /)) {
+                                fullText += ' ' + nextTrimmed;
+                                j++;
+                              } else {
+                                break;
+                              }
+                            }
+                            
+                            processedItems.push({ type: 'root', text: fullText });
+                            i = j;
+                          }
                           else {
-                            // Skip lines that aren't bullets (like continuation of root bullets)
+                            // Skip lines that aren't bullets
                             i++;
                           }
                         }
