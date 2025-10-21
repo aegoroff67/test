@@ -303,10 +303,16 @@ function ResultsPage() {
               <MaturityStackedColumn score={summary.overall_percentage} />
             </div>
 
-            {/* Second 12.5% - Organization Info */}
+            {/* Second 12.5% - Maturity Tier Descriptions */}
             <div className="px-4" style={{ width: '12.5%' }}>
-              <p className="text-sm font-bold text-gray-900">Organisation: {user?.organization_name}</p>
-              <p className="text-sm font-bold text-gray-900">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+              <p className="text-sm font-bold text-gray-900 mb-2">Maturity Tier Description</p>
+              <div className="text-xs text-gray-700 space-y-1">
+                <p><span className="font-bold">Basic:</span> Ad-hoc / reactive</p>
+                <p><span className="font-bold">Low:</span> Minimal governance</p>
+                <p><span className="font-bold">Moderate:</span> Defined processes</p>
+                <p><span className="font-bold">Good:</span> Managed & measured</p>
+                <p><span className="font-bold">Excellent:</span> Continuous improvement</p>
+              </div>
             </div>
 
             {/* Third 62.5% - Results Summary Text */}
