@@ -48,12 +48,19 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                         );
                       }
                       
-                      // Handle bullet points (both root and sub-bullets)
-                      if (paragraph.includes('•') || paragraph.includes('- **') || paragraph.match(/^\s+- /m)) {
+                      // Check if paragraph contains bullet points
+                      const hasBullets = paragraph.includes('•') || paragraph.includes('- **') || paragraph.match(/^\s*- /m);
+                      
+                      if (hasBullets) {
                         const lines = paragraph.split('\n');
-                        const processedItems = [];
+                        const elements = [];
+                        let textBeforeBullets = [];
+                        let bulletItems = [];
+                        let textAfterBullets = [];
+                        let currentSection = 'before'; // 'before', 'bullets', 'after'
                         let i = 0;
                         
+                        // First pass: separate text before bullets, bullets, and text after bullets
                         while (i < lines.length) {
                           const line = lines[i];
                           const trimmed = line.trim();
@@ -63,65 +70,93 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             continue;
                           }
                           
-                          // Check if it's a sub-bullet FIRST (line starts with exactly 2 spaces, then dash, then space)
+                          // Check if this line is a bullet (root or sub)
+                          const isSubBullet = line.match(/^  - /);
+                          const isRootBullet = !isSubBullet && (trimmed.startsWith('•') || trimmed.startsWith('- '));
+                          
+                          if (isRootBullet || isSubBullet) {
+                            if (currentSection === 'before') {
+                              currentSection = 'bullets';
+                            }
+                          } else if (currentSection === 'bullets' && !line.match(/^  [^ -]/) && trimmed) {
+                            // If we're in bullets section and this is not a continuation line, move to 'after'
+                            currentSection = 'after';
+                          }
+                          
+                          // Add line to appropriate section
+                          if (currentSection === 'before') {
+                            textBeforeBullets.push(trimmed);
+                          } else if (currentSection === 'after') {
+                            textAfterBullets.push(trimmed);
+                          }
+                          
+                          i++;
+                        }
+                        
+                        // Process bullets
+                        const lines2 = paragraph.split('\n');
+                        const processedItems = [];
+                        let j = 0;
+                        
+                        while (j < lines2.length) {
+                          const line = lines2[j];
+                          const trimmed = line.trim();
+                          
+                          if (!trimmed) {
+                            j++;
+                            continue;
+                          }
+                          
+                          // Check if it's a sub-bullet FIRST
                           if (line.match(/^  - /)) {
-                            // Remove the "  - " prefix
                             const cleanItem = line.substring(4);
                             let fullText = cleanItem;
                             
-                            // Look ahead for continuation lines (start with 2 or 4 spaces but no dash)
-                            let j = i + 1;
-                            while (j < lines.length) {
-                              const nextLine = lines[j];
+                            let k = j + 1;
+                            while (k < lines2.length) {
+                              const nextLine = lines2[k];
                               const nextTrimmed = nextLine.trim();
                               
-                              // Continuation: starts with 2-4 spaces, then text (no dash, no bullet)
-                              // Matches "  text" or "    text" but not "  - " or "• " or "- "
                               if (nextLine.match(/^  [^ -•]/) && nextTrimmed) {
                                 fullText += ' ' + nextTrimmed;
-                                j++;
+                                k++;
                               } else {
                                 break;
                               }
                             }
                             
                             processedItems.push({ type: 'sub', text: fullText });
-                            i = j;
+                            j = k;
                           }
-                          // Check if it's a root bullet (starts with • or - at the beginning, no indentation)
+                          // Check if it's a root bullet
                           else if (trimmed.startsWith('•') || trimmed.startsWith('- ')) {
-                            // Remove bullet character (• or -)
                             const cleanItem = trimmed.startsWith('•') 
                               ? trimmed.substring(1).trim() 
                               : trimmed.substring(2).trim();
                             let fullText = cleanItem;
                             
-                            // Look ahead for continuation lines (indented text that's not a sub-bullet)
-                            let j = i + 1;
-                            while (j < lines.length) {
-                              const nextLine = lines[j];
+                            let k = j + 1;
+                            while (k < lines2.length) {
+                              const nextLine = lines2[k];
                               const nextTrimmed = nextLine.trim();
                               
-                              // Continuation: starts with 2 spaces but NOT a dash (not a sub-bullet)
-                              // OR just regular text continuation
                               if (nextLine.match(/^  [^ -]/) && nextTrimmed && !nextLine.match(/^  - /)) {
                                 fullText += ' ' + nextTrimmed;
-                                j++;
+                                k++;
                               } else {
                                 break;
                               }
                             }
                             
                             processedItems.push({ type: 'root', text: fullText });
-                            i = j;
+                            j = k;
                           }
                           else {
-                            // Skip lines that aren't bullets
-                            i++;
+                            j++;
                           }
                         }
                         
-                        // Parse bold sections and italic sections
+                        // Render text with bold/italic support
                         const renderText = (text) => {
                           const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
                           return parts.map((part, partIndex) => {
@@ -143,17 +178,36 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                         };
                         
                         return (
-                          <ul key={index} className="list-none pl-0 space-y-2">
-                            {processedItems.map((item, itemIndex) => (
-                              <li 
-                                key={itemIndex} 
-                                className={`text-sm flex ${item.type === 'sub' ? 'ml-6' : 'ml-0'}`}
-                              >
-                                <span className="mr-2 flex-shrink-0">{item.type === 'sub' ? '◦' : '•'}</span>
-                                <span className="flex-1">{renderText(item.text)}</span>
-                              </li>
-                            ))}
-                          </ul>
+                          <div key={index}>
+                            {/* Text before bullets */}
+                            {textBeforeBullets.length > 0 && (
+                              <p className="text-sm leading-relaxed mb-3">
+                                {renderText(textBeforeBullets.join(' '))}
+                              </p>
+                            )}
+                            
+                            {/* Bullet list */}
+                            {processedItems.length > 0 && (
+                              <ul className="list-none pl-0 space-y-2 mb-3">
+                                {processedItems.map((item, itemIndex) => (
+                                  <li 
+                                    key={itemIndex} 
+                                    className={`text-sm flex ${item.type === 'sub' ? 'ml-6' : 'ml-0'}`}
+                                  >
+                                    <span className="mr-2 flex-shrink-0">{item.type === 'sub' ? '◦' : '•'}</span>
+                                    <span className="flex-1">{renderText(item.text)}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                            
+                            {/* Text after bullets */}
+                            {textAfterBullets.length > 0 && (
+                              <p className="text-sm leading-relaxed">
+                                {renderText(textAfterBullets.join(' '))}
+                              </p>
+                            )}
+                          </div>
                         );
                       }
                       
