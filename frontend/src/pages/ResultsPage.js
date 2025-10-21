@@ -503,7 +503,11 @@ function ResultsPage() {
                       outerRadius={70}
                       paddingAngle={2}
                       dataKey="value"
-                      label={(entry) => `${entry.name}: ${entry.value}`}
+                      label={(entry) => {
+                        const total = answers.length;
+                        const percent = ((entry.value / total) * 100).toFixed(1);
+                        return `${entry.name}: ${entry.value} (${percent}%)`;
+                      }}
                       labelLine={{ stroke: '#666', strokeWidth: 1 }}
                     >
                       {(() => {
