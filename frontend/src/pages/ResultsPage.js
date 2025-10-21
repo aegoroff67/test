@@ -20,7 +20,7 @@ import {
   Award
 } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Tooltip } from 'recharts';
-import MaturityDonutChart from '../components/MaturityDonutChart';
+import MaturityStackedColumn from '../components/MaturityDonutChart';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
