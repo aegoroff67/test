@@ -69,19 +69,20 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             processedItems.push({ type: 'root', text: cleanItem });
                             i++;
                           }
-                          // Check if it's a sub-bullet (starts with spaces + dash)
-                          else if (line.match(/^\s{2,}-\s/)) {
-                            const cleanItem = trimmed.substring(1).trim();
+                          // Check if it's a sub-bullet (line starts with exactly 2 spaces, then dash, then space)
+                          else if (line.match(/^  - /)) {
+                            // Remove the "  - " prefix
+                            const cleanItem = line.substring(4);
                             let fullText = cleanItem;
                             
-                            // Look ahead for continuation lines (indented but no dash)
+                            // Look ahead for continuation lines (start with 2 spaces but no dash)
                             let j = i + 1;
                             while (j < lines.length) {
                               const nextLine = lines[j];
                               const nextTrimmed = nextLine.trim();
                               
-                              // If next line is indented and doesn't start with dash or bullet, it's a continuation
-                              if (nextLine.match(/^\s{2,}/) && !nextTrimmed.startsWith('-') && !nextTrimmed.startsWith('•') && nextTrimmed) {
+                              // Continuation: starts with exactly 2 spaces, then text (no dash, no bullet)
+                              if (nextLine.match(/^  [^ -•]/) && nextTrimmed) {
                                 fullText += ' ' + nextTrimmed;
                                 j++;
                               } else {
@@ -93,6 +94,7 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             i = j;
                           }
                           else {
+                            // Skip lines that aren't bullets (like continuation of root bullets)
                             i++;
                           }
                         }
