@@ -39,7 +39,7 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                 {content ? (
                   <div className="text-gray-700 leading-relaxed space-y-4">
                     {content.split('\n\n').map((paragraph, index) => {
-                      // Handle bold text
+                      // Handle bold headings
                       if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
                         return (
                           <h4 key={index} className="font-semibold text-gray-900 text-base mt-4 mb-2">
@@ -48,24 +48,46 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                         );
                       }
                       
-                      // Handle bullet points
-                      if (paragraph.includes('- **')) {
-                        const items = paragraph.split('\n').filter(line => line.trim());
+                      // Handle bullet points (both root and sub-bullets)
+                      if (paragraph.includes('•') || paragraph.includes('- **') || paragraph.match(/^\s+- /m)) {
+                        const lines = paragraph.split('\n').filter(line => line.trim());
                         return (
-                          <ul key={index} className="list-disc pl-5 space-y-2">
-                            {items.map((item, itemIndex) => {
-                              const cleanItem = item.replace(/^- /, '');
-                              // Parse bold sections in list items
-                              const parts = cleanItem.split(/\*\*(.*?)\*\*/);
+                          <ul key={index} className="list-none pl-0 space-y-2">
+                            {lines.map((line, lineIndex) => {
+                              const trimmed = line.trim();
+                              // Check if it's a sub-bullet (starts with whitespace + dash)
+                              const isSubBullet = line.match(/^\s{2,}- /);
+                              const bulletChar = trimmed.startsWith('•') ? '•' : '-';
+                              const cleanItem = trimmed.replace(/^[•-]\s*/, '');
+                              
+                              // Parse bold sections and italic sections
+                              const renderText = (text) => {
+                                const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+                                return parts.map((part, partIndex) => {
+                                  if (part.startsWith('**') && part.endsWith('**')) {
+                                    return (
+                                      <strong key={partIndex} className="font-semibold text-gray-900">
+                                        {part.replace(/\*\*/g, '')}
+                                      </strong>
+                                    );
+                                  } else if (part.startsWith('*') && part.endsWith('*') && !part.startsWith('**')) {
+                                    return (
+                                      <em key={partIndex} className="italic">
+                                        {part.replace(/\*/g, '')}
+                                      </em>
+                                    );
+                                  }
+                                  return <span key={partIndex}>{part}</span>;
+                                });
+                              };
+                              
                               return (
-                                <li key={itemIndex} className="text-sm">
-                                  {parts.map((part, partIndex) => 
-                                    partIndex % 2 === 1 ? (
-                                      <strong key={partIndex} className="font-semibold text-gray-900">{part}</strong>
-                                    ) : (
-                                      <span key={partIndex}>{part}</span>
-                                    )
-                                  )}
+                                <li 
+                                  key={lineIndex} 
+                                  className={`text-sm flex ${isSubBullet ? 'ml-6' : 'ml-0'}`}
+                                >
+                                  <span className="mr-2 flex-shrink-0">{isSubBullet ? '◦' : '•'}</span>
+                                  <span className="flex-1">{renderText(cleanItem)}</span>
                                 </li>
                               );
                             })}
@@ -73,17 +95,30 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                         );
                       }
                       
-                      // Handle regular paragraphs with inline bold
-                      const parts = paragraph.split(/\*\*(.*?)\*\*/);
+                      // Handle regular paragraphs with inline bold and italic
+                      const renderText = (text) => {
+                        const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+                        return parts.map((part, partIndex) => {
+                          if (part.startsWith('**') && part.endsWith('**')) {
+                            return (
+                              <strong key={partIndex} className="font-semibold text-gray-900">
+                                {part.replace(/\*\*/g, '')}
+                              </strong>
+                            );
+                          } else if (part.startsWith('*') && part.endsWith('*') && !part.startsWith('**')) {
+                            return (
+                              <em key={partIndex} className="italic">
+                                {part.replace(/\*/g, '')}
+                              </em>
+                            );
+                          }
+                          return <span key={partIndex}>{part}</span>;
+                        });
+                      };
+                      
                       return (
                         <p key={index} className="text-sm leading-relaxed">
-                          {parts.map((part, partIndex) => 
-                            partIndex % 2 === 1 ? (
-                              <strong key={partIndex} className="font-semibold text-gray-900">{part}</strong>
-                            ) : (
-                              <span key={partIndex}>{part}</span>
-                            )
-                          )}
+                          {renderText(paragraph)}
                         </p>
                       );
                     })}
