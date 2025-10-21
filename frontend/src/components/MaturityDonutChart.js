@@ -22,13 +22,13 @@ const MaturityDonutChart = ({ score }) => {
 
   const currentTier = getCurrentTier(score);
 
-  // SVG dimensions
-  const size = 400;
+  // SVG dimensions - smaller to fit in allocated space
+  const size = 180;
   const centerX = size / 2;
   const centerY = size / 2;
-  const outerRadius = 160;
-  const innerRadius = 110;
-  const strokeWidth = 2;
+  const outerRadius = 75;
+  const innerRadius = 50;
+  const strokeWidth = 1;
 
   // Calculate the angle for the score marker (0-100 maps to full circle)
   const markerAngle = (score / 100) * 360 - 90; // -90 to start from top
@@ -70,10 +70,10 @@ const MaturityDonutChart = ({ score }) => {
     const sweepAngle = (tier.percentage / 100) * 360;
     const endAngle = currentAngle + sweepAngle;
     
-    // Calculate label position (middle of the segment)
+    // Calculate label position (middle of the segment) - further out
     const midAngle = startAngle + sweepAngle / 2 - 90;
     const midRad = (midAngle * Math.PI) / 180;
-    const labelRadius = (innerRadius + outerRadius) / 2;
+    const labelRadius = outerRadius + 18; // Position labels outside the ring
     const labelX = centerX + labelRadius * Math.cos(midRad);
     const labelY = centerY + labelRadius * Math.sin(midRad);
 
@@ -91,12 +91,12 @@ const MaturityDonutChart = ({ score }) => {
   });
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex items-center justify-center w-full">
       <svg 
-        width={size} 
-        height={size} 
+        width="100%" 
+        height="auto" 
         viewBox={`0 0 ${size} ${size}`}
-        style={{ background: 'transparent' }}
+        style={{ maxWidth: '180px' }}
       >
         {/* Draw all tier segments */}
         {segments.map((segment, index) => (
@@ -116,7 +116,7 @@ const MaturityDonutChart = ({ score }) => {
           x2={markerOuterX}
           y2={markerOuterY}
           stroke="#000"
-          strokeWidth={3}
+          strokeWidth={2}
           strokeLinecap="round"
         />
 
@@ -133,57 +133,58 @@ const MaturityDonutChart = ({ score }) => {
         {/* Score text in center */}
         <text
           x={centerX}
-          y={centerY - 10}
+          y={centerY - 5}
           textAnchor="middle"
-          fontSize="48"
+          fontSize="24"
           fontWeight="bold"
           fill="#333"
         >
-          {score}%
+          {Math.round(score)}%
         </text>
 
         {/* Maturity level text below score */}
         <text
           x={centerX}
-          y={centerY + 25}
+          y={centerY + 12}
           textAnchor="middle"
-          fontSize="18"
+          fontSize="10"
           fontWeight="600"
           fill="#666"
         >
           {currentTier}
         </text>
 
-        {/* Tier labels on segments */}
+        {/* Tier labels on segments - smaller font */}
         {segments.map((segment, index) => {
-          // Split label into two lines for better fit
-          const line1 = segment.name;
-          const line2 = `(${segment.min}-${segment.max}%)`;
+          // For smaller segments (Good, Excellent), show abbreviated labels
+          const isSmallSegment = segment.percentage <= 10;
+          const line1 = isSmallSegment ? segment.name.substring(0, 4) : segment.name;
+          const line2 = `${segment.min}-${segment.max}`;
           
           return (
             <g key={`label-${index}`}>
               <text
                 x={segment.labelX}
-                y={segment.labelY - 8}
+                y={segment.labelY - 4}
                 textAnchor="middle"
-                fontSize="14"
+                fontSize="7"
                 fontWeight="600"
                 fill="#000"
                 stroke="white"
-                strokeWidth={3}
+                strokeWidth={2}
                 paintOrder="stroke"
               >
                 {line1}
               </text>
               <text
                 x={segment.labelX}
-                y={segment.labelY + 10}
+                y={segment.labelY + 5}
                 textAnchor="middle"
-                fontSize="12"
+                fontSize="6"
                 fontWeight="500"
                 fill="#000"
                 stroke="white"
-                strokeWidth={3}
+                strokeWidth={2}
                 paintOrder="stroke"
               >
                 {line2}
