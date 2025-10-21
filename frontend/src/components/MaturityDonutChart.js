@@ -70,7 +70,7 @@ const MaturityStackedColumn = ({ score }) => {
         </div>
       </div>
 
-      {/* Score Display - Far Right */}
+      {/* Score Display */}
       <div className="flex flex-col items-center">
         <div className="text-2xl font-bold text-gray-900">
           {Math.round(score)}%
