@@ -39,8 +39,14 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                 {content ? (
                   <div className="text-gray-700 leading-relaxed space-y-4">
                     {content.split('\n\n').map((paragraph, index) => {
-                      // Handle bold headings
-                      if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+                      // Skip separator lines
+                      if (paragraph.trim() === '---' || paragraph.trim() === '**---**') {
+                        return null;
+                      }
+                      
+                      // Handle bold headings (starts and ends with **)
+                      // But NOT if it contains a colon (like "Key evidence types:")
+                      if (paragraph.startsWith('**') && paragraph.endsWith('**') && !paragraph.includes(':')) {
                         return (
                           <h4 key={index} className="font-semibold text-gray-900 text-base mt-4 mb-2">
                             {paragraph.replace(/\*\*/g, '')}
