@@ -180,9 +180,10 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                             {/* Text before bullets */}
                             {textBeforeBullets.length > 0 && (
                               (() => {
-                                // Check if the last line is a label (ends with colon)
+                                // Check if the last line is a label (ends with colon, possibly with ** markers)
                                 const lastLine = textBeforeBullets[textBeforeBullets.length - 1];
-                                const isLastLineLabel = lastLine.trim().endsWith(':');
+                                const lastLineWithoutBold = lastLine.replace(/\*\*/g, '').trim();
+                                const isLastLineLabel = lastLineWithoutBold.endsWith(':');
                                 
                                 if (isLastLineLabel && textBeforeBullets.length > 1) {
                                   // We have both intro text AND a label
