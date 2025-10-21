@@ -503,10 +503,32 @@ function ResultsPage() {
                       outerRadius={70}
                       paddingAngle={2}
                       dataKey="value"
-                      label={(entry) => {
+                      label={(props) => {
+                        const { cx, cy, midAngle, outerRadius, name, value } = props;
+                        const RADIAN = Math.PI / 180;
+                        const radius = outerRadius + 25;
+                        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                        
                         const total = answers.length;
-                        const percent = ((entry.value / total) * 100).toFixed(1);
-                        return `${entry.name}: ${entry.value} (${percent}%)`;
+                        const percent = ((value / total) * 100).toFixed(1);
+                        
+                        return (
+                          <text
+                            x={x}
+                            y={y}
+                            fill="#333"
+                            textAnchor={x > cx ? 'start' : 'end'}
+                            dominantBaseline="central"
+                          >
+                            <tspan x={x} dy="0" fontSize="12" fontWeight="500">
+                              {name}: {value}
+                            </tspan>
+                            <tspan x={x} dy="14" fontSize="10" fill="#666">
+                              ({percent}%)
+                            </tspan>
+                          </text>
+                        );
                       }}
                       labelLine={{ stroke: '#666', strokeWidth: 1 }}
                     >
