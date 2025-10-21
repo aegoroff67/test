@@ -26,8 +26,8 @@ const MaturityStackedColumn = ({ score }) => {
   const arrowPosition = score;
 
   return (
-    <div className="flex items-center justify-between w-full" style={{ height: '120px' }}>
-      {/* Stacked Column - Far Left */}
+    <div className="flex items-center justify-center w-full" style={{ height: '120px', gap: '30px' }}>
+      {/* Stacked Column */}
       <div className="relative flex flex-col" style={{ width: '50px', height: '100px' }}>
         {tiers.map((tier, index) => (
           <div
