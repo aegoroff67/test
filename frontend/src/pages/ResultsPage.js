@@ -292,18 +292,9 @@ function ResultsPage() {
       <div className="bg-white border-b flex-shrink-0">
         <div className="max-w-full px-6 py-4">
           <div className="flex items-center">
-            {/* First 12.5% - Overall Maturity Score */}
-            <div className="flex flex-col items-center" style={{ width: '12.5%' }}>
-              <div className={`w-20 h-20 rounded-full border-4 flex items-center justify-center mb-2 ${getScoreColor(summary.overall_percentage).bg.replace('bg-', 'border-')} ${getScoreColor(summary.overall_percentage).bg}`}>
-                <div className="text-center">
-                  <div className="text-lg font-bold text-white" data-testid="overall-score">
-                    {summary.overall_percentage.toFixed(1)}%
-                  </div>
-                </div>
-              </div>
-              <Badge className={`text-xs px-2 py-1 ${maturityInfo.color}`} data-testid="maturity-level">
-                {summary.overall_maturity} AI MATURITY
-              </Badge>
+            {/* First 12.5% - Maturity Donut Chart */}
+            <div className="flex flex-col items-center justify-center" style={{ width: '12.5%' }}>
+              <MaturityDonutChart score={summary.overall_percentage} />
             </div>
 
             {/* Second 12.5% - Organization Info */}
