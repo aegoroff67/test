@@ -179,9 +179,27 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                           <div key={index}>
                             {/* Text before bullets */}
                             {textBeforeBullets.length > 0 && (
-                              <p className="text-sm leading-relaxed mb-3">
-                                {renderText(textBeforeBullets.join(' '))}
-                              </p>
+                              (() => {
+                                const beforeText = textBeforeBullets.join(' ');
+                                // Check if this is a label (like "Key evidence types:")
+                                const isLabel = beforeText.trim().endsWith(':');
+                                
+                                if (isLabel) {
+                                  // Render as a label/subheading
+                                  return (
+                                    <p className="text-sm font-semibold leading-relaxed mb-2 mt-3">
+                                      {renderText(beforeText)}
+                                    </p>
+                                  );
+                                } else {
+                                  // Regular paragraph
+                                  return (
+                                    <p className="text-sm leading-relaxed mb-3">
+                                      {renderText(beforeText)}
+                                    </p>
+                                  );
+                                }
+                              })()
                             )}
                             
                             {/* Bullet list */}
