@@ -75,8 +75,8 @@ const MaturityStackedColumn = ({ score }) => {
         <div className="text-2xl font-bold text-gray-900">
           {Math.round(score)}%
         </div>
-        <div className="text-[10px] font-semibold text-gray-700 leading-tight text-center">
-          {currentTier}
+        <div className="text-[15px] font-semibold text-gray-700 leading-tight text-center">
+          {currentTier} AI Maturity
         </div>
       </div>
     </div>
