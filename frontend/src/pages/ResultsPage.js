@@ -315,10 +315,10 @@ function ResultsPage() {
               </div>
             </div>
 
-            {/* Third 62.5% - Results Summary Text */}
-            <div className="px-6" style={{ width: '62.5%' }}>
-              <p className="text-sm font-bold text-gray-900 mb-1">Results Summary:</p>
-              <p className="text-sm text-gray-700 leading-relaxed">
+            {/* Third 50% - Results Summary Text */}
+            <div className="px-6" style={{ width: '50%' }}>
+              <p className="text-sm font-bold text-gray-900 mb-2">Results Summary</p>
+              <p className="text-xs text-gray-700 leading-relaxed">
                 The results indicate that <strong>{user?.organization_name}</strong> has achieved an overall AI maturity score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing the organization within the <strong>{summary.overall_maturity}</strong> AI Maturity category. This rating reflects {
                   summary.overall_maturity === 'Excellent' 
                     ? 'outstanding alignment with AI governance best practices across all domains, with well-developed systems, processes, and policies that are consistently implemented and frequently reviewed for continuous improvement.'
@@ -331,13 +331,13 @@ function ResultsPage() {
                     : 'minimal or no AI governance processes in place, indicating critical improvement needs. Fundamental governance frameworks must be established to mitigate potential failures and ensure responsible AI deployment.'
                 }
               </p>
-              <p className="text-sm text-gray-700 mt-2">
+              <p className="text-xs text-gray-700 mt-2">
                 The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas. Generate a report for further details.
               </p>
             </div>
             
-            {/* Last 12.5% - Action Buttons */}
-            <div className="flex flex-col space-y-3" style={{ width: '12.5%' }}>
+            {/* Last 25% - Action Buttons */}
+            <div className="flex flex-col space-y-3" style={{ width: '25%' }}>
               <Button 
                 onClick={generateReport}
                 disabled={generatingReport}
