@@ -303,8 +303,8 @@ function ResultsPage() {
               <MaturityStackedColumn score={summary.overall_percentage} />
             </div>
 
-            {/* Second 12.5% - Maturity Tier Descriptions */}
-            <div className="px-4" style={{ width: '12.5%' }}>
+            {/* Second 25% - Maturity Tier Descriptions */}
+            <div className="px-4" style={{ width: '25%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2">Maturity Tier Description</p>
               <div className="text-xs text-gray-700 space-y-1">
                 <p><span className="font-bold">Basic:</span> Ad-hoc / reactive</p>
@@ -336,8 +336,8 @@ function ResultsPage() {
               </p>
             </div>
             
-            {/* Last 25% - Action Buttons */}
-            <div className="flex flex-col space-y-3" style={{ width: '25%' }}>
+            {/* Last 12.5% - Action Buttons */}
+            <div className="flex flex-col space-y-3" style={{ width: '12.5%' }}>
               <Button 
                 onClick={generateReport}
                 disabled={generatingReport}
