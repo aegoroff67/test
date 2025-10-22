@@ -303,8 +303,8 @@ function ResultsPage() {
               <MaturityStackedColumn score={summary.overall_percentage} />
             </div>
 
-            {/* Second 25% - Maturity Tier Descriptions */}
-            <div className="px-4" style={{ width: '25%' }}>
+            {/* Second 15% - Maturity Tier Descriptions */}
+            <div className="px-4" style={{ width: '15%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2">Maturity Tier Description</p>
               <div className="text-xs text-gray-700 space-y-1">
                 <p><span className="font-bold">Basic:</span> Ad-hoc / reactive</p>
@@ -315,8 +315,8 @@ function ResultsPage() {
               </div>
             </div>
 
-            {/* Third 50% - Results Summary Text */}
-            <div className="px-6" style={{ width: '50%' }}>
+            {/* Third 60% - Results Summary Text */}
+            <div className="px-6" style={{ width: '60%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2">Results Summary</p>
               <p className="text-xs text-gray-700 leading-relaxed">
                 The results indicate that <strong>{user?.organization_name}</strong> has achieved an overall AI maturity score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing the organization within the <strong>{summary.overall_maturity}</strong> AI Maturity category. This rating reflects {
