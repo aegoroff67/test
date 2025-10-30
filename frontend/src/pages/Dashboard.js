@@ -132,21 +132,13 @@ function Dashboard() {
             </div>
             <Button 
               onClick={createNewAssessment}
-              disabled={creating}
               className="bg-teal-600 hover:bg-teal-700 btn-hover"
               data-testid="start-new-assessment-btn"
             >
-              {creating ? (
-                <div className="flex items-center space-x-2">
-                  <div className="loading-spinner w-4 h-4"></div>
-                  <span>Creating...</span>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-2">
-                  <Plus className="h-4 w-4" />
-                  <span>Start New Assessment</span>
-                </div>
-              )}
+              <div className="flex items-center space-x-2">
+                <Plus className="h-4 w-4" />
+                <span>Start New Assessment</span>
+              </div>
             </Button>
           </div>
         </div>
