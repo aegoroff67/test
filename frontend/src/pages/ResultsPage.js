@@ -454,7 +454,8 @@ function ResultsPage() {
                         return (
                           <div
                             key={question.id}
-                            className={`p-2 rounded text-center ${colors.bg} ${colors.text} border border-gray-300`}
+                            className="p-2 rounded text-center border border-gray-300"
+                            style={{ backgroundColor: colors.bg, color: colors.text }}
                             title={`${question.code}: ${question.text} (Score: ${score}/3)`}
                             data-testid={`heatmap-cell-${question.code}`}
                           >
