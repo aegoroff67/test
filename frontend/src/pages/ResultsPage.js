@@ -392,14 +392,17 @@ function ResultsPage() {
                   <div key={domain.domain_id} className="space-y-0.5">
                     <div className="flex flex-col">
                       <span className="font-medium text-gray-900 text-xs">{domain.domain_name}</span>
-                      <div className={`px-1 py-0.5 rounded text-xs font-bold ${colors.bg} ${colors.text} self-start mt-1`}>
+                      <div 
+                        className="px-1 py-0.5 rounded text-xs font-bold self-start mt-1"
+                        style={{ backgroundColor: colors.bg, color: colors.text }}
+                      >
                         {domain.percentage.toFixed(1)}%
                       </div>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-1.5">
                       <div 
-                        className={`${colors.bg} h-1.5 rounded-full transition-all duration-300`}
-                        style={{ width: `${domain.percentage}%` }}
+                        className="h-1.5 rounded-full transition-all duration-300"
+                        style={{ width: `${domain.percentage}%`, backgroundColor: colors.bg }}
                       ></div>
                     </div>
                   </div>
