@@ -52,7 +52,6 @@ module.exports = {
                                 '3': 'hsl(var(--chart-3))',
                                 '4': 'hsl(var(--chart-4))',
                                 '5': 'hsl(var(--chart-5))'
-                        }
                         },
                         // Custom maturity colors
                         maturity: {
@@ -60,6 +59,7 @@ module.exports = {
                                 orange: '#FFC000',
                                 yellow: '#FFFF00',
                                 green: '#00B050'
+                        }
                 },
                 keyframes: {
                         'accordion-down': {
