@@ -618,7 +618,10 @@ function ResultsPage() {
                         <div className="flex-1 min-w-0">
                           <div className="text-xs font-medium text-gray-900 truncate">{domain.domain_name}</div>
                         </div>
-                        <div className={`px-2 py-0.5 rounded text-xs font-bold ${colors.bg} ${colors.text}`}>
+                        <div 
+                          className="px-2 py-0.5 rounded text-xs font-bold"
+                          style={{ backgroundColor: colors.bg, color: colors.text }}
+                        >
                           {domain.percentage.toFixed(1)}%
                         </div>
                       </div>
