@@ -45,15 +45,8 @@ function Dashboard() {
   };
 
   const createNewAssessment = async () => {
-    setCreating(true);
-    try {
-      const response = await axios.post(`${API}/assessments`);
-      toast.success('New assessment created!');
-      navigate(`/assessment/${response.data.id}`);
-    } catch (error) {
-      toast.error('Failed to create assessment');
-      setCreating(false);
-    }
+    // Navigate to assessment selector page
+    navigate('/assessment-selector');
   };
 
   const handleLogout = () => {
