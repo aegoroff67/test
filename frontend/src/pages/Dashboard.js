@@ -225,7 +225,6 @@ function Dashboard() {
                     </p>
                     <Button 
                       onClick={createNewAssessment}
-                      disabled={creating}
                       className="bg-teal-600 hover:bg-teal-700"
                       data-testid="start-first-assessment-btn"
                     >
