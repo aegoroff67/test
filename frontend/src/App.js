@@ -8,6 +8,7 @@ import './App.css';
 // Import pages
 import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
+import AssessmentSelector from './pages/AssessmentSelector';
 import AssessmentPage from './pages/AssessmentPage';
 import ResultsPage from './pages/ResultsPage';
 
