@@ -27,10 +27,10 @@ const API = `${BACKEND_URL}/api`;
 
 // Color mapping for heatmap
 const getScoreColor = (percentage) => {
-  if (percentage >= 75) return { bg: 'bg-green-500', text: 'text-white' };
-  if (percentage >= 50) return { bg: 'bg-yellow-500', text: 'text-white' };
-  if (percentage >= 25) return { bg: 'bg-orange-500', text: 'text-white' };
-  return { bg: 'bg-red-500', text: 'text-white' };
+  if (percentage >= 75) return { bg: '#00B050', text: '#FFFFFF' };
+  if (percentage >= 50) return { bg: '#FFFF00', text: '#000000' };
+  if (percentage >= 25) return { bg: '#FFC000', text: '#000000' };
+  return { bg: '#FF0000', text: '#FFFFFF' };
 };
 
 const getMaturityBadge = (maturity) => {
