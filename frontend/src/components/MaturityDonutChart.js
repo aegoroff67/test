@@ -3,11 +3,11 @@ import React from 'react';
 const MaturityStackedColumn = ({ score }) => {
   // Define the 5 maturity tiers
   const tiers = [
-    { name: 'Excellent', min: 91, max: 100, color: '#00b050', percentage: 10 },
-    { name: 'Good', min: 81, max: 90, color: '#92d050', percentage: 10 },
-    { name: 'Moderate', min: 61, max: 80, color: '#ffff00', percentage: 20 },
-    { name: 'Low', min: 41, max: 60, color: '#ffc000', percentage: 20 },
-    { name: 'Basic', min: 0, max: 40, color: '#ff0000', percentage: 40 }
+    { name: 'Excellent', min: 91, max: 100, color: '#008040', percentage: 10 },
+    { name: 'Good', min: 81, max: 90, color: '#00B050', percentage: 10 },
+    { name: 'Moderate', min: 61, max: 80, color: '#FFFF00', percentage: 20 },
+    { name: 'Low', min: 41, max: 60, color: '#FFC000', percentage: 20 },
+    { name: 'Basic', min: 0, max: 40, color: '#FF0000', percentage: 40 }
   ];
 
   // Determine which tier the score falls into
