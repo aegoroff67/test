@@ -498,16 +498,16 @@ class AMReportGenerator:
         # Create figure with optimized height for compact rows
         fig, ax = plt.subplots(figsize=(12, 6.5))
         
-        # Define colors exactly matching the screenshot
+        # Define colors
         def get_color(score):
             if score == 0:
-                return '#DC3545'  # Red - matches screenshot
+                return '#FF0000'  # Red
             elif score == 1:
-                return '#FD7E14'  # Orange - matches screenshot
+                return '#FFC000'  # Orange
             elif score == 2:
-                return '#FFC107'  # Yellow - matches screenshot
+                return '#FFFF00'  # Yellow
             else:  # score == 3
-                return '#28A745'  # Green - matches screenshot
+                return '#00B050'  # Green
         
         # Create the heatmap grid exactly like the screenshot
         num_domains = len(domains)
