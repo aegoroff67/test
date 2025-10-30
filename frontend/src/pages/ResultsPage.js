@@ -547,10 +547,10 @@ function ResultsPage() {
                       {(() => {
                         // Define colors matching heatmap
                         const colorMap = {
-                          'Non-Ideal': '#ef4444',  // red-500
-                          'Basic': '#f97316',       // orange-500
-                          'Good': '#eab308',        // yellow-500
-                          'Excellent': '#22c55e'    // green-500
+                          'Non-Ideal': '#FF0000',  // red
+                          'Basic': '#FFC000',       // orange
+                          'Good': '#FFFF00',        // yellow
+                          'Excellent': '#00B050'    // green
                         };
                         
                         const distribution = {
