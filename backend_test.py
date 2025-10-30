@@ -5786,6 +5786,9 @@ class AMSafeAPITester:
         if self.token:
             self.test_domains_and_questions_structure()
             
+            # Assessment Selector Flow Test (Review Request)
+            self.test_assessment_selector_flow()
+            
             if self.assessment_id:
                 self.test_assessment_questions_with_complete_data()
                 self.test_answer_system()
