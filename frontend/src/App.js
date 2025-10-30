@@ -73,6 +73,14 @@ function App() {
               } 
             />
             <Route 
+              path="/assessment-selector" 
+              element={
+                <ProtectedRoute>
+                  <AssessmentSelector />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/assessment/:id" 
               element={
                 <ProtectedRoute>
