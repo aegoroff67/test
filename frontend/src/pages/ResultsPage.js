@@ -234,19 +234,40 @@ function ResultsPage() {
   const generateExecutiveSummaryPDF = async () => {
     setGeneratingPDF(true);
     try {
-      // Use browser's print functionality to save as PDF
-      // Create a simplified version for printing
-      const printContent = document.querySelector('.results-summary-content');
+      const response = await axios.get(`${API}/assessments/${id}/executive-summary-pdf`, {
+        responseType: 'blob',
+        headers: {
+          'Accept': 'application/pdf'
+        }
+      });
       
-      if (!printContent) {
-        toast.error('Content not ready for PDF generation');
-        return;
+      // Create blob URL and trigger download
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      
+      // Extract filename from response headers or create default
+      const contentDisposition = response.headers['content-disposition'];
+      let filename = 'Executive_Summary.pdf';
+      
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
       }
-
-      // Open print dialog which allows saving as PDF
-      window.print();
       
-      toast.success('Use your browser\'s print dialog to save as PDF');
+      // Create temporary link element to trigger download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      toast.success('Executive Summary PDF downloaded successfully!');
     } catch (error) {
       console.error('Error generating PDF:', error);
       toast.error('Failed to generate PDF');
