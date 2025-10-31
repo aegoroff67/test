@@ -364,34 +364,56 @@ function ResultsPage() {
             </div>
             
             {/* Last 12.5% - Action Buttons */}
-            <div className="flex flex-col space-y-3" style={{ width: '12.5%' }}>
+            <div className="flex flex-col space-y-2" style={{ width: '12.5%' }}>
+              {/* DOCX Report Button */}
               <Button 
                 onClick={generateReport}
                 disabled={generatingReport}
-                className="bg-teal-600 hover:bg-teal-700 text-xs px-3 py-2 mb-2"
+                className="bg-teal-600 hover:bg-teal-700 text-xs px-3 py-2"
                 data-testid="generate-report-btn"
               >
                 {generatingReport ? (
-                  <div className="flex flex-col items-center">
-                    <div className="loading-spinner w-3 h-3 mb-1"></div>
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="loading-spinner w-3 h-3"></div>
                     <span>Generating...</span>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center">
-                    <Download className="h-3 w-3 mb-1" />
-                    <span>DOCX Report</span>
+                  <div className="flex items-center justify-center space-x-2">
+                    <Download className="h-3 w-3" />
+                    <span>Detailed Report (DOCX)</span>
                   </div>
                 )}
               </Button>
               
+              {/* Executive Summary PDF Button */}
+              <Button 
+                onClick={generateExecutiveSummaryPDF}
+                disabled={generatingPDF}
+                className="bg-blue-600 hover:bg-blue-700 text-xs px-3 py-2"
+                data-testid="generate-pdf-btn"
+              >
+                {generatingPDF ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="loading-spinner w-3 h-3"></div>
+                    <span>Preparing...</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center space-x-2">
+                    <FileText className="h-3 w-3" />
+                    <span>Executive Summary (PDF)</span>
+                  </div>
+                )}
+              </Button>
+              
+              {/* Request Consultation Button */}
               <Button 
                 variant="outline"
                 className="text-xs px-3 py-2"
                 data-testid="request-consultation-btn"
                 onClick={() => window.open('https://vciso.one/contact', '_blank')}
               >
-                <div className="flex flex-col items-center">
-                  <MessageSquare className="h-3 w-3 mb-1" />
+                <div className="flex items-center justify-center space-x-2">
+                  <MessageSquare className="h-3 w-3" />
                   <span>Request Consultation</span>
                 </div>
               </Button>
