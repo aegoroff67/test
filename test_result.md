@@ -438,6 +438,21 @@
   test_sequence: 1
   run_ui: false
 
+  - task: "Test Assessment Selector page and button functionality"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/AssessmentSelector.js, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+        - agent: "testing"
+        - comment: "CRITICAL AUTHENTICATION ISSUE IDENTIFIED AND FIXED: During initial testing, discovered that the /api/auth/me endpoint was missing from backend server.py, causing authentication failures and preventing proper navigation flow. Users could create accounts but couldn't access protected routes like dashboard and assessment-selector."
+        - working: true
+        - agent: "testing"
+        - comment: "COMPREHENSIVE ASSESSMENT SELECTOR TESTING COMPLETED SUCCESSFULLY: After adding missing /api/auth/me endpoint to backend, conducted full end-to-end testing of Assessment Selector functionality. RESULTS: ✅ User Registration & Login: Account creation and authentication working correctly, ✅ Dashboard Navigation: Successfully redirects to dashboard after signup with proper welcome message, ✅ Assessment Selector Access: 'Start New Assessment' button correctly navigates to /assessment-selector page, ✅ Three Assessment Cards: All three cards displayed correctly (AI Readiness Assessment, Organisation-wide AI Maturity, AI System Assessment), ✅ Coming Soon Badges: Found 4 'Coming Soon' badges on disabled cards, ✅ Button States: AI Readiness and Organisation-wide buttons properly disabled, AI System Assessment button enabled, ✅ Card Highlighting: AI System Assessment card has teal border highlighting as expected, ✅ Button Functionality: 'Start System Assessment' button shows loading state ('Starting...'), displays success toast ('New assessment created!'), and redirects to assessment page, ✅ Assessment Page: Successfully loads with questions after redirect, ✅ API Integration: 5 assessment-related API calls made successfully, ✅ Error Handling: No console errors detected during entire flow. The Assessment Selector page and button functionality is fully operational and meets all specified requirements."
+
   - task: "Test adjusted Progress panel alignment and verify subtitle change in AM AI SAFE application"
     implemented: true
     working: true
