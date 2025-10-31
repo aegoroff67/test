@@ -159,6 +159,7 @@ class AssessmentCreate(BaseModel):
 class AssessmentResponse(BaseModel):
     id: str
     name: str
+    assessment_type: str = "System"
     status: str
     started_at: datetime
     completed_at: Optional[datetime]
