@@ -196,6 +196,7 @@ export default function AssessmentSelector() {
                   onClick={handleSystemAssessment}
                   disabled={creating}
                   data-testid="system-assessment-btn"
+                  type="button"
                 >
                   {creating ? (
                     <div className="flex items-center justify-center space-x-2">
@@ -205,6 +206,15 @@ export default function AssessmentSelector() {
                   ) : (
                     'Start System Assessment'
                   )}
+                </Button>
+                
+                {/* Debug button */}
+                <Button 
+                  className="w-full mt-2 bg-red-600 hover:bg-red-700"
+                  onClick={testClick}
+                  type="button"
+                >
+                  Test Click (Debug)
                 </Button>
               </div>
             </CardContent>
