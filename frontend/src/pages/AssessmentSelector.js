@@ -27,7 +27,8 @@ export default function AssessmentSelector() {
       const response = await axios.post(`${API}/assessments`, {});
       if (response.data && response.data.id) {
         toast.success('New assessment created!');
-        navigate(`/assessment/${response.data.id}`);
+        // Redirect to onboarding page instead of directly to assessment
+        navigate(`/assessment/${response.data.id}/onboarding`);
       } else {
         throw new Error('Invalid response from server');
       }
