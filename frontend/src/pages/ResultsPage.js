@@ -475,11 +475,11 @@ function ResultsPage() {
         {/* Right Panel - 25% width */}
         <div className="w-1/4 bg-white overflow-y-auto">
           <div className="p-4">
-            {/* Pie Chart - Answer Score Distribution */}
+            {/* Pie Chart - Response Distribution */}
             <div className="mb-6">
               <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
                 <BarChart3 className="h-4 w-4 text-teal-600" />
-                <span>Answer Score Distribution</span>
+                <span>Response Distribution</span>
               </h2>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
