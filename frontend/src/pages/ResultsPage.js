@@ -599,8 +599,8 @@ function ResultsPage() {
             </div>
 
             {/* Key Strengths */}
-            <div className="mb-6">
-              <div className="mb-3">
+            <div className="mb-3">
+              <div className="mb-2">
                 <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
                   <CheckCircle2 className="h-4 w-4 text-green-600" />
                   <span>Key Strengths</span>
@@ -609,7 +609,7 @@ function ResultsPage() {
                   Domains demonstrating the strongest maturity, effective governance, and well-embedded responsible AI practices.
                 </p>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 {[...summary.domain_scores]
                   .sort((a, b) => b.percentage - a.percentage) // Sort highest first
                   .slice(0, 3)
