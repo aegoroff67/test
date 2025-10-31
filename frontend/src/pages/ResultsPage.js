@@ -70,6 +70,7 @@ function ResultsPage() {
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [generatingReport, setGeneratingReport] = useState(false);
+  const [generatingPDF, setGeneratingPDF] = useState(false);
 
   useEffect(() => {
     fetchResults();
