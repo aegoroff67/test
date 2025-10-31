@@ -283,14 +283,27 @@ function Dashboard() {
                         </div>
                       </div>
                       
-                      <Button 
-                        onClick={() => navigate(`/assessment/${assessment.id}`)}
-                        className="w-full bg-teal-600 hover:bg-teal-700"
-                        data-testid={`resume-assessment-${assessment.id}`}
-                      >
-                        <Play className="h-4 w-4 mr-2" />
-                        Resume Assessment
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button 
+                          onClick={() => navigate(`/assessment/${assessment.id}`)}
+                          className="flex-1 bg-teal-600 hover:bg-teal-700"
+                          data-testid={`resume-assessment-${assessment.id}`}
+                        >
+                          <Play className="h-4 w-4 mr-2" />
+                          Resume Assessment
+                        </Button>
+                        <Button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteAssessment(assessment.id, assessment.name);
+                          }}
+                          variant="outline"
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+                          data-testid={`delete-assessment-${assessment.id}`}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 ))
