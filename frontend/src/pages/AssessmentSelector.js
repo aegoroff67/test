@@ -24,11 +24,17 @@ export default function AssessmentSelector() {
   const handleSystemAssessment = async () => {
     setCreating(true);
     try {
-      const response = await axios.post(`${API}/assessments`);
-      toast.success('New assessment created!');
-      navigate(`/assessment/${response.data.id}`);
+      const response = await axios.post(`${API}/assessments`, {});
+      if (response.data && response.data.id) {
+        toast.success('New assessment created!');
+        navigate(`/assessment/${response.data.id}`);
+      } else {
+        throw new Error('Invalid response from server');
+      }
     } catch (error) {
-      toast.error('Failed to create assessment');
+      console.error('Assessment creation error:', error);
+      const errorMessage = error.response?.data?.detail || error.message || 'Failed to create assessment';
+      toast.error(errorMessage);
       setCreating(false);
     }
   };
