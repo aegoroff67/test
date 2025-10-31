@@ -772,8 +772,14 @@ async def generate_executive_summary_pdf(
             logger.info(f"PDF generated at: {temp_pdf_path}")
             await browser.close()
         
-        # Generate filename
-        assessment_name = assessment.get('name', 'Assessment').replace(' ', '_')
+        # Generate filename - sanitize for HTTP headers (latin-1 compatible)
+        assessment_name = assessment.get('name', 'Assessment')
+        # Replace special characters with ASCII equivalents
+        assessment_name = assessment_name.replace('–', '-')  # en-dash to hyphen
+        assessment_name = assessment_name.replace('—', '-')  # em-dash to hyphen
+        assessment_name = assessment_name.replace(' ', '_')
+        # Remove any non-ASCII characters
+        assessment_name = assessment_name.encode('ascii', 'ignore').decode('ascii')
         filename = f"Executive_Summary_{assessment_name}.pdf"
         
         # Return PDF file
