@@ -194,15 +194,6 @@ export default function AssessmentSelector() {
                     'Start System Assessment'
                   )}
                 </Button>
-                
-                {/* Debug button */}
-                <Button 
-                  className="w-full mt-2 bg-red-600 hover:bg-red-700"
-                  onClick={testClick}
-                  type="button"
-                >
-                  Test Click (Debug)
-                </Button>
               </div>
             </CardContent>
           </Card>
