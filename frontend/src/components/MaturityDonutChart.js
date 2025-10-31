@@ -1,13 +1,12 @@
 import React from 'react';
 
 const MaturityStackedColumn = ({ score }) => {
-  // Define the 5 maturity tiers
+  // Define the 4 maturity tiers with new ranges
   const tiers = [
-    { name: 'Excellent', min: 91, max: 100, color: '#008040', percentage: 10 },
-    { name: 'Good', min: 81, max: 90, color: '#00B050', percentage: 10 },
-    { name: 'Moderate', min: 61, max: 80, color: '#FFFF00', percentage: 20 },
-    { name: 'Low', min: 41, max: 60, color: '#FFC000', percentage: 20 },
-    { name: 'Basic', min: 0, max: 40, color: '#FF0000', percentage: 40 }
+    { name: 'Leading', min: 86, max: 100, color: '#00B050', percentage: 15 },      // 15% of bar
+    { name: 'Established', min: 66, max: 85, color: '#FFFF00', percentage: 20 },   // 20% of bar
+    { name: 'Developing', min: 41, max: 65, color: '#FFC000', percentage: 25 },    // 25% of bar
+    { name: 'Foundational', min: 0, max: 40, color: '#FF0000', percentage: 40 }    // 40% of bar
   ];
 
   // Determine which tier the score falls into
@@ -17,7 +16,7 @@ const MaturityStackedColumn = ({ score }) => {
         return tier.name;
       }
     }
-    return 'Basic';
+    return 'Foundational';
   };
 
   const currentTier = getCurrentTier(score);
