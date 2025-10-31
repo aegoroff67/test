@@ -354,7 +354,8 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
             started_at=assessment["started_at"],
             completed_at=assessment.get("completed_at"),
             progress=assessment["progress"],
-            total_questions=total_questions
+            total_questions=total_questions,
+            system_info=assessment.get("system_info")
         )
         for assessment in assessments
     ]
