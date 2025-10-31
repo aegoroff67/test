@@ -180,8 +180,8 @@ export default function AssessmentSelector() {
               </div>
               <CardTitle className="text-xl text-gray-900">AI System Assessment</CardTitle>
             </CardHeader>
-            <CardContent className="flex h-full flex-col justify-between">
-              <div className="space-y-2">
+            <CardContent className="p-6">
+              <div className="space-y-2 mb-6">
                 <p className="text-sm text-gray-700">
                   Assess a specific AI system for governance, ethics, and compliance. Review bias, explainability, and
                   lifecycle controls for your chosen system.
@@ -190,7 +190,7 @@ export default function AssessmentSelector() {
                   Recommended if you already have an active AI model or application.
                 </p>
               </div>
-              <div className="mt-4">
+              <div>
                 <Button 
                   className="w-full bg-teal-600 hover:bg-teal-700 btn-hover"
                   onClick={handleSystemAssessment}
