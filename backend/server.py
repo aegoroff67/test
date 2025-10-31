@@ -735,24 +735,46 @@ async def generate_executive_summary_pdf(
                 java_script_enabled=True
             )
             
-            # Add authentication header
-            auth_header = f"Bearer {jwt.encode({'sub': current_user.id, 'exp': datetime.now(timezone.utc) + timedelta(minutes=5)}, SECRET_KEY, algorithm=ALGORITHM)}"
-            await context.set_extra_http_headers({
-                'Authorization': auth_header
-            })
-            
             page = await context.new_page()
             
-            # Navigate to results page
-            logger.info(f"Navigating to {results_url}")
+            # Generate auth token
+            auth_token = jwt.encode(
+                {'sub': current_user.id, 'exp': datetime.now(timezone.utc) + timedelta(minutes=5)}, 
+                SECRET_KEY, 
+                algorithm=ALGORITHM
+            )
+            
+            # Navigate to the app first to set localStorage
+            logger.info(f"Navigating to base URL to set auth")
+            await page.goto(frontend_url, wait_until='domcontentloaded', timeout=30000)
+            
+            # Inject authentication token into localStorage
+            await page.evaluate(f"""
+                localStorage.setItem('token', '{auth_token}');
+                localStorage.setItem('user', '{{"id": "{current_user.id}", "email": "{current_user.email}", "organization_name": "{current_user.organization_name}"}}');
+            """)
+            
+            logger.info(f"Auth token set, navigating to {results_url}")
+            
+            # Now navigate to results page with authentication
             response = await page.goto(results_url, wait_until='networkidle', timeout=60000)
             logger.info(f"Page loaded with status: {response.status}")
             
-            # Wait a bit more for dynamic content
-            await page.wait_for_timeout(2000)
+            # Wait a bit more for dynamic content and charts to render
+            await page.wait_for_timeout(3000)
+            
+            # Verify we're on the right page (not login)
+            page_title = await page.title()
+            logger.info(f"Page title: {page_title}")
+            
+            # Check if we're on login page
+            login_check = await page.query_selector('text=Login') or await page.query_selector('text=Sign In')
+            if login_check:
+                logger.error("Still on login page after setting token!")
+                raise Exception("Authentication failed - redirected to login page")
             
             # Take screenshot for debugging (optional)
-            # await page.screenshot(path='/tmp/debug.png')
+            # await page.screenshot(path='/tmp/debug.png', full_page=True)
             
             # Generate PDF with exact specifications
             await page.pdf(
