@@ -35,6 +35,15 @@ const getScoreColor = (percentage) => {
 
 const getMaturityBadge = (maturity) => {
   switch (maturity) {
+    case 'Leading':
+      return { color: 'bg-green-100 text-green-800', icon: CheckCircle2 };
+    case 'Established':
+      return { color: 'bg-blue-100 text-blue-800', icon: TrendingUp };
+    case 'Developing':
+      return { color: 'bg-yellow-100 text-yellow-800', icon: TrendingUp };
+    case 'Foundational':
+      return { color: 'bg-red-100 text-red-800', icon: AlertTriangle };
+    // Legacy support for old tier names
     case 'Excellent':
       return { color: 'bg-green-100 text-green-800', icon: CheckCircle2 };
     case 'Good':
