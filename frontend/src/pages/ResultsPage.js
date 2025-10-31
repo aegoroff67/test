@@ -231,6 +231,30 @@ function ResultsPage() {
     }
   };
 
+  const generateExecutiveSummaryPDF = async () => {
+    setGeneratingPDF(true);
+    try {
+      // Use browser's print functionality to save as PDF
+      // Create a simplified version for printing
+      const printContent = document.querySelector('.results-summary-content');
+      
+      if (!printContent) {
+        toast.error('Content not ready for PDF generation');
+        return;
+      }
+
+      // Open print dialog which allows saving as PDF
+      window.print();
+      
+      toast.success('Use your browser\'s print dialog to save as PDF');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      toast.error('Failed to generate PDF');
+    } finally {
+      setGeneratingPDF(false);
+    }
+  };
+
   // generatePDFReport function removed
 
   if (loading) {
