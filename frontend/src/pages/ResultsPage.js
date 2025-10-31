@@ -308,11 +308,10 @@ function ResultsPage() {
             <div className="px-4" style={{ width: '20%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2 mt-0">Maturity Tier Description</p>
               <div className="text-xs text-gray-700 space-y-1">
-                <p><span className="font-bold">Basic (0-40%):</span> Ad-hoc / reactive</p>
-                <p><span className="font-bold">Low (41-60%):</span> Minimal governance</p>
-                <p><span className="font-bold">Moderate (61-80%):</span> Defined processes</p>
-                <p><span className="font-bold">Good (81-90%):</span> Managed & measured</p>
-                <p><span className="font-bold">Excellent (91-100%):</span> Continuous improvement</p>
+                <p><span className="font-bold">Foundational (0-40%):</span> Ad-hoc Beginnings</p>
+                <p><span className="font-bold">Developing (41-65%):</span> Emerging Structure</p>
+                <p><span className="font-bold">Established (66-85%):</span> Integrated Governance</p>
+                <p><span className="font-bold">Leading (86-100%):</span> Optimised Excellence</p>
               </div>
             </div>
 
