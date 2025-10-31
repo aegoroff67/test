@@ -369,7 +369,7 @@ function AssessmentPage() {
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="flex justify-between items-center h-12 sm:h-14 compact-header">
+          <div className="flex items-center h-12 sm:h-14 compact-header gap-4">
             {/* Logo & Title */}
             <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="bg-teal-600 p-1.5 sm:p-2 rounded-lg">
@@ -382,7 +382,7 @@ function AssessmentPage() {
             </div>
 
             {/* Assessment Name - Center */}
-            <div className="hidden lg:flex flex-1 justify-center px-4">
+            <div className="hidden lg:flex flex-1 justify-center">
               <div className="text-center max-w-md">
                 <p className="text-sm font-semibold text-gray-900 truncate">
                   {assessment?.name || 'Loading...'}
@@ -390,7 +390,7 @@ function AssessmentPage() {
               </div>
             </div>
 
-            {/* Progress - Hidden on small screens, shown in compact form on medium+ */}
+            {/* Progress - Between assessment name and buttons */}
             <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
               <div className="text-right">
                 <p className="text-xs lg:text-sm font-medium text-gray-900">
