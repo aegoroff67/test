@@ -23,14 +23,10 @@ export default function AssessmentSelector() {
 
   const handleSystemAssessment = async () => {
     setCreating(true);
-    console.log('Creating state set to true');
     try {
-      console.log('Making POST request to:', `${API}/assessments`);
       const response = await axios.post(`${API}/assessments`, {});
-      console.log('Response received:', response);
       if (response.data && response.data.id) {
         toast.success('New assessment created!');
-        console.log('Navigating to:', `/assessment/${response.data.id}`);
         navigate(`/assessment/${response.data.id}`);
       } else {
         throw new Error('Invalid response from server');
@@ -44,13 +40,7 @@ export default function AssessmentSelector() {
   };
 
   const handleComingSoon = (assessmentType) => {
-    console.log('handleComingSoon called for:', assessmentType);
     toast.info(`${assessmentType} coming soon!`);
-  };
-
-  const testClick = () => {
-    console.log('TEST CLICK WORKING');
-    alert('Button click is working!');
   };
 
   return (
