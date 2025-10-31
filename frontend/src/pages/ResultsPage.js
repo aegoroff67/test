@@ -336,9 +336,6 @@ function ResultsPage() {
                     : 'minimal or inconsistent AI governance, with most practices being reactive or informal. Policies, processes, and accountability structures are largely undeveloped, resulting in fragmented oversight and heightened risk exposure. Immediate action is required to establish a foundational governance framework, define roles and responsibilities, and embed basic ethical and risk management principles.'
                 }
               </p>
-              <p className="text-xs text-gray-700 mt-2">
-                The heatmap below shows domains and questions sorted by lowest score to help prioritize improvement areas. Generate a report for further details.
-              </p>
             </div>
             
             {/* Last 12.5% - Action Buttons */}
