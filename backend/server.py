@@ -312,14 +312,15 @@ async def get_current_user_info(current_user: UserResponse = Depends(get_current
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
 async def create_assessment(current_user: UserResponse = Depends(get_current_user)):
-    # Count existing assessments to generate name
-    assessment_count = await db.assessments.count_documents({"org_id": current_user.org_id})
-    assessment_name = f"Assessment {assessment_count + 1}"
+    # Generate initial assessment name with format: [Type] – [TBD] – Started YYYY-MM-DD
+    started_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    assessment_name = f"System – [TBD] – Started {started_date}"
     
     assessment = Assessment(
         org_id=current_user.org_id,
         user_id=current_user.id,
-        name=assessment_name
+        name=assessment_name,
+        assessment_type="System"
     )
     
     await db.assessments.insert_one(assessment.dict())
