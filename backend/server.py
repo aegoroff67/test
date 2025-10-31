@@ -334,6 +334,7 @@ async def create_assessment(current_user: UserResponse = Depends(get_current_use
     return AssessmentResponse(
         id=assessment.id,
         name=assessment.name,
+        assessment_type=assessment.assessment_type,
         status=assessment.status,
         started_at=assessment.started_at,
         completed_at=assessment.completed_at,
