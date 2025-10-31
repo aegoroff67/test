@@ -283,11 +283,9 @@ function ResultsPage() {
               </div>
             </div>
 
-            {/* Center - Assessment Name and Organization Info */}
+            {/* Center - Assessment Name */}
             <div className="flex flex-col items-center">
-              <p className="text-sm font-bold text-gray-900 mb-1">{assessment?.name || 'Loading...'}</p>
-              <p className="text-xs font-semibold text-gray-700">Organisation: {user?.organization_name}</p>
-              <p className="text-xs font-semibold text-gray-700">Report Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+              <p className="text-sm font-bold text-gray-900">{assessment?.name || 'Loading...'}</p>
             </div>
 
             {/* Back Button */}
