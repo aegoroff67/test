@@ -375,6 +375,26 @@ async def get_assessment(assessment_id: str, current_user: UserResponse = Depend
         total_questions=total_questions
     )
 
+@api_router.put("/assessments/{assessment_id}/system-info")
+async def update_system_info(
+    assessment_id: str,
+    system_info: dict,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    # Verify assessment belongs to user's organization
+    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Update the system_info field
+    await db.assessments.update_one(
+        {"id": assessment_id},
+        {"$set": {"system_info": system_info}}
+    )
+    
+    return {"success": True, "message": "System information updated"}
+
 @api_router.post("/assessments/{assessment_id}/answer")
 async def submit_answer(
     assessment_id: str, 
