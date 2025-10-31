@@ -476,12 +476,12 @@ function ResultsPage() {
         <div className="w-1/4 bg-white overflow-y-auto">
           <div className="p-4">
             {/* Pie Chart - Response Distribution */}
-            <div className="mb-6">
-              <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+            <div className="mb-3">
+              <h2 className="text-base font-bold text-gray-900 mb-1 flex items-center space-x-2">
                 <BarChart3 className="h-4 w-4 text-teal-600" />
                 <span>Response Distribution</span>
               </h2>
-              <div className="h-64">
+              <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
