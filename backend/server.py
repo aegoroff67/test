@@ -571,16 +571,15 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
     # Calculate overall metrics
     overall_percentage = (overall_score / overall_max_score * 100) if overall_max_score > 0 else 0
     
-    if overall_percentage >= 91:
-        overall_maturity = "Excellent"
-    elif overall_percentage >= 81:
-        overall_maturity = "Good"
-    elif overall_percentage >= 61:
-        overall_maturity = "Moderate"
+    # Updated maturity tiers aligned with new scale
+    if overall_percentage >= 86:
+        overall_maturity = "Leading"
+    elif overall_percentage >= 66:
+        overall_maturity = "Established"
     elif overall_percentage >= 41:
-        overall_maturity = "Low"
+        overall_maturity = "Developing"
     else:
-        overall_maturity = "Basic"
+        overall_maturity = "Foundational"
     
     return AssessmentSummary(
         overall_percentage=round(overall_percentage, 1),
