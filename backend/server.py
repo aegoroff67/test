@@ -717,15 +717,7 @@ async def generate_executive_summary_pdf(
         
         logger.info(f"Generating PDF for URL: {results_url}")
         
-        # Generate JWT token for authentication
-        token = jwt.encode(
-            {
-                "sub": current_user.id,
-                "exp": datetime.now(timezone.utc) + timedelta(minutes=5)
-            },
-            SECRET_KEY,
-            algorithm=ALGORITHM
-        )
+        logger.info(f"Generating PDF for URL: {results_url}")
         
         # Create temporary file for PDF
         temp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
@@ -733,25 +725,34 @@ async def generate_executive_summary_pdf(
         temp_pdf.close()
         
         async with async_playwright() as p:
-            # Launch browser
-            browser = await p.chromium.launch(headless=True)
-            context = await browser.new_context()
+            # Launch browser with explicit executable path
+            browser = await p.chromium.launch(
+                headless=True,
+                args=['--no-sandbox', '--disable-setuid-sandbox']
+            )
+            context = await browser.new_context(
+                viewport={'width': 1920, 'height': 1080},
+                java_script_enabled=True
+            )
             
-            # Set authentication cookie/token
-            await context.add_cookies([{
-                'name': 'auth_token',
-                'value': token,
-                'domain': 'localhost',
-                'path': '/'
-            }])
+            # Add authentication header
+            auth_header = f"Bearer {jwt.encode({'sub': current_user.id, 'exp': datetime.now(timezone.utc) + timedelta(minutes=5)}, SECRET_KEY, algorithm=ALGORITHM)}"
+            await context.set_extra_http_headers({
+                'Authorization': auth_header
+            })
             
             page = await context.new_page()
             
             # Navigate to results page
-            await page.goto(results_url, wait_until='networkidle', timeout=30000)
+            logger.info(f"Navigating to {results_url}")
+            response = await page.goto(results_url, wait_until='networkidle', timeout=60000)
+            logger.info(f"Page loaded with status: {response.status}")
             
-            # Wait for content to load
-            await page.wait_for_selector('.results-summary-content', timeout=10000)
+            # Wait a bit more for dynamic content
+            await page.wait_for_timeout(2000)
+            
+            # Take screenshot for debugging (optional)
+            # await page.screenshot(path='/tmp/debug.png')
             
             # Generate PDF with exact specifications
             await page.pdf(
@@ -768,6 +769,7 @@ async def generate_executive_summary_pdf(
                 }
             )
             
+            logger.info(f"PDF generated at: {temp_pdf_path}")
             await browser.close()
         
         # Generate filename
