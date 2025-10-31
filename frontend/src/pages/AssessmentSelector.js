@@ -149,8 +149,8 @@ export default function AssessmentSelector() {
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent className="flex h-full flex-col justify-between">
-              <div className="space-y-2">
+            <CardContent className="p-6">
+              <div className="space-y-2 mb-6">
                 <p className="text-sm text-gray-600">
                   Evaluate your organisation's overall AI governance and maturity. Benchmark policies, processes, and
                   culture against global standards.
@@ -159,7 +159,7 @@ export default function AssessmentSelector() {
                   Best for organisations with multiple AI projects or growing AI teams.
                 </p>
               </div>
-              <div className="mt-4">
+              <div>
                 <Button 
                   className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
                   disabled
