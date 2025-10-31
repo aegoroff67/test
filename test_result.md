@@ -500,7 +500,7 @@
 
 ## test_plan:
   current_focus: 
-    - "Fix heatmap layout text overlapping issue with vertical stacking"
+    - "Test Assessment Selector page flow with three assessment cards and AI System Assessment functionality"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
