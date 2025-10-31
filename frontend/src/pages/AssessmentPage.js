@@ -381,6 +381,15 @@ function AssessmentPage() {
               </div>
             </div>
 
+            {/* Assessment Name - Center */}
+            <div className="hidden lg:flex flex-1 justify-center px-4">
+              <div className="text-center max-w-md">
+                <p className="text-sm font-semibold text-gray-900 truncate">
+                  {assessment?.name || 'Loading...'}
+                </p>
+              </div>
+            </div>
+
             {/* Progress - Hidden on small screens, shown in compact form on medium+ */}
             <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
               <div className="text-right">
