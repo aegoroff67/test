@@ -408,13 +408,23 @@ async def update_system_info(
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
-    # Update the system_info field
+    # Update the assessment name with the target name from system_info
+    updated_name = assessment["name"]
+    if system_info.get("systemName"):
+        # Extract the assessment type and date from current name
+        assessment_type = assessment.get("assessment_type", "System")
+        started_date = assessment["started_at"].strftime("%Y-%m-%d")
+        # Generate new name: [Type] – [Target Name] – Started YYYY-MM-DD
+        updated_name = f"{assessment_type} – {system_info['systemName']} – Started {started_date}"
+    
+    # Update both system_info and name
     await db.assessments.update_one(
         {"id": assessment_id},
-        {"$set": {"system_info": system_info}}
+        {"$set": {"system_info": system_info, "name": updated_name}}
     )
     
     return {"success": True, "message": "System information updated"}
+
 
 @api_router.post("/assessments/{assessment_id}/answer")
 async def submit_answer(
