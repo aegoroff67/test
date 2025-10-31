@@ -352,7 +352,8 @@ function Dashboard() {
                       </div>
                     </CardContent>
                   </Card>
-                ))
+                  );
+                })
               )}
             </div>
           </div>
@@ -425,7 +426,8 @@ function Dashboard() {
                       </div>
                     </CardContent>
                   </Card>
-                ))
+                  );
+                })
               )}
             </div>
           </div>
