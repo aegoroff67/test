@@ -106,6 +106,7 @@ class Assessment(BaseModel):
     started_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     completed_at: Optional[datetime] = None
     progress: int = 0  # Number of questions answered
+    system_info: Optional[dict] = None  # Pre-assessment system information
 
 class Answer(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
