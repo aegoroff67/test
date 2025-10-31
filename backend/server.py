@@ -303,6 +303,9 @@ async def login(user_data: UserLogin):
     )
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
+@api_router.get("/auth/me", response_model=UserResponse)
+async def get_current_user_info(current_user: UserResponse = Depends(get_current_user)):
+    return current_user
 
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
