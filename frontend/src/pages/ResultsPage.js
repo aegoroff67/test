@@ -514,15 +514,15 @@ function ResultsPage() {
                           .map(([name, value]) => ({ name, value }));
                       })()}
                       cx="50%"
-                      cy="45%"
+                      cy="50%"
                       innerRadius={0}
-                      outerRadius={70}
+                      outerRadius={55}
                       paddingAngle={2}
                       dataKey="value"
                       label={(props) => {
                         const { cx, cy, midAngle, outerRadius, name, value } = props;
                         const RADIAN = Math.PI / 180;
-                        const radius = outerRadius + 25;
+                        const radius = outerRadius + 20;
                         const x = cx + radius * Math.cos(-midAngle * RADIAN);
                         const y = cy + radius * Math.sin(-midAngle * RADIAN);
                         
