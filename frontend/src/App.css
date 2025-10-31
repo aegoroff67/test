@@ -378,10 +378,27 @@ body {
   }
 }
 
-/* Print styles */
+/* Print styles for PDF generation */
 @media print {
-  .no-print {
+  .no-print,
+  header button,
+  .no-print-button {
     display: none !important;
+  }
+  
+  .results-summary-content {
+    page-break-after: avoid;
+  }
+  
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  /* Ensure charts and colors print correctly */
+  * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 }
 
