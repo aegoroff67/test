@@ -287,11 +287,21 @@ function Dashboard() {
                   </CardContent>
                 </Card>
               ) : (
-                incompleteAssessments.map((assessment) => (
+                incompleteAssessments.map((assessment) => {
+                  const typeBadge = getAssessmentTypeBadge(assessment.assessment_type);
+                  const BadgeIcon = typeBadge.icon;
+                  
+                  return (
                   <Card key={assessment.id} className="card-hover">
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between mb-4">
-                        <div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Badge className={`${typeBadge.bgColor} ${typeBadge.textColor} flex items-center gap-1`}>
+                              <BadgeIcon className={`h-3 w-3 ${typeBadge.iconColor}`} />
+                              <span>{typeBadge.label}</span>
+                            </Badge>
+                          </div>
                           <h3 className="font-medium text-gray-900">{assessment.name}</h3>
                           <p className="text-sm text-gray-500">
                             Started {new Date(assessment.started_at).toLocaleDateString()}
