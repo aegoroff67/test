@@ -598,12 +598,17 @@ function ResultsPage() {
               </div>
             </div>
 
-            {/* Top 3 Strengths */}
+            {/* Key Strengths */}
             <div className="mb-6">
-              <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
-                <CheckCircle2 className="h-4 w-4 text-green-600" />
-                <span>Top 3 Strengths</span>
-              </h2>
+              <div className="mb-3">
+                <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  <span>Key Strengths</span>
+                </h2>
+                <p className="text-xs text-gray-600 ml-6">
+                  Domains demonstrating the strongest maturity, effective governance, and well-embedded responsible AI practices.
+                </p>
+              </div>
               <div className="space-y-2">
                 {[...summary.domain_scores]
                   .sort((a, b) => b.percentage - a.percentage) // Sort highest first
@@ -630,9 +635,9 @@ function ResultsPage() {
               </div>
             </div>
 
-            {/* Top 3 Gaps */}
+            {/* Priority Improvement Areas */}
             <div>
-              <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+              <div className="mb-3">
                 <AlertTriangle className="h-4 w-4 text-red-600" />
                 <span>Top 3 Gaps</span>
               </h2>
