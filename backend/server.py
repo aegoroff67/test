@@ -709,14 +709,31 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
             detail=f"Cannot submit assessment. {total_questions - answered_questions} questions remain unanswered."
         )
     
+    # Update the assessment name to replace "Started" with "Completed"
+    completed_date = datetime.now(timezone.utc)
+    current_name = assessment["name"]
+    
+    # Replace "Started YYYY-MM-DD" with "Completed YYYY-MM-DD"
+    if "Started" in current_name:
+        # Extract everything before the date part
+        parts = current_name.split(" – ")
+        if len(parts) >= 3:
+            # parts[0] = Type, parts[1] = Target Name, parts[2] = "Started YYYY-MM-DD"
+            updated_name = f"{parts[0]} – {parts[1]} – Completed {completed_date.strftime('%Y-%m-%d')}"
+        else:
+            updated_name = current_name
+    else:
+        updated_name = current_name
+    
     # Mark assessment as completed
     await db.assessments.update_one(
         {"id": assessment_id},
         {
             "$set": {
                 "status": AssessmentStatus.COMPLETED,
-                "completed_at": datetime.now(timezone.utc),
-                "progress": total_questions
+                "completed_at": completed_date,
+                "progress": total_questions,
+                "name": updated_name
             }
         }
     )
@@ -725,7 +742,7 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
         "status": "success",
         "message": "Assessment submitted successfully",
         "assessment_id": assessment_id,
-        "completed_at": datetime.now(timezone.utc).isoformat()
+        "completed_at": completed_date.isoformat()
     }
 
 # Admin endpoints
