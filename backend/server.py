@@ -691,6 +691,97 @@ async def generate_report_docx(assessment_id: str, current_user: UserResponse = 
         raise HTTPException(status_code=500, detail=f"Failed to generate DOCX report: {str(e)}")
 
 
+@api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
+async def generate_executive_summary_pdf(
+    assessment_id: str, 
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Generate executive summary PDF with exact specifications"""
+    try:
+        from playwright.async_api import async_playwright
+        
+        # Verify assessment belongs to user's organization
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        if not assessment:
+            raise HTTPException(status_code=404, detail="Assessment not found")
+        
+        # Get frontend URL from environment
+        frontend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:3000')
+        # Construct results page URL
+        results_url = f"{frontend_url}/results/{assessment_id}"
+        
+        # Generate JWT token for authentication
+        token = jwt.encode(
+            {
+                "sub": current_user.id,
+                "exp": datetime.now(timezone.utc) + timedelta(minutes=5)
+            },
+            SECRET_KEY,
+            algorithm=ALGORITHM
+        )
+        
+        # Create temporary file for PDF
+        temp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
+        temp_pdf_path = temp_pdf.name
+        temp_pdf.close()
+        
+        async with async_playwright() as p:
+            # Launch browser
+            browser = await p.chromium.launch(headless=True)
+            context = await browser.new_context()
+            
+            # Set authentication cookie/token
+            await context.add_cookies([{
+                'name': 'auth_token',
+                'value': token,
+                'domain': 'localhost',
+                'path': '/'
+            }])
+            
+            page = await context.new_page()
+            
+            # Navigate to results page
+            await page.goto(results_url, wait_until='networkidle', timeout=30000)
+            
+            # Wait for content to load
+            await page.wait_for_selector('.results-summary-content', timeout=10000)
+            
+            # Generate PDF with exact specifications
+            await page.pdf(
+                path=temp_pdf_path,
+                format='A4',
+                landscape=True,
+                scale=0.68,
+                print_background=True,
+                margin={
+                    'top': '1cm',
+                    'right': '1cm',
+                    'bottom': '1cm',
+                    'left': '1cm'
+                }
+            )
+            
+            await browser.close()
+        
+        # Generate filename
+        assessment_name = assessment.get('name', 'Assessment').replace(' ', '_')
+        filename = f"Executive_Summary_{assessment_name}.pdf"
+        
+        # Return PDF file
+        return FileResponse(
+            temp_pdf_path,
+            media_type='application/pdf',
+            filename=filename,
+            headers={
+                'Content-Disposition': f'attachment; filename="{filename}"'
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error generating executive summary PDF: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to generate PDF: {str(e)}")
+
+
 @api_router.post("/assessments/{assessment_id}/submit")
 async def submit_assessment(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
