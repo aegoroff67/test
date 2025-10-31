@@ -637,7 +637,7 @@ function ResultsPage() {
 
             {/* Priority Improvement Areas */}
             <div>
-              <div className="mb-3">
+              <div className="mb-2">
                 <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
                   <AlertTriangle className="h-4 w-4 text-red-600" />
                   <span>Priority Improvement Areas</span>
@@ -646,7 +646,7 @@ function ResultsPage() {
                   Domains requiring focused uplift to strengthen oversight, consistency, and alignment with leading AI governance standards.
                 </p>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 {[...summary.domain_scores]
                   .sort((a, b) => a.percentage - b.percentage) // Sort lowest first
                   .slice(0, 3)
