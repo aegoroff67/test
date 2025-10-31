@@ -102,6 +102,7 @@ class Assessment(BaseModel):
     org_id: str
     user_id: str
     name: str
+    assessment_type: str = "System"  # "System", "Readiness", or "Organisation"
     status: AssessmentStatus = AssessmentStatus.INCOMPLETE
     started_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     completed_at: Optional[datetime] = None
