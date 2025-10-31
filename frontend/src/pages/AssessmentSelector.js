@@ -113,8 +113,8 @@ export default function AssessmentSelector() {
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent className="flex h-full flex-col justify-between">
-              <div className="space-y-2">
+            <CardContent className="p-6">
+              <div className="space-y-2 mb-6">
                 <p className="text-sm text-gray-600">
                   Understand your organisation's preparedness for AI adoption. Identify governance gaps, risks, and
                   capabilities before you begin implementing AI.
@@ -123,7 +123,7 @@ export default function AssessmentSelector() {
                   Ideal for organisations not yet using AI or just starting out.
                 </p>
               </div>
-              <div className="mt-4">
+              <div>
                 <Button 
                   className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
                   disabled
