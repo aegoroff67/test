@@ -130,7 +130,7 @@ export default function AssessmentSelector() {
                 <Building2 className="h-6 w-6 text-gray-500" aria-hidden />
               </div>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-xl text-gray-700">Organisation-wide AI Maturity</CardTitle>
+                <CardTitle className="text-xl text-gray-700">Organisation-wide AI Maturity Assessment</CardTitle>
                 <Badge variant="outline" className="text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
                   Coming Soon
                 </Badge>
