@@ -68,6 +68,40 @@ function Dashboard() {
     }
   };
 
+  const getAssessmentTypeBadge = (assessmentType) => {
+    // Determine badge based on assessment type
+    // Default to 'System' if not specified for backward compatibility
+    const type = assessmentType || 'System';
+    
+    switch(type) {
+      case 'Readiness':
+        return {
+          icon: Lightbulb,
+          label: 'Readiness',
+          bgColor: 'bg-purple-100',
+          textColor: 'text-purple-700',
+          iconColor: 'text-purple-600'
+        };
+      case 'Organisation':
+        return {
+          icon: Building2,
+          label: 'Organisation-wide',
+          bgColor: 'bg-blue-100',
+          textColor: 'text-blue-700',
+          iconColor: 'text-blue-600'
+        };
+      case 'System':
+      default:
+        return {
+          icon: Bot,
+          label: 'System',
+          bgColor: 'bg-teal-100',
+          textColor: 'text-teal-700',
+          iconColor: 'text-teal-600'
+        };
+    }
+  };
+
   const handleLogout = () => {
     logout();
     toast.success('Logged out successfully');
