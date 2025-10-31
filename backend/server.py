@@ -749,9 +749,17 @@ async def generate_executive_summary_pdf(
             await page.goto(frontend_url, wait_until='domcontentloaded', timeout=30000)
             
             # Inject authentication token into localStorage
+            user_json = {
+                "id": current_user.id,
+                "email": current_user.email,
+                "organization_name": current_user.organization_name
+            }
+            import json
+            user_json_str = json.dumps(user_json).replace("'", "\\'")
+            
             await page.evaluate(f"""
                 localStorage.setItem('token', '{auth_token}');
-                localStorage.setItem('user', '{{"id": "{current_user.id}", "email": "{current_user.email}", "organization_name": "{current_user.organization_name}"}}');
+                localStorage.setItem('user', '{user_json_str}');
             """)
             
             logger.info(f"Auth token set, navigating to {results_url}")
