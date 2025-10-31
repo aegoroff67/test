@@ -336,7 +336,8 @@ async def create_assessment(current_user: UserResponse = Depends(get_current_use
         started_at=assessment.started_at,
         completed_at=assessment.completed_at,
         progress=assessment.progress,
-        total_questions=total_questions
+        total_questions=total_questions,
+        system_info=assessment.system_info
     )
 
 @api_router.get("/assessments", response_model=List[AssessmentResponse])
