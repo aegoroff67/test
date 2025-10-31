@@ -49,6 +49,23 @@ function Dashboard() {
     navigate('/assessment-selector');
   };
 
+  const deleteAssessment = async (assessmentId, assessmentName) => {
+    // Confirm deletion
+    if (!window.confirm(`Are you sure you want to delete "${assessmentName}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      await axios.delete(`${API}/assessments/${assessmentId}`);
+      toast.success('Assessment deleted successfully');
+      // Refresh the assessments list
+      fetchAssessments();
+    } catch (error) {
+      console.error('Error deleting assessment:', error);
+      toast.error('Failed to delete assessment');
+    }
+  };
+
   const handleLogout = () => {
     logout();
     toast.success('Logged out successfully');
