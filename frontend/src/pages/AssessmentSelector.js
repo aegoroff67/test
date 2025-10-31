@@ -47,7 +47,13 @@ export default function AssessmentSelector() {
   };
 
   const handleComingSoon = (assessmentType) => {
+    console.log('handleComingSoon called for:', assessmentType);
     toast.info(`${assessmentType} coming soon!`);
+  };
+
+  const testClick = () => {
+    console.log('TEST CLICK WORKING');
+    alert('Button click is working!');
   };
 
   return (
