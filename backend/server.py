@@ -163,6 +163,7 @@ class AssessmentResponse(BaseModel):
     completed_at: Optional[datetime]
     progress: int
     total_questions: int
+    system_info: Optional[dict] = None
 
 class AnswerSubmit(BaseModel):
     question_id: str
