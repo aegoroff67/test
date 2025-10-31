@@ -700,15 +700,22 @@ async def generate_executive_summary_pdf(
     try:
         from playwright.async_api import async_playwright
         
+        # Set Playwright browser path
+        os.environ['PLAYWRIGHT_BROWSERS_PATH'] = '/pw-browsers'
+        
         # Verify assessment belongs to user's organization
         assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
         if not assessment:
             raise HTTPException(status_code=404, detail="Assessment not found")
         
-        # Get frontend URL from environment
+        # Get frontend URL from environment (this points to external URL)
         frontend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:3000')
+        frontend_url = frontend_url.replace(':8001', ':3000')  # Ensure we're hitting frontend port
+        
         # Construct results page URL
         results_url = f"{frontend_url}/results/{assessment_id}"
+        
+        logger.info(f"Generating PDF for URL: {results_url}")
         
         # Generate JWT token for authentication
         token = jwt.encode(
