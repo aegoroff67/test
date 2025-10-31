@@ -327,8 +327,8 @@ function ResultsPage() {
         </div>
       </header>
 
-      {/* Summary Section */}
-      <div className="bg-white border-b flex-shrink-0">
+      {/* Summary Section - Wrapper for PDF generation */}
+      <div className="results-summary-content bg-white border-b flex-shrink-0">
         <div className="max-w-full px-6 py-4">
           <div className="flex items-start">
             {/* First 12.5% - Maturity Stacked Column */}
