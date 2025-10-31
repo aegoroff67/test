@@ -21,7 +21,10 @@ export default function AssessmentSelector() {
   const navigate = useNavigate();
   const [creating, setCreating] = useState(false);
 
+  console.log('AssessmentSelector component rendered');
+
   const handleSystemAssessment = async () => {
+    console.log('handleSystemAssessment called');
     setCreating(true);
     try {
       const response = await axios.post(`${API}/assessments`, {});
