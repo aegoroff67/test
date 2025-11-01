@@ -8,11 +8,11 @@ import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import Logo from '../components/Logo';
 import { 
   ArrowLeft, 
   ArrowRight, 
   Home, 
-  Shield, 
   CheckCircle2, 
   Circle,
   Grid3X3,
