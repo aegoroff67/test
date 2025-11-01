@@ -234,7 +234,8 @@ class UserResponse(BaseModel):
     role: str
     is_active: bool
     organization_name: str
-    industry: str
+    industry: str  # Keep for backward compatibility - organization's industry
+    default_industry: Optional[str] = None  # User's personal industry preference
 
 class Token(BaseModel):
     access_token: str
