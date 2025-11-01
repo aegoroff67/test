@@ -278,6 +278,7 @@ async def signup(user_data: UserSignUp):
         name=user.name,
         org_id=user.org_id,
         role=user.role,
+        is_active=user.is_active,
         organization_name=org.name,
         industry=org.industry
     )
