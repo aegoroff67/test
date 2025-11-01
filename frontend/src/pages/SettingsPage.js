@@ -193,6 +193,49 @@ function SettingsPage() {
     u.organization_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleSelectAssessment = (assessmentId) => {
+    setSelectedAssessments(prev => 
+      prev.includes(assessmentId)
+        ? prev.filter(id => id !== assessmentId)
+        : [...prev, assessmentId]
+    );
+  };
+
+  const handleSelectAllAssessments = () => {
+    if (selectedAssessments.length === filteredAssessments.length) {
+      setSelectedAssessments([]);
+    } else {
+      setSelectedAssessments(filteredAssessments.map(a => a.id));
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedAssessments.length === 0) return;
+    
+    if (!window.confirm(`Delete ${selectedAssessments.length} selected assessment(s)? This cannot be undone.`)) return;
+    
+    try {
+      const response = await axios.post(`${API}/org/assessments/bulk-delete`, selectedAssessments);
+      toast.success(response.data.message);
+      setSelectedAssessments([]);
+      fetchAnalytics();
+    } catch (error) {
+      toast.error('Failed to delete assessments');
+      console.error(error);
+    }
+  };
+
+  // Get unique organizations and assessment types for filters
+  const uniqueOrgs = [...new Set(analytics?.assessments?.map(a => a.organization_name))];
+  const uniqueTypes = [...new Set(analytics?.assessments?.map(a => a.assessment_type))];
+
+  // Filter assessments
+  const filteredAssessments = analytics?.assessments?.filter(a => {
+    const orgMatch = orgFilter === 'all' || a.organization_name === orgFilter;
+    const typeMatch = typeFilter === 'all' || a.assessment_type === typeFilter;
+    return orgMatch && typeMatch;
+  }) || [];
+
   return (
     <div className="min-h-screen bg-gradient-bg">
       {/* Header */}
