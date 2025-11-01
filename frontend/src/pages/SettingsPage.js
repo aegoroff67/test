@@ -146,7 +146,10 @@ function SettingsPage() {
     if (!window.confirm(`Generate temporary password for ${userEmail}?`)) return;
     
     try {
-      const response = await axios.post(`${API}/admin/users/${userId}/reset-password`);
+      const endpoint = isSuperAdmin 
+        ? `${API}/admin/users/${userId}/reset-password`
+        : `${API}/org/users/${userId}/reset-password`;
+      const response = await axios.post(endpoint);
       
       // Show password in a copyable format
       const tempPass = response.data.temporary_password;
