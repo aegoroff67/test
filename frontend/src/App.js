@@ -75,6 +75,14 @@ function App() {
               } 
             />
             <Route 
+              path="/settings" 
+              element={
+                <ProtectedRoute>
+                  <SettingsPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/assessment-selector" 
               element={
                 <ProtectedRoute>
