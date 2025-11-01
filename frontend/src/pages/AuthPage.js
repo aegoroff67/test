@@ -89,9 +89,7 @@ function AuthPage() {
           {/* Logo and Title */}
           <div className="space-y-4">
             <div className="flex items-center justify-center lg:justify-start space-x-3">
-              <div className="bg-teal-600 p-3 rounded-xl">
-                <Logo className="h-8 w-8" />
-              </div>
+              <Logo className="h-16 w-16" />
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
                   AM AI SAFE
