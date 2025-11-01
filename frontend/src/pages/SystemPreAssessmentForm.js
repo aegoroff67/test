@@ -10,9 +10,10 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { ClipboardList, Cpu, ShieldCheck, FileText, Settings2, Workflow, ArrowLeft, Shield } from "lucide-react";
+import { ClipboardList, Cpu, ShieldCheck, FileText, Settings2, Workflow, ArrowLeft } from "lucide-react";
 import { toast } from 'sonner';
 import axios from 'axios';
+import Logo from '../components/Logo';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
