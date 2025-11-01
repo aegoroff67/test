@@ -377,16 +377,19 @@ async def signup(user_data: UserSignUp):
     # Step 3: Create new organization
     if not org_id:
         normalized_name = normalize_org_name(user_data.organization_name)
-        org = Organization(
+        new_org = Organization(
             name=user_data.organization_name,
             display_name=user_data.organization_name,
             name_normalised=normalized_name,
             industry=user_data.industry,  # Keep for backward compatibility
             primary_industry=None  # Admin will set this later
         )
-        await db.organizations.insert_one(org.dict())
-        org_id = org.id
-        logger.info(f"Created new org {org.name} for user {user_data.email}")
+        await db.organizations.insert_one(new_org.dict())
+        org_id = new_org.id
+        logger.info(f"Created new org {new_org.name} for user {user_data.email}")
+        
+        # Fetch the org back from database to get it as a dict
+        org = await db.organizations.find_one({"id": org_id})
         
         # Optionally create organization_domain entry for corporate emails
         if is_corporate and email_domain:
@@ -395,7 +398,7 @@ async def signup(user_data: UserSignUp):
                 email_domain=email_domain
             )
             await db.organization_domains.insert_one(org_domain.dict())
-            logger.info(f"Created org domain mapping: {email_domain} → {org.name}")
+            logger.info(f"Created org domain mapping: {email_domain} → {new_org.name}")
     
     # Create user
     user = User(
@@ -422,8 +425,9 @@ async def signup(user_data: UserSignUp):
         org_id=user.org_id,
         role=user.role,
         is_active=user.is_active,
-        organization_name=org["display_name"] or org["name"],
-        industry=org.get("primary_industry") or org.get("industry")
+        organization_name=org.get("display_name") or org.get("name"),
+        industry=org.get("primary_industry") or org.get("industry"),
+        default_industry=user_data.industry
     )
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
