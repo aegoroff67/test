@@ -39,15 +39,20 @@ function SettingsPage() {
   const [activeTab, setActiveTab] = useState('users');
   const [users, setUsers] = useState([]);
   const [assessments, setAssessments] = useState([]);
+  const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Check if user is super admin
+  // Check user role and permissions
   const isSuperAdmin = user?.role === 'SUPER_ADMIN';
+  const isOrgAdmin = user?.role === 'ORG_ADMIN';
+  const isAdmin = user?.role === 'ADMIN';
+  const hasAdminAccess = isSuperAdmin || isOrgAdmin || isAdmin;
 
   useEffect(() => {
-    if (!isSuperAdmin) {
-      toast.error('Super Admin access required');
+    // Check if user has any admin access
+    if (!hasAdminAccess) {
+      toast.error('Admin access required');
       navigate('/dashboard');
       return;
     }
@@ -56,13 +61,17 @@ function SettingsPage() {
       fetchUsers();
     } else if (activeTab === 'fields') {
       fetchAllData();
+    } else if (activeTab === 'analytics') {
+      fetchAnalytics();
     }
-  }, [activeTab, isSuperAdmin, navigate]);
+  }, [activeTab, hasAdminAccess, navigate]);
 
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API}/admin/users`);
+      // SUPER_ADMIN uses /admin/users, ORG_ADMIN uses /org/users
+      const endpoint = isSuperAdmin ? `${API}/admin/users` : `${API}/org/users`;
+      const response = await axios.get(endpoint);
       setUsers(response.data);
     } catch (error) {
       toast.error('Failed to fetch users');
@@ -75,8 +84,9 @@ function SettingsPage() {
   const fetchAllData = async () => {
     setLoading(true);
     try {
+      const endpoint = isSuperAdmin ? `${API}/admin/users` : `${API}/org/users`;
       const [usersRes, assessmentsRes] = await Promise.all([
-        axios.get(`${API}/admin/users`),
+        axios.get(endpoint),
         axios.get(`${API}/assessments`)
       ]);
       setUsers(usersRes.data);
