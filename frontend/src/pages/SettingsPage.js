@@ -590,9 +590,16 @@ function SettingsPage() {
                               </Badge>
                             </td>
                             <td className="p-3">
-                              <Badge className={a.status === 'COMPLETED' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'}>
-                                {a.status}
-                              </Badge>
+                              <div className="flex items-center gap-2">
+                                <Badge className={a.status === 'COMPLETED' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'}>
+                                  {a.status}
+                                </Badge>
+                                {a.pending_review_count > 0 && (
+                                  <Badge className="bg-yellow-100 text-yellow-800">
+                                    {a.pending_review_count} Pending Review
+                                  </Badge>
+                                )}
+                              </div>
                             </td>
                             <td className="p-3">
                               {a.overall_percentage ? `${a.overall_percentage}%` : 'N/A'}
