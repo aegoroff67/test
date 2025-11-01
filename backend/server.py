@@ -17,6 +17,7 @@ import uuid
 from enum import Enum
 import io
 import tempfile
+import re
 from complete_questions import COMPLETE_QUESTIONS_DATA
 
 ROOT_DIR = Path(__file__).parent
