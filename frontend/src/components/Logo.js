@@ -3,7 +3,7 @@ import React from 'react';
 const Logo = ({ className = "h-6 w-6", alt = "AM AI SAFE Logo" }) => {
   return (
     <img 
-      src="/logo.jpg" 
+      src="/logo.png" 
       alt={alt}
       className={className}
       style={{ objectFit: 'contain' }}
