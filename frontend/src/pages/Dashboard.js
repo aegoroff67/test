@@ -130,9 +130,7 @@ function Dashboard() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="bg-teal-600 p-2 rounded-lg">
-                <Logo className="h-6 w-6" />
-              </div>
+              <Logo className="h-10 w-10" />
               <div>
                 <h1 className="text-xl font-bold text-gray-900">AM AI SAFE</h1>
                 <p className="text-xs text-teal-600 font-medium">EMPOWERING TRUST IN AI</p>
