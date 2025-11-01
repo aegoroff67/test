@@ -172,7 +172,10 @@ function SettingsPage() {
     if (!window.confirm(`Permanently delete user ${userEmail}? This cannot be undone.`)) return;
     
     try {
-      await axios.delete(`${API}/admin/users/${userId}`);
+      const endpoint = isSuperAdmin 
+        ? `${API}/admin/users/${userId}`
+        : `${API}/org/users/${userId}`;
+      await axios.delete(endpoint);
       toast.success('User deleted');
       fetchUsers();
     } catch (error) {
