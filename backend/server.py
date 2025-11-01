@@ -612,6 +612,12 @@ async def get_org_analytics(current_user: UserResponse = Depends(require_admin))
     else:
         assessments = await db.assessments.find({"org_id": current_user.org_id}).to_list(length=None)
     
+    # Get all organizations for SUPER_ADMIN
+    orgs = {}
+    if current_user.role == Role.SUPER_ADMIN.value:
+        all_orgs = await db.organizations.find({}).to_list(length=None)
+        orgs = {org["id"]: org["name"] for org in all_orgs}
+    
     # Calculate analytics
     total_assessments = len(assessments)
     completed_assessments = len([a for a in assessments if a.get("status") == "COMPLETED"])
@@ -631,6 +637,9 @@ async def get_org_analytics(current_user: UserResponse = Depends(require_admin))
                 "id": a["id"],
                 "name": a.get("name", "Unnamed Assessment"),
                 "status": a.get("status", "INCOMPLETE"),
+                "assessment_type": a.get("assessment_type", "System"),
+                "org_id": a.get("org_id"),
+                "organization_name": orgs.get(a.get("org_id"), current_user.organization_name),
                 "overall_percentage": a.get("overall_percentage"),
                 "created_at": a.get("created_at"),
                 "completed_at": a.get("completed_at")
