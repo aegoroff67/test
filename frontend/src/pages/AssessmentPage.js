@@ -373,7 +373,7 @@ function AssessmentPage() {
             {/* Logo & Title */}
             <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="bg-teal-600 p-1.5 sm:p-2 rounded-lg">
-                <Shield className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
+                <Logo className="h-4 w-4 sm:h-6 sm:w-6" />
               </div>
               <div className="min-w-0">
                 <h1 className="text-sm sm:text-lg font-bold text-gray-900 truncate">AM AI SAFE</h1>
