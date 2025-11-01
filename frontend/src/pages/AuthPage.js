@@ -8,7 +8,8 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { Shield, CheckCircle2, Users, BarChart3 } from 'lucide-react';
+import Logo from '../components/Logo';
+import { CheckCircle2, Users, BarChart3 } from 'lucide-react';
 
 const industries = [
   'Technology', 'Healthcare', 'Financial Services', 'Manufacturing',
