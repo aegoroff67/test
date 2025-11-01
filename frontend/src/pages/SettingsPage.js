@@ -262,9 +262,7 @@ function SettingsPage() {
               <Logo className="h-10 w-10" />
               <div>
                 <h1 className="text-xl font-bold text-gray-900">
-                  {isSuperAdmin && 'Settings & Administration'}
-                  {isOrgAdmin && 'Organization Management'}
-                  {isAdmin && 'Organization Analytics'}
+                  Settings & Administration
                 </h1>
                 <p className="text-xs text-teal-600 font-medium">
                   {isSuperAdmin && 'SUPER ADMIN PANEL'}
