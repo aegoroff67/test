@@ -204,11 +204,16 @@ function SettingsPage() {
     }
   };
 
-  const filteredUsers = users.filter(u => 
-    u.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    u.organization_name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredUsers = users.filter(u => {
+    const searchMatch = 
+      u.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      u.organization_name.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const orgMatch = userOrgFilter === 'all' || u.organization_name === userOrgFilter;
+    
+    return searchMatch && orgMatch;
+  });
 
   const handleSelectAssessment = (assessmentId) => {
     setSelectedAssessments(prev => 
@@ -242,7 +247,8 @@ function SettingsPage() {
     }
   };
 
-  // Get unique organizations and assessment types for filters
+  // Get unique organizations for filters
+  const uniqueUserOrgs = [...new Set(users.map(u => u.organization_name))];
   const uniqueOrgs = [...new Set(analytics?.assessments?.map(a => a.organization_name))];
   const uniqueTypes = [...new Set(analytics?.assessments?.map(a => a.assessment_type))];
 
