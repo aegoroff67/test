@@ -308,6 +308,7 @@ async def login(user_data: UserLogin):
         name=user["name"],
         org_id=user["org_id"],
         role=user["role"],
+        is_active=user.get("is_active", True),
         organization_name=org["name"] if org else "Unknown",
         industry=org["industry"] if org else "Unknown"
     )
