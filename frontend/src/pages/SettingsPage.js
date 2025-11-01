@@ -7,7 +7,6 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { 
-  Shield, 
   ArrowLeft, 
   Users, 
   Database, 
@@ -20,6 +19,7 @@ import {
   Search,
   Edit
 } from 'lucide-react';
+import Logo from '../components/Logo';
 import { toast } from 'sonner';
 import axios from 'axios';
 
