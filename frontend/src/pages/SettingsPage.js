@@ -598,7 +598,7 @@ function SettingsPage() {
                               {a.overall_percentage ? `${a.overall_percentage}%` : 'N/A'}
                             </td>
                             <td className="p-3">
-                              {a.created_at ? new Date(a.created_at).toLocaleDateString() : 'N/A'}
+                              {a.started_at ? new Date(a.started_at).toLocaleDateString() : 'N/A'}
                             </td>
                             <td className="p-3">
                               {a.completed_at ? new Date(a.completed_at).toLocaleDateString() : '-'}
