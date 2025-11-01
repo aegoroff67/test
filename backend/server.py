@@ -116,6 +116,8 @@ class Assessment(BaseModel):
     completed_at: Optional[datetime] = None
     progress: int = 0  # Number of questions answered
     system_info: Optional[dict] = None  # Pre-assessment system information
+    overall_percentage: Optional[float] = None  # Overall score percentage
+    pending_review_count: int = 0  # Number of answers pending review
 
 class Answer(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
