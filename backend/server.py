@@ -320,10 +320,18 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
             )
         
         org = await db.organizations.find_one({"id": user["org_id"]})
-        user["organization_name"] = org["name"] if org else "Unknown"
-        user["industry"] = org["industry"] if org else "Unknown"
         
-        return UserResponse(**user)
+        return UserResponse(
+            id=user["id"],
+            email=user["email"],
+            name=user["name"],
+            org_id=user["org_id"],
+            role=user["role"],
+            is_active=user.get("is_active", True),
+            organization_name=org["display_name"] or org["name"] if org else "Unknown",
+            industry=org.get("primary_industry") or org.get("industry") if org else "Unknown",
+            default_industry=user.get("default_industry")
+        )
         
     except JWTError:
         raise HTTPException(
