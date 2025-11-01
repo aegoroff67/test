@@ -326,9 +326,7 @@ function ResultsPage() {
           <div className="flex justify-between items-center h-14">
             {/* Logo & Title */}
             <div className="flex items-center space-x-3">
-              <div className="bg-teal-600 p-1.5 rounded-lg">
-                <Shield className="h-5 w-5 text-white" />
-              </div>
+              <Logo />
               <div>
                 <h1 className="text-base font-bold text-gray-900">AM AI SAFE</h1>
                 <p className="text-xs text-teal-600">Assessment Results</p>
