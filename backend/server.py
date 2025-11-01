@@ -641,7 +641,7 @@ async def get_org_analytics(current_user: UserResponse = Depends(require_admin))
                 "org_id": a.get("org_id"),
                 "organization_name": orgs.get(a.get("org_id"), current_user.organization_name),
                 "overall_percentage": a.get("overall_percentage"),
-                "created_at": a.get("created_at"),
+                "started_at": a.get("started_at"),
                 "completed_at": a.get("completed_at")
             }
             for a in assessments
