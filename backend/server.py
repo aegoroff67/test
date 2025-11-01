@@ -936,7 +936,27 @@ async def score_pending_answer(
 
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
-async def create_assessment(current_user: UserResponse = Depends(get_current_user)):
+async def create_assessment(
+    assessment_data: AssessmentCreate = None,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    # Get user and organization data
+    user = await db.users.find_one({"id": current_user.id})
+    org = await db.organizations.find_one({"id": current_user.org_id})
+    
+    # Determine industry_selected based on precedence
+    industry_selected = None
+    if assessment_data and assessment_data.industry_override:
+        # Priority 1: Override in request
+        industry_selected = assessment_data.industry_override
+    elif user.get("default_industry"):
+        # Priority 2: User's default industry
+        industry_selected = user["default_industry"]
+    elif org.get("primary_industry"):
+        # Priority 3: Organization's primary industry
+        industry_selected = org["primary_industry"]
+    # else: remains None
+    
     # Generate initial assessment name with format: [Type] – [TBD] – Started YYYY-MM-DD
     started_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     assessment_name = f"System – [TBD] – Started {started_date}"
@@ -945,7 +965,8 @@ async def create_assessment(current_user: UserResponse = Depends(get_current_use
         org_id=current_user.org_id,
         user_id=current_user.id,
         name=assessment_name,
-        assessment_type="System"
+        assessment_type="System",
+        industry_selected=industry_selected
     )
     
     await db.assessments.insert_one(assessment.dict())
@@ -962,7 +983,8 @@ async def create_assessment(current_user: UserResponse = Depends(get_current_use
         completed_at=assessment.completed_at,
         progress=assessment.progress,
         total_questions=total_questions,
-        system_info=assessment.system_info
+        system_info=assessment.system_info,
+        pending_review_count=assessment.pending_review_count
     )
 
 @api_router.get("/assessments", response_model=List[AssessmentResponse])
