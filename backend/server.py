@@ -242,7 +242,7 @@ class Token(BaseModel):
     user: UserResponse
 
 class AssessmentCreate(BaseModel):
-    pass  # Auto-generates name
+    industry_override: Optional[str] = None  # Optional industry override
 
 class AssessmentResponse(BaseModel):
     id: str
