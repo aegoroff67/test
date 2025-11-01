@@ -493,7 +493,49 @@ function SettingsPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Assessment List</CardTitle>
+                <div className="flex justify-between items-center">
+                  <CardTitle>Assessment List</CardTitle>
+                  <div className="flex items-center gap-3">
+                    {/* Filters */}
+                    {isSuperAdmin && uniqueOrgs.length > 1 && (
+                      <select
+                        value={orgFilter}
+                        onChange={(e) => setOrgFilter(e.target.value)}
+                        className="text-sm border rounded px-3 py-1.5"
+                      >
+                        <option value="all">All Organizations</option>
+                        {uniqueOrgs.map(org => (
+                          <option key={org} value={org}>{org}</option>
+                        ))}
+                      </select>
+                    )}
+                    
+                    {uniqueTypes.length > 1 && (
+                      <select
+                        value={typeFilter}
+                        onChange={(e) => setTypeFilter(e.target.value)}
+                        className="text-sm border rounded px-3 py-1.5"
+                      >
+                        <option value="all">All Types</option>
+                        {uniqueTypes.map(type => (
+                          <option key={type} value={type}>{type}</option>
+                        ))}
+                      </select>
+                    )}
+                    
+                    {selectedAssessments.length > 0 && (
+                      <Button
+                        onClick={handleBulkDelete}
+                        variant="destructive"
+                        size="sm"
+                        className="bg-red-600 hover:bg-red-700"
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Delete ({selectedAssessments.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
                 {loading ? (
@@ -506,7 +548,17 @@ function SettingsPage() {
                     <table className="w-full text-sm">
                       <thead className="bg-gray-50 border-b">
                         <tr>
+                          <th className="text-left p-3 font-medium text-gray-700 w-10">
+                            <input
+                              type="checkbox"
+                              checked={selectedAssessments.length === filteredAssessments.length && filteredAssessments.length > 0}
+                              onChange={handleSelectAllAssessments}
+                              className="rounded border-gray-300"
+                            />
+                          </th>
                           <th className="text-left p-3 font-medium text-gray-700">Assessment Name</th>
+                          {isSuperAdmin && <th className="text-left p-3 font-medium text-gray-700">Organization</th>}
+                          <th className="text-left p-3 font-medium text-gray-700">Type</th>
                           <th className="text-left p-3 font-medium text-gray-700">Status</th>
                           <th className="text-left p-3 font-medium text-gray-700">Score</th>
                           <th className="text-left p-3 font-medium text-gray-700">Created</th>
@@ -514,10 +566,28 @@ function SettingsPage() {
                         </tr>
                       </thead>
                       <tbody>
-                        {analytics?.assessments?.map((a) => (
+                        {filteredAssessments.map((a) => (
                           <tr key={a.id} className="border-b hover:bg-gray-50">
                             <td className="p-3">
+                              <input
+                                type="checkbox"
+                                checked={selectedAssessments.includes(a.id)}
+                                onChange={() => handleSelectAssessment(a.id)}
+                                className="rounded border-gray-300"
+                              />
+                            </td>
+                            <td className="p-3">
                               <p className="font-medium text-gray-900">{a.name}</p>
+                            </td>
+                            {isSuperAdmin && (
+                              <td className="p-3">
+                                <p className="text-gray-700">{a.organization_name}</p>
+                              </td>
+                            )}
+                            <td className="p-3">
+                              <Badge className="bg-blue-100 text-blue-800">
+                                {a.assessment_type}
+                              </Badge>
                             </td>
                             <td className="p-3">
                               <Badge className={a.status === 'COMPLETED' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'}>
