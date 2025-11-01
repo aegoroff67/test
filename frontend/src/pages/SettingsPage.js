@@ -42,6 +42,9 @@ function SettingsPage() {
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedAssessments, setSelectedAssessments] = useState([]);
+  const [orgFilter, setOrgFilter] = useState('all');
+  const [typeFilter, setTypeFilter] = useState('all');
 
   // Check user role and permissions
   const isSuperAdmin = user?.role === 'SUPER_ADMIN';
