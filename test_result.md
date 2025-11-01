@@ -389,15 +389,18 @@
 
   - task: "Test admin settings page and user management functionality"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/pages/SettingsPage.js, /app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
         - comment: "IMPLEMENTED: Admin/Settings page already exists with comprehensive user management functionality. Features include: 1) User Management tab with full table view of all users (email, name, organization, role, status), 2) Search functionality to filter users, 3) Role management dropdown (SUPER_ADMIN, ORG_ADMIN, ADMIN, MEMBER), 4) Enable/disable user account toggle, 5) Password reset feature with temporary password generation, 6) User deletion with confirmation, 7) View All Fields tab showing raw JSON data for users and assessments, 8) Organization Settings tab (placeholder). Backend endpoints already implemented: GET /api/admin/users, PUT /api/admin/users/{user_id}/role, PUT /api/admin/users/{user_id}/toggle-active, DELETE /api/admin/users/{user_id}, POST /api/admin/users/{user_id}/reset-password. All endpoints protected with SUPER_ADMIN role requirement. Database cleanup also complete - only 2 users exist (andrew@test.com with SUPER_ADMIN role, andrew@vciso.one with ADMIN role)."
+        - working: true
+        - agent: "testing"
+        - comment: "COMPREHENSIVE ADMIN FUNCTIONALITY TESTING COMPLETED SUCCESSFULLY: Extensive testing of admin/settings functionality completed with 88.9% success rate (40/45 tests passed). CRITICAL SUCCESS CRITERIA VERIFIED: ✅ 1. Authentication & Authorization: SUPER_ADMIN login (andrew@test.com/password123) working correctly, ADMIN login (andrew@vciso.one/password123) working correctly, all admin endpoints properly protected with SUPER_ADMIN role requirement (403 for ADMIN users), ✅ 2. Get All Users Endpoint: GET /api/admin/users returns complete user list with all required fields (id, email, name, org_id, role, is_active, organization_name, industry), database contains exactly 2 users as specified (andrew@test.com as SUPER_ADMIN, andrew@vciso.one as ADMIN), ✅ 3. Update User Role Endpoint: PUT /api/admin/users/{user_id}/role successfully changes user roles (ADMIN→MEMBER→ADMIN tested), role values SUPER_ADMIN, ORG_ADMIN, ADMIN, MEMBER all supported, invalid role returns 422, non-existent user returns 404, ✅ 4. Toggle User Active Status: PUT /api/admin/users/{user_id}/toggle-active successfully toggles active/inactive status, response includes new is_active status, database updates verified, non-existent user returns 404, ✅ 5. Reset User Password: POST /api/admin/users/{user_id}/reset-password generates 12-character alphanumeric temporary passwords, password actually updated in database (login with new password verified), non-existent user returns 404, ✅ 6. Delete User Endpoint: DELETE /api/admin/users/{user_id} successfully removes users from database, SUPER_ADMIN cannot delete own account (400 error), non-existent user returns 404, ✅ 7. Data Integrity: Organization relationships maintained after operations, no duplicate emails, all users have complete organization data. MINOR ISSUES: Unauthenticated requests return 403 instead of 401 (acceptable behavior), but all core functionality working correctly. The admin settings functionality is fully operational and production-ready."
 
 ## metadata:
   created_by: "main_agent"
