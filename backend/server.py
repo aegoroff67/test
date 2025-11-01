@@ -1257,10 +1257,14 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
             detail=f"Cannot submit assessment. {total_questions - answered_questions} questions remain unanswered."
         )
     
-    # Calculate overall percentage
+    # Get all answers and count pending reviews
     answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
-    total_score = sum(answer.get("numeric_score", 0) for answer in answers)
-    max_score = len(answers) * 3  # Maximum score per question is 3
+    pending_review_count = sum(1 for answer in answers if answer.get("review_status") == ReviewStatus.PENDING_REVIEW.value)
+    
+    # Calculate overall percentage (excluding pending review answers)
+    approved_answers = [a for a in answers if a.get("review_status") == ReviewStatus.APPROVED.value]
+    total_score = sum(answer.get("numeric_score", 0) for answer in approved_answers)
+    max_score = len(approved_answers) * 3  # Maximum score per question is 3
     overall_percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
     # Update the assessment name to replace "Started" with "Completed"
@@ -1288,16 +1292,22 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
                 "completed_at": completed_date,
                 "progress": total_questions,
                 "name": updated_name,
-                "overall_percentage": round(overall_percentage, 1)
+                "overall_percentage": round(overall_percentage, 1),
+                "pending_review_count": pending_review_count
             }
         }
     )
+    
+    # Log notification for SUPER_ADMIN if there are pending reviews
+    if pending_review_count > 0:
+        logger.info(f"NOTIFICATION: Assessment {assessment_id} completed with {pending_review_count} answer(s) pending review")
     
     return {
         "status": "success",
         "message": "Assessment submitted successfully",
         "assessment_id": assessment_id,
-        "completed_at": completed_date.isoformat()
+        "completed_at": completed_date.isoformat(),
+        "pending_review_count": pending_review_count
     }
 
 # Admin endpoints
