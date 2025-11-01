@@ -652,6 +652,82 @@ function SettingsPage() {
           </div>
         )}
 
+        {activeTab === 'reviews' && (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Assessments Pending Review</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {loading ? (
+                  <div className="text-center py-8">
+                    <div className="loading-spinner w-8 h-8 mx-auto mb-2"></div>
+                    <p className="text-gray-500">Loading pending reviews...</p>
+                  </div>
+                ) : pendingReviews.length === 0 ? (
+                  <div className="text-center py-12">
+                    <p className="text-gray-500 text-lg">No assessments pending review</p>
+                    <p className="text-gray-400 text-sm mt-2">All custom responses have been scored</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="bg-gray-50 border-b">
+                        <tr>
+                          <th className="text-left p-3 font-medium text-gray-700">Assessment Name</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Organization</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Type</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Pending Answers</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Score</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Completed</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {pendingReviews.map((assessment) => (
+                          <tr key={assessment.id} className="border-b hover:bg-gray-50">
+                            <td className="p-3">
+                              <p className="font-medium text-gray-900">{assessment.name}</p>
+                            </td>
+                            <td className="p-3">
+                              <p className="text-gray-700">{assessment.organization_name}</p>
+                            </td>
+                            <td className="p-3">
+                              <Badge className="bg-blue-100 text-blue-800">
+                                {assessment.assessment_type}
+                              </Badge>
+                            </td>
+                            <td className="p-3">
+                              <Badge className="bg-yellow-100 text-yellow-800">
+                                {assessment.pending_review_count} answers
+                              </Badge>
+                            </td>
+                            <td className="p-3">
+                              {assessment.overall_percentage ? `${assessment.overall_percentage}%` : 'N/A'}
+                            </td>
+                            <td className="p-3">
+                              {assessment.completed_at ? new Date(assessment.completed_at).toLocaleDateString() : 'N/A'}
+                            </td>
+                            <td className="p-3">
+                              <Button
+                                size="sm"
+                                onClick={() => navigate(`/review-assessment/${assessment.id}`)}
+                                className="bg-teal-600 hover:bg-teal-700"
+                              >
+                                Review
+                              </Button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
         {activeTab === 'fields' && (
           <div className="space-y-6">
             <Card>
