@@ -648,6 +648,47 @@ async def get_org_analytics(current_user: UserResponse = Depends(require_admin))
         ]
     }
 
+@api_router.post("/org/assessments/bulk-delete")
+async def bulk_delete_assessments(
+    assessment_ids: List[str],
+    current_user: UserResponse = Depends(require_admin)
+):
+    """Bulk delete assessments (ADMIN, ORG_ADMIN, or SUPER_ADMIN)"""
+    if not assessment_ids:
+        raise HTTPException(status_code=400, detail="No assessment IDs provided")
+    
+    # Verify all assessments exist and belong to the user's org (or SUPER_ADMIN)
+    deleted_count = 0
+    failed_ids = []
+    
+    for assessment_id in assessment_ids:
+        assessment = await db.assessments.find_one({"id": assessment_id})
+        
+        if not assessment:
+            failed_ids.append(assessment_id)
+            continue
+        
+        # Check permissions
+        if current_user.role != Role.SUPER_ADMIN.value:
+            if assessment["org_id"] != current_user.org_id:
+                failed_ids.append(assessment_id)
+                continue
+        
+        # Delete answers associated with the assessment
+        await db.answers.delete_many({"assessment_id": assessment_id})
+        
+        # Delete the assessment
+        result = await db.assessments.delete_one({"id": assessment_id})
+        if result.deleted_count > 0:
+            deleted_count += 1
+    
+    return {
+        "success": True,
+        "deleted_count": deleted_count,
+        "failed_ids": failed_ids,
+        "message": f"Successfully deleted {deleted_count} assessment(s)"
+    }
+
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
 async def create_assessment(current_user: UserResponse = Depends(get_current_user)):
