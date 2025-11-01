@@ -335,6 +335,21 @@ function SettingsPage() {
             </button>
           )}
           
+          {/* Pending Reviews tab - show only for SUPER_ADMIN */}
+          {isSuperAdmin && (
+            <button
+              onClick={() => setActiveTab('reviews')}
+              className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+                activeTab === 'reviews'
+                  ? 'border-teal-600 text-teal-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <Database className="h-4 w-4 inline mr-2" />
+              Pending Reviews
+            </button>
+          )}
+          
           <button
             onClick={() => setActiveTab('organization')}
             className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
