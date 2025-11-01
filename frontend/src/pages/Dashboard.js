@@ -403,6 +403,11 @@ function Dashboard() {
                               <BadgeIcon className={`h-3 w-3 ${typeBadge.iconColor}`} />
                               <span>{typeBadge.label}</span>
                             </Badge>
+                            {assessment.pending_review_count > 0 && (
+                              <Badge className="bg-yellow-100 text-yellow-800">
+                                {assessment.pending_review_count} Pending Review
+                              </Badge>
+                            )}
                           </div>
                           <h3 className="font-medium text-gray-900">{assessment.name}</h3>
                           <p className="text-sm text-gray-500">
