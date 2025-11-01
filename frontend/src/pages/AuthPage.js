@@ -90,7 +90,7 @@ function AuthPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-center lg:justify-start space-x-3">
               <div className="bg-teal-600 p-3 rounded-xl">
-                <Shield className="h-8 w-8 text-white" />
+                <Logo className="h-8 w-8" />
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
