@@ -226,6 +226,13 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
                 detail="User not found"
             )
         
+        # Check if user is active
+        if not user.get("is_active", True):
+            raise HTTPException(
+                status_code=http_status.HTTP_403_FORBIDDEN,
+                detail="User account is disabled"
+            )
+        
         org = await db.organizations.find_one({"id": user["org_id"]})
         user["organization_name"] = org["name"] if org else "Unknown"
         user["industry"] = org["industry"] if org else "Unknown"
