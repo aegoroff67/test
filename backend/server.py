@@ -505,8 +505,9 @@ async def get_all_users(admin: UserResponse = Depends(require_super_admin)):
             org_id=user["org_id"],
             role=user["role"],
             is_active=user.get("is_active", True),
-            organization_name=org["name"] if org else "Unknown",
-            industry=org["industry"] if org else "Unknown"
+            organization_name=org["display_name"] or org["name"] if org else "Unknown",
+            industry=org.get("primary_industry") or org.get("industry") if org else "Unknown",
+            default_industry=user.get("default_industry")
         ))
     
     return user_responses
