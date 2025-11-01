@@ -1584,6 +1584,20 @@ async def get_questions(domain_id: Optional[str] = None):
     questions = await db.questions.find(query, {"_id": 0}).sort("order").to_list(length=None)
     return questions
 
+# Download PDF endpoint
+@api_router.get("/download/testing-checklist")
+async def download_testing_checklist():
+    """Download the testing checklist PDF"""
+    file_path = Path("/app/backend/AM_AI_SAFE_Testing_Checklist.pdf")
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="File not found")
+    
+    return FileResponse(
+        path=file_path,
+        media_type="application/pdf",
+        filename="AM_AI_SAFE_Testing_Checklist.pdf"
+    )
+
 # Include router
 app.include_router(api_router)
 
