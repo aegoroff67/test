@@ -875,7 +875,8 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
             completed_at=assessment.get("completed_at"),
             progress=assessment["progress"],
             total_questions=total_questions,
-            system_info=assessment.get("system_info")
+            system_info=assessment.get("system_info"),
+            pending_review_count=assessment.get("pending_review_count", 0)
         )
         for assessment in assessments
     ]
