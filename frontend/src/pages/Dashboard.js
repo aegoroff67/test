@@ -149,6 +149,7 @@ function Dashboard() {
                 <Button 
                   variant="ghost" 
                   size="sm" 
+                  onClick={() => navigate('/settings')}
                   className="p-2"
                   data-testid="settings-btn"
                 >
