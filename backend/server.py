@@ -125,7 +125,7 @@ class Answer(BaseModel):
     numeric_score: int
     other_text: Optional[str] = None  # For "Other" responses
     note: Optional[str] = None
-    needs_review: bool = False  # Flag for "Other" responses
+    review_status: str = "APPROVED"  # APPROVED or PENDING_REVIEW
     answered_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class Report(BaseModel):
