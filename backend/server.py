@@ -457,6 +457,188 @@ async def reset_user_password(
         "message": "Password reset successfully. Share this temporary password with the user."
     }
 
+# Organization management endpoints (ORG_ADMIN level)
+@api_router.get("/org/users", response_model=List[UserResponse])
+async def get_org_users(current_user: UserResponse = Depends(require_org_admin)):
+    """Get all users in the current user's organization (ORG_ADMIN or SUPER_ADMIN)"""
+    # SUPER_ADMIN can see all users, ORG_ADMIN sees only their org
+    if current_user.role == Role.SUPER_ADMIN.value:
+        users = await db.users.find({}).to_list(length=None)
+    else:
+        users = await db.users.find({"org_id": current_user.org_id}).to_list(length=None)
+    
+    user_responses = []
+    for user in users:
+        org = await db.organizations.find_one({"id": user["org_id"]})
+        user_responses.append(UserResponse(
+            id=user["id"],
+            email=user["email"],
+            name=user["name"],
+            org_id=user["org_id"],
+            role=user["role"],
+            is_active=user.get("is_active", True),
+            organization_name=org["name"] if org else "Unknown",
+            industry=org["industry"] if org else "Unknown"
+        ))
+    
+    return user_responses
+
+@api_router.put("/org/users/{user_id}/role")
+async def update_org_user_role(
+    user_id: str, 
+    new_role: Role,
+    current_user: UserResponse = Depends(require_org_admin)
+):
+    """Update user role within organization (ORG_ADMIN can only set MEMBER, ADMIN, ORG_ADMIN)"""
+    # Find the target user
+    target_user = await db.users.find_one({"id": user_id})
+    if not target_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # ORG_ADMIN can only manage users in their own organization
+    if current_user.role == Role.ORG_ADMIN.value:
+        if target_user["org_id"] != current_user.org_id:
+            raise HTTPException(status_code=403, detail="Cannot manage users outside your organization")
+        
+        # ORG_ADMIN cannot promote users to SUPER_ADMIN
+        if new_role == Role.SUPER_ADMIN:
+            raise HTTPException(status_code=403, detail="Cannot assign SUPER_ADMIN role")
+    
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"role": new_role.value}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"success": True, "message": f"User role updated to {new_role.value}"}
+
+@api_router.put("/org/users/{user_id}/toggle-active")
+async def toggle_org_user_active(
+    user_id: str,
+    current_user: UserResponse = Depends(require_org_admin)
+):
+    """Enable/disable user account within organization (ORG_ADMIN)"""
+    target_user = await db.users.find_one({"id": user_id})
+    if not target_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # ORG_ADMIN can only manage users in their own organization
+    if current_user.role == Role.ORG_ADMIN.value:
+        if target_user["org_id"] != current_user.org_id:
+            raise HTTPException(status_code=403, detail="Cannot manage users outside your organization")
+    
+    new_status = not target_user.get("is_active", True)
+    
+    await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"is_active": new_status}}
+    )
+    
+    return {"success": True, "is_active": new_status}
+
+@api_router.post("/org/users/{user_id}/reset-password")
+async def reset_org_user_password(
+    user_id: str,
+    current_user: UserResponse = Depends(require_org_admin)
+):
+    """Generate temporary password for user within organization (ORG_ADMIN)"""
+    target_user = await db.users.find_one({"id": user_id})
+    if not target_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # ORG_ADMIN can only manage users in their own organization
+    if current_user.role == Role.ORG_ADMIN.value:
+        if target_user["org_id"] != current_user.org_id:
+            raise HTTPException(status_code=403, detail="Cannot manage users outside your organization")
+    
+    import secrets
+    import string
+    
+    # Generate random 12-character password
+    alphabet = string.ascii_letters + string.digits
+    temp_password = ''.join(secrets.choice(alphabet) for i in range(12))
+    
+    # Update user password
+    hashed = hash_password(temp_password)
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"hashed_password": hashed}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {
+        "success": True,
+        "temporary_password": temp_password,
+        "message": "Password reset successfully. Share this temporary password with the user."
+    }
+
+@api_router.delete("/org/users/{user_id}")
+async def delete_org_user(
+    user_id: str,
+    current_user: UserResponse = Depends(require_org_admin)
+):
+    """Delete user account within organization (ORG_ADMIN)"""
+    # Don't allow deleting yourself
+    if user_id == current_user.id:
+        raise HTTPException(status_code=400, detail="Cannot delete your own account")
+    
+    target_user = await db.users.find_one({"id": user_id})
+    if not target_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # ORG_ADMIN can only manage users in their own organization
+    if current_user.role == Role.ORG_ADMIN.value:
+        if target_user["org_id"] != current_user.org_id:
+            raise HTTPException(status_code=403, detail="Cannot manage users outside your organization")
+    
+    result = await db.users.delete_one({"id": user_id})
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"success": True, "message": "User deleted successfully"}
+
+# Organization analytics endpoint (ADMIN level - read only)
+@api_router.get("/org/analytics")
+async def get_org_analytics(current_user: UserResponse = Depends(require_admin)):
+    """Get organization-wide analytics (ADMIN, ORG_ADMIN, or SUPER_ADMIN)"""
+    # SUPER_ADMIN can see all assessments, others see only their org
+    if current_user.role == Role.SUPER_ADMIN.value:
+        assessments = await db.assessments.find({}).to_list(length=None)
+    else:
+        assessments = await db.assessments.find({"org_id": current_user.org_id}).to_list(length=None)
+    
+    # Calculate analytics
+    total_assessments = len(assessments)
+    completed_assessments = len([a for a in assessments if a.get("status") == "COMPLETED"])
+    incomplete_assessments = total_assessments - completed_assessments
+    
+    # Get average score for completed assessments
+    completed_with_scores = [a for a in assessments if a.get("status") == "COMPLETED" and a.get("overall_percentage")]
+    avg_score = sum([a.get("overall_percentage", 0) for a in completed_with_scores]) / len(completed_with_scores) if completed_with_scores else 0
+    
+    return {
+        "total_assessments": total_assessments,
+        "completed_assessments": completed_assessments,
+        "incomplete_assessments": incomplete_assessments,
+        "average_score": round(avg_score, 2),
+        "assessments": [
+            {
+                "id": a["id"],
+                "name": a.get("name", "Unnamed Assessment"),
+                "status": a.get("status", "INCOMPLETE"),
+                "overall_percentage": a.get("overall_percentage"),
+                "created_at": a.get("created_at"),
+                "completed_at": a.get("completed_at")
+            }
+            for a in assessments
+        ]
+    }
+
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
 async def create_assessment(current_user: UserResponse = Depends(get_current_user)):
