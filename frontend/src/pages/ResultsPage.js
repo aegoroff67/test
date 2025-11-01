@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import Logo from '../components/Logo';
 import { 
   ArrowLeft, 
-  Shield, 
   Download, 
   MessageSquare,
   BarChart3,
