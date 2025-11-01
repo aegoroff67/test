@@ -260,11 +260,20 @@ function SettingsPage() {
                     </thead>
                     <tbody>
                       {filteredUsers.map((u) => (
-                        <tr key={u.id} className="border-b hover:bg-gray-50">
+                        <tr key={u.id} className={`border-b hover:bg-gray-50 ${u.id === user.id ? 'bg-green-50' : ''}`}>
                           <td className="p-3">
-                            <div>
-                              <p className="font-medium text-gray-900">{u.name}</p>
-                              <p className="text-xs text-gray-500">{u.email}</p>
+                            <div className="flex items-center gap-2">
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <p className="font-medium text-gray-900">{u.name}</p>
+                                  {u.id === user.id && (
+                                    <Badge className="bg-green-600 text-white text-xs">
+                                      You
+                                    </Badge>
+                                  )}
+                                </div>
+                                <p className="text-xs text-gray-500">{u.email}</p>
+                              </div>
                             </div>
                           </td>
                           <td className="p-3">
