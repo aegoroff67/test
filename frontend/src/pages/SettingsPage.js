@@ -46,6 +46,7 @@ function SettingsPage() {
   const [selectedAssessments, setSelectedAssessments] = useState([]);
   const [orgFilter, setOrgFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
+  const [userOrgFilter, setUserOrgFilter] = useState('all'); // Filter for user management tab
 
   // Check user role and permissions
   const isSuperAdmin = user?.role === 'SUPER_ADMIN';
