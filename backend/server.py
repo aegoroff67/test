@@ -39,7 +39,9 @@ api_router = APIRouter(prefix="/api")
 
 # Enums
 class Role(str, Enum):
-    ADMIN = "ADMIN"
+    SUPER_ADMIN = "SUPER_ADMIN"
+    ORG_ADMIN = "ORG_ADMIN"
+    ADMIN = "ADMIN"  # Keep for backward compatibility
     MEMBER = "MEMBER"
 
 class AssessmentStatus(str, Enum):
