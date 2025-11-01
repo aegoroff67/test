@@ -179,7 +179,7 @@ function Dashboard() {
               </h1>
               <p className="text-lg text-gray-600 flex items-center space-x-2">
                 <Building2 className="h-5 w-5" />
-                <span>{user?.organization_name} • {user?.industry}</span>
+                <span>{user?.organization_name} • {user?.default_industry || user?.industry}</span>
               </p>
             </div>
             <Button 
