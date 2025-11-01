@@ -148,6 +148,7 @@ class UserResponse(BaseModel):
     name: str
     org_id: str
     role: str
+    is_active: bool
     organization_name: str
     industry: str
 
