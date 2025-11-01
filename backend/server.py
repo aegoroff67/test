@@ -176,6 +176,7 @@ class AssessmentResponse(BaseModel):
     progress: int
     total_questions: int
     system_info: Optional[dict] = None
+    pending_review_count: int = 0
 
 class AnswerSubmit(BaseModel):
     question_id: str
