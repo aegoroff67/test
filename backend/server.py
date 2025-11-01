@@ -695,6 +695,123 @@ async def bulk_delete_assessments(
         "message": f"Successfully deleted {deleted_count} assessment(s)"
     }
 
+# Pending Review Management endpoints (SUPER_ADMIN only)
+@api_router.get("/admin/assessments/pending-reviews")
+async def get_assessments_with_pending_reviews(admin: UserResponse = Depends(require_super_admin)):
+    """Get all assessments that have pending review answers (SUPER_ADMIN only)"""
+    assessments = await db.assessments.find({"pending_review_count": {"$gt": 0}}).to_list(length=None)
+    
+    # Get organization info
+    org_ids = list(set(a["org_id"] for a in assessments))
+    orgs = await db.organizations.find({"id": {"$in": org_ids}}).to_list(length=None)
+    org_lookup = {org["id"]: org["name"] for org in orgs}
+    
+    return [
+        {
+            "id": a["id"],
+            "name": a.get("name", "Unnamed Assessment"),
+            "organization_name": org_lookup.get(a["org_id"], "Unknown"),
+            "assessment_type": a.get("assessment_type", "System"),
+            "pending_review_count": a.get("pending_review_count", 0),
+            "completed_at": a.get("completed_at"),
+            "overall_percentage": a.get("overall_percentage")
+        }
+        for a in assessments
+    ]
+
+@api_router.get("/admin/assessments/{assessment_id}/pending-answers")
+async def get_pending_review_answers(assessment_id: str, admin: UserResponse = Depends(require_super_admin)):
+    """Get all pending review answers for an assessment (SUPER_ADMIN only)"""
+    # Verify assessment exists
+    assessment = await db.assessments.find_one({"id": assessment_id})
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Get pending review answers
+    answers = await db.answers.find({
+        "assessment_id": assessment_id,
+        "review_status": ReviewStatus.PENDING_REVIEW.value
+    }).to_list(length=None)
+    
+    # Get questions and domains for context
+    question_ids = [a["question_id"] for a in answers]
+    questions = await db.questions.find({"id": {"$in": question_ids}}).to_list(length=None)
+    question_lookup = {q["id"]: q for q in questions}
+    
+    domain_ids = list(set(q["domain_id"] for q in questions))
+    domains = await db.domains.find({"id": {"$in": domain_ids}}).to_list(length=None)
+    domain_lookup = {d["id"]: d for d in domains}
+    
+    return [
+        {
+            "answer_id": a["id"],
+            "question_id": a["question_id"],
+            "question_code": question_lookup.get(a["question_id"], {}).get("code", "Unknown"),
+            "question_text": question_lookup.get(a["question_id"], {}).get("text", "Unknown question"),
+            "domain_name": domain_lookup.get(question_lookup.get(a["question_id"], {}).get("domain_id"), {}).get("name", "Unknown"),
+            "other_text": a.get("other_text", ""),
+            "current_score": a.get("numeric_score", 0)
+        }
+        for a in answers
+    ]
+
+@api_router.put("/admin/assessments/{assessment_id}/answers/{answer_id}/score")
+async def score_pending_answer(
+    assessment_id: str,
+    answer_id: str,
+    score: int,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Score a pending review answer (SUPER_ADMIN only)"""
+    # Validate score
+    if score < 0 or score > 3:
+        raise HTTPException(status_code=400, detail="Score must be between 0 and 3")
+    
+    # Find the answer
+    answer = await db.answers.find_one({"id": answer_id, "assessment_id": assessment_id})
+    if not answer:
+        raise HTTPException(status_code=404, detail="Answer not found")
+    
+    if answer.get("review_status") != ReviewStatus.PENDING_REVIEW.value:
+        raise HTTPException(status_code=400, detail="Answer is not pending review")
+    
+    # Update the answer
+    await db.answers.update_one(
+        {"id": answer_id},
+        {
+            "$set": {
+                "numeric_score": score,
+                "review_status": ReviewStatus.APPROVED.value
+            }
+        }
+    )
+    
+    # Recalculate assessment score and pending count
+    assessment = await db.assessments.find_one({"id": assessment_id})
+    answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+    
+    pending_review_count = sum(1 for a in answers if a.get("review_status") == ReviewStatus.PENDING_REVIEW.value)
+    approved_answers = [a for a in answers if a.get("review_status") == ReviewStatus.APPROVED.value]
+    total_score = sum(a.get("numeric_score", 0) for a in approved_answers)
+    max_score = len(approved_answers) * 3
+    overall_percentage = (total_score / max_score * 100) if max_score > 0 else 0
+    
+    await db.assessments.update_one(
+        {"id": assessment_id},
+        {
+            "$set": {
+                "pending_review_count": pending_review_count,
+                "overall_percentage": round(overall_percentage, 1)
+            }
+        }
+    )
+    
+    return {
+        "success": True,
+        "message": "Answer scored successfully",
+        "remaining_pending": pending_review_count
+    }
+
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
 async def create_assessment(current_user: UserResponse = Depends(get_current_user)):
