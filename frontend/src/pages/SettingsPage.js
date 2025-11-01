@@ -99,9 +99,25 @@ function SettingsPage() {
     }
   };
 
+  const fetchAnalytics = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${API}/org/analytics`);
+      setAnalytics(response.data);
+    } catch (error) {
+      toast.error('Failed to fetch analytics');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const toggleUserActive = async (userId, currentStatus) => {
     try {
-      const response = await axios.put(`${API}/admin/users/${userId}/toggle-active`);
+      const endpoint = isSuperAdmin 
+        ? `${API}/admin/users/${userId}/toggle-active`
+        : `${API}/org/users/${userId}/toggle-active`;
+      const response = await axios.put(endpoint);
       toast.success(response.data.is_active ? 'User enabled' : 'User disabled');
       fetchUsers();
     } catch (error) {
@@ -112,7 +128,10 @@ function SettingsPage() {
 
   const updateUserRole = async (userId, newRole) => {
     try {
-      await axios.put(`${API}/admin/users/${userId}/role`, null, {
+      const endpoint = isSuperAdmin 
+        ? `${API}/admin/users/${userId}/role`
+        : `${API}/org/users/${userId}/role`;
+      await axios.put(endpoint, null, {
         params: { new_role: newRole }
       });
       toast.success('User role updated');
