@@ -201,8 +201,16 @@ function SettingsPage() {
                 <Shield className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Settings & Administration</h1>
-                <p className="text-xs text-teal-600 font-medium">SUPER ADMIN PANEL</p>
+                <h1 className="text-xl font-bold text-gray-900">
+                  {isSuperAdmin && 'Settings & Administration'}
+                  {isOrgAdmin && 'Organization Management'}
+                  {isAdmin && 'Organization Analytics'}
+                </h1>
+                <p className="text-xs text-teal-600 font-medium">
+                  {isSuperAdmin && 'SUPER ADMIN PANEL'}
+                  {isOrgAdmin && 'ORG ADMIN PANEL'}
+                  {isAdmin && 'ADMIN PANEL'}
+                </p>
               </div>
             </div>
             
@@ -220,14 +228,16 @@ function SettingsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tabs */}
         <div className="flex space-x-2 mb-6 border-b">
-          <button
-            onClick={() => setActiveTab('users')}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
-              activeTab === 'users'
-                ? 'border-teal-600 text-teal-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
+          {/* User Management tab - show for SUPER_ADMIN and ORG_ADMIN */}
+          {(isSuperAdmin || isOrgAdmin) && (
+            <button
+              onClick={() => setActiveTab('users')}
+              className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+                activeTab === 'users'
+                  ? 'border-teal-600 text-teal-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
             <Users className="h-4 w-4 inline mr-2" />
             User Management
           </button>
