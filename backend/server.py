@@ -79,6 +79,7 @@ class User(BaseModel):
     name: str
     org_id: str
     role: Role = Role.MEMBER
+    is_active: bool = True
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class Domain(BaseModel):
