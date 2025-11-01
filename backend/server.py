@@ -131,6 +131,7 @@ class Assessment(BaseModel):
     system_info: Optional[dict] = None  # Pre-assessment system information
     overall_percentage: Optional[float] = None  # Overall score percentage
     pending_review_count: int = 0  # Number of answers pending review
+    industry_selected: Optional[str] = None  # Industry snapshot at creation time
 
 class Answer(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
