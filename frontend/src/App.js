@@ -84,6 +84,14 @@ function App() {
               } 
             />
             <Route 
+              path="/review-assessment/:assessmentId" 
+              element={
+                <ProtectedRoute>
+                  <ReviewAssessmentPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/assessment-selector" 
               element={
                 <ProtectedRoute>
