@@ -49,8 +49,13 @@ export function AuthProvider({ children }) {
       const { access_token, user: userData } = response.data;
       
       localStorage.setItem('token', access_token);
-      localStorage.setItem('user', JSON.stringify(userData));
-      setUser(userData);
+      
+      // Fetch fresh user data from /me endpoint to ensure all fields are included
+      const meResponse = await axios.get(`${API}/auth/me`);
+      const freshUserData = meResponse.data;
+      
+      localStorage.setItem('user', JSON.stringify(freshUserData));
+      setUser(freshUserData);
       
       return { success: true };
     } catch (error) {
