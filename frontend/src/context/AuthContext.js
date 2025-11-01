@@ -50,8 +50,12 @@ export function AuthProvider({ children }) {
       
       localStorage.setItem('token', access_token);
       
-      // Fetch fresh user data from /me endpoint to ensure all fields are included
-      const meResponse = await axios.get(`${API}/auth/me`);
+      // Fetch fresh user data from /me endpoint with explicit token
+      const meResponse = await axios.get(`${API}/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${access_token}`
+        }
+      });
       const freshUserData = meResponse.data;
       
       localStorage.setItem('user', JSON.stringify(freshUserData));
@@ -74,8 +78,12 @@ export function AuthProvider({ children }) {
       
       localStorage.setItem('token', access_token);
       
-      // Fetch fresh user data from /me endpoint to ensure all fields are included
-      const meResponse = await axios.get(`${API}/auth/me`);
+      // Fetch fresh user data from /me endpoint with explicit token
+      const meResponse = await axios.get(`${API}/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${access_token}`
+        }
+      });
       const freshUserData = meResponse.data;
       
       localStorage.setItem('user', JSON.stringify(freshUserData));
