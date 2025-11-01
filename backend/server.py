@@ -56,6 +56,10 @@ class AnswerOption(str, Enum):
     NON_IDEAL = "NON_IDEAL"
     OTHER = "OTHER"
 
+class ReviewStatus(str, Enum):
+    APPROVED = "APPROVED"
+    PENDING_REVIEW = "PENDING_REVIEW"
+
 # Standard scoring map
 SCORING_MAP = {
     AnswerOption.IDEAL: 3,
