@@ -40,6 +40,7 @@ function SettingsPage() {
   const [users, setUsers] = useState([]);
   const [assessments, setAssessments] = useState([]);
   const [analytics, setAnalytics] = useState(null);
+  const [pendingReviews, setPendingReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedAssessments, setSelectedAssessments] = useState([]);
@@ -66,6 +67,8 @@ function SettingsPage() {
       fetchAllData();
     } else if (activeTab === 'analytics') {
       fetchAnalytics();
+    } else if (activeTab === 'reviews') {
+      fetchPendingReviews();
     }
   }, [activeTab, hasAdminAccess, navigate]);
 
