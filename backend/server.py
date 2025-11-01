@@ -341,20 +341,62 @@ async def signup(user_data: UserSignUp):
             detail="User with this email already exists"
         )
     
-    # Create organization
-    org = Organization(
-        name=user_data.organization_name,
-        industry=user_data.industry
-    )
-    await db.organizations.insert_one(org.dict())
+    # Extract email domain
+    email_domain = extract_email_domain(user_data.email)
+    is_corporate = is_corporate_domain(user_data.email)
+    
+    # Organization matching flow
+    org_id = None
+    org = None
+    
+    # Step 1: Try domain auto-match (only for corporate domains)
+    if is_corporate and email_domain:
+        domain_match = await db.organization_domains.find_one({"email_domain": email_domain})
+        if domain_match:
+            org_id = domain_match["organisation_id"]
+            org = await db.organizations.find_one({"id": org_id})
+            logger.info(f"User {user_data.email} matched to org {org['name']} via domain")
+    
+    # Step 2: Try name normalization match
+    if not org_id:
+        normalized_name = normalize_org_name(user_data.organization_name)
+        org = await db.organizations.find_one({"name_normalised": normalized_name})
+        if org:
+            org_id = org["id"]
+            logger.info(f"User {user_data.email} matched to org {org['name']} via normalized name")
+    
+    # Step 3: Create new organization
+    if not org_id:
+        normalized_name = normalize_org_name(user_data.organization_name)
+        org = Organization(
+            name=user_data.organization_name,
+            display_name=user_data.organization_name,
+            name_normalised=normalized_name,
+            industry=user_data.industry,  # Keep for backward compatibility
+            primary_industry=None  # Admin will set this later
+        )
+        await db.organizations.insert_one(org.dict())
+        org_id = org.id
+        logger.info(f"Created new org {org.name} for user {user_data.email}")
+        
+        # Optionally create organization_domain entry for corporate emails
+        if is_corporate and email_domain:
+            org_domain = OrganizationDomain(
+                organisation_id=org_id,
+                email_domain=email_domain
+            )
+            await db.organization_domains.insert_one(org_domain.dict())
+            logger.info(f"Created org domain mapping: {email_domain} → {org.name}")
     
     # Create user
     user = User(
         email=user_data.email,
+        email_domain=email_domain,
         name=user_data.name,
         hashed_password=hash_password(user_data.password),
-        org_id=org.id,
-        role=Role.ADMIN  # First user is admin
+        org_id=org_id,
+        role=Role.MEMBER,  # New users start as MEMBER
+        default_industry=user_data.industry  # Store user's industry preference
     )
     await db.users.insert_one(user.dict())
     
@@ -371,8 +413,8 @@ async def signup(user_data: UserSignUp):
         org_id=user.org_id,
         role=user.role,
         is_active=user.is_active,
-        organization_name=org.name,
-        industry=org.industry
+        organization_name=org["display_name"] or org["name"],
+        industry=org.get("primary_industry") or org.get("industry")
     )
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
