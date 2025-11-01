@@ -335,6 +335,110 @@ async def require_super_admin(current_user: UserResponse = Depends(get_current_u
 async def get_current_user_info(current_user: UserResponse = Depends(get_current_user)):
     return current_user
 
+# Admin endpoints
+@api_router.get("/admin/users", response_model=List[UserResponse])
+async def get_all_users(admin: UserResponse = Depends(require_super_admin)):
+    """Get all users (Super Admin only)"""
+    users = await db.users.find({}).to_list(length=None)
+    
+    user_responses = []
+    for user in users:
+        org = await db.organizations.find_one({"id": user["org_id"]})
+        user_responses.append(UserResponse(
+            id=user["id"],
+            email=user["email"],
+            name=user["name"],
+            org_id=user["org_id"],
+            role=user["role"],
+            is_active=user.get("is_active", True),
+            organization_name=org["name"] if org else "Unknown",
+            industry=org["industry"] if org else "Unknown"
+        ))
+    
+    return user_responses
+
+@api_router.put("/admin/users/{user_id}/role")
+async def update_user_role(
+    user_id: str, 
+    new_role: Role,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Update user role (Super Admin only)"""
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"role": new_role.value}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"success": True, "message": f"User role updated to {new_role.value}"}
+
+@api_router.put("/admin/users/{user_id}/toggle-active")
+async def toggle_user_active(
+    user_id: str,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Enable/disable user account (Super Admin only)"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    new_status = not user.get("is_active", True)
+    
+    await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"is_active": new_status}}
+    )
+    
+    return {"success": True, "is_active": new_status}
+
+@api_router.delete("/admin/users/{user_id}")
+async def delete_user(
+    user_id: str,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Delete user account (Super Admin only)"""
+    # Don't allow deleting yourself
+    if user_id == admin.id:
+        raise HTTPException(status_code=400, detail="Cannot delete your own account")
+    
+    result = await db.users.delete_one({"id": user_id})
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"success": True, "message": "User deleted successfully"}
+
+@api_router.post("/admin/users/{user_id}/reset-password")
+async def reset_user_password(
+    user_id: str,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Generate temporary password for user (Super Admin only)"""
+    import secrets
+    import string
+    
+    # Generate random 12-character password
+    alphabet = string.ascii_letters + string.digits
+    temp_password = ''.join(secrets.choice(alphabet) for i in range(12))
+    
+    # Update user password
+    hashed = hash_password(temp_password)
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"hashed_password": hashed}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {
+        "success": True,
+        "temporary_password": temp_password,
+        "message": "Password reset successfully. Share this temporary password with the user."
+    }
+
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
 async def create_assessment(current_user: UserResponse = Depends(get_current_user)):
