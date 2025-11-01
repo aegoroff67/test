@@ -26,7 +26,13 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 // Color mapping for heatmap
-const getScoreColor = (percentage) => {
+const getScoreColor = (percentage, reviewStatus = 'APPROVED') => {
+  // Blue for pending review
+  if (reviewStatus === 'PENDING_REVIEW') {
+    return { bg: '#3B82F6', text: '#FFFFFF' }; // Blue
+  }
+  
+  // Standard colors for approved answers
   if (percentage >= 75) return { bg: '#00B050', text: '#FFFFFF' };
   if (percentage >= 50) return { bg: '#FFFF00', text: '#000000' };
   if (percentage >= 25) return { bg: '#FFC000', text: '#000000' };
