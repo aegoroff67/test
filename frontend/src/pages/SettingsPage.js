@@ -353,7 +353,8 @@ function SettingsPage() {
                               className="text-xs border rounded px-2 py-1"
                               disabled={u.id === user.id}
                             >
-                              <option value="SUPER_ADMIN">Super Admin</option>
+                              {/* SUPER_ADMIN can assign any role, ORG_ADMIN cannot assign SUPER_ADMIN */}
+                              {isSuperAdmin && <option value="SUPER_ADMIN">Super Admin</option>}
                               <option value="ORG_ADMIN">Org Admin</option>
                               <option value="ADMIN">Admin</option>
                               <option value="MEMBER">Member</option>
