@@ -373,6 +373,20 @@ function SettingsPage() {
               <div className="flex justify-between items-center">
                 <CardTitle>User Management</CardTitle>
                 <div className="flex items-center space-x-2">
+                  {/* Organization Filter (SUPER_ADMIN only) */}
+                  {isSuperAdmin && uniqueUserOrgs.length > 1 && (
+                    <select
+                      value={userOrgFilter}
+                      onChange={(e) => setUserOrgFilter(e.target.value)}
+                      className="text-sm border rounded px-3 py-2"
+                    >
+                      <option value="all">All Organizations</option>
+                      {uniqueUserOrgs.map(org => (
+                        <option key={org} value={org}>{org}</option>
+                      ))}
+                    </select>
+                  )}
+                  
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <Input
