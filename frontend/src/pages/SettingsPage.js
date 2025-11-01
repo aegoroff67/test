@@ -238,20 +238,41 @@ function SettingsPage() {
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
-            <Users className="h-4 w-4 inline mr-2" />
-            User Management
-          </button>
-          <button
-            onClick={() => setActiveTab('fields')}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
-              activeTab === 'fields'
-                ? 'border-teal-600 text-teal-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            <Database className="h-4 w-4 inline mr-2" />
-            View All Fields
-          </button>
+              <Users className="h-4 w-4 inline mr-2" />
+              User Management
+            </button>
+          )}
+          
+          {/* Analytics tab - show for ADMIN and above */}
+          {(isSuperAdmin || isOrgAdmin || isAdmin) && (
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+                activeTab === 'analytics'
+                  ? 'border-teal-600 text-teal-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <Database className="h-4 w-4 inline mr-2" />
+              Organization Analytics
+            </button>
+          )}
+          
+          {/* View All Fields tab - show only for SUPER_ADMIN */}
+          {isSuperAdmin && (
+            <button
+              onClick={() => setActiveTab('fields')}
+              className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+                activeTab === 'fields'
+                  ? 'border-teal-600 text-teal-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <Database className="h-4 w-4 inline mr-2" />
+              View All Fields
+            </button>
+          )}
+          
           <button
             onClick={() => setActiveTab('organization')}
             className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
