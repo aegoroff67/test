@@ -61,12 +61,6 @@ function SettingsPage() {
       return;
     }
     
-    // ADMIN users should start on analytics tab
-    if (isAdmin && !isSuperAdmin && !isOrgAdmin && activeTab === 'users') {
-      setActiveTab('analytics');
-      return;
-    }
-    
     if (activeTab === 'users') {
       fetchUsers();
     } else if (activeTab === 'fields') {
@@ -76,7 +70,7 @@ function SettingsPage() {
     } else if (activeTab === 'reviews') {
       fetchPendingReviews();
     }
-  }, [activeTab, hasAdminAccess, navigate, isAdmin, isSuperAdmin, isOrgAdmin]);
+  }, [activeTab, hasAdminAccess, navigate]);
 
   const fetchUsers = async () => {
     setLoading(true);
