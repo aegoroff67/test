@@ -519,24 +519,25 @@ function ResultsPage() {
                         .map((question) => {
                           const answer = domainAnswers.find(a => a.question_id === question.id);
                           const score = answer ? answer.numeric_score : 0;
-                          return { ...question, score };
+                          const reviewStatus = answer ? answer.review_status : 'APPROVED';
+                          return { ...question, score, reviewStatus };
                         })
                         .sort((a, b) => a.score - b.score) // Sort by score, lowest first
                         .map((question) => {
                         const score = question.score;
                         const percentage = (score / 3) * 100; // Max score is 3
-                        const colors = getScoreColor(percentage);
+                        const colors = getScoreColor(percentage, question.reviewStatus);
                         
                         return (
                           <div
                             key={question.id}
                             className="p-2 rounded text-center border border-gray-300"
                             style={{ backgroundColor: colors.bg, color: colors.text }}
-                            title={`${question.code}: ${question.text} (Score: ${score}/3)`}
+                            title={`${question.code}: ${question.text} (Score: ${score}/3)${question.reviewStatus === 'PENDING_REVIEW' ? ' - Pending Review' : ''}`}
                             data-testid={`heatmap-cell-${question.code}`}
                           >
                             <div className="font-bold text-xs">{question.code}</div>
-                            <div className="text-xs opacity-90">{score}/3</div>
+                            <div className="text-xs opacity-90">{question.reviewStatus === 'PENDING_REVIEW' ? 'Review' : `${score}/3`}</div>
                           </div>
                         );
                       })}
