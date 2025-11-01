@@ -855,14 +855,22 @@ async def submit_answer(
             detail="other_text is required when option is OTHER"
         )
     
+    # Determine review status and score
+    if answer_data.option == AnswerOption.OTHER:
+        review_status = ReviewStatus.PENDING_REVIEW.value
+        numeric_score = 0  # Default score for pending review, will be updated by admin
+    else:
+        review_status = ReviewStatus.APPROVED.value
+        numeric_score = SCORING_MAP[answer_data.option]
+    
     answer = Answer(
         assessment_id=assessment_id,
         question_id=answer_data.question_id,
         option=answer_data.option,
-        numeric_score=SCORING_MAP[answer_data.option],
+        numeric_score=numeric_score,
         other_text=answer_data.other_text,
         note=answer_data.note,
-        needs_review=(answer_data.option == AnswerOption.OTHER)
+        review_status=review_status
     )
     
     if existing_answer:
