@@ -118,6 +118,19 @@ function SettingsPage() {
     }
   };
 
+  const fetchPendingReviews = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${API}/admin/assessments/pending-reviews`);
+      setPendingReviews(response.data);
+    } catch (error) {
+      toast.error('Failed to fetch pending reviews');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const toggleUserActive = async (userId, currentStatus) => {
     try {
       const endpoint = isSuperAdmin 
