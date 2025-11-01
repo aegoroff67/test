@@ -322,12 +322,30 @@ async def login(user_data: UserLogin):
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
 
-# Helper function to check if user is super admin
+# Helper functions to check user roles
 async def require_super_admin(current_user: UserResponse = Depends(get_current_user)):
     if current_user.role != Role.SUPER_ADMIN.value:
         raise HTTPException(
             status_code=http_status.HTTP_403_FORBIDDEN,
             detail="Super admin access required"
+        )
+    return current_user
+
+async def require_org_admin(current_user: UserResponse = Depends(get_current_user)):
+    """Require ORG_ADMIN or higher (ORG_ADMIN or SUPER_ADMIN)"""
+    if current_user.role not in [Role.ORG_ADMIN.value, Role.SUPER_ADMIN.value]:
+        raise HTTPException(
+            status_code=http_status.HTTP_403_FORBIDDEN,
+            detail="Organization admin access required"
+        )
+    return current_user
+
+async def require_admin(current_user: UserResponse = Depends(get_current_user)):
+    """Require ADMIN or higher (ADMIN, ORG_ADMIN, or SUPER_ADMIN)"""
+    if current_user.role not in [Role.ADMIN.value, Role.ORG_ADMIN.value, Role.SUPER_ADMIN.value]:
+        raise HTTPException(
+            status_code=http_status.HTTP_403_FORBIDDEN,
+            detail="Admin access required"
         )
     return current_user
 
