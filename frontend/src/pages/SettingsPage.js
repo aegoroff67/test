@@ -404,6 +404,99 @@ function SettingsPage() {
           </Card>
         )}
 
+        {activeTab === 'analytics' && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-gray-600">Total Assessments</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-gray-900">{analytics?.total_assessments || 0}</div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-gray-600">Completed</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-green-600">{analytics?.completed_assessments || 0}</div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-gray-600">In Progress</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-orange-600">{analytics?.incomplete_assessments || 0}</div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-gray-600">Average Score</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-teal-600">{analytics?.average_score || 0}%</div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Assessment List</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {loading ? (
+                  <div className="text-center py-8">
+                    <div className="loading-spinner w-8 h-8 mx-auto mb-2"></div>
+                    <p className="text-gray-500">Loading analytics...</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="bg-gray-50 border-b">
+                        <tr>
+                          <th className="text-left p-3 font-medium text-gray-700">Assessment Name</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Status</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Score</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Created</th>
+                          <th className="text-left p-3 font-medium text-gray-700">Completed</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {analytics?.assessments?.map((a) => (
+                          <tr key={a.id} className="border-b hover:bg-gray-50">
+                            <td className="p-3">
+                              <p className="font-medium text-gray-900">{a.name}</p>
+                            </td>
+                            <td className="p-3">
+                              <Badge className={a.status === 'COMPLETED' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'}>
+                                {a.status}
+                              </Badge>
+                            </td>
+                            <td className="p-3">
+                              {a.overall_percentage ? `${a.overall_percentage}%` : 'N/A'}
+                            </td>
+                            <td className="p-3">
+                              {a.created_at ? new Date(a.created_at).toLocaleDateString() : 'N/A'}
+                            </td>
+                            <td className="p-3">
+                              {a.completed_at ? new Date(a.completed_at).toLocaleDateString() : '-'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
         {activeTab === 'fields' && (
           <div className="space-y-6">
             <Card>
