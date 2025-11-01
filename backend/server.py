@@ -321,6 +321,16 @@ async def login(user_data: UserLogin):
     )
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
+
+# Helper function to check if user is super admin
+async def require_super_admin(current_user: UserResponse = Depends(get_current_user)):
+    if current_user.role != Role.SUPER_ADMIN.value:
+        raise HTTPException(
+            status_code=http_status.HTTP_403_FORBIDDEN,
+            detail="Super admin access required"
+        )
+    return current_user
+
 @api_router.get("/auth/me", response_model=UserResponse)
 async def get_current_user_info(current_user: UserResponse = Depends(get_current_user)):
     return current_user
