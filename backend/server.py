@@ -672,7 +672,20 @@ async def create_assessment(current_user: UserResponse = Depends(get_current_use
 
 @api_router.get("/assessments", response_model=List[AssessmentResponse])
 async def get_assessments(current_user: UserResponse = Depends(get_current_user)):
-    assessments = await db.assessments.find({"org_id": current_user.org_id}).to_list(length=None)
+    """Get assessments filtered by user role"""
+    # MEMBER: Only see their own assessments
+    # ADMIN/ORG_ADMIN: See all assessments in their organization
+    # SUPER_ADMIN: See all assessments
+    
+    if current_user.role == Role.SUPER_ADMIN.value:
+        # SUPER_ADMIN sees everything
+        assessments = await db.assessments.find({}).to_list(length=None)
+    elif current_user.role in [Role.ADMIN.value, Role.ORG_ADMIN.value]:
+        # ADMIN and ORG_ADMIN see all assessments in their organization
+        assessments = await db.assessments.find({"org_id": current_user.org_id}).to_list(length=None)
+    else:
+        # MEMBER sees only their own assessments
+        assessments = await db.assessments.find({"user_id": current_user.id}).to_list(length=None)
     
     # Get total questions count
     total_questions = await db.questions.count_documents({})
