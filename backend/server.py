@@ -38,6 +38,69 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 app = FastAPI(title="AM AI SAFE API")
 api_router = APIRouter(prefix="/api")
 
+# Helper Functions
+def normalize_org_name(raw_name: str) -> str:
+    """
+    Normalize organization name for matching and deduplication.
+    Rules:
+    1. Convert to lowercase
+    2. Trim whitespace
+    3. Remove punctuation: , . ' " ! ? & - ( )
+    4. Collapse multiple spaces to single space
+    5. Remove common legal suffixes
+    """
+    if not raw_name:
+        return ""
+    
+    # Step 1 & 2: lowercase and trim
+    normalized = raw_name.lower().strip()
+    
+    # Step 3: Remove specific punctuation
+    punctuation_to_remove = [',', '.', "'", '"', '!', '?', '&', '-', '(', ')']
+    for char in punctuation_to_remove:
+        normalized = normalized.replace(char, ' ')
+    
+    # Step 4: Collapse multiple spaces
+    normalized = re.sub(r'\s+', ' ', normalized).strip()
+    
+    # Step 5: Remove common legal suffixes (configurable per locale)
+    legal_suffixes = [
+        'pty ltd', 'pty limited', 'limited', 'ltd', 'llc', 'inc', 'incorporated',
+        'corp', 'corporation', 'gmbh', 'plc', 'sa', 'bv', 'nv', 'ag', 'spa'
+    ]
+    for suffix in legal_suffixes:
+        # Match suffix at end of string with optional spaces before
+        pattern = r'\s+' + re.escape(suffix) + r'$'
+        normalized = re.sub(pattern, '', normalized)
+    
+    return normalized.strip()
+
+def is_corporate_domain(email: str) -> bool:
+    """
+    Check if email domain is a corporate domain (not free email provider).
+    Returns True if corporate, False if free email service.
+    """
+    if not email or '@' not in email:
+        return False
+    
+    domain = email.split('@')[1].lower()
+    
+    # List of common free email providers
+    free_email_domains = [
+        'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com',
+        'aol.com', 'mail.com', 'protonmail.com', 'proton.me', 'zoho.com',
+        'gmx.com', 'yandex.com', 'live.com', 'msn.com', 'inbox.com',
+        'me.com', 'mac.com', 'fastmail.com', 'tutanota.com', 'mailinator.com'
+    ]
+    
+    return domain not in free_email_domains
+
+def extract_email_domain(email: str) -> str:
+    """Extract domain from email address."""
+    if not email or '@' not in email:
+        return ""
+    return email.split('@')[1].lower()
+
 # Enums
 class Role(str, Enum):
     SUPER_ADMIN = "SUPER_ADMIN"
