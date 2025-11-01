@@ -72,19 +72,32 @@ SCORING_MAP = {
 # Models
 class Organization(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    name: str
-    industry: str
+    name: str  # Display name (will be renamed to display_name)
+    display_name: Optional[str] = None  # Human-readable official name
+    name_normalised: Optional[str] = None  # Normalized for matching
+    industry: Optional[str] = None  # Keep for backward compatibility
+    primary_industry: Optional[str] = None  # Admin-set primary industry
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class OrganizationDomain(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    organisation_id: str  # FK to Organization
+    email_domain: str  # e.g., "acme.com"
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class User(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     email: EmailStr
+    email_domain: Optional[str] = None  # Extracted domain for quick lookup
     hashed_password: str
     name: str
     org_id: str
     role: Role = Role.MEMBER
     is_active: bool = True
+    default_industry: Optional[str] = None  # User's default industry preference
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class Domain(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
