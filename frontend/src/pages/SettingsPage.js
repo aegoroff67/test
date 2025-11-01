@@ -260,7 +260,7 @@ function SettingsPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
               <div className="bg-teal-600 p-2 rounded-lg">
-                <ShieldIcon className="h-6 w-6 text-white" />
+                <Logo className="h-6 w-6" />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">
