@@ -216,17 +216,14 @@ function AssessmentPage() {
 
       toast.success('Score saved successfully!');
       
-      // Refresh assessment data to update pending count
-      fetchAssessment();
+      // Reset admin score
+      setAdminScore(null);
       
-      // Move to next pending review question if available
-      const pendingResponse = await axios.get(`${API}/assessments/${id}/first-pending-question`);
-      if (pendingResponse.data.question_id) {
-        const pendingIndex = questions.findIndex(q => q.id === pendingResponse.data.question_id);
-        if (pendingIndex >= 0) {
-          setCurrentQuestionIndex(pendingIndex);
-        }
-      }
+      // Refresh assessment data to update pending count
+      await fetchAssessment();
+      
+      // The fetchAssessment will automatically navigate to the next pending question
+      // or show the submit button if all are scored
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Failed to save score');
     }
