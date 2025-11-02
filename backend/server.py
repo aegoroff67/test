@@ -1388,11 +1388,13 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
     
     for question in questions:
         if question["domain_id"] in domain_questions:
+            answer = answer_lookup.get(question["id"])
             question_status = {
                 "question_id": question["id"],
                 "question_code": question["code"],
                 "question_text": question["text"],
-                "answered": question["id"] in answer_lookup
+                "answered": question["id"] in answer_lookup,
+                "review_status": answer.get("review_status") if answer else None
             }
             domain_questions[question["domain_id"]]["questions"].append(question_status)
     
