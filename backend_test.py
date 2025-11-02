@@ -5759,6 +5759,349 @@ class AMSafeAPITester:
         
         return True
 
+    def test_pending_review_workflow(self):
+        """Test the pending review workflow enhancements as specified in review request"""
+        print("\n🔍 TESTING PENDING REVIEW WORKFLOW ENHANCEMENTS")
+        print("=" * 80)
+        
+        # Test Scenario 1: Assessment Naming Test
+        print("\n📝 Test Scenario 1: Assessment Naming with OTHER responses")
+        print("-" * 60)
+        
+        # Login as andrew@test.com
+        login_data = {
+            "email": "andrew@test.com",
+            "password": "password123"
+        }
+        
+        success, response = self.make_request('POST', 'auth/login', login_data)
+        if success and 'access_token' in response:
+            self.token = response['access_token']
+            self.user_data = response['user']
+            self.log_test("Login as andrew@test.com", True)
+        else:
+            self.log_test("Login as andrew@test.com", False, str(response))
+            return False
+        
+        # Create a new assessment
+        success, response = self.make_request('POST', 'assessments', {})
+        if success and 'id' in response:
+            pending_assessment_id = response['id']
+            self.log_test("Create new assessment for pending review test", True)
+        else:
+            self.log_test("Create new assessment for pending review test", False, str(response))
+            return False
+        
+        # Get questions to find FA-1 and FA-3
+        success, response = self.make_request('GET', f'assessments/{pending_assessment_id}/questions')
+        if not success:
+            self.log_test("Get questions for pending review test", False, str(response))
+            return False
+        
+        # Find FA-1 and FA-3 questions
+        fa1_question = None
+        fa3_question = None
+        all_questions = []
+        
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            all_questions.extend(questions)
+            for question in questions:
+                if question.get('code') == 'FA-1':
+                    fa1_question = question
+                elif question.get('code') == 'FA-3':
+                    fa3_question = question
+        
+        if not fa1_question or not fa3_question:
+            self.log_test("Find FA-1 and FA-3 questions", False, "Could not find required questions")
+            return False
+        
+        self.log_test("Find FA-1 and FA-3 questions", True)
+        
+        # Answer FA-1 with OTHER option
+        fa1_answer_data = {
+            "question_id": fa1_question['id'],
+            "option": "OTHER",
+            "other_text": "We use a custom bias detection framework that combines statistical analysis with human oversight to identify and mitigate potential biases in our AI systems.",
+            "note": "Custom implementation for bias detection"
+        }
+        
+        success, response = self.make_request('POST', f'assessments/{pending_assessment_id}/answer', fa1_answer_data)
+        if success:
+            self.log_test("Answer FA-1 with OTHER option", True)
+        else:
+            self.log_test("Answer FA-1 with OTHER option", False, str(response))
+        
+        # Answer FA-3 with OTHER option
+        fa3_answer_data = {
+            "question_id": fa3_question['id'],
+            "option": "OTHER",
+            "other_text": "Our explainability approach uses a combination of LIME and SHAP techniques along with custom visualization tools to provide comprehensive explanations.",
+            "note": "Custom explainability implementation"
+        }
+        
+        success, response = self.make_request('POST', f'assessments/{pending_assessment_id}/answer', fa3_answer_data)
+        if success:
+            self.log_test("Answer FA-3 with OTHER option", True)
+        else:
+            self.log_test("Answer FA-3 with OTHER option", False, str(response))
+        
+        # Answer all remaining questions with standard options
+        answered_questions = {fa1_question['id'], fa3_question['id']}
+        options = ["IDEAL", "GOOD", "BASIC", "NON_IDEAL"]
+        
+        for i, question in enumerate(all_questions):
+            if question['id'] not in answered_questions:
+                option = options[i % len(options)]
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": option,
+                    "note": f"Standard answer for {question.get('code', 'unknown')}"
+                }
+                
+                success, _ = self.make_request('POST', f'assessments/{pending_assessment_id}/answer', answer_data)
+                if success:
+                    answered_questions.add(question['id'])
+        
+        self.log_test(f"Answer all remaining questions ({len(answered_questions)} total)", True)
+        
+        # Submit the assessment
+        success, response = self.make_request('POST', f'assessments/{pending_assessment_id}/submit')
+        if success:
+            self.log_test("Submit assessment with OTHER responses", True)
+        else:
+            self.log_test("Submit assessment with OTHER responses", False, str(response))
+            return False
+        
+        # Verify assessment name format: "Pending Review – [Assessment Type] – [Target Name] – [Date]"
+        success, assessment_response = self.make_request('GET', f'assessments/{pending_assessment_id}')
+        if success:
+            assessment_name = assessment_response.get('name', '')
+            if assessment_name.startswith('Pending Review –'):
+                self.log_test("Assessment name includes 'Pending Review' prefix", True)
+                print(f"   📝 Assessment name: {assessment_name}")
+            else:
+                self.log_test("Assessment name includes 'Pending Review' prefix", False, f"Name: {assessment_name}")
+        else:
+            self.log_test("Verify assessment name format", False, str(assessment_response))
+        
+        # Test Scenario 2: Notification Creation Test
+        print("\n📝 Test Scenario 2: Notification Creation")
+        print("-" * 60)
+        
+        # Test GET /api/admin/notifications endpoint
+        success, notifications = self.make_request('GET', 'admin/notifications')
+        if success:
+            self.log_test("GET /api/admin/notifications endpoint accessible", True)
+            
+            # Find notification for our assessment
+            assessment_notification = None
+            for notification in notifications:
+                if notification.get('assessment_id') == pending_assessment_id:
+                    assessment_notification = notification
+                    break
+            
+            if assessment_notification:
+                self.log_test("Notification created for assessment with OTHER responses", True)
+                
+                # Verify notification structure
+                required_fields = ['type', 'title', 'message', 'assessment_id', 'assessment_name', 'pending_count', 'is_read', 'created_at', 'org_id']
+                missing_fields = [field for field in required_fields if field not in assessment_notification]
+                
+                if not missing_fields:
+                    self.log_test("Notification contains all required fields", True)
+                    
+                    # Verify specific field values
+                    if assessment_notification.get('type') == 'PENDING_REVIEW':
+                        self.log_test("Notification type is 'PENDING_REVIEW'", True)
+                    else:
+                        self.log_test("Notification type is 'PENDING_REVIEW'", False, f"Type: {assessment_notification.get('type')}")
+                    
+                    if assessment_notification.get('pending_count') == 2:
+                        self.log_test("Notification pending_count is 2", True)
+                    else:
+                        self.log_test("Notification pending_count is 2", False, f"Count: {assessment_notification.get('pending_count')}")
+                    
+                    if assessment_notification.get('is_read') == False:
+                        self.log_test("Notification is_read is false", True)
+                    else:
+                        self.log_test("Notification is_read is false", False, f"is_read: {assessment_notification.get('is_read')}")
+                        
+                else:
+                    self.log_test("Notification contains all required fields", False, f"Missing: {missing_fields}")
+                    
+            else:
+                self.log_test("Notification created for assessment with OTHER responses", False, "No notification found for assessment")
+        else:
+            self.log_test("GET /api/admin/notifications endpoint accessible", False, str(notifications))
+        
+        # Test Scenario 3: Notification Count Test
+        print("\n📝 Test Scenario 3: Notification Count")
+        print("-" * 60)
+        
+        success, count_response = self.make_request('GET', 'admin/notifications/unread-count')
+        if success:
+            self.log_test("GET /api/admin/notifications/unread-count endpoint accessible", True)
+            
+            unread_count = count_response.get('count', 0)
+            if unread_count >= 1:
+                self.log_test("Unread notification count includes new notification", True)
+                print(f"   📝 Unread count: {unread_count}")
+            else:
+                self.log_test("Unread notification count includes new notification", False, f"Count: {unread_count}")
+        else:
+            self.log_test("GET /api/admin/notifications/unread-count endpoint accessible", False, str(count_response))
+        
+        # Test Scenario 4: Mark Notification Read Test
+        print("\n📝 Test Scenario 4: Mark Notification Read")
+        print("-" * 60)
+        
+        if 'assessment_notification' in locals() and assessment_notification:
+            notification_id = assessment_notification.get('id')
+            if notification_id:
+                success, response = self.make_request('PUT', f'admin/notifications/{notification_id}/mark-read')
+                if success:
+                    self.log_test("PUT /api/admin/notifications/{id}/mark-read endpoint works", True)
+                    
+                    # Verify notification is marked as read
+                    success, updated_notifications = self.make_request('GET', 'admin/notifications')
+                    if success:
+                        updated_notification = None
+                        for notification in updated_notifications:
+                            if notification.get('id') == notification_id:
+                                updated_notification = notification
+                                break
+                        
+                        if updated_notification and updated_notification.get('is_read') == True:
+                            self.log_test("Notification is_read field updated to true", True)
+                        else:
+                            self.log_test("Notification is_read field updated to true", False, "is_read not updated")
+                    
+                    # Verify unread count decreased
+                    success, new_count_response = self.make_request('GET', 'admin/notifications/unread-count')
+                    if success:
+                        new_unread_count = new_count_response.get('count', 0)
+                        if 'unread_count' in locals() and new_unread_count == unread_count - 1:
+                            self.log_test("Unread count decreased after marking read", True)
+                        else:
+                            self.log_test("Unread count decreased after marking read", False, f"Expected decrease, got {new_unread_count}")
+                else:
+                    self.log_test("PUT /api/admin/notifications/{id}/mark-read endpoint works", False, str(response))
+        
+        # Test Scenario 5: Mark All Read Test
+        print("\n📝 Test Scenario 5: Mark All Read")
+        print("-" * 60)
+        
+        # Create another assessment with pending reviews to test bulk mark as read
+        success, response = self.make_request('POST', 'assessments', {})
+        if success:
+            second_assessment_id = response['id']
+            
+            # Answer a question with OTHER option and submit
+            success, response = self.make_request('GET', f'assessments/{second_assessment_id}/questions')
+            if success:
+                first_question = response[0]['questions'][0]
+                
+                # Answer with OTHER
+                answer_data = {
+                    "question_id": first_question['id'],
+                    "option": "OTHER",
+                    "other_text": "Another custom response for testing bulk operations",
+                    "note": "Test for bulk mark as read"
+                }
+                self.make_request('POST', f'assessments/{second_assessment_id}/answer', answer_data)
+                
+                # Answer remaining questions
+                for domain_data in response:
+                    questions = domain_data.get('questions', [])
+                    for question in questions[1:]:  # Skip first question already answered
+                        answer_data = {
+                            "question_id": question['id'],
+                            "option": "GOOD",
+                            "note": "Standard answer"
+                        }
+                        self.make_request('POST', f'assessments/{second_assessment_id}/answer', answer_data)
+                
+                # Submit second assessment
+                self.make_request('POST', f'assessments/{second_assessment_id}/submit')
+                self.log_test("Create second assessment with pending reviews", True)
+        
+        # Test mark all as read
+        success, response = self.make_request('PUT', 'admin/notifications/mark-all-read')
+        if success:
+            self.log_test("PUT /api/admin/notifications/mark-all-read endpoint works", True)
+            
+            # Verify all notifications are marked as read
+            success, all_notifications = self.make_request('GET', 'admin/notifications')
+            if success:
+                unread_notifications = [n for n in all_notifications if not n.get('is_read', True)]
+                if len(unread_notifications) == 0:
+                    self.log_test("All notifications marked as read", True)
+                else:
+                    self.log_test("All notifications marked as read", False, f"{len(unread_notifications)} notifications still unread")
+            
+            # Verify unread count is 0
+            success, final_count_response = self.make_request('GET', 'admin/notifications/unread-count')
+            if success:
+                final_count = final_count_response.get('count', 0)
+                if final_count == 0:
+                    self.log_test("Unread count returns to 0", True)
+                else:
+                    self.log_test("Unread count returns to 0", False, f"Count: {final_count}")
+        else:
+            self.log_test("PUT /api/admin/notifications/mark-all-read endpoint works", False, str(response))
+        
+        # Test Scenario 6: Assessment with No Pending Reviews
+        print("\n📝 Test Scenario 6: Assessment with No Pending Reviews")
+        print("-" * 60)
+        
+        # Create assessment with only standard responses
+        success, response = self.make_request('POST', 'assessments', {})
+        if success:
+            standard_assessment_id = response['id']
+            
+            # Get questions and answer all with standard options (no OTHER)
+            success, response = self.make_request('GET', f'assessments/{standard_assessment_id}/questions')
+            if success:
+                for domain_data in response:
+                    questions = domain_data.get('questions', [])
+                    for i, question in enumerate(questions):
+                        option = options[i % len(options)]  # Cycle through IDEAL, GOOD, BASIC, NON_IDEAL
+                        answer_data = {
+                            "question_id": question['id'],
+                            "option": option,
+                            "note": f"Standard answer {option}"
+                        }
+                        self.make_request('POST', f'assessments/{standard_assessment_id}/answer', answer_data)
+                
+                # Submit assessment
+                success, response = self.make_request('POST', f'assessments/{standard_assessment_id}/submit')
+                if success:
+                    self.log_test("Submit assessment with only standard responses", True)
+                    
+                    # Verify assessment name does NOT include "Pending Review"
+                    success, assessment_response = self.make_request('GET', f'assessments/{standard_assessment_id}')
+                    if success:
+                        assessment_name = assessment_response.get('name', '')
+                        if not assessment_name.startswith('Pending Review'):
+                            self.log_test("Assessment name does NOT include 'Pending Review' prefix", True)
+                            print(f"   📝 Assessment name: {assessment_name}")
+                        else:
+                            self.log_test("Assessment name does NOT include 'Pending Review' prefix", False, f"Name: {assessment_name}")
+                    
+                    # Verify no new notification was created
+                    success, current_notifications = self.make_request('GET', 'admin/notifications')
+                    if success:
+                        standard_assessment_notifications = [n for n in current_notifications if n.get('assessment_id') == standard_assessment_id]
+                        if len(standard_assessment_notifications) == 0:
+                            self.log_test("No notification created for standard responses", True)
+                        else:
+                            self.log_test("No notification created for standard responses", False, f"Found {len(standard_assessment_notifications)} notifications")
+                else:
+                    self.log_test("Submit assessment with only standard responses", False, str(response))
+        
+        return True
+
     def run_all_tests(self):
         """Run all tests in sequence with focus on production issues"""
         print(f"🚀 Starting AM AI SAFE Production API Tests")
