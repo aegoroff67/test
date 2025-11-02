@@ -54,12 +54,13 @@ function AssessmentPage() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [currentHelpContent, setCurrentHelpContent] = useState(null);
+  const [skipAutoNavigation, setSkipAutoNavigation] = useState(false);
 
   useEffect(() => {
     fetchAssessment();
   }, [id]);
 
-  const fetchAssessment = async () => {
+  const fetchAssessment = async (skipNav = false) => {
     try {
       // Fetch assessment metadata
       const assessmentResponse = await axios.get(`${API}/assessments/${id}`);
