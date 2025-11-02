@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 
 class AssessmentSelectorTester:
-    def __init__(self, base_url="https://aisafe-maturity.preview.emergentagent.com"):
+    def __init__(self, base_url="https://ai-assessment-1.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.token = None
