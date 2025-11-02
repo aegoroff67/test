@@ -67,9 +67,10 @@ function SettingsPage() {
       return;
     }
     
-    // Fetch unread notification count for Super Admin
+    // Fetch counts for Super Admin badges on mount
     if (isSuperAdmin) {
       fetchUnreadCount();
+      fetchPendingReviewsCount();
     }
     
     if (activeTab === 'users') {
