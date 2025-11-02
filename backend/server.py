@@ -994,6 +994,20 @@ async def mark_all_notifications_read(admin: UserResponse = Depends(require_supe
     )
     return {"success": True}
 
+@api_router.delete("/admin/notifications/{notification_id}")
+async def delete_notification(notification_id: str, admin: UserResponse = Depends(require_super_admin)):
+    """Delete a notification"""
+    result = await db.notifications.delete_one({"id": notification_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Notification not found")
+    return {"success": True}
+
+@api_router.post("/admin/notifications/bulk-delete")
+async def bulk_delete_notifications(notification_ids: List[str], admin: UserResponse = Depends(require_super_admin)):
+    """Bulk delete notifications"""
+    result = await db.notifications.delete_many({"id": {"$in": notification_ids}})
+    return {"success": True, "deleted_count": result.deleted_count}
+
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
 async def create_assessment(
