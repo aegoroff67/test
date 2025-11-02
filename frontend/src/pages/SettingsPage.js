@@ -64,6 +64,11 @@ function SettingsPage() {
       return;
     }
     
+    // Fetch unread notification count for Super Admin
+    if (isSuperAdmin) {
+      fetchUnreadCount();
+    }
+    
     if (activeTab === 'users') {
       fetchUsers();
     } else if (activeTab === 'fields') {
@@ -72,6 +77,8 @@ function SettingsPage() {
       fetchAnalytics();
     } else if (activeTab === 'reviews') {
       fetchPendingReviews();
+    } else if (activeTab === 'notifications') {
+      fetchNotifications();
     }
   }, [activeTab, hasAdminAccess, navigate]);
 
