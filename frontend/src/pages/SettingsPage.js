@@ -892,7 +892,7 @@ function SettingsPage() {
                                 size="sm"
                                 onClick={() => {
                                   markNotificationRead(notification.id);
-                                  navigate(`/review-assessment/${notification.assessment_id}`);
+                                  navigate(`/assessment/${notification.assessment_id}`);
                                 }}
                                 className="bg-teal-600 hover:bg-teal-700"
                               >
