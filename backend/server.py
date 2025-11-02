@@ -1583,9 +1583,10 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
-    # Check if assessment is already completed
-    if assessment.get("status") == AssessmentStatus.COMPLETED:
-        raise HTTPException(status_code=400, detail="Assessment is already submitted")
+    # Allow re-submission for SUPER_ADMIN or if assessment is not completed
+    is_resubmission = assessment.get("status") == AssessmentStatus.COMPLETED
+    if is_resubmission and current_user.role != Role.SUPER_ADMIN.value:
+        raise HTTPException(status_code=403, detail="Only Super Admin can re-submit completed assessments")
     
     # Get total questions and answered questions count
     total_questions = await db.questions.count_documents({})
@@ -1612,8 +1613,27 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     completed_date = datetime.now(timezone.utc)
     current_name = assessment["name"]
     
-    # Replace "Started YYYY-MM-DD" with appropriate status
-    if "Started" in current_name:
+    # Handle name updates based on current state
+    if "Pending Review" in current_name:
+        # Re-submission of pending review assessment
+        # Extract parts: Pending Review – [Type] – [Target Name] – YYYY-MM-DD
+        parts = current_name.split(" – ")
+        if len(parts) >= 4:
+            # parts[0] = "Pending Review", parts[1] = Type, parts[2] = Target Name, parts[3] = Date
+            assessment_type = parts[1]
+            target_name = parts[2]
+            date_str = parts[3]  # Keep original completion date
+            
+            if pending_review_count > 0:
+                # Still has pending reviews
+                updated_name = f"Pending Review – {assessment_type} – {target_name} – {date_str}"
+            else:
+                # All reviews completed, remove prefix
+                updated_name = f"{assessment_type} – {target_name} – {date_str}"
+        else:
+            updated_name = current_name
+    elif "Started" in current_name:
+        # First submission
         # Extract parts: [Type] – [Target Name] – Started YYYY-MM-DD
         parts = current_name.split(" – ")
         if len(parts) >= 3:
@@ -1639,7 +1659,7 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
         {
             "$set": {
                 "status": AssessmentStatus.COMPLETED,
-                "completed_at": completed_date,
+                "completed_at": completed_date if not is_resubmission else assessment.get("completed_at"),
                 "progress": total_questions,
                 "name": updated_name,
                 "overall_percentage": round(overall_percentage, 1),
@@ -1648,8 +1668,8 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
         }
     )
     
-    # Create notification for SUPER_ADMIN if there are pending reviews
-    if pending_review_count > 0:
+    # Create notification for SUPER_ADMIN if there are pending reviews (only on first submission)
+    if pending_review_count > 0 and not is_resubmission:
         notification = Notification(
             type="PENDING_REVIEW",
             title="Assessment Pending Review",
