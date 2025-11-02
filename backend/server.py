@@ -1254,6 +1254,25 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
     
     return [dq for dq in domain_questions.values() if dq["questions"]]
 
+@api_router.get("/assessments/{assessment_id}/first-pending-question")
+async def get_first_pending_question(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
+    """Get the first question with a pending review answer"""
+    # Verify assessment belongs to user's organization (or is Super Admin)
+    if current_user.role != Role.SUPER_ADMIN.value:
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        if not assessment:
+            raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Get first pending review answer
+    pending_answer = await db.answers.find_one(
+        {"assessment_id": assessment_id, "review_status": ReviewStatus.PENDING_REVIEW.value}
+    )
+    
+    if not pending_answer:
+        return {"question_id": None}
+    
+    return {"question_id": pending_answer["question_id"]}
+
 @api_router.get("/assessments/{assessment_id}/summary")
 async def get_assessment_summary(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
