@@ -804,7 +804,7 @@ function SettingsPage() {
                             <td className="p-3">
                               <Button
                                 size="sm"
-                                onClick={() => navigate(`/review-assessment/${assessment.id}`)}
+                                onClick={() => navigate(`/assessment/${assessment.id}`)}
                                 className="bg-teal-600 hover:bg-teal-700"
                               >
                                 Review
