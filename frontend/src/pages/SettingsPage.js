@@ -884,7 +884,7 @@ function SettingsPage() {
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={handleBulkDelete}
+                        onClick={handleBulkDeleteNotifications}
                         className="border-red-300 text-red-600 hover:bg-red-50"
                       >
                         <Trash2 className="h-4 w-4 mr-2" />
