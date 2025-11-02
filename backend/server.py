@@ -1596,9 +1596,19 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
         }
     )
     
-    # Log notification for SUPER_ADMIN if there are pending reviews
+    # Create notification for SUPER_ADMIN if there are pending reviews
     if pending_review_count > 0:
-        logger.info(f"NOTIFICATION: Assessment {assessment_id} completed with {pending_review_count} answer(s) pending review")
+        notification = Notification(
+            type="PENDING_REVIEW",
+            title="Assessment Pending Review",
+            message=f"{pending_review_count} answer(s) need review in assessment: {updated_name}",
+            assessment_id=assessment_id,
+            assessment_name=updated_name,
+            pending_count=pending_review_count,
+            org_id=current_user.org_id
+        )
+        await db.notifications.insert_one(notification.dict())
+        logger.info(f"NOTIFICATION CREATED: Assessment {assessment_id} completed with {pending_review_count} answer(s) pending review")
     
     return {
         "status": "success",
