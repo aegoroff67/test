@@ -443,9 +443,17 @@ function SettingsPage() {
               <Bell className="h-4 w-4 inline mr-2" />
               Notifications
               {unreadCount > 0 && (
-                <span className="absolute top-1 right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">
-                  {unreadCount}
-                </span>
+                <>
+                  <span className="absolute top-1 right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">
+                    {unreadCount}
+                  </span>
+                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span className="relative inline-flex items-center justify-center rounded-full h-5 w-5 bg-red-600">
+                      <AlertCircle className="h-3 w-3 text-white" />
+                    </span>
+                  </span>
+                </>
               )}
             </button>
           )}
