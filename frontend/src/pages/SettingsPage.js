@@ -821,6 +821,95 @@ function SettingsPage() {
           </div>
         )}
 
+        {activeTab === 'notifications' && (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <CardTitle>Notifications</CardTitle>
+                  {notifications.length > 0 && unreadCount > 0 && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={markAllRead}
+                    >
+                      Mark All as Read
+                    </Button>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent>
+                {loading ? (
+                  <div className="text-center py-8">
+                    <div className="loading-spinner w-8 h-8 mx-auto mb-2"></div>
+                    <p className="text-gray-500">Loading notifications...</p>
+                  </div>
+                ) : notifications.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Bell className="h-12 w-12 mx-auto text-gray-300 mb-3" />
+                    <p className="text-gray-500 text-lg">No notifications</p>
+                    <p className="text-gray-400 text-sm mt-2">You're all caught up!</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {notifications.map((notification) => (
+                      <div
+                        key={notification.id}
+                        className={`border rounded-lg p-4 ${
+                          notification.is_read ? 'bg-white' : 'bg-blue-50 border-blue-200'
+                        } hover:shadow-md transition-shadow`}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-2 mb-1">
+                              <h3 className="font-semibold text-gray-900">{notification.title}</h3>
+                              {!notification.is_read && (
+                                <Badge className="bg-blue-500 text-white text-xs">New</Badge>
+                              )}
+                            </div>
+                            <p className="text-gray-700 mb-2">{notification.message}</p>
+                            <div className="flex items-center space-x-4 text-sm text-gray-500">
+                              <span>{new Date(notification.created_at).toLocaleString()}</span>
+                              {notification.type === 'PENDING_REVIEW' && (
+                                <Badge className="bg-yellow-100 text-yellow-800 text-xs">
+                                  {notification.pending_count} pending
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex space-x-2 ml-4">
+                            {!notification.is_read && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => markNotificationRead(notification.id)}
+                              >
+                                Mark Read
+                              </Button>
+                            )}
+                            {notification.type === 'PENDING_REVIEW' && (
+                              <Button
+                                size="sm"
+                                onClick={() => {
+                                  markNotificationRead(notification.id);
+                                  navigate(`/review-assessment/${notification.assessment_id}`);
+                                }}
+                                className="bg-teal-600 hover:bg-teal-700"
+                              >
+                                Review Now
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
         {activeTab === 'fields' && (
           <div className="space-y-6">
             <Card>
