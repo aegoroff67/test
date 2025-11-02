@@ -6741,16 +6741,16 @@ def main():
     tester = AMSafeAPITester()
     
     try:
-        # Run the critical report generation tests as requested in the review
-        success = tester.run_critical_report_tests()
+        # Run the pending review workflow tests as requested in the review
+        success = tester.test_pending_review_workflow()
         
         if success:
-            print("\n🎉 SUCCESS: All critical report generation tests passed!")
-            print("Production fix has been verified - LibreOffice installation successful")
+            print("\n🎉 SUCCESS: All pending review workflow tests passed!")
+            print("Pending review enhancements have been verified successfully")
             return 0
         else:
-            print("\n❌ FAILURE: Critical report generation tests failed!")
-            print("Production issues remain - further investigation needed")
+            print("\n❌ FAILURE: Pending review workflow tests failed!")
+            print("Issues found - check details above")
             return 1
         
     except Exception as e:
