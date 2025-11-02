@@ -167,6 +167,15 @@ function SettingsPage() {
     }
   };
 
+  const fetchPendingReviewsCount = async () => {
+    try {
+      const response = await axios.get(`${API}/admin/assessments/pending-reviews`);
+      setPendingReviews(response.data); // Update the full state so the badge shows
+    } catch (error) {
+      console.error('Failed to fetch pending reviews count:', error);
+    }
+  };
+
   const markNotificationRead = async (notificationId) => {
     try {
       await axios.put(`${API}/admin/notifications/${notificationId}/mark-read`);
