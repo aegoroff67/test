@@ -6140,6 +6140,9 @@ class AMSafeAPITester:
                 self.test_docx_report_generation()
                 self.test_pdf_report_generation()
         
+        # Test pending review workflow enhancements (Review Request)
+        self.test_pending_review_workflow()
+        
         # Print summary
         print("\n" + "=" * 80)
         print(f"📊 PRODUCTION TEST SUMMARY")
