@@ -914,7 +914,7 @@ function AssessmentPage() {
               </Button>
 
               <div className="flex space-x-2 sm:space-x-4 order-1 sm:order-2">
-                {answeredCount >= questions.length ? (
+                {answeredCount >= questions.length && assessment?.pending_review_count === 0 ? (
                   <Button 
                     onClick={submitAssessment}
                     disabled={submitting}
@@ -933,6 +933,12 @@ function AssessmentPage() {
                       </div>
                     )}
                   </Button>
+                ) : answeredCount >= questions.length && assessment?.pending_review_count > 0 ? (
+                  <div className="flex-1 sm:flex-initial p-3 bg-yellow-50 border border-yellow-300 rounded-md text-center">
+                    <p className="text-sm text-yellow-800 font-medium">
+                      {assessment.pending_review_count} response(s) need scoring
+                    </p>
+                  </div>
                 ) : (
                   <Button 
                     onClick={nextQuestion}
