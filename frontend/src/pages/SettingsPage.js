@@ -394,6 +394,26 @@ function SettingsPage() {
             </button>
           )}
           
+          {/* Notifications tab - show only for SUPER_ADMIN */}
+          {isSuperAdmin && (
+            <button
+              onClick={() => setActiveTab('notifications')}
+              className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors relative ${
+                activeTab === 'notifications'
+                  ? 'border-teal-600 text-teal-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <Bell className="h-4 w-4 inline mr-2" />
+              Notifications
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+          )}
+          
           {/* Pending Reviews tab - show only for SUPER_ADMIN */}
           {isSuperAdmin && (
             <button
