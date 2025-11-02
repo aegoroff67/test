@@ -998,8 +998,6 @@ function SettingsPage() {
                   </div>
                   </>
                 )}
-                  </div>
-                )}
               </CardContent>
             </Card>
           </div>
