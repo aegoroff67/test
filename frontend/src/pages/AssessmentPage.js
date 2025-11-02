@@ -195,6 +195,43 @@ function AssessmentPage() {
     await saveAnswer(option, note, otherText);
   };
 
+  const handleSaveAdminScore = async () => {
+    if (adminScore === null || adminScore === undefined) {
+      toast.error('Please select a score');
+      return;
+    }
+
+    try {
+      const answerId = currentQuestion?.answer?.id;
+      if (!answerId) {
+        toast.error('No answer found to score');
+        return;
+      }
+
+      await axios.put(
+        `${API}/admin/assessments/${id}/answers/${answerId}/score`,
+        null,
+        { params: { score: adminScore } }
+      );
+
+      toast.success('Score saved successfully!');
+      
+      // Refresh assessment data to update pending count
+      fetchAssessment();
+      
+      // Move to next pending review question if available
+      const pendingResponse = await axios.get(`${API}/assessments/${id}/first-pending-question`);
+      if (pendingResponse.data.question_id) {
+        const pendingIndex = questions.findIndex(q => q.id === pendingResponse.data.question_id);
+        if (pendingIndex >= 0) {
+          setCurrentQuestionIndex(pendingIndex);
+        }
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Failed to save score');
+    }
+  };
+
   // Check if current domain is complete
   const isCurrentDomainComplete = () => {
     if (!currentQuestion || !questions.length) return false;
