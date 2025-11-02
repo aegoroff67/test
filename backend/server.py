@@ -1685,8 +1685,6 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
                     updated_name = f"Pending_Review_{assessment_type}_{target_name}_{date_str}"
                 else:
                     updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
-                else:
-                    updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
             else:
                 updated_name = current_name
     else:
