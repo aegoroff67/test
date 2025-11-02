@@ -19,7 +19,8 @@ import {
   Building2,
   Trash2,
   Lightbulb,
-  Bot
+  Bot,
+  AlertCircle
 } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -30,10 +31,28 @@ function Dashboard() {
   const navigate = useNavigate();
   const [assessments, setAssessments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [pendingReviewsCount, setPendingReviewsCount] = useState(0);
 
   useEffect(() => {
     fetchAssessments();
-  }, []);
+    if (user?.role === 'SUPER_ADMIN') {
+      fetchNotificationCounts();
+    }
+  }, [user]);
+
+  const fetchNotificationCounts = async () => {
+    try {
+      const [unreadResponse, pendingResponse] = await Promise.all([
+        axios.get(`${API}/admin/notifications/unread-count`),
+        axios.get(`${API}/admin/assessments/pending-reviews`)
+      ]);
+      setUnreadCount(unreadResponse.data.count);
+      setPendingReviewsCount(pendingResponse.data.length);
+    } catch (error) {
+      console.error('Failed to fetch notification counts:', error);
+    }
+  };
 
   const fetchAssessments = async () => {
     try {
