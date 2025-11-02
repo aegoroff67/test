@@ -214,6 +214,18 @@ class Report(BaseModel):
     url: str
     generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+class Notification(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    type: str  # e.g., "PENDING_REVIEW"
+    title: str
+    message: str
+    assessment_id: str
+    assessment_name: str
+    pending_count: int
+    is_read: bool = False
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    org_id: str
+
 # Request/Response models
 class UserSignUp(BaseModel):
     name: str
