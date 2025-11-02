@@ -879,15 +879,28 @@ function SettingsPage() {
               <CardHeader>
                 <div className="flex justify-between items-center">
                   <CardTitle>Notifications</CardTitle>
-                  {notifications.length > 0 && unreadCount > 0 && (
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={markAllRead}
-                    >
-                      Mark All as Read
-                    </Button>
-                  )}
+                  <div className="flex space-x-2">
+                    {selectedNotifications.length > 0 && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={handleBulkDelete}
+                        className="border-red-300 text-red-600 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Delete Selected ({selectedNotifications.length})
+                      </Button>
+                    )}
+                    {notifications.length > 0 && unreadCount > 0 && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={markAllRead}
+                      >
+                        Mark All as Read
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -903,7 +916,21 @@ function SettingsPage() {
                     <p className="text-gray-400 text-sm mt-2">You're all caught up!</p>
                   </div>
                 ) : (
-                  <div className="space-y-3">
+                  <>
+                    {/* Select All Checkbox */}
+                    <div className="mb-3 pb-3 border-b flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedNotifications.length === notifications.length}
+                        onChange={(e) => handleSelectAllNotifications(e.target.checked)}
+                        className="h-4 w-4 text-teal-600 rounded border-gray-300 focus:ring-teal-500"
+                      />
+                      <label className="ml-2 text-sm font-medium text-gray-700">
+                        Select All
+                      </label>
+                    </div>
+                    
+                    <div className="space-y-3">
                     {notifications.map((notification) => (
                       <div
                         key={notification.id}
@@ -911,6 +938,17 @@ function SettingsPage() {
                           notification.is_read ? 'bg-white' : 'bg-blue-50 border-blue-200'
                         } hover:shadow-md transition-shadow`}
                       >
+                        <div className="flex items-start space-x-3">
+                          {/* Checkbox */}
+                          <input
+                            type="checkbox"
+                            checked={selectedNotifications.includes(notification.id)}
+                            onChange={() => handleSelectNotification(notification.id)}
+                            className="mt-1 h-4 w-4 text-teal-600 rounded border-gray-300 focus:ring-teal-500"
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                          
+                          <div className="flex-1">
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-1">
