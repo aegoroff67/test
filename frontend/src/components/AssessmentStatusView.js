@@ -99,21 +99,25 @@ function AssessmentStatusView({ assessmentId, onClose, onQuestionClick }) {
                   
                   {/* Questions Grid */}
                   <div className="flex-1 space-y-1">
-                    {domain.questions.map((question) => (
+                    {domain.questions.map((question) => {
+                      const isPendingReview = question.review_status === 'PENDING_REVIEW';
+                      const bgColor = isPendingReview 
+                        ? 'bg-blue-100 border-blue-300 text-blue-800 hover:bg-blue-200'
+                        : question.answered
+                          ? 'bg-green-100 border-green-300 text-green-800 hover:bg-green-200'
+                          : 'bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100';
+                      
+                      return (
                       <div
                         key={question.question_id}
-                        className={`p-2 rounded text-center text-xs font-medium border transition-all cursor-pointer hover:shadow-md ${
-                          question.answered
-                            ? 'bg-green-100 border-green-300 text-green-800 hover:bg-green-200'
-                            : 'bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100'
-                        }`}
-                        title={`${question.question_code} - ${question.answered ? 'Answered ✓' : 'Not answered'} - Click to navigate`}
+                        className={`p-2 rounded text-center text-xs font-medium border transition-all cursor-pointer hover:shadow-md ${bgColor}`}
+                        title={`${question.question_code} - ${isPendingReview ? 'Pending Review 📝' : question.answered ? 'Answered ✓' : 'Not answered'} - Click to navigate`}
                         data-testid={`status-${question.question_code}`}
                         onClick={() => onQuestionClick && onQuestionClick(question.question_id)}
                       >
                         <div className="flex items-center justify-center space-x-1">
                           {question.answered ? (
-                            <CheckCircle2 className="h-3 w-3 text-green-600" />
+                            <CheckCircle2 className={`h-3 w-3 ${isPendingReview ? 'text-blue-600' : 'text-green-600'}`} />
                           ) : (
                             <Circle className="h-3 w-3 text-gray-400" />
                           )}
@@ -122,7 +126,8 @@ function AssessmentStatusView({ assessmentId, onClose, onQuestionClick }) {
                           {question.question_code}
                         </div>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               );
