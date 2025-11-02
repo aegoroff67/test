@@ -223,11 +223,25 @@ function AssessmentPage() {
       // Reset admin score
       setAdminScore(null);
       
-      // Refresh assessment data to update pending count
-      await fetchAssessment();
+      // Refresh assessment data to update pending count (skip auto-navigation)
+      await fetchAssessment(true);
       
-      // The fetchAssessment will automatically navigate to the next pending question
-      // or show the submit button if all are scored
+      // Now manually navigate to next pending question
+      try {
+        const pendingResponse = await axios.get(`${API}/assessments/${id}/first-pending-question`);
+        if (pendingResponse.data.question_id) {
+          // Find the index of this question
+          const pendingIndex = questions.findIndex(q => q.id === pendingResponse.data.question_id);
+          if (pendingIndex >= 0) {
+            setCurrentQuestionIndex(pendingIndex);
+            return;
+          }
+        }
+        // If no more pending questions, we're done - submit button will show
+        toast.success('All pending reviews have been scored!');
+      } catch (err) {
+        console.error('Error finding next pending question:', err);
+      }
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Failed to save score');
     }
