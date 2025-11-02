@@ -96,8 +96,8 @@ function AssessmentPage() {
       });
       setAnswers(answersMap);
       
-      // Check if this is a pending review assessment
-      if (assessmentResponse.data.pending_review_count > 0 && user?.role === 'SUPER_ADMIN') {
+      // Check if this is a pending review assessment (only if not skipping auto-navigation)
+      if (!skipNav && assessmentResponse.data.pending_review_count > 0 && user?.role === 'SUPER_ADMIN') {
         // Get first pending review question
         try {
           const pendingResponse = await axios.get(`${API}/assessments/${id}/first-pending-question`);
@@ -105,6 +105,7 @@ function AssessmentPage() {
             const pendingIndex = questionsData.findIndex(q => q.id === pendingResponse.data.question_id);
             if (pendingIndex >= 0) {
               setCurrentQuestionIndex(pendingIndex);
+              setLoading(false);
               return; // Exit early, we found the pending question
             }
           }
@@ -113,9 +114,11 @@ function AssessmentPage() {
         }
       }
       
-      // Set current question (first unanswered or first question)
-      const firstUnanswered = questionsData.findIndex(q => !q.answer);
-      setCurrentQuestionIndex(firstUnanswered >= 0 ? firstUnanswered : 0);
+      // Set current question (first unanswered or first question) - only if not skipping
+      if (!skipNav) {
+        const firstUnanswered = questionsData.findIndex(q => !q.answer);
+        setCurrentQuestionIndex(firstUnanswered >= 0 ? firstUnanswered : 0);
+      }
       
     } catch (error) {
       console.error('Error loading assessment:', error);
