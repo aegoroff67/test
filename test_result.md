@@ -421,8 +421,19 @@
 ## metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 1
+  test_sequence: 2
   run_ui: false
+
+## test_plan:
+  current_focus:
+    - "Pending review system for custom OTHER responses"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+## agent_communication:
+    - agent: "main"
+    - message: "COMPLETED pending review workflow enhancements. Changes implemented: 1) Assessment naming now formats as 'Pending Review – [Type] – [Target Name] – [Date]' when pending_review_count > 0, 2) Added Notification model and database collection, 3) Notification automatically created when assessment submitted with pending reviews, 4) Added 4 notification endpoints for Super Admin, 5) Frontend Notifications tab added with unread count badge, notification list, and action buttons. Please test: 1) Complete an assessment with 'OTHER' responses (e.g., FA-1, FA-3), 2) Verify assessment name shows 'Pending Review – [Type] – [Target Name] – [Date]' format, 3) Verify notification created in database and accessible via GET /api/admin/notifications endpoint, 4) Test notification unread count endpoint, 5) Test mark as read functionality. Backend endpoints to test: GET /api/admin/notifications, GET /api/admin/notifications/unread-count, PUT /api/admin/notifications/{id}/mark-read, PUT /api/admin/notifications/mark-all-read."
 
   - task: "Test expanded Progress sidebar alignment in AM AI SAFE assessment page"
     implemented: true
@@ -466,8 +477,19 @@
 ## metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 1
+  test_sequence: 2
   run_ui: false
+
+## test_plan:
+  current_focus:
+    - "Pending review system for custom OTHER responses"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+## agent_communication:
+    - agent: "main"
+    - message: "COMPLETED pending review workflow enhancements. Changes implemented: 1) Assessment naming now formats as 'Pending Review – [Type] – [Target Name] – [Date]' when pending_review_count > 0, 2) Added Notification model and database collection, 3) Notification automatically created when assessment submitted with pending reviews, 4) Added 4 notification endpoints for Super Admin, 5) Frontend Notifications tab added with unread count badge, notification list, and action buttons. Please test: 1) Complete an assessment with 'OTHER' responses (e.g., FA-1, FA-3), 2) Verify assessment name shows 'Pending Review – [Type] – [Target Name] – [Date]' format, 3) Verify notification created in database and accessible via GET /api/admin/notifications endpoint, 4) Test notification unread count endpoint, 5) Test mark as read functionality. Backend endpoints to test: GET /api/admin/notifications, GET /api/admin/notifications/unread-count, PUT /api/admin/notifications/{id}/mark-read, PUT /api/admin/notifications/mark-all-read."
 
   - task: "Test Assessment Selector page and button functionality"
     implemented: true
