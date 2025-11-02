@@ -1544,17 +1544,23 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     max_score = len(approved_answers) * 3  # Maximum score per question is 3
     overall_percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
-    # Update the assessment name to replace "Started" with "Completed"
+    # Update the assessment name
     completed_date = datetime.now(timezone.utc)
     current_name = assessment["name"]
     
-    # Replace "Started YYYY-MM-DD" with "Completed YYYY-MM-DD"
+    # Determine status text based on pending reviews
+    if pending_review_count > 0:
+        status_text = f"Pending Review"
+    else:
+        status_text = f"Completed"
+    
+    # Replace "Started YYYY-MM-DD" with new status
     if "Started" in current_name:
         # Extract everything before the date part
         parts = current_name.split(" – ")
         if len(parts) >= 3:
             # parts[0] = Type, parts[1] = Target Name, parts[2] = "Started YYYY-MM-DD"
-            updated_name = f"{parts[0]} – {parts[1]} – Completed {completed_date.strftime('%Y-%m-%d')}"
+            updated_name = f"{parts[0]} – {parts[1]} – {status_text} {completed_date.strftime('%Y-%m-%d')}"
         else:
             updated_name = current_name
     else:
