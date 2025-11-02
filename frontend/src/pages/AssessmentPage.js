@@ -87,11 +87,29 @@ function AssessmentPage() {
           answersMap[q.id] = {
             option: q.answer.option,
             note: q.answer.note || '',
-            other_text: q.answer.other_text || ''
+            other_text: q.answer.other_text || '',
+            review_status: q.answer.review_status || 'APPROVED'
           };
         }
       });
       setAnswers(answersMap);
+      
+      // Check if this is a pending review assessment
+      if (assessmentResponse.data.pending_review_count > 0 && user?.role === 'SUPER_ADMIN') {
+        // Get first pending review question
+        try {
+          const pendingResponse = await axios.get(`${API}/assessments/${id}/first-pending-question`);
+          if (pendingResponse.data.question_id) {
+            const pendingIndex = questionsData.findIndex(q => q.id === pendingResponse.data.question_id);
+            if (pendingIndex >= 0) {
+              setCurrentQuestionIndex(pendingIndex);
+              return; // Exit early, we found the pending question
+            }
+          }
+        } catch (err) {
+          console.error('Error fetching first pending question:', err);
+        }
+      }
       
       // Set current question (first unanswered or first question)
       const firstUnanswered = questionsData.findIndex(q => !q.answer);
