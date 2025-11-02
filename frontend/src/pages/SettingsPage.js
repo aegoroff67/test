@@ -18,7 +18,8 @@ import {
   Shield as ShieldIcon,
   Search,
   Edit,
-  Bell
+  Bell,
+  AlertCircle
 } from 'lucide-react';
 import Logo from '../components/Logo';
 import { toast } from 'sonner';
