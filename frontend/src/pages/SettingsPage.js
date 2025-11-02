@@ -205,7 +205,7 @@ function SettingsPage() {
     }
   };
 
-  const handleBulkDelete = async () => {
+  const handleBulkDeleteNotifications = async () => {
     if (selectedNotifications.length === 0) {
       toast.error('Please select notifications to delete');
       return;
