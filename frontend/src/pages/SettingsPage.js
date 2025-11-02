@@ -67,12 +67,6 @@ function SettingsPage() {
       return;
     }
     
-    // Fetch counts for Super Admin badges on mount
-    if (isSuperAdmin) {
-      fetchUnreadCount();
-      fetchPendingReviewsCount();
-    }
-    
     if (activeTab === 'users') {
       fetchUsers();
     } else if (activeTab === 'fields') {
@@ -85,6 +79,14 @@ function SettingsPage() {
       fetchNotifications();
     }
   }, [activeTab, hasAdminAccess, navigate]);
+
+  // Separate useEffect for fetching counts on mount
+  useEffect(() => {
+    if (isSuperAdmin) {
+      fetchUnreadCount();
+      fetchPendingReviewsCount();
+    }
+  }, [isSuperAdmin]);
 
   const fetchUsers = async () => {
     setLoading(true);
