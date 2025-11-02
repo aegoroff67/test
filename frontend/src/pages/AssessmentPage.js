@@ -50,6 +50,7 @@ function AssessmentPage() {
   const [submitting, setSubmitting] = useState(false);
   const [showStatusView, setShowStatusView] = useState(false);
   const [otherText, setOtherText] = useState('');
+  const [adminScore, setAdminScore] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [currentHelpContent, setCurrentHelpContent] = useState(null);
