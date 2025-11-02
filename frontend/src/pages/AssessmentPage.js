@@ -794,6 +794,43 @@ function AssessmentPage() {
                         )}
                       </div>
                     </div>
+                    
+                    {/* Super Admin Score Input - only show when reviewing OTHER responses */}
+                    {user?.role === 'SUPER_ADMIN' && currentAnswer?.option === 'OTHER' && currentAnswer?.review_status === 'PENDING_REVIEW' && (
+                      <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <Label className="text-sm font-semibold text-gray-900 mb-3 block">
+                          🔒 Super Admin: Score this response
+                        </Label>
+                        <div className="grid grid-cols-4 gap-2 mb-3">
+                          {[0, 1, 2, 3].map((score) => (
+                            <button
+                              key={score}
+                              onClick={() => setAdminScore(score)}
+                              className={`py-2 px-3 text-center rounded-md font-medium transition-all ${
+                                adminScore === score
+                                  ? 'bg-teal-600 text-white shadow-md'
+                                  : 'bg-white text-gray-700 border border-gray-300 hover:border-teal-600'
+                              }`}
+                            >
+                              <div className="text-lg">{score}</div>
+                              <div className="text-xs">
+                                {score === 0 && 'Non-Ideal'}
+                                {score === 1 && 'Basic'}
+                                {score === 2 && 'Good'}
+                                {score === 3 && 'Ideal'}
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                        <Button
+                          onClick={handleSaveAdminScore}
+                          className="w-full bg-teal-600 hover:bg-teal-700"
+                          disabled={adminScore === null}
+                        >
+                          Save Score & Continue
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
 
