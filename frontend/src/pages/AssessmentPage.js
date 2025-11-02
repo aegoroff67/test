@@ -456,7 +456,7 @@ function AssessmentPage() {
             <Card className="sticky top-2 lg:top-4 progress-sidebar">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center space-x-2">
-                  <Shield className="h-5 w-5 text-teal-600" />
+                  <CheckCircle2 className="h-5 w-5 text-teal-600" />
                   <span>Progress</span>
                 </CardTitle>
               </CardHeader>
