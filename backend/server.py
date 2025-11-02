@@ -965,7 +965,7 @@ async def score_pending_answer(
 @api_router.get("/admin/notifications")
 async def get_notifications(admin: UserResponse = Depends(require_super_admin)):
     """Get all notifications for Super Admin"""
-    notifications = await db.notifications.find({}).sort("created_at", -1).to_list(length=None)
+    notifications = await db.notifications.find({}, {"_id": 0}).sort("created_at", -1).to_list(length=None)
     return notifications
 
 @api_router.get("/admin/notifications/unread-count")
