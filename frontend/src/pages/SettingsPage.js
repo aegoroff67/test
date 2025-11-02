@@ -188,6 +188,40 @@ function SettingsPage() {
     }
   };
 
+  const handleSelectNotification = (notificationId) => {
+    setSelectedNotifications(prev => 
+      prev.includes(notificationId) 
+        ? prev.filter(id => id !== notificationId)
+        : [...prev, notificationId]
+    );
+  };
+
+  const handleSelectAllNotifications = (checked) => {
+    if (checked) {
+      setSelectedNotifications(notifications.map(n => n.id));
+    } else {
+      setSelectedNotifications([]);
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedNotifications.length === 0) {
+      toast.error('Please select notifications to delete');
+      return;
+    }
+
+    try {
+      await axios.post(`${API}/admin/notifications/bulk-delete`, selectedNotifications);
+      toast.success(`${selectedNotifications.length} notification(s) deleted`);
+      setSelectedNotifications([]);
+      fetchNotifications();
+      fetchUnreadCount();
+    } catch (error) {
+      toast.error('Failed to delete notifications');
+      console.error(error);
+    }
+  };
+
 
   const toggleUserActive = async (userId, currentStatus) => {
     try {
