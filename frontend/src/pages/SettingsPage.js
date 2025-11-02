@@ -141,6 +141,52 @@ function SettingsPage() {
     }
   };
 
+  const fetchNotifications = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${API}/admin/notifications`);
+      setNotifications(response.data);
+    } catch (error) {
+      toast.error('Failed to fetch notifications');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchUnreadCount = async () => {
+    try {
+      const response = await axios.get(`${API}/admin/notifications/unread-count`);
+      setUnreadCount(response.data.count);
+    } catch (error) {
+      console.error('Failed to fetch unread count:', error);
+    }
+  };
+
+  const markNotificationRead = async (notificationId) => {
+    try {
+      await axios.put(`${API}/admin/notifications/${notificationId}/mark-read`);
+      fetchNotifications();
+      fetchUnreadCount();
+    } catch (error) {
+      toast.error('Failed to mark notification as read');
+      console.error(error);
+    }
+  };
+
+  const markAllRead = async () => {
+    try {
+      await axios.put(`${API}/admin/notifications/mark-all-read`);
+      fetchNotifications();
+      fetchUnreadCount();
+      toast.success('All notifications marked as read');
+    } catch (error) {
+      toast.error('Failed to mark all as read');
+      console.error(error);
+    }
+  };
+
+
   const toggleUserActive = async (userId, currentStatus) => {
     try {
       const endpoint = isSuperAdmin 
