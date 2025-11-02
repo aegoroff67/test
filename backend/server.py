@@ -961,6 +961,39 @@ async def score_pending_answer(
         "remaining_pending": pending_review_count
     }
 
+# Notification endpoints
+@api_router.get("/admin/notifications")
+async def get_notifications(admin: UserResponse = Depends(require_super_admin)):
+    """Get all notifications for Super Admin"""
+    notifications = await db.notifications.find({}).sort("created_at", -1).to_list(length=None)
+    return notifications
+
+@api_router.get("/admin/notifications/unread-count")
+async def get_unread_notification_count(admin: UserResponse = Depends(require_super_admin)):
+    """Get count of unread notifications"""
+    count = await db.notifications.count_documents({"is_read": False})
+    return {"count": count}
+
+@api_router.put("/admin/notifications/{notification_id}/mark-read")
+async def mark_notification_read(notification_id: str, admin: UserResponse = Depends(require_super_admin)):
+    """Mark a notification as read"""
+    result = await db.notifications.update_one(
+        {"id": notification_id},
+        {"$set": {"is_read": True}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Notification not found")
+    return {"success": True}
+
+@api_router.put("/admin/notifications/mark-all-read")
+async def mark_all_notifications_read(admin: UserResponse = Depends(require_super_admin)):
+    """Mark all notifications as read"""
+    await db.notifications.update_many(
+        {"is_read": False},
+        {"$set": {"is_read": True}}
+    )
+    return {"success": True}
+
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
 async def create_assessment(
