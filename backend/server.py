@@ -1655,19 +1655,38 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
         else:
             updated_name = current_name
     elif "Started" in current_name:
-        # First submission
-        # Extract parts: [Type]_[Target Name]_Started_YYYY-MM-DD
-        parts = current_name.split("_")
-        if len(parts) >= 4:
-            # parts[0] = Type, parts[1] = Target Name, parts[2] = "Started", parts[3] = YYYY-MM-DD
-            assessment_type = parts[0]
-            target_name = parts[1]
-            date_str = completed_date.strftime('%Y-%m-%d')
-            
-            # Format: Pending_Review_[Type]_[Target Name]_[Date]
-            # or: Completed_[Type]_[Target Name]_[Date] if no pending reviews
-            if pending_review_count > 0:
-                updated_name = f"Pending_Review_{assessment_type}_{target_name}_{date_str}"
+        # First submission - handle both old format (with dashes) and new format (with underscores)
+        if " – " in current_name:
+            # Old format: [Type] – [Target Name] – Started YYYY-MM-DD
+            parts = current_name.split(" – ")
+            if len(parts) >= 3:
+                assessment_type = parts[0]
+                target_name = parts[1]
+                date_str = completed_date.strftime('%Y-%m-%d')
+                
+                if pending_review_count > 0:
+                    updated_name = f"Pending_Review_{assessment_type}_{target_name}_{date_str}"
+                else:
+                    updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
+            else:
+                updated_name = current_name
+        else:
+            # New format: [Type]_[Target Name]_Started_YYYY-MM-DD
+            parts = current_name.split("_")
+            if len(parts) >= 4:
+                # parts[0] = Type, parts[1] = Target Name, parts[2] = "Started", parts[3] = YYYY-MM-DD
+                assessment_type = parts[0]
+                target_name = parts[1]
+                date_str = completed_date.strftime('%Y-%m-%d')
+                
+                # Format: Pending_Review_[Type]_[Target Name]_[Date]
+                # or: Completed_[Type]_[Target Name]_[Date] if no pending reviews
+                if pending_review_count > 0:
+                    updated_name = f"Pending_Review_{assessment_type}_{target_name}_{date_str}"
+                else:
+                    updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
+            else:
+                updated_name = current_name
             else:
                 updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
         else:
