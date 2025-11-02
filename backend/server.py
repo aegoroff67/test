@@ -1031,9 +1031,9 @@ async def create_assessment(
         industry_selected = org["primary_industry"]
     # else: remains None
     
-    # Generate initial assessment name with format: [Type] – [TBD] – Started YYYY-MM-DD
+    # Generate initial assessment name with format: [Type]_[TBD]_Started_YYYY-MM-DD
     started_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    assessment_name = f"System – [TBD] – Started {started_date}"
+    assessment_name = f"System_[TBD]_Started_{started_date}"
     
     assessment = Assessment(
         org_id=current_user.org_id,
