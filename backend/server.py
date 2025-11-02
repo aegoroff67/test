@@ -1560,19 +1560,22 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     completed_date = datetime.now(timezone.utc)
     current_name = assessment["name"]
     
-    # Determine status text based on pending reviews
-    if pending_review_count > 0:
-        status_text = f"Pending Review"
-    else:
-        status_text = f"Completed"
-    
-    # Replace "Started YYYY-MM-DD" with new status
+    # Replace "Started YYYY-MM-DD" with appropriate status
     if "Started" in current_name:
-        # Extract everything before the date part
+        # Extract parts: [Type] – [Target Name] – Started YYYY-MM-DD
         parts = current_name.split(" – ")
         if len(parts) >= 3:
             # parts[0] = Type, parts[1] = Target Name, parts[2] = "Started YYYY-MM-DD"
-            updated_name = f"{parts[0]} – {parts[1]} – {status_text} {completed_date.strftime('%Y-%m-%d')}"
+            assessment_type = parts[0]
+            target_name = parts[1]
+            date_str = completed_date.strftime('%Y-%m-%d')
+            
+            # Format: Pending Review – [Type] – [Target Name] – [Date]
+            # or: [Type] – [Target Name] – [Date] if no pending reviews
+            if pending_review_count > 0:
+                updated_name = f"Pending Review – {assessment_type} – {target_name} – {date_str}"
+            else:
+                updated_name = f"{assessment_type} – {target_name} – {date_str}"
         else:
             updated_name = current_name
     else:
