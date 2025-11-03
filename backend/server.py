@@ -1665,9 +1665,9 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
                 date_str = completed_date.strftime('%Y-%m-%d')
                 
                 if pending_review_count > 0:
-                    updated_name = f"Pending-Review_{assessment_type}_{target_name}_{date_str}"
+                    updated_name = f"{assessment_type}_{target_name}_Pending-Review_{date_str}"
                 else:
-                    updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
+                    updated_name = f"{assessment_type}_{target_name}_Completed_{date_str}"
             else:
                 updated_name = current_name
         else:
@@ -1682,9 +1682,9 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
                 # Format: Pending-Review_[Type]_[Target Name]_[Date]
                 # or: Completed_[Type]_[Target Name]_[Date] if no pending reviews
                 if pending_review_count > 0:
-                    updated_name = f"Pending-Review_{assessment_type}_{target_name}_{date_str}"
+                    updated_name = f"{assessment_type}_{target_name}_Pending-Review_{date_str}"
                 else:
-                    updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
+                    updated_name = f"{assessment_type}_{target_name}_Completed_{date_str}"
             else:
                 updated_name = current_name
     else:
