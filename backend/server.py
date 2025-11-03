@@ -1648,10 +1648,10 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
             
             if pending_review_count > 0:
                 # Still has pending reviews
-                updated_name = f"Pending-Review_{assessment_type}_{target_name}_{date_str}"
+                updated_name = f"{assessment_type}_{target_name}_Pending-Review_{date_str}"
             else:
                 # All reviews completed, change status to Completed
-                updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
+                updated_name = f"{assessment_type}_{target_name}_Completed_{date_str}"
         else:
             updated_name = current_name
     elif "Started" in current_name or "In-Progress" in current_name:
