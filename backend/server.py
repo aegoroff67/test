@@ -1630,14 +1630,14 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     current_name = assessment["name"]
     
     # Handle name updates based on current state
-    if "Pending Review" in current_name or "Pending_Review" in current_name:
+    if "Pending Review" in current_name or "Pending_Review" in current_name or "Pending-Review" in current_name:
         # Re-submission of pending review assessment
-        # Extract parts: Pending Review_[Type]_[Target Name]_YYYY-MM-DD or Pending_Review_[Type]_[Target Name]_YYYY-MM-DD
-        parts = current_name.replace("Pending Review_", "Pending_Review_").split("_")
+        # Extract parts: Pending-Review_[Type]_[Target Name]_YYYY-MM-DD
+        parts = current_name.replace("Pending Review_", "Pending-Review_").replace("Pending_Review_", "Pending-Review_").split("_")
         if len(parts) >= 4:
-            # parts[0] = "Pending" or "Pending Review", parts[1] = Type or "Review" (if space was used), parts[2] = Target Name, parts[3] = Date
-            # Handle both "Pending Review_" and "Pending_Review_"
-            if parts[0] == "Pending" and parts[1] == "Review":
+            # parts[0] = "Pending-Review", parts[1] = Type, parts[2] = Target Name, parts[3] = Date
+            # Handle "Pending Review" with space
+            if parts[0] == "Pending" and (parts[1] == "Review" or parts[1] == "-Review"):
                 assessment_type = parts[2]
                 target_name = parts[3]
                 date_str = parts[4] if len(parts) > 4 else completed_date.strftime('%Y-%m-%d')
@@ -1648,14 +1648,14 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
             
             if pending_review_count > 0:
                 # Still has pending reviews
-                updated_name = f"Pending_Review_{assessment_type}_{target_name}_{date_str}"
+                updated_name = f"Pending-Review_{assessment_type}_{target_name}_{date_str}"
             else:
                 # All reviews completed, change status to Completed
                 updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
         else:
             updated_name = current_name
-    elif "Started" in current_name:
-        # First submission - handle both old format (with dashes) and new format (with underscores)
+    elif "Started" in current_name or "In-Progress" in current_name:
+        # First submission - handle old formats and new format
         if " – " in current_name:
             # Old format: [Type] – [Target Name] – Started YYYY-MM-DD
             parts = current_name.split(" – ")
@@ -1665,24 +1665,24 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
                 date_str = completed_date.strftime('%Y-%m-%d')
                 
                 if pending_review_count > 0:
-                    updated_name = f"Pending_Review_{assessment_type}_{target_name}_{date_str}"
+                    updated_name = f"Pending-Review_{assessment_type}_{target_name}_{date_str}"
                 else:
                     updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
             else:
                 updated_name = current_name
         else:
-            # New format: [Type]_[Target Name]_Started_YYYY-MM-DD
+            # New format: [Type]_[Target Name]_In-Progress_YYYY-MM-DD or [Type]_[Target Name]_Started_YYYY-MM-DD
             parts = current_name.split("_")
             if len(parts) >= 4:
-                # parts[0] = Type, parts[1] = Target Name, parts[2] = "Started", parts[3] = YYYY-MM-DD
+                # parts[0] = Type, parts[1] = Target Name, parts[2] = "In-Progress" or "Started", parts[3] = YYYY-MM-DD
                 assessment_type = parts[0]
                 target_name = parts[1]
                 date_str = completed_date.strftime('%Y-%m-%d')
                 
-                # Format: Pending_Review_[Type]_[Target Name]_[Date]
+                # Format: Pending-Review_[Type]_[Target Name]_[Date]
                 # or: Completed_[Type]_[Target Name]_[Date] if no pending reviews
                 if pending_review_count > 0:
-                    updated_name = f"Pending_Review_{assessment_type}_{target_name}_{date_str}"
+                    updated_name = f"Pending-Review_{assessment_type}_{target_name}_{date_str}"
                 else:
                     updated_name = f"Completed_{assessment_type}_{target_name}_{date_str}"
             else:
