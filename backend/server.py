@@ -1155,8 +1155,8 @@ async def update_system_info(
         # Extract the assessment type and date from current name
         assessment_type = assessment.get("assessment_type", "System")
         started_date = assessment["started_at"].strftime("%Y-%m-%d")
-        # Generate new name: [Type] – [Target Name] – Started YYYY-MM-DD
-        updated_name = f"{assessment_type} – {system_info['systemName']} – Started {started_date}"
+        # Generate new name: [Type]_[Target Name]_In-Progress_YYYY-MM-DD
+        updated_name = f"{assessment_type}_{system_info['systemName']}_In-Progress_{started_date}"
     
     # Update both system_info and name
     await db.assessments.update_one(
