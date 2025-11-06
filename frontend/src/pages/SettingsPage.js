@@ -59,9 +59,23 @@ function SettingsPage() {
   const isAdmin = user?.role === 'ADMIN';
   const hasAdminAccess = isSuperAdmin || isOrgAdmin || isAdmin;
 
+  // Debug logging
   useEffect(() => {
+    console.log('SettingsPage - User object:', user);
+    console.log('SettingsPage - User role:', user?.role);
+    console.log('SettingsPage - Has admin access:', hasAdminAccess);
+  }, [user, hasAdminAccess]);
+
+  useEffect(() => {
+    // Wait for user to be loaded
+    if (user === null) {
+      console.log('User is still loading...');
+      return;
+    }
+    
     // Check if user has any admin access
     if (!hasAdminAccess) {
+      console.log('No admin access, redirecting...');
       toast.error('Admin access required');
       navigate('/dashboard');
       return;
