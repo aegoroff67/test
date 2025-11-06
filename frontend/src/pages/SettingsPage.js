@@ -909,9 +909,9 @@ function SettingsPage() {
                     {selectedNotifications.length > 0 && (
                       <Button
                         size="sm"
-                        variant="outline"
+                        variant="destructive"
                         onClick={handleBulkDeleteNotifications}
-                        className="border-red-300 text-red-600 hover:bg-red-50"
+                        className="bg-red-600 hover:bg-red-700"
                       >
                         <Trash2 className="h-4 w-4 mr-2" />
                         Delete Selected ({selectedNotifications.length})
