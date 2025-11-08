@@ -86,6 +86,7 @@ function SettingsPage() {
       fetchUsers();
     } else if (activeTab === 'fields') {
       fetchAllData();
+      fetchMetadataFields();
     } else if (activeTab === 'analytics') {
       fetchAnalytics();
     } else if (activeTab === 'reviews') {
