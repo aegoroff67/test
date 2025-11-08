@@ -1048,6 +1048,69 @@ function SettingsPage() {
           <div className="space-y-6">
             <Card>
               <CardHeader>
+                <CardTitle>All Metadata Fields</CardTitle>
+                <p className="text-sm text-gray-600 mt-2">
+                  Complete list of all metadata fields across all database collections
+                </p>
+              </CardHeader>
+              <CardContent>
+                {loading ? (
+                  <div className="text-center py-8">
+                    <div className="loading-spinner w-8 h-8 mx-auto mb-2"></div>
+                    <p className="text-gray-500">Loading metadata fields...</p>
+                  </div>
+                ) : metadataFields ? (
+                  <div className="space-y-6">
+                    {Object.entries(metadataFields).map(([collectionName, collectionData]) => (
+                      <div key={collectionName} className="border rounded-lg p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className="text-lg font-semibold text-gray-900 capitalize">
+                            {collectionName}
+                          </h3>
+                          <Badge className="bg-gray-100 text-gray-700">
+                            {collectionData.total_documents} document(s)
+                          </Badge>
+                        </div>
+                        
+                        {Object.keys(collectionData.fields).length > 0 ? (
+                          <div className="overflow-x-auto">
+                            <table className="min-w-full divide-y divide-gray-200">
+                              <thead className="bg-gray-50">
+                                <tr>
+                                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Field Name</th>
+                                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+                                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Example Value</th>
+                                </tr>
+                              </thead>
+                              <tbody className="bg-white divide-y divide-gray-200">
+                                {Object.entries(collectionData.fields).map(([fieldName, fieldInfo]) => (
+                                  <tr key={fieldName} className="hover:bg-gray-50">
+                                    <td className="px-4 py-2 text-sm font-mono text-gray-900">{fieldName}</td>
+                                    <td className="px-4 py-2 text-sm text-gray-600">
+                                      <Badge variant="outline" className="text-xs">{fieldInfo.type}</Badge>
+                                    </td>
+                                    <td className="px-4 py-2 text-sm text-gray-600 max-w-md truncate">
+                                      {fieldInfo.example || 'null'}
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        ) : (
+                          <p className="text-sm text-gray-500 italic">No fields found (empty collection)</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-500">No metadata available</p>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
                 <CardTitle>User Data</CardTitle>
               </CardHeader>
               <CardContent>
