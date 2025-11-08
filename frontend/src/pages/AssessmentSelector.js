@@ -198,7 +198,7 @@ export default function AssessmentSelector() {
           </Card>
 
           {/* 4. AI System Maturity Assessment */}
-          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-teal-500">
+          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-teal-500 flex flex-col h-full">
             <Badge className="absolute top-4 right-4 text-xs bg-teal-100 text-teal-700 border-teal-300">
               Available Now
             </Badge>
@@ -208,8 +208,8 @@ export default function AssessmentSelector() {
               </div>
               <CardTitle className="text-lg text-gray-900">AI System Maturity Assessment</CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-3 mb-6">
+            <CardContent className="p-6 flex-1 flex flex-col">
+              <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
                   Assess a specific AI system for governance, ethics, and compliance. Review bias, explainability, and lifecycle controls.
@@ -221,7 +221,7 @@ export default function AssessmentSelector() {
                   <span className="font-semibold">Outcome:</span> A detailed assurance report ready for inclusion in risk and compliance reviews.
                 </p>
               </div>
-              <div>
+              <div className="mt-auto">
                 <Button 
                   className="w-full bg-teal-600 hover:bg-teal-700"
                   onClick={handleSystemAssessment}
@@ -234,7 +234,7 @@ export default function AssessmentSelector() {
                       <span>Creating...</span>
                     </div>
                   ) : (
-                    'Start System Assessment'
+                    'Start Assessment'
                   )}
                 </Button>
               </div>
