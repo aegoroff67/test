@@ -1110,12 +1110,23 @@ function SettingsPage() {
                     {Object.entries(metadataFields).map(([collectionName, collectionData]) => (
                       <div key={collectionName} className="border rounded-lg p-4">
                         <div className="flex items-center justify-between mb-3">
-                          <h3 className="text-lg font-semibold text-gray-900 capitalize">
-                            {collectionName}
-                          </h3>
-                          <Badge className="bg-gray-100 text-gray-700">
-                            {collectionData.total_documents} document(s)
-                          </Badge>
+                          <div className="flex items-center space-x-3">
+                            <h3 className="text-lg font-semibold text-gray-900 capitalize">
+                              {collectionName}
+                            </h3>
+                            <Badge className="bg-gray-100 text-gray-700">
+                              {collectionData.total_documents} document(s)
+                            </Badge>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => downloadMetadataCSV(collectionName, collectionData)}
+                            className="flex items-center space-x-2"
+                          >
+                            <Download className="h-4 w-4" />
+                            <span>Download CSV</span>
+                          </Button>
                         </div>
                         
                         {Object.keys(collectionData.fields).length > 0 ? (
