@@ -1077,23 +1077,51 @@ function SettingsPage() {
                             <table className="min-w-full divide-y divide-gray-200">
                               <thead className="bg-gray-50">
                                 <tr>
-                                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Field Name</th>
+                                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Field Path</th>
                                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
                                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Example Value</th>
                                 </tr>
                               </thead>
                               <tbody className="bg-white divide-y divide-gray-200">
-                                {Object.entries(collectionData.fields).map(([fieldName, fieldInfo]) => (
-                                  <tr key={fieldName} className="hover:bg-gray-50">
-                                    <td className="px-4 py-2 text-sm font-mono text-gray-900">{fieldName}</td>
-                                    <td className="px-4 py-2 text-sm text-gray-600">
-                                      <Badge variant="outline" className="text-xs">{fieldInfo.type}</Badge>
-                                    </td>
-                                    <td className="px-4 py-2 text-sm text-gray-600 max-w-md truncate">
-                                      {fieldInfo.example || 'null'}
-                                    </td>
-                                  </tr>
-                                ))}
+                                {Object.entries(collectionData.fields).map(([fieldPath, fieldInfo]) => {
+                                  const depth = (fieldPath.match(/\./g) || []).length;
+                                  const isNested = depth > 0;
+                                  const hasNestedStructure = fieldInfo.nested_structure;
+                                  
+                                  return (
+                                    <React.Fragment key={fieldPath}>
+                                      <tr className={`hover:bg-gray-50 ${isNested ? 'bg-blue-50' : ''}`}>
+                                        <td className="px-4 py-2 text-sm font-mono text-gray-900" style={{paddingLeft: `${(depth * 20) + 16}px`}}>
+                                          {isNested && <span className="text-gray-400 mr-1">└─</span>}
+                                          {fieldPath}
+                                        </td>
+                                        <td className="px-4 py-2 text-sm text-gray-600">
+                                          <Badge variant="outline" className="text-xs">{fieldInfo.type}</Badge>
+                                        </td>
+                                        <td className="px-4 py-2 text-sm text-gray-600 max-w-md truncate">
+                                          {fieldInfo.example || 'null'}
+                                        </td>
+                                      </tr>
+                                      {hasNestedStructure && Object.entries(fieldInfo.nested_structure).map(([nestedPath, nestedInfo]) => {
+                                        const nestedDepth = (nestedPath.match(/\./g) || []).length;
+                                        return (
+                                          <tr key={nestedPath} className="hover:bg-gray-50 bg-purple-50">
+                                            <td className="px-4 py-2 text-sm font-mono text-gray-900" style={{paddingLeft: `${(nestedDepth * 20) + 16}px`}}>
+                                              <span className="text-gray-400 mr-1">└─</span>
+                                              {nestedPath}
+                                            </td>
+                                            <td className="px-4 py-2 text-sm text-gray-600">
+                                              <Badge variant="outline" className="text-xs">{nestedInfo.type}</Badge>
+                                            </td>
+                                            <td className="px-4 py-2 text-sm text-gray-600 max-w-md truncate">
+                                              {nestedInfo.example || 'null'}
+                                            </td>
+                                          </tr>
+                                        );
+                                      })}
+                                    </React.Fragment>
+                                  );
+                                })}
                               </tbody>
                             </table>
                           </div>
