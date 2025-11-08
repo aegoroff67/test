@@ -161,7 +161,7 @@ export default function AssessmentSelector() {
           </Card>
 
           {/* 3. Organisation-wide AI Maturity Assessment */}
-          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60">
+          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60 flex flex-col h-full">
             <Badge variant="outline" className="absolute top-4 right-4 text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
               Coming Soon
             </Badge>
@@ -171,8 +171,8 @@ export default function AssessmentSelector() {
               </div>
               <CardTitle className="text-lg text-gray-700">Organisation-wide AI Maturity Assessment</CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-3 mb-6">
+            <CardContent className="p-6 flex-1 flex flex-col">
+              <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
                   Evaluate your organisation's overall AI governance maturity across teams and projects. Benchmark policies, processes, and culture against global standards.
@@ -184,14 +184,14 @@ export default function AssessmentSelector() {
                   <span className="font-semibold">Outcome:</span> An organisation-wide maturity heatmap highlighting systemic strengths and gaps.
                 </p>
               </div>
-              <div>
+              <div className="mt-auto">
                 <Button 
                   className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
                   disabled
                   onClick={() => handleComingSoon('Organisation-wide AI Maturity Assessment')}
                   data-testid="orgwide-assessment-btn"
                 >
-                  Coming Soon
+                  Start Assessment
                 </Button>
               </div>
             </CardContent>
