@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from '../components/Logo';
-import { Lightbulb, Building2, Bot, ArrowLeft } from "lucide-react";
+import { Lightbulb, Building2, Bot, ArrowLeft, Sprout, Rocket } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,8 +14,7 @@ const API = `${BACKEND_URL}/api`;
 /**
  * AssessmentSelector
  *
- * Shows three assessment option cards side-by-side.
- * Only the "AI System Assessment" is currently active.
+ * Shows four assessment option cards.
  * Adapted from Next.js to React Router with Tailwind + shadcn/ui + lucide-react.
  */
 export default function AssessmentSelector() {
@@ -74,7 +73,7 @@ export default function AssessmentSelector() {
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto max-w-6xl px-4 py-12">
+      <main className="mx-auto max-w-7xl px-4 py-12">
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-3">
@@ -86,28 +85,70 @@ export default function AssessmentSelector() {
         </div>
 
         {/* Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {/* Readiness / Discovery */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+          {/* 1. AI Awareness & Foundations Assessment */}
           <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60">
             <CardHeader>
-              <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-200">
-                <Lightbulb className="h-6 w-6 text-gray-500" aria-hidden />
+              <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100">
+                <Sprout className="h-6 w-6 text-green-600" aria-hidden />
               </div>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-xl text-gray-700">AI Readiness Assessment</CardTitle>
+                <CardTitle className="text-lg text-gray-700">AI Awareness & Foundations Assessment</CardTitle>
+                <Badge className="text-xs bg-green-100 text-green-700 border-green-300">
+                  Free
+                </Badge>
+              </div>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="space-y-3 mb-6">
+                <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
+                <p className="text-sm text-gray-600">
+                  Discover your organisation's starting point on its AI journey. Learn what AI means for you and identify first steps to build confidence and capability.
+                </p>
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Best for:</span> Organisations new to AI or automation, wanting to raise awareness and begin safely.
+                </p>
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Outcome:</span> A simple "Starting Point Map" showing where to focus next — policy, data, training, or pilot exploration.
+                </p>
+              </div>
+              <div>
+                <Button 
+                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
+                  disabled
+                  onClick={() => handleComingSoon('AI Awareness & Foundations Assessment')}
+                  data-testid="awareness-assessment-btn"
+                >
+                  Coming Soon
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 2. AI Readiness Assessment */}
+          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60">
+            <CardHeader>
+              <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100">
+                <Rocket className="h-6 w-6 text-blue-600" aria-hidden />
+              </div>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg text-gray-700">AI Readiness Assessment</CardTitle>
                 <Badge variant="outline" className="text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
                   Coming Soon
                 </Badge>
               </div>
             </CardHeader>
             <CardContent className="p-6">
-              <div className="space-y-2 mb-6">
+              <div className="space-y-3 mb-6">
+                <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Understand your organisation's preparedness for AI adoption. Identify governance gaps, risks, and
-                  capabilities before you begin implementing AI.
+                  Understand your organisation's preparedness for AI adoption. Identify governance gaps, risks, and capabilities before beginning implementation.
                 </p>
-                <p className="text-xs text-gray-500 italic">
-                  Ideal for organisations not yet using AI or just starting out.
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Best for:</span> Organisations planning or piloting AI initiatives for the first time.
+                </p>
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Outcome:</span> A readiness map highlighting foundational improvements across leadership, policy, and data.
                 </p>
               </div>
               <div>
@@ -123,31 +164,95 @@ export default function AssessmentSelector() {
             </CardContent>
           </Card>
 
-          {/* Organisation-wide Maturity */}
+          {/* 3. Organisation-wide AI Maturity Assessment */}
           <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60">
             <CardHeader>
-              <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-200">
-                <Building2 className="h-6 w-6 text-gray-500" aria-hidden />
+              <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-100">
+                <Building2 className="h-6 w-6 text-purple-600" aria-hidden />
               </div>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-xl text-gray-700">Organisation-wide AI Maturity Assessment</CardTitle>
+                <CardTitle className="text-lg text-gray-700">Organisation-wide AI Maturity Assessment</CardTitle>
                 <Badge variant="outline" className="text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
                   Coming Soon
                 </Badge>
               </div>
             </CardHeader>
             <CardContent className="p-6">
-              <div className="space-y-2 mb-6">
+              <div className="space-y-3 mb-6">
+                <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Evaluate your organisation's overall AI governance and maturity. Benchmark policies, processes, and
-                  culture against global standards.
+                  Evaluate your organisation's overall AI governance maturity across teams and projects. Benchmark policies, processes, and culture against global standards.
                 </p>
-                <p className="text-xs text-gray-500 italic">
-                  Best for organisations with multiple AI projects or growing AI teams.
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Best for:</span> Organisations scaling AI initiatives or formalising governance across multiple departments.
+                </p>
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Outcome:</span> An organisation-wide maturity heatmap highlighting systemic strengths and gaps.
                 </p>
               </div>
               <div>
                 <Button 
+                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
+                  disabled
+                  onClick={() => handleComingSoon('Organisation-wide AI Maturity Assessment')}
+                  data-testid="orgwide-assessment-btn"
+                >
+                  Coming Soon
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 4. AI System Maturity Assessment */}
+          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-teal-500">
+            <CardHeader>
+              <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-100">
+                <Bot className="h-6 w-6 text-teal-600" aria-hidden />
+              </div>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg text-gray-900">AI System Maturity Assessment</CardTitle>
+                <Badge className="text-xs bg-teal-100 text-teal-700 border-teal-300">
+                  Available Now
+                </Badge>
+              </div>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="space-y-3 mb-6">
+                <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
+                <p className="text-sm text-gray-600">
+                  Assess a specific AI system for governance, ethics, and compliance. Review bias, explainability, and lifecycle controls.
+                </p>
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Best for:</span> Teams managing an active AI model, automation, or data-driven application.
+                </p>
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Outcome:</span> A detailed assurance report ready for inclusion in risk and compliance reviews.
+                </p>
+              </div>
+              <div>
+                <Button 
+                  className="w-full bg-teal-600 hover:bg-teal-700"
+                  onClick={handleSystemAssessment}
+                  disabled={creating}
+                  data-testid="system-assessment-btn"
+                >
+                  {creating ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="loading-spinner w-4 h-4"></div>
+                      <span>Creating...</span>
+                    </div>
+                  ) : (
+                    'Start System Assessment'
+                  )}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </main>
+    </div>
+  );
+}
                   className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
                   disabled
                   onClick={() => handleComingSoon('Organisation-wide AI Maturity Assessment')}
