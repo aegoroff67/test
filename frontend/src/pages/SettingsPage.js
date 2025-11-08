@@ -46,6 +46,7 @@ function SettingsPage() {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [selectedNotifications, setSelectedNotifications] = useState([]);
+  const [metadataFields, setMetadataFields] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedAssessments, setSelectedAssessments] = useState([]);
