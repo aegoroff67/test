@@ -1008,6 +1008,48 @@ async def bulk_delete_notifications(notification_ids: List[str], admin: UserResp
     result = await db.notifications.delete_many({"id": {"$in": notification_ids}})
     return {"success": True, "deleted_count": result.deleted_count}
 
+@api_router.get("/admin/metadata-fields")
+async def get_all_metadata_fields(admin: UserResponse = Depends(require_super_admin)):
+    """Get all metadata fields from all collections with usage information"""
+    metadata = {}
+    
+    # Get sample documents from each collection to extract field names
+    collections = ["users", "assessments", "answers", "organizations", "questions", "domains", "reports", "notifications"]
+    
+    for collection_name in collections:
+        collection = db[collection_name]
+        
+        # Get one sample document to see all fields
+        sample = await collection.find_one({})
+        
+        if sample:
+            # Remove MongoDB _id field
+            if "_id" in sample:
+                del sample["_id"]
+            
+            # Get field names and example values
+            fields = {}
+            for field_name, field_value in sample.items():
+                fields[field_name] = {
+                    "type": type(field_value).__name__,
+                    "example": str(field_value)[:100] if field_value else None  # Truncate long values
+                }
+            
+            # Count total documents in collection
+            count = await collection.count_documents({})
+            
+            metadata[collection_name] = {
+                "total_documents": count,
+                "fields": fields
+            }
+        else:
+            metadata[collection_name] = {
+                "total_documents": 0,
+                "fields": {}
+            }
+    
+    return metadata
+
 # Assessment endpoints
 @api_router.post("/assessments", response_model=AssessmentResponse)
 async def create_assessment(
