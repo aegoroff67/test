@@ -125,16 +125,14 @@ export default function AssessmentSelector() {
 
           {/* 2. AI Readiness Assessment */}
           <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60">
+            <Badge variant="outline" className="absolute top-4 right-4 text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
+              Coming Soon
+            </Badge>
             <CardHeader>
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100">
                 <Rocket className="h-6 w-6 text-blue-600" aria-hidden />
               </div>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg text-gray-700">AI Readiness Assessment</CardTitle>
-                <Badge variant="outline" className="text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
-                  Coming Soon
-                </Badge>
-              </div>
+              <CardTitle className="text-lg text-gray-700">AI Readiness Assessment</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <div className="space-y-3 mb-6">
