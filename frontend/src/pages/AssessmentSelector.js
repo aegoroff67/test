@@ -162,16 +162,14 @@ export default function AssessmentSelector() {
 
           {/* 3. Organisation-wide AI Maturity Assessment */}
           <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60">
+            <Badge variant="outline" className="absolute top-4 right-4 text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
+              Coming Soon
+            </Badge>
             <CardHeader>
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-100">
                 <Building2 className="h-6 w-6 text-purple-600" aria-hidden />
               </div>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg text-gray-700">Organisation-wide AI Maturity Assessment</CardTitle>
-                <Badge variant="outline" className="text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
-                  Coming Soon
-                </Badge>
-              </div>
+              <CardTitle className="text-lg text-gray-700">Organisation-wide AI Maturity Assessment</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <div className="space-y-3 mb-6">
