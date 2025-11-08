@@ -1010,7 +1010,39 @@ async def bulk_delete_notifications(notification_ids: List[str], admin: UserResp
 
 @api_router.get("/admin/metadata-fields")
 async def get_all_metadata_fields(admin: UserResponse = Depends(require_super_admin)):
-    """Get all metadata fields from all collections with usage information"""
+    """Get all metadata fields from all collections with full hierarchical paths"""
+    
+    def extract_fields(obj, prefix=""):
+        """Recursively extract field paths from nested objects"""
+        fields = {}
+        
+        if isinstance(obj, dict):
+            for key, value in obj.items():
+                if key == "_id":
+                    continue
+                    
+                field_path = f"{prefix}.{key}" if prefix else key
+                
+                # If value is a dict, recursively extract nested fields
+                if isinstance(value, dict) and value:
+                    nested_fields = extract_fields(value, field_path)
+                    fields.update(nested_fields)
+                # If value is a list with dict items, show the structure
+                elif isinstance(value, list) and value and isinstance(value[0], dict):
+                    fields[field_path] = {
+                        "type": "list[object]",
+                        "example": f"Array with {len(value)} item(s)",
+                        "nested_structure": extract_fields(value[0], f"{field_path}[0]")
+                    }
+                else:
+                    # Leaf node - store the field info
+                    fields[field_path] = {
+                        "type": type(value).__name__,
+                        "example": str(value)[:100] if value else None
+                    }
+        
+        return fields
+    
     metadata = {}
     
     # Get sample documents from each collection to extract field names
@@ -1027,13 +1059,8 @@ async def get_all_metadata_fields(admin: UserResponse = Depends(require_super_ad
             if "_id" in sample:
                 del sample["_id"]
             
-            # Get field names and example values
-            fields = {}
-            for field_name, field_value in sample.items():
-                fields[field_name] = {
-                    "type": type(field_value).__name__,
-                    "example": str(field_value)[:100] if field_value else None  # Truncate long values
-                }
+            # Extract all fields including nested ones
+            fields = extract_fields(sample)
             
             # Count total documents in collection
             count = await collection.count_documents({})
