@@ -265,6 +265,51 @@ function SettingsPage() {
     }
   };
 
+  const downloadMetadataCSV = (collectionName, collectionData) => {
+    // Prepare CSV data
+    const headers = ['Field Path', 'Type', 'Example Value'];
+    const rows = [];
+
+    // Flatten the nested structure for CSV
+    const flattenFields = (fields, prefix = '') => {
+      Object.entries(fields).forEach(([fieldPath, fieldInfo]) => {
+        rows.push([
+          fieldPath,
+          fieldInfo.type,
+          fieldInfo.example || 'null'
+        ]);
+
+        // Add nested structure if exists
+        if (fieldInfo.nested_structure) {
+          flattenFields(fieldInfo.nested_structure, fieldPath);
+        }
+      });
+    };
+
+    flattenFields(collectionData.fields);
+
+    // Create CSV content
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${collectionName}_metadata_fields.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    toast.success(`Downloaded ${collectionName} metadata fields`);
+  };
+
 
   const toggleUserActive = async (userId, currentStatus) => {
     try {
