@@ -253,31 +253,6 @@ export default function AssessmentSelector() {
     </div>
   );
 }
-                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
-                  disabled
-                  onClick={() => handleComingSoon('Organisation-wide AI Maturity Assessment')}
-                  data-testid="org-assessment-btn"
-                >
-                  Coming Soon
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* System-specific Maturity - ACTIVE */}
-          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-xl border-2 border-teal-500 shadow-md">
-            <CardHeader>
-              <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-100">
-                <Bot className="h-6 w-6 text-teal-600" aria-hidden />
-              </div>
-              <CardTitle className="text-xl text-gray-900">AI System Maturity Assessment</CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-2 mb-6">
-                <p className="text-sm text-gray-700">
-                  Assess a specific AI system for governance, ethics, and compliance. Review bias, explainability, and
-                  lifecycle controls for your chosen system.
-                </p>
                 <p className="text-xs text-gray-600 italic">
                   Recommended if you already have an active AI model or application.
                 </p>
