@@ -253,32 +253,3 @@ export default function AssessmentSelector() {
     </div>
   );
 }
-                <p className="text-xs text-gray-600 italic">
-                  Recommended if you already have an active AI model or application.
-                </p>
-              </div>
-              <div>
-                <Button 
-                  className="w-full bg-teal-600 hover:bg-teal-700 btn-hover"
-                  onClick={handleSystemAssessment}
-                  disabled={creating}
-                  data-testid="system-assessment-btn"
-                  type="button"
-                >
-                  {creating ? (
-                    <div className="flex items-center justify-center space-x-2">
-                      <div className="loading-spinner w-4 h-4"></div>
-                      <span>Starting...</span>
-                    </div>
-                  ) : (
-                    'Start System Assessment'
-                  )}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-    </div>
-  );
-}
