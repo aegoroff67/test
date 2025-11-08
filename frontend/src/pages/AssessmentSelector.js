@@ -88,16 +88,14 @@ export default function AssessmentSelector() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
           {/* 1. AI Awareness & Foundations Assessment */}
           <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60">
+            <Badge className="absolute top-4 right-4 text-xs bg-green-100 text-green-700 border-green-300">
+              Free
+            </Badge>
             <CardHeader>
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100">
                 <Sprout className="h-6 w-6 text-green-600" aria-hidden />
               </div>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg text-gray-700">AI Awareness & Foundations Assessment</CardTitle>
-                <Badge className="text-xs bg-green-100 text-green-700 border-green-300">
-                  Free
-                </Badge>
-              </div>
+              <CardTitle className="text-lg text-gray-700">AI Awareness & Foundations Assessment</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <div className="space-y-3 mb-6">
