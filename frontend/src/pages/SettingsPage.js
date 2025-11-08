@@ -136,6 +136,19 @@ function SettingsPage() {
     }
   };
 
+  const fetchMetadataFields = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${API}/admin/metadata-fields`);
+      setMetadataFields(response.data);
+    } catch (error) {
+      toast.error('Failed to fetch metadata fields');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchAnalytics = async () => {
     setLoading(true);
     try {
