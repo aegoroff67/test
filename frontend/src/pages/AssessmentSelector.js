@@ -87,7 +87,7 @@ export default function AssessmentSelector() {
         {/* Cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
           {/* 1. AI Awareness & Foundations Assessment */}
-          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60">
+          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60 flex flex-col h-full">
             <Badge className="absolute top-4 right-4 text-xs bg-green-100 text-green-700 border-green-300">
               Free
             </Badge>
@@ -97,8 +97,8 @@ export default function AssessmentSelector() {
               </div>
               <CardTitle className="text-lg text-gray-700">AI Awareness & Foundations Assessment</CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-3 mb-6">
+            <CardContent className="p-6 flex-1 flex flex-col">
+              <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
                   Discover your organisation's starting point on its AI journey. Learn what AI means for you and identify first steps to build confidence and capability.
@@ -110,14 +110,14 @@ export default function AssessmentSelector() {
                   <span className="font-semibold">Outcome:</span> A simple "Starting Point Map" showing where to focus next — policy, data, training, or pilot exploration.
                 </p>
               </div>
-              <div>
+              <div className="mt-auto">
                 <Button 
                   className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
                   disabled
                   onClick={() => handleComingSoon('AI Awareness & Foundations Assessment')}
                   data-testid="awareness-assessment-btn"
                 >
-                  Coming Soon
+                  Start Assessment
                 </Button>
               </div>
             </CardContent>
