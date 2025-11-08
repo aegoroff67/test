@@ -124,7 +124,7 @@ export default function AssessmentSelector() {
           </Card>
 
           {/* 2. AI Readiness Assessment */}
-          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60">
+          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60 flex flex-col h-full">
             <Badge variant="outline" className="absolute top-4 right-4 text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
               Coming Soon
             </Badge>
@@ -134,8 +134,8 @@ export default function AssessmentSelector() {
               </div>
               <CardTitle className="text-lg text-gray-700">AI Readiness Assessment</CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-3 mb-6">
+            <CardContent className="p-6 flex-1 flex flex-col">
+              <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
                   Understand your organisation's preparedness for AI adoption. Identify governance gaps, risks, and capabilities before beginning implementation.
@@ -147,14 +147,14 @@ export default function AssessmentSelector() {
                   <span className="font-semibold">Outcome:</span> A readiness map highlighting foundational improvements across leadership, policy, and data.
                 </p>
               </div>
-              <div>
+              <div className="mt-auto">
                 <Button 
                   className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
                   disabled
                   onClick={() => handleComingSoon('AI Readiness Assessment')}
                   data-testid="readiness-assessment-btn"
                 >
-                  Coming Soon
+                  Start Assessment
                 </Button>
               </div>
             </CardContent>
