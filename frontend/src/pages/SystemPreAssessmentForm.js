@@ -522,8 +522,11 @@ export default function SystemPreAssessmentForm() {
 
         {/* Ethics & Sustainability */}
         <Card>
-          <CardHeader>
-            <CardTitle style={{fontSize: '23px'}}>Ethics & Sustainability</CardTitle>
+          <CardHeader className="bg-teal-50 border-b border-teal-100">
+            <div className="flex items-center space-x-2">
+              <Heart className="h-5 w-5 text-teal-600" />
+              <CardTitle className="text-xl">Ethics & Sustainability</CardTitle>
+            </div>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2 md:col-span-2">
