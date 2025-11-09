@@ -427,6 +427,14 @@
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+
+  - task: "Replace separate Cloud provider and Primary region dropdowns with combined dropdown in System Pre-Assessment form"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/SystemPreAssessmentForm.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
     status_history:
         - working: "NA"
         - agent: "main"
