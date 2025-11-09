@@ -468,9 +468,11 @@ export default function ReadinessPreAssessmentForm() {
 
           {/* Data & Capability */}
           <Card>
-            <CardHeader className="flex flex-row items-center gap-3">
-              <Database className="h-5 w-5" />
-              <CardTitle style={{fontSize: '23px'}}>Data & Capability</CardTitle>
+            <CardHeader className="bg-blue-50 border-b border-blue-100">
+              <div className="flex items-center space-x-2">
+                <Database className="h-5 w-5 text-blue-600" />
+                <CardTitle className="text-xl">Data & Capability</CardTitle>
+              </div>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
