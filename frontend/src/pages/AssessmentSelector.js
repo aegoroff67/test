@@ -270,9 +270,9 @@ export default function AssessmentSelector() {
           </Card>
 
           {/* 4. AI System Maturity Assessment */}
-          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-teal-500 flex flex-col h-full">
-            <Badge className="absolute top-4 right-4 text-xs bg-teal-100 text-teal-700 border-teal-300">
-              Available Now
+          <Card className={`relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-teal-500 flex flex-col h-full ${!hasAccess('system') ? 'opacity-60' : ''}`}>
+            <Badge className={`absolute top-4 right-4 text-xs ${hasAccess('system') ? 'bg-teal-100 text-teal-700 border-teal-300' : 'bg-gray-100 text-gray-700 border-gray-300'}`}>
+              {hasAccess('system') ? 'Available Now' : 'Requires Permission'}
             </Badge>
             <CardHeader>
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-100">
@@ -295,9 +295,9 @@ export default function AssessmentSelector() {
               </div>
               <div className="mt-auto">
                 <Button 
-                  className="w-full bg-teal-600 hover:bg-teal-700"
-                  onClick={handleSystemAssessment}
-                  disabled={creating}
+                  className={`w-full ${hasAccess('system') ? 'bg-teal-600 hover:bg-teal-700' : 'bg-gray-400 cursor-not-allowed'}`}
+                  onClick={hasAccess('system') ? handleSystemAssessment : () => toast.error('You do not have permission to access this assessment. Please contact your administrator.')}
+                  disabled={!hasAccess('system') || creating}
                   data-testid="system-assessment-btn"
                 >
                   {creating ? (
