@@ -41,6 +41,31 @@ function Dashboard() {
     }
   }, [user]);
 
+  // Refresh notification counts when window gains focus or user navigates back
+  useEffect(() => {
+    const handleFocus = () => {
+      if (user?.role === 'SUPER_ADMIN') {
+        fetchNotificationCounts();
+      }
+    };
+
+    window.addEventListener('focus', handleFocus);
+    
+    // Also refresh on visibility change (user switches tabs)
+    const handleVisibilityChange = () => {
+      if (!document.hidden && user?.role === 'SUPER_ADMIN') {
+        fetchNotificationCounts();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [user]);
+
   const fetchNotificationCounts = async () => {
     try {
       const [unreadResponse, pendingResponse] = await Promise.all([
