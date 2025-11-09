@@ -379,18 +379,17 @@ export default function SystemPreAssessmentForm() {
             </div>
 
             <div className="space-y-2">
-              <Label>Cloud provider</Label>
-              <Select value={form.cloudProvider} onValueChange={(v) => update("cloudProvider", v)}>
-                <SelectTrigger><SelectValue placeholder="Select provider" /></SelectTrigger>
-                <SelectContent>
-                  {CLOUD_PROVIDERS.map((c) => (<SelectItem key={c} value={c}>{c}</SelectItem>))}
+              <Label>Cloud provider & region</Label>
+              <Select value={form.cloudProviderRegion} onValueChange={(v) => update("cloudProviderRegion", v)}>
+                <SelectTrigger><SelectValue placeholder="Select cloud provider and region" /></SelectTrigger>
+                <SelectContent className="max-h-[300px]">
+                  {CLOUD_PROVIDER_REGION_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="cloudRegion">Primary region</Label>
-              <Input id="cloudRegion" value={form.cloudRegion} onChange={(e) => update("cloudRegion", e.target.value)} placeholder="e.g., australia-southeast1 (Sydney)" />
             </div>
 
             <div className="space-y-2">
