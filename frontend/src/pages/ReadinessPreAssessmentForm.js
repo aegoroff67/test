@@ -269,12 +269,11 @@ export default function ReadinessPreAssessmentForm() {
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           {/* Organisation Details */}
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Building2 className="h-5 w-5" />
-                <CardTitle style={{fontSize: '23px'}}>Organisation Details</CardTitle>
+            <CardHeader className="bg-blue-50 border-b border-blue-100">
+              <div className="flex items-center space-x-2">
+                <Building2 className="h-5 w-5 text-blue-600" />
+                <CardTitle className="text-xl">Organisation Details</CardTitle>
               </div>
-              <Badge variant="secondary">Required</Badge>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid gap-4 md:grid-cols-2">
