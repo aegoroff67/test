@@ -144,15 +144,15 @@ export default function AssessmentSelector() {
         {/* Cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
           {/* 1. AI Awareness & Foundations Assessment */}
-          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60 flex flex-col h-full">
+          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-green-500 flex flex-col h-full">
             <Badge className="absolute top-4 right-4 text-xs bg-green-100 text-green-700 border-green-300">
-              Free
+              Available Now
             </Badge>
             <CardHeader>
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100">
                 <Sprout className="h-6 w-6 text-green-600" aria-hidden />
               </div>
-              <CardTitle className="text-lg text-gray-700">AI Awareness & Foundations Assessment</CardTitle>
+              <CardTitle className="text-lg text-gray-900">AI Awareness & Foundations Assessment</CardTitle>
             </CardHeader>
             <CardContent className="p-6 flex-1 flex flex-col">
               <div className="space-y-3 mb-6 flex-1">
@@ -169,9 +169,9 @@ export default function AssessmentSelector() {
               </div>
               <div className="mt-auto">
                 <Button 
-                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
-                  disabled
-                  onClick={() => handleComingSoon('AI Awareness & Foundations Assessment')}
+                  className="w-full bg-green-600 hover:bg-green-700"
+                  onClick={handleAwarenessAssessment}
+                  disabled={creating}
                   data-testid="awareness-assessment-btn"
                 >
                   Start Assessment
