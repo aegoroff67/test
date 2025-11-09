@@ -260,18 +260,15 @@ export default function OrgPreAssessmentForm() {
 
       {/* Main Form */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-        {/* Header */}
-        <div className="flex items-center gap-3">
-          <ClipboardList className="h-6 w-6" />
-          <div>
-            <h1 className="text-2xl font-semibold leading-tight">Pre-Assessment Onboarding</h1>
-            <p className="text-sm text-muted-foreground">
-              Provide a few details about your organisation so we can tailor the assessment and reporting.
-            </p>
-          </div>
+        {/* Page Title */}
+        <div className="text-center space-y-2">
+          <h2 className="text-3xl font-bold text-gray-900">Pre-Assessment Onboarding</h2>
+          <p className="text-gray-600">
+            Organisation-wide AI Maturity Assessment - Please provide the following information so we can tailor the assessment and reporting.
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-8">
           {/* Organisation Overview */}
           <Card>
             <CardHeader className="bg-purple-50 border-b border-purple-100">
