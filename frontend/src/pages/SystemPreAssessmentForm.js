@@ -459,9 +459,11 @@ export default function SystemPreAssessmentForm() {
 
         {/* Governance & Oversight */}
         <Card>
-          <CardHeader className="flex flex-row items-center gap-3">
-            <Workflow className="h-5 w-5" />
-            <CardTitle style={{fontSize: '23px'}}>Governance & Oversight</CardTitle>
+          <CardHeader className="bg-teal-50 border-b border-teal-100">
+            <div className="flex items-center space-x-2">
+              <Workflow className="h-5 w-5 text-teal-600" />
+              <CardTitle className="text-xl">Governance & Oversight</CardTitle>
+            </div>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid gap-4 md:grid-cols-2">
