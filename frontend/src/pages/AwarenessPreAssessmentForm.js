@@ -348,9 +348,9 @@ export default function AwarenessPreAssessmentForm() {
 
         {/* 3. Motivation & Goals */}
         <Card>
-          <CardHeader className="bg-purple-50 border-b border-purple-100">
+          <CardHeader className="bg-green-50 border-b border-green-100">
             <div className="flex items-center space-x-2">
-              <Target className="h-5 w-5 text-purple-600" />
+              <Target className="h-5 w-5 text-green-600" />
               <CardTitle className="text-xl">Motivation & Goals</CardTitle>
             </div>
           </CardHeader>
