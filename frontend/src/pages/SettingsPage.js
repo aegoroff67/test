@@ -671,6 +671,7 @@ function SettingsPage() {
                         <th className="text-left p-3 font-medium text-gray-700">User</th>
                         <th className="text-left p-3 font-medium text-gray-700">Organization</th>
                         <th className="text-left p-3 font-medium text-gray-700">Role</th>
+                        {isSuperAdmin && <th className="text-left p-3 font-medium text-gray-700">Assessment Types</th>}
                         <th className="text-left p-3 font-medium text-gray-700">Status</th>
                         <th className="text-right p-3 font-medium text-gray-700">Actions</th>
                       </tr>
