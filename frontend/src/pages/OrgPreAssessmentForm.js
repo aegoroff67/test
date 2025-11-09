@@ -267,7 +267,7 @@ export default function OrgPreAssessmentForm() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="mt-8 space-y-8">
           {/* Organisation Overview */}
           <Card>
             <CardHeader className="bg-purple-50 border-b border-purple-100">
