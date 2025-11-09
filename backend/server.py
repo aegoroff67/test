@@ -552,6 +552,34 @@ async def update_user_role(
     
     return {"success": True, "message": f"User role updated to {new_role.value}"}
 
+
+@api_router.put("/admin/users/{user_id}/assessment-access")
+async def update_user_assessment_access(
+    user_id: str,
+    assessment_access: List[str],
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Update user assessment access (Super Admin only)"""
+    # Validate assessment types
+    valid_assessments = ["awareness", "readiness", "system", "orgwide"]
+    for assessment in assessment_access:
+        if assessment not in valid_assessments:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid assessment type: {assessment}. Valid types are: {', '.join(valid_assessments)}"
+            )
+    
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"assessment_access": assessment_access}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"success": True, "message": "User assessment access updated"}
+
+
 @api_router.put("/admin/users/{user_id}/toggle-active")
 async def toggle_user_active(
     user_id: str,
