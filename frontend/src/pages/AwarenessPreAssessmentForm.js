@@ -174,32 +174,22 @@ export default function AwarenessPreAssessmentForm() {
     <div className="min-h-screen bg-gradient-bg">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <Logo className="h-10 w-10" />
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">AM AI SAFE</h1>
-                <p className="text-xs text-teal-600 font-medium">EMPOWERING TRUST IN AI</p>
-              </div>
-            </div>
-
-            {/* Back Button */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
+          <div className="flex items-center justify-between">
             <Button
-              type="button"
-              variant="outline"
+              variant="ghost"
               onClick={() => navigate('/dashboard')}
+              className="flex items-center gap-2"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
+              <ArrowLeft className="h-4 w-4" />
+              Back
             </Button>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <form onSubmit={handleSubmit} className="mx-auto max-w-6xl space-y-8 px-4 py-8">
+      <form onSubmit={handleSubmit} className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8">
         {/* Page Title */}
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold text-gray-900">Pre-Assessment Onboarding</h2>
