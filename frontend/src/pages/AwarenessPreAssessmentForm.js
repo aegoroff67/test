@@ -194,7 +194,7 @@ export default function AwarenessPreAssessmentForm() {
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold text-gray-900">Pre-Assessment Onboarding</h2>
           <p className="text-gray-600">
-            AI Awareness & Foundations Assessment - Please provide the following information so we can tailor the assessment and reporting.
+            <span className="font-bold">AI Awareness & Foundations Assessment</span> - Please provide the following information so we can tailor the assessment and reporting.
           </p>
         </div>
 
