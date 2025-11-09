@@ -261,7 +261,7 @@ export default function SystemPreAssessmentForm() {
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold text-gray-900">Pre-Assessment Onboarding</h2>
           <p className="text-gray-600">
-            AI System Maturity Assessment - Please provide the following information so we can tailor the assessment and reporting.
+            <span className="font-bold">AI System Maturity Assessment</span> - Please provide the following information so we can tailor the assessment and reporting.
           </p>
         </div>
 
