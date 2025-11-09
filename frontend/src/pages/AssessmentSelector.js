@@ -40,6 +40,25 @@ export default function AssessmentSelector() {
     }
   };
 
+  const handleOrgAssessment = async () => {
+    setCreating(true);
+    try {
+      const response = await axios.post(`${API}/assessments`, {});
+      if (response.data && response.data.id) {
+        toast.success('New organisation assessment created!');
+        // Redirect to org onboarding page
+        navigate(`/assessment/${response.data.id}/org-onboarding`);
+      } else {
+        throw new Error('Invalid response from server');
+      }
+    } catch (error) {
+      console.error('Assessment creation error:', error);
+      const errorMessage = error.response?.data?.detail || error.message || 'Failed to create assessment';
+      toast.error(errorMessage);
+      setCreating(false);
+    }
+  };
+
   const handleComingSoon = (assessmentType) => {
     toast.info(`${assessmentType} coming soon!`);
   };
