@@ -6411,6 +6411,15 @@ class AMSafeAPITester:
         # Test pending review workflow enhancements (Review Request)
         self.test_pending_review_workflow()
         
+        # NEW: Test AI Readiness Assessment endpoint (Review Request)
+        self.test_ai_readiness_assessment_endpoint()
+        
+        # NEW: Test readiness assessment with specific test credentials
+        self.test_readiness_assessment_with_test_credentials()
+        
+        # NEW: Test readiness assessment name format validation
+        self.test_readiness_assessment_name_format_validation()
+        
         # Print summary
         print("\n" + "=" * 80)
         print(f"📊 PRODUCTION TEST SUMMARY")
