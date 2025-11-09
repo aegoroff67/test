@@ -497,9 +497,11 @@ export default function OrgPreAssessmentForm() {
 
           {/* Culture & Capability */}
           <Card>
-            <CardHeader className="flex flex-row items-center gap-3">
-              <Users className="h-5 w-5" />
-              <CardTitle style={{fontSize: '23px'}}>Culture & Capability</CardTitle>
+            <CardHeader className="bg-purple-50 border-b border-purple-100">
+              <div className="flex items-center space-x-2">
+                <Users className="h-5 w-5 text-purple-600" />
+                <CardTitle className="text-xl">Culture & Capability</CardTitle>
+              </div>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
