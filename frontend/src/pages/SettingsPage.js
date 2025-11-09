@@ -712,6 +712,68 @@ function SettingsPage() {
                               <option value="MEMBER">Member</option>
                             </select>
                           </td>
+                          {isSuperAdmin && (
+                            <td className="p-3">
+                              <div className="flex flex-col gap-1">
+                                <label className="flex items-center gap-1 text-xs">
+                                  <input
+                                    type="checkbox"
+                                    checked={u.assessment_access?.includes('awareness') || false}
+                                    onChange={(e) => {
+                                      const newAccess = e.target.checked
+                                        ? [...(u.assessment_access || []), 'awareness']
+                                        : (u.assessment_access || []).filter(a => a !== 'awareness');
+                                      updateAssessmentAccess(u.id, newAccess);
+                                    }}
+                                    className="rounded"
+                                  />
+                                  <span className="text-gray-700">Awareness</span>
+                                </label>
+                                <label className="flex items-center gap-1 text-xs">
+                                  <input
+                                    type="checkbox"
+                                    checked={u.assessment_access?.includes('readiness') || false}
+                                    onChange={(e) => {
+                                      const newAccess = e.target.checked
+                                        ? [...(u.assessment_access || []), 'readiness']
+                                        : (u.assessment_access || []).filter(a => a !== 'readiness');
+                                      updateAssessmentAccess(u.id, newAccess);
+                                    }}
+                                    className="rounded"
+                                  />
+                                  <span className="text-gray-700">Readiness</span>
+                                </label>
+                                <label className="flex items-center gap-1 text-xs">
+                                  <input
+                                    type="checkbox"
+                                    checked={u.assessment_access?.includes('orgwide') || false}
+                                    onChange={(e) => {
+                                      const newAccess = e.target.checked
+                                        ? [...(u.assessment_access || []), 'orgwide']
+                                        : (u.assessment_access || []).filter(a => a !== 'orgwide');
+                                      updateAssessmentAccess(u.id, newAccess);
+                                    }}
+                                    className="rounded"
+                                  />
+                                  <span className="text-gray-700">Org-wide</span>
+                                </label>
+                                <label className="flex items-center gap-1 text-xs">
+                                  <input
+                                    type="checkbox"
+                                    checked={u.assessment_access?.includes('system') || false}
+                                    onChange={(e) => {
+                                      const newAccess = e.target.checked
+                                        ? [...(u.assessment_access || []), 'system']
+                                        : (u.assessment_access || []).filter(a => a !== 'system');
+                                      updateAssessmentAccess(u.id, newAccess);
+                                    }}
+                                    className="rounded"
+                                  />
+                                  <span className="text-gray-700">System</span>
+                                </label>
+                              </div>
+                            </td>
+                          )}
                           <td className="p-3">
                             <Badge className={u.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
                               {u.is_active ? 'Active' : 'Disabled'}
