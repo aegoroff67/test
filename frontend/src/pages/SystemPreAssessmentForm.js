@@ -466,7 +466,7 @@ export default function SystemPreAssessmentForm() {
         {/* Optional Advanced */}
         <Card>
           <CardHeader>
-            <CardTitle>Optional (Advanced)</CardTitle>
+            <CardTitle style={{fontSize: '23px'}}>Optional (Advanced)</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
