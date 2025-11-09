@@ -570,6 +570,50 @@ export default function SystemPreAssessmentForm() {
           </CardContent>
         </Card>
 
+        {/* Assessment Details */}
+        <Card>
+          <CardHeader className="bg-teal-50 border-b border-teal-100">
+            <div className="flex items-center space-x-2">
+              <Calendar className="h-5 w-5 text-teal-600" />
+              <CardTitle className="text-xl">Assessment Details</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="grid gap-6 p-6 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="assessor_name">Assessment conducted by *</Label>
+              <Input
+                id="assessor_name"
+                value={form.assessor_name}
+                onChange={(e) => update("assessor_name", e.target.value)}
+                required
+                placeholder="Enter assessor name"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="assessment_date">Assessment date *</Label>
+              <Input
+                id="assessment_date"
+                type="date"
+                value={form.assessment_date}
+                onChange={(e) => update("assessment_date", e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="space-y-2 md:col-span-2">
+              <Label htmlFor="framework_version">AM AI SAFE framework version *</Label>
+              <Input
+                id="framework_version"
+                value={form.framework_version}
+                onChange={(e) => update("framework_version", e.target.value)}
+                required
+                placeholder="e.g., v2025.11"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Actions */}
         <div className="flex items-center justify-end gap-3">
           <Button type="button" variant="secondary" onClick={() => setForm(defaultState)}>Reset</Button>
