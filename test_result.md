@@ -441,7 +441,7 @@
 
 ## test_plan:
   current_focus:
-    - "Pending review system for custom OTHER responses"
+    - "Integrate AI Readiness Assessment with backend endpoint and frontend routing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -499,7 +499,7 @@
 
 ## test_plan:
   current_focus:
-    - "Pending review system for custom OTHER responses"
+    - "Integrate AI Readiness Assessment with backend endpoint and frontend routing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
