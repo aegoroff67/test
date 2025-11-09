@@ -20,7 +20,14 @@ const API = `${BACKEND_URL}/api`;
  */
 export default function AssessmentSelector() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [creating, setCreating] = useState(false);
+  
+  // Get user's assessment access permissions (default to awareness only)
+  const assessmentAccess = user?.assessment_access || ['awareness'];
+  
+  // Check if user has access to a specific assessment type
+  const hasAccess = (assessmentType) => assessmentAccess.includes(assessmentType);
 
   const handleSystemAssessment = async () => {
     setCreating(true);
