@@ -608,7 +608,7 @@ export default function SystemPreAssessmentForm() {
         <div className="flex items-center justify-end gap-3">
           <Button type="button" variant="secondary" onClick={() => setForm(defaultState)}>Reset</Button>
           <Button type="submit" disabled={submitting} className="bg-teal-600 hover:bg-teal-700">
-            {submitting ? "Saving..." : "Save & Start Assessment"}
+            {submitting ? "Saving..." : "Continue to Assessment"}
           </Button>
         </div>
       </form>
