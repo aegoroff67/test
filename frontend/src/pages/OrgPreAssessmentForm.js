@@ -11,7 +11,6 @@ import {
   Users, 
   ShieldCheck, 
   Workflow,
-  ClipboardList,
   Calendar,
   ArrowLeft
 } from 'lucide-react';
