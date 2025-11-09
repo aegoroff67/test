@@ -127,6 +127,14 @@ function App() {
               } 
             />
             <Route 
+              path="/assessment/:id/awareness-onboarding" 
+              element={
+                <ProtectedRoute>
+                  <AwarenessPreAssessmentForm />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/assessment/:id" 
               element={
                 <ProtectedRoute>
