@@ -481,9 +481,9 @@ export default function AwarenessPreAssessmentForm() {
 
         {/* 5. Assessment Details */}
         <Card>
-          <CardHeader className="bg-teal-50 border-b border-teal-100">
+          <CardHeader className="bg-green-50 border-b border-green-100">
             <div className="flex items-center space-x-2">
-              <ClipboardCheck className="h-5 w-5 text-teal-600" />
+              <ClipboardCheck className="h-5 w-5 text-green-600" />
               <CardTitle className="text-xl">Assessment Details</CardTitle>
             </div>
           </CardHeader>
