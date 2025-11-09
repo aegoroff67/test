@@ -419,9 +419,11 @@ export default function SystemPreAssessmentForm() {
 
         {/* Data Characteristics */}
         <Card>
-          <CardHeader className="flex flex-row items-center gap-3">
-            <ShieldCheck className="h-5 w-5" />
-            <CardTitle style={{fontSize: '23px'}}>Data Characteristics</CardTitle>
+          <CardHeader className="bg-teal-50 border-b border-teal-100">
+            <div className="flex items-center space-x-2">
+              <ShieldCheck className="h-5 w-5 text-teal-600" />
+              <CardTitle className="text-xl">Data Characteristics</CardTitle>
+            </div>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
