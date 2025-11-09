@@ -59,6 +59,25 @@ export default function AssessmentSelector() {
     }
   };
 
+  const handleReadinessAssessment = async () => {
+    setCreating(true);
+    try {
+      const response = await axios.post(`${API}/assessments`, {});
+      if (response.data && response.data.id) {
+        toast.success('New readiness assessment created!');
+        // Redirect to readiness onboarding page
+        navigate(`/assessment/${response.data.id}/readiness-onboarding`);
+      } else {
+        throw new Error('Invalid response from server');
+      }
+    } catch (error) {
+      console.error('Assessment creation error:', error);
+      const errorMessage = error.response?.data?.detail || error.message || 'Failed to create assessment';
+      toast.error(errorMessage);
+      setCreating(false);
+    }
+  };
+
   const handleComingSoon = (assessmentType) => {
     toast.info(`${assessmentType} coming soon!`);
   };
