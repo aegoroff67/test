@@ -170,8 +170,7 @@ const defaultState = {
   modelType: "",
   ownership: "",
   hosting: "",
-  cloudProvider: "",
-  cloudRegion: "",
+  cloudProviderRegion: "", // Combined field for provider & region
   dataFlow: "",
   dataSensitivity: "",
   dataSources: "",
