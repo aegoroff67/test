@@ -274,12 +274,11 @@ export default function SystemPreAssessmentForm() {
 
         {/* System Overview */}
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div className="flex items-center gap-3">
-              <FileText className="h-5 w-5" />
-              <CardTitle style={{fontSize: '23px'}}>System Overview</CardTitle>
+          <CardHeader className="bg-teal-50 border-b border-teal-100">
+            <div className="flex items-center space-x-2">
+              <FileText className="h-5 w-5 text-teal-600" />
+              <CardTitle className="text-xl">System Overview</CardTitle>
             </div>
-            <Badge variant="secondary">Required</Badge>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
