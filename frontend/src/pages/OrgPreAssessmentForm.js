@@ -263,7 +263,7 @@ export default function OrgPreAssessmentForm() {
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold text-gray-900">Pre-Assessment Onboarding</h2>
           <p className="text-gray-600">
-            Organisation-wide AI Maturity Assessment - Please provide the following information so we can tailor the assessment and reporting.
+            <span className="font-bold">Organisation-wide AI Maturity Assessment</span> - Please provide the following information so we can tailor the assessment and reporting.
           </p>
         </div>
 
