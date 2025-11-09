@@ -274,12 +274,11 @@ export default function OrgPreAssessmentForm() {
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           {/* Organisation Overview */}
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Building2 className="h-5 w-5" />
-                <CardTitle style={{fontSize: '23px'}}>Organisation Overview</CardTitle>
+            <CardHeader className="bg-purple-50 border-b border-purple-100">
+              <div className="flex items-center space-x-2">
+                <Building2 className="h-5 w-5 text-purple-600" />
+                <CardTitle className="text-xl">Organisation Overview</CardTitle>
               </div>
-              <Badge variant="secondary">Required</Badge>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid gap-4 md:grid-cols-2">
