@@ -11,7 +11,6 @@ import {
   Target, 
   ShieldCheck, 
   Database,
-  ClipboardList,
   Calendar,
   ArrowLeft
 } from 'lucide-react';
