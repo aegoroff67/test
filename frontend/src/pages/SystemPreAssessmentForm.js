@@ -54,11 +54,72 @@ const OWNERSHIP = [
 
 const HOSTING = ["On‑prem", "Private Cloud", "Public Cloud", "SaaS"];
 
-const CLOUD_PROVIDERS = [
-  "Google Cloud Platform (GCP)",
-  "Microsoft Azure",
-  "Amazon Web Services (AWS)",
-  "Other / Not Applicable",
+// Combined cloud provider & region options
+const CLOUD_PROVIDER_REGIONS = {
+  "AWS": [
+    { code: "us-east-1", name: "US East (N. Virginia)" },
+    { code: "us-east-2", name: "US East (Ohio)" },
+    { code: "us-west-1", name: "US West (N. California)" },
+    { code: "us-west-2", name: "US West (Oregon)" },
+    { code: "af-south-1", name: "Africa (Cape Town)" },
+    { code: "ap-south-1", name: "Asia Pacific (Mumbai)" },
+    { code: "ap-east-1", name: "Asia Pacific (Hong Kong)" },
+    { code: "ap-southeast-1", name: "Asia Pacific (Singapore)" },
+    { code: "ap-southeast-2", name: "Asia Pacific (Sydney)" },
+    { code: "ap-northeast-1", name: "Asia Pacific (Tokyo)" },
+    { code: "ca-central-1", name: "Canada (Central)" },
+    { code: "eu-central-1", name: "Europe (Frankfurt)" },
+    { code: "eu-west-1", name: "Europe (Ireland)" },
+    { code: "eu-west-2", name: "Europe (London)" },
+    { code: "eu-west-3", name: "Europe (Paris)" },
+    { code: "eu-north-1", name: "Europe (Stockholm)" },
+    { code: "sa-east-1", name: "South America (São Paulo)" }
+  ],
+  "Azure": [
+    { code: "eastus", name: "East US" },
+    { code: "eastus2", name: "East US 2" },
+    { code: "centralus", name: "Central US" },
+    { code: "northcentralus", name: "North Central US" },
+    { code: "southcentralus", name: "South Central US" },
+    { code: "westus", name: "West US" },
+    { code: "westus2", name: "West US 2" },
+    { code: "westeurope", name: "West Europe" },
+    { code: "northeurope", name: "North Europe" },
+    { code: "francecentral", name: "France Central" },
+    { code: "uksouth", name: "UK South" },
+    { code: "ukwest", name: "UK West" },
+    { code: "australiacentral", name: "Australia Central" },
+    { code: "australiaeast", name: "Australia East" },
+    { code: "australiasoutheast", name: "Australia Southeast" }
+  ],
+  "GCP": [
+    { code: "us-central1", name: "US Central (Iowa)" },
+    { code: "us-east1", name: "US East (South Carolina)" },
+    { code: "us-east4", name: "US East 4 (N. Virginia)" },
+    { code: "us-west1", name: "US West 1 (Oregon)" },
+    { code: "northamerica-northeast1", name: "North America Northeast (Montréal)" },
+    { code: "southamerica-east1", name: "South America East (São Paulo)" },
+    { code: "europe-west1", name: "Europe West (Belgium)" },
+    { code: "europe-central2", name: "Europe Central 2 (Warsaw)" },
+    { code: "asia-east1", name: "Asia East (Taiwan)" },
+    { code: "asia-northeast1", name: "Asia Northeast (Tokyo)" },
+    { code: "asia-southeast1", name: "Asia Southeast (Singapore)" },
+    { code: "australia-southeast1", name: "Australia Southeast (Sydney)" }
+  ]
+};
+
+// Flatten the cloud provider & region data into a single list for the dropdown
+const CLOUD_PROVIDER_REGION_OPTIONS = [
+  ...Object.entries(CLOUD_PROVIDER_REGIONS).flatMap(([provider, regions]) =>
+    regions.map(region => ({
+      value: `${provider}|${region.code}`,
+      label: `${provider} - ${region.name}`,
+      provider: provider,
+      regionCode: region.code,
+      regionName: region.name
+    }))
+  ),
+  { value: "other", label: "Other / Not Applicable", provider: "Other", regionCode: "", regionName: "" }
 ];
 
 const DATA_FLOW = ["Batch", "Real‑time", "Hybrid"];
