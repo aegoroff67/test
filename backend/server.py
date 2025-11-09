@@ -442,7 +442,8 @@ async def signup(user_data: UserSignUp):
         is_active=user.is_active,
         organization_name=org.get("display_name") or org.get("name"),
         industry=org.get("primary_industry") or org.get("industry"),
-        default_industry=user_data.industry
+        default_industry=user_data.industry,
+        assessment_access=user.assessment_access
     )
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
