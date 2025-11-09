@@ -105,6 +105,33 @@ function SettingsPage() {
     }
   }, [isSuperAdmin]);
 
+  // Refresh notification counts when window gains focus or user navigates back
+  useEffect(() => {
+    const handleFocus = () => {
+      if (isSuperAdmin) {
+        fetchUnreadCount();
+        fetchPendingReviewsCount();
+      }
+    };
+
+    window.addEventListener('focus', handleFocus);
+    
+    // Also refresh on visibility change (user switches tabs)
+    const handleVisibilityChange = () => {
+      if (!document.hidden && isSuperAdmin) {
+        fetchUnreadCount();
+        fetchPendingReviewsCount();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isSuperAdmin]);
+
   const fetchUsers = async () => {
     setLoading(true);
     try {
