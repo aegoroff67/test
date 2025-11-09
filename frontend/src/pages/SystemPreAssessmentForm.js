@@ -195,7 +195,7 @@ export default function SystemPreAssessmentForm() {
         <div className="flex items-center gap-3">
           <ClipboardList className="h-6 w-6" />
           <div>
-            <h1 className="text-2xl font-semibold leading-tight">System Information Setup</h1>
+            <h1 className="text-2xl font-semibold leading-tight">Pre-Assessment Onboarding</h1>
             <p className="text-sm text-muted-foreground">
               Provide a few details about the AI system so we can tailor the assessment and reporting.
             </p>
