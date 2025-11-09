@@ -253,7 +253,7 @@ export default function ReadinessPreAssessmentForm() {
       </header>
 
       {/* Main Form */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         {/* Page Title */}
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold text-gray-900">Pre-Assessment Onboarding</h2>
