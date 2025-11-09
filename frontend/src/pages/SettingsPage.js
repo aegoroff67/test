@@ -368,6 +368,21 @@ function SettingsPage() {
     }
   };
 
+
+  const updateAssessmentAccess = async (userId, assessmentAccess) => {
+    if (!isSuperAdmin) return; // Only Super Admins can update assessment access
+    
+    try {
+      await axios.put(`${API}/admin/users/${userId}/assessment-access`, assessmentAccess);
+      toast.success('Assessment access updated');
+      fetchUsers();
+    } catch (error) {
+      toast.error('Failed to update assessment access');
+      console.error(error);
+    }
+  };
+
+
   const resetPassword = async (userId, userEmail) => {
     if (!window.confirm(`Generate temporary password for ${userEmail}?`)) return;
     
