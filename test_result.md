@@ -440,6 +440,18 @@
         - agent: "main"
         - comment: "IMPLEMENTED: Replaced separate 'Cloud provider' and 'Primary region' dropdowns with a single combined 'Cloud provider & region' dropdown in SystemPreAssessmentForm.js. Changes: 1) Created CLOUD_PROVIDER_REGIONS data structure with AWS (17 regions), Azure (15 regions), and GCP (12 regions) including region codes and names as provided by user, 2) Flattened into CLOUD_PROVIDER_REGION_OPTIONS array with format 'Provider - Region Name' (e.g., 'AWS - US East (N. Virginia)'), 3) Updated form state from separate cloudProvider and cloudRegion fields to single cloudProviderRegion field, 4) Replaced two separate dropdowns (lines 321-334) with single dropdown showing all 44 provider-region combinations plus 'Other / Not Applicable' option, 5) Updated handleSubmit function to parse combined value (format: 'Provider|RegionCode') back into separate cloudProvider and cloudRegion fields for backend compatibility. This simplifies user experience by reducing selection steps from two to one while maintaining all backend data structure compatibility."
 
+  - task: "Create AI Awareness & Foundations Assessment onboarding page"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/AwarenessPreAssessmentForm.js, /app/backend/server.py, /app/frontend/src/App.js, /app/frontend/src/pages/AssessmentSelector.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Created complete onboarding page for AI Awareness & Foundations Assessment following the same styling principles as SystemPreAssessmentForm. Changes: 1) Created AwarenessPreAssessmentForm.js component with 5 sections based on am-ai-safe-intake-awareness.json schema: Organisation Snapshot (green theme with Building2 icon), Starting Point & Familiarity (blue theme with Lightbulb icon), Motivation & Goals (purple theme with Target icon), Foundational Context (orange theme with Shield icon), and Assessment Details (teal theme with ClipboardCheck icon), 2) Implemented all form fields including text inputs, email validation, select dropdowns, multi-select checkboxes for outcomes, learning preferences, and governance foundations, 3) Added backend endpoint PUT /api/assessments/{assessment_id}/awareness-info in server.py (lines 1302-1331) following same pattern as other info endpoints, 4) Added AwarenessPreAssessmentForm import and route /assessment/:id/awareness-onboarding in App.js, 5) Created handleAwarenessAssessment function in AssessmentSelector.js, 6) Activated AI Awareness & Foundations card by removing opacity-60, changing badge from 'Free' to 'Available Now' with green styling, adding border-2 border-green-500, changing button to bg-green-600 hover:bg-green-700, and connecting to handleAwarenessAssessment handler. The awareness assessment is now fully functional with complete onboarding workflow."
+
 
 ## metadata:
   created_by: "main_agent"
