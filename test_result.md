@@ -423,7 +423,7 @@
   - task: "Integrate AI Readiness Assessment with backend endpoint and frontend routing"
     implemented: true
     working: true
-    file: "/app/backend/server.py, /app/frontend/src/App.js, /app/frontend/src/pages/AssessmentSelector.js, /app/frontend/src/pages/ReadinessPreAssessmentForm.js"
+    file: "/app/backend/server.py, /app/frontend/src/App.js, /app/frontend/src/pages/AssessmentSelector.js, /app/frontend/src/pages/ReadinessPreAssessmentForm.js, /app/frontend/src/pages/Dashboard.js, /app/frontend/src/pages/SettingsPage.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
@@ -434,6 +434,9 @@
         - working: true
         - agent: "testing"
         - comment: "COMPREHENSIVE TESTING COMPLETED: AI Readiness Assessment backend integration testing completed successfully with 19/21 tests passed (90.5% success rate). CRITICAL SUCCESS CRITERIA VERIFIED: ✅ 1. Endpoint Accessibility: PUT /api/assessments/{assessment_id}/readiness-info endpoint exists and returns 200 OK, ✅ 2. Response Format: Returns correct JSON response {'status': 'success', 'message': 'Readiness information saved'}, ✅ 3. Assessment Name Updates: Assessment name correctly updates with format '[Type]_[Org Name]_In-Progress_[Date]' when readiness_info contains org_name, ✅ 4. Authentication Required: Endpoint requires valid JWT token (user must be logged in), ✅ 5. Authorization Check: Assessment must belong to user's organization (403 for unauthorized access), ✅ 6. Error Handling: Returns 404 for non-existent assessments, ✅ 7. Data Validation: Accepts various readiness_info data structures (minimal with just org_name, extended with additional fields), ✅ 8. Test Credentials: Works with Super Admin credentials (andrew@test.com/password123), ✅ 9. Database Storage: readiness_info data is stored in assessment document (verified via successful name updates). MINOR ISSUES: readiness_info field not returned in GET /api/assessments/{id} response (implementation detail - data is stored correctly), one test credential failed (andrew@vciso.one - authentication issue). The AI Readiness Assessment backend integration is fully functional and meets all requirements specified in the review request."
+        - working: true
+        - agent: "main"
+        - comment: "USER FEEDBACK ADDRESSED: Fixed two issues reported by user: 1) Color Scheme Alignment: Updated AI Readiness Assessment card in AssessmentSelector.js to match blue icon scheme - added border-2 border-blue-500 to card, changed badge to blue-100/blue-700/blue-300 colors, updated button from teal to bg-blue-600 hover:bg-blue-700, changed CardTitle to text-gray-900 for consistency. Now matches the uniform color scheme of Organisation-wide (purple) and AI System (teal) cards. 2) Notification Badge Refresh: Added window focus and visibility change event listeners to both Dashboard.js and SettingsPage.js to automatically refresh notification counts when user returns to the page or switches browser tabs. This ensures the alert badge shows current unread notification count even after new notifications are created. Changes made to: AssessmentSelector.js (lines 165-199), Dashboard.js (added useEffect for focus/visibility listeners), SettingsPage.js (added useEffect for focus/visibility listeners)."
 
 
 ## metadata:
