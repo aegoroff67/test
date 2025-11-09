@@ -289,9 +289,9 @@ export default function AwarenessPreAssessmentForm() {
 
         {/* 2. Starting Point & Familiarity */}
         <Card>
-          <CardHeader className="bg-blue-50 border-b border-blue-100">
+          <CardHeader className="bg-green-50 border-b border-green-100">
             <div className="flex items-center space-x-2">
-              <Lightbulb className="h-5 w-5 text-blue-600" />
+              <Lightbulb className="h-5 w-5 text-green-600" />
               <CardTitle className="text-xl">Starting Point & Familiarity</CardTitle>
             </div>
           </CardHeader>
