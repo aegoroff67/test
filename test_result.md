@@ -455,7 +455,7 @@
 
 ## test_plan:
   current_focus:
-    - "Integrate AI Readiness Assessment with backend endpoint and frontend routing"
+    - "Replace separate Cloud provider and Primary region dropdowns with combined dropdown in System Pre-Assessment form"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -513,7 +513,7 @@
 
 ## test_plan:
   current_focus:
-    - "Integrate AI Readiness Assessment with backend endpoint and frontend routing"
+    - "Replace separate Cloud provider and Primary region dropdowns with combined dropdown in System Pre-Assessment form"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
