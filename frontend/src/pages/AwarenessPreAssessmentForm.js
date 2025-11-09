@@ -413,9 +413,9 @@ export default function AwarenessPreAssessmentForm() {
 
         {/* 4. Foundational Context */}
         <Card>
-          <CardHeader className="bg-orange-50 border-b border-orange-100">
+          <CardHeader className="bg-green-50 border-b border-green-100">
             <div className="flex items-center space-x-2">
-              <Shield className="h-5 w-5 text-orange-600" />
+              <Shield className="h-5 w-5 text-green-600" />
               <CardTitle className="text-xl">Foundational Context</CardTitle>
             </div>
           </CardHeader>
