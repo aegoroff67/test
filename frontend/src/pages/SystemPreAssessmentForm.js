@@ -447,7 +447,7 @@ export default function SystemPreAssessmentForm() {
         {/* Ethics & Sustainability */}
         <Card>
           <CardHeader>
-            <CardTitle>Ethics & Sustainability</CardTitle>
+            <CardTitle style={{fontSize: '23px'}}>Ethics & Sustainability</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2 md:col-span-2">
