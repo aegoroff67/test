@@ -1214,7 +1214,6 @@ async def update_system_info(
 ):
     # Verify assessment belongs to user's organization
     assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
-    
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -1227,13 +1226,47 @@ async def update_system_info(
         # Generate new name: [Type]_[Target Name]_In-Progress_YYYY-MM-DD
         updated_name = f"{assessment_type}_{system_info['systemName']}_In-Progress_{started_date}"
     
-    # Update both system_info and name
+    # Update assessment with system_info and updated name
     await db.assessments.update_one(
         {"id": assessment_id},
-        {"$set": {"system_info": system_info, "name": updated_name}}
+        {"$set": {
+            "system_info": system_info,
+            "name": updated_name
+        }}
     )
     
-    return {"success": True, "message": "System information updated"}
+    return {"status": "success", "message": "System information saved"}
+
+@api_router.put("/assessments/{assessment_id}/org-info")
+async def update_org_info(
+    assessment_id: str,
+    org_info: dict,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    # Verify assessment belongs to user's organization
+    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Update the assessment name with the org name from org_info
+    updated_name = assessment["name"]
+    if org_info.get("org_name"):
+        # Extract the assessment type and date from current name
+        assessment_type = assessment.get("assessment_type", "Organisation")
+        started_date = assessment["started_at"].strftime("%Y-%m-%d")
+        # Generate new name: [Type]_[Org Name]_In-Progress_YYYY-MM-DD
+        updated_name = f"{assessment_type}_{org_info['org_name']}_In-Progress_{started_date}"
+    
+    # Update assessment with org_info and updated name
+    await db.assessments.update_one(
+        {"id": assessment_id},
+        {"$set": {
+            "org_info": org_info,
+            "name": updated_name
+        }}
+    )
+    
+    return {"status": "success", "message": "Organisation information saved"}
 
 
 @api_router.post("/assessments/{assessment_id}/answer")
