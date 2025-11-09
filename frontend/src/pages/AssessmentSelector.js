@@ -180,15 +180,15 @@ export default function AssessmentSelector() {
           </Card>
 
           {/* 3. Organisation-wide AI Maturity Assessment */}
-          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60 flex flex-col h-full">
-            <Badge variant="outline" className="absolute top-4 right-4 text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
-              Coming Soon
+          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-purple-500 flex flex-col h-full">
+            <Badge className="absolute top-4 right-4 text-xs bg-purple-100 text-purple-700 border-purple-300">
+              Available Now
             </Badge>
             <CardHeader>
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-100">
                 <Building2 className="h-6 w-6 text-purple-600" aria-hidden />
               </div>
-              <CardTitle className="text-lg text-gray-700">Organisation-wide AI Maturity Assessment</CardTitle>
+              <CardTitle className="text-lg text-gray-900">Organisation-wide AI Maturity Assessment</CardTitle>
             </CardHeader>
             <CardContent className="p-6 flex-1 flex flex-col">
               <div className="space-y-3 mb-6 flex-1">
@@ -205,12 +205,19 @@ export default function AssessmentSelector() {
               </div>
               <div className="mt-auto">
                 <Button 
-                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
-                  disabled
-                  onClick={() => handleComingSoon('Organisation-wide AI Maturity Assessment')}
+                  className="w-full bg-purple-600 hover:bg-purple-700"
+                  onClick={handleOrgAssessment}
+                  disabled={creating}
                   data-testid="orgwide-assessment-btn"
                 >
-                  Start Assessment
+                  {creating ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="loading-spinner w-4 h-4"></div>
+                      <span>Creating...</span>
+                    </div>
+                  ) : (
+                    'Start Assessment'
+                  )}
                 </Button>
               </div>
             </CardContent>
