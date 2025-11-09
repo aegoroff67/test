@@ -185,6 +185,9 @@ const defaultState = {
   dependencies: "",
   versionRef: "",
   evidenceRepoUrl: "",
+  assessor_name: "",
+  assessment_date: "",
+  framework_version: "v2025.11",
 };
 
 export default function SystemPreAssessmentForm() {
