@@ -533,7 +533,7 @@ export default function AwarenessPreAssessmentForm() {
                 <span>Saving...</span>
               </div>
             ) : (
-              'Next: Begin Assessment'
+              'Continue to Assessment'
             )}
           </Button>
         </div>
