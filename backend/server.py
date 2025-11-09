@@ -473,7 +473,9 @@ async def login(user_data: UserLogin):
         role=user["role"],
         is_active=user.get("is_active", True),
         organization_name=org["name"] if org else "Unknown",
-        industry=org["industry"] if org else "Unknown"
+        industry=org["industry"] if org else "Unknown",
+        default_industry=user.get("default_industry"),
+        assessment_access=user.get("assessment_access", ["awareness"])
     )
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
