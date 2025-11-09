@@ -285,7 +285,7 @@ export default function SystemPreAssessmentForm() {
         <Card>
           <CardHeader className="flex flex-row items-center gap-3">
             <Cpu className="h-5 w-5" />
-            <CardTitle>Technical Setup</CardTitle>
+            <CardTitle style={{fontSize: '23px'}}>Technical Setup</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
