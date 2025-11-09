@@ -252,7 +252,7 @@ export default function SystemPreAssessmentForm() {
         <Card>
           <CardHeader className="flex flex-row items-center gap-3">
             <Settings2 className="h-5 w-5" />
-            <CardTitle>Lifecycle & Usage</CardTitle>
+            <CardTitle style={{fontSize: '23px'}}>Lifecycle & Usage</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
