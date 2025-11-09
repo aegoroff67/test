@@ -262,7 +262,7 @@ export default function ReadinessPreAssessmentForm() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="mt-8 space-y-8">
           {/* Organisation Details */}
           <Card>
             <CardHeader className="bg-blue-50 border-b border-blue-100">
