@@ -209,8 +209,21 @@ export default function SystemPreAssessmentForm() {
     e.preventDefault();
     setSubmitting(true);
     try {
+      // Parse the combined cloudProviderRegion value
+      const formData = { ...form };
+      if (form.cloudProviderRegion && form.cloudProviderRegion !== "other") {
+        const [provider, regionCode] = form.cloudProviderRegion.split('|');
+        formData.cloudProvider = provider;
+        formData.cloudRegion = regionCode;
+      } else if (form.cloudProviderRegion === "other") {
+        formData.cloudProvider = "Other / Not Applicable";
+        formData.cloudRegion = "";
+      }
+      // Remove the combined field before sending to backend
+      delete formData.cloudProviderRegion;
+      
       // Save the system information to the assessment
-      await axios.put(`${API}/assessments/${id}/system-info`, form);
+      await axios.put(`${API}/assessments/${id}/system-info`, formData);
       toast.success('System information saved!');
       // Navigate to the assessment page
       navigate(`/assessment/${id}`);
