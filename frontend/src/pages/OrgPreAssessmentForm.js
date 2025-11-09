@@ -355,9 +355,11 @@ export default function OrgPreAssessmentForm() {
 
           {/* AI Landscape & Scope */}
           <Card>
-            <CardHeader className="flex flex-row items-center gap-3">
-              <Workflow className="h-5 w-5" />
-              <CardTitle style={{fontSize: '23px'}}>AI Landscape & Scope</CardTitle>
+            <CardHeader className="bg-purple-50 border-b border-purple-100">
+              <div className="flex items-center space-x-2">
+                <Workflow className="h-5 w-5 text-purple-600" />
+                <CardTitle className="text-xl">AI Landscape & Scope</CardTitle>
+              </div>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
