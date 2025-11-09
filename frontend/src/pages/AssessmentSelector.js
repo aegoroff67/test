@@ -162,9 +162,9 @@ export default function AssessmentSelector() {
           </Card>
 
           {/* 2. AI Readiness Assessment */}
-          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg opacity-60 flex flex-col h-full">
-            <Badge variant="outline" className="absolute top-4 right-4 text-xs bg-yellow-50 text-yellow-700 border-yellow-300">
-              Coming Soon
+          <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg flex flex-col h-full">
+            <Badge variant="outline" className="absolute top-4 right-4 text-xs bg-green-50 text-green-700 border-green-300">
+              Available Now
             </Badge>
             <CardHeader>
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100">
@@ -187,9 +187,9 @@ export default function AssessmentSelector() {
               </div>
               <div className="mt-auto">
                 <Button 
-                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-not-allowed"
-                  disabled
-                  onClick={() => handleComingSoon('AI Readiness Assessment')}
+                  className="w-full bg-teal-600 hover:bg-teal-700 text-white"
+                  onClick={handleReadinessAssessment}
+                  disabled={creating}
                   data-testid="readiness-assessment-btn"
                 >
                   Start Assessment
