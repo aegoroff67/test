@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard';
 import AssessmentSelector from './pages/AssessmentSelector';
 import SystemPreAssessmentForm from './pages/SystemPreAssessmentForm';
 import OrgPreAssessmentForm from './pages/OrgPreAssessmentForm';
+import ReadinessPreAssessmentForm from './pages/ReadinessPreAssessmentForm';
 import SettingsPage from './pages/SettingsPage';
 import ReviewAssessmentPage from './pages/ReviewAssessmentPage';
 import AssessmentPage from './pages/AssessmentPage';
