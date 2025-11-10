@@ -122,7 +122,7 @@ function AuthPage() {
                   Comprehensive AI Assessment Suite
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Progress through four assessments — Awareness & Foundations, Readiness, Organisation-wide Maturity, and System Maturity — guiding your organisation from AI awareness to full governance assurance.
+                  Progress through four assessments — <strong>Awareness & Foundations</strong>, <strong>Readiness</strong>, <strong>Organisation-wide Maturity</strong>, and <strong>System Maturity</strong> — guiding your organisation from AI awareness to full governance assurance.
                 </p>
               </div>
             </div>
