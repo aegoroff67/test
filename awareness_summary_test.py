@@ -82,11 +82,11 @@ class AwarenessAssessmentSummaryTester:
         test_email = f"awareness_test_{random.randint(100000, 999999)}@example.com"
         
         signup_data = {
+            "name": f"Awareness Test User {random.randint(100000, 999999)}",
             "email": test_email,
-            "password": "testpass123",
-            "first_name": "Awareness",
-            "last_name": "Tester",
-            "organization": "Test Organization"
+            "password": "TestPass123!",
+            "organization_name": f"Awareness Test Org {random.randint(100000, 999999)}",
+            "industry": "Technology"
         }
         
         success, response = self.make_request('POST', 'auth/signup', signup_data)
