@@ -744,8 +744,8 @@ function AssessmentPage() {
                                 onClick={() => setAdminScore(score)}
                                 className={`py-2 px-3 text-center rounded-md font-medium transition-all ${
                                   adminScore === score
-                                    ? 'bg-teal-600 text-white shadow-md'
-                                    : 'bg-white text-gray-700 border border-gray-300 hover:border-teal-600'
+                                    ? `bg-${colors.primary} text-white shadow-md`
+                                    : `bg-white text-gray-700 border border-gray-300 hover:border-${colors.primary}`
                                 }`}
                               >
                                 <div className="text-lg">{score}</div>
