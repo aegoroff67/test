@@ -71,6 +71,7 @@ function ResultsPage() {
   const { user } = useAuth();
   
   const [assessment, setAssessment] = useState(null);
+  const [assessmentType, setAssessmentType] = useState('System');
   const [summary, setSummary] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
