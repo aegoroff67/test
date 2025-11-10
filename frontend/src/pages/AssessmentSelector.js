@@ -70,7 +70,7 @@ export default function AssessmentSelector() {
   const handleReadinessAssessment = async () => {
     setCreating(true);
     try {
-      const response = await axios.post(`${API}/assessments`, {});
+      const response = await axios.post(`${API}/assessments`, { assessment_type: "Readiness" });
       if (response.data && response.data.id) {
         toast.success('New readiness assessment created!');
         // Redirect to readiness onboarding page
