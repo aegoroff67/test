@@ -818,3 +818,18 @@
         - working: true
         - agent: "testing"
         - comment: "COMPREHENSIVE TESTING COMPLETED: All 3 user-reported issues have been verified as FIXED. TEST RESULTS: 30/30 Awareness-specific tests passed (100% success rate). VERIFIED: 1) ✅ View All Button Issue FIXED - Status endpoint correctly returns 25 questions and 5 domains for Awareness assessments (Awareness & Understanding, Leadership & Vision, Data & Digital Readiness, People & Skills, Governance & Trust Foundations), 2) ✅ Domain Progress Tracking Issue FIXED - Progress bars show correct answered counts per domain (e.g., 2/5, 3/5, 1/5, 0/5, 1/5) instead of 0/0, completion percentage calculated correctly (28.0% for 7/25 answered), 3) ✅ Duplicate Context Issue FIXED - Frontend logic checks if explanation starts with 'Context:' and removes duplicate prefix. Backend changes: get_assessment_status endpoint checks assessment_type and serves Awareness-specific data structure. Frontend changes: Conditional rendering in AssessmentPage.js removes duplicate 'Context:' prefix. All fixes are production-ready."
+
+  - task: "Fix Awareness Assessment domain progress showing 0/0"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported that domain progress section on left-hand side of assessment page is still showing 0/0 for all domains despite having actual progress (e.g., 4 of 25 overall). Uploaded screenshot showing all 5 Awareness domains displaying 0/0."
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED FIX: Identified root cause - domain_id mismatch between domain objects and questions. Domains had IDs like 'awareness_understanding', 'leadership_vision', etc., but questions were assigned 'domain_1', 'domain_2', etc. This caused frontend to not find any questions per domain, resulting in 0/0 display. BACKEND CHANGES: Updated get_assessment_questions endpoint to use actual domain IDs from awareness_domains list instead of 'domain_{order}' format. Changed line 1550 to get domain_id from awareness_domains[domain_order - 1]['id']. Backend restarted successfully. Ready for testing to verify domain progress now shows correct answered/total counts (e.g., 2/5, 3/5, 1/5) instead of 0/0."
