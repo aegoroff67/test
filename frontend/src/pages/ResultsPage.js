@@ -160,6 +160,7 @@ function ResultsPage() {
       // Original API calls for real data
       const assessmentResponse = await axios.get(`${API}/assessments/${id}`);
       setAssessment(assessmentResponse.data);
+      setAssessmentType(assessmentResponse.data.assessment_type || 'System');
       
       const questionsResponse = await axios.get(`${API}/assessments/${id}/questions`);
       const questionData = questionsResponse.data;
