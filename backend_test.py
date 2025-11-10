@@ -6633,9 +6633,34 @@ class AMSafeAPITester:
         print(f"🔗 API URL: {self.api_url}")
         print("=" * 80)
         
-        # Production-focused authentication tests
-        if not self.test_production_authentication_flow():
-            print("❌ Production authentication failed - continuing with other tests")
+        # Try login with provided credentials first
+        if not self.test_login_with_provided_credentials():
+            print("⚠️  Provided credentials failed, trying production authentication...")
+            if not self.test_production_authentication_flow():
+                print("❌ Production authentication failed - continuing with other tests")
+        
+        # === AWARENESS ASSESSMENT TESTS (MAIN FOCUS) ===
+        print("\n" + "🎯 AWARENESS ASSESSMENT TESTS (MAIN FOCUS)" + "\n" + "=" * 60)
+        
+        # Test the specific assessment ID mentioned in review request
+        self.test_specific_assessment_id()
+        
+        # Test 1: Create Awareness Assessment
+        if self.test_awareness_assessment_creation():
+            # Test 2: Submit Awareness Response Options
+            self.test_awareness_response_options()
+            
+            # Test 3: Verify Correct Scoring
+            self.test_awareness_scoring_verification()
+            
+            # Test 5: Error Handling
+            self.test_awareness_error_handling()
+        
+        # Test 4: Verify System Assessment Still Works
+        self.test_system_assessment_still_works()
+        
+        # === EXISTING PRODUCTION TESTS ===
+        print("\n" + "📋 EXISTING PRODUCTION TESTS" + "\n" + "=" * 60)
         
         # Authentication validation tests
         self.test_authentication_headers_validation()
