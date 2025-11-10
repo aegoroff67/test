@@ -51,20 +51,27 @@ class DashboardProgressTester:
             return False, str(e)
 
     def authenticate(self):
-        """Authenticate with provided credentials"""
-        login_data = {
-            "email": "superadmin@emergentmethods.ai",
-            "password": "password123"
+        """Authenticate by creating a test user"""
+        timestamp = datetime.now().strftime('%H%M%S')
+        test_email = f"dashboard_test_{timestamp}@example.com"
+        
+        # First try to signup
+        signup_data = {
+            "name": f"Dashboard Test User {timestamp}",
+            "email": test_email,
+            "password": "TestPass123!",
+            "organization_name": f"Dashboard Test Org {timestamp}",
+            "industry": "Technology"
         }
         
-        success, response = self.make_request('POST', 'auth/login', login_data)
+        success, response = self.make_request('POST', 'auth/signup', signup_data)
         if success and 'access_token' in response:
             self.token = response['access_token']
             self.user_data = response['user']
-            self.log_test("Authentication", True)
+            self.log_test("Authentication (signup)", True)
             return True
         else:
-            self.log_test("Authentication", False, str(response))
+            self.log_test("Authentication (signup)", False, str(response))
             return False
 
     def test_dashboard_progress_display_fix(self):
