@@ -6659,6 +6659,26 @@ class AMSafeAPITester:
         # Test 4: Verify System Assessment Still Works
         self.test_system_assessment_still_works()
         
+        # === NEW COMPREHENSIVE AWARENESS TESTS ===
+        print("\n" + "🔥 COMPREHENSIVE AWARENESS ASSESSMENT TESTS (Review Request Focus)" + "\n" + "=" * 60)
+        
+        # Create a fresh Awareness Assessment for comprehensive testing
+        if self.test_awareness_assessment_creation_comprehensive():
+            # Test Status Endpoint (25 questions, 5 domains)
+            self.test_awareness_assessment_status_endpoint_comprehensive()
+            
+            # Test Questions Endpoint (Awareness-specific options)
+            self.test_awareness_assessment_questions_endpoint_comprehensive()
+            
+            # Test Progress Tracking (domain-specific progress)
+            self.test_awareness_assessment_progress_tracking_comprehensive()
+            
+            # Test Answer Options (Awareness-specific scoring)
+            self.test_awareness_assessment_answer_options_comprehensive()
+        
+        # Test System vs Awareness Comparison
+        self.test_system_vs_awareness_assessment_comparison_comprehensive()
+        
         # === EXISTING PRODUCTION TESTS ===
         print("\n" + "📋 EXISTING PRODUCTION TESTS" + "\n" + "=" * 60)
         
