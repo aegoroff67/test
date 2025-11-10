@@ -67,6 +67,7 @@ function AssessmentPage() {
       // Fetch assessment metadata
       const assessmentResponse = await axios.get(`${API}/assessments/${id}`);
       setAssessment(assessmentResponse.data);
+      setAssessmentType(assessmentResponse.data.assessment_type || 'System');
       
       // Fetch questions with domains and answers
       const questionsResponse = await axios.get(`${API}/assessments/${id}/questions`);
