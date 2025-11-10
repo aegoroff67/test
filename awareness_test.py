@@ -350,10 +350,12 @@ class AwarenessAssessmentTester:
         print(f"🔗 API URL: {self.api_url}")
         print("=" * 80)
         
-        # Try login with provided credentials
+        # Try login with provided credentials first
         if not self.test_login_with_provided_credentials():
-            print("❌ Authentication failed - stopping tests")
-            return False
+            print("⚠️  Provided credentials failed, trying signup/login...")
+            if not self.test_user_signup_and_login():
+                print("❌ Authentication failed - stopping tests")
+                return False
         
         # Test the specific assessment ID mentioned in review request
         self.test_specific_assessment_id()
