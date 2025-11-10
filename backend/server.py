@@ -1386,28 +1386,6 @@ async def update_awareness_info(
     
     return {"status": "success", "message": "Awareness information saved"}
 
-        raise HTTPException(status_code=404, detail="Assessment not found")
-    
-    # Update the assessment name with the org name from readiness_info
-    updated_name = assessment["name"]
-    if readiness_info.get("org_name"):
-        # Extract the assessment type and date from current name
-        assessment_type = assessment.get("assessment_type", "Readiness")
-        started_date = assessment["started_at"].strftime("%Y-%m-%d")
-        # Generate new name: [Type]_[Org Name]_In-Progress_YYYY-MM-DD
-        updated_name = f"{assessment_type}_{readiness_info['org_name']}_In-Progress_{started_date}"
-    
-    # Update assessment with readiness_info and updated name
-    await db.assessments.update_one(
-        {"id": assessment_id},
-        {"$set": {
-            "readiness_info": readiness_info,
-            "name": updated_name
-        }}
-    )
-    
-    return {"status": "success", "message": "Readiness information saved"}
-
 
 @api_router.put("/assessments/{assessment_id}/awareness-info")
 async def update_awareness_info(
