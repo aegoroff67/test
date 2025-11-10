@@ -721,7 +721,7 @@ function AssessmentPage() {
                           {otherText.trim() && (
                             <Button
                               onClick={() => handleOptionSelect('OTHER')}
-                              className="mt-2 bg-teal-600 hover:bg-teal-700 text-sm sm:text-base"
+                              className={`mt-2 bg-${colors.primary} hover:bg-${colors.primaryHover} text-sm sm:text-base`}
                               size="sm"
                               data-testid="save-other-btn"
                             >
