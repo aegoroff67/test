@@ -32,7 +32,7 @@ export default function AssessmentSelector() {
   const handleSystemAssessment = async () => {
     setCreating(true);
     try {
-      const response = await axios.post(`${API}/assessments`, {});
+      const response = await axios.post(`${API}/assessments`, { assessment_type: "System" });
       if (response.data && response.data.id) {
         toast.success('New assessment created!');
         // Redirect to onboarding page instead of directly to assessment
