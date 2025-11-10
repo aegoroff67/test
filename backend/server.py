@@ -1541,13 +1541,16 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
             domain_order = question_data["domain_order"]
             question_id = question_data["code"]
             
+            # Get the actual domain ID from the awareness_domains list
+            domain_id = awareness_domains[domain_order - 1]["id"]
+            
             question = {
                 "id": question_id,
                 "code": question_id,
                 "text": question_data["text"],
                 "explanation": question_data.get("explanation", ""),
                 "order": question_data["order"],
-                "domain_id": f"domain_{domain_order}",
+                "domain_id": domain_id,
                 "answer": answer_lookup.get(question_id),
                 "predefined_answers": {
                     "early_awareness": question_data.get("early_awareness"),
