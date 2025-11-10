@@ -704,6 +704,71 @@ function AssessmentPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Other (Requires Review)</div>
+                          <Textarea
+                            id="other-text-input"
+                            placeholder="Please describe your specific situation or approach..."
+                            value={otherText}
+                            onChange={(e) => {
+                              setOtherText(e.target.value);
+                              // Auto-select OTHER when user starts typing
+                              if (e.target.value.trim() && currentAnswer?.option !== 'OTHER') {
+                                // This will trigger the selection without calling the API yet
+                              }
+                            }}
+                            className="min-h-[50px] sm:min-h-[60px] focus:ring-teal focus:border-teal-500 text-sm sm:text-base compact-textarea"
+                            data-testid="other-text-input"
+                          />
+                          {otherText.trim() && (
+                            <Button
+                              onClick={() => handleOptionSelect('OTHER')}
+                              className="mt-2 bg-teal-600 hover:bg-teal-700 text-sm sm:text-base"
+                              size="sm"
+                              data-testid="save-other-btn"
+                            >
+                              Save Other Response
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Super Admin Score Input - only show when reviewing OTHER responses */}
+                      {user?.role === 'SUPER_ADMIN' && currentAnswer?.option === 'OTHER' && currentAnswer?.review_status === 'PENDING_REVIEW' && (
+                        <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                          <Label className="text-sm font-semibold text-gray-900 mb-3 block">
+                            🔒 Super Admin: Score this response
+                          </Label>
+                          <div className="grid grid-cols-4 gap-2 mb-3">
+                            {[0, 1, 2, 3].map((score) => (
+                              <button
+                                key={score}
+                                onClick={() => setAdminScore(score)}
+                                className={`py-2 px-3 text-center rounded-md font-medium transition-all ${
+                                  adminScore === score
+                                    ? 'bg-teal-600 text-white shadow-md'
+                                    : 'bg-white text-gray-700 border border-gray-300 hover:border-teal-600'
+                                }`}
+                              >
+                                <div className="text-lg">{score}</div>
+                                <div className="text-xs">
+                                  {score === 0 && 'Non-Ideal'}
+                                  {score === 1 && 'Basic'}
+                                  {score === 2 && 'Good'}
+                                  {score === 3 && 'Ideal'}
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                          <Button
+                            onClick={handleSaveAdminScore}
+                            className="w-full bg-teal-600 hover:bg-teal-700"
+                            disabled={adminScore === null}
+                          >
+                            Save Score & Continue
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                         <Textarea
                           id="other-text-input"
                           placeholder="Please describe your specific situation or approach..."
