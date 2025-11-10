@@ -639,157 +639,71 @@ function AssessmentPage() {
                     Select your response:
                   </Label>
                   
-                  {/* Ideal Option */}
-                  <div
-                    className={`custom-radio ${currentAnswer?.option === 'IDEAL' ? 'selected' : ''} p-2 sm:p-3`}
-                    onClick={() => handleOptionSelect('IDEAL')}
-                    data-testid="answer-option-ideal"
-                  >
-                    <input
-                      type="radio"
-                      name="answer"
-                      value="IDEAL"
-                      checked={currentAnswer?.option === 'IDEAL'}
-                      onChange={() => {}}
-                    />
-                    <div className="flex items-start space-x-2 sm:space-x-3">
-                      <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center mt-0.5 flex-shrink-0 ${
-                        currentAnswer?.option === 'IDEAL' 
-                          ? 'border-teal-600 bg-teal-600' 
-                          : 'border-gray-300'
-                      }`}>
-                        {currentAnswer?.option === 'IDEAL' && (
-                          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 mb-0.5 text-sm sm:text-base">Ideal (3 points)</div>
-                        <div className="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
-                          {currentQuestion?.predefined_answers?.ideal || 'Comprehensive implementation with best practices and full compliance'}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Good Option */}
-                  <div
-                    className={`custom-radio ${currentAnswer?.option === 'GOOD' ? 'selected' : ''} p-2 sm:p-3`}
-                    onClick={() => handleOptionSelect('GOOD')}
-                    data-testid="answer-option-good"
-                  >
-                    <input
-                      type="radio"
-                      name="answer"
-                      value="GOOD"
-                      checked={currentAnswer?.option === 'GOOD'}
-                      onChange={() => {}}
-                    />
-                    <div className="flex items-start space-x-2 sm:space-x-3">
-                      <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center mt-0.5 flex-shrink-0 ${
-                        currentAnswer?.option === 'GOOD' 
-                          ? 'border-teal-600 bg-teal-600' 
-                          : 'border-gray-300'
-                      }`}>
-                        {currentAnswer?.option === 'GOOD' && (
-                          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 mb-0.5 text-sm sm:text-base">Good (2 points)</div>
-                        <div className="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
-                          {currentQuestion?.predefined_answers?.good || 'Solid implementation with room for improvement'}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Basic Option */}
-                  <div
-                    className={`custom-radio ${currentAnswer?.option === 'BASIC' ? 'selected' : ''} p-2 sm:p-3`}
-                    onClick={() => handleOptionSelect('BASIC')}
-                    data-testid="answer-option-basic"
-                  >
-                    <input
-                      type="radio"
-                      name="answer"
-                      value="BASIC"
-                      checked={currentAnswer?.option === 'BASIC'}
-                      onChange={() => {}}
-                    />
-                    <div className="flex items-start space-x-2 sm:space-x-3">
-                      <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center mt-0.5 flex-shrink-0 ${
-                        currentAnswer?.option === 'BASIC' 
-                          ? 'border-teal-600 bg-teal-600' 
-                          : 'border-gray-300'
-                      }`}>
-                        {currentAnswer?.option === 'BASIC' && (
-                          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 mb-0.5 text-sm sm:text-base">Basic (1 point)</div>
-                        <div className="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
-                          {currentQuestion?.predefined_answers?.basic || 'Minimal implementation, significant gaps exist'}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Non-Ideal Option */}
-                  <div
-                    className={`custom-radio ${currentAnswer?.option === 'NON_IDEAL' ? 'selected' : ''} p-2 sm:p-3`}
-                    onClick={() => handleOptionSelect('NON_IDEAL')}
-                    data-testid="answer-option-non-ideal"
-                  >
-                    <input
-                      type="radio"
-                      name="answer"
-                      value="NON_IDEAL"
-                      checked={currentAnswer?.option === 'NON_IDEAL'}
-                      onChange={() => {}}
-                    />
-                    <div className="flex items-start space-x-2 sm:space-x-3">
-                      <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center mt-0.5 flex-shrink-0 ${
-                        currentAnswer?.option === 'NON_IDEAL' 
-                          ? 'border-teal-600 bg-teal-600' 
-                          : 'border-gray-300'
-                      }`}>
-                        {currentAnswer?.option === 'NON_IDEAL' && (
-                          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 mb-0.5 text-sm sm:text-base">Non-Ideal (0 points)</div>
-                        <div className="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
-                          {currentQuestion?.predefined_answers?.non_ideal || 'Little to no implementation or consideration'}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Other Option */}
-                  <div
-                    className={`custom-radio ${currentAnswer?.option === 'OTHER' ? 'selected' : ''} p-2 sm:p-3`}
-                    data-testid="answer-option-other"
-                  >
-                    <div 
-                      onClick={() => {
-                        // Focus on text input instead of selecting immediately
-                        document.getElementById('other-text-input')?.focus();
-                      }}
-                      className="flex items-start space-x-2 sm:space-x-3"
+                  {/* Dynamic Response Options */}
+                  {responseOptions.slice(0, assessmentType === 'Awareness' ? 4 : 4).map((option) => (
+                    <div
+                      key={option.value}
+                      className={`custom-radio ${currentAnswer?.option === option.value ? 'selected' : ''} p-2 sm:p-3`}
+                      onClick={() => handleOptionSelect(option.value)}
+                      data-testid={`answer-option-${option.value.toLowerCase()}`}
                     >
-                      <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center mt-0.5 flex-shrink-0 ${
-                        currentAnswer?.option === 'OTHER' 
-                          ? 'border-teal-600 bg-teal-600' 
-                          : 'border-gray-300'
-                      }`}>
-                        {currentAnswer?.option === 'OTHER' && (
-                          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
-                        )}
+                      <input
+                        type="radio"
+                        name="answer"
+                        value={option.value}
+                        checked={currentAnswer?.option === option.value}
+                        onChange={() => {}}
+                      />
+                      <div className="flex items-start space-x-2 sm:space-x-3">
+                        <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center mt-0.5 flex-shrink-0 ${
+                          currentAnswer?.option === option.value 
+                            ? `border-${colors.primary} bg-${colors.primary}` 
+                            : 'border-gray-300'
+                        }`}>
+                          {currentAnswer?.option === option.value && (
+                            <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-gray-900 mb-0.5 text-sm sm:text-base">
+                            {option.label} ({option.score} point{option.score !== 1 ? 's' : ''})
+                          </div>
+                          <div className="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
+                            {option.text}
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Other (Requires Review)</div>
+                    </div>
+                  ))}
+                  
+                  {/* Other Option - only for System assessments */}
+                  {assessmentType !== 'Awareness' && responseOptions[4] && (
+                    <div
+                      className={`custom-radio ${currentAnswer?.option === 'OTHER' ? 'selected' : ''} p-2 sm:p-3`}
+                      onClick={() => {
+                        // For OTHER, we only select when user actually submits
+                      }}
+                      data-testid="answer-option-other"
+                    >
+                      <input
+                        type="radio"
+                        name="answer"
+                        value="OTHER"
+                        checked={currentAnswer?.option === 'OTHER'}
+                        onChange={() => {}}
+                      />
+                      <div className="flex items-start space-x-2 sm:space-x-3">
+                        <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center mt-0.5 flex-shrink-0 ${
+                          currentAnswer?.option === 'OTHER' 
+                            ? `border-${colors.primary} bg-${colors.primary}` 
+                            : 'border-gray-300'
+                        }`}>
+                          {currentAnswer?.option === 'OTHER' && (
+                            <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white"></div>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Other (Requires Review)</div>
                         <Textarea
                           id="other-text-input"
                           placeholder="Please describe your specific situation or approach..."
