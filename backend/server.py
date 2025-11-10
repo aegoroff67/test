@@ -1141,22 +1141,37 @@ async def create_assessment(
         industry_selected = org["primary_industry"]
     # else: remains None
     
+    # Get assessment type from request or default to System
+    assessment_type = assessment_data.assessment_type if assessment_data else "System"
+    
+    # Map assessment type to display name
+    type_names = {
+        "Awareness": "Awareness",
+        "Readiness": "Readiness", 
+        "Orgwide": "Org-wide",
+        "System": "System"
+    }
+    type_display = type_names.get(assessment_type, "System")
+    
     # Generate initial assessment name with format: [Type]_[TBD]_In-Progress_YYYY-MM-DD
     started_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    assessment_name = f"System_[TBD]_In-Progress_{started_date}"
+    assessment_name = f"{type_display}_[TBD]_In-Progress_{started_date}"
     
     assessment = Assessment(
         org_id=current_user.org_id,
         user_id=current_user.id,
         name=assessment_name,
-        assessment_type="System",
+        assessment_type=assessment_type,
         industry_selected=industry_selected
     )
     
     await db.assessments.insert_one(assessment.dict())
     
-    # Get total questions count
-    total_questions = await db.questions.count_documents({})
+    # Get total questions count based on assessment type
+    if assessment_type == "Awareness":
+        total_questions = len(AWARENESS_QUESTIONS_DATA)  # 25 questions
+    else:
+        total_questions = await db.questions.count_documents({})  # System questions
     
     return AssessmentResponse(
         id=assessment.id,
