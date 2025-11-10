@@ -79,6 +79,31 @@ class AwarenessAssessmentTester:
             self.log_test("Login with provided credentials (superadmin@emergentmethods.ai)", False, str(response))
             return False
 
+    def test_user_signup_and_login(self):
+        """Test user registration and authentication"""
+        timestamp = datetime.now().strftime('%H%M%S')
+        test_email = f"awareness_test_{timestamp}@example.com"
+        
+        # Test signup
+        signup_data = {
+            "name": f"Awareness Test User {timestamp}",
+            "email": test_email,
+            "password": "TestPass123!",
+            "organization_name": f"Awareness Test Org {timestamp}",
+            "industry": "Technology"
+        }
+        
+        success, response = self.make_request('POST', 'auth/signup', signup_data)
+        if success and 'access_token' in response:
+            self.token = response['access_token']
+            self.user_data = response['user']
+            self.log_test("User signup for awareness testing", True)
+            self.log_test("Authentication token received", True)
+            return True
+        else:
+            self.log_test("User signup for awareness testing", False, str(response))
+            return False
+
     def test_awareness_assessment_creation(self):
         """Test creating an Awareness Assessment"""
         assessment_data = {
