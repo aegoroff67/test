@@ -7218,8 +7218,14 @@ class AMSafeAPITester:
             if not self.test_production_authentication_flow():
                 print("❌ Production authentication failed - continuing with other tests")
         
-        # === AWARENESS ASSESSMENT TESTS (MAIN FOCUS) ===
-        print("\n" + "🎯 AWARENESS ASSESSMENT TESTS (MAIN FOCUS)" + "\n" + "=" * 60)
+        # === AWARENESS ASSESSMENT DOMAIN PROGRESS FIX (PRIORITY TEST) ===
+        print("\n" + "🎯 AWARENESS ASSESSMENT DOMAIN PROGRESS FIX (PRIORITY TEST)" + "\n" + "=" * 60)
+        
+        # MAIN TEST: Domain progress fix for Awareness Assessment
+        self.test_awareness_assessment_domain_progress_fix()
+        
+        # === AWARENESS ASSESSMENT TESTS (ADDITIONAL) ===
+        print("\n" + "🎯 AWARENESS ASSESSMENT TESTS (ADDITIONAL)" + "\n" + "=" * 60)
         
         # Test the specific assessment ID mentioned in review request
         self.test_specific_assessment_id()
