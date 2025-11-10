@@ -89,7 +89,7 @@ export default function AssessmentSelector() {
   const handleAwarenessAssessment = async () => {
     setCreating(true);
     try {
-      const response = await axios.post(`${API}/assessments`, {});
+      const response = await axios.post(`${API}/assessments`, { assessment_type: "Awareness" });
       if (response.data && response.data.id) {
         toast.success('New awareness assessment created!');
         // Redirect to awareness onboarding page
