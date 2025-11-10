@@ -28,6 +28,7 @@ import InfoBadge from '../components/InfoBadge';
 import HelpModal from '../components/HelpModal';
 import { helpContent } from '../data/helpContent';
 import questionGuidanceData from '../data/questionGuidance.json';
+import { getResponseOptions, getColorScheme } from './AssessmentPage_awareness_support';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
