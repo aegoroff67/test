@@ -478,7 +478,7 @@ function AssessmentPage() {
               </div>
               <div className="w-20 lg:w-32 bg-gray-200 rounded-full h-2">
                 <div 
-                  className="bg-teal-600 h-2 rounded-full progress-bar"
+                  className={`bg-${colors.primary} h-2 rounded-full progress-bar`}
                   style={{ width: `${progressPercentage}%` }}
                 ></div>
               </div>
