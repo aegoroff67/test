@@ -192,7 +192,17 @@ function AssessmentPage() {
         toast.success('Answer saved!');
       }
     } catch (error) {
-      toast.error(error.response?.data?.detail || 'Failed to save answer');
+      // Handle validation errors from backend
+      let errorMessage = 'Failed to save answer';
+      if (error.response?.data?.detail) {
+        if (Array.isArray(error.response.data.detail)) {
+          // Pydantic validation error
+          errorMessage = error.response.data.detail.map(err => err.msg).join(', ');
+        } else if (typeof error.response.data.detail === 'string') {
+          errorMessage = error.response.data.detail;
+        }
+      }
+      toast.error(errorMessage);
     } finally {
       setSaving(false);
     }
