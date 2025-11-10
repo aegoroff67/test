@@ -542,7 +542,7 @@ function AssessmentPage() {
                 {/* Current Question Info */}
                 <div className="p-2 sm:p-3 bg-teal-50 rounded-lg border border-teal-200">
                   <div className="flex items-center justify-between mb-2">
-                    <Badge className="bg-teal-600">{currentQuestion.code}</Badge>
+                    <Badge className={`bg-${colors.primary}`}>{currentQuestion.code}</Badge>
                     <span className="text-sm text-teal-700">
                       {currentQuestionIndex + 1} of {questions.length}
                     </span>
