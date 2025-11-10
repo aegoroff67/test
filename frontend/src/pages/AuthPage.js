@@ -121,9 +121,15 @@ function AuthPage() {
                 <h3 className="font-semibold text-gray-900 mb-1">
                   Comprehensive AI Assessment Suite
                 </h3>
-                <p className="text-gray-600 text-sm">
-                  Progress through four purpose-built assessments: <strong>AI Awareness & Foundations</strong> – Build baseline understanding of responsible AI principles. <strong>AI Readiness</strong> – Identify organisational gaps before AI adoption. <strong>Organisation-wide AI Maturity</strong> – Evaluate governance, culture, and capability across the enterprise. <strong>AI System Maturity</strong> – Assess individual AI systems across 11 critical domains and 88 expert-designed questions.
+                <p className="text-gray-600 text-sm mb-2">
+                  Progress through four purpose-built assessments:
                 </p>
+                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                  <li><strong>AI Awareness & Foundations</strong> – Build baseline understanding of responsible AI principles.</li>
+                  <li><strong>AI Readiness</strong> – Identify organisational gaps before AI adoption.</li>
+                  <li><strong>Organisation-wide AI Maturity</strong> – Evaluate governance, culture, and capability across the enterprise.</li>
+                  <li><strong>AI System Maturity</strong> – Assess individual AI systems across 11 critical domains and 88 expert-designed questions.</li>
+                </ul>
               </div>
             </div>
             
