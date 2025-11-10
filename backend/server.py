@@ -1687,6 +1687,68 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
+    assessment_type = assessment.get("assessment_type", "System")
+    
+    # Handle Awareness Assessment differently
+    if assessment_type == "Awareness":
+        # Get answers for this assessment
+        answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+        answer_lookup = {answer["question_id"]: answer for answer in answers}
+        
+        # Define awareness domains
+        awareness_domains = [
+            {"id": "awareness_understanding", "name": "Awareness & Understanding", "order": 1},
+            {"id": "leadership_vision", "name": "Leadership & Vision", "order": 2},
+            {"id": "data_digital", "name": "Data & Digital Readiness", "order": 3},
+            {"id": "people_skills", "name": "People & Skills", "order": 4},
+            {"id": "governance_trust", "name": "Governance & Trust Foundations", "order": 5}
+        ]
+        
+        # Group awareness questions by domain
+        domain_questions = {}
+        for domain in awareness_domains:
+            domain_questions[domain["order"]] = {
+                "domain": domain,
+                "questions": []
+            }
+        
+        for question_data in AWARENESS_QUESTIONS_DATA:
+            domain_order = question_data["domain_order"]
+            question_id = question_data["code"]
+            answer = answer_lookup.get(question_id)
+            
+            question_status = {
+                "question_id": question_id,
+                "question_code": question_id,
+                "question_text": question_data["text"],
+                "answered": question_id in answer_lookup,
+                "review_status": answer.get("review_status") if answer else None
+            }
+            domain_questions[domain_order]["questions"].append(question_status)
+        
+        # Build the status overview
+        status_overview = []
+        for dq in domain_questions.values():
+            if dq["questions"]:
+                status_overview.append({
+                    "domain_id": dq["domain"]["id"],
+                    "domain_name": dq["domain"]["name"],
+                    "questions": dq["questions"]
+                })
+        
+        total_questions = len(AWARENESS_QUESTIONS_DATA)
+        answered_questions = len(answers)
+        completion_percentage = round((answered_questions / total_questions * 100) if total_questions > 0 else 0, 1)
+        
+        return {
+            "assessment_id": assessment_id,
+            "total_questions": total_questions,
+            "answered_questions": answered_questions,
+            "completion_percentage": completion_percentage,
+            "status_overview": status_overview
+        }
+    
+    # Original System assessment logic
     # Get domains, questions and answers
     domains = await db.domains.find().sort("order").to_list(length=None)
     questions = await db.questions.find().to_list(length=None)
