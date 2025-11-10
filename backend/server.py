@@ -262,6 +262,7 @@ class Token(BaseModel):
 
 class AssessmentCreate(BaseModel):
     industry_override: Optional[str] = None  # Optional industry override
+    assessment_type: Optional[str] = "System"  # Type of assessment: Awareness, Readiness, Org-wide, System
 
 class AssessmentResponse(BaseModel):
     id: str
