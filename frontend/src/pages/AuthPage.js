@@ -116,7 +116,7 @@ function AuthPage() {
             <h2 className="text-2xl font-bold text-gray-900">
               Discover Your AI Governance Journey
             </h2>
-            <p className="text-base text-gray-600">
+            <p className="text-base text-gray-600 font-bold">
               From Awareness to Assurance — Four Assessments, One Framework
             </p>
           </div>
