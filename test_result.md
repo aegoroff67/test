@@ -783,3 +783,18 @@
         - working: true
         - agent: "testing"
         - comment: "COMPREHENSIVE TESTING COMPLETED: AI Awareness Assessment fix testing completed with 19/21 tests passed (90.5% success rate). CRITICAL USER ISSUE RESOLVED: ✅ The reported error 'Objects are not valid as a React child' has been COMPLETELY FIXED. VERIFIED FEATURES: 1) ✅ Awareness Assessment Creation - Assessment type properly set to 'Awareness', 2) ✅ EARLY_AWARENESS option - Returns 200 OK with correct score of 1, 3) ✅ EXPLORING_OPPORTUNITIES option - Returns 200 OK with correct score of 2, 4) ✅ BUILDING_READINESS option - Returns 200 OK with correct score of 3, 5) ✅ READY_TO_PROGRESS option - Returns 200 OK with correct score of 4, 6) ✅ Correct Scoring Verification - All Awareness options score correctly (1,2,3,4), 7) ✅ System Assessment Compatibility - IDEAL/GOOD/BASIC/NON_IDEAL options still work with correct scoring (3,2,1,0), 8) ✅ Error Handling - Invalid options return 422, OTHER option with text works correctly. TECHNICAL VERIFICATION: Backend AnswerOption enum extended with Awareness-specific options, AWARENESS_SCORING_MAP implemented correctly, submit_answer endpoint uses correct scoring map based on assessment_type, frontend error handling improved. CONCLUSION: User can now successfully select all Awareness Assessment response options without encountering 422 validation errors. The fix addresses the root cause where backend didn't recognize Awareness-specific response options."
+
+  - task: "Fix AI Awareness Assessment View All and Progress tracking issues"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py, /app/frontend/src/pages/AssessmentPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported 3 issues with AI Awareness Assessment: 1) View All button shows System assessment questions (11 domains, 88 questions) instead of Awareness questions (5 domains, 25 questions), 2) Domain progress bars show 0/0 instead of actual progress, 3) Duplicate 'Context:' text in question explanations."
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED FIX: BACKEND CHANGES: 1) Updated get_assessment_status endpoint to check assessment_type and serve Awareness assessment data (5 domains, 25 questions) when assessment_type is 'Awareness', added same domain definitions and question grouping logic as get_assessment_questions endpoint, 2) Status endpoint now correctly counts total_questions=25 and answered_questions for Awareness assessments, calculates correct completion percentage and domain-level progress. FRONTEND CHANGES: Fixed duplicate 'Context:' issue in AssessmentPage.js by checking if explanation already starts with 'Context:' and removing the duplicate prefix using replace(/^Context:\s*/, ''). Backend restarted successfully. Ready for testing to verify: 1) View All shows correct 5 domains and 25 questions for Awareness assessments, 2) Domain progress bars show correct answered/total counts, 3) No duplicate 'Context:' in explanations."
