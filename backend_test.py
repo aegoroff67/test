@@ -6626,6 +6626,368 @@ class AMSafeAPITester:
             self.log_test("Login with provided credentials (superadmin@emergentmethods.ai)", False, str(response))
             return False
 
+    def test_awareness_assessment_creation_comprehensive(self):
+        """Test creating an Awareness Assessment specifically for comprehensive testing"""
+        print("\n🔍 TESTING AWARENESS ASSESSMENT CREATION (COMPREHENSIVE)")
+        print("-" * 60)
+        
+        # Create Awareness Assessment
+        assessment_data = {
+            "assessment_type": "Awareness"
+        }
+        
+        success, response = self.make_request('POST', 'assessments', assessment_data)
+        if success and 'id' in response:
+            self.comprehensive_awareness_assessment_id = response['id']
+            assessment_type = response.get('assessment_type', '')
+            if assessment_type == 'Awareness':
+                self.log_test("Create Comprehensive Awareness Assessment", True)
+            else:
+                self.log_test("Create Comprehensive Awareness Assessment", False, f"Expected type 'Awareness', got '{assessment_type}'")
+                return False
+        else:
+            self.log_test("Create Comprehensive Awareness Assessment", False, str(response))
+            return False
+            
+        return True
+
+    def test_awareness_assessment_status_endpoint_comprehensive(self):
+        """Test Awareness Assessment Status Endpoint - should show 5 domains, 25 questions"""
+        if not hasattr(self, 'comprehensive_awareness_assessment_id'):
+            self.log_test("Comprehensive Awareness Assessment Status Test", False, "No comprehensive awareness assessment ID")
+            return False
+            
+        print("\n🔍 TESTING AWARENESS ASSESSMENT STATUS ENDPOINT (COMPREHENSIVE)")
+        print("-" * 60)
+        
+        success, response = self.make_request('GET', f'assessments/{self.comprehensive_awareness_assessment_id}/status')
+        if not success:
+            self.log_test("Comprehensive Awareness Assessment Status Endpoint", False, str(response))
+            return False
+            
+        self.log_test("Comprehensive Awareness Assessment Status Endpoint Accessible", True)
+        
+        # Check total_questions should be 25 (not 88)
+        total_questions = response.get('total_questions', 0)
+        if total_questions == 25:
+            self.log_test("Comprehensive Awareness Assessment shows 25 total questions", True)
+        else:
+            self.log_test("Comprehensive Awareness Assessment shows 25 total questions", False, f"Shows {total_questions} questions (should be 25, not 88)")
+        
+        # Check status_overview should have 5 domains (not 11)
+        status_overview = response.get('status_overview', [])
+        if len(status_overview) == 5:
+            self.log_test("Comprehensive Awareness Assessment shows 5 domains", True)
+        else:
+            self.log_test("Comprehensive Awareness Assessment shows 5 domains", False, f"Shows {len(status_overview)} domains (should be 5, not 11)")
+        
+        # Verify domain names are Awareness-specific
+        expected_domains = [
+            "Awareness & Understanding",
+            "Leadership & Vision", 
+            "Data & Digital Readiness",
+            "People & Skills",
+            "Governance & Trust Foundations"
+        ]
+        
+        actual_domains = [domain.get('domain_name', '') for domain in status_overview]
+        domains_match = set(actual_domains) == set(expected_domains)
+        
+        if domains_match:
+            self.log_test("Comprehensive Awareness Assessment has correct domain names", True)
+        else:
+            self.log_test("Comprehensive Awareness Assessment has correct domain names", False, 
+                        f"Expected: {expected_domains}, Got: {actual_domains}")
+        
+        # Check each domain has 5 questions (25 total / 5 domains = 5 per domain)
+        questions_per_domain_correct = True
+        for domain in status_overview:
+            domain_name = domain.get('domain_name', 'Unknown')
+            questions = domain.get('questions', [])
+            if len(questions) != 5:
+                self.log_test(f"Domain '{domain_name}' has 5 questions", False, f"Has {len(questions)} questions")
+                questions_per_domain_correct = False
+            else:
+                self.log_test(f"Domain '{domain_name}' has 5 questions", True)
+        
+        return total_questions == 25 and len(status_overview) == 5 and domains_match and questions_per_domain_correct
+
+    def test_awareness_assessment_questions_endpoint_comprehensive(self):
+        """Test Awareness Assessment Questions Endpoint - should return 5 domains, 25 questions with Awareness options"""
+        if not hasattr(self, 'comprehensive_awareness_assessment_id'):
+            self.log_test("Comprehensive Awareness Assessment Questions Test", False, "No comprehensive awareness assessment ID")
+            return False
+            
+        print("\n🔍 TESTING AWARENESS ASSESSMENT QUESTIONS ENDPOINT (COMPREHENSIVE)")
+        print("-" * 60)
+        
+        success, response = self.make_request('GET', f'assessments/{self.comprehensive_awareness_assessment_id}/questions')
+        if not success:
+            self.log_test("Comprehensive Awareness Assessment Questions Endpoint", False, str(response))
+            return False
+            
+        self.log_test("Comprehensive Awareness Assessment Questions Endpoint Accessible", True)
+        
+        # Should return exactly 5 domains
+        if len(response) == 5:
+            self.log_test("Comprehensive Awareness Assessment returns 5 domains", True)
+        else:
+            self.log_test("Comprehensive Awareness Assessment returns 5 domains", False, f"Returns {len(response)} domains")
+        
+        # Count total questions across all domains
+        total_questions = 0
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            total_questions += len(questions)
+        
+        # Should have exactly 25 questions total
+        if total_questions == 25:
+            self.log_test("Comprehensive Awareness Assessment returns 25 total questions", True)
+        else:
+            self.log_test("Comprehensive Awareness Assessment returns 25 total questions", False, f"Returns {total_questions} questions")
+        
+        # Check that questions have Awareness-specific predefined_answers
+        awareness_options_found = 0
+        sample_question = None
+        
+        for domain_data in response:
+            questions = domain_data.get('questions', [])
+            for question in questions:
+                predefined_answers = question.get('predefined_answers', {})
+                
+                # Check for Awareness-specific options
+                awareness_keys = ['early_awareness', 'exploring_opportunities', 'building_readiness', 'ready_to_progress']
+                if all(key in predefined_answers for key in awareness_keys):
+                    awareness_options_found += 1
+                    if not sample_question:
+                        sample_question = question
+        
+        if awareness_options_found == total_questions:
+            self.log_test("All questions have Awareness-specific response options", True)
+        else:
+            self.log_test("All questions have Awareness-specific response options", False, 
+                        f"Only {awareness_options_found}/{total_questions} questions have Awareness options")
+        
+        # Verify sample question structure
+        if sample_question:
+            required_fields = ['id', 'code', 'text', 'explanation', 'predefined_answers']
+            has_all_fields = all(field in sample_question for field in required_fields)
+            if has_all_fields:
+                self.log_test("Comprehensive Awareness questions have correct structure", True)
+            else:
+                missing = [f for f in required_fields if f not in sample_question]
+                self.log_test("Comprehensive Awareness questions have correct structure", False, f"Missing fields: {missing}")
+        
+        return len(response) == 5 and total_questions == 25 and awareness_options_found == total_questions
+
+    def test_awareness_assessment_progress_tracking_comprehensive(self):
+        """Test Domain Progress Tracking for Awareness Assessment"""
+        if not hasattr(self, 'comprehensive_awareness_assessment_id'):
+            self.log_test("Comprehensive Awareness Progress Tracking Test", False, "No comprehensive awareness assessment ID")
+            return False
+            
+        print("\n🔍 TESTING AWARENESS ASSESSMENT PROGRESS TRACKING (COMPREHENSIVE)")
+        print("-" * 60)
+        
+        # First, get all questions
+        success, response = self.make_request('GET', f'assessments/{self.comprehensive_awareness_assessment_id}/questions')
+        if not success:
+            self.log_test("Get Comprehensive Awareness questions for progress test", False, str(response))
+            return False
+        
+        # Answer questions in specific domains to test progress tracking
+        # Domain 1: Answer 2 questions
+        # Domain 2: Answer 3 questions  
+        # Domain 3: Answer 1 question
+        # Domain 4: Answer 0 questions
+        # Domain 5: Answer 1 question
+        
+        answers_per_domain = [2, 3, 1, 0, 1]  # Total: 7 answers
+        
+        for domain_idx, domain_data in enumerate(response):
+            questions = domain_data.get('questions', [])
+            domain_name = domain_data.get('domain', {}).get('name', f'Domain {domain_idx + 1}')
+            answers_to_submit = answers_per_domain[domain_idx]
+            
+            for q_idx in range(answers_to_submit):
+                if q_idx < len(questions):
+                    question = questions[q_idx]
+                    answer_data = {
+                        "question_id": question['id'],
+                        "option": "BUILDING_READINESS",  # Use Awareness-specific option
+                        "note": f"Comprehensive progress test answer for {domain_name}"
+                    }
+                    
+                    success, _ = self.make_request('POST', f'assessments/{self.comprehensive_awareness_assessment_id}/answer', answer_data)
+                    if success:
+                        self.log_test(f"Answer question {q_idx + 1} in {domain_name}", True)
+                    else:
+                        self.log_test(f"Answer question {q_idx + 1} in {domain_name}", False, "Failed to submit answer")
+        
+        # Now check status endpoint to verify progress tracking
+        success, status_response = self.make_request('GET', f'assessments/{self.comprehensive_awareness_assessment_id}/status')
+        if not success:
+            self.log_test("Get status for comprehensive progress verification", False, str(status_response))
+            return False
+        
+        # Verify overall progress
+        answered_questions = status_response.get('answered_questions', 0)
+        expected_total_answers = sum(answers_per_domain)
+        
+        if answered_questions == expected_total_answers:
+            self.log_test(f"Comprehensive overall progress tracking correct ({expected_total_answers} answered)", True)
+        else:
+            self.log_test(f"Comprehensive overall progress tracking correct ({expected_total_answers} answered)", False, 
+                        f"Shows {answered_questions} answered, expected {expected_total_answers}")
+        
+        # Verify completion percentage
+        completion_percentage = status_response.get('completion_percentage', 0)
+        expected_percentage = (expected_total_answers / 25) * 100  # 7/25 = 28%
+        
+        if abs(completion_percentage - expected_percentage) < 1:  # Allow 1% tolerance
+            self.log_test(f"Comprehensive completion percentage correct ({expected_percentage:.1f}%)", True)
+        else:
+            self.log_test(f"Comprehensive completion percentage correct ({expected_percentage:.1f}%)", False, 
+                        f"Shows {completion_percentage}%, expected {expected_percentage:.1f}%")
+        
+        # Verify per-domain progress
+        status_overview = status_response.get('status_overview', [])
+        domain_progress_correct = True
+        
+        for domain_idx, domain in enumerate(status_overview):
+            domain_name = domain.get('domain_name', f'Domain {domain_idx + 1}')
+            questions = domain.get('questions', [])
+            
+            # Count answered questions in this domain
+            answered_in_domain = sum(1 for q in questions if q.get('answered', False))
+            expected_answered = answers_per_domain[domain_idx]
+            
+            if answered_in_domain == expected_answered:
+                self.log_test(f"Comprehensive Domain '{domain_name}' progress correct ({expected_answered}/5)", True)
+            else:
+                self.log_test(f"Comprehensive Domain '{domain_name}' progress correct ({expected_answered}/5)", False, 
+                            f"Shows {answered_in_domain}/5 answered, expected {expected_answered}/5")
+                domain_progress_correct = False
+        
+        return (answered_questions == expected_total_answers and 
+                abs(completion_percentage - expected_percentage) < 1 and 
+                domain_progress_correct)
+
+    def test_awareness_assessment_answer_options_comprehensive(self):
+        """Test that Awareness Assessment uses correct answer options and scoring"""
+        if not hasattr(self, 'comprehensive_awareness_assessment_id'):
+            self.log_test("Comprehensive Awareness Answer Options Test", False, "No comprehensive awareness assessment ID")
+            return False
+            
+        print("\n🔍 TESTING AWARENESS ASSESSMENT ANSWER OPTIONS (COMPREHENSIVE)")
+        print("-" * 60)
+        
+        # Get first question
+        success, response = self.make_request('GET', f'assessments/{self.comprehensive_awareness_assessment_id}/questions')
+        if not success or not response:
+            self.log_test("Get Comprehensive Awareness questions for answer options test", False, str(response))
+            return False
+        
+        first_domain = response[0]
+        first_question = first_domain['questions'][0]
+        question_id = first_question['id']
+        
+        # Test each Awareness-specific answer option
+        awareness_options = [
+            'EARLY_AWARENESS',
+            'EXPLORING_OPPORTUNITIES', 
+            'BUILDING_READINESS',
+            'READY_TO_PROGRESS'
+        ]
+        
+        for option in awareness_options:
+            answer_data = {
+                "question_id": question_id,
+                "option": option,
+                "note": f"Comprehensive test note for {option}"
+            }
+            
+            success, response = self.make_request('POST', f'assessments/{self.comprehensive_awareness_assessment_id}/answer', answer_data)
+            if success and response.get('status') == 'success':
+                self.log_test(f"Comprehensive Awareness option {option} submission", True)
+            else:
+                self.log_test(f"Comprehensive Awareness option {option} submission", False, str(response))
+        
+        # Test OTHER option with text (should work for Awareness too)
+        other_answer_data = {
+            "question_id": question_id,
+            "option": "OTHER",
+            "other_text": "Comprehensive custom awareness response for review",
+            "note": "Comprehensive test note for OTHER option in Awareness"
+        }
+        
+        success, response = self.make_request('POST', f'assessments/{self.comprehensive_awareness_assessment_id}/answer', other_answer_data)
+        if success and response.get('status') == 'success':
+            self.log_test("Comprehensive Awareness OTHER option submission", True)
+        else:
+            self.log_test("Comprehensive Awareness OTHER option submission", False, str(response))
+        
+        return True
+
+    def test_system_vs_awareness_assessment_comparison_comprehensive(self):
+        """Test that System and Awareness assessments work independently with correct question counts"""
+        print("\n🔍 TESTING SYSTEM VS AWARENESS ASSESSMENT COMPARISON (COMPREHENSIVE)")
+        print("-" * 60)
+        
+        # Create System Assessment
+        system_data = {"assessment_type": "System"}
+        success, response = self.make_request('POST', 'assessments', system_data)
+        if success and 'id' in response:
+            system_assessment_id = response['id']
+            self.log_test("Create System Assessment for comprehensive comparison", True)
+        else:
+            self.log_test("Create System Assessment for comprehensive comparison", False, str(response))
+            return False
+        
+        # Test System Assessment Status
+        success, system_status = self.make_request('GET', f'assessments/{system_assessment_id}/status')
+        if success:
+            system_total = system_status.get('total_questions', 0)
+            system_domains = len(system_status.get('status_overview', []))
+            
+            if system_total == 88:
+                self.log_test("Comprehensive System Assessment shows 88 questions", True)
+            else:
+                self.log_test("Comprehensive System Assessment shows 88 questions", False, f"Shows {system_total} questions")
+            
+            if system_domains == 11:
+                self.log_test("Comprehensive System Assessment shows 11 domains", True)
+            else:
+                self.log_test("Comprehensive System Assessment shows 11 domains", False, f"Shows {system_domains} domains")
+        else:
+            self.log_test("Comprehensive System Assessment Status Check", False, str(system_status))
+            return False
+        
+        # Compare with Awareness Assessment (if we have one)
+        if hasattr(self, 'comprehensive_awareness_assessment_id'):
+            success, awareness_status = self.make_request('GET', f'assessments/{self.comprehensive_awareness_assessment_id}/status')
+            if success:
+                awareness_total = awareness_status.get('total_questions', 0)
+                awareness_domains = len(awareness_status.get('status_overview', []))
+                
+                # Verify they are different
+                if awareness_total == 25 and system_total == 88:
+                    self.log_test("Comprehensive System (88) and Awareness (25) have different question counts", True)
+                else:
+                    self.log_test("Comprehensive System (88) and Awareness (25) have different question counts", False, 
+                                f"System: {system_total}, Awareness: {awareness_total}")
+                
+                if awareness_domains == 5 and system_domains == 11:
+                    self.log_test("Comprehensive System (11) and Awareness (5) have different domain counts", True)
+                else:
+                    self.log_test("Comprehensive System (11) and Awareness (5) have different domain counts", False, 
+                                f"System: {system_domains}, Awareness: {awareness_domains}")
+            else:
+                self.log_test("Comprehensive Awareness Assessment Status Check for comparison", False, str(awareness_status))
+                return False
+        
+        return True
+
     def run_all_tests(self):
         """Run all tests in sequence with focus on production issues"""
         print(f"🚀 Starting AM AI SAFE Production API Tests")
