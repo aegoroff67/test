@@ -118,6 +118,14 @@ function Dashboard() {
     const type = assessmentType || 'System';
     
     switch(type) {
+      case 'Awareness':
+        return {
+          icon: Lightbulb,
+          label: 'Awareness',
+          bgColor: 'bg-green-100',
+          textColor: 'text-green-700',
+          iconColor: 'text-green-600'
+        };
       case 'Readiness':
         return {
           icon: Lightbulb,
