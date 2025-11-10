@@ -2061,8 +2061,16 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     if is_resubmission and current_user.role != Role.SUPER_ADMIN.value:
         raise HTTPException(status_code=403, detail="Only Super Admin can re-submit completed assessments")
     
-    # Get total questions and answered questions count
-    total_questions = await db.questions.count_documents({})
+    # Get total questions based on assessment type
+    assessment_type = assessment.get("assessment_type", "System")
+    
+    if assessment_type == "Awareness":
+        from awareness_questions import AWARENESS_QUESTIONS_DATA
+        total_questions = len(AWARENESS_QUESTIONS_DATA)  # 25 questions
+    else:
+        # System assessment - count from database
+        total_questions = await db.questions.count_documents({})  # 88 questions
+    
     answered_questions = await db.answers.count_documents({"assessment_id": assessment_id})
     
     # Verify all questions are answered
