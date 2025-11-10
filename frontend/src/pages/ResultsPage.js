@@ -388,15 +388,29 @@ function ResultsPage() {
             <div className="px-6" style={{ width: '55%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2 mt-0">Results Summary</p>
               <p className="text-xs text-gray-700 leading-relaxed">
-                The results indicate that <strong>{assessment?.system_info?.systemName || assessment?.system_info?.organizationName || user?.organization_name}</strong> has achieved an overall AI maturity score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing this system within the <strong>{summary.overall_maturity}</strong> AI Maturity category. This rating reflects {
-                  summary.overall_maturity === 'Leading'
-                    ? 'exemplary AI governance and ethical assurance, setting a benchmark for responsible AI leadership. Governance systems are fully embedded, adaptive, and continuously refined through data-driven insights, external validation, and innovation. The focus is on optimisation, transparency, and sustained improvement across all AI operations.'
-                    : summary.overall_maturity === 'Established'
-                    ? 'well-defined and consistently applied AI governance frameworks across most domains. Risk management, transparency, and ethical oversight are integrated into day-to-day operations. Continuous monitoring and regular review cycles are evident, though further optimisation and automation would strengthen maturity and resilience against evolving AI risks.'
-                    : summary.overall_maturity === 'Developing'
-                    ? 'growing awareness and emerging structure in its AI governance practices. Some policies and controls are in place, but they are applied inconsistently. Progress has been made in recognising key governance needs; however, targeted improvements are needed to achieve full integration and accountability across the AI lifecycle.'
-                    : 'minimal or inconsistent AI governance, with most practices being reactive or informal. Policies, processes, and accountability structures are largely undeveloped, resulting in fragmented oversight and heightened risk exposure. Immediate action is required to establish a foundational governance framework, define roles and responsibilities, and embed basic ethical and risk management principles.'
-                }
+                {assessmentType === 'Awareness' ? (
+                  <>
+                    The results indicate that <strong>{assessment?.awareness_info?.org_name || user?.organization_name}</strong> has achieved an overall AI awareness score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing the organization within the <strong>{summary.overall_maturity}</strong> awareness category. This rating reflects {
+                      summary.overall_maturity === 'Established'
+                        ? 'strong foundational AI awareness across the organization. Leaders and staff demonstrate good understanding of AI concepts, potential applications, and associated risks. The organization is well-positioned to progress to readiness assessment and begin exploring AI implementation opportunities.'
+                        : summary.overall_maturity === 'Developing'
+                        ? 'growing AI awareness and emerging understanding across the organization. Some individuals are familiar with AI concepts, but knowledge gaps exist. Focus on foundational education, building leadership support, and creating shared understanding of AI opportunities and challenges will strengthen readiness for AI adoption.'
+                        : 'early-stage AI awareness with limited understanding across the organization. Most staff and leaders are unfamiliar with AI fundamentals, potential applications, or key considerations. Priority should be on foundational education, building basic AI literacy, and establishing leadership interest before progressing to more advanced assessments.'
+                    }
+                  </>
+                ) : (
+                  <>
+                    The results indicate that <strong>{assessment?.system_info?.systemName || assessment?.system_info?.organizationName || user?.organization_name}</strong> has achieved an overall AI maturity score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing this system within the <strong>{summary.overall_maturity}</strong> AI Maturity category. This rating reflects {
+                      summary.overall_maturity === 'Leading'
+                        ? 'exemplary AI governance and ethical assurance, setting a benchmark for responsible AI leadership. Governance systems are fully embedded, adaptive, and continuously refined through data-driven insights, external validation, and innovation. The focus is on optimisation, transparency, and sustained improvement across all AI operations.'
+                        : summary.overall_maturity === 'Established'
+                        ? 'well-defined and consistently applied AI governance frameworks across most domains. Risk management, transparency, and ethical oversight are integrated into day-to-day operations. Continuous monitoring and regular review cycles are evident, though further optimisation and automation would strengthen maturity and resilience against evolving AI risks.'
+                        : summary.overall_maturity === 'Developing'
+                        ? 'growing awareness and emerging structure in its AI governance practices. Some policies and controls are in place, but they are applied inconsistently. Progress has been made in recognising key governance needs; however, targeted improvements are needed to achieve full integration and accountability across the AI lifecycle.'
+                        : 'minimal or inconsistent AI governance, with most practices being reactive or informal. Policies, processes, and accountability structures are largely undeveloped, resulting in fragmented oversight and heightened risk exposure. Immediate action is required to establish a foundational governance framework, define roles and responsibilities, and embed basic ethical and risk management principles.'
+                    }
+                  </>
+                )}
               </p>
             </div>
             
