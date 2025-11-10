@@ -1218,8 +1218,12 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
         # MEMBER sees only their own assessments
         assessments = await db.assessments.find({"user_id": current_user.id}).to_list(length=None)
     
-    # Get total questions count
-    total_questions = await db.questions.count_documents({})
+    # Get total questions count for System assessments
+    system_total_questions = await db.questions.count_documents({})
+    
+    # Import Awareness questions count
+    from awareness_questions import AWARENESS_QUESTIONS_DATA
+    awareness_total_questions = len(AWARENESS_QUESTIONS_DATA)  # 25
     
     return [
         AssessmentResponse(
@@ -1230,7 +1234,7 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
             started_at=assessment["started_at"],
             completed_at=assessment.get("completed_at"),
             progress=assessment["progress"],
-            total_questions=total_questions,
+            total_questions=awareness_total_questions if assessment.get("assessment_type") == "Awareness" else system_total_questions,
             system_info=assessment.get("system_info"),
             pending_review_count=assessment.get("pending_review_count", 0)
         )
