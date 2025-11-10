@@ -134,6 +134,10 @@ function AssessmentPage() {
 
   const currentQuestion = questions[currentQuestionIndex];
   const currentAnswer = currentQuestion ? answers[currentQuestion.id] : null;
+  
+  // Get dynamic response options and color scheme based on assessment type
+  const responseOptions = currentQuestion ? getResponseOptions(assessmentType, currentQuestion.predefined_answers) : [];
+  const colors = getColorScheme(assessmentType);
 
   useEffect(() => {
     if (currentAnswer) {
