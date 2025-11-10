@@ -7433,6 +7433,9 @@ class AMSafeAPITester:
         # MAIN TEST: Domain progress fix for Awareness Assessment
         self.test_awareness_assessment_domain_progress_fix()
         
+        # NEW: Test Dashboard badge and Submit validation fixes
+        self.test_dashboard_badge_and_submit_validation_fixes()
+        
         # === AWARENESS ASSESSMENT TESTS (ADDITIONAL) ===
         print("\n" + "🎯 AWARENESS ASSESSMENT TESTS (ADDITIONAL)" + "\n" + "=" * 60)
         
