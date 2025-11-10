@@ -7299,31 +7299,14 @@ def main():
     tester = AMSafeAPITester()
     
     try:
-        # Test AI Readiness Assessment specifically as requested in the review
-        print("🚀 Starting AI Readiness Assessment Backend Tests")
-        print("=" * 60)
+        # Run the comprehensive test suite including Awareness Assessment tests
+        success = tester.run_all_tests()
         
-        # First authenticate
-        if tester.test_production_authentication_flow():
-            print("✅ Authentication successful, proceeding with readiness tests")
-            
-            # Run AI Readiness Assessment tests
-            tester.test_ai_readiness_assessment_endpoint()
-            tester.test_readiness_assessment_with_test_credentials()
-            tester.test_readiness_assessment_name_format_validation()
-            
-            # Print summary
-            print("\n" + "=" * 60)
-            print(f"📊 AI Readiness Test Summary: {tester.tests_passed}/{tester.tests_run} tests passed")
-            
-            if tester.tests_passed == tester.tests_run:
-                print("🎉 All AI Readiness tests passed!")
-                return 0
-            else:
-                print(f"⚠️  {tester.tests_run - tester.tests_passed} tests failed")
-                return 1
+        if success:
+            print("🎉 All tests passed!")
+            return 0
         else:
-            print("❌ Authentication failed - cannot run readiness tests")
+            print(f"⚠️  {tester.tests_run - tester.tests_passed} tests failed")
             return 1
         
     except Exception as e:
