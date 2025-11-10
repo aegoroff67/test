@@ -331,7 +331,9 @@ function ResultsPage() {
               <Logo className="h-10 w-10" />
               <div>
                 <h1 className="text-base font-bold text-gray-900">AM AI SAFE</h1>
-                <p className="text-xs text-teal-600">Assessment Results</p>
+                <p className={`text-xs ${assessmentType === 'Awareness' ? 'text-green-600' : 'text-teal-600'}`}>
+                  {assessmentType === 'Awareness' ? 'AI Awareness & Foundations' : 'AI System Maturity'} Assessment Results
+                </p>
               </div>
             </div>
 
