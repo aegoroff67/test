@@ -1445,6 +1445,9 @@ async def submit_answer(
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
+    # Get assessment type to use correct scoring map
+    assessment_type = assessment.get("assessment_type", "System")
+    
     # Check if answer already exists
     existing_answer = await db.answers.find_one({
         "assessment_id": assessment_id,
@@ -1458,13 +1461,17 @@ async def submit_answer(
             detail="other_text is required when option is OTHER"
         )
     
-    # Determine review status and score
+    # Determine review status and score based on assessment type
     if answer_data.option == AnswerOption.OTHER:
         review_status = ReviewStatus.PENDING_REVIEW.value
         numeric_score = 0  # Default score for pending review, will be updated by admin
     else:
         review_status = ReviewStatus.APPROVED.value
-        numeric_score = SCORING_MAP[answer_data.option]
+        # Use appropriate scoring map based on assessment type
+        if assessment_type == "Awareness":
+            numeric_score = AWARENESS_SCORING_MAP.get(answer_data.option, 0)
+        else:
+            numeric_score = SCORING_MAP.get(answer_data.option, 0)
     
     answer = Answer(
         assessment_id=assessment_id,
