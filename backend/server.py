@@ -1443,6 +1443,55 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
+    assessment_type = assessment.get("assessment_type", "System")
+    
+    # Handle Awareness Assessment differently - use in-memory data
+    if assessment_type == "Awareness":
+        # Get answers for this assessment
+        answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
+        answer_lookup = {answer["question_id"]: answer for answer in answers}
+        
+        # Define awareness domains
+        awareness_domains = [
+            {"id": "awareness_understanding", "name": "Awareness & Understanding", "order": 1},
+            {"id": "leadership_vision", "name": "Leadership & Vision", "order": 2},
+            {"id": "data_digital", "name": "Data & Digital Readiness", "order": 3},
+            {"id": "people_skills", "name": "People & Skills", "order": 4},
+            {"id": "governance_trust", "name": "Governance & Trust Foundations", "order": 5}
+        ]
+        
+        # Group awareness questions by domain
+        domain_questions = {}
+        for domain in awareness_domains:
+            domain_questions[domain["order"]] = {
+                "domain": domain,
+                "questions": []
+            }
+        
+        for question_data in AWARENESS_QUESTIONS_DATA:
+            domain_order = question_data["domain_order"]
+            question_id = question_data["code"]
+            
+            question = {
+                "id": question_id,
+                "code": question_id,
+                "text": question_data["text"],
+                "explanation": question_data.get("explanation", ""),
+                "order": question_data["order"],
+                "domain_id": f"domain_{domain_order}",
+                "answer": answer_lookup.get(question_id),
+                "predefined_answers": {
+                    "early_awareness": question_data.get("early_awareness"),
+                    "exploring_opportunities": question_data.get("exploring_opportunities"),
+                    "building_readiness": question_data.get("building_readiness"),
+                    "ready_to_progress": question_data.get("ready_to_progress")
+                }
+            }
+            domain_questions[domain_order]["questions"].append(question)
+        
+        return [dq for dq in domain_questions.values() if dq["questions"]]
+    
+    # Original system assessment logic
     # Get domains with questions
     domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
     questions = await db.questions.find({}, {"_id": 0}).sort([("domain_id", 1), ("order", 1)]).to_list(length=None)
