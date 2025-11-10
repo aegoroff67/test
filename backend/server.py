@@ -1620,10 +1620,79 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
-    # Get domains, questions and answers
+    assessment_type = assessment.get("assessment_type", "System")
+    answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
+    
+    # Handle Awareness Assessment
+    if assessment_type == "Awareness":
+        from awareness_questions import AWARENESS_QUESTIONS_DATA
+        
+        # Define awareness domains
+        awareness_domains = [
+            {"id": "awareness_understanding", "name": "Awareness & Understanding", "order": 1},
+            {"id": "leadership_vision", "name": "Leadership & Vision", "order": 2},
+            {"id": "data_digital", "name": "Data & Digital Readiness", "order": 3},
+            {"id": "people_skills", "name": "People & Skills", "order": 4},
+            {"id": "governance_trust", "name": "Governance & Trust Foundations", "order": 5}
+        ]
+        
+        # Group questions by domain
+        domain_questions = {}
+        for domain in awareness_domains:
+            domain_questions[domain["id"]] = []
+        
+        for question_data in AWARENESS_QUESTIONS_DATA:
+            domain_order = question_data["domain_order"]
+            domain_id = awareness_domains[domain_order - 1]["id"]
+            domain_questions[domain_id].append(question_data["code"])
+        
+        # Calculate domain scores
+        domain_score_list = []
+        overall_score = 0
+        overall_max_score = 0
+        
+        for domain in awareness_domains:
+            domain_question_ids = domain_questions[domain["id"]]
+            domain_answers = [a for a in answers if a["question_id"] in domain_question_ids]
+            
+            domain_score = sum(a["numeric_score"] for a in domain_answers)
+            domain_max = len(domain_question_ids) * 4  # Awareness max score is 4
+            
+            percentage = (domain_score / domain_max * 100) if domain_max > 0 else 0
+            
+            domain_score_list.append(DomainScore(
+                domain_id=domain["id"],
+                domain_name=domain["name"],
+                score=domain_score,
+                max_score=domain_max,
+                percentage=percentage
+            ))
+            
+            overall_score += domain_score
+            overall_max_score += domain_max
+        
+        # Calculate overall metrics
+        overall_percentage = (overall_score / overall_max_score * 100) if overall_max_score > 0 else 0
+        
+        # Awareness maturity tiers
+        if overall_percentage >= 71:
+            overall_maturity = "Established"
+        elif overall_percentage >= 41:
+            overall_maturity = "Developing"
+        else:
+            overall_maturity = "Foundational"
+        
+        return AssessmentSummary(
+            overall_percentage=round(overall_percentage, 1),
+            overall_maturity=overall_maturity,
+            domain_scores=domain_score_list,
+            total_questions=len(AWARENESS_QUESTIONS_DATA),
+            answered_questions=len(answers)
+        )
+    
+    # System Assessment logic (original)
     domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
     questions = await db.questions.find({}, {"_id": 0}).to_list(length=None)
-    answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
     
     # Create lookups
     domain_lookup = {domain["id"]: domain for domain in domains}
@@ -1665,7 +1734,7 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
     # Calculate overall metrics
     overall_percentage = (overall_score / overall_max_score * 100) if overall_max_score > 0 else 0
     
-    # Updated maturity tiers aligned with new scale
+    # System maturity tiers
     if overall_percentage >= 86:
         overall_maturity = "Leading"
     elif overall_percentage >= 66:
