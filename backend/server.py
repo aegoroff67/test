@@ -2087,7 +2087,13 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     # Calculate overall percentage (excluding pending review answers)
     approved_answers = [a for a in answers if a.get("review_status") == ReviewStatus.APPROVED.value]
     total_score = sum(answer.get("numeric_score", 0) for answer in approved_answers)
-    max_score = len(approved_answers) * 3  # Maximum score per question is 3
+    
+    # Use correct max score based on assessment type
+    if assessment_type == "Awareness":
+        max_score = len(approved_answers) * 4  # Awareness max score is 4
+    else:
+        max_score = len(approved_answers) * 3  # System max score is 3
+    
     overall_percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
     # Update the assessment name
