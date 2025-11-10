@@ -605,7 +605,7 @@ function AssessmentPage() {
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-2 sm:gap-0">
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                      <Badge variant="outline" className="text-teal-600 border-teal-300 text-xs sm:text-sm">
+                      <Badge variant="outline" className={`text-${colors.primary} border-${colors.border} text-xs sm:text-sm`}>
                         {currentQuestion.code}
                       </Badge>
                       <Badge variant="secondary" className="text-xs sm:text-sm">
