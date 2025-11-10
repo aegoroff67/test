@@ -518,7 +518,7 @@ function ResultsPage() {
         <div className="w-1/2 bg-white border-r overflow-y-auto">
           <div className="p-4">
             <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
-              <BarChart3 className="h-5 w-5 text-teal-600" />
+              <BarChart3 className={`h-5 w-5 ${assessmentType === 'Awareness' ? 'text-green-600' : 'text-teal-600'}`} />
               <span>Assessment Heatmap</span>
             </h2>
             
