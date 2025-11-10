@@ -367,10 +367,20 @@ function ResultsPage() {
             <div className="px-4" style={{ width: '20%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2 mt-0">Maturity Tier Description</p>
               <div className="text-xs text-gray-700 space-y-1">
-                <p><span className="font-bold">Foundational (0-40%):</span> Ad-hoc Beginnings</p>
-                <p><span className="font-bold">Developing (41-65%):</span> Emerging Structure</p>
-                <p><span className="font-bold">Established (66-85%):</span> Integrated Governance</p>
-                <p><span className="font-bold">Leading (86-100%):</span> Optimised Excellence</p>
+                {assessmentType === 'Awareness' ? (
+                  <>
+                    <p><span className="font-bold">Foundational (0-40%):</span> Early Awareness</p>
+                    <p><span className="font-bold">Developing (41-70%):</span> Building Understanding</p>
+                    <p><span className="font-bold">Established (71-100%):</span> Ready for Action</p>
+                  </>
+                ) : (
+                  <>
+                    <p><span className="font-bold">Foundational (0-40%):</span> Ad-hoc Beginnings</p>
+                    <p><span className="font-bold">Developing (41-65%):</span> Emerging Structure</p>
+                    <p><span className="font-bold">Established (66-85%):</span> Integrated Governance</p>
+                    <p><span className="font-bold">Leading (86-100%):</span> Optimised Excellence</p>
+                  </>
+                )}
               </div>
             </div>
 
