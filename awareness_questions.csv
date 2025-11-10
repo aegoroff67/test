@@ -1,0 +1,89 @@
+Domain,Question ID,Question,Explanation,Q_Early_Awareness,Q_Exploring_Opportunities,Q_Building_Readiness,Q_Ready_to_Progress,ImpactWeight,EffortScore
+Awareness & Understanding,AU-01,How familiar are staff and leaders with what artificial intelligence (AI) actually is?,"Context: Understanding the basics of AI helps reduce confusion and fear. Many people associate AI only with automation or robotics, when in reality it also includes tools that analyse data, make predictions, or improve decision-making. This question assesses general familiarity with AI concepts across the organisation.",Most people have little or no understanding of AI or what it can do.,Some individuals have heard of AI but misunderstand its purpose or potential.,Staff and leaders have a basic understanding of AI concepts and examples.,AI is widely understood as a tool to enhance—not replace—human decision-making.,,
+Awareness & Understanding,AU-02,How well does the organisation understand the potential benefits of AI for its work?,"Context: AI can help automate repetitive tasks, improve accuracy, and reveal new insights from data. Organisations at early stages often struggle to identify where AI might add value. This question explores whether your organisation has begun linking AI concepts to its mission or services.",No understanding of AI benefits or relevance.,"Some awareness of AI potential, but not connected to business goals.",Clear examples identified where AI could improve efficiency or insight.,Organisation actively explores potential AI use cases aligned to strategic goals.,,
+Awareness & Understanding,AU-03,How confident is the organisation in separating AI myths from realistic capabilities?,Context: Public discussion of AI often mixes hype with fact. Early-stage organisations may believe AI can “think” or operate autonomously without limits. This question examines how well your organisation understands AI’s actual capabilities and limitations.,Little awareness; AI often viewed as science fiction or fully autonomous.,"Some understanding, but confusion or unrealistic expectations remain.",Staff generally understand AI’s practical uses and limitations.,"Organisation promotes balanced, fact-based understanding of AI capabilities.",,
+Awareness & Understanding,AU-04,How open are leaders and staff to learning about AI and its implications?,"Context: Curiosity and openness are early indicators of readiness. Even without AI experience, a willingness to learn supports informed and responsible exploration. This question assesses cultural openness to new knowledge and experimentation.",Staff show little interest or confidence in learning about AI.,"Some curiosity exists, but few learning opportunities are provided.",Leaders and teams express interest; learning sessions or discussions are encouraged.,AI learning is part of ongoing professional development and curiosity is celebrated.,,
+Awareness & Understanding,AU-05,How clearly can staff and leaders explain how AI might impact their roles or services in the future?,"Context: Understanding how AI might change daily work helps organisations prepare and adapt. This question identifies whether staff and leaders have started thinking about how AI could influence workflows, service delivery, or skills needs.",No discussion of AI’s impact on roles or services.,"Some awareness, but perceptions are unclear or speculative.",Staff and leaders can describe realistic potential changes or opportunities.,Organisation actively plans for AI’s workforce impact through discussion and training.,,
+Leadership & Vision,LV-01,How actively do leaders discuss or explore AI within the organisation’s strategic direction?,Context: Leadership curiosity is vital in early stages of AI readiness. This question assesses whether executives or managers show interest in understanding AI’s potential impact and opportunities.,AI has never been discussed at a leadership level.,AI occasionally mentioned but without direction or intent.,Leadership shows interest and begins exploring AI’s relevance to strategy.,Executives actively champion responsible AI exploration and learning initiatives.,,
+Leadership & Vision,LV-02,"How supportive are leaders of experimenting with small, low-risk digital or AI projects?",Context: Early exploration builds understanding through experience. Leaders who support small experiments signal a culture of curiosity and innovation. This question evaluates whether such opportunities exist and are encouraged.,No support for testing or experimentation with new technologies.,Occasional pilots or experiments occur informally.,"Leaders encourage small-scale, safe experimentation to explore AI potential.",Innovation and pilot learning are embedded in leadership priorities and planning.,,
+Leadership & Vision,LV-03,How well does the organisation connect AI exploration to its mission or community outcomes?,"Context: AI should serve real organisational goals, not just technological curiosity. This question assesses whether early discussions link AI potential to mission-driven or community-focused outcomes.",No link between AI and organisational mission or service outcomes.,"AI mentioned conceptually, but relevance unclear.",Clear alignment between AI exploration and mission or public-service goals.,AI principles directly tied to measurable outcomes that improve community or business value.,,
+Leadership & Vision,LV-04,How willing is the organisation to invest time or resources in learning about AI responsibly?,,,,,,,
+Leadership & Vision,LV-05,How confident are leaders in making informed decisions about adopting AI tools or vendors?,,,,,,,
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
+,,,,,,,,0,0
