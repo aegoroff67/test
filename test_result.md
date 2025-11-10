@@ -883,3 +883,18 @@
         - working: true
         - agent: "testing"
         - comment: "COMPREHENSIVE BACKEND TESTING COMPLETED: All critical tests passed successfully. VERIFIED: ✅ Awareness assessment creation with assessment_type='Awareness', ✅ Questions structure returns 5 domains with correct names (Awareness & Understanding, Leadership & Vision, Data & Digital Readiness, People & Skills, Governance & Trust Foundations), ✅ Each domain has exactly 5 questions (25 total), ✅ Answer submission with 1-4 scoring scale works correctly (EARLY_AWARENESS=1, EXPLORING_OPPORTUNITIES=2, BUILDING_READINESS=3, READY_TO_PROGRESS=4), ✅ Summary endpoint returns correct structure with overall_percentage, overall_maturity, and domain_scores array, ✅ Domain score calculations accurate with max_score=20 per domain (5 questions × 4 max points), ✅ Overall percentage calculated correctly as (total_score / (25 × 4)) × 100, ✅ Awareness maturity tiers applied correctly (Foundational 0-40%, Developing 41-70%, Established 71-100%), ✅ Domain percentage example verified (scores [1,2,3,4,4] = 14/20 = 70.0%), ✅ Edge cases tested (all 1s = 25%/Foundational, all 4s = 100%/Established), ✅ System vs Awareness independence confirmed (System: 88 questions/11 domains, Awareness: 25 questions/5 domains). Backend implementation is production-ready. Frontend changes enable conditional rendering based on assessment type with Awareness-specific styling (green color scheme) and content (maturity descriptions, results text). Feature complete and ready for user testing."
+
+  - task: "Fix Dashboard badge and Submit validation for Awareness assessments"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/Dashboard.js, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported 2 issues: 1) Dashboard 'In Progress' section showing 'System' badge for Awareness assessments instead of 'Awareness' badge, 2) Submit Assessment error showing wrong question count: 'Cannot submit assessment. 63 questions remain unanswered' for completed Awareness assessment (should check 25 questions, not 88)."
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED FIX: FRONTEND CHANGES (Dashboard.js): Added 'Awareness' case to getAssessmentTypeBadge function with green color scheme (bg-green-100, text-green-700, icon green-600) and Lightbulb icon, matching existing pattern for other assessment types. BACKEND CHANGES (server.py - submit_assessment endpoint): 1) Updated to check assessment_type and use correct total_questions count (Awareness: 25 from AWARENESS_QUESTIONS_DATA, System: 88 from database), 2) Updated max_score calculation based on assessment_type (Awareness: answered × 4, System: answered × 3) for overall percentage calculation. Backend restarted successfully. Ready for testing to verify: 1) Dashboard shows 'Awareness' badge with green styling for Awareness assessments, 2) Submit validation checks correct question count (25 for Awareness, 88 for System), 3) Completed Awareness assessments can be submitted successfully."
