@@ -41,6 +41,7 @@ function AssessmentPage() {
   const { user } = useAuth();
   
   const [assessment, setAssessment] = useState(null);
+  const [assessmentType, setAssessmentType] = useState('System');
   const [questions, setQuestions] = useState([]);
   const [domains, setDomains] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
