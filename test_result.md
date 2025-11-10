@@ -675,6 +675,7 @@
   test_priority: "high_first"
   completed_focus:
     - "Test AI Awareness & Foundations Assessment Results Summary feature"
+    - "Fix Dashboard badge and Submit validation for Awareness assessments"
 
   - task: "Test updated heatmap spacing on Results Summary page"
     implemented: true
