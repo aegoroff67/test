@@ -584,7 +584,7 @@ function AssessmentPage() {
                             className={`h-2 rounded-full progress-bar ${
                               domainAnswered === domainQuestions.length 
                                 ? 'bg-green-600' 
-                                : isCurrentDomain ? 'bg-teal-600' : 'bg-gray-400'
+                                : isCurrentDomain ? `bg-${colors.primary}` : 'bg-gray-400'
                             }`}
                             style={{ width: `${domainProgress}%` }}
                           ></div>
