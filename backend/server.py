@@ -194,6 +194,9 @@ class Assessment(BaseModel):
     completed_at: Optional[datetime] = None
     progress: int = 0  # Number of questions answered
     system_info: Optional[dict] = None  # Pre-assessment system information
+    org_info: Optional[dict] = None  # Organisation-wide assessment information
+    readiness_info: Optional[dict] = None  # Readiness assessment information
+    awareness_info: Optional[dict] = None  # Awareness assessment information
     overall_percentage: Optional[float] = None  # Overall score percentage
     pending_review_count: int = 0  # Number of answers pending review
     industry_selected: Optional[str] = None  # Industry snapshot at creation time
