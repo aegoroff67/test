@@ -51,7 +51,7 @@ export default function AssessmentSelector() {
   const handleOrgAssessment = async () => {
     setCreating(true);
     try {
-      const response = await axios.post(`${API}/assessments`, {});
+      const response = await axios.post(`${API}/assessments`, { assessment_type: "Orgwide" });
       if (response.data && response.data.id) {
         toast.success('New organisation assessment created!');
         // Redirect to org onboarding page
