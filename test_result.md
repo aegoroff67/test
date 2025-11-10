@@ -838,6 +838,7 @@
   test_priority: "high_first"
   completed_focus:
     - "Fix AI Awareness Assessment response option validation error"
+    - "Fix Dashboard progress display showing n/88 for Awareness assessments instead of n/25"
 
 ## agent_communication:
     - agent: "main"
