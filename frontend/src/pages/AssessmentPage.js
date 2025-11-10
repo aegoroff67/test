@@ -636,7 +636,10 @@ function AssessmentPage() {
                 {currentQuestion.explanation && (
                   <div className="mt-2 sm:mt-3 p-2 sm:p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400 compact-explanation">
                     <p className="text-sm sm:text-base text-blue-800">
-                      <strong>Context:</strong> {currentQuestion.explanation}
+                      {currentQuestion.explanation.startsWith('Context:') 
+                        ? <><strong>Context:</strong> {currentQuestion.explanation.replace(/^Context:\s*/, '')}</>
+                        : <><strong>Context:</strong> {currentQuestion.explanation}</>
+                      }
                     </p>
                   </div>
                 )}
