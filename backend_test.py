@@ -7414,6 +7414,273 @@ class AMSafeAPITester:
         
         return True
 
+    def test_dashboard_progress_display_fix(self):
+        """Test the Dashboard progress display fix for Awareness vs System assessments"""
+        print("\n🔍 TESTING DASHBOARD PROGRESS DISPLAY FIX")
+        print("-" * 60)
+        
+        # Test 1: Create Awareness Assessment and verify total_questions = 25
+        print("📋 Test 1: Awareness Assessment Progress Display")
+        awareness_data = {"assessment_type": "Awareness"}
+        success, response = self.make_request('POST', 'assessments', awareness_data)
+        if not success:
+            self.log_test("Create Awareness Assessment", False, str(response))
+            return False
+            
+        awareness_assessment_id = response['id']
+        self.log_test("Create Awareness Assessment", True)
+        
+        # Verify Awareness assessment has correct total_questions
+        if response.get('assessment_type') == 'Awareness':
+            self.log_test("Awareness assessment type correct", True)
+        else:
+            self.log_test("Awareness assessment type correct", False, f"Got {response.get('assessment_type')}")
+            
+        if response.get('total_questions') == 25:
+            self.log_test("Awareness assessment total_questions = 25", True)
+        else:
+            self.log_test("Awareness assessment total_questions = 25", False, f"Got {response.get('total_questions')}")
+            
+        if response.get('progress') == 0:
+            self.log_test("Awareness assessment initial progress = 0", True)
+        else:
+            self.log_test("Awareness assessment initial progress = 0", False, f"Got {response.get('progress')}")
+        
+        # Test 2: Create System Assessment and verify total_questions = 88
+        print("\n📋 Test 2: System Assessment Progress Display")
+        system_data = {"assessment_type": "System"}
+        success, response = self.make_request('POST', 'assessments', system_data)
+        if not success:
+            self.log_test("Create System Assessment", False, str(response))
+            return False
+            
+        system_assessment_id = response['id']
+        self.log_test("Create System Assessment", True)
+        
+        # Verify System assessment has correct total_questions
+        if response.get('assessment_type') == 'System':
+            self.log_test("System assessment type correct", True)
+        else:
+            self.log_test("System assessment type correct", False, f"Got {response.get('assessment_type')}")
+            
+        if response.get('total_questions') == 88:
+            self.log_test("System assessment total_questions = 88", True)
+        else:
+            self.log_test("System assessment total_questions = 88", False, f"Got {response.get('total_questions')}")
+            
+        if response.get('progress') == 0:
+            self.log_test("System assessment initial progress = 0", True)
+        else:
+            self.log_test("System assessment initial progress = 0", False, f"Got {response.get('progress')}")
+        
+        # Test 3: Answer some questions in Awareness assessment and verify progress
+        print("\n📋 Test 3: Awareness Assessment Partial Progress")
+        
+        # Get Awareness questions (should be 25)
+        success, awareness_questions_response = self.make_request('GET', f'assessments/{awareness_assessment_id}/questions')
+        if not success:
+            self.log_test("Get Awareness questions", False, str(awareness_questions_response))
+            return False
+            
+        # Count total Awareness questions
+        awareness_questions = []
+        for domain_data in awareness_questions_response:
+            questions = domain_data.get('questions', [])
+            awareness_questions.extend(questions)
+            
+        if len(awareness_questions) == 25:
+            self.log_test("Awareness assessment has 25 questions", True)
+        else:
+            self.log_test("Awareness assessment has 25 questions", False, f"Got {len(awareness_questions)} questions")
+        
+        # Answer 10 Awareness questions
+        questions_to_answer = 10
+        for i in range(min(questions_to_answer, len(awareness_questions))):
+            question = awareness_questions[i]
+            answer_data = {
+                "question_id": question['id'],
+                "option": "EXPLORING_OPPORTUNITIES",  # Awareness-specific option
+                "note": f"Awareness test answer {i+1}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{awareness_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer Awareness question {i+1}", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered {questions_to_answer} Awareness questions", True)
+        
+        # Check GET /api/assessments to verify progress display
+        success, assessments_list = self.make_request('GET', 'assessments')
+        if not success:
+            self.log_test("Get assessments list", False, str(assessments_list))
+            return False
+            
+        # Find our Awareness assessment in the list
+        awareness_in_list = None
+        system_in_list = None
+        for assessment in assessments_list:
+            if assessment['id'] == awareness_assessment_id:
+                awareness_in_list = assessment
+            elif assessment['id'] == system_assessment_id:
+                system_in_list = assessment
+        
+        if awareness_in_list:
+            if awareness_in_list.get('progress') == questions_to_answer:
+                self.log_test(f"Awareness assessment progress = {questions_to_answer}", True)
+            else:
+                self.log_test(f"Awareness assessment progress = {questions_to_answer}", False, f"Got {awareness_in_list.get('progress')}")
+                
+            if awareness_in_list.get('total_questions') == 25:
+                self.log_test("Awareness assessment total_questions = 25 in list", True)
+            else:
+                self.log_test("Awareness assessment total_questions = 25 in list", False, f"Got {awareness_in_list.get('total_questions')}")
+                
+            # Calculate progress ratio
+            progress_ratio = (awareness_in_list.get('progress', 0) / awareness_in_list.get('total_questions', 1)) * 100
+            expected_ratio = (questions_to_answer / 25) * 100
+            if abs(progress_ratio - expected_ratio) < 0.1:
+                self.log_test(f"Awareness progress ratio = {expected_ratio:.1f}%", True)
+            else:
+                self.log_test(f"Awareness progress ratio = {expected_ratio:.1f}%", False, f"Got {progress_ratio:.1f}%")
+        else:
+            self.log_test("Find Awareness assessment in list", False, "Awareness assessment not found in list")
+        
+        if system_in_list:
+            if system_in_list.get('total_questions') == 88:
+                self.log_test("System assessment total_questions = 88 in list", True)
+            else:
+                self.log_test("System assessment total_questions = 88 in list", False, f"Got {system_in_list.get('total_questions')}")
+        else:
+            self.log_test("Find System assessment in list", False, "System assessment not found in list")
+        
+        # Test 4: Answer some System questions and verify progress
+        print("\n📋 Test 4: System Assessment Partial Progress")
+        
+        # Get System questions (should be 88)
+        success, system_questions_response = self.make_request('GET', f'assessments/{system_assessment_id}/questions')
+        if not success:
+            self.log_test("Get System questions", False, str(system_questions_response))
+            return False
+            
+        # Count total System questions
+        system_questions = []
+        for domain_data in system_questions_response:
+            questions = domain_data.get('questions', [])
+            system_questions.extend(questions)
+            
+        if len(system_questions) == 88:
+            self.log_test("System assessment has 88 questions", True)
+        else:
+            self.log_test("System assessment has 88 questions", False, f"Got {len(system_questions)} questions")
+        
+        # Answer 15 System questions
+        system_questions_to_answer = 15
+        for i in range(min(system_questions_to_answer, len(system_questions))):
+            question = system_questions[i]
+            answer_data = {
+                "question_id": question['id'],
+                "option": "GOOD",  # System-specific option
+                "note": f"System test answer {i+1}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{system_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Answer System question {i+1}", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Answered {system_questions_to_answer} System questions", True)
+        
+        # Test 5: Verify both assessments show correct total_questions in same response
+        print("\n📋 Test 5: Multiple Assessment Types in Same Response")
+        
+        success, final_assessments_list = self.make_request('GET', 'assessments')
+        if not success:
+            self.log_test("Get final assessments list", False, str(final_assessments_list))
+            return False
+            
+        # Find both assessments and verify their total_questions
+        final_awareness = None
+        final_system = None
+        for assessment in final_assessments_list:
+            if assessment['id'] == awareness_assessment_id:
+                final_awareness = assessment
+            elif assessment['id'] == system_assessment_id:
+                final_system = assessment
+        
+        if final_awareness and final_system:
+            self.log_test("Both assessments found in final list", True)
+            
+            # Verify Awareness: total_questions = 25
+            if final_awareness.get('total_questions') == 25:
+                self.log_test("Final check: Awareness total_questions = 25", True)
+            else:
+                self.log_test("Final check: Awareness total_questions = 25", False, f"Got {final_awareness.get('total_questions')}")
+            
+            # Verify System: total_questions = 88
+            if final_system.get('total_questions') == 88:
+                self.log_test("Final check: System total_questions = 88", True)
+            else:
+                self.log_test("Final check: System total_questions = 88", False, f"Got {final_system.get('total_questions')}")
+            
+            # Verify progress values are correct
+            if final_awareness.get('progress') == questions_to_answer:
+                self.log_test(f"Final check: Awareness progress = {questions_to_answer}", True)
+            else:
+                self.log_test(f"Final check: Awareness progress = {questions_to_answer}", False, f"Got {final_awareness.get('progress')}")
+                
+            if final_system.get('progress') == system_questions_to_answer:
+                self.log_test(f"Final check: System progress = {system_questions_to_answer}", True)
+            else:
+                self.log_test(f"Final check: System progress = {system_questions_to_answer}", False, f"Got {final_system.get('progress')}")
+        else:
+            self.log_test("Both assessments found in final list", False, "One or both assessments missing")
+        
+        # Test 6: Complete Awareness assessment and verify final state
+        print("\n📋 Test 6: Complete Awareness Assessment")
+        
+        # Answer remaining Awareness questions
+        remaining_awareness = awareness_questions[questions_to_answer:]
+        for i, question in enumerate(remaining_awareness):
+            answer_data = {
+                "question_id": question['id'],
+                "option": "READY_TO_PROGRESS",  # Awareness-specific option
+                "note": f"Awareness completion answer {i+1}"
+            }
+            
+            success, _ = self.make_request('POST', f'assessments/{awareness_assessment_id}/answer', answer_data)
+            if not success:
+                self.log_test(f"Complete Awareness question {i+1}", False, "Failed to submit answer")
+                return False
+        
+        self.log_test(f"Completed all {len(remaining_awareness)} remaining Awareness questions", True)
+        
+        # Submit the Awareness assessment
+        success, submit_response = self.make_request('POST', f'assessments/{awareness_assessment_id}/submit')
+        if success:
+            self.log_test("Submit completed Awareness assessment", True)
+        else:
+            self.log_test("Submit completed Awareness assessment", False, str(submit_response))
+        
+        # Verify final Awareness assessment state
+        success, completed_assessments = self.make_request('GET', 'assessments')
+        if success:
+            completed_awareness = None
+            for assessment in completed_assessments:
+                if assessment['id'] == awareness_assessment_id:
+                    completed_awareness = assessment
+                    break
+            
+            if completed_awareness:
+                if completed_awareness.get('progress') == 25 and completed_awareness.get('total_questions') == 25:
+                    self.log_test("Completed Awareness: progress=25, total_questions=25 (100%)", True)
+                else:
+                    self.log_test("Completed Awareness: progress=25, total_questions=25 (100%)", False, 
+                                f"Got progress={completed_awareness.get('progress')}, total_questions={completed_awareness.get('total_questions')}")
+        
+        print("\n✅ Dashboard Progress Display Fix Testing Complete")
+        return True
+
     def run_all_tests(self):
         """Run all tests in sequence with focus on production issues"""
         print(f"🚀 Starting AM AI SAFE Production API Tests")
