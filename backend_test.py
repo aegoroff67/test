@@ -6686,8 +6686,8 @@ class AMSafeAPITester:
                 self.test_answer_system()
                 
                 # Report generation tests with created assessment
-                self.test_docx_report_generation()
-                self.test_pdf_report_generation()
+                self.test_docx_report_generation_comprehensive()
+                self.test_pdf_report_generation_critical()
         
         # Test pending review workflow enhancements (Review Request)
         self.test_pending_review_workflow()
