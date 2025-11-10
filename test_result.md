@@ -905,3 +905,18 @@
         - working: true
         - agent: "testing"
         - comment: "COMPREHENSIVE BACKEND TESTING COMPLETED: All 12 tests passed (100% success rate). VERIFIED: ✅ Awareness assessment creation with correct assessment_type='Awareness', ✅ Awareness assessment has 25 questions (not 88), ✅ Partial submission (10/25) validation shows correct error message: 'Cannot submit assessment. 15 questions remain unanswered' (not 63 or 78), ✅ Completed Awareness assessment (25/25 answered) submits successfully, ✅ Assessment status correctly updated to COMPLETED after submission, ✅ System assessment independence verified (88 questions, correct validation), ✅ Partial System submission (40/88) shows correct error: '48 questions remain', ✅ Overall percentage calculation uses correct max_score (Awareness: answered × 4, System: answered × 3), ✅ Test case verified: Awareness with varied answers calculated 90.0% overall percentage correctly, ✅ Edge case tested: 24/25 answered fails with '1 question remains', 25/25 succeeds, ✅ System edge case: 87/88 fails, 88/88 succeeds. Both user-reported issues completely resolved. Frontend Dashboard.js updated with Awareness badge case (green color scheme). Backend submit_assessment endpoint fixed to use assessment-type-specific question counts and max scores. Feature production-ready."
+
+  - task: "Fix Dashboard progress showing n/88 for Awareness assessments"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported Dashboard 'In Progress' panel showing 'n/88' as question progress statistics for Awareness assessments. Should display 'n/25' instead."
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED FIX: Updated get_assessments endpoint in server.py. Root cause: total_questions field was hardcoded to System question count (88) for all assessment types. BACKEND CHANGES: 1) Import AWARENESS_QUESTIONS_DATA to get Awareness question count (25), 2) Set total_questions conditionally in AssessmentResponse based on assessment_type (Awareness: 25, System: 88), 3) Used ternary operator to assign correct value per assessment. Backend restarted successfully. Ready for testing to verify: Dashboard shows 'n/25' for Awareness assessments and 'n/88' for System assessments in progress statistics."
