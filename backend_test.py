@@ -7694,10 +7694,16 @@ class AMSafeAPITester:
             if not self.test_production_authentication_flow():
                 print("❌ Production authentication failed - continuing with other tests")
         
-        # === AWARENESS ASSESSMENT DOMAIN PROGRESS FIX (PRIORITY TEST) ===
-        print("\n" + "🎯 AWARENESS ASSESSMENT DOMAIN PROGRESS FIX (PRIORITY TEST)" + "\n" + "=" * 60)
+        # === DASHBOARD PROGRESS DISPLAY FIX (PRIORITY TEST) ===
+        print("\n" + "🎯 DASHBOARD PROGRESS DISPLAY FIX (PRIORITY TEST)" + "\n" + "=" * 60)
         
-        # MAIN TEST: Domain progress fix for Awareness Assessment
+        # MAIN TEST: Dashboard progress display fix for Awareness vs System assessments
+        self.test_dashboard_progress_display_fix()
+        
+        # === AWARENESS ASSESSMENT DOMAIN PROGRESS FIX (ADDITIONAL TEST) ===
+        print("\n" + "🎯 AWARENESS ASSESSMENT DOMAIN PROGRESS FIX (ADDITIONAL TEST)" + "\n" + "=" * 60)
+        
+        # ADDITIONAL TEST: Domain progress fix for Awareness Assessment
         self.test_awareness_assessment_domain_progress_fix()
         
         # NEW: Test Dashboard badge and Submit validation fixes
