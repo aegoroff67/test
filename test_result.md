@@ -853,3 +853,15 @@
         - working: true
         - agent: "testing"
         - comment: "COMPREHENSIVE TESTING COMPLETED: Domain progress fix verified successfully. TEST RESULTS: 100% success rate for all critical requirements. VERIFIED: ✅ Question Domain IDs Correct - Questions have domain_ids matching actual domain object IDs ('awareness_understanding', 'leadership_vision', 'data_digital', 'people_skills', 'governance_trust'), ✅ Domain Structure Verified - Each domain contains exactly 5 questions (25 total), ✅ Answer Association Working - Answers properly associated with questions across different domains (tested 2/5, 3/5, 1/5, 0/5, 0/5), ✅ Status Endpoint Integration - GET /api/assessments/{id}/status shows correct domain structure and counts, ✅ Frontend Compatibility - Domain progress can now show accurate counts instead of 0/0. Backend fix: Changed domain_id assignment from generic 'domain_{order}' format to actual domain IDs from awareness_domains list. Frontend can now correctly filter questions by domain for accurate progress display. The fix is production-ready and resolves the user's reported issue completely."
+
+  - task: "Build AI Awareness & Foundations Assessment Results Summary Page"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/ResultsPage.js, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Created comprehensive results summary page for AI Awareness & Foundations Assessment following same layout as System Assessment. FRONTEND CHANGES (ResultsPage.js): 1) Added assessmentType state variable to track assessment type, 2) Conditional rendering for Awareness vs System assessment content (maturity tier descriptions, results summary text, color schemes), 3) Updated maturity tiers for Awareness (Foundational 0-40%, Developing 41-70%, Established 71-100% vs System's 4-tier scale), 4) Customized results summary text specific to AI awareness context, 5) Applied green color scheme (green-600) for Awareness instead of teal-600 for System across headers, icons, buttons. BACKEND CHANGES (server.py): Updated get_assessment_summary endpoint to handle Awareness assessments: 1) Check assessment_type and branch logic, 2) Use AWARENESS_QUESTIONS_DATA with 5 domains and 25 questions, 3) Calculate domain scores with max_score=4 per question (Awareness scale), 4) Apply Awareness-specific maturity tier thresholds (Foundational <40%, Developing 41-70%, Established 71+%), 5) Return correct domain structure with Awareness domain names. Backend restarted successfully. Ready for testing to verify: Results page displays correctly for Awareness assessments with proper scoring, maturity tiers, and visual styling."
