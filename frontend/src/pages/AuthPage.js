@@ -111,6 +111,16 @@ function AuthPage() {
             </div>
           </div>
 
+          {/* Journey Title */}
+          <div className="space-y-2 mt-8">
+            <h2 className="text-2xl font-bold text-gray-900">
+              Discover Your AI Governance Journey
+            </h2>
+            <p className="text-base text-gray-600">
+              From Awareness to Assurance — Four Assessments, One Framework
+            </p>
+          </div>
+
           {/* Features */}
           <div className="grid gap-6">
             <div className="flex items-start space-x-4">
