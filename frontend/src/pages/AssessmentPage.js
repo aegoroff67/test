@@ -760,7 +760,7 @@ function AssessmentPage() {
                           </div>
                           <Button
                             onClick={handleSaveAdminScore}
-                            className="w-full bg-teal-600 hover:bg-teal-700"
+                            className={`w-full bg-${colors.primary} hover:bg-${colors.primaryHover}`}
                             disabled={adminScore === null}
                           >
                             Save Score & Continue
