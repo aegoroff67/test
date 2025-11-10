@@ -6988,6 +6988,223 @@ class AMSafeAPITester:
         
         return True
 
+    def test_awareness_assessment_domain_progress_fix(self):
+        """Test the Awareness Assessment domain progress fix - main test for the review request"""
+        print("\n🔍 TESTING AWARENESS ASSESSMENT DOMAIN PROGRESS FIX")
+        print("-" * 60)
+        
+        # Step 1: Create new Awareness assessment
+        assessment_data = {"assessment_type": "Awareness"}
+        success, response = self.make_request('POST', 'assessments', assessment_data)
+        if not success:
+            self.log_test("Create Awareness Assessment", False, str(response))
+            return False
+            
+        awareness_assessment_id = response['id']
+        assessment_type = response.get('assessment_type', 'Unknown')
+        
+        if assessment_type == "Awareness":
+            self.log_test("Create Awareness Assessment", True)
+        else:
+            self.log_test("Create Awareness Assessment", False, f"Expected 'Awareness', got '{assessment_type}'")
+            return False
+        
+        # Step 2: Call GET /api/assessments/{id}/questions and verify domain_ids
+        success, questions_response = self.make_request('GET', f'assessments/{awareness_assessment_id}/questions')
+        if not success:
+            self.log_test("Get Awareness Assessment Questions", False, str(questions_response))
+            return False
+            
+        self.log_test("Get Awareness Assessment Questions", True)
+        
+        # Step 3: Verify each question has correct domain_id matching domain object's id
+        expected_domain_ids = [
+            "awareness_understanding", 
+            "leadership_vision", 
+            "data_digital", 
+            "people_skills", 
+            "governance_trust"
+        ]
+        
+        expected_domain_names = [
+            "Awareness & Understanding",
+            "Leadership & Vision", 
+            "Data & Digital Readiness",
+            "People & Skills",
+            "Governance & Trust Foundations"
+        ]
+        
+        domain_id_correct = True
+        questions_per_domain = {}
+        all_questions = []
+        
+        for i, domain_data in enumerate(questions_response):
+            domain = domain_data.get('domain', {})
+            domain_id = domain.get('id')
+            domain_name = domain.get('name')
+            questions = domain_data.get('questions', [])
+            
+            # Verify domain ID matches expected
+            if i < len(expected_domain_ids):
+                expected_id = expected_domain_ids[i]
+                expected_name = expected_domain_names[i]
+                
+                if domain_id == expected_id:
+                    self.log_test(f"Domain {i+1} ID correct ({expected_id})", True)
+                else:
+                    self.log_test(f"Domain {i+1} ID correct ({expected_id})", False, f"Got '{domain_id}'")
+                    domain_id_correct = False
+                
+                if domain_name == expected_name:
+                    self.log_test(f"Domain {i+1} name correct ({expected_name})", True)
+                else:
+                    self.log_test(f"Domain {i+1} name correct ({expected_name})", False, f"Got '{domain_name}'")
+            
+            # Count questions per domain and verify domain_id in each question
+            questions_per_domain[domain_id] = len(questions)
+            
+            for question in questions:
+                question_domain_id = question.get('domain_id')
+                if question_domain_id == domain_id:
+                    self.log_test(f"Question {question.get('code', 'unknown')} has correct domain_id", True)
+                else:
+                    self.log_test(f"Question {question.get('code', 'unknown')} has correct domain_id", False, 
+                                f"Expected '{domain_id}', got '{question_domain_id}'")
+                    domain_id_correct = False
+                
+                all_questions.append(question)
+        
+        # Step 4: Verify each domain has 5 questions (25 total for Awareness)
+        total_questions = len(all_questions)
+        if total_questions == 25:
+            self.log_test("Total Awareness questions count (25)", True)
+        else:
+            self.log_test("Total Awareness questions count (25)", False, f"Found {total_questions} questions")
+        
+        for domain_id, count in questions_per_domain.items():
+            if count == 5:
+                self.log_test(f"Domain {domain_id} has 5 questions", True)
+            else:
+                self.log_test(f"Domain {domain_id} has 5 questions", False, f"Found {count} questions")
+        
+        # Step 5: Test domain progress with answers in different domains
+        print("\n📝 Testing domain progress with partial answers...")
+        
+        # Answer 2 questions in "Awareness & Understanding" domain
+        awareness_questions = [q for q in all_questions if q.get('domain_id') == 'awareness_understanding'][:2]
+        for i, question in enumerate(awareness_questions):
+            answer_data = {
+                "question_id": question['id'],
+                "option": "BUILDING_READINESS",
+                "note": f"Test answer {i+1} for Awareness & Understanding"
+            }
+            success, _ = self.make_request('POST', f'assessments/{awareness_assessment_id}/answer', answer_data)
+            if success:
+                self.log_test(f"Answer Awareness & Understanding question {i+1}", True)
+            else:
+                self.log_test(f"Answer Awareness & Understanding question {i+1}", False, "Failed to submit answer")
+        
+        # Answer 3 questions in "Leadership & Vision" domain
+        leadership_questions = [q for q in all_questions if q.get('domain_id') == 'leadership_vision'][:3]
+        for i, question in enumerate(leadership_questions):
+            answer_data = {
+                "question_id": question['id'],
+                "option": "READY_TO_PROGRESS",
+                "note": f"Test answer {i+1} for Leadership & Vision"
+            }
+            success, _ = self.make_request('POST', f'assessments/{awareness_assessment_id}/answer', answer_data)
+            if success:
+                self.log_test(f"Answer Leadership & Vision question {i+1}", True)
+            else:
+                self.log_test(f"Answer Leadership & Vision question {i+1}", False, "Failed to submit answer")
+        
+        # Answer 1 question in "Data & Digital Readiness" domain
+        data_questions = [q for q in all_questions if q.get('domain_id') == 'data_digital'][:1]
+        for i, question in enumerate(data_questions):
+            answer_data = {
+                "question_id": question['id'],
+                "option": "EXPLORING_OPPORTUNITIES",
+                "note": f"Test answer {i+1} for Data & Digital Readiness"
+            }
+            success, _ = self.make_request('POST', f'assessments/{awareness_assessment_id}/answer', answer_data)
+            if success:
+                self.log_test(f"Answer Data & Digital Readiness question {i+1}", True)
+            else:
+                self.log_test(f"Answer Data & Digital Readiness question {i+1}", False, "Failed to submit answer")
+        
+        # Leave "People & Skills" and "Governance & Trust Foundations" unanswered
+        self.log_test("Left People & Skills and Governance & Trust Foundations unanswered", True)
+        
+        # Step 6: Call GET /api/assessments/{id}/questions again to verify answers are associated
+        success, updated_questions_response = self.make_request('GET', f'assessments/{awareness_assessment_id}/questions')
+        if not success:
+            self.log_test("Get updated Awareness Assessment Questions", False, str(updated_questions_response))
+            return False
+            
+        self.log_test("Get updated Awareness Assessment Questions", True)
+        
+        # Verify answers are properly associated with questions
+        answered_count_by_domain = {}
+        for domain_data in updated_questions_response:
+            domain = domain_data.get('domain', {})
+            domain_id = domain.get('id')
+            questions = domain_data.get('questions', [])
+            
+            answered_count = 0
+            for question in questions:
+                if question.get('answer'):
+                    answered_count += 1
+            
+            answered_count_by_domain[domain_id] = answered_count
+        
+        # Verify expected answer counts per domain
+        expected_counts = {
+            'awareness_understanding': 2,
+            'leadership_vision': 3,
+            'data_digital': 1,
+            'people_skills': 0,
+            'governance_trust': 0
+        }
+        
+        for domain_id, expected_count in expected_counts.items():
+            actual_count = answered_count_by_domain.get(domain_id, 0)
+            if actual_count == expected_count:
+                self.log_test(f"Domain {domain_id} has {expected_count} answered questions", True)
+            else:
+                self.log_test(f"Domain {domain_id} has {expected_count} answered questions", False, 
+                            f"Expected {expected_count}, got {actual_count}")
+        
+        # Step 7: Test status endpoint integration
+        success, status_response = self.make_request('GET', f'assessments/{awareness_assessment_id}/status')
+        if not success:
+            self.log_test("Get Awareness Assessment Status", False, str(status_response))
+            return False
+            
+        self.log_test("Get Awareness Assessment Status", True)
+        
+        # Verify status shows correct domain structure and counts
+        status_overview = status_response.get('status_overview', [])
+        total_questions_status = status_response.get('total_questions', 0)
+        answered_questions_status = status_response.get('answered_questions', 0)
+        
+        if total_questions_status == 25:
+            self.log_test("Status endpoint shows 25 total questions", True)
+        else:
+            self.log_test("Status endpoint shows 25 total questions", False, f"Shows {total_questions_status}")
+        
+        if answered_questions_status == 6:  # 2+3+1+0+0 = 6
+            self.log_test("Status endpoint shows 6 answered questions", True)
+        else:
+            self.log_test("Status endpoint shows 6 answered questions", False, f"Shows {answered_questions_status}")
+        
+        # Verify status overview domain structure
+        if len(status_overview) == 5:
+            self.log_test("Status overview shows 5 Awareness domains", True)
+        else:
+            self.log_test("Status overview shows 5 Awareness domains", False, f"Shows {len(status_overview)} domains")
+        
+        return domain_id_correct and total_questions == 25
+
     def run_all_tests(self):
         """Run all tests in sequence with focus on production issues"""
         print(f"🚀 Starting AM AI SAFE Production API Tests")
