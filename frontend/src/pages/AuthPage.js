@@ -119,10 +119,10 @@ function AuthPage() {
               </div>
               <div className="text-left">
                 <h3 className="font-semibold text-gray-900 mb-1">
-                  Comprehensive Assessment
+                  Comprehensive AI Assessment Suite
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Evaluate your AI systems across 11 critical domains with 88 expert-designed questions
+                  Progress through four purpose-built assessments: <strong>AI Awareness & Foundations</strong> – Build baseline understanding of responsible AI principles. <strong>AI Readiness</strong> – Identify organisational gaps before AI adoption. <strong>Organisation-wide AI Maturity</strong> – Evaluate governance, culture, and capability across the enterprise. <strong>AI System Maturity</strong> – Assess individual AI systems across 11 critical domains and 88 expert-designed questions.
                 </p>
               </div>
             </div>
@@ -133,10 +133,10 @@ function AuthPage() {
               </div>
               <div className="text-left">
                 <h3 className="font-semibold text-gray-900 mb-1">
-                  Detailed Analytics
+                  Actionable Analytics
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Get instant insights with heatmap visualizations and actionable recommendations
+                  Visualise your results instantly with interactive heatmaps, maturity scores, and prioritised recommendations.
                 </p>
               </div>
             </div>
@@ -147,10 +147,10 @@ function AuthPage() {
               </div>
               <div className="text-left">
                 <h3 className="font-semibold text-gray-900 mb-1">
-                  Enterprise Ready
+                  Built for Every Stage
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Built for organizations serious about responsible AI governance and compliance
+                  Whether you're exploring AI or managing advanced deployments, AM AI SAFE adapts to your maturity level—helping you strengthen accountability, security, and compliance at every step.
                 </p>
               </div>
             </div>
