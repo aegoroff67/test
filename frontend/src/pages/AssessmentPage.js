@@ -880,7 +880,7 @@ function AssessmentPage() {
                   <Button 
                     onClick={nextQuestion}
                     disabled={currentQuestionIndex === questions.length - 1}
-                    className="bg-teal-600 hover:bg-teal-700 flex-1 sm:flex-initial text-sm sm:text-base"
+                    className={`bg-${colors.primary} hover:bg-${colors.primaryHover} flex-1 sm:flex-initial text-sm sm:text-base`}
                     data-testid="next-question-btn"
                   >
                     Next
