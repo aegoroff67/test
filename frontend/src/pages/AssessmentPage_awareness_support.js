@@ -107,6 +107,18 @@ export const getColorScheme = (assessmentType) => {
     };
   }
   
+  if (assessmentType === 'Readiness') {
+    return {
+      primary: 'blue-600',
+      primaryHover: 'blue-700',
+      light: 'blue-50',
+      border: 'blue-100',
+      text: 'blue-600',
+      badge: 'blue-100',
+      badgeText: 'blue-800'
+    };
+  }
+  
   // Default teal for System
   return {
     primary: 'teal-600',
