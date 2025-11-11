@@ -1488,6 +1488,8 @@ async def submit_answer(
         # Use appropriate scoring map based on assessment type
         if assessment_type == "Awareness":
             numeric_score = AWARENESS_SCORING_MAP.get(answer_data.option, 0)
+        elif assessment_type == "Readiness":
+            numeric_score = READINESS_SCORING_MAP.get(answer_data.option, 0)
         else:
             numeric_score = SCORING_MAP.get(answer_data.option, 0)
     
