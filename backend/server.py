@@ -2215,6 +2215,9 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     if assessment_type == "Awareness":
         from awareness_questions import AWARENESS_QUESTIONS_DATA
         total_questions = len(AWARENESS_QUESTIONS_DATA)  # 25 questions
+    elif assessment_type == "Readiness":
+        from readiness_questions import READINESS_QUESTIONS_DATA
+        total_questions = len(READINESS_QUESTIONS_DATA)  # 48 questions
     else:
         # System assessment - count from database
         total_questions = await db.questions.count_documents({})  # 88 questions
