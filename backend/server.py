@@ -1235,9 +1235,11 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
     # Get total questions count for System assessments
     system_total_questions = await db.questions.count_documents({})
     
-    # Import Awareness questions count
+    # Import Awareness and Readiness questions count
     from awareness_questions import AWARENESS_QUESTIONS_DATA
+    from readiness_questions import READINESS_QUESTIONS_DATA
     awareness_total_questions = len(AWARENESS_QUESTIONS_DATA)  # 25
+    readiness_total_questions = len(READINESS_QUESTIONS_DATA)  # 48
     
     return [
         AssessmentResponse(
@@ -1248,7 +1250,11 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
             started_at=assessment["started_at"],
             completed_at=assessment.get("completed_at"),
             progress=assessment["progress"],
-            total_questions=awareness_total_questions if assessment.get("assessment_type") == "Awareness" else system_total_questions,
+            total_questions=(
+                awareness_total_questions if assessment.get("assessment_type") == "Awareness" 
+                else readiness_total_questions if assessment.get("assessment_type") == "Readiness"
+                else system_total_questions
+            ),
             system_info=assessment.get("system_info"),
             pending_review_count=assessment.get("pending_review_count", 0)
         )
