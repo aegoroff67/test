@@ -506,7 +506,11 @@ function ResultsPage() {
         <div className="w-1/4 bg-white border-r overflow-y-auto">
           <div className="p-4">
             <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
-              <BarChart3 className={`h-4 w-4 ${assessmentType === 'Awareness' ? 'text-green-600' : 'text-teal-600'}`} />
+              <BarChart3 className={`h-4 w-4 ${
+                assessmentType === 'Awareness' ? 'text-green-600'
+                : assessmentType === 'Readiness' ? 'text-blue-600'
+                : 'text-teal-600'
+              }`} />
               <span>Domain Scores</span>
             </h2>
             
