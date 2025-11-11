@@ -1831,8 +1831,86 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
     
     assessment_type = assessment.get("assessment_type", "System")
     
+    # Handle Readiness Assessment
+    if assessment_type == "Readiness":
+        from readiness_questions import READINESS_QUESTIONS_DATA
+        
+        # Define readiness domains
+        readiness_domains = [
+            {"id": "strategic_alignment", "name": "Strategic Alignment & Awareness", "order": 1},
+            {"id": "governance_foundations", "name": "Governance Foundations", "order": 2},
+            {"id": "data_readiness", "name": "Data Readiness", "order": 3},
+            {"id": "technology_infrastructure", "name": "Technology & Infrastructure", "order": 4},
+            {"id": "people_culture", "name": "People & Culture", "order": 5},
+            {"id": "policy_compliance", "name": "Policy & Compliance Readiness", "order": 6},
+            {"id": "risk_ethics", "name": "Risk & Ethics Awareness", "order": 7},
+            {"id": "continuous_learning", "name": "Continuous Learning & Improvement", "order": 8}
+        ]
+        
+        # Group questions by domain
+        domain_questions = {}
+        for domain in readiness_domains:
+            domain_questions[domain["id"]] = []
+        
+        for question_data in READINESS_QUESTIONS_DATA:
+            domain_order = question_data["domain_order"]
+            domain_id = readiness_domains[domain_order - 1]["id"]
+            domain_questions[domain_id].append(question_data["code"])
+        
+        # Get answers for this assessment
+        answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+        answer_lookup = {answer["question_id"]: answer for answer in answers}
+        
+        # Calculate domain scores
+        domain_score_list = []
+        overall_score = 0
+        overall_max_score = 0
+        
+        for domain in readiness_domains:
+            domain_question_ids = domain_questions[domain["id"]]
+            domain_answers = [a for a in answers if a["question_id"] in domain_question_ids]
+            
+            domain_score = sum(a["numeric_score"] for a in domain_answers)
+            domain_max = len(domain_question_ids) * 3  # Readiness max score is 3
+            
+            percentage = (domain_score / domain_max * 100) if domain_max > 0 else 0
+            
+            domain_score_list.append({
+                "domain_id": domain["id"],
+                "domain_name": domain["name"],
+                "score": domain_score,
+                "max_score": domain_max,
+                "percentage": percentage,
+                "answered": len(domain_answers),
+                "total": len(domain_question_ids)
+            })
+            
+            overall_score += domain_score
+            overall_max_score += domain_max
+        
+        # Calculate overall metrics
+        overall_percentage = (overall_score / overall_max_score * 100) if overall_max_score > 0 else 0
+        
+        # Readiness maturity tiers
+        if overall_percentage >= 71:
+            overall_maturity = "Leading"
+        elif overall_percentage >= 41:
+            overall_maturity = "Established"
+        elif overall_percentage >= 21:
+            overall_maturity = "Developing"
+        else:
+            overall_maturity = "Foundational"
+        
+        return {
+            "overall_percentage": round(overall_percentage, 1),
+            "overall_maturity": overall_maturity,
+            "domain_scores": domain_score_list,
+            "total_questions": len(READINESS_QUESTIONS_DATA),
+            "answered_questions": len(answers)
+        }
+    
     # Handle Awareness Assessment differently
-    if assessment_type == "Awareness":
+    elif assessment_type == "Awareness":
         # Get answers for this assessment
         answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
         answer_lookup = {answer["question_id"]: answer for answer in answers}
