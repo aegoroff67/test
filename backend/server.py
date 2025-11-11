@@ -154,6 +154,15 @@ AWARENESS_SCORING_MAP = {
     AnswerOption.OTHER: 0  # Will be manually reviewed and scored later
 }
 
+# Scoring map for Readiness assessments
+READINESS_SCORING_MAP = {
+    AnswerOption.FOUNDATIONAL: 0,
+    AnswerOption.DEVELOPING: 1,
+    AnswerOption.ESTABLISHED: 2,
+    AnswerOption.LEADING: 3,
+    AnswerOption.OTHER: 0  # Will be manually reviewed and scored later
+}
+
 # Models
 class Organization(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
