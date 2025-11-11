@@ -941,3 +941,33 @@
         - working: true
         - agent: "testing"
         - comment: "COMPREHENSIVE BACKEND TESTING COMPLETED: All 19 tests passed (100% success rate). VERIFIED: ✅ Awareness assessment creation returns total_questions=25 (not 88), ✅ System assessment creation returns total_questions=88, ✅ Initial progress=0 for both types, ✅ Partial progress tracking works correctly (10 answered shows progress=10 for Awareness), ✅ GET /api/assessments returns correct total_questions per assessment type in list view, ✅ Progress ratio calculated correctly (10/25 = 40.0% for Awareness, not 10/88 = 11.4%), ✅ Multiple assessment types coexist with independent total_questions values, ✅ System assessment shows 88 total_questions in same response as Awareness showing 25, ✅ Completed assessments display correctly (25/25 for Awareness, would be 88/88 for System). User-reported issue completely resolved. Dashboard will now display 'n/25' for Awareness assessments and 'n/88' for System assessments. Backend get_assessments endpoint successfully implements conditional total_questions logic based on assessment_type. Feature production-ready."
+
+  - task: "Fix AI Readiness Assessment missing tooltips for Additional Guide and Evidence Types"
+    implemented: false
+    working: false
+    file: "/app/backend/readiness_questions.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported that tooltips for 'Additional Guide' and 'Evidence Types' are not appearing for any question in the Readiness Assessment. Investigation shows these fields are missing from readiness_questions.py file."
+        - working: "NA"
+        - agent: "main"
+        - comment: "TO BE IMPLEMENTED: Need to add additional_guide and evidence_types fields to all 48 questions in readiness_questions.py. These fields should provide contextual help similar to the infobadge tooltip system used in System assessments."
+
+  - task: "Fix AI Readiness Assessment View All button crash - status endpoint returning wrong structure"
+    implemented: false
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported clicking 'View All' button triggers frontend runtime error: TypeError: Cannot read properties of undefined (reading 'map') in AssessmentStatusView.js component."
+        - working: "NA"
+        - agent: "main"
+        - comment: "ISSUE IDENTIFIED: The get_assessment_status endpoint for Readiness assessments (lines 1907-1982) is returning the wrong structure. It returns domain_scores format (similar to summary endpoint) instead of the status_overview format required by AssessmentStatusView.js component. Awareness and System assessments return correct structure with status_overview array containing domains and questions. Need to refactor Readiness status endpoint to match the expected structure."
