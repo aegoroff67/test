@@ -2242,6 +2242,8 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     # Use correct max score based on assessment type
     if assessment_type == "Awareness":
         max_score = len(approved_answers) * 4  # Awareness max score is 4
+    elif assessment_type == "Readiness":
+        max_score = len(approved_answers) * 3  # Readiness max score is 3
     else:
         max_score = len(approved_answers) * 3  # System max score is 3
     
