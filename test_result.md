@@ -958,8 +958,8 @@
         - comment: "TO BE IMPLEMENTED: Need to add additional_guide and evidence_types fields to all 48 questions in readiness_questions.py. These fields should provide contextual help similar to the infobadge tooltip system used in System assessments."
 
   - task: "Fix AI Readiness Assessment View All button crash - status endpoint returning wrong structure"
-    implemented: false
-    working: false
+    implemented: true
+    working: "NA"
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
@@ -971,3 +971,6 @@
         - working: "NA"
         - agent: "main"
         - comment: "ISSUE IDENTIFIED: The get_assessment_status endpoint for Readiness assessments (lines 1907-1982) is returning the wrong structure. It returns domain_scores format (similar to summary endpoint) instead of the status_overview format required by AssessmentStatusView.js component. Awareness and System assessments return correct structure with status_overview array containing domains and questions. Need to refactor Readiness status endpoint to match the expected structure."
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED FIX: Refactored get_assessment_status endpoint for Readiness assessments to return correct structure matching Awareness and System assessments. CHANGES: 1) Moved answer fetching to top of Readiness block, 2) Created domain_questions dictionary grouped by domain order with structure matching Awareness pattern, 3) Built status_overview array with domain_id, domain_name, and questions (containing question_id, question_code, question_text, answered, review_status), 4) Calculated completion_percentage, 5) Returned structure: assessment_id, total_questions (48), answered_questions, completion_percentage, status_overview. Now returns same format as Awareness/System status endpoints, enabling View All component to render correctly without crashes. Backend restarted successfully. Ready for testing to verify View All button works for Readiness assessments."
