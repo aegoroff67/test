@@ -1643,8 +1643,58 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
     assessment_type = assessment.get("assessment_type", "System")
     answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
     
+    # Handle Readiness Assessment
+    if assessment_type == "Readiness":
+        from readiness_questions import READINESS_QUESTIONS_DATA
+        
+        # Define readiness domains
+        readiness_domains = [
+            {"id": "strategic_alignment", "name": "Strategic Alignment & Awareness", "order": 1},
+            {"id": "governance_foundations", "name": "Governance Foundations", "order": 2},
+            {"id": "data_readiness", "name": "Data Readiness", "order": 3},
+            {"id": "technology_infrastructure", "name": "Technology & Infrastructure", "order": 4},
+            {"id": "people_culture", "name": "People & Culture", "order": 5},
+            {"id": "policy_compliance", "name": "Policy & Compliance Readiness", "order": 6},
+            {"id": "risk_ethics", "name": "Risk & Ethics Awareness", "order": 7},
+            {"id": "continuous_learning", "name": "Continuous Learning & Improvement", "order": 8}
+        ]
+        
+        # Group questions by domain
+        domain_questions = {}
+        for domain in readiness_domains:
+            domain_questions[domain["order"]] = {
+                "domain": domain,
+                "questions": []
+            }
+        
+        for question_data in READINESS_QUESTIONS_DATA:
+            domain_order = question_data["domain_order"]
+            question_id = question_data["code"]
+            
+            # Get the actual domain ID from the readiness_domains list
+            domain_id = readiness_domains[domain_order - 1]["id"]
+            
+            question = {
+                "id": question_id,
+                "code": question_id,
+                "text": question_data["text"],
+                "explanation": question_data.get("explanation", ""),
+                "order": question_data["order"],
+                "domain_id": domain_id,
+                "answer": answer_lookup.get(question_id),
+                "predefined_answers": {
+                    "foundational": question_data.get("foundational"),
+                    "developing": question_data.get("developing"),
+                    "established": question_data.get("established"),
+                    "leading": question_data.get("leading")
+                }
+            }
+            domain_questions[domain_order]["questions"].append(question)
+        
+        return [dq for dq in domain_questions.values() if dq["questions"]]
+    
     # Handle Awareness Assessment
-    if assessment_type == "Awareness":
+    elif assessment_type == "Awareness":
         from awareness_questions import AWARENESS_QUESTIONS_DATA
         
         # Define awareness domains
