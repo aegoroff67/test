@@ -447,7 +447,11 @@ function ResultsPage() {
               <Button 
                 onClick={generateReport}
                 disabled={generatingReport}
-                className={`${assessmentType === 'Awareness' ? 'bg-green-600 hover:bg-green-700' : 'bg-teal-600 hover:bg-teal-700'} text-xs px-3 py-2`}
+                className={`${
+                  assessmentType === 'Awareness' ? 'bg-green-600 hover:bg-green-700'
+                  : assessmentType === 'Readiness' ? 'bg-blue-600 hover:bg-blue-700'
+                  : 'bg-teal-600 hover:bg-teal-700'
+                } text-xs px-3 py-2`}
                 data-testid="generate-report-btn"
               >
                 {generatingReport ? (
