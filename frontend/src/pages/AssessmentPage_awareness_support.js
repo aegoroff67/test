@@ -30,6 +30,35 @@ export const getResponseOptions = (assessmentType, predefinedAnswers) => {
     ];
   }
   
+  if (assessmentType === 'Readiness') {
+    return [
+      {
+        value: 'FOUNDATIONAL',
+        label: 'Foundational',
+        score: 0,
+        text: predefinedAnswers?.foundational || 'Minimal or no capability in place'
+      },
+      {
+        value: 'DEVELOPING',
+        label: 'Developing',
+        score: 1,
+        text: predefinedAnswers?.developing || 'Emerging capability with gaps'
+      },
+      {
+        value: 'ESTABLISHED',
+        label: 'Established',
+        score: 2,
+        text: predefinedAnswers?.established || 'Strong capability with consistent practice'
+      },
+      {
+        value: 'LEADING',
+        label: 'Leading',
+        score: 3,
+        text: predefinedAnswers?.leading || 'Mature capability with continuous improvement'
+      }
+    ];
+  }
+  
   // Default System assessment options
   return [
     {
