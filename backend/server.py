@@ -1290,13 +1290,21 @@ async def get_assessment(assessment_id: str, current_user: UserResponse = Depend
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
-    # Get total questions count
-    total_questions = await db.questions.count_documents({})
+    # Get total questions count based on assessment type
+    assessment_type = assessment.get("assessment_type", "System")
+    if assessment_type == "Awareness":
+        from awareness_questions import AWARENESS_QUESTIONS_DATA
+        total_questions = len(AWARENESS_QUESTIONS_DATA)  # 25 questions
+    elif assessment_type == "Readiness":
+        from readiness_questions import READINESS_QUESTIONS_DATA
+        total_questions = len(READINESS_QUESTIONS_DATA)  # 48 questions
+    else:
+        total_questions = await db.questions.count_documents({})  # System questions
     
     return AssessmentResponse(
         id=assessment["id"],
         name=assessment["name"],
-        assessment_type=assessment.get("assessment_type", "System"),
+        assessment_type=assessment_type,
         status=assessment["status"],
         started_at=assessment["started_at"],
         completed_at=assessment.get("completed_at"),
