@@ -119,7 +119,7 @@ function App() {
               } 
             />
             <Route 
-              path="/assessment/:id/readiness-onboarding" 
+              path="/assessment/:assessmentId/readiness-onboarding" 
               element={
                 <ProtectedRoute>
                   <ReadinessPreAssessmentForm />
