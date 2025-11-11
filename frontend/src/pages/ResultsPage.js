@@ -407,6 +407,18 @@ function ResultsPage() {
                         : 'early-stage AI awareness with limited understanding across the organization. Most staff and leaders are unfamiliar with AI fundamentals, potential applications, or key considerations. Priority should be on foundational education, building basic AI literacy, and establishing leadership interest before progressing to more advanced assessments.'
                     }
                   </>
+                ) : assessmentType === 'Readiness' ? (
+                  <>
+                    The results indicate that <strong>{assessment?.readiness_info?.org_name || user?.organization_name}</strong> has achieved an overall AI readiness score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing the organization within the <strong>{summary.overall_maturity}</strong> readiness category. This rating reflects {
+                      summary.overall_maturity === 'Leading'
+                        ? 'comprehensive AI readiness across all foundational domains. The organization demonstrates strong governance, robust data practices, mature technology infrastructure, capable workforce, and embedded ethical frameworks. Leadership actively champions responsible AI, and the organization is well-prepared to deploy AI systems confidently and safely.'
+                        : summary.overall_maturity === 'Established'
+                        ? 'strong AI readiness foundations with governance structures, data management practices, and technology capabilities in place. The organization has clear policies, engaged leadership, and growing staff capability. Further strengthening of continuous improvement processes, stakeholder engagement, and advanced risk management will position the organization for leading-edge AI adoption.'
+                        : summary.overall_maturity === 'Developing'
+                        ? 'emerging AI readiness with foundational elements beginning to take shape. Some governance, data, and technology practices exist, but consistency and maturity vary. Priority should be on formalizing AI governance frameworks, strengthening data quality and security, building staff capability, and establishing clear ethical guidelines before advancing to AI implementation.'
+                        : 'limited AI readiness with significant capability gaps across governance, data, technology, and workforce domains. Most foundational elements are informal or absent. Immediate focus should be on building basic governance structures, improving data management practices, securing technology infrastructure, and developing staff awareness before considering AI adoption.'
+                    }
+                  </>
                 ) : (
                   <>
                     The results indicate that <strong>{assessment?.system_info?.systemName || assessment?.system_info?.organizationName || user?.organization_name}</strong> has achieved an overall AI maturity score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing this system within the <strong>{summary.overall_maturity}</strong> AI Maturity category. This rating reflects {
