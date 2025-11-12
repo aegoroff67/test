@@ -5,16 +5,18 @@
 READINESS_QUESTIONS_DATA = [
     # Domain 1: Strategic Alignment & Awareness (6 questions)
     {
-        "code": "SA-01",
-        "text": "How well does your organisation's overall strategy recognise and plan for the opportunities and risks of AI adoption?",
-        "explanation": "Context: Strategic awareness ensures that AI adoption supports—not surprises—the organisation's mission and objectives. This question evaluates whether AI is acknowledged in your strategic or digital transformation plans and if leadership understands both its potential value and associated risks. Example: A council's Digital Strategy includes an \"Emerging Technologies\" section describing how AI could improve service delivery, while committing to ethical use, data privacy, and staff upskilling.",
+        "code": """SA-01""",
+        "text": """How well does your organisation's overall strategy recognise and plan for the opportunities and risks of AI adoption?""",
+        "explanation": """Context: Strategic awareness ensures that AI adoption supports—not surprises—the organisation's mission and objectives. This question evaluates whether AI is acknowledged in your strategic or digital transformation plans and if leadership understands both its potential value and associated risks. Example: A council's Digital Strategy includes an "Emerging Technologies" section describing how AI could improve service delivery, while committing to ethical use, data privacy, and staff upskilling.""",
         "domain_order": 1,
         "order": 1,
-        "foundational": "AI is not referenced in strategic or digital plans; leadership has limited awareness of its relevance.",
-        "developing": "AI opportunities are discussed informally or appear in isolated initiatives but lack formal planning.",
-        "established": "AI is referenced within digital or corporate strategies with defined objectives, benefits, and risk awareness.",
-        "leading": "AI is embedded across enterprise strategy, guided by ethical principles and measured through KPIs and review cycles.",
-        "additional_guide": """Embedding AI within corporate strategy aligns innovation with purpose and accountability.
+        "foundational": """AI is not referenced in strategic or digital plans; leadership has limited awareness of its relevance.""",
+        "developing": """AI opportunities are discussed informally or appear in isolated initiatives but lack formal planning.""",
+        "established": """AI is referenced within digital or corporate strategies with defined objectives, benefits, and risk awareness.""",
+        "leading": """AI is embedded across enterprise strategy, guided by ethical principles and measured through KPIs and review cycles.""",
+        "additional_guide": """Additional Guidance - Embedding AI in Strategic Planning
+
+Embedding AI within corporate strategy aligns innovation with purpose and accountability.
 • **Start with Vision and Values:** Articulate how AI supports organisational goals-efficiency, service quality, community engagement-while upholding ethics and transparency.
 • **Link to Risk Management:** Address potential harms such as bias, privacy breaches, or reputational impact.
 • **Define Roadmaps:** Set short-term exploration goals and long-term capability building milestones.
@@ -35,16 +37,18 @@ A well-defined AI strategy ensures initiatives are intentional, value-driven, an
 **In short:** show that AI is visible in strategic intent and actively managed as part of corporate planning."""
     },
     {
-        "code": "SA-02",
-        "text": "How effectively does leadership demonstrate understanding and sponsorship of AI initiatives or readiness efforts?",
-        "explanation": "Context: Leadership commitment is critical to safe and sustainable AI adoption. Without visible sponsorship, AI exploration can stall or proceed without proper oversight. This question assesses whether senior leaders actively champion responsible AI, allocate resources, and set expectations for ethical use. Example: A CEO or Director General includes \"responsible AI innovation\" in corporate goals, funds exploratory pilots, and participates in briefings to understand associated risks and opportunities.",
+        "code": """SA-02""",
+        "text": """How effectively does leadership demonstrate understanding and sponsorship of AI initiatives or readiness efforts?""",
+        "explanation": """Context: Leadership commitment is critical to safe and sustainable AI adoption. Without visible sponsorship, AI exploration can stall or proceed without proper oversight. This question assesses whether senior leaders actively champion responsible AI, allocate resources, and set expectations for ethical use. Example: A CEO or Director General includes "responsible AI innovation" in corporate goals, funds exploratory pilots, and participates in briefings to understand associated risks and opportunities.""",
         "domain_order": 1,
         "order": 2,
-        "foundational": "Leadership has limited understanding of AI; no visible support or guidance for AI-related initiatives.",
-        "developing": "Senior leaders express interest but engagement is informal or inconsistent.",
-        "established": "Leadership demonstrates clear sponsorship through communications, resource allocation, or participation in AI oversight forums.",
-        "leading": "Executives champion responsible AI organisation-wide, integrating it into strategy, KPIs, and culture with ongoing review of outcomes.",
-        "additional_guide": """Effective leadership drives responsible innovation.
+        "foundational": """Leadership has limited understanding of AI; no visible support or guidance for AI-related initiatives.""",
+        "developing": """Senior leaders express interest but engagement is informal or inconsistent.""",
+        "established": """Leadership demonstrates clear sponsorship through communications, resource allocation, or participation in AI oversight forums.""",
+        "leading": """Executives champion responsible AI organisation-wide, integrating it into strategy, KPIs, and culture with ongoing review of outcomes.""",
+        "additional_guide": """Additional Guidance - Leadership Commitment to AI
+
+Effective leadership drives responsible innovation.
 • **Educate and Engage:** Provide briefings or workshops for executives on AI's potential, ethical implications, and governance frameworks (e.g., ISO 42001, NIST AI RMF).
 • **Define Strategic Roles:** Assign a senior leader as AI sponsor accountable for readiness, ethics, and compliance.
 • **Integrate AI into Corporate Messaging:** Include responsible AI in vision statements, board reports, and stakeholder communications.
@@ -65,16 +69,18 @@ Visible, informed leadership signals that AI is a strategic priority aligned wit
 **In short:** show that leadership is not merely aware of AI but is visibly leading and resourcing its responsible use."""
     },
     {
-        "code": "SA-03",
-        "text": "How clearly are the organisation's AI goals, benefits, and success measures defined and communicated?",
-        "explanation": "Context: Clear objectives ensure AI adoption aligns with measurable outcomes and public value. Without defined goals or success criteria, AI exploration risks becoming unfocused or misaligned with organisational priorities. This question assesses whether your organisation has articulated what it aims to achieve through AI and how progress will be tracked and communicated. Example: A council defines three AI objectives—improve service responsiveness, reduce manual workloads, and enhance citizen engagement—supported by measurable performance indicators such as response time reductions or customer satisfaction improvements.",
+        "code": """SA-03""",
+        "text": """How clearly are the organisation's AI goals, benefits, and success measures defined and communicated?""",
+        "explanation": """Context: Clear objectives ensure AI adoption aligns with measurable outcomes and public value. Without defined goals or success criteria, AI exploration risks becoming unfocused or misaligned with organisational priorities. This question assesses whether your organisation has articulated what it aims to achieve through AI and how progress will be tracked and communicated. Example: A council defines three AI objectives—improve service responsiveness, reduce manual workloads, and enhance citizen engagement—supported by measurable performance indicators such as response time reductions or customer satisfaction improvements.""",
         "domain_order": 1,
         "order": 3,
-        "foundational": "AI goals are undefined or limited to ad hoc experimentation with no clear success measures.",
-        "developing": "General objectives exist but are qualitative, inconsistently communicated, or lack defined metrics.",
-        "established": "AI goals are documented, linked to business outcomes, and supported by defined performance indicators.",
-        "leading": "AI goals are organisation-wide, measurable, regularly reviewed, and transparently communicated to stakeholders.",
-        "additional_guide": """Establishing clear goals for AI readiness builds accountability and alignment.
+        "foundational": """AI goals are undefined or limited to ad hoc experimentation with no clear success measures.""",
+        "developing": """General objectives exist but are qualitative, inconsistently communicated, or lack defined metrics.""",
+        "established": """AI goals are documented, linked to business outcomes, and supported by defined performance indicators.""",
+        "leading": """AI goals are organisation-wide, measurable, regularly reviewed, and transparently communicated to stakeholders.""",
+        "additional_guide": """Additional Guidance - Defining AI Goals and Success Measures
+
+Establishing clear goals for AI readiness builds accountability and alignment.
 • **Start with Purpose:** Identify specific problems AI can solve-efficiency, customer experience, or data-driven decision-making.
 • **Link to Organisational Outcomes:** Tie AI goals to strategic KPIs or service delivery benchmarks.
 • **Define Success Metrics:** Use measurable indicators such as time saved, accuracy improvements, or stakeholder satisfaction.
@@ -95,16 +101,18 @@ Clear, measurable goals ensure AI remains purposeful, transparent, and value-dri
 **In short:** show that AI objectives are purposeful, measurable, and visible across the organisation."""
     },
     {
-        "code": "SA-04",
-        "text": "How well are AI initiatives aligned with the organisation's ethical values, community expectations, and public trust obligations?",
-        "explanation": "Context: AI adoption must reflect the organisation's ethical standards and its duty to the community it serves. Misalignment between innovation and values can undermine public confidence. This question assesses whether AI exploration considers fairness, transparency, and community impact during planning and decision-making. Example: A local council evaluating an AI-driven customer-service chatbot holds a community consultation to ensure the technology aligns with accessibility and inclusivity commitments before deployment.",
+        "code": """SA-04""",
+        "text": """How well are AI initiatives aligned with the organisation's ethical values, community expectations, and public trust obligations?""",
+        "explanation": """Context: AI adoption must reflect the organisation's ethical standards and its duty to the community it serves. Misalignment between innovation and values can undermine public confidence. This question assesses whether AI exploration considers fairness, transparency, and community impact during planning and decision-making. Example: A local council evaluating an AI-driven customer-service chatbot holds a community consultation to ensure the technology aligns with accessibility and inclusivity commitments before deployment.""",
         "domain_order": 1,
         "order": 4,
-        "foundational": "Ethical or community impacts of AI are not considered in planning or decision-making.",
-        "developing": "Ethical discussions occur informally; limited consultation or documentation exists.",
-        "established": "Ethical principles and community expectations are referenced in AI planning and procurement processes.",
-        "leading": "AI initiatives are routinely reviewed for ethical alignment, with community input and transparent reporting on outcomes.",
-        "additional_guide": """Public trust depends on visible alignment between AI use and organisational values.
+        "foundational": """Ethical or community impacts of AI are not considered in planning or decision-making.""",
+        "developing": """Ethical discussions occur informally; limited consultation or documentation exists.""",
+        "established": """Ethical principles and community expectations are referenced in AI planning and procurement processes.""",
+        "leading": """AI initiatives are routinely reviewed for ethical alignment, with community input and transparent reporting on outcomes.""",
+        "additional_guide": """Additional Guidance - Aligning AI with Organisational Values
+
+Public trust depends on visible alignment between AI use and organisational values.
 • **Define Ethical Commitments:** Translate values such as fairness, inclusivity, and accountability into AI-specific principles.
 • **Engage Stakeholders:** Consult with affected groups, employees, and the public early in AI planning.
 • **Assess Impacts:** Use simple checklists or ethics impact assessments to evaluate fairness, privacy, and social effects.
@@ -125,16 +133,18 @@ Embedding ethics ensures AI enhances-not erodes-trust, helping organisations dem
 **In short:** demonstrate that AI decisions are guided by values, informed by stakeholders, and transparent to the community."""
     },
     {
-        "code": "SA-05",
-        "text": "How effectively does the organisation communicate its AI vision, goals, and ethical commitments to staff and stakeholders?",
-        "explanation": "Context: Clear communication builds understanding and trust in AI adoption. Without consistent messaging, employees may resist change or misunderstand AI's purpose, and the public may perceive risk rather than benefit. This question evaluates whether the organisation proactively shares its AI vision, objectives, and principles across internal and external audiences. Example: A not-for-profit publishes a short \"AI in Our Organisation\" statement explaining how AI supports its mission, the safeguards in place, and how employees can raise ethical concerns or ideas.",
+        "code": """SA-05""",
+        "text": """How effectively does the organisation communicate its AI vision, goals, and ethical commitments to staff and stakeholders?""",
+        "explanation": """Context: Clear communication builds understanding and trust in AI adoption. Without consistent messaging, employees may resist change or misunderstand AI's purpose, and the public may perceive risk rather than benefit. This question evaluates whether the organisation proactively shares its AI vision, objectives, and principles across internal and external audiences. Example: A not-for-profit publishes a short "AI in Our Organisation" statement explaining how AI supports its mission, the safeguards in place, and how employees can raise ethical concerns or ideas.""",
         "domain_order": 1,
         "order": 5,
-        "foundational": "No communication about AI vision or values; staff and stakeholders are unaware of related initiatives.",
-        "developing": "Limited or informal communication occurs, mainly within specific teams or projects.",
-        "established": "AI goals and ethical principles are communicated organisation-wide through briefings, policies, or reports.",
-        "leading": "A clear AI narrative is embedded in corporate messaging, reinforced through continuous engagement, updates, and feedback channels.",
-        "additional_guide": """Transparent communication ensures AI adoption is understood, supported, and trusted.
+        "foundational": """No communication about AI vision or values; staff and stakeholders are unaware of related initiatives.""",
+        "developing": """Limited or informal communication occurs, mainly within specific teams or projects.""",
+        "established": """AI goals and ethical principles are communicated organisation-wide through briefings, policies, or reports.""",
+        "leading": """A clear AI narrative is embedded in corporate messaging, reinforced through continuous engagement, updates, and feedback channels.""",
+        "additional_guide": """Additional Guidance - Communicating the AI Vision
+
+Transparent communication ensures AI adoption is understood, supported, and trusted.
 • **Craft a Clear Narrative:** Explain why the organisation is exploring AI, expected benefits, and how it aligns with ethical values.
 • **Use Accessible Language:** Avoid technical jargon; focus on how AI improves outcomes for staff or community.
 • **Engage Early and Often:** Hold briefings, Q&A sessions, or town halls to address misconceptions and collect feedback.
@@ -155,16 +165,18 @@ Consistent, open communication builds confidence, fosters collaboration, and str
 **In short:** show that AI communication is deliberate, transparent, and builds both internal alignment and external trust."""
     },
     {
-        "code": "SA-06",
-        "text": "How well does the organisation evaluate and adapt its AI strategy in response to changing technologies, risks, and community expectations?",
-        "explanation": "Context: AI environments evolve rapidly, and strategies must remain flexible to stay effective and trustworthy. This question examines whether your organisation periodically reviews its AI approach to reflect new technologies, emerging risks, and stakeholder expectations. Continuous evaluation ensures that AI remains aligned with organisational goals, values, and evolving regulatory landscapes. Example: A council updates its AI Readiness Roadmap annually, incorporating lessons learned from pilots, new Australian AI standards, and community feedback about responsible data use.",
+        "code": """SA-06""",
+        "text": """How well does the organisation evaluate and adapt its AI strategy in response to changing technologies, risks, and community expectations?""",
+        "explanation": """Context: AI environments evolve rapidly, and strategies must remain flexible to stay effective and trustworthy. This question examines whether your organisation periodically reviews its AI approach to reflect new technologies, emerging risks, and stakeholder expectations. Continuous evaluation ensures that AI remains aligned with organisational goals, values, and evolving regulatory landscapes. Example: A council updates its AI Readiness Roadmap annually, incorporating lessons learned from pilots, new Australian AI standards, and community feedback about responsible data use.""",
         "domain_order": 1,
         "order": 6,
-        "foundational": "AI plans or strategies are static and rarely reviewed; adaptation occurs only when problems arise.",
-        "developing": "Occasional updates occur in response to external changes, but there is no formal review process.",
-        "established": "Regular AI strategy reviews are built into planning cycles, incorporating risk, technology, and stakeholder input.",
-        "leading": "Continuous improvement processes are embedded, using metrics, horizon scanning, and public feedback to refine AI strategy and governance.",
-        "additional_guide": """Sustained readiness requires active monitoring and adaptation.
+        "foundational": """AI plans or strategies are static and rarely reviewed; adaptation occurs only when problems arise.""",
+        "developing": """Occasional updates occur in response to external changes, but there is no formal review process.""",
+        "established": """Regular AI strategy reviews are built into planning cycles, incorporating risk, technology, and stakeholder input.""",
+        "leading": """Continuous improvement processes are embedded, using metrics, horizon scanning, and public feedback to refine AI strategy and governance.""",
+        "additional_guide": """Additional Guidance - Reviewing AI Strategy
+
+Sustained readiness requires active monitoring and adaptation.
 • **Set Review Intervals:** Align AI strategy reviews with annual corporate planning or audit cycles.
 • **Monitor Emerging Trends:** Track developments in regulation, technology, and ethics (e.g., AI Safety Standard, ISO 42001).
 • **Collect Feedback:** Use staff, partner, and community feedback to assess perception and impact.
@@ -186,16 +198,18 @@ Embedding regular reviews fosters agility, compliance, and trust - essential for
     },
     # Domain 2: Governance Foundations (6 questions)
     {
-        "code": "GF-01",
-        "text": "How clearly defined are the organisation's AI governance structures and leadership roles?",
-        "explanation": "Context: Clear AI governance ensures accountability, consistency, and responsible innovation. Without defined leadership and oversight, AI initiatives can become fragmented, increasing ethical and operational risks. This question assesses whether your organisation has formal structures—such as a Responsible AI Committee or Chief AI Officer—that guide how AI is developed, procured, and monitored. Example: A council establishes an AI Governance Committee chaired by the CIO, including Risk, Legal, HR, and Data Science members, responsible for reviewing project proposals and ethical considerations.",
+        "code": """GF-01""",
+        "text": """How clearly defined are the organisation's AI governance structures and leadership roles?""",
+        "explanation": """Context: Clear AI governance ensures accountability, consistency, and responsible innovation. Without defined leadership and oversight, AI initiatives can become fragmented, increasing ethical and operational risks. This question assesses whether your organisation has formal structures—such as a Responsible AI Committee or Chief AI Officer—that guide how AI is developed, procured, and monitored. Example: A council establishes an AI Governance Committee chaired by the CIO, including Risk, Legal, HR, and Data Science members, responsible for reviewing project proposals and ethical considerations.""",
         "domain_order": 2,
         "order": 1,
-        "foundational": "AI responsibilities are informal or unclear, with no defined governance body or accountability.",
-        "developing": "Partial oversight exists through specific roles, but governance remains fragmented or inconsistent.",
-        "established": "A formal AI governance framework and defined leadership roles (e.g., Chief AI Officer, Ethics Committee) are in place and active.",
-        "leading": "Enterprise-wide governance is embedded, with executive sponsorship, cross-functional representation, and periodic effectiveness reviews.",
-        "additional_guide": """AI governance defines who makes decisions, how risks are managed, and how ethical standards are upheld. To strengthen this:
+        "foundational": """AI responsibilities are informal or unclear, with no defined governance body or accountability.""",
+        "developing": """Partial oversight exists through specific roles, but governance remains fragmented or inconsistent.""",
+        "established": """A formal AI governance framework and defined leadership roles (e.g., Chief AI Officer, Ethics Committee) are in place and active.""",
+        "leading": """Enterprise-wide governance is embedded, with executive sponsorship, cross-functional representation, and periodic effectiveness reviews.""",
+        "additional_guide": """Additional Guidance - Establishing AI Governance Structures
+
+AI governance defines who makes decisions, how risks are managed, and how ethical standards are upheld. To strengthen this:
 • **Define Roles and Accountability:** Assign a senior executive (e.g., Chief AI Officer) and define oversight responsibilities across departments.
 • **Create Cross-Functional Committees:** Include Legal, Risk, Data, HR, and Communications to ensure diverse perspectives.
 • **Embed into Corporate Governance:** Integrate AI governance into risk management and digital transformation programs.
@@ -216,16 +230,18 @@ Effective AI governance builds transparency, aligns innovation with organisation
 **In short:** show a structured, cross-functional governance model with documented oversight and active executive ownership."""
     },
     {
-        "code": "GF-02",
-        "text": "To what extent are AI responsibilities and decision-making roles defined across the organisation?",
-        "explanation": "Context: Clearly delineating AI responsibilities prevents duplication, confusion, and unmanaged risk. This question examines whether departments understand their role in identifying opportunities, assessing risks, and approving AI-related actions. Example: A not-for-profit documents AI responsibilities in its ICT Policy, defining who can authorise pilot projects, who manages vendor risk assessments, and who ensures ethical compliance.",
+        "code": """GF-02""",
+        "text": """To what extent are AI responsibilities and decision-making roles defined across the organisation?""",
+        "explanation": """Context: Clearly delineating AI responsibilities prevents duplication, confusion, and unmanaged risk. This question examines whether departments understand their role in identifying opportunities, assessing risks, and approving AI-related actions. Example: A not-for-profit documents AI responsibilities in its ICT Policy, defining who can authorise pilot projects, who manages vendor risk assessments, and who ensures ethical compliance.""",
         "domain_order": 2,
         "order": 2,
-        "foundational": "No defined AI responsibilities; decisions are ad hoc or based on individual initiative.",
-        "developing": "Some AI tasks allocated informally to ICT or data teams, but accountability remains unclear.",
-        "established": "Documented responsibilities exist across relevant functions (ICT, Legal, Risk, HR).",
-        "leading": "Roles are embedded organisation-wide with clear escalation paths and accountability integrated into job descriptions.",
-        "additional_guide": """Clearly define **who is responsible, accountable, consulted, and informed** for all AI activities.
+        "foundational": """No defined AI responsibilities; decisions are ad hoc or based on individual initiative.""",
+        "developing": """Some AI tasks allocated informally to ICT or data teams, but accountability remains unclear.""",
+        "established": """Documented responsibilities exist across relevant functions (ICT, Legal, Risk, HR).""",
+        "leading": """Roles are embedded organisation-wide with clear escalation paths and accountability integrated into job descriptions.""",
+        "additional_guide": """Additional Guidance - Clarifying AI Accountabilities
+
+Clearly define **who is responsible, accountable, consulted, and informed** for all AI activities.
 • **Map Responsibilities Across Functions:** Identify data owners, model developers, risk managers, compliance officers, and executive sponsors.
 • **Use a RACI Matrix:** Formalise ownership and decision rights to reduce ambiguity.
 • **Integrate into Performance Management:** Embed AI accountabilities into role descriptions and KPIs to sustain governance beyond individuals.
@@ -242,16 +258,18 @@ Structured accountability ensures consistent oversight, promotes efficiency, and
 **In short:** demonstrate that everyone from leadership to project teams knows their role in AI decisions and oversight."""
     },
     {
-        "code": "GF-03",
-        "text": "How effectively are AI risk and ethical considerations integrated into existing governance frameworks?",
-        "explanation": "Context: Integrating AI into existing governance avoids duplication and ensures ethical oversight is consistent with corporate values. This question explores whether AI is embedded in established frameworks such as enterprise risk management, data governance, or ICT change control. Example: A council includes \"AI Risk and Ethics\" as a standing agenda item in its ICT Governance Committee to ensure all AI pilots undergo ethical review.",
+        "code": """GF-03""",
+        "text": """How effectively are AI risk and ethical considerations integrated into existing governance frameworks?""",
+        "explanation": """Context: Integrating AI into existing governance avoids duplication and ensures ethical oversight is consistent with corporate values. This question explores whether AI is embedded in established frameworks such as enterprise risk management, data governance, or ICT change control. Example: A council includes "AI Risk and Ethics" as a standing agenda item in its ICT Governance Committee to ensure all AI pilots undergo ethical review.""",
         "domain_order": 2,
         "order": 3,
-        "foundational": "No references to AI within governance frameworks.",
-        "developing": "AI occasionally discussed but not formally integrated.",
-        "established": "AI risk and ethics integrated into enterprise governance documents and processes.",
-        "leading": "AI governance fully embedded across policies, committees, and reporting cycles with continuous improvement reviews.",
-        "additional_guide": """Integrate AI into existing **corporate governance, risk, and compliance frameworks** rather than building new ones in isolation.
+        "foundational": """No references to AI within governance frameworks.""",
+        "developing": """AI occasionally discussed but not formally integrated.""",
+        "established": """AI risk and ethics integrated into enterprise governance documents and processes.""",
+        "leading": """AI governance fully embedded across policies, committees, and reporting cycles with continuous improvement reviews.""",
+        "additional_guide": """Additional Guidance - Embedding AI into Governance Systems
+
+Integrate AI into existing **corporate governance, risk, and compliance frameworks** rather than building new ones in isolation.
 • **Review Core Frameworks:** Align AI oversight within risk management, ICT governance, privacy, and data protection structures.
 • **Expand Risk Registers:** Include AI-specific categories such as bias, transparency, and model integrity.
 • **Coordinate Across Functions:** Ensure Risk, Legal, ICT, and Data Governance teams share consistent definitions and reporting mechanisms.
@@ -268,16 +286,18 @@ Embedding AI into established systems demonstrates maturity, ensures alignment, 
 **In short:** provide tangible proof that AI is managed within the same frameworks that guide other strategic risks."""
     },
     {
-        "code": "GF-04",
-        "text": "Is there a structured process for approving, monitoring, and reviewing AI projects or pilots?",
-        "explanation": "Context: Without a consistent process, AI pilots can bypass ethical or technical checks. This question evaluates whether a formal mechanism exists to assess AI initiatives before implementation and to monitor them once deployed. Example: A digital team uses a standard AI Project Intake Form that captures objectives, data sources, risks, and ethical considerations before committee approval.",
+        "code": """GF-04""",
+        "text": """Is there a structured process for approving, monitoring, and reviewing AI projects or pilots?""",
+        "explanation": """Context: Without a consistent process, AI pilots can bypass ethical or technical checks. This question evaluates whether a formal mechanism exists to assess AI initiatives before implementation and to monitor them once deployed. Example: A digital team uses a standard AI Project Intake Form that captures objectives, data sources, risks, and ethical considerations before committee approval.""",
         "domain_order": 2,
         "order": 4,
-        "foundational": "No formal review or approval process for AI initiatives.",
-        "developing": "Some ad hoc reviews; inconsistent oversight of pilots.",
-        "established": "Documented approval process with defined criteria and monitoring steps.",
-        "leading": "Fully integrated, transparent AI project lifecycle governance with periodic reviews and ethics checks.",
-        "additional_guide": """Apply structured **governance checkpoints** throughout each AI project's lifecycle.
+        "foundational": """No formal review or approval process for AI initiatives.""",
+        "developing": """Some ad hoc reviews; inconsistent oversight of pilots.""",
+        "established": """Documented approval process with defined criteria and monitoring steps.""",
+        "leading": """Fully integrated, transparent AI project lifecycle governance with periodic reviews and ethics checks.""",
+        "additional_guide": """Additional Guidance - Managing the AI Project Lifecycle
+
+Apply structured **governance checkpoints** throughout each AI project's lifecycle.
 • **Implement an AI Project Intake Process:** Capture purpose, stakeholders, data usage, and risk ratings before development.
 • **Require Approvals:** Ensure appropriate sign-off before deployment and mandate post-implementation reviews.
 • **Use Central Registers:** Maintain an AI project register recording owners, risks, and performance outcomes.
@@ -294,16 +314,18 @@ Lifecycle oversight ensures traceability, minimises shadow AI activities, and pr
 **In short:** Demonstrate that AI initiatives follow an approved path from concept to review with clear accountability."""
     },
     {
-        "code": "GF-05",
-        "text": "How proactively does the organisation monitor emerging AI regulations, standards, and best practices?",
-        "explanation": "Context: AI regulations and standards are evolving rapidly. This question assesses how your organisation keeps informed of new legal, ethical, and technical requirements relevant to AI governance. Example: The compliance team subscribes to government AI updates and industry newsletters to brief executives on policy changes each quarter.",
+        "code": """GF-05""",
+        "text": """How proactively does the organisation monitor emerging AI regulations, standards, and best practices?""",
+        "explanation": """Context: AI regulations and standards are evolving rapidly. This question assesses how your organisation keeps informed of new legal, ethical, and technical requirements relevant to AI governance. Example: The compliance team subscribes to government AI updates and industry newsletters to brief executives on policy changes each quarter.""",
         "domain_order": 2,
         "order": 5,
-        "foundational": "No formal process for tracking AI regulatory developments.",
-        "developing": "Occasional awareness through informal channels or industry events.",
-        "established": "Designated person or team monitors AI standards and updates policies as needed.",
-        "leading": "Structured process with regular briefings, trend analysis, and policy alignment reviews.",
-        "additional_guide": """Maintain an **active awareness of evolving AI standards, regulations, and guidance** to keep governance relevant.
+        "foundational": """No formal process for tracking AI regulatory developments.""",
+        "developing": """Occasional awareness through informal channels or industry events.""",
+        "established": """Designated person or team monitors AI standards and updates policies as needed.""",
+        "leading": """Structured process with regular briefings, trend analysis, and policy alignment reviews.""",
+        "additional_guide": """Additional Guidance - Staying Current with AI Governance Trends
+
+Maintain an **active awareness of evolving AI standards, regulations, and guidance** to keep governance relevant.
 • **Assign a Compliance Lead:** Nominate an individual or team to monitor updates from ACSC, NIST, ISO, OECD, and national regulators.
 • **Schedule Periodic Reviews:** Assess how emerging obligations affect organisational policies and controls.
 • **Engage Externally:** Participate in professional networks, working groups, and public consultations.
@@ -320,16 +342,18 @@ Staying informed demonstrates due diligence and helps position the organisation 
 **In short:** Provide proof of continuous monitoring and integration of emerging AI requirements into corporate governance."""
     },
     {
-        "code": "GF-06",
-        "text": "Are AI governance responsibilities embedded within staff roles and performance expectations?",
-        "explanation": "Context: Embedding AI accountability into roles ensures responsibility is sustained beyond individual interest. This question evaluates whether AI-related responsibilities are incorporated into job descriptions or performance plans. Example: A digital manager's KPI includes \"ensure ethical review for all AI pilots\" to promote consistent practice.",
+        "code": """GF-06""",
+        "text": """Are AI governance responsibilities embedded within staff roles and performance expectations?""",
+        "explanation": """Context: Embedding AI accountability into roles ensures responsibility is sustained beyond individual interest. This question evaluates whether AI-related responsibilities are incorporated into job descriptions or performance plans. Example: A digital manager's KPI includes "ensure ethical review for all AI pilots" to promote consistent practice.""",
         "domain_order": 2,
         "order": 6,
-        "foundational": "No AI governance responsibilities defined in roles or performance plans.",
-        "developing": "Informal expectations exist but are not documented or evaluated.",
-        "established": "Specific AI responsibilities are embedded in relevant positions and KPIs.",
-        "leading": "AI accountability is integrated organisation-wide with periodic role reviews and leadership reporting.",
-        "additional_guide": """Embed AI accountability **into the fabric of organisational roles and culture**.
+        "foundational": """No AI governance responsibilities defined in roles or performance plans.""",
+        "developing": """Informal expectations exist but are not documented or evaluated.""",
+        "established": """Specific AI responsibilities are embedded in relevant positions and KPIs.""",
+        "leading": """AI accountability is integrated organisation-wide with periodic role reviews and leadership reporting.""",
+        "additional_guide": """Additional Guidance - Institutionalising AI Accountability
+
+Embed AI accountability **into the fabric of organisational roles and culture**.
 • **Integrate into Job Frameworks:** Define AI-related responsibilities for ICT, data, procurement, and ethics roles.
 • **Align with Performance Systems:** Include measurable objectives related to ethical AI use, risk management, and compliance.
 • **Conduct Annual Reviews:** Re-evaluate responsibilities as technology, capabilities, and regulation evolve.
@@ -347,16 +371,18 @@ Institutionalising accountability ensures continuity, clarity, and long-term com
     },
     # Domain 3: Data Readiness (6 questions)
     {
-        "code": "DR-01",
-        "text": "How effectively does the organisation manage the quality, accuracy, and reliability of data used for decision-making or future AI initiatives?",
-        "explanation": "Context: High-quality data is the foundation of any responsible AI capability. Poor data quality—such as duplication, inconsistency, or outdated records—can undermine analytics and lead to biased or incorrect outcomes when AI is introduced. This question assesses whether your organisation has processes to validate, clean, and maintain data used in reporting, automation, or exploratory AI projects. Example: A council introduces quarterly data-quality checks across its customer and asset systems to ensure that datasets feeding future AI tools remain complete, accurate, and up-to-date.",
+        "code": """DR-01""",
+        "text": """How effectively does the organisation manage the quality, accuracy, and reliability of data used for decision-making or future AI initiatives?""",
+        "explanation": """Context: High-quality data is the foundation of any responsible AI capability. Poor data quality—such as duplication, inconsistency, or outdated records—can undermine analytics and lead to biased or incorrect outcomes when AI is introduced. This question assesses whether your organisation has processes to validate, clean, and maintain data used in reporting, automation, or exploratory AI projects. Example: A council introduces quarterly data-quality checks across its customer and asset systems to ensure that datasets feeding future AI tools remain complete, accurate, and up-to-date.""",
         "domain_order": 3,
         "order": 1,
-        "foundational": "Data quality is unmanaged; errors or inconsistencies are common and addressed only when discovered.",
-        "developing": "Some cleansing or validation occurs within individual teams, but there are no shared standards or monitoring.",
-        "established": "Documented data-quality procedures exist, supported by defined ownership, validation tools, and routine reporting.",
-        "leading": "Data-quality management is enterprise-wide, automated where possible, and continuously improved through governance oversight and performance metrics.",
-        "additional_guide": """AI success depends on reliable, trusted data.
+        "foundational": """Data quality is unmanaged; errors or inconsistencies are common and addressed only when discovered.""",
+        "developing": """Some cleansing or validation occurs within individual teams, but there are no shared standards or monitoring.""",
+        "established": """Documented data-quality procedures exist, supported by defined ownership, validation tools, and routine reporting.""",
+        "leading": """Data-quality management is enterprise-wide, automated where possible, and continuously improved through governance oversight and performance metrics.""",
+        "additional_guide": """Additional Guidance - Managing Data Quality
+
+AI success depends on reliable, trusted data.
 • **Define Standards:** Establish clear quality dimensions-accuracy, completeness, timeliness, and consistency-aligned with ISO 8000 or similar guidance.
 • **Assign Ownership:** Nominate data stewards or custodians responsible for quality within each domain.
 • **Automate Checks:** Use validation rules, dashboards, or ETL tools to detect anomalies early.
@@ -377,16 +403,18 @@ Strong data-quality practices reduce operational risk, improve decision confiden
 **In short:** provide artefacts that prove data is treated as a governed, measurable asset fit for trustworthy AI."""
     },
     {
-        "code": "DR-02",
-        "text": "How clearly are data ownership, stewardship, and access responsibilities defined across the organisation?",
-        "explanation": "Context: Clarity around who owns, manages, and can access data ensures accountability and supports readiness for AI. When ownership is undefined, data may become duplicated, misused, or inaccessible to those who need it. This question examines whether roles and responsibilities for data stewardship are formally assigned, ensuring that data handling aligns with governance, privacy, and security standards. Example: A council's Data Governance Policy identifies business owners for each core dataset (rates, assets, HR), supported by nominated data stewards responsible for access control and data integrity.",
+        "code": """DR-02""",
+        "text": """How clearly are data ownership, stewardship, and access responsibilities defined across the organisation?""",
+        "explanation": """Context: Clarity around who owns, manages, and can access data ensures accountability and supports readiness for AI. When ownership is undefined, data may become duplicated, misused, or inaccessible to those who need it. This question examines whether roles and responsibilities for data stewardship are formally assigned, ensuring that data handling aligns with governance, privacy, and security standards. Example: A council's Data Governance Policy identifies business owners for each core dataset (rates, assets, HR), supported by nominated data stewards responsible for access control and data integrity.""",
         "domain_order": 3,
         "order": 2,
-        "foundational": "Data ownership and access rights are informal or undefined; responsibilities vary between teams.",
-        "developing": "Some data custodians or system owners are known, but roles are not formally documented or consistently applied.",
-        "established": "Data ownership, stewardship, and access responsibilities are defined, documented, and communicated organisation-wide.",
-        "leading": "Enterprise data-governance model embedded with clear accountability, cross-functional coordination, and periodic stewardship reviews.",
-        "additional_guide": """Accountability is central to responsible data management and AI readiness.
+        "foundational": """Data ownership and access rights are informal or undefined; responsibilities vary between teams.""",
+        "developing": """Some data custodians or system owners are known, but roles are not formally documented or consistently applied.""",
+        "established": """Data ownership, stewardship, and access responsibilities are defined, documented, and communicated organisation-wide.""",
+        "leading": """Enterprise data-governance model embedded with clear accountability, cross-functional coordination, and periodic stewardship reviews.""",
+        "additional_guide": """Additional Guidance - Defining Data Ownership and Stewardship
+
+Accountability is central to responsible data management and AI readiness.
 • **Assign Clear Roles:** Identify _data owners_ (decision-makers) and _stewards_ (operational custodians) for each major dataset.
 • **Document Responsibilities:** Include ownership and access criteria in policies, system registers, or Terms of Reference.
 • **Standardise Access Controls:** Implement role-based permissions and review them regularly.
@@ -407,16 +435,18 @@ Defining and maintaining stewardship ensures data accountability, traceability, 
 **In short:** show that every critical dataset has a named owner, defined access criteria, and governance oversight to ensure consistency and accountability."""
     },
     {
-        "code": "DR-03",
-        "text": "How effectively does the organisation manage data privacy, protection, and ethical use to support trustworthy AI readiness?",
-        "explanation": "Context: Strong privacy and data-protection practices are essential foundations for responsible AI. Without clear controls, data may be collected or shared in ways that breach legislation or erode public trust. This question assesses whether privacy, consent, and ethical-use principles are embedded in policies, systems, and staff practices, ensuring data used for AI is handled lawfully and transparently. Example: A not-for-profit conducts a privacy impact assessment before using client data in a predictive-analytics pilot, ensuring compliance with the Privacy Act 1988 (Cth) and organisational ethics guidelines.",
+        "code": """DR-03""",
+        "text": """How effectively does the organisation manage data privacy, protection, and ethical use to support trustworthy AI readiness?""",
+        "explanation": """Context: Strong privacy and data-protection practices are essential foundations for responsible AI. Without clear controls, data may be collected or shared in ways that breach legislation or erode public trust. This question assesses whether privacy, consent, and ethical-use principles are embedded in policies, systems, and staff practices, ensuring data used for AI is handled lawfully and transparently. Example: A not-for-profit conducts a privacy impact assessment before using client data in a predictive-analytics pilot, ensuring compliance with the Privacy Act 1988 (Cth) and organisational ethics guidelines.""",
         "domain_order": 3,
         "order": 3,
-        "foundational": "Privacy and data-protection practices are informal, reactive, or not consistently applied across systems.",
-        "developing": "Basic privacy controls exist (e.g., consent forms, limited access), but coverage and enforcement are inconsistent.",
-        "established": "Formal privacy and ethical-use policies are implemented, supported by training, privacy impact assessments, and breach-response procedures.",
-        "leading": "Data-protection and ethical-use practices are embedded organisation-wide, proactively monitored, and regularly reviewed against evolving standards and legislation.",
-        "additional_guide": """Responsible AI begins with lawful, transparent, and fair data handling.
+        "foundational": """Privacy and data-protection practices are informal, reactive, or not consistently applied across systems.""",
+        "developing": """Basic privacy controls exist (e.g., consent forms, limited access), but coverage and enforcement are inconsistent.""",
+        "established": """Formal privacy and ethical-use policies are implemented, supported by training, privacy impact assessments, and breach-response procedures.""",
+        "leading": """Data-protection and ethical-use practices are embedded organisation-wide, proactively monitored, and regularly reviewed against evolving standards and legislation.""",
+        "additional_guide": """Additional Guidance - Upholding Privacy and Ethical Data Use
+
+Responsible AI begins with lawful, transparent, and fair data handling.
 • **Understand Legal Obligations:** Comply with the Privacy Act 1988 (Cth), Australian Privacy Principles, and sector-specific requirements.
 • **Implement Privacy by Design:** Integrate consent, minimisation, and security controls into data-collection and processing systems.
 • **Conduct Impact Assessments:** Perform Privacy Impact Assessments (PIAs) or Ethical Impact Reviews for new data-driven initiatives.
@@ -437,16 +467,18 @@ Embedding privacy and ethics into data management builds trust and readiness for
 **In short:** demonstrate that privacy, security, and ethical-data principles are not optional-they are embedded, measurable, and actively managed across the organisation."""
     },
     {
-        "code": "DR-04",
-        "text": "How consistently are data classification, storage, and retention practices applied across the organisation?",
-        "explanation": "Context: Consistent data management practices protect confidentiality, integrity, and availability — all prerequisites for responsible AI. When classification or retention rules vary across departments, sensitive data may be over-exposed, under-protected, or retained longer than necessary. This question assesses whether the organisation uses structured approaches to classify, store, and securely dispose of data in line with legal, security, and ethical obligations. Example: A council classifies all datasets according to sensitivity (e.g., Public, Internal, Confidential) under its Information Security Policy and applies standardised retention schedules aligned with the Queensland State Archives requirements.",
+        "code": """DR-04""",
+        "text": """How consistently are data classification, storage, and retention practices applied across the organisation?""",
+        "explanation": """Context: Consistent data management practices protect confidentiality, integrity, and availability — all prerequisites for responsible AI. When classification or retention rules vary across departments, sensitive data may be over-exposed, under-protected, or retained longer than necessary. This question assesses whether the organisation uses structured approaches to classify, store, and securely dispose of data in line with legal, security, and ethical obligations. Example: A council classifies all datasets according to sensitivity (e.g., Public, Internal, Confidential) under its Information Security Policy and applies standardised retention schedules aligned with the Queensland State Archives requirements.""",
         "domain_order": 3,
         "order": 4,
-        "foundational": "No consistent classification or retention practices; storage and deletion are ad hoc.",
-        "developing": "Some teams apply classification or retention rules, but implementation is inconsistent or manual.",
-        "established": "Organisation-wide classification, storage, and retention standards exist and are enforced through policies or systems.",
-        "leading": "Automated classification and retention processes are embedded, monitored, and periodically reviewed for compliance and efficiency.",
-        "additional_guide": """Structured data-management controls ensure compliance and readiness for AI.
+        "foundational": """No consistent classification or retention practices; storage and deletion are ad hoc.""",
+        "developing": """Some teams apply classification or retention rules, but implementation is inconsistent or manual.""",
+        "established": """Organisation-wide classification, storage, and retention standards exist and are enforced through policies or systems.""",
+        "leading": """Automated classification and retention processes are embedded, monitored, and periodically reviewed for compliance and efficiency.""",
+        "additional_guide": """Additional Guidance - Implementing Data Management Controls
+
+Structured data-management controls ensure compliance and readiness for AI.
 • **Establish Classification Standards:** Define categories based on sensitivity, regulatory impact, and business need (e.g., Public, Internal, Restricted).
 • **Implement Retention Schedules:** Align with legal or records-management obligations to ensure data is not kept longer than necessary.
 • **Secure Storage:** Apply encryption, access controls, and backup standards proportionate to data sensitivity.
@@ -467,16 +499,18 @@ Consistent data-handling practices strengthen governance and reduce risk exposur
 **In short:** show that information is classified, stored, and retained according to defined standards-protecting sensitive data and supporting trustworthy AI operations."""
     },
     {
-        "code": "DR-05",
-        "text": "How well does the organisation ensure data is accessible, interoperable, and usable for current and future AI initiatives?",
-        "explanation": "Context: Accessible and well-structured data enables effective analytics and lays the groundwork for future AI capability. When systems are siloed or data is stored in incompatible formats, valuable insights are lost and efficiency declines. This question assesses whether the organisation has mechanisms to ensure data can be shared, integrated, and used responsibly across departments and platforms. Example: A council implements a centralised data platform that consolidates key datasets from HR, finance, and operations, ensuring consistent formats and access controls that support both analytics and AI-readiness activities.",
+        "code": """DR-05""",
+        "text": """How well does the organisation ensure data is accessible, interoperable, and usable for current and future AI initiatives?""",
+        "explanation": """Context: Accessible and well-structured data enables effective analytics and lays the groundwork for future AI capability. When systems are siloed or data is stored in incompatible formats, valuable insights are lost and efficiency declines. This question assesses whether the organisation has mechanisms to ensure data can be shared, integrated, and used responsibly across departments and platforms. Example: A council implements a centralised data platform that consolidates key datasets from HR, finance, and operations, ensuring consistent formats and access controls that support both analytics and AI-readiness activities.""",
         "domain_order": 3,
         "order": 5,
-        "foundational": "Data is fragmented across systems with limited sharing or standardisation.",
-        "developing": "Some data-sharing or integration occurs, but processes are manual and inconsistent.",
-        "established": "Data is structured and interoperable through shared platforms, APIs, or standards supporting analytics and AI.",
-        "leading": "Enterprise data architecture enables secure, automated sharing and integration, with governance ensuring ongoing accessibility, quality, and compliance.",
-        "additional_guide": """Interoperable, well-managed data is the cornerstone of scalable AI systems.
+        "foundational": """Data is fragmented across systems with limited sharing or standardisation.""",
+        "developing": """Some data-sharing or integration occurs, but processes are manual and inconsistent.""",
+        "established": """Data is structured and interoperable through shared platforms, APIs, or standards supporting analytics and AI.""",
+        "leading": """Enterprise data architecture enables secure, automated sharing and integration, with governance ensuring ongoing accessibility, quality, and compliance.""",
+        "additional_guide": """Additional Guidance - Enabling Data Accessibility and Sharing
+
+Interoperable, well-managed data is the cornerstone of scalable AI systems.
 • **Adopt Common Standards:** Use consistent formats, metadata, and taxonomies across systems to simplify sharing.
 • **Break Down Silos:** Develop shared data repositories or data lakes with appropriate governance.
 • **Enable Secure Access:** Implement role-based permissions and encryption to balance usability with protection.
@@ -497,16 +531,18 @@ When data flows securely and consistently across systems, organisations can buil
 **In short:** demonstrate that the organisation can securely and efficiently access and combine data to enable analytics and AI initiatives."""
     },
     {
-        "code": "DR-06",
-        "text": "How consistently does the organisation monitor, review, and improve data governance practices to maintain AI readiness?",
-        "explanation": "Context: Strong data governance is not static — it requires ongoing oversight and refinement. Without regular review, even well-designed policies can become outdated or misaligned with new technologies, regulations, or business needs. This question evaluates whether your organisation has mechanisms to assess the effectiveness of its data governance framework, ensuring continuous improvement and sustained readiness for AI. Example: A council's Data Governance Committee meets quarterly to review data incidents, quality metrics, and compliance reports, updating its governance framework and procedures annually to align with changing digital and regulatory landscapes.",
+        "code": """DR-06""",
+        "text": """How consistently does the organisation monitor, review, and improve data governance practices to maintain AI readiness?""",
+        "explanation": """Context: Strong data governance is not static — it requires ongoing oversight and refinement. Without regular review, even well-designed policies can become outdated or misaligned with new technologies, regulations, or business needs. This question evaluates whether your organisation has mechanisms to assess the effectiveness of its data governance framework, ensuring continuous improvement and sustained readiness for AI. Example: A council's Data Governance Committee meets quarterly to review data incidents, quality metrics, and compliance reports, updating its governance framework and procedures annually to align with changing digital and regulatory landscapes.""",
         "domain_order": 3,
         "order": 6,
-        "foundational": "Data governance practices are static or informal, with no regular monitoring or review.",
-        "developing": "Some ad hoc reviews occur, but improvement actions are inconsistent or undocumented.",
-        "established": "Formal data governance reviews are conducted periodically with clear performance measures and improvement plans.",
-        "leading": "Continuous improvement is embedded, using metrics, feedback, and audits to evolve governance in line with organisational goals and emerging AI needs.",
-        "additional_guide": """Ongoing governance review ensures readiness evolves alongside technology and regulation.
+        "foundational": """Data governance practices are static or informal, with no regular monitoring or review.""",
+        "developing": """Some ad hoc reviews occur, but improvement actions are inconsistent or undocumented.""",
+        "established": """Formal data governance reviews are conducted periodically with clear performance measures and improvement plans.""",
+        "leading": """Continuous improvement is embedded, using metrics, feedback, and audits to evolve governance in line with organisational goals and emerging AI needs.""",
+        "additional_guide": """Additional Guidance - Reviewing Data Governance Practices
+
+Ongoing governance review ensures readiness evolves alongside technology and regulation.
 • **Establish Review Cycles:** Conduct scheduled evaluations of data governance frameworks, ideally quarterly or biannually.
 • **Measure Performance:** Use KPIs such as data-quality scores, incident rates, and compliance audit results.
 • **Engage Stakeholders:** Involve data owners, ICT, legal, and business leaders in review sessions.
@@ -528,16 +564,18 @@ Continuous oversight builds confidence, ensures compliance, and maintains the da
     },
     # Domain 4: Technology & Infrastructure (6 questions)
     {
-        "code": "TI-01",
-        "text": "How capable and secure is the organisation's current technology environment in supporting data-driven or AI-related initiatives?",
-        "explanation": "Context: A secure and capable technology foundation is critical for AI readiness. If systems are outdated, fragmented, or insecure, they can limit innovation and expose the organisation to cyber risk. This question assesses whether the organisation's IT environment—including servers, networks, and applications—is reliable, scalable, and protected enough to host data analytics or AI tools safely and effectively. Example: A council modernises its infrastructure by migrating to a managed cloud platform with multi-factor authentication, encryption, and regular patching to enable future AI workloads securely.",
+        "code": """TI-01""",
+        "text": """How capable and secure is the organisation's current technology environment in supporting data-driven or AI-related initiatives?""",
+        "explanation": """Context: A secure and capable technology foundation is critical for AI readiness. If systems are outdated, fragmented, or insecure, they can limit innovation and expose the organisation to cyber risk. This question assesses whether the organisation's IT environment—including servers, networks, and applications—is reliable, scalable, and protected enough to host data analytics or AI tools safely and effectively. Example: A council modernises its infrastructure by migrating to a managed cloud platform with multi-factor authentication, encryption, and regular patching to enable future AI workloads securely.""",
         "domain_order": 4,
         "order": 1,
-        "foundational": "Legacy or unsupported systems with minimal security; infrastructure cannot support data analytics or AI workloads.",
-        "developing": "Some systems upgraded or secured, but integration gaps and inconsistent patching remain.",
-        "established": "Modern, stable, and secure infrastructure with standardised platforms and defined maintenance schedules.",
-        "leading": "Highly resilient, scalable, and secure environment aligned to cloud-first and zero-trust principles, supporting AI experimentation confidently.",
-        "additional_guide": """AI readiness depends on a robust, well-managed IT backbone.
+        "foundational": """Legacy or unsupported systems with minimal security; infrastructure cannot support data analytics or AI workloads.""",
+        "developing": """Some systems upgraded or secured, but integration gaps and inconsistent patching remain.""",
+        "established": """Modern, stable, and secure infrastructure with standardised platforms and defined maintenance schedules.""",
+        "leading": """Highly resilient, scalable, and secure environment aligned to cloud-first and zero-trust principles, supporting AI experimentation confidently.""",
+        "additional_guide": """Additional Guidance - Modernising IT Infrastructure
+
+AI readiness depends on a robust, well-managed IT backbone.
 • **Assess Current State:** Conduct regular infrastructure and security posture reviews to identify gaps affecting data or AI workloads.
 • **Prioritise Modernisation:** Replace or virtualise legacy systems; adopt cloud or hybrid solutions for flexibility.
 • **Implement Security by Design:** Enforce strong authentication, encryption, and vulnerability management.
@@ -558,16 +596,18 @@ Modern, secure infrastructure is the cornerstone of safe, efficient AI adoption,
 **In short:** show that the environment is modern, secure, and capable of supporting data-driven innovation and future AI workloads."""
     },
     {
-        "code": "TI-02",
-        "text": "How effectively are technology systems integrated to support data sharing, interoperability, and future AI capabilities?",
-        "explanation": "Context: System integration is essential for leveraging data across business units and enabling future AI applications. When systems operate in silos, opportunities for automation, analytics, and cross-functional insight are lost. This question assesses whether your organisation's technology environment supports secure and efficient data exchange between platforms, reducing duplication and improving readiness for AI-enabled processes. Example: A council connects its asset, finance, and customer systems through secure APIs, allowing consistent data exchange and analytics without compromising privacy or control.",
+        "code": """TI-02""",
+        "text": """How effectively are technology systems integrated to support data sharing, interoperability, and future AI capabilities?""",
+        "explanation": """Context: System integration is essential for leveraging data across business units and enabling future AI applications. When systems operate in silos, opportunities for automation, analytics, and cross-functional insight are lost. This question assesses whether your organisation's technology environment supports secure and efficient data exchange between platforms, reducing duplication and improving readiness for AI-enabled processes. Example: A council connects its asset, finance, and customer systems through secure APIs, allowing consistent data exchange and analytics without compromising privacy or control.""",
         "domain_order": 4,
         "order": 2,
-        "foundational": "Systems are disconnected or incompatible, limiting data exchange and shared reporting.",
-        "developing": "Some integration achieved via manual uploads or point-to-point links, but data flow is inconsistent or insecure.",
-        "established": "Key systems integrated using APIs or middleware, with governance ensuring data accuracy and security.",
-        "leading": "Enterprise integration architecture established, enabling real-time, secure interoperability and automated data flows supporting analytics and AI.",
-        "additional_guide": """Integrated systems form the backbone of scalable AI capability.
+        "foundational": """Systems are disconnected or incompatible, limiting data exchange and shared reporting.""",
+        "developing": """Some integration achieved via manual uploads or point-to-point links, but data flow is inconsistent or insecure.""",
+        "established": """Key systems integrated using APIs or middleware, with governance ensuring data accuracy and security.""",
+        "leading": """Enterprise integration architecture established, enabling real-time, secure interoperability and automated data flows supporting analytics and AI.""",
+        "additional_guide": """Additional Guidance - Integrating Technology Systems
+
+Integrated systems form the backbone of scalable AI capability.
 • **Map Core Systems:** Identify critical data sources and dependencies across departments.
 • **Adopt Standard Interfaces:** Use APIs, data pipelines, or middleware to facilitate real-time data exchange.
 • **Implement Governance Controls:** Ensure consistent data standards, encryption, and audit logging.
@@ -588,16 +628,18 @@ Secure, well-integrated systems streamline decision-making, improve data reliabi
 **In short:** demonstrate that technology systems are securely integrated and technically equipped to support cross-functional data use and AI adoption."""
     },
     {
-        "code": "TI-03",
-        "text": "How effectively does the organisation manage cybersecurity controls to protect systems, data, and AI-related activities?",
-        "explanation": "Context: Cybersecurity is foundational to trustworthy AI. Without robust protection, systems and datasets can be compromised, resulting in data loss, manipulation, or reputational damage. This question evaluates whether security measures—such as authentication, network segmentation, vulnerability management, and incident response—are consistently applied to safeguard both existing IT assets and any future AI workloads. Example: A regional council applies the ASD Essential Eight controls, enabling multi-factor authentication, monthly patching, and privileged-access reviews to protect its analytics and AI environments from compromise.",
+        "code": """TI-03""",
+        "text": """How effectively does the organisation manage cybersecurity controls to protect systems, data, and AI-related activities?""",
+        "explanation": """Context: Cybersecurity is foundational to trustworthy AI. Without robust protection, systems and datasets can be compromised, resulting in data loss, manipulation, or reputational damage. This question evaluates whether security measures—such as authentication, network segmentation, vulnerability management, and incident response—are consistently applied to safeguard both existing IT assets and any future AI workloads. Example: A regional council applies the ASD Essential Eight controls, enabling multi-factor authentication, monthly patching, and privileged-access reviews to protect its analytics and AI environments from compromise.""",
         "domain_order": 4,
         "order": 3,
-        "foundational": "Minimal cybersecurity controls; patching and access management are inconsistent, exposing systems to high risk.",
-        "developing": "Basic controls (e.g., antivirus, firewalls) exist but lack coordination or monitoring.",
-        "established": "Comprehensive cybersecurity framework in place, aligned with the ISM or Essential Eight, including defined incident-response processes.",
-        "leading": "Cybersecurity is proactive and adaptive, leveraging threat intelligence, continuous monitoring, and alignment with recognised frameworks (e.g., ISO 27001, NIST CSF).",
-        "additional_guide": """AI relies on secure data and resilient infrastructure.
+        "foundational": """Minimal cybersecurity controls; patching and access management are inconsistent, exposing systems to high risk.""",
+        "developing": """Basic controls (e.g., antivirus, firewalls) exist but lack coordination or monitoring.""",
+        "established": """Comprehensive cybersecurity framework in place, aligned with the ISM or Essential Eight, including defined incident-response processes.""",
+        "leading": """Cybersecurity is proactive and adaptive, leveraging threat intelligence, continuous monitoring, and alignment with recognised frameworks (e.g., ISO 27001, NIST CSF).""",
+        "additional_guide": """Additional Guidance - Strengthening Cybersecurity
+
+AI relies on secure data and resilient infrastructure.
 • **Align to Standards:** Follow the Australian ISM, Essential Eight, or ISO 27001 for baseline control coverage.
 • **Strengthen Access Controls:** Enforce least-privilege principles, MFA, and regular access reviews.
 • **Maintain Visibility:** Use SIEM tools, vulnerability scans, and endpoint detection for continuous assurance.
@@ -618,16 +660,18 @@ Strong cybersecurity governance not only protects current systems but builds the
 **In short:** show that security controls are documented, actively monitored, and aligned to national standards-creating a trustworthy foundation for AI innovation."""
     },
     {
-        "code": "TI-04",
-        "text": "How resilient are the organisation's systems and infrastructure in maintaining continuity during incidents or disruptions affecting AI-related operations?",
-        "explanation": "Context: Resilience ensures that critical systems—and future AI capabilities—remain available and recoverable during outages, cyber incidents, or disasters. Without continuity planning, even minor disruptions can halt essential services or corrupt valuable data. This question assesses whether the organisation's IT environment and recovery processes are designed to withstand and quickly recover from disruptions. Example: A council's ICT Continuity Plan includes tested backup and recovery procedures for analytics and AI platforms, ensuring that essential models and datasets can be restored within acceptable timeframes.",
+        "code": """TI-04""",
+        "text": """How resilient are the organisation's systems and infrastructure in maintaining continuity during incidents or disruptions affecting AI-related operations?""",
+        "explanation": """Context: Resilience ensures that critical systems—and future AI capabilities—remain available and recoverable during outages, cyber incidents, or disasters. Without continuity planning, even minor disruptions can halt essential services or corrupt valuable data. This question assesses whether the organisation's IT environment and recovery processes are designed to withstand and quickly recover from disruptions. Example: A council's ICT Continuity Plan includes tested backup and recovery procedures for analytics and AI platforms, ensuring that essential models and datasets can be restored within acceptable timeframes.""",
         "domain_order": 4,
         "order": 4,
-        "foundational": "No formal business-continuity or disaster-recovery plans; resilience depends on individual system backups.",
-        "developing": "Some backup and recovery processes exist but are inconsistent or untested.",
-        "established": "Documented continuity and recovery plans are in place, tested periodically, and include AI or data-analytics environments.",
-        "leading": "Organisation-wide resilience strategy implemented, integrating redundancy, real-time replication, and continuous testing aligned to risk and AI criticality.",
-        "additional_guide": """Resilience planning preserves operational trust during crises.
+        "foundational": """No formal business-continuity or disaster-recovery plans; resilience depends on individual system backups.""",
+        "developing": """Some backup and recovery processes exist but are inconsistent or untested.""",
+        "established": """Documented continuity and recovery plans are in place, tested periodically, and include AI or data-analytics environments.""",
+        "leading": """Organisation-wide resilience strategy implemented, integrating redundancy, real-time replication, and continuous testing aligned to risk and AI criticality.""",
+        "additional_guide": """Additional Guidance - Building Resilience and Continuity
+
+Resilience planning preserves operational trust during crises.
 • **Define Critical Assets:** Identify systems, datasets, and models essential to service delivery or decision-making.
 • **Implement Redundancy:** Use high-availability infrastructure, replication, and automated failover where feasible.
 • **Back Up Intelligently:** Schedule regular, encrypted backups stored securely off-site or in separate cloud zones.
@@ -648,16 +692,18 @@ Effective resilience ensures that technology disruptions do not compromise relia
 **In short:** show that recovery capabilities are documented, tested, and resilient enough to maintain trust and functionality in AI-enabled operations."""
     },
     {
-        "code": "TI-05",
-        "text": "How effectively does the organisation manage technology lifecycle planning to ensure systems remain current, secure, and ready for AI adoption?",
-        "explanation": "Context: Lifecycle management ensures technology remains reliable, supported, and capable of handling new workloads such as AI or advanced analytics. Outdated or unsupported systems can introduce security vulnerabilities, integration issues, and data-quality risks. This question assesses whether your organisation has structured processes for technology procurement, maintenance, and replacement to maintain operational efficiency and future readiness. Example: A council maintains a rolling three-year Technology Refresh Plan aligned with its Digital Strategy, retiring legacy systems annually and prioritising investments that enable automation and data-driven decision-making.",
+        "code": """TI-05""",
+        "text": """How effectively does the organisation manage technology lifecycle planning to ensure systems remain current, secure, and ready for AI adoption?""",
+        "explanation": """Context: Lifecycle management ensures technology remains reliable, supported, and capable of handling new workloads such as AI or advanced analytics. Outdated or unsupported systems can introduce security vulnerabilities, integration issues, and data-quality risks. This question assesses whether your organisation has structured processes for technology procurement, maintenance, and replacement to maintain operational efficiency and future readiness. Example: A council maintains a rolling three-year Technology Refresh Plan aligned with its Digital Strategy, retiring legacy systems annually and prioritising investments that enable automation and data-driven decision-making.""",
         "domain_order": 4,
         "order": 5,
-        "foundational": "No formal technology-lifecycle planning; upgrades occur reactively when systems fail.",
-        "developing": "Some systems are reviewed or replaced periodically, but planning is inconsistent or informal.",
-        "established": "Documented lifecycle and procurement plans exist, linking system refresh, maintenance, and support schedules to business needs.",
-        "leading": "Enterprise lifecycle management embedded, integrating asset planning, vendor governance, and technology-roadmap alignment with AI and innovation strategies.",
-        "additional_guide": """Lifecycle planning ensures sustainability and security.
+        "foundational": """No formal technology-lifecycle planning; upgrades occur reactively when systems fail.""",
+        "developing": """Some systems are reviewed or replaced periodically, but planning is inconsistent or informal.""",
+        "established": """Documented lifecycle and procurement plans exist, linking system refresh, maintenance, and support schedules to business needs.""",
+        "leading": """Enterprise lifecycle management embedded, integrating asset planning, vendor governance, and technology-roadmap alignment with AI and innovation strategies.""",
+        "additional_guide": """Additional Guidance - Planning Technology Lifecycle
+
+Lifecycle planning ensures sustainability and security.
 • **Create a Technology Roadmap:** Map major systems with planned refresh or end-of-support dates.
 • **Align with Strategy:** Prioritise investments that support automation, data integration, or AI readiness.
 • **Standardise Procurement:** Evaluate vendors based on longevity, interoperability, and compliance with data-protection requirements.
@@ -678,16 +724,18 @@ Proactive lifecycle management reduces technical debt, ensures consistent perfor
 **In short:** demonstrate that your organisation anticipates change, maintains modern technology, and invests strategically to remain AI-ready and secure."""
     },
     {
-        "code": "TI-06",
-        "text": "How well does the organisation support innovation, experimentation, and safe testing of AI or emerging technologies within its IT environment?",
-        "explanation": "Context: Innovation-readiness allows an organisation to explore emerging technologies safely and responsibly. Without secure environments for experimentation, staff may use unsanctioned tools or external platforms, creating governance and data risks. This question assesses whether the organisation has processes, infrastructure, and guardrails that enable innovation while maintaining compliance, security, and oversight. Example: A council establishes a controlled \"AI sandbox\" within its secure cloud environment, allowing staff to prototype AI applications using de-identified data under supervision from ICT and data-governance teams.",
+        "code": """TI-06""",
+        "text": """How well does the organisation support innovation, experimentation, and safe testing of AI or emerging technologies within its IT environment?""",
+        "explanation": """Context: Innovation-readiness allows an organisation to explore emerging technologies safely and responsibly. Without secure environments for experimentation, staff may use unsanctioned tools or external platforms, creating governance and data risks. This question assesses whether the organisation has processes, infrastructure, and guardrails that enable innovation while maintaining compliance, security, and oversight. Example: A council establishes a controlled "AI sandbox" within its secure cloud environment, allowing staff to prototype AI applications using de-identified data under supervision from ICT and data-governance teams.""",
         "domain_order": 4,
         "order": 6,
-        "foundational": "No structured approach to innovation or AI testing; experimentation occurs informally or without oversight.",
-        "developing": "Limited experimentation occurs within isolated teams; governance or security controls are minimal.",
-        "established": "Controlled environments and approval processes support safe AI or technology trials with defined risk and compliance checks.",
-        "leading": "Innovation is embedded in strategy; sandbox environments, governance frameworks, and ethical-review processes enable safe, scalable AI experimentation.",
-        "additional_guide": """Encouraging innovation while maintaining control is key to AI readiness.
+        "foundational": """No structured approach to innovation or AI testing; experimentation occurs informally or without oversight.""",
+        "developing": """Limited experimentation occurs within isolated teams; governance or security controls are minimal.""",
+        "established": """Controlled environments and approval processes support safe AI or technology trials with defined risk and compliance checks.""",
+        "leading": """Innovation is embedded in strategy; sandbox environments, governance frameworks, and ethical-review processes enable safe, scalable AI experimentation.""",
+        "additional_guide": """Additional Guidance - Fostering Responsible Innovation
+
+Encouraging innovation while maintaining control is key to AI readiness.
 • **Establish Safe Environments:** Create isolated sandboxes or test environments separate from production systems.
 • **Define Governance Pathways:** Require approvals and risk assessments for all AI or automation pilots.
 • **Use Synthetic or De-Identified Data:** Protect privacy while enabling experimentation.
@@ -709,16 +757,18 @@ Responsible innovation allows organisations to explore AI opportunities confiden
     },
     # Domain 5: People & Culture (6 questions)
     {
-        "code": "PC-01",
-        "text": "How aware are staff of AI concepts, potential benefits, and associated ethical or operational risks?",
-        "explanation": "Context: AI awareness across the workforce builds a foundation for responsible adoption. When staff lack understanding, AI initiatives can face resistance, misuse, or ethical oversights. This question assesses whether employees have been introduced to what AI is, how it may affect their work, and the importance of responsible, transparent use. Example: A council runs introductory AI awareness sessions for all employees, explaining practical examples such as chatbots or automation, and discussing topics like bias, data privacy, and accountability.",
+        "code": """PC-01""",
+        "text": """How aware are staff of AI concepts, potential benefits, and associated ethical or operational risks?""",
+        "explanation": """Context: AI awareness across the workforce builds a foundation for responsible adoption. When staff lack understanding, AI initiatives can face resistance, misuse, or ethical oversights. This question assesses whether employees have been introduced to what AI is, how it may affect their work, and the importance of responsible, transparent use. Example: A council runs introductory AI awareness sessions for all employees, explaining practical examples such as chatbots or automation, and discussing topics like bias, data privacy, and accountability.""",
         "domain_order": 5,
         "order": 1,
-        "foundational": "Staff have little or no awareness of AI; no training or internal communication has occurred.",
-        "developing": "Basic awareness exists through informal discussions or isolated presentations; understanding is inconsistent.",
-        "established": "Organisation provides structured AI-awareness training or communication campaigns to build understanding of AI's value and risks.",
-        "leading": "AI literacy is embedded in culture through continuous learning, practical examples, and leadership reinforcement across all business areas.",
-        "additional_guide": """Awareness ensures that AI adoption is informed and ethical.
+        "foundational": """Staff have little or no awareness of AI; no training or internal communication has occurred.""",
+        "developing": """Basic awareness exists through informal discussions or isolated presentations; understanding is inconsistent.""",
+        "established": """Organisation provides structured AI-awareness training or communication campaigns to build understanding of AI's value and risks.""",
+        "leading": """AI literacy is embedded in culture through continuous learning, practical examples, and leadership reinforcement across all business areas.""",
+        "additional_guide": """Additional Guidance - Building AI Awareness
+
+Awareness ensures that AI adoption is informed and ethical.
 • **Start with Plain Language:** Explain what AI means in the context of your organisation-focus on relevance, not jargon.
 • **Promote Responsible Use:** Highlight topics such as data privacy, fairness, and accountability.
 • **Use Real Examples:** Demonstrate how AI supports efficiency or service improvement.
@@ -739,16 +789,18 @@ A well-informed workforce supports innovation while safeguarding ethical and ope
 **In short:** demonstrate that AI awareness is not incidental-it is an intentional, measurable part of organisational learning and culture."""
     },
     {
-        "code": "PC-02",
-        "text": "How effectively does the organisation build staff capability and skills to engage with or manage AI-related initiatives?",
-        "explanation": "Context: Developing staff capability is essential for sustainable, responsible AI adoption. Without relevant skills, employees may struggle to interpret data insights, evaluate AI outputs, or manage associated risks. This question examines whether your organisation provides structured upskilling, professional development, or role-specific training that prepares staff to participate confidently in AI-related projects. Example: A local government delivers short courses on data literacy and responsible automation for managers, helping them evaluate vendor proposals and identify ethical or operational issues early.",
+        "code": """PC-02""",
+        "text": """How effectively does the organisation build staff capability and skills to engage with or manage AI-related initiatives?""",
+        "explanation": """Context: Developing staff capability is essential for sustainable, responsible AI adoption. Without relevant skills, employees may struggle to interpret data insights, evaluate AI outputs, or manage associated risks. This question examines whether your organisation provides structured upskilling, professional development, or role-specific training that prepares staff to participate confidently in AI-related projects. Example: A local government delivers short courses on data literacy and responsible automation for managers, helping them evaluate vendor proposals and identify ethical or operational issues early.""",
         "domain_order": 5,
         "order": 2,
-        "foundational": "No formal AI-related training or skill-development activities are offered.",
-        "developing": "Some informal or ad-hoc training occurs, often limited to technical teams.",
-        "established": "Structured learning programs exist for relevant roles, covering AI fundamentals, data ethics, and governance.",
-        "leading": "Continuous capability development is embedded in workforce planning, with tailored learning pathways, certifications, and performance metrics for AI competence.",
-        "additional_guide": """Building AI-ready capability ensures staff can make informed, ethical decisions.
+        "foundational": """No formal AI-related training or skill-development activities are offered.""",
+        "developing": """Some informal or ad-hoc training occurs, often limited to technical teams.""",
+        "established": """Structured learning programs exist for relevant roles, covering AI fundamentals, data ethics, and governance.""",
+        "leading": """Continuous capability development is embedded in workforce planning, with tailored learning pathways, certifications, and performance metrics for AI competence.""",
+        "additional_guide": """Additional Guidance - Developing AI Capability
+
+Building AI-ready capability ensures staff can make informed, ethical decisions.
 • **Assess Current Skills:** Use capability assessments or role mapping to identify knowledge gaps.
 • **Tailor Training:** Design courses for both technical and non-technical roles-covering governance, data literacy, and responsible use.
 • **Leverage External Expertise:** Partner with training providers, universities, or industry groups for specialist content.
@@ -769,16 +821,18 @@ A structured, evolving skills framework strengthens organisational resilience an
 **In short:** demonstrate that AI skills development is planned, resourced, and linked to career growth and governance maturity."""
     },
     {
-        "code": "PC-03",
-        "text": "How effectively does the organisation foster a culture of innovation, collaboration, and openness toward responsible AI adoption?",
-        "explanation": "Context: A culture that values innovation and ethical curiosity enables safe, forward-looking AI exploration. If staff fear change or lack empowerment to experiment responsibly, adoption efforts can stagnate. This question assesses whether your organisation promotes collaboration, learning, and trust—encouraging staff to explore AI opportunities within structured governance and ethical boundaries. Example: A council launches an internal \"Innovation Lab\" encouraging teams to propose AI-related ideas. Each proposal is reviewed for alignment with ethical principles, ensuring creativity and accountability coexist.",
+        "code": """PC-03""",
+        "text": """How effectively does the organisation foster a culture of innovation, collaboration, and openness toward responsible AI adoption?""",
+        "explanation": """Context: A culture that values innovation and ethical curiosity enables safe, forward-looking AI exploration. If staff fear change or lack empowerment to experiment responsibly, adoption efforts can stagnate. This question assesses whether your organisation promotes collaboration, learning, and trust—encouraging staff to explore AI opportunities within structured governance and ethical boundaries. Example: A council launches an internal "Innovation Lab" encouraging teams to propose AI-related ideas. Each proposal is reviewed for alignment with ethical principles, ensuring creativity and accountability coexist.""",
         "domain_order": 5,
         "order": 3,
-        "foundational": "Little encouragement for innovation or collaboration; staff avoid new technologies due to uncertainty or risk aversion.",
-        "developing": "Some teams trial new ideas, but innovation is informal and lacks strategic support or governance.",
-        "established": "Innovation is encouraged through defined processes, cross-functional collaboration, and ethical review mechanisms.",
-        "leading": "A mature culture of responsible innovation exists—supported by leadership, resources, and recognition programs promoting creative, ethical AI use.",
-        "additional_guide": """Fostering innovation while maintaining accountability is vital for AI readiness.
+        "foundational": """Little encouragement for innovation or collaboration; staff avoid new technologies due to uncertainty or risk aversion.""",
+        "developing": """Some teams trial new ideas, but innovation is informal and lacks strategic support or governance.""",
+        "established": """Innovation is encouraged through defined processes, cross-functional collaboration, and ethical review mechanisms.""",
+        "leading": """A mature culture of responsible innovation exists—supported by leadership, resources, and recognition programs promoting creative, ethical AI use.""",
+        "additional_guide": """Additional Guidance - Encouraging Innovation Culture
+
+Fostering innovation while maintaining accountability is vital for AI readiness.
 • **Set the Tone from the Top:** Leadership should champion safe experimentation and reward creative problem-solving.
 • **Create Structures for Collaboration:** Establish innovation hubs, idea challenges, or cross-departmental teams.
 • **Empower Within Guardrails:** Allow experimentation in sandboxed or low-risk environments under governance oversight.
@@ -799,16 +853,18 @@ A healthy innovation culture attracts talent, accelerates transformation, and en
 **In short:** demonstrate that innovation is actively encouraged, collaborative, and balanced by responsible AI governance."""
     },
     {
-        "code": "PC-04",
-        "text": "How effectively does the organisation promote ethical awareness and shared responsibility for the outcomes of AI use?",
-        "explanation": "Context: Ethical awareness ensures that AI adoption reflects organisational values and public trust obligations. When staff view ethics as someone else's responsibility, risks such as bias, discrimination, or misuse of data can go unnoticed. This question evaluates whether ethical thinking is embedded in day-to-day decision-making, helping employees recognise the broader social and operational impacts of AI. Example: A council runs workshops on responsible data use and fairness in algorithms, enabling employees—from HR to customer service—to understand how their actions influence ethical AI outcomes.",
+        "code": """PC-04""",
+        "text": """How effectively does the organisation promote ethical awareness and shared responsibility for the outcomes of AI use?""",
+        "explanation": """Context: Ethical awareness ensures that AI adoption reflects organisational values and public trust obligations. When staff view ethics as someone else's responsibility, risks such as bias, discrimination, or misuse of data can go unnoticed. This question evaluates whether ethical thinking is embedded in day-to-day decision-making, helping employees recognise the broader social and operational impacts of AI. Example: A council runs workshops on responsible data use and fairness in algorithms, enabling employees—from HR to customer service—to understand how their actions influence ethical AI outcomes.""",
         "domain_order": 5,
         "order": 4,
-        "foundational": "No initiatives promote ethical awareness; staff are unaware of potential social or organisational AI impacts.",
-        "developing": "Ethics discussed occasionally or confined to specific teams (e.g., legal, compliance).",
-        "established": "Ethical awareness programs and guidance materials are in place, helping staff identify and address AI-related risks.",
-        "leading": "Ethics and accountability are integrated across policies, training, and performance expectations—creating a shared culture of responsible AI use.",
-        "additional_guide": """Ethical literacy transforms AI governance from a policy requirement into a lived value.
+        "foundational": """No initiatives promote ethical awareness; staff are unaware of potential social or organisational AI impacts.""",
+        "developing": """Ethics discussed occasionally or confined to specific teams (e.g., legal, compliance).""",
+        "established": """Ethical awareness programs and guidance materials are in place, helping staff identify and address AI-related risks.""",
+        "leading": """Ethics and accountability are integrated across policies, training, and performance expectations—creating a shared culture of responsible AI use.""",
+        "additional_guide": """Additional Guidance - Embedding Ethical Literacy
+
+Ethical literacy transforms AI governance from a policy requirement into a lived value.
 • **Educate Broadly:** Train staff on fairness, transparency, and accountability, not just compliance.
 • **Promote Shared Responsibility:** Clarify that ethical AI is a collective duty-not limited to technical teams.
 • **Provide Decision Aids:** Supply checklists or ethics-assessment templates to guide day-to-day choices.
@@ -829,16 +885,18 @@ Embedding ethics across all levels ensures AI systems are developed, procured, a
 **In short:** demonstrate that ethical responsibility is embedded, measurable, and understood across all levels of the organisation."""
     },
     {
-        "code": "PC-05",
-        "text": "How well does the organisation support change management and workforce adaptation as AI and automation technologies are introduced?",
-        "explanation": "Context: AI and automation can transform roles, workflows, and required skills. Without structured change management, staff may feel threatened, disengaged, or unprepared. This question evaluates whether the organisation has mechanisms to manage workforce impacts, communicate changes early, and ensure employees are supported as tasks evolve or new technologies are introduced. Example: A council implementing automated document processing conducts impact assessments, provides staff retraining opportunities, and runs town-hall meetings to discuss how AI will complement—not replace—existing roles.",
+        "code": """PC-05""",
+        "text": """How well does the organisation support change management and workforce adaptation as AI and automation technologies are introduced?""",
+        "explanation": """Context: AI and automation can transform roles, workflows, and required skills. Without structured change management, staff may feel threatened, disengaged, or unprepared. This question evaluates whether the organisation has mechanisms to manage workforce impacts, communicate changes early, and ensure employees are supported as tasks evolve or new technologies are introduced. Example: A council implementing automated document processing conducts impact assessments, provides staff retraining opportunities, and runs town-hall meetings to discuss how AI will complement—not replace—existing roles.""",
         "domain_order": 5,
         "order": 5,
-        "foundational": "No formal change-management approach; staff learn of AI initiatives only when implementation begins.",
-        "developing": "Some communication or training occurs reactively, but workforce impacts are not systematically managed.",
-        "established": "Structured change-management processes exist, including communication plans, staff consultation, and reskilling opportunities.",
-        "leading": "Change management is proactive and embedded—anticipating workforce impacts, providing career pathways, and fostering a culture of continuous adaptation to AI.",
-        "additional_guide": """Successful AI adoption depends on people understanding and embracing change.
+        "foundational": """No formal change-management approach; staff learn of AI initiatives only when implementation begins.""",
+        "developing": """Some communication or training occurs reactively, but workforce impacts are not systematically managed.""",
+        "established": """Structured change-management processes exist, including communication plans, staff consultation, and reskilling opportunities.""",
+        "leading": """Change management is proactive and embedded—anticipating workforce impacts, providing career pathways, and fostering a culture of continuous adaptation to AI.""",
+        "additional_guide": """Additional Guidance - Managing Workforce Change
+
+Successful AI adoption depends on people understanding and embracing change.
 • **Plan Early:** Integrate workforce-impact assessments into AI project planning.
 • **Communicate Transparently:** Explain objectives, timelines, and expected changes in roles or workflows.
 • **Provide Reskilling Opportunities:** Offer upskilling, redeployment, or mentoring programs for affected staff.
@@ -859,16 +917,18 @@ Structured change management mitigates fear, maintains morale, and ensures techn
 **In short:** demonstrate that change is anticipated, communicated, and supported-ensuring employees remain empowered and engaged through AI transformation."""
     },
     {
-        "code": "PC-06",
-        "text": "How effectively does the organisation promote diversity, inclusion, and accessibility in its AI-related initiatives and workforce practices?",
-        "explanation": "Context: Diversity and inclusion strengthen AI governance by ensuring multiple perspectives inform design, decision-making, and ethical evaluation. Homogeneous teams risk reinforcing bias or overlooking accessibility needs. This question assesses whether your organisation considers gender, cultural, and ability diversity in AI planning and ensures accessibility for both employees and end users of AI systems. Example: A council ensures its AI ethics committee includes representatives from diverse departments and communities, and tests its chatbot interface for accessibility compliance with WCAG standards.",
+        "code": """PC-06""",
+        "text": """How effectively does the organisation promote diversity, inclusion, and accessibility in its AI-related initiatives and workforce practices?""",
+        "explanation": """Context: Diversity and inclusion strengthen AI governance by ensuring multiple perspectives inform design, decision-making, and ethical evaluation. Homogeneous teams risk reinforcing bias or overlooking accessibility needs. This question assesses whether your organisation considers gender, cultural, and ability diversity in AI planning and ensures accessibility for both employees and end users of AI systems. Example: A council ensures its AI ethics committee includes representatives from diverse departments and communities, and tests its chatbot interface for accessibility compliance with WCAG standards.""",
         "domain_order": 5,
         "order": 6,
-        "foundational": "No active consideration of diversity or accessibility in AI or digital initiatives.",
-        "developing": "Some awareness of diversity or accessibility, but efforts are informal and inconsistently applied.",
-        "established": "Diversity and accessibility are addressed through policies, inclusive design practices, and diverse project teams.",
-        "leading": "Diversity, inclusion, and accessibility are embedded in strategy, workforce planning, and AI governance—measured and reported organisation-wide.",
-        "additional_guide": """Inclusive design enhances fairness, trust, and performance in AI.
+        "foundational": """No active consideration of diversity or accessibility in AI or digital initiatives.""",
+        "developing": """Some awareness of diversity or accessibility, but efforts are informal and inconsistently applied.""",
+        "established": """Diversity and accessibility are addressed through policies, inclusive design practices, and diverse project teams.""",
+        "leading": """Diversity, inclusion, and accessibility are embedded in strategy, workforce planning, and AI governance—measured and reported organisation-wide.""",
+        "additional_guide": """Additional Guidance - Promoting Inclusion and Accessibility
+
+Inclusive design enhances fairness, trust, and performance in AI.
 • **Integrate Early:** Include diversity and accessibility in AI planning and procurement checklists.
 • **Broaden Perspectives:** Involve staff or stakeholders from different genders, cultural backgrounds, and abilities in AI reviews.
 • **Apply Accessible Design:** Follow WCAG, ISO 9241, and local accessibility standards for AI interfaces.
@@ -890,16 +950,18 @@ Embedding inclusion and accessibility ensures AI technologies are equitable, tra
     },
     # Domain 6: Policy & Compliance Readiness (6 questions)
     {
-        "code": "PR-01",
-        "text": "How clearly defined are the organisation's policies and procedures for governing the responsible use of AI and data-driven technologies?",
-        "explanation": "Context: Clear, well-structured policies provide the foundation for responsible AI governance. Without them, employees may rely on informal judgement, increasing the risk of bias, privacy breaches, or regulatory non-compliance. This question assesses whether your organisation has formalised policies or frameworks guiding AI and data-driven decision-making, including ethical principles, risk management, and compliance requirements. Example: A council publishes a Responsible AI Policy outlining principles of fairness, accountability, transparency, and human oversight. The policy references supporting documents such as the Privacy Policy, Data Governance Framework, and ICT Security Standard.",
+        "code": """PR-01""",
+        "text": """How clearly defined are the organisation's policies and procedures for governing the responsible use of AI and data-driven technologies?""",
+        "explanation": """Context: Clear, well-structured policies provide the foundation for responsible AI governance. Without them, employees may rely on informal judgement, increasing the risk of bias, privacy breaches, or regulatory non-compliance. This question assesses whether your organisation has formalised policies or frameworks guiding AI and data-driven decision-making, including ethical principles, risk management, and compliance requirements. Example: A council publishes a Responsible AI Policy outlining principles of fairness, accountability, transparency, and human oversight. The policy references supporting documents such as the Privacy Policy, Data Governance Framework, and ICT Security Standard.""",
         "domain_order": 6,
         "order": 1,
-        "foundational": "No policies or procedures exist specifically addressing AI or data-driven technologies.",
-        "developing": "Some related policies exist (e.g., privacy, ICT security) but do not address AI or are inconsistently applied.",
-        "established": "A Responsible AI Policy or equivalent framework exists, aligned with organisational values and applicable legislation.",
-        "leading": "Integrated, enterprise-wide governance framework covers AI ethics, data governance, and compliance—regularly reviewed and benchmarked against national or international standards.",
-        "additional_guide": """Policies set the guardrails for ethical innovation.
+        "foundational": """No policies or procedures exist specifically addressing AI or data-driven technologies.""",
+        "developing": """Some related policies exist (e.g., privacy, ICT security) but do not address AI or are inconsistently applied.""",
+        "established": """A Responsible AI Policy or equivalent framework exists, aligned with organisational values and applicable legislation.""",
+        "leading": """Integrated, enterprise-wide governance framework covers AI ethics, data governance, and compliance—regularly reviewed and benchmarked against national or international standards.""",
+        "additional_guide": """Additional Guidance - Establishing AI Policies
+
+Policies set the guardrails for ethical innovation.
 • **Start with Principles:** Define organisational commitments to fairness, accountability, transparency, and human oversight.
 • **Align with Existing Policies:** Reference data governance, privacy, and ICT security frameworks to ensure consistency.
 • **Include Scope and Applicability:** Clarify which systems, projects, and staff roles are covered.
@@ -920,16 +982,18 @@ A clearly articulated AI Policy demonstrates readiness, accountability, and comm
 **In short:** demonstrate that responsible AI is governed by approved, integrated policies reflecting ethical principles and legal obligations."""
     },
     {
-        "code": "PR-02",
-        "text": "How effectively does the organisation ensure compliance with relevant AI, data-protection, and privacy legislation or standards?",
-        "explanation": "Context: Compliance with privacy and AI-related laws is essential to maintain trust, transparency, and regulatory assurance. Without structured compliance processes, the organisation risks breaching obligations under the Privacy Act 1988 (Cth), Australian Privacy Principles, or sector-specific requirements. This question evaluates whether the organisation proactively identifies, monitors, and addresses legal or regulatory obligations related to data use, automation, or AI systems. Example: A Queensland council maintains a compliance register referencing the Privacy Act 1988 (Cth), Information Privacy Act 2009 (Qld), and Australian Government AI Ethics Principles, with annual reviews by the governance team to ensure ongoing alignment.",
+        "code": """PR-02""",
+        "text": """How effectively does the organisation ensure compliance with relevant AI, data-protection, and privacy legislation or standards?""",
+        "explanation": """Context: Compliance with privacy and AI-related laws is essential to maintain trust, transparency, and regulatory assurance. Without structured compliance processes, the organisation risks breaching obligations under the Privacy Act 1988 (Cth), Australian Privacy Principles, or sector-specific requirements. This question evaluates whether the organisation proactively identifies, monitors, and addresses legal or regulatory obligations related to data use, automation, or AI systems. Example: A Queensland council maintains a compliance register referencing the Privacy Act 1988 (Cth), Information Privacy Act 2009 (Qld), and Australian Government AI Ethics Principles, with annual reviews by the governance team to ensure ongoing alignment.""",
         "domain_order": 6,
         "order": 2,
-        "foundational": "No formal compliance processes for privacy, AI, or data governance; obligations managed reactively.",
-        "developing": "Basic compliance coverage exists (e.g., privacy notices, consent forms) but lacks monitoring or accountability.",
-        "established": "Compliance obligations are documented, monitored, and reviewed; privacy and AI controls integrated into governance processes.",
-        "leading": "Comprehensive compliance framework embedded, including continuous monitoring, audits, and alignment with evolving AI, privacy, and data-ethics standards.",
-        "additional_guide": """Compliance is not static-it must evolve with new regulation and technology.
+        "foundational": """No formal compliance processes for privacy, AI, or data governance; obligations managed reactively.""",
+        "developing": """Basic compliance coverage exists (e.g., privacy notices, consent forms) but lacks monitoring or accountability.""",
+        "established": """Compliance obligations are documented, monitored, and reviewed; privacy and AI controls integrated into governance processes.""",
+        "leading": """Comprehensive compliance framework embedded, including continuous monitoring, audits, and alignment with evolving AI, privacy, and data-ethics standards.""",
+        "additional_guide": """Additional Guidance - Maintaining Compliance
+
+Compliance is not static-it must evolve with new regulation and technology.
 • **Map Obligations:** Identify applicable laws and frameworks (Privacy Act, _Information Privacy Act 2009 (Qld)_, _Voluntary AI Safety Standard_).
 • **Maintain a Compliance Register:** Document key obligations, controls, and responsible owners.
 • **Integrate into Risk Management:** Include legal and regulatory risks in enterprise registers.
@@ -952,16 +1016,18 @@ A structured compliance process safeguards the organisation from legal exposure 
 **In short:** show that compliance with AI and privacy laws is proactive, documented, and continuously reviewed-not reactive or assumed."""
     },
     {
-        "code": "PR-03",
-        "text": "How well does the organisation manage third-party and vendor compliance when procuring or implementing AI-related technologies?",
-        "explanation": "Context: Third-party risk management is critical to maintaining accountability when AI components or data services are supplied externally. Vendors may use opaque algorithms, offshore data storage, or inconsistent ethical standards, exposing the organisation to reputational and legal risk. This question assesses whether your organisation evaluates and monitors supplier compliance with security, privacy, and responsible-AI requirements throughout the procurement lifecycle. Example: A council adds a \"Responsible AI Checklist\" to its procurement process, requiring vendors to disclose data sources, model-testing practices, and compliance with privacy and accessibility standards before contract approval.",
+        "code": """PR-03""",
+        "text": """How well does the organisation manage third-party and vendor compliance when procuring or implementing AI-related technologies?""",
+        "explanation": """Context: Third-party risk management is critical to maintaining accountability when AI components or data services are supplied externally. Vendors may use opaque algorithms, offshore data storage, or inconsistent ethical standards, exposing the organisation to reputational and legal risk. This question assesses whether your organisation evaluates and monitors supplier compliance with security, privacy, and responsible-AI requirements throughout the procurement lifecycle. Example: A council adds a "Responsible AI Checklist" to its procurement process, requiring vendors to disclose data sources, model-testing practices, and compliance with privacy and accessibility standards before contract approval.""",
         "domain_order": 6,
         "order": 3,
-        "foundational": "Vendor and supplier compliance for AI or data services is unmanaged or based on trust alone.",
-        "developing": "Some supplier assessments occur (e.g., basic privacy or security checks) but are inconsistent or lack ongoing monitoring.",
-        "established": "Procurement and contract-management processes include defined AI, ethics, and data-protection clauses with periodic reviews.",
-        "leading": "Comprehensive third-party-risk program ensures continuous assurance of vendor security, privacy, and responsible-AI performance, aligned to ISO 27036 or NIST SP 800-161.",
-        "additional_guide": """Third-party relationships must extend governance and accountability beyond organisational boundaries.
+        "foundational": """Vendor and supplier compliance for AI or data services is unmanaged or based on trust alone.""",
+        "developing": """Some supplier assessments occur (e.g., basic privacy or security checks) but are inconsistent or lack ongoing monitoring.""",
+        "established": """Procurement and contract-management processes include defined AI, ethics, and data-protection clauses with periodic reviews.""",
+        "leading": """Comprehensive third-party-risk program ensures continuous assurance of vendor security, privacy, and responsible-AI performance, aligned to ISO 27036 or NIST SP 800-161.""",
+        "additional_guide": """Additional Guidance - Managing Third-Party Risk
+
+Third-party relationships must extend governance and accountability beyond organisational boundaries.
 • **Embed Due Diligence Early:** Include AI-specific ethical and data-handling questions in RFPs or tenders.
 • **Define Contractual Obligations:** Mandate clauses for privacy, transparency, explainability, and data-sovereignty.
 • **Assess Regularly:** Conduct security or compliance reviews, certifications (e.g., ISO 27001), or SOC 2 reports.
@@ -982,16 +1048,18 @@ Effective third-party oversight ensures that vendor behaviour aligns with your e
 **In short:** demonstrate that third-party AI risk is assessed, contractually controlled, and continually monitored-not left to vendor discretion."""
     },
     {
-        "code": "PR-04",
-        "text": "How effectively does the organisation align its internal policies and practices with recognised AI governance frameworks or standards?",
-        "explanation": "Context: Alignment with established AI frameworks demonstrates maturity, accountability, and commitment to best practice. Without benchmarking against recognised standards, organisations may overlook critical governance or ethical gaps. This question assesses whether your organisation has mapped its policies and practices to national or international AI governance frameworks such as ISO/IEC 42001, NIST AI RMF, or Australia's Voluntary AI Safety Standard. Example: A council compares its Responsible AI Policy to ISO/IEC 42001 requirements, identifying opportunities to strengthen documentation, audit processes, and stakeholder transparency.",
+        "code": """PR-04""",
+        "text": """How effectively does the organisation align its internal policies and practices with recognised AI governance frameworks or standards?""",
+        "explanation": """Context: Alignment with established AI frameworks demonstrates maturity, accountability, and commitment to best practice. Without benchmarking against recognised standards, organisations may overlook critical governance or ethical gaps. This question assesses whether your organisation has mapped its policies and practices to national or international AI governance frameworks such as ISO/IEC 42001, NIST AI RMF, or Australia's Voluntary AI Safety Standard. Example: A council compares its Responsible AI Policy to ISO/IEC 42001 requirements, identifying opportunities to strengthen documentation, audit processes, and stakeholder transparency.""",
         "domain_order": 6,
         "order": 4,
-        "foundational": "No awareness or adoption of AI-specific standards or governance frameworks.",
-        "developing": "Some reference to AI or ethics frameworks exists, but alignment is informal or incomplete.",
-        "established": "Internal policies and processes are mapped against one or more recognised frameworks (e.g., ISO 42001, NIST AI RMF).",
-        "leading": "Organisation actively benchmarks and updates its AI governance model against multiple standards, demonstrating continuous improvement and external assurance.",
-        "additional_guide": """Framework alignment strengthens credibility and ensures readiness for future regulation.
+        "foundational": """No awareness or adoption of AI-specific standards or governance frameworks.""",
+        "developing": """Some reference to AI or ethics frameworks exists, but alignment is informal or incomplete.""",
+        "established": """Internal policies and processes are mapped against one or more recognised frameworks (e.g., ISO 42001, NIST AI RMF).""",
+        "leading": """Organisation actively benchmarks and updates its AI governance model against multiple standards, demonstrating continuous improvement and external assurance.""",
+        "additional_guide": """Additional Guidance - Aligning with AI Frameworks
+
+Framework alignment strengthens credibility and ensures readiness for future regulation.
 • **Identify Relevant Frameworks:** Prioritise standards appropriate to your sector and scale-e.g., ISO 42001 (AI Management Systems), NIST AI RMF, OECD AI Principles, or Australia's AI Ethics Principles.
 • **Perform a Gap Analysis:** Compare existing policies and procedures against framework controls.
 • **Integrate Results:** Update documentation, training, and assurance processes to close identified gaps.
@@ -1012,16 +1080,18 @@ Framework alignment embeds consistency, improves defensibility, and reinforces t
 **In short:** demonstrate that AI governance is guided by-and continuously compared to-globally recognised standards, ensuring maturity and defensibility."""
     },
     {
-        "code": "PR-05",
-        "text": "How effectively does the organisation monitor and review compliance with its AI, data, and technology policies?",
-        "explanation": "Context: Policies have little value if not actively monitored and enforced. Regular review ensures that controls remain relevant, effective, and aligned with evolving technologies and regulations. This question evaluates whether your organisation has mechanisms to track compliance with AI, data, and ICT-related policies, and to take corrective action where gaps are identified. Example: A council's internal audit team conducts annual reviews of the Data Governance Policy and AI Ethics Framework, tracking non-compliance issues and reporting them to the executive governance committee for remediation.",
+        "code": """PR-05""",
+        "text": """How effectively does the organisation monitor and review compliance with its AI, data, and technology policies?""",
+        "explanation": """Context: Policies have little value if not actively monitored and enforced. Regular review ensures that controls remain relevant, effective, and aligned with evolving technologies and regulations. This question evaluates whether your organisation has mechanisms to track compliance with AI, data, and ICT-related policies, and to take corrective action where gaps are identified. Example: A council's internal audit team conducts annual reviews of the Data Governance Policy and AI Ethics Framework, tracking non-compliance issues and reporting them to the executive governance committee for remediation.""",
         "domain_order": 6,
         "order": 5,
-        "foundational": "Policies exist but are not monitored or enforced; compliance depends on individual discretion.",
-        "developing": "Some monitoring occurs through informal reviews or audits, but findings are not systematically tracked.",
-        "established": "Formal compliance reviews are conducted on a scheduled basis, with outcomes documented and actions assigned.",
-        "leading": "Continuous monitoring and assurance processes are embedded, supported by metrics, internal audits, and executive oversight ensuring accountability and improvement.",
-        "additional_guide": """Effective policy governance ensures consistent behaviour and continuous improvement.
+        "foundational": """Policies exist but are not monitored or enforced; compliance depends on individual discretion.""",
+        "developing": """Some monitoring occurs through informal reviews or audits, but findings are not systematically tracked.""",
+        "established": """Formal compliance reviews are conducted on a scheduled basis, with outcomes documented and actions assigned.""",
+        "leading": """Continuous monitoring and assurance processes are embedded, supported by metrics, internal audits, and executive oversight ensuring accountability and improvement.""",
+        "additional_guide": """Additional Guidance - Monitoring Policy Effectiveness
+
+Effective policy governance ensures consistent behaviour and continuous improvement.
 • **Define Review Cycles:** Schedule annual or biennial reviews for all AI and data-related policies.
 • **Assign Ownership:** Nominate policy owners responsible for tracking compliance and reporting results.
 • **Use Multiple Assurance Layers:** Combine self-assessments, audits, and system-based controls for validation.
@@ -1042,16 +1112,18 @@ Regular monitoring builds transparency, maintains compliance, and supports a cyc
 **In short:** demonstrate that policy compliance is not assumed-it is verified, measured, and continuously strengthened through structured oversight."""
     },
     {
-        "code": "PR-06",
-        "text": "How effectively does the organisation communicate and enforce policies related to AI, data governance, and responsible technology use?",
-        "explanation": "Context: Policies only achieve their purpose when employees understand and follow them. Without active communication, enforcement, and accountability, even well-written AI or data-governance policies may go unnoticed or inconsistently applied. This question evaluates whether your organisation actively promotes awareness of relevant policies, ensures they are accessible, and applies consistent enforcement when breaches or non-compliance occur. Example: A council launches an internal communications campaign introducing its Responsible AI Policy, hosts short \"policy spotlight\" sessions for teams, and integrates compliance checks into its ICT onboarding and annual refresher training.",
+        "code": """PR-06""",
+        "text": """How effectively does the organisation communicate and enforce policies related to AI, data governance, and responsible technology use?""",
+        "explanation": """Context: Policies only achieve their purpose when employees understand and follow them. Without active communication, enforcement, and accountability, even well-written AI or data-governance policies may go unnoticed or inconsistently applied. This question evaluates whether your organisation actively promotes awareness of relevant policies, ensures they are accessible, and applies consistent enforcement when breaches or non-compliance occur. Example: A council launches an internal communications campaign introducing its Responsible AI Policy, hosts short "policy spotlight" sessions for teams, and integrates compliance checks into its ICT onboarding and annual refresher training.""",
         "domain_order": 6,
         "order": 6,
-        "foundational": "Policies exist but are poorly communicated or inaccessible; staff are unaware of their responsibilities.",
-        "developing": "Policies are shared internally, but awareness and enforcement are inconsistent.",
-        "established": "Policies are communicated organisation-wide, reinforced through induction, training, and regular updates.",
-        "leading": "Policy communication and enforcement are proactive, supported by leadership endorsement, accessible repositories, and consistent disciplinary or corrective processes.",
-        "additional_guide": """Transparency and accountability make governance real for staff.
+        "foundational": """Policies exist but are poorly communicated or inaccessible; staff are unaware of their responsibilities.""",
+        "developing": """Policies are shared internally, but awareness and enforcement are inconsistent.""",
+        "established": """Policies are communicated organisation-wide, reinforced through induction, training, and regular updates.""",
+        "leading": """Policy communication and enforcement are proactive, supported by leadership endorsement, accessible repositories, and consistent disciplinary or corrective processes.""",
+        "additional_guide": """Additional Guidance - Communicating and Enforcing Policies
+
+Transparency and accountability make governance real for staff.
 • **Centralise Access:** Maintain a single, searchable repository for all AI, data, and ICT policies.
 • **Educate Through Training:** Include AI governance, data protection, and ethical use in induction and annual refresher programs.
 • **Use Multi-Channel Communication:** Share updates via newsletters, intranet, and leadership briefings.
@@ -1073,16 +1145,18 @@ Consistent communication and enforcement ensure staff know, understand, and upho
     },
     # Domain 7: Risk & Ethics Awareness (6 questions)
     {
-        "code": "RE-01",
-        "text": "How well does the organisation identify, assess, and document potential risks associated with AI and data-driven technologies?",
-        "explanation": "Context: AI introduces unique risks that differ from traditional ICT or operational risks — such as bias, data misuse, explainability challenges, and reputational harm. Without structured risk assessment, organisations can overlook ethical and operational impacts that emerge during AI exploration or deployment. This question evaluates whether your organisation systematically identifies, records, and manages AI-related risks within existing or dedicated risk frameworks. Example: A council integrates \"AI and algorithmic risk\" into its corporate risk register, categorising potential impacts such as fairness, transparency, and accountability breaches alongside traditional ICT risks.",
+        "code": """RE-01""",
+        "text": """How well does the organisation identify, assess, and document potential risks associated with AI and data-driven technologies?""",
+        "explanation": """Context: AI introduces unique risks that differ from traditional ICT or operational risks — such as bias, data misuse, explainability challenges, and reputational harm. Without structured risk assessment, organisations can overlook ethical and operational impacts that emerge during AI exploration or deployment. This question evaluates whether your organisation systematically identifies, records, and manages AI-related risks within existing or dedicated risk frameworks. Example: A council integrates "AI and algorithmic risk" into its corporate risk register, categorising potential impacts such as fairness, transparency, and accountability breaches alongside traditional ICT risks.""",
         "domain_order": 7,
         "order": 1,
-        "foundational": "AI-related risks are not identified or documented; any consideration occurs informally.",
-        "developing": "Some AI or data-related risks are recognised, but documentation and mitigation are inconsistent.",
-        "established": "AI risks are documented within the organisation's risk framework, with defined controls and accountable owners.",
-        "leading": "Comprehensive AI risk management integrated across all projects, supported by continuous monitoring, ethics review, and alignment with frameworks like ISO 31000 and NIST AI RMF.",
-        "additional_guide": """AI risk management ensures emerging technologies are adopted responsibly.
+        "foundational": """AI-related risks are not identified or documented; any consideration occurs informally.""",
+        "developing": """Some AI or data-related risks are recognised, but documentation and mitigation are inconsistent.""",
+        "established": """AI risks are documented within the organisation's risk framework, with defined controls and accountable owners.""",
+        "leading": """Comprehensive AI risk management integrated across all projects, supported by continuous monitoring, ethics review, and alignment with frameworks like ISO 31000 and NIST AI RMF.""",
+        "additional_guide": """Additional Guidance - Integrating AI into Risk Management
+
+AI risk management ensures emerging technologies are adopted responsibly.
 • **Expand Risk Categories:** Include algorithmic bias, model drift, privacy, explainability, and reputational risk in enterprise registers.
 • **Standardise Assessment:** Apply existing risk-rating matrices and control hierarchies to AI initiatives.
 • **Engage Cross-Functional Teams:** Involve Risk, Legal, ICT, and Ethics representatives when reviewing AI projects.
@@ -1103,16 +1177,18 @@ Embedding AI risks into enterprise governance demonstrates accountability and st
 **In short:** demonstrate that AI risk is visible, documented, and managed through the same disciplined processes applied to all critical business risks."""
     },
     {
-        "code": "RE-02",
-        "text": "How effectively does the organisation identify and mitigate potential bias or discrimination in data, algorithms, or AI-driven decisions?",
-        "explanation": "Context: Bias in AI systems can lead to unfair or discriminatory outcomes, damaging community trust and breaching ethical or legal standards. Bias may originate from data imbalances, model design, or deployment context. This question assesses whether your organisation understands these risks and has implemented strategies to detect, evaluate, and mitigate bias before and after AI implementation. Example: A council performing data analysis for a customer-prioritisation system checks for demographic representation and engages an ethics advisor to review potential bias impacts on service delivery.",
+        "code": """RE-02""",
+        "text": """How effectively does the organisation identify and mitigate potential bias or discrimination in data, algorithms, or AI-driven decisions?""",
+        "explanation": """Context: Bias in AI systems can lead to unfair or discriminatory outcomes, damaging community trust and breaching ethical or legal standards. Bias may originate from data imbalances, model design, or deployment context. This question assesses whether your organisation understands these risks and has implemented strategies to detect, evaluate, and mitigate bias before and after AI implementation. Example: A council performing data analysis for a customer-prioritisation system checks for demographic representation and engages an ethics advisor to review potential bias impacts on service delivery.""",
         "domain_order": 7,
         "order": 2,
-        "foundational": "No awareness or controls exist for detecting bias or discrimination in data or algorithms.",
-        "developing": "Some discussions or ad hoc reviews occur, but bias detection and mitigation lack structure or documentation.",
-        "established": "Bias and fairness checks are embedded into project workflows, supported by governance oversight and diverse review teams.",
-        "leading": "Comprehensive bias management program in place, using fairness metrics, diverse datasets, stakeholder consultation, and regular model audits.",
-        "additional_guide": """Bias mitigation is fundamental to ethical AI.
+        "foundational": """No awareness or controls exist for detecting bias or discrimination in data or algorithms.""",
+        "developing": """Some discussions or ad hoc reviews occur, but bias detection and mitigation lack structure or documentation.""",
+        "established": """Bias and fairness checks are embedded into project workflows, supported by governance oversight and diverse review teams.""",
+        "leading": """Comprehensive bias management program in place, using fairness metrics, diverse datasets, stakeholder consultation, and regular model audits.""",
+        "additional_guide": """Additional Guidance - Managing Bias and Fairness
+
+Bias mitigation is fundamental to ethical AI.
 • **Assess Data Sources:** Examine datasets for demographic representation and potential exclusion.
 • **Implement Fairness Metrics:** Apply measures such as demographic parity, equal opportunity, or error-rate balance.
 • **Diversify Review Teams:** Involve staff or community representatives from different backgrounds in evaluations.
@@ -1133,16 +1209,18 @@ Embedding structured bias management builds fairness, trust, and accountability 
 **In short:** demonstrate that the organisation understands, measures, and mitigates bias to ensure equitable and ethical AI outcomes."""
     },
     {
-        "code": "RE-03",
-        "text": "How effectively does the organisation ensure transparency and explainability in AI or data-driven decision-making?",
-        "explanation": "Context: Transparency and explainability build trust by helping stakeholders understand how and why AI or analytics systems reach decisions. Without this, the organisation risks eroding confidence, inviting scrutiny, or breaching regulatory obligations. This question assesses whether your organisation can clearly describe data sources, model logic, and human oversight for any AI-assisted processes. Example: A council using an AI model to prioritise maintenance requests documents how the model weighs factors such as location, urgency, and safety, and includes a clear explanation in public reports.",
+        "code": """RE-03""",
+        "text": """How effectively does the organisation ensure transparency and explainability in AI or data-driven decision-making?""",
+        "explanation": """Context: Transparency and explainability build trust by helping stakeholders understand how and why AI or analytics systems reach decisions. Without this, the organisation risks eroding confidence, inviting scrutiny, or breaching regulatory obligations. This question assesses whether your organisation can clearly describe data sources, model logic, and human oversight for any AI-assisted processes. Example: A council using an AI model to prioritise maintenance requests documents how the model weighs factors such as location, urgency, and safety, and includes a clear explanation in public reports.""",
         "domain_order": 7,
         "order": 3,
-        "foundational": "Decisions supported by data or algorithms are opaque; no documentation or explanation is available.",
-        "developing": "Some transparency exists (e.g., project notes or summaries), but explanations are technical or incomplete.",
-        "established": "Processes, data sources, and model logic are documented and communicated to relevant stakeholders.",
-        "leading": "Explainability is embedded—human-readable explanations, stakeholder engagement, and audit trails demonstrate clarity and accountability across all AI systems.",
-        "additional_guide": """Transparency is critical to ethical and defensible AI.
+        "foundational": """Decisions supported by data or algorithms are opaque; no documentation or explanation is available.""",
+        "developing": """Some transparency exists (e.g., project notes or summaries), but explanations are technical or incomplete.""",
+        "established": """Processes, data sources, and model logic are documented and communicated to relevant stakeholders.""",
+        "leading": """Explainability is embedded—human-readable explanations, stakeholder engagement, and audit trails demonstrate clarity and accountability across all AI systems.""",
+        "additional_guide": """Additional Guidance - Ensuring Transparency and Explainability
+
+Transparency is critical to ethical and defensible AI.
 • **Document Thoroughly:** Record datasets, assumptions, and decision rules for all AI projects.
 • **Design for Explainability:** Choose interpretable models or provide model-agnostic tools (e.g., LIME, SHAP) to explain outcomes.
 • **Communicate Clearly:** Translate technical outputs into accessible language for non-technical stakeholders.
@@ -1163,16 +1241,18 @@ Embedding explainability reinforces trust, supports accountability, and ensures 
 **In short:** demonstrate that AI decision-making is visible, explainable, and documented-ensuring stakeholders can understand and trust organisational use of AI."""
     },
     {
-        "code": "RE-04",
-        "text": "How effectively does the organisation ensure accountability and human oversight of AI-assisted decisions?",
-        "explanation": "Context: Clear accountability and human oversight ensure that AI remains a tool supporting—not replacing—responsible decision-making. Without defined roles for human review, errors or ethical issues may go unnoticed, leading to reputational or legal consequences. This question evaluates whether the organisation maintains clear lines of responsibility for AI decisions, ensuring humans retain authority over outcomes. Example: A council implementing an AI tool for traffic optimisation requires human review and sign-off before any automated recommendations are applied to public-safety operations.",
+        "code": """RE-04""",
+        "text": """How effectively does the organisation ensure accountability and human oversight of AI-assisted decisions?""",
+        "explanation": """Context: Clear accountability and human oversight ensure that AI remains a tool supporting—not replacing—responsible decision-making. Without defined roles for human review, errors or ethical issues may go unnoticed, leading to reputational or legal consequences. This question evaluates whether the organisation maintains clear lines of responsibility for AI decisions, ensuring humans retain authority over outcomes. Example: A council implementing an AI tool for traffic optimisation requires human review and sign-off before any automated recommendations are applied to public-safety operations.""",
         "domain_order": 7,
         "order": 4,
-        "foundational": "No defined oversight or accountability; AI-assisted decisions occur without human review or documentation.",
-        "developing": "Some human oversight exists informally, but responsibilities and escalation pathways are unclear.",
-        "established": "Human oversight is formalised through defined approval processes, accountability roles, and review mechanisms.",
-        "leading": "Organisation-wide accountability model ensures humans retain final authority, supported by audit trails, training, and ethical-review checkpoints.",
-        "additional_guide": """AI governance relies on clear human authority.
+        "foundational": """No defined oversight or accountability; AI-assisted decisions occur without human review or documentation.""",
+        "developing": """Some human oversight exists informally, but responsibilities and escalation pathways are unclear.""",
+        "established": """Human oversight is formalised through defined approval processes, accountability roles, and review mechanisms.""",
+        "leading": """Organisation-wide accountability model ensures humans retain final authority, supported by audit trails, training, and ethical-review checkpoints.""",
+        "additional_guide": """Additional Guidance - Maintaining Human Oversight
+
+AI governance relies on clear human authority.
 • **Define Decision Boundaries:** Specify which AI outputs require human review before implementation.
 • **Assign Responsibility:** Identify accountable officers for each AI system, ideally within governance or operational teams.
 • **Document Oversight Procedures:** Record who approves, audits, and escalates AI-related decisions.
@@ -1193,16 +1273,18 @@ Embedding human oversight ensures accountability, prevents automation bias, and 
 **In short:** demonstrate that human oversight is active, documented, and central to how your organisation uses AI-ensuring responsibility never shifts to the system itself."""
     },
     {
-        "code": "RE-05",
-        "text": "How effectively does the organisation engage stakeholders to understand, assess, and address ethical or societal impacts of AI use?",
-        "explanation": "Context: Meaningful stakeholder engagement ensures that AI initiatives align with community expectations, social values, and ethical obligations. Without consultation, organisations risk deploying systems that unintentionally harm trust, equity, or accessibility. This question assesses whether your organisation involves internal and external stakeholders—such as staff, customers, and community groups—in shaping, reviewing, or validating AI use and governance. Example: Before trialling a predictive service-demand model, a council hosts workshops with community representatives and privacy advocates to discuss transparency, fairness, and potential unintended impacts.",
+        "code": """RE-05""",
+        "text": """How effectively does the organisation engage stakeholders to understand, assess, and address ethical or societal impacts of AI use?""",
+        "explanation": """Context: Meaningful stakeholder engagement ensures that AI initiatives align with community expectations, social values, and ethical obligations. Without consultation, organisations risk deploying systems that unintentionally harm trust, equity, or accessibility. This question assesses whether your organisation involves internal and external stakeholders—such as staff, customers, and community groups—in shaping, reviewing, or validating AI use and governance. Example: Before trialling a predictive service-demand model, a council hosts workshops with community representatives and privacy advocates to discuss transparency, fairness, and potential unintended impacts.""",
         "domain_order": 7,
         "order": 5,
-        "foundational": "Stakeholders are not consulted on AI or data initiatives; ethical or societal impacts are not considered.",
-        "developing": "Engagement occurs occasionally but is reactive, informal, or limited to specific projects.",
-        "established": "Stakeholder engagement is structured and documented, with feedback used to inform AI governance or project decisions.",
-        "leading": "Ongoing, transparent engagement embedded in governance processes; stakeholder input shapes policy, ethics reviews, and public communication on AI use.",
-        "additional_guide": """Engagement promotes trust, inclusion, and legitimacy.
+        "foundational": """Stakeholders are not consulted on AI or data initiatives; ethical or societal impacts are not considered.""",
+        "developing": """Engagement occurs occasionally but is reactive, informal, or limited to specific projects.""",
+        "established": """Stakeholder engagement is structured and documented, with feedback used to inform AI governance or project decisions.""",
+        "leading": """Ongoing, transparent engagement embedded in governance processes; stakeholder input shapes policy, ethics reviews, and public communication on AI use.""",
+        "additional_guide": """Additional Guidance - Engaging Stakeholders
+
+Engagement promotes trust, inclusion, and legitimacy.
 • **Identify Key Stakeholders:** Include employees, community representatives, regulators, and advocacy groups.
 • **Consult Early and Often:** Engage stakeholders at planning, design, and review stages-not after deployment.
 • **Use Accessible Language:** Communicate AI purpose, benefits, and risks clearly.
@@ -1223,16 +1305,18 @@ Structured, ongoing engagement ensures AI is socially aligned and trusted, stren
 **In short:** demonstrate that your organisation listens, documents, and responds to stakeholder input to guide the ethical use of AI and data."""
     },
     {
-        "code": "RE-06",
-        "text": "How effectively does the organisation monitor, review, and learn from ethical incidents or AI-related risk events?",
-        "explanation": "Context: Ongoing monitoring and learning from incidents strengthens organisational resilience and ethical maturity. Without a structured process, lessons from data breaches, algorithmic errors, or community complaints may be overlooked and repeated. This question evaluates whether your organisation tracks AI-related incidents, investigates root causes, and applies improvements to governance, training, or technology controls. Example: After a public concern about bias in an automated eligibility tool, a council conducts an ethics review, updates its model-testing procedures, and publishes a summary of corrective actions to maintain transparency and accountability.",
+        "code": """RE-06""",
+        "text": """How effectively does the organisation monitor, review, and learn from ethical incidents or AI-related risk events?""",
+        "explanation": """Context: Ongoing monitoring and learning from incidents strengthens organisational resilience and ethical maturity. Without a structured process, lessons from data breaches, algorithmic errors, or community complaints may be overlooked and repeated. This question evaluates whether your organisation tracks AI-related incidents, investigates root causes, and applies improvements to governance, training, or technology controls. Example: After a public concern about bias in an automated eligibility tool, a council conducts an ethics review, updates its model-testing procedures, and publishes a summary of corrective actions to maintain transparency and accountability.""",
         "domain_order": 7,
         "order": 6,
-        "foundational": "AI or ethical incidents are handled reactively, with limited documentation or learning.",
-        "developing": "Some incidents are reviewed, but processes are informal and improvements are inconsistently applied.",
-        "established": "Formal procedures exist for reporting, investigating, and addressing AI-related ethical or risk incidents.",
-        "leading": "Continuous improvement framework embedded—tracking AI incidents, analysing trends, sharing lessons learned, and updating governance accordingly.",
-        "additional_guide": """Incident management is a key feedback loop for AI governance.
+        "foundational": """AI or ethical incidents are handled reactively, with limited documentation or learning.""",
+        "developing": """Some incidents are reviewed, but processes are informal and improvements are inconsistently applied.""",
+        "established": """Formal procedures exist for reporting, investigating, and addressing AI-related ethical or risk incidents.""",
+        "leading": """Continuous improvement framework embedded—tracking AI incidents, analysing trends, sharing lessons learned, and updating governance accordingly.""",
+        "additional_guide": """Additional Guidance - Responding to Ethical Incidents
+
+Incident management is a key feedback loop for AI governance.
 • **Define What Constitutes an Incident:** Include ethical breaches, bias findings, model failures, or data-privacy events.
 • **Create a Reporting Pathway:** Enable confidential staff reporting and escalation through governance or ethics committees.
 • **Conduct Root-Cause Analysis:** Identify system, process, or training gaps contributing to incidents.
@@ -1254,16 +1338,18 @@ A structured response to ethical incidents transforms mistakes into progress, st
     },
     # Domain 8: Continuous Learning & Improvement (6 questions)
     {
-        "code": "CL-01",
-        "text": "How effectively does the organisation capture and apply lessons learned from AI or data-driven projects to improve future initiatives?",
-        "explanation": "Context: Continuous learning ensures that AI capability evolves responsibly and efficiently. When lessons from projects are not collected or shared, mistakes are repeated and good practices remain isolated. This question evaluates whether your organisation systematically reviews completed or pilot AI projects, documents outcomes, and integrates findings into future planning, governance, and training activities. Example: After completing a proof-of-concept chatbot, a council conducts a post-implementation review documenting challenges with data accuracy and user accessibility, then updates its AI Governance Framework and training program accordingly.",
+        "code": """CL-01""",
+        "text": """How effectively does the organisation capture and apply lessons learned from AI or data-driven projects to improve future initiatives?""",
+        "explanation": """Context: Continuous learning ensures that AI capability evolves responsibly and efficiently. When lessons from projects are not collected or shared, mistakes are repeated and good practices remain isolated. This question evaluates whether your organisation systematically reviews completed or pilot AI projects, documents outcomes, and integrates findings into future planning, governance, and training activities. Example: After completing a proof-of-concept chatbot, a council conducts a post-implementation review documenting challenges with data accuracy and user accessibility, then updates its AI Governance Framework and training program accordingly.""",
         "domain_order": 8,
         "order": 1,
-        "foundational": "Lessons from AI or digital projects are not recorded or shared; improvement occurs informally.",
-        "developing": "Some project reviews occur, but findings are not consistently documented or acted upon.",
-        "established": "Structured post-project reviews capture lessons, which are tracked and applied to future AI planning and governance.",
-        "leading": "Organisation-wide learning culture embeds formal review, knowledge sharing, and continuous improvement loops across all AI initiatives.",
-        "additional_guide": """Learning from every initiative accelerates maturity and mitigates risk.
+        "foundational": """Lessons from AI or digital projects are not recorded or shared; improvement occurs informally.""",
+        "developing": """Some project reviews occur, but findings are not consistently documented or acted upon.""",
+        "established": """Structured post-project reviews capture lessons, which are tracked and applied to future AI planning and governance.""",
+        "leading": """Organisation-wide learning culture embeds formal review, knowledge sharing, and continuous improvement loops across all AI initiatives.""",
+        "additional_guide": """Additional Guidance - Learning from AI Projects
+
+Learning from every initiative accelerates maturity and mitigates risk.
 • **Formalise Reviews:** Require post-implementation reviews for all AI or analytics projects, regardless of outcome.
 • **Capture Key Insights:** Document technical, ethical, operational, and stakeholder lessons in a shared repository.
 • **Assign Ownership:** Nominate governance or risk teams to track and follow up on improvement actions.
@@ -1284,16 +1370,18 @@ Embedding structured feedback mechanisms transforms individual projects into con
 **In short:** demonstrate that AI experiences translate into tangible improvements-creating a continuous feedback loop that strengthens governance maturity over time."""
     },
     {
-        "code": "CL-02",
-        "text": "How consistently does the organisation review the performance and effectiveness of its AI governance and risk-management processes?",
-        "explanation": "Context: AI governance frameworks must evolve alongside technology, regulation, and organisational maturity. Without regular performance reviews, policies and controls can become outdated, ineffective, or misaligned with real-world practice. This question evaluates whether the organisation periodically assesses its AI governance structures, risk frameworks, and ethical oversight mechanisms to ensure they remain current and effective. Example: A council's Digital Governance Committee conducts an annual review of the AI Governance Framework, using findings from internal audits and project feedback to refine decision-making and oversight practices.",
+        "code": """CL-02""",
+        "text": """How consistently does the organisation review the performance and effectiveness of its AI governance and risk-management processes?""",
+        "explanation": """Context: AI governance frameworks must evolve alongside technology, regulation, and organisational maturity. Without regular performance reviews, policies and controls can become outdated, ineffective, or misaligned with real-world practice. This question evaluates whether the organisation periodically assesses its AI governance structures, risk frameworks, and ethical oversight mechanisms to ensure they remain current and effective. Example: A council's Digital Governance Committee conducts an annual review of the AI Governance Framework, using findings from internal audits and project feedback to refine decision-making and oversight practices.""",
         "domain_order": 8,
         "order": 2,
-        "foundational": "AI governance and risk processes are static and rarely reviewed for effectiveness.",
-        "developing": "Informal or occasional reviews occur, but findings are not systematically documented or implemented.",
-        "established": "Regular reviews assess AI governance performance, with findings used to update policies and controls.",
-        "leading": "Continuous assurance and improvement program embedded—integrating audits, KPIs, and stakeholder feedback to maintain effective AI governance.",
-        "additional_guide": """Governance must be dynamic, not decorative.
+        "foundational": """AI governance and risk processes are static and rarely reviewed for effectiveness.""",
+        "developing": """Informal or occasional reviews occur, but findings are not systematically documented or implemented.""",
+        "established": """Regular reviews assess AI governance performance, with findings used to update policies and controls.""",
+        "leading": """Continuous assurance and improvement program embedded—integrating audits, KPIs, and stakeholder feedback to maintain effective AI governance.""",
+        "additional_guide": """Additional Guidance - Reviewing Governance Effectiveness
+
+Governance must be dynamic, not decorative.
 • **Set Review Frequency:** Establish annual or biannual evaluations of AI governance and risk frameworks.
 • **Define Metrics:** Use indicators such as policy adoption rates, audit results, or incident trends to measure effectiveness.
 • **Engage Cross-Functional Input:** Include ICT, Legal, Risk, Ethics, and operational staff in reviews.
@@ -1314,16 +1402,18 @@ Structured governance reviews ensure the organisation continually adapts, keepin
 **In short:** demonstrate that AI governance is actively measured, reviewed, and refined-not left to drift as technology and risk evolve."""
     },
     {
-        "code": "CL-03",
-        "text": "How effectively does the organisation benchmark its AI maturity and governance practices against industry standards or peer organisations?",
-        "explanation": "Context: Benchmarking helps organisations understand their relative maturity, identify improvement opportunities, and validate governance effectiveness. Without external or comparative insight, AI-readiness efforts may stagnate or remain inward-looking. This question assesses whether your organisation periodically measures its AI performance and governance practices against recognised frameworks, external benchmarks, or peer entities to drive continuous improvement. Example: A council uses the AM AI SAFE Maturity Framework and NIST AI RMF to benchmark progress annually, comparing results to similar local governments to identify leading practices and improvement priorities.",
+        "code": """CL-03""",
+        "text": """How effectively does the organisation benchmark its AI maturity and governance practices against industry standards or peer organisations?""",
+        "explanation": """Context: Benchmarking helps organisations understand their relative maturity, identify improvement opportunities, and validate governance effectiveness. Without external or comparative insight, AI-readiness efforts may stagnate or remain inward-looking. This question assesses whether your organisation periodically measures its AI performance and governance practices against recognised frameworks, external benchmarks, or peer entities to drive continuous improvement. Example: A council uses the AM AI SAFE Maturity Framework and NIST AI RMF to benchmark progress annually, comparing results to similar local governments to identify leading practices and improvement priorities.""",
         "domain_order": 8,
         "order": 3,
-        "foundational": "No benchmarking of AI maturity or governance practices has been conducted.",
-        "developing": "Some informal comparisons or self-assessments occur, but results are not analysed or applied systematically.",
-        "established": "Regular benchmarking performed using structured frameworks or peer comparisons, informing improvement planning.",
-        "leading": "Continuous benchmarking embedded—using formal tools, external validation, and data-driven insights to refine AI governance and demonstrate transparency.",
-        "additional_guide": """Benchmarking provides evidence-based direction for AI governance evolution.
+        "foundational": """No benchmarking of AI maturity or governance practices has been conducted.""",
+        "developing": """Some informal comparisons or self-assessments occur, but results are not analysed or applied systematically.""",
+        "established": """Regular benchmarking performed using structured frameworks or peer comparisons, informing improvement planning.""",
+        "leading": """Continuous benchmarking embedded—using formal tools, external validation, and data-driven insights to refine AI governance and demonstrate transparency.""",
+        "additional_guide": """Additional Guidance - Benchmarking AI Maturity
+
+Benchmarking provides evidence-based direction for AI governance evolution.
 • **Select Relevant Frameworks:** Use established standards (e.g., ISO 42001, NIST AI RMF, Voluntary AI Safety Standard, AM AI SAFE).
 • **Conduct Regular Assessments:** Evaluate at least annually to track progress over time.
 • **Engage Independent Reviewers:** Consider third-party audits or peer evaluations for objectivity.
@@ -1344,16 +1434,18 @@ Benchmarking transforms maturity assessments from static snapshots into catalyst
 **In short:** demonstrate that benchmarking is regular, evidence-based, and actively shapes strategic decisions and governance improvements."""
     },
     {
-        "code": "CL-04",
-        "text": "How effectively does the organisation incorporate feedback from staff, stakeholders, and end users into AI improvement and governance processes?",
-        "explanation": "Context: Ongoing feedback ensures that AI systems and governance remain relevant, ethical, and responsive to those they affect. Without structured mechanisms to collect and act on feedback, issues may persist unnoticed, eroding trust and performance. This question evaluates whether your organisation has established channels for gathering insights from staff, community members, and external partners to refine AI practices and policies. Example: A council collects feedback from both staff and residents about its AI-powered service chatbot, using survey results and sentiment analysis to improve user experience and update ethical design guidelines.",
+        "code": """CL-04""",
+        "text": """How effectively does the organisation incorporate feedback from staff, stakeholders, and end users into AI improvement and governance processes?""",
+        "explanation": """Context: Ongoing feedback ensures that AI systems and governance remain relevant, ethical, and responsive to those they affect. Without structured mechanisms to collect and act on feedback, issues may persist unnoticed, eroding trust and performance. This question evaluates whether your organisation has established channels for gathering insights from staff, community members, and external partners to refine AI practices and policies. Example: A council collects feedback from both staff and residents about its AI-powered service chatbot, using survey results and sentiment analysis to improve user experience and update ethical design guidelines.""",
         "domain_order": 8,
         "order": 4,
-        "foundational": "No formal mechanisms exist to gather or act on feedback related to AI systems or governance.",
-        "developing": "Some feedback is collected informally, but there is no consistent process for analysis or follow-up.",
-        "established": "Feedback processes exist for AI systems and governance, and responses are tracked and implemented.",
-        "leading": "Continuous feedback loops embedded—covering staff, community, and stakeholder input—driving iterative AI and governance improvements.",
-        "additional_guide": """Effective AI maturity relies on learning from diverse voices.
+        "foundational": """No formal mechanisms exist to gather or act on feedback related to AI systems or governance.""",
+        "developing": """Some feedback is collected informally, but there is no consistent process for analysis or follow-up.""",
+        "established": """Feedback processes exist for AI systems and governance, and responses are tracked and implemented.""",
+        "leading": """Continuous feedback loops embedded—covering staff, community, and stakeholder input—driving iterative AI and governance improvements.""",
+        "additional_guide": """Additional Guidance - Integrating Feedback
+
+Effective AI maturity relies on learning from diverse voices.
 • **Establish Feedback Channels:** Create surveys, hotlines, or digital forms for internal and external input on AI performance and ethics.
 • **Ensure Representation:** Engage both internal users and external stakeholders, including community and advocacy groups.
 • **Analyse and Prioritise Feedback:** Review input regularly and assign responsibility for follow-up.
@@ -1374,16 +1466,18 @@ Structured feedback integration ensures that AI governance evolves collaborative
 **In short:** demonstrate that feedback on AI use is continuous, inclusive, and directly drives governance and performance improvements."""
     },
     {
-        "code": "CL-05",
-        "text": "How effectively does the organisation use audits, assurance reviews, and performance metrics to drive AI governance improvement?",
-        "explanation": "Context: Audits and performance measurement provide objective insight into the health of AI governance. Without structured assurance, organisations risk overlooking weaknesses or failing to verify that ethical and operational controls are effective. This question assesses whether your organisation conducts internal or external reviews of AI readiness, using findings and metrics to strengthen governance, risk, and compliance practices. Example: A council commissions an annual internal audit assessing AI governance maturity against ISO/IEC 42001 requirements, tracks non-conformances, and reports on improvements through its Risk and Audit Committee.",
+        "code": """CL-05""",
+        "text": """How effectively does the organisation use audits, assurance reviews, and performance metrics to drive AI governance improvement?""",
+        "explanation": """Context: Audits and performance measurement provide objective insight into the health of AI governance. Without structured assurance, organisations risk overlooking weaknesses or failing to verify that ethical and operational controls are effective. This question assesses whether your organisation conducts internal or external reviews of AI readiness, using findings and metrics to strengthen governance, risk, and compliance practices. Example: A council commissions an annual internal audit assessing AI governance maturity against ISO/IEC 42001 requirements, tracks non-conformances, and reports on improvements through its Risk and Audit Committee.""",
         "domain_order": 8,
         "order": 5,
-        "foundational": "No formal audits or performance metrics are applied to AI or governance processes.",
-        "developing": "Some ad hoc audits or reviews occur, but results are not systematically followed up or measured.",
-        "established": "Regular AI governance audits and performance reporting occur, with corrective actions tracked and implemented.",
-        "leading": "Continuous assurance model in place—combining audits, KPIs, dashboards, and third-party validation to guide measurable improvement.",
-        "additional_guide": """Structured assurance turns AI governance from reactive to proactive.
+        "foundational": """No formal audits or performance metrics are applied to AI or governance processes.""",
+        "developing": """Some ad hoc audits or reviews occur, but results are not systematically followed up or measured.""",
+        "established": """Regular AI governance audits and performance reporting occur, with corrective actions tracked and implemented.""",
+        "leading": """Continuous assurance model in place—combining audits, KPIs, dashboards, and third-party validation to guide measurable improvement.""",
+        "additional_guide": """Additional Guidance - Embedding Assurance and Measurement
+
+Structured assurance turns AI governance from reactive to proactive.
 • **Integrate with Audit Programs:** Include AI governance and ethics within annual internal audit plans.
 • **Define KPIs:** Track metrics such as data-quality scores, bias findings, training completion, or policy compliance rates.
 • **Close Audit Loops:** Assign actions, owners, and due dates for audit recommendations.
@@ -1404,16 +1498,18 @@ Embedding assurance and measurement ensures AI governance is tested, evidence-ba
 **In short:** demonstrate that AI governance is validated through structured, data-driven assurance processes that deliver measurable, sustained improvement."""
     },
     {
-        "code": "CL-06",
-        "text": "How effectively does the organisation foster a learning mindset and culture of continuous improvement in relation to AI and digital innovation?",
-        "explanation": "Context: A learning culture ensures that AI readiness is not a one-time goal but an ongoing journey. When teams lack curiosity or fear experimentation, innovation stalls and valuable insights go unrealised. This question evaluates whether the organisation encourages reflection, experimentation, and professional growth to continually improve its approach to AI and responsible technology adoption. Example: A council establishes an internal \"Digital Learning Hub,\" offering workshops on AI ethics, automation, and data storytelling, and rewards teams who share innovations or lessons that strengthen organisational capability.",
+        "code": """CL-06""",
+        "text": """How effectively does the organisation foster a learning mindset and culture of continuous improvement in relation to AI and digital innovation?""",
+        "explanation": """Context: A learning culture ensures that AI readiness is not a one-time goal but an ongoing journey. When teams lack curiosity or fear experimentation, innovation stalls and valuable insights go unrealised. This question evaluates whether the organisation encourages reflection, experimentation, and professional growth to continually improve its approach to AI and responsible technology adoption. Example: A council establishes an internal "Digital Learning Hub," offering workshops on AI ethics, automation, and data storytelling, and rewards teams who share innovations or lessons that strengthen organisational capability.""",
         "domain_order": 8,
         "order": 6,
-        "foundational": "Continuous learning and improvement are not prioritised; staff receive limited opportunities to build digital or AI knowledge.",
-        "developing": "Some ad hoc learning opportunities exist, but they are not structured or linked to AI readiness goals.",
-        "established": "Regular training, forums, and knowledge-sharing activities promote ongoing AI learning and organisational improvement.",
-        "leading": "A proactive learning culture embedded—continuous reflection, innovation, and experimentation are encouraged, recognised, and integrated into strategic and workforce planning.",
-        "additional_guide": """Sustainable AI maturity depends on a growth mindset and shared responsibility for improvement.
+        "foundational": """Continuous learning and improvement are not prioritised; staff receive limited opportunities to build digital or AI knowledge.""",
+        "developing": """Some ad hoc learning opportunities exist, but they are not structured or linked to AI readiness goals.""",
+        "established": """Regular training, forums, and knowledge-sharing activities promote ongoing AI learning and organisational improvement.""",
+        "leading": """A proactive learning culture embedded—continuous reflection, innovation, and experimentation are encouraged, recognised, and integrated into strategic and workforce planning.""",
+        "additional_guide": """Additional Guidance - Fostering a Learning Culture
+
+Sustainable AI maturity depends on a growth mindset and shared responsibility for improvement.
 • **Empower Learning:** Provide access to training, professional development, and innovation resources related to AI and digital ethics.
 • **Encourage Reflection:** Integrate "what worked / what didn't" discussions into project closeouts and team meetings.
 • **Reward Curiosity:** Recognise staff who propose creative, responsible technology solutions.
