@@ -2062,6 +2062,72 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
             "status_overview": status_overview
         }
     
+    # Handle Organisation Assessment
+    elif assessment_type == "Orgwide":
+        from organisation_questions import ORGANISATION_QUESTIONS_DATA
+        
+        # Get answers for this assessment
+        answers = await db.answers.find({"assessment_id": assessment_id}).to_list(length=None)
+        answer_lookup = {answer["question_id"]: answer for answer in answers}
+        
+        # Define organisation domains
+        organisation_domains = [
+            {"id": "accountability_ethics", "name": "Accountability & Ethics", "order": 1},
+            {"id": "continuous_improvement", "name": "Continuous Improvement & Assurance", "order": 2},
+            {"id": "culture_capability", "name": "Culture & Capability", "order": 3},
+            {"id": "data_stewardship", "name": "Data Stewardship & Security", "order": 4},
+            {"id": "fairness_inclusivity", "name": "Fairness & Inclusivity", "order": 5},
+            {"id": "governance_oversight", "name": "Governance & Oversight", "order": 6},
+            {"id": "privacy_legal", "name": "Privacy & Legal Compliance", "order": 7},
+            {"id": "reliability_safety", "name": "Reliability & Safety", "order": 8},
+            {"id": "risk_management", "name": "Risk Management", "order": 9},
+            {"id": "transparency_explainability", "name": "Transparency & Explainability", "order": 10}
+        ]
+        
+        # Group organisation questions by domain
+        domain_questions = {}
+        for domain in organisation_domains:
+            domain_questions[domain["order"]] = {
+                "domain": domain,
+                "questions": []
+            }
+        
+        for question_data in ORGANISATION_QUESTIONS_DATA:
+            domain_order = question_data["domain_order"]
+            question_id = question_data["code"]
+            answer = answer_lookup.get(question_id)
+            
+            question_status = {
+                "question_id": question_id,
+                "question_code": question_id,
+                "question_text": question_data["text"],
+                "answered": question_id in answer_lookup,
+                "review_status": answer.get("review_status") if answer else None
+            }
+            domain_questions[domain_order]["questions"].append(question_status)
+        
+        # Build the status overview
+        status_overview = []
+        for dq in domain_questions.values():
+            if dq["questions"]:
+                status_overview.append({
+                    "domain_id": dq["domain"]["id"],
+                    "domain_name": dq["domain"]["name"],
+                    "questions": dq["questions"]
+                })
+        
+        total_questions = len(ORGANISATION_QUESTIONS_DATA)
+        answered_questions = len(answers)
+        completion_percentage = round((answered_questions / total_questions * 100) if total_questions > 0 else 0, 1)
+        
+        return {
+            "assessment_id": assessment_id,
+            "total_questions": total_questions,
+            "answered_questions": answered_questions,
+            "completion_percentage": completion_percentage,
+            "status_overview": status_overview
+        }
+    
     # Handle Awareness Assessment differently
     elif assessment_type == "Awareness":
         # Get answers for this assessment
