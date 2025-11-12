@@ -282,7 +282,7 @@ Embedding these controls enables accountability, reduces shadow AI initiatives, 
 • **Policy Clauses:** ICT Procurement or Innovation Policies mentioning AI oversight.
 • **Reports:** Post-implementation reviews documenting results and lessons learned.
 
-Demonstrate that AI initiatives follow an approved path from concept to review with clear accountability."""
+**Demonstrate that AI initiatives follow an approved path from concept to review with clear accountability.**"""
     },
     {
         "code": "GF-05",
@@ -304,7 +304,7 @@ Building regulatory awareness demonstrates due diligence and positions your orga
 • **Training:** Attendance at AI governance workshops or compliance seminars.
 • **Communications:** Newsletters or memos circulating AI policy changes.
 
-Provide proof of continuous monitoring and integration of emerging AI requirements into corporate governance."""
+**Provide proof of continuous monitoring and integration of emerging AI requirements into corporate governance.**"""
     },
     {
         "code": "GF-06",
@@ -326,7 +326,7 @@ This approach creates continuity, clarity, and shared ownership of responsible A
 • **Training Records:** Completion of AI ethics or governance modules by staff.
 • **Review Docs:** Performance evaluation templates showing AI criteria.
 
-Show evidence that AI accountability is not optional but a recognised, measurable part of key roles."""
+**Show evidence that AI accountability is not optional but a recognised, measurable part of key roles.**"""
     },
     # Domain 3: Data Readiness (6 questions)
     {
