@@ -543,6 +543,8 @@ function AssessmentPage() {
       {showStatusView && (
         <AssessmentStatusView 
           assessmentId={id}
+          assessmentType={assessmentType}
+          assessmentName={assessment?.name}
           onClose={() => setShowStatusView(false)}
           onQuestionClick={(questionId) => {
             const questionIndex = questions.findIndex(q => q.id === questionId);
