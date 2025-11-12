@@ -1242,11 +1242,13 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
     # Get total questions count for System assessments
     system_total_questions = await db.questions.count_documents({})
     
-    # Import Awareness and Readiness questions count
+    # Import Awareness, Readiness, and Organisation questions count
     from awareness_questions import AWARENESS_QUESTIONS_DATA
     from readiness_questions import READINESS_QUESTIONS_DATA
+    from organisation_questions import ORGANISATION_QUESTIONS_DATA
     awareness_total_questions = len(AWARENESS_QUESTIONS_DATA)  # 25
     readiness_total_questions = len(READINESS_QUESTIONS_DATA)  # 48
+    organisation_total_questions = len(ORGANISATION_QUESTIONS_DATA)  # 80
     
     return [
         AssessmentResponse(
