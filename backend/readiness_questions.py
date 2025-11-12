@@ -225,9 +225,12 @@ Effective AI governance builds transparency, aligns innovation with organisation
         "developing": "Some AI tasks allocated informally to ICT or data teams, but accountability remains unclear.",
         "established": "Documented responsibilities exist across relevant functions (ICT, Legal, Risk, HR).",
         "leading": "Roles are embedded organisation-wide with clear escalation paths and accountability integrated into job descriptions.",
-        "additional_guide": """Define "who does what" for AI. Start by mapping responsibilities across departments-data owners, model developers, compliance officers, and senior approvers. Use a RACI matrix (Responsible, Accountable, Consulted, Informed) to formalise accountability. Link responsibilities to performance plans or KPIs to ensure sustainability.
-As capability grows, create cross-functional teams that coordinate decisions, share lessons learned, and monitor emerging risks. Regularly review and update these roles to reflect new AI use cases or regulatory expectations.
-Structured accountability reduces ambiguity, improves efficiency, and ensures that ethical oversight remains consistent even as staff change or projects scale.""",
+        "additional_guide": """Clearly define **who is responsible, accountable, consulted, and informed** for all AI activities.
+• **Map Responsibilities Across Functions:** Identify data owners, model developers, risk managers, compliance officers, and executive sponsors.
+• **Use a RACI Matrix:** Formalise ownership and decision rights to reduce ambiguity.
+• **Integrate into Performance Management:** Embed AI accountabilities into role descriptions and KPIs to sustain governance beyond individuals.
+• **Review Regularly:** Reassess roles and responsibilities as new AI systems or regulations emerge.
+Structured accountability ensures consistent oversight, promotes efficiency, and strengthens organisational resilience to AI-related risks.""",
         "evidence_types": """To demonstrate compliance, provide evidence that the organisation's AI vision and strategy are clearly documented, aligned with business objectives, and supported by leadership commitment.
 
 • **Role Documents:** Position Descriptions, RACI matrices, or Governance Charters assigning AI accountabilities.
@@ -248,9 +251,12 @@ Structured accountability reduces ambiguity, improves efficiency, and ensures th
         "developing": "AI occasionally discussed but not formally integrated.",
         "established": "AI risk and ethics integrated into enterprise governance documents and processes.",
         "leading": "AI governance fully embedded across policies, committees, and reporting cycles with continuous improvement reviews.",
-        "additional_guide": """Review existing frameworks-risk management, data protection, ICT change control-and identify where AI considerations fit naturally. Add AI risk categories (bias, transparency, model integrity) to risk registers. Ensure committees consider AI impacts alongside other technology risks.
-Coordinate between Risk, Legal, Data Governance, and ICT to harmonise terminology and reporting. Update policies to reference responsible AI use and ethical standards.
-Embedding AI into existing frameworks demonstrates maturity, reduces redundancy, and ensures AI is treated with the same rigour as other critical business activities.""",
+        "additional_guide": """Integrate AI into existing **corporate governance, risk, and compliance frameworks** rather than building new ones in isolation.
+• **Review Core Frameworks:** Align AI oversight within risk management, ICT governance, privacy, and data protection structures.
+• **Expand Risk Registers:** Include AI-specific categories such as bias, transparency, and model integrity.
+• **Coordinate Across Functions:** Ensure Risk, Legal, ICT, and Data Governance teams share consistent definitions and reporting mechanisms.
+• **Update Policies:** Reference responsible and ethical AI use in existing governance documentation.
+Embedding AI into established systems demonstrates maturity, ensures alignment, and avoids duplication of oversight processes.""",
         "evidence_types": """To demonstrate compliance, provide evidence that AI-related roles, responsibilities, and decision-making authorities are clearly defined, documented, and communicated across the organisation.
 
 • **Risk Frameworks:** Documents showing AI categories within enterprise risk registers.
@@ -271,9 +277,12 @@ Embedding AI into existing frameworks demonstrates maturity, reduces redundancy,
         "developing": "Some ad hoc reviews; inconsistent oversight of pilots.",
         "established": "Documented approval process with defined criteria and monitoring steps.",
         "leading": "Fully integrated, transparent AI project lifecycle governance with periodic reviews and ethics checks.",
-        "additional_guide": """Create a lightweight intake process for all AI projects capturing purpose, data use, stakeholders, and risk ratings. Require approvals before deployment and schedule post-implementation reviews to assess performance and impact.
-As maturity grows, establish an AI Review Board or use existing committees to evaluate submissions. Track projects in a register, noting owners, risks, and outcomes.
-Embedding these controls enables accountability, reduces shadow AI initiatives, and provides auditable governance records.""",
+        "additional_guide": """Apply structured **governance checkpoints** throughout each AI project's lifecycle.
+• **Implement an AI Project Intake Process:** Capture purpose, stakeholders, data usage, and risk ratings before development.
+• **Require Approvals:** Ensure appropriate sign-off before deployment and mandate post-implementation reviews.
+• **Use Central Registers:** Maintain an AI project register recording owners, risks, and performance outcomes.
+• **Establish Oversight Committees:** Use an AI Review Board or existing governance bodies to evaluate high-risk projects.
+Lifecycle oversight ensures traceability, minimises shadow AI activities, and provides auditable assurance of responsible deployment.""",
         "evidence_types": """To demonstrate compliance, provide evidence that AI governance policies and frameworks are formally approved, consistently applied, and reviewed to ensure alignment with organisational objectives and ethical standards.
 
 • **Process Docs:** AI pilot approval workflow or standard intake form.
@@ -294,8 +303,12 @@ Embedding these controls enables accountability, reduces shadow AI initiatives, 
         "developing": "Occasional awareness through informal channels or industry events.",
         "established": "Designated person or team monitors AI standards and updates policies as needed.",
         "leading": "Structured process with regular briefings, trend analysis, and policy alignment reviews.",
-        "additional_guide": """Assign a compliance or governance lead to track developments from bodies such as the ACSC, OECD, ISO, and NIST. Schedule quarterly reviews to assess implications and update internal policies. Engage in industry networks and public consultations to stay ahead of emerging requirements.
-Building regulatory awareness demonstrates due diligence and positions your organisation to respond to new obligations proactively rather than reactively.""",
+        "additional_guide": """Maintain an **active awareness of evolving AI standards, regulations, and guidance** to keep governance relevant.
+• **Assign a Compliance Lead:** Nominate an individual or team to monitor updates from ACSC, NIST, ISO, OECD, and national regulators.
+• **Schedule Periodic Reviews:** Assess how emerging obligations affect organisational policies and controls.
+• **Engage Externally:** Participate in professional networks, working groups, and public consultations.
+• **Update Policies Proactively:** Revise frameworks and training to reflect regulatory shifts and best practices.
+Staying informed demonstrates due diligence and helps position the organisation to anticipate rather than react to change.""",
         "evidence_types": """To demonstrate compliance, provide evidence that risk management processes for AI are established, documented, and integrated into the organisation's broader governance and assurance frameworks.
 
 • **Briefings & Summaries:** Internal or external AI regulation updates.
@@ -316,8 +329,12 @@ Building regulatory awareness demonstrates due diligence and positions your orga
         "developing": "Informal expectations exist but are not documented or evaluated.",
         "established": "Specific AI responsibilities are embedded in relevant positions and KPIs.",
         "leading": "AI accountability is integrated organisation-wide with periodic role reviews and leadership reporting.",
-        "additional_guide": """Integrate AI responsibilities into existing job frameworks to make accountability systemic. Define clear expectations for roles such as ICT managers, data stewards, procurement leads, and ethics officers. Ensure performance plans include objectives related to ethical AI use or risk management. Review these responsibilities annually to reflect changing capabilities and regulations.
-This approach creates continuity, clarity, and shared ownership of responsible AI outcomes.""",
+        "additional_guide": """Embed AI accountability **into the fabric of organisational roles and culture**.
+• **Integrate into Job Frameworks:** Define AI-related responsibilities for ICT, data, procurement, and ethics roles.
+• **Align with Performance Systems:** Include measurable objectives related to ethical AI use, risk management, and compliance.
+• **Conduct Annual Reviews:** Re-evaluate responsibilities as technology, capabilities, and regulation evolve.
+• **Foster Shared Ownership:** Reinforce AI accountability through leadership communication and continuous learning.
+Institutionalising accountability ensures continuity, clarity, and long-term commitment to responsible AI governance.""",
         "evidence_types": """To demonstrate compliance, provide evidence that AI governance responsibilities are formally embedded into staff roles, position descriptions, and performance management processes to ensure sustained accountability across the organisation.
 
 • **Job Descriptions:** Documents listing AI ethics or governance responsibilities.
