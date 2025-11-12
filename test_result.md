@@ -428,6 +428,18 @@
     priority: "high"
     needs_retesting: false
 
+  - task: "Fix AI Readiness Assessment View All Button Crash and Missing Tooltips bugs"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/readiness_questions.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "testing"
+        - comment: "COMPREHENSIVE AI READINESS ASSESSMENT BUG FIXES TESTING COMPLETED SUCCESSFULLY: Extensive testing of the two critical AI Readiness Assessment bug fixes completed with 100% success rate (25/25 tests passed). CRITICAL BUG FIXES VERIFIED: ✅ BUG 1 (View All Button Crash Fix): GET /api/assessments/{assessment_id}/status endpoint now returns correct structure with status_overview array (NOT domain_scores), each domain contains domain_id, domain_name, and questions array, each question contains question_id, question_code, question_text, answered boolean, and review_status fields, total 48 questions across 8 domains correctly reported, completion_percentage calculated accurately based on answered questions. ✅ BUG 2 (Missing Tooltips Fix): GET /api/assessments/{assessment_id}/questions endpoint now includes 'additional_guide' field with substantial tooltip content for all 48 Readiness questions, all sample questions (SA-01, GF-01, DR-01, TI-01, PC-01, PR-01, RE-01, CL-01) verified to have meaningful tooltip text with 100+ character guides, tooltips contain comprehensive guidance for each question including best practices, implementation steps, and contextual advice. TECHNICAL IMPLEMENTATION: Fixed backend server.py to include additional_guide field from readiness_questions.py data in API responses, readiness questions data contains rich tooltip content with detailed guidance for each assessment question. Both critical bugs have been successfully resolved and the AI Readiness Assessment View All functionality and question tooltips are now working correctly."
+
   - task: "Replace separate Cloud provider and Primary region dropdowns with combined dropdown in System Pre-Assessment form"
     implemented: true
     working: "NA"
