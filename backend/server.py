@@ -1203,6 +1203,9 @@ async def create_assessment(
     elif assessment_type == "Readiness":
         from readiness_questions import READINESS_QUESTIONS_DATA
         total_questions = len(READINESS_QUESTIONS_DATA)  # 48 questions
+    elif assessment_type == "Orgwide":
+        from organisation_questions import ORGANISATION_QUESTIONS_DATA
+        total_questions = len(ORGANISATION_QUESTIONS_DATA)  # 80 questions
     else:
         total_questions = await db.questions.count_documents({})  # System questions
     
