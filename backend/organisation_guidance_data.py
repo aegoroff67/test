@@ -8,7 +8,7 @@ ORGANISATION_GUIDANCE = {
 • **Promote Transparency:** Communicate accountability structures internally and, where appropriate, externally.  
 Clear, documented accountability demonstrates leadership ownership of AI impacts and fosters stakeholder confidence.
 
-\---
+---
 
 **""",
     "AE-02": """Ethical frameworks ensure AI aligns with community expectations and organisational integrity. To strengthen ethical governance:  
@@ -19,7 +19,7 @@ Clear, documented accountability demonstrates leadership ownership of AI impacts
 • **Review Regularly:** Refresh principles as technology, regulation, and social norms evolve.  
 Embedding ethics into daily processes helps ensure responsible innovation and strengthens trust between the organisation and the public.
 
-\---
+---
 
 **""",
     "AE-03": """Human involvement ensures accountability and ethical balance in AI outcomes. To strengthen oversight:  
@@ -31,7 +31,7 @@ Embedding ethics into daily processes helps ensure responsible innovation and st
 • **Review Regularly:** Reassess oversight adequacy as AI complexity and risk evolve.  
 Consistent human oversight prevents blind reliance on automation, promoting ethical, defensible, and citizen-centric decision-making.
 
-\---
+---
 
 **""",
     "AE-04": """Proactive conflict management safeguards objectivity and integrity. To strengthen governance:  
@@ -43,7 +43,7 @@ Consistent human oversight prevents blind reliance on automation, promoting ethi
 • **Enable Independent Oversight:** Assign neutral reviewers for sensitive or high-impact projects.  
 Transparent conflict management reinforces confidence in the fairness and independence of AI governance processes.
 
-\---
+---
 
 **""",
     "AE-05": """Ethical reviews ensure AI systems respect fairness, accountability, and public trust. To mature your review process:  
@@ -55,7 +55,7 @@ Transparent conflict management reinforces confidence in the fairness and indepe
 • **Report Transparently:** Communicate review outcomes to leadership or publicly for high-impact systems.  
 Structured ethical reviews ensure AI deployments are deliberate, defensible, and aligned with community values.
 
-\---
+---
 
 **""",
     "AE-06": """Ethical escalation frameworks promote transparency, accountability, and organisational learning. To strengthen them:  
@@ -67,7 +67,7 @@ Structured ethical reviews ensure AI deployments are deliberate, defensible, and
 • **Report Outcomes:** Share resolution summaries with leadership and, where appropriate, the public.  
 A defined escalation and resolution process demonstrates integrity, builds trust, and drives continuous improvement in ethical AI governance.
 
-\---
+---
 
 **""",
     "AE-07": """A strong ethical culture drives consistent, values-based decisions. To cultivate one:  
@@ -79,7 +79,7 @@ A defined escalation and resolution process demonstrates integrity, builds trust
 • **Embed in Onboarding:** Introduce AI ethics principles to new staff.  
 Embedding ethics into culture ensures awareness translates into daily practice and organisational integrity.
 
-\---
+---
 
 **""",
     "AE-08": """Public transparency strengthens legitimacy and fosters informed dialogue about responsible AI use. To enhance it:  
@@ -91,7 +91,7 @@ Embedding ethics into culture ensures awareness translates into daily practice a
 • **Update Regularly:** Keep disclosures current as systems evolve.  
 Transparent communication demonstrates ethical leadership and reinforces public confidence in organisational integrity.
 
-\---
+---
 
 **""",
     "CA-01": """Performance measurement enables data-driven improvement and accountability. To mature capability:  
@@ -103,7 +103,7 @@ Transparent communication demonstrates ethical leadership and reinforces public 
 • **Refine KPIs:** Adjust metrics as maturity evolves.  
 Tracking AI governance performance ensures accountability, transparency, and measurable improvement.
 
-\---
+---
 
 **""",
     "CA-02": """Embedding AI within internal audit strengthens oversight and assurance. To enhance maturity:  
@@ -115,7 +115,7 @@ Tracking AI governance performance ensures accountability, transparency, and mea
 • **Coordinate with Governance Teams:** Align audit outcomes with AI policy improvements.  
 Systematic assurance confirms AI governance effectiveness and continuous compliance.
 
-\---
+---
 
 **""",
     "CA-03": """External benchmarking ensures alignment with recognised best practices. To strengthen maturity:  
@@ -127,7 +127,7 @@ Systematic assurance confirms AI governance effectiveness and continuous complia
 • **Communicate Progress:** Report benchmarking results to leadership and stakeholders.  
 Regular benchmarking demonstrates accountability, maturity, and commitment to responsible AI.
 
-\---
+---
 
 **""",
     "CA-04": """External assurance strengthens accountability and transparency. To mature capability:  
@@ -139,7 +139,7 @@ Regular benchmarking demonstrates accountability, maturity, and commitment to re
 • **Pursue Certification:** Consider recognised standards such as ISO/IEC 42001 for validation.  
 External assurance demonstrates integrity, objectivity, and continual commitment to trustworthy AI governance.
 
-\---
+---
 
 **""",
     "CA-05": """Learning from experience drives maturity and resilience. To strengthen capability:  
@@ -151,7 +151,7 @@ External assurance demonstrates integrity, objectivity, and continual commitment
 • **Promote a Learning Culture:** Encourage open discussion of challenges and successes.  
 Systematic learning transforms experience into tangible governance improvement.
 
-\---
+---
 
 **""",
     "CA-06": """Staying informed ensures governance frameworks remain current and credible. To strengthen maturity:  
@@ -163,7 +163,7 @@ Systematic learning transforms experience into tangible governance improvement.
 • **Communicate Insights:** Share updates with leadership and key stakeholders.  
 Tracking trends supports agility, innovation, and compliance in a fast-changing AI landscape.
 
-\---
+---
 
 **""",
     "CA-07": """Measurement ensures improvement efforts are targeted and evidence-based. To mature practices:  
@@ -175,7 +175,7 @@ Tracking trends supports agility, innovation, and compliance in a fast-changing 
 • **Report Outcomes:** Share improvement progress transparently with leadership.  
 Structured measurement drives accountability and demonstrable maturity growth.
 
-\---
+---
 
 **""",
     "CA-08": """Continuous assurance safeguards long-term reliability and compliance. To enhance maturity:  
@@ -195,7 +195,7 @@ Structured, repeatable assurance cycles demonstrate enduring accountability and 
 • **Refresh Regularly:** Update messaging as technologies and regulations evolve.  
 An informed workforce supports safe, transparent, and value-aligned AI implementation.
 
-\---
+---
 
 **""",
     "CC-02": """Upskilling empowers staff to implement and manage AI responsibly. To enhance capability:  
@@ -207,7 +207,7 @@ An informed workforce supports safe, transparent, and value-aligned AI implement
 • **Foster Lifelong Learning:** Refresh content regularly as technologies evolve.  
 Structured training develops confident, competent teams ready for responsible AI adoption.
 
-\---
+---
 
 **""",
     "CC-03": """Ethical decision-making builds accountability and public trust. To strengthen capability:  
@@ -219,7 +219,7 @@ Structured training develops confident, competent teams ready for responsible AI
 • **Review Regularly:** Refresh ethical training based on new laws, technologies, and lessons learned.  
 Embedding ethical competence transforms responsible AI from theory into daily practice.
 
-\---
+---
 
 **""",
     "CC-04": """Leadership commitment ensures responsible AI becomes embedded in organisational values. To enhance maturity:  
@@ -231,7 +231,7 @@ Embedding ethical competence transforms responsible AI from theory into daily pr
 • **Engage Externally:** Represent the organisation in AI ethics and governance forums.  
 Strong leadership signals that responsible AI is both a cultural and strategic priority.
 
-\---
+---
 
 **""",
     "CC-05": """Collaboration promotes balanced decision-making and shared accountability. To strengthen practices:  
@@ -243,7 +243,7 @@ Strong leadership signals that responsible AI is both a cultural and strategic p
 • **Use Collaboration Tools:** Support shared dashboards and digital platforms for AI tracking.  
 Cross-functional collaboration drives better outcomes and stronger governance alignment.
 
-\---
+---
 
 **""",
     "CC-06": """Responsible experimentation enables innovation with assurance. To mature practices:  
@@ -255,7 +255,7 @@ Cross-functional collaboration drives better outcomes and stronger governance al
 • **Integrate Lessons Learned:** Apply insights to future policies and deployments.  
 Embedding responsible experimentation nurtures innovation while maintaining trust and compliance.
 
-\---
+---
 
 **""",
     "CC-07": """Capability assessment supports data-driven workforce planning. To strengthen maturity:  
@@ -267,7 +267,7 @@ Embedding responsible experimentation nurtures innovation while maintaining trus
 • **Report Findings:** Share insights with leadership to prioritise investment.  
 Systematic measurement ensures the workforce is equipped and ready for responsible AI adoption.
 
-\---
+---
 
 **""",
     "CC-08": """Ongoing education supports safe and informed AI adoption. To strengthen maturity:  
@@ -279,7 +279,7 @@ Systematic measurement ensures the workforce is equipped and ready for responsib
 • **Involve Leadership:** Have executives champion and participate in learning initiatives.  
 Continuous AI education ensures organisational agility and resilience in an evolving digital environment.
 
-\---
+---
 
 **""",
     "DS-01": """Reliable AI outcomes depend on rigorous data-quality assurance. To strengthen governance:  
@@ -291,7 +291,7 @@ Continuous AI education ensures organisational agility and resilience in an evol
 • **Monitor Continuously:** Use dashboards or alerts to detect data drift or integrity issues.  
 Consistent validation processes reduce bias, enhance reliability, and underpin defensible AI decision-making.
 
-\---
+---
 
 **""",
     "DS-02": """Defined roles ensure accountability and efficient data stewardship. To mature your approach:  
@@ -303,7 +303,7 @@ Consistent validation processes reduce bias, enhance reliability, and underpin d
 • **Monitor Performance:** Use KPIs to evaluate stewardship effectiveness and compliance with data standards.  
 Defined, empowered roles create clear accountability and strengthen overall data integrity and trustworthiness.
 
-\---
+---
 
 **""",
     "DS-03": """Accurate data classification protects confidentiality and supports compliance. To mature practices:  
@@ -315,7 +315,7 @@ Defined, empowered roles create clear accountability and strengthen overall data
 • **Monitor Compliance:** Audit AI projects regularly for correct classification and data handling.  
 Consistent classification ensures sensitive data used in AI systems is safeguarded from unauthorised access or misuse.
 
-\---
+---
 
 **""",
     "DS-04": """Strong access governance reduces the risk of data leaks or misuse. To improve maturity:  
@@ -327,7 +327,7 @@ Consistent classification ensures sensitive data used in AI systems is safeguard
 • **Automate Where Possible:** Use identity governance tools to manage access lifecycle and policy compliance.  
 Effective access control protects data integrity, privacy, and accountability across AI environments.
 
-\---
+---
 
 **""",
     "DS-05": """Security controls safeguard data integrity and confidentiality across all AI processes. To strengthen protection:  
@@ -339,7 +339,7 @@ Effective access control protects data integrity, privacy, and accountability ac
 • **Automate Alerts:** Use security information and event management (SIEM) systems for real-time monitoring.  
 Proactive security measures ensure data confidentiality, integrity, and trustworthiness throughout the AI lifecycle.
 
-\---
+---
 
 **""",
     "DS-06": """Effective data lifecycle management reduces privacy exposure and ensures compliance. To mature your approach:  
@@ -351,7 +351,7 @@ Proactive security measures ensure data confidentiality, integrity, and trustwor
 • **Train Staff:** Ensure custodians and developers understand disposal obligations.  
 Strong retention and disposal practices minimise data risk and uphold responsible information stewardship.
 
-\---
+---
 
 **""",
     "DS-07": """Responsible AI relies on strong privacy safeguards. To mature your approach:  
@@ -363,7 +363,7 @@ Strong retention and disposal practices minimise data risk and uphold responsibl
 • **Monitor Continuously:** Audit AI data practices for ongoing compliance.  
 Embedding privacy from the outset reduces legal exposure and fosters public trust in responsible AI use.
 
-\---
+---
 
 **""",
     "DS-08": """Robust third-party governance ensures shared data is protected and responsibly used. To mature your approach:  
@@ -375,7 +375,7 @@ Embedding privacy from the outset reduces legal exposure and fosters public trus
 • **Require Assurance Evidence:** Obtain security certifications, SOC 2 reports, or independent audit results.  
 Effective governance maintains control over AI-related data flows and protects organisational and public trust.
 
-\---
+---
 
 **""",
     "FI-01": """Fairness requires deliberate design, testing, and review across the AI lifecycle. To strengthen fairness practices:  
@@ -387,7 +387,7 @@ Effective governance maintains control over AI-related data flows and protects o
 • **Monitor Continuously:** Track fairness outcomes after deployment.  
 Integrating fairness safeguards ensures equitable AI outcomes and upholds social responsibility.
 
-\---
+---
 
 **""",
     "FI-02": """Representative data improves fairness, reliability, and inclusion. To strengthen practices:  
@@ -399,7 +399,7 @@ Integrating fairness safeguards ensures equitable AI outcomes and upholds social
 • **Document Diversity Assessments:** Maintain reports detailing how representation was achieved.  
 Systematic diversity management ensures AI systems reflect and serve all communities fairly.
 
-\---
+---
 
 **""",
     "FI-03": """Bias management ensures fairness and compliance with ethical standards. To enhance maturity:  
@@ -411,7 +411,7 @@ Systematic diversity management ensures AI systems reflect and serve all communi
 • **Document Results:** Record findings, mitigations, and residual risk.  
 Structured bias detection and mitigation reduce inequity and improve accountability in AI-driven decisions.
 
-\---
+---
 
 **""",
     "FI-04": """Inclusive AI ensures equitable participation and access. To strengthen practices:  
@@ -423,7 +423,7 @@ Structured bias detection and mitigation reduce inequity and improve accountabil
 • **Monitor Continuously:** Evaluate inclusivity post-deployment through feedback and audits.  
 Embedding inclusivity ensures AI benefits are shared fairly and equitably across all user groups.
 
-\---
+---
 
 **""",
     "FI-05": """Engagement builds legitimacy, fairness, and community trust. To enhance consultation:  
@@ -435,7 +435,7 @@ Embedding inclusivity ensures AI benefits are shared fairly and equitably across
 • **Review Regularly:** Assess engagement effectiveness and inclusivity.  
 Meaningful consultation ensures AI decisions reflect shared values and equitable outcomes.
 
-\---
+---
 
 **""",
     "FI-06": """Continuous fairness measurement ensures equitable outcomes are sustained. To strengthen practices:  
@@ -447,7 +447,7 @@ Meaningful consultation ensures AI decisions reflect shared values and equitable
 • **Report Transparently:** Communicate findings to leadership and affected stakeholders.  
 Ongoing fairness monitoring promotes accountability and long-term trust in AI outcomes.
 
-\---
+---
 
 **""",
     "FI-07": """Fairness must extend across the supply chain. To improve oversight:  
@@ -459,7 +459,7 @@ Ongoing fairness monitoring promotes accountability and long-term trust in AI ou
 • **Promote Collaboration:** Support vendors in improving fairness practices through shared frameworks.  
 Fair procurement ensures external AI systems align with organisational ethics and inclusion goals.
 
-\---
+---
 
 **""",
     "FI-08": """Fairness governance requires periodic reflection and evolution. To enhance maturity:  
@@ -471,7 +471,7 @@ Fair procurement ensures external AI systems align with organisational ethics an
 • **Report Outcomes:** Communicate improvements through internal or public reporting.  
 Continuous improvement ensures fairness practices remain adaptive, measurable, and credible.
 
-\---
+---
 
 **""",
     "GO-01": """AI governance defines who makes decisions, how risks are managed, and how ethical standards are upheld. To strengthen this:  
@@ -482,7 +482,7 @@ Continuous improvement ensures fairness practices remain adaptive, measurable, a
 • **Benchmark Regularly:** Review governance effectiveness annually against ISO 42001 or NIST AI RMF.  
 Effective AI governance builds transparency, aligns innovation with values, and reduces reputational and compliance risks.
 
-\---
+---
 
 **""",
     "GO-02": """Strategic alignment ensures AI investments deliver measurable public and organisational value. To improve alignment:  
@@ -493,7 +493,7 @@ Effective AI governance builds transparency, aligns innovation with values, and 
 • **Track and Communicate Outcomes:** Link AI performance to KPIs and report achievements to executives and stakeholders.  
 Embedding AI into strategic planning builds accountability, maximises impact, and demonstrates ethical alignment to boards and the public.
 
-\---
+---
 
 **""",
     "GO-03": """An AI policy formalises how your organisation governs AI to ensure accountability, fairness, and transparency. To strengthen policy maturity:  
@@ -505,7 +505,7 @@ Embedding AI into strategic planning builds accountability, maximises impact, an
 • **Review and Update:** Evaluate policy effectiveness annually and after major regulatory or technological changes.  
 A well-defined, living AI Policy demonstrates leadership commitment and builds trust with regulators, staff, and the community.
 
-\---
+---
 
 **""",
     "GO-04": """Centralised oversight ensures that AI risks are visible, prioritised, and managed consistently. To mature your approach:  
@@ -517,7 +517,7 @@ A well-defined, living AI Policy demonstrates leadership commitment and builds t
 • **Automate Where Possible:** Use dashboards or risk tools for real-time monitoring.  
 Effective oversight creates transparency, avoids duplicated effort, and ensures AI activities remain lawful, ethical, and accountable.
 
-\---
+---
 
 **""",
     "GO-05": """Integrating AI oversight into everyday governance makes responsible AI a routine part of business operations. To strengthen integration:  
@@ -528,7 +528,7 @@ Effective oversight creates transparency, avoids duplicated effort, and ensures 
 • **Promote Executive Ownership:** Ensure executives sponsor AI initiatives and track compliance through standing agenda items.  
 Embedding AI within core management functions prevents duplication, sustains accountability, and ensures ethical practices are maintained even as personnel or projects change.
 
-\---
+---
 
 **""",
     "GO-06": """Diverse perspectives strengthen AI governance by identifying risks early and ensuring balanced decisions. To enhance participation:  
@@ -539,7 +539,7 @@ Embedding AI within core management functions prevents duplication, sustains acc
 • **Track Participation:** Record attendance, decisions, and follow-up actions to demonstrate active engagement.  
 Cross-functional governance promotes ethical awareness, builds organisational consensus, and ensures AI decisions reflect diverse expertise and stakeholder values.
 
-\---
+---
 
 **""",
     "GO-07": """Periodic review ensures AI oversight remains relevant, evidence-based, and aligned with best practice. To strengthen monitoring:  
@@ -550,7 +550,7 @@ Cross-functional governance promotes ethical awareness, builds organisational co
 • **Close the Loop:** Document recommendations, assign owners, and verify completion.  
 Continuous improvement demonstrates accountability, ensures transparency, and keeps AI governance adaptive to organisational and regulatory change.
 
-\---
+---
 
 **""",
     "GO-08": """Transparency ensures stakeholders understand how AI is applied, while accountability clarifies who is responsible for outcomes. To strengthen both:  
@@ -561,7 +561,7 @@ Continuous improvement demonstrates accountability, ensures transparency, and ke
 • **Report Outcomes:** Include AI governance metrics in annual or sustainability reports.  
 Visible, well-documented accountability reinforces stakeholder trust and demonstrates a mature, responsible approach to AI governance.
 
-\---
+---
 
 **""",
     "PL-01": """Compliance ensures lawful, ethical AI data use. To strengthen maturity:  
@@ -573,7 +573,7 @@ Visible, well-documented accountability reinforces stakeholder trust and demonst
 • **Train Staff:** Ensure teams understand obligations under privacy legislation.  
 Embedding privacy compliance in AI governance reduces legal exposure and reinforces community trust.
 
-\---
+---
 
 **""",
     "PL-02": """Strong consent management builds transparency and trust. To strengthen governance:  
@@ -585,7 +585,7 @@ Embedding privacy compliance in AI governance reduces legal exposure and reinfor
 • **Educate Users and Staff:** Provide clarity on privacy rights and responsibilities.  
 Embedding consent and rights management ensures compliance, fairness, and ethical data handling.
 
-\---
+---
 
 **""",
     "PL-03": """Legal review strengthens compliance and risk management. To improve maturity:  
@@ -597,7 +597,7 @@ Embedding consent and rights management ensures compliance, fairness, and ethica
 • **Conduct Periodic Reviews:** Update legal risk assessments as regulations evolve.  
 Consistent legal oversight ensures AI projects are compliant, transparent, and defensible under current and emerging laws.
 
-\---
+---
 
 **""",
     "PL-04": """Staying informed ensures the organisation remains legally and ethically aligned. To strengthen processes:  
@@ -609,7 +609,7 @@ Consistent legal oversight ensures AI projects are compliant, transparent, and d
 • **Communicate Internally:** Share updates and train staff on new obligations.  
 Proactive monitoring ensures compliance readiness and builds organisational resilience in a shifting regulatory landscape.
 
-\---
+---
 
 **""",
     "PL-05": """Effective third-party management reduces compliance risk and ensures ethical consistency. To strengthen oversight:  
@@ -621,7 +621,7 @@ Proactive monitoring ensures compliance readiness and builds organisational resi
 • **Align with Organisational Policy:** Ensure third-party governance reflects internal AI and privacy standards.  
 Comprehensive vendor compliance ensures consistent legal, ethical, and data-protection practices across the AI supply chain.
 
-\---
+---
 
 **""",
     "PL-06": """Clear IP management prevents infringement and ensures proper attribution. To enhance maturity:  
@@ -633,7 +633,7 @@ Comprehensive vendor compliance ensures consistent legal, ethical, and data-prot
 • **Educate Teams:** Provide training on copyright, open data, and AI content ownership.  
 Effective IP governance protects the organisation's rights and mitigates legal exposure.
 
-\---
+---
 
 **""",
     "PL-07": """Preparedness minimises liability and supports rapid recovery. To strengthen processes:  
@@ -645,7 +645,7 @@ Effective IP governance protects the organisation's rights and mitigates legal e
 • **Review and Learn:** Incorporate lessons into updated governance frameworks.  
 A defined legal risk and response structure ensures accountability and resilience following AI-related incidents.
 
-\---
+---
 
 **""",
     "PL-08": """Accurate, secure records demonstrate accountability and support transparency. To strengthen governance:  
@@ -657,7 +657,7 @@ A defined legal risk and response structure ensures accountability and resilienc
 • **Schedule Reviews:** Periodically verify completeness and retention compliance.  
 Effective recordkeeping ensures AI decisions are explainable, verifiable, and legally defensible.
 
-\---
+---
 
 **""",
     "RM-01": """Integrating AI risk into existing ERM processes ensures consistent oversight and accountability. To mature your approach:  
@@ -669,7 +669,7 @@ Effective recordkeeping ensures AI decisions are explainable, verifiable, and le
 • **Review Regularly:** Re-assess categories annually or following major regulatory or technological changes.  
 Formal categorisation helps leadership quantify AI exposure and direct resources effectively.
 
-\---
+---
 
 **""",
     "RM-02": """Consistent assessment ensures AI risks are visible and comparable across projects. To strengthen evaluation:  
@@ -681,7 +681,7 @@ Formal categorisation helps leadership quantify AI exposure and direct resources
 • **Review Periodically:** Reassess likelihood and impact after system updates or policy changes.  
 Structured assessment improves comparability, supports decision-making, and provides evidence for regulatory compliance and internal assurance.
 
-\---
+---
 
 **""",
     "RM-03": """Risk treatment transforms identification into actionable management. To strengthen your mitigation approach:  
@@ -693,7 +693,7 @@ Structured assessment improves comparability, supports decision-making, and prov
 • **Report to Leadership:** Summarise key mitigation activities and control status in governance meetings.  
 Effective mitigation ensures AI systems remain compliant, fair, and resilient as technologies evolve and risks change.
 
-\---
+---
 
 **""",
     "RM-04": """Assigning ownership ensures AI risks receive timely attention and resources. To enhance accountability:  
@@ -705,7 +705,7 @@ Effective mitigation ensures AI systems remain compliant, fair, and resilient as
 • **Maintain Continuity:** Update ownership when staff changes occur to avoid orphaned risks.  
 Effective ownership embeds responsibility into decision-making, ensuring AI risks remain visible and well-managed throughout their lifecycle.
 
-\---
+---
 
 **""",
     "RM-05": """Effective monitoring enables proactive management of AI exposures and assurance for decision-makers. To strengthen oversight:  
@@ -717,7 +717,7 @@ Effective ownership embeds responsibility into decision-making, ensuring AI risk
 • **Provide Trend Analysis:** Report on emerging risks and control performance over time.  
 Regular, structured reporting ensures leadership visibility, supports evidence-based decisions, and demonstrates a proactive risk culture.
 
-\---
+---
 
 **""",
     "RM-06": """Integration ensures AI risk management benefits from established governance, assurance, and reporting channels. To mature integration:  
@@ -729,7 +729,7 @@ Regular, structured reporting ensures leadership visibility, supports evidence-b
 • **Ensure Board Visibility:** Present aggregated AI risk summaries to the Audit and Risk Committee.  
 Integration embeds AI oversight into existing governance, providing efficiency, consistency, and transparency across the organisation.
 
-\---
+---
 
 **""",
     "RM-07": """Timely detection and escalation of AI incidents protect organisational integrity and stakeholder trust. To enhance readiness:  
@@ -741,7 +741,7 @@ Integration embeds AI oversight into existing governance, providing efficiency, 
 • **Document Lessons Learned:** Feed improvements back into risk registers, policies, and training.  
 Effective escalation and response demonstrate accountability and continuous learning in managing AI risks.
 
-\---
+---
 
 **""",
     "RM-08": """Ongoing review ensures AI risk management remains relevant and effective. To embed continuous improvement:  
@@ -753,7 +753,7 @@ Effective escalation and response demonstrate accountability and continuous lear
 • **Measure Progress:** Use KPIs to evaluate control performance and maturity improvements.  
 Embedding improvement into governance ensures resilience, transparency, and confidence in managing AI-related risks.
 
-\---
+---
 
 **""",
     "RS-01": """Reliability underpins safety, trust, and performance assurance. To strengthen reliability practices:  
@@ -765,7 +765,7 @@ Embedding improvement into governance ensures resilience, transparency, and conf
 • **Continuously Improve:** Reassess reliability after updates, retraining, or data changes.  
 Systematic reliability assurance ensures AI operates consistently and predictably in all intended environments.
 
-\---
+---
 
 **""",
     "RS-02": """Structured validation ensures AI systems are safe, effective, and compliant. To mature assurance practices:  
@@ -777,7 +777,7 @@ Systematic reliability assurance ensures AI operates consistently and predictabl
 • **Integrate Governance:** Link QA reviews with project approval gates.  
 Validation before deployment ensures AI quality, reliability, and stakeholder confidence.
 
-\---
+---
 
 **""",
     "RS-03": """Continuous monitoring ensures AI reliability, safety, and accountability. To enhance maturity:  
@@ -789,7 +789,7 @@ Validation before deployment ensures AI quality, reliability, and stakeholder co
 • **Review Regularly:** Reassess thresholds as models evolve.  
 Monitoring safeguards against silent degradation and strengthens confidence in AI performance.
 
-\---
+---
 
 **""",
     "RS-04": """Resilience protects system integrity and user safety. To enhance resilience:  
@@ -801,7 +801,7 @@ Monitoring safeguards against silent degradation and strengthens confidence in A
 • **Document Procedures:** Record test outcomes and recovery actions.  
 Resilient AI systems minimise disruption and maintain public trust during adverse events.
 
-\---
+---
 
 **""",
     "RS-05": """Drift management sustains accuracy and accountability. To improve maturity:  
@@ -813,7 +813,7 @@ Resilient AI systems minimise disruption and maintain public trust during advers
 • **Document Changes:** Record drift detection, retraining, and testing outcomes.  
 Active drift management ensures models remain reliable, transparent, and safe over time.
 
-\---
+---
 
 **""",
     "RS-06": """Safety assurance is vital for protecting people and critical operations. To enhance maturity:  
@@ -825,7 +825,7 @@ Active drift management ensures models remain reliable, transparent, and safe ov
 • **Document Outcomes:** Maintain safety case files and mitigation records.  
 Structured risk assessment ensures AI systems operate safely and responsibly.
 
-\---
+---
 
 **""",
     "RS-07": """Robust testing ensures AI reliability in real-world scenarios. To strengthen maturity:  
@@ -837,7 +837,7 @@ Structured risk assessment ensures AI systems operate safely and responsibly.
 • **Repeat Periodically:** Retest after system updates or retraining.  
 Edge-condition testing ensures AI remains safe, resilient, and predictable under all circumstances.
 
-\---
+---
 
 **""",
     "RS-08": """Structured review and improvement strengthen AI safety culture. To mature your process:  
@@ -849,7 +849,7 @@ Edge-condition testing ensures AI remains safe, resilient, and predictable under
 • **Review Policies:** Update AI reliability and safety frameworks based on evidence.  
 Systematic learning drives resilience, maturity, and continuous improvement across all AI operations.
 
-\---
+---
 
 **""",
     "TE-01": """Transparency fosters understanding, accountability, and ethical confidence. To improve transparency:  
@@ -861,7 +861,7 @@ Systematic learning drives resilience, maturity, and continuous improvement acro
 • **Align with Frameworks:** Follow global transparency principles (ISO 42001, NIST AI RMF, OECD AI Principles).  
 Structured transparency demonstrates openness and helps stakeholders trust how AI impacts operations and decisions.
 
-\---
+---
 
 **""",
     "TE-02": """Explainability strengthens trust, supports accountability, and meets ethical and legal obligations. To mature your approach:  
@@ -873,7 +873,7 @@ Structured transparency demonstrates openness and helps stakeholders trust how A
 • **Engage Stakeholders:** Offer transparent communications explaining how AI supports decisions.  
 Consistent explainability practices enhance public confidence and reduce the risk of opaque or biased AI behaviour.
 
-\---
+---
 
 **""",
     "TE-03": """Being transparent about AI limitations promotes realistic expectations and accountability. To strengthen communication:  
@@ -885,7 +885,7 @@ Consistent explainability practices enhance public confidence and reduce the ris
 • **Update Regularly:** Revise documentation following retraining or policy changes.  
 Transparent communication reduces misunderstanding and enables informed oversight of AI outcomes.
 
-\---
+---
 
 **""",
     "TE-04": """Structured documentation enhances explainability and assurance. To strengthen maturity:  
@@ -897,7 +897,7 @@ Transparent communication reduces misunderstanding and enables informed oversigh
 • **Align with Frameworks:** Follow ISO/IEC 42001 and NIST AI RMF documentation principles.  
 Comprehensive documentation ensures traceability, accountability, and stakeholder confidence.
 
-\---
+---
 
 **""",
     "TE-05": """Data transparency enables accountability, reproducibility, and public trust. To improve maturity:  
@@ -909,7 +909,7 @@ Comprehensive documentation ensures traceability, accountability, and stakeholde
 • **Update Regularly:** Review and refresh data documentation with every model retraining.  
 Clear documentation ensures data use is transparent, defensible, and compliant with governance and legal requirements.
 
-\---
+---
 
 **""",
     "TE-06": """Performance transparency ensures AI systems are fair, reliable, and aligned with expectations. To strengthen reporting:  
@@ -921,7 +921,7 @@ Clear documentation ensures data use is transparent, defensible, and compliant w
 • **Benchmark Externally:** Compare results against industry or regulatory standards.  
 Transparent reporting fosters confidence and enables accountability for AI reliability and improvement.
 
-\---
+---
 
 **""",
     "TE-07": """Clarity about AI involvement reinforces fairness and informed choice. To strengthen transparency:  
@@ -933,7 +933,7 @@ Transparent reporting fosters confidence and enables accountability for AI relia
 • **Monitor Compliance:** Audit communications for completeness and consistency.  
 Transparent disclosure supports trust, ethical integrity, and compliance with fairness and accountability standards.
 
-\---
+---
 
 **""",
     "TE-08": """Stakeholder engagement ensures transparency aligns with public expectations and organisational values. To strengthen maturity:  
@@ -945,7 +945,7 @@ Transparent disclosure supports trust, ethical integrity, and compliance with fa
 • **Review Periodically:** Update engagement processes to reflect emerging needs.  
 Ongoing stakeholder dialogue ensures that transparency practices remain relevant, trusted, and socially accountable.
 
-\---
+---
 
 **""",
 }
