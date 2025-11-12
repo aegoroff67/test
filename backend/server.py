@@ -1475,6 +1475,37 @@ async def update_awareness_info(
     
     return {"status": "success", "message": "Awareness information saved"}
 
+@api_router.post("/assessments/{assessment_id}/organisation-info")
+async def update_organisation_info(
+    assessment_id: str,
+    organisation_info: dict,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    # Verify assessment belongs to user's organization
+    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Update the assessment name with the org name from organisation_info
+    updated_name = assessment["name"]
+    if organisation_info.get("organizationName"):
+        # Extract the assessment type and date from current name
+        assessment_type_display = "Org-wide"
+        started_date = assessment["started_at"].strftime("%Y-%m-%d")
+        # Generate new name: [Type]_[Org Name]_In-Progress_YYYY-MM-DD
+        updated_name = f"{assessment_type_display}_{organisation_info['organizationName']}_In-Progress_{started_date}"
+    
+    # Update assessment with organisation_info and updated name
+    await db.assessments.update_one(
+        {"id": assessment_id},
+        {"$set": {
+            "organisation_info": organisation_info,
+            "name": updated_name
+        }}
+    )
+    
+    return {"status": "success", "message": "Organisation information saved"}
+
 
 @api_router.post("/assessments/{assessment_id}/answer")
 async def submit_answer(
