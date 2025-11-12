@@ -1736,6 +1736,7 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
                 "code": question_id,
                 "text": question_data["text"],
                 "explanation": question_data.get("explanation", ""),
+                "additional_guide": question_data.get("additional_guide", ""),
                 "order": question_data["order"],
                 "domain_id": domain_id,
                 "answer": answer_lookup.get(question_id),
