@@ -832,6 +832,18 @@
   run_ui: false
 
 ## test_plan:
+  current_focus:
+    - "Fix AI Readiness Assessment View All button crash - status endpoint returning wrong structure"
+    - "Fix AI Readiness Assessment missing tooltips for Additional Guide and Evidence Types"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+## agent_communication:
+    - agent: "main"
+    - message: "READINESS ASSESSMENT BUGS FIXED: Completed fixes for both reported bugs. BUG 1 (View All Crash): Refactored get_assessment_status endpoint for Readiness assessments to return correct status_overview structure matching Awareness/System pattern. Now returns proper array with domains and questions instead of domain_scores format. BUG 2 (Missing Tooltips): Added additional_guide field to all 48 Readiness questions using user-provided tooltip content. Please test: 1) Create a Readiness assessment, 2) Answer some questions, 3) Click 'View All' button to verify it no longer crashes and displays properly, 4) Verify tooltips appear for questions (check if InfoBadge icons are visible and clickable). Backend endpoints to test: GET /api/assessments/{assessment_id}/status (Readiness type), GET /api/assessments/{assessment_id}/questions (Readiness type to verify additional_guide field is present)."
+
+## test_plan:
   current_focus: []
   stuck_tasks: []
   test_all: false
