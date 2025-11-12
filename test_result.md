@@ -943,8 +943,8 @@
         - comment: "COMPREHENSIVE BACKEND TESTING COMPLETED: All 19 tests passed (100% success rate). VERIFIED: ✅ Awareness assessment creation returns total_questions=25 (not 88), ✅ System assessment creation returns total_questions=88, ✅ Initial progress=0 for both types, ✅ Partial progress tracking works correctly (10 answered shows progress=10 for Awareness), ✅ GET /api/assessments returns correct total_questions per assessment type in list view, ✅ Progress ratio calculated correctly (10/25 = 40.0% for Awareness, not 10/88 = 11.4%), ✅ Multiple assessment types coexist with independent total_questions values, ✅ System assessment shows 88 total_questions in same response as Awareness showing 25, ✅ Completed assessments display correctly (25/25 for Awareness, would be 88/88 for System). User-reported issue completely resolved. Dashboard will now display 'n/25' for Awareness assessments and 'n/88' for System assessments. Backend get_assessments endpoint successfully implements conditional total_questions logic based on assessment_type. Feature production-ready."
 
   - task: "Fix AI Readiness Assessment missing tooltips for Additional Guide and Evidence Types"
-    implemented: false
-    working: false
+    implemented: true
+    working: "NA"
     file: "/app/backend/readiness_questions.py"
     stuck_count: 0
     priority: "high"
@@ -956,6 +956,9 @@
         - working: "NA"
         - agent: "main"
         - comment: "TO BE IMPLEMENTED: Need to add additional_guide and evidence_types fields to all 48 questions in readiness_questions.py. These fields should provide contextual help similar to the infobadge tooltip system used in System assessments."
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Successfully added additional_guide tooltips to all 48 Readiness Assessment questions. User provided a comprehensive markdown file (AI Readiness Assessment - additional-guidance-tooltips.md) containing detailed guidance for each question code (SA-01 through CL-06). IMPLEMENTATION DETAILS: 1) Retrieved and parsed the tooltip content from the provided file, 2) Created tooltip mapping for all 48 questions across 8 domains, 3) Updated readiness_questions.py to add 'additional_guide' field to each question dictionary, 4) Verified that 40 questions already had tooltips from a previous version, 5) Added missing tooltips for 8 questions (SA-01, GF-01, DR-01, TI-01, PC-01, PR-01, RE-01, CL-01), 6) All 48/48 questions now have complete additional guidance tooltips with detailed, bullet-pointed content for best practices and implementation guidance. Backend restarted successfully. Ready for testing to verify tooltips appear in the UI for all Readiness Assessment questions."
 
   - task: "Fix AI Readiness Assessment View All button crash - status endpoint returning wrong structure"
     implemented: true
