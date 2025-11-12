@@ -7929,8 +7929,14 @@ class AMSafeAPITester:
             if not self.test_production_authentication_flow():
                 print("❌ Production authentication failed - continuing with other tests")
         
-        # === DASHBOARD PROGRESS DISPLAY FIX (PRIORITY TEST) ===
-        print("\n" + "🎯 DASHBOARD PROGRESS DISPLAY FIX (PRIORITY TEST)" + "\n" + "=" * 60)
+        # === AI READINESS ASSESSMENT BUG FIXES (PRIORITY TEST) ===
+        print("\n" + "🎯 AI READINESS ASSESSMENT BUG FIXES (PRIORITY TEST)" + "\n" + "=" * 60)
+        
+        # MAIN TEST: AI Readiness Assessment bug fixes as requested in review
+        self.test_readiness_assessment_bug_fixes()
+        
+        # === DASHBOARD PROGRESS DISPLAY FIX (ADDITIONAL TEST) ===
+        print("\n" + "🎯 DASHBOARD PROGRESS DISPLAY FIX (ADDITIONAL TEST)" + "\n" + "=" * 60)
         
         # MAIN TEST: Dashboard progress display fix for Awareness vs System assessments
         self.test_dashboard_progress_display_fix()
