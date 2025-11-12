@@ -84,7 +84,12 @@ function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, on
           {/* Progress Bar */}
           <div className="w-full bg-gray-200 rounded-full h-3 mt-4">
             <div 
-              className="bg-teal-600 h-3 rounded-full progress-bar"
+              className={`h-3 rounded-full progress-bar ${
+                assessmentType === 'Awareness' ? 'bg-green-600' :
+                assessmentType === 'Readiness' ? 'bg-blue-600' :
+                assessmentType === 'Orgwide' ? 'bg-purple-600' :
+                'bg-teal-600'
+              }`}
               style={{ width: `${statusData.completion_percentage}%` }}
             ></div>
           </div>
