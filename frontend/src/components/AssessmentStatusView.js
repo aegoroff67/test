@@ -92,7 +92,11 @@ function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, on
         
         <CardContent className="flex-1 overflow-hidden">
           {/* Compact grid layout - all domains in one view without scrolling */}
-          <div className="grid grid-cols-11 gap-2 h-full">
+          <div className={`grid gap-2 h-full ${
+            statusData.status_overview.length === 10 ? 'grid-cols-10' : 
+            statusData.status_overview.length === 8 ? 'grid-cols-8' : 
+            'grid-cols-11'
+          }`}>
             {statusData.status_overview.map((domain) => {
               const domainAnswered = domain.questions.filter(q => q.answered).length;
               const domainTotal = domain.questions.length;
