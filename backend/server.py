@@ -2437,6 +2437,9 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     elif assessment_type == "Readiness":
         from readiness_questions import READINESS_QUESTIONS_DATA
         total_questions = len(READINESS_QUESTIONS_DATA)  # 48 questions
+    elif assessment_type == "Orgwide":
+        from organisation_questions import ORGANISATION_QUESTIONS_DATA
+        total_questions = len(ORGANISATION_QUESTIONS_DATA)  # 80 questions
     else:
         # System assessment - count from database
         total_questions = await db.questions.count_documents({})  # 88 questions
