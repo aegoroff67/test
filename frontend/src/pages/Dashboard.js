@@ -135,12 +135,13 @@ function Dashboard() {
           iconColor: 'text-purple-600'
         };
       case 'Organisation':
+      case 'Orgwide':
         return {
           icon: Building2,
           label: 'Organisation-wide',
-          bgColor: 'bg-blue-100',
-          textColor: 'text-blue-700',
-          iconColor: 'text-blue-600'
+          bgColor: 'bg-purple-100',
+          textColor: 'text-purple-700',
+          iconColor: 'text-purple-600'
         };
       case 'System':
       default:
