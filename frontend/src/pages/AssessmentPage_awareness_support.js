@@ -148,6 +148,18 @@ export const getColorScheme = (assessmentType) => {
     };
   }
   
+  if (assessmentType === 'Orgwide') {
+    return {
+      primary: 'purple-600',
+      primaryHover: 'purple-700',
+      light: 'purple-50',
+      border: 'purple-100',
+      text: 'purple-600',
+      badge: 'purple-100',
+      badgeText: 'purple-800'
+    };
+  }
+  
   // Default teal for System
   return {
     primary: 'teal-600',
