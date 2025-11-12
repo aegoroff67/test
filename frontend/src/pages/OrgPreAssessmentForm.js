@@ -229,9 +229,9 @@ export default function OrgPreAssessmentForm() {
     }
 
     try {
-      await axios.put(`${API}/assessments/${assessmentId}/org-info`, form);
+      await axios.put(`${API}/assessments/${id}/org-info`, form);
       toast.success('Organisation information saved!');
-      navigate(`/assessment/${assessmentId}`);
+      navigate(`/assessment/${id}`);
     } catch (error) {
       console.error('Error saving org info:', error);
       toast.error(error.response?.data?.detail || 'Failed to save organisation information');
