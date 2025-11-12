@@ -65,7 +65,7 @@ function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, on
         <CardHeader>
           <div className="flex justify-between items-center">
             <div>
-              <CardTitle className="text-xl">Assessment Progress Overview</CardTitle>
+              <CardTitle className="text-xl">{getAssessmentTypeTitle()}</CardTitle>
               <p className="text-sm text-gray-600 mt-1">
                 {statusData.answered_questions} of {statusData.total_questions} questions completed 
                 ({statusData.completion_percentage}%)
