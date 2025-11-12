@@ -180,7 +180,7 @@ const defaultState = {
 };
 
 export default function OrgPreAssessmentForm() {
-  const { assessmentId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [form, setForm] = useState(defaultState);
   const [submitting, setSubmitting] = useState(false);
