@@ -1262,6 +1262,7 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
             total_questions=(
                 awareness_total_questions if assessment.get("assessment_type") == "Awareness" 
                 else readiness_total_questions if assessment.get("assessment_type") == "Readiness"
+                else organisation_total_questions if assessment.get("assessment_type") == "Orgwide"
                 else system_total_questions
             ),
             system_info=assessment.get("system_info"),
