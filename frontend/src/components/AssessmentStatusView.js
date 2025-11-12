@@ -8,9 +8,24 @@ import { CheckCircle2, Circle, X } from 'lucide-react';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-function AssessmentStatusView({ assessmentId, onClose, onQuestionClick }) {
+function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, onClose, onQuestionClick }) {
   const [statusData, setStatusData] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+  // Get assessment type display name
+  const getAssessmentTypeTitle = () => {
+    switch(assessmentType) {
+      case 'Awareness':
+        return 'AI Awareness & Foundations Assessment';
+      case 'Readiness':
+        return 'AI Readiness Assessment';
+      case 'Orgwide':
+        return 'Organisation-wide AI Maturity Assessment';
+      case 'System':
+      default:
+        return 'AI System Maturity Assessment';
+    }
+  };
 
   useEffect(() => {
     fetchStatusData();
