@@ -316,7 +316,16 @@ function AssessmentPage() {
   const handleOpenQuestionHelp = () => {
     // Show additional guidance for the current question
     if (currentQuestion && currentQuestion.code) {
-      const guidance = questionGuidanceData[currentQuestion.code];
+      // For Readiness assessments, use additional_guide from the API response
+      // For System assessments, use questionGuidanceData (static JSON)
+      let guidance = null;
+      
+      if (assessmentType === 'Readiness' && currentQuestion.additional_guide) {
+        guidance = currentQuestion.additional_guide;
+      } else {
+        guidance = questionGuidanceData[currentQuestion.code];
+      }
+      
       if (guidance) {
         setCurrentHelpContent({
           title: `${currentQuestion.code} - Additional Guidance`,
