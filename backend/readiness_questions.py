@@ -32,7 +32,7 @@ A well-defined AI strategy ensures initiatives are intentional, value-driven, an
 • **Risk Registers:** Strategic entries acknowledging AI impacts or dependencies.
 • **Stakeholder Engagement:** Workshops or consultations on AI vision and values.
 
-In short: show that AI is visible in strategic intent and actively managed as part of corporate planning."""
+**In short:** show that AI is visible in strategic intent and actively managed as part of corporate planning."""
     },
     {
         "code": "SA-02",
@@ -62,7 +62,7 @@ Visible, informed leadership signals that AI is a strategic priority aligned wit
 • **Performance Documents:** Executive KPIs tied to AI readiness or digital transformation.
 • **Briefings & Workshops:** Records of leadership attendance or sponsorship of AI capability sessions.
 
-In short: show that leadership is not merely aware of AI but is visibly leading and resourcing its responsible use."""
+**In short:** show that leadership is not merely aware of AI but is visibly leading and resourcing its responsible use."""
     },
     {
         "code": "SA-03",
@@ -92,7 +92,7 @@ Clear, measurable goals ensure AI remains purposeful, transparent, and value-dri
 • **Review Reports:** Post-implementation or pilot reviews assessing success against KPIs.
 • **Stakeholder Feedback:** Surveys or engagement summaries validating communicated goals.
 
-In short: show that AI objectives are purposeful, measurable, and visible across the organisation."""
+**In short:** show that AI objectives are purposeful, measurable, and visible across the organisation."""
     },
     {
         "code": "SA-04",
@@ -122,7 +122,7 @@ Embedding ethics ensures AI enhances-not erodes-trust, helping organisations dem
 • **Communication Artefacts:** Public statements or reports outlining ethical commitments in AI adoption.
 • **Monitoring Reports:** Reviews or dashboards tracking ethical and community outcomes.
 
-In short: demonstrate that AI decisions are guided by values, informed by stakeholders, and transparent to the community."""
+**In short:** demonstrate that AI decisions are guided by values, informed by stakeholders, and transparent to the community."""
     },
     {
         "code": "SA-05",
@@ -152,7 +152,7 @@ Consistent, open communication builds confidence, fosters collaboration, and str
 • **Training & Awareness:** Sessions introducing AI goals and responsible-use expectations.
 • **Measurement Reports:** Engagement metrics or feedback results showing communication reach and effectiveness.
 
-In short: show that AI communication is deliberate, transparent, and builds both internal alignment and external trust."""
+**In short:** show that AI communication is deliberate, transparent, and builds both internal alignment and external trust."""
     },
     {
         "code": "SA-06",
@@ -182,7 +182,7 @@ Embedding regular reviews fosters agility, compliance, and trust - essential for
 • **Feedback Reports:** Staff or community surveys informing AI strategic adjustments.
 • **Audit Findings:** Internal or third-party assessments confirming continuous improvement practices.
 
-In short: provide clear evidence that AI strategy is a living document - actively reviewed, adapted, and improved over time."""
+**In short:** provide clear evidence that AI strategy is a living document - actively reviewed, adapted, and improved over time."""
     },
     # Domain 2: Governance Foundations (6 questions)
     {
@@ -213,7 +213,7 @@ Effective AI governance builds transparency, aligns innovation with organisation
 • **Performance & Review:** Internal audits or scorecards evaluating AI governance effectiveness.
 • **Training & Awareness:** Records of leadership training on AI responsibilities and ethics.
 
-In short: show a structured, cross-functional governance model with documented oversight and active executive ownership."""
+**In short:** show a structured, cross-functional governance model with documented oversight and active executive ownership."""
     },
     {
         "code": "GF-02",
@@ -236,7 +236,7 @@ Structured accountability reduces ambiguity, improves efficiency, and ensures th
 • **Training Records:** Evidence of staff briefings on AI responsibilities.
 • **Internal Audits:** Reviews confirming AI roles are known and effective.
 
-In short: demonstrate that everyone from leadership to project teams knows their role in AI decisions and oversight."""
+**In short:** demonstrate that everyone from leadership to project teams knows their role in AI decisions and oversight."""
     },
     {
         "code": "GF-03",
@@ -259,7 +259,7 @@ Embedding AI into existing frameworks demonstrates maturity, reduces redundancy,
 • **Audit Reports:** Assessments of how AI controls align with governance processes.
 • **Integration Plans:** Documents linking AI governance to corporate risk strategy.
 
-In short: provide tangible proof that AI is managed within the same frameworks that guide other strategic risks."""
+**In short:** provide tangible proof that AI is managed within the same frameworks that guide other strategic risks."""
     },
     {
         "code": "GF-04",
@@ -357,7 +357,7 @@ Strong data-quality practices reduce operational risk, improve decision confiden
 • **Audit Results:** Internal or external reviews of data-quality performance.
 • **Training Records:** Staff education materials on data management and quality assurance.
 
-In short: provide artefacts that prove data is treated as a governed, measurable asset fit for trustworthy AI."""
+**In short:** provide artefacts that prove data is treated as a governed, measurable asset fit for trustworthy AI."""
     },
     {
         "code": "DR-02",
@@ -387,7 +387,7 @@ Defining and maintaining stewardship ensures data accountability, traceability, 
 • **Committee Minutes:** Evidence of governance oversight or data-stewardship reviews.
 • **Training Materials:** Induction or refresher training on data responsibilities.
 
-In short: show that every critical dataset has a named owner, defined access criteria, and governance oversight to ensure consistency and accountability."""
+**In short:** show that every critical dataset has a named owner, defined access criteria, and governance oversight to ensure consistency and accountability."""
     },
     {
         "code": "DR-03",
@@ -417,7 +417,7 @@ Embedding privacy and ethics into data management builds trust and readiness for
 • **Communications:** Notices or consent forms explaining data use to clients or citizens.
 • **Review Reports:** Internal or external audits evaluating privacy and ethical-data compliance.
 
-In short: demonstrate that privacy, security, and ethical-data principles are not optional-they are embedded, measurable, and actively managed across the organisation."""
+**In short:** demonstrate that privacy, security, and ethical-data principles are not optional-they are embedded, measurable, and actively managed across the organisation."""
     },
     {
         "code": "DR-04",
@@ -447,7 +447,7 @@ Consistent data-handling practices strengthen governance and reduce risk exposur
 • **Registers:** Logs of data destruction, archival, or re-classification activities.
 • **Records Authority:** Approval or alignment with external archival and legal requirements.
 
-In short: show that information is classified, stored, and retained according to defined standards-protecting sensitive data and supporting trustworthy AI operations."""
+**In short:** show that information is classified, stored, and retained according to defined standards-protecting sensitive data and supporting trustworthy AI operations."""
     },
     {
         "code": "DR-05",
@@ -477,7 +477,7 @@ When data flows securely and consistently across systems, organisations can buil
 • **Governance Records:** Meeting minutes or reports addressing data-sharing arrangements.
 • **Training Materials:** Courses or guides on responsible data use and integration standards.
 
-In short: demonstrate that the organisation can securely and efficiently access and combine data to enable analytics and AI initiatives."""
+**In short:** demonstrate that the organisation can securely and efficiently access and combine data to enable analytics and AI initiatives."""
     },
     {
         "code": "DR-06",
@@ -507,7 +507,7 @@ Continuous oversight builds confidence, ensures compliance, and maintains the da
 • **Audit Reports:** Internal or third-party assessments with corrective actions.
 • **Training Evidence:** Refresher courses or awareness sessions following governance updates.
 
-In short: demonstrate that data governance is a living framework-monitored, measured, and continually enhanced to maintain trust and readiness for AI."""
+**In short:** demonstrate that data governance is a living framework-monitored, measured, and continually enhanced to maintain trust and readiness for AI."""
     },
     # Domain 4: Technology & Infrastructure (6 questions)
     {
@@ -538,7 +538,7 @@ Modern, secure infrastructure is the cornerstone of safe, efficient AI adoption,
 • **Monitoring Reports:** Availability, uptime, or incident-response metrics.
 • **Audit Findings:** Independent reviews confirming infrastructure health and security compliance.
 
-In short: show that the environment is modern, secure, and capable of supporting data-driven innovation and future AI workloads."""
+**In short:** show that the environment is modern, secure, and capable of supporting data-driven innovation and future AI workloads."""
     },
     {
         "code": "TI-02",
@@ -568,7 +568,7 @@ Secure, well-integrated systems streamline decision-making, improve data reliabi
 • **Performance Reports:** Monitoring logs demonstrating reliability of data exchange.
 • **Audit or Review Findings:** Assessments confirming secure and accurate integration practices.
 
-In short: demonstrate that technology systems are securely integrated and technically equipped to support cross-functional data use and AI adoption."""
+**In short:** demonstrate that technology systems are securely integrated and technically equipped to support cross-functional data use and AI adoption."""
     },
     {
         "code": "TI-03",
@@ -598,7 +598,7 @@ Strong cybersecurity governance not only protects current systems but builds the
 • **Training Records:** Staff awareness or phishing-simulation results.
 • **Audit Findings:** Internal or third-party reviews of cyber-maturity.
 
-In short: show that security controls are documented, actively monitored, and aligned to national standards-creating a trustworthy foundation for AI innovation."""
+**In short:** show that security controls are documented, actively monitored, and aligned to national standards-creating a trustworthy foundation for AI innovation."""
     },
     {
         "code": "TI-04",
@@ -628,7 +628,7 @@ Effective resilience ensures that technology disruptions do not compromise relia
 • **Risk Registers:** Entries describing continuity controls and RTO/RPO targets.
 • **Audit Findings:** Internal or external assurance reports on continuity effectiveness.
 
-In short: show that recovery capabilities are documented, tested, and resilient enough to maintain trust and functionality in AI-enabled operations."""
+**In short:** show that recovery capabilities are documented, tested, and resilient enough to maintain trust and functionality in AI-enabled operations."""
     },
     {
         "code": "TI-05",
@@ -658,7 +658,7 @@ Proactive lifecycle management reduces technical debt, ensures consistent perfor
 • **Review Reports:** Annual or quarterly lifecycle assessments and improvement recommendations.
 • **Audit Findings:** Independent reviews confirming lifecycle compliance and risk reduction.
 
-In short: demonstrate that your organisation anticipates change, maintains modern technology, and invests strategically to remain AI-ready and secure."""
+**In short:** demonstrate that your organisation anticipates change, maintains modern technology, and invests strategically to remain AI-ready and secure."""
     },
     {
         "code": "TI-06",
@@ -688,7 +688,7 @@ Responsible innovation allows organisations to explore AI opportunities confiden
 • **Data-Protection Controls:** Use of de-identified, synthetic, or anonymised data in testing.
 • **Post-Trial Reports:** Evaluations or lessons-learned summaries following AI experiments.
 
-In short: demonstrate that innovation is deliberate, supported, and securely managed-enabling exploration of AI while maintaining compliance and public trust."""
+**In short:** demonstrate that innovation is deliberate, supported, and securely managed-enabling exploration of AI while maintaining compliance and public trust."""
     },
     # Domain 5: People & Culture (6 questions)
     {
@@ -719,7 +719,7 @@ A well-informed workforce supports innovation while safeguarding ethical and ope
 • **Workshop Summaries:** Notes or outcomes from AI information sessions or Q&A forums.
 • **Leadership Endorsements:** Executive messages promoting AI education and responsible innovation.
 
-In short: demonstrate that AI awareness is not incidental-it is an intentional, measurable part of organisational learning and culture."""
+**In short:** demonstrate that AI awareness is not incidental-it is an intentional, measurable part of organisational learning and culture."""
     },
     {
         "code": "PC-02",
@@ -749,7 +749,7 @@ A structured, evolving skills framework strengthens organisational resilience an
 • **Learning Outcomes:** Assessment results, certifications, or completion statistics.
 • **Budget Allocations:** Funding approvals for capability-building initiatives.
 
-In short: demonstrate that AI skills development is planned, resourced, and linked to career growth and governance maturity."""
+**In short:** demonstrate that AI skills development is planned, resourced, and linked to career growth and governance maturity."""
     },
     {
         "code": "PC-03",
@@ -779,7 +779,7 @@ A healthy innovation culture attracts talent, accelerates transformation, and en
 • **Training:** Workshops on creative problem-solving and responsible AI exploration.
 • **Committee Minutes:** Governance records showing oversight of innovation initiatives.
 
-In short: demonstrate that innovation is actively encouraged, collaborative, and balanced by responsible AI governance."""
+**In short:** demonstrate that innovation is actively encouraged, collaborative, and balanced by responsible AI governance."""
     },
     {
         "code": "PC-04",
@@ -809,7 +809,7 @@ Embedding ethics across all levels ensures AI systems are developed, procured, a
 • **Feedback Surveys:** Employee surveys measuring ethical awareness or confidence in raising concerns.
 • **Governance Oversight:** Committee minutes or reports discussing ethical implications of AI.
 
-In short: demonstrate that ethical responsibility is embedded, measurable, and understood across all levels of the organisation."""
+**In short:** demonstrate that ethical responsibility is embedded, measurable, and understood across all levels of the organisation."""
     },
     {
         "code": "PC-05",
@@ -839,7 +839,7 @@ Structured change management mitigates fear, maintains morale, and ensures techn
 • **Communications:** Announcements, newsletters, or FAQs addressing workforce changes.
 • **Metrics:** Surveys measuring staff confidence or readiness for automation.
 
-In short: demonstrate that change is anticipated, communicated, and supported-ensuring employees remain empowered and engaged through AI transformation."""
+**In short:** demonstrate that change is anticipated, communicated, and supported-ensuring employees remain empowered and engaged through AI transformation."""
     },
     {
         "code": "PC-06",
@@ -869,7 +869,7 @@ Embedding inclusion and accessibility ensures AI technologies are equitable, tra
 • **Training Materials:** Programs on inclusive design, bias awareness, or accessibility.
 • **Performance Reports:** Metrics tracking diversity and accessibility outcomes in AI projects.
 
-In short: demonstrate that diversity and accessibility are deliberate, measurable priorities shaping both your workforce and AI-enabled services."""
+**In short:** demonstrate that diversity and accessibility are deliberate, measurable priorities shaping both your workforce and AI-enabled services."""
     },
     # Domain 6: Policy & Compliance Readiness (6 questions)
     {
@@ -900,7 +900,7 @@ A clearly articulated AI Policy demonstrates readiness, accountability, and comm
 • **Communications:** Intranet or public announcements sharing policy content with staff or stakeholders.
 • **Training Records:** Staff awareness or onboarding sessions covering AI policy requirements.
 
-In short: demonstrate that responsible AI is governed by approved, integrated policies reflecting ethical principles and legal obligations."""
+**In short:** demonstrate that responsible AI is governed by approved, integrated policies reflecting ethical principles and legal obligations."""
     },
     {
         "code": "PR-02",
@@ -932,7 +932,7 @@ A structured compliance process safeguards the organisation from legal exposure 
 • **Incident Logs:** Records of data breaches, remedial actions, and regulator notifications.
 • **Board or Committee Minutes:** Evidence of oversight of compliance performance and legislative updates.
 
-In short: show that compliance with AI and privacy laws is proactive, documented, and continuously reviewed-not reactive or assumed."""
+**In short:** show that compliance with AI and privacy laws is proactive, documented, and continuously reviewed-not reactive or assumed."""
     },
     {
         "code": "PR-03",
@@ -962,7 +962,7 @@ Effective third-party oversight ensures that vendor behaviour aligns with your e
 • **Performance Monitoring:** KPIs or dashboards measuring supplier compliance over time.
 • **Governance Committee Minutes:** Oversight discussions of vendor or outsourcing risks.
 
-In short: demonstrate that third-party AI risk is assessed, contractually controlled, and continually monitored-not left to vendor discretion."""
+**In short:** demonstrate that third-party AI risk is assessed, contractually controlled, and continually monitored-not left to vendor discretion."""
     },
     {
         "code": "PR-04",
@@ -992,7 +992,7 @@ Framework alignment embeds consistency, improves defensibility, and reinforces t
 • **Training Materials:** Sessions or briefings introducing staff to framework principles.
 • **Committee Minutes:** Governance or risk committee discussions reviewing framework adoption progress.
 
-In short: demonstrate that AI governance is guided by-and continuously compared to-globally recognised standards, ensuring maturity and defensibility."""
+**In short:** demonstrate that AI governance is guided by-and continuously compared to-globally recognised standards, ensuring maturity and defensibility."""
     },
     {
         "code": "PR-05",
@@ -1022,7 +1022,7 @@ Regular monitoring builds transparency, maintains compliance, and supports a cyc
 • **Performance Dashboards:** Metrics showing compliance rates or policy adoption levels.
 • **Remediation Evidence:** Completed action plans addressing policy gaps or audit findings.
 
-In short: demonstrate that policy compliance is not assumed-it is verified, measured, and continuously strengthened through structured oversight."""
+**In short:** demonstrate that policy compliance is not assumed-it is verified, measured, and continuously strengthened through structured oversight."""
     },
     {
         "code": "PR-06",
@@ -1052,7 +1052,7 @@ Consistent communication and enforcement ensure staff know, understand, and upho
 • **Surveys or Feedback:** Staff awareness assessments or post-training evaluation results.
 • **Committee Oversight:** Minutes from governance or HR meetings addressing policy adherence.
 
-In short: demonstrate that policy compliance is reinforced through communication, education, and consistent accountability across all levels of the organisation."""
+**In short:** demonstrate that policy compliance is reinforced through communication, education, and consistent accountability across all levels of the organisation."""
     },
     # Domain 7: Risk & Ethics Awareness (6 questions)
     {
@@ -1083,7 +1083,7 @@ Embedding AI risks into enterprise governance demonstrates accountability and st
 • **Audit or Review Reports:** Evaluations of AI risk controls or management practices.
 • **Training Materials:** Staff guidance or workshops on identifying AI-specific risks.
 
-In short: demonstrate that AI risk is visible, documented, and managed through the same disciplined processes applied to all critical business risks."""
+**In short:** demonstrate that AI risk is visible, documented, and managed through the same disciplined processes applied to all critical business risks."""
     },
     {
         "code": "RE-02",
@@ -1113,7 +1113,7 @@ Embedding structured bias management builds fairness, trust, and accountability 
 • **Training Records:** Staff participation in workshops on bias awareness and mitigation.
 • **Remediation Actions:** Logs of bias issues identified and corrective measures applied.
 
-In short: demonstrate that the organisation understands, measures, and mitigates bias to ensure equitable and ethical AI outcomes."""
+**In short:** demonstrate that the organisation understands, measures, and mitigates bias to ensure equitable and ethical AI outcomes."""
     },
     {
         "code": "RE-03",
@@ -1143,7 +1143,7 @@ Embedding explainability reinforces trust, supports accountability, and ensures 
 • **Training Materials:** Staff sessions on communicating AI decisions responsibly.
 • **Audit Reports:** Reviews verifying that AI decisions are traceable and understandable.
 
-In short: demonstrate that AI decision-making is visible, explainable, and documented-ensuring stakeholders can understand and trust organisational use of AI."""
+**In short:** demonstrate that AI decision-making is visible, explainable, and documented-ensuring stakeholders can understand and trust organisational use of AI."""
     },
     {
         "code": "RE-04",
@@ -1173,7 +1173,7 @@ Embedding human oversight ensures accountability, prevents automation bias, and 
 • **Audit Trails:** System logs showing manual intervention or sign-off in AI processes.
 • **Ethics or Risk Committee Minutes:** Discussions verifying oversight effectiveness and accountability gaps.
 
-In short: demonstrate that human oversight is active, documented, and central to how your organisation uses AI-ensuring responsibility never shifts to the system itself."""
+**In short:** demonstrate that human oversight is active, documented, and central to how your organisation uses AI-ensuring responsibility never shifts to the system itself."""
     },
     {
         "code": "RE-05",
@@ -1203,7 +1203,7 @@ Structured, ongoing engagement ensures AI is socially aligned and trusted, stren
 • **Public Disclosures:** Reports or website updates summarising engagement outcomes.
 • **Surveys or Questionnaires:** Feedback instruments used to gauge community trust or expectations.
 
-In short: demonstrate that your organisation listens, documents, and responds to stakeholder input to guide the ethical use of AI and data."""
+**In short:** demonstrate that your organisation listens, documents, and responds to stakeholder input to guide the ethical use of AI and data."""
     },
     {
         "code": "RE-06",
@@ -1233,7 +1233,7 @@ A structured response to ethical incidents transforms mistakes into progress, st
 • **Training Updates:** Revisions to content or guidance following lessons learned.
 • **Audit Findings:** Verification that corrective actions were implemented and effective.
 
-In short: demonstrate that the organisation treats every AI or ethical incident as an opportunity to learn, improve, and strengthen governance maturity."""
+**In short:** demonstrate that the organisation treats every AI or ethical incident as an opportunity to learn, improve, and strengthen governance maturity."""
     },
     # Domain 8: Continuous Learning & Improvement (6 questions)
     {
@@ -1264,7 +1264,7 @@ Embedding structured feedback mechanisms transforms individual projects into con
 • **Policy Updates:** Revisions to frameworks or templates referencing implemented lessons.
 • **Training Materials:** Updated guidance or learning modules incorporating prior findings.
 
-In short: demonstrate that AI experiences translate into tangible improvements-creating a continuous feedback loop that strengthens governance maturity over time."""
+**In short:** demonstrate that AI experiences translate into tangible improvements-creating a continuous feedback loop that strengthens governance maturity over time."""
     },
     {
         "code": "CL-02",
@@ -1294,7 +1294,7 @@ Structured governance reviews ensure the organisation continually adapts, keepin
 • **Improvement Logs:** Registers documenting actions taken based on review outcomes.
 • **Updated Policies:** Revised frameworks showing incorporation of review findings.
 
-In short: demonstrate that AI governance is actively measured, reviewed, and refined-not left to drift as technology and risk evolve."""
+**In short:** demonstrate that AI governance is actively measured, reviewed, and refined-not left to drift as technology and risk evolve."""
     },
     {
         "code": "CL-03",
@@ -1324,7 +1324,7 @@ Benchmarking transforms maturity assessments from static snapshots into catalyst
 • **Committee Minutes:** Governance discussions reviewing benchmarking insights.
 • **Communications:** Reports or presentations sharing benchmarking outcomes with stakeholders.
 
-In short: demonstrate that benchmarking is regular, evidence-based, and actively shapes strategic decisions and governance improvements."""
+**In short:** demonstrate that benchmarking is regular, evidence-based, and actively shapes strategic decisions and governance improvements."""
     },
     {
         "code": "CL-04",
@@ -1354,7 +1354,7 @@ Structured feedback integration ensures that AI governance evolves collaborative
 • **Communications:** Updates to stakeholders outlining changes made based on their input.
 • **Audit or Review Records:** Assessments confirming the effectiveness of feedback mechanisms.
 
-In short: demonstrate that feedback on AI use is continuous, inclusive, and directly drives governance and performance improvements."""
+**In short:** demonstrate that feedback on AI use is continuous, inclusive, and directly drives governance and performance improvements."""
     },
     {
         "code": "CL-05",
@@ -1384,7 +1384,7 @@ Embedding assurance and measurement ensures AI governance is tested, evidence-ba
 • **Assurance Plans:** Schedules including AI-related audits or monitoring activities.
 • **Follow-up Reports:** Evidence that audit findings have been remediated or verified.
 
-In short: demonstrate that AI governance is validated through structured, data-driven assurance processes that deliver measurable, sustained improvement."""
+**In short:** demonstrate that AI governance is validated through structured, data-driven assurance processes that deliver measurable, sustained improvement."""
     },
     {
         "code": "CL-06",
@@ -1414,6 +1414,6 @@ Embedding lifelong learning transforms AI governance from a compliance exercise 
 • **Survey Results:** Staff feedback showing engagement in learning and openness to digital transformation.
 • **Strategic Documents:** Workforce or digital strategies referencing learning culture and AI capability development.
 
-In short: demonstrate that AI readiness is sustained through an organisational culture that values learning, reflection, and continuous improvement."""
+**In short:** demonstrate that AI readiness is sustained through an organisational culture that values learning, reflection, and continuous improvement."""
     }
 ]
