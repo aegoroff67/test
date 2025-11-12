@@ -985,6 +985,12 @@
         - working: "NA"
         - agent: "main"
         - comment: "IMPLEMENTED: Successfully added additional_guide tooltips to all 48 Readiness Assessment questions. User provided a comprehensive markdown file (AI Readiness Assessment - additional-guidance-tooltips.md) containing detailed guidance for each question code (SA-01 through CL-06). IMPLEMENTATION DETAILS: 1) Retrieved and parsed the tooltip content from the provided file, 2) Created tooltip mapping for all 48 questions across 8 domains, 3) Updated readiness_questions.py to add 'additional_guide' field to each question dictionary, 4) Verified that 40 questions already had tooltips from a previous version, 5) Added missing tooltips for 8 questions (SA-01, GF-01, DR-01, TI-01, PC-01, PR-01, RE-01, CL-01), 6) All 48/48 questions now have complete additional guidance tooltips with detailed, bullet-pointed content for best practices and implementation guidance. Backend restarted successfully. Ready for testing to verify tooltips appear in the UI for all Readiness Assessment questions."
+        - working: false
+        - agent: "user"
+        - comment: "User reported that clicking the information icon at the top of AI Readiness Assessment questions shows error: 'No additional guidance available for this question.' Tooltips not appearing in UI despite backend having the data."
+        - working: "NA"
+        - agent: "main"
+        - comment: "FRONTEND INTEGRATION FIX: Identified and fixed the disconnect between backend and frontend. ISSUE: The handleOpenQuestionHelp function in AssessmentPage.js was only checking questionGuidanceData (static JSON file used for System assessments) and not checking currentQuestion.additional_guide field from the API response. SOLUTION: Updated handleOpenQuestionHelp function to check assessmentType and use currentQuestion.additional_guide for Readiness assessments, falling back to questionGuidanceData for System assessments. This allows the InfoBadge tooltip to properly display the additional_guide content that's already being returned by the backend API. Frontend restarted successfully. Ready for user testing to verify tooltips now appear when clicking the info icon on Readiness Assessment questions."
 
   - task: "Fix AI Readiness Assessment View All button crash - status endpoint returning wrong structure"
     implemented: true
