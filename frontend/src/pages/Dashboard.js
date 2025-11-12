@@ -130,9 +130,9 @@ function Dashboard() {
         return {
           icon: Lightbulb,
           label: 'Readiness',
-          bgColor: 'bg-purple-100',
-          textColor: 'text-purple-700',
-          iconColor: 'text-purple-600'
+          bgColor: 'bg-blue-100',
+          textColor: 'text-blue-700',
+          iconColor: 'text-blue-600'
         };
       case 'Organisation':
       case 'Orgwide':
