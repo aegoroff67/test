@@ -1,81 +1,80 @@
 <analysis>
-The AI engineer's work focused on evolving the AM AI SAFE application from a single-assessment tool to a multi-assessment platform. The initial phase involved extensive debugging of the newly introduced AI Awareness Assessment, fixing issues related to frontend rendering, backend data mismatches (domain IDs), and incorrect progress tracking. A significant portion of the work established a core architectural pattern: using an  field to conditionally serve different questions, apply unique scoring logic, and render type-specific UI components (colors, response options) across the application.
+The trajectory details the evolution of the AM AI SAFE application from a single-assessment tool into a multi-assessment platform, focusing on the AI Readiness and Organisation-wide assessments. The work follows a clear, iterative pattern: a user requests a feature or reports a bug, and the engineer investigates, implements, and refines the solution across the full stack.
 
-Following the stabilization of the Awareness assessment, the engineer provided detailed architectural guidance for future features, including a comprehensive plan for implementing a Stripe-based paywall. The most recent work involved building the AI Readiness Assessment from a user-provided CSV. This process mirrored the established pattern: creating a new questions file (), updating numerous backend endpoints (, , , etc.) with Readiness logic, and modifying frontend components (, ). This phase was marked by a persistent Assessment not found bug, ultimately traced by the  to a frontend route parameter mismatch, and a subsequent bug where the wrong questions were being served. The trajectory concludes with the engineer actively debugging new issues reported for the Readiness assessment.
+A core architectural decision was the pervasive use of an  string (System, Awareness, Readiness, Orgwide) to drive conditional logic. This pattern was applied consistently in the backend () for serving different questions, calculating scores, and structuring API responses, and in the frontend (React components) for rendering type-specific UI elements like colors, response options, and page titles.
+
+The process began with fixing bugs in the newly added AI Readiness Assessment, including a View All page crash and missing tooltips. This involved debugging both frontend rendering logic () and backend data structures ( in ). The engineer then built the Organisation-wide AI Maturity Assessment from a user-provided CSV, creating  and integrating it throughout the application. This process was followed by a series of bug fixes and refinements based on user feedback, addressing issues in routing, data display, and UI consistency. The most recent task involves adding and styling titles for the AI Readiness Assessment tooltips, a task that is currently in progress.
 </analysis>
 
 <product_requirements>
-The AM AI SAFE application is a full-stack platform designed to help organizations evaluate their AI maturity through a suite of specialized assessments. The core functionality is to guide users through questionnaires, process their answers, and generate insightful summary pages and downloadable DOCX/PDF reports.
+The AM AI SAFE application is a platform for organizations to evaluate their AI maturity through specialized assessments. Initially an MVP with a single AI System Maturity Assessment, it has been expanded to support a suite of assessments, including a free AI Awareness assessment and two premium offerings: the AI Readiness Assessment and the Organisation-wide AI Maturity Assessment.
 
-The platform was expanded from a single AI System Maturity Assessment MVP to include three additional types:
-1.  **AI Awareness & Foundations Assessment:** A free, entry-level assessment.
-2.  **AI Readiness Assessment:** A premium, more in-depth assessment.
-3.  **Organisation-wide AI Maturity Assessment:** A premium, comprehensive assessment.
+**Core Functionality:**
+*   **Dynamic Assessment Engine:** The application is built on a flexible framework where the  dictates the questions, scoring logic, and UI presentation.
+*   **User Onboarding:** Each assessment has a unique pre-assessment form to gather relevant metadata before the user begins.
+*   **Assessment Interface:** Users are presented with questions, multiple-choice answers, and in-context help via Additional Guidance and Evidence Types tooltips.
+*   **Progress & Results:** Users can view their progress on a View All page and, upon completion, will see a results summary.
 
-Key features implemented include:
-*   **Dynamic Assessment Framework:** The backend dynamically serves questions, scoring logic, and progress data based on the selected . The frontend renders corresponding UI themes, response options, and results pages.
-*   **Onboarding Forms:** Each assessment type has a unique, color-coded pre-assessment onboarding form to collect tailored metadata.
-*   **Results Pages:** A results summary page has been implemented for both the System and Awareness assessments, featuring heatmaps, domain scores, and report download buttons.
-*   **Content Management:** The content on the public-facing authentication page has been updated to reflect the new multi-assessment suite.
-*   **Paywall Architecture:** A detailed architectural plan for implementing a Stripe-based paywall for premium assessments has been outlined.
+**Implemented Work:**
+The AI Readiness and Organisation-wide assessments have been fully built out, from parsing user-provided CSVs/markdown files for questions and tooltips to integrating them across the entire backend and frontend. This involved extensive bug fixing related to data fetching, UI rendering, and routing.
 </product_requirements>
 
 <key_technical_concepts>
-- **Backend:** FastAPI (Python), MongoDB (with Pydantic for data validation),  for DOCX report generation.
-- **Frontend:** React.js, Tailwind CSS, Axios for API calls, Recharts for charts.
-- **Architecture:** A multi-tenant assessment design using a central  string (System, Awareness, Readiness, Organisation) to drive conditional logic throughout the stack.
-- **Authentication:** JWT-based authentication with user roles.
+- **Backend:** FastAPI (Python) with Pydantic for data modeling.
+- **Database:** MongoDB for data persistence.
+- **Frontend:** React.js with Tailwind CSS for styling and Axios for API communication.
+- **Core Architecture:** A modular design pattern using an  string to conditionally control logic and rendering throughout the full stack. This allows for easy extension with new assessment types.
+- **Authentication:** JWT-based user authentication.
 </key_technical_concepts>
 
 <code_architecture>
-The application follows a standard monolithic repository structure with a separate  and . The backend is a FastAPI server that serves a JSON API, and the frontend is a React single-page application.
+The application uses a monolithic repository with distinct  and  directories.
 
 
 
-   - ****
-      - **Importance:** This is the core of the application, containing all API endpoints, Pydantic models, database logic, and business rules.
-      - **Summary of Changes:** This file has been heavily modified to support multiple assessment types. Conditional logic ( blocks based on ) was added to numerous endpoints, including , , , , , , and . New scoring maps and  enums were added for Awareness and Readiness assessments.
+- ****
+  - **Importance:** The central API server. It defines all endpoints, handles database interactions, and contains the business logic for all assessment types.
+  - **Summary of Changes:** This file has been heavily modified to be the core of the dynamic assessment engine. Conditional logic () has been added to nearly every assessment-related endpoint (, , , , etc.) to support Readiness and Orgwide types, ensuring the correct questions, validation rules, and data structures are used.
 
-   - ** (NEW)**
-      - **Importance:** This new file contains the question and domain data for the AI Readiness Assessment, parsed from a user-provided CSV. It serves as the single source of truth for this assessment's content.
-      - **Summary of Changes:** Created to store 48 questions across 8 domains, with a 4-tier response structure.
+- ** & **
+  - **Importance:** These files act as the database for question content for their respective assessments. They were generated by parsing user-provided CSV and Markdown files.
+  - **Summary of Changes:** Both files were created and then iteratively updated to add  and  fields, fix formatting (e.g., bolding text), and correct content based on user feedback.
 
-   - ****
-      - **Importance:** This is the main user interface for taking an assessment. It's responsible for displaying questions, handling user input, and showing progress.
-      - **Summary of Changes:** The page was refactored to be highly dynamic. It now fetches the  and uses helper functions (from ) to dynamically render the correct response options and UI color schemes (e.g., green for Awareness, blue for Readiness).
+- ****
+  - **Importance:** The primary UI where users take assessments. It renders questions, response options, and tooltips.
+  - **Summary of Changes:** This page was modified to correctly display tooltips (, ) for Readiness and Orgwide assessments by fetching data from the API response () instead of a static file.
 
-   - ****
-      - **Importance:** Displays the summary of a completed assessment, including charts and report download buttons.
-      - **Summary of Changes:** Updated to support conditional rendering. It now checks the  and displays different titles, summary text, and color schemes for System and Awareness assessments. Logic was added to handle the Readiness assessment type as well.
+- ****
+  - **Importance:** Contains helper functions that provide dynamic UI configurations (colors, response options) based on the assessment type.
+  - **Summary of Changes:** The  and  functions were updated to include cases for , ensuring the correct predefined answers and purple color scheme were displayed.
 
-   - ****
-      - **Importance:** The main landing page for logged-in users, showing their in-progress and completed assessments.
-      - **Summary of Changes:** The component was updated to correctly display the badge and question progress (e.g., n/25 for Awareness) for different assessment types by fetching accurate data from the modified backend.
+- ****
+  - **Importance:** The View All page component, displaying a grid of all questions and their statuses.
+  - **Summary of Changes:** The component was refactored to be dynamic. It now accepts  and  as props to display the correct title, progress bar color, and grid layout ( for Orgwide). CSS was also adjusted to fix text truncation and column alignment issues.
 
-   - ****
-      - **Importance:** The application's login and registration page.
-      - **Summary of Changes:** The descriptive marketing content on this page was extensively modified via several iterative user requests to refine the text, add bullet points, bold specific terms, and include a new title and subtitle.
-
-   - ****
-      - **Importance:** Defines the frontend routing for the application.
-      - **Summary of Changes:** The route for the Readiness pre-assessment form was corrected from  to  to fix a critical Assessment not found bug caused by a parameter mismatch with the component.
+- ****
+  - **Importance:** The user's main dashboard, listing their in-progress and completed assessments.
+  - **Summary of Changes:** The  function was fixed to handle the  assessment type and to correct the color scheme for the Readiness badge from purple to blue, ensuring assessments are correctly identified on the dashboard.
 </code_architecture>
 
 <pending_tasks>
-- Implement the Organisation-wide AI Maturity Assessment from scratch.
-- Build the results summary pages for the AI Readiness and Organisation-wide assessments.
-- Create and integrate the DOCX report templates for Awareness, Readiness, and Organisation-wide assessments.
-- Implement the proposed paywall architecture, likely starting with a Stripe integration for one-time purchases.
+- Implement the results summary pages for the AI Readiness and Organisation-wide assessments.
+- Create and integrate the DOCX report templates for the Awareness, Readiness, and Organisation-wide assessments.
+- Implement the proposed Stripe paywall architecture for premium assessments.
 </pending_tasks>
 
 <current_work>
-The immediate past work involved building out the AI Readiness Assessment. After creating the new question set () and extensively modifying the backend  to handle the Readiness type across all relevant endpoints, a series of bugs were addressed. A persistent Assessment not found error was resolved by fixing a route parameter mismatch in . A subsequent bug, where the wrong questions were being displayed, was fixed by adding the correct conditional logic to the  endpoint.
+The most recent work focuses on a user request to fix missing titles in the Additional Guidance tooltips for the AI Readiness Assessment and to style these titles with a bold, 16px font.
 
-Currently, the work is focused on fixing two new bugs reported by the user for the now-loading Readiness Assessment:
-1.  **Missing Tooltips:** The Additional Guide and Evidence Types tooltips are not appearing for any question. The initial investigation has confirmed that these data fields are missing from the  file.
-2.  **View All Crash:** Clicking the View All button on the assessment page triggers a frontend runtime error:  originating from the  component. This has not yet been investigated.
+The previous engineer has already:
+1.  Confirmed that the titles are indeed missing from the  content within the  file.
+2.  Devised a plan to manually add appropriate titles to each of the 48 questions in that file.
+3.  Updated  programmatically, adding a title (e.g., Additional Guidance - Embedding AI in Strategic Planning) as the first line for each question's  field.
+4.  Begun investigating the frontend, identifying  as the component responsible for rendering the tooltip's modal content.
+
+The work concluded just before modifying  to parse the newly added title from the content string and apply the requested  and  (16px) styling.
 </current_work>
 
 <optional_next_step>
-My immediate next step is to investigate the two bugs reported for the Readiness Assessment. I will start by examining the original  file to see if the tooltip data exists. Then I will debug the  component to fix the crash.
+I will now modify the  component to parse and render the first line of the tooltip content as a bold, 16px title for the Readiness assessment.
 </optional_next_step>
