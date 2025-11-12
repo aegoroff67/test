@@ -1663,6 +1663,62 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
         
         return [dq for dq in domain_questions.values() if dq["questions"]]
     
+    # Handle Organisation Assessment
+    elif assessment_type == "Orgwide":
+        from organisation_questions import ORGANISATION_QUESTIONS_DATA
+        
+        # Get answers for this assessment
+        answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
+        answer_lookup = {answer["question_id"]: answer for answer in answers}
+        
+        # Define organisation domains
+        organisation_domains = [
+            {"id": "accountability_ethics", "name": "Accountability & Ethics", "order": 1},
+            {"id": "continuous_improvement", "name": "Continuous Improvement & Assurance", "order": 2},
+            {"id": "culture_capability", "name": "Culture & Capability", "order": 3},
+            {"id": "data_stewardship", "name": "Data Stewardship & Security", "order": 4},
+            {"id": "fairness_inclusivity", "name": "Fairness & Inclusivity", "order": 5},
+            {"id": "governance_oversight", "name": "Governance & Oversight", "order": 6},
+            {"id": "privacy_legal", "name": "Privacy & Legal Compliance", "order": 7},
+            {"id": "reliability_safety", "name": "Reliability & Safety", "order": 8},
+            {"id": "risk_management", "name": "Risk Management", "order": 9},
+            {"id": "transparency_explainability", "name": "Transparency & Explainability", "order": 10}
+        ]
+        
+        # Group organisation questions by domain
+        domain_questions = {}
+        for domain in organisation_domains:
+            domain_questions[domain["order"]] = {
+                "domain": domain,
+                "questions": []
+            }
+        
+        for question_data in ORGANISATION_QUESTIONS_DATA:
+            domain_order = question_data["domain_order"]
+            question_id = question_data["code"]
+            
+            # Get the actual domain ID from the organisation_domains list
+            domain_id = organisation_domains[domain_order - 1]["id"]
+            
+            question = {
+                "id": question_id,
+                "code": question_id,
+                "text": question_data["text"],
+                "explanation": question_data.get("explanation", ""),
+                "order": question_data["order"],
+                "domain_id": domain_id,
+                "answer": answer_lookup.get(question_id),
+                "predefined_answers": {
+                    "foundational": question_data.get("foundational"),
+                    "developing": question_data.get("developing"),
+                    "established": question_data.get("established"),
+                    "leading": question_data.get("leading")
+                }
+            }
+            domain_questions[domain_order]["questions"].append(question)
+        
+        return [dq for dq in domain_questions.values() if dq["questions"]]
+    
     # Original system assessment logic
     # Get domains with questions
     domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
