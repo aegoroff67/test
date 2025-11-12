@@ -40,6 +40,14 @@ export default function HelpModal({ isOpen, onClose, title, content }) {
                   <div className="text-gray-700 leading-relaxed space-y-4">
                     {/* Remove trailing --- separator before processing */}
                     {content.replace(/\n---$/, '').split('\n\n').map((paragraph, index) => {
+                      // Check if this is the first paragraph and starts with "Additional Guidance -"
+                      if (index === 0 && paragraph.trim().startsWith('Additional Guidance -')) {
+                        return (
+                          <h4 key={index} className="font-bold text-gray-900 mb-4" style={{ fontSize: '16px' }}>
+                            {paragraph.trim()}
+                          </h4>
+                        );
+                      }
                       // Skip separator lines
                       if (paragraph.trim() === '---' || paragraph.trim() === '**---**') {
                         return null;
