@@ -350,6 +350,22 @@
         - working: true
         - agent: "testing"
         - comment: "PRODUCTION ISSUE DIAGNOSED AND RESOLVED: Comprehensive testing revealed the root causes of user's 500 errors: 1) ✅ AUTHENTICATION WORKING: Backend API accessible at https://app.amaisafe.com/api/, user signup/login working correctly, JWT tokens generated and validated properly, 2) ✅ LIBREOFFICE WORKING: LibreOffice 7.4.7.2 installed and functioning correctly, PDF conversion working (confirmed by backend logs showing successful conversions), 3) ❌ SPECIFIC ASSESSMENT ACCESS ISSUE: Assessment ID 89139e2e-5286-4e11-89e1-8ca5d830ca44 returns 403 Forbidden - this assessment belongs to different organization, user cannot access it, 4) ✅ REPORT GENERATION WORKING: Created new complete assessment (88 questions answered and submitted), both DOCX and PDF generation working correctly with substantial file sizes (>200KB), 5) ✅ ASSESSMENT COMPLETION REQUIREMENT: Reports require assessment to be fully completed (all 88 questions answered and submitted) - incomplete assessments return appropriate error messages. CONCLUSION: The 500 errors were likely caused by: a) Attempting to access assessment belonging to different organization (403 Forbidden), b) Attempting to generate reports for incomplete assessments. The core report generation system is working correctly in production. User needs to ensure they're accessing their own organization's completed assessments."
+
+  - task: "Test Evidence Types functionality for Organisation-wide AI Maturity Assessment"
+    implemented: true
+    working: true
+    file: "/app/backend/organisation_questions.py, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "testing"
+        - comment: "TESTING INITIATED: Comprehensive testing of Evidence Types functionality for Organisation-wide AI Maturity Assessment as requested in review. Testing: 1) Backend Data Integrity - all 80 questions have evidence_types field, 2) API Response - GET /api/assessments/{assessment_id}/questions includes evidence_types for Orgwide assessments, 3) Cross-Assessment Type verification - System/Readiness/Orgwide distinctions."
+        - working: true
+        - agent: "testing"
+        - comment: "EVIDENCE TYPES FUNCTIONALITY TESTING COMPLETED SUCCESSFULLY: Comprehensive testing completed with 100% success rate (20/20 tests passed). ✅ BACKEND DATA INTEGRITY VERIFIED: All 80 Organisation-wide questions have evidence_types field with non-empty content, sample question codes (GO-01, AE-02, AE-05, RM-01, DS-01, FI-01, GO-08, PL-01, CA-01, RE-01) have unique evidence_types content. ✅ API RESPONSE TESTS PASSED: Created Orgwide assessment using test credentials (andrew@test.com/password123), GET /api/assessments/{assessment_id}/questions returns evidence_types field for all 80 questions, evidence_types content matches organisation_questions.py data with expected structure containing 'Key Evidence Types:' and 'In short:' sections. ✅ CROSS-ASSESSMENT TYPE TESTS VERIFIED: System assessments do not have evidence_types field (use static helpContent), Readiness assessments have additional_guide field working, Orgwide assessments have distinct evidence_types content. ✅ IMPLEMENTATION CONFIRMED: Backend server.py line 1740 correctly includes evidence_types field in API response for Orgwide assessments. All requirements from review request have been successfully implemented and tested."
+
 ## frontend:
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
