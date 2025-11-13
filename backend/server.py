@@ -1116,29 +1116,61 @@ async def get_all_metadata_fields(admin: UserResponse = Depends(require_super_ad
     for collection_name in collections:
         collection = db[collection_name]
         
-        # Get one sample document to see all fields
-        sample = await collection.find_one({})
-        
-        if sample:
-            # Remove MongoDB _id field
-            if "_id" in sample:
-                del sample["_id"]
+        # Special handling for assessments - get samples from all assessment types
+        if collection_name == "assessments":
+            # Get one sample from each assessment type
+            assessment_types = ["System", "Awareness", "Readiness", "Orgwide"]
+            all_fields = {}
+            total_count = 0
             
-            # Extract all fields including nested ones
-            fields = extract_fields(sample)
-            
-            # Count total documents in collection
-            count = await collection.count_documents({})
+            for assessment_type in assessment_types:
+                sample = await collection.find_one({"assessment_type": assessment_type})
+                if sample:
+                    # Remove MongoDB _id field
+                    if "_id" in sample:
+                        del sample["_id"]
+                    
+                    # Extract fields for this assessment type
+                    type_fields = extract_fields(sample)
+                    
+                    # Add assessment type prefix to fields to distinguish them
+                    for field_name, field_info in type_fields.items():
+                        prefixed_name = f"[{assessment_type}] {field_name}"
+                        all_fields[prefixed_name] = field_info
+                
+                # Count documents of this type
+                type_count = await collection.count_documents({"assessment_type": assessment_type})
+                total_count += type_count
             
             metadata[collection_name] = {
-                "total_documents": count,
-                "fields": fields
+                "total_documents": total_count,
+                "fields": all_fields if all_fields else {}
             }
         else:
-            metadata[collection_name] = {
-                "total_documents": 0,
-                "fields": {}
-            }
+            # Standard handling for other collections
+            # Get one sample document to see all fields
+            sample = await collection.find_one({})
+            
+            if sample:
+                # Remove MongoDB _id field
+                if "_id" in sample:
+                    del sample["_id"]
+                
+                # Extract all fields including nested ones
+                fields = extract_fields(sample)
+                
+                # Count total documents in collection
+                count = await collection.count_documents({})
+                
+                metadata[collection_name] = {
+                    "total_documents": count,
+                    "fields": fields
+                }
+            else:
+                metadata[collection_name] = {
+                    "total_documents": 0,
+                    "fields": {}
+                }
     
     return metadata
 
