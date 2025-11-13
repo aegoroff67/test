@@ -514,7 +514,7 @@ class AMReportGenerator:
             questions = domain['questions']
             
             # Calculate percentage score for left side (like in screenshot)
-            total_possible = len([q for q in questions if q['code'] != 'N/A']) * 3
+            total_possible = len([q for q in questions if q['code'] != 'N/A']) * 4  # 1-4 scale
             total_actual = sum(q['score'] for q in questions if q['code'] != 'N/A')
             percentage = (total_actual / total_possible * 100) if total_possible > 0 else 0
             
