@@ -588,7 +588,7 @@ function ResultsPage() {
                         .sort((a, b) => a.score - b.score) // Sort by score, lowest first
                         .map((question) => {
                         const score = question.score;
-                        const percentage = (score / 3) * 100; // Max score is 3
+                        const percentage = (score / 4) * 100; // Max score is 4 (1-4 scale)
                         const colors = getScoreColor(percentage, question.reviewStatus);
                         
                         return (
@@ -596,11 +596,11 @@ function ResultsPage() {
                             key={question.id}
                             className="p-2 rounded text-center border border-gray-300"
                             style={{ backgroundColor: colors.bg, color: colors.text }}
-                            title={`${question.code}: ${question.text} (Score: ${score}/3)${question.reviewStatus === 'PENDING_REVIEW' ? ' - Pending Review' : ''}`}
+                            title={`${question.code}: ${question.text} (Score: ${score}/4)${question.reviewStatus === 'PENDING_REVIEW' ? ' - Pending Review' : ''}`}
                             data-testid={`heatmap-cell-${question.code}`}
                           >
                             <div className="font-bold text-xs">{question.code}</div>
-                            <div className="text-xs opacity-90">{question.reviewStatus === 'PENDING_REVIEW' ? 'Review' : `${score}/3`}</div>
+                            <div className="text-xs opacity-90">{question.reviewStatus === 'PENDING_REVIEW' ? 'Review' : `${score}/4`}</div>
                           </div>
                         );
                       })}
