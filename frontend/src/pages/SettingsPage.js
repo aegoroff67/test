@@ -971,9 +971,14 @@ function SettingsPage() {
                               </td>
                             )}
                             <td className="p-3">
-                              <Badge className="bg-blue-100 text-blue-800">
-                                {a.assessment_type}
-                              </Badge>
+                              {(() => {
+                                const typeBadge = getAssessmentTypeBadge(a.assessment_type);
+                                return (
+                                  <Badge className={`${typeBadge.bgColor} ${typeBadge.textColor}`}>
+                                    {typeBadge.label}
+                                  </Badge>
+                                );
+                              })()}
                             </td>
                             <td className="p-3">
                               <div className="flex items-center gap-2">
