@@ -981,6 +981,7 @@
   completed_focus:
     - "Fix AI Awareness Assessment response option validation error"
     - "Fix Dashboard progress display showing n/88 for Awareness assessments instead of n/25"
+    - "Test Evidence Types functionality for Organisation-wide AI Maturity Assessment"
 
 ## agent_communication:
     - agent: "main"
