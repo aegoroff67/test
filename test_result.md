@@ -587,13 +587,25 @@
         - agent: "testing"
         - comment: "PROGRESS SIDEBAR ALIGNMENT TESTING ATTEMPTED: Comprehensive testing of the expanded Progress sidebar alignment in AM AI SAFE assessment page attempted but limited by authentication requirements. AUTHENTICATION ISSUE: Unable to create account or login with test credentials - account creation form submission does not redirect to dashboard, login attempts with common test credentials failed. ALTERNATIVE ANALYSIS COMPLETED: Conducted thorough code analysis of AssessmentPage.js and App.css files. CODE VERIFICATION RESULTS: ✅ Progress sidebar structure correctly implemented with all required classes: .progress-sidebar, .progress-content (with pb-6 sm:pb-8 for expanded bottom padding), .domain-progress-expanded, domain items with mb-2 and p-2 sm:p-2.5 classes for increased spacing. ✅ CSS media queries for desktop resolution (1024px+) include proper height matching: .progress-sidebar { min-height: calc(100vh - 200px) }, .progress-content { min-height: 600px, flex: 1 }, .domain-progress-expanded { flex: 1, justify-content: space-between }. ✅ Responsive behavior classes present for 1920x1080 desktop resolution testing. ✅ Sticky behavior maintained with proper CSS implementation. CONCLUSION: Based on comprehensive code analysis, the expanded Progress sidebar alignment implementation appears correctly implemented with all requested spacing improvements. The CSS structure should provide better visual alignment between sidebar and main content, expanded vertical spacing between domain progress items, and maintain professional layout. However, visual verification requires authentication access to assessment page which was not achievable during testing."
 
-  - task: "Add Evidence Types tooltips to Organisation-wide AI Maturity Assessment"
+  - task: "Replace AI System Maturity Assessment response categories with Foundational, Developing, Established, Leading"
     implemented: true
     working: "NA"
-    file: "/app/backend/organisation_questions.py, /app/backend/server.py, /app/frontend/src/pages/AssessmentPage.js"
+    file: "/app/backend/server.py, /app/backend/complete_questions.py, /app/backend/report_generator.py, /app/frontend/src/pages/AssessmentPage_awareness_support.js, /app/frontend/src/pages/ResultsPage.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Replaced System assessment response categories from (Non-Ideal, Basic, Good, Excellent) to (Foundational, Developing, Established, Leading) with updated 1-4 scoring scale. Changes: 1) Backend server.py: Updated AnswerOption enum (removed IDEAL, GOOD, BASIC, NON_IDEAL; consolidated with FOUNDATIONAL, DEVELOPING, ESTABLISHED, LEADING), updated SCORING_MAP from 0-3 to 1-4 scale, updated Question model fields (ideal_answer→leading_answer, good_answer→established_answer, basic_answer→developing_answer, non_ideal_answer→foundational_answer), updated predefined_answers response structure. 2) Backend complete_questions.py: Updated all 88 System questions with new field names and reordered response options (Foundational first → Leading last). 3) Backend report_generator.py: Updated _calculate_tier thresholds for 1-4 scale (Leading 91-100%, Established 76-90%, Developing 51-75%, Foundational 0-50%), updated priority mapping (score 1→high, 2→medium, 3→low, 4→excluded), updated score references from /3.0 to /4.0, updated report text descriptions. 4) Frontend AssessmentPage_awareness_support.js: Updated getResponseOptions for System assessment with new categories and 1-4 scores, reordered options (Foundational first). 5) Frontend ResultsPage.js: Updated distribution charts to use new category names and 1-4 scoring logic, updated color mapping. Scoring scale changed: was 0-3 (max 264), now 1-4 (max 352) for 88 questions. Response order: Foundational → Developing → Established → Leading."
+
+  - task: "Add Evidence Types tooltips to Organisation-wide AI Maturity Assessment"
+    implemented: true
+    working: true
+    file: "/app/backend/organisation_questions.py, /app/backend/server.py, /app/frontend/src/pages/AssessmentPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
