@@ -626,25 +626,24 @@ function ResultsPage() {
                   <PieChart>
                     <Pie
                       data={(() => {
-                        // Calculate distribution of answers by score category
+                        // Calculate distribution of answers by score category (1-4 scale)
                         const distribution = {
-                          'Non-Ideal': 0,
-                          'Basic': 0,
-                          'Good': 0,
-                          'Excellent': 0
+                          'Foundational': 0,
+                          'Developing': 0,
+                          'Established': 0,
+                          'Leading': 0
                         };
                         
-                        // Count all answered questions
+                        // Count all answered questions based on numeric score
                         answers.forEach(answer => {
-                          const percentage = (answer.numeric_score / 3) * 100;
-                          if (percentage < 25) {
-                            distribution['Non-Ideal']++;
-                          } else if (percentage < 50) {
-                            distribution['Basic']++;
-                          } else if (percentage < 75) {
-                            distribution['Good']++;
-                          } else {
-                            distribution['Excellent']++;
+                          if (answer.numeric_score === 1) {
+                            distribution['Foundational']++;
+                          } else if (answer.numeric_score === 2) {
+                            distribution['Developing']++;
+                          } else if (answer.numeric_score === 3) {
+                            distribution['Established']++;
+                          } else if (answer.numeric_score === 4) {
+                            distribution['Leading']++;
                           }
                         });
                         
