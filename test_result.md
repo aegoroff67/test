@@ -587,6 +587,18 @@
         - agent: "testing"
         - comment: "PROGRESS SIDEBAR ALIGNMENT TESTING ATTEMPTED: Comprehensive testing of the expanded Progress sidebar alignment in AM AI SAFE assessment page attempted but limited by authentication requirements. AUTHENTICATION ISSUE: Unable to create account or login with test credentials - account creation form submission does not redirect to dashboard, login attempts with common test credentials failed. ALTERNATIVE ANALYSIS COMPLETED: Conducted thorough code analysis of AssessmentPage.js and App.css files. CODE VERIFICATION RESULTS: ✅ Progress sidebar structure correctly implemented with all required classes: .progress-sidebar, .progress-content (with pb-6 sm:pb-8 for expanded bottom padding), .domain-progress-expanded, domain items with mb-2 and p-2 sm:p-2.5 classes for increased spacing. ✅ CSS media queries for desktop resolution (1024px+) include proper height matching: .progress-sidebar { min-height: calc(100vh - 200px) }, .progress-content { min-height: 600px, flex: 1 }, .domain-progress-expanded { flex: 1, justify-content: space-between }. ✅ Responsive behavior classes present for 1920x1080 desktop resolution testing. ✅ Sticky behavior maintained with proper CSS implementation. CONCLUSION: Based on comprehensive code analysis, the expanded Progress sidebar alignment implementation appears correctly implemented with all requested spacing improvements. The CSS structure should provide better visual alignment between sidebar and main content, expanded vertical spacing between domain progress items, and maintain professional layout. However, visual verification requires authentication access to assessment page which was not achievable during testing."
 
+  - task: "Fix assessment type badge colors in Organization Analytics"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/SettingsPage.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "main"
+        - comment: "FIXED: Assessment type badges in Organization Analytics and Pending Reviews tabs were showing static blue color instead of their assigned color schemes. Added getAssessmentTypeBadge function to SettingsPage.js (lines 40-54) matching Dashboard.js implementation. Updated badge rendering in Organization Analytics table (lines 973-981) and Pending Reviews table (lines 1055-1063) to use dynamic colors. Color scheme: Awareness=Green, Readiness=Blue, Orgwide=Purple, System=Teal. Badges now display correct label (e.g., 'Organisation-wide' instead of 'Orgwide') and proper color coding."
+
   - task: "Replace AI System Maturity Assessment response categories with Foundational, Developing, Established, Leading and fix scoring calculations"
     implemented: true
     working: true
