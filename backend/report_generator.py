@@ -1365,7 +1365,7 @@ Each cell represents the score for a specific question, enabling identification 
         for domain_id, questions in questions_by_domain.items():
             domain = domains_by_id.get(domain_id, {"name": "Unknown"})
             domain_total = sum(q["answer"]["numeric_score"] for q in questions)
-            domain_possible = len(questions) * 3
+            domain_possible = len(questions) * 4  # 1-4 scale
             domain_percentage = (domain_total / domain_possible * 100) if domain_possible > 0 else 0
             
             domain_scores.append({
@@ -1564,7 +1564,7 @@ Each cell represents the score for a specific question, enabling identification 
         for domain_id, questions in questions_by_domain.items():
             domain = domains_by_id.get(domain_id, {"name": "Unknown"})
             domain_total = sum(q["answer"]["numeric_score"] for q in questions)
-            domain_possible = len(questions) * 3
+            domain_possible = len(questions) * 4  # 1-4 scale
             domain_percentage = (domain_total / domain_possible * 100) if domain_possible > 0 else 0
             
             domain_scores.append({
