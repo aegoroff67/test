@@ -88,31 +88,31 @@ export const getResponseOptions = (assessmentType, predefinedAnswers) => {
     ];
   }
   
-  // Default System assessment options
+  // Default System assessment options (ordered: Foundational → Leading)
   return [
     {
-      value: 'IDEAL',
-      label: 'Ideal',
-      score: 3,
-      text: predefinedAnswers?.ideal || 'Comprehensive implementation with best practices and full compliance'
-    },
-    {
-      value: 'GOOD',
-      label: 'Good',
-      score: 2,
-      text: predefinedAnswers?.good || 'Solid implementation with room for improvement'
-    },
-    {
-      value: 'BASIC',
-      label: 'Basic',
+      value: 'FOUNDATIONAL',
+      label: 'Foundational',
       score: 1,
-      text: predefinedAnswers?.basic || 'Minimal implementation, significant gaps exist'
+      text: predefinedAnswers?.foundational || 'Little to no implementation or consideration'
     },
     {
-      value: 'NON_IDEAL',
-      label: 'Non-Ideal',
-      score: 0,
-      text: predefinedAnswers?.non_ideal || 'Not implemented or significant concerns'
+      value: 'DEVELOPING',
+      label: 'Developing',
+      score: 2,
+      text: predefinedAnswers?.developing || 'Minimal implementation, significant gaps exist'
+    },
+    {
+      value: 'ESTABLISHED',
+      label: 'Established',
+      score: 3,
+      text: predefinedAnswers?.established || 'Solid implementation with room for improvement'
+    },
+    {
+      value: 'LEADING',
+      label: 'Leading',
+      score: 4,
+      text: predefinedAnswers?.leading || 'Comprehensive implementation with best practices and full compliance'
     },
     {
       value: 'OTHER',
