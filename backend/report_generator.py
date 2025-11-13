@@ -761,12 +761,12 @@ The assessment methodology ensures objective evaluation through standardized cri
                     maturity = "Foundational"
                 
                 analysis += f"{domain_name} Domain ({maturity} Maturity):\n"
-                analysis += f"Average Score: {avg_score:.1f}/3.0 | Range: {min_score}-{max_score} | Questions Evaluated: {len(scores)}\n"
+                analysis += f"Average Score: {avg_score:.1f}/4.0 | Range: {min_score}-{max_score} | Questions Evaluated: {len(scores)}\n"
                 
-                # Add domain-specific insights
-                if avg_score < 1.0:
+                # Add domain-specific insights (updated for 1-4 scale)
+                if avg_score < 2.0:
                     analysis += f"Critical Focus Area: {domain_name} requires immediate attention with systematic capability building and resource investment.\n"
-                elif avg_score < 2.0:
+                elif avg_score < 3.0:
                     analysis += f"Development Opportunity: {domain_name} shows foundational practices with clear opportunities for systematic enhancement.\n"
                 else:
                     analysis += f"Strength Area: {domain_name} demonstrates solid practices with opportunities for optimization and industry leadership.\n"
