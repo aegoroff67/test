@@ -587,13 +587,17 @@
         - agent: "testing"
         - comment: "PROGRESS SIDEBAR ALIGNMENT TESTING ATTEMPTED: Comprehensive testing of the expanded Progress sidebar alignment in AM AI SAFE assessment page attempted but limited by authentication requirements. AUTHENTICATION ISSUE: Unable to create account or login with test credentials - account creation form submission does not redirect to dashboard, login attempts with common test credentials failed. ALTERNATIVE ANALYSIS COMPLETED: Conducted thorough code analysis of AssessmentPage.js and App.css files. CODE VERIFICATION RESULTS: ✅ Progress sidebar structure correctly implemented with all required classes: .progress-sidebar, .progress-content (with pb-6 sm:pb-8 for expanded bottom padding), .domain-progress-expanded, domain items with mb-2 and p-2 sm:p-2.5 classes for increased spacing. ✅ CSS media queries for desktop resolution (1024px+) include proper height matching: .progress-sidebar { min-height: calc(100vh - 200px) }, .progress-content { min-height: 600px, flex: 1 }, .domain-progress-expanded { flex: 1, justify-content: space-between }. ✅ Responsive behavior classes present for 1920x1080 desktop resolution testing. ✅ Sticky behavior maintained with proper CSS implementation. CONCLUSION: Based on comprehensive code analysis, the expanded Progress sidebar alignment implementation appears correctly implemented with all requested spacing improvements. The CSS structure should provide better visual alignment between sidebar and main content, expanded vertical spacing between domain progress items, and maintain professional layout. However, visual verification requires authentication access to assessment page which was not achievable during testing."
 
-  - task: "Replace AI System Maturity Assessment response categories with Foundational, Developing, Established, Leading"
+  - task: "Replace AI System Maturity Assessment response categories with Foundational, Developing, Established, Leading and fix scoring calculations"
     implemented: true
     working: true
     file: "/app/backend/server.py, /app/backend/complete_questions.py, /app/backend/report_generator.py, /app/frontend/src/pages/AssessmentPage_awareness_support.js, /app/frontend/src/pages/ResultsPage.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "main"
+        - comment: "BUGFIX: Fixed scoring calculation issue where questions scored 133.3% (4/3) instead of 100% (4/4). Updated all score calculations from max=3 to max=4 in: 1) server.py lines 1010, 1947, 2465-2469 (complete assessment, domain scores, overall percentage), 2) report_generator.py lines 517, 591, 663, 681, 938-939, 1368, 1567 (heatmap, domain averages, report text, domain percentages). All assessments (System, Readiness, Orgwide, Awareness) now use correct 1-4 scale. Verified calculation: 4/4=100%, 9/12=75% (correct), vs old 4/3=133.3% (incorrect)."
     status_history:
         - working: "NA"
         - agent: "main"
