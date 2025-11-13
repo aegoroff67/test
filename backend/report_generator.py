@@ -935,8 +935,8 @@ DOMAIN PERFORMANCE HIGHLIGHTS:"""
 
         if highest_domain and lowest_domain:
             results += f"""
-• Highest Performing Domain: {highest_domain['name']} ({highest_domain['avg_score']:.1f}/3.0 average)
-• Area for Greatest Improvement: {lowest_domain['name']} ({lowest_domain['avg_score']:.1f}/3.0 average)"""
+• Highest Performing Domain: {highest_domain['name']} ({highest_domain['avg_score']:.1f}/4.0 average)
+• Area for Greatest Improvement: {lowest_domain['name']} ({lowest_domain['avg_score']:.1f}/4.0 average)"""
 
         results += """
 
