@@ -2680,10 +2680,10 @@ async def seed_data():
             explanation=question_data.get("explanation"),
             order=question_data["order"],
             # Use specific pre-defined answers from question data, fallback to standard if not provided
-            ideal_answer=question_data.get("ideal_answer", "Comprehensive implementation with best practices and full compliance"),
-            good_answer=question_data.get("good_answer", "Solid implementation with room for improvement"), 
-            basic_answer=question_data.get("basic_answer", "Minimal implementation, significant gaps exist"),
-            non_ideal_answer=question_data.get("non_ideal_answer", "Little to no implementation or consideration")
+            leading_answer=question_data.get("leading_answer", "Comprehensive implementation with best practices and full compliance"),
+            established_answer=question_data.get("established_answer", "Solid implementation with room for improvement"), 
+            developing_answer=question_data.get("developing_answer", "Minimal implementation, significant gaps exist"),
+            foundational_answer=question_data.get("foundational_answer", "Little to no implementation or consideration")
         )
         await db.questions.insert_one(question.dict())
     
