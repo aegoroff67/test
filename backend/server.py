@@ -131,12 +131,12 @@ class ReviewStatus(str, Enum):
     APPROVED = "APPROVED"
     PENDING_REVIEW = "PENDING_REVIEW"
 
-# Standard scoring map for System assessments
+# Standard scoring map for System assessments (updated to 1-4 scale)
 SCORING_MAP = {
-    AnswerOption.IDEAL: 3,
-    AnswerOption.GOOD: 2,
-    AnswerOption.BASIC: 1,
-    AnswerOption.NON_IDEAL: 0,
+    AnswerOption.LEADING: 4,
+    AnswerOption.ESTABLISHED: 3,
+    AnswerOption.DEVELOPING: 2,
+    AnswerOption.FOUNDATIONAL: 1,
     AnswerOption.OTHER: 0  # Will be manually reviewed and scored later
 }
 
