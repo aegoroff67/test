@@ -149,12 +149,12 @@ AWARENESS_SCORING_MAP = {
     AnswerOption.OTHER: 0  # Will be manually reviewed and scored later
 }
 
-# Scoring map for Readiness assessments
+# Scoring map for Readiness assessments (updated to 1-4 scale)
 READINESS_SCORING_MAP = {
-    AnswerOption.FOUNDATIONAL: 0,
-    AnswerOption.DEVELOPING: 1,
-    AnswerOption.ESTABLISHED: 2,
-    AnswerOption.LEADING: 3,
+    AnswerOption.FOUNDATIONAL: 1,
+    AnswerOption.DEVELOPING: 2,
+    AnswerOption.ESTABLISHED: 3,
+    AnswerOption.LEADING: 4,
     AnswerOption.OTHER: 0  # Will be manually reviewed and scored later
 }
 
