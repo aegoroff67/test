@@ -1,6 +1,6 @@
 # AI Readiness Assessment Questions
 # 8 Domains, 48 Questions Total
-# Scoring: Foundational (0), Developing (1), Established (2), Leading (3)
+# Scoring: Foundational (1), Developing (2), Established (3), Leading (4)
 
 READINESS_QUESTIONS_DATA = [
     # Domain 1: Strategic Alignment & Awareness (6 questions)
