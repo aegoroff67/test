@@ -1768,23 +1768,11 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
         if question["domain_id"] in domain_questions:
             question["answer"] = answer_lookup.get(question["id"])
             # Add predefined answers to the response (ordered: Foundational → Leading)
-            foundational = question.get("foundational_answer")
-            developing = question.get("developing_answer")
-            established = question.get("established_answer")
-            leading = question.get("leading_answer")
-            
-            # Debug logging for first question
-            if question.get("code") == "FA-1":
-                logger.info(f"DEBUG FA-1 keys: {list(question.keys())}")
-                logger.info(f"DEBUG FA-1: foundational_answer in question: {'foundational_answer' in question}")
-                logger.info(f"DEBUG FA-1: foundational={foundational[:30] if foundational else 'None'}...")
-                logger.info(f"DEBUG FA-1: leading={leading[:30] if leading else 'None'}...")
-            
             question["predefined_answers"] = {
-                "foundational": foundational,
-                "developing": developing,
-                "established": established,
-                "leading": leading
+                "foundational": question.get("foundational_answer"),
+                "developing": question.get("developing_answer"),
+                "established": question.get("established_answer"),
+                "leading": question.get("leading_answer")
             }
             domain_questions[question["domain_id"]]["questions"].append(question)
     
