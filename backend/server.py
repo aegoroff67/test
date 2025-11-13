@@ -115,22 +115,17 @@ class AssessmentStatus(str, Enum):
 
 # AnswerOption enum needs to be defined before scoring map
 class AnswerOption(str, Enum):
-    # System Assessment options
-    IDEAL = "IDEAL"
-    GOOD = "GOOD"
-    BASIC = "BASIC"
-    NON_IDEAL = "NON_IDEAL"
+    # System Assessment options (updated to match Readiness/Orgwide)
+    LEADING = "LEADING"
+    ESTABLISHED = "ESTABLISHED"
+    DEVELOPING = "DEVELOPING"
+    FOUNDATIONAL = "FOUNDATIONAL"
     OTHER = "OTHER"
     # Awareness Assessment options
     EARLY_AWARENESS = "EARLY_AWARENESS"
     EXPLORING_OPPORTUNITIES = "EXPLORING_OPPORTUNITIES"
     BUILDING_READINESS = "BUILDING_READINESS"
     READY_TO_PROGRESS = "READY_TO_PROGRESS"
-    # Readiness Assessment options
-    FOUNDATIONAL = "FOUNDATIONAL"
-    DEVELOPING = "DEVELOPING"
-    ESTABLISHED = "ESTABLISHED"
-    LEADING = "LEADING"
 
 class ReviewStatus(str, Enum):
     APPROVED = "APPROVED"
