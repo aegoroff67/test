@@ -1775,6 +1775,8 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
             
             # Debug logging for first question
             if question.get("code") == "FA-1":
+                logger.info(f"DEBUG FA-1 keys: {list(question.keys())}")
+                logger.info(f"DEBUG FA-1: foundational_answer in question: {'foundational_answer' in question}")
                 logger.info(f"DEBUG FA-1: foundational={foundational[:30] if foundational else 'None'}...")
                 logger.info(f"DEBUG FA-1: leading={leading[:30] if leading else 'None'}...")
             
