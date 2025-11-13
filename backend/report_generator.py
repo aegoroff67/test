@@ -392,16 +392,16 @@ class AMReportGenerator:
                 score = question["answer"]["numeric_score"] if question.get("answer") else None
                 question_code = question.get("code", "N/A")
                 
-                if score is not None and score < 3:  # Only include non-perfect scores
-                    # Determine priority based on score
-                    if score == 0:
+                if score is not None and score < 4:  # Only include non-perfect scores
+                    # Determine priority based on score (1-4 scale)
+                    if score == 1:
                         priority = "high"
-                    elif score == 1:
-                        priority = "medium"
                     elif score == 2:
+                        priority = "medium"
+                    elif score == 3:
                         priority = "low"
                     else:
-                        continue  # Skip score 3 (best practice)
+                        continue  # Skip score 4 (leading practice)
                     
                     # Get specific recommendation from lookup or create default
                     recommendation_text = self._get_recommendation_text(question_code, recommendations_lookup, domain_name)
