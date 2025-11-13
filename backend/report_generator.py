@@ -316,23 +316,20 @@ class AMReportGenerator:
     def _calculate_tier(self, percentage: float) -> str:
         """Calculate the maturity tier based on percentage score.
         
-        Categories:
-        1. Excellent (91–100%) 
-        2. Good (81–90%) 
-        3. Moderate (61–80%) 
-        4. Low (41–60%) 
-        5. Basic (0–40%)
+        Categories (based on 1-4 scoring scale):
+        1. Leading (91–100%) 
+        2. Established (76–90%) 
+        3. Developing (51–75%) 
+        4. Foundational (0–50%)
         """
         if percentage >= 91:
-            return "Excellent"
-        elif percentage >= 81:
-            return "Good"
-        elif percentage >= 61:
-            return "Moderate"
-        elif percentage >= 41:
-            return "Low"
+            return "Leading"
+        elif percentage >= 76:
+            return "Established"
+        elif percentage >= 51:
+            return "Developing"
         else:
-            return "Basic"
+            return "Foundational"
     
     def _load_recommendations_lookup(self) -> Dict[str, Any]:
         """Load recommendations lookup from JSON file."""
