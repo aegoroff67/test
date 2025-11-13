@@ -202,10 +202,10 @@ class Question(BaseModel):
     text: str
     help_text: Optional[str] = None
     explanation: Optional[str] = None
-    ideal_answer: Optional[str] = None
-    good_answer: Optional[str] = None
-    basic_answer: Optional[str] = None
-    non_ideal_answer: Optional[str] = None
+    leading_answer: Optional[str] = None
+    established_answer: Optional[str] = None
+    developing_answer: Optional[str] = None
+    foundational_answer: Optional[str] = None
     order: int
 
 class Assessment(BaseModel):
