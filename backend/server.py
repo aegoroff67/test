@@ -1751,13 +1751,6 @@ async def get_assessment_questions(assessment_id: str, current_user: UserRespons
     # Get domains with questions
     domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
     questions = await db.questions.find({}, {"_id": 0}).sort([("domain_id", 1), ("order", 1)]).to_list(length=None)
-    
-    # Debug: Check first question from MongoDB
-    if questions:
-        first_q_from_db = questions[0]
-        logger.info(f"DEBUG: First question from MongoDB keys: {list(first_q_from_db.keys())}")
-        logger.info(f"DEBUG: Has foundational_answer from MongoDB: {'foundational_answer' in first_q_from_db}")
-    
     answers = await db.answers.find({"assessment_id": assessment_id}, {"_id": 0}).to_list(length=None)
     
     # Create answer lookup
