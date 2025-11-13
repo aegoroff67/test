@@ -688,31 +688,30 @@ function ResultsPage() {
                       labelLine={{ stroke: '#666', strokeWidth: 1 }}
                     >
                       {(() => {
-                        // Define colors matching heatmap
+                        // Define colors matching heatmap (updated for new categories)
                         const colorMap = {
-                          'Non-Ideal': '#FF0000',  // red
-                          'Basic': '#FFC000',       // orange
-                          'Good': '#FFFF00',        // yellow
-                          'Excellent': '#00B050'    // green
+                          'Foundational': '#FF0000',  // red
+                          'Developing': '#FFC000',    // orange
+                          'Established': '#FFFF00',   // yellow
+                          'Leading': '#00B050'        // green
                         };
                         
                         const distribution = {
-                          'Non-Ideal': 0,
-                          'Basic': 0,
-                          'Good': 0,
-                          'Excellent': 0
+                          'Foundational': 0,
+                          'Developing': 0,
+                          'Established': 0,
+                          'Leading': 0
                         };
                         
                         answers.forEach(answer => {
-                          const percentage = (answer.numeric_score / 3) * 100;
-                          if (percentage < 25) {
-                            distribution['Non-Ideal']++;
-                          } else if (percentage < 50) {
-                            distribution['Basic']++;
-                          } else if (percentage < 75) {
-                            distribution['Good']++;
-                          } else {
-                            distribution['Excellent']++;
+                          if (answer.numeric_score === 1) {
+                            distribution['Foundational']++;
+                          } else if (answer.numeric_score === 2) {
+                            distribution['Developing']++;
+                          } else if (answer.numeric_score === 3) {
+                            distribution['Established']++;
+                          } else if (answer.numeric_score === 4) {
+                            distribution['Leading']++;
                           }
                         });
                         
