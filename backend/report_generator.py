@@ -588,7 +588,7 @@ class AMReportGenerator:
             
             for domain_name, score_list in domain_scores.items():
                 avg_score = sum(score_list) / len(score_list) if score_list else 0
-                percentage = (avg_score / 3) * 100
+                percentage = (avg_score / 4) * 100  # 1-4 scale
                 domains.append(domain_name)
                 scores.append(percentage)
             
