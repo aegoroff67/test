@@ -36,6 +36,24 @@ const ROLE_COLORS = {
   MEMBER: { bg: 'bg-gray-100', text: 'text-gray-800', label: 'Member' }
 };
 
+// Assessment type color scheme
+const getAssessmentTypeBadge = (assessmentType) => {
+  const type = assessmentType || 'System';
+  
+  switch(type) {
+    case 'Awareness':
+      return { bgColor: 'bg-green-100', textColor: 'text-green-700', label: 'Awareness' };
+    case 'Readiness':
+      return { bgColor: 'bg-blue-100', textColor: 'text-blue-700', label: 'Readiness' };
+    case 'Organisation':
+    case 'Orgwide':
+      return { bgColor: 'bg-purple-100', textColor: 'text-purple-700', label: 'Organisation-wide' };
+    case 'System':
+    default:
+      return { bgColor: 'bg-teal-100', textColor: 'text-teal-700', label: 'System' };
+  }
+};
+
 function SettingsPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
