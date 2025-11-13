@@ -8345,6 +8345,12 @@ class AMSafeAPITester:
         # NEW: Test readiness assessment name format validation
         self.test_readiness_assessment_name_format_validation()
         
+        # === EVIDENCE TYPES FUNCTIONALITY TEST (REVIEW REQUEST) ===
+        print("\n" + "🔍 EVIDENCE TYPES FUNCTIONALITY TEST (REVIEW REQUEST)" + "\n" + "=" * 60)
+        
+        # NEW: Test Evidence Types functionality for Organisation-wide AI Maturity Assessment
+        self.test_evidence_types_functionality()
+        
         # Print summary
         print("\n" + "=" * 80)
         print(f"📊 PRODUCTION TEST SUMMARY")
