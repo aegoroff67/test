@@ -929,7 +929,7 @@ The detailed assessment results, including the AI Maturity Heatmap and comprehen
         results = f"""The comprehensive assessment of AI systems has yielded an overall AI maturity score of {overall_score}%, placing the organization within the {overall_tier} category.
 
 PERFORMANCE ANALYSIS:
-The assessment evaluated 88 specific questions across 11 domains, with each question scored on a 4-point scale (0=Non-Ideal, 1=Basic, 2=Good, 3=Best Practice).
+The assessment evaluated 88 specific questions across 11 domains, with each question scored on a 4-point scale (1=Foundational, 2=Developing, 3=Established, 4=Leading).
 
 DOMAIN PERFORMANCE HIGHLIGHTS:"""
 
