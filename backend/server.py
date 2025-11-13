@@ -1007,7 +1007,7 @@ async def score_pending_answer(
     pending_review_count = sum(1 for a in answers if a.get("review_status") == ReviewStatus.PENDING_REVIEW.value)
     approved_answers = [a for a in answers if a.get("review_status") == ReviewStatus.APPROVED.value]
     total_score = sum(a.get("numeric_score", 0) for a in approved_answers)
-    max_score = len(approved_answers) * 3
+    max_score = len(approved_answers) * 4  # System assessment: 1-4 scale
     overall_percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
     await db.assessments.update_one(
