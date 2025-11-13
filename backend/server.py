@@ -2460,13 +2460,13 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     
     # Use correct max score based on assessment type
     if assessment_type == "Awareness":
-        max_score = len(approved_answers) * 4  # Awareness max score is 4
+        max_score = len(approved_answers) * 4  # Awareness: 1-4 scale
     elif assessment_type == "Readiness":
-        max_score = len(approved_answers) * 3  # Readiness max score is 3
+        max_score = len(approved_answers) * 4  # Readiness: 1-4 scale
     elif assessment_type == "Orgwide":
-        max_score = len(approved_answers) * 3  # Organisation max score is 3
+        max_score = len(approved_answers) * 4  # Organisation: 1-4 scale
     else:
-        max_score = len(approved_answers) * 3  # System max score is 3
+        max_score = len(approved_answers) * 4  # System: 1-4 scale
     
     overall_percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
