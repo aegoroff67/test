@@ -597,7 +597,7 @@
     status_history:
         - working: true
         - agent: "main"
-        - comment: "BUGFIX: Fixed scoring calculation issue where questions scored 133.3% (4/3) instead of 100% (4/4). Updated all score calculations from max=3 to max=4 in: 1) server.py lines 1010, 1947, 2465-2469 (complete assessment, domain scores, overall percentage), 2) report_generator.py lines 517, 591, 663, 681, 938-939, 1368, 1567 (heatmap, domain averages, report text, domain percentages). All assessments (System, Readiness, Orgwide, Awareness) now use correct 1-4 scale. Verified calculation: 4/4=100%, 9/12=75% (correct), vs old 4/3=133.3% (incorrect)."
+        - comment: "BUGFIX PART 2: Fixed heatmap display issues - scores showing as X/3 instead of X/4, and colors out of sync. Changes: 1) ResultsPage.js line 591: Updated percentage calculation from score/3 to score/4. 2) ResultsPage.js lines 599, 603: Updated score display from '${score}/3' to '${score}/4' in both tooltip and cell text. 3) ResultsPage.js lines 29-40: Updated getScoreColor thresholds for 1-4 scale (>87.5%=Green, >62.5%=Yellow, >37.5%=Orange, ≤37.5%=Red). 4) report_generator.py lines 499-510: Updated get_color function to handle scores 1-4 (was 0-3), added else case for unanswered. Verified color mapping: Score 1/4=Red, 2/4=Orange, 3/4=Yellow, 4/4=Green. Previously showed 1/3=Orange, 2/3=Yellow, 3/3=Green, 4/3=Green (incorrect)."
     status_history:
         - working: "NA"
         - agent: "main"
