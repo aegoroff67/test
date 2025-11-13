@@ -590,14 +590,14 @@
   - task: "Replace AI System Maturity Assessment response categories with Foundational, Developing, Established, Leading and fix scoring calculations"
     implemented: true
     working: true
-    file: "/app/backend/server.py, /app/backend/complete_questions.py, /app/backend/report_generator.py, /app/frontend/src/pages/AssessmentPage_awareness_support.js, /app/frontend/src/pages/ResultsPage.js"
+    file: "/app/backend/server.py, /app/backend/complete_questions.py, /app/backend/report_generator.py, /app/backend/readiness_questions.py, /app/backend/organisation_questions.py, /app/frontend/src/pages/AssessmentPage_awareness_support.js, /app/frontend/src/pages/ResultsPage.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
         - working: true
         - agent: "main"
-        - comment: "BUGFIX PART 2: Fixed heatmap display issues - scores showing as X/3 instead of X/4, and colors out of sync. Changes: 1) ResultsPage.js line 591: Updated percentage calculation from score/3 to score/4. 2) ResultsPage.js lines 599, 603: Updated score display from '${score}/3' to '${score}/4' in both tooltip and cell text. 3) ResultsPage.js lines 29-40: Updated getScoreColor thresholds for 1-4 scale (>87.5%=Green, >62.5%=Yellow, >37.5%=Orange, ≤37.5%=Red). 4) report_generator.py lines 499-510: Updated get_color function to handle scores 1-4 (was 0-3), added else case for unanswered. Verified color mapping: Score 1/4=Red, 2/4=Orange, 3/4=Yellow, 4/4=Green. Previously showed 1/3=Orange, 2/3=Yellow, 3/3=Green, 4/3=Green (incorrect)."
+        - comment: "BUGFIX PART 3: Updated Readiness and Orgwide assessments from 0-3 to 1-4 scoring scale. Changes: 1) AssessmentPage_awareness_support.js lines 38,44,50,56: Updated Readiness response scores from 0,1,2,3 to 1,2,3,4. 2) AssessmentPage_awareness_support.js lines 67,73,79,85: Updated Orgwide response scores from 0,1,2,3 to 1,2,3,4. 3) readiness_questions.py line 3: Updated header comment from '(0), (1), (2), (3)' to '(1), (2), (3), (4)'. 4) organisation_questions.py line 3: Updated header comment from '(0), (1), (2), (3)' to '(1), (2), (3), (4)'. Backend READINESS_SCORING_MAP already correct. All assessment types (System, Readiness, Orgwide, Awareness) now use consistent 1-4 scoring scale. Max scores: System=352 (88×4), Readiness=192 (48×4), Orgwide=320 (80×4), Awareness=100 (25×4)."
     status_history:
         - working: "NA"
         - agent: "main"
