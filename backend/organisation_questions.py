@@ -1,6 +1,6 @@
 # Organisation-wide AI Maturity Assessment Questions
 # 10 Domains, 80 Questions Total
-# Scoring: Foundational (0), Developing (1), Established (2), Leading (3)
+# Scoring: Foundational (1), Developing (2), Established (3), Leading (4)
 
 ORGANISATION_QUESTIONS_DATA = [
     {
