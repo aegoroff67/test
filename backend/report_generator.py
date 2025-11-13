@@ -495,16 +495,18 @@ class AMReportGenerator:
         # Create figure with optimized height for compact rows
         fig, ax = plt.subplots(figsize=(12, 6.5))
         
-        # Define colors
+        # Define colors for 1-4 scale
         def get_color(score):
-            if score == 0:
-                return '#FF0000'  # Red
-            elif score == 1:
-                return '#FFC000'  # Orange
+            if score == 1:
+                return '#FF0000'  # Red - Foundational
             elif score == 2:
-                return '#FFFF00'  # Yellow
-            else:  # score == 3
-                return '#00B050'  # Green
+                return '#FFC000'  # Orange - Developing
+            elif score == 3:
+                return '#FFFF00'  # Yellow - Established
+            elif score == 4:
+                return '#00B050'  # Green - Leading
+            else:
+                return '#CCCCCC'  # Gray - No score/unanswered
         
         # Create the heatmap grid exactly like the screenshot
         num_domains = len(domains)
