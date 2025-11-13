@@ -358,11 +358,11 @@ class AMReportGenerator:
         """
         Generate prioritized actions based on question scores using the priority mapping rules.
         
-        Priority Mapping Rules (as per specification):
-        - Score 0 (Non-Ideal) → High Priority → actions.high
-        - Score 1 (Basic) → Medium Priority → actions.medium  
-        - Score 2 (Good) → Low Priority → actions.low
-        - Score 3 (Best) → not included in report
+        Priority Mapping Rules (updated for 1-4 scoring scale):
+        - Score 1 (Foundational) → High Priority → actions.high
+        - Score 2 (Developing) → Medium Priority → actions.medium  
+        - Score 3 (Established) → Low Priority → actions.low
+        - Score 4 (Leading) → not included in report
         
         Ordering: Recommendations are sorted by domain score (lowest first), then by question within domain.
         """
