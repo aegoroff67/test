@@ -25,18 +25,18 @@ import MaturityStackedColumn from '../components/MaturityDonutChart';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Color mapping for heatmap
+// Color mapping for heatmap (1-4 scale)
 const getScoreColor = (percentage, reviewStatus = 'APPROVED') => {
   // Blue for pending review
   if (reviewStatus === 'PENDING_REVIEW') {
     return { bg: '#3B82F6', text: '#FFFFFF' }; // Blue
   }
   
-  // Standard colors for approved answers
-  if (percentage >= 75) return { bg: '#00B050', text: '#FFFFFF' };
-  if (percentage >= 50) return { bg: '#FFFF00', text: '#000000' };
-  if (percentage >= 25) return { bg: '#FFC000', text: '#000000' };
-  return { bg: '#FF0000', text: '#FFFFFF' };
+  // Colors for 1-4 scale: 1=Red(25%), 2=Orange(50%), 3=Yellow(75%), 4=Green(100%)
+  if (percentage > 87.5) return { bg: '#00B050', text: '#FFFFFF' }; // Green (score 4)
+  if (percentage > 62.5) return { bg: '#FFFF00', text: '#000000' }; // Yellow (score 3)
+  if (percentage > 37.5) return { bg: '#FFC000', text: '#000000' }; // Orange (score 2)
+  return { bg: '#FF0000', text: '#FFFFFF' }; // Red (score 1)
 };
 
 const getMaturityBadge = (maturity) => {
