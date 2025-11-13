@@ -1944,7 +1944,7 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
             domain_scores[domain_id] = {"score": 0, "max_score": 0}
         
         domain_scores[domain_id]["score"] += answer["numeric_score"]
-        domain_scores[domain_id]["max_score"] += 3  # Maximum score per question
+        domain_scores[domain_id]["max_score"] += 4  # Maximum score per question (1-4 scale)
     
     # Build domain score list
     domain_score_list = []
