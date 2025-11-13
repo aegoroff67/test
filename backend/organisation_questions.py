@@ -3,7 +3,6 @@
 # Scoring: Foundational (0), Developing (1), Established (2), Leading (3)
 
 ORGANISATION_QUESTIONS_DATA = [
-    # Domain 1: Accountability & Ethics (8 questions)
     {
         "code": """AE-01""",
         "text": """How does the organisation define and uphold accountability for AI outcomes?""",
@@ -24,7 +23,16 @@ Accountability ensures ethical integrity and legal defensibility. To strengthen 
 • **Enable Oversight:** Require periodic reporting to executives or ethics committees on AI performance and compliance.  
 • **Establish Escalation Paths:** Ensure issues can be raised quickly to leadership.  
 • **Promote Transparency:** Communicate accountability structures internally and, where appropriate, externally.  
-Clear, documented accountability demonstrates leadership ownership of AI impacts and fosters stakeholder confidence."""
+Clear, documented accountability demonstrates leadership ownership of AI impacts and fosters stakeholder confidence.""",
+        "evidence_types": """To comply with **AE-01 ("Define and uphold accountability for AI outcomes")**, provide documentation proving explicit assignment of responsibility.  
+**Key Evidence Types:**  
+• **Policies & Frameworks:** Responsible AI Policy or AI Governance Framework outlining accountability principles.  
+• **Role Documents:** Job descriptions or delegation instruments identifying accountable officers.  
+• **Registers:** AI system accountability registers linking projects to responsible owners.  
+• **Reports:** Executive or committee minutes discussing AI performance and accountability.  
+• **Performance Evidence:** KPIs or scorecards tracking accountability measures.  
+• **Public Transparency:** Published statements or reports on AI accountability and ethics.  
+**In short:** show that AI outcomes are owned by clearly identified leaders who are answerable for decisions and impacts.""",
     },
     {
         "code": """AE-02""",
@@ -45,7 +53,16 @@ Ethical frameworks ensure AI aligns with community expectations and organisation
 • **Operationalise in Practice:** Translate principles into decision criteria, checklists, and approval workflows.  
 • **Provide Ethics Training:** Build awareness of ethical dilemmas and best practice among staff and leadership.  
 • **Review Regularly:** Refresh principles as technology, regulation, and social norms evolve.  
-Embedding ethics into daily processes helps ensure responsible innovation and strengthens trust between the organisation and the public."""
+Embedding ethics into daily processes helps ensure responsible innovation and strengthens trust between the organisation and the public.""",
+        "evidence_types": """To comply with **AE-02 ("Define and apply ethical principles for AI")**, provide documentation demonstrating adoption and practical use of ethical frameworks.  
+**Key Evidence Types:**  
+• **Ethics Charter or Policy:** Approved document outlining the organisation's AI ethics principles.  
+• **Governance Frameworks:** Procedures mapping ethical principles to project approval or risk review steps.  
+• **Checklists & Templates:** Ethics review forms or assessment tools referencing adopted principles.  
+• **Training Materials:** Records of staff or leadership ethics training sessions.  
+• **Communication Evidence:** Intranet pages, awareness campaigns, or public statements about AI ethics commitments.  
+• **Audit or Review Reports:** Evaluations confirming ethical principles are applied consistently across projects.  
+**In short:** demonstrate that AI ethics are clearly defined, formally adopted, and embedded in all stages of AI decision-making and oversight.""",
     },
     {
         "code": """AE-03""",
@@ -67,7 +84,16 @@ Human involvement ensures accountability and ethical balance in AI outcomes. To 
 • **Train Staff:** Educate reviewers on AI limitations, interpretability, and bias recognition.  
 • **Log Decisions:** Record oversight actions for auditability and transparency.  
 • **Review Regularly:** Reassess oversight adequacy as AI complexity and risk evolve.  
-Consistent human oversight prevents blind reliance on automation, promoting ethical, defensible, and citizen-centric decision-making."""
+Consistent human oversight prevents blind reliance on automation, promoting ethical, defensible, and citizen-centric decision-making.""",
+        "evidence_types": """To comply with **AE-03 ("Ensure appropriate human oversight of AI systems and decisions")**, provide artefacts showing structured human involvement and review.  
+**Key Evidence Types:**  
+• **Policies & Procedures:** AI Oversight or Human-in-the-Loop guidelines defining intervention points.  
+• **Operational Records:** Logs showing human validation of AI recommendations or overrides.  
+• **Workflow Documentation:** Flowcharts illustrating manual checkpoints within automated processes.  
+• **Training Records:** Evidence of staff training on oversight responsibilities and escalation protocols.  
+• **Governance Artefacts:** Committee minutes or assurance reports reviewing oversight effectiveness.  
+• **Audit Findings:** Internal or external reviews confirming active human involvement.  
+**In short:** demonstrate that humans remain meaningfully engaged in reviewing, approving, and taking responsibility for AI-driven outcomes.""",
     },
     {
         "code": """AE-04""",
@@ -89,7 +115,16 @@ Proactive conflict management safeguards objectivity and integrity. To strengthe
 • **Establish Recusal Procedures:** Ensure members abstain from decisions where impartiality may be compromised.  
 • **Provide Training:** Educate staff on recognising and disclosing conflicts.  
 • **Enable Independent Oversight:** Assign neutral reviewers for sensitive or high-impact projects.  
-Transparent conflict management reinforces confidence in the fairness and independence of AI governance processes."""
+Transparent conflict management reinforces confidence in the fairness and independence of AI governance processes.""",
+        "evidence_types": """To comply with **AE-04 ("Identify and manage conflicts of interest in AI governance")**, provide documentation demonstrating structured conflict management.  
+**Key Evidence Types:**  
+• **Policies & Procedures:** Conflict-of-interest policies referencing AI governance and project participation.  
+• **Disclosure Forms:** Signed declarations from AI governance members or project teams.  
+• **Conflict Registers:** Logs recording identified conflicts and management actions.  
+• **Meeting Records:** Minutes showing recusals or independent review assignments.  
+• **Training Materials:** Evidence of awareness sessions or e-learning on conflict management.  
+• **Audit or Oversight Reports:** Reviews verifying compliance with disclosure and recusal procedures.  
+**In short:** demonstrate that AI governance operates with transparency, impartiality, and documented mechanisms to detect and manage potential conflicts of interest.""",
     },
     {
         "code": """AE-05""",
@@ -111,7 +146,16 @@ Ethical reviews ensure AI systems respect fairness, accountability, and public t
 • **Integrate with Risk Management:** Align ethical reviews with AI risk and compliance processes.  
 • **Document Decisions:** Record findings, recommendations, and approval conditions.  
 • **Report Transparently:** Communicate review outcomes to leadership or publicly for high-impact systems.  
-Structured ethical reviews ensure AI deployments are deliberate, defensible, and aligned with community values."""
+Structured ethical reviews ensure AI deployments are deliberate, defensible, and aligned with community values.""",
+        "evidence_types": """To comply with **AE-05 ("Conduct ethical reviews for AI projects")**, provide artefacts showing that ethical review mechanisms are defined, documented, and operational.  
+**Key Evidence Types:**  
+• **Ethical Review Policy:** Document mandating ethics assessments for AI projects.  
+• **Templates & Checklists:** Standardised AI Ethics Review or Impact Assessment forms.  
+• **Committee Records:** Minutes or reports from ethics committee meetings.  
+• **Decision Logs:** Records of ethics approvals, rejections, or conditional clearances.  
+• **Training & Awareness:** Materials on conducting or supporting ethical reviews.  
+• **Transparency Reports:** Published summaries of ethical review outcomes for high-profile AI systems.  
+**In short:** demonstrate that AI ethical reviews are systematic, documented, and embedded into the broader project governance lifecycle.""",
     },
     {
         "code": """AE-06""",
@@ -133,7 +177,16 @@ Ethical escalation frameworks promote transparency, accountability, and organisa
 • **Protect Whistleblowers:** Guarantee anonymity and non-retaliation for those reporting issues.  
 • **Track and Analyse Trends:** Record incidents and identify recurring ethical challenges.  
 • **Report Outcomes:** Share resolution summaries with leadership and, where appropriate, the public.  
-A defined escalation and resolution process demonstrates integrity, builds trust, and drives continuous improvement in ethical AI governance."""
+A defined escalation and resolution process demonstrates integrity, builds trust, and drives continuous improvement in ethical AI governance.""",
+        "evidence_types": """To comply with **AE-06 ("Escalate and resolve AI ethical issues")**, provide documentation demonstrating structured reporting and resolution mechanisms.  
+**Key Evidence Types:**  
+• **Policies & Procedures:** AI Ethics Escalation or Incident Management Policy detailing reporting and investigation processes.  
+• **Reporting Channels:** Evidence of hotlines, web portals, or email addresses for submitting concerns.  
+• **Incident Logs:** Records of raised issues, investigations, and outcomes.  
+• **Governance Records:** Committee minutes showing review and decision-making on ethics cases.  
+• **Training Materials:** Awareness sessions on how to identify and report ethical issues.  
+• **Transparency Reports:** Public or internal summaries of ethical issues handled and lessons learned.  
+**In short:** demonstrate that AI ethical issues are reported, investigated, and resolved through formal, documented, and trusted mechanisms.""",
     },
     {
         "code": """AE-07""",
@@ -155,7 +208,16 @@ A strong ethical culture drives consistent, values-based decisions. To cultivate
 • **Communicate Consistently:** Share updates, success stories, and lessons learned via newsletters or intranet.  
 • **Incentivise Good Practice:** Recognise teams demonstrating responsible innovation.  
 • **Embed in Onboarding:** Introduce AI ethics principles to new staff.  
-Embedding ethics into culture ensures awareness translates into daily practice and organisational integrity."""
+Embedding ethics into culture ensures awareness translates into daily practice and organisational integrity.""",
+        "evidence_types": """To comply with **AE-07 ("Promote ethical culture and awareness around AI use")**, provide documentation showing structured education, communication, and engagement.  
+**Key Evidence Types:**  
+• **Training Records:** Logs of AI ethics workshops, e-learning, or induction programs.  
+• **Communications:** Internal newsletters, intranet posts, or leadership messages promoting responsible AI.  
+• **Event Materials:** Agendas and attendance lists from ethics awareness sessions or panel discussions.  
+• **Policy References:** Inclusion of ethics training in staff development or compliance programs.  
+• **Survey Results:** Staff feedback demonstrating awareness of AI ethical principles.  
+• **Recognition Evidence:** Awards, commendations, or performance metrics reinforcing ethical behaviour.  
+**In short:** demonstrate that AI ethics awareness is embedded across the organisation, supported by leadership commitment and ongoing engagement.""",
     },
     {
         "code": """AE-08""",
@@ -177,9 +239,17 @@ Public transparency strengthens legitimacy and fosters informed dialogue about r
 • **Engage the Public:** Conduct consultations for high-impact AI initiatives.  
 • **Report Outcomes:** Include AI governance metrics and ethical review summaries in annual reports.  
 • **Update Regularly:** Keep disclosures current as systems evolve.  
-Transparent communication demonstrates ethical leadership and reinforces public confidence in organisational integrity."""
+Transparent communication demonstrates ethical leadership and reinforces public confidence in organisational integrity.""",
+        "evidence_types": """To comply with **AE-08 ("Demonstrate external transparency and public accountability in AI use")**, provide evidence showing proactive public disclosure and engagement.  
+**Key Evidence Types:**  
+• **AI Register:** Publicly accessible list of AI systems, their purposes, and governance details.  
+• **Transparency Reports:** Annual or sustainability reports including AI ethics and risk summaries.  
+• **Web Content:** Dedicated webpages explaining AI principles, governance, and impact assessments.  
+• **Community Engagement Records:** Consultation materials or feedback summaries from AI-related initiatives.  
+• **Media or Public Statements:** Official communications addressing AI ethics or responsible innovation.  
+• **Audit or Assurance Reports:** Third-party reviews verifying completeness and accuracy of AI disclosures.  
+**In short:** demonstrate that AI transparency is systematic, accessible, and fosters public accountability through consistent reporting and community engagement.""",
     },
-    # Domain 2: Continuous Improvement & Assurance (8 questions)
     {
         "code": """CA-01""",
         "text": """How does the organisation track performance and improvement of its AI governance framework over time?""",
@@ -200,7 +270,16 @@ Performance measurement enables data-driven improvement and accountability. To m
 • **Report Regularly:** Share results with leadership and governance bodies.  
 • **Review Trends:** Identify areas for targeted improvement.  
 • **Refine KPIs:** Adjust metrics as maturity evolves.  
-Tracking AI governance performance ensures accountability, transparency, and measurable improvement."""
+Tracking AI governance performance ensures accountability, transparency, and measurable improvement.""",
+        "evidence_types": """To comply with **CA-01 ("Track performance and improvement of AI governance")**, provide artefacts showing structured measurement and reporting.  
+**Key Evidence Types:**  
+• **KPI Dashboards:** AI governance or maturity performance dashboards.  
+• **Performance Reports:** Quarterly or annual summaries tracking AI KPIs.  
+• **Policies & Frameworks:** Documents defining AI performance metrics and responsibilities.  
+• **Governance Records:** Meeting minutes discussing KPI trends and actions.  
+• **Improvement Plans:** Plans or logs showing actions based on KPI outcomes.  
+• **Audit Findings:** Independent reviews confirming metric accuracy and improvement tracking.  
+**In short:** demonstrate that AI governance performance is measured, reported, and used to drive continuous improvement across the organisation.""",
     },
     {
         "code": """CA-02""",
@@ -222,7 +301,16 @@ Embedding AI within internal audit strengthens oversight and assurance. To enhan
 • **Perform Independent Reviews:** Validate fairness, accuracy, and compliance controls.  
 • **Report Findings:** Share results with leadership and track remediation progress.  
 • **Coordinate with Governance Teams:** Align audit outcomes with AI policy improvements.  
-Systematic assurance confirms AI governance effectiveness and continuous compliance."""
+Systematic assurance confirms AI governance effectiveness and continuous compliance.""",
+        "evidence_types": """To comply with **CA-02 ("Integrate AI governance into internal audit and assurance")**, provide documentation showing structured alignment and audit coverage.  
+**Key Evidence Types:**  
+• **Audit Plans:** Annual or strategic audit plans including AI systems and governance.  
+• **Audit Reports:** Findings and recommendations on AI compliance or control effectiveness.  
+• **Policies & Frameworks:** Internal Audit Charter or AI Assurance Framework referencing AI scope.  
+• **Training Records:** Evidence of auditor upskilling in AI and data governance.  
+• **Remediation Logs:** Records of corrective actions from AI-related audit findings.  
+• **Executive Reports:** Briefings summarising audit outcomes and assurance trends.  
+**In short:** demonstrate that AI governance is subject to systematic audit, independent validation, and continuous assurance oversight.""",
     },
     {
         "code": """CA-03""",
@@ -244,7 +332,16 @@ External benchmarking ensures alignment with recognised best practices. To stren
 • **Document Findings:** Record alignment status, gaps, and action plans.  
 • **Integrate Results:** Update governance frameworks and training accordingly.  
 • **Communicate Progress:** Report benchmarking results to leadership and stakeholders.  
-Regular benchmarking demonstrates accountability, maturity, and commitment to responsible AI."""
+Regular benchmarking demonstrates accountability, maturity, and commitment to responsible AI.""",
+        "evidence_types": """To comply with **CA-03 ("Benchmark AI governance against external standards and frameworks")**, provide artefacts showing structured benchmarking and follow-up.  
+**Key Evidence Types:**  
+• **Benchmark Reports:** Self-assessments or external reviews comparing practices to AI standards.  
+• **Gap Analyses:** Documents outlining deviations and planned remediation.  
+• **Improvement Plans:** Roadmaps informed by benchmarking outcomes.  
+• **Framework Mappings:** Cross-references to standards (e.g., ISO 42001 vs internal controls).  
+• **Certification Evidence:** Accreditation or third-party validation reports.  
+• **Governance Records:** Meeting minutes noting benchmarking findings and responses.  
+**In short:** demonstrate that AI governance is regularly benchmarked against recognised external frameworks, with findings used to drive measurable improvement.""",
     },
     {
         "code": """CA-04""",
@@ -266,7 +363,16 @@ External assurance strengthens accountability and transparency. To mature capabi
 • **Act on Findings:** Integrate recommendations into improvement plans.  
 • **Report Outcomes:** Share summaries with leadership and stakeholders.  
 • **Pursue Certification:** Consider recognised standards such as ISO/IEC 42001 for validation.  
-External assurance demonstrates integrity, objectivity, and continual commitment to trustworthy AI governance."""
+External assurance demonstrates integrity, objectivity, and continual commitment to trustworthy AI governance.""",
+        "evidence_types": """To comply with **CA-04 ("Engage in external review or independent assurance of AI governance")**, provide documentation showing structured external validation and review processes.  
+**Key Evidence Types:**  
+• **Review Reports:** Third-party AI governance or ethics assessment outcomes.  
+• **Engagement Agreements:** Contracts or terms of reference for independent assessors.  
+• **Certification Records:** Evidence of compliance with external standards (e.g., ISO 42001).  
+• **Improvement Logs:** Actions taken in response to review findings.  
+• **Audit Committee Minutes:** Records of discussions and responses to external assurance results.  
+• **Public Disclosures:** Published summaries or assurance statements.  
+**In short:** demonstrate that independent experts regularly review and validate AI governance effectiveness, with findings transparently integrated into improvement cycles.""",
     },
     {
         "code": """CA-05""",
@@ -288,7 +394,16 @@ Learning from experience drives maturity and resilience. To strengthen capabilit
 • **Integrate Findings:** Feed insights into training, policy, and risk management updates.  
 • **Track Improvement:** Monitor implementation of lessons over time.  
 • **Promote a Learning Culture:** Encourage open discussion of challenges and successes.  
-Systematic learning transforms experience into tangible governance improvement."""
+Systematic learning transforms experience into tangible governance improvement.""",
+        "evidence_types": """To comply with **CA-05 ("Capture lessons learned and embed continuous learning into AI governance")**, provide artefacts showing structured review and improvement activities.  
+**Key Evidence Types:**  
+• **Lessons Learned Registers:** Centralised documentation of findings and actions.  
+• **Post-Implementation Reviews:** Reports summarising project outcomes and recommendations.  
+• **Audit and Incident Reviews:** Records capturing issues, lessons, and corrective measures.  
+• **Training Updates:** Evidence of revised learning materials or refreshed content.  
+• **Policy Amendments:** Documented changes informed by captured lessons.  
+• **Meeting Minutes:** Governance discussions on lessons integration and improvement tracking.  
+**In short:** demonstrate that insights from AI operations are systematically captured, shared, and embedded into governance and capability improvement processes.""",
     },
     {
         "code": """CA-06""",
@@ -310,7 +425,16 @@ Staying informed ensures governance frameworks remain current and credible. To s
 • **Document Findings:** Summarise insights and implications for the organisation.  
 • **Update Frameworks:** Incorporate relevant developments into governance and training.  
 • **Communicate Insights:** Share updates with leadership and key stakeholders.  
-Tracking trends supports agility, innovation, and compliance in a fast-changing AI landscape."""
+Tracking trends supports agility, innovation, and compliance in a fast-changing AI landscape.""",
+        "evidence_types": """To comply with **CA-06 ("Track external trends and emerging best practices in AI governance")**, provide artefacts showing structured horizon scanning and policy adaptation.  
+**Key Evidence Types:**  
+• **Trend Reports:** Internal summaries or external bulletins highlighting new AI developments.  
+• **Membership Records:** Participation in AI governance or ethics networks.  
+• **Meeting Minutes:** Records of reviews discussing new trends or standards.  
+• **Policy Updates:** Evidence of governance changes triggered by emerging practices.  
+• **Training Materials:** Revised content reflecting new frameworks or guidance.  
+• **Stakeholder Briefings:** Communications outlining external developments and organisational responses.  
+**In short:** demonstrate that external AI trends are actively monitored, evaluated, and integrated into organisational policy and governance practices.""",
     },
     {
         "code": """CA-07""",
@@ -332,7 +456,16 @@ Measurement ensures improvement efforts are targeted and evidence-based. To matu
 • **Benchmark Performance:** Compare results against peers or recognised frameworks.  
 • **Link to Planning:** Align findings with AI strategy and resource allocation.  
 • **Report Outcomes:** Share improvement progress transparently with leadership.  
-Structured measurement drives accountability and demonstrable maturity growth."""
+Structured measurement drives accountability and demonstrable maturity growth.""",
+        "evidence_types": """To comply with **CA-07 ("Use metrics, benchmarking, and feedback to drive continuous improvement")**, provide artefacts showing systematic performance tracking and feedback integration.  
+**Key Evidence Types:**  
+• **Governance Dashboards:** Reports visualising KPI and trend data.  
+• **Benchmarking Reports:** Comparisons against internal targets or external standards.  
+• **Feedback Records:** Surveys, focus-group results, or stakeholder submissions.  
+• **Improvement Logs:** Actions and outcomes linked to performance insights.  
+• **Meeting Minutes:** Leadership reviews discussing KPI trends and feedback responses.  
+• **Policy Updates:** Documentation of improvements derived from metric analysis.  
+**In short:** demonstrate that AI governance improvement is guided by defined metrics, ongoing benchmarking, and structured feedback from all relevant stakeholders.""",
     },
     {
         "code": """CA-08""",
@@ -354,9 +487,17 @@ Continuous assurance safeguards long-term reliability and compliance. To enhance
 • **Track Certification Status:** Maintain evidence of compliance renewals and audit results.  
 • **Integrate Results:** Use findings to update governance frameworks and improvement plans.  
 • **Report to Leadership:** Ensure executives review and endorse re-assessment outcomes.  
-Structured, repeatable assurance cycles demonstrate enduring accountability and trustworthiness in AI governance."""
+Structured, repeatable assurance cycles demonstrate enduring accountability and trustworthiness in AI governance.""",
+        "evidence_types": """To comply with **CA-08 ("Maintain continuous assurance through review, re-assessment, and re-certification of AI governance")**, provide artefacts showing sustained verification and re-assessment activities.  
+**Key Evidence Types:**  
+• **Re-Assessment Reports:** Documentation of periodic internal or external reviews.  
+• **Certification Records:** Current ISO 42001 or equivalent assurance certificates.  
+• **Audit Schedules:** Calendars outlining review and re-certification cycles.  
+• **Improvement Logs:** Records showing updates following assurance reviews.  
+• **Governance Committee Minutes:** Evidence of oversight and endorsement of results.  
+• **External Validation Reports:** Independent verifier findings confirming continued compliance.  
+**In short:** demonstrate that AI governance effectiveness is continuously validated through structured internal and external assurance mechanisms.""",
     },
-    # Domain 3: Culture & Capability (8 questions)
     {
         "code": """CC-01""",
         "text": """How does the organisation promote awareness and understanding of AI opportunities, risks, and governance across staff?""",
@@ -377,7 +518,16 @@ AI awareness forms the foundation for responsible adoption. To strengthen maturi
 • **Connect to Policy:** Explain how awareness links to AI ethics and compliance requirements.  
 • **Assess Understanding:** Survey staff to measure awareness progress.  
 • **Refresh Regularly:** Update messaging as technologies and regulations evolve.  
-An informed workforce supports safe, transparent, and value-aligned AI implementation."""
+An informed workforce supports safe, transparent, and value-aligned AI implementation.""",
+        "evidence_types": """To comply with **CC-01 ("Promote awareness and understanding of AI opportunities, risks, and governance")**, provide documentation showing structured communication and awareness efforts.  
+**Key Evidence Types:**  
+• **Communication Plans:** AI awareness or literacy campaign materials.  
+• **Training Presentations:** Slide decks or recordings from awareness sessions.  
+• **Intranet Content:** Articles or newsletters explaining responsible AI principles.  
+• **Survey Results:** Assessments measuring staff understanding of AI governance.  
+• **Leadership Endorsements:** Statements or videos supporting responsible AI use.  
+• **Event Records:** Attendance logs or feedback summaries from awareness activities.  
+**In short:** demonstrate that AI awareness and understanding are actively promoted through structured, ongoing communication and leadership engagement.""",
     },
     {
         "code": """CC-02""",
@@ -399,7 +549,16 @@ Upskilling empowers staff to implement and manage AI responsibly. To enhance cap
 • **Leverage Partnerships:** Collaborate with universities or industry for specialised learning.  
 • **Track Participation:** Maintain training records and completion rates.  
 • **Foster Lifelong Learning:** Refresh content regularly as technologies evolve.  
-Structured training develops confident, competent teams ready for responsible AI adoption."""
+Structured training develops confident, competent teams ready for responsible AI adoption.""",
+        "evidence_types": """To comply with **CC-02 ("Provide staff training and upskilling for responsible AI adoption")**, provide artefacts showing structured learning programs and participation.  
+**Key Evidence Types:**  
+• **Training Plans:** AI capability development strategy or curriculum outline.  
+• **Course Materials:** Presentation decks, e-learning modules, or workshop content.  
+• **Attendance Records:** Logs showing staff participation and completion rates.  
+• **Certification Evidence:** Records of achieved AI, ethics, or governance credentials.  
+• **Evaluation Reports:** Feedback or assessments of training effectiveness.  
+• **Budget & Planning Documents:** Evidence of ongoing investment in AI capability-building.  
+**In short:** demonstrate that structured, role-specific training equips staff with the knowledge and skills needed for responsible AI development and oversight.""",
     },
     {
         "code": """CC-03""",
@@ -421,7 +580,16 @@ Ethical decision-making builds accountability and public trust. To strengthen ca
 • **Integrate into Performance Goals:** Include ethical competence in staff KPIs and appraisals.  
 • **Foster Leadership Example:** Senior leaders model ethical behaviour and reinforce governance principles.  
 • **Review Regularly:** Refresh ethical training based on new laws, technologies, and lessons learned.  
-Embedding ethical competence transforms responsible AI from theory into daily practice."""
+Embedding ethical competence transforms responsible AI from theory into daily practice.""",
+        "evidence_types": """To comply with **CC-03 ("Embed ethical AI competence and decision-making skills")**, provide documentation showing structured ethics education and integration into governance.  
+**Key Evidence Types:**  
+• **Training Materials:** AI ethics or responsible decision-making course content.  
+• **Attendance Logs:** Records of staff participation in ethics workshops.  
+• **Policies & Frameworks:** AI Ethics Policy or Code of Conduct referencing AI use.  
+• **Decision Frameworks:** Tools or checklists guiding ethical AI decisions.  
+• **Performance Records:** KPIs or appraisal templates including ethical conduct.  
+• **Leadership Communications:** Evidence of executives promoting ethical AI principles.  
+**In short:** demonstrate that ethical reasoning and decision-making are trained, practised, and reinforced organisation-wide as core AI capabilities.""",
     },
     {
         "code": """CC-04""",
@@ -443,7 +611,16 @@ Leadership commitment ensures responsible AI becomes embedded in organisational 
 • **Recognise Good Practice:** Reward teams applying responsible innovation.  
 • **Maintain Accountability:** Link leadership KPIs to AI governance outcomes.  
 • **Engage Externally:** Represent the organisation in AI ethics and governance forums.  
-Strong leadership signals that responsible AI is both a cultural and strategic priority."""
+Strong leadership signals that responsible AI is both a cultural and strategic priority.""",
+        "evidence_types": """To comply with **CC-04 ("Foster a culture of responsible AI innovation and governance")**, provide artefacts showing visible and sustained leadership engagement.  
+**Key Evidence Types:**  
+• **Leadership Statements:** Communications or speeches endorsing responsible AI practices.  
+• **Strategic Plans:** Documents integrating AI ethics and governance into organisational objectives.  
+• **Governance Records:** Executive meeting minutes discussing AI accountability.  
+• **Recognition Programs:** Awards or acknowledgements for ethical AI innovation.  
+• **KPIs or Scorecards:** Leadership performance measures linked to AI culture outcomes.  
+• **Public Engagements:** Participation in AI ethics panels, conferences, or community outreach.  
+**In short:** demonstrate that leaders actively champion, communicate, and reinforce a culture of responsible and ethical AI adoption across the organisation.""",
     },
     {
         "code": """CC-05""",
@@ -465,7 +642,16 @@ Collaboration promotes balanced decision-making and shared accountability. To st
 • **Document Decisions:** Record multi-disciplinary input and agreed actions.  
 • **Reward Collaboration:** Recognise teams that demonstrate cross-functional innovation.  
 • **Use Collaboration Tools:** Support shared dashboards and digital platforms for AI tracking.  
-Cross-functional collaboration drives better outcomes and stronger governance alignment."""
+Cross-functional collaboration drives better outcomes and stronger governance alignment.""",
+        "evidence_types": """To comply with **CC-05 ("Encourage cross-functional collaboration and knowledge sharing in AI projects")**, provide artefacts showing structured coordination and information-sharing practices.  
+**Key Evidence Types:**  
+• **Governance Committee Records:** Meeting minutes or membership lists from multi-disciplinary AI bodies.  
+• **Collaboration Platforms:** Evidence of shared AI documentation or repositories.  
+• **Workshop Materials:** Agendas or attendance logs from cross-functional sessions.  
+• **Policies & Frameworks:** Collaboration or governance documents mandating cross-team involvement.  
+• **Communication Records:** Newsletters, reports, or intranet posts sharing AI updates.  
+• **Recognition Programs:** Awards or acknowledgements for collaborative innovation.  
+**In short:** demonstrate that AI development and oversight are inclusive, collaborative, and supported by mechanisms for continuous knowledge exchange across disciplines.""",
     },
     {
         "code": """CC-06""",
@@ -487,7 +673,16 @@ Responsible experimentation enables innovation with assurance. To mature practic
 • **Provide Resources:** Allocate budget and technical infrastructure for testing.  
 • **Recognise Successes:** Celebrate responsible innovation and knowledge gained from experimentation.  
 • **Integrate Lessons Learned:** Apply insights to future policies and deployments.  
-Embedding responsible experimentation nurtures innovation while maintaining trust and compliance."""
+Embedding responsible experimentation nurtures innovation while maintaining trust and compliance.""",
+        "evidence_types": """To comply with **CC-06 ("Foster innovation and responsible experimentation in AI")**, provide artefacts showing structured, governed innovation processes.  
+**Key Evidence Types:**  
+• **Innovation Frameworks:** Policies defining experimentation, pilot approval, and governance guardrails.  
+• **Sandbox Records:** Documentation of AI test environments, participants, and results.  
+• **Ethics Review Logs:** Records of ethical or risk assessments for pilot projects.  
+• **Project Reports:** Evaluation of lessons learned and scalability outcomes.  
+• **Budget and Planning Documents:** Evidence of investment in AI innovation initiatives.  
+• **Recognition Materials:** Awards or communications highlighting responsible AI innovation.  
+**In short:** demonstrate that AI experimentation is encouraged, supported, and conducted safely within defined ethical and governance boundaries.""",
     },
     {
         "code": """CC-07""",
@@ -509,7 +704,16 @@ Capability assessment supports data-driven workforce planning. To strengthen mat
 • **Integrate with HR Planning:** Align results with professional development and recruitment.  
 • **Track Over Time:** Measure progress annually to evaluate improvement.  
 • **Report Findings:** Share insights with leadership to prioritise investment.  
-Systematic measurement ensures the workforce is equipped and ready for responsible AI adoption."""
+Systematic measurement ensures the workforce is equipped and ready for responsible AI adoption.""",
+        "evidence_types": """To comply with **CC-07 ("Measure AI capability and workforce readiness")**, provide artefacts showing structured assessments and analysis processes.  
+**Key Evidence Types:**  
+• **Readiness Assessments:** Results of AI literacy or capability surveys.  
+• **Competency Frameworks:** Documents outlining required AI skills and governance competencies.  
+• **Gap Analyses:** Reports identifying workforce strengths and weaknesses.  
+• **Training Plans:** Development roadmaps based on capability assessment findings.  
+• **HR Integration Records:** Evidence linking assessment results to workforce planning.  
+• **Progress Reports:** Year-on-year comparisons showing capability improvement.  
+**In short:** demonstrate that AI capability and readiness are regularly measured, analysed, and used to inform workforce development strategies.""",
     },
     {
         "code": """CC-08""",
@@ -531,9 +735,17 @@ Ongoing education supports safe and informed AI adoption. To strengthen maturity
 • **Update Content Regularly:** Reflect new legislation, technologies, and best practices.  
 • **Track Participation:** Monitor engagement and completion rates.  
 • **Involve Leadership:** Have executives champion and participate in learning initiatives.  
-Continuous AI education ensures organisational agility and resilience in an evolving digital environment."""
+Continuous AI education ensures organisational agility and resilience in an evolving digital environment.""",
+        "evidence_types": """To comply with **CC-08 ("Embed continuous learning and AI literacy across the workforce")**, provide documentation demonstrating structured, ongoing learning initiatives.  
+**Key Evidence Types:**  
+• **Learning Platforms:** Screenshots or descriptions of AI learning portals and training modules.  
+• **Training Records:** Logs showing participation in refresher or micro-learning courses.  
+• **Professional Development Plans:** Integration of AI learning into HR or performance frameworks.  
+• **Content Updates:** Evidence of regularly refreshed materials and new learning topics.  
+• **Peer Learning Evidence:** Meeting notes or communications from communities of practice.  
+• **Leadership Endorsement:** Executive communications promoting continuous AI learning.  
+**In short:** demonstrate that AI literacy and ongoing education are embedded in professional development, supported by leadership and continuous improvement.""",
     },
-    # Domain 4: Data Stewardship & Security (8 questions)
     {
         "code": """DS-01""",
         "text": """How does the organisation ensure data used for AI is accurate, complete, and fit for purpose?""",
@@ -554,7 +766,16 @@ Reliable AI outcomes depend on rigorous data-quality assurance. To strengthen go
 • **Assign Data Stewards:** Give responsibility for verifying and approving datasets used in AI models.  
 • **Review Regularly:** Audit data sources and refresh outdated or low-quality data.  
 • **Monitor Continuously:** Use dashboards or alerts to detect data drift or integrity issues.  
-Consistent validation processes reduce bias, enhance reliability, and underpin defensible AI decision-making."""
+Consistent validation processes reduce bias, enhance reliability, and underpin defensible AI decision-making.""",
+        "evidence_types": """To comply with **DS-01 ("Ensure AI data is accurate, complete, and fit for purpose")**, provide documentation showing structured data-quality management.  
+**Key Evidence Types:**  
+• **Policies & Standards:** Data-Quality Policy or AI Data Governance Framework defining quality requirements.  
+• **Quality Reports:** Logs of validation checks, error rates, and remediation actions.  
+• **Metadata Repositories:** Records describing data lineage, source verification, and transformation steps.  
+• **Audit Findings:** Internal reviews of dataset accuracy or completeness.  
+• **Stewardship Records:** Data steward approvals or sign-off forms confirming dataset readiness.  
+• **Monitoring Dashboards:** Automated alerts or reports showing continuous data-quality tracking.  
+**In short:** demonstrate that AI datasets are verified, traceable, and maintained under a controlled quality-assurance process before use.""",
     },
     {
         "code": """DS-02""",
@@ -576,7 +797,16 @@ Defined roles ensure accountability and efficient data stewardship. To mature yo
 • **Document Responsibilities:** Embed data-related duties in role descriptions and governance charters.  
 • **Integrate with AI Governance:** Ensure coordination between AI, risk, and data governance teams.  
 • **Monitor Performance:** Use KPIs to evaluate stewardship effectiveness and compliance with data standards.  
-Defined, empowered roles create clear accountability and strengthen overall data integrity and trustworthiness."""
+Defined, empowered roles create clear accountability and strengthen overall data integrity and trustworthiness.""",
+        "evidence_types": """To comply with **DS-02 ("Define data governance roles and responsibilities for AI")**, provide documentation showing that ownership and stewardship are formally assigned and operational.  
+**Key Evidence Types:**  
+• **Policies & Frameworks:** Data Governance Policy or Charter defining roles, responsibilities, and reporting lines.  
+• **Organisational Charts:** Visuals identifying data-related roles (e.g., Chief Data Officer, Data Steward, Custodian).  
+• **Role Descriptions:** Position statements including data-governance or AI-related accountabilities.  
+• **Committee Terms of Reference:** Evidence of cross-functional data governance or AI-data oversight bodies.  
+• **Meeting Minutes:** Records of governance discussions or approvals related to data stewardship.  
+• **Performance Metrics:** Reports tracking compliance with data ownership and quality obligations.  
+**In short:** demonstrate that data governance roles are clearly defined, assigned, and actively managed across all AI-related activities.""",
     },
     {
         "code": """DS-03""",
@@ -598,7 +828,16 @@ Accurate data classification protects confidentiality and supports compliance. T
 • **Automate Controls:** Use metadata tagging, encryption, and access-control automation where possible.  
 • **Educate Staff:** Train personnel on identifying and protecting sensitive data.  
 • **Monitor Compliance:** Audit AI projects regularly for correct classification and data handling.  
-Consistent classification ensures sensitive data used in AI systems is safeguarded from unauthorised access or misuse."""
+Consistent classification ensures sensitive data used in AI systems is safeguarded from unauthorised access or misuse.""",
+        "evidence_types": """To comply with **DS-03 ("Classify and manage data sensitivity for AI systems")**, provide artefacts showing formal classification and handling processes.  
+**Key Evidence Types:**  
+• **Policies & Standards:** Information Classification Policy or Data Handling Guidelines referencing AI datasets.  
+• **Classification Registers:** Records of datasets labelled by sensitivity level.  
+• **Technical Controls:** Evidence of encryption, access restrictions, or data-tagging automation.  
+• **Training Records:** Materials or attendance logs for data classification awareness sessions.  
+• **Audit Findings:** Reports validating classification accuracy and control enforcement.  
+• **Procedural Documents:** Instructions defining retention, destruction, or anonymisation based on sensitivity.  
+**In short:** demonstrate that AI datasets are classified, protected, and managed according to their confidentiality and regulatory requirements.""",
     },
     {
         "code": """DS-04""",
@@ -620,7 +859,16 @@ Strong access governance reduces the risk of data leaks or misuse. To improve ma
 • **Maintain Access Logs:** Record who accessed what, when, and for what purpose.  
 • **Review Regularly:** Conduct periodic access reviews and revoke unused privileges.  
 • **Automate Where Possible:** Use identity governance tools to manage access lifecycle and policy compliance.  
-Effective access control protects data integrity, privacy, and accountability across AI environments."""
+Effective access control protects data integrity, privacy, and accountability across AI environments.""",
+        "evidence_types": """To comply with **DS-04 ("Control and authorise access to data used in AI systems")**, provide documentation and records confirming structured access management.  
+**Key Evidence Types:**  
+• **Access Control Policy:** Enterprise or AI-specific access management policy defining principles and authorisation steps.  
+• **Access Logs:** Records showing dataset access history and privileged account monitoring.  
+• **User Permissions Reports:** Role and permission listings reviewed by data owners or stewards.  
+• **Review Records:** Audit trails of access reviews and revocation actions.  
+• **Authentication Evidence:** Proof of MFA, SSO, or privileged access management implementations.  
+• **Audit Findings:** Reports verifying compliance with access control requirements.  
+**In short:** demonstrate that AI data access is formally authorised, limited to necessary roles, continuously monitored, and periodically reviewed for compliance.""",
     },
     {
         "code": """DS-05""",
@@ -642,7 +890,16 @@ Security controls safeguard data integrity and confidentiality across all AI pro
 • **Use Secure Storage:** Restrict export, backup, or transfer of AI datasets without authorisation.  
 • **Conduct Vulnerability Testing:** Regularly test storage, APIs, and endpoints.  
 • **Automate Alerts:** Use security information and event management (SIEM) systems for real-time monitoring.  
-Proactive security measures ensure data confidentiality, integrity, and trustworthiness throughout the AI lifecycle."""
+Proactive security measures ensure data confidentiality, integrity, and trustworthiness throughout the AI lifecycle.""",
+        "evidence_types": """To comply with **DS-05 ("Implement security controls protecting AI data")**, provide artefacts showing the application and monitoring of layered security measures.  
+**Key Evidence Types:**  
+• **Security Policies:** Information Security Policy or AI Data Protection Standard specifying encryption and access requirements.  
+• **Technical Configurations:** Screenshots or reports confirming encryption, firewall, or data segregation settings.  
+• **Monitoring Logs:** SIEM or audit logs showing data activity and alerts.  
+• **Testing Results:** Vulnerability scans, penetration tests, or control validation reports.  
+• **Change Records:** Authorised change requests for AI data storage or access environments.  
+• **Audit Findings:** Independent reviews confirming compliance with data security controls.  
+**In short:** demonstrate that AI data is systematically protected through technical safeguards, monitoring, and verification of security effectiveness.""",
     },
     {
         "code": """DS-06""",
@@ -664,7 +921,16 @@ Effective data lifecycle management reduces privacy exposure and ensures complia
 • **Verify Disposal:** Record deletion evidence and retain certificates or logs.  
 • **Include in Policy Frameworks:** Reference AI data lifecycle requirements in data and information governance policies.  
 • **Train Staff:** Ensure custodians and developers understand disposal obligations.  
-Strong retention and disposal practices minimise data risk and uphold responsible information stewardship."""
+Strong retention and disposal practices minimise data risk and uphold responsible information stewardship.""",
+        "evidence_types": """To comply with **DS-06 ("Manage retention and secure disposal of AI datasets")**, provide documentation showing formal lifecycle and destruction controls.  
+**Key Evidence Types:**  
+• **Retention Schedules:** Approved data retention and disposal schedules covering AI datasets.  
+• **Policies & Procedures:** Information Lifecycle or AI Data Retention Policy specifying retention periods and deletion methods.  
+• **Deletion Logs:** Evidence of data destruction or anonymisation (e.g., certificates, audit trails).  
+• **Automation Evidence:** System settings or workflows enforcing automated retention.  
+• **Audit Findings:** Records verifying compliance with retention and disposal requirements.  
+• **Training Records:** Evidence of staff training on data lifecycle management.  
+**In short:** demonstrate that AI datasets are retained only as long as necessary and securely destroyed under verifiable, policy-driven controls.""",
     },
     {
         "code": """DS-07""",
@@ -686,7 +952,16 @@ Responsible AI relies on strong privacy safeguards. To mature your approach:
 • **Manage Consent:** Implement transparent consent mechanisms for data subjects.  
 • **Comply with Laws:** Align processes with the Privacy Act 1988 (Cth), APPs, and any relevant international standards (e.g., GDPR).  
 • **Monitor Continuously:** Audit AI data practices for ongoing compliance.  
-Embedding privacy from the outset reduces legal exposure and fosters public trust in responsible AI use."""
+Embedding privacy from the outset reduces legal exposure and fosters public trust in responsible AI use.""",
+        "evidence_types": """To comply with **DS-07 ("Ensure AI data handling complies with privacy and data-protection obligations")**, provide artefacts demonstrating structured privacy governance and assurance.  
+**Key Evidence Types:**  
+• **Policies & Frameworks:** Privacy Policy, Data-Protection Framework, or AI Privacy-by-Design Guidelines.  
+• **Privacy Impact Assessments:** Completed PIAs for AI systems processing personal data.  
+• **Consent Records:** Logs showing consent capture, withdrawal, and audit tracking.  
+• **Technical Controls:** Evidence of data-minimisation, anonymisation, or pseudonymisation measures.  
+• **Audit Reports:** Internal or external reviews confirming compliance with privacy legislation.  
+• **Training Records:** Staff completion of privacy and responsible-data-use training.  
+**In short:** demonstrate that AI systems follow structured privacy-by-design processes, supported by compliance reviews, documentation, and continuous oversight.""",
     },
     {
         "code": """DS-08""",
@@ -708,9 +983,17 @@ Robust third-party governance ensures shared data is protected and responsibly u
 • **Monitor Compliance:** Review vendor performance and data handling periodically.  
 • **Restrict Data Transfers:** Ensure cross-border transfers comply with applicable privacy laws.  
 • **Require Assurance Evidence:** Obtain security certifications, SOC 2 reports, or independent audit results.  
-Effective governance maintains control over AI-related data flows and protects organisational and public trust."""
+Effective governance maintains control over AI-related data flows and protects organisational and public trust.""",
+        "evidence_types": """To comply with **DS-08 ("Govern third-party data access and sharing for AI systems")**, provide documentation demonstrating oversight, agreements, and verification processes.  
+**Key Evidence Types:**  
+• **Data-Sharing Agreements:** Contracts outlining use limitations, retention terms, and confidentiality clauses.  
+• **Vendor Assessments:** Security and privacy due-diligence questionnaires or audit results.  
+• **Policies & Procedures:** Third-Party Risk Management or Data-Sharing Framework referencing AI use.  
+• **Monitoring Reports:** Records of vendor compliance checks and review outcomes.  
+• **Approval Workflows:** Documentation of internal authorisation for external data sharing.  
+• **Audit Findings:** Independent assurance confirming third-party adherence to data governance obligations.  
+**In short:** demonstrate that all AI data-sharing and third-party arrangements are governed by formal agreements, continuous oversight, and risk-based assurance processes.""",
     },
-    # Domain 5: Fairness & Inclusivity (8 questions)
     {
         "code": """FI-01""",
         "text": """How does the organisation ensure AI systems are designed and implemented to promote fairness and avoid discrimination?""",
@@ -731,7 +1014,16 @@ Fairness requires deliberate design, testing, and review across the AI lifecycle
 • **Engage Stakeholders:** Consult affected communities to validate fairness assumptions.  
 • **Document Findings:** Record fairness evaluations and mitigation strategies.  
 • **Monitor Continuously:** Track fairness outcomes after deployment.  
-Integrating fairness safeguards ensures equitable AI outcomes and upholds social responsibility."""
+Integrating fairness safeguards ensures equitable AI outcomes and upholds social responsibility.""",
+        "evidence_types": """To comply with **FI-01 ("Promote fairness and avoid discrimination in AI systems")**, provide documentation showing structured fairness testing and governance.  
+**Key Evidence Types:**  
+• **Fairness Policy:** Principles or standards defining fairness and non-discrimination in AI.  
+• **Bias Assessment Reports:** Results from fairness testing tools or independent evaluations.  
+• **Dataset Audits:** Analyses of demographic representation and sampling balance.  
+• **Model Evaluation Logs:** Documentation of fairness metrics and corrective actions.  
+• **Stakeholder Engagement Records:** Consultation summaries or community feedback reports.  
+• **Audit Findings:** Internal or external reviews of fairness performance.  
+**In short:** demonstrate that fairness is measured, documented, and continuously improved across all AI projects.""",
     },
     {
         "code": """FI-02""",
@@ -753,7 +1045,16 @@ Representative data improves fairness, reliability, and inclusion. To strengthen
 • **Validate Performance Equitably:** Test models across demographic segments to detect disparities.  
 • **Engage Stakeholders:** Involve domain experts or affected communities in reviewing dataset balance.  
 • **Document Diversity Assessments:** Maintain reports detailing how representation was achieved.  
-Systematic diversity management ensures AI systems reflect and serve all communities fairly."""
+Systematic diversity management ensures AI systems reflect and serve all communities fairly.""",
+        "evidence_types": """To comply with **FI-02 ("Ensure diversity and representativeness in AI data")**, provide artefacts demonstrating data diversity evaluation and improvement activities.  
+**Key Evidence Types:**  
+• **Dataset Diversity Reports:** Documentation of demographic representation analyses.  
+• **Data Governance Policies:** Requirements for inclusive and representative data collection.  
+• **Audit Results:** Reviews confirming adequate diversity in AI training datasets.  
+• **Performance Metrics:** Model testing results segmented by demographic group.  
+• **Stakeholder Consultation Records:** Evidence of engagement with diverse community groups or experts.  
+• **Corrective Action Logs:** Records showing how data imbalances were addressed.  
+**In short:** demonstrate that AI datasets are intentionally diverse, regularly audited, and aligned with fairness and inclusion objectives.""",
     },
     {
         "code": """FI-03""",
@@ -775,7 +1076,16 @@ Bias management ensures fairness and compliance with ethical standards. To enhan
 • **Apply Mitigation Techniques:** Rebalance datasets, adjust weighting, or use bias-correction algorithms.  
 • **Conduct Periodic Audits:** Review fairness performance regularly post-deployment.  
 • **Document Results:** Record findings, mitigations, and residual risk.  
-Structured bias detection and mitigation reduce inequity and improve accountability in AI-driven decisions."""
+Structured bias detection and mitigation reduce inequity and improve accountability in AI-driven decisions.""",
+        "evidence_types": """To comply with **FI-03 ("Detect and mitigate bias in AI models and decisions")**, provide documentation confirming structured bias identification and remediation practices.  
+**Key Evidence Types:**  
+• **Bias Testing Reports:** Outputs from fairness evaluation tools or frameworks.  
+• **Policies & Procedures:** AI Fairness or Bias Mitigation Guidelines.  
+• **Model Documentation:** Records showing fairness metrics and mitigation actions.  
+• **Audit Results:** Periodic reviews validating bias control effectiveness.  
+• **Training Records:** Evidence of staff education on AI bias and mitigation methods.  
+• **Continuous Monitoring Logs:** Automated fairness dashboards tracking bias trends over time.  
+**In short:** demonstrate that AI bias is systematically identified, measured, and mitigated throughout the model lifecycle.""",
     },
     {
         "code": """FI-04""",
@@ -797,7 +1107,16 @@ Inclusive AI ensures equitable participation and access. To strengthen practices
 • **Collaborate with Experts:** Engage accessibility specialists or advocacy organisations.  
 • **Document Adjustments:** Record design improvements and accessibility compliance results.  
 • **Monitor Continuously:** Evaluate inclusivity post-deployment through feedback and audits.  
-Embedding inclusivity ensures AI benefits are shared fairly and equitably across all user groups."""
+Embedding inclusivity ensures AI benefits are shared fairly and equitably across all user groups.""",
+        "evidence_types": """To comply with **FI-04 ("Embed inclusivity and accessibility into AI system design")**, provide documentation showing structured design, testing, and review processes.  
+**Key Evidence Types:**  
+• **Policies & Standards:** Accessibility or Inclusive Design Policy referencing AI systems.  
+• **Testing Reports:** Records of usability and accessibility testing across diverse user groups.  
+• **Design Documentation:** Wireframes, prototypes, or interface guidelines demonstrating inclusive design.  
+• **Stakeholder Engagement:** Consultation summaries with accessibility or diversity representatives.  
+• **Compliance Records:** Certifications or audit results verifying accessibility compliance.  
+• **Training Materials:** Staff education on inclusive design and accessibility practices.  
+**In short:** demonstrate that inclusivity and accessibility are deliberately incorporated, tested, and maintained throughout AI system design and implementation.""",
     },
     {
         "code": """FI-05""",
@@ -819,7 +1138,16 @@ Engagement builds legitimacy, fairness, and community trust. To enhance consulta
 • **Record and Analyse Feedback:** Document concerns and incorporate them into design or policy revisions.  
 • **Provide Feedback Loops:** Communicate how input influenced decisions.  
 • **Review Regularly:** Assess engagement effectiveness and inclusivity.  
-Meaningful consultation ensures AI decisions reflect shared values and equitable outcomes."""
+Meaningful consultation ensures AI decisions reflect shared values and equitable outcomes.""",
+        "evidence_types": """To comply with **FI-05 ("Consult stakeholders and communities for fair AI outcomes")**, provide artefacts showing structured engagement and integration of feedback.  
+**Key Evidence Types:**  
+• **Engagement Frameworks:** Policies outlining community and stakeholder consultation processes.  
+• **Consultation Records:** Meeting minutes, surveys, or forum summaries documenting stakeholder input.  
+• **Impact Assessments:** Records showing consultation outcomes incorporated into AI design or policy.  
+• **Communication Evidence:** Reports or statements explaining how feedback influenced AI projects.  
+• **Audit or Review Reports:** Independent reviews of engagement completeness and effectiveness.  
+• **Diversity Representation Data:** Evidence showing inclusion of varied stakeholder groups.  
+**In short:** demonstrate that consultation is systematic, inclusive, and directly influences how AI systems are designed and governed.""",
     },
     {
         "code": """FI-06""",
@@ -841,7 +1169,16 @@ Continuous fairness measurement ensures equitable outcomes are sustained. To str
 • **Review Regularly:** Schedule fairness audits aligned with model retraining cycles.  
 • **Investigate Deviations:** Analyse and correct fairness anomalies immediately.  
 • **Report Transparently:** Communicate findings to leadership and affected stakeholders.  
-Ongoing fairness monitoring promotes accountability and long-term trust in AI outcomes."""
+Ongoing fairness monitoring promotes accountability and long-term trust in AI outcomes.""",
+        "evidence_types": """To comply with **FI-06 ("Measure and monitor fairness in AI outcomes over time")**, provide artefacts proving structured, repeatable fairness monitoring.  
+**Key Evidence Types:**  
+• **Monitoring Dashboards:** Tools or reports tracking fairness KPIs over time.  
+• **Metrics Documentation:** Definitions and threshold settings for fairness indicators.  
+• **Audit Reports:** Periodic fairness evaluation findings and corrective actions.  
+• **Meeting Minutes:** Governance discussions on fairness trends and performance.  
+• **Review Schedules:** Documented cadence for post-deployment fairness assessments.  
+• **Change Records:** Logs of model adjustments following fairness reviews.  
+**In short:** demonstrate that fairness is measured continuously, reported transparently, and used to improve AI systems throughout their lifecycle.""",
     },
     {
         "code": """FI-07""",
@@ -863,7 +1200,16 @@ Fairness must extend across the supply chain. To improve oversight:
 • **Include Contractual Obligations:** Mandate reporting, remediation, and transparency commitments.  
 • **Monitor Vendor Performance:** Review compliance throughout the contract lifecycle.  
 • **Promote Collaboration:** Support vendors in improving fairness practices through shared frameworks.  
-Fair procurement ensures external AI systems align with organisational ethics and inclusion goals."""
+Fair procurement ensures external AI systems align with organisational ethics and inclusion goals.""",
+        "evidence_types": """To comply with **FI-07 ("Apply fairness and inclusivity requirements to vendor AI solutions")**, provide documentation demonstrating procurement integration and vendor assurance.  
+**Key Evidence Types:**  
+• **Procurement Policies:** Clauses or frameworks referencing fairness and inclusivity in AI acquisitions.  
+• **RFP Templates:** Standard request-for-proposal documents including fairness and bias criteria.  
+• **Vendor Assessments:** Evaluation reports reviewing supplier fairness and diversity compliance.  
+• **Contracts:** AI vendor agreements with fairness and audit obligations.  
+• **Compliance Reports:** Vendor-provided fairness audit results or demographic performance analyses.  
+• **Performance Reviews:** Records of vendor oversight and remediation actions.  
+**In short:** demonstrate that fairness and inclusivity standards apply equally to all externally sourced AI systems and suppliers.""",
     },
     {
         "code": """FI-08""",
@@ -885,9 +1231,17 @@ Fairness governance requires periodic reflection and evolution. To enhance matur
 • **Gather Feedback:** Incorporate insights from users, staff, and affected communities.  
 • **Update Policies:** Reflect lessons learned in the Responsible AI or Fairness Policy.  
 • **Report Outcomes:** Communicate improvements through internal or public reporting.  
-Continuous improvement ensures fairness practices remain adaptive, measurable, and credible."""
+Continuous improvement ensures fairness practices remain adaptive, measurable, and credible.""",
+        "evidence_types": """To comply with **FI-08 ("Review and continuously improve fairness and inclusivity practices")**, provide documentation demonstrating structured review, benchmarking, and refinement.  
+**Key Evidence Types:**  
+• **Review Reports:** Annual fairness and inclusivity evaluation or audit summaries.  
+• **Benchmarking Analyses:** Comparisons against national or international AI standards.  
+• **Improvement Logs:** Records of updates made to fairness policies, metrics, or governance processes.  
+• **Meeting Minutes:** Committee discussions on lessons learned and framework revisions.  
+• **Stakeholder Feedback:** Surveys or consultations informing fairness improvements.  
+• **Performance Dashboards:** Metrics showing fairness and inclusion trend data.  
+**In short:** demonstrate that fairness and inclusivity frameworks are reviewed systematically and improved through measurable, evidence-based actions.""",
     },
-    # Domain 6: Governance & Oversight (8 questions)
     {
         "code": """GO-01""",
         "text": """How clearly defined are the organisation’s AI governance structures and leadership roles?""",
@@ -907,7 +1261,16 @@ AI governance defines who makes decisions, how risks are managed, and how ethica
 • **Embed into Corporate Governance:** Integrate AI governance into risk management and digital transformation programs.  
 • **Establish Decision Pathways:** Document who approves, audits, and escalates AI-related decisions.  
 • **Benchmark Regularly:** Review governance effectiveness annually against ISO 42001 or NIST AI RMF.  
-Effective AI governance builds transparency, aligns innovation with values, and reduces reputational and compliance risks."""
+Effective AI governance builds transparency, aligns innovation with values, and reduces reputational and compliance risks.""",
+        "evidence_types": """To demonstrate compliance with **GO-01 ("Ensure the organisation's AI governance structures and leadership roles are clearly defined")**, provide evidence that accountability and oversight for AI are formally defined and operating effectively.  
+**Key Evidence Types:**  
+• **Policies & Frameworks:** Approved AI Governance Policy or Responsible AI Framework detailing roles, responsibilities, and decision rights.  
+• **Organisational Structure:** Role descriptions (e.g., Chief AI Officer, Ethics Lead) and governance committee Terms of Reference.  
+• **Meeting Records:** Minutes or reports from AI Governance or Ethics Committees showing project reviews or decisions.  
+• **Integration Evidence:** AI governance references in enterprise risk, privacy, or data policies.  
+• **Performance & Review:** Internal audits or scorecards evaluating AI governance effectiveness.  
+• **Training & Awareness:** Records of leadership training on AI responsibilities and ethics.  
+**In short:** show a structured, cross-functional governance model with documented oversight and active executive ownership.""",
     },
     {
         "code": """GO-02""",
@@ -928,7 +1291,16 @@ Strategic alignment ensures AI investments deliver measurable public and organis
 • **Define Alignment Criteria:** Evaluate projects against organisational priorities (e.g., sustainability, inclusion, service efficiency).  
 • **Connect to Risk Appetite:** Clarify acceptable AI risk thresholds and escalation routes.  
 • **Track and Communicate Outcomes:** Link AI performance to KPIs and report achievements to executives and stakeholders.  
-Embedding AI into strategic planning builds accountability, maximises impact, and demonstrates ethical alignment to boards and the public."""
+Embedding AI into strategic planning builds accountability, maximises impact, and demonstrates ethical alignment to boards and the public.""",
+        "evidence_types": """To comply with **GO-02 ("Ensure AI initiatives align with strategic objectives and values")**, provide evidence that AI planning and approvals link to enterprise strategy and ethical frameworks.  
+**Key Evidence Types:**  
+• **Strategic Documents:** Corporate, Digital, or Innovation Strategies referencing responsible AI principles.  
+• **Governance Artefacts:** Project-initiation or business-case templates requiring alignment to organisational objectives and ethics commitments.  
+• **Portfolio Records:** Registers mapping AI initiatives to strategic outcomes and performance indicators.  
+• **Leadership Evidence:** Meeting minutes or executive briefings confirming AI projects reviewed for strategic alignment.  
+• **Performance Reporting:** Dashboards or reports measuring AI contributions to strategic KPIs.  
+• **Training & Culture:** Staff communications or workshops reinforcing AI's strategic role and ethical boundaries.  
+**In short:** evidence should show that AI initiatives are approved, monitored, and evaluated as integral components of the organisation's strategy and value system.""",
     },
     {
         "code": """GO-03""",
@@ -950,7 +1322,16 @@ An AI policy formalises how your organisation governs AI to ensure accountabilit
 • **Integrate with Existing Policies:** Link to privacy, cybersecurity, procurement, and data-governance frameworks.  
 • **Operationalise the Policy:** Provide templates, checklists, and training to support compliance.  
 • **Review and Update:** Evaluate policy effectiveness annually and after major regulatory or technological changes.  
-A well-defined, living AI Policy demonstrates leadership commitment and builds trust with regulators, staff, and the community."""
+A well-defined, living AI Policy demonstrates leadership commitment and builds trust with regulators, staff, and the community.""",
+        "evidence_types": """To comply with **GO-03 ("Maintain an approved AI policy or governance framework")**, provide evidence that the policy is formalised, endorsed, and applied in practice.  
+**Key Evidence Types:**  
+• **Policy Documentation:** Approved AI Policy or Responsible AI Framework endorsed by executive leadership, with clear principles and scope.  
+• **Integration Records:** References to the AI Policy within risk management, privacy, and procurement documents.  
+• **Governance Artefacts:** Committee minutes showing policy review, endorsement, or monitoring activities.  
+• **Operational Evidence:** Completed AI Impact Assessments, Ethics Review checklists, or project templates aligned to policy requirements.  
+• **Communication & Training:** Staff briefings, e-learning records, or policy acknowledgment logs demonstrating awareness.  
+• **Audit & Review:** Internal or third-party audits confirming the policy is implemented and reviewed regularly.  
+**In short:** demonstrate that a formal AI policy exists, is endorsed at the executive level, integrated across governance processes, and actively maintained through regular review and training.""",
     },
     {
         "code": """GO-04""",
@@ -972,7 +1353,16 @@ Centralised oversight ensures that AI risks are visible, prioritised, and manage
 • **Define Reporting Cadence:** Provide regular reports to executive risk committees and governance boards.  
 • **Monitor Compliance:** Track adherence to AI policy, privacy laws, and security standards (e.g., ISM, ISO 27001).  
 • **Automate Where Possible:** Use dashboards or risk tools for real-time monitoring.  
-Effective oversight creates transparency, avoids duplicated effort, and ensures AI activities remain lawful, ethical, and accountable."""
+Effective oversight creates transparency, avoids duplicated effort, and ensures AI activities remain lawful, ethical, and accountable.""",
+        "evidence_types": """To comply with **GO-04 ("Maintain central oversight of AI risks and compliance")**, provide proof of coordinated, documented risk management.  
+**Key Evidence Types:**  
+• **Risk Registers:** Consolidated AI risk register or integrated enterprise risk log including ethical, legal, and operational risk categories.  
+• **Governance Records:** Committee minutes or dashboards showing review of AI risk trends, issues, or mitigations.  
+• **Policies & Frameworks:** Enterprise Risk Management Policy referencing AI risks and cross-departmental reporting obligations.  
+• **Monitoring Artefacts:** Compliance tracking reports, internal control testing, or data-drift and bias monitoring logs.  
+• **Escalation Evidence:** Records of issue escalation and remediation actions coordinated by central Risk or Compliance functions.  
+• **Audit Reports:** Internal or external audits verifying effectiveness of AI risk oversight.  
+**In short:** evidence should show that AI risks are systematically identified, centrally managed, and regularly reported to executive leadership for continuous assurance.""",
     },
     {
         "code": """GO-05""",
@@ -993,7 +1383,16 @@ Integrating AI oversight into everyday governance makes responsible AI a routine
 • **Link to Corporate Reporting:** Include AI risk and ethics indicators in quarterly and annual reports.  
 • **Use Existing Review Cycles:** Evaluate AI controls during standard internal audits and risk reviews.  
 • **Promote Executive Ownership:** Ensure executives sponsor AI initiatives and track compliance through standing agenda items.  
-Embedding AI within core management functions prevents duplication, sustains accountability, and ensures ethical practices are maintained even as personnel or projects change."""
+Embedding AI within core management functions prevents duplication, sustains accountability, and ensures ethical practices are maintained even as personnel or projects change.""",
+        "evidence_types": """To comply with **GO-05 ("Integrate AI governance into management structures")**, provide evidence showing that AI oversight is built into existing governance, not managed separately.  
+**Key Evidence Types:**  
+• **Governance Charters:** Updated board or committee terms of reference including AI oversight responsibilities.  
+• **Role Descriptions:** Position statements for executives and managers referencing AI ethics, risk, or compliance duties.  
+• **Performance Evidence:** KPIs or scorecards measuring adherence to AI policy or ethical standards.  
+• **Meeting Records:** Minutes showing AI topics discussed in regular management or audit meetings.  
+• **Reporting Frameworks:** Integration of AI metrics in enterprise dashboards or corporate performance reports.  
+• **Audit Trail:** Internal or external reviews confirming AI governance is embedded in management processes.  
+**In short:** demonstrate that AI governance is not isolated but woven into existing organisational decision-making, accountability, and reporting mechanisms.""",
     },
     {
         "code": """GO-06""",
@@ -1014,7 +1413,16 @@ Diverse perspectives strengthen AI governance by identifying risks early and ens
 • **Embed Collaboration in Policy:** Mandate multi-departmental review for all new AI use cases.  
 • **Encourage Inclusion:** Invite external advisors or community voices for projects affecting citizens directly.  
 • **Track Participation:** Record attendance, decisions, and follow-up actions to demonstrate active engagement.  
-Cross-functional governance promotes ethical awareness, builds organisational consensus, and ensures AI decisions reflect diverse expertise and stakeholder values."""
+Cross-functional governance promotes ethical awareness, builds organisational consensus, and ensures AI decisions reflect diverse expertise and stakeholder values.""",
+        "evidence_types": """To comply with **GO-06 ("Ensure cross-functional participation in AI governance")**, provide artefacts showing that AI oversight involves multiple disciplines and perspectives.  
+**Key Evidence Types:**  
+• **Committee Composition:** Membership lists showing representation from Legal, HR, Risk, Technology, and community or diversity officers.  
+• **Meeting Records:** Minutes evidencing cross-departmental discussions, ethical reviews, and decision-making processes.  
+• **Policy References:** AI Policy or Governance Framework specifying multi-disciplinary review requirements.  
+• **Consultation Logs:** Documentation of stakeholder or expert consultations during AI development or deployment.  
+• **Training Records:** Cross-functional workshops or ethics training promoting shared understanding of AI governance.  
+• **Outcome Reports:** Summaries showing how cross-functional feedback influenced AI decisions or mitigations.  
+**In short:** show that AI governance is collaborative, structured, and consistently informed by multiple perspectives rather than confined to a single department.""",
     },
     {
         "code": """GO-07""",
@@ -1035,7 +1443,16 @@ Periodic review ensures AI oversight remains relevant, evidence-based, and align
 • **Benchmark Externally:** Compare performance against standards like ISO 42001, NIST AI RMF, or national AI assurance frameworks.  
 • **Assign Responsibility:** Nominate a Risk, Compliance, or Governance function to coordinate reviews and track actions.  
 • **Close the Loop:** Document recommendations, assign owners, and verify completion.  
-Continuous improvement demonstrates accountability, ensures transparency, and keeps AI governance adaptive to organisational and regulatory change."""
+Continuous improvement demonstrates accountability, ensures transparency, and keeps AI governance adaptive to organisational and regulatory change.""",
+        "evidence_types": """To comply with **GO-07 ("Monitor and review AI governance effectiveness")**, provide documentation showing structured evaluation and improvement cycles.  
+**Key Evidence Types:**  
+• **Review Reports:** Formal AI governance evaluation or maturity-assessment reports with findings and action plans.  
+• **Audit Records:** Internal or external audit results covering AI risk, ethics, or compliance controls.  
+• **Performance Dashboards:** KPIs tracking policy compliance, training coverage, or issue remediation.  
+• **Meeting Minutes:** Executive or committee records discussing governance performance and improvement outcomes.  
+• **Action Registers:** Logs of corrective actions, owners, and completion status following governance reviews.  
+• **Benchmarking Evidence:** Comparative analysis or certification aligning AI governance with recognised standards.  
+**In short:** demonstrate that AI governance effectiveness is regularly assessed, results are documented, and improvements are actively implemented across the organisation.""",
     },
     {
         "code": """GO-08""",
@@ -1056,9 +1473,17 @@ Transparency ensures stakeholders understand how AI is applied, while accountabi
 • **Publish Transparency Statements:** Regularly communicate AI use cases, purposes, and impacts to staff and the public.  
 • **Integrate Ethical Oversight:** Require leadership or independent committees to review and sign off on high-impact AI systems.  
 • **Report Outcomes:** Include AI governance metrics in annual or sustainability reports.  
-Visible, well-documented accountability reinforces stakeholder trust and demonstrates a mature, responsible approach to AI governance."""
+Visible, well-documented accountability reinforces stakeholder trust and demonstrates a mature, responsible approach to AI governance.""",
+        "evidence_types": """To comply with **GO-08 ("Ensure transparency and accountability in AI decision-making")**, provide artefacts proving leadership visibility, decision traceability, and public reporting.  
+**Key Evidence Types:**  
+• **Governance Policies:** Documents defining roles and accountabilities for AI-related decision-making.  
+• **Decision Records:** Audit trails, approval logs, or AI system registries linking decisions to accountable officers.  
+• **Transparency Reports:** Annual or public-facing reports disclosing AI usage, ethical reviews, and assurance results.  
+• **Meeting Minutes:** Leadership or board minutes demonstrating oversight of AI impacts and accountability discussions.  
+• **Performance Evidence:** Internal dashboards tracking decision ownership and incident resolution.  
+• **External Assurance:** Independent reviews or certifications validating AI accountability practices.  
+**In short:** demonstrate that AI-related decisions are traceable, leadership accountability is explicit, and stakeholders are informed through transparent and verifiable reporting mechanisms.""",
     },
-    # Domain 7: Privacy & Legal Compliance (8 questions)
     {
         "code": """PL-01""",
         "text": """How does the organisation identify and comply with privacy and data protection laws relevant to AI use?""",
@@ -1079,7 +1504,16 @@ Compliance ensures lawful, ethical AI data use. To strengthen maturity:
 • **Assign Accountability:** Nominate privacy officers responsible for AI compliance monitoring.  
 • **Review Regularly:** Update processes as laws evolve (e.g., Privacy Act reforms, GDPR equivalents).  
 • **Train Staff:** Ensure teams understand obligations under privacy legislation.  
-Embedding privacy compliance in AI governance reduces legal exposure and reinforces community trust."""
+Embedding privacy compliance in AI governance reduces legal exposure and reinforces community trust.""",
+        "evidence_types": """To comply with **PL-01 ("Identify and comply with privacy and data protection laws for AI use")**, provide artefacts showing structured compliance management.  
+**Key Evidence Types:**  
+• **Compliance Registers:** Listings of applicable privacy and data-protection laws.  
+• **Privacy Impact Assessments:** Completed PIAs for AI projects using personal data.  
+• **Policies & Frameworks:** Privacy and Legal Compliance Frameworks referencing AI obligations.  
+• **Audit Reports:** Independent assessments confirming privacy compliance.  
+• **Training Records:** Evidence of staff awareness and compliance training.  
+• **Monitoring Logs:** Ongoing tracking of legislative updates and implementation actions.  
+**In short:** demonstrate that privacy and legal requirements are identified, documented, and embedded into every stage of AI system design and governance.""",
     },
     {
         "code": """PL-02""",
@@ -1101,7 +1535,16 @@ Strong consent management builds transparency and trust. To strengthen governanc
 • **Enable Individual Rights:** Allow access, correction, and deletion requests for AI-related data.  
 • **Automate Workflows:** Use tools for consent versioning and withdrawal notifications.  
 • **Educate Users and Staff:** Provide clarity on privacy rights and responsibilities.  
-Embedding consent and rights management ensures compliance, fairness, and ethical data handling."""
+Embedding consent and rights management ensures compliance, fairness, and ethical data handling.""",
+        "evidence_types": """To comply with **PL-02 ("Manage consent and uphold individual rights for AI systems")**, provide artefacts demonstrating structured consent and rights management.  
+**Key Evidence Types:**  
+• **Consent Policies:** Documents defining consent and rights procedures for AI use.  
+• **Consent Logs:** Digital records tracking data subject permissions and withdrawals.  
+• **Privacy Notices:** Clear communication of AI data-use purposes and rights.  
+• **Access Request Records:** Logs of access, correction, or deletion requests handled.  
+• **Training Records:** Staff education on privacy rights and consent requirements.  
+• **Audit Reports:** Reviews confirming compliance with consent and rights obligations.  
+**In short:** demonstrate that consent and individual rights are clearly defined, traceable, and actively managed across all AI data-handling processes.""",
     },
     {
         "code": """PL-03""",
@@ -1123,7 +1566,16 @@ Legal review strengthens compliance and risk management. To improve maturity:
 • **Maintain Documentation:** Record approvals, advice, and risk assessments.  
 • **Collaborate Cross-Functionally:** Engage Legal, Risk, and Governance teams in project oversight.  
 • **Conduct Periodic Reviews:** Update legal risk assessments as regulations evolve.  
-Consistent legal oversight ensures AI projects are compliant, transparent, and defensible under current and emerging laws."""
+Consistent legal oversight ensures AI projects are compliant, transparent, and defensible under current and emerging laws.""",
+        "evidence_types": """To comply with **PL-03 ("Conduct legal reviews and ensure accountability for AI projects")**, provide documentation showing formal legal assessment and approval processes.  
+**Key Evidence Types:**  
+• **Legal Review Checklists:** Templates addressing privacy, IP, and discrimination risks.  
+• **Approval Records:** Signed legal clearances or advice memos for AI projects.  
+• **Policies & Procedures:** Governance policies requiring legal review prior to implementation.  
+• **Governance Minutes:** Records showing legal input into AI project decisions.  
+• **Accountability Registers:** Documentation linking legal officers to specific projects.  
+• **Audit or Compliance Reports:** Verification that legal reviews are consistently performed.  
+**In short:** demonstrate that all AI projects undergo structured legal review, with accountability clearly assigned and documented.""",
     },
     {
         "code": """PL-04""",
@@ -1145,7 +1597,16 @@ Staying informed ensures the organisation remains legally and ethically aligned.
 • **Update Frameworks:** Revise AI governance, risk, and privacy policies as new requirements emerge.  
 • **Engage Externally:** Participate in regulatory consultations or industry forums.  
 • **Communicate Internally:** Share updates and train staff on new obligations.  
-Proactive monitoring ensures compliance readiness and builds organisational resilience in a shifting regulatory landscape."""
+Proactive monitoring ensures compliance readiness and builds organisational resilience in a shifting regulatory landscape.""",
+        "evidence_types": """To comply with **PL-04 ("Monitor and adapt to emerging AI regulations and compliance requirements")**, provide artefacts showing ongoing tracking and integration processes.  
+**Key Evidence Types:**  
+• **Regulatory Registers:** Logs tracking AI-related laws, standards, and policy updates.  
+• **Compliance Reports:** Summaries of actions taken to address new regulations.  
+• **Policy Updates:** Records of revised policies or frameworks reflecting emerging obligations.  
+• **Training Materials:** Staff communications or sessions explaining regulatory changes.  
+• **Meeting Minutes:** Evidence of governance or compliance discussions on AI regulation.  
+• **External Engagement Records:** Participation in policy consultations or industry forums.  
+**In short:** demonstrate that AI regulatory developments are actively monitored, assessed, and incorporated into governance and compliance frameworks.""",
     },
     {
         "code": """PL-05""",
@@ -1167,7 +1628,16 @@ Effective third-party management reduces compliance risk and ensures ethical con
 • **Monitor Continuously:** Review vendor reports and performance annually.  
 • **Establish Escalation Processes:** Define corrective actions for non-compliance.  
 • **Align with Organisational Policy:** Ensure third-party governance reflects internal AI and privacy standards.  
-Comprehensive vendor compliance ensures consistent legal, ethical, and data-protection practices across the AI supply chain."""
+Comprehensive vendor compliance ensures consistent legal, ethical, and data-protection practices across the AI supply chain.""",
+        "evidence_types": """To comply with **PL-05 ("Ensure third-party AI vendors comply with privacy, legal, and ethical requirements")**, provide artefacts confirming structured vendor governance and verification.  
+**Key Evidence Types:**  
+• **Vendor Contracts:** Clauses specifying privacy, security, and ethics obligations.  
+• **Due Diligence Reports:** Assessments of vendor compliance and risk profiles.  
+• **Audit Certificates:** External assurance (e.g., ISO, SOC, privacy compliance).  
+• **Monitoring Logs:** Records of vendor performance reviews and compliance checks.  
+• **Procurement Policies:** Guidelines for AI-specific third-party risk management.  
+• **Remediation Records:** Actions taken in response to vendor non-compliance.  
+**In short:** demonstrate that AI vendor relationships are governed through enforceable contracts, assurance mechanisms, and continuous compliance monitoring.""",
     },
     {
         "code": """PL-06""",
@@ -1189,7 +1659,16 @@ Clear IP management prevents infringement and ensures proper attribution. To enh
 • **Engage Legal Counsel:** Require IP review for AI procurements, partnerships, or contracts.  
 • **Document and Track:** Maintain an IP register for AI-related assets.  
 • **Educate Teams:** Provide training on copyright, open data, and AI content ownership.  
-Effective IP governance protects the organisation's rights and mitigates legal exposure."""
+Effective IP governance protects the organisation's rights and mitigates legal exposure.""",
+        "evidence_types": """To comply with **PL-06 ("Manage intellectual property rights for AI systems and outputs")**, provide documentation showing structured IP governance.  
+**Key Evidence Types:**  
+• **IP Register:** Records listing AI models, datasets, and related ownership details.  
+• **Licensing Agreements:** Contracts confirming data and software usage rights.  
+• **Legal Review Reports:** Evidence of IP due diligence for AI projects.  
+• **Policies & Procedures:** Intellectual Property or AI Governance Policy covering IP management.  
+• **Audit Findings:** Reviews verifying compliance with licensing and ownership requirements.  
+• **Training Materials:** Staff awareness programs on IP responsibilities in AI development.  
+**In short:** demonstrate that all AI assets and outputs are governed by clear, documented IP ownership and licensing frameworks.""",
     },
     {
         "code": """PL-07""",
@@ -1211,7 +1690,16 @@ Preparedness minimises liability and supports rapid recovery. To strengthen proc
 • **Maintain Documentation:** Record root cause analyses and resolution outcomes.  
 • **Engage Regulators Early:** Notify authorities as required by law.  
 • **Review and Learn:** Incorporate lessons into updated governance frameworks.  
-A defined legal risk and response structure ensures accountability and resilience following AI-related incidents."""
+A defined legal risk and response structure ensures accountability and resilience following AI-related incidents.""",
+        "evidence_types": """To comply with **PL-07 ("Identify, manage, and respond to legal risks or incidents involving AI")**, provide artefacts demonstrating structured legal risk management and escalation.  
+**Key Evidence Types:**  
+• **Incident Response Plans:** AI-specific legal or regulatory response procedures.  
+• **Risk Registers:** Entries capturing AI-related legal exposures.  
+• **Investigation Reports:** Documentation of incident handling and corrective actions.  
+• **Governance Records:** Meeting minutes showing legal risk discussions or escalations.  
+• **Regulatory Notifications:** Copies of formal reports or notifications to oversight bodies.  
+• **Audit Findings:** Reviews assessing effectiveness of legal incident management.  
+**In short:** demonstrate that AI legal risks are proactively identified, tracked, and managed through coordinated, well-documented response processes.""",
     },
     {
         "code": """PL-08""",
@@ -1233,9 +1721,17 @@ Accurate, secure records demonstrate accountability and support transparency. To
 • **Secure Storage:** Use tamper-evident repositories with controlled access.  
 • **Enable Traceability:** Link records across datasets, models, and outcomes.  
 • **Schedule Reviews:** Periodically verify completeness and retention compliance.  
-Effective recordkeeping ensures AI decisions are explainable, verifiable, and legally defensible."""
+Effective recordkeeping ensures AI decisions are explainable, verifiable, and legally defensible.""",
+        "evidence_types": """To comply with **PL-08 ("Maintain recordkeeping, auditability, and evidence preservation for AI systems")**, provide artefacts showing structured, secure documentation practices.  
+**Key Evidence Types:**  
+• **Records Management Policy:** Guidelines covering AI-related data and decision documentation.  
+• **Audit Logs:** System-generated logs of access, changes, and decision events.  
+• **Retention Schedules:** Legal or organisational requirements for record duration.  
+• **Storage Evidence:** Proof of secure, tamper-proof data repositories.  
+• **Audit Reports:** Reviews assessing completeness and traceability of AI records.  
+• **Training Materials:** Staff guidance on AI documentation and audit compliance.  
+**In short:** demonstrate that all AI systems maintain structured, secure, and verifiable records suitable for legal, ethical, and operational accountability.""",
     },
-    # Domain 8: Reliability & Safety (8 questions)
     {
         "code": """RS-01""",
         "text": """How does the organisation ensure AI systems are reliable, robust, and perform consistently under expected conditions?""",
@@ -1256,7 +1752,16 @@ Reliability underpins safety, trust, and performance assurance. To strengthen re
 • **Plan for Failures:** Include fallback modes and safe shutdown mechanisms.  
 • **Document Results:** Maintain validation reports and reliability benchmarks.  
 • **Continuously Improve:** Reassess reliability after updates, retraining, or data changes.  
-Systematic reliability assurance ensures AI operates consistently and predictably in all intended environments."""
+Systematic reliability assurance ensures AI operates consistently and predictably in all intended environments.""",
+        "evidence_types": """To comply with **RS-01 ("Ensure AI systems are reliable, robust, and perform consistently")**, provide artefacts showing defined testing and assurance activities.  
+**Key Evidence Types:**  
+• **Testing Reports:** Documentation of validation, stress, and reliability testing.  
+• **Policies & Frameworks:** AI Reliability or Quality Assurance Frameworks.  
+• **Monitoring Dashboards:** Real-time system performance tracking.  
+• **Incident Logs:** Records of system errors, failures, and resolutions.  
+• **Maintenance Records:** Logs showing retraining or recalibration cycles.  
+• **Audit Findings:** Reviews verifying AI reliability controls and outcomes.  
+**In short:** demonstrate that AI systems are rigorously tested, continuously monitored, and consistently perform to defined reliability standards.""",
     },
     {
         "code": """RS-02""",
@@ -1278,7 +1783,16 @@ Structured validation ensures AI systems are safe, effective, and compliant. To 
 • **Document Evidence:** Maintain validation results, sign-offs, and version control.  
 • **Adopt Risk-Based Testing:** Apply more rigorous assurance to higher-impact systems.  
 • **Integrate Governance:** Link QA reviews with project approval gates.  
-Validation before deployment ensures AI quality, reliability, and stakeholder confidence."""
+Validation before deployment ensures AI quality, reliability, and stakeholder confidence.""",
+        "evidence_types": """To comply with **RS-02 ("Validate and assure AI system quality before deployment")**, provide artefacts showing structured QA and validation processes.  
+**Key Evidence Types:**  
+• **Validation Reports:** Documentation of test results, success criteria, and approvals.  
+• **QA Frameworks:** Policies defining validation and sign-off processes for AI systems.  
+• **Testing Logs:** Records of model performance, reliability, and fairness testing.  
+• **Approval Records:** Evidence of pre-deployment governance or committee review.  
+• **Independent Reviews:** Third-party or peer assurance reports.  
+• **Change Control Records:** Documentation of version testing and sign-off.  
+**In short:** demonstrate that AI systems are thoroughly validated and quality-assured before release into production environments.""",
     },
     {
         "code": """RS-03""",
@@ -1300,7 +1814,16 @@ Continuous monitoring ensures AI reliability, safety, and accountability. To enh
 • **Document Findings:** Maintain logs of detected issues and resolutions.  
 • **Integrate Governance:** Link incident alerts to risk and assurance committees.  
 • **Review Regularly:** Reassess thresholds as models evolve.  
-Monitoring safeguards against silent degradation and strengthens confidence in AI performance."""
+Monitoring safeguards against silent degradation and strengthens confidence in AI performance.""",
+        "evidence_types": """To comply with **RS-03 ("Monitor AI performance and detect incidents post-deployment")**, provide artefacts demonstrating structured monitoring and response mechanisms.  
+**Key Evidence Types:**  
+• **Monitoring Dashboards:** Tools tracking real-time performance and anomaly detection.  
+• **Incident Logs:** Records of detected issues, resolutions, and root-cause analyses.  
+• **Policies & Procedures:** AI Monitoring or Incident Detection Policy defining responsibilities.  
+• **Alert Records:** Notifications and escalation logs from automated monitoring systems.  
+• **Performance Reports:** Periodic summaries of AI performance and corrective actions.  
+• **Audit Findings:** Independent reviews confirming monitoring effectiveness.  
+**In short:** demonstrate that AI performance is continuously monitored, anomalies are detected early, and incidents are managed through structured, documented processes.""",
     },
     {
         "code": """RS-04""",
@@ -1322,7 +1845,16 @@ Resilience protects system integrity and user safety. To enhance resilience:
 • **Secure Backup Data:** Maintain encrypted, verified backups for critical datasets.  
 • **Automate Alerts:** Notify operators of failures or fallback activations.  
 • **Document Procedures:** Record test outcomes and recovery actions.  
-Resilient AI systems minimise disruption and maintain public trust during adverse events."""
+Resilient AI systems minimise disruption and maintain public trust during adverse events.""",
+        "evidence_types": """To comply with **RS-04 ("Ensure AI systems are resilient and include redundancy or fail-safe mechanisms")**, provide documentation demonstrating resilience design and testing.  
+**Key Evidence Types:**  
+• **Resilience Framework:** Policy defining redundancy, continuity, and fail-safe requirements.  
+• **Architecture Diagrams:** Documentation of backup and recovery components.  
+• **Testing Reports:** Results from resilience and failover simulations.  
+• **Incident Logs:** Records of fail-safe activations and responses.  
+• **Backup Records:** Evidence of data replication and restoration testing.  
+• **Audit Findings:** Independent reviews confirming operational resilience.  
+**In short:** demonstrate that AI systems are designed, tested, and verified to continue operating safely under failure or disruption conditions.""",
     },
     {
         "code": """RS-05""",
@@ -1344,7 +1876,16 @@ Drift management sustains accuracy and accountability. To improve maturity:
 • **Retrain Responsively:** Update models with new or corrected data when drift is detected.  
 • **Validate Retrained Models:** Confirm improved performance before redeployment.  
 • **Document Changes:** Record drift detection, retraining, and testing outcomes.  
-Active drift management ensures models remain reliable, transparent, and safe over time."""
+Active drift management ensures models remain reliable, transparent, and safe over time.""",
+        "evidence_types": """To comply with **RS-05 ("Detect and manage model drift or system degradation")**, provide documentation showing structured drift monitoring and maintenance processes.  
+**Key Evidence Types:**  
+• **Monitoring Dashboards:** Tools tracking accuracy, input data changes, and output variance.  
+• **Threshold Definitions:** Documentation of drift criteria and retraining triggers.  
+• **Retraining Logs:** Records of model updates and version control.  
+• **Validation Reports:** Results confirming restored performance post-retraining.  
+• **Policies & Procedures:** Model Lifecycle Management or MLOps Governance documents.  
+• **Audit Findings:** Reviews verifying adherence to drift management protocols.  
+**In short:** demonstrate that AI model performance is continuously tracked, drift is promptly detected, and models are retrained or recalibrated to maintain operational reliability.""",
     },
     {
         "code": """RS-06""",
@@ -1366,7 +1907,16 @@ Safety assurance is vital for protecting people and critical operations. To enha
 • **Review Periodically:** Reassess safety risks during retraining or system updates.  
 • **Engage Experts:** Involve safety engineers or domain specialists in assessments.  
 • **Document Outcomes:** Maintain safety case files and mitigation records.  
-Structured risk assessment ensures AI systems operate safely and responsibly."""
+Structured risk assessment ensures AI systems operate safely and responsibly.""",
+        "evidence_types": """To comply with **RS-06 ("Assess and mitigate safety risks associated with AI systems")**, provide documentation demonstrating structured risk identification and control processes.  
+**Key Evidence Types:**  
+• **Safety Risk Assessments:** Reports identifying hazards, likelihoods, and mitigations.  
+• **Safety Frameworks:** Policies defining AI safety assurance requirements.  
+• **Control Documentation:** Records of implemented safety features or overrides.  
+• **Incident Logs:** Evidence of safety-related events and corrective actions.  
+• **Expert Reviews:** Independent safety evaluations or certification reports.  
+• **Audit Findings:** Reviews confirming safety assurance compliance.  
+**In short:** demonstrate that AI safety risks are systematically assessed, mitigated, and reviewed to prevent harm and ensure safe operation across all environments.""",
     },
     {
         "code": """RS-07""",
@@ -1388,7 +1938,16 @@ Robust testing ensures AI reliability in real-world scenarios. To strengthen mat
 • **Validate Recovery Mechanisms:** Confirm systems return to safe, stable states after disruption.  
 • **Document Test Results:** Record outcomes, thresholds, and corrective actions.  
 • **Repeat Periodically:** Retest after system updates or retraining.  
-Edge-condition testing ensures AI remains safe, resilient, and predictable under all circumstances."""
+Edge-condition testing ensures AI remains safe, resilient, and predictable under all circumstances.""",
+        "evidence_types": """To comply with **RS-07 ("Test and validate AI systems under adverse or edge conditions")**, provide artefacts showing structured resilience and stress testing.  
+**Key Evidence Types:**  
+• **Test Plans:** Documentation of edge-condition and stress-test methodologies.  
+• **Simulation Data:** Synthetic datasets used to model extreme or rare events.  
+• **Testing Reports:** Results of adverse-condition validation and corrective actions.  
+• **Recovery Logs:** Evidence of system recovery and fail-safe activation.  
+• **Frameworks & Policies:** AI Testing or Reliability Framework referencing edge-case validation.  
+• **Audit Findings:** Independent reviews confirming adequacy of robustness testing.  
+**In short:** demonstrate that AI systems are tested and validated under extreme, rare, or unexpected conditions to ensure safe and reliable operation.""",
     },
     {
         "code": """RS-08""",
@@ -1410,9 +1969,17 @@ Structured review and improvement strengthen AI safety culture. To mature your p
 • **Document and Share:** Record outcomes in lessons-learned registers and communicate organisation-wide.  
 • **Track Trends:** Monitor recurring issues to prioritise long-term improvements.  
 • **Review Policies:** Update AI reliability and safety frameworks based on evidence.  
-Systematic learning drives resilience, maturity, and continuous improvement across all AI operations."""
+Systematic learning drives resilience, maturity, and continuous improvement across all AI operations.""",
+        "evidence_types": """To comply with **RS-08 ("Review and improve AI reliability and safety based on incidents and lessons learned")**, provide artefacts demonstrating structured learning and continuous improvement processes.  
+**Key Evidence Types:**  
+• **Lessons Learned Registers:** Records of incidents, causes, and improvement actions.  
+• **Incident Review Reports:** Documentation of analyses and corrective measures.  
+• **Policy Updates:** Revised reliability or safety frameworks incorporating findings.  
+• **Meeting Minutes:** Evidence of committee review and approval of improvements.  
+• **Trend Analyses:** Aggregated reports highlighting recurring issues or improvements.  
+• **Audit Findings:** Independent reviews verifying implementation of lessons learned.  
+**In short:** demonstrate that AI reliability and safety continuously improve through systematic review, documented learning, and proactive governance updates.""",
     },
-    # Domain 9: Risk Management (8 questions)
     {
         "code": """RM-01""",
         "text": """How are AI-related risks identified and categorised within the organisation’s risk management framework?""",
@@ -1433,7 +2000,16 @@ Integrating AI risk into existing ERM processes ensures consistent oversight and
 • **Use Scenario Analysis:** Evaluate "what-if" outcomes-e.g., erroneous automated decisions, data leakage, or discrimination.  
 • **Link to Controls:** Map AI risks to mitigating policies, controls, and monitoring mechanisms.  
 • **Review Regularly:** Re-assess categories annually or following major regulatory or technological changes.  
-Formal categorisation helps leadership quantify AI exposure and direct resources effectively."""
+Formal categorisation helps leadership quantify AI exposure and direct resources effectively.""",
+        "evidence_types": """To comply with **RM-01 ("Identify and categorise AI risks")**, provide documentation showing AI-specific risks are defined and integrated into enterprise risk practices.  
+**Key Evidence Types:**  
+• **Risk Registers:** Updated registers with explicit AI categories, risk descriptions, impact ratings, and assigned owners.  
+• **Policies & Frameworks:** Enterprise Risk Management Policy or AI Risk Framework referencing AI-specific taxonomy.  
+• **Risk Assessment Templates:** Standard forms including AI-related fields or checkboxes.  
+• **Governance Artefacts:** Committee minutes discussing AI risk identification or categorisation updates.  
+• **Guidance Documents:** Internal definitions or examples of AI risk types distributed to departments.  
+• **Review Records:** Audit or assurance reports validating completeness of AI risk coverage.  
+**In short:** show that AI risks are formally recognised, consistently described, and embedded into the same system used for managing all organisational risks.""",
     },
     {
         "code": """RM-02""",
@@ -1455,7 +2031,16 @@ Consistent assessment ensures AI risks are visible and comparable across project
 • **Conduct Scenario Analysis:** Model worst-case outcomes (e.g., mis-classification affecting service eligibility).  
 • **Document and Approve:** Record risk scores, rationales, and sign-offs in the risk register.  
 • **Review Periodically:** Reassess likelihood and impact after system updates or policy changes.  
-Structured assessment improves comparability, supports decision-making, and provides evidence for regulatory compliance and internal assurance."""
+Structured assessment improves comparability, supports decision-making, and provides evidence for regulatory compliance and internal assurance.""",
+        "evidence_types": """To comply with **RM-02 ("Assess and evaluate AI-related risks")**, provide artefacts showing consistent, repeatable evaluation practices.  
+**Key Evidence Types:**  
+• **Risk Assessments:** Completed AI-specific risk assessment forms with likelihood/impact ratings and mitigation actions.  
+• **Framework Documents:** Risk evaluation criteria within the Enterprise Risk or AI Governance Framework.  
+• **Registers and Logs:** Entries in enterprise risk registers showing AI-related scoring and residual risk tracking.  
+• **Workshop Records:** Minutes or reports from cross-functional AI risk evaluation sessions.  
+• **Metrics Dashboards:** Quantitative indicators (e.g., accuracy drift, bias ratio) used to reassess AI risk levels.  
+• **Review Reports:** Periodic reviews verifying consistency of AI risk evaluation across departments.  
+**In short:** evidence should demonstrate that AI risks are evaluated using structured, repeatable methods aligned to the organisation's broader risk-management approach.""",
     },
     {
         "code": """RM-03""",
@@ -1477,7 +2062,16 @@ Risk treatment transforms identification into actionable management. To strength
 • **Test Regularly:** Validate controls through simulations, internal audits, or external assurance reviews.  
 • **Document Residual Risk:** Reassess remaining risk after control application.  
 • **Report to Leadership:** Summarise key mitigation activities and control status in governance meetings.  
-Effective mitigation ensures AI systems remain compliant, fair, and resilient as technologies evolve and risks change."""
+Effective mitigation ensures AI systems remain compliant, fair, and resilient as technologies evolve and risks change.""",
+        "evidence_types": """To comply with **RM-03 ("Mitigate AI risks through defined controls and treatment plans")**, provide documentation demonstrating structured, ongoing control management.  
+**Key Evidence Types:**  
+• **Treatment Plans:** AI risk treatment or control matrices listing risks, controls, owners, and due dates.  
+• **Policies & Procedures:** AI Risk Management or Control Implementation Guidelines.  
+• **Control Evidence:** Records of technical controls (e.g., fairness audits, model retraining) and procedural safeguards (e.g., ethics reviews).  
+• **Monitoring Reports:** Control testing results, residual risk evaluations, or assurance dashboards.  
+• **Governance Records:** Committee minutes approving mitigation plans or reviewing control effectiveness.  
+• **Audit Findings:** Internal or third-party reviews verifying AI control adequacy.  
+**In short:** show that AI risks are actively managed through documented controls, clear accountability, and continuous verification of control performance.""",
     },
     {
         "code": """RM-04""",
@@ -1499,7 +2093,16 @@ Assigning ownership ensures AI risks receive timely attention and resources. To 
 • **Establish Escalation Paths:** Define when risks are escalated to the AI Governance or Executive Committee.  
 • **Enable Transparency:** Report ownership assignments and progress in risk dashboards.  
 • **Maintain Continuity:** Update ownership when staff changes occur to avoid orphaned risks.  
-Effective ownership embeds responsibility into decision-making, ensuring AI risks remain visible and well-managed throughout their lifecycle."""
+Effective ownership embeds responsibility into decision-making, ensuring AI risks remain visible and well-managed throughout their lifecycle.""",
+        "evidence_types": """To comply with **RM-04 ("Define and maintain ownership of AI risks")**, provide documentation confirming clear assignment and accountability.  
+**Key Evidence Types:**  
+• **Risk Registers:** Entries listing each AI risk with named owners, reviewers, and escalation contacts.  
+• **Governance Charters:** Committee or policy documents specifying accountability roles for AI risk management.  
+• **Role Descriptions:** Position statements for executives, system owners, or risk coordinators referencing AI responsibilities.  
+• **Reporting Artefacts:** Dashboards or reports showing ownership status and progress updates.  
+• **Performance Evidence:** KPI or performance-review templates linking AI risk management to leadership metrics.  
+• **Audit Records:** Findings verifying that AI risk owners are identified and fulfilling obligations.  
+**In short:** demonstrate that AI risk ownership is defined, visible, and enforced through formal governance mechanisms and performance accountability.""",
     },
     {
         "code": """RM-05""",
@@ -1521,7 +2124,16 @@ Effective monitoring enables proactive management of AI exposures and assurance 
 • **Use Technology Tools:** Employ GRC systems or analytics dashboards for centralised tracking.  
 • **Escalate Critical Issues:** Define thresholds for immediate escalation to executives or boards.  
 • **Provide Trend Analysis:** Report on emerging risks and control performance over time.  
-Regular, structured reporting ensures leadership visibility, supports evidence-based decisions, and demonstrates a proactive risk culture."""
+Regular, structured reporting ensures leadership visibility, supports evidence-based decisions, and demonstrates a proactive risk culture.""",
+        "evidence_types": """To comply with **RM-05 ("Monitor and report AI risks to leadership")**, provide artefacts showing structured monitoring, data collection, and reporting processes.  
+**Key Evidence Types:**  
+• **Risk Reports:** Periodic AI risk or assurance reports shared with executives or committees.  
+• **Dashboards:** Real-time or summary dashboards showing AI risk indicators, control performance, and emerging issues.  
+• **Meeting Minutes:** Records of risk discussions and decisions from governance or risk committee meetings.  
+• **Escalation Logs:** Documentation of critical risk escalations and remedial actions.  
+• **Policies & Procedures:** Defined reporting schedules and escalation thresholds within the risk management framework.  
+• **Audit or Review Records:** Evidence verifying consistent risk reporting practices across departments.  
+**In short:** demonstrate that AI risks are continuously monitored, analysed, and reported to leadership through structured, transparent, and repeatable processes.""",
     },
     {
         "code": """RM-06""",
@@ -1543,7 +2155,16 @@ Integration ensures AI risk management benefits from established governance, ass
 • **Establish Cross-Functional Input:** Involve Risk, IT, Legal, and Ethics teams in ERM discussions.  
 • **Consolidate Reporting:** Include AI risks in enterprise-level dashboards and executive reports.  
 • **Ensure Board Visibility:** Present aggregated AI risk summaries to the Audit and Risk Committee.  
-Integration embeds AI oversight into existing governance, providing efficiency, consistency, and transparency across the organisation."""
+Integration embeds AI oversight into existing governance, providing efficiency, consistency, and transparency across the organisation.""",
+        "evidence_types": """To comply with **RM-06 ("Integrate AI risks into enterprise risk management")**, provide documentation showing AI risks are part of standard ERM processes.  
+**Key Evidence Types:**  
+• **Risk Registers:** Enterprise risk registers containing AI-related entries with consistent scoring and owners.  
+• **ERM Policies:** Documents referencing AI or algorithmic risk as a core category.  
+• **Reporting Artefacts:** Executive dashboards or consolidated risk reports including AI risks.  
+• **Meeting Minutes:** Audit, Risk, or Governance Committee minutes showing AI risk discussions.  
+• **Templates & Tools:** Standard risk assessment forms and GRC systems capturing AI-related fields.  
+• **Audit Findings:** Reviews confirming integration of AI risks into corporate ERM.  
+**In short:** demonstrate that AI risks are managed and reported through the same frameworks, tools, and oversight structures as all other enterprise risks.""",
     },
     {
         "code": """RM-07""",
@@ -1565,7 +2186,16 @@ Timely detection and escalation of AI incidents protect organisational integrity
 • **Assign Ownership:** Specify roles for technical responders, governance committees, and communications teams.  
 • **Analyse Root Causes:** Perform post-incident reviews to identify control gaps.  
 • **Document Lessons Learned:** Feed improvements back into risk registers, policies, and training.  
-Effective escalation and response demonstrate accountability and continuous learning in managing AI risks."""
+Effective escalation and response demonstrate accountability and continuous learning in managing AI risks.""",
+        "evidence_types": """To comply with **RM-07 ("Manage and respond to AI-related incidents and escalations")**, provide evidence of formal procedures, reporting mechanisms, and follow-up actions.  
+**Key Evidence Types:**  
+• **Incident Response Plans:** Documents defining AI incident types, response steps, and escalation protocols.  
+• **Incident Logs:** Recorded AI-related events, root cause analyses, and corrective actions.  
+• **Integration Evidence:** References to AI in enterprise incident or crisis management frameworks.  
+• **Committee Records:** Meeting minutes showing review and oversight of AI incident handling.  
+• **Training Records:** Staff training or simulations on AI incident identification and escalation.  
+• **Post-Incident Reports:** Lessons-learned summaries feeding into risk treatment plans.  
+**In short:** demonstrate that AI incidents are identified, escalated, and resolved through structured, documented processes aligned with the broader organisational response framework.""",
     },
     {
         "code": """RM-08""",
@@ -1587,9 +2217,17 @@ Ongoing review ensures AI risk management remains relevant and effective. To emb
 • **Monitor Regulatory Changes:** Track emerging legislation and ethical guidelines to update frameworks proactively.  
 • **Engage Stakeholders:** Involve Risk, Legal, Data, and Ethics teams in review discussions.  
 • **Measure Progress:** Use KPIs to evaluate control performance and maturity improvements.  
-Embedding improvement into governance ensures resilience, transparency, and confidence in managing AI-related risks."""
+Embedding improvement into governance ensures resilience, transparency, and confidence in managing AI-related risks.""",
+        "evidence_types": """To comply with **RM-08 ("Review and improve AI risk management processes")**, provide artefacts showing structured evaluation, updates, and benchmarking activities.  
+**Key Evidence Types:**  
+• **Review Reports:** Annual AI risk management review or framework evaluation reports.  
+• **Action Plans:** Improvement logs or registers capturing recommendations and progress.  
+• **Benchmarking Evidence:** Comparisons against national or international AI governance frameworks.  
+• **Audit Findings:** Internal or third-party reviews verifying updates to AI risk processes.  
+• **Governance Records:** Meeting minutes documenting review outcomes and improvement decisions.  
+• **Training or Communications:** Evidence of updated procedures shared across teams following framework revisions.  
+**In short:** demonstrate that AI risk management is a living process, continually refined through evidence, feedback, and evolving best practice.""",
     },
-    # Domain 10: Transparency & Explainability (8 questions)
     {
         "code": """TE-01""",
         "text": """How does the organisation ensure transparency in how AI systems are developed and used?""",
@@ -1610,7 +2248,16 @@ Transparency fosters understanding, accountability, and ethical confidence. To i
 • **Use Accessible Language:** Avoid technical jargon when engaging non-technical stakeholders.  
 • **Review Regularly:** Ensure published information remains current and accurate.  
 • **Align with Frameworks:** Follow global transparency principles (ISO 42001, NIST AI RMF, OECD AI Principles).  
-Structured transparency demonstrates openness and helps stakeholders trust how AI impacts operations and decisions."""
+Structured transparency demonstrates openness and helps stakeholders trust how AI impacts operations and decisions.""",
+        "evidence_types": """To comply with **TE-01 ("Ensure transparency in AI development and use")**, provide documentation showing visible, consistent communication about AI activities.  
+**Key Evidence Types:**  
+• **AI Register:** Internal or public listing of AI systems with metadata (purpose, owner, risk rating).  
+• **Governance Records:** Committee minutes or reports summarising AI system reviews.  
+• **Policies:** Transparency or Responsible AI Policy defining disclosure requirements.  
+• **Communication Materials:** Public reports, web pages, or press releases describing AI use.  
+• **Documentation Templates:** Standard forms capturing AI system details for publication.  
+• **Audit Reports:** Reviews confirming accuracy and completeness of AI disclosures.  
+**In short:** demonstrate that AI operations are visible, documented, and communicated clearly to foster public and internal trust.""",
     },
     {
         "code": """TE-02""",
@@ -1632,7 +2279,16 @@ Explainability strengthens trust, supports accountability, and meets ethical and
 • **Integrate Oversight:** Require human review and documentation for complex or high-impact AI decisions.  
 • **Document Model Logic:** Maintain records describing features, weighting, and data relationships.  
 • **Engage Stakeholders:** Offer transparent communications explaining how AI supports decisions.  
-Consistent explainability practices enhance public confidence and reduce the risk of opaque or biased AI behaviour."""
+Consistent explainability practices enhance public confidence and reduce the risk of opaque or biased AI behaviour.""",
+        "evidence_types": """To comply with **TE-02 ("Ensure AI decisions and outputs are explainable")**, provide artefacts showing active use of interpretability and explanation mechanisms.  
+**Key Evidence Types:**  
+• **Explainability Documentation:** Model summaries, logic flowcharts, or explanation guides for each AI system.  
+• **Technical Tools:** Records of SHAP, LIME, or similar explainability analyses.  
+• **Communication Materials:** Plain-language summaries explaining AI outcomes to users or the public.  
+• **Policy References:** Requirements for explainability within the Responsible AI or Data Governance Policy.  
+• **Review Records:** Meeting minutes documenting explainability assessments or approvals.  
+• **Audit Reports:** Reviews verifying adequacy and accessibility of AI explanations.  
+**In short:** demonstrate that AI decisions are interpretable, documented, and clearly communicated to technical and non-technical stakeholders alike.""",
     },
     {
         "code": """TE-03""",
@@ -1654,7 +2310,16 @@ Being transparent about AI limitations promotes realistic expectations and accou
 • **Communicate Clearly:** Provide non-technical explanations to avoid misinterpretation.  
 • **Disclose Uncertainty:** Include accuracy metrics, confidence intervals, and limitations in outputs or reports.  
 • **Update Regularly:** Revise documentation following retraining or policy changes.  
-Transparent communication reduces misunderstanding and enables informed oversight of AI outcomes."""
+Transparent communication reduces misunderstanding and enables informed oversight of AI outcomes.""",
+        "evidence_types": """To comply with **TE-03 ("Communicate limitations, assumptions, and risks of AI systems")**, provide artefacts proving structured documentation and transparent communication.  
+**Key Evidence Types:**  
+• **Model Documentation:** Fact sheets, model cards, or datasheets outlining assumptions and constraints.  
+• **Risk Registers:** Entries identifying AI-specific risks and mitigation actions.  
+• **Communication Templates:** Standardised reporting formats for internal or public use.  
+• **Governance Records:** Committee minutes discussing disclosure of model limitations.  
+• **Public Disclosures:** Webpages, reports, or FAQs describing AI risks and safeguards.  
+• **Audit Reports:** Reviews verifying completeness and accuracy of limitation communications.  
+**In short:** demonstrate that AI systems' boundaries, assumptions, and potential risks are documented, reviewed, and communicated transparently to all affected parties.""",
     },
     {
         "code": """TE-04""",
@@ -1676,7 +2341,16 @@ Structured documentation enhances explainability and assurance. To strengthen ma
 • **Review Periodically:** Conduct governance reviews to ensure completeness and accuracy.  
 • **Enable Role-Based Access:** Grant stakeholders access appropriate to their roles.  
 • **Align with Frameworks:** Follow ISO/IEC 42001 and NIST AI RMF documentation principles.  
-Comprehensive documentation ensures traceability, accountability, and stakeholder confidence."""
+Comprehensive documentation ensures traceability, accountability, and stakeholder confidence.""",
+        "evidence_types": """To comply with **TE-04 ("Ensure AI documentation is complete, accurate, and accessible")**, provide artefacts demonstrating structured, reviewed, and traceable documentation processes.  
+**Key Evidence Types:**  
+• **Documentation Framework:** Policies defining AI documentation requirements and ownership.  
+• **Model & Data Sheets:** Artefacts outlining system design, data sources, and testing outcomes.  
+• **Repository Evidence:** Proof of a centralised documentation system or database.  
+• **Version Control Logs:** Records showing updates and review histories.  
+• **Audit Reports:** Assessments verifying documentation completeness and accessibility.  
+• **Access Control Records:** Role-based permissions and user access logs.  
+**In short:** demonstrate that AI documentation is standardised, maintained, and accessible, enabling accountability, explainability, and continuous governance.""",
     },
     {
         "code": """TE-05""",
@@ -1698,7 +2372,16 @@ Data transparency enables accountability, reproducibility, and public trust. To 
 • **Communicate Transparently:** Publish dataset details or summaries where appropriate.  
 • **Use Metadata Standards:** Follow recognised frameworks (e.g., DCAT, ISO 19115).  
 • **Update Regularly:** Review and refresh data documentation with every model retraining.  
-Clear documentation ensures data use is transparent, defensible, and compliant with governance and legal requirements."""
+Clear documentation ensures data use is transparent, defensible, and compliant with governance and legal requirements.""",
+        "evidence_types": """To comply with **TE-05 ("Document and disclose data sources used in AI systems")**, provide artefacts showing structured provenance management and disclosure.  
+**Key Evidence Types:**  
+• **Dataset Registers:** Central repository documenting all AI data sources, collection methods, and ownership.  
+• **Data Provenance Reports:** Records showing dataset lineage and transformations.  
+• **Licensing Documentation:** Usage rights, consent forms, or contractual agreements for third-party data.  
+• **Policies & Frameworks:** Data Transparency or Responsible AI Policy referencing provenance disclosure.  
+• **Public Reports:** Summaries of AI datasets or open-data disclosures.  
+• **Audit Findings:** Reviews verifying dataset completeness and compliance with legal and ethical standards.  
+**In short:** demonstrate that every dataset used for AI is properly traced, validated, and disclosed to ensure transparency, legality, and public accountability.""",
     },
     {
         "code": """TE-06""",
@@ -1720,7 +2403,16 @@ Performance transparency ensures AI systems are fair, reliable, and aligned with
 • **Communicate Clearly:** Translate metrics into accessible insights for executives and the public.  
 • **Monitor Continuously:** Use dashboards to track performance drift and trigger reviews.  
 • **Benchmark Externally:** Compare results against industry or regulatory standards.  
-Transparent reporting fosters confidence and enables accountability for AI reliability and improvement."""
+Transparent reporting fosters confidence and enables accountability for AI reliability and improvement.""",
+        "evidence_types": """To comply with **TE-06 ("Measure, document, and communicate AI system performance and accuracy")**, provide documentation showing structured evaluation and disclosure processes.  
+**Key Evidence Types:**  
+• **Performance Reports:** Internal or public records detailing AI accuracy, error rates, or validation metrics.  
+• **Testing Logs:** Documentation of pre-deployment and post-deployment evaluations.  
+• **Monitoring Dashboards:** Automated tools tracking accuracy drift or model performance over time.  
+• **Policies & Procedures:** AI Testing and Validation Policy referencing reporting obligations.  
+• **Communication Artefacts:** Plain-language summaries or reports explaining performance results.  
+• **Audit Findings:** Reviews confirming integrity and transparency of performance reporting.  
+**In short:** demonstrate that AI system performance is measured objectively, documented consistently, and communicated transparently to all relevant audiences.""",
     },
     {
         "code": """TE-07""",
@@ -1742,7 +2434,16 @@ Clarity about AI involvement reinforces fairness and informed choice. To strengt
 • **Offer Review Mechanisms:** Allow individuals to request human review or contest AI-generated results.  
 • **Update Policies and Templates:** Embed disclosure statements in letters, forms, or online portals.  
 • **Monitor Compliance:** Audit communications for completeness and consistency.  
-Transparent disclosure supports trust, ethical integrity, and compliance with fairness and accountability standards."""
+Transparent disclosure supports trust, ethical integrity, and compliance with fairness and accountability standards.""",
+        "evidence_types": """To comply with **TE-07 ("Communicate when decisions or outcomes are generated by AI")**, provide documentation showing disclosure and human review processes.  
+**Key Evidence Types:**  
+• **Policy Documents:** AI Transparency or Decision Disclosure Policy defining communication obligations.  
+• **Communication Templates:** Letters, emails, or notifications containing AI use statements.  
+• **Public Web Content:** Explanatory webpages outlining where and how AI is used in services.  
+• **Review Procedures:** Process documentation for human challenge or appeal mechanisms.  
+• **Audit Records:** Compliance reviews verifying disclosure of AI use.  
+• **Training Materials:** Staff guidance on communicating AI involvement to citizens.  
+**In short:** demonstrate that AI-generated decisions are clearly disclosed, understandable, and supported by options for human review or explanation.""",
     },
     {
         "code": """TE-08""",
@@ -1764,6 +2465,15 @@ Stakeholder engagement ensures transparency aligns with public expectations and 
 • **Respond Publicly:** Communicate how feedback informed policy or disclosure improvements.  
 • **Measure Engagement:** Track participation rates and satisfaction levels.  
 • **Review Periodically:** Update engagement processes to reflect emerging needs.  
-Ongoing stakeholder dialogue ensures that transparency practices remain relevant, trusted, and socially accountable."""
+Ongoing stakeholder dialogue ensures that transparency practices remain relevant, trusted, and socially accountable.""",
+        "evidence_types": """To comply with **TE-08 ("Engage stakeholders and incorporate feedback on AI transparency")**, provide artefacts demonstrating structured engagement and feedback integration.  
+**Key Evidence Types:**  
+• **Engagement Plans:** Documents outlining stakeholder consultation objectives and processes.  
+• **Survey Results:** Feedback data from community or employee AI transparency assessments.  
+• **Meeting Records:** Minutes showing committee review of stakeholder feedback.  
+• **Policy Updates:** Evidence of changes made in response to engagement outcomes.  
+• **Public Communications:** Reports summarising engagement activities and their impact.  
+• **Audit Reports:** Reviews confirming inclusion of stakeholder perspectives in AI governance.  
+**In short:** demonstrate that stakeholder feedback on AI transparency is regularly sought, reviewed, and meaningfully incorporated into organisational communication and reporting.""",
     }
 ]
