@@ -8376,7 +8376,9 @@ class AMSafeAPITester:
         
         # Test 3: GET /api/sectors/{sector}/benchmarks with "Technology / Software"
         tech_sector = "Technology / Software"
-        success, response = self.make_request('GET', f'sectors/{tech_sector}/benchmarks')
+        # Use space encoding for sectors with forward slashes
+        encoded_tech_sector = tech_sector.replace(' ', '%20')
+        success, response = self.make_request('GET', f'sectors/{encoded_tech_sector}/benchmarks')
         if success:
             self.log_test(f"GET /api/sectors/{tech_sector}/benchmarks returns 200 OK", True)
             
