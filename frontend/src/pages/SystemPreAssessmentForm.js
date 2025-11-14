@@ -10,7 +10,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Cpu, ShieldCheck, FileText, Settings2, Workflow, ArrowLeft, Heart, Layers, Calendar } from "lucide-react";
+import { Cpu, ShieldCheck, FileText, Settings2, Workflow, ArrowLeft, Heart, Layers, Calendar, Building2 } from "lucide-react";
 import { toast } from 'sonner';
 import axios from 'axios';
 import Logo from '../components/Logo';
