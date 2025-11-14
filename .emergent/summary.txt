@@ -1,80 +1,82 @@
 <analysis>
-The trajectory details the evolution of the AM AI SAFE application from a single-assessment tool into a multi-assessment platform, focusing on the AI Readiness and Organisation-wide assessments. The work follows a clear, iterative pattern: a user requests a feature or reports a bug, and the engineer investigates, implements, and refines the solution across the full stack.
+The trajectory chronicles a series of significant feature additions, refactoring, and bug fixes for the AM AI SAFE application. The work demonstrates a pattern of implementing user requests, followed by intensive debugging and refinement.
 
-A core architectural decision was the pervasive use of an  string (System, Awareness, Readiness, Orgwide) to drive conditional logic. This pattern was applied consistently in the backend () for serving different questions, calculating scores, and structuring API responses, and in the frontend (React components) for rendering type-specific UI elements like colors, response options, and page titles.
+A major effort was the universal refactoring of the assessment scoring system from a 0-3 scale to a 1-4 scale. This change rippled through the entire stack, from backend Pydantic models, scoring maps, and database seeding logic (, ) to frontend response option rendering () and results visualization (). This refactoring effort culminated in a complex debugging saga where the engineer discovered they were seeding and querying the wrong MongoDB database ( instead of ), a critical finding that resolved persistent data inconsistencies.
 
-The process began with fixing bugs in the newly added AI Readiness Assessment, including a View All page crash and missing tooltips. This involved debugging both frontend rendering logic () and backend data structures ( in ). The engineer then built the Organisation-wide AI Maturity Assessment from a user-provided CSV, creating  and integrating it throughout the application. This process was followed by a series of bug fixes and refinements based on user feedback, addressing issues in routing, data display, and UI consistency. The most recent task involves adding and styling titles for the AI Readiness Assessment tooltips, a task that is currently in progress.
+Other key tasks included adding Evidence Types tooltips for the Organisation-wide assessment by programmatically updating question files and modifying the API and frontend. Numerous UI bugs were also addressed, such as fixing heatmap scoring displays, color-coding assessment type badges in the admin panel, and ensuring all metadata fields appear correctly. The most recent work involved a deep dive into the DOCX report generation system () to answer user questions, culminating in the creation of a comprehensive template variable guide and explaining specific code logic like list slicing for Top 3 results.
+
+The user's primary language is English. The next agent must respond in English.
 </analysis>
 
 <product_requirements>
-The AM AI SAFE application is a platform for organizations to evaluate their AI maturity through specialized assessments. Initially an MVP with a single AI System Maturity Assessment, it has been expanded to support a suite of assessments, including a free AI Awareness assessment and two premium offerings: the AI Readiness Assessment and the Organisation-wide AI Maturity Assessment.
+The AM AI SAFE application is a platform for organizations to evaluate their AI maturity through a suite of specialized assessments. Originally a single-assessment MVP, it now supports four distinct types: AI System Maturity, AI Awareness, AI Readiness, and Organisation-wide AI Maturity.
 
 **Core Functionality:**
-*   **Dynamic Assessment Engine:** The application is built on a flexible framework where the  dictates the questions, scoring logic, and UI presentation.
-*   **User Onboarding:** Each assessment has a unique pre-assessment form to gather relevant metadata before the user begins.
-*   **Assessment Interface:** Users are presented with questions, multiple-choice answers, and in-context help via Additional Guidance and Evidence Types tooltips.
-*   **Progress & Results:** Users can view their progress on a View All page and, upon completion, will see a results summary.
+*   **Dynamic Assessments:** A core architecture driven by an  string allows the platform to serve different questions, UI components, and scoring logic for each assessment.
+*   **Assessment Lifecycle:** Users complete a pre-assessment form, answer questions with context-sensitive tooltips (Additional Guidance, Evidence Types), view their progress, and see a results summary.
+*   **Admin & Reporting:** An admin panel provides organization analytics and metadata inspection. Upon completion, DOCX reports are generated.
 
-**Implemented Work:**
-The AI Readiness and Organisation-wide assessments have been fully built out, from parsing user-provided CSVs/markdown files for questions and tooltips to integrating them across the entire backend and frontend. This involved extensive bug fixing related to data fetching, UI rendering, and routing.
+**Implemented Work So Far:**
+The platform has been significantly enhanced. Evidence Types tooltips were added to the Organisation-wide assessment. A major refactoring was completed to standardize the scoring system across all assessments from a 0-3 scale (Non-Ideal to Excellent) to a 1-4 scale (Foundational to Leading). This involved extensive changes to the database schema, backend logic, and frontend UI. Subsequent bug fixes corrected scoring calculations, heatmap visualizations in results pages, and UI inconsistencies in the admin dashboard. The report templating system has also been documented for the user.
 </product_requirements>
 
 <key_technical_concepts>
-- **Backend:** FastAPI (Python) with Pydantic for data modeling.
-- **Database:** MongoDB for data persistence.
-- **Frontend:** React.js with Tailwind CSS for styling and Axios for API communication.
-- **Core Architecture:** A modular design pattern using an  string to conditionally control logic and rendering throughout the full stack. This allows for easy extension with new assessment types.
-- **Authentication:** JWT-based user authentication.
+- **Backend:** Python with FastAPI for the API server and Pydantic for data validation.
+- **Frontend:** React.js with Tailwind CSS for styling.
+- **Database:** MongoDB, with a crucial debugging effort revealing the application uses a specific database name () defined by an environment variable.
+- **Core Architecture:** A dynamic, multi-assessment architecture where an  string (System, Awareness, Readiness, Orgwide) controls logic and UI rendering.
+- **Report Generation:**  (a Jinja2-based library) is used to generate DOCX reports from templates.
 </key_technical_concepts>
 
 <code_architecture>
-The application uses a monolithic repository with distinct  and  directories.
+The application is a monorepo with separate  and  directories.
 
 
 
-- ****
-  - **Importance:** The central API server. It defines all endpoints, handles database interactions, and contains the business logic for all assessment types.
-  - **Summary of Changes:** This file has been heavily modified to be the core of the dynamic assessment engine. Conditional logic () has been added to nearly every assessment-related endpoint (, , , , etc.) to support Readiness and Orgwide types, ensuring the correct questions, validation rules, and data structures are used.
+- ****:
+    - **Importance:** The core of the backend. It defines all API endpoints, handles database connections, business logic for all four assessment types, and authentication.
+    - **Changes:** This file was heavily modified. The scoring logic, question retrieval, and assessment completion endpoints were updated to support a 1-4 score scale instead of 0-3. The  endpoint was fixed to query samples from all four assessment types. A major debugging effort revealed it connects to the database specified in the  environment variable, which was a critical insight.
 
-- ** & **
-  - **Importance:** These files act as the database for question content for their respective assessments. They were generated by parsing user-provided CSV and Markdown files.
-  - **Summary of Changes:** Both files were created and then iteratively updated to add  and  fields, fix formatting (e.g., bolding text), and correct content based on user feedback.
+- ****:
+    - **Importance:** Responsible for creating DOCX reports using . It contains logic for calculating scores, generating charts (heatmap, radar), and populating the template context.
+    - **Changes:** Updated to calculate scores based on a max of 4 instead of 3. The  function for the heatmap was adjusted to accommodate the new 1-4 scale. The context passed to the template was analyzed to answer user questions.
 
-- ****
-  - **Importance:** The primary UI where users take assessments. It renders questions, response options, and tooltips.
-  - **Summary of Changes:** This page was modified to correctly display tooltips (, ) for Readiness and Orgwide assessments by fetching data from the API response () instead of a static file.
+- ** & **:
+    - **Importance:** These files store the question content for the System and Organisation-wide assessments, respectively.
+    - **Changes:**  was programmatically updated to rename response fields (e.g.,  to ) and reorder them.  had the  field added to every question. Header comments in both were updated to reflect the new 1-4 scoring.
 
-- ****
-  - **Importance:** Contains helper functions that provide dynamic UI configurations (colors, response options) based on the assessment type.
-  - **Summary of Changes:** The  and  functions were updated to include cases for , ensuring the correct predefined answers and purple color scheme were displayed.
+- ****:
+    - **Importance:** A crucial helper file that provides dynamic configuration (like response options) based on .
+    - **Changes:** The  function was updated for System, Readiness, and Orgwide assessments to return the new Foundational to Leading labels with the correct 1, 2, 3, 4 score values. This was a key fix to unify the scoring system.
 
-- ****
-  - **Importance:** The View All page component, displaying a grid of all questions and their statuses.
-  - **Summary of Changes:** The component was refactored to be dynamic. It now accepts  and  as props to display the correct title, progress bar color, and grid layout ( for Orgwide). CSS was also adjusted to fix text truncation and column alignment issues.
+- ****:
+    - **Importance:** Displays the assessment results, including a domain-by-domain heatmap.
+    - **Changes:** The heatmap logic was fixed. The displayed score text was changed from  to . The  function's percentage thresholds were adjusted to correctly map the new 1-4 scores to their respective colors (Red, Orange, Yellow, Green).
 
-- ****
-  - **Importance:** The user's main dashboard, listing their in-progress and completed assessments.
-  - **Summary of Changes:** The  function was fixed to handle the  assessment type and to correct the color scheme for the Readiness badge from purple to blue, ensuring assessments are correctly identified on the dashboard.
+- ****:
+    - **Importance:** The admin panel for user management and organization analytics.
+    - **Changes:** Fixed a bug where assessment type badges were all blue. The  color logic from  was copied and applied to ensure badges have colors corresponding to their assessment type (Green, Blue, Purple, Teal).
 </code_architecture>
 
 <pending_tasks>
-- Implement the results summary pages for the AI Readiness and Organisation-wide assessments.
-- Create and integrate the DOCX report templates for the Awareness, Readiness, and Organisation-wide assessments.
-- Implement the proposed Stripe paywall architecture for premium assessments.
+- Implement the full results summary pages for the AI Readiness and Organisation-wide assessments.
+- Create and integrate the final DOCX report templates for the Awareness, Readiness, and Organisation-wide assessments.
+- Implement the Stripe paywall for premium assessments, which was mentioned in the initial trajectory analysis but not worked on.
 </pending_tasks>
 
 <current_work>
-The most recent work focuses on a user request to fix missing titles in the Additional Guidance tooltips for the AI Readiness Assessment and to style these titles with a bold, 16px font.
+The most recent task was not a development or bug-fixing task but rather a user support and documentation effort. The user had a series of questions about the DOCX report templating system for the 'AI System Maturity Assessment'.
 
-The previous engineer has already:
-1.  Confirmed that the titles are indeed missing from the  content within the  file.
-2.  Devised a plan to manually add appropriate titles to each of the 48 questions in that file.
-3.  Updated  programmatically, adding a title (e.g., Additional Guidance - Embedding AI in Strategic Planning) as the first line for each question's  field.
-4.  Begun investigating the frontend, identifying  as the component responsible for rendering the tooltip's modal content.
+The work involved:
+1.  **Code Investigation:** Analyzing  to understand how the  library is used and what data is passed into the template .
+2.  **Variable Documentation:** Creating a comprehensive markdown file () that lists all available Jinja2 variables, their data types, and usage examples for the user.
+3.  **Answering Specific Questions:**
+    *   Clarified how to reference fields, explaining the difference between the raw database schema (e.g., ) and the simplified report context (e.g., ).
+    *   Explained the specific code logic that limits the Top 3 Strengths/Gaps sections to three items, pointing to the Python list slicing () in the  and  functions.
 
-The work concluded just before modifying  to parse the newly added title from the content string and apply the requested  and  (16px) styling.
+This work successfully concluded the user's line of questioning about the reporting feature.
 </current_work>
 
 <optional_next_step>
-I will now modify the  component to parse and render the first line of the tooltip content as a bold, 16px title for the Readiness assessment.
+The previous task of documenting and explaining the report variables is complete. I will now ask you what you would like to work on next, perhaps referencing the list of pending tasks.
 </optional_next_step>
