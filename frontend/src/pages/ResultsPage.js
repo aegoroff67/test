@@ -91,20 +91,21 @@ function ResultsPage() {
 
   useEffect(() => {
     // Fetch benchmarks when switching to benchmark view for System assessments
-    // Try to get industry from: 1) assessment.system_info, 2) user.industry, 3) user organization
+    // Try to get industry from: 1) assessment.system_info, 2) user.industry, 3) selected industry
     if (viewMode === 'benchmark' && assessmentType === 'System' && !benchmarks) {
-      const industry = assessment?.system_info?.industry || user?.industry;
+      const industry = assessment?.system_info?.industry || user?.industry || selectedIndustry;
       console.log('Attempting to fetch benchmarks with industry:', industry);
       console.log('Assessment system_info:', assessment?.system_info);
       console.log('User industry:', user?.industry);
       if (industry) {
         fetchBenchmarks(industry);
+        setShowIndustrySelector(false);
       } else {
-        console.error('No industry found in assessment or user object');
-        toast.error('No industry information available. Please complete the Organization Overview in the pre-assessment form.');
+        console.error('No industry found - showing industry selector');
+        setShowIndustrySelector(true);
       }
     }
-  }, [viewMode, assessmentType, user, assessment]);
+  }, [viewMode, assessmentType, user, assessment, selectedIndustry]);
 
   const fetchResults = async () => {
     try {
