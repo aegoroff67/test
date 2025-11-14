@@ -8229,6 +8229,258 @@ class AMSafeAPITester:
         
         return True
 
+    def test_sector_benchmarks_api(self):
+        """Test the sector benchmarks API endpoints for radar chart feature"""
+        print("\n🎯 TESTING SECTOR BENCHMARKS API ENDPOINTS")
+        print("-" * 60)
+        
+        # Test 1: GET /api/sectors endpoint
+        success, response = self.make_request('GET', 'sectors')
+        if not success:
+            self.log_test("GET /api/sectors endpoint", False, str(response))
+            return False
+            
+        self.log_test("GET /api/sectors endpoint returns 200 OK", True)
+        
+        # Verify response structure
+        if not isinstance(response, dict) or 'sectors' not in response:
+            self.log_test("GET /api/sectors response structure", False, "Response should contain 'sectors' array")
+            return False
+            
+        sectors = response['sectors']
+        if not isinstance(sectors, list):
+            self.log_test("GET /api/sectors sectors field is array", False, "Sectors should be an array")
+            return False
+            
+        self.log_test("GET /api/sectors response contains sectors array", True)
+        
+        # Verify exactly 8 sectors
+        expected_sector_count = 8
+        if len(sectors) == expected_sector_count:
+            self.log_test(f"GET /api/sectors returns exactly {expected_sector_count} sectors", True)
+        else:
+            self.log_test(f"GET /api/sectors returns exactly {expected_sector_count} sectors", False, 
+                        f"Found {len(sectors)} sectors")
+        
+        # Verify expected sector names
+        expected_sectors = [
+            "Education", 
+            "Finance / Insurance", 
+            "Healthcare", 
+            "Local Government / Public Sector", 
+            "Not-for-profit / Charity", 
+            "Retail / Hospitality", 
+            "Technology / Software", 
+            "Utilities / Critical Infrastructure"
+        ]
+        
+        # Check if all expected sectors are present
+        missing_sectors = set(expected_sectors) - set(sectors)
+        extra_sectors = set(sectors) - set(expected_sectors)
+        
+        if not missing_sectors and not extra_sectors:
+            self.log_test("All expected sectors present", True)
+        else:
+            error_msg = ""
+            if missing_sectors:
+                error_msg += f"Missing: {missing_sectors}. "
+            if extra_sectors:
+                error_msg += f"Extra: {extra_sectors}."
+            self.log_test("All expected sectors present", False, error_msg)
+        
+        # Verify sectors are sorted alphabetically
+        sorted_sectors = sorted(sectors)
+        if sectors == sorted_sectors:
+            self.log_test("Sectors are sorted alphabetically", True)
+        else:
+            self.log_test("Sectors are sorted alphabetically", False, 
+                        f"Expected: {sorted_sectors}, Got: {sectors}")
+        
+        # Test 2: GET /api/sectors/{sector}/benchmarks with valid sector "Education"
+        test_sector = "Education"
+        success, response = self.make_request('GET', f'sectors/{test_sector}/benchmarks')
+        if not success:
+            self.log_test(f"GET /api/sectors/{test_sector}/benchmarks", False, str(response))
+            return False
+            
+        self.log_test(f"GET /api/sectors/{test_sector}/benchmarks returns 200 OK", True)
+        
+        # Verify response structure
+        if not isinstance(response, dict):
+            self.log_test("Benchmarks response is object", False, "Response should be an object")
+            return False
+            
+        if 'sector' not in response or 'benchmarks' not in response:
+            self.log_test("Benchmarks response contains sector and benchmarks fields", False, 
+                        "Response should contain 'sector' and 'benchmarks' fields")
+            return False
+            
+        self.log_test("Benchmarks response contains sector and benchmarks fields", True)
+        
+        # Verify sector field matches request
+        if response['sector'] == test_sector:
+            self.log_test("Benchmarks response sector field matches request", True)
+        else:
+            self.log_test("Benchmarks response sector field matches request", False, 
+                        f"Expected: {test_sector}, Got: {response['sector']}")
+        
+        # Verify benchmarks is an object with 11 domain keys
+        benchmarks = response['benchmarks']
+        if not isinstance(benchmarks, dict):
+            self.log_test("Benchmarks field is object", False, "Benchmarks should be an object")
+            return False
+            
+        expected_domains = [
+            "Accountability", "Security", "Privacy", "Safety", "Transparency", 
+            "Fairness", "Explainability", "Reliability", "Data Integrity", 
+            "Inclusivity", "Sustainability"
+        ]
+        
+        if len(benchmarks) == 11:
+            self.log_test("Benchmarks contains 11 domain keys", True)
+        else:
+            self.log_test("Benchmarks contains 11 domain keys", False, 
+                        f"Found {len(benchmarks)} domains")
+        
+        # Verify all expected domains are present
+        missing_domains = set(expected_domains) - set(benchmarks.keys())
+        extra_domains = set(benchmarks.keys()) - set(expected_domains)
+        
+        if not missing_domains and not extra_domains:
+            self.log_test("All 11 expected domains present in benchmarks", True)
+        else:
+            error_msg = ""
+            if missing_domains:
+                error_msg += f"Missing: {missing_domains}. "
+            if extra_domains:
+                error_msg += f"Extra: {extra_domains}."
+            self.log_test("All 11 expected domains present in benchmarks", False, error_msg)
+        
+        # Verify each domain has a numeric score in 0-100 range
+        valid_scores = True
+        invalid_scores = []
+        
+        for domain, score in benchmarks.items():
+            if not isinstance(score, (int, float)):
+                valid_scores = False
+                invalid_scores.append(f"{domain}: {score} (not numeric)")
+            elif score < 0 or score > 100:
+                valid_scores = False
+                invalid_scores.append(f"{domain}: {score} (out of 0-100 range)")
+        
+        if valid_scores:
+            self.log_test("All domain scores are numeric and in 0-100 range", True)
+        else:
+            self.log_test("All domain scores are numeric and in 0-100 range", False, 
+                        f"Invalid scores: {invalid_scores}")
+        
+        # Test 3: GET /api/sectors/{sector}/benchmarks with "Technology / Software"
+        tech_sector = "Technology / Software"
+        success, response = self.make_request('GET', f'sectors/{tech_sector}/benchmarks')
+        if success:
+            self.log_test(f"GET /api/sectors/{tech_sector}/benchmarks returns 200 OK", True)
+            
+            # Verify it has proper benchmark data
+            if 'benchmarks' in response and len(response['benchmarks']) == 11:
+                self.log_test(f"{tech_sector} has proper benchmark data", True)
+            else:
+                self.log_test(f"{tech_sector} has proper benchmark data", False, 
+                            "Missing or incomplete benchmark data")
+        else:
+            self.log_test(f"GET /api/sectors/{tech_sector}/benchmarks", False, str(response))
+        
+        # Test 4: Test with invalid/non-existent sector
+        invalid_sector = "Non-Existent Sector"
+        success, response = self.make_request('GET', f'sectors/{invalid_sector}/benchmarks', expected_status=404)
+        if success:
+            self.log_test("Invalid sector returns 404 with appropriate error", True)
+        else:
+            self.log_test("Invalid sector returns 404 with appropriate error", False, 
+                        "Should return 404 for non-existent sector")
+        
+        # Test 5: Test URL encoding with "Finance / Insurance" sector
+        finance_sector = "Finance / Insurance"
+        # URL encode the forward slash
+        import urllib.parse
+        encoded_sector = urllib.parse.quote(finance_sector, safe='')
+        
+        success, response = self.make_request('GET', f'sectors/{encoded_sector}/benchmarks')
+        if success:
+            self.log_test("URL encoding handles forward slash correctly", True)
+            
+            # Verify response contains correct sector name
+            if response.get('sector') == finance_sector:
+                self.log_test("URL encoded sector returns correct sector name", True)
+            else:
+                self.log_test("URL encoded sector returns correct sector name", False, 
+                            f"Expected: {finance_sector}, Got: {response.get('sector')}")
+        else:
+            self.log_test("URL encoding handles forward slash correctly", False, str(response))
+        
+        # Test 6: Data integrity - verify benchmark scores are reasonable (20-50 range)
+        if success and 'benchmarks' in response:
+            finance_benchmarks = response['benchmarks']
+            scores_in_range = True
+            out_of_range_scores = []
+            
+            for domain, score in finance_benchmarks.items():
+                if score < 20 or score > 50:
+                    scores_in_range = False
+                    out_of_range_scores.append(f"{domain}: {score}")
+            
+            if scores_in_range:
+                self.log_test("Finance sector scores are in reasonable range (20-50)", True)
+            else:
+                self.log_test("Finance sector scores are in reasonable range (20-50)", False, 
+                            f"Out of range: {out_of_range_scores}")
+        
+        # Test 7: Verify "Finance / Insurance" has higher scores (Security: 45, Accountability: 40)
+        if success and 'benchmarks' in response:
+            finance_benchmarks = response['benchmarks']
+            
+            # Check Security score
+            security_score = finance_benchmarks.get('Security')
+            if security_score == 45:
+                self.log_test("Finance sector Security score is 45", True)
+            else:
+                self.log_test("Finance sector Security score is 45", False, 
+                            f"Expected: 45, Got: {security_score}")
+            
+            # Check Accountability score
+            accountability_score = finance_benchmarks.get('Accountability')
+            if accountability_score == 40:
+                self.log_test("Finance sector Accountability score is 40", True)
+            else:
+                self.log_test("Finance sector Accountability score is 40", False, 
+                            f"Expected: 40, Got: {accountability_score}")
+        
+        # Test 8: Verify "Not-for-profit / Charity" has lower scores (around 20-26)
+        charity_sector = "Not-for-profit / Charity"
+        encoded_charity = urllib.parse.quote(charity_sector, safe='')
+        
+        success, response = self.make_request('GET', f'sectors/{encoded_charity}/benchmarks')
+        if success:
+            self.log_test(f"GET /api/sectors/{charity_sector}/benchmarks returns 200 OK", True)
+            
+            charity_benchmarks = response['benchmarks']
+            low_scores = True
+            high_scores = []
+            
+            for domain, score in charity_benchmarks.items():
+                if score > 26:
+                    low_scores = False
+                    high_scores.append(f"{domain}: {score}")
+            
+            if low_scores:
+                self.log_test("Not-for-profit sector has lower scores (most around 20-26)", True)
+            else:
+                self.log_test("Not-for-profit sector has lower scores (most around 20-26)", False, 
+                            f"Higher than expected: {high_scores}")
+        else:
+            self.log_test(f"GET /api/sectors/{charity_sector}/benchmarks", False, str(response))
+        
+        return True
+
     def run_all_tests(self):
         """Run all tests in sequence with focus on production issues"""
         print(f"🚀 Starting AM AI SAFE Production API Tests")
