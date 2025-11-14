@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-## user_problem_statement: Test the newly added Evidence Types functionality for Organisation-wide AI Maturity Assessment
+## user_problem_statement: Implement radar chart showing domain scores compared to sector benchmarks for AI System Maturity Assessment
 
 ## backend:
   - task: "Remove incorrect generated explanations and pre-defined answers from server.py"
