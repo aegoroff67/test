@@ -391,6 +391,42 @@
         - comment: "EVIDENCE TYPES FUNCTIONALITY TESTING COMPLETED SUCCESSFULLY: Comprehensive testing completed with 100% success rate (20/20 tests passed). ✅ BACKEND DATA INTEGRITY VERIFIED: All 80 Organisation-wide questions have evidence_types field with non-empty content, sample question codes (GO-01, AE-02, AE-05, RM-01, DS-01, FI-01, GO-08, PL-01, CA-01, RE-01) have unique evidence_types content. ✅ API RESPONSE TESTS PASSED: Created Orgwide assessment using test credentials (andrew@test.com/password123), GET /api/assessments/{assessment_id}/questions returns evidence_types field for all 80 questions, evidence_types content matches organisation_questions.py data with expected structure containing 'Key Evidence Types:' and 'In short:' sections. ✅ CROSS-ASSESSMENT TYPE TESTS VERIFIED: System assessments do not have evidence_types field (use static helpContent), Readiness assessments have additional_guide field working, Orgwide assessments have distinct evidence_types content. ✅ IMPLEMENTATION CONFIRMED: Backend server.py line 1740 correctly includes evidence_types field in API response for Orgwide assessments. All requirements from review request have been successfully implemented and tested."
 
 ## frontend:
+  - task: "Install Recharts library for radar chart visualization"
+    implemented: true
+    working: true
+    file: "/app/frontend/package.json"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "main"
+        - comment: "COMPLETED: Installed recharts@3.4.1 using yarn. Library added to package.json successfully."
+
+  - task: "Create DomainBenchmarkRadar component"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/DomainBenchmarkRadar.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Created new radar chart component that displays organization's domain scores overlaid with sector benchmarks. Component accepts domainScores array, benchmarks object, and sector string. Includes custom tooltip, legend, and proper styling. Uses Recharts RadarChart with two data series (Your Score in blue, Sector Benchmark in green with dashed line)."
+
+  - task: "Add radio button toggle and conditional rendering to ResultsPage"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Modified ResultsPage.js to add view toggle functionality. Added state variables (viewMode, benchmarks, benchmarkSector). Created fetchBenchmarks function to retrieve sector data from API. Added radio buttons at top-right of center panel (Assessment Heatmap | Domain Benchmarks) - ONLY visible for System assessments. Implemented conditional rendering to switch between heatmap and radar chart views. Added useEffect to automatically fetch benchmarks when switching to benchmark view. Radar chart shows loading spinner while benchmarks are being fetched."
+
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
     working: true
