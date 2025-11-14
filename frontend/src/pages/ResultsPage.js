@@ -218,14 +218,24 @@ function ResultsPage() {
 
   const fetchBenchmarks = async (sector) => {
     try {
-      console.log('Fetching benchmarks for sector:', sector);
+      console.log('=== BENCHMARK FETCH DEBUG ===');
+      console.log('Sector value:', sector);
+      console.log('Sector type:', typeof sector);
+      console.log('Encoded sector:', encodeURIComponent(sector));
+      console.log('Full URL:', `${API}/sectors/${encodeURIComponent(sector)}/benchmarks`);
+      
       const response = await axios.get(`${API}/sectors/${encodeURIComponent(sector)}/benchmarks`);
       console.log('Benchmarks response:', response.data);
+      console.log('=== FETCH SUCCESS ===');
+      
       setBenchmarks(response.data.benchmarks);
       setBenchmarkSector(sector);
     } catch (error) {
-      console.error('Error fetching benchmarks:', error);
+      console.error('=== BENCHMARK FETCH ERROR ===');
+      console.error('Error:', error);
+      console.error('Error response:', error.response);
       console.error('Error details:', error.response?.data);
+      console.error('Status code:', error.response?.status);
       toast.error(`Failed to load sector benchmarks${error.response?.data?.detail ? ': ' + error.response.data.detail : ''}`);
     }
   };
