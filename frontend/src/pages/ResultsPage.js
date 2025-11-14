@@ -611,8 +611,10 @@ function ResultsPage() {
               )}
             </div>
             
-            <div className="space-y-1" data-testid="assessment-heatmap">
-              {[...summary.domain_scores]
+            {/* Conditional rendering based on viewMode */}
+            {viewMode === 'heatmap' ? (
+              <div className="space-y-1" data-testid="assessment-heatmap">
+                {[...summary.domain_scores]
                 .sort((a, b) => a.percentage - b.percentage) // Sort by percentage, lowest first
                 .map((domain) => {
                 const domainQuestions = questions.filter(q => q.domain_id === domain.domain_id);
