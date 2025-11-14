@@ -8597,6 +8597,12 @@ class AMSafeAPITester:
         # NEW: Test readiness assessment name format validation
         self.test_readiness_assessment_name_format_validation()
         
+        # === SECTOR BENCHMARKS API TEST (REVIEW REQUEST) ===
+        print("\n" + "🎯 SECTOR BENCHMARKS API TEST (REVIEW REQUEST)" + "\n" + "=" * 60)
+        
+        # NEW: Test sector benchmarks API endpoints for radar chart feature
+        self.test_sector_benchmarks_api()
+        
         # === EVIDENCE TYPES FUNCTIONALITY TEST (REVIEW REQUEST) ===
         print("\n" + "🔍 EVIDENCE TYPES FUNCTIONALITY TEST (REVIEW REQUEST)" + "\n" + "=" * 60)
         
