@@ -20,6 +20,7 @@ import tempfile
 import re
 from complete_questions import COMPLETE_QUESTIONS_DATA
 from awareness_questions import AWARENESS_QUESTIONS_DATA
+from benchmark_utils import seed_benchmarks, get_sector_benchmarks, get_all_sectors
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
