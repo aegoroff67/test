@@ -8472,7 +8472,7 @@ class AMSafeAPITester:
         
         # Test 8: Verify "Not-for-profit / Charity" has lower scores (around 20-26)
         charity_sector = "Not-for-profit / Charity"
-        encoded_charity = urllib.parse.quote(charity_sector, safe='')
+        encoded_charity = charity_sector.replace(' ', '%20')
         
         success, response = self.make_request('GET', f'sectors/{encoded_charity}/benchmarks')
         if success:
