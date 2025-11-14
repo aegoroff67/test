@@ -433,6 +433,21 @@
         - agent: "main"
         - comment: "IMPLEMENTED: Modified ResultsPage.js to add view toggle functionality. Added state variables (viewMode, benchmarks, benchmarkSector). Created fetchBenchmarks function to retrieve sector data from API. Added radio buttons at top-right of center panel (Assessment Heatmap | Domain Benchmarks) - ONLY visible for System assessments. Implemented conditional rendering to switch between heatmap and radar chart views. Added useEffect to automatically fetch benchmarks when switching to benchmark view. Radar chart shows loading spinner while benchmarks are being fetched."
 
+  - task: "Add Organization Overview section to System pre-assessment form"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/SystemPreAssessmentForm.js, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported error 'Failed to load sector benchmarks' when viewing System assessment results. This is because the System pre-assessment form doesn't collect organization industry information, which is required to fetch the appropriate sector benchmarks for the radar chart."
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Added Organization Overview section to System pre-assessment form. FRONTEND: 1) Added INDUSTRY_OPTIONS array with 8 sectors matching benchmark data (Local Government/Public Sector, Education, Healthcare, Finance/Insurance, Utilities/Critical Infrastructure, Retail/Hospitality, Technology/Software, Not-for-profit/Charity, Other), 2) Added organizationName and industry fields to defaultState, 3) Created new Card section 'Organization Overview' with Building2 icon before System Overview section, 4) Added organization name input field (required), 5) Added industry dropdown with all 8 sector options, 6) Added helper text explaining industry is used for sector benchmarks comparison. BACKEND: 1) Modified update_system_info endpoint (line 1356) to check if industry is provided in system_info, 2) If industry is provided and organization doesn't have primary_industry set, automatically update organization's primary_industry field, 3) This ensures user.industry is populated for benchmark fetching. The organization industry will now be captured during System assessment onboarding, enabling the radar chart to fetch and display sector benchmarks correctly."
+
   - task: "Fix React runtime errors caused by missing data fields"
     implemented: true
     working: true
