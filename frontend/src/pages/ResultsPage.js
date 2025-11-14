@@ -87,6 +87,13 @@ function ResultsPage() {
     fetchResults();
   }, [id]);
 
+  useEffect(() => {
+    // Fetch benchmarks when switching to benchmark view for System assessments
+    if (viewMode === 'benchmark' && assessmentType === 'System' && user?.industry && !benchmarks) {
+      fetchBenchmarks(user.industry);
+    }
+  }, [viewMode, assessmentType, user]);
+
   const fetchResults = async () => {
     try {
       // TESTING: Use mock data for layout testing
