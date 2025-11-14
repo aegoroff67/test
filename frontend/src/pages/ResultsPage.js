@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Tooltip, PieChart, Pie, Cell, Legend } from 'recharts';
 import MaturityStackedColumn from '../components/MaturityDonutChart';
+import DomainBenchmarkRadar from '../components/DomainBenchmarkRadar';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
