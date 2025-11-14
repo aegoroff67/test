@@ -211,12 +211,15 @@ function ResultsPage() {
 
   const fetchBenchmarks = async (sector) => {
     try {
+      console.log('Fetching benchmarks for sector:', sector);
       const response = await axios.get(`${API}/sectors/${encodeURIComponent(sector)}/benchmarks`);
+      console.log('Benchmarks response:', response.data);
       setBenchmarks(response.data.benchmarks);
       setBenchmarkSector(sector);
     } catch (error) {
       console.error('Error fetching benchmarks:', error);
-      toast.error('Failed to load sector benchmarks');
+      console.error('Error details:', error.response?.data);
+      toast.error(`Failed to load sector benchmarks${error.response?.data?.detail ? ': ' + error.response.data.detail : ''}`);
     }
   };
 
