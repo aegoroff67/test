@@ -1373,6 +1373,15 @@ async def update_system_info(
         # Generate new name: [Type]_[Target Name]_In-Progress_YYYY-MM-DD
         updated_name = f"{assessment_type}_{system_info['systemName']}_In-Progress_{started_date}"
     
+    # If industry is provided in system_info, update the organization's primary_industry if not already set
+    if system_info.get("industry"):
+        org = await db.organizations.find_one({"id": current_user.org_id})
+        if org and not org.get("primary_industry"):
+            await db.organizations.update_one(
+                {"id": current_user.org_id},
+                {"$set": {"primary_industry": system_info["industry"]}}
+            )
+    
     # Update assessment with system_info and updated name
     await db.assessments.update_one(
         {"id": assessment_id},
