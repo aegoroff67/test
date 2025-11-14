@@ -79,6 +79,9 @@ function ResultsPage() {
   const [loading, setLoading] = useState(true);
   const [generatingReport, setGeneratingReport] = useState(false);
   const [generatingPDF, setGeneratingPDF] = useState(false);
+  const [viewMode, setViewMode] = useState('heatmap'); // 'heatmap' or 'benchmark'
+  const [benchmarks, setBenchmarks] = useState(null);
+  const [benchmarkSector, setBenchmarkSector] = useState(null);
 
   useEffect(() => {
     fetchResults();
