@@ -196,6 +196,17 @@ function ResultsPage() {
     }
   };
 
+  const fetchBenchmarks = async (sector) => {
+    try {
+      const response = await axios.get(`${API}/sectors/${encodeURIComponent(sector)}/benchmarks`);
+      setBenchmarks(response.data.benchmarks);
+      setBenchmarkSector(sector);
+    } catch (error) {
+      console.error('Error fetching benchmarks:', error);
+      toast.error('Failed to load sector benchmarks');
+    }
+  };
+
   const generateReport = async () => {
     setGeneratingReport(true);
     try {
