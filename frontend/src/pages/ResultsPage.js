@@ -82,6 +82,8 @@ function ResultsPage() {
   const [viewMode, setViewMode] = useState('heatmap'); // 'heatmap' or 'benchmark'
   const [benchmarks, setBenchmarks] = useState(null);
   const [benchmarkSector, setBenchmarkSector] = useState(null);
+  const [showIndustrySelector, setShowIndustrySelector] = useState(false);
+  const [selectedIndustry, setSelectedIndustry] = useState('');
 
   useEffect(() => {
     fetchResults();
