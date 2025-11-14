@@ -2032,21 +2032,17 @@ async def get_sectors():
     sectors = await get_all_sectors(db)
     return {"sectors": sectors}
 
-@api_router.get("/sectors/{sector}/benchmarks")
+@api_router.get("/sectors/{sector:path}/benchmarks")
 async def get_benchmarks_by_sector(sector: str):
     """
     Get benchmark data for a specific sector.
     Returns domain names mapped to benchmark scores (0-100%).
-    """
-    # Debug logging to see what sector parameter we receive
-    print(f"DEBUG: Received sector parameter: {repr(sector)}")
     
+    Note: Using {sector:path} to handle sectors with forward slashes like "Finance / Insurance"
+    """
     benchmarks = await get_sector_benchmarks(db, sector)
     
     if not benchmarks:
-        # Also debug what sectors are available
-        available_sectors = await get_all_sectors(db)
-        print(f"DEBUG: Available sectors: {available_sectors}")
         raise HTTPException(
             status_code=404, 
             detail=f"No benchmark data found for sector: {sector}"
