@@ -40,6 +40,12 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 app = FastAPI(title="AM AI SAFE API")
 api_router = APIRouter(prefix="/api")
 
+# Startup event to seed benchmarks
+@app.on_event("startup")
+async def startup_event():
+    """Seed benchmarks on application startup if not already present"""
+    await seed_benchmarks(db)
+
 # Helper Functions
 def normalize_org_name(raw_name: str) -> str:
     """
