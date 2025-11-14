@@ -682,11 +682,35 @@ function ResultsPage() {
             ) : (
               /* Radar Chart - Domain Benchmarks */
               <div className="h-[500px]" data-testid="domain-benchmarks">
-                {benchmarks ? (
+                {showIndustrySelector ? (
+                  <div className="flex items-center justify-center h-full">
+                    <div className="text-center max-w-md">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Your Industry</h3>
+                      <p className="text-sm text-gray-600 mb-4">
+                        To view sector benchmark comparisons, please select your organization's industry.
+                      </p>
+                      <select
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                        value={selectedIndustry}
+                        onChange={(e) => setSelectedIndustry(e.target.value)}
+                      >
+                        <option value="">-- Select Industry --</option>
+                        <option value="Local Government / Public Sector">Local Government / Public Sector</option>
+                        <option value="Education">Education</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Finance / Insurance">Finance / Insurance</option>
+                        <option value="Utilities / Critical Infrastructure">Utilities / Critical Infrastructure</option>
+                        <option value="Retail / Hospitality">Retail / Hospitality</option>
+                        <option value="Technology / Software">Technology / Software</option>
+                        <option value="Not-for-profit / Charity">Not-for-profit / Charity</option>
+                      </select>
+                    </div>
+                  </div>
+                ) : benchmarks ? (
                   <DomainBenchmarkRadar
                     domainScores={summary.domain_scores}
                     benchmarks={benchmarks}
-                    sector={benchmarkSector || user?.industry || 'Unknown'}
+                    sector={benchmarkSector || selectedIndustry || user?.industry || 'Unknown'}
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full">
