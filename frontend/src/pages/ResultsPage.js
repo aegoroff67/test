@@ -662,7 +662,26 @@ function ResultsPage() {
                   </div>
                 );
               })}
-            </div>
+              </div>
+            ) : (
+              /* Radar Chart - Domain Benchmarks */
+              <div className="h-[500px]" data-testid="domain-benchmarks">
+                {benchmarks ? (
+                  <DomainBenchmarkRadar
+                    domainScores={summary.domain_scores}
+                    benchmarks={benchmarks}
+                    sector={benchmarkSector || user?.industry || 'Unknown'}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full">
+                    <div className="text-center">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto mb-4"></div>
+                      <p className="text-gray-600">Loading sector benchmarks...</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
