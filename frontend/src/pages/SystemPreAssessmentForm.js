@@ -282,6 +282,47 @@ export default function SystemPreAssessmentForm() {
           </p>
         </div>
 
+        {/* Organization Overview */}
+        <Card>
+          <CardHeader className="bg-teal-50 border-b border-teal-100">
+            <div className="flex items-center space-x-2">
+              <Building2 className="h-5 w-5 text-teal-600" />
+              <CardTitle className="text-xl">Organization Overview</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="organizationName">Organization name</Label>
+              <Input 
+                id="organizationName" 
+                value={form.organizationName} 
+                onChange={(e) => update("organizationName", e.target.value)}
+                placeholder="e.g., Acme Corporation" 
+                required 
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="industry">Industry / Sector</Label>
+              <Select onValueChange={(v) => update("industry", v)} value={form.industry}>
+                <SelectTrigger id="industry">
+                  <SelectValue placeholder="Select industry" />
+                </SelectTrigger>
+                <SelectContent>
+                  {INDUSTRY_OPTIONS.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-gray-500">
+                This helps us compare your results with sector benchmarks
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* System Overview */}
         <Card>
           <CardHeader className="bg-teal-50 border-b border-teal-100">
