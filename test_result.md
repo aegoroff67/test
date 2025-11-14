@@ -105,6 +105,30 @@
 ## user_problem_statement: Implement radar chart showing domain scores compared to sector benchmarks for AI System Maturity Assessment
 
 ## backend:
+  - task: "Seed AI maturity sector benchmarks into database"
+    implemented: true
+    working: true
+    file: "/app/backend/benchmark_utils.py, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Created benchmark_utils.py with functions to seed and retrieve sector benchmarks. Downloaded JSON file with 88 benchmark records (8 sectors × 11 domains). Added startup event to server.py to automatically seed benchmarks on application start. Benchmarks stored in sector_benchmarks collection."
+
+  - task: "Create API endpoints for sector benchmarks"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Added two API endpoints: GET /api/sectors (returns list of all sectors) and GET /api/sectors/{sector}/benchmarks (returns benchmark data for specific sector with domain names mapped to scores 0-100%). Endpoints tested successfully with curl."
+
   - task: "Remove incorrect generated explanations and pre-defined answers from server.py"
     implemented: true
     working: true
