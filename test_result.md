@@ -1228,3 +1228,25 @@
         - working: "NA"
         - agent: "main"
         - comment: "IMPLEMENTED FIX: Refactored get_assessment_status endpoint for Readiness assessments to return correct structure matching Awareness and System assessments. CHANGES: 1) Moved answer fetching to top of Readiness block, 2) Created domain_questions dictionary grouped by domain order with structure matching Awareness pattern, 3) Built status_overview array with domain_id, domain_name, and questions (containing question_id, question_code, question_text, answered, review_status), 4) Calculated completion_percentage, 5) Returned structure: assessment_id, total_questions (48), answered_questions, completion_percentage, status_overview. Now returns same format as Awareness/System status endpoints, enabling View All component to render correctly without crashes. Backend restarted successfully. Ready for testing to verify View All button works for Readiness assessments."
+
+
+## metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 2
+  run_ui: false
+
+## test_plan:
+  current_focus:
+    - "Seed AI maturity sector benchmarks into database"
+    - "Create API endpoints for sector benchmarks"
+    - "Create DomainBenchmarkRadar component"
+    - "Add radio button toggle and conditional rendering to ResultsPage"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+## agent_communication:
+    - agent: "main"
+    - message: "RADAR CHART BENCHMARK FEATURE IMPLEMENTED: Completed implementation of radar chart visualization comparing organization's domain scores with sector benchmarks for AI System Maturity Assessment. BACKEND: 1) Downloaded benchmark JSON file (88 records: 8 sectors × 11 domains), 2) Created benchmark_utils.py with seed_benchmarks, get_sector_benchmarks, and get_all_sectors functions, 3) Added startup event to automatically seed benchmarks on app start, 4) Created two API endpoints: GET /api/sectors (returns list of 8 sectors) and GET /api/sectors/{sector}/benchmarks (returns domain benchmarks 0-100% for specific sector), 5) Successfully tested endpoints with curl - benchmarks stored in sector_benchmarks collection. FRONTEND: 1) Installed recharts@3.4.1 library for radar chart, 2) Created DomainBenchmarkRadar.js component with dual overlay (Your Score in blue, Sector Benchmark in green dashed), includes custom tooltip and legend, 3) Updated ResultsPage.js with state management (viewMode, benchmarks, benchmarkSector), 4) Added radio buttons at top-right of center panel (Assessment Heatmap | Domain Benchmarks) - ONLY visible for System assessments, 5) Implemented conditional rendering to toggle between heatmap and radar chart, 6) Added fetchBenchmarks function to retrieve sector data from API based on user.industry, 7) Added loading spinner while benchmarks are being fetched. SCORING CALCULATION: Questions scored 1-4 map to 25%, 50%, 75%, 100% respectively. Domain score = average of 8 questions per domain. Ready for testing. Please test: 1) Complete a System assessment, 2) View results page, 3) Verify radio buttons appear at top-right of center panel, 4) Switch to 'Domain Benchmarks' view, 5) Verify radar chart displays with organization's scores vs sector benchmarks, 6) Confirm radio buttons do NOT appear for Awareness/Readiness/Orgwide assessments."
+
