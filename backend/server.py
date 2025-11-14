@@ -2025,6 +2025,33 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
         answered_questions=len(answers)
     )
 
+
+@api_router.get("/sectors")
+async def get_sectors():
+    """Get list of all available sectors for benchmarking"""
+    sectors = await get_all_sectors(db)
+    return {"sectors": sectors}
+
+@api_router.get("/sectors/{sector}/benchmarks")
+async def get_benchmarks_by_sector(sector: str):
+    """
+    Get benchmark data for a specific sector.
+    Returns domain names mapped to benchmark scores (0-100%).
+    """
+    benchmarks = await get_sector_benchmarks(db, sector)
+    
+    if not benchmarks:
+        raise HTTPException(
+            status_code=404, 
+            detail=f"No benchmark data found for sector: {sector}"
+        )
+    
+    return {
+        "sector": sector,
+        "benchmarks": benchmarks
+    }
+
+
 @api_router.get("/assessments/{assessment_id}/status")
 async def get_assessment_status(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
