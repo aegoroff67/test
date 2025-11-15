@@ -23,20 +23,9 @@ export const INDUSTRIES = [
 ];
 
 /**
- * Mapping for industries that don't have specific benchmark data
- * Maps to the closest matching sector in the benchmark data
- */
-export const INDUSTRY_BENCHMARK_MAPPING = {
-  "Manufacturing": "Utilities / Critical Infrastructure", // Similar regulatory and operational complexity
-  "Consulting / Professional Services": "Technology / Software", // Knowledge work and innovation focus
-  "Other": "Technology / Software" // Default fallback
-};
-
-/**
  * Get the benchmark sector for a given industry
- * Returns the industry itself if it has direct benchmark data,
- * or maps to a similar sector if it doesn't
+ * All industries now have direct benchmark data in v2
  */
 export function getBenchmarkSector(industry) {
-  return INDUSTRY_BENCHMARK_MAPPING[industry] || industry;
+  return industry;
 }
