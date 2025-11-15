@@ -291,12 +291,12 @@ COMPLETE_QUESTIONS_DATA = [
     },
     {
         "code": 'AC-3',
-        "text": 'Are there policies for escalating issues identified in the AI system?',
+        "text": 'Are roles and responsibilities for AI risk, ethics, and compliance formally defined and assigned (e.g., system owner, risk owner, model steward)?',
         "explanation": 'Not all issues can be resolved at the operational level; some may require escalation to higher authorities or specialized teams. This question ensures you have clear escalation policies in place for handling significant issues.\n\nFor example, if a critical safety flaw is detected in an AI-powered autonomous vehicle system, does your escalation policy ensure rapid communication to executives and external regulators? Having defined escalation paths helps prevent delays in addressing high-stakes problems.',
-        "foundational_answer": 'There are no policies in place for escalating issues.',
-        "developing_answer": 'Issues are escalated informally, relying on individual discretion.',
-        "established_answer": 'Escalation policies exist but are inconsistently applied or understood.',
-        "leading_answer": 'Formal escalation policies are documented, with clear paths for resolving critical issues efficiently.',
+        "foundational_answer": 'No clear roles or responsibilities for AI risk, ethics, or compliance have been defined.',
+        "developing_answer": 'Responsibility is assumed by a team or function, but individual accountabilities are unclear.',
+        "established_answer": 'Roles and responsibilities are understood informally and partially documented, but not consistently maintained or reviewed.',
+        "leading_answer": 'Roles and responsibilities for AI risk, ethics, and compliance are clearly defined, formally documented, and assigned to named owners (e.g., system owner, risk owner, model steward), with regular review.',
         "domain_order": 4,
         "order": 3
     },
