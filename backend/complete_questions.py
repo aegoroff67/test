@@ -885,12 +885,12 @@ COMPLETE_QUESTIONS_DATA = [
     },
     {
         "code": 'SU-1',
-        "text": 'What is the environmental impact of training and deploying your AI system (e.g., energy usage, carbon footprint)?',
+        "text": 'How do you assess the environmental impact of training and running your AI system (e.g., energy usage, compute intensity, carbon footprint)?',
         "explanation": "AI systems, particularly large models, can have significant environmental impacts through energy consumption during training and inference. This question examines your awareness and measurement of these impacts.\n\nFor example, training large language models can consume the equivalent energy of hundreds of homes for weeks. Understanding your system's environmental footprint is the first step toward responsible AI development and helps inform decisions about model complexity and deployment strategies.",
-        "foundational_answer": 'No consideration or measurement of environmental impact.',
-        "developing_answer": 'Have general awareness of environmental impact but no detailed measurement.',
-        "established_answer": 'Monitor basic energy usage and estimate environmental impact of AI operations.',
-        "leading_answer": 'Measure and track the carbon footprint and energy consumption of AI training and deployment with detailed environmental impact assessments.',
+        "foundational_answer": 'No assessments are conducted to measure the environmental impact of the AI system.',
+        "developing_answer": 'Informally estimate environmental impact without consistent measurement or documentation.',
+        "established_answer": 'Conduct periodic assessments of energy usage and emissions, mainly during major training runs, with some influence on technical decisions.',
+        "leading_answer": 'Regularly measure and report the environmental impact of both training and inference workloads, including energy use, compute intensity, and estimated carbon emissions, and use this data to guide design and infrastructure decisions.',
         "domain_order": 11,
         "order": 1
     },
