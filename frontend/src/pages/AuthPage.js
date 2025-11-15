@@ -306,7 +306,7 @@ function AuthPage() {
                       </div>
                       
                       <div className="space-y-2">
-                        <Label htmlFor="signup-industry">Industry / sector *</Label>
+                        <Label htmlFor="signup-industry">Industry / Sector *</Label>
                         <Select 
                           value={signUpData.industry} 
                           onValueChange={(value) => setSignUpData({...signUpData, industry: value})}
