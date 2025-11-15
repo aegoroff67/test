@@ -302,7 +302,7 @@ export default function OrgPreAssessmentForm() {
 
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label>Industry sector *</Label>
+                  <Label>Industry / Sector *</Label>
                   <Select value={form.industry} onValueChange={(v) => update('industry', v)}>
                     <SelectTrigger><SelectValue placeholder="Select industry" /></SelectTrigger>
                     <SelectContent>
