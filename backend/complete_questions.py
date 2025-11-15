@@ -742,12 +742,12 @@ COMPLETE_QUESTIONS_DATA = [
     },
     {
         "code": 'SA-4',
-        "text": "How do you handle situations where the system's actions conflict with human safety requirements?",
+        "text": "How do you handle situations where the system's actions conflict with human safety requirements or safety policies?",
         "explanation": "AI systems may sometimes make decisions that conflict with human safety needs, requiring clear protocols for resolution. This question examines your approach to prioritizing human safety in such conflicts.\n\nFor instance, an AI system optimizing energy usage might suggest actions that could compromise building safety systems. Clear hierarchies that prioritize human safety over other objectives ensure that AI systems don't endanger people in pursuit of their programmed goals.",
-        "foundational_answer": 'No specific approach exists for handling safety conflicts.',
-        "developing_answer": 'Address safety conflicts on a case-by-case basis without established protocols.',
-        "established_answer": 'Have protocols for human review and intervention when safety conflicts are identified.',
-        "leading_answer": 'Implement clear safety hierarchies with human oversight and intervention capabilities to resolve conflicts in favor of human safety.',
+        "foundational_answer": 'No specific measures exist to handle conflicts between system actions and human safety requirements.',
+        "developing_answer": 'Rely mainly on manual intervention and ad-hoc decisions to address safety conflicts when they arise.',
+        "established_answer": 'Include basic safety protocols and some human override options, but they are not consistently documented, tested, or reviewed.',
+        "leading_answer": 'Implement documented safety protocols, including clearly defined fail-safe mechanisms, human override capabilities, and escalation paths. These are tested against realistic scenarios and regularly reviewed.',
         "domain_order": 9,
         "order": 4
     },
