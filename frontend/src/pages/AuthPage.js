@@ -10,11 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from 'sonner';
 import Logo from '../components/Logo';
 import { CheckCircle2, Users, BarChart3 } from 'lucide-react';
-
-const industries = [
-  'Technology', 'Healthcare', 'Financial Services', 'Manufacturing',
-  'Education', 'Government', 'Retail', 'Consulting', 'Other'
-];
+import { INDUSTRIES } from '../constants/industries';
 
 function AuthPage() {
   const [activeTab, setActiveTab] = useState('signin');
