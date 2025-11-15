@@ -232,7 +232,7 @@ export default function AwarenessPreAssessmentForm() {
             </div>
 
             <div className="space-y-2">
-              <Label>Industry / sector *</Label>
+              <Label>Industry / Sector *</Label>
               <Select value={form.industry} onValueChange={(v) => update("industry", v)}>
                 <SelectTrigger><SelectValue placeholder="Select industry" /></SelectTrigger>
                 <SelectContent>
