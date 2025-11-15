@@ -43,7 +43,7 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector }) => {
       
       <div className="flex-1 min-h-0">
         <ResponsiveContainer width="100%" height="100%">
-          <RadarChart data={radarData} margin={{ top: 20, right: 60, bottom: 20, left: 60 }}>
+          <RadarChart data={radarData} margin={{ top: -20, right: 60, bottom: 20, left: 60 }}>
             <PolarGrid stroke="#e5e7eb" strokeWidth={1.5} />
             <PolarAngleAxis 
               dataKey="domain" 
