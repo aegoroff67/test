@@ -316,7 +316,7 @@ function AuthPage() {
                             <SelectValue placeholder="Select your industry" />
                           </SelectTrigger>
                           <SelectContent>
-                            {industries.map((industry) => (
+                            {INDUSTRIES.map((industry) => (
                               <SelectItem 
                                 key={industry} 
                                 value={industry}
