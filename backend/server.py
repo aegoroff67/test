@@ -1443,6 +1443,14 @@ async def update_readiness_info(
         # Generate new name: [Type]_[Org Name]_In-Progress_YYYY-MM-DD
         updated_name = f"{assessment_type}_{readiness_info['org_name']}_In-Progress_{started_date}"
     
+    # If industry is provided in readiness_info, update the organization's primary_industry
+    # This allows pre-assessment to override the industry selected during signup
+    if readiness_info.get("industry"):
+        await db.organizations.update_one(
+            {"id": current_user.org_id},
+            {"$set": {"primary_industry": readiness_info["industry"]}}
+        )
+    
     # Update assessment with readiness_info and updated name
     await db.assessments.update_one(
         {"id": assessment_id},
