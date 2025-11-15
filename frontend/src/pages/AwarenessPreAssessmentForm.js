@@ -236,7 +236,7 @@ export default function AwarenessPreAssessmentForm() {
               <Select value={form.industry} onValueChange={(v) => update("industry", v)}>
                 <SelectTrigger><SelectValue placeholder="Select industry" /></SelectTrigger>
                 <SelectContent>
-                  {INDUSTRY_OPTIONS.map((opt) => (
+                  {INDUSTRIES.map((opt) => (
                     <SelectItem key={opt} value={opt}>{opt}</SelectItem>
                   ))}
                 </SelectContent>
