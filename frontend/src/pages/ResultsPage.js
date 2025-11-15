@@ -713,14 +713,11 @@ function ResultsPage() {
                         onChange={(e) => setSelectedIndustry(e.target.value)}
                       >
                         <option value="">-- Select Industry --</option>
-                        <option value="Local Government / Public Sector">Local Government / Public Sector</option>
-                        <option value="Education">Education</option>
-                        <option value="Healthcare">Healthcare</option>
-                        <option value="Finance / Insurance">Finance / Insurance</option>
-                        <option value="Utilities / Critical Infrastructure">Utilities / Critical Infrastructure</option>
-                        <option value="Retail / Hospitality">Retail / Hospitality</option>
-                        <option value="Technology / Software">Technology / Software</option>
-                        <option value="Not-for-profit / Charity">Not-for-profit / Charity</option>
+                        {INDUSTRIES.map((industry) => (
+                          <option key={industry} value={industry}>
+                            {industry}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
