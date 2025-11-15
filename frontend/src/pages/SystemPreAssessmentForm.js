@@ -297,7 +297,7 @@ export default function SystemPreAssessmentForm() {
                   <SelectValue placeholder="Select industry" />
                 </SelectTrigger>
                 <SelectContent>
-                  {INDUSTRY_OPTIONS.map((option) => (
+                  {INDUSTRIES.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
                     </SelectItem>
