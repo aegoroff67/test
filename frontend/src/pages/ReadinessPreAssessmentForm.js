@@ -16,22 +16,10 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
+import { INDUSTRIES } from '../constants/industries';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
-
-// Industry options
-const INDUSTRIES = [
-  "Local government / Public sector",
-  "Education",
-  "Healthcare",
-  "Finance / Insurance",
-  "Utilities / Critical infrastructure",
-  "Retail / Hospitality",
-  "Technology / Software",
-  "Not-for-profit / Charity",
-  "Other"
-];
 
 // Organization size options
 const ORG_SIZES = [
