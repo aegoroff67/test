@@ -39,7 +39,6 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector }) => {
       <div className="text-center -mb-8">
         <h3 className="text-lg font-semibold text-gray-900">Domain Benchmarks</h3>
         <p className="text-sm text-gray-600">Comparing with {sector} sector</p>
-        <p className="text-xs text-gray-500 mt-1">Values shown as percentages (0-100%)</p>
       </div>
       
       <div className="flex-1 min-h-0">
@@ -56,6 +55,7 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector }) => {
               domain={[0, 100]} 
               tick={{ fill: '#6b7280', fontSize: 11 }}
               tickCount={6}
+              tickFormatter={(value) => `${value}%`}
             />
             <Radar 
               name="Your Score" 
