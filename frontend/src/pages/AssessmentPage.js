@@ -325,13 +325,12 @@ function AssessmentPage() {
   const handleOpenQuestionHelp = () => {
     // Show additional guidance for the current question
     if (currentQuestion && currentQuestion.code) {
-      // For Readiness and Organisation assessments, use additional_guide from the API response
-      // For System assessments, use questionGuidanceData (static JSON)
-      let guidance = null;
+      // Try to get additional guidance from the API response first
+      // This works for all assessment types (System, Readiness, Organisation)
+      let guidance = currentQuestion.additional_guidance || currentQuestion.additional_guide;
       
-      if ((assessmentType === 'Readiness' || assessmentType === 'Orgwide') && currentQuestion.additional_guide) {
-        guidance = currentQuestion.additional_guide;
-      } else {
+      // Fallback to static JSON for backwards compatibility
+      if (!guidance) {
         guidance = questionGuidanceData[currentQuestion.code];
       }
       
