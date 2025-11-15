@@ -12,6 +12,7 @@ import { Building2, Lightbulb, Target, Shield, ClipboardCheck, ArrowLeft } from 
 import { toast } from 'sonner';
 import axios from 'axios';
 import Logo from '../components/Logo';
+import { INDUSTRIES } from '../constants/industries';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -24,17 +25,6 @@ const API = `${BACKEND_URL}/api`;
  */
 
 // Option helpers based on the JSON schema
-const INDUSTRY_OPTIONS = [
-  "Local government / Public sector",
-  "Education",
-  "Healthcare",
-  "Finance / Insurance",
-  "Utilities / Critical infrastructure",
-  "Retail / Hospitality",
-  "Technology / Software",
-  "Not-for-profit / Charity",
-  "Other"
-];
 
 const ORG_SIZE_OPTIONS = [
   "1–49",
