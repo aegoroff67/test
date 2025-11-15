@@ -694,7 +694,7 @@ function ResultsPage() {
               </div>
             ) : (
               /* Radar Chart - Domain Benchmarks */
-              <div className="h-[665px]" data-testid="domain-benchmarks">
+              <div className="h-[650px]" data-testid="domain-benchmarks">
                 {showIndustrySelector ? (
                   <div className="flex items-center justify-center h-full">
                     <div className="text-center max-w-md">
