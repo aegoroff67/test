@@ -819,12 +819,12 @@ COMPLETE_QUESTIONS_DATA = [
     },
     {
         "code": 'IN-3',
-        "text": 'Have you audited the system for potential exclusionary outcomes or unintended impacts?',
+        "text": 'Have you audited the system for potential exclusionary outcomes or unintended impacts on different demographic, cultural, or accessibility groups?',
         "explanation": 'AI systems can inadvertently exclude certain groups or create unintended negative impacts. This question examines whether you proactively audit for such exclusionary effects.\n\nFor example, a credit scoring AI might inadvertently discriminate against certain ethnic groups or geographic regions. Regular audits help identify and address exclusionary patterns before they cause significant harm to affected communities.',
-        "foundational_answer": 'No auditing for exclusionary outcomes is conducted.',
-        "developing_answer": 'Review system outcomes occasionally or only when issues are reported.',
-        "established_answer": 'Perform periodic audits focusing on key metrics and obvious exclusionary patterns.',
-        "leading_answer": 'Conduct regular comprehensive audits for exclusionary outcomes using both quantitative analysis and qualitative community feedback.',
+        "foundational_answer": 'No audits have been conducted for exclusionary outcomes or unintended group impacts.',
+        "developing_answer": 'Address exclusionary outcomes reactively when raised by users, regulators, or staff, without structured audits.',
+        "established_answer": 'Perform occasional audits for exclusionary impacts affecting some key user groups, with partial follow-up.',
+        "leading_answer": 'Conduct regular, comprehensive audits for exclusionary outcomes across multiple demographic, cultural, and accessibility groups, and take documented corrective actions.',
         "domain_order": 10,
         "order": 3
     },
