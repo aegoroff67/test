@@ -433,7 +433,7 @@ async def signup(user_data: UserSignUp):
             display_name=user_data.organization_name,
             name_normalised=normalized_name,
             industry=user_data.industry,  # Keep for backward compatibility
-            primary_industry=None  # Admin will set this later
+            primary_industry=user_data.industry  # Set from signup, can be overridden in pre-assessment
         )
         await db.organizations.insert_one(new_org.dict())
         org_id = new_org.id
