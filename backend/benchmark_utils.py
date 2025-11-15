@@ -6,19 +6,29 @@ from pathlib import Path
 from typing import Dict, List
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
+BENCHMARK_VERSION = "v2"  # Update this when benchmark data changes
+
 async def seed_benchmarks(db: AsyncIOMotorDatabase):
     """
     Seed the database with benchmark data from JSON file.
-    Only runs if benchmarks collection is empty.
+    Re-seeds if version changes.
     """
-    # Check if benchmarks already exist
-    count = await db.sector_benchmarks.count_documents({})
-    if count > 0:
-        print(f"Benchmarks already seeded ({count} records found)")
+    # Check current version in database
+    version_doc = await db.benchmark_metadata.find_one({"_id": "version"})
+    current_version = version_doc["version"] if version_doc else None
+    
+    # If version matches, skip seeding
+    if current_version == BENCHMARK_VERSION:
+        count = await db.sector_benchmarks.count_documents({})
+        print(f"Benchmarks up to date (version {BENCHMARK_VERSION}, {count} records)")
         return
     
+    # Version changed or first run - clear old data and reseed
+    print(f"Updating benchmarks from {current_version or 'v1'} to {BENCHMARK_VERSION}")
+    await db.sector_benchmarks.delete_many({})
+    
     # Load benchmark data from JSON file
-    json_path = Path(__file__).parent / "ai_maturity_benchmarks_v1_SYSTEM.json"
+    json_path = Path(__file__).parent / "ai_maturity_benchmarks_SYSTEM.json"
     
     with open(json_path, 'r') as f:
         benchmark_data = json.load(f)
@@ -26,7 +36,15 @@ async def seed_benchmarks(db: AsyncIOMotorDatabase):
     # Insert all benchmark records
     if benchmark_data:
         await db.sector_benchmarks.insert_many(benchmark_data)
-        print(f"Successfully seeded {len(benchmark_data)} benchmark records")
+        
+        # Update version
+        await db.benchmark_metadata.update_one(
+            {"_id": "version"},
+            {"$set": {"version": BENCHMARK_VERSION, "record_count": len(benchmark_data)}},
+            upsert=True
+        )
+        
+        print(f"Successfully seeded {len(benchmark_data)} benchmark records (version {BENCHMARK_VERSION})")
 
 async def get_sector_benchmarks(db: AsyncIOMotorDatabase, sector: str) -> Dict[str, float]:
     """
