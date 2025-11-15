@@ -1,0 +1,970 @@
+[
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 25,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Security",
+    "benchmark_mean_score": 28,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 30,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 24,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 26,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 22,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 27,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 25,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 26,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 23,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Local Government / Public Sector",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 24,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 26,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Security",
+    "benchmark_mean_score": 29,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 31,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 27,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 28,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 25,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 27,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 26,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 28,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 24,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Education",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 26,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 32,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Security",
+    "benchmark_mean_score": 35,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 34,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 33,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 31,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 30,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 29,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 33,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 35,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 28,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Healthcare",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 29,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 40,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Security",
+    "benchmark_mean_score": 45,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 43,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 38,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 39,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 36,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 37,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 41,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 44,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 35,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Finance / Insurance",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 34,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 46,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Security",
+    "benchmark_mean_score": 50,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 48,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 44,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 43,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 40,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 42,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 46,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 47,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 38,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Technology / Software",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 39,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 31,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Security",
+    "benchmark_mean_score": 33,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 32,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 30,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 28,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 27,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 29,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 32,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 33,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 27,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Utilities / Critical Infrastructure",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 28,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 34,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Security",
+    "benchmark_mean_score": 37,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 33,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 35,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 30,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 28,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 30,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 36,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 37,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 29,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Manufacturing",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 32,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 33,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Security",
+    "benchmark_mean_score": 36,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 34,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 32,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 31,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 29,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 30,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 33,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 34,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 29,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Retail / Hospitality",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 30,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 38,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Security",
+    "benchmark_mean_score": 42,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 40,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 37,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 39,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 36,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 37,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 41,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 42,
+    "benchmark_range_category": "Developing",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 34,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Consulting / Professional Services",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 33,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 23,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Security",
+    "benchmark_mean_score": 26,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 25,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 21,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 22,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 20,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 23,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 24,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 24,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 20,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Not-for-profit / Charity",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 21,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Accountability",
+    "benchmark_mean_score": 30,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Security",
+    "benchmark_mean_score": 33,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Privacy",
+    "benchmark_mean_score": 32,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Safety",
+    "benchmark_mean_score": 30,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Transparency",
+    "benchmark_mean_score": 29,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Fairness",
+    "benchmark_mean_score": 27,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Explainability",
+    "benchmark_mean_score": 29,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Reliability",
+    "benchmark_mean_score": 31,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Data Integrity",
+    "benchmark_mean_score": 32,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Inclusivity",
+    "benchmark_mean_score": 27,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  },
+  {
+    "sector_type": "Other",
+    "domain_name": "Sustainability",
+    "benchmark_mean_score": 28,
+    "benchmark_range_category": "Foundational",
+    "last_updated": "2025-11-15",
+    "source_reference": "AM AI SAFE consolidated benchmark v2 (derived from public research)"
+  }
+]
