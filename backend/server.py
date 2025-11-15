@@ -1412,6 +1412,14 @@ async def update_org_info(
         # Generate new name: [Type]_[Org Name]_In-Progress_YYYY-MM-DD
         updated_name = f"{assessment_type}_{org_info['org_name']}_In-Progress_{started_date}"
     
+    # If industry is provided in org_info, update the organization's primary_industry
+    # This allows pre-assessment to override the industry selected during signup
+    if org_info.get("industry"):
+        await db.organizations.update_one(
+            {"id": current_user.org_id},
+            {"$set": {"primary_industry": org_info["industry"]}}
+        )
+    
     # Update assessment with org_info and updated name
     await db.assessments.update_one(
         {"id": assessment_id},
