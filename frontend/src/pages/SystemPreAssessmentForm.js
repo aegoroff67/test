@@ -159,19 +159,6 @@ const REGULATIONS = [
   "Other / Not sure",
 ];
 
-// Industry options for organization overview
-const INDUSTRY_OPTIONS = [
-  "Local Government / Public Sector",
-  "Education",
-  "Healthcare",
-  "Finance / Insurance",
-  "Utilities / Critical Infrastructure",
-  "Retail / Hospitality",
-  "Technology / Software",
-  "Not-for-profit / Charity",
-  "Other"
-];
-
 const defaultState = {
   // Organization Overview
   organizationName: "",
