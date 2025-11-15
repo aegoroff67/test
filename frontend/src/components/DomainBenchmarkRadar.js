@@ -36,52 +36,55 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector }) => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="text-center mb-4">
+      <div className="text-center mb-2">
         <h3 className="text-lg font-semibold text-gray-900">Domain Benchmarks</h3>
         <p className="text-sm text-gray-600">Comparing with {sector} sector</p>
       </div>
       
-      <ResponsiveContainer width="100%" height="100%">
-        <RadarChart data={radarData}>
-          <PolarGrid stroke="#e5e7eb" />
-          <PolarAngleAxis 
-            dataKey="domain" 
-            tick={{ fill: '#374151', fontSize: 11 }}
-            tickLine={{ stroke: '#9ca3af' }}
-          />
-          <PolarRadiusAxis 
-            angle={90} 
-            domain={[0, 100]} 
-            tick={{ fill: '#6b7280', fontSize: 10 }}
-            tickCount={6}
-          />
-          <Radar 
-            name="Your Score" 
-            dataKey="Your Score" 
-            stroke="#3b82f6" 
-            fill="#3b82f6" 
-            fillOpacity={0.5}
-            strokeWidth={2}
-          />
-          <Radar 
-            name="Sector Benchmark" 
-            dataKey="Sector Benchmark" 
-            stroke="#10b981" 
-            fill="#10b981" 
-            fillOpacity={0.3}
-            strokeWidth={2}
-            strokeDasharray="5 5"
-          />
-          <Legend 
-            verticalAlign="bottom" 
-            height={36}
-            wrapperStyle={{ paddingTop: '20px' }}
-          />
-          <Tooltip content={<CustomTooltip />} />
-        </RadarChart>
-      </ResponsiveContainer>
+      <div className="flex-1 min-h-0">
+        <ResponsiveContainer width="100%" height="100%">
+          <RadarChart data={radarData} margin={{ top: 20, right: 60, bottom: 20, left: 60 }}>
+            <PolarGrid stroke="#e5e7eb" strokeWidth={1.5} />
+            <PolarAngleAxis 
+              dataKey="domain" 
+              tick={{ fill: '#374151', fontSize: 13 }}
+              tickLine={{ stroke: '#9ca3af' }}
+            />
+            <PolarRadiusAxis 
+              angle={90} 
+              domain={[0, 100]} 
+              tick={{ fill: '#6b7280', fontSize: 11 }}
+              tickCount={6}
+            />
+            <Radar 
+              name="Your Score" 
+              dataKey="Your Score" 
+              stroke="#3b82f6" 
+              fill="#3b82f6" 
+              fillOpacity={0.5}
+              strokeWidth={2.5}
+            />
+            <Radar 
+              name="Sector Benchmark" 
+              dataKey="Sector Benchmark" 
+              stroke="#10b981" 
+              fill="#10b981" 
+              fillOpacity={0.3}
+              strokeWidth={2.5}
+              strokeDasharray="5 5"
+            />
+            <Legend 
+              verticalAlign="bottom" 
+              height={40}
+              wrapperStyle={{ paddingTop: '10px', fontSize: '14px' }}
+              iconSize={14}
+            />
+            <Tooltip content={<CustomTooltip />} />
+          </RadarChart>
+        </ResponsiveContainer>
+      </div>
       
-      <div className="mt-4 text-xs text-gray-500 text-center">
+      <div className="mt-2 text-xs text-gray-500 text-center">
         <p>Values shown as percentages (0-100%)</p>
       </div>
     </div>
