@@ -217,20 +217,27 @@ function ResultsPage() {
     }
   };
 
-  const fetchBenchmarks = async (sector) => {
+  const fetchBenchmarks = async (industry) => {
     try {
-      console.log('=== BENCHMARK FETCH DEBUG ===');
-      console.log('Sector value:', sector);
-      console.log('Sector type:', typeof sector);
-      console.log('Encoded sector:', encodeURIComponent(sector));
-      console.log('Full URL:', `${API}/sectors/${encodeURIComponent(sector)}/benchmarks`);
+      // Map the industry to a benchmark sector (some industries map to similar sectors)
+      const benchmarkSector = getBenchmarkSector(industry);
       
-      const response = await axios.get(`${API}/sectors/${encodeURIComponent(sector)}/benchmarks`);
+      console.log('=== BENCHMARK FETCH DEBUG ===');
+      console.log('Original industry:', industry);
+      console.log('Mapped to benchmark sector:', benchmarkSector);
+      console.log('Full URL:', `${API}/sectors/${encodeURIComponent(benchmarkSector)}/benchmarks`);
+      
+      const response = await axios.get(`${API}/sectors/${encodeURIComponent(benchmarkSector)}/benchmarks`);
       console.log('Benchmarks response:', response.data);
       console.log('=== FETCH SUCCESS ===');
       
       setBenchmarks(response.data.benchmarks);
-      setBenchmarkSector(sector);
+      setBenchmarkSector(benchmarkSector);
+      
+      // Show info toast if industry was mapped to a different sector
+      if (industry !== benchmarkSector) {
+        toast.info(`Comparing with ${benchmarkSector} sector benchmarks (closest match for ${industry})`);
+      }
     } catch (error) {
       console.error('=== BENCHMARK FETCH ERROR ===');
       console.error('Error:', error);
