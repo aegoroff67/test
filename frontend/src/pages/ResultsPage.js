@@ -602,7 +602,7 @@ function ResultsPage() {
         <div className="w-1/2 bg-white border-r overflow-y-auto">
           <div className="p-4">
             <div className={viewMode === 'benchmark' ? '-mb-6' : 'mb-4'}>
-              <div className="flex items-center justify-between">
+              <div className="flex items-start justify-between">
                 <div>
                   <h2 className="text-lg font-bold text-gray-900 flex items-center space-x-2">
                     <BarChart3 className={`h-5 w-5 ${
@@ -628,7 +628,7 @@ function ResultsPage() {
                 
                 {/* Radio buttons - only show for System assessments */}
                 {assessmentType === 'System' && (
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-4 mt-0.5">
                     <label className="flex items-center cursor-pointer">
                       <input
                         type="radio"
