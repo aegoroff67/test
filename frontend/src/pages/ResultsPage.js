@@ -614,13 +614,13 @@ function ResultsPage() {
                   </h2>
                   {/* Subtitle for Assessment Heatmap view */}
                   {viewMode === 'heatmap' && (
-                    <p className="text-sm text-gray-600 mt-1 ml-7">
+                    <p className="text-[12px] text-gray-600 mt-1 ml-7">
                       Responses across all domains and questions, highlighting strengths and improvement opportunities.
                     </p>
                   )}
                   {/* Subtitle for Domain Benchmarks view */}
                   {viewMode === 'benchmark' && (
-                    <p className="text-sm text-gray-600 mt-1 ml-7">
+                    <p className="text-[12px] text-gray-600 mt-1 ml-7">
                       Comparing your AI domain maturity against the <span className="font-bold">{benchmarkSector || assessment?.system_info?.industry || user?.industry || 'sector'}</span> sector average.
                     </p>
                   )}
