@@ -610,7 +610,7 @@ function ResultsPage() {
                       : assessmentType === 'Readiness' ? 'text-blue-600'
                       : 'text-teal-600'
                     }`} />
-                    <span>{viewMode === 'heatmap' ? 'Assessment Heatmap' : 'AI System Domain Maturity vs Sector Benchmark'}</span>
+                    <span>{viewMode === 'heatmap' ? 'AI Maturity Response Heatmap' : 'AI System Domain Maturity vs Sector Benchmark'}</span>
                   </h2>
                   {/* Subtitle for Assessment Heatmap view */}
                   {viewMode === 'heatmap' && (
