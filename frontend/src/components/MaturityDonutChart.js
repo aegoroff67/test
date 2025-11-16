@@ -27,7 +27,7 @@ const MaturityStackedColumn = ({ score }) => {
   return (
     <div className="flex items-center justify-center w-full" style={{ height: '120px', gap: '30px' }}>
       {/* Stacked Column */}
-      <div className="relative flex flex-col" style={{ width: '50px', height: '100px' }}>
+      <div className="relative flex flex-col" style={{ width: '75px', height: '100px' }}>
         {tiers.map((tier, index) => (
           <div
             key={index}
