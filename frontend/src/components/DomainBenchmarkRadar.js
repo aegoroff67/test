@@ -36,11 +36,6 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector }) => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="text-center -mb-8">
-        <h3 className="text-lg font-semibold text-gray-900">Domain Benchmarks</h3>
-        <p className="text-sm text-gray-600">Comparing with {sector} sector</p>
-      </div>
-      
       <div className="flex-1 min-h-0">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={radarData} margin={{ top: -20, right: 60, bottom: 20, left: 60 }}>
