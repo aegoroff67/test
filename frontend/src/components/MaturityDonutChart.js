@@ -41,7 +41,7 @@ const MaturityStackedColumn = ({ score }) => {
             }}
           >
             <div className="text-center px-1">
-              <div className="text-[7px] font-semibold leading-tight text-gray-900">
+              <div className="text-[10px] font-semibold leading-tight text-gray-900">
                 {tier.name}
               </div>
             </div>
