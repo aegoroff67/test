@@ -601,43 +601,53 @@ function ResultsPage() {
         {/* Center Panel - Assessment Heatmap / Domain Benchmarks - 50% width */}
         <div className="w-1/2 bg-white border-r overflow-y-auto">
           <div className="p-4">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-gray-900 flex items-center space-x-2">
-                <BarChart3 className={`h-5 w-5 ${
-                  assessmentType === 'Awareness' ? 'text-green-600'
-                  : assessmentType === 'Readiness' ? 'text-blue-600'
-                  : 'text-teal-600'
-                }`} />
-                <span>{viewMode === 'heatmap' ? 'Assessment Heatmap' : 'AI System Domain Maturity vs Sector Benchmark'}</span>
-              </h2>
-              
-              {/* Radio buttons - only show for System assessments */}
-              {assessmentType === 'System' && (
-                <div className="flex items-center space-x-4">
-                  <label className="flex items-center cursor-pointer">
-                    <input
-                      type="radio"
-                      name="viewMode"
-                      value="heatmap"
-                      checked={viewMode === 'heatmap'}
-                      onChange={(e) => setViewMode(e.target.value)}
-                      className="mr-2 h-4 w-4 text-teal-600 focus:ring-teal-500"
-                    />
-                    <span className="text-sm font-medium text-gray-700">Assessment Heatmap</span>
-                  </label>
-                  <label className="flex items-center cursor-pointer">
-                    <input
-                      type="radio"
-                      name="viewMode"
-                      value="benchmark"
-                      checked={viewMode === 'benchmark'}
-                      onChange={(e) => setViewMode(e.target.value)}
-                      className="mr-2 h-4 w-4 text-teal-600 focus:ring-teal-500"
-                    />
-                    <span className="text-sm font-medium text-gray-700">Domain Benchmarks</span>
-                  </label>
+            <div className="mb-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-bold text-gray-900 flex items-center space-x-2">
+                    <BarChart3 className={`h-5 w-5 ${
+                      assessmentType === 'Awareness' ? 'text-green-600'
+                      : assessmentType === 'Readiness' ? 'text-blue-600'
+                      : 'text-teal-600'
+                    }`} />
+                    <span>{viewMode === 'heatmap' ? 'Assessment Heatmap' : 'AI System Domain Maturity vs Sector Benchmark'}</span>
+                  </h2>
+                  {/* Subtitle for Domain Benchmarks view */}
+                  {viewMode === 'benchmark' && (
+                    <p className="text-sm text-gray-600 mt-1 ml-7">
+                      Comparing your AI domain maturity against the <span className="font-bold">{benchmarkSector || assessment?.system_info?.industry || user?.industry || 'sector'}</span> sector average.
+                    </p>
+                  )}
                 </div>
-              )}
+                
+                {/* Radio buttons - only show for System assessments */}
+                {assessmentType === 'System' && (
+                  <div className="flex items-center space-x-4">
+                    <label className="flex items-center cursor-pointer">
+                      <input
+                        type="radio"
+                        name="viewMode"
+                        value="heatmap"
+                        checked={viewMode === 'heatmap'}
+                        onChange={(e) => setViewMode(e.target.value)}
+                        className="mr-2 h-4 w-4 text-teal-600 focus:ring-teal-500"
+                      />
+                      <span className="text-sm font-medium text-gray-700">Assessment Heatmap</span>
+                    </label>
+                    <label className="flex items-center cursor-pointer">
+                      <input
+                        type="radio"
+                        name="viewMode"
+                        value="benchmark"
+                        checked={viewMode === 'benchmark'}
+                        onChange={(e) => setViewMode(e.target.value)}
+                        className="mr-2 h-4 w-4 text-teal-600 focus:ring-teal-500"
+                      />
+                      <span className="text-sm font-medium text-gray-700">Domain Benchmarks</span>
+                    </label>
+                  </div>
+                )}
+              </div>
             </div>
             
             {/* Conditional rendering based on viewMode */}
