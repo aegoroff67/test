@@ -422,8 +422,8 @@ function ResultsPage() {
               <MaturityStackedColumn score={summary.overall_percentage} />
             </div>
 
-            {/* Second 15% - Maturity Tier Descriptions */}
-            <div className="px-4" style={{ width: '15%' }}>
+            {/* Second 20% - Maturity Tier Descriptions */}
+            <div className="px-4" style={{ width: '20%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2 mt-0">Maturity Tier Description</p>
               <div className="text-xs text-gray-700 space-y-1">
                 {assessmentType === 'Awareness' ? (
