@@ -638,7 +638,7 @@ function ResultsPage() {
                         onChange={(e) => setViewMode(e.target.value)}
                         className="mr-2 h-4 w-4 text-teal-600 focus:ring-teal-500"
                       />
-                      <span className="text-sm font-medium text-gray-700">Assessment Heatmap</span>
+                      <span className="text-[12px] font-medium text-gray-700">Assessment Heatmap</span>
                     </label>
                     <label className="flex items-center cursor-pointer">
                       <input
@@ -649,7 +649,7 @@ function ResultsPage() {
                         onChange={(e) => setViewMode(e.target.value)}
                         className="mr-2 h-4 w-4 text-teal-600 focus:ring-teal-500"
                       />
-                      <span className="text-sm font-medium text-gray-700">Domain Benchmarks</span>
+                      <span className="text-[12px] font-medium text-gray-700">Domain Benchmarks</span>
                     </label>
                   </div>
                 )}
