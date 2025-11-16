@@ -492,8 +492,8 @@ function ResultsPage() {
               </p>
             </div>
             
-            {/* Last 12.5% - Action Buttons */}
-            <div className="flex flex-col space-y-2" style={{ width: '12.5%' }}>
+            {/* Last 15% - Action Buttons */}
+            <div className="flex flex-col space-y-2" style={{ width: '15%' }}>
               {/* DOCX Report Button */}
               <Button 
                 onClick={generateReport}
