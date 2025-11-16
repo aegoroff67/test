@@ -612,6 +612,12 @@ function ResultsPage() {
                     }`} />
                     <span>{viewMode === 'heatmap' ? 'Assessment Heatmap' : 'AI System Domain Maturity vs Sector Benchmark'}</span>
                   </h2>
+                  {/* Subtitle for Assessment Heatmap view */}
+                  {viewMode === 'heatmap' && (
+                    <p className="text-sm text-gray-600 mt-1 ml-7">
+                      Responses across all domains and questions, highlighting strengths and improvement opportunities.
+                    </p>
+                  )}
                   {/* Subtitle for Domain Benchmarks view */}
                   {viewMode === 'benchmark' && (
                     <p className="text-sm text-gray-600 mt-1 ml-7">
