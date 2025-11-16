@@ -450,8 +450,8 @@ function ResultsPage() {
               </div>
             </div>
 
-            {/* Third 55% - Results Summary Text */}
-            <div className="px-6" style={{ width: '55%' }}>
+            {/* Third 50% - Results Summary Text */}
+            <div className="px-6" style={{ width: '50%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2 mt-0">Results Summary</p>
               <p className="text-xs text-gray-700 leading-relaxed">
                 {assessmentType === 'Awareness' ? (
