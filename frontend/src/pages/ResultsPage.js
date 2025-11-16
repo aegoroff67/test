@@ -417,8 +417,8 @@ function ResultsPage() {
       <div className="results-summary-content bg-white border-b flex-shrink-0">
         <div className="max-w-full px-6 py-4">
           <div className="flex items-start">
-            {/* First 12.5% - Maturity Stacked Column */}
-            <div className="flex flex-col items-center justify-center" style={{ width: '12.5%' }}>
+            {/* First 20% - Maturity Stacked Column */}
+            <div className="flex flex-col items-center justify-center" style={{ width: '20%' }}>
               <MaturityStackedColumn score={summary.overall_percentage} />
             </div>
 
