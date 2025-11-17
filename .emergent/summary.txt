@@ -1,82 +1,79 @@
 <analysis>
-The trajectory chronicles a series of significant feature additions, refactoring, and bug fixes for the AM AI SAFE application. The work demonstrates a pattern of implementing user requests, followed by intensive debugging and refinement.
+The trajectory details a significant feature implementation, extensive debugging, and iterative refinement of the AM AI SAFE application. The primary task was to add a Domain Benchmarks radar chart to the 'AI System Maturity Assessment' results page. This involved backend work to seed benchmark data from a user-provided JSON file and create a new API endpoint, and frontend work to integrate the  library, build a new  component, and add a UI toggle on the .
 
-A major effort was the universal refactoring of the assessment scoring system from a 0-3 scale to a 1-4 scale. This change rippled through the entire stack, from backend Pydantic models, scoring maps, and database seeding logic (, ) to frontend response option rendering () and results visualization (). This refactoring effort culminated in a complex debugging saga where the engineer discovered they were seeding and querying the wrong MongoDB database ( instead of ), a critical finding that resolved persistent data inconsistencies.
+This initial implementation led to a series of complex debugging cycles. The AI engineer first fixed a missing  field in the System assessment's pre-assessment form. Then, a major issue of inconsistent industry lists between user signup and various pre-assessment forms was discovered. The engineer correctly refactored this by creating a single source of truth in  and updating all relevant forms.
 
-Other key tasks included adding Evidence Types tooltips for the Organisation-wide assessment by programmatically updating question files and modifying the API and frontend. Numerous UI bugs were also addressed, such as fixing heatmap scoring displays, color-coding assessment type badges in the admin panel, and ensuring all metadata fields appear correctly. The most recent work involved a deep dive into the DOCX report generation system () to answer user questions, culminating in the creation of a comprehensive template variable guide and explaining specific code logic like list slicing for Top 3 results.
+Further work involved updating the benchmark data with a new file, performing numerous fine-grained UI polishing tweaks on the results page (spacing, font sizes, titles), and handling multiple requests to update specific question content (, , etc.). A key learning moment for the AI was realizing questions were stored in the database, not read live from Python files, forcing it to adopt a migration script approach for content updates. A similar discovery and fix were required for the Additional Guidance tooltips, which were using a static file instead of the API.
 
 The user's primary language is English. The next agent must respond in English.
 </analysis>
-
 <product_requirements>
-The AM AI SAFE application is a platform for organizations to evaluate their AI maturity through a suite of specialized assessments. Originally a single-assessment MVP, it now supports four distinct types: AI System Maturity, AI Awareness, AI Readiness, and Organisation-wide AI Maturity.
+The AM AI SAFE application is a platform for organizations to assess their AI maturity. The core of the recent work was to enhance the 'AI System Maturity Assessment' results page by adding a feature to compare a user's performance against industry benchmarks.
 
-**Core Functionality:**
-*   **Dynamic Assessments:** A core architecture driven by an  string allows the platform to serve different questions, UI components, and scoring logic for each assessment.
-*   **Assessment Lifecycle:** Users complete a pre-assessment form, answer questions with context-sensitive tooltips (Additional Guidance, Evidence Types), view their progress, and see a results summary.
-*   **Admin & Reporting:** An admin panel provides organization analytics and metadata inspection. Upon completion, DOCX reports are generated.
+**Implemented Features:**
 
-**Implemented Work So Far:**
-The platform has been significantly enhanced. Evidence Types tooltips were added to the Organisation-wide assessment. A major refactoring was completed to standardize the scoring system across all assessments from a 0-3 scale (Non-Ideal to Excellent) to a 1-4 scale (Foundational to Leading). This involved extensive changes to the database schema, backend logic, and frontend UI. Subsequent bug fixes corrected scoring calculations, heatmap visualizations in results pages, and UI inconsistencies in the admin dashboard. The report templating system has also been documented for the user.
+1.  **Domain Benchmark Radar Chart:** A new radar chart was added to the results page for 'AI System Maturity' assessments. It visualizes the user's maturity score (calculated as a 0-100% average per domain) against the average score for a selected industry sector.
+2.  **UI Toggle:** Radio buttons were implemented, allowing users to switch between the original 'Assessment Heatmap' and the new 'Domain Benchmarks' radar chart.
+3.  **Benchmark Data Integration:** Sector-specific benchmark data, provided via a JSON file, is now seeded into a MongoDB collection () on application startup and served via a new API endpoint.
+4.  **Standardized Industry Lists:** A critical inconsistency in industry/sector options was resolved. A single, unified list is now used across the entire application, from new user signup to all pre-assessment forms, ensuring data integrity for benchmarking.
+5.  **Industry Override Logic:** The backend was updated to ensure that the industry selected during a specific pre-assessment will always override the default industry selected during account creation.
+6.  **Content & UI Updates:** Numerous specific questions and their Additional Guidance tooltips were updated. The results page UI underwent extensive polishing of titles, subtitles, spacing, and font sizes based on user feedback.
 </product_requirements>
-
 <key_technical_concepts>
-- **Backend:** Python with FastAPI for the API server and Pydantic for data validation.
-- **Frontend:** React.js with Tailwind CSS for styling.
-- **Database:** MongoDB, with a crucial debugging effort revealing the application uses a specific database name () defined by an environment variable.
-- **Core Architecture:** A dynamic, multi-assessment architecture where an  string (System, Awareness, Readiness, Orgwide) controls logic and UI rendering.
-- **Report Generation:**  (a Jinja2-based library) is used to generate DOCX reports from templates.
+- **Backend:** Python with FastAPI, Pydantic for data models.
+- **Frontend:** React.js, Tailwind CSS for styling.
+- **Database:** MongoDB. Logic was added to seed/update collections on startup from JSON files. One-off Python scripts were used for manual data migration.
+- **Charting:**  library was installed and used to create the radar chart.
+- **Architecture:** Refactored multiple hardcoded lists into a single shared constant file () to act as a single source of truth.
 </key_technical_concepts>
-
 <code_architecture>
-The application is a monorepo with separate  and  directories.
+The application is a monorepo with  (React) and  (FastAPI) directories.
 
 
 
-- ****:
-    - **Importance:** The core of the backend. It defines all API endpoints, handles database connections, business logic for all four assessment types, and authentication.
-    - **Changes:** This file was heavily modified. The scoring logic, question retrieval, and assessment completion endpoints were updated to support a 1-4 score scale instead of 0-3. The  endpoint was fixed to query samples from all four assessment types. A major debugging effort revealed it connects to the database specified in the  environment variable, which was a critical insight.
+- ****
+    - **Importance:** The core backend application. Contains all API endpoints, database logic, and business rules.
+    - **Summary of Changes:** Major additions were made. An  function was added to seed benchmark data from a JSON file into a new  collection. New API endpoints (, ) were created to serve this data. Endpoints for updating pre-assessment info (, etc.) were modified to implement industry override logic.
 
-- ****:
-    - **Importance:** Responsible for creating DOCX reports using . It contains logic for calculating scores, generating charts (heatmap, radar), and populating the template context.
-    - **Changes:** Updated to calculate scores based on a max of 4 instead of 3. The  function for the heatmap was adjusted to accommodate the new 1-4 scale. The context passed to the template was analyzed to answer user questions.
+- ****
+    - **Importance:** The main results page where the new feature was implemented.
+    - **Summary of Changes:** This file was heavily modified. State management was added for the view toggle () and benchmark data. Radio buttons were added to switch between the heatmap and the radar chart. API calls to fetch benchmark data were implemented. The component rendering is now conditional based on . Numerous fine-grained UI adjustments were made to titles, subtitles, element spacing (, ), and font sizes () based on user feedback.
 
-- ** & **:
-    - **Importance:** These files store the question content for the System and Organisation-wide assessments, respectively.
-    - **Changes:**  was programmatically updated to rename response fields (e.g.,  to ) and reorder them.  had the  field added to every question. Header comments in both were updated to reflect the new 1-4 scoring.
+- ****
+    - **Importance:** A new component created to display the benchmark comparison.
+    - **Summary of Changes:** This file was created from scratch. It uses the  library to render a  with two  series: one for the user's score and one for the sector benchmark. It was tweaked to adjust size, spacing, and axis tick formatting (adding a '%').
 
-- ****:
-    - **Importance:** A crucial helper file that provides dynamic configuration (like response options) based on .
-    - **Changes:** The  function was updated for System, Readiness, and Orgwide assessments to return the new Foundational to Leading labels with the correct 1, 2, 3, 4 score values. This was a key fix to unify the scoring system.
+- ****
+    - **Importance:** A new file created to solve a major data inconsistency problem.
+    - **Summary of Changes:** This file was created to house a single, unified array of industry options. It serves as the single source of truth, and is now imported by all forms that require an industry selection, eliminating discrepancies.
 
-- ****:
-    - **Importance:** Displays the assessment results, including a domain-by-domain heatmap.
-    - **Changes:** The heatmap logic was fixed. The displayed score text was changed from  to . The  function's percentage thresholds were adjusted to correctly map the new 1-4 scores to their respective colors (Red, Orange, Yellow, Green).
+- **, , , **
+    - **Importance:** These are user-facing forms for signup and pre-assessment onboarding.
+    - **Summary of Changes:** All were refactored to remove hardcoded industry lists and instead import and use the unified list from . Labels were standardized to 'Industry / Sector'.
 
-- ****:
-    - **Importance:** The admin panel for user management and organization analytics.
-    - **Changes:** Fixed a bug where assessment type badges were all blue. The  color logic from  was copied and applied to ensure badges have colors corresponding to their assessment type (Green, Blue, Purple, Teal).
+- ****
+    - **Importance:** The source file for 'AI System Maturity' questions, used for initial DB seeding and as a reference.
+    - **Summary of Changes:** Several question objects (AC-3, SA-4, IN-3, SU-1) were updated multiple times with new question text, answer options, and correctly formatted additional_guidance markdown content.
+
+- ****
+    - **Importance:** Renders the questions for the user during an assessment.
+    - **Summary of Changes:** The logic for displaying the 'Additional Guidance' tooltip was fixed. It was incorrectly using a static data file for 'System' assessments and was changed to correctly use the  field provided by the API for all assessment types.
 </code_architecture>
-
 <pending_tasks>
 - Implement the full results summary pages for the AI Readiness and Organisation-wide assessments.
 - Create and integrate the final DOCX report templates for the Awareness, Readiness, and Organisation-wide assessments.
-- Implement the Stripe paywall for premium assessments, which was mentioned in the initial trajectory analysis but not worked on.
+- Implement a Stripe paywall for premium assessments.
 </pending_tasks>
-
 <current_work>
-The most recent task was not a development or bug-fixing task but rather a user support and documentation effort. The user had a series of questions about the DOCX report templating system for the 'AI System Maturity Assessment'.
+Immediately before this summary request, the engineer was working on a final UI polishing task for the assessment results page, as requested by the user. The specific task was to re-order the tier descriptions that appear in the summary panel. The user wants the order to be Leading, Established, Developing, and Foundational, which is the reverse of the current implementation.
 
-The work involved:
-1.  **Code Investigation:** Analyzing  to understand how the  library is used and what data is passed into the template .
-2.  **Variable Documentation:** Creating a comprehensive markdown file () that lists all available Jinja2 variables, their data types, and usage examples for the user.
-3.  **Answering Specific Questions:**
-    *   Clarified how to reference fields, explaining the difference between the raw database schema (e.g., ) and the simplified report context (e.g., ).
-    *   Explained the specific code logic that limits the Top 3 Strengths/Gaps sections to three items, pointing to the Python list slicing () in the  and  functions.
-
-This work successfully concluded the user's line of questioning about the reporting feature.
+The work involves locating the rendering logic for these descriptions within . This logic likely involves mapping over an array of tiers. The task is to reverse the order of this array or the JSX elements before they are rendered on the page to match the user's requested top-down order of maturity. The AI had just begun investigating the file to perform this change.
 </current_work>
-
 <optional_next_step>
-The previous task of documenting and explaining the report variables is complete. I will now ask you what you would like to work on next, perhaps referencing the list of pending tasks.
+Find the tier description section in  and reverse the rendering order to display 'Leading' at the top, followed by 'Established', 'Developing', and 'Foundational'.
 </optional_next_step>
+<direct_quotes>
+**User's request:** Re-sort the tier descriptions in the results summary page such that Leading is at the top, followed by Established, Developing then Foundational
+
+**AI's last action:** Let me find and reverse the order of the tier descriptions:
+</direct_quotes>
