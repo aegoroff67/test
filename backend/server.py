@@ -2356,12 +2356,18 @@ async def generate_report_docx(
 
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
 async def generate_executive_summary_pdf(
-    assessment_id: str, 
+    assessment_id: str,
+    view_type: str = Query(default="heatmap", regex="^(heatmap|radar)$"),
     current_user: UserResponse = Depends(get_current_user)
 ):
     """Generate executive summary PDF with exact specifications"""
     try:
         from playwright.async_api import async_playwright
+        
+        print(f"=== PDF GENERATION DEBUG ===")
+        print(f"Assessment ID: {assessment_id}")
+        print(f"View Type: {view_type}")
+        print(f"User: {current_user.email}")
         
         # Set Playwright browser path
         os.environ['PLAYWRIGHT_BROWSERS_PATH'] = '/pw-browsers'
@@ -2375,8 +2381,8 @@ async def generate_executive_summary_pdf(
         frontend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:3000')
         frontend_url = frontend_url.replace(':8001', ':3000')  # Ensure we're hitting frontend port
         
-        # Construct results page URL
-        results_url = f"{frontend_url}/results/{assessment_id}"
+        # Construct results page URL with view_type parameter
+        results_url = f"{frontend_url}/results/{assessment_id}?view={view_type}"
         
         logger.info(f"Generating PDF for URL: {results_url}")
         
