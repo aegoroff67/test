@@ -2308,7 +2308,11 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
     }
 
 @api_router.get("/assessments/{assessment_id}/report")
-async def generate_report_docx(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
+async def generate_report_docx(
+    assessment_id: str, 
+    view_type: str = Query(default="heatmap", regex="^(heatmap|radar)$"),
+    current_user: UserResponse = Depends(get_current_user)
+):
     """Generate and download DOCX report for assessment using DOCX template."""
     from report_generator import AMReportGenerator
     
@@ -2316,9 +2320,9 @@ async def generate_report_docx(assessment_id: str, current_user: UserResponse = 
         # Initialize report generator
         report_generator = AMReportGenerator()
         
-        # Generate report
+        # Generate report with specified view type
         docx_bytes, filename = await report_generator.generate_report_for_assessment(
-            assessment_id, db, current_user
+            assessment_id, db, current_user, view_type=view_type
         )
         
         # Store report record in database
