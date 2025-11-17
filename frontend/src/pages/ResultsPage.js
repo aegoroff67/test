@@ -71,6 +71,7 @@ function ResultsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
   
   const [assessment, setAssessment] = useState(null);
   const [assessmentType, setAssessmentType] = useState('System');
@@ -80,7 +81,11 @@ function ResultsPage() {
   const [loading, setLoading] = useState(true);
   const [generatingReport, setGeneratingReport] = useState(false);
   const [generatingPDF, setGeneratingPDF] = useState(false);
-  const [viewMode, setViewMode] = useState('heatmap'); // 'heatmap' or 'radar'
+  
+  // Check URL parameter for initial view mode (for PDF generation)
+  const urlViewParam = searchParams.get('view');
+  const initialViewMode = (urlViewParam === 'radar' || urlViewParam === 'heatmap') ? urlViewParam : 'heatmap';
+  const [viewMode, setViewMode] = useState(initialViewMode); // 'heatmap' or 'radar'
   const [benchmarks, setBenchmarks] = useState(null);
   const [benchmarkSector, setBenchmarkSector] = useState(null);
   const [showIndustrySelector, setShowIndustrySelector] = useState(false);
