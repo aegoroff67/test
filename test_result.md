@@ -788,6 +788,12 @@
         - working: "NA"
         - agent: "main"
         - comment: "LAYOUT FIX: Fixed radar chart positioning in PDF report. Root cause: Container div and component didn't have proper centering styles. Changes: 1) FRONTEND ResultsPage.js: Added flex centering classes to radar chart container div (line 733) - added 'w-full flex items-center justify-center' to ensure chart is centered horizontally and vertically, 2) FRONTEND DomainBenchmarkRadar.js: Updated outer container div to include centering classes 'items-center justify-center', changed inner div from 'flex-1 min-h-0' to 'w-full h-full' for proper sizing, adjusted RadarChart margins from {top: -20, right: 60, bottom: 20, left: 60} to {top: 20, right: 80, bottom: 20, left: 80} to provide balanced spacing and prevent negative top margin. Radar chart should now be properly centered in the PDF report."
+        - working: false
+        - agent: "user"
+        - comment: "Slightly better but radar chart still pushed to the right, not centered in central panel."
+        - working: "NA"
+        - agent: "main"
+        - comment: "LAYOUT FIX ITERATION 2: Further refined radar chart centering. Changes: 1) FRONTEND ResultsPage.js: Removed w-full and -mx-4 (negative margin) from container, kept flex centering with mt-4 for consistent spacing with heatmap view, 2) FRONTEND DomainBenchmarkRadar.js: Added explicit cx='50%' cy='50%' props to RadarChart to force center positioning, wrapped ResponsiveContainer in a div with maxWidth: '800px' to constrain chart width and improve centering, simplified outer container from 'flex flex-col items-center justify-center' to just 'flex items-center justify-center'. The explicit cx/cy positioning should force the chart to render centered regardless of container padding."
 
 ## metadata:
   created_by: "main_agent"
