@@ -648,8 +648,8 @@ function ResultsPage() {
                       <input
                         type="radio"
                         name="viewMode"
-                        value="benchmark"
-                        checked={viewMode === 'benchmark'}
+                        value="radar"
+                        checked={viewMode === 'radar'}
                         onChange={(e) => setViewMode(e.target.value)}
                         className="mr-2 h-4 w-4 text-teal-600 focus:ring-teal-500"
                       />
