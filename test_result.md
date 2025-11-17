@@ -806,6 +806,18 @@
         - working: "NA"
         - agent: "main"
         - comment: "LAYOUT FIX ITERATION 4: Reverted problematic changes and simplified approach. Changes: 1) FRONTEND DomainBenchmarkRadar.js: Changed ResponsiveContainer back to width='100%' height='100%' to restore full size, removed cx='50%' cy='50%' props as they weren't helping with centering, reduced margins from 40px to 20px on all sides for better space utilization, 2) FRONTEND ResultsPage.js: Removed -mx-4 px-4 padding cancellation technique that was causing issues, changed container to simple 'h-[650px] w-full flex items-center justify-center mt-4', reverted parent div back to consistent 'p-4' padding (removed conditional pb-0 in radar mode). The border-r class remains on the center panel parent div and should now be visible."
+        - working: false
+        - agent: "user"
+        - comment: "Size better but still pushed to the right. Uploaded PDF shows continued issue."
+        - working: "NA"
+        - agent: "main"
+        - comment: "LAYOUT FIX ITERATION 5: Tried asymmetric margins to compensate for label visual weight. Changed RadarChart margins to { top: 40, right: 80, bottom: 40, left: 40 } with doubled right margin to push chart left. Removed outer flex wrapper."
+        - working: false
+        - agent: "user"
+        - comment: "No difference. Radar chart still pushed to the right."
+        - working: "NA"
+        - agent: "main"
+        - comment: "LAYOUT FIX ITERATION 6: Complete approach change using fixed-width centered container. Changes: 1) FRONTEND DomainBenchmarkRadar.js: Added intermediate div wrapper with fixed dimensions (600px x 600px), wrapped ResponsiveContainer inside this fixed container, restored outer flex centering wrapper (w-full h-full flex items-center justify-center), reset margins to balanced 20px on all sides. This fixed-size approach should force the chart to render at a specific size and use flexbox to center that fixed container, bypassing ResponsiveContainer's automatic sizing calculations that may be causing the offset."
 
 ## metadata:
   created_by: "main_agent"
