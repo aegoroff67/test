@@ -76,8 +76,9 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector }) => {
               iconSize={14}
             />
             <Tooltip content={<CustomTooltip />} />
-        </RadarChart>
-      </ResponsiveContainer>
+          </RadarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
