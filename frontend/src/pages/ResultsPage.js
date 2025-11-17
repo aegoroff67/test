@@ -80,7 +80,7 @@ function ResultsPage() {
   const [loading, setLoading] = useState(true);
   const [generatingReport, setGeneratingReport] = useState(false);
   const [generatingPDF, setGeneratingPDF] = useState(false);
-  const [viewMode, setViewMode] = useState('heatmap'); // 'heatmap' or 'benchmark'
+  const [viewMode, setViewMode] = useState('heatmap'); // 'heatmap' or 'radar'
   const [benchmarks, setBenchmarks] = useState(null);
   const [benchmarkSector, setBenchmarkSector] = useState(null);
   const [showIndustrySelector, setShowIndustrySelector] = useState(false);
