@@ -247,6 +247,10 @@ function ResultsPage() {
     setGeneratingReport(true);
     try {
       // Pass the current view mode to backend
+      console.log('=== GENERATING REPORT ===');
+      console.log('Current viewMode:', viewMode);
+      console.log('Sending view_type:', viewMode);
+      
       const response = await axios.get(`${API}/assessments/${id}/report`, {
         params: {
           view_type: viewMode  // 'heatmap' or 'radar'
