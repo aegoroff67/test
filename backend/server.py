@@ -2317,6 +2317,11 @@ async def generate_report_docx(
     from report_generator import AMReportGenerator
     
     try:
+        print(f"=== REPORT GENERATION DEBUG ===")
+        print(f"Assessment ID: {assessment_id}")
+        print(f"View Type: {view_type}")
+        print(f"User: {current_user.email}")
+        
         # Initialize report generator
         report_generator = AMReportGenerator()
         
