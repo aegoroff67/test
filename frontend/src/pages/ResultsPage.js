@@ -246,7 +246,11 @@ function ResultsPage() {
   const generateReport = async () => {
     setGeneratingReport(true);
     try {
+      // Pass the current view mode to backend
       const response = await axios.get(`${API}/assessments/${id}/report`, {
+        params: {
+          view_type: viewMode  // 'heatmap' or 'radar'
+        },
         responseType: 'blob', // Important for handling binary DOCX data
         headers: {
           'Accept': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
