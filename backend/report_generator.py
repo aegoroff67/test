@@ -85,7 +85,8 @@ class AMReportGenerator:
             return str(date_input)
     
     async def generate_report(self, assessment_id: str, assessment_data: Dict[str, Any], 
-                            user_data: Dict[str, Any]) -> Tuple[bytes, bytes]:
+                            user_data: Dict[str, Any], view_type: str = "heatmap", 
+                            benchmark_data: Dict[str, Any] = None) -> Tuple[bytes, bytes]:
         """
         Generate DOCX and PDF reports from assessment data.
         
@@ -93,6 +94,8 @@ class AMReportGenerator:
             assessment_id: The assessment ID
             assessment_data: Raw assessment data from database
             user_data: User information
+            view_type: Type of visualization ('heatmap' or 'radar')
+            benchmark_data: Benchmark data for radar chart comparison (optional)
             
         Returns:
             Tuple of (docx_bytes, pdf_bytes)
@@ -100,11 +103,16 @@ class AMReportGenerator:
         # Transform data to match report model
         report_data = self._transform_assessment_data(assessment_data, user_data)
         
-        # Generate heatmap image
-        heatmap_image = self._generate_heatmap_image(report_data)
+        # Generate visualization image based on view_type
+        if view_type == "radar" and benchmark_data:
+            visualization_image = self._generate_radar_chart_with_benchmark(report_data, benchmark_data)
+        elif view_type == "radar":
+            visualization_image = self._generate_radar_chart_image(report_data)
+        else:  # default to heatmap
+            visualization_image = self._generate_heatmap_image(report_data)
         
         # Generate DOCX report
-        docx_bytes = self._generate_docx_report(report_data, heatmap_image)
+        docx_bytes = self._generate_docx_report(report_data, visualization_image)
         
         # Generate PDF using HTML-to-PDF conversion (WeasyPrint)
         try:
