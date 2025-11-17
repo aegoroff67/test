@@ -662,6 +662,105 @@ class AMReportGenerator:
             img_buffer.seek(0)
             return img_buffer.getvalue()
     
+    
+    def _generate_radar_chart_with_benchmark(self, report_data: Dict[str, Any], benchmark_data: Dict[str, Any]) -> bytes:
+        """Generate radar chart comparing organization scores with sector benchmarks."""
+        try:
+            domain_scores = report_data.get('domain_scores', {})
+            sector_name = benchmark_data.get('sector', 'Industry')
+            benchmarks = benchmark_data.get('benchmarks', {})
+            
+            if not domain_scores or not benchmarks:
+                # Return simple radar chart if no benchmark data
+                return self._generate_radar_chart_image(report_data)
+            
+            # Prepare data for radar chart - match domain order from benchmarks
+            domain_names = []
+            user_scores = []
+            benchmark_scores = []
+            
+            # Get domain names from benchmarks to ensure consistent ordering
+            for domain_name in benchmarks.keys():
+                if domain_name in domain_scores:
+                    domain_names.append(domain_name)
+                    
+                    # Calculate user's average score for this domain
+                    score_list = domain_scores[domain_name]
+                    avg_score = sum(score_list) / len(score_list) if score_list else 0
+                    user_percentage = (avg_score / 4) * 100  # 1-4 scale to percentage
+                    user_scores.append(user_percentage)
+                    
+                    # Get benchmark score
+                    benchmark_scores.append(benchmarks[domain_name])
+            
+            if not domain_names:
+                # No matching domains, return simple radar chart
+                return self._generate_radar_chart_image(report_data)
+            
+            # Number of variables
+            num_vars = len(domain_names)
+            
+            # Compute angle for each axis
+            angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
+            
+            # Complete the loop
+            user_scores_plot = user_scores + user_scores[:1]
+            benchmark_scores_plot = benchmark_scores + benchmark_scores[:1]
+            angles_plot = angles + angles[:1]
+            
+            # Create figure
+            fig, ax = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection='polar'))
+            
+            # Plot user data
+            ax.plot(angles_plot, user_scores_plot, 'o-', linewidth=2.5, 
+                   color='#3b82f6', label='Your Score', markersize=8)
+            ax.fill(angles_plot, user_scores_plot, alpha=0.25, color='#3b82f6')
+            
+            # Plot benchmark data
+            ax.plot(angles_plot, benchmark_scores_plot, 's--', linewidth=2, 
+                   color='#10b981', label=f'{sector_name} Benchmark', markersize=6)
+            ax.fill(angles_plot, benchmark_scores_plot, alpha=0.15, color='#10b981')
+            
+            # Fix axis to go in the right order
+            ax.set_theta_offset(np.pi / 2)
+            ax.set_theta_direction(-1)
+            
+            # Set labels
+            ax.set_xticks(angles)
+            ax.set_xticklabels(domain_names, size=10, fontweight='bold')
+            
+            # Set y-axis limits and ticks
+            ax.set_ylim(0, 100)
+            ax.set_yticks([25, 50, 75, 100])
+            ax.set_yticklabels(['25%', '50%', '75%', '100%'], size=9)
+            
+            # Add grid
+            ax.grid(True, linestyle='--', alpha=0.7, linewidth=0.5)
+            
+            # Add title
+            ax.set_title(f'Domain Performance vs {sector_name} Benchmark', 
+                        size=14, pad=20, fontweight='bold')
+            
+            # Add legend
+            ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1), framealpha=0.9, fontsize=10)
+            
+            # Save to bytes
+            img_buffer = io.BytesIO()
+            plt.savefig(img_buffer, format='png', dpi=200, bbox_inches='tight', 
+                       facecolor='white', edgecolor='none')
+            img_buffer.seek(0)
+            img_bytes = img_buffer.getvalue()
+            plt.close(fig)
+            
+            return img_bytes
+            
+        except Exception as e:
+            print(f"Error generating radar chart with benchmark: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            # Fallback to simple radar chart
+            return self._generate_radar_chart_image(report_data)
+
     def _format_top_3_strengths(self, report_data: Dict[str, Any]) -> list:
         """Get top 3 highest scoring domains."""
         domain_scores = report_data.get('domain_scores', {})
