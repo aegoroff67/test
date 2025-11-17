@@ -759,6 +759,18 @@
         - agent: "main"
         - comment: "IMPLEMENTED: Re-ordered the maturity tier descriptions in the results page to display from highest to lowest maturity (top to bottom). Changes: 1) Awareness assessments: Now display Established → Developing → Foundational (instead of Foundational → Developing → Established), 2) Readiness assessments: Now display Leading → Established → Developing → Foundational (instead of Foundational → Developing → Established → Leading), 3) System/Orgwide assessments: Now display Leading → Established → Developing → Foundational (instead of Foundational → Developing → Established → Leading). The tier descriptions section in lines 428-449 of ResultsPage.js was updated to reverse the order of JSX elements for all three assessment types. This is a purely visual change that doesn't affect any functionality or backend logic."
 
+  - task: "Generate radar chart with benchmarks in PDF report when radar view is selected"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/report_generator.py, /app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED: Added functionality to generate PDF reports with radar chart visualization when Domain Benchmark view is selected. Changes: 1) BACKEND server.py: Modified /api/assessments/{assessment_id}/report endpoint to accept view_type query parameter ('heatmap' or 'radar'), added Query import from fastapi, 2) BACKEND report_generator.py: Updated generate_report_for_assessment() to accept view_type parameter and fetch benchmark data if radar view selected, updated generate_report() to accept view_type and benchmark_data parameters and conditionally generate appropriate visualization, created new _generate_radar_chart_with_benchmark() method that generates radar chart comparing user scores with sector benchmarks using matplotlib polar projection with dual data series (user scores in blue, benchmark in green), 3) FRONTEND ResultsPage.js: Modified generateReport() function to pass current viewMode ('heatmap' or 'radar') as view_type query parameter to backend. The PDF report now respects the user's current view selection - if Domain Benchmark radar chart is displayed, the PDF will contain the radar chart with sector benchmarks; if Assessment Heatmap is displayed, the PDF will contain the heatmap. Benchmark data is fetched from sector_benchmarks collection based on user's industry."
+
 ## metadata:
   created_by: "main_agent"
   version: "1.0"
