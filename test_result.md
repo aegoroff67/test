@@ -770,6 +770,12 @@
         - working: "NA"
         - agent: "main"
         - comment: "IMPLEMENTED: Added functionality to generate PDF reports with radar chart visualization when Domain Benchmark view is selected. Changes: 1) BACKEND server.py: Modified /api/assessments/{assessment_id}/report endpoint to accept view_type query parameter ('heatmap' or 'radar'), added Query import from fastapi, 2) BACKEND report_generator.py: Updated generate_report_for_assessment() to accept view_type parameter and fetch benchmark data if radar view selected, updated generate_report() to accept view_type and benchmark_data parameters and conditionally generate appropriate visualization, created new _generate_radar_chart_with_benchmark() method that generates radar chart comparing user scores with sector benchmarks using matplotlib polar projection with dual data series (user scores in blue, benchmark in green), 3) FRONTEND ResultsPage.js: Modified generateReport() function to pass current viewMode ('heatmap' or 'radar') as view_type query parameter to backend. The PDF report now respects the user's current view selection - if Domain Benchmark radar chart is displayed, the PDF will contain the radar chart with sector benchmarks; if Assessment Heatmap is displayed, the PDF will contain the heatmap. Benchmark data is fetched from sector_benchmarks collection based on user's industry."
+        - working: false
+        - agent: "user"
+        - comment: "User reported PDF report still only shows heatmap despite selecting radar chart view on results summary page."
+        - working: "NA"
+        - agent: "main"
+        - comment: "BUGFIX: Fixed viewMode mismatch between frontend and backend. Root cause: Frontend was using 'benchmark' as the value for the Domain Benchmarks radio button, but backend was expecting 'radar'. Changes: 1) FRONTEND ResultsPage.js: Changed radio button value from 'benchmark' to 'radar' (line 651), updated all viewMode comparisons from === 'benchmark' to === 'radar' (lines 96, 608, 626), updated comment to reflect 'radar' instead of 'benchmark' (line 83), 2) BACKEND: Added debug logging to server.py endpoint to log received view_type parameter, added debug logging to report_generator.py to log which visualization type is being generated and benchmark data availability. The frontend now correctly sends 'radar' when Domain Benchmarks view is selected, matching the backend's expected parameter value."
 
 ## metadata:
   created_by: "main_agent"
