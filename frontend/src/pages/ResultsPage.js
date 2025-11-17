@@ -620,7 +620,7 @@ function ResultsPage() {
 
         {/* Center Panel - Assessment Heatmap / Domain Benchmarks - 50% width */}
         <div className="w-1/2 bg-white border-r overflow-y-auto">
-          <div className="p-4">
+          <div className={viewMode === 'radar' ? 'p-4 pb-0' : 'p-4'}>
             <div className={viewMode === 'radar' ? '-mb-6' : 'mb-4'}>
               <div className="flex items-start justify-between">
                 <div>
