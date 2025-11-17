@@ -104,12 +104,21 @@ class AMReportGenerator:
         report_data = self._transform_assessment_data(assessment_data, user_data)
         
         # Generate visualization image based on view_type
+        print(f"=== VISUALIZATION GENERATION ===")
+        print(f"View Type: {view_type}")
+        print(f"Benchmark Data Available: {benchmark_data is not None}")
+        
         if view_type == "radar" and benchmark_data:
+            print("Generating radar chart WITH benchmarks")
             visualization_image = self._generate_radar_chart_with_benchmark(report_data, benchmark_data)
         elif view_type == "radar":
+            print("Generating radar chart WITHOUT benchmarks")
             visualization_image = self._generate_radar_chart_image(report_data)
         else:  # default to heatmap
+            print("Generating heatmap")
             visualization_image = self._generate_heatmap_image(report_data)
+        
+        print(f"Visualization image size: {len(visualization_image)} bytes")
         
         # Generate DOCX report
         docx_bytes = self._generate_docx_report(report_data, visualization_image)
