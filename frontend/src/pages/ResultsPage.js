@@ -605,7 +605,7 @@ function ResultsPage() {
         {/* Center Panel - Assessment Heatmap / Domain Benchmarks - 50% width */}
         <div className="w-1/2 bg-white border-r overflow-y-auto">
           <div className="p-4">
-            <div className={viewMode === 'benchmark' ? '-mb-6' : 'mb-4'}>
+            <div className={viewMode === 'radar' ? '-mb-6' : 'mb-4'}>
               <div className="flex items-start justify-between">
                 <div>
                   <h2 className="text-lg font-bold text-gray-900 flex items-center space-x-2">
@@ -623,7 +623,7 @@ function ResultsPage() {
                     </p>
                   )}
                   {/* Subtitle for Domain Benchmarks view */}
-                  {viewMode === 'benchmark' && (
+                  {viewMode === 'radar' && (
                     <p className="text-[12px] text-gray-600 mt-1 ml-7">
                       Comparing your AI domain maturity against the <span className="font-bold">{benchmarkSector || assessment?.system_info?.industry || user?.industry || 'sector'}</span> sector average.
                     </p>
