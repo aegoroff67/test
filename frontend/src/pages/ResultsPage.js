@@ -91,9 +91,9 @@ function ResultsPage() {
   }, [id]);
 
   useEffect(() => {
-    // Fetch benchmarks when switching to benchmark view for System assessments
+    // Fetch benchmarks when switching to radar view for System assessments
     // Try to get industry from: 1) assessment.system_info, 2) user.industry, 3) selected industry
-    if (viewMode === 'benchmark' && assessmentType === 'System' && !benchmarks) {
+    if (viewMode === 'radar' && assessmentType === 'System' && !benchmarks) {
       const industry = assessment?.system_info?.industry || user?.industry || selectedIndustry;
       console.log('Attempting to fetch benchmarks with industry:', industry);
       console.log('Assessment system_info:', assessment?.system_info);
