@@ -776,6 +776,12 @@
         - working: "NA"
         - agent: "main"
         - comment: "BUGFIX: Fixed viewMode mismatch between frontend and backend. Root cause: Frontend was using 'benchmark' as the value for the Domain Benchmarks radio button, but backend was expecting 'radar'. Changes: 1) FRONTEND ResultsPage.js: Changed radio button value from 'benchmark' to 'radar' (line 651), updated all viewMode comparisons from === 'benchmark' to === 'radar' (lines 96, 608, 626), updated comment to reflect 'radar' instead of 'benchmark' (line 83), 2) BACKEND: Added debug logging to server.py endpoint to log received view_type parameter, added debug logging to report_generator.py to log which visualization type is being generated and benchmark data availability. The frontend now correctly sends 'radar' when Domain Benchmarks view is selected, matching the backend's expected parameter value."
+        - working: false
+        - agent: "user"
+        - comment: "User reported still seeing heatmap in PDF after the fix."
+        - working: "NA"
+        - agent: "main"
+        - comment: "BUGFIX PART 2: Identified the actual issue - user was clicking 'Generate PDF Report' which calls generateExecutiveSummaryPDF() and uses /executive-summary-pdf endpoint (different from /report endpoint). This endpoint uses Playwright to render the frontend results page and capture it as PDF. Root cause: The results page was loading with default 'heatmap' view mode, not respecting the current view selection. Changes: 1) BACKEND server.py: Updated /executive-summary-pdf endpoint to accept view_type query parameter, modified results_url to include view parameter (?view=radar or ?view=heatmap), added debug logging, 2) FRONTEND ResultsPage.js: Added useSearchParams import, read 'view' URL parameter on component initialization, set initialViewMode based on URL parameter (defaults to 'heatmap' if not specified), updated generateExecutiveSummaryPDF() to pass view_type parameter, added console logging. Now when user clicks 'Generate PDF Report' with radar view selected, the backend passes ?view=radar to the results page URL, and the page initializes with radar view, which is then captured in the PDF."
 
 ## metadata:
   created_by: "main_agent"
