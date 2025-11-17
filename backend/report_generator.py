@@ -1442,8 +1442,31 @@ Each cell represents the score for a specific question, enabling identification 
         
         print(f"DEBUG: user_data: {user_data}")
         
+        # Fetch benchmark data if radar view is selected
+        benchmark_data = None
+        if view_type == "radar":
+            # Get user's industry for benchmarking
+            user_industry = getattr(current_user, 'industry', None) or getattr(current_user, 'primary_industry', None)
+            if user_industry:
+                print(f"DEBUG: Fetching benchmarks for industry: {user_industry}")
+                # Fetch benchmark data from sector_benchmarks collection
+                benchmark_record = await db.sector_benchmarks.find_one({"sector": user_industry})
+                if benchmark_record:
+                    benchmark_data = {
+                        "sector": user_industry,
+                        "benchmarks": benchmark_record.get("benchmarks", {})
+                    }
+                    print(f"DEBUG: Benchmark data found for {user_industry}")
+                else:
+                    print(f"DEBUG: No benchmark data found for {user_industry}")
+            else:
+                print(f"DEBUG: User has no industry set, cannot fetch benchmarks")
+        
         # Generate the report
-        docx_bytes, pdf_bytes = await self.generate_report(assessment_id, assessment_data, user_data)
+        docx_bytes, pdf_bytes = await self.generate_report(
+            assessment_id, assessment_data, user_data, 
+            view_type=view_type, benchmark_data=benchmark_data
+        )
         
         # Generate filename
         safe_org_name = "".join(c for c in current_user.organization_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
