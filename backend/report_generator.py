@@ -1231,7 +1231,7 @@ Each cell represents the score for a specific question, enabling identification 
             traceback.print_exc()
             raise Exception(f"Failed to generate DOCX report: {str(e)}")
     
-    async def generate_report_for_assessment(self, assessment_id: str, db, current_user) -> Tuple[bytes, str]:
+    async def generate_report_for_assessment(self, assessment_id: str, db, current_user, view_type: str = "heatmap") -> Tuple[bytes, str]:
         """
         Generate report for a specific assessment ID.
         
@@ -1239,6 +1239,7 @@ Each cell represents the score for a specific question, enabling identification 
             assessment_id: Assessment ID to generate report for
             db: Database connection
             current_user: Current user object
+            view_type: Type of visualization ('heatmap' or 'radar')
             
         Returns:
             Tuple of (docx_bytes, filename)
