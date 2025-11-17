@@ -782,6 +782,12 @@
         - working: "NA"
         - agent: "main"
         - comment: "BUGFIX PART 2: Identified the actual issue - user was clicking 'Generate PDF Report' which calls generateExecutiveSummaryPDF() and uses /executive-summary-pdf endpoint (different from /report endpoint). This endpoint uses Playwright to render the frontend results page and capture it as PDF. Root cause: The results page was loading with default 'heatmap' view mode, not respecting the current view selection. Changes: 1) BACKEND server.py: Updated /executive-summary-pdf endpoint to accept view_type query parameter, modified results_url to include view parameter (?view=radar or ?view=heatmap), added debug logging, 2) FRONTEND ResultsPage.js: Added useSearchParams import, read 'view' URL parameter on component initialization, set initialViewMode based on URL parameter (defaults to 'heatmap' if not specified), updated generateExecutiveSummaryPDF() to pass view_type parameter, added console logging. Now when user clicks 'Generate PDF Report' with radar view selected, the backend passes ?view=radar to the results page URL, and the page initializes with radar view, which is then captured in the PDF."
+        - working: true
+        - agent: "user"
+        - comment: "Radar chart now appears in PDF but positioned incorrectly - pushed to the right of the central panel instead of being centered."
+        - working: "NA"
+        - agent: "main"
+        - comment: "LAYOUT FIX: Fixed radar chart positioning in PDF report. Root cause: Container div and component didn't have proper centering styles. Changes: 1) FRONTEND ResultsPage.js: Added flex centering classes to radar chart container div (line 733) - added 'w-full flex items-center justify-center' to ensure chart is centered horizontally and vertically, 2) FRONTEND DomainBenchmarkRadar.js: Updated outer container div to include centering classes 'items-center justify-center', changed inner div from 'flex-1 min-h-0' to 'w-full h-full' for proper sizing, adjusted RadarChart margins from {top: -20, right: 60, bottom: 20, left: 60} to {top: 20, right: 80, bottom: 20, left: 80} to provide balanced spacing and prevent negative top margin. Radar chart should now be properly centered in the PDF report."
 
 ## metadata:
   created_by: "main_agent"
