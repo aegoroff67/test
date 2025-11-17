@@ -800,6 +800,12 @@
         - working: "NA"
         - agent: "main"
         - comment: "LAYOUT FIX ITERATION 3: Applied comprehensive centering strategy to counteract parent padding. Changes: 1) FRONTEND ResultsPage.js: Modified parent div padding to remove bottom padding in radar mode (p-4 pb-0 when radar, p-4 when heatmap), added -mx-4 px-4 to radar container to cancel parent's horizontal padding and reapply it evenly (line 733), this creates equal spacing on left and right sides, 2) FRONTEND DomainBenchmarkRadar.js: Changed ResponsiveContainer to width='90%' height='90%' instead of fixed dimensions, this creates equal margins on all sides and centers the chart, removed intermediate div wrapper with fixed dimensions, kept equal margins on RadarChart (40px on all sides). The -mx-4 px-4 technique ensures the radar chart container spans the full width of the center panel (ignoring parent padding) and then adds equal padding back, forcing true center alignment."
+        - working: false
+        - agent: "user"
+        - comment: "Radar chart now displays but is reduced in size and still pushed to the right. Vertical border on right side of central panel is also missing. Uploaded PDF shows the issue."
+        - working: "NA"
+        - agent: "main"
+        - comment: "LAYOUT FIX ITERATION 4: Reverted problematic changes and simplified approach. Changes: 1) FRONTEND DomainBenchmarkRadar.js: Changed ResponsiveContainer back to width='100%' height='100%' to restore full size, removed cx='50%' cy='50%' props as they weren't helping with centering, reduced margins from 40px to 20px on all sides for better space utilization, 2) FRONTEND ResultsPage.js: Removed -mx-4 px-4 padding cancellation technique that was causing issues, changed container to simple 'h-[650px] w-full flex items-center justify-center mt-4', reverted parent div back to consistent 'p-4' padding (removed conditional pb-0 in radar mode). The border-r class remains on the center panel parent div and should now be visible."
 
 ## metadata:
   created_by: "main_agent"
