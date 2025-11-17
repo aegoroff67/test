@@ -301,7 +301,14 @@ function ResultsPage() {
   const generateExecutiveSummaryPDF = async () => {
     setGeneratingPDF(true);
     try {
+      console.log('=== GENERATING PDF ===');
+      console.log('Current viewMode:', viewMode);
+      console.log('Sending view_type:', viewMode);
+      
       const response = await axios.get(`${API}/assessments/${id}/executive-summary-pdf`, {
+        params: {
+          view_type: viewMode  // 'heatmap' or 'radar'
+        },
         responseType: 'blob',
         headers: {
           'Accept': 'application/pdf'
