@@ -1947,13 +1947,15 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
         # Calculate overall metrics
         overall_percentage = (overall_score / overall_max_score * 100) if overall_max_score > 0 else 0
         
-        # Awareness maturity tiers
-        if overall_percentage >= 71:
+        # Awareness maturity tiers (4-tier system)
+        if overall_percentage >= 86:
             overall_maturity = "Established"
-        elif overall_percentage >= 41:
+        elif overall_percentage >= 66:
             overall_maturity = "Developing"
+        elif overall_percentage >= 41:
+            overall_maturity = "Emerging"
         else:
-            overall_maturity = "Foundational"
+            overall_maturity = "Introductory"
         
         return AssessmentSummary(
             overall_percentage=round(overall_percentage, 1),
