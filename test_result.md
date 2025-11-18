@@ -765,7 +765,15 @@
     file: "/app/backend/server.py, /app/backend/report_generator.py, /app/frontend/src/pages/ResultsPage.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
+
+  - task: "Rename 'Maturity Tier Description' to 'Awareness Tier Description' for Awareness assessments"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
