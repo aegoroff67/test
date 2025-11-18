@@ -479,12 +479,14 @@ function ResultsPage() {
               <p className="text-xs text-gray-700 leading-relaxed">
                 {assessmentType === 'Awareness' ? (
                   <>
-                    The results indicate that <strong>{assessment?.awareness_info?.org_name || user?.organization_name}</strong> has achieved an overall AI awareness score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing the organization within the <strong>{summary.overall_maturity}</strong> awareness category. This rating reflects {
+                    Your organisation demonstrates <strong>{summary.overall_maturity}</strong> AI awareness with an overall score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>. {
                       summary.overall_maturity === 'Established'
-                        ? 'strong foundational AI awareness across the organization. Leaders and staff demonstrate good understanding of AI concepts, potential applications, and associated risks. The organization is well-positioned to progress to readiness assessment and begin exploring AI implementation opportunities.'
+                        ? 'Your organisation demonstrates strong and well-distributed AI awareness. Leaders and staff show clear understanding of AI concepts, realistic capabilities, and potential benefits and risks. This puts you in an excellent position to progress into formal readiness assessment and begin exploring structured AI initiatives or early pilots.'
                         : summary.overall_maturity === 'Developing'
-                        ? 'growing AI awareness and emerging understanding across the organization. Some individuals are familiar with AI concepts, but knowledge gaps exist. Focus on foundational education, building leadership support, and creating shared understanding of AI opportunities and challenges will strengthen readiness for AI adoption.'
-                        : 'early-stage AI awareness with limited understanding across the organization. Most staff and leaders are unfamiliar with AI fundamentals, potential applications, or key considerations. Priority should be on foundational education, building basic AI literacy, and establishing leadership interest before progressing to more advanced assessments.'
+                        ? 'AI awareness is growing consistently across the organisation. Many individuals understand core concepts and can identify relevant opportunities, though some knowledge gaps remain. Strengthening leadership engagement, deepening practical understanding, and establishing light governance foundations will support your transition into readiness assessment.'
+                        : summary.overall_maturity === 'Emerging'
+                        ? 'Your organisation is showing early signs of AI awareness, with isolated pockets of understanding and increasing curiosity. While some staff recognise potential use cases, overall knowledge remains inconsistent. Focus on foundational education, awareness sessions, and building shared language around AI to prepare for the next stage of capability development.'
+                        : 'Your organisation is at the beginning of its AI awareness journey. Most staff and leaders are unfamiliar with AI fundamentals, potential applications, or key risks. Priority should be placed on introductory education, building basic literacy, and fostering leadership interest before moving into deeper assessments or planning activities.'
                     }
                   </>
                 ) : assessmentType === 'Readiness' ? (
