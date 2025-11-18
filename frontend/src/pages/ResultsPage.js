@@ -450,9 +450,10 @@ function ResultsPage() {
               <div className="text-xs text-gray-700 space-y-1">
                 {assessmentType === 'Awareness' ? (
                   <>
-                    <p><span className="font-bold">Established (71-100%):</span> Ready for Action</p>
-                    <p><span className="font-bold">Developing (41-70%):</span> Building Understanding</p>
-                    <p><span className="font-bold">Foundational (0-40%):</span> Early Awareness</p>
+                    <p><span className="font-bold">Established (86-100%):</span> Ready to Progress</p>
+                    <p><span className="font-bold">Developing (66-85%):</span> Building Readiness</p>
+                    <p><span className="font-bold">Emerging (41-65%):</span> Exploring Opportunities</p>
+                    <p><span className="font-bold">Introductory (0-40%):</span> Early Awareness</p>
                   </>
                 ) : assessmentType === 'Readiness' ? (
                   <>
