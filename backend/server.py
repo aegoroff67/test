@@ -1965,6 +1965,86 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
             answered_questions=len(answers)
         )
     
+    # Handle Organisation-wide Assessment
+    elif assessment_type == "Orgwide":
+        from organisation_questions import ORGANISATION_QUESTIONS_DATA
+        
+        # Define organisation domains
+        organisation_domains = [
+            {"id": "accountability_ethics", "name": "Accountability & Ethics", "order": 1},
+            {"id": "continuous_improvement", "name": "Continuous Improvement & Assurance", "order": 2},
+            {"id": "culture_capability", "name": "Culture & Capability", "order": 3},
+            {"id": "data_stewardship", "name": "Data Stewardship & Security", "order": 4},
+            {"id": "fairness_inclusivity", "name": "Fairness & Inclusivity", "order": 5},
+            {"id": "governance_oversight", "name": "Governance & Oversight", "order": 6},
+            {"id": "privacy_legal", "name": "Privacy & Legal Compliance", "order": 7},
+            {"id": "reliability_safety", "name": "Reliability & Safety", "order": 8},
+            {"id": "risk_management", "name": "Risk Management", "order": 9},
+            {"id": "transparency_explainability", "name": "Transparency & Explainability", "order": 10}
+        ]
+        
+        # Create lookups
+        domain_lookup = {domain["id"]: domain for domain in organisation_domains}
+        
+        # Calculate domain scores
+        domain_scores = {}
+        for answer in answers:
+            # Find the question in ORGANISATION_QUESTIONS_DATA
+            question_data = next((q for q in ORGANISATION_QUESTIONS_DATA if q["code"] == answer["question_id"]), None)
+            if not question_data:
+                continue
+            
+            # Get domain from question's domain_order
+            domain_order = question_data["domain_order"]
+            domain = organisation_domains[domain_order - 1]
+            domain_id = domain["id"]
+            
+            if domain_id not in domain_scores:
+                domain_scores[domain_id] = {"score": 0, "max_score": 0}
+            
+            domain_scores[domain_id]["score"] += answer["numeric_score"]
+            domain_scores[domain_id]["max_score"] += 4  # Maximum score per question (1-4 scale)
+        
+        # Build domain score list
+        domain_score_list = []
+        overall_score = 0
+        overall_max_score = 0
+        
+        for domain_id, scores in domain_scores.items():
+            domain = domain_lookup.get(domain_id)
+            if domain:
+                percentage = (scores["score"] / scores["max_score"] * 100) if scores["max_score"] > 0 else 0
+                domain_score_list.append(DomainScore(
+                    domain_id=domain_id,
+                    domain_name=domain["name"],
+                    score=scores["score"],
+                    max_score=scores["max_score"],
+                    percentage=percentage
+                ))
+                overall_score += scores["score"]
+                overall_max_score += scores["max_score"]
+        
+        # Calculate overall metrics
+        overall_percentage = (overall_score / overall_max_score * 100) if overall_max_score > 0 else 0
+        
+        # Organisation-wide maturity tiers
+        if overall_percentage >= 86:
+            overall_maturity = "Leading"
+        elif overall_percentage >= 66:
+            overall_maturity = "Established"
+        elif overall_percentage >= 41:
+            overall_maturity = "Developing"
+        else:
+            overall_maturity = "Foundational"
+        
+        return AssessmentSummary(
+            overall_percentage=round(overall_percentage, 1),
+            overall_maturity=overall_maturity,
+            domain_scores=domain_score_list,
+            total_questions=len(ORGANISATION_QUESTIONS_DATA),
+            answered_questions=len(answers)
+        )
+    
     # System Assessment logic (original)
     domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
     questions = await db.questions.find({}, {"_id": 0}).to_list(length=None)
