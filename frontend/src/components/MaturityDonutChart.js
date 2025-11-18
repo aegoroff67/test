@@ -1,12 +1,18 @@
 import React from 'react';
 
-const MaturityStackedColumn = ({ score }) => {
+const MaturityStackedColumn = ({ score, assessmentType }) => {
   // Define the 4 maturity tiers with new ranges
-  const tiers = [
-    { name: 'Leading', min: 86, max: 100, color: '#00B050', percentage: 15 },      // 15% of bar
-    { name: 'Established', min: 66, max: 85, color: '#FFFF00', percentage: 20 },   // 20% of bar
-    { name: 'Developing', min: 41, max: 65, color: '#FFC000', percentage: 25 },    // 25% of bar
-    { name: 'Foundational', min: 0, max: 40, color: '#FF0000', percentage: 40 }    // 40% of bar
+  // Use different labels for Awareness assessment
+  const tiers = assessmentType === 'Awareness' ? [
+    { name: 'Established', min: 86, max: 100, color: '#00B050', percentage: 15 },      // 15% of bar
+    { name: 'Developing', min: 66, max: 85, color: '#FFFF00', percentage: 20 },       // 20% of bar
+    { name: 'Emerging', min: 41, max: 65, color: '#FFC000', percentage: 25 },         // 25% of bar
+    { name: 'Introductory', min: 0, max: 40, color: '#FF0000', percentage: 40 }       // 40% of bar
+  ] : [
+    { name: 'Leading', min: 86, max: 100, color: '#00B050', percentage: 15 },         // 15% of bar
+    { name: 'Established', min: 66, max: 85, color: '#FFFF00', percentage: 20 },      // 20% of bar
+    { name: 'Developing', min: 41, max: 65, color: '#FFC000', percentage: 25 },       // 25% of bar
+    { name: 'Foundational', min: 0, max: 40, color: '#FF0000', percentage: 40 }       // 40% of bar
   ];
 
   // Determine which tier the score falls into
