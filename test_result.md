@@ -782,6 +782,14 @@
     stuck_count: 0
     priority: "medium"
     needs_retesting: false
+
+  - task: "Update stacked bar tier labels for Awareness assessment"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/MaturityDonutChart.js, /app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
