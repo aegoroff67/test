@@ -439,7 +439,7 @@ function ResultsPage() {
           <div className="flex items-start">
             {/* First 15% - Maturity Stacked Column */}
             <div className="flex flex-col items-center justify-center" style={{ width: '15%' }}>
-              <MaturityStackedColumn score={summary.overall_percentage} />
+              <MaturityStackedColumn score={summary.overall_percentage} assessmentType={assessmentType} />
             </div>
 
             {/* Second 20% - Maturity Tier Descriptions */}
