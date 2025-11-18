@@ -807,7 +807,7 @@
     priority: "critical"
     needs_retesting: false
 
-  - task: "Double width of domain name/score column in heatmap"
+  - task: "Double width of domain name/score column in heatmap for Awareness assessments only"
     implemented: true
     working: true
     file: "/app/frontend/src/pages/ResultsPage.js"
