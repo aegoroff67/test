@@ -695,7 +695,7 @@ function ResultsPage() {
                 return (
                   <div key={domain.domain_id} className="flex items-center">
                     {/* Domain name on the left */}
-                    <div className="w-64 flex-shrink-0 pr-4">
+                    <div className={`${assessmentType === 'Awareness' ? 'w-64' : 'w-32'} flex-shrink-0 pr-4`}>
                       <div className="text-sm font-medium text-gray-900">{domain.domain_name}</div>
                       <div className="text-xs text-gray-600">({domain.percentage.toFixed(1)}%)</div>
                     </div>
