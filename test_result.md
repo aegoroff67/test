@@ -878,6 +878,14 @@
     stuck_count: 0
     priority: "low"
     needs_retesting: false
+
+  - task: "Update AI Readiness tier percentages and align backend calculations"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
