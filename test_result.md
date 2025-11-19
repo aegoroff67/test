@@ -886,6 +886,14 @@
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+
+  - task: "Update AI Readiness labels from 'Maturity' to 'Readiness'"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/MaturityDonutChart.js, /app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
