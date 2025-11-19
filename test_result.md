@@ -830,6 +830,14 @@
     stuck_count: 0
     priority: "critical"
     needs_retesting: false
+
+  - task: "Add introductory sentence to Organisation-wide results summary"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
