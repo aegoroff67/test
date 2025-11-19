@@ -92,3 +92,4 @@ weasyprint==66.0
 webencodings==0.5.1
 zopfli==0.2.3.post1
 playwright==1.55.0
+openai==1.54.4
