@@ -910,6 +910,14 @@
     stuck_count: 0
     priority: "low"
     needs_retesting: false
+
+  - task: "Add AI-generated pre-onboarding commentary for Awareness assessments"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/requirements.txt"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
