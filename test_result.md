@@ -854,6 +854,14 @@
     stuck_count: 0
     priority: "medium"
     needs_retesting: false
+
+  - task: "Increase heatmap domain column width from 8rem to 14rem for non-Awareness assessments"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
