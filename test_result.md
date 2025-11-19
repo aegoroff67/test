@@ -926,6 +926,14 @@
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+
+  - task: "Display AI-generated recommendation section on Awareness results page"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
