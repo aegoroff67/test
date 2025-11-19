@@ -800,7 +800,8 @@ function ResultsPage() {
             )}
             
             {/* Recommended Next Steps - Only for Awareness assessments */}
-            {assessmentType === 'Awareness' && summary.recommendation_summary && (
+            {console.log('Assessment Type:', assessmentType, 'Has recommendation?', summary?.recommendation_summary)}
+            {assessmentType === 'Awareness' && summary?.recommendation_summary && (
               <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                 <h3 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
                   <svg className="h-5 w-5 text-blue-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
