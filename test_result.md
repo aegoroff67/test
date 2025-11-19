@@ -870,6 +870,14 @@
     stuck_count: 0
     priority: "critical"
     needs_retesting: false
+
+  - task: "Increase heatmap domain column width to 18rem for AI Readiness assessments only"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
