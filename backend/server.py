@@ -2085,13 +2085,100 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
         else:
             overall_maturity = "Introductory"
         
-        return AssessmentSummary(
+        # Generate recommendation summary for Awareness assessments
+        recommendation_summary = None
+        try:
+            from openai import OpenAI
+            
+            # Get pre-onboarding commentary from assessment
+            awareness_info = assessment.get("awareness_info", {})
+            pre_onboarding_commentary = awareness_info.get("pre_onboarding_commentary", [])
+            awareness_outcomes = awareness_info.get("awareness_outcomes", [])
+            
+            # Only generate if we have commentary
+            if pre_onboarding_commentary:
+                client = OpenAI(
+                    api_key="sk-emergent-01d3a5f175e7fB507B",
+                    base_url="https://api.studio.nebius.ai/v1/"
+                )
+                
+                # Build the prompt
+                commentary_text = "\n".join([f"- {comment}" for comment in pre_onboarding_commentary])
+                goals_text = ", ".join(awareness_outcomes) if awareness_outcomes else "Not provided"
+                
+                system_prompt = """You are producing a concise, accurate, and tailored recommendation summary for the AM AI SAFE "AI Awareness & Foundations Assessment". You must use only the information provided in the input fields and must make deterministic decisions based strictly on the score thresholds supplied."""
+                
+                user_prompt = f"""USER INPUTS:
+
+pre_onboarding_commentary:
+{commentary_text}
+
+awareness_assessment_score: {round(overall_percentage, 1)}%
+
+awareness_goals: {goals_text}
+
+YOUR TASK:
+Using the pre_onboarding_commentary and awareness_assessment_score, generate a single, polished recommendation summary that:
+
+1. Reflects the user's context: Interpret and synthesise the pre_onboarding_commentary into a short narrative (avoid repetition). Highlight organisational strengths, readiness signals, and motivators.
+
+2. Adds value by combining context + assessment results: Show how their assessment outcome aligns with their starting point and organisational characteristics. Make the narrative feel personalised.
+
+3. Outputs a clear, actionable recommendation using the logic below:
+
+Decision Logic (DO NOT DEVIATE):
+- If awareness_assessment_score < 66% → Recommend: "Attend the AI Foundations Workshop" (Explain that foundational learning will strengthen organisational understanding before progressing further.)
+- If 66% ≤ awareness_assessment_score < 86% → Recommend: "Proceed to the AI Readiness Assessment" (Explain that the organisation is ready to explore structured adoption pathways and risks.)
+- If awareness_assessment_score ≥ 86% → Recommend either "Organisation-wide AI Maturity Assessment" or "AI System Maturity Assessment", depending on awareness_goals:
+  * If goals relate to strategy, capability uplift, governance → Recommend Organisation-wide AI Maturity.
+  * If goals relate to evaluating a specific system or upcoming AI initiative → Recommend AI System Maturity.
+  * If no goals provided → Recommend both as suitable next steps.
+
+Tone and style requirements:
+- Professional but encouraging
+- No jargon or unnecessary complexity
+- 1-2 short paragraphs, then a clearly separated "Recommended Next Step" line
+- Avoid hallucinating any information not included in the inputs
+
+OUTPUT FORMAT:
+Return the final result as:
+
+[awareness_summary_narrative]
+
+**Recommended Next Step:** [Insert single next step based on logic above]"""
+
+                response = client.chat.completions.create(
+                    model="meta-llama/Meta-Llama-3.1-70B-Instruct",
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    temperature=0.3,
+                    max_tokens=400
+                )
+                
+                recommendation_summary = response.choices[0].message.content.strip()
+                print(f"Generated recommendation summary for Awareness assessment")
+                
+        except Exception as e:
+            print(f"Error generating recommendation summary: {str(e)}")
+            # Continue without recommendation if generation fails
+        
+        summary_response = AssessmentSummary(
             overall_percentage=round(overall_percentage, 1),
             overall_maturity=overall_maturity,
             domain_scores=domain_score_list,
             total_questions=len(AWARENESS_QUESTIONS_DATA),
             answered_questions=len(answers)
         )
+        
+        # Add recommendation if generated
+        if recommendation_summary:
+            summary_dict = summary_response.dict()
+            summary_dict['recommendation_summary'] = recommendation_summary
+            return summary_dict
+        
+        return summary_response
     
     # Handle Organisation-wide Assessment
     elif assessment_type == "Orgwide":
