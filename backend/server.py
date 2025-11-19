@@ -1862,39 +1862,67 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
             {"id": "continuous_learning", "name": "Continuous Learning & Improvement", "order": 8}
         ]
         
-        # Group questions by domain
-        domain_questions = {}
-        for domain in readiness_domains:
-            domain_questions[domain["order"]] = {
-                "domain": domain,
-                "questions": []
-            }
+        # Create lookups
+        domain_lookup = {domain["id"]: domain for domain in readiness_domains}
         
-        for question_data in READINESS_QUESTIONS_DATA:
+        # Calculate domain scores
+        domain_scores = {}
+        for answer in answers:
+            # Find the question in READINESS_QUESTIONS_DATA
+            question_data = next((q for q in READINESS_QUESTIONS_DATA if q["code"] == answer["question_id"]), None)
+            if not question_data:
+                continue
+            
+            # Get domain from question's domain_order
             domain_order = question_data["domain_order"]
-            question_id = question_data["code"]
+            domain = readiness_domains[domain_order - 1]
+            domain_id = domain["id"]
             
-            # Get the actual domain ID from the readiness_domains list
-            domain_id = readiness_domains[domain_order - 1]["id"]
+            if domain_id not in domain_scores:
+                domain_scores[domain_id] = {"score": 0, "max_score": 0}
             
-            question = {
-                "id": question_id,
-                "code": question_id,
-                "text": question_data["text"],
-                "explanation": question_data.get("explanation", ""),
-                "order": question_data["order"],
-                "domain_id": domain_id,
-                "answer": answer_lookup.get(question_id),
-                "predefined_answers": {
-                    "foundational": question_data.get("foundational"),
-                    "developing": question_data.get("developing"),
-                    "established": question_data.get("established"),
-                    "leading": question_data.get("leading")
-                }
-            }
-            domain_questions[domain_order]["questions"].append(question)
+            domain_scores[domain_id]["score"] += answer["numeric_score"]
+            domain_scores[domain_id]["max_score"] += 4  # Maximum score per question (1-4 scale)
         
-        return [dq for dq in domain_questions.values() if dq["questions"]]
+        # Build domain score list
+        domain_score_list = []
+        overall_score = 0
+        overall_max_score = 0
+        
+        for domain_id, scores in domain_scores.items():
+            domain = domain_lookup.get(domain_id)
+            if domain:
+                percentage = (scores["score"] / scores["max_score"] * 100) if scores["max_score"] > 0 else 0
+                domain_score_list.append(DomainScore(
+                    domain_id=domain_id,
+                    domain_name=domain["name"],
+                    score=scores["score"],
+                    max_score=scores["max_score"],
+                    percentage=percentage
+                ))
+                overall_score += scores["score"]
+                overall_max_score += scores["max_score"]
+        
+        # Calculate overall metrics
+        overall_percentage = (overall_score / overall_max_score * 100) if overall_max_score > 0 else 0
+        
+        # Readiness maturity tiers
+        if overall_percentage >= 71:
+            overall_maturity = "Leading"
+        elif overall_percentage >= 41:
+            overall_maturity = "Established"
+        elif overall_percentage >= 21:
+            overall_maturity = "Developing"
+        else:
+            overall_maturity = "Foundational"
+        
+        return AssessmentSummary(
+            overall_percentage=round(overall_percentage, 1),
+            overall_maturity=overall_maturity,
+            domain_scores=domain_score_list,
+            total_questions=len(READINESS_QUESTIONS_DATA),
+            answered_questions=len(answers)
+        )
     
     # Handle Awareness Assessment
     elif assessment_type == "Awareness":
