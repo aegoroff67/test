@@ -409,6 +409,7 @@ function ResultsPage() {
                 }`}>
                   {assessmentType === 'Awareness' ? 'AI Awareness & Foundations' 
                    : assessmentType === 'Readiness' ? 'AI Readiness'
+                   : assessmentType === 'Orgwide' ? 'Organisation-wide AI Maturity'
                    : 'AI System Maturity'} Assessment Results
                 </p>
               </div>
