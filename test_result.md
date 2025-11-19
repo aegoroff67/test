@@ -838,6 +838,14 @@
     stuck_count: 0
     priority: "low"
     needs_retesting: false
+
+  - task: "Update Organisation-wide results summary content for all maturity tiers"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
