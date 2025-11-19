@@ -1481,49 +1481,105 @@ async def update_awareness_info(
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
-    # Generate AI commentary based on pre-onboarding responses
-    try:
-        from openai import OpenAI
-        
-        client = OpenAI(
-            api_key="sk-emergent-01d3a5f175e7fB507B",
-            base_url="https://api.studio.nebius.ai/v1/"
-        )
-        
-        # Build prompt with user's responses
-        prompt = f"""You are an AI assessment advisor analyzing pre-onboarding responses for an AI Awareness & Foundations Assessment. Based on the following responses, provide brief, actionable observations (2-3 sentences maximum) about the organization's readiness and what they should focus on.
-
-Responses:
-- AI Familiarity: {awareness_info.get('ai_familiarity', 'Not provided')}
-- Digital Maturity: {awareness_info.get('digital_maturity', 'Not provided')}
-- Leadership AI Interest: {awareness_info.get('leadership_ai_interest', 'Not provided')}
-- Tech Change Comfort: {awareness_info.get('tech_change_comfort', 'Not provided')}
-- Awareness Reason: {awareness_info.get('awareness_reason', 'Not provided')}
-- Desired Outcomes: {awareness_info.get('awareness_outcomes', 'Not provided')}
-- Learning Preferences: {awareness_info.get('learning_preferences', 'Not provided')}
-- Governance Foundations: {awareness_info.get('governance_foundations', 'Not provided')}
-- Digital Initiatives Level: {awareness_info.get('digital_initiatives_level', 'Not provided')}
-- Data Skill Confidence: {awareness_info.get('data_skill_confidence', 'Not provided')}
-- Openness to Learning: {awareness_info.get('openness_to_learning', 'Not provided')}
-
-Provide concise, encouraging commentary that identifies their starting point and suggests 1-2 key focus areas."""
-
-        response = client.chat.completions.create(
-            model="meta-llama/Meta-Llama-3.1-70B-Instruct",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7,
-            max_tokens=200
-        )
-        
-        pre_onboarding_commentary = response.choices[0].message.content.strip()
-        awareness_info['pre_onboarding_commentary'] = pre_onboarding_commentary
-        
-        print(f"Generated pre-onboarding commentary: {pre_onboarding_commentary}")
-        
-    except Exception as e:
-        print(f"Error generating AI commentary: {str(e)}")
-        # Continue without commentary if generation fails
-        awareness_info['pre_onboarding_commentary'] = "Commentary generation unavailable."
+    # Generate pre-onboarding commentary based on responses
+    commentary_mapping = {
+        'ai_familiarity': {
+            'None': "Your organisation is at an early stage of AI understanding, making this assessment a valuable starting point. Establishing shared language and concepts will help build confidence across teams.",
+            'Basic awareness': "You have introductory awareness of AI concepts but limited practical understanding. Strengthening foundational knowledge will help clarify risks, opportunities, and appropriate next steps.",
+            'Moderate': "Your organisation demonstrates moderate familiarity with AI, indicating early exposure or exploration. Building structured awareness will help convert interest into safe, practical readiness.",
+            'Good understanding': "You already have a solid grasp of AI fundamentals. This assessment can help confirm alignment with best practices and identify areas for deeper capability development."
+        },
+        'digital_maturity': {
+            'Early / starting out': "You are early in your digital transformation journey, making foundational AI awareness especially important to ensure safe and sustainable progress.",
+            'Developing': "You are progressing through digital improvements and are well-placed to begin building structured AI capability alongside broader digital initiatives.",
+            'Established': "You have established digital foundations in place. This creates favourable conditions for expanding AI understanding and identifying practical use cases.",
+            'Advanced / data-driven': "Your organisation has an advanced digital and data environment. This positions you strongly to explore AI opportunities with appropriate governance and oversight."
+        },
+        'leadership_ai_interest': {
+            'Not yet': "AI has not yet been a leadership focus, suggesting an opportunity to build awareness and create shared understanding at the executive level.",
+            'Occasionally': "Leadership has shown occasional interest in AI, signalling early momentum. Strengthening foundational awareness will support more informed discussions.",
+            'Regularly': "Leadership engages with AI topics regularly, demonstrating openness to emerging technology. The organisation can now benefit from more structured guidance.",
+            'Embedded in planning': "AI is already referenced in planning activities, indicating strong strategic interest. Foundational awareness across the organisation will reinforce these ambitions."
+        },
+        'tech_change_comfort': {
+            'Low': "Your teams currently have low comfort with technology change, making simple, accessible AI learning essential for confidence building.",
+            'Moderate': "There is moderate comfort with technology change. This provides a good base for safely expanding AI understanding in practical, low-risk ways.",
+            'High': "Your organisation is highly comfortable with technology change, indicating readiness to engage with emerging AI concepts and tools."
+        },
+        'awareness_reason': {
+            'Learn AI fundamentals': "You are seeking to build fundamental AI knowledge, making this assessment an ideal entry point to establish shared organisational understanding.",
+            'Gauge current awareness': "You want clarity on your current level of AI awareness. This assessment provides a benchmark to support future capability building.",
+            'Educate staff / leadership': "You aim to educate staff and/or leadership about AI. This assessment will help you target learning material where it delivers the greatest impact.",
+            'Prepare for future AI assessments': "You are preparing for deeper AI assessments, and this foundational step will help ensure a consistent baseline across participants.",
+            'Support an upcoming AI initiative': "You are approaching an upcoming AI-related initiative. Strengthening foundational knowledge now will support safer, better-informed decision-making.",
+            'Other / not sure': "You are exploring AI awareness more generally. This assessment will help clarify your starting point and identify the most meaningful next steps."
+        },
+        'awareness_outcomes': {
+            'Understand AI basics and terminology': "You want clarity on essential AI terminology and concepts, which will help build shared organisational language.",
+            'Identify safe first steps': "You are seeking guidance on safe, practical first steps. The assessment highlights low-risk areas for initial exploration.",
+            'Benchmark current awareness level': "You want to benchmark your current awareness. This will help track progress as capability develops.",
+            'Identify gaps before deeper assessments': "You aim to understand existing gaps before committing to more advanced assessments.",
+            'Get tailored learning recommendations': "You are looking for targeted learning suggestions. Your responses will guide recommendations aligned to your context.",
+            'Other': "You have broader or unique learning goals. This assessment helps surface your starting point and shape a relevant path forward."
+        },
+        'learning_preferences': {
+            'Short online explainers': "You prefer short, digestible learning formats that support quick understanding.",
+            'Live or virtual workshops': "You value interactive learning experiences, which can help drive deeper engagement.",
+            'Use-case examples and case studies': "You prefer practical examples that demonstrate how AI applies in real organisational contexts.",
+            'Self-directed reading materials': "You appreciate flexible, self-directed learning that allows deeper exploration at your own pace."
+        },
+        'governance_foundations': {
+            'ICT / Cybersecurity policies': "You have ICT and cybersecurity policies in place, offering a good baseline for responsible AI practices.",
+            'Data governance practices': "You have established data governance foundations, which support safe and ethical AI learning.",
+            'Privacy policy / processes': "You have privacy processes in place, which are essential to responsible AI understanding.",
+            'Values or ethics charter': "You have defined organisational values or an ethics charter, providing helpful context for responsible AI adoption.",
+            'None of the above': "You currently lack formal governance foundations, making this assessment a strong first step toward establishing responsible practices."
+        },
+        'digital_initiatives_level': {
+            'None': "You have minimal digital initiatives underway, making foundational AI awareness especially valuable to set direction.",
+            'Basic upgrades (e.g., cloud, CRM)': "You are progressing through basic digital upgrades that create opportunities to expand AI awareness.",
+            'Some automation or analytics pilots': "You have early automation or analytics activity, which provides practical context for expanding AI understanding.",
+            'Multiple ongoing digital initiatives': "You have multiple digital initiatives underway, indicating readiness to explore AI opportunities in a structured way."
+        },
+        'data_skill_confidence': {
+            'Low': "Data and digital skill confidence is currently low, so foundational AI learning will be most effective when presented simply and clearly.",
+            'Moderate': "There is moderate confidence in data skills. This provides a good foundation for building AI awareness.",
+            'High': "High confidence in data skills suggests strong readiness to absorb more advanced AI concepts over time."
+        },
+        'openness_to_learning': {
+            'Low': "There is limited openness to AI learning at this stage, so gentle, low-pressure awareness activities are recommended.",
+            'Moderate': "There is moderate openness to learning, providing a good base to introduce structured AI awareness content.",
+            'High': "High openness to learning indicates strong readiness to engage with foundational AI concepts and safe early use cases."
+        }
+    }
+    
+    # Build commentary list based on selected values
+    commentary_list = []
+    
+    # Single-select fields
+    single_select_fields = ['ai_familiarity', 'digital_maturity', 'leadership_ai_interest', 
+                            'tech_change_comfort', 'awareness_reason', 'digital_initiatives_level',
+                            'data_skill_confidence', 'openness_to_learning']
+    
+    for field in single_select_fields:
+        value = awareness_info.get(field)
+        if value and field in commentary_mapping and value in commentary_mapping[field]:
+            commentary_list.append(commentary_mapping[field][value])
+    
+    # Multi-select fields (expecting lists)
+    multi_select_fields = ['awareness_outcomes', 'learning_preferences', 'governance_foundations']
+    
+    for field in multi_select_fields:
+        values = awareness_info.get(field, [])
+        if isinstance(values, list) and field in commentary_mapping:
+            for value in values:
+                if value in commentary_mapping[field]:
+                    commentary_list.append(commentary_mapping[field][value])
+    
+    # Store commentary list
+    awareness_info['pre_onboarding_commentary'] = commentary_list
+    
+    print(f"Generated {len(commentary_list)} commentary items for awareness pre-onboarding")
     
     # Update the assessment name with the org name from awareness_info
     updated_name = assessment["name"]
