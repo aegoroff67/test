@@ -211,6 +211,8 @@ function ResultsPage() {
       setAnswers(answersData);
       
       const summaryResponse = await axios.get(`${API}/assessments/${id}/summary`);
+      console.log('Summary response:', summaryResponse.data);
+      console.log('Has recommendation_summary?', !!summaryResponse.data.recommendation_summary);
       setSummary(summaryResponse.data);
       
     } catch (error) {
