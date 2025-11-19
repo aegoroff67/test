@@ -862,6 +862,14 @@
     stuck_count: 0
     priority: "low"
     needs_retesting: false
+
+  - task: "Fix 'Failed to load results' error for AI Readiness Assessment"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
