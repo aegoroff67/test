@@ -934,6 +934,14 @@
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+
+  - task: "Fix OpenAI client initialization error for recommendation generation"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
