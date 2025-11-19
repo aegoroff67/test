@@ -1481,6 +1481,50 @@ async def update_awareness_info(
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
+    # Generate AI commentary based on pre-onboarding responses
+    try:
+        from openai import OpenAI
+        
+        client = OpenAI(
+            api_key="sk-emergent-01d3a5f175e7fB507B",
+            base_url="https://api.studio.nebius.ai/v1/"
+        )
+        
+        # Build prompt with user's responses
+        prompt = f"""You are an AI assessment advisor analyzing pre-onboarding responses for an AI Awareness & Foundations Assessment. Based on the following responses, provide brief, actionable observations (2-3 sentences maximum) about the organization's readiness and what they should focus on.
+
+Responses:
+- AI Familiarity: {awareness_info.get('ai_familiarity', 'Not provided')}
+- Digital Maturity: {awareness_info.get('digital_maturity', 'Not provided')}
+- Leadership AI Interest: {awareness_info.get('leadership_ai_interest', 'Not provided')}
+- Tech Change Comfort: {awareness_info.get('tech_change_comfort', 'Not provided')}
+- Awareness Reason: {awareness_info.get('awareness_reason', 'Not provided')}
+- Desired Outcomes: {awareness_info.get('awareness_outcomes', 'Not provided')}
+- Learning Preferences: {awareness_info.get('learning_preferences', 'Not provided')}
+- Governance Foundations: {awareness_info.get('governance_foundations', 'Not provided')}
+- Digital Initiatives Level: {awareness_info.get('digital_initiatives_level', 'Not provided')}
+- Data Skill Confidence: {awareness_info.get('data_skill_confidence', 'Not provided')}
+- Openness to Learning: {awareness_info.get('openness_to_learning', 'Not provided')}
+
+Provide concise, encouraging commentary that identifies their starting point and suggests 1-2 key focus areas."""
+
+        response = client.chat.completions.create(
+            model="meta-llama/Meta-Llama-3.1-70B-Instruct",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+            max_tokens=200
+        )
+        
+        pre_onboarding_commentary = response.choices[0].message.content.strip()
+        awareness_info['pre_onboarding_commentary'] = pre_onboarding_commentary
+        
+        print(f"Generated pre-onboarding commentary: {pre_onboarding_commentary}")
+        
+    except Exception as e:
+        print(f"Error generating AI commentary: {str(e)}")
+        # Continue without commentary if generation fails
+        awareness_info['pre_onboarding_commentary'] = "Commentary generation unavailable."
+    
     # Update the assessment name with the org name from awareness_info
     updated_name = assessment["name"]
     if awareness_info.get("org_name"):
