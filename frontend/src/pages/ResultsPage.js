@@ -503,7 +503,7 @@ function ResultsPage() {
                   </>
                 ) : assessmentType === 'Orgwide' ? (
                   <>
-                    <strong>{assessment?.orgwide_info?.org_name || user?.organization_name}</strong> demonstrates {
+                    The results indicate that <strong>{assessment?.orgwide_info?.org_name || user?.organization_name}</strong> has achieved an overall Organisation-wide AI Maturity score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing the organisation within the <strong>{summary.overall_maturity}</strong> maturity category. <strong>{assessment?.orgwide_info?.org_name || user?.organization_name}</strong> demonstrates {
                       summary.overall_maturity === 'Leading'
                         ? 'a highly mature, organisation-wide AI governance capability that is embedded, proactive, and continually optimised. Governance, risk management, ethics, transparency, and assurance processes are consistently applied across all business units and AI-related activities. The organisation demonstrates strong leadership commitment, clear accountability structures, and well-integrated lifecycle controls aligned to recognised AI governance standards. AI-related decisions are transparent, data-driven, and supported by established oversight mechanisms that ensure ongoing monitoring, fairness safeguards, and responsible innovation. This level of maturity represents a benchmark for excellence, enabling the organisation to deploy, scale, and govern AI systems confidently while maintaining strong ethical, legal, and community trust obligations.'
                         : summary.overall_maturity === 'Established'
