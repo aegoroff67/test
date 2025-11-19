@@ -846,6 +846,14 @@
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+
+  - task: "Fix header subtitle to show 'Organisation-wide AI Maturity' for Orgwide assessments"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
