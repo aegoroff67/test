@@ -902,6 +902,14 @@
     stuck_count: 0
     priority: "low"
     needs_retesting: false
+
+  - task: "Update heatmap panel title and subtitle for all assessment types"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ResultsPage.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
