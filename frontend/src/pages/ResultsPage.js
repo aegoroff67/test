@@ -650,12 +650,12 @@ function ResultsPage() {
                       : assessmentType === 'Readiness' ? 'text-blue-600'
                       : 'text-teal-600'
                     }`} />
-                    <span>{viewMode === 'heatmap' ? 'AI Maturity Response Heatmap' : 'AI System Domain Maturity vs Sector Benchmark'}</span>
+                    <span>{viewMode === 'heatmap' ? 'Assessment Response Heatmap' : 'AI System Domain Maturity vs Sector Benchmark'}</span>
                   </h2>
                   {/* Subtitle for Assessment Heatmap view */}
                   {viewMode === 'heatmap' && (
                     <p className="text-[12px] text-gray-600 mt-1 ml-7">
-                      Responses across all domains and questions, highlighting strengths and improvement opportunities.
+                      Visualisation of responses across all domains and questions, highlighting strengths and improvement opportunities.
                     </p>
                   )}
                   {/* Subtitle for Domain Benchmarks view */}
