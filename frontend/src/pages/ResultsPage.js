@@ -796,6 +796,21 @@ function ResultsPage() {
                 )}
               </div>
             )}
+            
+            {/* Recommended Next Steps - Only for Awareness assessments */}
+            {assessmentType === 'Awareness' && summary.recommendation_summary && (
+              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <h3 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                  <svg className="h-5 w-5 text-blue-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span>Recommended Next Steps</span>
+                </h3>
+                <div className="text-sm text-gray-700 whitespace-pre-line">
+                  {summary.recommendation_summary}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
