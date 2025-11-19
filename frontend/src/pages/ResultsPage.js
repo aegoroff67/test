@@ -460,10 +460,10 @@ function ResultsPage() {
                   </>
                 ) : assessmentType === 'Readiness' ? (
                   <>
-                    <p><span className="font-bold">Leading (86-100%):</span> AI-Ready Organisation</p>
-                    <p><span className="font-bold">Established (66-85%):</span> Strong Readiness</p>
-                    <p><span className="font-bold">Developing (41-65%):</span> Building Capability</p>
-                    <p><span className="font-bold">Foundational (0-40%):</span> Minimal Foundations</p>
+                    <p><span className="font-bold">Leading (86-100%):</span> AI-Ready</p>
+                    <p><span className="font-bold">Established (66-85%):</span> Operational Readiness</p>
+                    <p><span className="font-bold">Developing (41-65%):</span> Emerging Capability</p>
+                    <p><span className="font-bold">Foundational (0-40%):</span> Limited Foundations</p>
                   </>
                 ) : (
                   <>
