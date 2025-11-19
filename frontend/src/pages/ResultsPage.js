@@ -712,6 +712,7 @@ function ResultsPage() {
                       className="flex-shrink-0 pr-4" 
                       style={{ 
                         width: assessmentType === 'Awareness' ? '16rem' 
+                             : assessmentType === 'Readiness' ? '18rem'
                              : assessmentType === 'Orgwide' ? '14rem' 
                              : '8rem' 
                       }}
