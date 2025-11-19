@@ -855,7 +855,7 @@
     priority: "medium"
     needs_retesting: false
 
-  - task: "Increase heatmap domain column width from 8rem to 14rem for non-Awareness assessments"
+  - task: "Increase heatmap domain column width from 8rem to 14rem for Organisation-wide assessments only"
     implemented: true
     working: true
     file: "/app/frontend/src/pages/ResultsPage.js"
