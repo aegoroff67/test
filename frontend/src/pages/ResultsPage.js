@@ -710,7 +710,11 @@ function ResultsPage() {
                     {/* Domain name on the left */}
                     <div 
                       className="flex-shrink-0 pr-4" 
-                      style={{ width: assessmentType === 'Awareness' ? '16rem' : '14rem' }}
+                      style={{ 
+                        width: assessmentType === 'Awareness' ? '16rem' 
+                             : assessmentType === 'Orgwide' ? '14rem' 
+                             : '8rem' 
+                      }}
                     >
                       <div className="text-sm font-medium text-gray-900">{domain.domain_name}</div>
                       <div className="text-xs text-gray-600">({domain.percentage.toFixed(1)}%)</div>
