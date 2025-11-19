@@ -911,10 +911,10 @@
     priority: "low"
     needs_retesting: false
 
-  - task: "Add AI-generated pre-onboarding commentary for Awareness assessments"
+  - task: "Add pre-defined pre-onboarding commentary mapping for Awareness assessments"
     implemented: true
     working: true
-    file: "/app/backend/server.py, /app/backend/requirements.txt"
+    file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
