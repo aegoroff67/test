@@ -918,6 +918,14 @@
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+
+  - task: "Add LLM-powered recommendation summary generation for Awareness assessments"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
