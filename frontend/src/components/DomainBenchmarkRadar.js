@@ -51,7 +51,7 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector, assessmentType
             <PolarGrid stroke="#e5e7eb" strokeWidth={1.5} />
             <PolarAngleAxis 
               dataKey="domain" 
-              tick={{ fill: '#374151', fontSize: 13 }}
+              tick={{ fill: '#374151', fontSize: 13, textAnchor: 'middle' }}
               tickLine={{ stroke: '#9ca3af' }}
             />
             <PolarRadiusAxis 
