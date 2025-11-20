@@ -809,9 +809,14 @@ function ResultsPage() {
                   </svg>
                   <span>Recommended Next Steps</span>
                 </h3>
-                <div className="text-sm text-gray-700 whitespace-pre-line">
-                  {summary.recommendation_summary}
-                </div>
+                <div 
+                  className="text-sm text-gray-700 whitespace-pre-line"
+                  dangerouslySetInnerHTML={{
+                    __html: summary.recommendation_summary
+                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                      .replace(/\n/g, '<br />')
+                  }}
+                />
               </div>
             )}
           </div>
