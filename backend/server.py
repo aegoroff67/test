@@ -2159,14 +2159,21 @@ Return the final result as:
                 # Send message and get response
                 response = await chat.send_message(user_message)
                 
-                recommendation_summary = response.strip()
-                print(f"Generated recommendation summary for Awareness assessment")
-                
-        except Exception as e:
-            print(f"Error generating recommendation summary: {str(e)}")
-            import traceback
-            traceback.print_exc()
-            # Continue without recommendation if generation fails
+                    recommendation_summary = response.strip()
+                    print(f"Generated recommendation summary for Awareness assessment")
+                    
+                    # Save the recommendation to the database for future requests
+                    await db.assessments.update_one(
+                        {"id": assessment_id},
+                        {"$set": {"recommendation_summary": recommendation_summary}}
+                    )
+                    print(f"Saved recommendation summary to database")
+                    
+            except Exception as e:
+                print(f"Error generating recommendation summary: {str(e)}")
+                import traceback
+                traceback.print_exc()
+                # Continue without recommendation if generation fails
         
         summary_response = AssessmentSummary(
             overall_percentage=round(overall_percentage, 1),
