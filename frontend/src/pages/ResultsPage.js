@@ -806,6 +806,7 @@ function ResultsPage() {
                     domainScores={summary.domain_scores}
                     benchmarks={benchmarks}
                     sector={benchmarkSector || selectedIndustry || user?.industry || 'Unknown'}
+                    assessmentType={assessmentType}
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full">
