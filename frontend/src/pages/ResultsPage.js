@@ -264,6 +264,21 @@ function ResultsPage() {
     }
   };
 
+  const fetchActionSteps = async (industry) => {
+    try {
+      const benchmarkSector = getBenchmarkSector(industry);
+      console.log('Fetching action steps for sector:', benchmarkSector);
+      
+      const response = await axios.get(`${API}/awareness/action-steps/${encodeURIComponent(benchmarkSector)}`);
+      console.log('Action steps response:', response.data);
+      
+      setActionSteps(response.data.action_steps);
+    } catch (error) {
+      console.error('Error fetching action steps:', error);
+      toast.error('Failed to load action steps');
+    }
+  };
+
   const generateReport = async () => {
     setGeneratingReport(true);
     try {
