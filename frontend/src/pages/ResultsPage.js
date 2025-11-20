@@ -234,17 +234,20 @@ function ResultsPage() {
     }
   };
 
-  const fetchBenchmarks = async (industry) => {
+  const fetchBenchmarks = async (industry, type = 'System') => {
     try {
       // Get the benchmark sector (now all industries have direct benchmark data in v2)
       const benchmarkSector = getBenchmarkSector(industry);
       
       console.log('=== BENCHMARK FETCH DEBUG ===');
       console.log('Industry:', industry);
+      console.log('Assessment Type:', type);
       console.log('Benchmark sector:', benchmarkSector);
-      console.log('Full URL:', `${API}/sectors/${encodeURIComponent(benchmarkSector)}/benchmarks`);
+      console.log('Full URL:', `${API}/sectors/${encodeURIComponent(benchmarkSector)}/benchmarks?assessment_type=${type}`);
       
-      const response = await axios.get(`${API}/sectors/${encodeURIComponent(benchmarkSector)}/benchmarks`);
+      const response = await axios.get(`${API}/sectors/${encodeURIComponent(benchmarkSector)}/benchmarks`, {
+        params: { assessment_type: type }
+      });
       console.log('Benchmarks response:', response.data);
       console.log('=== FETCH SUCCESS ===');
       
