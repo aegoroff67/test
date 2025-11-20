@@ -2146,9 +2146,9 @@ Tone and style requirements:
 - Avoid hallucinating any information not included in the inputs
 
 OUTPUT FORMAT (CRITICAL - FOLLOW EXACTLY):
-Return the final result as:
+Return the final result starting with this exact format:
 
-Your organisation has achieved **{awareness_assessment_score}%** **{Tier Name} AI Awareness**. [Continue with 150+ word narrative synthesizing the pre_onboarding_commentary and explaining how the score aligns with their context...]
+Your organisation has achieved **[score]%** **[Tier Name] AI Awareness**. [Continue with 150+ word narrative synthesizing the pre_onboarding_commentary and explaining how the score aligns with their context...]
 
 **Recommended Next Step:** [Insert single next step based on logic above]
 
