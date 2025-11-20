@@ -665,7 +665,13 @@ function ResultsPage() {
                       : assessmentType === 'Readiness' ? 'text-blue-600'
                       : 'text-teal-600'
                     }`} />
-                    <span>{viewMode === 'heatmap' ? 'Assessment Response Heatmap' : 'AI System Domain Maturity vs Sector Benchmark'}</span>
+                    <span>
+                      {viewMode === 'heatmap' 
+                        ? 'Assessment Response Heatmap' 
+                        : assessmentType === 'Awareness'
+                        ? 'Organisation AI Awareness vs Sector Benchmark'
+                        : 'AI System Domain Maturity vs Sector Benchmark'}
+                    </span>
                   </h2>
                   {/* Subtitle for Assessment Heatmap view */}
                   {viewMode === 'heatmap' && (
@@ -676,7 +682,7 @@ function ResultsPage() {
                   {/* Subtitle for Domain Benchmarks view */}
                   {viewMode === 'radar' && (
                     <p className="text-[12px] text-gray-600 mt-1 ml-7">
-                      Comparing your AI domain maturity against the <span className="font-bold">{benchmarkSector || assessment?.system_info?.industry || user?.industry || 'sector'}</span> sector average.
+                      Comparing your AI domain {assessmentType === 'Awareness' ? 'awareness' : 'maturity'} against the <span className="font-bold">{benchmarkSector || assessment?.system_info?.industry || assessment?.awareness_info?.industry || user?.industry || 'sector'}</span> sector average.
                     </p>
                   )}
                 </div>
