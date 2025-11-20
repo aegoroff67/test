@@ -2101,8 +2101,8 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
                 
                 # Only generate if we have commentary
                 if pre_onboarding_commentary:
-                # Build the prompt
-                commentary_text = "\n".join([f"- {comment}" for comment in pre_onboarding_commentary])
+                    # Build the prompt
+                    commentary_text = "\n".join([f"- {comment}" for comment in pre_onboarding_commentary])
                 goals_text = ", ".join(awareness_outcomes) if awareness_outcomes else "Not provided"
                 
                 system_message = """You are producing a concise, accurate, and tailored recommendation summary for the AM AI SAFE "AI Awareness & Foundations Assessment". You must use only the information provided in the input fields and must make deterministic decisions based strictly on the score thresholds supplied."""
