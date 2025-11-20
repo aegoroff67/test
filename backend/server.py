@@ -2101,6 +2101,27 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
                 
                 # Only generate if we have commentary
                 if pre_onboarding_commentary:
+                    # Load awareness benchmarks
+                    import json
+                    import os
+                    benchmark_path = os.path.join(os.path.dirname(__file__), "awareness_benchmarks.json")
+                    with open(benchmark_path, 'r') as f:
+                        benchmarks_data = json.load(f)
+                    
+                    # Get user's industry and benchmark data
+                    user_industry = awareness_info.get("industry", "Other")
+                    sector_benchmarks = benchmarks_data["benchmarks"].get(user_industry, benchmarks_data["benchmarks"]["Other"])
+                    
+                    # Get domain scores for comparison
+                    domain_scores_text = "\n".join([
+                        f"- {domain.domain_name}: {domain.percentage:.1f}%"
+                        for domain in domain_score_list
+                    ])
+                    
+                    # Format benchmark data for prompt
+                    benchmark_text = f"\n\nSector Benchmarks for {user_industry}:\n"
+                    benchmark_text += "\n".join([f"- {domain}: {range_val}%" for domain, range_val in sector_benchmarks.items()])
+                    
                     # Build the prompt
                     commentary_text = "\n".join([f"- {comment}" for comment in pre_onboarding_commentary])
                     goals_text = ", ".join(awareness_outcomes) if awareness_outcomes else "Not provided"
