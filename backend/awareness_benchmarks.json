@@ -1,4 +1,17 @@
 {
+  "sector_averages": {
+    "Local Government / Public Sector": 42,
+    "Education": 45,
+    "Healthcare": 38,
+    "Finance / Insurance": 54,
+    "Technology / Software": 68,
+    "Utilities / Critical Infrastructure": 40,
+    "Manufacturing": 36,
+    "Retail / Hospitality": 41,
+    "Consulting / Professional Services": 60,
+    "Not-for-profit / Charity": 33,
+    "Other": 48
+  },
   "benchmarks": {
     "Local Government / Public Sector": {
       "Awareness & Understanding": "48-55",
