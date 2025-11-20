@@ -2097,11 +2097,16 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
             
             # Only generate if we have commentary
             if pre_onboarding_commentary:
-                import os
-                os.environ["OPENAI_API_KEY"] = "sk-emergent-01d3a5f175e7fB507B"
-                os.environ["OPENAI_BASE_URL"] = "https://api.studio.nebius.ai/v1/"
+                import httpx
                 
-                client = OpenAI()
+                # Create custom httpx client without proxies
+                http_client = httpx.Client(timeout=60.0)
+                
+                client = OpenAI(
+                    api_key="sk-emergent-01d3a5f175e7fB507B",
+                    base_url="https://api.studio.nebius.ai/v1/",
+                    http_client=http_client
+                )
                 
                 # Build the prompt
                 commentary_text = "\n".join([f"- {comment}" for comment in pre_onboarding_commentary])
