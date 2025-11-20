@@ -124,6 +124,16 @@ function ResultsPage() {
     }
   }, [viewMode, assessmentType, user, assessment, selectedIndustry]);
 
+  useEffect(() => {
+    // Fetch action steps for Awareness assessments
+    if (assessmentType === 'Awareness' && assessment && !actionSteps) {
+      const industry = assessment?.awareness_info?.industry || user?.industry;
+      if (industry) {
+        fetchActionSteps(industry);
+      }
+    }
+  }, [assessmentType, assessment, user, actionSteps]);
+
   const fetchResults = async () => {
     try {
       // TESTING: Use mock data for layout testing
