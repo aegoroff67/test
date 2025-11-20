@@ -2875,6 +2875,29 @@ async def generate_executive_summary_pdf(
                 logger.error("Still on login page after setting token!")
                 raise Exception("Authentication failed - redirected to login page")
             
+            # Inject CSS to ensure content is not cut off during PDF generation
+            await page.add_style_tag(content="""
+                @media print {
+                    body, html {
+                        overflow: visible !important;
+                        height: auto !important;
+                        max-height: none !important;
+                    }
+                    .overflow-y-auto {
+                        overflow: visible !important;
+                        height: auto !important;
+                        max-height: none !important;
+                    }
+                    .h-screen {
+                        height: auto !important;
+                        min-height: 100vh !important;
+                    }
+                    .flex-1 {
+                        overflow: visible !important;
+                    }
+                }
+            """)
+            
             # Take screenshot for debugging (optional)
             # await page.screenshot(path='/tmp/debug.png', full_page=True)
             
