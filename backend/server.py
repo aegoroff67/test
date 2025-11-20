@@ -2086,17 +2086,21 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
             overall_maturity = "Introductory"
         
         # Generate recommendation summary for Awareness assessments
-        recommendation_summary = None
-        try:
-            from emergentintegrations.llm.chat import LlmChat, UserMessage
-            
-            # Get pre-onboarding commentary from assessment
-            awareness_info = assessment.get("awareness_info", {})
-            pre_onboarding_commentary = awareness_info.get("pre_onboarding_commentary", [])
-            awareness_outcomes = awareness_info.get("awareness_outcomes", [])
-            
-            # Only generate if we have commentary
-            if pre_onboarding_commentary:
+        # Check if recommendation already exists (to avoid regenerating on every request)
+        recommendation_summary = assessment.get("recommendation_summary")
+        
+        # Only generate if it doesn't exist
+        if not recommendation_summary:
+            try:
+                from emergentintegrations.llm.chat import LlmChat, UserMessage
+                
+                # Get pre-onboarding commentary from assessment
+                awareness_info = assessment.get("awareness_info", {})
+                pre_onboarding_commentary = awareness_info.get("pre_onboarding_commentary", [])
+                awareness_outcomes = awareness_info.get("awareness_outcomes", [])
+                
+                # Only generate if we have commentary
+                if pre_onboarding_commentary:
                 # Build the prompt
                 commentary_text = "\n".join([f"- {comment}" for comment in pre_onboarding_commentary])
                 goals_text = ", ".join(awareness_outcomes) if awareness_outcomes else "Not provided"
