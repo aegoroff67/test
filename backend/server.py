@@ -9,6 +9,7 @@ import hashlib
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 import os
+import json
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, EmailStr
