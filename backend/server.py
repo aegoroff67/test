@@ -2133,18 +2133,29 @@ Decision Logic (DO NOT DEVIATE):
   * If goals relate to evaluating a specific system or upcoming AI initiative → Recommend AI System Maturity.
   * If no goals provided → Recommend both as suitable next steps.
 
+Tier Name Mapping (for output formatting):
+- If awareness_assessment_score ≥ 86% → Tier is "Established"
+- If 66% ≤ awareness_assessment_score < 86% → Tier is "Developing"
+- If 41% ≤ awareness_assessment_score < 66% → Tier is "Emerging"
+- If awareness_assessment_score < 41% → Tier is "Introductory"
+
 Tone and style requirements:
 - Professional but encouraging
 - No jargon or unnecessary complexity
-- 1-2 short paragraphs, then a clearly separated "Recommended Next Step" line
+- MINIMUM 150 words in the narrative section (before the Recommended Next Step line)
 - Avoid hallucinating any information not included in the inputs
 
-OUTPUT FORMAT:
+OUTPUT FORMAT (CRITICAL - FOLLOW EXACTLY):
 Return the final result as:
 
-[awareness_summary_narrative]
+Your organisation has achieved **{awareness_assessment_score}%** **{Tier Name} AI Awareness**. [Continue with 150+ word narrative synthesizing the pre_onboarding_commentary and explaining how the score aligns with their context...]
 
-**Recommended Next Step:** [Insert single next step based on logic above]"""
+**Recommended Next Step:** [Insert single next step based on logic above]
+
+EXAMPLE:
+Your organisation has achieved **72.5%** **Developing AI Awareness**. Based on your responses, you demonstrate moderate familiarity with AI concepts and have established digital foundations in place...
+
+**Recommended Next Step:** Proceed to the AI Readiness Assessment"""
 
                     # Initialize chat with emergentintegrations
                     chat = LlmChat(
