@@ -2145,11 +2145,11 @@ domain_scores:
 {benchmark_text}
 
 YOUR TASK:
-Using the pre_onboarding_commentary and awareness_assessment_score, generate a single, polished recommendation summary that:
+Using the pre_onboarding_commentary, awareness_assessment_score, domain_scores, and sector_benchmarks, generate a single, polished recommendation summary that:
 
 1. Reflects the user's context: Interpret and synthesise the pre_onboarding_commentary into a short narrative (avoid repetition). Highlight organisational strengths, readiness signals, and motivators.
 
-2. Adds value by combining context + assessment results: Show how their assessment outcome aligns with their starting point and organisational characteristics. Make the narrative feel personalised.
+2. Adds value by combining context + assessment results + sector comparison: Show how their assessment outcome aligns with their starting point and organisational characteristics. Where relevant, note how their domain scores compare to typical ranges in their sector (above, within, or below benchmark ranges). Make the narrative feel personalised and contextual.
 
 3. Outputs a clear, actionable recommendation using the logic below:
 
