@@ -1,0 +1,81 @@
+{
+  "benchmarks": {
+    "Local Government / Public Sector": {
+      "Awareness & Understanding": "48-55",
+      "Leadership & Vision": "45-52",
+      "People & Skills": "42-50",
+      "Data & Digital Readiness": "40-50",
+      "Governance & Trust Foundations": "55-65"
+    },
+    "Education": {
+      "Awareness & Understanding": "55-62",
+      "Leadership & Vision": "48-55",
+      "People & Skills": "52-60",
+      "Data & Digital Readiness": "45-55",
+      "Governance & Trust Foundations": "50-60"
+    },
+    "Healthcare": {
+      "Awareness & Understanding": "50-58",
+      "Leadership & Vision": "45-53",
+      "People & Skills": "48-55",
+      "Data & Digital Readiness": "40-48",
+      "Governance & Trust Foundations": "60-70"
+    },
+    "Finance / Insurance": {
+      "Awareness & Understanding": "65-75",
+      "Leadership & Vision": "60-70",
+      "People & Skills": "60-68",
+      "Data & Digital Readiness": "65-75",
+      "Governance & Trust Foundations": "70-80"
+    },
+    "Technology / Software": {
+      "Awareness & Understanding": "72-82",
+      "Leadership & Vision": "68-80",
+      "People & Skills": "70-80",
+      "Data & Digital Readiness": "75-85",
+      "Governance & Trust Foundations": "60-70"
+    },
+    "Utilities / Critical Infrastructure": {
+      "Awareness & Understanding": "52-60",
+      "Leadership & Vision": "50-58",
+      "People & Skills": "45-55",
+      "Data & Digital Readiness": "48-58",
+      "Governance & Trust Foundations": "70-80"
+    },
+    "Manufacturing": {
+      "Awareness & Understanding": "45-55",
+      "Leadership & Vision": "40-50",
+      "People & Skills": "40-52",
+      "Data & Digital Readiness": "42-55",
+      "Governance & Trust Foundations": "45-55"
+    },
+    "Retail / Hospitality": {
+      "Awareness & Understanding": "48-58",
+      "Leadership & Vision": "45-55",
+      "People & Skills": "50-60",
+      "Data & Digital Readiness": "40-52",
+      "Governance & Trust Foundations": "45-55"
+    },
+    "Consulting / Professional Services": {
+      "Awareness & Understanding": "65-75",
+      "Leadership & Vision": "60-72",
+      "People & Skills": "65-75",
+      "Data & Digital Readiness": "55-70",
+      "Governance & Trust Foundations": "60-70"
+    },
+    "Not-for-profit / Charity": {
+      "Awareness & Understanding": "45-55",
+      "Leadership & Vision": "40-50",
+      "People & Skills": "45-55",
+      "Data & Digital Readiness": "35-48",
+      "Governance & Trust Foundations": "45-55"
+    },
+    "Other": {
+      "Awareness & Understanding": "50-60",
+      "Leadership & Vision": "45-55",
+      "People & Skills": "48-58",
+      "Data & Digital Readiness": "45-55",
+      "Governance & Trust Foundations": "50-65"
+    }
+  }
+}
