@@ -8,14 +8,18 @@ import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Responsi
  * @param {Array} domainScores - Array of domain score objects with domain_name and percentage
  * @param {Object} benchmarks - Object mapping domain names to benchmark scores (0-100)
  * @param {String} sector - Name of the sector for display
+ * @param {String} assessmentType - Type of assessment (System, Awareness, etc.)
  */
-const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector }) => {
+const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector, assessmentType }) => {
   // Transform data for radar chart
   const radarData = domainScores.map(domain => ({
     domain: domain.domain_name,
     'Your Score': Math.round(domain.percentage),
     'Sector Benchmark': benchmarks[domain.domain_name] || 0
   }));
+
+  // Conditional margins - extra left margin for Awareness assessments
+  const leftMargin = assessmentType === 'Awareness' ? 145 : 80;
 
   // Custom tooltip
   const CustomTooltip = ({ active, payload }) => {
@@ -38,7 +42,7 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector }) => {
     <div className="w-full h-full flex items-center justify-center">
       <div style={{ width: '700px', height: '700px' }}>
         <ResponsiveContainer width="100%" height="100%">
-          <RadarChart data={radarData} margin={{ top: 20, right: 80, bottom: 40, left: 80 }}>
+          <RadarChart data={radarData} margin={{ top: 20, right: 80, bottom: 40, left: leftMargin }}>
             <PolarGrid stroke="#e5e7eb" strokeWidth={1.5} />
             <PolarAngleAxis 
               dataKey="domain" 
