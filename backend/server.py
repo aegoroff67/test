@@ -2088,7 +2088,7 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
         # Generate recommendation summary for Awareness assessments
         recommendation_summary = None
         try:
-            from openai import OpenAI
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
             
             # Get pre-onboarding commentary from assessment
             awareness_info = assessment.get("awareness_info", {})
@@ -2097,22 +2097,11 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
             
             # Only generate if we have commentary
             if pre_onboarding_commentary:
-                import httpx
-                
-                # Create custom httpx client without proxies
-                http_client = httpx.Client(timeout=60.0)
-                
-                client = OpenAI(
-                    api_key="sk-emergent-01d3a5f175e7fB507B",
-                    base_url="https://api.studio.nebius.ai/v1/",
-                    http_client=http_client
-                )
-                
                 # Build the prompt
                 commentary_text = "\n".join([f"- {comment}" for comment in pre_onboarding_commentary])
                 goals_text = ", ".join(awareness_outcomes) if awareness_outcomes else "Not provided"
                 
-                system_prompt = """You are producing a concise, accurate, and tailored recommendation summary for the AM AI SAFE "AI Awareness & Foundations Assessment". You must use only the information provided in the input fields and must make deterministic decisions based strictly on the score thresholds supplied."""
+                system_message = """You are producing a concise, accurate, and tailored recommendation summary for the AM AI SAFE "AI Awareness & Foundations Assessment". You must use only the information provided in the input fields and must make deterministic decisions based strictly on the score thresholds supplied."""
                 
                 user_prompt = f"""USER INPUTS:
 
@@ -2153,21 +2142,26 @@ Return the final result as:
 
 **Recommended Next Step:** [Insert single next step based on logic above]"""
 
-                response = client.chat.completions.create(
-                    model="meta-llama/Meta-Llama-3.1-70B-Instruct",
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_prompt}
-                    ],
-                    temperature=0.3,
-                    max_tokens=400
-                )
+                # Initialize chat with emergentintegrations
+                chat = LlmChat(
+                    api_key="sk-emergent-01d3a5f175e7fB507B",
+                    session_id=f"awareness_recommendation_{assessment_id}",
+                    system_message=system_message
+                ).with_model("openai", "gpt-4o-mini")
                 
-                recommendation_summary = response.choices[0].message.content.strip()
+                # Create user message
+                user_message = UserMessage(text=user_prompt)
+                
+                # Send message and get response
+                response = await chat.send_message(user_message)
+                
+                recommendation_summary = response.strip()
                 print(f"Generated recommendation summary for Awareness assessment")
                 
         except Exception as e:
             print(f"Error generating recommendation summary: {str(e)}")
+            import traceback
+            traceback.print_exc()
             # Continue without recommendation if generation fails
         
         summary_response = AssessmentSummary(
