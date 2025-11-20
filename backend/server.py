@@ -2103,11 +2103,11 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
                 if pre_onboarding_commentary:
                     # Build the prompt
                     commentary_text = "\n".join([f"- {comment}" for comment in pre_onboarding_commentary])
-                goals_text = ", ".join(awareness_outcomes) if awareness_outcomes else "Not provided"
-                
-                system_message = """You are producing a concise, accurate, and tailored recommendation summary for the AM AI SAFE "AI Awareness & Foundations Assessment". You must use only the information provided in the input fields and must make deterministic decisions based strictly on the score thresholds supplied."""
-                
-                user_prompt = f"""USER INPUTS:
+                    goals_text = ", ".join(awareness_outcomes) if awareness_outcomes else "Not provided"
+                    
+                    system_message = """You are producing a concise, accurate, and tailored recommendation summary for the AM AI SAFE "AI Awareness & Foundations Assessment". You must use only the information provided in the input fields and must make deterministic decisions based strictly on the score thresholds supplied."""
+                    
+                    user_prompt = f"""USER INPUTS:
 
 pre_onboarding_commentary:
 {commentary_text}
@@ -2146,19 +2146,19 @@ Return the final result as:
 
 **Recommended Next Step:** [Insert single next step based on logic above]"""
 
-                # Initialize chat with emergentintegrations
-                chat = LlmChat(
-                    api_key="sk-emergent-01d3a5f175e7fB507B",
-                    session_id=f"awareness_recommendation_{assessment_id}",
-                    system_message=system_message
-                ).with_model("openai", "gpt-4o-mini")
-                
-                # Create user message
-                user_message = UserMessage(text=user_prompt)
-                
-                # Send message and get response
-                response = await chat.send_message(user_message)
-                
+                    # Initialize chat with emergentintegrations
+                    chat = LlmChat(
+                        api_key="sk-emergent-01d3a5f175e7fB507B",
+                        session_id=f"awareness_recommendation_{assessment_id}",
+                        system_message=system_message
+                    ).with_model("openai", "gpt-4o-mini")
+                    
+                    # Create user message
+                    user_message = UserMessage(text=user_prompt)
+                    
+                    # Send message and get response
+                    response = await chat.send_message(user_message)
+                    
                     recommendation_summary = response.strip()
                     print(f"Generated recommendation summary for Awareness assessment")
                     
