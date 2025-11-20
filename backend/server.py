@@ -2137,6 +2137,13 @@ awareness_assessment_score: {round(overall_percentage, 1)}%
 
 awareness_goals: {goals_text}
 
+user_industry: {user_industry}
+
+domain_scores:
+{domain_scores_text}
+
+{benchmark_text}
+
 YOUR TASK:
 Using the pre_onboarding_commentary and awareness_assessment_score, generate a single, polished recommendation summary that:
 
