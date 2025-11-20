@@ -1089,6 +1089,7 @@ function ResultsPage() {
                 </ResponsiveContainer>
               </div>
             </div>
+            )}
 
             {/* Key Strengths */}
             <div className="mb-3">
