@@ -669,7 +669,7 @@ function ResultsPage() {
                       {viewMode === 'heatmap' 
                         ? 'Assessment Response Heatmap' 
                         : assessmentType === 'Awareness'
-                        ? 'Organisation AI Awareness vs Sector Benchmark'
+                        ? 'AI Awareness vs Sector Benchmark'
                         : 'AI System Domain Maturity vs Sector Benchmark'}
                     </span>
                   </h2>
