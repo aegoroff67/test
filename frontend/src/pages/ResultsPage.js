@@ -90,6 +90,7 @@ function ResultsPage() {
   const [benchmarkSector, setBenchmarkSector] = useState(null);
   const [showIndustrySelector, setShowIndustrySelector] = useState(false);
   const [selectedIndustry, setSelectedIndustry] = useState('');
+  const [actionSteps, setActionSteps] = useState(null);
 
   useEffect(() => {
     fetchResults();
