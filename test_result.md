@@ -950,6 +950,14 @@
     stuck_count: 0
     priority: "low"
     needs_retesting: false
+
+  - task: "Fix recommendation being regenerated on every page refresh"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
