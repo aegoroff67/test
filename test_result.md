@@ -974,6 +974,14 @@
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+
+  - task: "Add sector average awareness scores to benchmark data"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/awareness_benchmarks.json"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
