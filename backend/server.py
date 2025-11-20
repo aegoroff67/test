@@ -2912,7 +2912,6 @@ async def generate_executive_summary_pdf(
                 scale=0.68,
                 print_background=True,
                 prefer_css_page_size=False,
-                print_page_ranges='',
                 margin={
                     'top': '1cm',
                     'right': '1cm',
