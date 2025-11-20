@@ -2878,13 +2878,15 @@ async def generate_executive_summary_pdf(
             # Take screenshot for debugging (optional)
             # await page.screenshot(path='/tmp/debug.png', full_page=True)
             
-            # Generate PDF with exact specifications
+            # Generate PDF with full page capture
             await page.pdf(
                 path=temp_pdf_path,
                 format='A4',
                 landscape=True,
                 scale=0.68,
                 print_background=True,
+                prefer_css_page_size=False,
+                print_page_ranges='',
                 margin={
                     'top': '1cm',
                     'right': '1cm',
