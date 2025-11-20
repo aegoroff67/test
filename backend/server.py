@@ -2111,6 +2111,7 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
                     # Get user's industry and benchmark data
                     user_industry = awareness_info.get("industry", "Other")
                     sector_benchmarks = benchmarks_data["benchmarks"].get(user_industry, benchmarks_data["benchmarks"]["Other"])
+                    sector_average = benchmarks_data["sector_averages"].get(user_industry, benchmarks_data["sector_averages"]["Other"])
                     
                     # Get domain scores for comparison
                     domain_scores_text = "\n".join([
@@ -2119,7 +2120,8 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
                     ])
                     
                     # Format benchmark data for prompt
-                    benchmark_text = f"\n\nSector Benchmarks for {user_industry}:\n"
+                    benchmark_text = f"\n\nTypical AI Awareness Average for {user_industry}: {sector_average}%"
+                    benchmark_text += f"\n\nDomain Benchmark Ranges for {user_industry}:\n"
                     benchmark_text += "\n".join([f"- {domain}: {range_val}%" for domain, range_val in sector_benchmarks.items()])
                     
                     # Build the prompt
