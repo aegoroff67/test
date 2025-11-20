@@ -2386,13 +2386,52 @@ async def get_sectors():
     return {"sectors": sectors}
 
 @api_router.get("/sectors/{sector:path}/benchmarks")
-async def get_benchmarks_by_sector(sector: str):
+async def get_benchmarks_by_sector(sector: str, assessment_type: str = "System"):
     """
     Get benchmark data for a specific sector.
     Returns domain names mapped to benchmark scores (0-100%).
     
+    Args:
+        sector: Sector name (e.g., "Finance / Insurance")
+        assessment_type: Type of assessment ("System" or "Awareness")
+    
     Note: Using {sector:path} to handle sectors with forward slashes like "Finance / Insurance"
     """
+    # Handle Awareness assessment benchmarks
+    if assessment_type == "Awareness":
+        benchmark_path = os.path.join(os.path.dirname(__file__), "awareness_benchmarks.json")
+        with open(benchmark_path, 'r') as f:
+            benchmarks_data = json.load(f)
+        
+        # Get benchmarks for the sector
+        sector_benchmarks_raw = benchmarks_data["benchmarks"].get(sector, benchmarks_data["benchmarks"].get("Other", {}))
+        
+        if not sector_benchmarks_raw:
+            raise HTTPException(
+                status_code=404, 
+                detail=f"No Awareness benchmark data found for sector: {sector}"
+            )
+        
+        # Convert ranges to midpoint values
+        benchmarks = {}
+        for domain, range_str in sector_benchmarks_raw.items():
+            # Parse range like "48-55" and calculate midpoint
+            if isinstance(range_str, str) and '-' in range_str:
+                parts = range_str.split('-')
+                low = float(parts[0])
+                high = float(parts[1])
+                midpoint = (low + high) / 2
+                benchmarks[domain] = round(midpoint, 1)
+            else:
+                # If it's already a number, use it as is
+                benchmarks[domain] = float(range_str)
+        
+        return {
+            "sector": sector,
+            "benchmarks": benchmarks
+        }
+    
+    # Handle System assessment benchmarks (default)
     benchmarks = await get_sector_benchmarks(db, sector)
     
     if not benchmarks:
