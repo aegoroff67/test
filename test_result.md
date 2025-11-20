@@ -958,6 +958,14 @@
     stuck_count: 0
     priority: "critical"
     needs_retesting: false
+
+  - task: "Update LLM prompt for 150+ word minimum and bold score/tier formatting"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
