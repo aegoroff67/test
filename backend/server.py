@@ -2898,6 +2898,9 @@ async def generate_executive_summary_pdf(
                 }
             """)
             
+            # Emulate print media for proper rendering
+            await page.emulate_media(media='print')
+            
             # Take screenshot for debugging (optional)
             # await page.screenshot(path='/tmp/debug.png', full_page=True)
             
