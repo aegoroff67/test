@@ -2447,6 +2447,38 @@ async def get_benchmarks_by_sector(sector: str, assessment_type: str = "System")
     }
 
 
+@api_router.get("/awareness/action-steps/{sector}")
+async def get_awareness_action_steps(sector: str):
+    """
+    Get action steps for Awareness assessment questions by sector.
+    Returns a mapping of question codes to action step descriptions.
+    """
+    actions_path = os.path.join(os.path.dirname(__file__), "awareness_actions.json")
+    
+    try:
+        with open(actions_path, 'r') as f:
+            actions_data = json.load(f)
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=500,
+            detail="Action steps data file not found"
+        )
+    
+    # Get action steps for the sector, fallback to "Other" if not found
+    sector_actions = actions_data.get(sector, actions_data.get("Other", {}))
+    
+    if not sector_actions:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No action steps found for sector: {sector}"
+        )
+    
+    return {
+        "sector": sector,
+        "action_steps": sector_actions
+    }
+
+
 @api_router.get("/assessments/{assessment_id}/status")
 async def get_assessment_status(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
