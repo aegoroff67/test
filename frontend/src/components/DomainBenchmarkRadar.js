@@ -11,15 +11,20 @@ import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Responsi
  * @param {String} assessmentType - Type of assessment (System, Awareness, etc.)
  */
 const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector, assessmentType }) => {
+  // Format domain labels with line breaks for long names
+  const formatDomainLabel = (domainName) => {
+    if (domainName === 'Governance & Trust Foundations') {
+      return 'Governance &\nTrust Foundations';
+    }
+    return domainName;
+  };
+
   // Transform data for radar chart
   const radarData = domainScores.map(domain => ({
-    domain: domain.domain_name,
+    domain: formatDomainLabel(domain.domain_name),
     'Your Score': Math.round(domain.percentage),
     'Sector Benchmark': benchmarks[domain.domain_name] || 0
   }));
-
-  // Conditional margins - extra left margin for Awareness assessments
-  const leftMargin = assessmentType === 'Awareness' ? 145 : 80;
 
   // Custom tooltip
   const CustomTooltip = ({ active, payload }) => {
