@@ -1190,6 +1190,55 @@ function ResultsPage() {
                   })}
               </div>
             </div>
+
+            {/* Top 3 Action Steps - Only for Awareness assessments */}
+            {assessmentType === 'Awareness' && actionSteps && (
+              <div className="mt-4">
+                <div className="mb-2">
+                  <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600" />
+                    <span>Top 3 Action Steps</span>
+                  </h2>
+                  <p className="text-xs text-gray-600 ml-6">
+                    Recommended actions based on your lowest scoring questions.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  {(() => {
+                    // Get the 3 lowest scoring questions
+                    const lowestScoringQuestions = [...answers]
+                      .sort((a, b) => a.numeric_score - b.numeric_score)
+                      .slice(0, 3);
+                    
+                    return lowestScoringQuestions.map((answer, index) => {
+                      const question = questions.find(q => q.id === answer.question_id);
+                      const questionCode = question?.code;
+                      const actionStep = actionSteps[questionCode];
+                      
+                      if (!actionStep) return null;
+                      
+                      return (
+                        <div key={answer.question_id} className="p-3 bg-blue-50 rounded border border-blue-200">
+                          <div className="flex items-start space-x-2">
+                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold mt-0.5">
+                              {index + 1}
+                            </div>
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-gray-900 mb-1">
+                                {questionCode}: Score {answer.numeric_score}/4
+                              </div>
+                              <div className="text-xs text-gray-700 leading-relaxed">
+                                {actionStep}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    });
+                  })()}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
