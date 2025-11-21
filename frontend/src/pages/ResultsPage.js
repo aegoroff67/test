@@ -529,7 +529,16 @@ function ResultsPage() {
               <p className="text-xs text-gray-700 leading-relaxed">
                 {assessmentType === 'Awareness' ? (
                   <>
-                    Your organisation demonstrates <strong>{summary.overall_maturity}</strong> AI awareness with an overall score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>. {
+                    Your organisation demonstrates <strong>{summary.overall_maturity}</strong> AI awareness with an overall score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>{
+                      sectorAverage !== null && benchmarkSector ? (
+                        (() => {
+                          const userScore = summary.overall_percentage;
+                          const avgScore = sectorAverage;
+                          const comparison = userScore > avgScore ? 'above' : userScore < avgScore ? 'below' : 'equal to';
+                          return `, which is ${comparison} the ${benchmarkSector} sector AI awareness average`;
+                        })()
+                      ) : ''
+                    }. {
                       summary.overall_maturity === 'Established'
                         ? 'Your organisation demonstrates strong and well-distributed AI awareness. Leaders and staff show clear understanding of AI concepts, realistic capabilities, and potential benefits and risks. This puts you in an excellent position to progress into formal readiness assessment and begin exploring structured AI initiatives or early pilots.'
                         : summary.overall_maturity === 'Developing'
