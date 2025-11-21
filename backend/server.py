@@ -2321,16 +2321,70 @@ Your organisation has achieved **72.5%** **Developing AI Awareness**. Based on y
     domains = await db.domains.find({}, {"_id": 0}).sort("order").to_list(length=None)
     questions = await db.questions.find({}, {"_id": 0}).to_list(length=None)
     
+    # Load system question metadata
+    metadata_path = os.path.join(os.path.dirname(__file__), "system_question_metadata.json")
+    question_metadata = {}
+    try:
+        with open(metadata_path, 'r') as f:
+            question_metadata = json.load(f)
+    except FileNotFoundError:
+        logger.warning("System question metadata file not found")
+    
     # Create lookups
     domain_lookup = {domain["id"]: domain for domain in domains}
     question_lookup = {question["id"]: question for question in questions}
     
-    # Calculate domain scores
+    # Helper function to calculate quadrant label
+    def calculate_quadrant_label(impact_weight: float, effort_score: float) -> str:
+        if impact_weight >= 0.8 and effort_score <= 0.5:
+            return "Quick win (high impact, lower effort)"
+        elif impact_weight >= 0.8 and effort_score > 0.5:
+            return "Strategic project (high impact, higher effort)"
+        elif impact_weight < 0.8 and effort_score <= 0.5:
+            return "Opportunistic improvement (lower impact, lower effort)"
+        else:
+            return "Lower priority (lower impact, higher effort)"
+    
+    # Calculate domain scores and enrich answers with metadata
     domain_scores = {}
+    enriched_answers = []
+    
     for answer in answers:
         question = question_lookup.get(answer["question_id"])
         if not question:
             continue
+        
+        # Get question code for metadata lookup
+        question_code = question.get("code", "")
+        metadata = question_metadata.get(question_code, {})
+        
+        # Calculate derived fields
+        selected_score = answer["numeric_score"]
+        gap = 4 - selected_score
+        
+        impact_weight = metadata.get("impact_weight", 0)
+        effort_score = metadata.get("effort_score", 0)
+        
+        priority_score = impact_weight * gap * effort_score if impact_weight and effort_score else 0
+        quadrant_label = calculate_quadrant_label(impact_weight, effort_score) if metadata else ""
+        
+        # Enrich answer with metadata and calculations
+        enriched_answer = {
+            **answer,
+            "question_code": question_code,
+            "selected_score": selected_score,
+            "gap": gap,
+            "priority_score": round(priority_score, 3),
+            "quadrant_label": quadrant_label,
+            "impact_weight": impact_weight,
+            "effort_score": effort_score,
+            "regulatory_driver": metadata.get("regulatory_driver", ""),
+            "risk_category": metadata.get("risk_category", ""),
+            "lifecycle_phase": metadata.get("lifecycle_phase", ""),
+            "weight_rationale_category": metadata.get("weight_rationale_category", ""),
+            "effort_category": metadata.get("effort_category", "")
+        }
+        enriched_answers.append(enriched_answer)
             
         domain_id = question["domain_id"]
         if domain_id not in domain_scores:
@@ -2371,13 +2425,17 @@ Your organisation has achieved **72.5%** **Developing AI Awareness**. Based on y
     else:
         overall_maturity = "Foundational"
     
-    return AssessmentSummary(
-        overall_percentage=round(overall_percentage, 1),
-        overall_maturity=overall_maturity,
-        domain_scores=domain_score_list,
-        total_questions=len(questions),
-        answered_questions=len(answers)
-    )
+    # Return summary with enriched answers
+    summary_dict = {
+        "overall_percentage": round(overall_percentage, 1),
+        "overall_maturity": overall_maturity,
+        "domain_scores": [score.dict() for score in domain_score_list],
+        "total_questions": len(questions),
+        "answered_questions": len(answers),
+        "enriched_answers": enriched_answers
+    }
+    
+    return summary_dict
 
 
 @api_router.get("/sectors")
