@@ -955,7 +955,7 @@ function ResultsPage() {
               </div>
             ) : (
               /* Radar Chart - Domain Benchmarks */
-              <div className="h-[750px] flex items-center justify-center" style={{ width: '100%', marginTop: '-120px', paddingTop: '60px' }} data-testid="domain-benchmarks">
+              <div className="h-[750px] flex items-center justify-center" style={{ width: '100%', marginTop: '-120px', paddingTop: '140px' }} data-testid="domain-benchmarks">
                 {showIndustrySelector ? (
                   <div className="flex items-center justify-center h-full">
                     <div className="text-center max-w-md">
