@@ -91,6 +91,7 @@ function ResultsPage() {
   const [showIndustrySelector, setShowIndustrySelector] = useState(false);
   const [selectedIndustry, setSelectedIndustry] = useState('');
   const [actionSteps, setActionSteps] = useState(null);
+  const [sectorAverage, setSectorAverage] = useState(null);
 
   useEffect(() => {
     fetchResults();
