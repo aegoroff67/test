@@ -2427,9 +2427,13 @@ async def get_benchmarks_by_sector(sector: str, assessment_type: str = "System")
                 # If it's already a number, use it as is
                 benchmarks[domain] = float(range_str)
         
+        # Get sector average
+        sector_average = benchmarks_data["sector_averages"].get(sector, benchmarks_data["sector_averages"].get("Other", 0))
+        
         return {
             "sector": sector,
-            "benchmarks": benchmarks
+            "benchmarks": benchmarks,
+            "sector_average": sector_average
         }
     
     # Handle System assessment benchmarks (default)
