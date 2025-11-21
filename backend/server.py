@@ -2451,11 +2451,13 @@ async def get_benchmarks_by_sector(sector: str, assessment_type: str = "System")
     }
 
 
-@api_router.get("/awareness/action-steps/{sector}")
+@api_router.get("/awareness/action-steps/{sector:path}")
 async def get_awareness_action_steps(sector: str):
     """
     Get action steps for Awareness assessment questions by sector.
     Returns a mapping of question codes to action step descriptions.
+    
+    Note: Using {sector:path} to handle sectors with forward slashes like "Utilities / Critical Infrastructure"
     """
     actions_path = os.path.join(os.path.dirname(__file__), "awareness_actions.json")
     
