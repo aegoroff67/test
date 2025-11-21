@@ -545,10 +545,12 @@ function ResultsPage() {
                           const userScore = summary.overall_percentage;
                           const avgScore = sectorAverage;
                           const comparison = userScore > avgScore ? 'above' : userScore < avgScore ? 'below' : 'equal to';
-                          return `, which is ${comparison} the ${benchmarkSector} sector AI awareness average`;
+                          return (
+                            <>, which is <strong>{comparison}</strong> the <strong>{benchmarkSector}</strong> sector AI awareness average <strong>of {avgScore}%</strong>.</>
+                          );
                         })()
-                      ) : ''
-                    }. {
+                      ) : '.'
+                    } {
                       summary.overall_maturity === 'Established'
                         ? 'Your organisation demonstrates strong and well-distributed AI awareness. Leaders and staff show clear understanding of AI concepts, realistic capabilities, and potential benefits and risks. This puts you in an excellent position to progress into formal readiness assessment and begin exploring structured AI initiatives or early pilots.'
                         : summary.overall_maturity === 'Developing'
