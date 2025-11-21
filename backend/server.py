@@ -2322,12 +2322,13 @@ Your organisation has achieved **72.5%** **Developing AI Awareness**. Based on y
     questions = await db.questions.find({}, {"_id": 0}).to_list(length=None)
     
     # Load system question metadata
-    import os as os_module
-    metadata_path = os_module.path.join(os_module.path.dirname(__file__), "system_question_metadata.json")
+    from pathlib import Path as PathLib
+    import json as json_module
+    metadata_path = PathLib(__file__).parent / "system_question_metadata.json"
     question_metadata = {}
     try:
         with open(metadata_path, 'r') as f:
-            question_metadata = json.load(f)
+            question_metadata = json_module.load(f)
     except FileNotFoundError:
         logger.warning("System question metadata file not found")
     
