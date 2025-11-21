@@ -2322,7 +2322,8 @@ Your organisation has achieved **72.5%** **Developing AI Awareness**. Based on y
     questions = await db.questions.find({}, {"_id": 0}).to_list(length=None)
     
     # Load system question metadata
-    metadata_path = os.path.join(os.path.dirname(__file__), "system_question_metadata.json")
+    import os as os_module
+    metadata_path = os_module.path.join(os_module.path.dirname(__file__), "system_question_metadata.json")
     question_metadata = {}
     try:
         with open(metadata_path, 'r') as f:
