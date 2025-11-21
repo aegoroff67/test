@@ -265,6 +265,11 @@ function ResultsPage() {
       
       setBenchmarks(response.data.benchmarks);
       setBenchmarkSector(benchmarkSector);
+      
+      // Store sector average if available (for Awareness assessments)
+      if (response.data.sector_average !== undefined) {
+        setSectorAverage(response.data.sector_average);
+      }
     } catch (error) {
       console.error('=== BENCHMARK FETCH ERROR ===');
       console.error('Error:', error);
