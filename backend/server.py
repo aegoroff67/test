@@ -2103,11 +2103,11 @@ async def get_assessment_summary(assessment_id: str, current_user: UserResponse 
                 # Only generate if we have commentary
                 if pre_onboarding_commentary:
                     # Load awareness benchmarks
-                    import json
-                    import os
-                    benchmark_path = os.path.join(os.path.dirname(__file__), "awareness_benchmarks.json")
+                    import json as json_lib
+                    import os as os_lib
+                    benchmark_path = os_lib.path.join(os_lib.path.dirname(__file__), "awareness_benchmarks.json")
                     with open(benchmark_path, 'r') as f:
-                        benchmarks_data = json.load(f)
+                        benchmarks_data = json_lib.load(f)
                     
                     # Get user's industry and benchmark data
                     user_industry = awareness_info.get("industry", "Other")
