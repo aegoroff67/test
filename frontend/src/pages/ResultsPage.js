@@ -995,7 +995,7 @@ function ResultsPage() {
               </div>
             )}
             
-            {/* Recommended Next Steps - Only for Awareness assessments */}
+            {/* Assessment Results Commentary - Only for Awareness assessments */}
             {console.log('Assessment Type:', assessmentType, 'Has recommendation?', summary?.recommendation_summary)}
             {assessmentType === 'Awareness' && summary?.recommendation_summary && (
               <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -1003,7 +1003,7 @@ function ResultsPage() {
                   <svg className="h-5 w-5 text-blue-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  <span>Recommended Next Steps</span>
+                  <span>Assessment Results Commentary</span>
                 </h3>
                 <div 
                   className="text-sm text-gray-700 whitespace-pre-line"
