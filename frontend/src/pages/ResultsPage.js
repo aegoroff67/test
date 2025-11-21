@@ -546,7 +546,7 @@ function ResultsPage() {
                           const avgScore = sectorAverage;
                           const comparison = userScore > avgScore ? 'above' : userScore < avgScore ? 'below' : 'equal to';
                           return (
-                            <>, which is <strong>{comparison}</strong> the <strong>{benchmarkSector}</strong> sector AI awareness average <strong>of {avgScore}%</strong>.</>
+                            <>, which is <strong>{comparison}</strong> the <strong>{benchmarkSector}</strong> sector AI awareness average of <strong>{avgScore}%</strong>.</>
                           );
                         })()
                       ) : '.'
