@@ -497,7 +497,11 @@ function ResultsPage() {
           <div className="flex items-start">
             {/* First 15% - Maturity Stacked Column */}
             <div className="flex flex-col items-center justify-center" style={{ width: '15%' }}>
-              <MaturityStackedColumn score={summary.overall_percentage} assessmentType={assessmentType} />
+              <MaturityStackedColumn 
+                score={summary.overall_percentage} 
+                assessmentType={assessmentType}
+                sectorAverage={assessmentType === 'Awareness' ? sectorAverage : null}
+              />
             </div>
 
             {/* Second 20% - Maturity Tier Descriptions */}
