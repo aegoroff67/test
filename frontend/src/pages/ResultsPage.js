@@ -1026,7 +1026,7 @@ function ResultsPage() {
               <div className="mb-3">
                 <h2 className="text-base font-bold text-gray-900 mb-1 flex items-center space-x-2">
                   <BarChart3 className="h-4 w-4 text-teal-600" />
-                  <span>Response Distribution{assessmentType === 'Readiness' ? ' (48 questions)' : ''}</span>
+                  <span>Response Distribution{assessmentType === 'Readiness' ? ' (48 questions)' : assessmentType === 'Orgwide' ? ' (80 questions)' : ''}</span>
                 </h2>
               <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
