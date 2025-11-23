@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MaturityStackedColumn = ({ score, assessmentType }) => {
+const MaturityStackedColumn = ({ score, assessmentType, sectorAverage }) => {
   // Define the 4 maturity tiers with new ranges
   // Use different labels for Awareness assessment
   const tiers = assessmentType === 'Awareness' ? [
@@ -29,6 +29,17 @@ const MaturityStackedColumn = ({ score, assessmentType }) => {
 
   // Calculate arrow position (percentage from bottom)
   const arrowPosition = score;
+
+  // Determine arrow color based on comparison with sector average (for Awareness only)
+  const getUserArrowColor = () => {
+    if (assessmentType === 'Awareness' && sectorAverage !== null && sectorAverage !== undefined) {
+      if (score > sectorAverage) return '#00B050'; // Green
+      if (score < sectorAverage) return '#FF0000'; // Red
+    }
+    return '#000000'; // Black (default or if equal)
+  };
+
+  const userArrowColor = getUserArrowColor();
 
   return (
     <div className="flex items-center justify-center w-full" style={{ height: '120px', gap: '30px' }}>
