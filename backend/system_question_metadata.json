@@ -8,7 +8,8 @@
     "lifecycle_phase": "Model development & evaluation",
     "weight_rationale_category": "Proactive detection and mitigation of bias across the lifecycle is essential to prevent unfair outcomes.",
     "effort_category": "Moderate to High effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Regularly run structured audits over all training and input datasets to identify demographic imbalances or embedded biases, using tools such as Fairlearn to detect issues and implement documented mitigation steps before models are deployed or updated."
   },
   "FA-2": {
     "domain": "Fairness",
@@ -19,7 +20,8 @@
     "lifecycle_phase": "Data collection & preparation",
     "weight_rationale_category": "Representative training data is critical to avoid systematically disadvantaging under-represented groups.",
     "effort_category": "Moderate effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Perform comprehensive demographic analysis of your training data, identify under-represented groups, and proactively source or acquire additional high-quality data so that all relevant populations are adequately represented in model development and updates."
   },
   "FA-3": {
     "domain": "Fairness",
@@ -30,7 +32,8 @@
     "lifecycle_phase": "Testing & monitoring of outputs",
     "weight_rationale_category": "Disparate impact is the most visible and most legally sensitive fairness risk.",
     "effort_category": "High effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Conduct detailed quantitative analysis of model outputs alongside qualitative testing with diverse focus groups, using the findings to identify disparities in outcomes and then refine training data, features, or model design to eliminate unfair treatment of any group."
   },
   "FA-4": {
     "domain": "Fairness",
@@ -41,7 +44,8 @@
     "lifecycle_phase": "Model evaluation & fairness measurement",
     "weight_rationale_category": "Using explicit fairness metrics enables consistent measurement and defensible assessments.",
     "effort_category": "High effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Apply appropriate fairness metrics\u2014such as demographic parity or equalised odds\u2014to systematically measure how different groups are impacted by model decisions, and iteratively adjust model design, thresholds, or features until results meet clearly defined fairness targets."
   },
   "FA-5": {
     "domain": "Fairness",
@@ -52,7 +56,8 @@
     "lifecycle_phase": "Pre-deployment & real-world testing",
     "weight_rationale_category": "Real-world testing uncovers fairness issues that do not appear in controlled environments.",
     "effort_category": "Moderate to High effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Carry out comprehensive testing using realistic, real-world scenarios that reflect diverse demographic groups, compare performance across those cohorts, and remediate any gaps by tuning models, retraining, or adjusting decision policies before full-scale deployment."
   },
   "FA-6": {
     "domain": "Fairness",
@@ -63,7 +68,8 @@
     "lifecycle_phase": "Model development & validation",
     "weight_rationale_category": "Fairness toolkits provide structured, repeatable bias detection and mitigation.",
     "effort_category": "Moderate effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Adopt fairness assessment frameworks and tools such as Fairlearn, Aequitas, or IBM AI Fairness 360 to routinely evaluate model behaviour, generate fairness reports or dashboards, and embed those outputs into your governance processes for ongoing monitoring and decision-making."
   },
   "FA-7": {
     "domain": "Fairness",
@@ -74,7 +80,8 @@
     "lifecycle_phase": "Design & evaluation for underserved groups",
     "weight_rationale_category": "Targeted fairness approaches prevent systemic disadvantages and address known historical inequities.",
     "effort_category": "Moderate effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Introduce fairness-aware weights or adjustments during model training, and specifically evaluate outputs for underserved or minority groups, using the findings to refine models and ensure that historically disadvantaged communities are not negatively impacted."
   },
   "FA-8": {
     "domain": "Fairness",
@@ -85,7 +92,8 @@
     "lifecycle_phase": "AI lifecycle design & governance",
     "weight_rationale_category": "Embedding fairness early reduces remediation costs and avoids downstream risks.",
     "effort_category": "Low to Moderate effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Embed fairness considerations throughout the AI design and development lifecycle by incorporating fairness requirements into design reviews, data selection, model training, testing, and deployment approvals so fairness is treated as a default, non-negotiable design constraint."
   },
   "TR-1": {
     "domain": "Transparency",
@@ -96,7 +104,8 @@
     "lifecycle_phase": "Deployment & User Communication",
     "weight_rationale_category": "Clear explanation of capabilities and limitations is essential to manage expectations and prevent misuse.",
     "effort_category": "Low to Moderate effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Create detailed user guides and technical documentation that clearly outline the system\u2019s functionality, decision logic, known limitations, and operational considerations so stakeholders can understand exactly how the model behaves and what influences its outputs."
   },
   "TR-2": {
     "domain": "Transparency",
@@ -107,7 +116,8 @@
     "lifecycle_phase": "Pre-deployment Documentation & Governance",
     "weight_rationale_category": "Documentation is core to auditability, explainability, reproducibility, and investigation.",
     "effort_category": "Moderate effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Maintain comprehensive documentation covering all data sources, feature engineering steps, algorithms used, and model development processes, ensuring internal teams and external reviewers can fully trace how inputs move through the system to produce final outputs."
   },
   "TR-3": {
     "domain": "Transparency",
@@ -118,7 +128,8 @@
     "lifecycle_phase": "External Assurance & Compliance Review",
     "weight_rationale_category": "Providing controlled transparency to regulators/customers is essential for compliance and trust.",
     "effort_category": "Moderate to High effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Provide regulators, customers, and auditors with structured transparency materials\u2014including detailed model descriptions and evaluation results\u2014to help them understand system behaviour, verify compliance expectations, and assess any potential impacts on stakeholders or operations."
   },
   "TR-4": {
     "domain": "Transparency",
@@ -129,7 +140,8 @@
     "lifecycle_phase": "Communication & Stakeholder Engagement",
     "weight_rationale_category": "Poor internal/external communication leads to misalignment, misuse, and operational risk.",
     "effort_category": "Moderate effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Share up-to-date system information through structured communication channels such as dashboards, reports, or briefings, enabling stakeholders to stay informed about system performance, intended use, constraints, and any upcoming changes or updates."
   },
   "TR-5": {
     "domain": "Transparency",
@@ -140,7 +152,8 @@
     "lifecycle_phase": "Model Development & Explainability Assessment",
     "weight_rationale_category": "Opaque components significantly increase trust, safety, and compliance risks.",
     "effort_category": "Moderate to High effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Eliminate all black-box components by ensuring the system is fully explainable, documenting the logic and reasoning behind model decisions, and making these explanations available to users and reviewers who need insight into how outcomes are generated."
   },
   "TR-6": {
     "domain": "Transparency",
@@ -151,7 +164,8 @@
     "lifecycle_phase": "User Transparency & Disclosure",
     "weight_rationale_category": "Disclosing data/algorithm origins builds trust and clarifies system limitations.",
     "effort_category": "Low to Moderate effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Fully disclose all data sources and algorithmic processes underlying the system, providing stakeholders with transparent insight into how information is collected, transformed, and used to inform model predictions and decision-making."
   },
   "TR-7": {
     "domain": "Transparency",
@@ -162,7 +176,8 @@
     "lifecycle_phase": "Deployment & User Interaction",
     "weight_rationale_category": "Hidden AI interactions create ethical, trust, and legal issues.",
     "effort_category": "Low effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Clearly notify users when they are interacting with an AI system, providing explicit and timely disclosures that help them understand the role of automation in the interaction and the implications for their experience or decision outcomes."
   },
   "TR-8": {
     "domain": "Transparency",
@@ -173,7 +188,8 @@
     "lifecycle_phase": "Governance & Reporting",
     "weight_rationale_category": "Publishing reports demonstrates ongoing compliance and proactive transparency.",
     "effort_category": "Moderate effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Publish regular, detailed transparency reports that document system behaviour, inputs, outputs, and evaluation findings, ensuring stakeholders have ongoing visibility into how the model operates and how its performance evolves over time."
   },
   "EX-1": {
     "domain": "Explainability",
@@ -184,7 +200,8 @@
     "lifecycle_phase": "Use-case Definition & System Design",
     "weight_rationale_category": "Deciding required explainability early ensures alignment with user needs, safety, and regulatory obligations.",
     "effort_category": "Moderate effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Determine explainability requirements based on the risk profile and stakeholder needs of each use case, and document clear explainability standards that guide model selection, communication methods, and evaluation practices throughout the system\u2019s lifecycle."
   },
   "EX-2": {
     "domain": "Explainability",
@@ -195,7 +212,8 @@
     "lifecycle_phase": "User Testing & Human-Centric Validation",
     "weight_rationale_category": "Explanations must be understandable to non-technical users; validation is essential.",
     "effort_category": "Moderate to High effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Conduct structured user testing with diverse technical and non-technical audiences, gathering feedback on explanation clarity and usefulness, and refining explanation methods to ensure they genuinely support user understanding and trust."
   },
   "EX-3": {
     "domain": "Explainability",
@@ -206,7 +224,8 @@
     "lifecycle_phase": "Deployment & User Interaction",
     "weight_rationale_category": "Different audiences require different formats; lack of tailoring reduces comprehension.",
     "effort_category": "Moderate effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Provide explanations in multiple formats\u2014such as visual summaries, plain-language descriptions, or technical breakdowns\u2014so users with different backgrounds can understand how the system produced a given outcome and what factors contributed to the decision."
   },
   "EX-4": {
     "domain": "Explainability",
@@ -217,7 +236,8 @@
     "lifecycle_phase": "Model Evaluation, QA, & Monitoring",
     "weight_rationale_category": "Accurate explanations prevent false confidence and reduce legal and ethical risk.",
     "effort_category": "High effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Continuously validate explanations through quantitative metrics and qualitative user review to ensure they remain accurate, complete, and reflective of the system\u2019s true decision process as the model evolves over time."
   },
   "EX-5": {
     "domain": "Explainability",
@@ -228,7 +248,8 @@
     "lifecycle_phase": "Model Selection & Architecture Design",
     "weight_rationale_category": "Managing model complexity is essential to maintain appropriate levels of explainability.",
     "effort_category": "Moderate effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Make explicit design decisions that balance model complexity and interpretability, selecting architectures or techniques that maintain strong performance while still enabling clear, understandable explanations of model behaviour."
   },
   "EX-6": {
     "domain": "Explainability",
@@ -239,7 +260,8 @@
     "lifecycle_phase": "Deployment & User Interface Design",
     "weight_rationale_category": "Interpretability helps users trust and correctly use model outputs.",
     "effort_category": "Moderate effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Develop user-friendly interfaces that clearly communicate the reasoning behind model decisions, using intuitive design patterns and structured explanation layouts that make complex outputs easier to interpret."
   },
   "EX-7": {
     "domain": "Explainability",
@@ -250,7 +272,8 @@
     "lifecycle_phase": "Model Development & Explainability Tooling",
     "weight_rationale_category": "Advanced explainability tools are essential for transparency in complex models.",
     "effort_category": "Moderate to High effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Use advanced explainability tools such as SHAP, LIME, or Integrated Gradients to generate transparent feature-level insights, and integrate these methods into your standard modelling workflows to ensure consistent interpretability."
   },
   "EX-8": {
     "domain": "Explainability",
@@ -261,7 +284,8 @@
     "lifecycle_phase": "User Interaction & Stakeholder-Specific Communication",
     "weight_rationale_category": "Tailored explanations prevent misunderstanding and improve engagement.",
     "effort_category": "Moderate effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Tailor explanations to the specific needs of each stakeholder group\u2014including end-users, developers, auditors, and executives\u2014by adjusting language, depth, and presentation style so each group receives the level of insight appropriate to their role."
   },
   "AC-1": {
     "domain": "Accountability",
@@ -272,7 +296,8 @@
     "lifecycle_phase": "Incident Management & Failure Response",
     "weight_rationale_category": "Clear ownership ensures timely response to failures and prevents harm escalation.",
     "effort_category": "Moderate effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Establish clear, documented AI failure-management protocols that designate responsible teams for identifying, investigating, resolving, and recording system failures, ensuring every incident is handled consistently and transparently rather than relying on informal or ad hoc responses."
   },
   "AC-2": {
     "domain": "Accountability",
@@ -283,7 +308,8 @@
     "lifecycle_phase": "Governance & Oversight",
     "weight_rationale_category": "Oversight bodies enable assurance, ethical compliance, and early risk detection.",
     "effort_category": "Moderate to High effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Create a dedicated AI oversight board or committee that conducts regular, structured reviews of system performance, fairness, compliance, and risks, ensuring that AI outcomes are continuously monitored under a formal, organisation-wide governance framework rather than informal team-level arrangements."
   },
   "AC-3": {
     "domain": "Accountability",
@@ -294,7 +320,8 @@
     "lifecycle_phase": "Risk Escalation & Exception Handling",
     "weight_rationale_category": "Escalation policies ensure rapid response to high-severity AI issues.",
     "effort_category": "Moderate effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Implement formal, well-documented escalation policies with clearly defined pathways for raising critical AI issues to senior leadership or specialist teams, ensuring high-impact or safety-relevant problems are escalated quickly and consistently rather than handled informally."
   },
   "AC-4": {
     "domain": "Accountability",
@@ -305,7 +332,8 @@
     "lifecycle_phase": "User Support & Dispute Resolution",
     "weight_rationale_category": "Clear complaint processes preserve trust and provide user recourse.",
     "effort_category": "Moderate effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Develop a structured complaints-handling process that includes clear submission channels, documented review steps, escalation pathways, and options for manual or human review so customer disputes about AI decisions are resolved transparently, consistently, and in a timely manner."
   },
   "AC-5": {
     "domain": "Accountability",
@@ -316,7 +344,8 @@
     "lifecycle_phase": "Governance Structure Definition",
     "weight_rationale_category": "Clear roles minimize confusion and ensure shared accountability.",
     "effort_category": "Low to Moderate effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Define, document, and regularly review all AI governance roles and responsibilities across technical, legal, compliance, and operational teams to ensure clarity, avoid overlaps, and maintain shared accountability for monitoring outcomes, managing data, and ensuring regulatory alignment."
   },
   "AC-6": {
     "domain": "Accountability",
@@ -327,7 +356,8 @@
     "lifecycle_phase": "Lifecycle Monitoring & Ongoing Management",
     "weight_rationale_category": "Assigned ownership prevents model drift and ensures performance.",
     "effort_category": "Moderate effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Assign dedicated individuals or teams to oversee AI performance, data quality, and compliance throughout the system\u2019s entire lifecycle, ensuring continuous monitoring, timely updates, and coordinated hand-offs across development, deployment, and ongoing operational stages."
   },
   "AC-7": {
     "domain": "Accountability",
@@ -338,7 +368,8 @@
     "lifecycle_phase": "Logging, Traceability & Auditability",
     "weight_rationale_category": "Audit trails support investigations, compliance, and transparency.",
     "effort_category": "Moderate to High effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Maintain comprehensive, regularly reviewed audit trails and decision logs that capture how the system reached specific outcomes, ensuring investigations, error analysis, regulatory reviews, and stakeholder inquiries can be supported with accurate, complete, and easily accessible records."
   },
   "AC-8": {
     "domain": "Accountability",
@@ -349,7 +380,8 @@
     "lifecycle_phase": "Appeals & Outcome Review Processes",
     "weight_rationale_category": "Appeal mechanisms reduce harm and fulfil due-process obligations.",
     "effort_category": "Moderate effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Establish formal mechanisms\u2014such as appeals processes, review boards, or manual reassessment pathways\u2014that allow users and stakeholders to challenge or request review of AI decisions, ensuring disputes are resolved consistently, transparently, and with documented oversight."
   },
   "DI-1": {
     "domain": "Data Integrity",
@@ -360,7 +392,8 @@
     "lifecycle_phase": "Data Ingestion & Validation",
     "weight_rationale_category": "Poor-quality data propagates errors and reduces model reliability.",
     "effort_category": "Moderate to High effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Implement automated validation tools alongside structured manual reviews to routinely assess data accuracy, completeness, and quality, ensuring that errors, missing values, and inconsistencies are identified and corrected before they propagate through the system and undermine model reliability."
   },
   "DI-2": {
     "domain": "Data Integrity",
@@ -371,7 +404,8 @@
     "lifecycle_phase": "Data Lineage, Provenance & Lifecycle Tracking",
     "weight_rationale_category": "Lineage tracking supports auditing, compliance, and error investigation.",
     "effort_category": "Moderate effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Maintain detailed, continuously updated records of dataset origins, transformations, and downstream usage using automated lineage-tracking tools so you can trace data movements, support audits, diagnose errors, and ensure full transparency across the entire data lifecycle."
   },
   "DI-3": {
     "domain": "Data Integrity",
@@ -382,7 +416,8 @@
     "lifecycle_phase": "Data Governance & Lifecycle Management",
     "weight_rationale_category": "Governance prevents misuse, ensures compliance, and protects stakeholders.",
     "effort_category": "Moderate effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Develop comprehensive, formally documented governance policies that define requirements for data collection, permitted usage, retention timelines, and secure disposal, and regularly review and enforce these rules to ensure lawful, ethical, and consistent data lifecycle management."
   },
   "DI-4": {
     "domain": "Data Integrity",
@@ -393,7 +428,8 @@
     "lifecycle_phase": "Data Refresh, Cleansing & Maintenance",
     "weight_rationale_category": "Outdated data leads to degraded model performance and reliability.",
     "effort_category": "Low to Moderate effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Deploy automated update processes and continuous validation checks that refresh operational datasets at defined intervals, identify stale or inaccurate information, and trigger corrective actions to maintain data freshness and ensure the system remains relevant and dependable."
   },
   "DI-5": {
     "domain": "Data Integrity",
@@ -404,7 +440,8 @@
     "lifecycle_phase": "Data Quality Assurance & Gap Handling",
     "weight_rationale_category": "Incomplete data can bias models and produce unsafe outputs.",
     "effort_category": "Moderate effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Use advanced techniques such as data imputation, automated alerts for missing fields, and proactive gap-mitigation strategies to identify and resolve incomplete datasets before training or inference, preventing data gaps from degrading performance or introducing bias."
   },
   "DI-6": {
     "domain": "Data Integrity",
@@ -415,7 +452,8 @@
     "lifecycle_phase": "Data Preprocessing & Transformation",
     "weight_rationale_category": "Poor preprocessing creates inconsistencies and reduces model integrity.",
     "effort_category": "Moderate to High effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Apply automated tools and standardised preprocessing workflows to consistently clean, normalise, and structure data\u2014removing duplicates, correcting errors, harmonising formats, and preparing high-quality inputs that reduce variability and strengthen downstream model performance."
   },
   "DI-7": {
     "domain": "Data Integrity",
@@ -426,7 +464,8 @@
     "lifecycle_phase": "Third-Party Data Assessment & Vendor Assurance",
     "weight_rationale_category": "External data must be validated to avoid introducing systemic risks.",
     "effort_category": "Moderate effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Conduct comprehensive evaluations of third-party data providers\u2014including methodology reviews, data-quality audits, and performance testing\u2014to verify reliability and ensure external datasets meet your standards before integration into training, validation, or runtime processes."
   },
   "RE-1": {
     "domain": "Reliability",
@@ -437,7 +476,8 @@
     "lifecycle_phase": "Robustness Testing & Scenario Evaluation",
     "weight_rationale_category": "Testing across diverse conditions reveals weaknesses early and prevents real-world failures.",
     "effort_category": "Moderate to High effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Conduct comprehensive testing across a wide range of scenarios\u2014including stress conditions, noisy or incomplete inputs, and realistic edge cases\u2014to verify performance consistency, identify weaknesses, and strengthen the system\u2019s reliability before it is used in real-world environments."
   },
   "RE-2": {
     "domain": "Reliability",
@@ -448,7 +488,8 @@
     "lifecycle_phase": "Stress Testing & Extreme-Scenario Simulation",
     "weight_rationale_category": "Stress testing ensures the AI system remains stable under unusual loads or extreme conditions.",
     "effort_category": "Moderate effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Perform regular stress tests and simulations that expose the system to extreme data volumes, unusual input patterns, and rare operational events to uncover failure points early and ensure the model remains robust even under demanding or unexpected conditions."
   },
   "RE-3": {
     "domain": "Reliability",
@@ -459,7 +500,8 @@
     "lifecycle_phase": "Monitoring, Drift Detection & Performance Surveillance",
     "weight_rationale_category": "Continuous monitoring prevents degraded or unsafe performance caused by shifting data patterns.",
     "effort_category": "Moderate to High effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Implement continuous monitoring with automated alerts that detect model drift, performance degradation, or anomalous behaviour, ensuring corrective actions\u2014such as retraining, recalibration, or data updates\u2014are triggered promptly to maintain long-term reliability."
   },
   "RE-4": {
     "domain": "Reliability",
@@ -470,7 +512,8 @@
     "lifecycle_phase": "Reliability Metric Definition & KPI Alignment",
     "weight_rationale_category": "Clear metrics ensure transparent, measurable reliability and ongoing performance assurance.",
     "effort_category": "Moderate effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Define clear, measurable reliability metrics aligned with business goals and stakeholder expectations, and track these indicators regularly to evaluate system consistency, support data-driven improvements, and ensure performance remains stable throughout the system\u2019s lifecycle."
   },
   "RE-5": {
     "domain": "Reliability",
@@ -481,7 +524,8 @@
     "lifecycle_phase": "Failure Mode Analysis & Risk Mapping",
     "weight_rationale_category": "Identifying failure points allows proactive mitigation and reduces operational risk.",
     "effort_category": "Moderate effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Conduct systematic analyses to identify and document all potential failure points\u2014including data dependencies, algorithmic limitations, and operational vulnerabilities\u2014and develop targeted mitigation plans to prevent these weaknesses from causing disruptions or incorrect outcomes in production."
   },
   "RE-6": {
     "domain": "Reliability",
@@ -492,7 +536,8 @@
     "lifecycle_phase": "Edge-Case Testing & Robustness Validation",
     "weight_rationale_category": "Edge-case testing prevents catastrophic failures in unusual but realistic scenarios.",
     "effort_category": "Moderate to High effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Test the system extensively using synthetic data, adversarial inputs, and realistic edge-case scenarios to verify that it maintains reliable behaviour even when confronted with atypical, extreme, or unexpected conditions that fall outside normal operating ranges."
   },
   "RE-7": {
     "domain": "Reliability",
@@ -503,7 +548,8 @@
     "lifecycle_phase": "Availability Monitoring & Error Response",
     "weight_rationale_category": "Downtime disrupts operations; rapid recovery mechanisms ensure reliability.",
     "effort_category": "Moderate effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Deploy automated monitoring, alerting, and recovery mechanisms that detect downtime or system errors in real time and initiate rapid resolution processes\u2014such as failover, rollback, or automated restart\u2014to minimise operational disruption and maintain system availability."
   },
   "RE-8": {
     "domain": "Reliability",
@@ -514,7 +560,8 @@
     "lifecycle_phase": "Model Maintenance, Retraining & Lifecycle Management",
     "weight_rationale_category": "Regular retraining prevents drift and maintains high reliability over time.",
     "effort_category": "Moderate to High effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Follow a defined schedule for model testing and retraining that is informed by monitored performance thresholds, ensuring the system remains accurate, relevant, and reliable as data patterns, user behaviour, or operating environments evolve."
   },
   "SE-1": {
     "domain": "Security",
@@ -525,7 +572,8 @@
     "lifecycle_phase": "Development, Deployment, Operation, Monitoring",
     "weight_rationale_category": "Protecting model artifacts and training data prevents tampering and preserves reliability, security, and compliance.",
     "effort_category": "Moderate effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Implement strong protection mechanisms\u2014including encryption of model artifacts and data, role-based access controls, secure APIs, and tamper-evident logging\u2014to ensure AI models and datasets cannot be accessed, altered, or manipulated by unauthorized parties at any stage of the system lifecycle."
   },
   "SE-2": {
     "domain": "Security",
@@ -536,7 +584,8 @@
     "lifecycle_phase": "Development, Testing, Deployment",
     "weight_rationale_category": "Defending against adversarial inputs prevents manipulated outputs and safeguards system trustworthiness.",
     "effort_category": "High effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Use adversarial training, robust input-validation checks, and continuous monitoring for suspicious patterns to proactively defend against attempts to manipulate your AI system\u2019s outputs, ensuring resilience against deceptive inputs and variations designed to trigger incorrect or harmful decisions."
   },
   "SE-3": {
     "domain": "Security",
@@ -547,7 +596,8 @@
     "lifecycle_phase": "Deployment, Operation, Monitoring",
     "weight_rationale_category": "Regular audits and penetration tests uncover vulnerabilities early and prevent exploitation.",
     "effort_category": "Moderate effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Carry out regular, AI-focused security audits and penetration tests to identify vulnerabilities in model components, data pipelines, and interfaces, ensuring issues are discovered early and addressed before they can be exploited by malicious actors."
   },
   "SE-4": {
     "domain": "Security",
@@ -558,7 +608,8 @@
     "lifecycle_phase": "Development, Deployment, Operation",
     "weight_rationale_category": "Securing models throughout their lifecycle prevents theft, tampering, and unauthorized use.",
     "effort_category": "Moderate effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Use secure, isolated training environments, encrypt model files during deployment, and continuously monitor runtime operations for threats, ensuring robust protection of the AI system throughout its entire lifecycle\u2014from development and training to deployment and ongoing use."
   },
   "SE-5": {
     "domain": "Security",
@@ -569,7 +620,8 @@
     "lifecycle_phase": "Deployment, Operation, Monitoring",
     "weight_rationale_category": "Preventing unauthorized modifications preserves model integrity and ensures correct, traceable behaviour.",
     "effort_category": "Moderate effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Implement strict version control, authorization checks, and checksum-based integrity validation to prevent unauthorized model modifications, ensuring any attempted changes are immediately detected and blocked to preserve the reliability and integrity of deployed AI systems."
   },
   "SE-6": {
     "domain": "Security",
@@ -580,7 +632,8 @@
     "lifecycle_phase": "Development, Testing, Deployment",
     "weight_rationale_category": "Robust input validation and adversarial defences reduce the likelihood of manipulated or malicious inputs.",
     "effort_category": "High effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Use adversarial training, anomaly-detection systems, and robust input-validation mechanisms to identify and mitigate adversarial inputs or manipulation attempts, ensuring the system maintains trustworthy behaviour even when exposed to intentionally deceptive or hostile data."
   },
   "SE-7": {
     "domain": "Security",
@@ -591,7 +644,8 @@
     "lifecycle_phase": "Development, Deployment, Operation",
     "weight_rationale_category": "Securing data throughout the AI pipeline prevents unauthorized disclosure and maintains regulatory compliance.",
     "effort_category": "Moderate to High effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Protect all sensitive data flowing through AI pipelines by applying encryption at rest and in transit, using tokenization or anonymisation where appropriate, and storing data in secure environments to minimise the risk of exposure, misuse, or unauthorized access."
   },
   "SE-8": {
     "domain": "Security",
@@ -602,7 +656,8 @@
     "lifecycle_phase": "Deployment, Operation, Monitoring",
     "weight_rationale_category": "Routine vulnerability testing ensures emerging threats are identified and mitigated in a timely manner.",
     "effort_category": "Moderate effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Conduct regular vulnerability assessments and penetration tests specifically tailored to AI components\u2014such as models, APIs, data pipelines, and serving infrastructure\u2014to detect exploitable weaknesses and ensure the system remains secure as threats and attack techniques evolve."
   },
   "PR-1": {
     "domain": "Privacy",
@@ -613,7 +668,8 @@
     "lifecycle_phase": "Data Collection, Consent Management & Legal Compliance",
     "weight_rationale_category": "Compliance failures carry major legal, financial, and reputational consequences \u00e2\u20ac\u201d especially during data collection and early processing.",
     "effort_category": "High effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Conduct regular, documented privacy audits and embed privacy-by-design principles across all AI workflows to ensure compliance with applicable data protection laws, including consent handling, lawful data use, user rights management, and transparent communication about how personal information is collected, stored, and processed."
   },
   "PR-2": {
     "domain": "Privacy",
@@ -624,7 +680,8 @@
     "lifecycle_phase": "Data Processing, Transformation & Protection",
     "weight_rationale_category": "Strong privacy safeguards are critical to limit harm if breached and preserve lawful secondary use.",
     "effort_category": "Moderate effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Apply advanced anonymization, pseudonymization, and encryption techniques consistently throughout the entire AI data lifecycle to safeguard sensitive information, reduce re-identification risk, and maintain strong privacy protections while still enabling effective data use for model training and inference."
   },
   "PR-3": {
     "domain": "Privacy",
@@ -635,7 +692,8 @@
     "lifecycle_phase": "Data Collection, Consent Management & User Rights",
     "weight_rationale_category": "Incorrect or unclear consent undermines lawfulness and creates major legal liabilities.",
     "effort_category": "Moderate to High effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Implement clear, user-friendly consent mechanisms with explicit opt-in, transparent explanations of data use, robust withdrawal options, and reliable consent-logging processes, ensuring every instance of personal data collection and processing is traceable, recorded, and aligned with user expectations and legal requirements."
   },
   "PR-4": {
     "domain": "Privacy",
@@ -646,7 +704,8 @@
     "lifecycle_phase": "Data Governance, Purpose Limitation & Access Controls",
     "weight_rationale_category": "Purpose limitation breaches are a top privacy enforcement priority globally.",
     "effort_category": "Moderate effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Use purpose-limitation tags, granular access controls, and regular compliance audits to enforce strict rules that prevent personal data from being accessed, shared, or processed for any activity beyond the purpose originally communicated to users during data collection."
   },
   "PR-5": {
     "domain": "Privacy",
@@ -657,7 +716,8 @@
     "lifecycle_phase": "Data Processing, Transformation & Minimisation",
     "weight_rationale_category": "Proper anonymisation is central to reducing regulatory burden and preventing harm.",
     "effort_category": "Moderate effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Apply state-of-the-art anonymization and pseudonymization techniques\u2014such as hashing, tokenization, masking, and structured de-identification\u2014and validate these methods through regular testing to ensure they effectively protect sensitive information while supporting accurate AI processing."
   },
   "PR-6": {
     "domain": "Privacy",
@@ -668,7 +728,8 @@
     "lifecycle_phase": "Operational Monitoring & Runtime Privacy Protection",
     "weight_rationale_category": "Operational monitoring reduces likelihood of sensitive leakage events or misuse during inference.",
     "effort_category": "Moderate to High effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Deploy continuous monitoring systems with automated alerts, runtime data-use controls, and violation-detection mechanisms that proactively identify and prevent privacy breaches, ensuring sensitive information is not mishandled, exposed, or accessed inappropriately during AI system operation."
   },
   "PR-7": {
     "domain": "Privacy",
@@ -679,7 +740,8 @@
     "lifecycle_phase": "Privacy Impact Assessment, Risk Review & Deployment Readiness",
     "weight_rationale_category": "Privacy risks must be continuously evaluated as system context or data changes.",
     "effort_category": "Moderate effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Conduct formal privacy impact assessments during both development and deployment, reviewing risks at each lifecycle stage and updating mitigations as the system evolves, ensuring comprehensive, ongoing protection against privacy harms and regulatory non-compliance."
   },
   "PR-8": {
     "domain": "Privacy",
@@ -690,7 +752,8 @@
     "lifecycle_phase": "Data Transfer, Data Hosting & Cross-Border Compliance",
     "weight_rationale_category": "Cross-border violations have some of the harshest privacy penalties globally.",
     "effort_category": "High effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Implement region-specific controls\u2014including data-localisation measures, lawful data-transfer agreements, and jurisdiction-aligned policies\u2014supported by regular legal review to ensure AI systems comply with international privacy requirements when processing or transferring data across borders."
   },
   "SA-1": {
     "domain": "Safety",
@@ -701,7 +764,8 @@
     "lifecycle_phase": "Design, Development, Deployment Readiness",
     "weight_rationale_category": "Early safety impact assessment discovers harmful failure modes before deployment and shapes all downstream controls.",
     "effort_category": "Moderate to High effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Conduct comprehensive safety impact assessments during development and deployment\u2014updating them as the system evolves\u2014to identify potential harm scenarios, evaluate operational risks, ensure compliance with safety requirements, and guide the design of safeguards that prevent dangerous or unintended system behaviour."
   },
   "SA-2": {
     "domain": "Safety",
@@ -712,7 +776,8 @@
     "lifecycle_phase": "Design, Development, Operation",
     "weight_rationale_category": "Preventing unintended harms protects users when the system behaves unexpectedly or is used outside its original design.",
     "effort_category": "Moderate to High effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Implement proactive risk-identification processes, continuous monitoring mechanisms, and built-in safety constraints that detect errors or misuse, supported by appropriate human oversight, to ensure the system cannot inadvertently cause harm through misinterpretation, misuse, or unexpected operational conditions."
   },
   "SA-3": {
     "domain": "Safety",
@@ -723,7 +788,8 @@
     "lifecycle_phase": "Operation, Monitoring, Incident Response",
     "weight_rationale_category": "Real-time monitoring reduces the likelihood and duration of unsafe behaviour before it escalates into harm.",
     "effort_category": "Moderate effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Use automated real-time monitoring tools with anomaly-detection and alerting capabilities that track system behaviours continuously, enabling rapid responses to unsafe conditions and ensuring immediate intervention when potential risks, malfunctions, or unsafe decision patterns are detected."
   },
   "SA-4": {
     "domain": "Safety",
@@ -734,7 +800,8 @@
     "lifecycle_phase": "Design, Deployment, Operation, Monitoring",
     "weight_rationale_category": "Clear override and conflict-handling mechanisms ensure human safety always outweighs system optimisation or automation.",
     "effort_category": "High effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Implement robust safety protocols\u2014including predefined fail-safe actions, human override controls, and automated shutoff mechanisms\u2014to ensure human safety always prevails when system behaviour conflicts with safety requirements or creates conditions that could endanger users or stakeholders."
   },
   "SA-5": {
     "domain": "Safety",
@@ -745,7 +812,8 @@
     "lifecycle_phase": "Deployment, Operation, Incident Response",
     "weight_rationale_category": "Well-designed and tested shutdown procedures minimise harm when the system behaves in unsafe or unpredictable ways.",
     "effort_category": "Moderate effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Establish automated emergency shutdown protocols that are regularly tested and validated, ensuring the system can rapidly halt operation when unsafe behaviour is detected to minimise harm and provide a controlled response to high-risk failures or anomalies."
   },
   "SA-6": {
     "domain": "Safety",
@@ -756,7 +824,8 @@
     "lifecycle_phase": "Design, Risk Assessment, Development",
     "weight_rationale_category": "Structured safety risk analysis and mitigation planning significantly reduce the likelihood and impact of harm.",
     "effort_category": "Moderate to High effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Conduct systematic, documented risk assessments that identify potential harm scenarios, implement targeted mitigation strategies\u2014such as improved testing, bias controls, or stakeholder consultation\u2014and maintain ongoing review processes to ensure emerging risks are addressed before causing negative impacts."
   },
   "SA-7": {
     "domain": "Safety",
@@ -767,7 +836,8 @@
     "lifecycle_phase": "Design, Development, Deployment",
     "weight_rationale_category": "Robust fail-safes and redundancy reduce the severity of failures when components misbehave or external conditions change.",
     "effort_category": "Moderate to High effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Deploy robust fail-safe mechanisms and redundancy features, and test them regularly, to ensure the system can recover safely or shift to controlled fallback modes when unexpected behaviours, failures, or operational anomalies occur."
   },
   "SA-8": {
     "domain": "Safety",
@@ -778,7 +848,8 @@
     "lifecycle_phase": "Testing, Validation, Pre-deployment",
     "weight_rationale_category": "Testing in realistic and high-risk scenarios validates that controls work when it matters most, before real users are exposed.",
     "effort_category": "High effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Perform extensive safety testing in realistic and high-risk scenarios\u2014incorporating user feedback and refining the system based on observed vulnerabilities\u2014to validate that the AI behaves safely and reliably under challenging, unusual, or failure-prone conditions."
   },
   "IN-1": {
     "domain": "Inclusivity",
@@ -789,7 +860,8 @@
     "lifecycle_phase": "Design, Development, Deployment",
     "weight_rationale_category": "Ensuring accessibility prevents systematic exclusion of users with disabilities and underserved groups, reducing legal and ethical risk.",
     "effort_category": "Moderate to High effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Design the system with built-in accessibility features\u2014such as screen-reader compatibility, multilingual support, and offline functionality\u2014and validate these capabilities with real users to ensure it effectively serves individuals with disabilities and users in underserved communities."
   },
   "IN-2": {
     "domain": "Inclusivity",
@@ -800,7 +872,8 @@
     "lifecycle_phase": "Design, Development",
     "weight_rationale_category": "Including diverse perspectives reduces exclusionary design and improves fairness across user groups.",
     "effort_category": "Moderate effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Actively engage stakeholders from a wide range of backgrounds throughout design and development, incorporate their insights into key decisions, and use this feedback to ensure the system reflects diverse needs and avoids exclusionary assumptions."
   },
   "IN-3": {
     "domain": "Inclusivity",
@@ -811,7 +884,8 @@
     "lifecycle_phase": "Testing, Validation, Monitoring",
     "weight_rationale_category": "Audits identify patterns of exclusion early, helping prevent discriminatory outcomes and regulatory breaches.",
     "effort_category": "Moderate to High effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Conduct regular, comprehensive audits that analyse outputs for exclusionary patterns, assess whether any user groups are disadvantaged, and implement targeted corrective actions\u2014such as rebalancing training data or adjusting algorithms\u2014to prevent unintended harms or unequal treatment."
   },
   "IN-4": {
     "domain": "Inclusivity",
@@ -822,7 +896,8 @@
     "lifecycle_phase": "Design, Development, Testing",
     "weight_rationale_category": "Meeting accessibility standards ensures legal compliance and equitable usability.",
     "effort_category": "Moderate effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Integrate recognised accessibility standards like WCAG into system design and conduct usability testing with people with disabilities to validate that the AI system remains accessible, equitable, and fully usable across a range of accessibility needs."
   },
   "IN-5": {
     "domain": "Inclusivity",
@@ -833,7 +908,8 @@
     "lifecycle_phase": "Design, Testing",
     "weight_rationale_category": "Involving diverse stakeholders exposes hidden failure modes and increases relevance across groups.",
     "effort_category": "Moderate effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Involve stakeholders from diverse genders, cultures, ages, and socioeconomic backgrounds at every stage\u2014from initial design to user testing\u2014to ensure the system accommodates varied perspectives and functions effectively for all intended user groups."
   },
   "IN-6": {
     "domain": "Inclusivity",
@@ -844,7 +920,8 @@
     "lifecycle_phase": "Design, Development, Deployment",
     "weight_rationale_category": "Addressing underrepresented groups prevents entrenched inequities and improves system fairness.",
     "effort_category": "Moderate to High effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Design tailored features and deployment strategies\u2014such as offline operation, support for low-resource languages, or optimisation for low-bandwidth environments\u2014to ensure the system meaningfully serves underrepresented communities and addresses barriers they may face."
   },
   "IN-7": {
     "domain": "Inclusivity",
@@ -855,7 +932,8 @@
     "lifecycle_phase": "Design, Development",
     "weight_rationale_category": "Cultural and linguistic adaptation ensures relevance and reduces risk of misinterpretation or exclusion.",
     "effort_category": "Moderate to High effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Implement full localisation across languages, cultural norms, and regional contexts, ensuring the system adapts its content, interactions, and decision logic so it remains relevant, respectful, and useful for users across diverse cultural and geographic settings."
   },
   "IN-8": {
     "domain": "Inclusivity",
@@ -866,7 +944,8 @@
     "lifecycle_phase": "Testing, Deployment, Monitoring",
     "weight_rationale_category": "Continuous evaluation reveals exclusion patterns not visible during development, preventing harm and legal breaches.",
     "effort_category": "Moderate effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Use structured evaluations\u2014including demographic data analysis, user feedback, and targeted testing\u2014to identify whether any groups are unintentionally excluded, and implement mitigation measures to address disparities and ensure equitable access and outcomes."
   },
   "SU-1": {
     "domain": "Sustainability",
@@ -877,7 +956,8 @@
     "lifecycle_phase": "Training & Deployment Environmental Assessment",
     "weight_rationale_category": "Understanding environmental impact is critical for accountability and sustainability planning.",
     "effort_category": "Moderate effort",
-    "qnum": 1
+    "qnum": 1,
+    "action_steps": "Regularly measure and report the environmental impact of your AI system by tracking energy usage, carbon emissions, and computational intensity during training and deployment, using this data to identify reduction opportunities and set sustainability targets."
   },
   "SU-2": {
     "domain": "Sustainability",
@@ -888,7 +968,8 @@
     "lifecycle_phase": "Model Design & Optimization",
     "weight_rationale_category": "Algorithmic optimization directly reduces energy consumption and long\u00e2\u20ac\u2018term operational costs.",
     "effort_category": "Moderate to High effort",
-    "qnum": 2
+    "qnum": 2,
+    "action_steps": "Actively optimise algorithms for computational efficiency using techniques such as pruning, quantisation, or model distillation, reducing energy consumption and hardware requirements while maintaining strong performance and supporting long-term sustainability goals."
   },
   "SU-3": {
     "domain": "Sustainability",
@@ -899,7 +980,8 @@
     "lifecycle_phase": "Infrastructure Selection & Deployment",
     "weight_rationale_category": "Aligning infrastructure with renewable energy sources significantly reduces AI carbon footprint.",
     "effort_category": "Low to Moderate effort",
-    "qnum": 3
+    "qnum": 3,
+    "action_steps": "Deploy your AI system on cloud platforms or infrastructure powered entirely by renewable energy sources to minimise carbon emissions, ensuring your infrastructure choices align with organisational sustainability commitments and reduce the environmental footprint of AI operations."
   },
   "SU-4": {
     "domain": "Sustainability",
@@ -910,7 +992,8 @@
     "lifecycle_phase": "Carbon Measurement & Reporting",
     "weight_rationale_category": "Quantifying carbon footprint is foundational for sustainability compliance and reporting.",
     "effort_category": "Moderate effort",
-    "qnum": 4
+    "qnum": 4,
+    "action_steps": "Quantify and continuously track the carbon footprint associated with model training, inference, and operational workloads, using these insights to guide reduction strategies, evaluate trade-offs, and support transparent reporting on the system\u2019s environmental impact."
   },
   "SU-5": {
     "domain": "Sustainability",
@@ -921,7 +1004,8 @@
     "lifecycle_phase": "Algorithm Efficiency Optimization",
     "weight_rationale_category": "Efficient models reduce compute, cost, and carbon impact while improving scalability.",
     "effort_category": "Moderate to High effort",
-    "qnum": 5
+    "qnum": 5,
+    "action_steps": "Continuously refine and optimise algorithms to reduce computational resource requirements\u2014such as simplifying architectures, reducing input dimensionality, or distilling larger models\u2014balancing performance with sustainability to lower energy consumption and operational costs."
   },
   "SU-6": {
     "domain": "Sustainability",
@@ -932,7 +1016,8 @@
     "lifecycle_phase": "Hardware & Cloud Platform Selection",
     "weight_rationale_category": "Energy\u00e2\u20ac\u2018efficient hardware significantly lowers environmental and financial costs.",
     "effort_category": "Low to Moderate effort",
-    "qnum": 6
+    "qnum": 6,
+    "action_steps": "Select energy-efficient hardware or cloud platforms\u2014such as TPUs or green-certified data centres\u2014and prioritise deployment environments that deliver strong performance-per-watt to minimise energy usage and support sustainable AI operations."
   },
   "SU-7": {
     "domain": "Sustainability",
@@ -943,7 +1028,8 @@
     "lifecycle_phase": "System Design Trade\u00e2\u20ac\u2018off Analysis",
     "weight_rationale_category": "Balancing performance with sustainability prevents overuse of compute resources.",
     "effort_category": "Low to Moderate effort",
-    "qnum": 7
+    "qnum": 7,
+    "action_steps": "Define clear decision-making criteria that balance sustainability goals with performance needs, incorporating trade-offs into model design and deployment choices so environmental impact is reduced without compromising essential functionality or user experience."
   },
   "SU-8": {
     "domain": "Sustainability",
@@ -954,7 +1040,8 @@
     "lifecycle_phase": "Ongoing Environmental Monitoring",
     "weight_rationale_category": "Continuous monitoring ensures accountability and supports sustainability targets.",
     "effort_category": "Moderate effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Implement ongoing tracking of environmental metrics\u2014including energy consumption, emissions, and efficiency trends\u2014and produce regular reports that support accountability, guide optimisation efforts, and ensure sustained focus on reducing the system\u2019s long-term environmental impact."
   },
   "DI-8": {
     "domain": "Data Integrity",
@@ -965,6 +1052,7 @@
     "lifecycle_phase": "End-to-End Data Traceability & Auditability",
     "weight_rationale_category": "Full traceability is essential for compliance, model validation, and investigative capability.",
     "effort_category": "Moderate to High effort",
-    "qnum": 8
+    "qnum": 8,
+    "action_steps": "Use automated tracing tools that capture data movement, transformations, and usage across all lifecycle stages, ensuring full traceability that supports audits, troubleshooting, model explainability, and regulatory compliance through complete visibility into how data flows through the system."
   }
 }
