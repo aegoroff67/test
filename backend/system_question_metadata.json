@@ -958,13 +958,13 @@
   },
   "DI-8": {
     "domain": "Data Integrity",
-    "impact_weight": 0.54,
-    "effort_score": 0.6,
-    "regulatory_driver": "Strong regulatory expectation",
-    "risk_category": "Data quality & integrity",
-    "lifecycle_phase": "Continuous improvement & retirement",
-    "weight_rationale_category": "Important governance control with strong expectations from regulators and standards bodies.",
-    "effort_category": "High effort (technical implementation)",
+    "impact_weight": 0.92,
+    "effort_score": 0.58,
+    "regulatory_driver": "Explicit regulatory obligation",
+    "risk_category": "Data traceability & auditability",
+    "lifecycle_phase": "End-to-End Data Traceability & Auditability",
+    "weight_rationale_category": "Full traceability is essential for compliance, model validation, and investigative capability.",
+    "effort_category": "Moderate to High effort",
     "qnum": 8
   }
 }
