@@ -65,7 +65,7 @@ const MaturityStackedColumn = ({ score, assessmentType, sectorAverage }) => {
           </div>
         ))}
         
-        {/* Arrow indicator */}
+        {/* User score arrow indicator */}
         <div
           className="absolute right-0 flex items-center"
           style={{
@@ -80,10 +80,32 @@ const MaturityStackedColumn = ({ score, assessmentType, sectorAverage }) => {
               height: 0,
               borderTop: '6px solid transparent',
               borderBottom: '6px solid transparent',
-              borderRight: '8px solid black'
+              borderRight: `8px solid ${userArrowColor}`
             }}
           />
         </div>
+
+        {/* Sector average arrow indicator (only for Awareness with valid sector average) */}
+        {assessmentType === 'Awareness' && sectorAverage !== null && sectorAverage !== undefined && sectorAverage !== score && (
+          <div
+            className="absolute left-0 flex items-center"
+            style={{
+              bottom: `${sectorAverage}%`,
+              transform: 'translateY(50%)',
+              left: '-8px'
+            }}
+          >
+            <div
+              style={{
+                width: 0,
+                height: 0,
+                borderTop: '6px solid transparent',
+                borderBottom: '6px solid transparent',
+                borderLeft: '8px solid #000000'
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Score Display */}
