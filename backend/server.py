@@ -2384,7 +2384,8 @@ Your organisation has achieved **72.5%** **Developing AI Awareness**. Based on y
             "risk_category": metadata.get("risk_category", ""),
             "lifecycle_phase": metadata.get("lifecycle_phase", ""),
             "weight_rationale_category": metadata.get("weight_rationale_category", ""),
-            "effort_category": metadata.get("effort_category", "")
+            "effort_category": metadata.get("effort_category", ""),
+            "action_steps": metadata.get("action_steps", "")
         }
         enriched_answers.append(enriched_answer)
             
