@@ -428,17 +428,6 @@
     "effort_category": "Moderate effort",
     "qnum": 7
   },
-  "Di-8": {
-    "domain": "Data Integrity",
-    "impact_weight": 0.54,
-    "effort_score": 0.6,
-    "regulatory_driver": "Strong regulatory expectation",
-    "risk_category": "Data quality & integrity",
-    "lifecycle_phase": "Continuous improvement & retirement",
-    "weight_rationale_category": "Important governance control with strong expectations from regulators and standards bodies.",
-    "effort_category": "High effort (technical implementation)",
-    "qnum": 8
-  },
   "RE-1": {
     "domain": "Reliability",
     "impact_weight": 0.92,
@@ -965,6 +954,17 @@
     "lifecycle_phase": "Ongoing Environmental Monitoring",
     "weight_rationale_category": "Continuous monitoring ensures accountability and supports sustainability targets.",
     "effort_category": "Moderate effort",
+    "qnum": 8
+  },
+  "DI-8": {
+    "domain": "Data Integrity",
+    "impact_weight": 0.54,
+    "effort_score": 0.6,
+    "regulatory_driver": "Strong regulatory expectation",
+    "risk_category": "Data quality & integrity",
+    "lifecycle_phase": "Continuous improvement & retirement",
+    "weight_rationale_category": "Important governance control with strong expectations from regulators and standards bodies.",
+    "effort_category": "High effort (technical implementation)",
     "qnum": 8
   }
 }
