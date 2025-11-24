@@ -507,6 +507,7 @@ function ResultsPage() {
                 score={summary.overall_percentage} 
                 assessmentType={assessmentType}
                 sectorAverage={(assessmentType === 'Awareness' || assessmentType === 'System') ? sectorAverage : null}
+                sectorName={assessmentType === 'System' ? (benchmarkSector || assessment?.system_info?.industry || user?.industry) : null}
               />
             </div>
 
