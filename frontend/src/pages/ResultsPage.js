@@ -126,9 +126,15 @@ function ResultsPage() {
   }, [viewMode, assessmentType, user, assessment, selectedIndustry]);
 
   useEffect(() => {
-    // Fetch sector average for Awareness assessments (needed for results summary)
-    if (assessmentType === 'Awareness' && assessment && sectorAverage === null) {
-      const industry = assessment?.awareness_info?.industry || user?.industry;
+    // Fetch sector average for Awareness and System assessments (needed for results summary)
+    if ((assessmentType === 'Awareness' || assessmentType === 'System') && assessment && sectorAverage === null) {
+      let industry;
+      if (assessmentType === 'Awareness') {
+        industry = assessment?.awareness_info?.industry || user?.industry;
+      } else if (assessmentType === 'System') {
+        industry = assessment?.system_info?.industry || user?.industry;
+      }
+      
       if (industry) {
         fetchBenchmarks(industry, assessmentType);
       }
