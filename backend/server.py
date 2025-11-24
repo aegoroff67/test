@@ -550,6 +550,23 @@ async def require_admin(current_user: UserResponse = Depends(get_current_user)):
 async def get_current_user_info(current_user: UserResponse = Depends(get_current_user)):
     return current_user
 
+@api_router.put("/auth/timezone")
+async def update_user_timezone(timezone_str: str, current_user: UserResponse = Depends(get_current_user)):
+    """Update the current user's timezone preference"""
+    # Validate timezone
+    try:
+        pytz.timezone(timezone_str)
+    except:
+        raise HTTPException(status_code=400, detail=f"Invalid timezone: {timezone_str}")
+    
+    # Update user timezone
+    await db.users.update_one(
+        {"id": current_user.id},
+        {"$set": {"timezone": timezone_str, "updated_at": datetime.now(timezone.utc)}}
+    )
+    
+    return {"message": "Timezone updated successfully", "timezone": timezone_str}
+
 # Admin endpoints
 @api_router.get("/admin/users", response_model=List[UserResponse])
 async def get_all_users(admin: UserResponse = Depends(require_super_admin)):
