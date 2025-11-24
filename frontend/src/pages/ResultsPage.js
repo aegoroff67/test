@@ -506,7 +506,7 @@ function ResultsPage() {
               <MaturityStackedColumn 
                 score={summary.overall_percentage} 
                 assessmentType={assessmentType}
-                sectorAverage={assessmentType === 'Awareness' ? sectorAverage : null}
+                sectorAverage={(assessmentType === 'Awareness' || assessmentType === 'System') ? sectorAverage : null}
               />
             </div>
 
