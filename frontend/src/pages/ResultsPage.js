@@ -840,8 +840,7 @@ function ResultsPage() {
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
-              </div>
-            )}
+            </div>
           </div>
         </div>
 
