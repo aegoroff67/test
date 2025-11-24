@@ -1032,8 +1032,8 @@ function ResultsPage() {
         {/* Right Panel - 25% width */}
         <div className="w-1/4 bg-white overflow-y-auto">
           <div className="p-4">
-            {/* Pie Chart - Response Distribution - Hidden for Awareness assessments */}
-            {assessmentType !== 'Awareness' && (
+            {/* Pie Chart - Response Distribution - Hidden for Awareness and System assessments */}
+            {assessmentType !== 'Awareness' && assessmentType !== 'System' && (
               <div className="mb-3">
                 <h2 className="text-base font-bold text-gray-900 mb-1 flex items-center space-x-2">
                   <BarChart3 className="h-4 w-4 text-teal-600" />
