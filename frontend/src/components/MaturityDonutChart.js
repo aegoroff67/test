@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MaturityStackedColumn = ({ score, assessmentType, sectorAverage }) => {
+const MaturityStackedColumn = ({ score, assessmentType, sectorAverage, sectorName }) => {
   // Define the 4 maturity tiers with new ranges
   // Use different labels for Awareness assessment
   const tiers = assessmentType === 'Awareness' ? [
