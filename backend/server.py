@@ -3079,8 +3079,10 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     
     overall_percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
-    # Update the assessment name
+    # Update the assessment name using user's timezone
+    user_tz = pytz.timezone(user.get("timezone", "UTC"))
     completed_date = datetime.now(timezone.utc)
+    completed_date_user_tz = completed_date.astimezone(user_tz)
     current_name = assessment["name"]
     
     # Handle name updates based on current state
