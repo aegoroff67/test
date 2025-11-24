@@ -715,12 +715,12 @@ function ResultsPage() {
               })}
             </div>
 
-            {/* Response Distribution - Only for Awareness assessments */}
-            {assessmentType === 'Awareness' && (
+            {/* Response Distribution - For Awareness and System assessments */}
+            {(assessmentType === 'Awareness' || assessmentType === 'System') && (
               <div className="mt-6">
                 <h2 className="text-base font-bold text-gray-900 mb-1 flex items-center space-x-2">
                   <BarChart3 className="h-4 w-4 text-teal-600" />
-                  <span>Response Distribution (25 questions)</span>
+                  <span>Response Distribution {assessmentType === 'Awareness' ? '(25 questions)' : '(88 questions)'}</span>
                 </h2>
                 <div className="h-48">
                   <ResponsiveContainer width="100%" height="100%">
