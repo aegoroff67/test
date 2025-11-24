@@ -193,6 +193,7 @@ class User(BaseModel):
     role: Role = Role.MEMBER
     is_active: bool = True
     default_industry: Optional[str] = None  # User's default industry preference
+    timezone: str = "UTC"  # User's timezone (e.g., "Australia/Brisbane", "America/New_York")
     assessment_access: List[str] = Field(default_factory=lambda: ["awareness"])  # Default access to awareness assessment only
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
