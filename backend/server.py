@@ -2527,9 +2527,13 @@ async def get_benchmarks_by_sector(sector: str, assessment_type: str = "System")
             detail=f"No benchmark data found for sector: {sector}"
         )
     
+    # Calculate sector average from domain benchmarks
+    sector_average = sum(benchmarks.values()) / len(benchmarks) if benchmarks else 0
+    
     return {
         "sector": sector,
-        "benchmarks": benchmarks
+        "benchmarks": benchmarks,
+        "sector_average": round(sector_average, 1)
     }
 
 
