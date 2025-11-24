@@ -3130,7 +3130,7 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
             if len(parts) >= 3:
                 assessment_type = parts[0]
                 target_name = parts[1]
-                date_str = completed_date.strftime('%Y-%m-%d')
+                date_str = completed_date_user_tz.strftime('%Y-%m-%d')
                 
                 if pending_review_count > 0:
                     updated_name = f"{assessment_type}_{target_name}_Pending-Review_{date_str}"
@@ -3145,7 +3145,7 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
                 # parts[0] = Type, parts[1] = Target Name, parts[2] = "In-Progress" or "Started", parts[3] = YYYY-MM-DD
                 assessment_type = parts[0]
                 target_name = parts[1]
-                date_str = completed_date.strftime('%Y-%m-%d')
+                date_str = completed_date_user_tz.strftime('%Y-%m-%d')
                 
                 # Format: Pending-Review_[Type]_[Target Name]_[Date]
                 # or: Completed_[Type]_[Target Name]_[Date] if no pending reviews
