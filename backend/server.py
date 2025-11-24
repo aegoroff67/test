@@ -3026,6 +3026,9 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
+    # Get user for timezone
+    user = await db.users.find_one({"id": current_user.id})
+    
     # Allow re-submission for SUPER_ADMIN or if assessment is not completed
     is_resubmission = assessment.get("status") == AssessmentStatus.COMPLETED
     if is_resubmission and current_user.role != Role.SUPER_ADMIN.value:
