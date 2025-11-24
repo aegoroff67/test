@@ -3114,7 +3114,7 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
             if len(parts) >= 3:
                 assessment_type = parts[0]
                 target_name = parts[1]
-                date_str = parts[2] if len(parts) > 2 else completed_date.strftime('%Y-%m-%d')
+                date_str = parts[2] if len(parts) > 2 else completed_date_user_tz.strftime('%Y-%m-%d')
                 
                 if pending_review_count > 0:
                     updated_name = f"{assessment_type}_{target_name}_Pending-Review_{date_str}"
