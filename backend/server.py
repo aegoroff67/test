@@ -3098,7 +3098,7 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
                 # parts[0] = Type, parts[1:pending_idx] = Target Name components, parts[pending_idx] = "Pending-Review", parts[pending_idx+1] = Date
                 assessment_type = parts[0]
                 target_name = "_".join(parts[1:pending_idx])
-                date_str = parts[pending_idx + 1] if len(parts) > pending_idx + 1 else completed_date.strftime('%Y-%m-%d')
+                date_str = parts[pending_idx + 1] if len(parts) > pending_idx + 1 else completed_date_user_tz.strftime('%Y-%m-%d')
                 
                 if pending_review_count > 0:
                     # Still has pending reviews
