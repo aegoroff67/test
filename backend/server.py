@@ -1220,7 +1220,9 @@ async def create_assessment(
     type_display = type_names.get(assessment_type, "System")
     
     # Generate initial assessment name with format: [Type]_[TBD]_In-Progress_YYYY-MM-DD
-    started_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    # Use user's timezone if available, otherwise UTC
+    user_tz = pytz.timezone(user.get("timezone", "UTC"))
+    started_date = datetime.now(timezone.utc).astimezone(user_tz).strftime("%Y-%m-%d")
     assessment_name = f"{type_display}_[TBD]_In-Progress_{started_date}"
     
     assessment = Assessment(
