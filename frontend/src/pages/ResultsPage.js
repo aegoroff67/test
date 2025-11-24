@@ -695,14 +695,14 @@ function ResultsPage() {
                 const colors = getScoreColor(domain.percentage);
                 return (
                   <div key={domain.domain_id} className="space-y-0.5">
-                    <div className="flex flex-col">
-                      <span className="font-medium text-gray-900 text-xs">{domain.domain_name}</span>
+                    <div className="flex items-center">
                       <div 
-                        className="px-1 py-0.5 rounded text-xs font-bold self-start mt-1"
+                        className="px-1 py-0.5 rounded text-xs font-bold"
                         style={{ backgroundColor: colors.bg, color: colors.text }}
                       >
                         {domain.percentage.toFixed(1)}%
                       </div>
+                      <span className="font-medium text-gray-900 text-xs ml-[15px]">{domain.domain_name}</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-1.5">
                       <div 
