@@ -144,12 +144,12 @@ const ARTEFACTS = [
 ];
 
 const FRAMEWORKS = [
-  "FAIRA (QLD)",
-  "ISO/IEC 42001",
-  "NIST AI RMF",
-  "OECD AI Principles",
-  "EU AI Act (applicability)",
-  "Australian Privacy Principles (APPs)",
+  "FAIRA (Queensland Government)",
+  "NIST AI RMF (2023)",
+  "ISO/IEC 42001 (2023)",
+  "Australian AI Ethics Principles (2019)",
+  "Australian Voluntary AI Safety Standard (2024)",
+  "EU AI Act (2024 final)",
 ];
 
 const REGULATIONS = [
