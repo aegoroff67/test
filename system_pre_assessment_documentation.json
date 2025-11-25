@@ -1,0 +1,489 @@
+{
+  "assessment_type": "AI System Maturity Assessment",
+  "component_name": "Pre-Assessment Onboarding Form",
+  "version": "v2025.11",
+  "purpose": "Collects detailed information about the AI system being assessed to tailor the assessment and reporting",
+  "sections": [
+    {
+      "section_id": 1,
+      "section_name": "Organization Overview",
+      "icon": "Building2",
+      "background_color": "teal-50",
+      "fields": [
+        {
+          "field_name": "organizationName",
+          "field_label": "Organization name",
+          "field_type": "text_input",
+          "required": true,
+          "placeholder": "e.g., Acme Corporation",
+          "description": null
+        },
+        {
+          "field_name": "industry",
+          "field_label": "Industry / Sector",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select industry",
+          "description": "This helps us compare your results with sector benchmarks",
+          "options": "INDUSTRIES constant (imported from /constants/industries.js)"
+        }
+      ]
+    },
+    {
+      "section_id": 2,
+      "section_name": "System Overview",
+      "icon": "FileText",
+      "background_color": "teal-50",
+      "fields": [
+        {
+          "field_name": "systemName",
+          "field_label": "System name",
+          "field_type": "text_input",
+          "required": true,
+          "placeholder": "e.g., SmartRecruit Chatbot",
+          "description": null
+        },
+        {
+          "field_name": "owner",
+          "field_label": "System owner",
+          "field_type": "text_input",
+          "required": true,
+          "placeholder": "e.g., Jane Smith (Head of HR)",
+          "description": null
+        },
+        {
+          "field_name": "description",
+          "field_label": "Purpose / description",
+          "field_type": "textarea",
+          "required": false,
+          "placeholder": "What does this AI system do and why does it exist?",
+          "rows": 3,
+          "description": null
+        },
+        {
+          "field_name": "department",
+          "field_label": "Department / business function",
+          "field_type": "text_input",
+          "required": false,
+          "placeholder": "e.g., HR / People & Culture",
+          "description": null
+        },
+        {
+          "field_name": "lifecycle",
+          "field_label": "Lifecycle stage",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select stage",
+          "description": null,
+          "options": [
+            {"value": "design", "label": "Design"},
+            {"value": "development", "label": "Development"},
+            {"value": "pilot", "label": "Pilot"},
+            {"value": "production", "label": "Production"},
+            {"value": "retired", "label": "Retired"}
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": 3,
+      "section_name": "Lifecycle & Usage",
+      "icon": "Settings2",
+      "background_color": "teal-50",
+      "fields": [
+        {
+          "field_name": "usersStakeholders",
+          "field_label": "Primary users / stakeholders",
+          "field_type": "text_input",
+          "required": false,
+          "placeholder": "e.g., HR staff, job applicants",
+          "description": null
+        },
+        {
+          "field_name": "monthlyVolume",
+          "field_label": "Monthly interactions / transactions",
+          "field_type": "text_input",
+          "required": false,
+          "placeholder": "e.g., 5,000 / month",
+          "description": null
+        },
+        {
+          "field_name": "criticality",
+          "field_label": "Business criticality",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select level",
+          "description": null,
+          "options": [
+            {"value": "Low", "label": "Low"},
+            {"value": "Moderate", "label": "Moderate"},
+            {"value": "High", "label": "High"},
+            {"value": "Critical", "label": "Critical"}
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": 4,
+      "section_name": "Technical Setup",
+      "icon": "Cpu",
+      "background_color": "teal-50",
+      "fields": [
+        {
+          "field_name": "modelType",
+          "field_label": "AI type / model category",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select type",
+          "description": null,
+          "options": [
+            "NLP / Text (e.g., LLM)",
+            "Computer Vision",
+            "Predictive Analytics / Tabular",
+            "Recommendation",
+            "Speech / Voice",
+            "Reinforcement Learning",
+            "Rules-based Hybrid"
+          ]
+        },
+        {
+          "field_name": "ownership",
+          "field_label": "Model origin / ownership",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select ownership",
+          "description": null,
+          "options": [
+            "In-house",
+            "Vendor / SaaS",
+            "Open-source foundation model",
+            "Co-developed (hybrid)"
+          ]
+        },
+        {
+          "field_name": "hosting",
+          "field_label": "Hosting type",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select hosting",
+          "description": null,
+          "options": [
+            "On‑prem",
+            "Private Cloud",
+            "Public Cloud",
+            "SaaS"
+          ]
+        },
+        {
+          "field_name": "cloudProviderRegion",
+          "field_label": "Cloud provider & region",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select cloud provider and region",
+          "description": "Combined field for provider & region. Stored as cloudProvider and cloudRegion in backend",
+          "options": {
+            "AWS": [
+              {"code": "us-east-1", "name": "US East (N. Virginia)"},
+              {"code": "us-east-2", "name": "US East (Ohio)"},
+              {"code": "us-west-1", "name": "US West (N. California)"},
+              {"code": "us-west-2", "name": "US West (Oregon)"},
+              {"code": "af-south-1", "name": "Africa (Cape Town)"},
+              {"code": "ap-south-1", "name": "Asia Pacific (Mumbai)"},
+              {"code": "ap-east-1", "name": "Asia Pacific (Hong Kong)"},
+              {"code": "ap-southeast-1", "name": "Asia Pacific (Singapore)"},
+              {"code": "ap-southeast-2", "name": "Asia Pacific (Sydney)"},
+              {"code": "ap-northeast-1", "name": "Asia Pacific (Tokyo)"},
+              {"code": "ca-central-1", "name": "Canada (Central)"},
+              {"code": "eu-central-1", "name": "Europe (Frankfurt)"},
+              {"code": "eu-west-1", "name": "Europe (Ireland)"},
+              {"code": "eu-west-2", "name": "Europe (London)"},
+              {"code": "eu-west-3", "name": "Europe (Paris)"},
+              {"code": "eu-north-1", "name": "Europe (Stockholm)"},
+              {"code": "sa-east-1", "name": "South America (São Paulo)"}
+            ],
+            "Azure": [
+              {"code": "eastus", "name": "East US"},
+              {"code": "eastus2", "name": "East US 2"},
+              {"code": "centralus", "name": "Central US"},
+              {"code": "northcentralus", "name": "North Central US"},
+              {"code": "southcentralus", "name": "South Central US"},
+              {"code": "westus", "name": "West US"},
+              {"code": "westus2", "name": "West US 2"},
+              {"code": "westeurope", "name": "West Europe"},
+              {"code": "northeurope", "name": "North Europe"},
+              {"code": "francecentral", "name": "France Central"},
+              {"code": "uksouth", "name": "UK South"},
+              {"code": "ukwest", "name": "UK West"},
+              {"code": "australiacentral", "name": "Australia Central"},
+              {"code": "australiaeast", "name": "Australia East"},
+              {"code": "australiasoutheast", "name": "Australia Southeast"}
+            ],
+            "GCP": [
+              {"code": "us-central1", "name": "US Central (Iowa)"},
+              {"code": "us-east1", "name": "US East (South Carolina)"},
+              {"code": "us-east4", "name": "US East 4 (N. Virginia)"},
+              {"code": "us-west1", "name": "US West 1 (Oregon)"},
+              {"code": "northamerica-northeast1", "name": "North America Northeast (Montréal)"},
+              {"code": "southamerica-east1", "name": "South America East (São Paulo)"},
+              {"code": "europe-west1", "name": "Europe West (Belgium)"},
+              {"code": "europe-central2", "name": "Europe Central 2 (Warsaw)"},
+              {"code": "asia-east1", "name": "Asia East (Taiwan)"},
+              {"code": "asia-northeast1", "name": "Asia Northeast (Tokyo)"},
+              {"code": "asia-southeast1", "name": "Asia Southeast (Singapore)"},
+              {"code": "australia-southeast1", "name": "Australia Southeast (Sydney)"}
+            ],
+            "Other": [
+              {"code": "", "name": "Other / Not Applicable"}
+            ]
+          }
+        },
+        {
+          "field_name": "dataFlow",
+          "field_label": "Data flow",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select data flow",
+          "description": null,
+          "options": [
+            "Batch",
+            "Real‑time",
+            "Hybrid"
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": 5,
+      "section_name": "Data Characteristics",
+      "icon": "ShieldCheck",
+      "background_color": "teal-50",
+      "fields": [
+        {
+          "field_name": "dataSensitivity",
+          "field_label": "Data sensitivity",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select sensitivity",
+          "description": null,
+          "options": [
+            "Non-personal",
+            "Personal",
+            "Sensitive (health, biometrics, etc.)",
+            "Mixed"
+          ]
+        },
+        {
+          "field_name": "dataSources",
+          "field_label": "Primary data sources",
+          "field_type": "text_input",
+          "required": false,
+          "placeholder": "e.g., HRIS, candidate CVs, job boards",
+          "description": null
+        },
+        {
+          "field_name": "representationNotes",
+          "field_label": "Representation coverage (notes)",
+          "field_type": "textarea",
+          "required": false,
+          "placeholder": "e.g., balanced by gender, geography; identified gaps",
+          "rows": 3,
+          "description": null
+        },
+        {
+          "field_name": "hasRetentionPolicy",
+          "field_label": "Data retention policy exists?",
+          "field_type": "switch",
+          "required": false,
+          "default": false,
+          "description": "Indicates if formal retention & disposal controls are in place."
+        }
+      ]
+    },
+    {
+      "section_id": 6,
+      "section_name": "Governance & Oversight",
+      "icon": "Workflow",
+      "background_color": "teal-50",
+      "fields": [
+        {
+          "field_name": "oversight",
+          "field_label": "Human oversight model",
+          "field_type": "select",
+          "required": false,
+          "placeholder": "Select oversight",
+          "description": null,
+          "options": [
+            "Human‑in‑the‑loop",
+            "Human‑on‑the‑loop",
+            "No formal oversight"
+          ]
+        },
+        {
+          "field_name": "regulations",
+          "field_label": "Regulatory obligations",
+          "field_type": "multi_checkbox",
+          "required": false,
+          "description": null,
+          "options": [
+            "GDPR",
+            "Australian Privacy Act / APPs",
+            "Sectoral (e.g., Health, Finance)",
+            "Other / Not sure"
+          ]
+        },
+        {
+          "field_name": "artefacts",
+          "field_label": "Governance artefacts available",
+          "field_type": "multi_checkbox",
+          "required": false,
+          "description": null,
+          "options": [
+            "Model Card",
+            "Risk Register",
+            "Privacy Impact Assessment (PIA)",
+            "Bias / Fairness Audit",
+            "Transparency Report",
+            "Logging & Audit Trails"
+          ]
+        },
+        {
+          "field_name": "frameworks",
+          "field_label": "Applicable frameworks / standards",
+          "field_type": "multi_checkbox",
+          "required": false,
+          "description": null,
+          "options": [
+            "FAIRA (QLD)",
+            "ISO/IEC 42001",
+            "NIST AI RMF",
+            "OECD AI Principles",
+            "EU AI Act (applicability)",
+            "Australian Privacy Principles (APPs)"
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": 7,
+      "section_name": "Ethics & Sustainability",
+      "icon": "Heart",
+      "background_color": "teal-50",
+      "fields": [
+        {
+          "field_name": "ethicsCommitments",
+          "field_label": "Ethical commitments / principles",
+          "field_type": "textarea",
+          "required": false,
+          "placeholder": "e.g., human-centric design, fairness, non-discrimination",
+          "rows": 3,
+          "description": null
+        },
+        {
+          "field_name": "sustainabilityGoals",
+          "field_label": "Sustainability goals",
+          "field_type": "textarea",
+          "required": false,
+          "placeholder": "e.g., track energy usage; reduce carbon by 20% YoY",
+          "rows": 3,
+          "description": null
+        }
+      ]
+    },
+    {
+      "section_id": 8,
+      "section_name": "Optional (Advanced)",
+      "icon": "Layers",
+      "background_color": "teal-50",
+      "fields": [
+        {
+          "field_name": "dependencies",
+          "field_label": "Third‑party dependencies / APIs",
+          "field_type": "textarea",
+          "required": false,
+          "placeholder": "e.g., OpenAI API, AWS Rekognition",
+          "rows": 3,
+          "description": null
+        },
+        {
+          "field_name": "versionRef",
+          "field_label": "Version reference",
+          "field_type": "text_input",
+          "required": false,
+          "placeholder": "e.g., v1.2 (2025‑05)",
+          "description": null
+        },
+        {
+          "field_name": "evidenceRepoUrl",
+          "field_label": "Evidence repository URL (optional)",
+          "field_type": "text_input",
+          "required": false,
+          "placeholder": "e.g., https://company.sharepoint.com/sites/AI-Assurance",
+          "description": null
+        }
+      ]
+    },
+    {
+      "section_id": 9,
+      "section_name": "Assessment Details",
+      "icon": "Calendar",
+      "background_color": "teal-50",
+      "fields": [
+        {
+          "field_name": "assessor_name",
+          "field_label": "Assessment conducted by",
+          "field_type": "text_input",
+          "required": true,
+          "placeholder": "Enter assessor name",
+          "description": null
+        },
+        {
+          "field_name": "assessment_date",
+          "field_label": "Assessment date",
+          "field_type": "date_input",
+          "required": true,
+          "placeholder": null,
+          "description": null
+        },
+        {
+          "field_name": "framework_version",
+          "field_label": "AM AI SAFE framework version",
+          "field_type": "text_input",
+          "required": true,
+          "placeholder": "e.g., v2025.11",
+          "default": "v2025.11",
+          "description": null
+        }
+      ]
+    }
+  ],
+  "backend_endpoint": {
+    "method": "PUT",
+    "url": "/api/assessments/{assessment_id}/system-info",
+    "payload": "All form fields as JSON object",
+    "notes": [
+      "cloudProviderRegion is parsed and split into cloudProvider and cloudRegion before sending",
+      "If industry is provided, it updates the organization's primary_industry",
+      "If systemName is provided, it updates the assessment name to: {Type}_{SystemName}_In-Progress_{Date}"
+    ]
+  },
+  "navigation": {
+    "on_submit": "/assessment/{assessment_id}",
+    "on_back": "/dashboard"
+  },
+  "styling": {
+    "background": "gradient-bg",
+    "card_headers": "teal-50 with teal-100 border",
+    "submit_button": "teal-600 hover:teal-700",
+    "max_width": "6xl"
+  },
+  "total_fields": 33,
+  "required_fields": 6,
+  "field_types": {
+    "text_input": 13,
+    "select": 10,
+    "textarea": 6,
+    "multi_checkbox": 3,
+    "switch": 1,
+    "date_input": 1
+  }
+}
