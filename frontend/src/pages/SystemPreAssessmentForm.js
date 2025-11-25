@@ -148,7 +148,7 @@ const FRAMEWORKS = [
   "NIST AI RMF (2023)",
   "ISO/IEC 42001 (2023)",
   "Australian AI Ethics Principles (2024)",
-  "Australian Voluntary AI Safety Standard (2024)",
+  "Guidance for AI Adoption (2025)",
   "EU AI Act (2024 final)",
 ];
 
