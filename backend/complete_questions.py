@@ -633,12 +633,12 @@ COMPLETE_QUESTIONS_DATA = [
     },
     {
         "code": 'PR-2',
-        "text": 'What techniques (e.g., anonymization, pseudonymization) do you use to protect personal data in your AI workflows?',
-        "explanation": 'Privacy-preserving techniques help protect personal data while enabling AI functionality. This question evaluates your use of methods like anonymization, pseudonymization, or differential privacy.\n\nFor instance, a healthcare AI system might use anonymization to remove direct identifiers from patient records or pseudonymization to replace names with codes. Advanced techniques like differential privacy add mathematical guarantees about privacy protection. These methods enable AI development while minimizing privacy risks.',
-        "foundational_answer": 'No specific techniques are used to protect personal data in AI workflows.',
-        "developing_answer": 'Use basic data masking or removal of obvious identifiers.',
-        "established_answer": 'Apply anonymization and pseudonymization techniques to protect personal data in AI workflows.',
-        "leading_answer": 'Use advanced privacy-preserving techniques like differential privacy, secure multi-party computation, or federated learning.',
+        "text": 'What techniques or methods (e.g., anonymization, pseudonymization) do you implement to protect personal data throughout your AI system lifecycle?',
+        "explanation": 'Privacy-enhancing technologies and data minimization methods are essential for protecting personal data in AI systems. These techniques help reduce privacy risks while maintaining data utility. A comprehensive privacy strategy includes implementing appropriate technical measures at each stage of the AI lifecycle - from data collection and preprocessing to model training, validation, and deployment.',
+        "foundational_answer": 'No techniques are applied to protect personal data in AI workflows.',
+        "developing_answer": 'Use general data protection methods without specific focus on anonymization or pseudonymization techniques.',
+        "established_answer": 'Employ one or two methods (e.g., pseudonymization or basic encryption) to protect personal data at key stages of the AI lifecycle.',
+        "leading_answer": 'Use advanced techniques such as anonymization, pseudonymization, and encryption throughout the AI lifecycle, with regular validation of their effectiveness.',
         "domain_order": 8,
         "order": 2
     },
