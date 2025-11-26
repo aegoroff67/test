@@ -213,6 +213,7 @@ class Question(BaseModel):
     help_text: Optional[str] = None
     explanation: Optional[str] = None
     additional_guidance: Optional[str] = None
+    evidence_types: Optional[str] = None
     leading_answer: Optional[str] = None
     established_answer: Optional[str] = None
     developing_answer: Optional[str] = None
