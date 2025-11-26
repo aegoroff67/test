@@ -666,7 +666,7 @@ COMPLETE_QUESTIONS_DATA = [
     },
     {
         "code": 'PR-5',
-        "text": 'How do you evaluate the effectiveness of your privacy protection measures and ensure they don't compromise model performance?',
+        "text": 'How do you evaluate the effectiveness of your privacy protection measures and ensure they don\'t compromise model performance?',
         "explanation": 'While implementing privacy protection measures is essential, organizations must also evaluate their effectiveness and understand potential trade-offs with model performance. Privacy-enhancing technologies can sometimes affect model accuracy, especially in data-sparse scenarios. A balanced approach involves systematically assessing privacy controls, measuring their impact on model performance, and making informed decisions about acceptable trade-offs based on use case requirements.',
         "foundational_answer": 'No evaluation of privacy protection effectiveness or consideration of performance trade-offs.',
         "developing_answer": 'Perform basic checks on privacy measures but with limited understanding of their impact on model performance or effectiveness.',
