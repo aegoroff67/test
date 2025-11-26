@@ -304,11 +304,11 @@ function AssessmentPage() {
 
   const handleOpenHelp = () => {
     if (currentQuestion && currentQuestion.code) {
-      // For Readiness and Orgwide assessments, use evidence_types from the API response
-      // For System assessments, use helpContent (static JSON)
+      // For all assessment types, use evidence_types from the API response
+      // Fallback to helpContent (static JSON) for backwards compatibility
       let content = null;
       
-      if ((assessmentType === 'Readiness' || assessmentType === 'Orgwide') && currentQuestion.evidence_types) {
+      if (currentQuestion.evidence_types) {
         content = currentQuestion.evidence_types;
       } else {
         content = helpContent[currentQuestion.code];
