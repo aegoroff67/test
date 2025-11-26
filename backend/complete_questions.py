@@ -666,12 +666,12 @@ COMPLETE_QUESTIONS_DATA = [
     },
     {
         "code": 'PR-5',
-        "text": 'What methods do you use to anonymize or pseudonymize personal data?',
-        "explanation": 'Anonymization and pseudonymization are important techniques for protecting privacy while enabling data analysis. This question examines your specific methods for de-identifying personal data.\n\nFor example, k-anonymity ensures that records cannot be distinguished from at least k-1 others, while pseudonymization replaces identifiers with reversible codes. The choice of method depends on your use case, risk tolerance, and regulatory requirements. Proper implementation provides privacy protection while maintaining data utility.',
-        "foundational_answer": 'No anonymization or pseudonymization methods are used.',
-        "developing_answer": 'Use simple techniques like removing obvious identifiers without comprehensive anonymization.',
-        "established_answer": 'Apply standard anonymization methods like data masking or identifier removal.',
-        "leading_answer": 'Use sophisticated anonymization techniques like k-anonymity, l-diversity, or t-closeness based on risk assessment and regulatory requirements.',
+        "text": 'How do you evaluate the effectiveness of your privacy protection measures and ensure they don't compromise model performance?',
+        "explanation": 'While implementing privacy protection measures is essential, organizations must also evaluate their effectiveness and understand potential trade-offs with model performance. Privacy-enhancing technologies can sometimes affect model accuracy, especially in data-sparse scenarios. A balanced approach involves systematically assessing privacy controls, measuring their impact on model performance, and making informed decisions about acceptable trade-offs based on use case requirements.',
+        "foundational_answer": 'No evaluation of privacy protection effectiveness or consideration of performance trade-offs.',
+        "developing_answer": 'Perform basic checks on privacy measures but with limited understanding of their impact on model performance or effectiveness.',
+        "established_answer": 'Periodically evaluate privacy measures and their impact on model performance, with basic procedures to manage trade-offs between privacy and utility.',
+        "leading_answer": 'Systematically test and validate privacy protection measures using formal metrics, with documented assessment of performance trade-offs and regular optimization to balance privacy and utility.',
         "domain_order": 8,
         "order": 5
     },
