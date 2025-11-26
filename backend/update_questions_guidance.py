@@ -19,7 +19,7 @@ client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
 async def update_questions():
-    """Update existing questions with text, explanation, and additional_guidance field"""
+    """Update existing questions with text, explanation, additional_guidance, and evidence_types fields"""
     
     # Create a lookup dict by question code
     questions_lookup = {
@@ -40,7 +40,8 @@ async def update_questions():
             update_fields = {
                 "text": source_question.get("text"),
                 "explanation": source_question.get("explanation"),
-                "additional_guidance": source_question.get("additional_guidance")
+                "additional_guidance": source_question.get("additional_guidance"),
+                "evidence_types": source_question.get("evidence_types")
             }
             
             # Update the question in the database
@@ -51,7 +52,10 @@ async def update_questions():
             
             if result.modified_count > 0:
                 updated_count += 1
-                print(f"✓ Updated {code} (text, explanation, additional_guidance)")
+                if source_question.get("evidence_types"):
+                    print(f"✓ Updated {code} (text, explanation, additional_guidance, evidence_types)")
+                else:
+                    print(f"✓ Updated {code} (text, explanation, additional_guidance)")
     
     print(f"\n✅ Updated {updated_count} questions with complete data")
     
