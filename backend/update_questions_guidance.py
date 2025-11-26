@@ -66,15 +66,23 @@ async def update_questions():
     
     if pr2:
         has_guidance = bool(pr2.get("additional_guidance"))
+        has_evidence = bool(pr2.get("evidence_types"))
         print(f"PR-2: {'✓' if has_guidance else '✗'} additional_guidance present: {has_guidance}")
+        print(f"      {'✓' if has_evidence else '✗'} evidence_types present: {has_evidence}")
         if has_guidance:
-            print(f"      Content preview: {pr2['additional_guidance'][:100]}...")
+            print(f"      Guidance preview: {pr2['additional_guidance'][:80]}...")
+        if has_evidence:
+            print(f"      Evidence preview: {pr2['evidence_types'][:80]}...")
     
     if pr5:
         has_guidance = bool(pr5.get("additional_guidance"))
-        print(f"PR-5: {'✓' if has_guidance else '✗'} additional_guidance present: {has_guidance}")
+        has_evidence = bool(pr5.get("evidence_types"))
+        print(f"\nPR-5: {'✓' if has_guidance else '✗'} additional_guidance present: {has_guidance}")
+        print(f"      {'✓' if has_evidence else '✗'} evidence_types present: {has_evidence}")
         if has_guidance:
-            print(f"      Content preview: {pr5['additional_guidance'][:100]}...")
+            print(f"      Guidance preview: {pr5['additional_guidance'][:80]}...")
+        if has_evidence:
+            print(f"      Evidence preview: {pr5['evidence_types'][:80]}...")
 
 if __name__ == "__main__":
     print("Starting question update process...")
