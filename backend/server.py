@@ -3311,6 +3311,7 @@ async def seed_data():
             code=question_data["code"],
             text=question_data["text"],
             explanation=question_data.get("explanation"),
+            additional_guidance=question_data.get("additional_guidance"),
             order=question_data["order"],
             # Use specific pre-defined answers from question data, fallback to standard if not provided
             leading_answer=question_data.get("leading_answer", "Comprehensive implementation with best practices and full compliance"),
