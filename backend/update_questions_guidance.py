@@ -19,11 +19,11 @@ client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
 async def update_questions():
-    """Update existing questions with additional_guidance field"""
+    """Update existing questions with text, explanation, and additional_guidance field"""
     
     # Create a lookup dict by question code
-    guidance_lookup = {
-        q["code"]: q.get("additional_guidance") 
+    questions_lookup = {
+        q["code"]: q
         for q in COMPLETE_QUESTIONS_DATA
     }
     
@@ -33,23 +33,27 @@ async def update_questions():
     updated_count = 0
     for question in questions:
         code = question.get("code")
-        if code in guidance_lookup:
-            additional_guidance = guidance_lookup[code]
+        if code in questions_lookup:
+            source_question = questions_lookup[code]
+            
+            # Prepare update fields
+            update_fields = {
+                "text": source_question.get("text"),
+                "explanation": source_question.get("explanation"),
+                "additional_guidance": source_question.get("additional_guidance")
+            }
             
             # Update the question in the database
             result = await db.questions.update_one(
                 {"code": code},
-                {"$set": {"additional_guidance": additional_guidance}}
+                {"$set": update_fields}
             )
             
             if result.modified_count > 0:
                 updated_count += 1
-                if additional_guidance:
-                    print(f"✓ Updated {code} with additional_guidance")
-                else:
-                    print(f"- Set {code} additional_guidance to None")
+                print(f"✓ Updated {code} (text, explanation, additional_guidance)")
     
-    print(f"\n✅ Updated {updated_count} questions with additional_guidance field")
+    print(f"\n✅ Updated {updated_count} questions with complete data")
     
     # Verify PR-2 and PR-5
     print("\n🔍 Verifying PR-2 and PR-5:")
