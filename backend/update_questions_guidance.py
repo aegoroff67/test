@@ -41,7 +41,11 @@ async def update_questions():
                 "text": source_question.get("text"),
                 "explanation": source_question.get("explanation"),
                 "additional_guidance": source_question.get("additional_guidance"),
-                "evidence_types": source_question.get("evidence_types")
+                "evidence_types": source_question.get("evidence_types"),
+                "foundational_answer": source_question.get("foundational_answer"),
+                "developing_answer": source_question.get("developing_answer"),
+                "established_answer": source_question.get("established_answer"),
+                "leading_answer": source_question.get("leading_answer")
             }
             
             # Update the question in the database
