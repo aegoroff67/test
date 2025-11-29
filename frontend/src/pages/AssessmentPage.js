@@ -692,9 +692,6 @@ function AssessmentPage() {
                       <Badge variant="outline" className={`text-${colors.primary} border-${colors.border} text-xs sm:text-sm`}>
                         {currentQuestion.code}
                       </Badge>
-                      <Badge variant="secondary" className="text-xs sm:text-sm">
-                        {currentQuestion.domain_name}
-                      </Badge>
                       {/* Top InfoBadge for additional question guidance */}
                       <InfoBadge 
                         title="Click for additional guidance and best practices"
