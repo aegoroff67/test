@@ -1,0 +1,122 @@
+[
+  {
+    "QuestionID": "TR-1",
+    "Domain": "Transparency",
+    "Question": "What level of detail about the AI system's functionality and limitations is communicated to users or stakeholders?",
+    "NISTAlignment": {
+      "Function": "GOVERN + MAP",
+      "CategorySubcategory": "GOVERN 1.4; MAP 2.2",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: GOVERN 1.4 requires transparent policies and procedures for risk management processes. MAP 2.2 requires documenting system knowledge limits and providing sufficient information to AI actors. This question directly addresses NIST's requirements for transparent communication about system capabilities and limitations.",
+      "Citations": [
+        "NIST AI RMF Section 3.4 - Accountable and Transparent",
+        "NIST AI RMF p.15 - \"Transparency reflects the extent to which information about an AI system and its outputs is available to individuals interacting with such a system – regardless of whether they are even aware that they are doing so.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "TR-2",
+    "Domain": "Transparency",
+    "Question": "How do you document the data sources, algorithms, and processes used in your AI system?",
+    "NISTAlignment": {
+      "Function": "GOVERN + MEASURE",
+      "CategorySubcategory": "GOVERN 1.4; MEASURE 2.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: GOVERN 1.4 requires transparent documentation processes. MEASURE 2.1 specifically requires documenting test sets, metrics, and tools used during evaluation. This question directly supports NIST's requirements for comprehensive system documentation across the AI lifecycle.",
+      "Citations": [
+        "NIST AI RMF Section 3.4 - Accountable and Transparent",
+        "NIST AI RMF p.15-16 - \"Transparency... scope spans from design decisions and training data to model training, the structure of the model, its intended use cases, and how and when deployment, post-deployment, or end user decisions were made and by whom.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "TR-3",
+    "Domain": "Transparency",
+    "Question": "Are there mechanisms for external parties (e.g., regulators or customers) to understand how your AI system works?",
+    "NISTAlignment": {
+      "Function": "GOVERN + MEASURE",
+      "CategorySubcategory": "GOVERN 5.1; MEASURE 2.8",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: GOVERN 5.1 requires practices for collecting and integrating feedback from external stakeholders. MEASURE 2.8 requires examining risks related to transparency and accountability. This question directly addresses NIST's requirements for external transparency mechanisms.",
+      "Citations": [
+        "NIST AI RMF Table 1 p.24 - \"GOVERN 5.1: Organizational policies and practices are in place to collect, consider, prioritize, and integrate feedback from those external to the team that developed or deployed the AI system regarding the potential individual and societal impacts related to AI risks.\"",
+        "NIST AI RMF p.15 - \"Meaningful transparency provides access to appropriate levels of information based on the stage of the AI lifecycle and tailored to the role or knowledge of AI actors or individuals interacting with or using the AI system.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "TR-4",
+    "Domain": "Transparency",
+    "Question": "How is information about your AI system shared with internal teams and external stakeholders?",
+    "NISTAlignment": {
+      "Function": "GOVERN + MANAGE",
+      "CategorySubcategory": "GOVERN 2.1; MANAGE 4.3",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: GOVERN 2.1 requires clear communication lines related to AI risks. MANAGE 4.3 requires communicating incidents and errors to relevant AI actors. This question directly supports NIST's requirements for information sharing across internal and external stakeholders.",
+      "Citations": [
+        "NIST AI RMF Table 1 p.23 - \"GOVERN 2.1: Roles and responsibilities and lines of communication related to mapping, measuring, and managing AI risks are documented and are clear to individuals and teams throughout the organization.\"",
+        "NIST AI RMF Table 4 p.33 - \"MANAGE 4.3: Incidents and errors are communicated to relevant AI actors, including affected communities.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "TR-5",
+    "Domain": "Transparency",
+    "Question": "Are there any \"black-box\" components in your system that could impede transparency?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 2.2; MEASURE 2.8; MEASURE 2.9",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: MAP 2.2 requires documenting system knowledge limits. MEASURE 2.8 and 2.9 require examining transparency risks and ensuring model explainability. This question directly addresses NIST's concern about inscrutable 'black-box' systems that may increase risk.",
+      "Citations": [
+        "NIST AI RMF p.6 - \"Inscrutability: Inscrutable AI systems can complicate risk measurement. Inscrutability can be a result of the opaque nature of AI systems (limited explainability or interpretability), lack of transparency or documentation in AI system development or deployment, or inherent uncertainties in AI systems.\"",
+        "NIST AI RMF p.16 - \"A transparent system is not necessarily an accurate, privacy-enhanced, secure, or fair system. However, it is difficult to determine whether an opaque system possesses such characteristics, and to do so over time as complex systems evolve.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "TR-6",
+    "Domain": "Transparency",
+    "Question": "How do you disclose the sources of data and algorithms used in the AI system?",
+    "NISTAlignment": {
+      "Function": "MEASURE + MAP",
+      "CategorySubcategory": "MEASURE 2.1; MAP 2.3",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: MEASURE 2.1 requires documenting test sets and methodologies. MAP 2.3 requires documenting scientific integrity and TEVV considerations, including data selection and algorithmic methodology. This question directly supports NIST's requirements for transparency about system components.",
+      "Citations": [
+        "NIST AI RMF Table 3 p.29 - \"MEASURE 2.1: Test sets, metrics, and details about the tools used during TEVV are documented.\"",
+        "NIST AI RMF Table 2 p.27 - \"MAP 2.3: Scientific integrity and TEVV considerations are identified and documented, including those related to experimental design, data collection and selection (e.g., availability, representativeness, suitability), system trustworthiness, and construct validation.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "TR-7",
+    "Domain": "Transparency",
+    "Question": "Are users made aware when they are interacting with an AI system?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 2.2; MEASURE 2.8",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: MAP 2.2 requires documenting how system output may be utilized by humans. MEASURE 2.8 requires examining transparency risks. User awareness of AI interactions is explicitly mentioned in NIST's definition of transparency, which includes users being aware they are interacting with AI systems.",
+      "Citations": [
+        "NIST AI RMF p.15 - \"Transparency reflects the extent to which information about an AI system and its outputs is available to individuals interacting with such a system – regardless of whether they are even aware that they are doing so.\"",
+        "NIST AI RMF Table 2 p.26 - \"MAP 2.2: Information about the AI system's knowledge limits and how system output may be utilized and overseen by humans is documented.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "TR-8",
+    "Domain": "Transparency",
+    "Question": "Do you publish any transparency reports or documentation for regulators or customers?",
+    "NISTAlignment": {
+      "Function": "GOVERN + MEASURE",
+      "CategorySubcategory": "GOVERN 1.4; MEASURE 2.8",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: GOVERN 1.4 requires transparent policies for risk management processes and outcomes. MEASURE 2.8 requires examining transparency risks. Publishing transparency reports addresses NIST's requirements for organizational transparency and documentation practices.",
+      "Citations": [
+        "NIST AI RMF Table 1 p.22-23 - \"GOVERN 1.4: The risk management process and its outcomes are established through transparent policies, procedures, and other controls based on organizational risk priorities.\"",
+        "NIST AI RMF Table 3 p.30 - \"MEASURE 2.8: Risks associated with transparency and accountability – as identified in the MAP function – are examined and documented.\""
+      ]
+    }
+  }
+]
