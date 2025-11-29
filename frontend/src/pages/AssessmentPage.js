@@ -1003,6 +1003,16 @@ function AssessmentPage() {
           alignmentData={fairaAlignmentData[currentQuestion.code]}
         />
       )}
+
+      {/* Australian AI Ethics Principles Alignment Modal */}
+      {currentQuestion && auEthicsAlignmentData[currentQuestion.code] && (
+        <AuEthicsAlignmentModal
+          isOpen={showAuEthicsModal}
+          onClose={handleCloseAuEthicsModal}
+          questionCode={currentQuestion.code}
+          alignmentData={auEthicsAlignmentData[currentQuestion.code]}
+        />
+      )}
     </div>
   );
 }
