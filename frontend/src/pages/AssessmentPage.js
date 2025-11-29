@@ -726,7 +726,6 @@ function AssessmentPage() {
                           }`}
                           title="Click to view NIST AI RMF alignment details"
                         >
-                          <span className="mr-1">🔷</span>
                           NIST - {nistAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
