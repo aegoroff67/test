@@ -1,0 +1,494 @@
+{
+  "FA-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 2, p.6",
+    "alignmentRationale": "Directly addresses bias identification and mitigation.",
+    "confidenceLevel": "High"
+  },
+  "FA-2": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2a, p.34",
+    "alignmentRationale": "Aligns with requirements for representative data.",
+    "confidenceLevel": "High"
+  },
+  "FA-3": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.1.5b, p.23",
+    "alignmentRationale": "Directly relates to evaluating outputs for disparities across user groups.",
+    "confidenceLevel": "High"
+  },
+  "FA-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 2.1, p.6",
+    "alignmentRationale": "Aligns with measuring fairness in AI outputs.",
+    "confidenceLevel": "High"
+  },
+  "FA-5": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 5.2, p.9",
+    "alignmentRationale": "Testing for biases in real-world scenarios aligns with testing requirements.",
+    "confidenceLevel": "High"
+  },
+  "FA-6": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Foundations, Practice 3.3, p.7",
+    "alignmentRationale": "Use of specific frameworks like Fairlearn is not explicitly mentioned, though general fairness assessment is covered.",
+    "confidenceLevel": "Medium"
+  },
+  "FA-7": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 2.1, p.6",
+    "alignmentRationale": "Ensuring fairness for minority groups aligns with guidance.",
+    "confidenceLevel": "High"
+  },
+  "FA-8": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.1.3, p.23",
+    "alignmentRationale": "Embedding fairness in design aligns with guidance principles.",
+    "confidenceLevel": "High"
+  },
+  "TR-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 4.3, p.8",
+    "alignmentRationale": "Directly addresses transparency about system capabilities and limitations.",
+    "confidenceLevel": "High"
+  },
+  "TR-2": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 4.1.1, p.29",
+    "alignmentRationale": "Aligns with documentation requirements.",
+    "confidenceLevel": "High"
+  },
+  "TR-3": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 4.2.1a, p.30",
+    "alignmentRationale": "Addresses transparency for external parties.",
+    "confidenceLevel": "High"
+  },
+  "TR-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 4.2.1b, p.30",
+    "alignmentRationale": "Focuses on information sharing.",
+    "confidenceLevel": "High"
+  },
+  "TR-5": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 4.2.4, p.30",
+    "alignmentRationale": "Addresses 'black box' components that impede transparency.",
+    "confidenceLevel": "High"
+  },
+  "TR-6": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 4.3.1, p.31",
+    "alignmentRationale": "Addresses disclosure of data sources and algorithms.",
+    "confidenceLevel": "High"
+  },
+  "TR-7": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 4.2, p.8",
+    "alignmentRationale": "Focuses on user awareness of AI interaction.",
+    "confidenceLevel": "High"
+  },
+  "TR-8": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.3.2, p.34",
+    "alignmentRationale": "Addresses transparency reporting.",
+    "confidenceLevel": "High"
+  },
+  "EX-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 4.2.2b, p.30",
+    "alignmentRationale": "Addresses determining appropriate level of explainability.",
+    "confidenceLevel": "High"
+  },
+  "EX-2": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Foundations, Practice 4.5, p.8",
+    "alignmentRationale": "Testing understandability for non-technical users is implied but not explicitly detailed.",
+    "confidenceLevel": "Medium"
+  },
+  "EX-3": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Foundations, Practice 4.5, p.8",
+    "alignmentRationale": "Multiple explanation formats are implied but not explicitly detailed.",
+    "confidenceLevel": "Medium"
+  },
+  "EX-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.2.2, p.24",
+    "alignmentRationale": "Evaluating explanation accuracy aligns with guidance.",
+    "confidenceLevel": "High"
+  },
+  "EX-5": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 4.2.4, p.30",
+    "alignmentRationale": "Trade-offs between complexity and explainability are implied but not explicitly detailed.",
+    "confidenceLevel": "Medium"
+  },
+  "EX-6": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 4.5, p.8",
+    "alignmentRationale": "Ensuring interpretable decisions aligns with guidance.",
+    "confidenceLevel": "High"
+  },
+  "EX-7": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 4.2.5, p.30",
+    "alignmentRationale": "Specific explainability tools like SHAP or LIME aren't explicitly mentioned, though explainability is emphasized.",
+    "confidenceLevel": "Medium"
+  },
+  "EX-8": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 4.5, p.8",
+    "alignmentRationale": "Tailoring explanations for specific groups aligns with guidance.",
+    "confidenceLevel": "High"
+  },
+  "AC-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 1.1.1, p.20",
+    "alignmentRationale": "Directly addresses accountability for AI failures.",
+    "confidenceLevel": "High"
+  },
+  "AC-2": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.1.1, p.33",
+    "alignmentRationale": "Addresses governance structures for monitoring AI outcomes.",
+    "confidenceLevel": "High"
+  },
+  "AC-3": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.2.3, p.33",
+    "alignmentRationale": "Focuses on policies for escalating AI issues.",
+    "confidenceLevel": "High"
+  },
+  "AC-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.2.1a, p.24",
+    "alignmentRationale": "Addresses handling customer complaints about AI outputs.",
+    "confidenceLevel": "High"
+  },
+  "AC-5": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 1.1.2, p.20",
+    "alignmentRationale": "Addresses defined roles and responsibilities.",
+    "confidenceLevel": "High"
+  },
+  "AC-6": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 1.2.1a, p.21",
+    "alignmentRationale": "Focuses on monitoring and managing AI throughout lifecycle.",
+    "confidenceLevel": "High"
+  },
+  "AC-7": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 3.4.1, p.28",
+    "alignmentRationale": "Addresses audit trails for decision-making.",
+    "confidenceLevel": "High"
+  },
+  "AC-8": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.2.2, p.24",
+    "alignmentRationale": "Addresses mechanisms for dispute resolution.",
+    "confidenceLevel": "High"
+  },
+  "DI-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2a, p.34",
+    "alignmentRationale": "Directly addresses data validation and quality.",
+    "confidenceLevel": "High"
+  },
+  "DI-2": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2b, p.35",
+    "alignmentRationale": "Addresses data lineage management.",
+    "confidenceLevel": "High"
+  },
+  "DI-3": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.1a, p.34",
+    "alignmentRationale": "Focuses on data governance policies.",
+    "confidenceLevel": "High"
+  },
+  "DI-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2a, p.34",
+    "alignmentRationale": "Addresses ensuring data currency and accuracy.",
+    "confidenceLevel": "High"
+  },
+  "DI-5": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2a, p.34",
+    "alignmentRationale": "Handling missing data is implied but not explicitly detailed.",
+    "confidenceLevel": "Medium"
+  },
+  "DI-6": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2a, p.34",
+    "alignmentRationale": "Focuses on data preprocessing management.",
+    "confidenceLevel": "High"
+  },
+  "DI-7": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2b, p.35",
+    "alignmentRationale": "Evaluation of third-party data is implied but not explicitly detailed.",
+    "confidenceLevel": "Medium"
+  },
+  "DI-8": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2b, p.35",
+    "alignmentRationale": "Focuses on tracking data lineage for traceability.",
+    "confidenceLevel": "High"
+  },
+  "RE-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 5.2, p.9",
+    "alignmentRationale": "Addresses testing for consistent performance.",
+    "confidenceLevel": "High"
+  },
+  "RE-2": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 5.5, p.9",
+    "alignmentRationale": "Focuses on stress testing and simulations.",
+    "confidenceLevel": "High"
+  },
+  "RE-3": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 5.3, p.9",
+    "alignmentRationale": "Addresses monitoring for model drift.",
+    "confidenceLevel": "High"
+  },
+  "RE-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.1.2, p.33",
+    "alignmentRationale": "Focuses on defining success metrics.",
+    "confidenceLevel": "High"
+  },
+  "RE-5": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 6.2.1a, p.36",
+    "alignmentRationale": "Addresses identifying potential failure points.",
+    "confidenceLevel": "High"
+  },
+  "RE-6": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 5.2, p.9",
+    "alignmentRationale": "Focuses on consistent performance under varying conditions.",
+    "confidenceLevel": "High"
+  },
+  "RE-7": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.2.3, p.33",
+    "alignmentRationale": "Addresses mechanisms for detecting system errors.",
+    "confidenceLevel": "High"
+  },
+  "RE-8": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.2.4, p.33",
+    "alignmentRationale": "Addresses regular testing and retraining.",
+    "confidenceLevel": "High"
+  },
+  "SE-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2c, p.35",
+    "alignmentRationale": "Addresses protecting AI models from unauthorized access.",
+    "confidenceLevel": "High"
+  },
+  "SE-2": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.3.1, p.34",
+    "alignmentRationale": "Addresses handling adversarial risks.",
+    "confidenceLevel": "High"
+  },
+  "SE-3": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.3.3, p.34",
+    "alignmentRationale": "Focuses on security audits.",
+    "confidenceLevel": "High"
+  },
+  "SE-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2c, p.35",
+    "alignmentRationale": "Addresses securing AI models throughout lifecycle.",
+    "confidenceLevel": "High"
+  },
+  "SE-5": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.1c, p.34",
+    "alignmentRationale": "Focuses on preventing unauthorized modifications.",
+    "confidenceLevel": "High"
+  },
+  "SE-6": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.3.1, p.34",
+    "alignmentRationale": "Addresses protection against adversarial attacks.",
+    "confidenceLevel": "High"
+  },
+  "SE-7": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.1b, p.34",
+    "alignmentRationale": "Addresses protection of sensitive data.",
+    "confidenceLevel": "High"
+  },
+  "SE-8": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.3.3, p.34",
+    "alignmentRationale": "Focuses on regular vulnerability assessments.",
+    "confidenceLevel": "High"
+  },
+  "PR-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.1b, p.34",
+    "alignmentRationale": "Addresses compliance with privacy laws.",
+    "confidenceLevel": "High"
+  },
+  "PR-2": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2e, p.35",
+    "alignmentRationale": "Addresses techniques for protecting personal data.",
+    "confidenceLevel": "High"
+  },
+  "PR-3": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.1b, p.34",
+    "alignmentRationale": "Focuses on managing user consent.",
+    "confidenceLevel": "High"
+  },
+  "PR-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2g, p.35",
+    "alignmentRationale": "Addresses ensuring data used within original purpose.",
+    "confidenceLevel": "High"
+  },
+  "PR-5": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2e, p.35",
+    "alignmentRationale": "Evaluating privacy protection effectiveness is implied but not explicitly detailed.",
+    "confidenceLevel": "Medium"
+  },
+  "PR-6": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2g, p.35",
+    "alignmentRationale": "Focuses on monitoring for privacy violations.",
+    "confidenceLevel": "High"
+  },
+  "PR-7": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.1b, p.34",
+    "alignmentRationale": "Evaluating privacy risks throughout lifecycle is implied but not explicitly detailed for both development and deployment.",
+    "confidenceLevel": "Medium"
+  },
+  "PR-8": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 5.4.2e, p.35",
+    "alignmentRationale": "Cross-border data protection is implied but not explicitly addressed.",
+    "confidenceLevel": "Medium"
+  },
+  "SA-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 2.1, p.6",
+    "alignmentRationale": "Addresses safety impact assessments.",
+    "confidenceLevel": "High"
+  },
+  "SA-2": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.1.4, p.23",
+    "alignmentRationale": "Focuses on preventing unintended harm.",
+    "confidenceLevel": "High"
+  },
+  "SA-3": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 5.3, p.9",
+    "alignmentRationale": "Addresses real-time monitoring for unsafe behavior.",
+    "confidenceLevel": "High"
+  },
+  "SA-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 6.2, p.10",
+    "alignmentRationale": "Addresses conflicts between system actions and safety.",
+    "confidenceLevel": "High"
+  },
+  "SA-5": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 6.2.1a, p.36",
+    "alignmentRationale": "Focuses on emergency shutdown protocols.",
+    "confidenceLevel": "High"
+  },
+  "SA-6": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 3.3.1, p.28",
+    "alignmentRationale": "Addresses risk identification and mitigation.",
+    "confidenceLevel": "High"
+  },
+  "SA-7": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 6.2, p.10",
+    "alignmentRationale": "Addresses fail-safe mechanisms.",
+    "confidenceLevel": "High"
+  },
+  "SA-8": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 5.5, p.9",
+    "alignmentRationale": "Focuses on safety testing in high-risk scenarios.",
+    "confidenceLevel": "High"
+  },
+  "IN-1": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 4.2.2c, p.30",
+    "alignmentRationale": "Addresses system accessibility.",
+    "confidenceLevel": "High"
+  },
+  "IN-2": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Foundations, Practice 2.3, p.6",
+    "alignmentRationale": "Focuses on diverse perspectives in design.",
+    "confidenceLevel": "High"
+  },
+  "IN-3": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.1.6, p.24",
+    "alignmentRationale": "Addresses auditing for exclusionary outcomes.",
+    "confidenceLevel": "High"
+  },
+  "IN-4": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 4.2.2c, p.30",
+    "alignmentRationale": "Focuses on accessibility requirements.",
+    "confidenceLevel": "High"
+  },
+  "IN-5": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.1.8, p.24",
+    "alignmentRationale": "Addresses involving diverse stakeholders.",
+    "confidenceLevel": "High"
+  },
+  "IN-6": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.1.1, p.23",
+    "alignmentRationale": "Addresses serving underrepresented communities.",
+    "confidenceLevel": "High"
+  },
+  "IN-7": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 2.1.8, p.24",
+    "alignmentRationale": "Language and cultural differences are implied but not explicitly addressed.",
+    "confidenceLevel": "Medium"
+  },
+  "IN-8": {
+    "alignmentType": "Fully Aligns",
+    "relevantGuidance": "Implementation Practice 2.1.5a, p.23",
+    "alignmentRationale": "Focuses on evaluating exclusion of user groups.",
+    "confidenceLevel": "High"
+  },
+  "SU-2": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 1.4.2d, p.22",
+    "alignmentRationale": "Computational efficiency is implied but not directly addressed in environmental context.",
+    "confidenceLevel": "Medium"
+  },
+  "SU-5": {
+    "alignmentType": "Partially Aligns",
+    "relevantGuidance": "Implementation Practice 3.3.4, p.28",
+    "alignmentRationale": "Algorithm optimization is implied but not specifically for environmental reasons.",
+    "confidenceLevel": "Medium"
+  }
+}
