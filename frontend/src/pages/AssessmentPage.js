@@ -349,6 +349,14 @@ function AssessmentPage() {
     setShowFairaModal(false);
   };
 
+  const handleOpenNistModal = () => {
+    setShowNistModal(true);
+  };
+
+  const handleCloseNistModal = () => {
+    setShowNistModal(false);
+  };
+
   const handleOpenAuEthicsModal = () => {
     setShowAuEthicsModal(true);
   };
