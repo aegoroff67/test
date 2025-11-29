@@ -1,63 +1,90 @@
-<analysis>**original_problem_statement:** The user initially requested to replicate the Domain Benchmarks radar chart feature from the 'AI System Maturity' assessment results page to the 'AI Awareness & Foundations' assessment page.
+<analysis>**original_problem_statement:** The initial task was to fix a content update for a question (PR-2) in the AI System Maturity assessment that was not appearing on the frontend. This led to a deep dive into the data flow, revealing that question data was served from a MongoDB collection, not directly from the Python source file. The agent then created a data migration script to synchronize the database with the updated source file, fixing not only the initial issue but also subsequent content and formatting discrepancies for questions PR-2 and PR-5.
 
-This evolved into a series of feature enhancements, UI/UX refinements, and bug fixes across multiple assessment types, including:
-- **UI/Layout:** Iteratively fixing the radar chart's layout to prevent label cutoff and overlap issues, and reorganizing the results page by moving the 'Response Distribution' panel.
-- **Content Updates:** Modifying titles, subtitles, and descriptive text across the results pages. A major update involved adding, and repeatedly modifying, the list of frameworks in the System Pre-Assessment form. Questions PR-2 and PR-5 for the System assessment were updated with new content and tooltips.
-- **New Features:**
-    - Adding a 'Top 3 Action Steps' section to the 'Awareness' results page, populated from a user-provided JSON file.
-    - Implementing extensive metadata and calculated fields (, , , ) for 'System' assessments to enable advanced priority scoring.
-    - Adding a visual comparison on the maturity stacked bar to show the user's score vs. the sector average for both 'Awareness' and 'System' assessments.
-    - Implementing timezone support to ensure assessment completion dates reflect the user's local timezone (AEST).
-- **Bug Fixes:**
-    - Fixing the radar chart not displaying for 'Awareness' assessments by handling data format differences (ranges vs. numbers) and updating frontend/backend logic.
-    - Repeatedly fixing a recurring environmental issue where PDF generation failed because Playwright browser binaries were missing.
-    - Resolving a backend bug where a sector name with a forward slash () caused a 404 error.
-    - Debugging and fixing a Python  caused by improper module import scope within a function.
-    - Fixing a syntax error from an unescaped apostrophe in a Python file that prevented the backend from reloading.
+This task evolved into a major feature implementation effort to add support for multiple governance frameworks (FAIRA, NIST AI RMF, AU AI Ethics, etc.). This involved creating a reusable system where framework-specific badges appear on assessment question pages. Clicking a badge opens a modal with detailed alignment information. This functionality is conditional on the user selecting the corresponding framework in a pre-assessment form. The agent has successfully implemented this for FAIRA, NIST AI RMF, and the Australian AI Ethics Principles, and is currently in the process of adding support for the Australian Guidance for AI Adoption.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The application is a full-stack AI maturity assessment platform with a React frontend and FastAPI backend. It supports multiple assessment types ('System', 'Awareness', 'Readiness', 'Organisation-wide').
+The application is a full-stack AI maturity assessment platform using React, FastAPI, and MongoDB.
 
-Key features include:
-- Dynamic results pages tailored to each assessment type.
-- A Domain Scores panel and a Response Distribution pie chart, which are now consistently located in the left-hand column for all assessment types.
-- A toggleable radar chart for 'System' and 'Awareness' assessments to compare user scores against industry benchmarks.
-- A maturity-tier stacked bar that now includes a dual-arrowhead comparison, showing the user's score against the relevant sector average.
-- An LLM-powered Assessment Results Commentary section for 'Awareness' assessments.
-- A Top 3 Action Steps section for 'Awareness' assessments.
-- Advanced priority scoring for 'System' assessments, which calculates , , and  for each question, stored in a  file.
-- Timezone support has been implemented in the backend to handle user-specific dates correctly.
-- A PDF export feature for the executive summary.
+Key features implemented in this session:
+- A data migration script () to synchronize the MongoDB  collection with the content in .
+- A conditional panel for FAIRA Additional Information on the System Pre-assessment onboarding page.
+- A reusable component-based system on the question page () for displaying framework alignment information. This includes:
+    - Conditional rendering of badges based on user selections in the pre-assessment form.
+    - A specific display order for framework badges.
+    - Individual modal components for each framework (, , ).
+    - JSON data files in  that power the content of each modal.
+- Full implementation for three frameworks: FAIRA, NIST AI RMF, and Australian AI Ethics Principles.
+- The JSON data file () for the next framework, Australian Guidance for AI Adoption, has been created.
 
 **Last working item**:
-- **Last item agent was working:** The user reported that content updates for question  and its  tooltip were not visible on the frontend, even after the agent had edited the file. The agent discovered that a previous, unrelated syntax error (an unescaped apostrophe in the content for question  in the same file) had prevented the backend server from hot-reloading correctly. The changes for  were therefore never loaded. The agent's last action was to manually restart the backend after confirming the syntax error had already been fixed.
-- **Status:** USER VERIFICATION PENDING
+- **Last item agent was working:** Implementing the Australian Guidance for AI Adoption framework alignment feature. The agent successfully extracted data from a user-provided Excel file and generated the required JSON data file (). The next steps are to create the corresponding modal component and integrate it into the main assessment page.
+- **Status:** IN PROGRESS
 - **Agent Testing Done:** N
-- **Which testing method agent to use?** The user needs to manually verify on the frontend if the content for question PR-2 and its tooltip are now correct. If not, the agent should investigate the frontend display logic.
+- **Which testing method agent to use?** Frontend testing agent. The agent should verify that:
+    1. The badge for Australian Guidance for AI Adoption appears only when the framework is selected in the pre-assessment.
+    2. The badge is positioned correctly in the established order (after Australian AI Ethics Principles).
+    3. Clicking the badge opens a modal displaying correctly formatted content from .
+    4. Existing framework badges (FAIRA, NIST, AU Ethics) continue to function correctly.
 - **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
-- **Issue 1: Content update for PR-2 may not be resolved (P0)**
-- **Issue 2: Recurring PDF generation failure (P1)**
-- **Issue 3: Potential bug in 'Top 3 Action Steps' logic for Awareness assessments (P2)**
+- There are no pending high-priority bugs. The primary focus is on completing the in-progress feature development.
 
 **Issues Detail:**
-- **Issue 1: Content update for PR-2 may not be resolved**
-    - **Attempted fixes:** The agent identified that a syntax error in  prevented a hot reload, so the changes were never applied. The syntax error was fixed, and the backend was manually restarted.
-    - **Next debug checklist:**
-        1.  Ask the user to refresh and confirm if the content for question PR-2 and its tooltip are now visible and correct.
-        2.  If the issue persists, view the frontend component that renders the questions and tooltips to ensure it's correctly fetching and displaying the  field.
-        3.  Inspect the network response for the assessment data to confirm the updated  text is being sent from the backend.
-    - **Why fix this issue and what will be achieved with the fix?** The user's content update request will be fulfilled, ensuring the assessment displays the correct, up-to-date information.
-    - **Status:** USER VERIFICATION PENDING
-    - **Is recurring issue?** N
-    - **Should Test frontend/backend/both after fix?** Frontend (visual verification).
-    - **Blocked on other issue:** None.
+- N/A
 
-- **Issue 2: Recurring PDF generation failure**
-    - **Attempted fixes:** This issue has occurred at least five times. Each time, the agent resolved it by running Downloading Chromium 140.0.7339.16 (playwright build v1187) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1187/chromium-linux-arm64.zip
+**In progress Task List**:
+- **Task 1: Complete Australian Guidance for AI Adoption framework implementation (P0)**
+
+**Task Detail:**
+- **Task 1:**
+    - **Where to resume:** The data file  is ready. The next steps are:
+        1.  Create a new modal component: . This should follow the pattern of existing framework modals, using a distinct color theme (e.g., orange/teal as previously suggested).
+        2.  Update  by:
+            - Importing the new modal and data file.
+            - Adding state variables (, ).
+            - Adding logic to detect if the framework was selected by the user.
+            - Adding modal open/close handler functions.
+            - Rendering the badge and modal component in the JSX, ensuring the correct display order.
+    - **What will be achieved with this?** The fourth framework alignment feature will be complete, providing users with insights into how assessment questions map to the Australian Guidance for AI Adoption.
+    - **Status:** IN PROGRESS
+    - **Should Test frontend/backend/both after fix?** Frontend
+    - **Blocked on something:** None.
+
+**Upcoming and Future Tasks**
+- **Upcoming Tasks:**
+    - **Task 1 (P0):** Implement framework alignment feature for **ISO/IEC 42001 (2023)**.
+    - **Task 2 (P0):** Implement framework alignment feature for **EU AI Act (2024 final)**.
+    - **Task 3 (P1):** Implement a print-specific, multi-page CSS layout for the results summary page to improve PDF exports. (Carried over)
+    - **Task 4 (P2):** Develop the backend functionality for generating DOCX reports. (Carried over)
+- **Future Tasks:**
+    - **Task 5 (P3):** Implement a Stripe paywall for premium assessments. (Carried over)
+
+**Completed work in this session**
+- **Bug Fix:** Resolved a critical bug where question content updates were not displayed. This involved creating a database migration script () to sync the MongoDB collection with source files.
+- **Content Fix:** Corrected formatting for  tooltips, ensuring they are readable.
+- **Feature:** Implemented a conditional FAIRA Additional Information panel on the pre-assessment form ().
+- **Feature:** Built a scalable system for displaying framework alignment badges and modals on the question page ().
+- **Feature:** Fully implemented the alignment badge/modal feature for three frameworks:
+    - **FAIRA**
+    - **Australian AI Ethics Principles (2024)**
+    - **NIST AI RMF (2023)**
+- **Data Processing:** Created multiple JSON data files (, , etc.) by parsing user-provided DOCX, JSON, and XLSX files.
+
+**Earlier issues found/mentioned but not fixed**
+- **Issue 1: 'Top 3 Action Steps' for Awareness assessments are based on lowest domain scores, not lowest question scores.** (Carried over from a previous job)
+    - **Debug checklist:** Review the sorting logic in . The logic should iterate through individual  to find the lowest scores, not use the pre-calculated .
+    - **Why to solve this issue and what will be achieved with this?** This will provide users with more accurate and actionable recommendations based on their specific weak points.
+    - **Should Test frontend/backend/both after fix:** Frontend.
+    - **Is recurring issue?** N.
+
+**Known issue recurrence from previous fork**
+- **Issue recurrence in previous fork:** PDF generation fails intermittently due to missing Playwright browser binaries in the environment.
+- **Recurrence count:** High.
+- **Status:** RESOLVED (but likely to recur).
+- **Note:** If a Failed to generate PDF error occurs, the standard first step is to run Downloading Chromium 140.0.7339.16 (playwright build v1187) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1187/chromium-linux-arm64.zip
 |                                                                                |   0% of 175.4 MiB
 |■■■■■■■■                                                                        |  10% of 175.4 MiB
 |■■■■■■■■■■■■■■■■                                                                |  20% of 175.4 MiB
@@ -82,8 +109,8 @@ Downloading Chromium Headless Shell 140.0.7339.16 (playwright build v1187) from 
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 105.8 MiB
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 105.8 MiB
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 105.8 MiB
-Chromium Headless Shell 140.0.7339.16 (playwright build v1187) downloaded to /pw-browsers/chromium_headless_shell-1187 in the  directory.
-    - **Next debug checklist:** This is an environmental issue. If the 'Failed to generate PDF' error occurs, the first step is always to reinstall the Playwright browsers: Downloading Firefox 141.0 (playwright build v1490) from https://cdn.playwright.dev/dbazure/download/playwright/builds/firefox/1490/firefox-debian-12-arm64.zip
+Chromium Headless Shell 140.0.7339.16 (playwright build v1187) downloaded to /pw-browsers/chromium_headless_shell-1187
+Downloading Firefox 141.0 (playwright build v1490) from https://cdn.playwright.dev/dbazure/download/playwright/builds/firefox/1490/firefox-debian-12-arm64.zip
 |                                                                                |   0% of 87.3 MiB
 |■■■■■■■■                                                                        |  10% of 87.3 MiB
 |■■■■■■■■■■■■■■■■                                                                |  20% of 87.3 MiB
@@ -109,97 +136,82 @@ Downloading Webkit 26.0 (playwright build v2203) from https://cdn.playwright.dev
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 87.6 MiB
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 87.6 MiB
 Webkit 26.0 (playwright build v2203) downloaded to /pw-browsers/webkit-2203.
-    - **Why fix this issue and what will be achieved with the fix?** This enables a core feature of the application (PDF reporting) to function reliably. A more permanent solution might be needed if the environment continues to lose the browser binaries.
-    - **Status:** RESOLVED (but likely to recur)
-    - **Is recurring issue?** Y
-    - **Should Test frontend/backend/both after fix?** Backend (by triggering PDF generation).
-    - **Blocked on other issue:** None.
-
-- **Issue 3: Potential bug in 'Top 3 Action Steps' logic for Awareness assessments**
-    - **Attempted fixes:** None. This issue was introduced by the agent and never identified.
-    - **Next debug checklist:**
-        1.  Review .
-        2.  Locate the logic that determines the Top 3 Action Steps.
-        3.  The current implementation likely sorts  to find the lowest three.
-        4.  This logic needs to be changed to sort the individual  from the assessment payload to find the three questions with the lowest scores.
-        5.  The action steps should then be looked up using the question codes from those three lowest-scoring answers.
-    - **Why fix this issue and what will be achieved with the fix?** This will correct the logic to show the most relevant action steps based on the user's specific weakest areas (individual questions), rather than broad domains, making the feature much more useful.
-    - **Status:** NOT STARTED
-    - **Is recurring issue?** N
-    - **Should Test frontend/backend/both after fix?** Frontend (visual verification).
-    - **Blocked on other issue:** None.
-
-**Upcoming and Future Tasks**
-- **Upcoming Tasks:**
-    - **Task 1 (P0):** Implement a print-specific, multi-page layout for the results summary page to ensure PDF reports generate without scrollbars and fit cleanly across 2 A4 landscape pages. This will involve using  CSS and  properties in .
-    - **Task 2 (P1):** Create the final DOCX report generation functionality. The user has provided a template structure with merge fields that needs to be implemented in the backend, likely requiring a new endpoint and a library like .
-- **Future Tasks:**
-    - **Task 3 (P2):** Implement a Stripe paywall for premium assessments.
-
-**Completed work in this session**
-- **Feature:** Replicated benchmark radar chart for 'Awareness' assessments.
-- **Feature:** Implemented extensive metadata and calculated fields (, , , ) for 'System' assessments via  and logic in .
-- **Feature:** Added a 'Top 3 Action Steps' section to the 'Awareness' results page.
-- **Feature:** Implemented timezone support for correct assessment completion dates, adding a  field to the User model and updating .
-- **Feature:** Added a sector average comparison indicator (dual arrows) to the stacked bar chart for 'Awareness' and 'System' assessments in .
-- **UI/Layout:** Iteratively fixed numerous layout issues with the radar chart (label cutoff, spacing, interactive area overlap).
-- **UI/Layout:** Relocated the 'Response Distribution' panel to the left column for all assessment types in .
-- **Content:** Updated numerous titles, subtitles, question content (PR-2, PR-5), and framework options across the application based on user requests.
-- **Bug Fix:** Fixed PDF generation failures (recurring environmental issue), backend data fetching for sectors with  in the name, and Python scoping errors ().
-
-**Earlier issues found/mentioned but not fixed**
-- **Issue 1: 'Top 3 Action Steps' for Awareness assessments are based on lowest domain scores, not lowest question scores.**
-    - **Debug checklist:** See 'Issue 3' in the All Pending/In progress Issue list section above.
-    - **Why to solve this issue and what will be achieved with this?** To make the feature provide accurate and actionable recommendations based on specific user answers rather than broad domain averages.
-    - **Should Test frontend/backend/both after fix:** Frontend.
-    - **Is recurring issue?** N
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Backend:** Python (FastAPI), Pydantic
-- **Frontend:** React.js, Tailwind CSS, Recharts (for charts)
-- **Database:** MongoDB
-- **PDF Generation:** Playwright (executed from the backend)
-- **Timezone Handling:**  library in the backend.
+- **Frontend:** React.js, Tailwind CSS. A reusable pattern has been established for adding new frameworks, involving a data file, a modal component, and updates to .
+- **Backend:** FastAPI, Pydantic, MongoDB (via ).
+- **Data Flow:** System assessment questions are served from a MongoDB collection. Changes in source files like  require running the  script to take effect.
 
 **key DB schema**
-- **users:** 
 - **assessments:** 
+- **questions:** 
+
+**changes in tech stack**
+- None.
 
 **All files**
-- **:** Heavily modified to add new endpoints, update existing ones, implement timezone support, and add priority scoring logic.
-- **:** The most heavily modified file. Contains all logic for conditional rendering of layouts, titles, and components for different assessment types.
-- **:** Updated with new question content and  tooltips for PR-2 and PR-5.
-- **:** Created and updated to store all static metadata and action steps for System assessment questions.
-- **:** Created to store action steps for Awareness assessments.
-- **:** Modified to format long labels with line breaks and center them.
-- **:** Modified to show a second arrow for the sector average and dynamically color the user's score arrow.
-- **:** Updated the list of 'Applicable frameworks / standards'.
-- **:** Created and updated to document the System pre-assessment form fields.
+- **Created:**
+    - : A crucial migration script for syncing DB question data.
+    - : A conditional panel on the pre-assessment form.
+    - Multiple framework-specific components () and data files ().
+- **Updated:**
+    - : Added new fields to the  Pydantic model.
+    - : Updated with new content and formatting.
+    - : Modified to include the conditional FAIRA panel.
+    - : Significantly refactored to handle the dynamic display of multiple framework badges and modals.
+
+**Areas that need refactoring**:
+-  is growing large due to repetitive logic for each new framework. Consider refactoring the state management and rendering logic into a custom hook (e.g., ) or a more generic  component to reduce code duplication and simplify adding future frameworks.
+
+**key api endpoints**
+- : Fetches assessment details, including the  array, which determines which badges to display.
+- : Fetches the questions for the assessment.
 
 **Critical Info for New Agent**
-- **Recurring PDF Failure:** PDF generation often fails due to a missing Playwright browser environment. If you see a Failed to generate PDF error, the first step is to run  before debugging code.
-- **Database Name:** The correct MongoDB database name is . The agent previously made a mistake by querying a different database. All scripts should target this DB.
-- **Python Import Scoping:** Be extremely careful about import statements inside functions in . An  was caused by  and  being inside a conditional block. All module imports should be at the top of the file to avoid this scoping issue.
-- **Potential Logic Bug:** The Top 3 Action Steps feature for Awareness assessments is likely flawed. It appears to be sorting by *domain* scores instead of *question* scores. This logic is in  and needs to be reviewed and corrected.
+- **Framework Implementation Pattern:** Adhere to the established pattern for adding new frameworks: create a data JSON file, create a modal component, and update .
+- **Framework Badge Order:** The user has mandated a strict display order for badges: , , , , , . This order must be preserved.
+- **Database Synchronization:** Remember that all content changes for System Assessment questions in  are **not** automatically reflected. You **must** run the migration script Starting question update process...
+
+✅ Updated 0 questions with complete data
+
+🔍 Verifying PR-2 and PR-5:
+PR-2: ✓ additional_guidance present: True
+      ✓ evidence_types present: True
+      Guidance preview: **Additional Guidance: Protecting Personal Data Throughout the AI System Lifecyc...
+      Evidence preview: To comply with PR-2, organizations must demonstrate comprehensive privacy protec...
+
+PR-5: ✓ additional_guidance present: True
+      ✓ evidence_types present: True
+      Guidance preview: **Additional Guidance: Evaluating Privacy Protection Effectiveness and Performan...
+      Evidence preview: To comply with PR-5, organizations must demonstrate systematic evaluation of pri...
+
+Done! to update the MongoDB database.
+
+**documents created in this job**
+- None.
 
 **Last 5 User Messages and any pending user messages**
-1.  **User:** Provided updated content for question PR-5 in the System Assessment.
-2.  **User:** Provided a DOCX file with tooltip content () for questions PR-2 and PR-5.
-3.  **User:** Reported that the content for PR-2 and its tooltip did not seem to be updated.
-4.  **User:** Asked to update 'Australian AI Ethics Principles (2019)' to '(2024)'.
-5.  **User:** Asked to replace one framework option with another.
-*(The agent has addressed messages 4 and 5, but message 3 is the current pending issue).*
+1.  **User:** Uploaded the first 5 JSON files for the NIST AI RMF framework.
+2.  **User:** Uploaded the next 5 JSON files for NIST.
+3.  **User:** Uploaded the final JSON file for NIST.
+4.  **User:** Requested the implementation for the Australian Guidance for AI Adoption framework and provided the data in an Excel file.
+5.  **User:** There are no pending messages from the user. The agent has all necessary information to proceed with the current task.
+
+**Project Health Check:**
+- **Broken:** None.
+- **Mocked:** None.
 
 **Testing status**
 - **Testing agent used after significant changes:** NO
 - **Troubleshoot agent used after agent stuck in loop:** NO
-- **Test files created:** Several temporary Python scripts were used for one-off checks and data updates (e.g., updating metadata JSON). These are not permanent test files.
-- **Known regressions:**
-    - Changes to the radar chart layout initially broke the layout for other assessment types, which was subsequently fixed.
-    - Increasing the negative margin on the radar chart caused it to overlap with clickable radio buttons, which was fixed with padding adjustments.
+- **Test files created:** None.
+- **Known regressions:** None.
+
+**Credentials to test flow:**
+N/A
 
 **What agent forgot to execute**
-- The agent introduced a potential logic bug in the Top 3 Action Steps feature for Awareness assessments by basing the calculation on domain scores instead of question scores. This was never caught or addressed.</analysis>
+- The agent has not yet addressed the known bug from the previous fork where the Top 3 Action Steps are calculated incorrectly. This task remains in the backlog.</analysis>
