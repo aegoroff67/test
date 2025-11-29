@@ -63,6 +63,8 @@ function AssessmentPage() {
   const [skipAutoNavigation, setSkipAutoNavigation] = useState(false);
   const [showFairaModal, setShowFairaModal] = useState(false);
   const [isFairaSelected, setIsFairaSelected] = useState(false);
+  const [showAuEthicsModal, setShowAuEthicsModal] = useState(false);
+  const [isAuEthicsSelected, setIsAuEthicsSelected] = useState(false);
 
   useEffect(() => {
     fetchAssessment();
