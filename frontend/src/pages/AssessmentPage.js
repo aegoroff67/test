@@ -740,7 +740,6 @@ function AssessmentPage() {
                           }`}
                           title="Click to view Australian AI Ethics Principles alignment details"
                         >
-                          <span className="mr-1">🇦🇺</span>
                           AU Ethics - {auEthicsAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
