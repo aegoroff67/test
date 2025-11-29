@@ -1108,6 +1108,16 @@ function AssessmentPage() {
           alignmentData={auGuidanceAlignmentData[currentQuestion.code]}
         />
       )}
+
+      {/* EU AI Act Alignment Modal */}
+      {currentQuestion && euAiActAlignmentData[currentQuestion.code] && (
+        <EuAiActAlignmentModal
+          isOpen={showEuAiActModal}
+          onClose={handleCloseEuAiActModal}
+          questionCode={currentQuestion.code}
+          alignmentData={euAiActAlignmentData[currentQuestion.code]}
+        />
+      )}
     </div>
   );
 }
