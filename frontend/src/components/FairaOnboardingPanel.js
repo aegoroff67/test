@@ -219,7 +219,7 @@ export default function FairaOnboardingPanel({ fairaData, updateFaira, toggleFai
             )}
             <p className="text-xs text-gray-500 pl-4">
               <Info className="inline h-3 w-3 mr-1" />
-              Supports FAIRA's expectations around data provenance, fairness, sensitivity, and potential bias.
+              Supports FAIRA&apos;s expectations around data provenance, fairness, sensitivity, and potential bias.
             </p>
           </div>
 
@@ -375,7 +375,7 @@ export default function FairaOnboardingPanel({ fairaData, updateFaira, toggleFai
                 <SelectValue placeholder="Select constraint documentation status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Yes – clear 'do not use for…' rules documented">Yes – clear 'do not use for…' rules documented</SelectItem>
+                <SelectItem value="Yes – clear &apos;do not use for…&apos; rules documented">Yes – clear &apos;do not use for…&apos; rules documented</SelectItem>
                 <SelectItem value="Some constraints documented">Some constraints documented</SelectItem>
                 <SelectItem value="Not formally documented">Not formally documented</SelectItem>
                 <SelectItem value="No specific usage constraints">No specific usage constraints</SelectItem>
@@ -499,7 +499,7 @@ export default function FairaOnboardingPanel({ fairaData, updateFaira, toggleFai
             </div>
             <p className="text-xs text-gray-500 pl-4">
               <Info className="inline h-3 w-3 mr-1" />
-              Supports FAIRA's requirement to analyse environmental and contextual risks.
+              Supports FAIRA&apos;s requirement to analyse environmental and contextual risks.
             </p>
           </div>
 
@@ -584,7 +584,7 @@ export default function FairaOnboardingPanel({ fairaData, updateFaira, toggleFai
             </Select>
             <p className="text-xs text-gray-500">
               <Info className="inline h-3 w-3 mr-1" />
-              Understanding organisational alignment supports FAIRA's governance expectations.
+              Understanding organisational alignment supports FAIRA&apos;s governance expectations.
             </p>
             {fairaData["FA-ON-16"] === "Yes – part of a named program/strategy" && (
               <div className="mt-2">
@@ -609,7 +609,7 @@ export default function FairaOnboardingPanel({ fairaData, updateFaira, toggleFai
           {/* FA-ON-17 */}
           <div className="space-y-2">
             <Label className="flex items-center gap-2">
-              Who is responsible for monitoring the AI system's performance and impacts?
+              Who is responsible for monitoring the AI system&apos;s performance and impacts?
               <span className="text-xs text-gray-500">(Select all that apply)</span>
             </Label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 pl-4">
@@ -678,7 +678,7 @@ export default function FairaOnboardingPanel({ fairaData, updateFaira, toggleFai
             </Select>
             <p className="text-xs text-gray-500">
               <Info className="inline h-3 w-3 mr-1" />
-              Supports FAIRA's external assurance expectations.
+              Supports FAIRA&apos;s external assurance expectations.
             </p>
           </div>
 
