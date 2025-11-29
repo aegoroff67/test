@@ -76,7 +76,7 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
           {/* Citation */}
           {citation && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">Citation</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">Australian Government - Guidance for AI Adoption Citation(s)</h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
                   {citation}
