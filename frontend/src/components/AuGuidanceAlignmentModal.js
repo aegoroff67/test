@@ -51,7 +51,9 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
                 <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${
                   confidenceLevel === 'High' 
                     ? 'bg-emerald-100 text-emerald-800 border-emerald-300' 
-                    : 'bg-yellow-100 text-yellow-800 border-yellow-300'
+                    : confidenceLevel === 'Medium'
+                    ? 'bg-yellow-100 text-yellow-800 border-yellow-300'
+                    : 'bg-orange-100 text-orange-800 border-orange-300'
                 }`}>
                   {confidenceLevel}
                 </div>
