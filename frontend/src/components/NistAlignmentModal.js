@@ -79,10 +79,10 @@ export default function NistAlignmentModal({ isOpen, onClose, questionCode, alig
             </div>
           </div>
 
-          {/* Alignment Reasoning */}
+          {/* Alignment Details / Rationale */}
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-gray-700 mb-3">
-              Alignment Reasoning
+              Alignment Details / Rationale
             </h3>
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <p className="text-sm text-gray-800 leading-relaxed whitespace-pre-line">
