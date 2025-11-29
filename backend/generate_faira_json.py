@@ -1,0 +1,532 @@
+#!/usr/bin/env python3
+"""
+Generate complete FAIRA alignment data JSON file
+"""
+import json
+
+faira_data = {
+    # Fairness Domain (FA-1 to FA-8) - All Direct, High confidence
+    "FA-1": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question focuses on identifying and mitigating bias, a core expectation under FAIRA for ensuring equitable AI outcomes.",
+        "fairaComponent": {"partB": "Fairness (Direct)", "partC": "Guardrails and intervention (Direct)"},
+        "alignmentDetails": "This question directly evaluates whether the organisation has implemented structured methods to detect and mitigate bias. FAIRA requires fairness to be embedded throughout the AI lifecycle, and this evidence shows that safeguards exist to reduce discriminatory or harmful impacts. Bias detection and mitigation processes also act as guardrails that support safe deployment and ongoing risk control.",
+        "confidenceLevel": "High"
+    },
+    "FA-2": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question examines the representativeness of training data, a key factor in preventing systemic bias.",
+        "fairaComponent": {"partB": "Fairness (Direct)", "partC": "Guardrails and intervention (Direct)"},
+        "alignmentDetails": "FAIRA expects that training data reflects the diversity of affected individuals or communities. Ensuring demographic representation reduces the likelihood of biased decisions and supports the mandated risk controls that seek to prevent harm caused by non-representative or discriminatory datasets.",
+        "confidenceLevel": "High"
+    },
+    "FA-3": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether the organisation tests model outputs for unequal treatment or disparities.",
+        "fairaComponent": {"partB": "Fairness (Direct)", "partC": "Guardrails and intervention (Direct)"},
+        "alignmentDetails": "FAIRA requires organisations to monitor for unintended harms or discrimination. By assessing output disparities across groups, this question captures essential evidence that fairness is measured in practice and that monitoring mechanisms are in place to detect and address harmful outcomes.",
+        "confidenceLevel": "High"
+    },
+    "FA-4": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question focuses on defining and using fairness metrics to measure equitable system behaviour.",
+        "fairaComponent": {"partB": "Fairness (Direct)", "partC": "Guardrails and intervention (Direct)"},
+        "alignmentDetails": "FAIRA expects organisations to clearly articulate how fairness will be evaluated. The use of defined metrics such as demographic parity or equal opportunity enables systematic fairness assessments and provides measurable evidence that risk controls are in place to manage potential bias.",
+        "confidenceLevel": "High"
+    },
+    "FA-5": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether fairness testing has been conducted in real-world or operational conditions.",
+        "fairaComponent": {"partB": "Fairness (Direct)", "partC": "Guardrails and intervention (Direct)"},
+        "alignmentDetails": "FAIRA emphasises the need for practical testing that reflects real-world complexity. Conducting fairness evaluations under real operational conditions provides strong assurance that bias or harmful outcomes are identified before full deployment and that proactive risk controls are working as intended.",
+        "confidenceLevel": "High"
+    },
+    "FA-6": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question determines whether the organisation uses fairness tools or frameworks to identify and mitigate bias.",
+        "fairaComponent": {"partB": "Fairness (Direct)", "partC": "Guardrails and intervention (Direct)"},
+        "alignmentDetails": "FAIRA expects structured, repeatable methods to identify and manage bias risk. Using recognised fairness toolkits (e.g., Fairlearn, AIF360) provides robust evidence that the organisation is monitoring inequality risks and actively applying guardrails to prevent unfair or discriminatory outcomes.",
+        "confidenceLevel": "High"
+    },
+    "FA-7": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates protections for minority or underserved groups who may be disproportionately impacted by AI decisions.",
+        "fairaComponent": {"partB": "Fairness (Direct)", "partC": "Guardrails and intervention (Direct)"},
+        "alignmentDetails": "FAIRA requires particular attention to groups at heightened risk of harm. By examining fairness practices specifically for minority or vulnerable communities, this question demonstrates compliance with FAIRA's ethical expectations and the presence of risk controls protecting high-risk cohorts.",
+        "confidenceLevel": "High"
+    },
+    "FA-8": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether fairness is embedded throughout the AI lifecycle or treated reactively.",
+        "fairaComponent": {"partB": "Fairness (Direct)", "partC": "Guardrails and intervention (Direct)"},
+        "alignmentDetails": "FAIRA favours proactive, lifecycle-wide fairness safeguards rather than post-deployment fixes. Embedding fairness considerations from design through monitoring demonstrates strong compliance with FAIRA's expectations for systematic, preventative risk management.",
+        "confidenceLevel": "High"
+    },
+    
+    # Transparency Domain (TR-1 to TR-8) - All Direct, High confidence
+    "TR-1": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether the AI system's capabilities and limitations are clearly communicated to users, which is a core FAIRA expectation.",
+        "fairaComponent": {"partB": "Transparency & Explainability (Direct)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "Providing clear information about how the AI system works, its boundaries, and its limitations directly supports FAIRA's transparency principle. This establishes informed user engagement and meets FAIRA's requirement for accountable communication practices around AI-enabled decision-making.",
+        "confidenceLevel": "High"
+    },
+    "TR-2": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question considers whether the organisation maintains documentation of its data sources, algorithms, and processes.",
+        "fairaComponent": {"partB": "Transparency & Explainability (Direct)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "FAIRA requires traceability of AI decisions and underlying components. Documenting data inputs, model logic, and processing steps ensures decision provenance and supports explainability, auditability, and external scrutiny.",
+        "confidenceLevel": "High"
+    },
+    "TR-3": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether external parties (e.g., regulators, customers) have a means to understand how the system works.",
+        "fairaComponent": {"partB": "Transparency & Explainability (Direct)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "FAIRA emphasises external accountability, including enabling regulators and affected parties to understand how AI decisions are made. Providing mechanisms such as reports, dashboards, or audit interfaces is essential for meeting these oversight expectations.",
+        "confidenceLevel": "High"
+    },
+    "TR-4": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question examines the organisation's processes for sharing information about the AI system with internal teams and external stakeholders.",
+        "fairaComponent": {"partB": "Transparency & Explainability (Direct)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "FAIRA requires organisations to maintain communication pathways that inform both internal and external stakeholders about the AI system's operation. Structured information sharing improves accountability and reduces risks associated with misunderstanding or incorrect assumptions about system behaviour.",
+        "confidenceLevel": "High"
+    },
+    "TR-5": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question considers whether any black-box or opaque components exist within the system and how they are managed.",
+        "fairaComponent": {"partB": "Transparency & Explainability (Direct)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "Identifying opaque components and using tools such as SHAP or LIME supports FAIRA's need for interpretability and explainability. Managing black-box models effectively demonstrates that the organisation is aware of potential transparency risks and is taking steps to reduce them.",
+        "confidenceLevel": "High"
+    },
+    "TR-6": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether the organisation discloses data sources, algorithmic details, or provenance to stakeholders.",
+        "fairaComponent": {"partB": "Transparency & Explainability (Direct)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "Disclosure of data origins and algorithmic approaches supports FAIRA's transparency and accountability requirements. It ensures the provenance of decisions is clear and that stakeholders understand the foundation on which automated decisions are based.",
+        "confidenceLevel": "High"
+    },
+    "TR-7": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether users are informed when they are interacting with an AI system rather than a human.",
+        "fairaComponent": {"partB": "Transparency & Explainability (Direct)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "FAIRA requires transparency around AI involvement in services. Clear user notifications support informed engagement, reduce confusion, and ensure users understand the nature and limitations of the interaction.",
+        "confidenceLevel": "High"
+    },
+    "TR-8": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether the organisation publishes transparency reports or formal documentation for external audiences.",
+        "fairaComponent": {"partB": "Transparency & Explainability (Direct)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "FAIRA encourages organisations to publish transparency reports outlining system behaviour, performance, and risk management. These artifacts support external oversight, build trust, and provide evidence of accountability.",
+        "confidenceLevel": "High"
+    },
+    
+    # Accountability Domain (AC-1 to AC-8)
+    "AC-1": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates how clearly responsibilities are defined for managing and overseeing the AI system.",
+        "fairaComponent": {"partB": "Accountability (Direct)", "partC": "Transparency & Accountability (Direct), Guardrails and intervention (Supporting)"},
+        "alignmentDetails": "FAIRA requires that roles and responsibilities for AI governance, oversight, and risk management are clearly assigned. This question provides essential evidence that accountable owners exist and that decision pathways and escalation routes are well-defined.",
+        "confidenceLevel": "High"
+    },
+    "AC-2": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether the organisation maintains governance processes to oversee the AI system's behaviour and risks.",
+        "fairaComponent": {"partB": "Accountability (Direct), Human-centred Values (Supporting)", "partC": "Transparency & Accountability (Direct), Understanding and gaps analysis (Supporting)"},
+        "alignmentDetails": "FAIRA emphasises strong governance processes to ensure systems operate ethically and safely. Oversight structures, decision-making forums, and responsible governance mechanisms demonstrate a compliance-aligned foundation for managing AI risk.",
+        "confidenceLevel": "High"
+    },
+    "AC-3": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether the organisation maintains audit trails or logs that track the behaviour and decisions of the AI system.",
+        "fairaComponent": {"partB": "Accountability (Direct), Transparency & Explainability (Supporting)", "partC": "Transparency & Accountability (Direct), Monitoring, test & evaluation (Supporting)"},
+        "alignmentDetails": "Accountability under FAIRA requires traceable records of AI behaviour. Audit logs and decision traceability provide evidence that the organisation can investigate issues, respond to incidents, and demonstrate compliance with required controls.",
+        "confidenceLevel": "High"
+    },
+    "AC-4": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question determines whether formal escalation pathways exist for AI-related issues.",
+        "fairaComponent": {"partB": "Accountability (Direct)", "partC": "Guardrails and intervention (Direct), Transparency & Accountability (Supporting)"},
+        "alignmentDetails": "FAIRA requires that appropriate mechanisms exist to handle AI incidents or concerns. Clear escalation pathways support safe intervention, problem resolution, and accountable system management.",
+        "confidenceLevel": "High"
+    },
+    "AC-5": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question examines whether stakeholders know who is responsible for the AI system and its decisions.",
+        "fairaComponent": {"partB": "Accountability (Direct), Transparency & Explainability (Supporting)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "Stakeholder clarity around accountable owners is critical for ethical AI governance. This question supports FAIRA's requirement that accountability structures be visible and well-communicated.",
+        "confidenceLevel": "High"
+    },
+    "AC-6": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether accountability structures are documented and accessible internally.",
+        "fairaComponent": {"partB": "Accountability (Direct)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "FAIRA requires organisations to formally document who is responsible for the AI system. This ensures that ownership, authority, and review responsibility are explicit and transparent.",
+        "confidenceLevel": "High"
+    },
+    "AC-7": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question assesses whether accountability structures include external or independent review pathways.",
+        "fairaComponent": {"partB": "Accountability (Supporting)", "partC": "Monitoring, test & evaluation (Direct), Transparency & Accountability (Supporting)"},
+        "alignmentDetails": "While FAIRA encourages independent oversight, this question provides partial evidence that the organisation is open to external scrutiny and has structures that enable independent evaluation of AI-related activities.",
+        "confidenceLevel": "Medium"
+    },
+    "AC-8": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether accountability is embedded throughout the AI lifecycle.",
+        "fairaComponent": {"partB": "Accountability (Supporting), Human-centred Values (Supporting)", "partC": "Understanding and gaps analysis (Supporting), Transparency & Accountability (Supporting)"},
+        "alignmentDetails": "FAIRA expects organisations to embed accountability practices throughout system design, operation, and iteration. This question provides supporting evidence of continuous governance but does not independently satisfy the full set of FAIRA accountability criteria.",
+        "confidenceLevel": "Medium"
+    },
+    
+    # Data Integrity Domain (DI-1 to DI-8)
+    "DI-1": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether data quality checks exist to ensure the AI system receives accurate, consistent and reliable input data.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting), Fairness (Supporting)", "partC": "Monitoring, test & evaluation (Direct)"},
+        "alignmentDetails": "FAIRA requires validation of input data to ensure decisions are reliable and non-discriminatory. Data quality checks serve as a core monitoring control and reduce the risk of system malfunction, bias propagation or inaccurate outputs.",
+        "confidenceLevel": "High"
+    },
+    "DI-2": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether mechanisms are in place to detect anomalies or inconsistencies in incoming data streams.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting), Fairness (Supporting)", "partC": "Monitoring, test & evaluation (Direct), Guardrails and intervention (Supporting)"},
+        "alignmentDetails": "FAIRA expects systems to detect unusual or unsafe data changes in real time. Anomaly detection mechanisms support early identification of data drift, system risk, and fairness issues, ensuring that intervention can occur before harm is caused.",
+        "confidenceLevel": "High"
+    },
+    "DI-3": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question checks whether data preprocessing steps (normalisation, filtering, transformation) are documented and consistently applied.",
+        "fairaComponent": {"partB": "Transparency & Explainability (Supporting), Fairness (Supporting)", "partC": "Transparency & Accountability (Supporting), Monitoring, test & evaluation (Supporting)"},
+        "alignmentDetails": "Although preprocessing is a technical step, documenting it enhances model transparency and supports consistency crucial for fairness and reliability. It provides partial alignment with FAIRA's expectations for traceability and evaluation of system behaviour.",
+        "confidenceLevel": "Medium"
+    },
+    "DI-4": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether mechanisms exist to detect model drift or changes in data patterns over time.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting)", "partC": "Monitoring, test & evaluation (Direct), Guardrails and intervention (Supporting)"},
+        "alignmentDetails": "Model drift monitoring is essential to FAIRA's requirement for ongoing evaluation. Drift can degrade performance, introduce risk, or cause unfair outcomes. Detecting drift ensures the system remains safe, stable and aligned with intended behaviour.",
+        "confidenceLevel": "High"
+    },
+    "DI-5": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question asks whether training and production data consistency is monitored to avoid divergence or performance degradation.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting)", "partC": "Monitoring, test & evaluation (Direct)"},
+        "alignmentDetails": "FAIRA expects organisations to maintain visibility over whether system inputs remain similar to what the model was trained on. This control reduces the likelihood of unsafe or unintended system outputs.",
+        "confidenceLevel": "High"
+    },
+    "DI-6": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether the organisation validates and verifies data integrity before model retraining or updates.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting), Fairness (Supporting)", "partC": "Monitoring, test & evaluation (Direct)"},
+        "alignmentDetails": "Retraining with poor-quality or biased data can introduce systemic risks. Validating data prior to retraining aligns directly with FAIRA's requirements for systematic evaluation during lifecycle updates.",
+        "confidenceLevel": "High"
+    },
+    "DI-7": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question assesses whether the organisation has safeguards to prevent tampering or corruption of training or operational data.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting), Security (Supporting)", "partC": "Guardrails and intervention (Supporting)"},
+        "alignmentDetails": "While FAIRA does not explicitly list data tampering controls, protecting data against malicious modification supports safe and reliable system behaviour and aligns with risk intervention expectations.",
+        "confidenceLevel": "Medium"
+    },
+    "DI-8": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether the organisation has established processes to ensure that external or third-party datasets meet quality and suitability standards.",
+        "fairaComponent": {"partB": "Fairness (Supporting), Reliability & Safety (Supporting)", "partC": "Understanding & gaps analysis (Supporting), Monitoring, test & evaluation (Supporting)"},
+        "alignmentDetails": "Ensuring that third-party data meets appropriate quality standards reduces downstream risks related to bias, reliability failures, or safety hazards. While not a FAIRA-explicit requirement, it strongly supports FAIRA's broader risk-awareness expectations.",
+        "confidenceLevel": "Medium"
+    },
+    
+    # Reliability Domain (RE-1 to RE-8)
+    "RE-1": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether risks associated with AI and data-driven technologies are identified, assessed, and documented.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting), Accountability (Supporting)", "partC": "Understanding & Gaps Analysis (Direct), Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "FAIRA requires organisations to understand and document AI-specific risks, including harms, failure modes, fairness concerns, and safety issues. This question provides direct evidence that the organisation maintains a structured risk assessment aligned to FAIRA's expectations for risk identification and systematic gaps analysis.",
+        "confidenceLevel": "High"
+    },
+    "RE-2": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether the organisation regularly validates the performance of the AI system to ensure stability and accuracy over time.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct)", "partC": "Monitoring, Test & Evaluation (Direct)"},
+        "alignmentDetails": "FAIRA expects AI systems to be evaluated continually to confirm that performance remains within safe and intended boundaries. Regular validation demonstrates proactive lifecycle stewardship and strong compliance with FAIRA's reliability requirements.",
+        "confidenceLevel": "High"
+    },
+    "RE-3": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question examines whether the organisation conducts stress testing or scenario-based evaluation to understand how the system behaves under unusual or extreme conditions.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct)", "partC": "Monitoring, Test & Evaluation (Direct), Guardrails and Intervention (Supporting)"},
+        "alignmentDetails": "Stress testing aligns directly with FAIRA's expectation that organisations understand system behaviour under non-standard or high-risk scenarios. It ensures systems do not fail unpredictably or dangerously under edge conditions.",
+        "confidenceLevel": "High"
+    },
+    "RE-4": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether known system failure modes or weaknesses have been identified and documented.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct)", "partC": "Understanding & Gaps Analysis (Supporting), Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "FAIRA emphasises identifying and documenting potential failure points to ensure that systems are monitored and tested appropriately. While this question supports FAIRA's intent, it does not independently satisfy all FAIRA documentation expectations.",
+        "confidenceLevel": "Medium"
+    },
+    "RE-5": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether reliability testing is repeated when significant system updates, new data sources, or model changes occur.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct)", "partC": "Monitoring, Test & Evaluation (Direct), Guardrails and Intervention (Supporting)"},
+        "alignmentDetails": "FAIRA requires that organisations validate system reliability during lifecycle changes, not just at initial deployment. This ensures continued safe and predictable system behaviour following updates or retraining events.",
+        "confidenceLevel": "High"
+    },
+    "RE-6": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question determines whether reliability metrics (e.g., accuracy, error rates, stability indicators) are monitored consistently throughout system operation.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct)", "partC": "Monitoring, Test & Evaluation (Direct)"},
+        "alignmentDetails": "Continuous monitoring of reliability indicators supports FAIRA's requirement that system behaviour be measured, tracked, and validated to prevent harmful deviations from intended performance.",
+        "confidenceLevel": "High"
+    },
+    "RE-7": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question checks whether the organisation has mechanisms to detect and respond to reliability failures, degradations, or unexpected behaviour.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct), Accountability (Supporting)", "partC": "Guardrails and Intervention (Direct), Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "FAIRA requires clear intervention mechanisms so that systems can be paused, corrected, or rolled back if reliability issues emerge. This question directly measures the organisation's preparedness to intervene safely and effectively.",
+        "confidenceLevel": "High"
+    },
+    "RE-8": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether the organisation conducts post-incident reviews or root-cause analysis when reliability failures or behaviours of concern occur.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct), Accountability (Supporting)", "partC": "Monitoring, Test & Evaluation (Direct), Transparency & Accountability (Supporting)"},
+        "alignmentDetails": "Post-incident reviews align with FAIRA's expectations for learning, transparency, and continuous improvement. Root-cause analysis demonstrates organisational maturity in managing AI-related failures.",
+        "confidenceLevel": "High"
+    },
+    
+    # Security Domain (SE-1 to SE-8) - All Supporting, Medium confidence
+    "SE-1": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether the organisation has implemented appropriate access controls to protect AI system components and data.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting)", "partC": "Guardrails and Intervention (Supporting), Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "While FAIRA does not explicitly prescribe security controls, strong access control contributes to system integrity and reduces the likelihood of tampering or unsafe behaviour. This indirectly supports FAIRA's expectations for safe, reliable, and well-controlled AI operation.",
+        "confidenceLevel": "Medium"
+    },
+    "SE-2": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question examines whether the system includes monitoring controls for detecting security events affecting AI components or data.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting)", "partC": "Monitoring, Test & Evaluation (Supporting), Guardrails and Intervention (Supporting)"},
+        "alignmentDetails": "Monitoring AI systems for security events helps preserve reliability and reduces the risk of corrupted or manipulated outputs. FAIRA anticipates that systems will be monitored for adverse or unexpected behaviours, including those caused by security compromise.",
+        "confidenceLevel": "Medium"
+    },
+    "SE-3": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question assesses whether protections exist to prevent unauthorised modification of AI system components, models, or data pipelines.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting)", "partC": "Guardrails and Intervention (Supporting)"},
+        "alignmentDetails": "Integrity protections reduce the risk of harmful behaviour resulting from manipulated data, model corruption, or unauthorised system changes. These protections support FAIRA's expectation for safe and controlled operation.",
+        "confidenceLevel": "Medium"
+    },
+    "SE-4": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether authentication and authorisation mechanisms are in place for interacting with the AI system or its components.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting)", "partC": "Guardrails and Intervention (Supporting)"},
+        "alignmentDetails": "Even though FAIRA does not specify authentication standards, secure access reduces the likelihood of harmful system interference, aligning with FAIRA's broader objectives for safe AI deployment.",
+        "confidenceLevel": "Medium"
+    },
+    "SE-5": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question checks whether monitoring exists to detect unusual system activity that could indicate misuse or security compromise.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting)", "partC": "Monitoring, Test & Evaluation (Supporting), Guardrails and Intervention (Supporting)"},
+        "alignmentDetails": "Monitoring for anomalies helps identify risks affecting safe operation, including events triggered by security compromise. This contributes to FAIRA's expectations for vigilant oversight of system behaviour.",
+        "confidenceLevel": "Medium"
+    },
+    "SE-6": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether policies exist that govern secure operation and maintenance of the AI system.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting)", "partC": "Guardrails and Intervention (Supporting), Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "Documented policies support safe and controlled operation and help ensure the system behaves consistently with intended behaviour, which aligns indirectly with FAIRA's reliability and monitoring principles.",
+        "confidenceLevel": "Medium"
+    },
+    "SE-7": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question assesses the presence of incident detection and response processes for security-related events affecting AI behaviour.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting), Accountability (Supporting)", "partC": "Guardrails and Intervention (Supporting), Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "Security incidents can cause incorrect, unsafe, or discriminatory outcomes. Having defined incident response pathways supports FAIRA expectations for safe intervention and accountability during operational failures.",
+        "confidenceLevel": "Medium"
+    },
+    "SE-8": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether the organisation conducts regular security assessments or penetration tests on AI-related infrastructure or components.",
+        "fairaComponent": {"partB": "Reliability & Safety (Supporting)", "partC": "Monitoring, Test & Evaluation (Supporting), Guardrails and Intervention (Supporting)"},
+        "alignmentDetails": "Although FAIRA does not mandate penetration testing, ensuring that AI systems are resilient to security compromise supports overall safety and reliability expectations. These assessments provide supporting evidence of responsible operational governance.",
+        "confidenceLevel": "Medium"
+    },
+    
+    # Privacy Domain (PR-1 to PR-8)
+    "PR-1": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether personal and sensitive data used by the AI system is handled in accordance with privacy obligations.",
+        "fairaComponent": {"partB": "Privacy & Security (Direct), Human-centred Values (Supporting)", "partC": "Transparency & Accountability (Supporting), Guardrails & Intervention (Supporting)"},
+        "alignmentDetails": "FAIRA expects that AI systems comply with privacy regulations and handle personal information lawfully and ethically. Demonstrable privacy protections directly support FAIRA's privacy value and contribute to transparent, accountable AI governance.",
+        "confidenceLevel": "High"
+    },
+    "PR-2": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether individuals are informed about how their data is collected, used, and processed by the AI system.",
+        "fairaComponent": {"partB": "Privacy & Security (Direct), Transparency & Explainability (Supporting)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "FAIRA stresses that people should understand how data feeds into AI-driven decisions. Transparent data use notices, consent practices, or privacy disclosures provide direct evidence of compliance with FAIRA's transparency and privacy expectations.",
+        "confidenceLevel": "High"
+    },
+    "PR-3": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether consent, authorisation, or lawful processing grounds exist for using individuals' data in the AI system.",
+        "fairaComponent": {"partB": "Privacy & Security (Direct), Human-centred Values (Supporting)", "partC": "Transparency & Accountability (Supporting)"},
+        "alignmentDetails": "FAIRA requires compliance with privacy legislation and ethical data handling. Demonstrating lawful data use ensures individuals' rights are upheld and supports accountable system operation.",
+        "confidenceLevel": "High"
+    },
+    "PR-4": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question examines whether personal or sensitive data is minimised wherever possible during system design or operation.",
+        "fairaComponent": {"partB": "Privacy & Security (Direct)", "partC": "Guardrails & Intervention (Supporting)"},
+        "alignmentDetails": "Data minimisation is good practice for safe and privacy-aware AI systems. Although not explicitly required by FAIRA, limiting unnecessary data reduces risk exposure and supports ethical data stewardship across the AI lifecycle.",
+        "confidenceLevel": "Medium"
+    },
+    "PR-5": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question considers whether de-identification, anonymisation, or privacy-enhancing techniques are used where appropriate.",
+        "fairaComponent": {"partB": "Privacy & Security (Direct), Reliability & Safety (Supporting)", "partC": "Guardrails & Intervention (Supporting)"},
+        "alignmentDetails": "Using privacy-enhancing techniques reduces the risk of harm or misuse of personal data. This supports FAIRA's privacy principles and broader expectations for safe handling of data inputs.",
+        "confidenceLevel": "Medium"
+    },
+    "PR-6": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question assesses whether access to personal or sensitive data is restricted and governed appropriately.",
+        "fairaComponent": {"partB": "Privacy & Security (Direct), Reliability & Safety (Supporting)", "partC": "Guardrails & Intervention (Supporting)"},
+        "alignmentDetails": "FAIRA expects that personal data is protected from misuse or unauthorised use. Strong access controls reduce privacy risks and support accountable data handling.",
+        "confidenceLevel": "Medium"
+    },
+    "PR-7": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question checks whether the organisation has privacy-impact checks during system updates, retraining, or new data integrations.",
+        "fairaComponent": {"partB": "Privacy & Security (Direct)", "partC": "Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "Lifecycle change reviews are essential to FAIRA, ensuring system updates do not introduce new privacy risks. This question provides direct evidence that privacy concerns are reassessed as the system evolves.",
+        "confidenceLevel": "High"
+    },
+    "PR-8": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether individuals can access, correct, or challenge the use of their personal data within the system.",
+        "fairaComponent": {"partB": "Privacy & Security (Direct), Human-centred Values (Supporting), Contestability (Supporting)", "partC": "Transparency & Accountability (Direct)"},
+        "alignmentDetails": "FAIRA emphasises that individuals should have the ability to understand, question, or contest how their data is used in AI-enabled decisions. This question provides strong evidence of mechanisms that uphold rights, privacy, and accountability.",
+        "confidenceLevel": "High"
+    },
+    
+    # Safety Domain (SA-1 to SA-8) - All Direct, High confidence
+    "SA-1": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether safety risks associated with the AI system are identified and assessed.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct), Accountability (Supporting)", "partC": "Understanding & Gaps Analysis (Direct), Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "FAIRA requires that safety risks be systematically identified and documented to ensure that the system behaves as intended and does not introduce harm. This question directly captures evidence of foundational safety risk assessment.",
+        "confidenceLevel": "High"
+    },
+    "SA-2": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question examines whether safety considerations have been included throughout the AI lifecycle, from design to deployment.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct), Human-centred Values (Supporting)", "partC": "Guardrails & Intervention (Supporting), Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "Embedding safety considerations across all stages of development aligns closely with FAIRA's expectation of proactive, lifecycle-based risk management and responsible design.",
+        "confidenceLevel": "High"
+    },
+    "SA-3": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether there are mechanisms to detect unsafe or unexpected system behaviours.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct)", "partC": "Monitoring, Test & Evaluation (Direct), Guardrails & Intervention (Direct)"},
+        "alignmentDetails": "Monitoring for behaviours of concern is a core FAIRA requirement. Early detection of unsafe behaviour is essential to prevent harm and support safe intervention.",
+        "confidenceLevel": "High"
+    },
+    "SA-4": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether safety incidents are documented, investigated, and addressed.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct), Accountability (Supporting)", "partC": "Monitoring, Test & Evaluation (Direct), Transparency & Accountability (Supporting)"},
+        "alignmentDetails": "FAIRA expects that organisations maintain clear processes for capturing and investigating safety-related incidents. This promotes responsible AI governance and continuous improvement.",
+        "confidenceLevel": "High"
+    },
+    "SA-5": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question checks whether the organisation has defined intervention mechanisms for pausing or disabling the system if safety concerns arise.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct), Accountability (Supporting)", "partC": "Guardrails & Intervention (Direct)"},
+        "alignmentDetails": "FAIRA requires the presence of defined safety guardrails, including the ability to pause, roll back, or override the system when risks emerge. This question directly measures compliance with that requirement.",
+        "confidenceLevel": "High"
+    },
+    "SA-6": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question assesses whether the organisation monitors safety performance indicators during ongoing operation.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct), Accountability (Supporting)", "partC": "Monitoring, Test & Evaluation (Direct)"},
+        "alignmentDetails": "Continuous monitoring of safety indicators is essential to FAIRA's expectations for ensuring the system does not degrade or cause unintended harm over time.",
+        "confidenceLevel": "High"
+    },
+    "SA-7": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question evaluates whether impact assessments, such as safety or harm assessments, are conducted prior to system deployment.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct), Human Wellbeing (Supporting)", "partC": "Understanding & Gaps Analysis (Direct)"},
+        "alignmentDetails": "FAIRA emphasises assessing potential harm—including physical, psychological, and social risks—before deployment. This question directly supports that requirement.",
+        "confidenceLevel": "High"
+    },
+    "SA-8": {
+        "alignmentType": "Direct alignment",
+        "overview": "This question examines whether the organisation evaluates the potential impacts of system failure on individuals, communities, or operations.",
+        "fairaComponent": {"partB": "Reliability & Safety (Direct), Human Wellbeing (Supporting)", "partC": "Understanding & Gaps Analysis (Direct), Guardrails & Intervention (Supporting)"},
+        "alignmentDetails": "Evaluating the consequences of failure supports FAIRA's focus on safety, harm prevention, and responsible risk identification. This ensures that the organisation can prioritise risks and design adequate protection measures.",
+        "confidenceLevel": "High"
+    },
+    
+    # Inclusivity Domain (IN-1 to IN-8) - All Supporting, Medium confidence
+    "IN-1": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether the organisation considers diverse user needs during system design and deployment.",
+        "fairaComponent": {"partB": "Fairness (Supporting), Human-centred Values (Direct), Human Wellbeing (Supporting)", "partC": "Understanding & Gaps Analysis (Supporting)"},
+        "alignmentDetails": "FAIRA emphasises inclusivity and the need for systems to consider the characteristics, contexts, and needs of diverse individuals. While not a specific FAIRA control, including diverse user requirements supports the ethical, human-centred principles within FAIRA.",
+        "confidenceLevel": "Medium"
+    },
+    "IN-2": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question assesses whether the organisation tests the AI system with diverse users or demographic groups.",
+        "fairaComponent": {"partB": "Fairness (Supporting), Human-centred Values (Direct)", "partC": "Understanding & Gaps Analysis (Supporting), Monitoring, Test & Evaluation (Supporting)"},
+        "alignmentDetails": "Testing across diverse user profiles helps detect usability or outcome disparities. This provides supporting evidence that the system accounts for individual differences and aligns with FAIRA's expectations for inclusive testing practices.",
+        "confidenceLevel": "Medium"
+    },
+    "IN-3": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question examines whether barriers to use—such as language, accessibility, cultural factors, or technological constraints—have been identified and mitigated.",
+        "fairaComponent": {"partB": "Human-centred Values (Direct), Fairness (Supporting), Human Wellbeing (Supporting)", "partC": "Understanding & Gaps Analysis (Supporting)"},
+        "alignmentDetails": "By identifying and reducing access barriers, the organisation promotes equitable system use. This supports FAIRA's human-centred focus but is not a standalone FAIRA control requirement.",
+        "confidenceLevel": "Medium"
+    },
+    "IN-4": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether the organisation actively consults with minority or underserved groups when designing or refining the AI system.",
+        "fairaComponent": {"partB": "Human-centred Values (Direct), Fairness (Supporting)", "partC": "Understanding & Gaps Analysis (Supporting)"},
+        "alignmentDetails": "Engaging directly with affected communities supports FAIRA's intent to ensure the system works for diverse populations. This contributes to ethical and inclusive AI practices but is not a direct FAIRA control.",
+        "confidenceLevel": "Medium"
+    },
+    "IN-5": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question examines whether the system performs consistently well for underserved or vulnerable groups.",
+        "fairaComponent": {"partB": "Fairness (Supporting), Human-centred Values (Direct)", "partC": "Monitoring, Test & Evaluation (Supporting), Guardrails & Intervention (Supporting)"},
+        "alignmentDetails": "Monitoring system performance across at-risk groups provides assurance that the system does not cause harms or unfair outcomes—an important FAIRA consideration. However, this is part of fairness testing rather than a direct control.",
+        "confidenceLevel": "Medium"
+    },
+    "IN-6": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question assesses whether the organisation identifies potential harms unique to certain groups and addresses them appropriately.",
+        "fairaComponent": {"partB": "Human Wellbeing (Direct), Fairness (Supporting), Human-centred Values (Supporting)", "partC": "Understanding & Gaps Analysis (Supporting), Guardrails & Intervention (Supporting)"},
+        "alignmentDetails": "FAIRA expects organisations to consider harms (physical, psychological, social) that may affect individuals differently. Identifying group-specific harms supports FAIRA's wellbeing principle but does not map to a single direct FAIRA control.",
+        "confidenceLevel": "Medium"
+    },
+    "IN-7": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question evaluates whether inclusivity considerations are documented, monitored, and reviewed across the AI lifecycle.",
+        "fairaComponent": {"partB": "Human-centred Values (Direct), Fairness (Supporting)", "partC": "Monitoring, Test & Evaluation (Supporting), Understanding & Gaps Analysis (Supporting)"},
+        "alignmentDetails": "Ongoing review of inclusivity supports FAIRA principles relating to fairness, wellbeing, and lifecycle stewardship, though it is not a direct FAIRA requirement.",
+        "confidenceLevel": "Medium"
+    },
+    "IN-8": {
+        "alignmentType": "Supporting alignment",
+        "overview": "This question examines whether the system includes design or operational features that accommodate diverse user abilities and contexts (e.g., visual, cognitive, linguistic, accessibility features).",
+        "fairaComponent": {"partB": "Human-centred Values (Direct), Human Wellbeing (Supporting)", "partC": "Understanding & Gaps Analysis (Supporting)"},
+        "alignmentDetails": "Accessibility and usability are critical components of human-centred design. These considerations strengthen ethical AI design and support FAIRA's objective of reducing harm and ensuring equitable experiences.",
+        "confidenceLevel": "Medium"
+    }
+}
+
+# Output JSON to stdout
+print(json.dumps(faira_data, indent=2))
