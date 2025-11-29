@@ -662,6 +662,21 @@ function AssessmentPage() {
                         title="Click for additional guidance and best practices"
                         onClick={handleOpenQuestionHelp}
                       />
+                      {/* FAIRA Alignment Badge - Only show if FAIRA selected and question has alignment */}
+                      {isFairaSelected && fairaAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenFairaModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            fairaAlignmentData[currentQuestion.code].alignmentType === 'Direct alignment'
+                              ? 'bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200'
+                              : 'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100'
+                          }`}
+                          title="Click to view FAIRA alignment details"
+                        >
+                          <span className="mr-1">⚡</span>
+                          FAIRA - {fairaAlignmentData[currentQuestion.code].alignmentType.replace(' alignment', '')}
+                        </button>
+                      )}
                     </div>
                     <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gray-900 leading-relaxed compact-title">
                       {currentQuestion.text}
