@@ -1078,6 +1078,16 @@ function AssessmentPage() {
           alignmentData={auEthicsAlignmentData[currentQuestion.code]}
         />
       )}
+
+      {/* Australian Government Guidance for AI Adoption Alignment Modal */}
+      {currentQuestion && auGuidanceAlignmentData[currentQuestion.code] && (
+        <AuGuidanceAlignmentModal
+          isOpen={showAuGuidanceModal}
+          onClose={handleCloseAuGuidanceModal}
+          questionCode={currentQuestion.code}
+          alignmentData={auGuidanceAlignmentData[currentQuestion.code]}
+        />
+      )}
     </div>
   );
 }
