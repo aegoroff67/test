@@ -8,5 +8,75 @@
     },
     "alignmentDetails": "This question directly evaluates whether the organisation has implemented structured methods to detect and mitigate bias. FAIRA requires fairness to be embedded throughout the AI lifecycle, and this evidence shows that safeguards exist to reduce discriminatory or harmful impacts. Bias detection and mitigation processes also act as guardrails that support safe deployment and ongoing risk control.",
     "confidenceLevel": "High"
+  },
+  "FA-2": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question examines the representativeness of training data, a key factor in preventing systemic bias.",
+    "fairaComponent": {
+      "partB": "Fairness (Direct)",
+      "partC": "Guardrails and intervention (Direct)"
+    },
+    "alignmentDetails": "FAIRA expects that training data reflects the diversity of affected individuals or communities. Ensuring demographic representation reduces the likelihood of biased decisions and supports the mandated risk controls that seek to prevent harm caused by non-representative or discriminatory datasets.",
+    "confidenceLevel": "High"
+  },
+  "FA-3": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question evaluates whether the organisation tests model outputs for unequal treatment or disparities.",
+    "fairaComponent": {
+      "partB": "Fairness (Direct)",
+      "partC": "Guardrails and intervention (Direct)"
+    },
+    "alignmentDetails": "FAIRA requires organisations to monitor for unintended harms or discrimination. By assessing output disparities across groups, this question captures essential evidence that fairness is measured in practice and that monitoring mechanisms are in place to detect and address harmful outcomes.",
+    "confidenceLevel": "High"
+  },
+  "FA-4": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question focuses on defining and using fairness metrics to measure equitable system behaviour.",
+    "fairaComponent": {
+      "partB": "Fairness (Direct)",
+      "partC": "Guardrails and intervention (Direct)"
+    },
+    "alignmentDetails": "FAIRA expects organisations to clearly articulate how fairness will be evaluated. The use of defined metrics such as demographic parity or equal opportunity enables systematic fairness assessments and provides measurable evidence that risk controls are in place to manage potential bias.",
+    "confidenceLevel": "High"
+  },
+  "FA-5": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question assesses whether fairness testing has been conducted in real-world or operational conditions.",
+    "fairaComponent": {
+      "partB": "Fairness (Direct)",
+      "partC": "Guardrails and intervention (Direct)"
+    },
+    "alignmentDetails": "FAIRA emphasises the need for practical testing that reflects real-world complexity. Conducting fairness evaluations under real operational conditions provides strong assurance that bias or harmful outcomes are identified before full deployment and that proactive risk controls are working as intended.",
+    "confidenceLevel": "High"
+  },
+  "FA-6": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question determines whether the organisation uses fairness tools or frameworks to identify and mitigate bias.",
+    "fairaComponent": {
+      "partB": "Fairness (Direct)",
+      "partC": "Guardrails and intervention (Direct)"
+    },
+    "alignmentDetails": "FAIRA expects structured, repeatable methods to identify and manage bias risk. Using recognised fairness toolkits (e.g., Fairlearn, AIF360) provides robust evidence that the organisation is monitoring inequality risks and actively applying guardrails to prevent unfair or discriminatory outcomes.",
+    "confidenceLevel": "High"
+  },
+  "FA-7": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question evaluates protections for minority or underserved groups who may be disproportionately impacted by AI decisions.",
+    "fairaComponent": {
+      "partB": "Fairness (Direct)",
+      "partC": "Guardrails and intervention (Direct)"
+    },
+    "alignmentDetails": "FAIRA requires particular attention to groups at heightened risk of harm. By examining fairness practices specifically for minority or vulnerable communities, this question demonstrates compliance with FAIRA's ethical expectations and the presence of risk controls protecting high-risk cohorts.",
+    "confidenceLevel": "High"
+  },
+  "FA-8": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question assesses whether fairness is embedded throughout the AI lifecycle or treated reactively.",
+    "fairaComponent": {
+      "partB": "Fairness (Direct)",
+      "partC": "Guardrails and intervention (Direct)"
+    },
+    "alignmentDetails": "FAIRA favours proactive, lifecycle-wide fairness safeguards rather than post-deployment fixes. Embedding fairness considerations from design through monitoring demonstrates strong compliance with FAIRA's expectations for systematic, preventative risk management.",
+    "confidenceLevel": "High"
   }
 }
