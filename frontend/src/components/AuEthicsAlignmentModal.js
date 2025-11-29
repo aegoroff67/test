@@ -16,7 +16,7 @@ export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, 
         <div className="bg-green-600 text-white px-6 py-4 flex items-center justify-between">
           <div>
             <h2 className="text-xl font-semibold">
-              Australian AI Ethics Principles Alignment
+              Australian AI Ethics Principles Alignment Information
             </h2>
             <p className="text-sm text-green-100 mt-1">
               Question {questionCode}
