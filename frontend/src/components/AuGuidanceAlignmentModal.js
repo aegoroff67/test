@@ -36,11 +36,11 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
           {/* Alignment Type and Confidence Level */}
           <div className="mb-6 flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-2">Alignment Level</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">Alignment Type</h3>
               <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${
                 alignmentType === 'Fully Aligns' 
-                  ? 'bg-teal-100 text-teal-800 border-teal-300' 
-                  : 'bg-orange-100 text-orange-800 border-orange-300'
+                  ? 'bg-orange-100 text-orange-800 border-orange-300' 
+                  : 'bg-teal-100 text-teal-800 border-teal-300'
               }`}>
                 {alignmentType}
               </div>
@@ -59,24 +59,22 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
             )}
           </div>
 
-          {/* Relevant Guidance Section */}
+          {/* Relevant Guidance Reference */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">
-              Relevant Guidance Section
-            </h3>
-            <div className="bg-teal-50 p-4 rounded-lg border border-teal-200">
-              <p className="text-sm text-gray-800 font-medium">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">Relevant Guidance</h3>
+            <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+              <p className="text-sm text-gray-800 font-medium leading-relaxed">
                 {relevantGuidance}
               </p>
             </div>
           </div>
 
           {/* Alignment Rationale */}
-          <div>
+          <div className="mb-6">
             <h3 className="text-sm font-semibold text-gray-700 mb-3">
               Alignment Rationale
             </h3>
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <div className="bg-teal-50 p-4 rounded-lg border border-teal-200">
               <p className="text-sm text-gray-800 leading-relaxed">
                 {alignmentRationale}
               </p>
