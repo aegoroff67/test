@@ -704,6 +704,21 @@ function AssessmentPage() {
                           FAIRA - {fairaAlignmentData[currentQuestion.code].alignmentType.replace(' alignment', '')}
                         </button>
                       )}
+                      {/* NIST AI RMF Alignment Badge - Only show if NIST selected and question has alignment */}
+                      {isNistSelected && nistAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenNistModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            nistAlignmentData[currentQuestion.code].alignmentType === 'Direct alignment'
+                              ? 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
+                              : 'bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100'
+                          }`}
+                          title="Click to view NIST AI RMF alignment details"
+                        >
+                          <span className="mr-1">🏛️</span>
+                          NIST - {nistAlignmentData[currentQuestion.code].alignmentType.replace(' alignment', '')}
+                        </button>
+                      )}
                       {/* Australian AI Ethics Principles Alignment Badge */}
                       {isAuEthicsSelected && auEthicsAlignmentData[currentQuestion.code] && (
                         <button
