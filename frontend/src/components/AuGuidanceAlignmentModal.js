@@ -13,18 +13,18 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="bg-teal-600 text-white px-6 py-4 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-orange-500 to-teal-500 text-white px-6 py-4 flex items-center justify-between">
           <div>
             <h2 className="text-xl font-semibold">
-              Australian Guidance for AI Adoption Alignment
+              Australian Government – Guidance for AI Adoption
             </h2>
-            <p className="text-sm text-teal-100 mt-1">
+            <p className="text-sm text-orange-100 mt-1">
               Question {questionCode}
-            </h2>
+            </p>
           </div>
           <button
             onClick={onClose}
-            className="text-white hover:bg-teal-700 rounded-full p-2 transition-colors"
+            className="text-white hover:bg-orange-600 hover:bg-opacity-30 rounded-full p-2 transition-colors"
             aria-label="Close modal"
           >
             <X className="h-5 w-5" />
