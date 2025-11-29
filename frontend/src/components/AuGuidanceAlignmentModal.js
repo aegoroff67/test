@@ -59,6 +59,18 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
             )}
           </div>
 
+          {/* Alignment Rationale */}
+          <div className="mb-6">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">
+              Alignment Rationale
+            </h3>
+            <div className="bg-sky-50 p-4 rounded-lg border border-sky-200">
+              <p className="text-sm text-gray-800 leading-relaxed">
+                {alignmentRationale}
+              </p>
+            </div>
+          </div>
+
           {/* Relevant Guidance Reference */}
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-gray-700 mb-3">Relevant Guidance</h3>
@@ -69,17 +81,17 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
             </div>
           </div>
 
-          {/* Alignment Rationale */}
-          <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">
-              Alignment Rationale
-            </h3>
-            <div className="bg-sky-50 p-4 rounded-lg border border-sky-200">
-              <p className="text-sm text-gray-800 leading-relaxed">
-                {alignmentRationale}
-              </p>
+          {/* Citation */}
+          {citation && (
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">Citation</h3>
+              <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
+                <p className="text-sm text-gray-700 italic leading-relaxed">
+                  {citation}
+                </p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Footer */}
