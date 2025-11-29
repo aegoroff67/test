@@ -746,6 +746,21 @@ function AssessmentPage() {
                           AU Ethics - {auEthicsAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
+                      {/* Australian Government Guidance for AI Adoption Alignment Badge */}
+                      {isAuGuidanceSelected && auGuidanceAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenAuGuidanceModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            auGuidanceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-orange-100 text-orange-800 border border-orange-300 hover:bg-orange-200'
+                              : 'bg-teal-100 text-teal-800 border border-teal-300 hover:bg-teal-200'
+                          }`}
+                          title="Click to view Australian Government Guidance for AI Adoption alignment details"
+                        >
+                          <span className="mr-1">🏛️</span>
+                          AU Guidance - {auGuidanceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
+                        </button>
+                      )}
                     </div>
                     <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gray-900 leading-relaxed compact-title">
                       {currentQuestion.text}
