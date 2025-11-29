@@ -331,6 +331,14 @@ function AssessmentPage() {
     }
   };
 
+  const handleOpenFairaModal = () => {
+    setShowFairaModal(true);
+  };
+
+  const handleCloseFairaModal = () => {
+    setShowFairaModal(false);
+  };
+
   const handleOpenQuestionHelp = () => {
     // Show additional guidance for the current question
     if (currentQuestion && currentQuestion.code) {
