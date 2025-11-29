@@ -95,7 +95,7 @@ export default function NistAlignmentModal({ isOpen, onClose, questionCode, alig
           {citations && citations.length > 0 && (
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                NIST AI RMF Citations
+                NIST AI RMF Citation(s)
               </h3>
               <div className="space-y-3">
                 {citations.map((citation, index) => (
