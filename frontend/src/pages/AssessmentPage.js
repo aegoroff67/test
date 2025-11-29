@@ -26,8 +26,10 @@ import {
 import AssessmentStatusView from '../components/AssessmentStatusView';
 import InfoBadge from '../components/InfoBadge';
 import FairaAlignmentModal from '../components/FairaAlignmentModal';
+import NistAlignmentModal from '../components/NistAlignmentModal';
 import AuEthicsAlignmentModal from '../components/AuEthicsAlignmentModal';
 import fairaAlignmentData from '../data/fairaAlignmentData.json';
+import nistAlignmentData from '../data/nistAlignmentData.json';
 import auEthicsAlignmentData from '../data/auEthicsAlignmentData.json';
 import HelpModal from '../components/HelpModal';
 import { helpContent } from '../data/helpContent';
