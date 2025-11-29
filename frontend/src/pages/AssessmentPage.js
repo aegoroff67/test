@@ -675,6 +675,7 @@ function AssessmentPage() {
                         title="Click for additional guidance and best practices"
                         onClick={handleOpenQuestionHelp}
                       />
+                      {/* Framework Alignment Badges - Display in order: FAIRA, NIST, ISO, AU Ethics, AU AI Adoption, EU AI Act */}
                       {/* FAIRA Alignment Badge - Only show if FAIRA selected and question has alignment */}
                       {isFairaSelected && fairaAlignmentData[currentQuestion.code] && (
                         <button
@@ -688,6 +689,21 @@ function AssessmentPage() {
                         >
                           <span className="mr-1">⚡</span>
                           FAIRA - {fairaAlignmentData[currentQuestion.code].alignmentType.replace(' alignment', '')}
+                        </button>
+                      )}
+                      {/* Australian AI Ethics Principles Alignment Badge */}
+                      {isAuEthicsSelected && auEthicsAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenAuEthicsModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            auEthicsAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-green-100 text-green-800 border border-green-300 hover:bg-green-200'
+                              : 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200'
+                          }`}
+                          title="Click to view Australian AI Ethics Principles alignment details"
+                        >
+                          <span className="mr-1">🇦🇺</span>
+                          AU Ethics - {auEthicsAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
                     </div>
