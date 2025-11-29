@@ -344,6 +344,14 @@ function AssessmentPage() {
     setShowFairaModal(false);
   };
 
+  const handleOpenAuEthicsModal = () => {
+    setShowAuEthicsModal(true);
+  };
+
+  const handleCloseAuEthicsModal = () => {
+    setShowAuEthicsModal(false);
+  };
+
   const handleOpenQuestionHelp = () => {
     // Show additional guidance for the current question
     if (currentQuestion && currentQuestion.code) {
