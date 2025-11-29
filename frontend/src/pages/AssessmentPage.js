@@ -71,6 +71,8 @@ function AssessmentPage() {
   const [isNistSelected, setIsNistSelected] = useState(false);
   const [showAuEthicsModal, setShowAuEthicsModal] = useState(false);
   const [isAuEthicsSelected, setIsAuEthicsSelected] = useState(false);
+  const [showAuGuidanceModal, setShowAuGuidanceModal] = useState(false);
+  const [isAuGuidanceSelected, setIsAuGuidanceSelected] = useState(false);
 
   useEffect(() => {
     fetchAssessment();
