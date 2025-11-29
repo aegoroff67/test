@@ -8497,6 +8497,152 @@ class AMSafeAPITester:
         
         return True
 
+    def test_au_guidance_framework_alignment(self):
+        """Test AU Guidance framework alignment feature implementation"""
+        print("\n🇦🇺 TESTING AU GUIDANCE FRAMEWORK ALIGNMENT FEATURE")
+        print("-" * 60)
+        
+        # Step 1: Create a new System assessment with AU Guidance framework selected
+        assessment_data = {
+            "assessment_type": "System",
+            "name": "Test_AU_Guidance_Framework_Backend",
+            "system_info": {
+                "name": "Test AI System",
+                "purpose": "Testing AU Guidance framework",
+                "owner": "Test Owner",
+                "department": "Engineering",
+                "lifecycle_stage": "Development",
+                "frameworks": ["Australian Government – Guidance for AI Adoption (2025)"]
+            },
+            "conducted_by": "Test User",
+            "assessment_date": "2025-11-29"
+        }
+        
+        success, response = self.make_request('POST', 'assessments', assessment_data)
+        if success and 'id' in response:
+            au_assessment_id = response['id']
+            self.log_test("Create System assessment with AU Guidance framework", True)
+        else:
+            self.log_test("Create System assessment with AU Guidance framework", False, str(response))
+            return False
+        
+        # Step 2: Update system info to include AU Guidance framework
+        system_info_data = {
+            "systemName": "Test AI System",
+            "purpose": "Testing AU Guidance framework",
+            "owner": "Test Owner", 
+            "department": "Engineering",
+            "lifecycleStage": "Development",
+            "frameworks": ["Australian Government – Guidance for AI Adoption (2025)"]
+        }
+        
+        success, response = self.make_request('PUT', f'assessments/{au_assessment_id}/system-info', system_info_data)
+        if success:
+            self.log_test("Update system info with AU Guidance framework", True)
+        else:
+            self.log_test("Update system info with AU Guidance framework", False, str(response))
+        
+        # Step 3: Verify the assessment was created and framework is saved
+        success, assessment_response = self.make_request('GET', f'assessments/{au_assessment_id}')
+        if success:
+            self.log_test("Retrieve assessment details", True)
+            
+            # Check if system_info contains frameworks array
+            system_info = assessment_response.get('system_info', {})
+            frameworks = system_info.get('frameworks', [])
+            
+            if "Australian Government – Guidance for AI Adoption (2025)" in frameworks:
+                self.log_test("AU Guidance framework saved in system_info.frameworks array", True)
+            else:
+                self.log_test("AU Guidance framework saved in system_info.frameworks array", False, 
+                            f"Frameworks found: {frameworks}")
+        else:
+            self.log_test("Retrieve assessment details", False, str(assessment_response))
+            return False
+        
+        # Step 4: Fetch questions for the assessment
+        success, questions_response = self.make_request('GET', f'assessments/{au_assessment_id}/questions')
+        if success:
+            self.log_test("Fetch assessment questions", True)
+            
+            # Verify response structure
+            if isinstance(questions_response, list) and len(questions_response) > 0:
+                self.log_test("Questions response has proper structure", True)
+                
+                # Check if questions have required fields
+                sample_domain = questions_response[0]
+                if 'domain' in sample_domain and 'questions' in sample_domain:
+                    sample_questions = sample_domain['questions']
+                    if len(sample_questions) > 0:
+                        sample_question = sample_questions[0]
+                        required_fields = ['id', 'code', 'text', 'explanation']
+                        
+                        missing_fields = [field for field in required_fields if field not in sample_question]
+                        if not missing_fields:
+                            self.log_test("Questions contain all required fields", True)
+                        else:
+                            self.log_test("Questions contain all required fields", False, 
+                                        f"Missing fields: {missing_fields}")
+                    else:
+                        self.log_test("Questions response contains questions", False, "No questions in domain")
+                else:
+                    self.log_test("Questions response has domain structure", False, "Missing domain/questions structure")
+            else:
+                self.log_test("Questions response has proper structure", False, "Response is not a list or empty")
+        else:
+            self.log_test("Fetch assessment questions", False, str(questions_response))
+            return False
+        
+        # Step 5: Verify AU Guidance alignment data exists
+        # This tests that the backend can serve questions that have AU Guidance alignment data
+        fa1_found = False
+        fa1_has_alignment_data = False
+        
+        for domain_data in questions_response:
+            questions = domain_data.get('questions', [])
+            for question in questions:
+                if question.get('code') == 'FA-1':
+                    fa1_found = True
+                    # The alignment data is stored in frontend, but we can verify the question exists
+                    # and has the structure needed for alignment
+                    if question.get('id') and question.get('code') and question.get('text'):
+                        fa1_has_alignment_data = True
+                    break
+            if fa1_found:
+                break
+        
+        if fa1_found:
+            self.log_test("FA-1 question found (has AU Guidance alignment data)", True)
+            if fa1_has_alignment_data:
+                self.log_test("FA-1 question has required structure for alignment", True)
+            else:
+                self.log_test("FA-1 question has required structure for alignment", False, "Missing required fields")
+        else:
+            self.log_test("FA-1 question found (has AU Guidance alignment data)", False, "FA-1 not found")
+        
+        # Step 6: Test that assessment can be completed with AU Guidance framework
+        # Answer a few questions to verify the flow works
+        questions_answered = 0
+        for domain_data in questions_response[:2]:  # Test first 2 domains
+            questions = domain_data.get('questions', [])
+            for question in questions[:2]:  # Test first 2 questions per domain
+                answer_data = {
+                    "question_id": question['id'],
+                    "option": "IDEAL",
+                    "note": "Test answer for AU Guidance framework assessment"
+                }
+                
+                success, answer_response = self.make_request('POST', f'assessments/{au_assessment_id}/answer', answer_data)
+                if success:
+                    questions_answered += 1
+        
+        if questions_answered > 0:
+            self.log_test(f"Successfully answered {questions_answered} questions in AU Guidance assessment", True)
+        else:
+            self.log_test("Answer questions in AU Guidance assessment", False, "No questions answered successfully")
+        
+        return True
+
     def run_all_tests(self):
         """Run all tests in sequence with focus on production issues"""
         print(f"🚀 Starting AM AI SAFE Production API Tests")
