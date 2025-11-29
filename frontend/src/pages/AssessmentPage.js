@@ -475,7 +475,7 @@ function AssessmentPage() {
               No questions found
             </h3>
             <p className="text-gray-600 mb-4">
-              This assessment doesn't have any questions.
+              This assessment doesn&apos;t have any questions.
             </p>
             <Button onClick={() => navigate('/dashboard')}>
               Return to Dashboard
