@@ -39,8 +39,8 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
               <h3 className="text-sm font-semibold text-gray-700 mb-2">Alignment Type</h3>
               <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${
                 alignmentType === 'Fully Aligns' 
-                  ? 'bg-orange-100 text-orange-800 border-orange-300' 
-                  : 'bg-teal-100 text-teal-800 border-teal-300'
+                  ? 'bg-blue-100 text-blue-800 border-blue-300' 
+                  : 'bg-sky-100 text-sky-800 border-sky-300'
               }`}>
                 {alignmentType}
               </div>
@@ -62,7 +62,7 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
           {/* Relevant Guidance Reference */}
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-gray-700 mb-3">Relevant Guidance</h3>
-            <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <p className="text-sm text-gray-800 font-medium leading-relaxed">
                 {relevantGuidance}
               </p>
@@ -70,11 +70,11 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
           </div>
 
           {/* Alignment Rationale */}
-          <div className="mb-6">
+          <div>
             <h3 className="text-sm font-semibold text-gray-700 mb-3">
               Alignment Rationale
             </h3>
-            <div className="bg-teal-50 p-4 rounded-lg border border-teal-200">
+            <div className="bg-sky-50 p-4 rounded-lg border border-sky-200">
               <p className="text-sm text-gray-800 leading-relaxed">
                 {alignmentRationale}
               </p>
