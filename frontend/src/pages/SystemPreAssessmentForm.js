@@ -613,6 +613,15 @@ export default function SystemPreAssessmentForm() {
           </CardContent>
         </Card>
 
+        {/* FAIRA Additional Information - Conditional */}
+        {isFairaSelected && (
+          <FairaOnboardingPanel
+            fairaData={form.faira}
+            updateFaira={updateFaira}
+            toggleFairaArray={toggleFairaArray}
+          />
+        )}
+
         {/* Ethics & Sustainability */}
         <Card>
           <CardHeader className="bg-teal-50 border-b border-teal-100">
