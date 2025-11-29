@@ -370,6 +370,14 @@ function AssessmentPage() {
     setShowAuEthicsModal(false);
   };
 
+  const handleOpenAuGuidanceModal = () => {
+    setShowAuGuidanceModal(true);
+  };
+
+  const handleCloseAuGuidanceModal = () => {
+    setShowAuGuidanceModal(false);
+  };
+
   const handleOpenQuestionHelp = () => {
     // Show additional guidance for the current question
     if (currentQuestion && currentQuestion.code) {
