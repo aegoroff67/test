@@ -59,6 +59,8 @@ function AssessmentPage() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [currentHelpContent, setCurrentHelpContent] = useState(null);
   const [skipAutoNavigation, setSkipAutoNavigation] = useState(false);
+  const [showFairaModal, setShowFairaModal] = useState(false);
+  const [isFairaSelected, setIsFairaSelected] = useState(false);
 
   useEffect(() => {
     fetchAssessment();
