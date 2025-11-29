@@ -1,0 +1,22 @@
+{
+  "FA-1": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question focuses on identifying and mitigating bias, a core expectation under FAIRA for ensuring equitable AI outcomes.",
+    "fairaComponent": {
+      "partB": "Fairness (Direct)",
+      "partC": "Guardrails and intervention (Direct)"
+    },
+    "alignmentDetails": "This question directly evaluates whether the organisation has implemented structured methods to detect and mitigate bias. FAIRA requires fairness to be embedded throughout the AI lifecycle, and this evidence shows that safeguards exist to reduce discriminatory or harmful impacts. Bias detection and mitigation processes also act as guardrails that support safe deployment and ongoing risk control.",
+    "confidenceLevel": "High"
+  },
+  "AC-7": {
+    "alignmentType": "Supporting alignment",
+    "overview": "This question assesses whether accountability structures include external or independent review pathways.",
+    "fairaComponent": {
+      "partB": "Accountability (Supporting)",
+      "partC": "Monitoring, test & evaluation (Direct), Transparency & Accountability (Supporting)"
+    },
+    "alignmentDetails": "While FAIRA encourages independent oversight, this question provides partial evidence that the organisation is open to external scrutiny and has structures that enable independent evaluation of AI-related activities.",
+    "confidenceLevel": "Medium"
+  }
+}
