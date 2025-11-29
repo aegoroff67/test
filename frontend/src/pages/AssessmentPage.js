@@ -73,6 +73,11 @@ function AssessmentPage() {
       setAssessment(assessmentResponse.data);
       setAssessmentType(assessmentResponse.data.assessment_type || 'System');
       
+      // Check if FAIRA is selected in system_info
+      const systemInfo = assessmentResponse.data.system_info || {};
+      const frameworks = systemInfo.frameworks || [];
+      setIsFairaSelected(frameworks.includes("FAIRA (Queensland Government)"));
+      
       // Fetch questions with domains and answers
       const questionsResponse = await axios.get(`${API}/assessments/${id}/questions`);
       const domainQuestionData = questionsResponse.data;
