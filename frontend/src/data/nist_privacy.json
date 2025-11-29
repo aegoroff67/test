@@ -1,0 +1,122 @@
+[
+  {
+    "QuestionID": "PR-1",
+    "Domain": "Privacy",
+    "Question": "How do you ensure compliance with data privacy laws, such as GDPR or the Australian Privacy Act?",
+    "NISTAlignment": {
+      "Function": "GOVERN + MEASURE",
+      "CategorySubcategory": "GOVERN 1.1; MEASURE 2.10",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses compliance with privacy laws, which directly aligns with GOVERN 1.1's requirement for understanding and managing legal requirements and MEASURE 2.10's focus on evaluating privacy risks.",
+      "Citations": [
+        "NIST AI RMF Table 1 - \"GOVERN 1.1: Legal and regulatory requirements involving AI are understood, managed, and documented.\" (p.22)",
+        "NIST AI RMF Table 3 - \"MEASURE 2.10: Privacy risk of the AI system – as identified in the MAP function – is examined and documented.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "PR-2",
+    "Domain": "Privacy",
+    "Question": "What techniques or methods (e.g., anonymization, pseudonymization) do you implement to protect personal data throughout your AI system lifecycle?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.10",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses comprehensive techniques for protecting personal data, which directly aligns with MEASURE 2.10's requirement for privacy risk evaluation and NIST's explicit mention of privacy-enhancing technologies and data minimization methods.",
+      "Citations": [
+        "NIST AI RMF p.17 - \"Privacy-enhancing technologies ('PETs') for AI, as well as data minimizing methods such as de-identification and aggregation for certain model outputs, can support design for privacy-enhanced AI systems.\"",
+        "NIST AI RMF Table 3 - \"MEASURE 2.10: Privacy risk of the AI system – as identified in the MAP function – is examined and documented.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "PR-3",
+    "Domain": "Privacy",
+    "Question": "How do you manage user consent for data collection and processing?",
+    "NISTAlignment": {
+      "Function": "GOVERN + MEASURE",
+      "CategorySubcategory": "GOVERN 1.1; MEASURE 2.10",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses user consent for data processing, which aligns with GOVERN 1.1's requirement for managing legal requirements (many privacy laws require consent) and MEASURE 2.10's focus on privacy risk evaluation.",
+      "Citations": [
+        "NIST AI RMF p.17 - \"Privacy refers generally to the norms and practices that help to safeguard human autonomy, identity, and dignity. These norms and practices typically address freedom from intrusion, limiting observation, or individuals' agency to consent to disclosure or control of facets of their identities (e.g., body, data, reputation).\"",
+        "NIST AI RMF Table 3 - \"MEASURE 2.10: Privacy risk of the AI system – as identified in the MAP function – is examined and documented.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "PR-4",
+    "Domain": "Privacy",
+    "Question": "How do you ensure that personal data is not used beyond its original purpose?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.10",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses purpose limitation for personal data, which aligns with MEASURE 2.10's requirement for privacy risk evaluation and NIST's emphasis on privacy values like control and confidentiality.",
+      "Citations": [
+        "NIST AI RMF p.17 - \"Privacy values such as anonymity, confidentiality, and control generally should guide choices for AI system design, development, and deployment.\"",
+        "NIST AI RMF Table 3 - \"MEASURE 2.10: Privacy risk of the AI system – as identified in the MAP function – is examined and documented.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "PR-5",
+    "Domain": "Privacy",
+    "Question": "How do you evaluate the effectiveness of your privacy protection measures and ensure they don't compromise model performance?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.10; MEASURE 2.13",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses evaluation of privacy protection effectiveness, which aligns with MEASURE 2.10's privacy risk assessment and MEASURE 2.13's focus on evaluating the effectiveness of employed metrics. It also addresses NIST's discussion of potential trade-offs between privacy and other characteristics.",
+      "Citations": [
+        "NIST AI RMF p.17 - \"Under certain conditions such as data sparsity, privacy-enhancing techniques can result in a loss in accuracy, affecting decisions about fairness and other values in certain domains.\"",
+        "NIST AI RMF p.12-13 - \"When managing AI risks, organizations can face difficult decisions in balancing these characteristics. For example, in certain scenarios tradeoffs may emerge between optimizing for interpretability and achieving privacy.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "PR-6",
+    "Domain": "Privacy",
+    "Question": "How do you monitor and prevent privacy violations during system operation?",
+    "NISTAlignment": {
+      "Function": "MEASURE + MANAGE",
+      "CategorySubcategory": "MEASURE 2.10; MANAGE 4.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses monitoring for privacy violations, which aligns with MEASURE 2.10's requirement for privacy risk evaluation and MANAGE 4.1's focus on post-deployment monitoring.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 2.10: Privacy risk of the AI system – as identified in the MAP function – is examined and documented.\" (p.30)",
+        "NIST AI RMF Table 4 - \"MANAGE 4.1: Post-deployment AI system monitoring plans are implemented, including mechanisms for capturing and evaluating input from users and other relevant AI actors, appeal and override, decommissioning, incident response, recovery, and change management.\" (p.33)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "PR-7",
+    "Domain": "Privacy",
+    "Question": "Are privacy risks evaluated during both the development and deployment phases?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 5.1; MEASURE 2.10",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses privacy risk evaluation throughout the lifecycle, which aligns with MAP 5.1's requirement for impact identification and MEASURE 2.10's focus on privacy risk evaluation.",
+      "Citations": [
+        "NIST AI RMF Table 2 - \"MAP 5.1: Likelihood and magnitude of each identified impact (both potentially beneficial and harmful) based on expected use, past uses of AI systems in similar contexts, public incident reports, feedback from those external to the team that developed or deployed the AI system, or other data are identified and documented.\" (p.27)",
+        "NIST AI RMF Table 3 - \"MEASURE 2.10: Privacy risk of the AI system – as identified in the MAP function – is examined and documented.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "PR-8",
+    "Domain": "Privacy",
+    "Question": "What steps are taken to ensure compliance with cross-border data protection laws?",
+    "NISTAlignment": {
+      "Function": "GOVERN",
+      "CategorySubcategory": "GOVERN 1.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses compliance with international privacy laws, which directly aligns with GOVERN 1.1's requirement for understanding and managing legal and regulatory requirements.",
+      "Citations": [
+        "NIST AI RMF Table 1 - \"GOVERN 1.1: Legal and regulatory requirements involving AI are understood, managed, and documented.\" (p.22)",
+        "NIST AI RMF p.9 - \"The Framework is intended to be law- and regulation-agnostic. The Framework should support organizations' abilities to operate under applicable domestic and international legal or regulatory regimes.\""
+      ]
+    }
+  }
+]

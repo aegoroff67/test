@@ -1,0 +1,122 @@
+[
+  {
+    "QuestionID": "SA-1",
+    "Domain": "Safety",
+    "Question": "Have you conducted a safety impact assessment for the AI system?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 5.1; MEASURE 2.6",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses safety impact assessment, which directly aligns with MAP 5.1's requirement for identifying impacts and MEASURE 2.6's focus on safety risk evaluation.",
+      "Citations": [
+        "NIST AI RMF Table 2 - \"MAP 5.1: Likelihood and magnitude of each identified impact (both potentially beneficial and harmful) based on expected use... are identified and documented.\" (p.27)",
+        "NIST AI RMF Table 3 - \"MEASURE 2.6: The AI system is evaluated regularly for safety risks – as identified in the MAP function.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "SA-2",
+    "Domain": "Safety",
+    "Question": "How do you ensure that the system does not cause harm in unintended ways?",
+    "NISTAlignment": {
+      "Function": "MEASURE + MANAGE",
+      "CategorySubcategory": "MEASURE 2.6; MANAGE 2.2",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses preventing unintended harm, which directly aligns with MEASURE 2.6's requirement for safety evaluation and MANAGE 2.2's focus on implementing mechanisms to sustain system value.",
+      "Citations": [
+        "NIST AI RMF p.14 - \"AI systems should 'not under defined conditions, lead to a state in which human life, health, property, or the environment is endangered'\"",
+        "NIST AI RMF Table 3 - \"MEASURE 2.6: The AI system to be deployed is demonstrated to be safe, its residual negative risk does not exceed the risk tolerance, and it can fail safely, particularly if made to operate beyond its knowledge limits.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "SA-3",
+    "Domain": "Safety",
+    "Question": "Are there monitoring tools in place to detect unsafe system behavior in real-time?",
+    "NISTAlignment": {
+      "Function": "MEASURE + MANAGE",
+      "CategorySubcategory": "MEASURE 2.6; MANAGE 4.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses real-time monitoring for safety, which directly aligns with MEASURE 2.6's requirement for safety evaluation and MANAGE 4.1's focus on post-deployment monitoring.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 2.6: The AI system is evaluated regularly for safety risks... Safety metrics implicate system reliability and robustness, real-time monitoring, and response times for AI system failures.\" (p.30)",
+        "NIST AI RMF p.14 - \"Other practical approaches for AI safety often relate to rigorous simulation and in-domain testing, real-time monitoring, and the ability to shut down, modify, or have human intervention into systems that deviate from intended or expected functionality.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "SA-4",
+    "Domain": "Safety",
+    "Question": "How do you handle situations where the system's actions conflict with human safety requirements?",
+    "NISTAlignment": {
+      "Function": "MEASURE + MANAGE",
+      "CategorySubcategory": "MEASURE 2.6; MANAGE 2.4",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses handling conflicts between system actions and safety requirements, which aligns with MEASURE 2.6's safety evaluation and MANAGE 2.4's focus on system disengagement when performance is inconsistent with intended use.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 2.6: The AI system to be deployed is demonstrated to be safe, its residual negative risk does not exceed the risk tolerance, and it can fail safely, particularly if made to operate beyond its knowledge limits.\" (p.30)",
+        "NIST AI RMF Table 4 - \"MANAGE 2.4: Mechanisms are in place and applied, responsibilities are assigned and understood to supersede, disengage, or deactivate AI systems that demonstrate performance or outcomes inconsistent with intended use.\" (p.32)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "SA-5",
+    "Domain": "Safety",
+    "Question": "Are there emergency protocols for shutting down the system in case of unsafe behavior?",
+    "NISTAlignment": {
+      "Function": "MANAGE",
+      "CategorySubcategory": "MANAGE 2.4",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses emergency shutdown protocols, which directly aligns with MANAGE 2.4's requirement for mechanisms to disengage systems with inconsistent performance.",
+      "Citations": [
+        "NIST AI RMF Table 4 - \"MANAGE 2.4: Mechanisms are in place and applied, responsibilities are assigned and understood to supersede, disengage, or deactivate AI systems that demonstrate performance or outcomes inconsistent with intended use.\" (p.32)",
+        "NIST AI RMF p.14 - \"Other practical approaches for AI safety often relate to rigorous simulation and in-domain testing, real-time monitoring, and the ability to shut down, modify, or have human intervention into systems that deviate from intended or expected functionality.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "SA-6",
+    "Domain": "Safety",
+    "Question": "What steps have you taken to identify and mitigate potential risks or harm caused by the AI system?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE + MANAGE",
+      "CategorySubcategory": "MAP 5.1; MEASURE 2.6; MANAGE 2.2",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses identifying and mitigating safety risks, which aligns with MAP 5.1's impact identification, MEASURE 2.6's safety evaluation, and MANAGE 2.2's risk control implementation.",
+      "Citations": [
+        "NIST AI RMF Table 2 - \"MAP 5.1: Likelihood and magnitude of each identified impact (both potentially beneficial and harmful) based on expected use... are identified and documented.\" (p.27)",
+        "NIST AI RMF p.14 - \"Employing safety considerations during the lifecycle and starting as early as possible with planning and design can prevent failures or conditions that can render a system dangerous.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "SA-7",
+    "Domain": "Safety",
+    "Question": "Are there fail-safe mechanisms or redundancies in place to address unexpected system behaviors?",
+    "NISTAlignment": {
+      "Function": "MEASURE + MANAGE",
+      "CategorySubcategory": "MEASURE 2.6; MANAGE 2.2",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses fail-safe mechanisms and redundancies, which aligns with MEASURE 2.6's requirement for demonstrating that systems can fail safely and MANAGE 2.2's focus on implementing mechanisms to sustain system value.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 2.6: The AI system to be deployed is demonstrated to be safe, its residual negative risk does not exceed the risk tolerance, and it can fail safely, particularly if made to operate beyond its knowledge limits.\" (p.30)",
+        "NIST AI RMF p.14 - \"Other practical approaches for AI safety often relate to rigorous simulation and in-domain testing, real-time monitoring, and the ability to shut down, modify, or have human intervention into systems that deviate from intended or expected functionality.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "SA-8",
+    "Domain": "Safety",
+    "Question": "Have you conducted safety testing in realistic or high-risk scenarios?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.6; MEASURE 2.3",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses safety testing in realistic scenarios, which directly aligns with MEASURE 2.6's requirement for safety evaluation and MEASURE 2.3's focus on testing in deployment-like conditions.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 2.3: AI system performance or assurance criteria are measured qualitatively or quantitatively and demonstrated for conditions similar to deployment setting(s).\" (p.29)",
+        "NIST AI RMF p.14 - \"Other practical approaches for AI safety often relate to rigorous simulation and in-domain testing, real-time monitoring, and the ability to shut down, modify, or have human intervention into systems that deviate from intended or expected functionality.\""
+      ]
+    }
+  }
+]
