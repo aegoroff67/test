@@ -754,7 +754,6 @@ function AssessmentPage() {
                           }`}
                           title="Click to view Australian Government Guidance for AI Adoption alignment details"
                         >
-                          <span className="mr-1">🏛️</span>
                           AU Guidance - {auGuidanceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
