@@ -91,7 +91,7 @@ function AssessmentPage() {
       setIsFairaSelected(frameworks.includes("FAIRA (Queensland Government)"));
       setIsNistSelected(frameworks.includes("NIST AI RMF (2023)"));
       setIsAuEthicsSelected(frameworks.includes("Australian AI Ethics Principles (2024)"));
-      setIsAuGuidanceSelected(frameworks.includes("Australian Government – Guidance for AI Adoption"));
+      setIsAuGuidanceSelected(frameworks.includes("Australian Government – Guidance for AI Adoption (2025)"));
       
       // Fetch questions with domains and answers
       const questionsResponse = await axios.get(`${API}/assessments/${id}/questions`);
