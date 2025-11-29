@@ -443,7 +443,6 @@ function AssessmentPage() {
 
   const goToQuestion = (index) => {
     setCurrentQuestionIndex(index);
-    setShowQuestionGrid(false);
   };
 
   const nextQuestion = () => {
