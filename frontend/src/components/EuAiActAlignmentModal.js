@@ -86,7 +86,7 @@ export default function EuAiActAlignmentModal({ isOpen, onClose, questionCode, a
           {/* Citation */}
           {citation && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">Citation</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">EU AI Act Citation(s)</h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-purple-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
                   {citation}
