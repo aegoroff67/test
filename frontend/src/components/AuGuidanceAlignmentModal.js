@@ -16,7 +16,7 @@ export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode
         <div className="bg-blue-600 text-white px-6 py-4 flex items-center justify-between">
           <div>
             <h2 className="text-xl font-semibold">
-              Australian Government – Guidance for AI Adoption
+              Australian Government – Guidance for AI Adoption Alignment Information
             </h2>
             <p className="text-sm text-blue-100 mt-1">
               Question {questionCode}
