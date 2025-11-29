@@ -398,9 +398,9 @@
 
   - task: "Test Australian Government – Guidance for AI Adoption framework alignment feature on Assessment Page"
     implemented: true
-    working: true
+    working: false
     file: "/app/frontend/src/pages/AssessmentPage.js, /app/frontend/src/components/AuGuidanceAlignmentModal.js, /app/frontend/src/data/auGuidanceAlignmentData.json"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: false
     status_history:
@@ -416,6 +416,9 @@
         - working: true
         - agent: "testing"
         - comment: "AU GUIDANCE CITATION IMPLEMENTATION TESTING COMPLETED SUCCESSFULLY: Comprehensive end-to-end testing of AU Guidance Citation functionality completed with 100% success rate. ✅ CRITICAL SUCCESS CRITERIA VERIFIED: 1) AU Guidance Badge Display: Badge appears correctly with light blue styling (bg-blue-100 text-blue-800 border border-blue-300), 2) Modal Functionality: Modal opens with proper blue header (bg-blue-600) and displays 'Australian Government – Guidance for AI Adoption' title, 3) Citation Section Implementation: CRITICAL SUCCESS - Citation section appears at bottom of modal with correct formatting (gray background bg-gray-50, blue left border border-l-4 border-blue-500, italic text), 4) Section Order Verification: All sections appear in correct order - Alignment Type, Confidence Level, Alignment Rationale, Relevant Guidance, Citation (at bottom), 5) Multiple Questions Testing: Different questions show different citation references (FA-1: 'Foundations, Practice 2, p.6', FA-2: 'Implementation Practice 5.4.2a, p.34'), 6) Citation Content Validation: Citations contain proper reference format with page numbers and practice references as expected. ✅ FRAMEWORK INTEGRATION VERIFIED: AU Guidance framework selection in pre-assessment form working correctly, badge conditional rendering based on isAuGuidanceSelected functioning properly, alignment data from auGuidanceAlignmentData.json displaying correctly in modal. ✅ USER EXPERIENCE VALIDATED: Light blue color scheme implemented as requested, modal interaction (open/close) working smoothly, citation information clearly displayed and formatted for readability. The AU Guidance Citation implementation fully meets all requirements specified in the review request - the missing Citation data field has been successfully extracted from Excel, integrated into the JSON file, and is displaying correctly in the modal component."
+        - working: false
+        - agent: "testing"
+        - comment: "AU GUIDANCE MODAL 5-COLUMN IMPLEMENTATION TESTING COMPLETED WITH CRITICAL ISSUES: Comprehensive testing of the updated AU Guidance Modal with 5 columns implementation attempted but encountered significant access issues. ❌ CRITICAL TESTING LIMITATIONS: 1) Unable to create new System Assessment with AU Guidance framework selection due to UI navigation issues - assessment selector page elements not responding to automated clicks, 2) Existing System assessments in dashboard do not have AU Guidance framework selected, preventing badge display testing, 3) Session management issues causing redirects to login page during testing, 4) Assessment page structure has changed from previous testing sessions. ✅ CODE REVIEW VERIFICATION: 1) AuGuidanceAlignmentModal.js component correctly implements 4 content sections (Question ID in header + Alignment Type, Confidence Level, Alignment Details/Rationale, Citation), 2) auGuidanceAlignmentData.json contains updated data with all 5 fields including citation field with proper format, 3) Modal styling correctly implements light blue alignment badges, green/yellow/orange confidence level badges, sky blue rationale background, gray citation background with blue left border, 4) 'Relevant Guidance' section has been removed from modal structure as requested. ❌ FUNCTIONAL TESTING INCOMPLETE: Unable to verify actual modal display and interaction due to framework selection prerequisites not being met in test environment. RECOMMENDATION: Main agent should create a new System Assessment with AU Guidance framework properly selected to enable comprehensive modal testing, or provide direct access to an assessment with AU Guidance framework enabled for testing verification."
 
 ## frontend:
   - task: "Install Recharts library for radar chart visualization"
