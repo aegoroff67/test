@@ -244,6 +244,28 @@ export default function SystemPreAssessmentForm() {
     });
   }
 
+  // FAIRA-specific helper functions
+  function updateFaira(fieldId, value) {
+    setForm((f) => ({
+      ...f,
+      faira: { ...f.faira, [fieldId]: value }
+    }));
+  }
+
+  function toggleFairaArray(fieldId, value) {
+    setForm((f) => {
+      const arr = new Set(f.faira[fieldId] ?? []);
+      arr.has(value) ? arr.delete(value) : arr.add(value);
+      return {
+        ...f,
+        faira: { ...f.faira, [fieldId]: Array.from(arr) }
+      };
+    });
+  }
+
+  // Check if FAIRA is selected
+  const isFairaSelected = form.frameworks.includes("FAIRA (Queensland Government)");
+
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
