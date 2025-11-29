@@ -16,7 +16,7 @@ export default function NistAlignmentModal({ isOpen, onClose, questionCode, alig
         <div className="bg-indigo-600 text-white px-6 py-4 flex items-center justify-between">
           <div>
             <h2 className="text-xl font-semibold">
-              NIST AI RMF Alignment
+              NIST AI RMF Alignment Information
             </h2>
             <p className="text-sm text-indigo-100 mt-1">
               Question {questionCode}
