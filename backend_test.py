@@ -8717,6 +8717,12 @@ class AMSafeAPITester:
         # Test System vs Awareness Comparison
         self.test_system_vs_awareness_assessment_comparison_comprehensive()
         
+        # === AU GUIDANCE FRAMEWORK ALIGNMENT TESTS (NEW) ===
+        print("\n" + "🇦🇺 AU GUIDANCE FRAMEWORK ALIGNMENT TESTS (Review Request)" + "\n" + "=" * 60)
+        
+        # Test AU Guidance framework alignment feature implementation
+        self.test_au_guidance_framework_alignment()
+        
         # === EXISTING PRODUCTION TESTS ===
         print("\n" + "📋 EXISTING PRODUCTION TESTS" + "\n" + "=" * 60)
         
