@@ -25,6 +25,8 @@ import {
 } from 'lucide-react';
 import AssessmentStatusView from '../components/AssessmentStatusView';
 import InfoBadge from '../components/InfoBadge';
+import FairaAlignmentModal from '../components/FairaAlignmentModal';
+import fairaAlignmentData from '../data/fairaAlignmentData.json';
 import HelpModal from '../components/HelpModal';
 import { helpContent } from '../data/helpContent';
 import questionGuidanceData from '../data/questionGuidance.json';
