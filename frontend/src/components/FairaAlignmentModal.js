@@ -33,13 +33,41 @@ export default function FairaAlignmentModal({ isOpen, onClose, questionCode, ali
 
         {/* Content */}
         <div className="p-6 overflow-y-auto flex-1">
-          {/* Alignment Type */}
-          <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">Alignment Type</h3>
-            <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800 border border-amber-300">
-              {alignmentType}
+          {/* Alignment Type and Confidence Level */}
+          <div className="mb-6 flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">Alignment Type</h3>
+              <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800 border border-amber-300">
+                {alignmentType}
+              </div>
             </div>
+            {confidenceLevel && (
+              <div>
+                <h3 className="text-sm font-semibold text-gray-700 mb-2">Confidence Level</h3>
+                <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${
+                  confidenceLevel === 'High' 
+                    ? 'bg-green-100 text-green-800 border-green-300' 
+                    : 'bg-yellow-100 text-yellow-800 border-yellow-300'
+                }`}>
+                  {confidenceLevel}
+                </div>
+              </div>
+            )}
           </div>
+
+          {/* FAIRA Alignment Overview */}
+          {overview && (
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">
+                FAIRA Alignment Overview
+              </h3>
+              <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                <p className="text-sm text-gray-800 leading-relaxed">
+                  {overview}
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* FAIRA Components */}
           <div className="mb-6">
