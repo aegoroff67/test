@@ -639,6 +639,86 @@
     "alignmentDetails": "Evaluating the consequences of failure supports FAIRA's focus on safety, harm prevention, and responsible risk identification. This ensures that the organisation can prioritise risks and design adequate protection measures.",
     "confidenceLevel": "High"
   },
+  "EX-1": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question evaluates whether the organisation provides explanations for how the AI system reaches its decisions.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct), Accountability (Supporting)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "FAIRA requires that users and stakeholders understand how AI-enabled decisions are generated. Providing meaningful explanations supports contestability, trust, and accountability, and meets FAIRA's expectations for decision transparency.",
+    "confidenceLevel": "High"
+  },
+  "EX-2": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question assesses whether explanations provided are understandable for the intended audience.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct), Human-centred Values (Supporting)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "FAIRA emphasises that explanations must be accessible and meaningful to affected individuals. Tailoring explanations to the audience supports human-centred design and strengthens transparency obligations.",
+    "confidenceLevel": "High"
+  },
+  "EX-3": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question evaluates whether different types of explainability (e.g., global vs local explanations) are used appropriately.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct), Monitoring, Test & Evaluation (Supporting)"
+    },
+    "alignmentDetails": "Applying the right type of explanation to the right context supports FAIRA's expectations that users understand both model-level logic (global) and specific decisions (local). This improves oversight and reduces the risk of misunderstanding or misuse.",
+    "confidenceLevel": "High"
+  },
+  "EX-4": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question assesses whether the organisation documents the explainability techniques used by the AI system.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct), Understanding & Gaps Analysis (Supporting)"
+    },
+    "alignmentDetails": "FAIRA requires traceability and documentation of key design decisions, including explainability methods. This documentation supports accountability and enables internal and external scrutiny.",
+    "confidenceLevel": "High"
+  },
+  "EX-5": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question evaluates whether users or decision-makers are trained in how to interpret AI explanations effectively.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct), Human-centred Values (Supporting)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "Training ensures that human decision-makers correctly understand AI outputs and explanations. This is essential for accountability, appropriate oversight, and safe system use under FAIRA.",
+    "confidenceLevel": "High"
+  },
+  "EX-6": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question assesses whether explainability requirements were defined at the design stage and integrated into the model development process.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct), Accountability (Supporting), Human-centred Values (Supporting)",
+      "partC": "Understanding & Gaps Analysis (Supporting), Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "FAIRA expects that explainability is not added reactively, but built into system design. Proactively defining explainability criteria demonstrates mature governance and strong alignment with FAIRA expectations.",
+    "confidenceLevel": "High"
+  },
+  "EX-7": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question evaluates whether the organisation provides users with the ability to request further clarification or contest decisions based on system explanations.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct), Human-centred Values (Supporting), Accountability (Supporting), Contestability (Supporting)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "FAIRA supports mechanisms that allow individuals to understand, question, or challenge AI-driven decisions. Providing channels for deeper explanation or contestability directly supports these expectations and strengthens ethical governance.",
+    "confidenceLevel": "High"
+  },
+  "EX-8": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question examines whether the explainability mechanisms remain accurate and effective over time, particularly following model updates.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct), Reliability & Safety (Supporting)",
+      "partC": "Monitoring, Test & Evaluation (Direct)"
+    },
+    "alignmentDetails": "FAIRA expects that systems continue to operate safely and transparently as they evolve. Ensuring that explanations remain valid after updates provides ongoing assurance that users understand system behaviour consistently and accurately.",
+    "confidenceLevel": "High"
+  },
   "IN-1": {
     "alignmentType": "Supporting alignment",
     "overview": "This question evaluates whether the organisation considers diverse user needs during system design and deployment.",
