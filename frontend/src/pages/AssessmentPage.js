@@ -712,7 +712,6 @@ function AssessmentPage() {
                           }`}
                           title="Click to view FAIRA alignment details"
                         >
-                          <span className="mr-1">⚡</span>
                           FAIRA - {fairaAlignmentData[currentQuestion.code].alignmentType.replace(' alignment', '')}
                         </button>
                       )}
