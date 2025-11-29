@@ -99,7 +99,7 @@ export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, 
           {citation && (
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                Citation
+                Australian AI Ethics Principles Citation(s)
               </h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
