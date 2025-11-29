@@ -383,6 +383,14 @@ function AssessmentPage() {
     setShowAuGuidanceModal(false);
   };
 
+  const handleOpenEuAiActModal = () => {
+    setShowEuAiActModal(true);
+  };
+
+  const handleCloseEuAiActModal = () => {
+    setShowEuAiActModal(false);
+  };
+
   const handleOpenQuestionHelp = () => {
     // Show additional guidance for the current question
     if (currentQuestion && currentQuestion.code) {
