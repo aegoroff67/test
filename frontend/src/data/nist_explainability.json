@@ -1,0 +1,122 @@
+[
+  {
+    "QuestionID": "EX-1",
+    "Domain": "Explainability",
+    "Question": "How do you decide the level of explainability required for your AI system?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 1.6; MEASURE 2.9",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question directly addresses determining appropriate levels of explainability, which aligns with MAP 1.6's requirement to elicit system requirements and MEASURE 2.9's focus on AI model explanation.",
+      "Citations": [
+        "NIST AI RMF p.16-17 - \"Risk from lack of explainability may be managed by describing how AI systems function, with descriptions tailored to individual differences such as the user's role, knowledge, and skill level.\"",
+        "NIST AI RMF Table 3 - \"MEASURE 2.9: The AI model is explained, validated, and documented, and AI system output is interpreted within its context – as identified in the MAP function – to inform responsible use and governance.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "EX-2",
+    "Domain": "Explainability",
+    "Question": "What methods are used to test whether explanations are understandable by non-technical users?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.9; MEASURE 4.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses testing explanation understandability for non-technical users, which aligns with MEASURE 2.9's requirement for model explanation and MEASURE 4.1's focus on connecting measurement approaches to user contexts.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 2.9: The AI model is explained, validated, and documented, and AI system output is interpreted within its context – as identified in the MAP function – to inform responsible use and governance.\" (p.30)",
+        "NIST AI RMF Table 3 - \"MEASURE 4.1: Measurement approaches for identifying AI risks are connected to deployment context(s) and informed through consultation with domain experts and other end users.\" (p.31)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "EX-3",
+    "Domain": "Explainability",
+    "Question": "Do you provide explanations in different formats (e.g., visualizations, text summaries) for different audiences?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.9",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses tailoring explanations to different audiences, which directly aligns with MEASURE 2.9 and NIST's explicit guidance about tailoring explanations to different users.",
+      "Citations": [
+        "NIST AI RMF p.16-17 - \"Risk from lack of explainability may be managed by describing how AI systems function, with descriptions tailored to individual differences such as the user's role, knowledge, and skill level.\"",
+        "NIST AI RMF p.16 - \"Explainable and interpretable AI systems offer information that will help end users understand the purposes and potential impact of an AI system.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "EX-4",
+    "Domain": "Explainability",
+    "Question": "How do you evaluate the accuracy and completeness of the explanations provided?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.9; MEASURE 2.13",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses evaluating explanation quality, which directly aligns with MEASURE 2.9's requirement for validation of explanations and MEASURE 2.13's focus on evaluating the effectiveness of measurement processes.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 2.9: The AI model is explained, validated, and documented, and AI system output is interpreted within its context – as identified in the MAP function – to inform responsible use and governance.\" (p.30)",
+        "NIST AI RMF Table 3 - \"MEASURE 2.13: Effectiveness of the employed TEVV metrics and processes in the MEASURE function are evaluated and documented.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "EX-5",
+    "Domain": "Explainability",
+    "Question": "Are there trade-offs between model complexity and explainability in your system design?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 2.2; MEASURE 2.9",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses the trade-offs between complexity and explainability, which directly aligns with NIST's explicit recognition of trade-offs between trustworthiness characteristics and MAP 2.2's requirement to document system knowledge limits.",
+      "Citations": [
+        "NIST AI RMF p.12-13 - \"Addressing AI trustworthiness characteristics individually will not ensure AI system trustworthiness; tradeoffs are usually involved... When managing AI risks, organizations can face difficult decisions in balancing these characteristics. For example, in certain scenarios tradeoffs may emerge between optimizing for interpretability and achieving privacy.\"",
+        "NIST AI RMF Table 2 - \"MAP 2.2: Information about the AI system's knowledge limits and how system output may be utilized and overseen by humans is documented.\" (p.26)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "EX-6",
+    "Domain": "Explainability",
+    "Question": "How do you ensure the decisions made by your AI system are interpretable by users?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.9",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses interpretability of AI decisions, which directly aligns with MEASURE 2.9 and NIST's definition of interpretability as understanding the meaning of AI system outputs.",
+      "Citations": [
+        "NIST AI RMF p.16 - \"Interpretability refers to the meaning of AI systems' output in the context of their designed functional purposes.\"",
+        "NIST AI RMF p.17 - \"Risks to interpretability often can be addressed by communicating a description of why an AI system made a particular prediction or recommendation.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "EX-7",
+    "Domain": "Explainability",
+    "Question": "What tools or techniques (e.g., SHAP, LIME) do you use to make complex models more explainable?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 1.1; MEASURE 2.9",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses specific tools for explainability, which aligns with MEASURE 1.1's requirement to select appropriate measurement approaches and MEASURE 2.9's focus on model explanation.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 1.1: Approaches and metrics for measurement of AI risks enumerated during the MAP function are selected for implementation starting with the most significant AI risks.\" (p.29)",
+        "NIST AI RMF p.28 - \"The MEASURE function employs quantitative, qualitative, or mixed-method tools, techniques, and methodologies to analyze, assess, benchmark, and monitor AI risk and related impacts.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "EX-8",
+    "Domain": "Explainability",
+    "Question": "Are there specific groups (e.g., end-users, regulators, or internal teams) for whom explanations of AI outputs are tailored?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.9",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses tailoring explanations to different stakeholder groups, which directly aligns with MEASURE 2.9 and NIST's explicit guidance about tailoring explanations to different users' roles, knowledge, and skill levels.",
+      "Citations": [
+        "NIST AI RMF p.16-17 - \"Risk from lack of explainability may be managed by describing how AI systems function, with descriptions tailored to individual differences such as the user's role, knowledge, and skill level.\"",
+        "NIST AI RMF p.16 - \"Explainable and interpretable AI systems offer information that will help end users understand the purposes and potential impact of an AI system.\""
+      ]
+    }
+  }
+]

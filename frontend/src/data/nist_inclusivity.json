@@ -1,0 +1,122 @@
+[
+  {
+    "QuestionID": "IN-1",
+    "Domain": "Inclusivity",
+    "Question": "How do you ensure your AI system is accessible to a diverse range of users, including those with disabilities or in underserved populations?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 5.1; MEASURE 2.11",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses accessibility for diverse users, which aligns with MAP 5.1's requirement for identifying impacts on different groups and MEASURE 2.11's focus on fairness evaluation. NIST explicitly mentions concerns about inaccessibility for individuals with disabilities.",
+      "Citations": [
+        "NIST AI RMF p.17 - \"Systems in which harmful biases are mitigated are not necessarily fair. For example, systems in which predictions are somewhat balanced across demographic groups may still be inaccessible to individuals with disabilities or affected by the digital divide or may exacerbate existing disparities or systemic biases.\"",
+        "NIST AI RMF Table 2 - \"MAP 5.1: Likelihood and magnitude of each identified impact (both potentially beneficial and harmful) based on expected use... are identified and documented.\" (p.27)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "IN-2",
+    "Domain": "Inclusivity",
+    "Question": "Were diverse perspectives considered during the design and development of the system?",
+    "NISTAlignment": {
+      "Function": "GOVERN",
+      "CategorySubcategory": "GOVERN 3.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question directly addresses the consideration of diverse perspectives in system development, which is the explicit focus of GOVERN 3.1.",
+      "Citations": [
+        "NIST AI RMF Table 1 - \"GOVERN 3.1: Decision-making related to mapping, measuring, and managing AI risks throughout the lifecycle is informed by a diverse team (e.g., diversity of demographics, disciplines, experience, expertise, and backgrounds).\" (p.23)",
+        "NIST AI RMF p.11 - \"Successful risk management depends upon a sense of collective responsibility among AI actors shown in Figure 3. The AI RMF functions, described in Section 5, require diverse perspectives, disciplines, professions, and experiences. Diverse teams contribute to more open sharing of ideas and assumptions about the purposes and functions of technology – making these implicit aspects more explicit.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "IN-3",
+    "Domain": "Inclusivity",
+    "Question": "Have you audited the system for potential exclusionary outcomes or unintended impacts?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 5.1; MEASURE 2.11",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses auditing for exclusionary outcomes, which aligns with MAP 5.1's requirement for identifying impacts and MEASURE 2.11's focus on fairness evaluation. NIST explicitly mentions concerns about exclusion of various groups.",
+      "Citations": [
+        "NIST AI RMF p.17 - \"Systems in which harmful biases are mitigated are not necessarily fair. For example, systems in which predictions are somewhat balanced across demographic groups may still be inaccessible to individuals with disabilities or affected by the digital divide or may exacerbate existing disparities or systemic biases.\"",
+        "NIST AI RMF Table 3 - \"MEASURE 2.11: Fairness and bias – as identified in the MAP function – are evaluated and results are documented.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "IN-4",
+    "Domain": "Inclusivity",
+    "Question": "How do you ensure your AI system accounts for accessibility requirements (e.g., for users with disabilities)?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 5.1; MEASURE 2.11",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses accessibility requirements for users with disabilities, which aligns with MAP 5.1's impact identification and MEASURE 2.11's fairness evaluation. NIST explicitly mentions accessibility for individuals with disabilities as a fairness concern.",
+      "Citations": [
+        "NIST AI RMF p.17 - \"Systems in which harmful biases are mitigated are not necessarily fair. For example, systems in which predictions are somewhat balanced across demographic groups may still be inaccessible to individuals with disabilities or affected by the digital divide or may exacerbate existing disparities or systemic biases.\"",
+        "NIST AI RMF Table 2 - \"MAP 5.1: Likelihood and magnitude of each identified impact (both potentially beneficial and harmful) based on expected use... are identified and documented.\" (p.27)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "IN-5",
+    "Domain": "Inclusivity",
+    "Question": "Are stakeholders from diverse backgrounds involved in the design and testing of the system?",
+    "NISTAlignment": {
+      "Function": "GOVERN",
+      "CategorySubcategory": "GOVERN 3.1; GOVERN 5.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses the involvement of diverse stakeholders, which directly aligns with GOVERN 3.1's requirement for diverse teams and GOVERN 5.1's focus on collecting feedback from external stakeholders.",
+      "Citations": [
+        "NIST AI RMF Table 1 - \"GOVERN 3.1: Decision-making related to mapping, measuring, and managing AI risks throughout the lifecycle is informed by a diverse team (e.g., diversity of demographics, disciplines, experience, expertise, and backgrounds).\" (p.23)",
+        "NIST AI RMF Table 1 - \"GOVERN 5.1: Organizational policies and practices are in place to collect, consider, prioritize, and integrate feedback from those external to the team that developed or deployed the AI system regarding the potential individual and societal impacts related to AI risks.\" (p.24)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "IN-6",
+    "Domain": "Inclusivity",
+    "Question": "What steps are taken to ensure that the AI system serves underrepresented communities effectively?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 5.1; MEASURE 2.11",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses serving underrepresented communities effectively, which aligns with MAP 5.1's impact identification and MEASURE 2.11's fairness evaluation. NIST mentions concerns about disparities and the digital divide affecting certain communities.",
+      "Citations": [
+        "NIST AI RMF p.17 - \"Systems in which harmful biases are mitigated are not necessarily fair. For example, systems in which predictions are somewhat balanced across demographic groups may still be inaccessible to individuals with disabilities or affected by the digital divide or may exacerbate existing disparities or systemic biases.\"",
+        "NIST AI RMF Table 3 - \"MEASURE 2.11: Fairness and bias – as identified in the MAP function – are evaluated and results are documented.\" (p.30)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "IN-7",
+    "Domain": "Inclusivity",
+    "Question": "Are language, cultural, or regional differences considered in system design?",
+    "NISTAlignment": {
+      "Function": "MAP + MEASURE",
+      "CategorySubcategory": "MAP 1.1; MEASURE 2.11",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses consideration of cultural and regional differences, which aligns with MAP 1.1's requirement for understanding context and MEASURE 2.11's focus on fairness evaluation.",
+      "Citations": [
+        "NIST AI RMF Table 2 - \"MAP 1.1: Intended purposes, potentially beneficial uses, context-specific laws, norms and expectations, and prospective settings in which the AI system will be deployed are understood and documented.\" (p.26)",
+        "NIST AI RMF p.17 - \"Standards of fairness can be complex and difficult to define because perceptions of fairness differ among cultures and may shift depending on application.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "IN-8",
+    "Domain": "Inclusivity",
+    "Question": "How do you evaluate whether the system is unintentionally excluding certain user groups?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.11; MEASURE 3.3",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses evaluating unintentional exclusion, which aligns with MEASURE 2.11's fairness evaluation and MEASURE 3.3's focus on feedback processes for identifying problems. NIST explicitly mentions concerns about inaccessibility and exclusion.",
+      "Citations": [
+        "NIST AI RMF p.17 - \"Systems in which harmful biases are mitigated are not necessarily fair. For example, systems in which predictions are somewhat balanced across demographic groups may still be inaccessible to individuals with disabilities or affected by the digital divide or may exacerbate existing disparities or systemic biases.\"",
+        "NIST AI RMF Table 3 - \"MEASURE 3.3: Feedback processes for end users and impacted communities to report problems and appeal system outcomes are established and integrated into AI system evaluation metrics.\" (p.31)"
+      ]
+    }
+  }
+]

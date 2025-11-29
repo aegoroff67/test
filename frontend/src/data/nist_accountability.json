@@ -1,0 +1,122 @@
+[
+  {
+    "QuestionID": "AC-1",
+    "Domain": "Accountability",
+    "Question": "How is accountability for AI system failures managed within your organization?",
+    "NISTAlignment": {
+      "Function": "GOVERN",
+      "CategorySubcategory": "GOVERN 2.1; GOVERN 2.3",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses organizational accountability for AI system failures, which directly aligns with GOVERN 2.1's requirement for clear roles and responsibilities and GOVERN 2.3's emphasis on executive leadership responsibility.",
+      "Citations": [
+        "NIST AI RMF Table 1 - \"GOVERN 2.1: Roles and responsibilities and lines of communication related to mapping, measuring, and managing AI risks are documented and are clear to individuals and teams throughout the organization.\" (p.23)",
+        "NIST AI RMF Table 1 - \"GOVERN 2.3: Executive leadership of the organization takes responsibility for decisions about risks associated with AI system development and deployment.\" (p.23)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "AC-2",
+    "Domain": "Accountability",
+    "Question": "What governance structures (e.g., AI oversight boards) are in place to monitor AI outcomes?",
+    "NISTAlignment": {
+      "Function": "GOVERN",
+      "CategorySubcategory": "GOVERN 1.2; GOVERN 2.3",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses governance structures for AI oversight, which directly aligns with GOVERN 1.2's requirement for trustworthiness integration into organizational policies and GOVERN 2.3's focus on leadership responsibility.",
+      "Citations": [
+        "NIST AI RMF Table 1 - \"GOVERN 1.2: The characteristics of trustworthy AI are integrated into organizational policies, processes, procedures, and practices.\" (p.22)",
+        "NIST AI RMF Appendix A - \"Governance and Oversight tasks are assumed by AI actors with management, fiduciary, and legal authority and responsibility for the organization in which an AI system is designed, developed, and/or deployed.\" (p.36-37)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "AC-3",
+    "Domain": "Accountability",
+    "Question": "Are there policies for escalating issues identified in the AI system?",
+    "NISTAlignment": {
+      "Function": "GOVERN + MANAGE",
+      "CategorySubcategory": "GOVERN 2.1; MANAGE 4.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses issue escalation procedures, which aligns with GOVERN 2.1's requirement for clear communication lines and MANAGE 4.1's focus on post-deployment monitoring and incident response.",
+      "Citations": [
+        "NIST AI RMF Table 1 - \"GOVERN 2.1: Roles and responsibilities and lines of communication related to mapping, measuring, and managing AI risks are documented and are clear to individuals and teams throughout the organization.\" (p.23)",
+        "NIST AI RMF Table 4 - \"MANAGE 4.1: Post-deployment AI system monitoring plans are implemented, including mechanisms for capturing and evaluating input from users and other relevant AI actors, appeal and override, decommissioning, incident response, recovery, and change management.\" (p.33)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "AC-4",
+    "Domain": "Accountability",
+    "Question": "How do you handle customer complaints or disputes related to AI outputs?",
+    "NISTAlignment": {
+      "Function": "MEASURE + MANAGE",
+      "CategorySubcategory": "MEASURE 3.3; MANAGE 4.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses handling disputes about AI outputs, which aligns with MEASURE 3.3's requirement for feedback processes and MANAGE 4.1's focus on post-deployment monitoring and incident response.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 3.3: Feedback processes for end users and impacted communities to report problems and appeal system outcomes are established and integrated into AI system evaluation metrics.\" (p.31)",
+        "NIST AI RMF p.15 - \"Transparency is often necessary for actionable redress related to AI system outputs that are incorrect or otherwise lead to negative impacts.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "AC-5",
+    "Domain": "Accountability",
+    "Question": "Are roles and responsibilities for AI governance clearly defined across teams?",
+    "NISTAlignment": {
+      "Function": "GOVERN",
+      "CategorySubcategory": "GOVERN 2.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question directly addresses defining roles and responsibilities for AI governance, which is the explicit focus of GOVERN 2.1.",
+      "Citations": [
+        "NIST AI RMF Table 1 - \"GOVERN 2.1: Roles and responsibilities and lines of communication related to mapping, measuring, and managing AI risks are documented and are clear to individuals and teams throughout the organization.\" (p.23)",
+        "NIST AI RMF p.22 - \"After putting in place the structures, systems, processes, and teams described in the GOVERN function, organizations should benefit from a purpose-driven culture focused on risk understanding and management.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "AC-6",
+    "Domain": "Accountability",
+    "Question": "Who is responsible for monitoring and managing the AI system throughout its lifecycle?",
+    "NISTAlignment": {
+      "Function": "GOVERN",
+      "CategorySubcategory": "GOVERN 2.1; GOVERN 3.2",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses lifecycle responsibility for AI systems, which aligns with GOVERN 2.1's requirement for clear roles and responsibilities and GOVERN 3.2's focus on human roles for AI oversight.",
+      "Citations": [
+        "NIST AI RMF Table 1 - \"GOVERN 2.1: Roles and responsibilities and lines of communication related to mapping, measuring, and managing AI risks are documented and are clear to individuals and teams throughout the organization.\" (p.23)",
+        "NIST AI RMF Appendix A - \"Operation and Monitoring tasks are performed in the Application Context/Operate and Monitor phase of the lifecycle in Figure 2. These tasks are carried out by AI actors who are responsible for operating the AI system and working with others to regularly assess system output and impacts.\" (p.35)"
+      ]
+    }
+  },
+  {
+    "QuestionID": "AC-7",
+    "Domain": "Accountability",
+    "Question": "Are there audit trails or logs that document the AI system's decision-making process?",
+    "NISTAlignment": {
+      "Function": "MEASURE",
+      "CategorySubcategory": "MEASURE 2.8; MEASURE 2.9",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses audit trails and logs, which aligns with MEASURE 2.8's focus on transparency and accountability and MEASURE 2.9's requirement for model explanation and documentation.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 2.8: Risks associated with transparency and accountability – as identified in the MAP function – are examined and documented.\" (p.30)",
+        "NIST AI RMF p.16 - \"Maintaining organizational practices and governing structures for harm reduction, like risk management, can help lead to more accountable systems.\""
+      ]
+    }
+  },
+  {
+    "QuestionID": "AC-8",
+    "Domain": "Accountability",
+    "Question": "What mechanisms are in place to address disputes or concerns about the system's outcomes?",
+    "NISTAlignment": {
+      "Function": "MEASURE + MANAGE",
+      "CategorySubcategory": "MEASURE 3.3; MANAGE 4.1",
+      "AlignmentLevel": "Fully Aligns",
+      "Reasoning": "Description: This question addresses dispute resolution mechanisms, which aligns with MEASURE 3.3's requirement for feedback processes and appeal systems and MANAGE 4.1's focus on post-deployment monitoring and response.",
+      "Citations": [
+        "NIST AI RMF Table 3 - \"MEASURE 3.3: Feedback processes for end users and impacted communities to report problems and appeal system outcomes are established and integrated into AI system evaluation metrics.\" (p.31)",
+        "NIST AI RMF Table 4 - \"MANAGE 4.1: Post-deployment AI system monitoring plans are implemented, including mechanisms for capturing and evaluating input from users and other relevant AI actors, appeal and override, decommissioning, incident response, recovery, and change management.\" (p.33)"
+      ]
+    }
+  }
+]
