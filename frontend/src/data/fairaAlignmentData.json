@@ -78,5 +78,85 @@
     },
     "alignmentDetails": "FAIRA favours proactive, lifecycle-wide fairness safeguards rather than post-deployment fixes. Embedding fairness considerations from design through monitoring demonstrates strong compliance with FAIRA's expectations for systematic, preventative risk management.",
     "confidenceLevel": "High"
+  },
+  "TR-1": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question evaluates whether the AI system's capabilities and limitations are clearly communicated to users, which is a core FAIRA expectation.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "Providing clear information about how the AI system works, its boundaries, and its limitations directly supports FAIRA's transparency principle. This establishes informed user engagement and meets FAIRA's requirement for accountable communication practices around AI-enabled decision-making.",
+    "confidenceLevel": "High"
+  },
+  "TR-2": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question considers whether the organisation maintains documentation of its data sources, algorithms, and processes.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "FAIRA requires traceability of AI decisions and underlying components. Documenting data inputs, model logic, and processing steps ensures decision provenance and supports explainability, auditability, and external scrutiny.",
+    "confidenceLevel": "High"
+  },
+  "TR-3": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question assesses whether external parties (e.g., regulators, customers) have a means to understand how the system works.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "FAIRA emphasises external accountability, including enabling regulators and affected parties to understand how AI decisions are made. Providing mechanisms such as reports, dashboards, or audit interfaces is essential for meeting these oversight expectations.",
+    "confidenceLevel": "High"
+  },
+  "TR-4": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question examines the organisation's processes for sharing information about the AI system with internal teams and external stakeholders.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "FAIRA requires organisations to maintain communication pathways that inform both internal and external stakeholders about the AI system's operation. Structured information sharing improves accountability and reduces risks associated with misunderstanding or incorrect assumptions about system behaviour.",
+    "confidenceLevel": "High"
+  },
+  "TR-5": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question considers whether any black-box or opaque components exist within the system and how they are managed.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "Identifying opaque components and using tools such as SHAP or LIME supports FAIRA's need for interpretability and explainability. Managing black-box models effectively demonstrates that the organisation is aware of potential transparency risks and is taking steps to reduce them.",
+    "confidenceLevel": "High"
+  },
+  "TR-6": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question evaluates whether the organisation discloses data sources, algorithmic details, or provenance to stakeholders.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "Disclosure of data origins and algorithmic approaches supports FAIRA's transparency and accountability requirements. It ensures the provenance of decisions is clear and that stakeholders understand the foundation on which automated decisions are based.",
+    "confidenceLevel": "High"
+  },
+  "TR-7": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question assesses whether users are informed when they are interacting with an AI system rather than a human.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "FAIRA requires transparency around AI involvement in services. Clear user notifications support informed engagement, reduce confusion, and ensure users understand the nature and limitations of the interaction.",
+    "confidenceLevel": "High"
+  },
+  "TR-8": {
+    "alignmentType": "Direct alignment",
+    "overview": "This question evaluates whether the organisation publishes transparency reports or formal documentation for external audiences.",
+    "fairaComponent": {
+      "partB": "Transparency & Explainability (Direct)",
+      "partC": "Transparency & Accountability (Direct)"
+    },
+    "alignmentDetails": "FAIRA encourages organisations to publish transparency reports outlining system behaviour, performance, and risk management. These artifacts support external oversight, build trust, and provide evidence of accountability.",
+    "confidenceLevel": "High"
   }
 }
