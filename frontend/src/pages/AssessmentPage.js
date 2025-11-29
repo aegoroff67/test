@@ -708,14 +708,14 @@ function AssessmentPage() {
                         <button
                           onClick={handleOpenNistModal}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                            nistAlignmentData[currentQuestion.code].alignmentType === 'Direct alignment'
-                              ? 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
-                              : 'bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100'
+                            nistAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-indigo-100 text-indigo-800 border border-indigo-300 hover:bg-indigo-200'
+                              : 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
                           }`}
                           title="Click to view NIST AI RMF alignment details"
                         >
-                          <span className="mr-1">🏛️</span>
-                          NIST - {nistAlignmentData[currentQuestion.code].alignmentType.replace(' alignment', '')}
+                          <span className="mr-1">🔷</span>
+                          NIST - {nistAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
                       {/* Australian AI Ethics Principles Alignment Badge */}
