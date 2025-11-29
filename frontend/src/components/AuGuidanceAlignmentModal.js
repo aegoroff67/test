@@ -7,7 +7,7 @@ import { X } from 'lucide-react';
 export default function AuGuidanceAlignmentModal({ isOpen, onClose, questionCode, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, alignmentRationale, citation } = alignmentData;
+  const { alignmentType, confidenceLevel, alignmentRationale, citation } = alignmentData;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
