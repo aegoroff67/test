@@ -96,6 +96,7 @@ function AssessmentPage() {
       setIsNistSelected(frameworks.includes("NIST AI RMF (2023)"));
       setIsAuEthicsSelected(frameworks.includes("Australian AI Ethics Principles (2024)"));
       setIsAuGuidanceSelected(frameworks.includes("Australian Government – Guidance for AI Adoption (2025)"));
+      setIsEuAiActSelected(frameworks.includes("EU AI Act (2024 final)"));
       
       // Fetch questions with domains and answers
       const questionsResponse = await axios.get(`${API}/assessments/${id}/questions`);
