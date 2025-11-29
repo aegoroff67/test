@@ -85,6 +85,7 @@ function AssessmentPage() {
       const systemInfo = assessmentResponse.data.system_info || {};
       const frameworks = systemInfo.frameworks || [];
       setIsFairaSelected(frameworks.includes("FAIRA (Queensland Government)"));
+      setIsNistSelected(frameworks.includes("NIST AI Risk Management Framework (AI RMF 1.0)"));
       setIsAuEthicsSelected(frameworks.includes("Australian AI Ethics Principles (2024)"));
       
       // Fetch questions with domains and answers
