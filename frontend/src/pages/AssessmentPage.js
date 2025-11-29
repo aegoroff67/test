@@ -964,6 +964,16 @@ function AssessmentPage() {
         title={currentHelpContent?.title || ''}
         content={currentHelpContent?.content || null}
       />
+
+      {/* FAIRA Alignment Modal */}
+      {currentQuestion && fairaAlignmentData[currentQuestion.code] && (
+        <FairaAlignmentModal
+          isOpen={showFairaModal}
+          onClose={handleCloseFairaModal}
+          questionCode={currentQuestion.code}
+          alignmentData={fairaAlignmentData[currentQuestion.code]}
+        />
+      )}
     </div>
   );
 }
