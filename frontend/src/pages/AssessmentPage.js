@@ -1032,6 +1032,16 @@ function AssessmentPage() {
         />
       )}
 
+      {/* NIST AI RMF Alignment Modal */}
+      {currentQuestion && nistAlignmentData[currentQuestion.code] && (
+        <NistAlignmentModal
+          isOpen={showNistModal}
+          onClose={handleCloseNistModal}
+          questionCode={currentQuestion.code}
+          alignmentData={nistAlignmentData[currentQuestion.code]}
+        />
+      )}
+
       {/* Australian AI Ethics Principles Alignment Modal */}
       {currentQuestion && auEthicsAlignmentData[currentQuestion.code] && (
         <AuEthicsAlignmentModal
