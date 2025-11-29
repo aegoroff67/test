@@ -746,8 +746,8 @@ function AssessmentPage() {
                           onClick={handleOpenAuGuidanceModal}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             auGuidanceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
-                              ? 'bg-orange-100 text-orange-800 border border-orange-300 hover:bg-orange-200'
-                              : 'bg-teal-100 text-teal-800 border border-teal-300 hover:bg-teal-200'
+                              ? 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200'
+                              : 'bg-sky-100 text-sky-800 border border-sky-300 hover:bg-sky-200'
                           }`}
                           title="Click to view Australian Government Guidance for AI Adoption alignment details"
                         >
