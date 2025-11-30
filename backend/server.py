@@ -1435,7 +1435,10 @@ async def update_org_info(
     if org_info.get("org_name"):
         # Extract the assessment type and date from current name
         assessment_type = assessment.get("assessment_type", "Organisation")
-        started_date = assessment["started_at"].strftime("%Y-%m-%d")
+        started_at = assessment["started_at"]
+        if isinstance(started_at, str):
+            started_at = datetime.fromisoformat(started_at.replace('Z', '+00:00'))
+        started_date = started_at.strftime("%Y-%m-%d")
         # Generate new name: [Type]_[Org Name]_In-Progress_YYYY-MM-DD
         updated_name = f"{assessment_type}_{org_info['org_name']}_In-Progress_{started_date}"
     
