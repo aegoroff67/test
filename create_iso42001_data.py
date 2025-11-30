@@ -24,9 +24,9 @@ def parse_csv_to_json(csv_file_path, json_output_path):
             alignment_data[question_id] = {
                 "domain": domain,
                 "alignmentType": alignment_type,
-                "confidence": confidence,
-                "reasoning": reasoning,
-                "references": references
+                "confidenceLevel": confidence,
+                "alignmentRationale": reasoning,
+                "citation": references
             }
     
     # Write to JSON file
