@@ -79,6 +79,8 @@ function AssessmentPage() {
   const [isAuGuidanceSelected, setIsAuGuidanceSelected] = useState(false);
   const [showEuAiActModal, setShowEuAiActModal] = useState(false);
   const [isEuAiActSelected, setIsEuAiActSelected] = useState(false);
+  const [showIso42001Modal, setShowIso42001Modal] = useState(false);
+  const [isIso42001Selected, setIsIso42001Selected] = useState(false);
 
   useEffect(() => {
     fetchAssessment();
