@@ -1,0 +1,618 @@
+{
+  "FA-1": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 expects organizations to define fairness as a responsible AI objective and to integrate measures across data, design, testing and impact assessment to prevent unfair or biased outcomes.",
+    "references": "B.9.3; B.5.4; B.6.1.2"
+  },
+  "FA-2": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 expects organizations to define fairness as a responsible AI objective and to integrate measures across data, design, testing and impact assessment to prevent unfair or biased outcomes.",
+    "references": "B.9.3; B.5.4; B.6.1.2"
+  },
+  "FA-3": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 expects organizations to define fairness as a responsible AI objective and to integrate measures across data, design, testing and impact assessment to prevent unfair or biased outcomes.",
+    "references": "B.9.3; B.5.4; B.6.1.2"
+  },
+  "FA-4": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 expects organizations to define fairness as a responsible AI objective and to integrate measures across data, design, testing and impact assessment to prevent unfair or biased outcomes.",
+    "references": "B.9.3; B.5.4; B.6.1.2"
+  },
+  "FA-5": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 expects organizations to define fairness as a responsible AI objective and to integrate measures across data, design, testing and impact assessment to prevent unfair or biased outcomes.",
+    "references": "B.9.3; B.5.4; B.6.1.2"
+  },
+  "FA-6": {
+    "domain": "Fairness",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects organizations to define fairness as a responsible AI objective and to integrate measures across data, design, testing and impact assessment to prevent unfair or biased outcomes, but it does not prescribe specific named tools.",
+    "references": "B.9.3; B.5.4; B.6.1.2"
+  },
+  "FA-7": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 expects organizations to define fairness as a responsible AI objective and to integrate measures across data, design, testing and impact assessment to prevent unfair or biased outcomes, including for vulnerable or specific demographic groups.",
+    "references": "B.9.3; B.5.4; B.6.1.2"
+  },
+  "FA-8": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 expects organizations to define fairness as a responsible AI objective and to integrate measures across data, design, testing and impact assessment to prevent unfair or biased outcomes throughout the AI system life cycle.",
+    "references": "B.9.3; B.5.4; B.6.1.2"
+  },
+  "TR-1": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires organizations to provide system documentation and information, document impact assessments and communicate relevant AI system characteristics and incidents to interested parties.",
+    "references": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+  },
+  "TR-2": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires organizations to provide system documentation and information, document impact assessments and communicate relevant AI system characteristics and incidents to interested parties.",
+    "references": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+  },
+  "TR-3": {
+    "domain": "Transparency",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires organizations to provide documentation and information to interested parties but does not prescribe specific mechanisms (such as portals or APIs), so alignment is conceptual rather than prescriptive.",
+    "references": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+  },
+  "TR-4": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires organizations to provide system documentation and information, document impact assessments and communicate relevant AI system characteristics and incidents to interested parties, including internally.",
+    "references": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+  },
+  "TR-5": {
+    "domain": "Transparency",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects organizations to provide sufficient information and documentation so that interested parties can understand the AI system and interpret outputs, but it does not explicitly reference 'black-box' components, so alignment is indirect.",
+    "references": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+  },
+  "TR-6": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires documentation and communication about data resources, data provenance and AI system characteristics to relevant interested parties.",
+    "references": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+  },
+  "TR-7": {
+    "domain": "Transparency",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires communication of information about AI systems and their impacts, but it does not explicitly mandate user-facing AI labels or disclosures, so alignment is partial.",
+    "references": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+  },
+  "TR-8": {
+    "domain": "Transparency",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires documented information on AI policies, risk and impact assessments and information for interested parties, but it does not specifically refer to 'transparency reports' as an artefact.",
+    "references": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+  },
+  "EX-1": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 lists explainability as a responsible use objective and requires documentation and evaluation so that relevant interested parties can interpret AI outputs, but it does not prescribe specific explainability techniques or decision processes for required explainability levels.",
+    "references": "B.9.3; B.6.2.4; B.6.2.7"
+  },
+  "EX-2": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 expects organizations to ensure relevant interested parties can interpret AI outputs through documentation and evaluation, but it does not specify concrete user-testing methods for explanation comprehension.",
+    "references": "B.9.3; B.6.2.4; B.6.2.7"
+  },
+  "EX-3": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires providing appropriate technical and system documentation tailored to categories of interested parties but does not specify particular explanation formats.",
+    "references": "B.9.3; B.6.2.4; B.6.2.7"
+  },
+  "EX-4": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires evaluation of AI system performance and impact against responsible AI objectives such as explainability, but it leaves detailed evaluation methods for explanation quality open.",
+    "references": "B.9.3; B.6.2.4; B.6.2.7"
+  },
+  "EX-5": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 recognizes explainability as an objective that can require balancing with other performance and robustness considerations but does not prescribe how to manage trade-offs in model architecture.",
+    "references": "B.9.3; B.6.2.4; B.6.2.7"
+  },
+  "EX-6": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires that relevant interested parties can interpret AI outputs through documentation and performance evaluation linked to objectives such as explainability, but it does not prescribe specific interpretability methods.",
+    "references": "B.9.3; B.6.2.4; B.6.2.7"
+  },
+  "EX-7": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 encourages meeting explainability objectives and documenting assumptions and limitations but does not name specific XAI tools, so alignment is conceptual rather than tool-specific.",
+    "references": "B.9.3; B.6.2.4; B.6.2.7"
+  },
+  "EX-8": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires tailoring AI system technical documentation and information to relevant categories of interested parties but does not define specific audience groupings.",
+    "references": "B.9.3; B.6.2.4; B.6.2.7"
+  },
+  "AC-1": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires clear roles and responsibilities, processes for reporting concerns, management acceptance of residual risk and documented processes for AI risk and impact treatment.",
+    "references": "5.3; A.3.2; A.3.3; A.6.2.8; B.3.3; 9.3"
+  },
+  "AC-2": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires leadership commitment, AI policy, defined roles and governance processes to oversee and review AI management system performance and AI system outcomes.",
+    "references": "5.3; A.3.2; A.3.3; A.6.2.8; B.3.3; 9.3"
+  },
+  "AC-3": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires processes for reporting concerns, handling nonconformities and taking corrective actions within the AI management system, including escalation to management.",
+    "references": "5.3; A.3.2; A.3.3; A.6.2.8; B.3.3; 9.3"
+  },
+  "AC-4": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires communication with interested parties, processes for reporting adverse impacts of AI systems and management review and corrective action processes.",
+    "references": "5.3; A.3.2; A.3.3; A.6.2.8; B.3.3; 9.3"
+  },
+  "AC-5": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 explicitly requires assignment of roles, responsibilities and authorities related to the AI management system and AI risk activities.",
+    "references": "5.3; A.3.2; A.3.3; A.6.2.8; B.3.3; 9.3"
+  },
+  "AC-6": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires roles and responsibilities to cover AI system operation, monitoring and review across the life cycle.",
+    "references": "5.3; A.3.2; A.3.3; A.6.2.8; B.3.3; 9.3"
+  },
+  "AC-7": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires recording event logs during AI system use and retaining documented information to support monitoring, audit and review.",
+    "references": "5.3; A.3.2; A.3.3; A.6.2.8; B.3.3; 9.3"
+  },
+  "AC-8": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires processes for reporting concerns and adverse impacts, communicating incidents to users and performing management review and corrective actions.",
+    "references": "5.3; A.3.2; A.3.3; A.6.2.8; B.3.3; 9.3"
+  },
+  "DI-1": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires organizations to define and document data management processes, data acquisition, data quality requirements, provenance and data preparation for AI systems.",
+    "references": "A.4.3; A.7.2–A.7.6; B.7.4"
+  },
+  "DI-2": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires organizations to document data resources and implement processes for data provenance and management throughout the AI system life cycle.",
+    "references": "A.4.3; A.7.2–A.7.6; B.7.4"
+  },
+  "DI-3": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires organizations to define data management processes that include how data is collected, used and managed over its life cycle, aligned with organizational and external requirements.",
+    "references": "A.4.3; A.7.2–A.7.6; B.7.4"
+  },
+  "DI-4": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires organizations to define data quality requirements and ensure data used to develop and operate AI systems meets those requirements over time.",
+    "references": "A.4.3; A.7.2–A.7.6; B.7.4"
+  },
+  "DI-5": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires organizations to define data preparation criteria and methods, which include handling missing or incomplete data to meet defined quality requirements.",
+    "references": "A.4.3; A.7.2–A.7.6; B.7.4"
+  },
+  "DI-6": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires organizations to define and document data preparation criteria and methods used for AI system development and operation.",
+    "references": "A.4.3; A.7.2–A.7.6; B.7.4"
+  },
+  "DI-7": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires documenting data resources and ensuring data used for AI systems, including external sources, meets defined quality requirements.",
+    "references": "A.4.3; A.7.2–A.7.6; B.7.4"
+  },
+  "DI-8": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidence": "High",
+    "reasoning": "ISO/IEC 42001 requires data provenance processes that record where data comes from and how it is used over the life cycles of the data and AI system.",
+    "references": "A.4.3; A.7.2–A.7.6; B.7.4"
+  },
+  "RE-1": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires defining verification and validation measures and evaluating AI system performance against documented criteria and objectives such as reliability under relevant operating conditions.",
+    "references": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+  },
+  "RE-2": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires verification and validation and evaluation of performance criteria, including robustness and reliability of AI systems under challenging conditions, though it does not mandate specific 'stress test' methods.",
+    "references": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+  },
+  "RE-3": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires defining elements for ongoing AI system operation, including system and performance monitoring, and evaluating the AI management system using monitoring and measurement results.",
+    "references": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+  },
+  "RE-4": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires establishing AI objectives, performance criteria and evaluation methods, including metrics that reflect responsible AI objectives such as reliability.",
+    "references": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+  },
+  "RE-5": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires AI system impact assessments to consider predictable failures and their impacts and to address these through risk treatment and design decisions.",
+    "references": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+  },
+  "RE-6": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires verification, validation and evaluation plans that consider operational factors and acceptable performance ranges for AI systems, supporting consistent behavior under expected use and edge conditions.",
+    "references": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+  },
+  "RE-7": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires monitoring the AI management system and AI systems in operation, recording event logs and addressing nonconformities and corrective actions, which covers error detection and response.",
+    "references": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+  },
+  "RE-8": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires ongoing monitoring, performance evaluation and updating of AI systems and the AI management system to maintain effectiveness and meet objectives such as reliability.",
+    "references": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+  },
+  "SE-1": {
+    "domain": "Security",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 recognizes security as a responsible AI objective and expects integration with information security management (e.g., ISO/IEC 27001), but it does not define detailed technical controls for AI model security.",
+    "references": "B.9.3; Annex D (integration with ISO/IEC 27001)"
+  },
+  "SE-2": {
+    "domain": "Security",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects AI risk assessment and treatment, including consideration of AI-specific threats and security objectives, with detailed adversarial defense techniques handled by complementary security standards.",
+    "references": "B.9.3; Annex D (integration with ISO/IEC 27001)"
+  },
+  "SE-3": {
+    "domain": "Security",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires internal audit of the AI management system and recommends integrating with information security management systems that cover security assessments, but it does not explicitly mandate AI-specific penetration testing.",
+    "references": "B.9.3; Annex D (integration with ISO/IEC 27001)"
+  },
+  "SE-4": {
+    "domain": "Security",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects security concerns for AI systems to be addressed through integration with established information security controls, but it does not detail pipeline or API security mechanisms.",
+    "references": "B.9.3; Annex D (integration with ISO/IEC 27001)"
+  },
+  "SE-5": {
+    "domain": "Security",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires defining roles and responsibilities and integrating information security objectives, but detailed access control design is expected to follow ISO/IEC 27001 rather than 42001 itself.",
+    "references": "B.9.3; Annex D (integration with ISO/IEC 27001)"
+  },
+  "SE-6": {
+    "domain": "Security",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects monitoring, incident communication and integration with security management systems for handling security incidents, but it does not define AI-specific monitoring tooling.",
+    "references": "B.9.3; Annex D (integration with ISO/IEC 27001)"
+  },
+  "SE-7": {
+    "domain": "Security",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects AI-related vulnerabilities to be addressed through AI risk treatment and integrated information security management but does not specify vulnerability management processes for AI components.",
+    "references": "B.9.3; Annex D (integration with ISO/IEC 27001)"
+  },
+  "SE-8": {
+    "domain": "Security",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires continual improvement and review of the AI management system and encourages integration with evolving security standards, but it does not list specific AI threat scenarios or control sets.",
+    "references": "B.9.3; Annex D (integration with ISO/IEC 27001)"
+  },
+  "PR-1": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires considering legal requirements and impacts on individuals, including privacy, and recommends integrating with ISO/IEC 27701 for detailed privacy controls, but it does not itself codify those laws.",
+    "references": "B.5.4; B.9.3; ISO/IEC 27701 integration guidance"
+  },
+  "PR-2": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects AI system impact assessment to consider privacy and recommends integrating with ISO/IEC 27701 for privacy controls, but it does not specify anonymization techniques.",
+    "references": "B.5.4; B.9.3; ISO/IEC 27701 integration guidance"
+  },
+  "PR-3": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires considering requirements and expectations of individuals and legal obligations and recommends integration with dedicated privacy management systems, but consent management details come from privacy standards rather than 42001.",
+    "references": "B.5.4; B.9.3; ISO/IEC 27701 integration guidance"
+  },
+  "PR-4": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects AI risks and impacts related to privacy to be assessed and addressed and points to ISO/IEC 27701 for detailed purpose limitation and data use policies.",
+    "references": "B.5.4; B.9.3; ISO/IEC 27701 integration guidance"
+  },
+  "PR-5": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires evaluation of AI system performance and impacts, including privacy-related objectives, but detailed evaluation of specific privacy controls is left to integrated privacy standards.",
+    "references": "B.5.4; B.9.3; ISO/IEC 27701 integration guidance"
+  },
+  "PR-6": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires AI system impact assessments and monitoring to identify and address adverse impacts on individuals, including privacy harms, while operational privacy monitoring practices are defined by privacy standards such as ISO/IEC 27701.",
+    "references": "B.5.4; B.9.3; ISO/IEC 27701 integration guidance"
+  },
+  "PR-7": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires AI risk assessment and AI system impact assessment across the life cycle, which should include privacy risks, but it does not define a distinct privacy-specific risk assessment framework.",
+    "references": "B.5.4; B.9.3; ISO/IEC 27701 integration guidance"
+  },
+  "PR-8": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects organizations to consider applicable legal requirements and impacts on individuals, including for cross-border processing, but the specifics come from jurisdictional law and privacy standards.",
+    "references": "B.5.4; B.9.3; ISO/IEC 27701 integration guidance"
+  },
+  "SA-1": {
+    "domain": "Safety",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires AI system impact assessments that consider potential consequences for individuals, groups and societies, including safety, but it does not define sector-specific safety assessment methods.",
+    "references": "A.5.2–A.5.5; B.5.3; B.6.2.4; B.9.3"
+  },
+  "SA-2": {
+    "domain": "Safety",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires identifying and treating AI risks and documenting impacts and predictable failures through AI system impact assessment, but detailed harm-prevention mechanisms depend on other safety standards.",
+    "references": "A.5.2–A.5.5; B.5.3; B.6.2.4; B.9.3"
+  },
+  "SA-3": {
+    "domain": "Safety",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires ongoing operation and performance monitoring of AI systems and evaluation of impacts, including safety-related issues, but it does not specify real-time monitoring tools.",
+    "references": "A.5.2–A.5.5; B.5.3; B.6.2.4; B.9.3"
+  },
+  "SA-4": {
+    "domain": "Safety",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires AI risk treatment and impact assessment that consider harms to individuals and societies and that inform design and operational mitigation measures, but specifics of conflict handling are domain-dependent.",
+    "references": "A.5.2–A.5.5; B.5.3; B.6.2.4; B.9.3"
+  },
+  "SA-5": {
+    "domain": "Safety",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects organizations to manage safety-related risks and impacts through risk treatment and operational controls but does not explicitly require emergency shutdown procedures, so alignment is conceptual.",
+    "references": "A.5.2–A.5.5; B.5.3; B.6.2.4; B.9.3"
+  },
+  "SA-6": {
+    "domain": "Safety",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires AI risk assessment and AI system impact assessment, which include identification and treatment of harmful impacts, but it does not define specific mitigation patterns.",
+    "references": "A.5.2–A.5.5; B.5.3; B.6.2.4; B.9.3"
+  },
+  "SA-7": {
+    "domain": "Safety",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires considering predictable failures and their impacts and implementing risk treatment, but it does not prescribe specific fail-safe designs.",
+    "references": "A.5.2–A.5.5; B.5.3; B.6.2.4; B.9.3"
+  },
+  "SA-8": {
+    "domain": "Safety",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires AI system impact assessment and verification and validation that consider impacts on individuals and societies, including in relevant high-risk contexts, but does not define specific test scenarios.",
+    "references": "A.5.2–A.5.5; B.5.3; B.6.2.4; B.9.3"
+  },
+  "IN-1": {
+    "domain": "Inclusivity",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires considering impacts on different demographic groups, including those with specific protection needs, and lists accessibility among responsible use objectives, but it does not define detailed accessibility requirements.",
+    "references": "B.5.4; B.9.3"
+  },
+  "IN-2": {
+    "domain": "Inclusivity",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects organizations to consider expectations of interested parties and impacts on different groups in AI system impact assessments, but it does not specify stakeholder engagement practices.",
+    "references": "B.5.4; B.9.3"
+  },
+  "IN-3": {
+    "domain": "Inclusivity",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires assessing and documenting AI system impacts on individuals and groups, including fairness and accessibility, but it does not define a dedicated 'inclusivity audit' process.",
+    "references": "B.5.4; B.9.3"
+  },
+  "IN-4": {
+    "domain": "Inclusivity",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects accessibility to be considered as an objective for responsible use and in impact assessments but leaves specific accessibility requirements to other standards.",
+    "references": "B.5.4; B.9.3"
+  },
+  "IN-5": {
+    "domain": "Inclusivity",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects organizations to consider expectations of interested parties and impacts on different groups but does not specify stakeholder diversity practices.",
+    "references": "B.5.4; B.9.3"
+  },
+  "IN-6": {
+    "domain": "Inclusivity",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires assessing impacts on individuals and groups, including those with specific protection needs, but does not prescribe concrete measures for underrepresented communities.",
+    "references": "B.5.4; B.9.3"
+  },
+  "IN-7": {
+    "domain": "Inclusivity",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 expects AI system impact assessments to consider relevant individuals and groups in context but does not specify language or cultural adaptation requirements.",
+    "references": "B.5.4; B.9.3"
+  },
+  "IN-8": {
+    "domain": "Inclusivity",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Medium",
+    "reasoning": "ISO/IEC 42001 requires assessing AI system impacts on individuals and groups, including fairness and accessibility, but it does not prescribe a specific evaluation method for exclusionary outcomes.",
+    "references": "B.5.4; B.9.3"
+  },
+  "SU-1": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Low",
+    "reasoning": "ISO/IEC 42001 notes that environmental impact, including climate-related concerns, should be managed holistically through integration with other management systems, but does not define AI-specific sustainability metrics or controls.",
+    "references": "Annex D.1–D.2 (environmental impact managed holistically)"
+  },
+  "SU-2": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Low",
+    "reasoning": "ISO/IEC 42001 indicates that environmental impact should be addressed as part of broader management systems but does not explicitly discuss algorithmic efficiency, so alignment is indirect.",
+    "references": "Annex D.1–D.2 (environmental impact managed holistically)"
+  },
+  "SU-3": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Low",
+    "reasoning": "ISO/IEC 42001 references environmental impact as an aspect to manage holistically but does not specify renewable energy sourcing requirements.",
+    "references": "Annex D.1–D.2 (environmental impact managed holistically)"
+  },
+  "SU-4": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Low",
+    "reasoning": "ISO/IEC 42001 acknowledges environmental impact as a consideration but does not require specific carbon accounting for AI activities, so alignment is limited.",
+    "references": "Annex D.1–D.2 (environmental impact managed holistically)"
+  },
+  "SU-5": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Low",
+    "reasoning": "ISO/IEC 42001 expects environmental impacts to be managed with other management systems but does not explicitly mention optimization of computational resources in AI.",
+    "references": "Annex D.1–D.2 (environmental impact managed holistically)"
+  },
+  "SU-6": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Low",
+    "reasoning": "ISO/IEC 42001 expects organizations to manage environmental impact through integration with relevant management systems but does not specify energy-efficient hardware or platforms for AI systems.",
+    "references": "Annex D.1–D.2 (environmental impact managed holistically)"
+  },
+  "SU-7": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Low",
+    "reasoning": "ISO/IEC 42001 recognizes that multiple objectives, including environmental impact, should be managed in an integrated way but does not provide guidance on trade-offs between sustainability and performance.",
+    "references": "Annex D.1–D.2 (environmental impact managed holistically)"
+  },
+  "SU-8": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidence": "Low",
+    "reasoning": "ISO/IEC 42001 calls for monitoring and continual improvement of the AI management system and indicates environmental impacts should be part of holistic management, but does not prescribe specific environmental tracking for AI systems.",
+    "references": "Annex D.1–D.2 (environmental impact managed holistically)"
+  }
+}
