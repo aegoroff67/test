@@ -396,6 +396,14 @@ function AssessmentPage() {
     setShowEuAiActModal(false);
   };
 
+  const handleOpenIso42001Modal = () => {
+    setShowIso42001Modal(true);
+  };
+
+  const handleCloseIso42001Modal = () => {
+    setShowIso42001Modal(false);
+  };
+
   const handleOpenQuestionHelp = () => {
     // Show additional guidance for the current question
     if (currentQuestion && currentQuestion.code) {
