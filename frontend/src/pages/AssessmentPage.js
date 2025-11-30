@@ -752,6 +752,20 @@ function AssessmentPage() {
                           NIST - {nistAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
+                      {/* ISO/IEC 42001 Alignment Badge */}
+                      {isIso42001Selected && iso42001AlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenIso42001Modal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            iso42001AlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-teal-100 text-teal-800 border border-teal-300 hover:bg-teal-200'
+                              : 'bg-teal-50 text-teal-700 border border-teal-200 hover:bg-teal-100'
+                          }`}
+                          title="Click to view ISO/IEC 42001 alignment details"
+                        >
+                          ISO 42001 - {iso42001AlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
+                        </button>
+                      )}
                       {/* Australian AI Ethics Principles Alignment Badge */}
                       {isAuEthicsSelected && auEthicsAlignmentData[currentQuestion.code] && (
                         <button
