@@ -1116,6 +1116,16 @@ function AssessmentPage() {
         />
       )}
 
+      {/* ISO/IEC 42001 Alignment Modal */}
+      {currentQuestion && iso42001AlignmentData[currentQuestion.code] && (
+        <Iso42001AlignmentModal
+          isOpen={showIso42001Modal}
+          onClose={handleCloseIso42001Modal}
+          questionCode={currentQuestion.code}
+          alignmentData={iso42001AlignmentData[currentQuestion.code]}
+        />
+      )}
+
       {/* Australian AI Ethics Principles Alignment Modal */}
       {currentQuestion && auEthicsAlignmentData[currentQuestion.code] && (
         <AuEthicsAlignmentModal
