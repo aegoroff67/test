@@ -103,6 +103,16 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
             </div>
           )}
         </div>
+
+        {/* Footer */}
+        <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition-colors font-medium"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
