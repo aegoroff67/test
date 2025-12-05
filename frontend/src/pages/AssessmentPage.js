@@ -1182,6 +1182,7 @@ function AssessmentPage() {
           isOpen={showFairaModal}
           onClose={handleCloseFairaModal}
           questionCode={currentQuestion.code}
+          questionText={currentQuestion.text}
           alignmentData={fairaAlignmentData[currentQuestion.code]}
         />
       )}
@@ -1192,6 +1193,7 @@ function AssessmentPage() {
           isOpen={showNistModal}
           onClose={handleCloseNistModal}
           questionCode={currentQuestion.code}
+          questionText={currentQuestion.text}
           alignmentData={nistAlignmentData[currentQuestion.code]}
         />
       )}
@@ -1202,6 +1204,7 @@ function AssessmentPage() {
           isOpen={showIso42001Modal}
           onClose={handleCloseIso42001Modal}
           questionCode={currentQuestion.code}
+          questionText={currentQuestion.text}
           alignmentData={iso42001AlignmentData[currentQuestion.code]}
         />
       )}
@@ -1212,6 +1215,7 @@ function AssessmentPage() {
           isOpen={showAuEthicsModal}
           onClose={handleCloseAuEthicsModal}
           questionCode={currentQuestion.code}
+          questionText={currentQuestion.text}
           alignmentData={auEthicsAlignmentData[currentQuestion.code]}
         />
       )}
@@ -1222,6 +1226,7 @@ function AssessmentPage() {
           isOpen={showAuGuidanceModal}
           onClose={handleCloseAuGuidanceModal}
           questionCode={currentQuestion.code}
+          questionText={currentQuestion.text}
           alignmentData={auGuidanceAlignmentData[currentQuestion.code]}
         />
       )}
@@ -1232,6 +1237,7 @@ function AssessmentPage() {
           isOpen={showEuAiActModal}
           onClose={handleCloseEuAiActModal}
           questionCode={currentQuestion.code}
+          questionText={currentQuestion.text}
           alignmentData={euAiActAlignmentData[currentQuestion.code]}
         />
       )}
@@ -1242,6 +1248,7 @@ function AssessmentPage() {
           isOpen={showAuAssuranceModal}
           onClose={handleCloseAuAssuranceModal}
           questionCode={currentQuestion.code}
+          questionText={currentQuestion.text}
           alignmentData={auAssuranceAlignmentData[currentQuestion.code]}
         />
       )}
@@ -1252,6 +1259,7 @@ function AssessmentPage() {
           isOpen={showSingaporeMafModal}
           onClose={handleCloseSingaporeMafModal}
           questionCode={currentQuestion.code}
+          questionText={currentQuestion.text}
           alignmentData={singaporeMafAlignmentData[currentQuestion.code]}
         />
       )}
@@ -1262,6 +1270,7 @@ function AssessmentPage() {
           isOpen={showOecdPrinciplesModal}
           onClose={handleCloseOecdPrinciplesModal}
           questionCode={currentQuestion.code}
+          questionText={currentQuestion.text}
           alignmentData={oecdPrinciplesAlignmentData[currentQuestion.code]}
         />
       )}
