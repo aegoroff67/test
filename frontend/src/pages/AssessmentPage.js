@@ -43,6 +43,73 @@ import auAssuranceAlignmentData from '../data/auAssuranceAlignmentData.json';
 import singaporeMafAlignmentData from '../data/singaporeMafAlignmentData.json';
 import oecdPrinciplesAlignmentData from '../data/oecdPrinciplesAlignmentData.json';
 import euAiActAlignmentData from '../data/euAiActAlignmentData.json';
+
+// Framework configuration - centralizes all framework modal setup
+const FRAMEWORK_CONFIG = {
+  faira: {
+    id: 'faira',
+    name: 'FAIRA',
+    component: FairaAlignmentModal,
+    data: fairaAlignmentData,
+    color: 'amber'
+  },
+  nist: {
+    id: 'nist',
+    name: 'NIST AI RMF',
+    component: NistAlignmentModal,
+    data: nistAlignmentData,
+    color: 'indigo'
+  },
+  iso42001: {
+    id: 'iso42001',
+    name: 'ISO/IEC 42001',
+    component: Iso42001AlignmentModal,
+    data: iso42001AlignmentData,
+    color: 'teal'
+  },
+  auEthics: {
+    id: 'auEthics',
+    name: 'Australian AI Ethics',
+    component: AuEthicsAlignmentModal,
+    data: auEthicsAlignmentData,
+    color: 'green'
+  },
+  auGuidance: {
+    id: 'auGuidance',
+    name: 'Australian Guidance',
+    component: AuGuidanceAlignmentModal,
+    data: auGuidanceAlignmentData,
+    color: 'blue'
+  },
+  euAiAct: {
+    id: 'euAiAct',
+    name: 'EU AI Act',
+    component: EuAiActAlignmentModal,
+    data: euAiActAlignmentData,
+    color: 'purple'
+  },
+  auAssurance: {
+    id: 'auAssurance',
+    name: 'AU Assurance',
+    component: AuAssuranceAlignmentModal,
+    data: auAssuranceAlignmentData,
+    color: 'orange'
+  },
+  singaporeMaf: {
+    id: 'singaporeMaf',
+    name: 'Singapore MAF',
+    component: SingaporeMafAlignmentModal,
+    data: singaporeMafAlignmentData,
+    color: 'rose'
+  },
+  oecdPrinciples: {
+    id: 'oecdPrinciples',
+    name: 'OECD Principles',
+    component: OecdPrinciplesAlignmentModal,
+    data: oecdPrinciplesAlignmentData,
+    color: 'slate'
+  }
+};
 import HelpModal from '../components/HelpModal';
 import { helpContent } from '../data/helpContent';
 import questionGuidanceData from '../data/questionGuidance.json';
