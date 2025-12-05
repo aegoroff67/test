@@ -67,15 +67,17 @@
     "domain": "Transparency",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires organizations to provide system documentation and information, document impact assessments and communicate relevant AI system characteristics and incidents to interested parties.",
-    "citation": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+    "alignmentRationale": "This question assesses how clearly and completely users and stakeholders are informed about what the AI system does, how it works, and what its limitations are. ISO/IEC 42001 requires organisations to determine and provide necessary information for users of the AI system, and to ensure that users can understand when they are interacting with an AI system, its intended purpose, potential harms/benefits, limitations and operational requirements. It also requires appropriate technical documentation for different categories of interested parties such as users, partners and supervisory authorities. A.8.2 -> p.19; B.8.2 -> p.40; B.6.2.7 -> p.35",
+    "citation": "A.8.2 -> p.19; B.8.2 -> p.40; B.6.2.7 -> p.35",
+    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system. The guidance explains that, despite system complexity, users should be able to understand when they are interacting with an AI system, how it works, its intended purpose, potential harms and benefits, limitations, operational requirements and how to override it. It also notes that technical documentation for the AI system should be prepared for relevant categories of interested parties—such as users, partners and supervisory authorities—and can include descriptions of the system, usage instructions, technical assumptions, limitations, and monitoring capabilities."
   },
   "TR-2": {
     "domain": "Transparency",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires organizations to provide system documentation and information, document impact assessments and communicate relevant AI system characteristics and incidents to interested parties.",
-    "citation": "A.8.2–A.8.4; B.6.2.7; B.5.3; B.9.3"
+    "alignmentRationale": "This question evaluates whether the organisation systematically documents data sources, algorithms and lifecycle processes for accountability and auditability. ISO/IEC 42001 requires documentation of AI system design and development, verification and validation measures, deployment, operation and monitoring. It further requires organisations to define and document data management processes, acquisition and selection of data, data quality requirements, data provenance, and criteria for data preparation, as well as technical documentation that includes information about data used during system development. A.6.2.3 -> p.19; A.6.2.4 -> p.19; A.6.2.5 -> p.19; A.6.2.6 -> p.19; A.7.2–A.7.6 -> p.19; B.6.2.7 -> p.35",
+    "citation": "A.6.2.3 -> p.19; A.6.2.4 -> p.19; A.6.2.5 -> p.19; A.6.2.6 -> p.19; A.7.2–A.7.6 -> p.19; B.6.2.7 -> p.35",
+    "controlIntent": "ISO/IEC 42001 states that organisations shall document AI system design and development based on objectives and requirements, define and document verification and validation measures and their criteria, document deployment plans, and define and document elements needed for ongoing operation such as monitoring, repairs and updates. It also requires defining, documenting and implementing data management processes, documenting details of data acquisition and selection, specifying data quality requirements, recording data provenance and documenting criteria and methods for data preparation. The technical documentation guidance notes that documentation can include design and architecture, information about data used during development and other lifecycle artefacts."
   },
   "TR-3": {
     "domain": "Transparency",
