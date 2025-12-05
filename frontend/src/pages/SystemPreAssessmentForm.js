@@ -145,7 +145,7 @@ const ARTEFACTS = [
 ];
 
 const FRAMEWORKS = [
-  "FAIRA (Queensland Government)",
+  "Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)",
   "NIST AI RMF (2023)",
   "ISO/IEC 42001 (2023)",
   "Australian AI Ethics Principles (2024)",
