@@ -784,9 +784,9 @@ function AssessmentPage() {
                         </button>
                       )}
                       {/* Australian AI Ethics Principles Alignment Badge */}
-                      {isAuEthicsSelected && auEthicsAlignmentData[currentQuestion.code] && (
+                      {selectedFrameworks.auEthics && auEthicsAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenAuEthicsModal}
+                          onClick={() => handleOpenFrameworkModal('auEthics')}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             auEthicsAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
                               ? 'bg-green-100 text-green-800 border border-green-300 hover:bg-green-200'
@@ -798,9 +798,9 @@ function AssessmentPage() {
                         </button>
                       )}
                       {/* Australian Guidance for AI Adoption Alignment Badge */}
-                      {isAuGuidanceSelected && auGuidanceAlignmentData[currentQuestion.code] && (
+                      {selectedFrameworks.auGuidance && auGuidanceAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenAuGuidanceModal}
+                          onClick={() => handleOpenFrameworkModal('auGuidance')}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             auGuidanceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
                               ? 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200'
@@ -812,9 +812,9 @@ function AssessmentPage() {
                         </button>
                       )}
                       {/* Australian National Framework for the Assurance of AI in Government Alignment Badge */}
-                      {isAuAssuranceSelected && auAssuranceAlignmentData[currentQuestion.code] && (
+                      {selectedFrameworks.auAssurance && auAssuranceAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenAuAssuranceModal}
+                          onClick={() => handleOpenFrameworkModal('auAssurance')}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             auAssuranceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
                               ? 'bg-orange-100 text-orange-800 border border-orange-300 hover:bg-orange-200'
@@ -826,9 +826,9 @@ function AssessmentPage() {
                         </button>
                       )}
                       {/* EU AI Act Alignment Badge */}
-                      {isEuAiActSelected && euAiActAlignmentData[currentQuestion.code] && (
+                      {selectedFrameworks.euAiAct && euAiActAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenEuAiActModal}
+                          onClick={() => handleOpenFrameworkModal('euAiAct')}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
                               ? 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
@@ -840,9 +840,9 @@ function AssessmentPage() {
                         </button>
                       )}
                       {/* FAIRA Alignment Badge - Only show if FAIRA selected and question has alignment */}
-                      {isFairaSelected && fairaAlignmentData[currentQuestion.code] && (
+                      {selectedFrameworks.faira && fairaAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenFairaModal}
+                          onClick={() => handleOpenFrameworkModal('faira')}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             fairaAlignmentData[currentQuestion.code].alignmentType === 'Direct alignment'
                               ? 'bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200'
@@ -854,9 +854,9 @@ function AssessmentPage() {
                         </button>
                       )}
                       {/* NIST AI RMF Alignment Badge - Only show if NIST selected and question has alignment */}
-                      {isNistSelected && nistAlignmentData[currentQuestion.code] && (
+                      {selectedFrameworks.nist && nistAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenNistModal}
+                          onClick={() => handleOpenFrameworkModal('nist')}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             nistAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
                               ? 'bg-indigo-100 text-indigo-800 border border-indigo-300 hover:bg-indigo-200'
@@ -868,9 +868,9 @@ function AssessmentPage() {
                         </button>
                       )}
                       {/* OECD Principles Alignment Badge */}
-                      {isOecdPrinciplesSelected && oecdPrinciplesAlignmentData[currentQuestion.code] && (
+                      {selectedFrameworks.oecdPrinciples && oecdPrinciplesAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenOecdPrinciplesModal}
+                          onClick={() => handleOpenFrameworkModal('oecdPrinciples')}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             oecdPrinciplesAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
                               ? 'bg-slate-100 text-slate-800 border border-slate-300 hover:bg-slate-200'
@@ -882,9 +882,9 @@ function AssessmentPage() {
                         </button>
                       )}
                       {/* Singapore MAF Alignment Badge */}
-                      {isSingaporeMafSelected && singaporeMafAlignmentData[currentQuestion.code] && (
+                      {selectedFrameworks.singaporeMaf && singaporeMafAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenSingaporeMafModal}
+                          onClick={() => handleOpenFrameworkModal('singaporeMaf')}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             singaporeMafAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
                               ? 'bg-rose-100 text-rose-800 border border-rose-300 hover:bg-rose-200'
