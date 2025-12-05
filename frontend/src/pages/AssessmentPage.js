@@ -83,6 +83,8 @@ function AssessmentPage() {
   const [isEuAiActSelected, setIsEuAiActSelected] = useState(false);
   const [showIso42001Modal, setShowIso42001Modal] = useState(false);
   const [isIso42001Selected, setIsIso42001Selected] = useState(false);
+  const [showAuAssuranceModal, setShowAuAssuranceModal] = useState(false);
+  const [isAuAssuranceSelected, setIsAuAssuranceSelected] = useState(false);
 
   useEffect(() => {
     fetchAssessment();
