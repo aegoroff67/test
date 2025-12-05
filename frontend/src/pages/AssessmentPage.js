@@ -846,6 +846,20 @@ function AssessmentPage() {
                           AU Assurance - {auAssuranceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
+                      {/* Singapore MAF Alignment Badge */}
+                      {isSingaporeMafSelected && singaporeMafAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenSingaporeMafModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            singaporeMafAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-rose-100 text-rose-800 border border-rose-300 hover:bg-rose-200'
+                              : 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
+                          }`}
+                          title="Click to view Singapore MAF alignment details"
+                        >
+                          Singapore MAF - {singaporeMafAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
+                        </button>
+                      )}
                       {/* OECD Principles Alignment Badge */}
                       {isOecdPrinciplesSelected && oecdPrinciplesAlignmentData[currentQuestion.code] && (
                         <button
