@@ -832,6 +832,20 @@ function AssessmentPage() {
                           AU Assurance - {auAssuranceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
+                      {/* OECD Principles Alignment Badge */}
+                      {isOecdPrinciplesSelected && oecdPrinciplesAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenOecdPrinciplesModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            oecdPrinciplesAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-cyan-100 text-cyan-800 border border-cyan-300 hover:bg-cyan-200'
+                              : 'bg-cyan-50 text-cyan-700 border border-cyan-200 hover:bg-cyan-100'
+                          }`}
+                          title="Click to view OECD Principles alignment details"
+                        >
+                          OECD - {oecdPrinciplesAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
+                        </button>
+                      )}
                       {/* EU AI Act Alignment Badge */}
                       {isEuAiActSelected && euAiActAlignmentData[currentQuestion.code] && (
                         <button
