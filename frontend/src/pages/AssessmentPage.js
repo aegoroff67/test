@@ -440,75 +440,13 @@ function AssessmentPage() {
     }
   };
 
-  const handleOpenFairaModal = () => {
-    setShowFairaModal(true);
+  // Generic framework modal handlers - replaces 18 individual functions
+  const handleOpenFrameworkModal = (frameworkId) => {
+    setActiveFrameworkModal(frameworkId);
   };
 
-  const handleCloseFairaModal = () => {
-    setShowFairaModal(false);
-  };
-
-  const handleOpenNistModal = () => {
-    setShowNistModal(true);
-  };
-
-  const handleCloseNistModal = () => {
-    setShowNistModal(false);
-  };
-
-  const handleOpenAuEthicsModal = () => {
-    setShowAuEthicsModal(true);
-  };
-
-  const handleCloseAuEthicsModal = () => {
-    setShowAuEthicsModal(false);
-  };
-
-  const handleOpenAuGuidanceModal = () => {
-    setShowAuGuidanceModal(true);
-  };
-
-  const handleCloseAuGuidanceModal = () => {
-    setShowAuGuidanceModal(false);
-  };
-
-  const handleOpenEuAiActModal = () => {
-    setShowEuAiActModal(true);
-  };
-
-  const handleCloseEuAiActModal = () => {
-    setShowEuAiActModal(false);
-  };
-
-  const handleOpenIso42001Modal = () => {
-    setShowIso42001Modal(true);
-  };
-
-  const handleCloseIso42001Modal = () => {
-    setShowIso42001Modal(false);
-  };
-
-  const handleOpenAuAssuranceModal = () => {
-    setShowAuAssuranceModal(true);
-  };
-
-  const handleCloseAuAssuranceModal = () => {
-    setShowAuAssuranceModal(false);
-  };
-
-  const handleOpenSingaporeMafModal = () => {
-    setShowSingaporeMafModal(true);
-  };
-
-  const handleCloseSingaporeMafModal = () => {
-    setShowSingaporeMafModal(false);
-  };
-
-  const handleOpenOecdPrinciplesModal = () => {
-    setShowOecdPrinciplesModal(true);
-  };
-  const handleCloseOecdPrinciplesModal = () => {
-    setShowOecdPrinciplesModal(false);
+  const handleCloseFrameworkModal = () => {
+    setActiveFrameworkModal(null);
   };
 
   const handleOpenQuestionHelp = () => {
