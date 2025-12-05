@@ -145,15 +145,15 @@ const ARTEFACTS = [
 ];
 
 const FRAMEWORKS = [
-  "Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)",
-  "NIST AI RMF (2023)",
   "AS ISO/IEC 42001:2023",
   "Australian AI Ethics Principles (2024)",
-  "Australian Government – Guidance for AI Adoption (2025)",
+  "Australian Guidance for AI Adoption (2025)",
   "Australian National Framework for the Assurance of AI in Government (2024)",
-  "Singapore MAF (2024)",
-  "OECD Principles (2019)",
   "EU AI Act (2024 final)",
+  "Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)",
+  "NIST AI RMF (2023)",
+  "OECD Principles (2019)",
+  "Singapore MAF (2024)",
 ];
 
 const REGULATIONS = [
