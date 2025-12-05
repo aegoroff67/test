@@ -142,24 +142,22 @@ function AssessmentPage() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [currentHelpContent, setCurrentHelpContent] = useState(null);
   const [skipAutoNavigation, setSkipAutoNavigation] = useState(false);
-  const [showFairaModal, setShowFairaModal] = useState(false);
-  const [isFairaSelected, setIsFairaSelected] = useState(false);
-  const [showNistModal, setShowNistModal] = useState(false);
-  const [isNistSelected, setIsNistSelected] = useState(false);
-  const [showAuEthicsModal, setShowAuEthicsModal] = useState(false);
-  const [isAuEthicsSelected, setIsAuEthicsSelected] = useState(false);
-  const [showAuGuidanceModal, setShowAuGuidanceModal] = useState(false);
-  const [isAuGuidanceSelected, setIsAuGuidanceSelected] = useState(false);
-  const [showEuAiActModal, setShowEuAiActModal] = useState(false);
-  const [isEuAiActSelected, setIsEuAiActSelected] = useState(false);
-  const [showIso42001Modal, setShowIso42001Modal] = useState(false);
-  const [isIso42001Selected, setIsIso42001Selected] = useState(false);
-  const [showAuAssuranceModal, setShowAuAssuranceModal] = useState(false);
-  const [isAuAssuranceSelected, setIsAuAssuranceSelected] = useState(false);
-  const [showSingaporeMafModal, setShowSingaporeMafModal] = useState(false);
-  const [isSingaporeMafSelected, setIsSingaporeMafSelected] = useState(false);
-  const [showOecdPrinciplesModal, setShowOecdPrinciplesModal] = useState(false);
-  const [isOecdPrinciplesSelected, setIsOecdPrinciplesSelected] = useState(false);
+  
+  // Unified framework modal state - replaces 18 individual state variables
+  const [activeFrameworkModal, setActiveFrameworkModal] = useState(null);
+  
+  // Track which frameworks are selected for this assessment
+  const [selectedFrameworks, setSelectedFrameworks] = useState({
+    faira: false,
+    nist: false,
+    iso42001: false,
+    auEthics: false,
+    auGuidance: false,
+    euAiAct: false,
+    auAssurance: false,
+    singaporeMaf: false,
+    oecdPrinciples: false
+  });
 
   useEffect(() => {
     fetchAssessment();
