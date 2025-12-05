@@ -1168,6 +1168,16 @@ function AssessmentPage() {
           alignmentData={euAiActAlignmentData[currentQuestion.code]}
         />
       )}
+
+      {/* Australian National Framework for the Assurance of AI in Government Alignment Modal */}
+      {currentQuestion && auAssuranceAlignmentData[currentQuestion.code] && (
+        <AuAssuranceAlignmentModal
+          isOpen={showAuAssuranceModal}
+          onClose={handleCloseAuAssuranceModal}
+          questionCode={currentQuestion.code}
+          alignmentData={auAssuranceAlignmentData[currentQuestion.code]}
+        />
+      )}
     </div>
   );
 }
