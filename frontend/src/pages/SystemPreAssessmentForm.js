@@ -151,6 +151,7 @@ const FRAMEWORKS = [
   "Australian AI Ethics Principles (2024)",
   "Australian Government – Guidance for AI Adoption (2025)",
   "Australian National Framework for the Assurance of AI in Government (2024)",
+  "Singapore MAF (2024)",
   "OECD Principles (2019)",
   "EU AI Act (2024 final)",
 ];
