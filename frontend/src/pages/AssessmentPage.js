@@ -114,6 +114,7 @@ function AssessmentPage() {
       setIsAuEthicsSelected(frameworks.includes("Australian AI Ethics Principles (2024)"));
       setIsAuGuidanceSelected(frameworks.includes("Australian Government – Guidance for AI Adoption (2025)"));
       setIsAuAssuranceSelected(frameworks.includes("Australian National Framework for the Assurance of AI in Government (2024)"));
+      setIsSingaporeMafSelected(frameworks.includes("Singapore MAF (2024)"));
       setIsOecdPrinciplesSelected(frameworks.includes("OECD Principles (2019)"));
       setIsEuAiActSelected(frameworks.includes("EU AI Act (2024 final)"));
       
