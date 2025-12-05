@@ -762,34 +762,6 @@ function AssessmentPage() {
                         onClick={handleOpenQuestionHelp}
                       />
                       {/* Framework Alignment Badges - Display in order: FAIRA, NIST, ISO, AU Ethics, AU AI Adoption, EU AI Act */}
-                      {/* FAIRA Alignment Badge - Only show if FAIRA selected and question has alignment */}
-                      {isFairaSelected && fairaAlignmentData[currentQuestion.code] && (
-                        <button
-                          onClick={handleOpenFairaModal}
-                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                            fairaAlignmentData[currentQuestion.code].alignmentType === 'Direct alignment'
-                              ? 'bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200'
-                              : 'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100'
-                          }`}
-                          title="Click to view FAIRA alignment details"
-                        >
-                          FAIRA - {fairaAlignmentData[currentQuestion.code].alignmentType.replace(' alignment', '')}
-                        </button>
-                      )}
-                      {/* NIST AI RMF Alignment Badge - Only show if NIST selected and question has alignment */}
-                      {isNistSelected && nistAlignmentData[currentQuestion.code] && (
-                        <button
-                          onClick={handleOpenNistModal}
-                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                            nistAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
-                              ? 'bg-indigo-100 text-indigo-800 border border-indigo-300 hover:bg-indigo-200'
-                              : 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
-                          }`}
-                          title="Click to view NIST AI RMF alignment details"
-                        >
-                          NIST - {nistAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
-                        </button>
-                      )}
                       {/* ISO/IEC 42001 Alignment Badge */}
                       {isIso42001Selected && iso42001AlignmentData[currentQuestion.code] && (
                         <button
@@ -818,7 +790,7 @@ function AssessmentPage() {
                           AU Ethics - {auEthicsAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
-                      {/* Australian Government Guidance for AI Adoption Alignment Badge */}
+                      {/* Australian Guidance for AI Adoption Alignment Badge */}
                       {isAuGuidanceSelected && auGuidanceAlignmentData[currentQuestion.code] && (
                         <button
                           onClick={handleOpenAuGuidanceModal}
@@ -827,7 +799,7 @@ function AssessmentPage() {
                               ? 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200'
                               : 'bg-sky-100 text-sky-800 border border-sky-300 hover:bg-sky-200'
                           }`}
-                          title="Click to view Australian Government Guidance for AI Adoption alignment details"
+                          title="Click to view Australian Guidance for AI Adoption alignment details"
                         >
                           AU Guidance - {auGuidanceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
@@ -846,18 +818,46 @@ function AssessmentPage() {
                           AU Assurance - {auAssuranceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
-                      {/* Singapore MAF Alignment Badge */}
-                      {isSingaporeMafSelected && singaporeMafAlignmentData[currentQuestion.code] && (
+                      {/* EU AI Act Alignment Badge */}
+                      {isEuAiActSelected && euAiActAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenSingaporeMafModal}
+                          onClick={handleOpenEuAiActModal}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                            singaporeMafAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
-                              ? 'bg-rose-100 text-rose-800 border border-rose-300 hover:bg-rose-200'
-                              : 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
+                            euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
+                              : 'bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100'
                           }`}
-                          title="Click to view Singapore MAF alignment details"
+                          title="Click to view EU AI Act alignment details"
                         >
-                          Singapore MAF - {singaporeMafAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
+                          EU AI Act - {euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
+                        </button>
+                      )}
+                      {/* FAIRA Alignment Badge - Only show if FAIRA selected and question has alignment */}
+                      {isFairaSelected && fairaAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenFairaModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            fairaAlignmentData[currentQuestion.code].alignmentType === 'Direct alignment'
+                              ? 'bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200'
+                              : 'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100'
+                          }`}
+                          title="Click to view FAIRA alignment details"
+                        >
+                          FAIRA - {fairaAlignmentData[currentQuestion.code].alignmentType.replace(' alignment', '')}
+                        </button>
+                      )}
+                      {/* NIST AI RMF Alignment Badge - Only show if NIST selected and question has alignment */}
+                      {isNistSelected && nistAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenNistModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            nistAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-indigo-100 text-indigo-800 border border-indigo-300 hover:bg-indigo-200'
+                              : 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
+                          }`}
+                          title="Click to view NIST AI RMF alignment details"
+                        >
+                          NIST - {nistAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
                       {/* OECD Principles Alignment Badge */}
@@ -874,18 +874,18 @@ function AssessmentPage() {
                           OECD Principles - {oecdPrinciplesAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
-                      {/* EU AI Act Alignment Badge */}
-                      {isEuAiActSelected && euAiActAlignmentData[currentQuestion.code] && (
+                      {/* Singapore MAF Alignment Badge */}
+                      {isSingaporeMafSelected && singaporeMafAlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenEuAiActModal}
+                          onClick={handleOpenSingaporeMafModal}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                            euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
-                              ? 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
-                              : 'bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100'
+                            singaporeMafAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-rose-100 text-rose-800 border border-rose-300 hover:bg-rose-200'
+                              : 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
                           }`}
-                          title="Click to view EU AI Act alignment details"
+                          title="Click to view Singapore MAF alignment details"
                         >
-                          EU AI Act - {euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
+                          Singapore MAF - {singaporeMafAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
                     </div>
