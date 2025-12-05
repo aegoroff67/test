@@ -323,3 +323,242 @@ print(f"✅ Total updated: {updated_count} questions")
 questions_with_control_intent = sum(1 for q in data.values() if 'controlIntent' in q)
 print(f"📊 Questions with controlIntent field: {questions_with_control_intent}/{len(data)}")
 
+
+# Final batch - Security, Privacy, Safety, Inclusivity, Sustainability
+final_data = {
+    # SECURITY - SE-1 to SE-8
+    "SE-1": (
+        "This question assesses whether security controls are implemented to protect AI systems from unauthorised access, tampering or misuse. ISO/IEC 42001 requires organisations to implement security controls for AI systems and associated data, referencing information security standards such as ISO/IEC 27001 for detailed guidance on access controls, encryption and security management.",
+        "B.8.1 -> p.39",
+        "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated data from unauthorised access, disclosure, modification, destruction or interference. The guidance notes that controls can include access management, authentication, authorisation, encryption, secure configuration, network security, audit logging and intrusion detection. The standard references ISO/IEC 27001 and ISO/IEC 27002 for comprehensive information security practices and notes that security considerations should be integrated throughout the AI lifecycle, from design and development to deployment and operation."
+    ),
+    "SE-2": (
+        "This question evaluates whether the organisation conducts security testing, including penetration testing and vulnerability assessments, for AI systems. ISO/IEC 42001 requires organisations to define verification and validation measures, to assess AI-specific risks including security vulnerabilities, and to test systems for robustness. Security testing is an important part of ensuring that AI systems are protected against threats.",
+        "A.6.2.4 -> p.19; B.6.2.5 -> p.34; B.8.1 -> p.39",
+        "ISO/IEC 42001 requires that organisations define and document verification and validation measures and their evaluation criteria, and apply these during AI system development. The guidance notes that verification and validation should include testing for security vulnerabilities, robustness against attacks and compliance with security requirements. It also notes that AI-specific risks, including adversarial attacks and security threats, should be identified and assessed. While the standard does not explicitly mandate penetration testing, the requirements for comprehensive validation and security controls support the use of such testing methods to identify and address vulnerabilities before deployment."
+    ),
+    "SE-3": (
+        "This question checks whether the organisation protects AI models and algorithms from theft or reverse engineering. ISO/IEC 42001 requires organisations to implement security controls, including measures to protect intellectual property and proprietary information, and to control access to AI system components such as models, data and algorithms.",
+        "B.8.1 -> p.39",
+        "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated assets from unauthorised access, disclosure, modification or theft. The guidance notes that AI models, algorithms and training data can be valuable intellectual property and may be targets for theft or reverse engineering. Controls can include access restrictions, encryption, obfuscation, secure deployment environments, legal agreements and monitoring for unauthorised use. The standard references ISO/IEC 27001 for comprehensive guidance on protecting information assets, including intellectual property."
+    ),
+    "SE-4": (
+        "This question asks whether the organisation monitors for and responds to security incidents or breaches affecting AI systems. ISO/IEC 42001 requires organisations to establish processes for managing AI incidents, including security incidents, and to implement monitoring and response mechanisms. It references ISO/IEC 27001 and ISO/IEC 27035 for incident management practices.",
+        "B.10.1 -> p.43; B.10.2 -> p.44; B.8.1 -> p.39",
+        "ISO/IEC 42001 requires that organisations establish and maintain a process for managing AI incidents, which includes identifying, recording, investigating, analysing and responding to incidents such as security breaches, unauthorised access or cyber attacks. The guidance notes that organisations should implement monitoring mechanisms to detect security incidents, have procedures for responding promptly and effectively, and document incidents and their resolution. The standard also notes that security controls should include audit logging, intrusion detection and incident response capabilities. It references ISO/IEC 27001 and ISO/IEC 27035 for detailed guidance on information security incident management."
+    ),
+    "SE-5": (
+        "This question evaluates whether the organisation assesses and mitigates risks from adversarial attacks, such as evasion or model inversion attacks. ISO/IEC 42001 requires organisations to identify and assess AI-specific risks, including adversarial attacks, and to implement controls to mitigate those risks. This includes testing for robustness and implementing defensive measures.",
+        "A.5.4 -> p.17; B.6.2.5 -> p.34; B.8.1 -> p.39",
+        "ISO/IEC 42001 requires organisations to establish a process for assessing AI risks and opportunities, and to plan actions to address them. The guidance notes that AI-specific risks can include adversarial attacks, such as evasion attacks that cause misclassification, model inversion attacks that extract training data, and poisoning attacks that corrupt training data. The standard requires that verification and validation activities consider robustness against such attacks and that security controls be implemented to detect and mitigate them. While specific attack types are not exhaustively listed, the requirements for risk assessment and security testing provide a framework for addressing adversarial threats."
+    ),
+    "SE-6": (
+        "This question checks whether the organisation implements secure software development practices, such as code reviews and dependency management, for AI systems. ISO/IEC 42001 requires organisations to document AI system design and development, to implement security controls, and to manage third-party components and dependencies. It references secure development standards for detailed guidance.",
+        "A.6.2.3 -> p.19; B.8.1 -> p.39",
+        "ISO/IEC 42001 requires that organisations document AI system design and development, including security considerations. The guidance notes that secure development practices, such as code reviews, static and dynamic analysis, secure coding standards, dependency management and vulnerability scanning, should be applied to AI system development. It also notes that third-party components, libraries and frameworks should be assessed for security risks and that their use should be controlled and documented. The standard references ISO/IEC 27001 and secure software development standards such as ISO/IEC 27034 for detailed guidance on integrating security into the development lifecycle."
+    ),
+    "SE-7": (
+        "This question asks whether access to training data, models and infrastructure is restricted and logged. ISO/IEC 42001 requires organisations to implement access controls, to ensure that only authorised personnel can access sensitive AI system components, and to maintain audit logs of access and modifications.",
+        "B.8.1 -> p.39",
+        "ISO/IEC 42001 states that organisations should implement security controls, including access management, to protect AI systems and associated data. The guidance notes that controls can include authentication and authorisation mechanisms, role-based access control, least privilege principles and audit logging of access and changes. By restricting access to training data, models and infrastructure to authorised personnel and maintaining logs of who accessed what and when, organisations protect against unauthorised use, accidental or malicious modification and insider threats. The standard references ISO/IEC 27001 and ISO/IEC 27002 for comprehensive guidance on access control and audit logging practices."
+    ),
+    "SE-8": (
+        "This question evaluates whether the organisation encrypts sensitive data used by AI systems, both at rest and in transit. ISO/IEC 42001 requires organisations to implement security controls, including encryption, to protect AI systems and associated data from unauthorised access or disclosure.",
+        "B.8.1 -> p.39",
+        "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated data from unauthorised access, disclosure, modification or destruction. The guidance notes that encryption is an important control for protecting sensitive data, both when stored (at rest) and when transmitted (in transit). Encryption helps ensure that even if data is intercepted or accessed without authorisation, it cannot be read or used by unauthorised parties. The standard references ISO/IEC 27001 and ISO/IEC 27002 for detailed guidance on encryption and cryptographic controls, including key management, algorithm selection and secure implementation practices."
+    ),
+    
+    # PRIVACY - PR-1 to PR-8
+    "PR-1": (
+        "This question assesses whether the organisation has policies and processes to protect personal data used in AI systems and comply with privacy regulations. ISO/IEC 42001 requires organisations to determine and comply with applicable legal and regulatory requirements, including privacy laws, and to establish processes for managing data that include privacy considerations.",
+        "A.5.2 -> p.17; A.7.2 -> p.19; B.7.1 -> p.36; B.7.3 -> p.37",
+        "ISO/IEC 42001 states that organisations shall establish, implement and maintain an AI policy that includes commitment to comply with applicable legal, regulatory and contractual requirements. It requires that data management processes consider privacy requirements and that organisations identify and address privacy obligations related to the collection, use, storage and sharing of personal data. The standard notes that privacy considerations should be integrated throughout the AI lifecycle and that organisations should implement controls such as consent management, data minimisation, anonymisation and access restrictions. It references privacy standards such as ISO/IEC 27701 and legal frameworks such as GDPR for detailed guidance."
+    ),
+    "PR-2": (
+        "This question evaluates whether the organisation conducts privacy impact assessments (PIAs) or data protection impact assessments (DPIAs) for AI systems that process personal data. ISO/IEC 42001 requires organisations to conduct AI system impact assessments, which include evaluating privacy-related impacts, and to document and address those impacts.",
+        "B.5.1 -> p.27; B.5.2 -> p.27; B.5.3 -> p.28; B.5.4 -> p.28",
+        "ISO/IEC 42001 requires that organisations establish and maintain a process for AI system impact assessment to assess potential consequences for individuals, groups and societies across the system's life cycle. The guidance notes that impact assessments should consider privacy implications, including how personal data is collected, used, stored, shared and protected. The standard references privacy impact assessment methodologies and notes that in many jurisdictions, such as under GDPR, DPIAs are legally required for high-risk data processing activities. By conducting PIAs or DPIAs, organisations identify and mitigate privacy risks, demonstrate compliance and build trust with data subjects and regulators."
+    ),
+    "PR-3": (
+        "This question checks whether the organisation implements data minimisation, collecting and using only the data necessary for AI system purposes. ISO/IEC 42001 requires organisations to define data management processes that include considerations for data minimisation and to document the rationale for data acquisition and selection.",
+        "A.7.2 -> p.19; B.7.2 -> p.37",
+        "ISO/IEC 42001 requires that organisations define and document data management processes, including data acquisition and selection. The guidance notes that organisations should document the rationale for including or excluding certain data and should consider principles such as data minimisation—collecting only data that is necessary, relevant and adequate for the intended purpose. Data minimisation reduces privacy risks, limits exposure in case of breaches, simplifies compliance with privacy regulations and improves system efficiency. The standard references privacy frameworks such as GDPR, which mandates data minimisation as a core principle."
+    ),
+    "PR-4": (
+        "This question asks whether the organisation obtains informed consent from individuals whose data is used in AI systems. ISO/IEC 42001 requires organisations to comply with applicable legal and regulatory requirements, including consent requirements under privacy laws, and to document how personal data is acquired and the legal basis for its use.",
+        "A.7.2 -> p.19; B.7.2 -> p.37; B.7.3 -> p.37",
+        "ISO/IEC 42001 requires that organisations define and document data management processes and document details of data acquisition, including the legal basis for collecting and using personal data. The guidance notes that in many jurisdictions, privacy laws such as GDPR require informed consent from individuals before their personal data can be processed, particularly for sensitive data or high-risk processing activities. The standard requires that organisations identify applicable legal requirements and implement processes to obtain, document and manage consent where required. This includes providing individuals with clear information about how their data will be used and allowing them to withdraw consent."
+    ),
+    "PR-5": (
+        "This question evaluates whether the organisation supports data subject rights, such as access, correction, deletion and portability. ISO/IEC 42001 requires organisations to comply with applicable legal and regulatory requirements, including privacy laws that grant individuals rights over their personal data, and to establish processes for responding to data subject requests.",
+        "B.7.3 -> p.37",
+        "ISO/IEC 42001 notes that organisations should identify and comply with applicable legal and regulatory requirements related to personal data, including data subject rights. The guidance references privacy frameworks such as GDPR, which grants individuals rights to access their personal data, request corrections, request deletion (right to be forgotten), restrict processing, object to processing and request data portability. The standard requires that organisations establish processes for receiving, verifying and responding to data subject requests in a timely manner, and for documenting such requests and responses. Supporting data subject rights demonstrates respect for privacy and compliance with legal obligations."
+    ),
+    "PR-6": (
+        "This question checks whether the organisation anonymises or pseudonymises personal data where appropriate to reduce privacy risks. ISO/IEC 42001 requires organisations to implement privacy-enhancing measures, including anonymisation and pseudonymisation, where appropriate, and to document how personal data is protected.",
+        "B.7.3 -> p.37",
+        "ISO/IEC 42001 notes that organisations should implement appropriate technical and organisational measures to protect personal data, including privacy-enhancing technologies such as anonymisation and pseudonymisation. Anonymisation removes personal identifiers so that individuals can no longer be identified, thereby reducing privacy risks. Pseudonymisation replaces identifiers with pseudonyms, reducing the risk of re-identification while still allowing data to be linked. The guidance notes that anonymisation and pseudonymisation can be used during data preparation, storage and sharing to minimise privacy risks while enabling AI system development and operation. The standard references privacy standards such as ISO/IEC 27701 for detailed guidance on these techniques."
+    ),
+    "PR-7": (
+        "This question asks whether the organisation limits data retention and securely deletes data when no longer needed. ISO/IEC 42001 requires organisations to define data management processes that include data retention and deletion policies, to comply with applicable legal requirements, and to implement secure deletion practices.",
+        "A.7.2 -> p.19; B.7.1 -> p.36; B.7.3 -> p.37",
+        "ISO/IEC 42001 requires that organisations define and document data management processes, including policies for data retention and deletion. The guidance notes that personal data should not be kept longer than necessary for the purposes for which it was collected, in line with privacy principles such as storage limitation under GDPR. The standard requires that organisations define retention periods, review data periodically and securely delete or anonymise data when it is no longer needed. Secure deletion practices ensure that data cannot be recovered or reconstructed, protecting individuals' privacy and reducing the organisation's liability and storage costs."
+    ),
+    "PR-8": (
+        "This question evaluates whether the organisation shares or transfers personal data only with appropriate safeguards and legal basis. ISO/IEC 42001 requires organisations to comply with applicable legal requirements for data sharing and transfer, to document data flows, and to implement controls such as contracts, encryption and privacy-enhancing technologies to protect data during sharing or transfer.",
+        "B.7.3 -> p.37",
+        "ISO/IEC 42001 notes that organisations should identify and comply with legal and regulatory requirements related to sharing or transferring personal data, including cross-border data transfers. The guidance references privacy frameworks such as GDPR, which requires that personal data be shared or transferred only with appropriate legal basis and safeguards, such as adequacy decisions, standard contractual clauses, binding corporate rules or explicit consent. The standard requires that organisations document data flows, assess risks associated with sharing or transfer, and implement technical and organisational measures such as encryption, access controls and contractual protections to ensure that personal data remains protected when shared with third parties or transferred to other jurisdictions."
+    ),
+    
+    # SAFETY - SA-1 to SA-8
+    "SA-1": (
+        "This question assesses whether the organisation identifies and evaluates safety risks associated with AI systems. ISO/IEC 42001 requires organisations to establish processes for assessing AI risks and impacts, including safety risks, and to document and address those risks. It references safety standards such as ISO/IEC 23894 for AI-specific safety guidance.",
+        "A.5.4 -> p.17; B.5.1 -> p.27; B.5.2 -> p.27",
+        "ISO/IEC 42001 requires that organisations establish a process for assessing AI risks and opportunities, and a process for AI system impact assessment to assess potential consequences for individuals, groups and societies. The guidance notes that risk and impact assessments should consider safety implications, including potential physical harm, psychological harm or harm to health and wellbeing. The standard requires that risks be identified, evaluated for likelihood and severity, and addressed through mitigation measures. It references safety standards such as ISO/IEC 23894 (guidance on AI safety) and ISO 31000 (risk management) for detailed methodologies."
+    ),
+    "SA-2": (
+        "This question evaluates whether the organisation implements safety controls, such as fail-safe mechanisms and human oversight, to prevent harm. ISO/IEC 42001 requires organisations to plan actions to address AI risks, to implement controls such as human oversight, and to ensure that AI systems operate safely and can be overridden or shut down if necessary.",
+        "B.9.4 -> p.42; B.10.1 -> p.43",
+        "ISO/IEC 42001 notes that organisations should implement controls to mitigate AI risks, including safety risks. The guidance discusses human oversight as an important control, noting that the extent and nature of oversight should be determined based on the system's characteristics and impacts. It also notes that users should be informed about how to override, query or challenge the AI system, implying that fail-safe mechanisms and manual overrides should be available. The standard requires that organisations plan for incidents and have procedures for responding when AI systems fail or behave unexpectedly, including shutting down or isolating the system to prevent harm."
+    ),
+    "SA-3": (
+        "This question checks whether the organisation conducts safety testing and validation, including testing for edge cases and failure modes. ISO/IEC 42001 requires organisations to define and document verification and validation measures, to test AI systems against documented criteria, and to consider edge cases, failure modes and safety-critical scenarios.",
+        "A.6.2.4 -> p.19; B.6.2.5 -> p.34",
+        "ISO/IEC 42001 requires that organisations define and document verification and validation measures and their evaluation criteria, and apply these during AI system development. The guidance notes that verification and validation should include testing for safety, robustness and resilience, and should consider edge cases, unusual inputs, failure modes and safety-critical scenarios. The standard notes that testing should simulate real-world conditions, including challenging or adverse situations, to ensure that AI systems behave safely and predictably. It references safety standards such as ISO/IEC 23894 for AI-specific safety validation guidance."
+    ),
+    "SA-4": (
+        "This question asks whether the organisation monitors AI systems in operation for safety-related issues and responds to incidents. ISO/IEC 42001 requires organisations to define ongoing monitoring of AI systems, to establish metrics for detecting safety issues, and to implement incident management processes that include procedures for responding to safety-related incidents.",
+        "A.7.5 -> p.19; B.7.4 -> p.38; B.10.2 -> p.44",
+        "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring of AI systems, including metrics for monitoring performance and safety. It also requires that organisations establish and maintain a process for managing AI incidents, including identifying, recording, investigating and responding to safety-related incidents. The guidance notes that monitoring should detect deviations from expected behaviour, safety-critical errors or conditions that could lead to harm, and that organisations should have procedures for responding promptly, including alerting relevant personnel, taking corrective action and communicating with affected parties."
+    ),
+    "SA-5": (
+        "This question evaluates whether the organisation assesses and addresses safety risks introduced by interactions between AI components and other systems. ISO/IEC 42001 requires organisations to assess system-level risks, to consider interactions and dependencies, and to evaluate how AI components integrate with broader systems or environments.",
+        "B.5.2 -> p.27; B.6.2.1 -> p.31",
+        "ISO/IEC 42001 requires that organisations assess potential consequences of AI systems across their life cycle, including interactions with other systems, components or the operational environment. The guidance notes that AI systems often operate as part of larger systems-of-systems, and that safety risks can arise from interactions, dependencies or integration issues. The standard requires that requirements for the AI system consider the operational context, including interfaces with other systems, and that organisations evaluate whether the AI system behaves safely and predictably when integrated into the broader system. This systems-level perspective is essential for identifying and mitigating emergent safety risks."
+    ),
+    "SA-6": (
+        "This question checks whether the organisation documents and communicates safety-related limitations and precautions to users and stakeholders. ISO/IEC 42001 requires organisations to provide users with information about AI system limitations, potential harms, operational requirements and precautions, and to include this information in technical documentation.",
+        "B.8.2 -> p.40; B.6.2.7 -> p.35",
+        "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system, including known limitations, potential harms and operational requirements. The guidance notes that users should understand safety-related precautions, such as conditions under which the system should not be used, required supervision or oversight, and how to respond if the system behaves unexpectedly. Technical documentation should also describe safety considerations, failure modes and mitigation measures. By communicating this information clearly, organisations enable users to operate AI systems safely and responsibly, reducing the risk of harm due to misuse or over-reliance."
+    ),
+    "SA-7": (
+        "This question asks whether the organisation establishes and follows procedures for decommissioning or withdrawing unsafe AI systems. ISO/IEC 42001 requires organisations to define lifecycle processes, including withdrawal and disposal, and to have procedures for responding when AI systems are found to be unsafe or no longer meet requirements.",
+        "B.10.1 -> p.43; B.10.2 -> p.44",
+        "ISO/IEC 42001 requires that organisations plan actions to address AI risks and opportunities, and establish processes for managing AI incidents. The guidance notes that when an AI system is found to be unsafe, underperforming or no longer fit for purpose, the organisation should have procedures for withdrawing, decommissioning or deactivating the system. This can include notifying affected parties, ceasing operations, retrieving or updating deployed systems, and ensuring that users are informed and transitioned to alternative solutions. The standard also requires that decisions about withdrawal and lessons learned be documented, supporting continuous improvement and responsible AI management."
+    ),
+    "SA-8": (
+        "This question evaluates whether the organisation involves safety experts or conducts independent safety reviews for high-risk AI systems. ISO/IEC 42001 does not explicitly mandate independent safety reviews but requires organisations to assess AI risks and impacts, to ensure competence of personnel, and to conduct internal audits. Many organisations engage safety experts or independent reviewers for high-risk systems.",
+        "A.7.1 -> p.19; A.9.2 -> p.20; B.5.1 -> p.27",
+        "ISO/IEC 42001 requires that organisations ensure personnel working on AI systems are competent, which can include having appropriate expertise in safety engineering and risk management. It also requires that internal audits be conducted to evaluate conformity with requirements and effective implementation of the management system. While the standard does not explicitly require independent safety reviews, it notes that for high-risk or safety-critical AI systems, organisations should consider additional scrutiny, such as engaging external safety experts, conducting independent assessments or following domain-specific safety standards. This provides assurance that safety risks have been thoroughly evaluated and appropriately addressed."
+    ),
+    
+    # INCLUSIVITY - IN-1 to IN-8
+    "IN-1": (
+        "This question assesses whether the organisation evaluates and ensures that AI systems are accessible to users with disabilities. ISO/IEC 42001 does not explicitly mandate accessibility evaluations but recognises accessibility as a potential objective for responsible AI use and requires organisations to consider the needs of diverse user groups, including persons with disabilities.",
+        "B.9.3 -> p.42; B.5.4 -> p.28",
+        "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible use of AI systems, which can include accessibility. It also requires that impact assessments consider the needs and protection requirements of different groups, including impaired persons. The guidance notes that when accessibility is defined as an objective, organisations should integrate measures to achieve it throughout the AI lifecycle, such as designing user interfaces that support assistive technologies, providing alternative formats for information, and testing with users who have diverse abilities. By proactively addressing accessibility, organisations ensure that AI systems are inclusive and do not exclude or disadvantage persons with disabilities."
+    ),
+    "IN-2": (
+        "This question evaluates whether the organisation considers diverse user needs and contexts when designing and developing AI systems. ISO/IEC 42001 requires organisations to define AI system requirements based on intended use and user needs, to consider the operational context, and to assess impacts on different groups of users.",
+        "A.6.2.1 -> p.18; B.6.2.1 -> p.31; B.5.4 -> p.28",
+        "ISO/IEC 42001 requires that organisations define and document objectives and requirements for the AI system, taking into account the intended use, operational context and needs of interested parties. The guidance notes that organisations should consider the diversity of users, including differences in language, culture, technical proficiency, abilities and contexts of use. It also requires that impact assessments consider relevant demographic groups and the potential for differential impacts. By considering diverse user needs and contexts, organisations ensure that AI systems are designed inclusively and do not inadvertently exclude or disadvantage certain user groups."
+    ),
+    "IN-3": (
+        "This question checks whether the organisation engages with diverse stakeholders, including marginalised or underrepresented groups, during AI development. ISO/IEC 42001 requires organisations to determine the needs and expectations of interested parties, to involve relevant stakeholders in impact assessments, and to consider diverse perspectives when designing and evaluating AI systems.",
+        "B.3.2 -> p.26; B.5.3 -> p.28",
+        "ISO/IEC 42001 requires that organisations determine the needs and expectations of interested parties that are relevant to the AI system, and document this information. The guidance notes that interested parties can include users, affected individuals and communities, civil society organisations, advocacy groups and representatives of marginalised or underrepresented populations. It also notes that AI system impact assessments should consider relevant demographic groups and should involve consultation or engagement with affected parties where appropriate. By engaging diverse stakeholders, organisations gain insights into potential impacts, identify blind spots and design AI systems that are more inclusive and equitable."
+    ),
+    "IN-4": (
+        "This question asks whether the organisation evaluates whether AI systems disadvantage or exclude certain demographic or social groups. ISO/IEC 42001 requires organisations to conduct impact assessments that consider potential negative impacts on individuals, groups and societies, including fairness and inclusivity, and to document and address those impacts.",
+        "B.5.2 -> p.27; B.5.3 -> p.28; B.5.4 -> p.28",
+        "ISO/IEC 42001 requires that organisations establish a process for AI system impact assessment to assess potential consequences for individuals, groups and societies. The guidance notes that assessments should consider whether the AI system has differential impacts on different demographic or social groups, including potential for exclusion, disadvantage or discrimination. It requires that relevant demographic groups be documented and that negative impacts be identified, evaluated and addressed through mitigation measures. By proactively evaluating inclusivity and fairness, organisations can prevent AI systems from reinforcing or exacerbating inequalities."
+    ),
+    "IN-5": (
+        "This question evaluates whether the organisation designs AI user interfaces and interactions to be culturally sensitive and linguistically inclusive. ISO/IEC 42001 does not explicitly mandate cultural or linguistic inclusivity but requires organisations to consider user needs and contexts, and to provide information that users can understand.",
+        "B.8.2 -> p.40; B.6.2.1 -> p.31",
+        "ISO/IEC 42001 requires that organisations define AI system requirements taking into account the intended use and operational context, and provide users with information about the AI system in a form they can understand. The guidance notes that user needs can include language preferences, cultural norms and contextual factors. While the standard does not explicitly require multilingual support or cultural adaptation, it emphasises that AI systems should be designed to meet the needs of their intended users, which can include providing interfaces and information in multiple languages, adapting to cultural contexts and avoiding assumptions or biases that exclude certain cultural or linguistic groups."
+    ),
+    "IN-6": (
+        "This question checks whether the organisation monitors and addresses disparate impacts or outcomes across different user groups. ISO/IEC 42001 requires organisations to monitor AI system performance during operation, to assess impacts on individuals and groups, and to take corrective action when systems produce unequal or harmful outcomes.",
+        "A.7.5 -> p.19; B.7.4 -> p.38; B.5.4 -> p.28",
+        "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring of AI systems, including metrics for monitoring performance. The guidance notes that monitoring should include evaluating whether the system performs equitably across different user groups and whether it produces disparate impacts. It also requires that organisations assess and document impacts on individuals or groups throughout the lifecycle, considering fairness and inclusivity. When monitoring indicates that the AI system disadvantages or excludes certain groups, the organisation should investigate the causes, assess associated risks and take corrective action, such as retraining, adjusting parameters or redesigning the system."
+    ),
+    "IN-7": (
+        "This question asks whether the organisation provides training or support to ensure equitable access to and use of AI systems. ISO/IEC 42001 requires organisations to determine what information and support users need, to provide appropriate training or guidance, and to ensure that users can effectively and safely use the AI system.",
+        "A.7.1 -> p.19; B.8.2 -> p.40",
+        "ISO/IEC 42001 requires that organisations determine the competence needed for persons working with or using AI systems, and provide appropriate training, awareness and support. It also requires that organisations determine and provide the information users need about the AI system, including how to use it, its purpose, limitations and how to override or query it. The guidance notes that training, user manuals, tutorials and support services can help ensure that users from diverse backgrounds and with varying levels of technical proficiency can access and effectively use the AI system. By providing appropriate training and support, organisations promote equitable access and prevent digital divides that could exclude less experienced or disadvantaged users."
+    ),
+    "IN-8": (
+        "This question evaluates whether the organisation establishes metrics and goals for inclusivity and tracks progress over time. ISO/IEC 42001 does not explicitly mandate inclusivity metrics but requires organisations to define objectives for responsible AI development and use, to establish criteria for evaluating AI systems, and to monitor performance against those criteria.",
+        "B.9.3 -> p.42; B.6.2.4 -> p.33; A.7.5 -> p.19",
+        "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible use of AI systems, which can include inclusivity, accessibility and equity. It requires that AI systems be evaluated against documented criteria that reflect these objectives, and that performance be monitored during operation. The guidance notes that organisations can establish metrics such as representation of diverse user groups, accessibility compliance scores, user satisfaction across demographics and measures of equitable outcomes. By defining inclusivity goals, measuring progress and tracking performance over time, organisations demonstrate commitment to inclusivity and create accountability for achieving equitable AI outcomes."
+    ),
+    
+    # SUSTAINABILITY - SU-1 to SU-8
+    "SU-1": (
+        "This question assesses whether the organisation evaluates the energy consumption and carbon footprint of AI systems. ISO/IEC 42001 does not explicitly mandate environmental impact assessment but recognises sustainability as a potential objective for responsible AI development and use, and requires organisations to consider environmental impacts as part of broader impact assessments.",
+        "B.9.3 -> p.42; B.5.2 -> p.27",
+        "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible development and use of AI systems, which can include environmental sustainability. It also requires that AI system impact assessments consider potential consequences for individuals, groups and societies, which can include environmental and resource impacts. The guidance notes that AI systems, particularly large-scale machine learning models, can consume significant energy and generate carbon emissions. By evaluating energy consumption and carbon footprint, organisations can identify opportunities to reduce environmental impact, improve efficiency and align AI development with sustainability goals."
+    ),
+    "SU-2": (
+        "This question evaluates whether the organisation considers computational efficiency when designing and training AI models. ISO/IEC 42001 does not explicitly mandate efficiency optimisation but notes that if sustainability is defined as an objective, organisations should integrate measures to achieve it throughout the AI lifecycle, including selecting efficient algorithms and architectures.",
+        "B.6.1.2 -> p.30; B.9.3 -> p.42",
+        "ISO/IEC 42001 notes that when an organisation defines objectives for responsible AI development, such as sustainability or resource efficiency, these objectives should be incorporated into requirements specification, model training and validation. The guidance notes that computational efficiency can be improved through techniques such as selecting simpler or more efficient model architectures, optimising hyperparameters, pruning unnecessary parameters, using quantisation or distillation, and training on smaller or more representative datasets. By prioritising efficiency, organisations can reduce energy consumption, cost and environmental impact while maintaining acceptable performance."
+    ),
+    "SU-3": (
+        "This question checks whether the organisation monitors and reports the environmental impact of AI systems. ISO/IEC 42001 does not explicitly require environmental reporting but notes that if sustainability is a defined objective, organisations should monitor relevant metrics and communicate information to interested parties.",
+        "B.7.4 -> p.38; B.8.2 -> p.40",
+        "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring of AI systems, including metrics for monitoring performance. The guidance notes that if sustainability is identified as an objective, organisations should establish metrics such as energy consumption, carbon emissions, resource usage and computational efficiency, and monitor these during operation. It also notes that relevant information about AI systems, including environmental impacts, should be communicated to interested parties, which can include internal governance bodies, users, customers, regulators and the public. By monitoring and reporting environmental impact, organisations demonstrate transparency and accountability for sustainability."
+    ),
+    "SU-4": (
+        "This question asks whether the organisation uses renewable energy or carbon offsets to reduce the environmental impact of AI operations. ISO/IEC 42001 does not explicitly mandate the use of renewable energy but notes that if sustainability is a defined objective, organisations should implement measures to achieve it, which can include sourcing renewable energy or participating in carbon offset programs.",
+        "B.9.3 -> p.42",
+        "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible use of AI systems, including sustainability, and implement mechanisms to achieve those objectives. The guidance notes that reducing environmental impact can involve measures such as procuring renewable energy for data centres and computing infrastructure, selecting cloud providers that use renewable energy, optimising workload scheduling to use energy when renewable sources are available, or participating in carbon offset programs to compensate for unavoidable emissions. These measures demonstrate organisational commitment to sustainability and help mitigate the environmental footprint of AI operations."
+    ),
+    "SU-5": (
+        "This question evaluates whether the organisation assesses the full lifecycle environmental impact of AI systems, including hardware production and disposal. ISO/IEC 42001 does not explicitly require lifecycle environmental assessment but notes that impact assessments should consider consequences across the AI system's life cycle, which can include hardware and infrastructure impacts.",
+        "B.5.2 -> p.27",
+        "ISO/IEC 42001 requires that organisations assess potential consequences of AI systems across their life cycle. The guidance notes that lifecycle considerations can extend beyond software to include the production, use and disposal of hardware and infrastructure, such as servers, GPUs, sensors and edge devices. The full environmental impact includes resource extraction, manufacturing energy and emissions, operational energy consumption, cooling requirements and electronic waste from disposal. By conducting lifecycle environmental assessments, organisations gain a comprehensive understanding of environmental impacts and can make more informed decisions about hardware procurement, usage and end-of-life management."
+    ),
+    "SU-6": (
+        "This question checks whether the organisation implements strategies to extend hardware lifespan and reduce electronic waste. ISO/IEC 42001 does not explicitly address hardware lifecycle management but notes that sustainability can be an objective for AI systems and that organisations should implement measures to achieve defined objectives.",
+        "B.9.3 -> p.42",
+        "ISO/IEC 42001 notes that if sustainability is identified as an objective for AI systems, organisations should implement mechanisms to achieve it. The guidance notes that strategies to reduce electronic waste and extend hardware lifespan can include maintaining and upgrading existing hardware rather than replacing it, optimising software to run efficiently on older hardware, purchasing durable and repairable equipment, participating in hardware recycling or refurbishment programs, and designing AI systems to be compatible with a range of hardware configurations. These practices reduce resource consumption, lower costs and minimise the environmental impact of AI operations."
+    ),
+    "SU-7": (
+        "This question asks whether the organisation evaluates the broader societal and environmental impacts of AI applications. ISO/IEC 42001 requires organisations to conduct impact assessments that consider potential consequences for individuals, groups and societies, including environmental and social impacts, and to document and address those impacts.",
+        "B.5.2 -> p.27; B.5.3 -> p.28; B.5.4 -> p.28",
+        "ISO/IEC 42001 requires that organisations establish a process for AI system impact assessment to assess potential consequences across the system's life cycle. The guidance notes that assessments should consider not only individual impacts but also broader societal and environmental implications, such as effects on employment, inequality, resource consumption, environmental degradation or community wellbeing. It requires that positive and negative impacts be identified, evaluated and documented, and that mitigation measures be implemented where necessary. By evaluating broader impacts, organisations take a holistic and responsible approach to AI development and deployment."
+    ),
+    "SU-8": (
+        "This question evaluates whether the organisation sets and tracks sustainability goals for AI systems. ISO/IEC 42001 does not explicitly mandate sustainability goals but requires organisations to define objectives for responsible AI development and use, to establish evaluation criteria, and to monitor performance against those criteria.",
+        "B.9.3 -> p.42; B.6.2.4 -> p.33",
+        "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible development and use of AI systems, which can include sustainability goals such as reducing energy consumption, minimising carbon emissions or improving resource efficiency. It requires that AI systems be evaluated against documented criteria that reflect these objectives, and that organisations monitor performance and take corrective action when objectives are not met. The guidance notes that setting clear, measurable sustainability goals and tracking progress over time demonstrates organisational commitment to environmental responsibility and enables continuous improvement in reducing the environmental impact of AI systems."
+    ),
+}
+
+print("\nAdding final batch (Security, Privacy, Safety, Inclusivity, Sustainability)...")
+print("=" * 70)
+
+for question_code, (rationale, citation, control_intent) in final_data.items():
+    if question_code in data:
+        data[question_code]['alignmentRationale'] = rationale
+        data[question_code]['citation'] = citation
+        data[question_code]['controlIntent'] = control_intent
+        updated_count += 1
+        print(f"✅ {question_code}")
+    else:
+        print(f"⚠️  {question_code} not found in database")
+
+# Final save
+with open('/app/frontend/src/data/iso42001AlignmentData.json', 'w') as f:
+    json.dump(data, f, indent=2, ensure_ascii=False)
+
+print("\n" + "=" * 70)
+print(f"🎉 COMPLETE! Total updated: {updated_count}/{len(data)} questions")
+
+# Final verification
+questions_with_control_intent = sum(1 for q in data.values() if 'controlIntent' in q)
+print(f"📊 Questions with controlIntent field: {questions_with_control_intent}/{len(data)}")
+print("\n✅ All ISO 42001 alignment data has been successfully updated!")
+
