@@ -1232,6 +1232,16 @@ function AssessmentPage() {
         />
       )}
 
+      {/* Singapore MAF Alignment Modal */}
+      {currentQuestion && singaporeMafAlignmentData[currentQuestion.code] && (
+        <SingaporeMafAlignmentModal
+          isOpen={showSingaporeMafModal}
+          onClose={handleCloseSingaporeMafModal}
+          questionCode={currentQuestion.code}
+          alignmentData={singaporeMafAlignmentData[currentQuestion.code]}
+        />
+      )}
+
       {/* OECD Principles Alignment Modal */}
       {currentQuestion && oecdPrinciplesAlignmentData[currentQuestion.code] && (
         <OecdPrinciplesAlignmentModal
