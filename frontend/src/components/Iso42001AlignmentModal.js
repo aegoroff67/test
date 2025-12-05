@@ -91,10 +91,24 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
             </div>
           </div>
 
+          {/* Control Intent (Plain Language Summary) */}
+          {controlIntent && (
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">
+                Control Intent (Plain Language Summary)
+              </h3>
+              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                <p className="text-sm text-gray-800 leading-relaxed">
+                  {controlIntent}
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Citation - Custom title as requested by user */}
           {citation && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">ISO 42001 Reference(s)</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">ISO/IEC 42001 Reference(s)</h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-teal-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
                   {citation}
