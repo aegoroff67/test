@@ -259,113 +259,129 @@
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires organizations to define and document data management processes, data acquisition, data quality requirements, provenance and data preparation for AI systems.",
-    "citation": "A.4.3; A.7.2–A.7.6; B.7.4"
+    "alignmentRationale": "This question assesses whether the organisation has processes to verify the accuracy, completeness and relevance of training data. ISO/IEC 42001 requires organisations to define and document data quality requirements, to verify that data used for AI systems meets those requirements, and to establish controls for data acquisition, selection and preparation.",
+    "citation": "A.7.2 -> p.19; B.7.1 -> p.36; B.7.2 -> p.37",
+    "controlIntent": "ISO/IEC 42001 states that organisations shall define and document data management processes, including data quality requirements that specify characteristics such as accuracy, completeness, consistency, timeliness and relevance. It requires that data used for AI system development and operation be verified against these requirements and that appropriate controls be implemented for data acquisition, selection and preparation. The standard notes that organisations should consider the origin, format and quality of data, and should document data quality verification activities to ensure that AI systems are built on reliable and suitable data."
   },
   "DI-2": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires organizations to document data resources and implement processes for data provenance and management throughout the AI system life cycle.",
-    "citation": "A.4.3; A.7.2–A.7.6; B.7.4"
+    "alignmentRationale": "This question evaluates whether the organisation monitors and maintains data quality throughout the AI lifecycle, including in production. ISO/IEC 42001 requires organisations to define and document data management processes, to establish data quality requirements, and to monitor data used by AI systems during operation. It also requires that deficiencies be identified and addressed.",
+    "citation": "A.7.2 -> p.19; A.7.5 -> p.19; B.7.1 -> p.36; B.7.4 -> p.38",
+    "controlIntent": "ISO/IEC 42001 requires that organisations define and document data management processes covering the entire lifecycle, including ongoing operation and monitoring. It states that data quality requirements should be specified and that metrics for monitoring system performance, including data quality, should be established. The standard notes that organisations should take action when monitoring indicates that data quality is degraded or that the AI system's performance is unacceptable. This ensures that data integrity is maintained not only during development but also throughout the operational life of the AI system."
   },
   "DI-3": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires organizations to define data management processes that include how data is collected, used and managed over its life cycle, aligned with organizational and external requirements.",
-    "citation": "A.4.3; A.7.2–A.7.6; B.7.4"
+    "alignmentRationale": "This question checks whether the organisation documents data provenance, including sources, transformations and lineage. ISO/IEC 42001 explicitly requires organisations to record and maintain information about data provenance, including where data came from, how it was collected, and what processing or transformations were applied.",
+    "citation": "A.7.3 -> p.19; B.7.2 -> p.37",
+    "controlIntent": "ISO/IEC 42001 states that organisations shall document details of data acquisition and selection, and shall record data provenance. The guidance notes that data provenance information should include the source of data, methods of collection, any preprocessing or transformations applied, and the rationale for including or excluding certain data. Recording this information supports traceability, enables quality assurance, facilitates impact assessments and helps the organisation demonstrate compliance with legal and ethical obligations related to data use."
   },
   "DI-4": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires organizations to define data quality requirements and ensure data used to develop and operate AI systems meets those requirements over time.",
-    "citation": "A.4.3; A.7.2–A.7.6; B.7.4"
+    "alignmentRationale": "This question asks whether mechanisms are in place to detect and prevent data poisoning or adversarial manipulation. ISO/IEC 42001 does not explicitly use the term 'data poisoning' but requires organisations to identify and assess AI-specific risks, including those related to data integrity and security, and to implement controls to mitigate such risks.",
+    "citation": "A.5.4 -> p.17; B.6.2.5 -> p.34; B.8.1 -> p.39",
+    "controlIntent": "ISO/IEC 42001 requires organisations to establish a process for assessing AI risks and opportunities, and to plan actions to address them. It notes that AI-specific risks can include data quality issues, adversarial attacks and manipulation, and that organisations should consider these when designing verification and validation activities. The standard also requires that security controls be implemented to protect AI systems and their data from unauthorised access, modification or corruption. While 'data poisoning' is not explicitly mentioned, the standard's requirements for risk assessment, data quality verification and security controls provide a framework for addressing such threats."
   },
   "DI-5": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires organizations to define data preparation criteria and methods, which include handling missing or incomplete data to meet defined quality requirements.",
-    "citation": "A.4.3; A.7.2–A.7.6; B.7.4"
+    "alignmentRationale": "This question evaluates whether the organisation validates and sanitises external data sources before use in AI systems. ISO/IEC 42001 requires organisations to define and document processes for data acquisition and selection, to verify data quality, and to implement controls to ensure that data meets requirements before it is used.",
+    "citation": "A.7.2 -> p.19; B.7.2 -> p.37",
+    "controlIntent": "ISO/IEC 42001 states that organisations shall define, document and implement data management processes, including data acquisition and selection. It requires that data quality requirements be specified and that data be verified against those requirements before use. The guidance notes that when acquiring data from external sources, organisations should assess the reliability and trustworthiness of the source, verify that the data meets quality and ethical standards, and apply appropriate preprocessing or sanitisation to remove errors, outliers or malicious content. This ensures that external data does not introduce integrity or security risks into the AI system."
   },
   "DI-6": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires organizations to define and document data preparation criteria and methods used for AI system development and operation.",
-    "citation": "A.4.3; A.7.2–A.7.6; B.7.4"
+    "alignmentRationale": "This question checks whether data storage and access controls are implemented to protect data integrity. ISO/IEC 42001 requires organisations to implement security controls for AI systems and their data, including access controls, encryption and measures to prevent unauthorised modification. It references information security standards such as ISO/IEC 27001 for detailed guidance.",
+    "citation": "B.8.1 -> p.39",
+    "controlIntent": "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated data from unauthorised access, disclosure, modification, destruction or interference. It notes that controls can include access management, encryption, secure storage, audit logging and intrusion detection. The standard references ISO/IEC 27001 and ISO/IEC 27002 for comprehensive information security practices. By implementing these controls, organisations protect the integrity of data used by AI systems, ensuring that it is not corrupted, tampered with or accessed by unauthorised parties."
   },
   "DI-7": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires documenting data resources and ensuring data used for AI systems, including external sources, meets defined quality requirements.",
-    "citation": "A.4.3; A.7.2–A.7.6; B.7.4"
+    "alignmentRationale": "This question asks whether the organisation has processes to identify and correct errors or inconsistencies in data. ISO/IEC 42001 requires organisations to define data quality requirements, to verify data against those requirements, and to take corrective action when deficiencies are identified. This includes processes for data cleaning, error detection and correction.",
+    "citation": "A.7.2 -> p.19; B.7.1 -> p.36; B.10.1 -> p.43",
+    "controlIntent": "ISO/IEC 42001 requires that organisations specify data quality requirements, including accuracy and consistency, and verify that data meets these requirements. It also requires that organisations plan actions to address risks and opportunities, and take corrective action when deficiencies are identified. The guidance notes that data management processes should include procedures for data cleaning, error detection, validation and correction, and that organisations should document and address data quality issues promptly to prevent them from affecting AI system performance or trustworthiness."
   },
   "DI-8": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "ISO/IEC 42001 requires data provenance processes that record where data comes from and how it is used over the life cycles of the data and AI system.",
-    "citation": "A.4.3; A.7.2–A.7.6; B.7.4"
+    "alignmentRationale": "This question evaluates whether the organisation ensures data integrity during transmission and processing. ISO/IEC 42001 requires organisations to implement security controls, including measures to protect data in transit and during processing, and to verify that data has not been corrupted or tampered with.",
+    "citation": "B.8.1 -> p.39",
+    "controlIntent": "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated data throughout their lifecycle, including during transmission and processing. The guidance notes that controls can include encryption for data in transit, checksums or hash functions to verify data integrity, secure communication protocols and validation checks at each processing stage. The standard references ISO/IEC 27001 and ISO/IEC 27002 for detailed information security practices. These measures ensure that data retains its integrity as it moves between systems, components or locations, and that any corruption or tampering is detected and addressed."
   },
   "RE-1": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "ISO/IEC 42001 requires defining verification and validation measures and evaluating AI system performance against documented criteria and objectives such as reliability under relevant operating conditions.",
-    "citation": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+    "alignmentRationale": "This question assesses whether the organisation defines and measures performance metrics for AI systems, such as accuracy, precision and recall. ISO/IEC 42001 requires organisations to establish objectives for AI system performance, to define evaluation criteria that include performance metrics, and to verify that systems meet those criteria before deployment.",
+    "citation": "A.6.2.2 -> p.18; A.6.2.4 -> p.19; B.6.2.4 -> p.33",
+    "controlIntent": "ISO/IEC 42001 states that organisations shall define and document objectives and requirements for the AI system, including performance objectives. It requires that evaluation criteria be documented and that AI systems be evaluated against those criteria. The guidance notes that performance metrics can include accuracy, precision, recall, F1 score, latency and other measures relevant to the intended use. The standard emphasises that performance should be evaluated not only during development but also in operational conditions, and that systems should only be deployed if they meet documented performance requirements."
   },
   "RE-2": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "ISO/IEC 42001 requires verification and validation and evaluation of performance criteria, including robustness and reliability of AI systems under challenging conditions, though it does not mandate specific 'stress test' methods.",
-    "citation": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+    "alignmentRationale": "This question evaluates whether AI systems are tested under diverse and realistic conditions to ensure reliable performance. ISO/IEC 42001 requires organisations to define and document verification and validation measures, to test AI systems against documented criteria, and to consider operational factors such as data variability, edge cases and deployment environments when evaluating performance.",
+    "citation": "A.6.2.4 -> p.19; B.6.2.4 -> p.33; B.6.2.5 -> p.34",
+    "controlIntent": "ISO/IEC 42001 states that organisations shall define and document verification and validation measures and their evaluation criteria, and apply these during AI system development. The guidance notes that testing should consider the intended use, deployment context, data quality and variability, edge cases and potential failure modes. It also notes that evaluation should be performed under conditions that simulate real-world operation as closely as possible. This ensures that AI systems are reliable and perform as expected not only in controlled environments but also in diverse and challenging operational conditions."
   },
   "RE-3": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "ISO/IEC 42001 requires defining elements for ongoing AI system operation, including system and performance monitoring, and evaluating the AI management system using monitoring and measurement results.",
-    "citation": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+    "alignmentRationale": "This question checks whether the organisation monitors AI system performance in production and responds to degradation or failures. ISO/IEC 42001 requires organisations to define and document ongoing operation and monitoring, to establish metrics for monitoring system performance, and to take action when performance deviates from expectations or becomes unacceptable.",
+    "citation": "A.7.5 -> p.19; B.7.4 -> p.38",
+    "controlIntent": "ISO/IEC 42001 requires that organisations define and document elements needed for the ongoing operation of the AI system, including monitoring and maintenance. It states that metrics for monitoring system performance should be established and that actions should be taken when monitoring indicates that performance is unacceptable or deviates from expectations. The guidance notes that monitoring can include tracking accuracy, latency, data quality and user feedback, and that organisations should have processes in place to investigate performance degradation, diagnose root causes and implement corrective measures such as retraining, updating or decommissioning the system."
   },
   "RE-4": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "ISO/IEC 42001 requires establishing AI objectives, performance criteria and evaluation methods, including metrics that reflect responsible AI objectives such as reliability.",
-    "citation": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+    "alignmentRationale": "This question asks whether the organisation evaluates and mitigates the risk of model drift or performance degradation over time. ISO/IEC 42001 requires organisations to monitor AI system performance during operation, to assess risks related to changes in data distributions or operational contexts, and to take action when performance degrades. This includes updating or retraining models as needed.",
+    "citation": "A.7.5 -> p.19; A.7.6 -> p.19; B.7.4 -> p.38",
+    "controlIntent": "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring, including maintenance, updates and performance tracking. It notes that AI systems may experience performance degradation due to changes in data distributions, operational environments or user behaviour—a phenomenon sometimes called model drift. The standard requires that organisations monitor for such degradation, assess associated risks and take corrective action, which can include retraining the model on updated data, adjusting parameters or modifying the system design. Documentation of updates and their impacts should also be maintained."
   },
   "RE-5": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "ISO/IEC 42001 requires AI system impact assessments to consider predictable failures and their impacts and to address these through risk treatment and design decisions.",
-    "citation": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+    "alignmentRationale": "This question evaluates whether the organisation has contingency plans or fallback mechanisms for when AI systems fail or produce unreliable outputs. ISO/IEC 42001 requires organisations to assess potential failures and their impacts, to plan for incidents and to implement controls such as human oversight or alternative processes to mitigate risks when AI systems fail.",
+    "citation": "B.5.2 -> p.27; B.9.4 -> p.42; B.10.1 -> p.43; B.10.2 -> p.44",
+    "controlIntent": "ISO/IEC 42001 requires that organisations assess potential consequences of AI systems, including predictable failures, and plan actions to address risks. It notes that human oversight should be maintained, with consideration given to when and how humans can intervene if the system fails or produces unreliable outputs. The standard also requires that organisations establish processes for managing incidents, including procedures for identifying, recording and responding to failures. By implementing contingency plans, fallback mechanisms and human oversight, organisations ensure that when AI systems fail, there are alternative processes in place to maintain critical functions and minimise harm."
   },
   "RE-6": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "ISO/IEC 42001 requires verification, validation and evaluation plans that consider operational factors and acceptable performance ranges for AI systems, supporting consistent behavior under expected use and edge conditions.",
-    "citation": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+    "alignmentRationale": "This question checks whether the organisation conducts stress testing or adversarial testing to evaluate system robustness. ISO/IEC 42001 does not explicitly mandate adversarial testing but requires organisations to define verification and validation measures that include testing for robustness, to consider edge cases and failure modes, and to assess risks related to adversarial attacks.",
+    "citation": "A.6.2.4 -> p.19; B.6.2.5 -> p.34",
+    "controlIntent": "ISO/IEC 42001 requires that organisations define and document verification and validation measures and their evaluation criteria. The guidance notes that verification and validation should include testing for robustness, which can involve exposing the AI system to challenging, edge-case or adversarial inputs to evaluate whether it behaves reliably and safely. The standard also requires that AI-specific risks, including adversarial attacks, be identified and addressed. While the term 'adversarial testing' is not explicitly used, the requirements for comprehensive validation and risk assessment support the use of such testing methods to ensure system robustness."
   },
   "RE-7": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "ISO/IEC 42001 requires monitoring the AI management system and AI systems in operation, recording event logs and addressing nonconformities and corrective actions, which covers error detection and response.",
-    "citation": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+    "alignmentRationale": "This question asks whether the organisation maintains version control and documentation for AI models and their dependencies. ISO/IEC 42001 requires organisations to document AI system design and development, to control changes and updates, and to maintain records of versions, configurations and dependencies. This supports reproducibility, traceability and reliability.",
+    "citation": "A.7.6 -> p.19; B.6.2.7 -> p.35",
+    "controlIntent": "ISO/IEC 42001 requires that organisations define and document processes for updates and modifications to AI systems, and that records of changes be controlled and maintained. The guidance notes that technical documentation should include information about the AI system's design, architecture, versions, dependencies and configuration. Version control practices ensure that the organisation can trace which model version is deployed, reproduce previous versions if needed, understand the impact of changes and maintain consistency across development, testing and production environments. This supports system reliability and facilitates troubleshooting and audits."
   },
   "RE-8": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "ISO/IEC 42001 requires ongoing monitoring, performance evaluation and updating of AI systems and the AI management system to maintain effectiveness and meet objectives such as reliability.",
-    "citation": "A.6.2.4; A.6.2.6; B.6.2.4; 9.1; B.9.3"
+    "alignmentRationale": "This question evaluates whether the organisation assesses and documents the limitations and failure modes of AI systems. ISO/IEC 42001 requires organisations to assess potential failures and their impacts, to document known limitations, and to communicate this information to users and stakeholders. This transparency supports informed use and appropriate reliance on AI systems.",
+    "citation": "B.5.2 -> p.27; B.6.2.7 -> p.35; B.8.2 -> p.40",
+    "controlIntent": "ISO/IEC 42001 requires that organisations assess potential consequences of AI systems, including predictable failures, and identify sources, events, outcomes and likelihood. It also requires that technical documentation include information about known limitations, assumptions and constraints, and that users be provided with information about limitations and how to interpret system outputs. The guidance notes that by documenting and communicating failure modes and limitations, organisations enable users to make informed decisions about when and how to rely on the AI system, and help prevent misuse or over-reliance that could lead to harm."
   },
   "SE-1": {
     "domain": "Security",
