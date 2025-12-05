@@ -409,6 +409,14 @@ function AssessmentPage() {
     setShowIso42001Modal(false);
   };
 
+  const handleOpenAuAssuranceModal = () => {
+    setShowAuAssuranceModal(true);
+  };
+
+  const handleCloseAuAssuranceModal = () => {
+    setShowAuAssuranceModal(false);
+  };
+
   const handleOpenQuestionHelp = () => {
     // Show additional guidance for the current question
     if (currentQuestion && currentQuestion.code) {
