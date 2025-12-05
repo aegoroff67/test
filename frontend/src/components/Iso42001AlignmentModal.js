@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, confidenceLevel, alignmentRationale, citation } = alignmentData;
+  const { alignmentType, confidenceLevel, alignmentRationale, citation, controlIntent } = alignmentData;
 
   // Function to get confidence level color based on level
   const getConfidenceLevelColor = (level) => {
