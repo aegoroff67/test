@@ -821,6 +821,20 @@ function AssessmentPage() {
                           EU AI Act - {euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
+                      {/* Australian National Framework for the Assurance of AI in Government Alignment Badge */}
+                      {isAuAssuranceSelected && auAssuranceAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenAuAssuranceModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            auAssuranceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-orange-100 text-orange-800 border border-orange-300 hover:bg-orange-200'
+                              : 'bg-orange-50 text-orange-700 border border-orange-200 hover:bg-orange-100'
+                          }`}
+                          title="Click to view Australian National Framework for the Assurance of AI in Government alignment details"
+                        >
+                          AU Assurance - {auAssuranceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
+                        </button>
+                      )}
                     </div>
                     <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gray-900 leading-relaxed compact-title">
                       {currentQuestion.text}
