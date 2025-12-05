@@ -1183,104 +1183,24 @@ function AssessmentPage() {
         content={currentHelpContent?.content || null}
       />
 
-      {/* FAIRA Alignment Modal */}
-      {currentQuestion && fairaAlignmentData[currentQuestion.code] && (
-        <FairaAlignmentModal
-          isOpen={showFairaModal}
-          onClose={handleCloseFairaModal}
-          questionCode={currentQuestion.code}
-          questionText={currentQuestion.text}
-          alignmentData={fairaAlignmentData[currentQuestion.code]}
-        />
-      )}
-
-      {/* NIST AI RMF Alignment Modal */}
-      {currentQuestion && nistAlignmentData[currentQuestion.code] && (
-        <NistAlignmentModal
-          isOpen={showNistModal}
-          onClose={handleCloseNistModal}
-          questionCode={currentQuestion.code}
-          questionText={currentQuestion.text}
-          alignmentData={nistAlignmentData[currentQuestion.code]}
-        />
-      )}
-
-      {/* ISO/IEC 42001 Alignment Modal */}
-      {currentQuestion && iso42001AlignmentData[currentQuestion.code] && (
-        <Iso42001AlignmentModal
-          isOpen={showIso42001Modal}
-          onClose={handleCloseIso42001Modal}
-          questionCode={currentQuestion.code}
-          questionText={currentQuestion.text}
-          alignmentData={iso42001AlignmentData[currentQuestion.code]}
-        />
-      )}
-
-      {/* Australian AI Ethics Principles Alignment Modal */}
-      {currentQuestion && auEthicsAlignmentData[currentQuestion.code] && (
-        <AuEthicsAlignmentModal
-          isOpen={showAuEthicsModal}
-          onClose={handleCloseAuEthicsModal}
-          questionCode={currentQuestion.code}
-          questionText={currentQuestion.text}
-          alignmentData={auEthicsAlignmentData[currentQuestion.code]}
-        />
-      )}
-
-      {/* Australian Government Guidance for AI Adoption Alignment Modal */}
-      {currentQuestion && auGuidanceAlignmentData[currentQuestion.code] && (
-        <AuGuidanceAlignmentModal
-          isOpen={showAuGuidanceModal}
-          onClose={handleCloseAuGuidanceModal}
-          questionCode={currentQuestion.code}
-          questionText={currentQuestion.text}
-          alignmentData={auGuidanceAlignmentData[currentQuestion.code]}
-        />
-      )}
-
-      {/* EU AI Act Alignment Modal */}
-      {currentQuestion && euAiActAlignmentData[currentQuestion.code] && (
-        <EuAiActAlignmentModal
-          isOpen={showEuAiActModal}
-          onClose={handleCloseEuAiActModal}
-          questionCode={currentQuestion.code}
-          questionText={currentQuestion.text}
-          alignmentData={euAiActAlignmentData[currentQuestion.code]}
-        />
-      )}
-
-      {/* Australian National Framework for the Assurance of AI in Government Alignment Modal */}
-      {currentQuestion && auAssuranceAlignmentData[currentQuestion.code] && (
-        <AuAssuranceAlignmentModal
-          isOpen={showAuAssuranceModal}
-          onClose={handleCloseAuAssuranceModal}
-          questionCode={currentQuestion.code}
-          questionText={currentQuestion.text}
-          alignmentData={auAssuranceAlignmentData[currentQuestion.code]}
-        />
-      )}
-
-      {/* Singapore MAF Alignment Modal */}
-      {currentQuestion && singaporeMafAlignmentData[currentQuestion.code] && (
-        <SingaporeMafAlignmentModal
-          isOpen={showSingaporeMafModal}
-          onClose={handleCloseSingaporeMafModal}
-          questionCode={currentQuestion.code}
-          questionText={currentQuestion.text}
-          alignmentData={singaporeMafAlignmentData[currentQuestion.code]}
-        />
-      )}
-
-      {/* OECD Principles Alignment Modal */}
-      {currentQuestion && oecdPrinciplesAlignmentData[currentQuestion.code] && (
-        <OecdPrinciplesAlignmentModal
-          isOpen={showOecdPrinciplesModal}
-          onClose={handleCloseOecdPrinciplesModal}
-          questionCode={currentQuestion.code}
-          questionText={currentQuestion.text}
-          alignmentData={oecdPrinciplesAlignmentData[currentQuestion.code]}
-        />
-      )}
+      {/* Dynamic Framework Alignment Modals - Replaces 9 separate modal blocks */}
+      {currentQuestion && Object.entries(FRAMEWORK_CONFIG).map(([key, config]) => {
+        const ModalComponent = config.component;
+        const alignmentData = config.data[currentQuestion.code];
+        
+        if (!alignmentData) return null;
+        
+        return (
+          <ModalComponent
+            key={key}
+            isOpen={activeFrameworkModal === key}
+            onClose={handleCloseFrameworkModal}
+            questionCode={currentQuestion.code}
+            questionText={currentQuestion.text}
+            alignmentData={alignmentData}
+          />
+        );
+      })}
     </div>
   );
 }
