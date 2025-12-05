@@ -770,9 +770,9 @@ function AssessmentPage() {
                       />
                       {/* Framework Alignment Badges - Display in order: FAIRA, NIST, ISO, AU Ethics, AU AI Adoption, EU AI Act */}
                       {/* ISO/IEC 42001 Alignment Badge */}
-                      {isIso42001Selected && iso42001AlignmentData[currentQuestion.code] && (
+                      {selectedFrameworks.iso42001 && iso42001AlignmentData[currentQuestion.code] && (
                         <button
-                          onClick={handleOpenIso42001Modal}
+                          onClick={() => handleOpenFrameworkModal('iso42001')}
                           className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                             iso42001AlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
                               ? 'bg-teal-100 text-teal-800 border border-teal-300 hover:bg-teal-200'
