@@ -110,7 +110,7 @@ function AssessmentPage() {
       const frameworks = systemInfo.frameworks || [];
       setIsFairaSelected(frameworks.includes("Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)"));
       setIsNistSelected(frameworks.includes("NIST AI RMF (2023)"));
-      setIsIso42001Selected(frameworks.includes("ISO/IEC 42001 (2023)"));
+      setIsIso42001Selected(frameworks.includes("AS ISO/IEC 42001:2023"));
       setIsAuEthicsSelected(frameworks.includes("Australian AI Ethics Principles (2024)"));
       setIsAuGuidanceSelected(frameworks.includes("Australian Government – Guidance for AI Adoption (2025)"));
       setIsAuAssuranceSelected(frameworks.includes("Australian National Framework for the Assurance of AI in Government (2024)"));
