@@ -807,20 +807,6 @@ function AssessmentPage() {
                           AU Guidance - {auGuidanceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
-                      {/* EU AI Act Alignment Badge */}
-                      {isEuAiActSelected && euAiActAlignmentData[currentQuestion.code] && (
-                        <button
-                          onClick={handleOpenEuAiActModal}
-                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                            euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
-                              ? 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
-                              : 'bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100'
-                          }`}
-                          title="Click to view EU AI Act alignment details"
-                        >
-                          EU AI Act - {euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
-                        </button>
-                      )}
                       {/* Australian National Framework for the Assurance of AI in Government Alignment Badge */}
                       {isAuAssuranceSelected && auAssuranceAlignmentData[currentQuestion.code] && (
                         <button
@@ -833,6 +819,20 @@ function AssessmentPage() {
                           title="Click to view Australian National Framework for the Assurance of AI in Government alignment details"
                         >
                           AU Assurance - {auAssuranceAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
+                        </button>
+                      )}
+                      {/* EU AI Act Alignment Badge */}
+                      {isEuAiActSelected && euAiActAlignmentData[currentQuestion.code] && (
+                        <button
+                          onClick={handleOpenEuAiActModal}
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                            euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns'
+                              ? 'bg-purple-100 text-purple-800 border border-purple-300 hover:bg-purple-200'
+                              : 'bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100'
+                          }`}
+                          title="Click to view EU AI Act alignment details"
+                        >
+                          EU AI Act - {euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
                     </div>
