@@ -150,6 +150,7 @@ const FRAMEWORKS = [
   "ISO/IEC 42001 (2023)",
   "Australian AI Ethics Principles (2024)",
   "Australian Government – Guidance for AI Adoption (2025)",
+  "Australian National Framework for the Assurance of AI in Government (2024)",
   "EU AI Act (2024 final)",
 ];
 
