@@ -173,15 +173,19 @@ function AssessmentPage() {
       // Check which frameworks are selected in system_info
       const systemInfo = assessmentResponse.data.system_info || {};
       const frameworks = systemInfo.frameworks || [];
-      setIsFairaSelected(frameworks.includes("Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)"));
-      setIsNistSelected(frameworks.includes("NIST AI RMF (2023)"));
-      setIsIso42001Selected(frameworks.includes("AS ISO/IEC 42001:2023"));
-      setIsAuEthicsSelected(frameworks.includes("Australian AI Ethics Principles (2024)"));
-      setIsAuGuidanceSelected(frameworks.includes("Australian Guidance for AI Adoption (2025)"));
-      setIsAuAssuranceSelected(frameworks.includes("Australian National Framework for the Assurance of AI in Government (2024)"));
-      setIsSingaporeMafSelected(frameworks.includes("Singapore MAF (2024)"));
-      setIsOecdPrinciplesSelected(frameworks.includes("OECD Principles (2019)"));
-      setIsEuAiActSelected(frameworks.includes("EU AI Act (2024 final)"));
+      
+      // Update selected frameworks using unified state
+      setSelectedFrameworks({
+        faira: frameworks.includes("Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)"),
+        nist: frameworks.includes("NIST AI RMF (2023)"),
+        iso42001: frameworks.includes("AS ISO/IEC 42001:2023"),
+        auEthics: frameworks.includes("Australian AI Ethics Principles (2024)"),
+        auGuidance: frameworks.includes("Australian Guidance for AI Adoption (2025)"),
+        auAssurance: frameworks.includes("Australian National Framework for the Assurance of AI in Government (2024)"),
+        singaporeMaf: frameworks.includes("Singapore MAF (2024)"),
+        oecdPrinciples: frameworks.includes("OECD Principles (2019)"),
+        euAiAct: frameworks.includes("EU AI Act (2024 final)")
+      });
       
       // Fetch questions with domains and answers
       const questionsResponse = await axios.get(`${API}/assessments/${id}/questions`);
