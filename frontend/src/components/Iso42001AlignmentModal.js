@@ -31,7 +31,8 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
       }}
     >
       <div 
-        className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col"
+        className="bg-white rounded-lg w-full max-h-[90vh] overflow-hidden flex flex-col"
+        style={{ maxWidth: '55rem' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header - Teal theme for ISO 42001 */}
