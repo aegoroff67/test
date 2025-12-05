@@ -10,8 +10,8 @@ alignment_data = {
     "FA-1": {
         "alignmentType": "Fully Aligns",
         "confidenceLevel": "High",
-        "alignmentRationale": "Directly addresses bias identification and mitigation, which is core to the Framework's Data dimension. Data is a core element of model development. It significantly impacts the quality of the model output... there is a need to ensure data quality.",
-        "citation": "(p.10)"
+        "alignmentRationale": "Directly addresses bias identification and mitigation, which is core to the Framework's Data dimension.",
+        "citation": "\"Data is a core element of model development. It significantly impacts the quality of the model output... there is a need to ensure data quality.\" (p.10)"
     },
     "FA-2": {
         "alignmentType": "Fully Aligns",
