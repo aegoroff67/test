@@ -1203,6 +1203,16 @@ function AssessmentPage() {
           alignmentData={auAssuranceAlignmentData[currentQuestion.code]}
         />
       )}
+
+      {/* OECD Principles Alignment Modal */}
+      {currentQuestion && oecdPrinciplesAlignmentData[currentQuestion.code] && (
+        <OecdPrinciplesAlignmentModal
+          isOpen={showOecdPrinciplesModal}
+          onClose={handleCloseOecdPrinciplesModal}
+          questionCode={currentQuestion.code}
+          alignmentData={oecdPrinciplesAlignmentData[currentQuestion.code]}
+        />
+      )}
     </div>
   );
 }
