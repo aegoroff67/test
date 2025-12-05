@@ -426,6 +426,15 @@ function AssessmentPage() {
   const handleCloseAuAssuranceModal = () => {
     setShowAuAssuranceModal(false);
   };
+
+  const handleOpenSingaporeMafModal = () => {
+    setShowSingaporeMafModal(true);
+  };
+
+  const handleCloseSingaporeMafModal = () => {
+    setShowSingaporeMafModal(false);
+  };
+
   const handleOpenOecdPrinciplesModal = () => {
     setShowOecdPrinciplesModal(true);
   };
