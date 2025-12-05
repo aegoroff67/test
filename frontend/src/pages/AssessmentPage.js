@@ -112,7 +112,7 @@ function AssessmentPage() {
       setIsNistSelected(frameworks.includes("NIST AI RMF (2023)"));
       setIsIso42001Selected(frameworks.includes("AS ISO/IEC 42001:2023"));
       setIsAuEthicsSelected(frameworks.includes("Australian AI Ethics Principles (2024)"));
-      setIsAuGuidanceSelected(frameworks.includes("Australian Government – Guidance for AI Adoption (2025)"));
+      setIsAuGuidanceSelected(frameworks.includes("Australian Guidance for AI Adoption (2025)"));
       setIsAuAssuranceSelected(frameworks.includes("Australian National Framework for the Assurance of AI in Government (2024)"));
       setIsSingaporeMafSelected(frameworks.includes("Singapore MAF (2024)"));
       setIsOecdPrinciplesSelected(frameworks.includes("OECD Principles (2019)"));
