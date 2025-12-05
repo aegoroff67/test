@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 /**
  * Modal component to display NIST AI RMF alignment information
  */
-export default function NistAlignmentModal({ isOpen, onClose, questionCode, alignmentData }) {
+export default function NistAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
   const { alignmentType, function: nistFunction, categorySubcategory, reasoning, citations, confidenceLevel } = alignmentData;
@@ -22,17 +22,17 @@ export default function NistAlignmentModal({ isOpen, onClose, questionCode, alig
       >
         {/* Header */}
         <div className="bg-indigo-600 text-white px-6 py-4 flex items-center justify-between">
-          <div>
+          <div className="flex-1 pr-4">
             <h2 className="text-xl font-semibold">
               NIST AI RMF Alignment Information
             </h2>
             <p className="text-sm text-indigo-100 mt-1">
-              Question {questionCode}
+              {questionCode}: {questionText}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-white hover:bg-indigo-700 rounded-full p-2 transition-colors"
+            className="text-white hover:bg-indigo-700 rounded-full p-2 transition-colors flex-shrink-0"
             aria-label="Close modal"
           >
             <X className="h-5 w-5" />

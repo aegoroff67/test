@@ -1,7 +1,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 
-export default function OecdPrinciplesAlignmentModal({ isOpen, onClose, questionCode, alignmentData }) {
+export default function OecdPrinciplesAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
   const { alignmentType, confidenceLevel, alignmentRationale, citation } = alignmentData;
@@ -37,17 +37,17 @@ export default function OecdPrinciplesAlignmentModal({ isOpen, onClose, question
         {/* Header - Slate/gray-blue theme for OECD */}
         <div className="bg-slate-600 text-white p-6">
           <div className="flex justify-between items-start">
-            <div>
+            <div className="flex-1 pr-4">
               <h2 className="text-xl font-semibold">
                 OECD Principles (2019) Alignment Information
               </h2>
               <p className="text-sm text-slate-100 mt-1">
-                Question {questionCode}
+                {questionCode}: {questionText}
               </p>
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:bg-slate-700 rounded-lg p-2 transition-colors"
+              className="text-white hover:bg-slate-700 rounded-lg p-2 transition-colors flex-shrink-0"
             >
               <X className="w-5 h-5" />
             </button>

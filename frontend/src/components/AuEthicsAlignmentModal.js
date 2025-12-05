@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 /**
  * Modal component to display Australian AI Ethics Principles alignment information
  */
-export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, alignmentData }) {
+export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
   const { alignmentType, overview, relevantPrinciples, alignmentDetails, confidenceLevel, citation } = alignmentData;
@@ -22,17 +22,17 @@ export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, 
       >
         {/* Header */}
         <div className="bg-green-600 text-white px-6 py-4 flex items-center justify-between">
-          <div>
+          <div className="flex-1 pr-4">
             <h2 className="text-xl font-semibold">
               Australian AI Ethics Principles Alignment Information
             </h2>
             <p className="text-sm text-green-100 mt-1">
-              Question {questionCode}
+              {questionCode}: {questionText}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-white hover:bg-green-700 rounded-full p-2 transition-colors"
+            className="text-white hover:bg-green-700 rounded-full p-2 transition-colors flex-shrink-0"
             aria-label="Close modal"
           >
             <X className="h-5 w-5" />
