@@ -108,7 +108,7 @@ function AssessmentPage() {
       // Check which frameworks are selected in system_info
       const systemInfo = assessmentResponse.data.system_info || {};
       const frameworks = systemInfo.frameworks || [];
-      setIsFairaSelected(frameworks.includes("FAIRA (Queensland Government)"));
+      setIsFairaSelected(frameworks.includes("Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)"));
       setIsNistSelected(frameworks.includes("NIST AI RMF (2023)"));
       setIsIso42001Selected(frameworks.includes("ISO/IEC 42001 (2023)"));
       setIsAuEthicsSelected(frameworks.includes("Australian AI Ethics Principles (2024)"));
