@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 /**
  * Modal component to display FAIRA alignment information for a specific question
  */
-export default function FairaAlignmentModal({ isOpen, onClose, questionCode, alignmentData }) {
+export default function FairaAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
   const { alignmentType, overview, fairaComponent, alignmentDetails, confidenceLevel } = alignmentData;
