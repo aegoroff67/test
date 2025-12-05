@@ -421,6 +421,12 @@ function AssessmentPage() {
   const handleCloseAuAssuranceModal = () => {
     setShowAuAssuranceModal(false);
   };
+  const handleOpenOecdPrinciplesModal = () => {
+    setShowOecdPrinciplesModal(true);
+  };
+  const handleCloseOecdPrinciplesModal = () => {
+    setShowOecdPrinciplesModal(false);
+  };
 
   const handleOpenQuestionHelp = () => {
     // Show additional guidance for the current question
