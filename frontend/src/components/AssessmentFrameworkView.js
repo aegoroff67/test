@@ -91,6 +91,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
   const [loading, setLoading] = useState(true);
   const [selectedFramework, setSelectedFramework] = useState(null);
   const [availableFrameworks, setAvailableFrameworks] = useState([]);
+  const [showStatsTooltip, setShowStatsTooltip] = useState(false);
 
   // Get assessment type display name
   const getAssessmentTypeTitle = () => {
