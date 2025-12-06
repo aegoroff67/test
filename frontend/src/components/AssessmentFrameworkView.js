@@ -260,8 +260,8 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                         title={`${question.question_code} - Click to navigate`}
                         onClick={() => onQuestionClick && onQuestionClick(question.question_id)}
                       >
-                        <div className="flex items-center justify-center">
-                          <span className="text-lg">{icon}</span>
+                        <div className="flex items-center justify-center space-x-1">
+                          <span className="text-base">{icon}</span>
                         </div>
                         <div className="mt-1 text-xs font-semibold">
                           {question.question_code}
