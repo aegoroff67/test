@@ -211,17 +211,34 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-7xl h-[95vh] flex flex-col">
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-start gap-4">
             <div className="flex-1">
               <CardTitle className="text-xl">{getAssessmentTypeTitle()} - Framework Alignment</CardTitle>
               <p className="text-sm text-gray-600 mt-1">
                 View how questions align with selected frameworks
               </p>
             </div>
+            
+            {/* Legend - Moved to header */}
+            <div className="flex items-center gap-4 text-xs bg-gray-50 px-4 py-2 rounded-lg border border-gray-200">
+              <div className="flex items-center gap-2">
+                <span className="text-lg text-green-600">●</span>
+                <span className="text-gray-700 font-medium">Fully Aligns</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-lg text-yellow-600">◐</span>
+                <span className="text-gray-700 font-medium">Partially Aligns</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-lg text-gray-400">○</span>
+                <span className="text-gray-700 font-medium">No Alignment</span>
+              </div>
+            </div>
+
             <Button 
               variant="ghost" 
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600"
+              className="text-gray-400 hover:text-gray-600 flex-shrink-0"
             >
               <X className="h-5 w-5" />
             </Button>
