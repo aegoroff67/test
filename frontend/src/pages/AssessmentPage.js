@@ -159,6 +159,9 @@ function AssessmentPage() {
     singaporeMaf: false,
     oecdPrinciples: false
   });
+  
+  // State for framework alignment view
+  const [showFrameworkView, setShowFrameworkView] = useState(false);
 
   useEffect(() => {
     fetchAssessment();
