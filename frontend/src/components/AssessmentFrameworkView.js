@@ -269,6 +269,8 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                   {domain.questions.map((question) => {
                     const colorClass = getAlignmentColor(question.question_code);
                     const icon = getAlignmentIcon(question.question_code);
+                    // Use larger size for filled circle to match visual size of hollow circles
+                    const iconSizeClass = icon === '●' ? 'text-lg' : 'text-base';
                     
                     return (
                       <div
@@ -279,7 +281,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                         onClick={() => onQuestionClick && onQuestionClick(question.question_id)}
                       >
                         <div className="flex items-center justify-center space-x-1">
-                          <span className="text-base leading-none">{icon}</span>
+                          <span className={`${iconSizeClass} leading-none`}>{icon}</span>
                         </div>
                         <div className="mt-1 text-xs font-semibold">
                           {question.question_code}
