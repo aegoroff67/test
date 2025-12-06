@@ -328,25 +328,6 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                 ))}
               </div>
             )}
-
-            {/* Legend */}
-            <div className="mt-4 pt-4 border-t border-gray-300">
-              <h4 className="text-xs font-semibold text-gray-700 mb-2">Legend:</h4>
-              <div className="grid grid-cols-3 gap-3 text-xs">
-                <div className="flex items-center space-x-2">
-                  <span className="text-lg text-green-600">●</span>
-                  <span className="text-gray-700">Fully Aligns</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-lg text-yellow-600">◐</span>
-                  <span className="text-gray-700">Partially Aligns</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-lg text-gray-400">○</span>
-                  <span className="text-gray-700">No Alignment Data</span>
-                </div>
-              </div>
-            </div>
           </div>
         </CardContent>
       </Card>
