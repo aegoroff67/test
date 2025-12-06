@@ -285,7 +285,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                 No frameworks selected for this assessment. Please select frameworks in the pre-assessment form.
               </p>
             ) : (
-              <div className="space-y-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {availableFrameworks.map((framework) => (
                   <label
                     key={framework.id}
@@ -301,7 +301,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                       value={framework.id}
                       checked={selectedFramework === framework.id}
                       onChange={() => setSelectedFramework(framework.id)}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 flex-shrink-0"
                     />
                     <span className="text-sm font-medium text-gray-900">
                       {framework.name}
