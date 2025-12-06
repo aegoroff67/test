@@ -339,9 +339,64 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
 
           {/* Framework Selection - Radio buttons underneath the matrix */}
           <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">
-              Select Framework to View Alignment:
-            </h3>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-semibold text-gray-900">
+                Select Framework to View Alignment:
+              </h3>
+              
+              {/* Statistics Tooltip */}
+              {selectedFramework && (
+                <div className="relative">
+                  <button
+                    className="flex items-center gap-2 text-xs text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                    onMouseEnter={() => setShowStatsTooltip(true)}
+                    onMouseLeave={() => setShowStatsTooltip(false)}
+                  >
+                    <Info className="h-4 w-4" />
+                    <span>Alignment Statistics</span>
+                  </button>
+                  
+                  {showStatsTooltip && (() => {
+                    const stats = getAlignmentStats();
+                    return stats ? (
+                      <div className="absolute right-0 top-full mt-2 z-50 w-64 bg-white border-2 border-blue-500 rounded-lg shadow-xl p-4">
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="text-3xl text-green-600 leading-none">●</span>
+                              <span className="text-sm font-medium text-gray-700">Fully Aligns</span>
+                            </div>
+                            <span className="text-lg font-bold text-green-600">{stats.fullyAligned}%</span>
+                          </div>
+                          
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xl text-yellow-600 leading-none">◐</span>
+                              <span className="text-sm font-medium text-gray-700">Partially Aligns</span>
+                            </div>
+                            <span className="text-lg font-bold text-yellow-600">{stats.partiallyAligned}%</span>
+                          </div>
+                          
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xl text-gray-400 leading-none">○</span>
+                              <span className="text-sm font-medium text-gray-700">No Alignment</span>
+                            </div>
+                            <span className="text-lg font-bold text-gray-500">{stats.noAlignment}%</span>
+                          </div>
+                          
+                          <div className="mt-3 pt-3 border-t border-gray-200">
+                            <div className="text-xs text-gray-600 text-center">
+                              Total Questions: {stats.total}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null;
+                  })()}
+                </div>
+              )}
+            </div>
             
             {availableFrameworks.length === 0 ? (
               <p className="text-sm text-gray-600 italic">
