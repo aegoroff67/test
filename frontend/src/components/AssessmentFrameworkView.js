@@ -279,7 +279,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                         onClick={() => onQuestionClick && onQuestionClick(question.question_id)}
                       >
                         <div className="flex items-center justify-center space-x-1">
-                          <span className="text-base">{icon}</span>
+                          <span className="text-base leading-none">{icon}</span>
                         </div>
                         <div className="mt-1 text-xs font-semibold">
                           {question.question_code}
