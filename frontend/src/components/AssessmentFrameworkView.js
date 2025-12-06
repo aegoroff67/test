@@ -191,6 +191,48 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
     return '○';
   };
 
+  // Calculate alignment statistics for selected framework
+  const getAlignmentStats = () => {
+    if (!selectedFramework || !statusData) return null;
+
+    const framework = FRAMEWORKS.find(fw => fw.id === selectedFramework);
+    if (!framework) return null;
+
+    let fullyAligned = 0;
+    let partiallyAligned = 0;
+    let noAlignment = 0;
+    let total = 0;
+
+    // Count alignments across all questions
+    statusData.status_overview.forEach(domain => {
+      domain.questions.forEach(question => {
+        total++;
+        const alignmentData = framework.data[question.question_code];
+        
+        if (!alignmentData) {
+          noAlignment++;
+        } else {
+          const alignmentType = alignmentData.alignmentType;
+          
+          if (alignmentType === 'Fully Aligns' || alignmentType === 'Direct alignment') {
+            fullyAligned++;
+          } else if (alignmentType === 'Partially Aligns' || alignmentType === 'Related alignment') {
+            partiallyAligned++;
+          } else {
+            noAlignment++;
+          }
+        }
+      });
+    });
+
+    return {
+      fullyAligned: total > 0 ? Math.round((fullyAligned / total) * 100) : 0,
+      partiallyAligned: total > 0 ? Math.round((partiallyAligned / total) * 100) : 0,
+      noAlignment: total > 0 ? Math.round((noAlignment / total) * 100) : 0,
+      total
+    };
+  };
+
   if (loading) {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
