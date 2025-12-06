@@ -651,8 +651,19 @@ function AssessmentPage() {
                 className="text-xs sm:text-sm px-2 sm:px-3"
               >
                 <BarChart3 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">View All</span>
-                <span className="sm:hidden">All</span>
+                <span className="hidden sm:inline">Progress Status</span>
+                <span className="sm:hidden">Status</span>
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setShowFrameworkView(true)}
+                data-testid="view-framework-alignment-btn"
+                className="text-xs sm:text-sm px-2 sm:px-3"
+              >
+                <Grid3X3 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Framework Alignment</span>
+                <span className="sm:hidden">Frameworks</span>
               </Button>
               <Button 
                 variant="ghost" 
