@@ -24,6 +24,7 @@ import {
   X
 } from 'lucide-react';
 import AssessmentStatusView from '../components/AssessmentStatusView';
+import AssessmentFrameworkView from '../components/AssessmentFrameworkView';
 import InfoBadge from '../components/InfoBadge';
 import FairaAlignmentModal from '../components/FairaAlignmentModal';
 import NistAlignmentModal from '../components/NistAlignmentModal';
