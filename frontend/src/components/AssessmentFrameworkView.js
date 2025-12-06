@@ -257,6 +257,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                       <div
                         key={question.question_id}
                         className={`p-2 rounded text-center text-xs font-medium border transition-all cursor-pointer hover:shadow-md ${colorClass}`}
+                        style={{ maxHeight: '50px' }}
                         title={`${question.question_code} - Click to navigate`}
                         onClick={() => onQuestionClick && onQuestionClick(question.question_id)}
                       >
