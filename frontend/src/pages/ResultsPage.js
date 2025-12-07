@@ -614,10 +614,10 @@ function ResultsPage() {
             </div>
             
             {/* Last 15% - Action Buttons */}
-            <div className="flex flex-col space-y-2" style={{ width: '15%' }}>
+            <div className="flex flex-col" style={{ width: '15%', gap: '5px' }}>
               {/* Button 1 - Detailed Report with Exports label */}
               <div className="flex items-center gap-2">
-                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
+                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
                   Exports:
                 </div>
                 <Button 
@@ -641,7 +641,7 @@ function ResultsPage() {
 
               {/* Button 2 - Executive Summary */}
               <div className="flex items-center gap-2">
-                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap invisible">
+                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap invisible" style={{ width: '55px' }}>
                   Spacer:
                 </div>
                 <Button 
@@ -665,7 +665,7 @@ function ResultsPage() {
 
               {/* Button 3 - Framework Coverage with Insights label */}
               <div className="flex items-center gap-2">
-                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
+                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
                   Insights:
                 </div>
                 <Button 
@@ -682,7 +682,7 @@ function ResultsPage() {
 
               {/* Button 4 - Request Consultation with Actions label */}
               <div className="flex items-center gap-2">
-                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
+                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
                   Actions:
                 </div>
                 <Button 
