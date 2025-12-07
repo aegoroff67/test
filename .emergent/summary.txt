@@ -1,217 +1,162 @@
-<analysis>**original_problem_statement:** The initial task was to fix a content update for a question (PR-2) in the AI System Maturity assessment that was not appearing on the frontend. This led to a deep dive into the data flow, revealing that question data was served from a MongoDB collection, not directly from the Python source file. The agent then created a data migration script to synchronize the database with the updated source file, fixing not only the initial issue but also subsequent content and formatting discrepancies for questions PR-2 and PR-5.
-
-This task evolved into a major feature implementation effort to add support for multiple governance frameworks (FAIRA, NIST AI RMF, AU AI Ethics, etc.). This involved creating a reusable system where framework-specific badges appear on assessment question pages. Clicking a badge opens a modal with detailed alignment information. This functionality is conditional on the user selecting the corresponding framework in a pre-assessment form. The agent has successfully implemented this for FAIRA, NIST AI RMF, and the Australian AI Ethics Principles, and is currently in the process of adding support for the Australian Guidance for AI Adoption.
+<analysis>**original_problem_statement:** The user's primary goals were to enhance the UI/UX and data content of an AI maturity assessment tool. This involved several major tasks: completing the display of full question text in all framework modal headers; a complete refactoring of the main assessment page to improve maintainability; two full rounds of data updates for the ISO 42001 framework based on user-provided Excel files, which also included adding a new Control Intent field; and implementing an entirely new Framework Alignment visualization page, which required multiple iterative UI refinements based on detailed user feedback. The final requests involved reorganizing the results page layout and a query about future data table implementations.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The application is a full-stack AI maturity assessment platform using React, FastAPI, and MongoDB.
-
-Key features implemented in this session:
-- A data migration script () to synchronize the MongoDB  collection with the content in .
-- A conditional panel for FAIRA Additional Information on the System Pre-assessment onboarding page.
-- A reusable component-based system on the question page () for displaying framework alignment information. This includes:
-    - Conditional rendering of badges based on user selections in the pre-assessment form.
-    - A specific display order for framework badges.
-    - Individual modal components for each framework (, , ).
-    - JSON data files in  that power the content of each modal.
-- Full implementation for three frameworks: FAIRA, NIST AI RMF, and Australian AI Ethics Principles.
-- The JSON data file () for the next framework, Australian Guidance for AI Adoption, has been created.
+The application is a full-stack AI maturity assessment platform (React/FastAPI). Key accomplishments in this session include:
+- All 9 framework modals now display the full question text in their headers.
+-  has been successfully refactored to use a generic, configurable modal, significantly reducing code duplication.
+- The  file has been completely updated with new content and a new  field, sourced from two user-provided Excel files.
+- A new feature, the Framework Alignment view, has been created and refined. It allows users to visualize how questions map to different frameworks with color-coding and provides on-hover statistics.
+- The layout of buttons on the  has been modified to prepare for a new feature.
 
 **Last working item**:
-- **Last item agent was working:** Implementing the Australian Guidance for AI Adoption framework alignment feature. The agent successfully extracted data from a user-provided Excel file and generated the required JSON data file (). The next steps are to create the corresponding modal component and integrate it into the main assessment page.
+- **Last item agent was working:** Adjusting the layout of action buttons on the Results page () to be more compact. The user requested that buttons for 'Detailed Report' and 'Executive Summary' be side-by-side, and 'Framework Coverage' and 'Request Consultation' be next to their respective titles to save vertical space. The agent has applied the code changes.
 - **Status:** IN PROGRESS
 - **Agent Testing Done:** N
-- **Which testing method agent to use?** Frontend testing agent. The agent should verify that:
-    1. The badge for Australian Guidance for AI Adoption appears only when the framework is selected in the pre-assessment.
-    2. The badge is positioned correctly in the established order (after Australian AI Ethics Principles).
-    3. Clicking the badge opens a modal displaying correctly formatted content from .
-    4. Existing framework badges (FAIRA, NIST, AU Ethics) continue to function correctly.
+- **Which testing method agent to use?** frontend testing agent to verify the new button layout on the results page.
 - **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
-- There are no pending high-priority bugs. The primary focus is on completing the in-progress feature development.
+-   **Issue 1:** The green 'Fully Aligns' icon is visually inconsistent with other icons on the Framework Alignment page. (P1)
+-   **Issue 2:** The 'Top 3 Action Steps' on the results page are calculated using incorrect logic. (P2)
 
 **Issues Detail:**
-- N/A
+-   **Issue 1:**
+    -   **Description:** On the  component, the green 'Fully Aligns' icon (●) appears visually smaller and sometimes misaligned compared to the 'Partially Aligns' (◐) and 'No Alignment' (○) icons, in both the legend and the question boxes.
+    -   **Attempted fixes:** The agent made multiple attempts by increasing the  of the green icon character (, ) in both the legend and the question box rendering logic.
+    -   **Next debug checklist:**
+        1.  In , replace the Unicode characters (●, ◐, ○) with SVG icons from a library like  to ensure consistent rendering and sizing across all browsers.
+        2.  Use , , and  or similar SVG icons.
+        3.  Wrap each icon and its text label in a flex container with  to guarantee correct vertical alignment.
+    -   **Why fix this issue and what will be achieved with the fix?** This will resolve a recurring UI polish issue explicitly pointed out by the user multiple times, leading to a more professional and consistent user interface.
+    -   **Status:** IN PROGRESS
+    -   **Is recurring issue?** Y
+    -   **Should Test frontend/backend/both after fix?** Frontend
+    -   **Blocked on other issue:** None.
+-   **Issue 2:**
+    -   **Description:** The 'Top 3 Action Steps' on  are calculated based on the lowest domain scores instead of the three lowest-scoring individual questions.
+    -   **Attempted fixes:** None in this session.
+    -   **Next debug checklist:**
+        1.  Review the data fetching and processing logic in .
+        2.  Modify the logic to sort the  array by individual question scores (lowest first).
+        3.  Select the top three questions from the sorted list and display their corresponding action steps.
+    -   **Why fix this issue and what will be achieved with the fix?** To provide users with more accurate and actionable recommendations.
+    -   **Status:** NOT STARTED
+    -   **Is recurring issue?** N
+    -   **Should Test frontend/backend/both after fix?** Frontend
+    -   **Blocked on other issue:** None.
 
 **In progress Task List**:
-- **Task 1: Complete Australian Guidance for AI Adoption framework implementation (P0)**
-
-**Task Detail:**
-- **Task 1:**
-    - **Where to resume:** The data file  is ready. The next steps are:
-        1.  Create a new modal component: . This should follow the pattern of existing framework modals, using a distinct color theme (e.g., orange/teal as previously suggested).
-        2.  Update  by:
-            - Importing the new modal and data file.
-            - Adding state variables (, ).
-            - Adding logic to detect if the framework was selected by the user.
-            - Adding modal open/close handler functions.
-            - Rendering the badge and modal component in the JSX, ensuring the correct display order.
-    - **What will be achieved with this?** The fourth framework alignment feature will be complete, providing users with insights into how assessment questions map to the Australian Guidance for AI Adoption.
-    - **Status:** IN PROGRESS
-    - **Should Test frontend/backend/both after fix?** Frontend
-    - **Blocked on something:** None.
+-   **Task 1:** Finalize and verify the compact button layout on the results page. (P0)
+    -   **Where to resume:** The agent has modified . The next step is to run yarn run v1.22.22
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command. to check for compilation errors and then test the UI.
+    -   **What will be achieved with this?** This completes the user's request for a more compact UI and prepares the layout for the upcoming 'Framework Coverage' page.
+    -   **Status:** IN PROGRESS
+    -   **Should Test frontend/backend/both after fix?** Frontend
+    -   **Blocked on something:** None.
 
 **Upcoming and Future Tasks**
-- **Upcoming Tasks:**
-    - **Task 1 (P0):** Implement framework alignment feature for **ISO/IEC 42001 (2023)**.
-    - **Task 2 (P0):** Implement framework alignment feature for **EU AI Act (2024 final)**.
-    - **Task 3 (P1):** Implement a print-specific, multi-page CSS layout for the results summary page to improve PDF exports. (Carried over)
-    - **Task 4 (P2):** Develop the backend functionality for generating DOCX reports. (Carried over)
-- **Future Tasks:**
-    - **Task 5 (P3):** Implement a Stripe paywall for premium assessments. (Carried over)
+-   **Upcoming Tasks:**
+    -   **Task 1 (P0):** Implement the 'AI System Maturity Assessment - Framework Coverage' page, which will be accessed via the new button on the .
+    -   **Task 2 (P1):** Replace the 'Control Intent' and 'Reference(s)' sections in the  with a data-driven table, as discussed with the user. This is pending an Excel file from the user containing the tabular data.
+    -   **Task 3 (P2):** Implement a print-specific, multi-page CSS layout for the results summary page.
+    -   **Task 4 (P3):** Develop backend functionality for generating DOCX reports.
+-   **Future Tasks:**
+    -   **Task 5 (P4):** Implement enterprise-level SSO (SAML/OIDC).
+    -   **Task 6 (P5):** Implement a Stripe paywall for premium assessments.
 
 **Completed work in this session**
-- **Bug Fix:** Resolved a critical bug where question content updates were not displayed. This involved creating a database migration script () to sync the MongoDB collection with source files.
-- **Content Fix:** Corrected formatting for  tooltips, ensuring they are readable.
-- **Feature:** Implemented a conditional FAIRA Additional Information panel on the pre-assessment form ().
-- **Feature:** Built a scalable system for displaying framework alignment badges and modals on the question page ().
-- **Feature:** Fully implemented the alignment badge/modal feature for three frameworks:
-    - **FAIRA**
-    - **Australian AI Ethics Principles (2024)**
-    - **NIST AI RMF (2023)**
-- **Data Processing:** Created multiple JSON data files (, , etc.) by parsing user-provided DOCX, JSON, and XLSX files.
+-   **Feature:** Implemented a new Framework Alignment view () with color-coded question matrices, a framework selector, and a statistics tooltip.
+-   **Feature:** Completed the initial 
+wtmp begins Fri Dec  5 02:32:12 2025 by adding the full question text to the headers of all 9 framework alignment modals.
+-   **Refactoring:** Refactored  to use a single generic modal component, removing ~100 lines of repetitive code and making it more maintainable.
+-   **Data Update:** Updated the ISO 42001 alignment data for all 88 questions twice, using two separate Excel files provided by the user ( and ). This included adding a new  field and cleaning up data.
+-   **UI Enhancements:**
+    -   Increased the width of  and  to .
+    -   Reorganized buttons on the  header into a more structured and compact layout.
+    -   Conducted multiple iterative UI refinements on the new Framework Alignment page based on user feedback (box sizing, content centering, legend placement, icon sizing).
 
 **Earlier issues found/mentioned but not fixed**
-- **Issue 1: 'Top 3 Action Steps' for Awareness assessments are based on lowest domain scores, not lowest question scores.** (Carried over from a previous job)
-    - **Debug checklist:** Review the sorting logic in . The logic should iterate through individual  to find the lowest scores, not use the pre-calculated .
-    - **Why to solve this issue and what will be achieved with this?** This will provide users with more accurate and actionable recommendations based on their specific weak points.
-    - **Should Test frontend/backend/both after fix:** Frontend.
-    - **Is recurring issue?** N.
+-   The 'Top 3 Action Steps' calculation bug on the results page (listed under **All Pending/In progress Issue list**) remains unaddressed.
 
 **Known issue recurrence from previous fork**
-- **Issue recurrence in previous fork:** PDF generation fails intermittently due to missing Playwright browser binaries in the environment.
-- **Recurrence count:** High.
-- **Status:** RESOLVED (but likely to recur).
-- **Note:** If a Failed to generate PDF error occurs, the standard first step is to run Downloading Chromium 140.0.7339.16 (playwright build v1187) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1187/chromium-linux-arm64.zip
-|                                                                                |   0% of 175.4 MiB
-|■■■■■■■■                                                                        |  10% of 175.4 MiB
-|■■■■■■■■■■■■■■■■                                                                |  20% of 175.4 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 175.4 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 175.4 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 175.4 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 175.4 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 175.4 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 175.4 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 175.4 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 175.4 MiB
-Chromium 140.0.7339.16 (playwright build v1187) downloaded to /pw-browsers/chromium-1187
-Downloading Chromium Headless Shell 140.0.7339.16 (playwright build v1187) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1187/chromium-headless-shell-linux-arm64.zip
-|                                                                                |   0% of 105.8 MiB
-|■■■■■■■■                                                                        |  10% of 105.8 MiB
-|■■■■■■■■■■■■■■■■                                                                |  20% of 105.8 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 105.8 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 105.8 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 105.8 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 105.8 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 105.8 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 105.8 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 105.8 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 105.8 MiB
-Chromium Headless Shell 140.0.7339.16 (playwright build v1187) downloaded to /pw-browsers/chromium_headless_shell-1187
-Downloading Firefox 141.0 (playwright build v1490) from https://cdn.playwright.dev/dbazure/download/playwright/builds/firefox/1490/firefox-debian-12-arm64.zip
-|                                                                                |   0% of 87.3 MiB
-|■■■■■■■■                                                                        |  10% of 87.3 MiB
-|■■■■■■■■■■■■■■■■                                                                |  20% of 87.3 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 87.3 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 87.3 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 87.3 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 87.3 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 87.3 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 87.3 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 87.3 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 87.3 MiB
-Firefox 141.0 (playwright build v1490) downloaded to /pw-browsers/firefox-1490
-Downloading Webkit 26.0 (playwright build v2203) from https://cdn.playwright.dev/dbazure/download/playwright/builds/webkit/2203/webkit-debian-12-arm64.zip
-|                                                                                |   0% of 87.6 MiB
-|■■■■■■■■                                                                        |  10% of 87.6 MiB
-|■■■■■■■■■■■■■■■■                                                                |  20% of 87.6 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 87.6 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 87.6 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 87.6 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 87.6 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 87.6 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 87.6 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 87.6 MiB
-|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 87.6 MiB
-Webkit 26.0 (playwright build v2203) downloaded to /pw-browsers/webkit-2203.
+-   None.
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Frontend:** React.js, Tailwind CSS. A reusable pattern has been established for adding new frameworks, involving a data file, a modal component, and updates to .
-- **Backend:** FastAPI, Pydantic, MongoDB (via ).
-- **Data Flow:** System assessment questions are served from a MongoDB collection. Changes in source files like  require running the  script to take effect.
+-   **Frontend Refactoring:** Replaced a highly repetitive component rendering pattern with a single generic component driven by a configuration object, simplifying state management.
+-   **Data-Driven UI:** Used a Python script to parse data from user-provided  files and update a large JSON data source, which in turn drives the content of the UI.
+-   **Conditional UI Rendering:** Implemented view toggling between two different dashboard displays ( and ) within the same page ().
+-   **CSS & Layout:** Used Tailwind CSS extensively for layout, including , , and custom styles to address specific UI polish requests regarding sizing, alignment, and spacing.
 
 **key DB schema**
-- **assessments:** 
-- **questions:** 
+-   No changes made to the database schema.
 
 **changes in tech stack**
-- None.
+-   None.
 
-**All files**
-- **Created:**
-    - : A crucial migration script for syncing DB question data.
-    - : A conditional panel on the pre-assessment form.
-    - Multiple framework-specific components () and data files ().
-- **Updated:**
-    - : Added new fields to the  Pydantic model.
-    - : Updated with new content and formatting.
-    - : Modified to include the conditional FAIRA panel.
-    - : Significantly refactored to handle the dynamic display of multiple framework badges and modals.
+**All files of reference**
+-   **Created:**
+    -   : The new framework alignment visualization page.
+    -   , , : Supporting documentation.
+-   **Updated:**
+    -   : Major refactor for generic modals and new view toggling.
+    -   : Reorganized header buttons.
+    -   : Data completely overhauled based on user-provided Excel files.
+    -   All 9  files: Updated to show  in the header.  and  modals had their width increased.
+    -   : Title updated to AI System Maturity Assessment - Progress Status.
 
 **Areas that need refactoring**:
--  is growing large due to repetitive logic for each new framework. Consider refactoring the state management and rendering logic into a custom hook (e.g., ) or a more generic  component to reduce code duplication and simplify adding future frameworks.
+-   The recommendation to refactor  from the previous handoff is still valid for future consideration to reduce its growing complexity.
 
 **key api endpoints**
-- : Fetches assessment details, including the  array, which determines which badges to display.
-- : Fetches the questions for the assessment.
+-   No changes to API endpoints.
 
 **Critical Info for New Agent**
-- **Framework Implementation Pattern:** Adhere to the established pattern for adding new frameworks: create a data JSON file, create a modal component, and update .
-- **Framework Badge Order:** The user has mandated a strict display order for badges: , , , , , . This order must be preserved.
-- **Database Synchronization:** Remember that all content changes for System Assessment questions in  are **not** automatically reflected. You **must** run the migration script Starting question update process...
-
-✅ Updated 0 questions with complete data
-
-🔍 Verifying PR-2 and PR-5:
-PR-2: ✓ additional_guidance present: True
-      ✓ evidence_types present: True
-      Guidance preview: **Additional Guidance: Protecting Personal Data Throughout the AI System Lifecyc...
-      Evidence preview: To comply with PR-2, organizations must demonstrate comprehensive privacy protec...
-
-PR-5: ✓ additional_guidance present: True
-      ✓ evidence_types present: True
-      Guidance preview: **Additional Guidance: Evaluating Privacy Protection Effectiveness and Performan...
-      Evidence preview: To comply with PR-5, organizations must demonstrate systematic evaluation of pri...
-
-Done! to update the MongoDB database.
+-   **Your Immediate Task:** Verify the build and then test the compact button layout on the . After that, prioritize the pending UI polish on the icon sizes (Issue #1).
+-   **User is Very Detail-Oriented:** The user provides specific and iterative feedback on UI elements like alignment, sizing, and consistency. The icon size issue is a prime example. Pay close attention to these details.
+-   **Data Updates via Excel:** The established workflow for content updates is for the user to provide an  file. You will need to extract this data and use a script to update the corresponding JSON file in the frontend.
+-   **Next Major Feature:** The user has confirmed they want to create a new page called 'AI System Maturity Assessment - Framework Coverage', accessible from the button recently added to the results page.
+-   **Pending Table Implementation:** The user is interested in replacing sections of the ISO 42001 modal with a data table. Await the Excel file with the data from the user before proceeding with this task.
 
 **documents created in this job**
-- None.
+-   
+-   
+-   
+-   
+-   
 
-**Last 5 User Messages and any pending user messages**
-1.  **User:** Uploaded the first 5 JSON files for the NIST AI RMF framework.
-2.  **User:** Uploaded the next 5 JSON files for NIST.
-3.  **User:** Uploaded the final JSON file for NIST.
-4.  **User:** Requested the implementation for the Australian Guidance for AI Adoption framework and provided the data in an Excel file.
-5.  **User:** There are no pending messages from the user. The agent has all necessary information to proceed with the current task.
+**Last 10 User Messages and any pending user messages**
+1.  **User:** Requests more compact button layout on results page. **Status:** IN PROGRESS.
+2.  **User:** Asks to create new 'Framework Coverage' page and reorganizes results page buttons. **Status:** RESOLVED (Button part is in progress).
+3.  **User:** Asks about agent's preferred method for importing tabular data. **Status:** RESOLVED.
+4.  **User:** Asks if a table can be inserted into the ISO 42001 modal. **Status:** RESOLVED (Agent provided options, awaiting user file).
+5.  **User:** Reports green icon in legend is misaligned vertically. **Status:** RESOLVED (Agent attempted fix, but issue persists).
+6.  **User:** Requests a statistics tooltip on the framework alignment page. **Status:** RESOLVED.
+7.  **User:** Reports green icon is still smaller than other icons after a fix. **Status:** RESOLVED (Agent attempted another fix, but issue persists).
+8.  **User:** Reports green icon is still smaller in question boxes. **Status:** RESOLVED (Agent attempted another fix, but issue persists).
+9.  **User:** Reports icon size issue with screenshot. **Status:** RESOLVED (Agent attempted another fix, but issue persists).
+10. **User:** Requests layout changes (content centering, legend move) on framework alignment page. **Status:** RESOLVED.
 
 **Project Health Check:**
-- **Broken:** None.
-- **Mocked:** None.
+-   **Broken:** None
+-   **Mocked:** None
+
+**3rd Party Integrations**:
+-   None.
 
 **Testing status**
-- **Testing agent used after significant changes:** NO
-- **Troubleshoot agent used after agent stuck in loop:** NO
-- **Test files created:** None.
-- **Known regressions:** None.
+-   **Testing agent used after significant changes:** NO
+-   **Troubleshoot agent used after agent stuck in loop:** NO
+-   **Test files created:** None
+-   **Known regressions:** None.
 
 **Credentials to test flow:**
 N/A
 
 **What agent forgot to execute**
-- The agent has not yet addressed the known bug from the previous fork where the Top 3 Action Steps are calculated incorrectly. This task remains in the backlog.</analysis>
+-   The agent has not yet addressed the long-standing bug regarding the 'Top 3 Action Steps' logic on the results page.
+-   The final build verification for the last change on  is pending.</analysis>
