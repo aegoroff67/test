@@ -614,7 +614,7 @@ function ResultsPage() {
             </div>
             
             {/* Last 15% - Action Buttons */}
-            <div className="flex flex-col" style={{ width: '15%', gap: '5px' }}>
+            <div className="flex flex-col" style={{ width: '15%', gap: '3px' }}>
               {/* Button 1 - Detailed Report with Exports label */}
               <div className="flex items-center gap-2">
                 <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
