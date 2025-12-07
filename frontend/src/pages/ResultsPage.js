@@ -614,64 +614,64 @@ function ResultsPage() {
             </div>
             
             {/* Last 15% - Action Buttons */}
-            <div className="flex flex-col space-y-3" style={{ width: '15%' }}>
+            <div className="flex flex-col space-y-2" style={{ width: '15%' }}>
               {/* EXPORTS Section */}
-              <div className="space-y-1">
+              <div>
                 <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">
                   Exports:
                 </div>
-                <Button 
-                  onClick={generateReport}
-                  disabled={generatingReport}
-                  className={`w-full ${
-                    assessmentType === 'Awareness' ? 'bg-green-600 hover:bg-green-700'
-                    : assessmentType === 'Readiness' ? 'bg-blue-600 hover:bg-blue-700'
-                    : 'bg-teal-600 hover:bg-teal-700'
-                  } text-xs px-2 py-1.5 h-auto`}
-                  data-testid="generate-report-btn"
-                >
-                  {generatingReport ? (
-                    <div className="flex items-center justify-center space-x-1">
-                      <div className="loading-spinner w-3 h-3"></div>
-                      <span>Generating...</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center space-x-1">
-                      <Download className="h-3 w-3" />
-                      <span>Detailed Report</span>
-                    </div>
-                  )}
-                </Button>
-                
-                <Button 
-                  onClick={generateExecutiveSummaryPDF}
-                  disabled={generatingPDF}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-xs px-2 py-1.5 h-auto"
-                  data-testid="generate-pdf-btn"
-                >
-                  {generatingPDF ? (
-                    <div className="flex items-center justify-center space-x-1">
-                      <div className="loading-spinner w-3 h-3"></div>
-                      <span>Preparing...</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center space-x-1">
-                      <FileText className="h-3 w-3" />
-                      <span>Executive Summary</span>
-                    </div>
-                  )}
-                </Button>
+                <div className="flex gap-1">
+                  <Button 
+                    onClick={generateReport}
+                    disabled={generatingReport}
+                    className={`flex-1 ${
+                      assessmentType === 'Awareness' ? 'bg-green-600 hover:bg-green-700'
+                      : assessmentType === 'Readiness' ? 'bg-blue-600 hover:bg-blue-700'
+                      : 'bg-teal-600 hover:bg-teal-700'
+                    } text-[10px] px-1.5 py-1.5 h-auto`}
+                    data-testid="generate-report-btn"
+                  >
+                    {generatingReport ? (
+                      <div className="flex items-center justify-center space-x-1">
+                        <div className="loading-spinner w-2 h-2"></div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center space-x-1">
+                        <Download className="h-3 w-3" />
+                        <span>Detailed Report</span>
+                      </div>
+                    )}
+                  </Button>
+                  
+                  <Button 
+                    onClick={generateExecutiveSummaryPDF}
+                    disabled={generatingPDF}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-[10px] px-1.5 py-1.5 h-auto"
+                    data-testid="generate-pdf-btn"
+                  >
+                    {generatingPDF ? (
+                      <div className="flex items-center justify-center space-x-1">
+                        <div className="loading-spinner w-2 h-2"></div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center space-x-1">
+                        <FileText className="h-3 w-3" />
+                        <span>Executive Summary</span>
+                      </div>
+                    )}
+                  </Button>
+                </div>
               </div>
 
               {/* INSIGHTS Section */}
-              <div className="space-y-1">
-                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">
+              <div className="flex items-center gap-2">
+                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
                   Insights:
                 </div>
                 <Button 
                   onClick={() => setShowFrameworkCoverage(true)}
                   variant="outline"
-                  className="w-full text-xs px-2 py-1.5 h-auto"
+                  className="flex-1 text-[10px] px-1.5 py-1.5 h-auto"
                   data-testid="framework-coverage-btn"
                 >
                   <div className="flex items-center justify-center space-x-1">
@@ -682,13 +682,13 @@ function ResultsPage() {
               </div>
 
               {/* ACTIONS Section */}
-              <div className="space-y-1">
-                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">
+              <div className="flex items-center gap-2">
+                <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
                   Actions:
                 </div>
                 <Button 
                   variant="outline"
-                  className="w-full text-xs px-2 py-1.5 h-auto"
+                  className="flex-1 text-[10px] px-1.5 py-1.5 h-auto"
                   data-testid="request-consultation-btn"
                   onClick={() => window.open('https://vciso.one/contact', '_blank')}
                 >
