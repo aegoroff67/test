@@ -335,7 +335,7 @@ export default function AssessmentSelector() {
           {/* 5. FAIRA Risk Assessment */}
           <Card className={`relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-orange-500 flex flex-col h-full ${!hasAccess('faira') ? 'opacity-60' : ''}`}>
             <Badge className={`absolute top-4 right-4 text-xs ${hasAccess('faira') ? 'bg-orange-100 text-orange-700 border-orange-300' : 'bg-gray-100 text-gray-700 border-gray-300'}`}>
-              {hasAccess('faira') ? 'New Assessment – Available Now' : 'Requires Permission'}
+              {hasAccess('faira') ? 'Available Now' : 'Requires Permission'}
             </Badge>
             <CardHeader>
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100">
