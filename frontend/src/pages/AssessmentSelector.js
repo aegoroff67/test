@@ -175,7 +175,7 @@ export default function AssessmentSelector() {
             <Badge className="absolute top-4 right-4 text-xs bg-green-100 text-green-700 border-green-300">
               Available Now
             </Badge>
-            <CardHeader>
+            <CardHeader className="pb-[10px]">
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100">
                 <Sprout className="h-6 w-6 text-green-600" aria-hidden />
               </div>
