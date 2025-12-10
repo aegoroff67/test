@@ -789,6 +789,20 @@ function SettingsPage() {
                                   />
                                   <span className="text-gray-700">System</span>
                                 </label>
+                                <label className="flex items-center gap-1 text-xs">
+                                  <input
+                                    type="checkbox"
+                                    checked={u.assessment_access?.includes('faira') || false}
+                                    onChange={(e) => {
+                                      const newAccess = e.target.checked
+                                        ? [...(u.assessment_access || []), 'faira']
+                                        : (u.assessment_access || []).filter(a => a !== 'faira');
+                                      updateAssessmentAccess(u.id, newAccess);
+                                    }}
+                                    className="rounded"
+                                  />
+                                  <span className="text-gray-700">FAIRA</span>
+                                </label>
                               </div>
                             </td>
                           )}
