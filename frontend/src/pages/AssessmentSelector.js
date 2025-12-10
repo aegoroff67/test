@@ -337,7 +337,7 @@ export default function AssessmentSelector() {
             <Badge className={`absolute top-4 right-4 text-xs ${hasAccess('faira') ? 'bg-orange-100 text-orange-700 border-orange-300' : 'bg-gray-100 text-gray-700 border-gray-300'}`}>
               {hasAccess('faira') ? 'Available Now' : 'Requires Permission'}
             </Badge>
-            <CardHeader>
+            <CardHeader className="pb-[10px]">
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100">
                 <ShieldCheck className="h-6 w-6 text-orange-600" aria-hidden />
               </div>
