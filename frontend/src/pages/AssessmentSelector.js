@@ -169,7 +169,7 @@ export default function AssessmentSelector() {
         </div>
 
         {/* Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {/* 1. AI Awareness & Foundations Assessment */}
           <Card className="relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-green-500 flex flex-col h-full">
             <Badge className="absolute top-4 right-4 text-xs bg-green-100 text-green-700 border-green-300">
