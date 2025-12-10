@@ -347,13 +347,13 @@ export default function AssessmentSelector() {
               <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Evaluate an AI solution using Queensland Government's Foundational AI Risk Assessment (FAIRA) framework. Identify risks across system components, values-based impacts, and governance obligations. Generate defence-ready documentation for assurance, procurement, and compliance activities.
+                  Evaluate AI solutions using Queensland's FAIRA framework to identify risks, assess impacts, meet governance obligations, and generate assurance-ready compliance documentation.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Best for:</span> Government agencies, councils, universities, and vendors developing or supplying AI solutions to the Queensland Government — or any organisation requiring a structured, defensible AI risk assessment aligned to public-sector expectations.
+                  <span className="font-semibold">Best For:</span> Government agencies, councils, universities, and vendors needing structured, defensible AI risk assessment.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Outcome:</span> A full FAIRA report including component analysis, values-based risk ratings, automated impact/likelihood scoring, and mapped mitigation controls from FAIRA Part C. Produces an audit-ready risk summary suitable for executive review, procurement assurance, and compliance documentation.
+                  <span className="font-semibold">Outcome:</span> Provides a full FAIRA report with risk ratings, scoring, mitigation controls, and audit-ready documentation for assurance and compliance.
                 </p>
               </div>
               <div className="mt-auto">
