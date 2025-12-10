@@ -369,7 +369,7 @@ export default function AssessmentSelector() {
                       <span>Creating...</span>
                     </div>
                   ) : (
-                    'Start FAIRA Assessment'
+                    'Start Assessment'
                   )}
                 </Button>
               </div>
