@@ -331,6 +331,50 @@ export default function AssessmentSelector() {
               </div>
             </CardContent>
           </Card>
+
+          {/* 5. FAIRA Risk Assessment */}
+          <Card className={`relative overflow-hidden transition-all duration-200 hover:shadow-lg border-2 border-orange-500 flex flex-col h-full ${!hasAccess('faira') ? 'opacity-60' : ''}`}>
+            <Badge className={`absolute top-4 right-4 text-xs ${hasAccess('faira') ? 'bg-orange-100 text-orange-700 border-orange-300' : 'bg-gray-100 text-gray-700 border-gray-300'}`}>
+              {hasAccess('faira') ? 'New Assessment – Available Now' : 'Requires Permission'}
+            </Badge>
+            <CardHeader>
+              <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100">
+                <ShieldCheck className="h-6 w-6 text-orange-600" aria-hidden />
+              </div>
+              <CardTitle className="text-lg text-gray-900">FAIRA Risk Assessment</CardTitle>
+            </CardHeader>
+            <CardContent className="p-6 flex-1 flex flex-col">
+              <div className="space-y-3 mb-6 flex-1">
+                <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
+                <p className="text-sm text-gray-600">
+                  Evaluate an AI solution using Queensland Government's Foundational AI Risk Assessment (FAIRA) framework. Identify risks across system components, values-based impacts, and governance obligations. Generate defence-ready documentation for assurance, procurement, and compliance activities.
+                </p>
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Best for:</span> Government agencies, councils, universities, and vendors developing or supplying AI solutions to the Queensland Government — or any organisation requiring a structured, defensible AI risk assessment aligned to public-sector expectations.
+                </p>
+                <p className="text-xs text-gray-500">
+                  <span className="font-semibold">Outcome:</span> A full FAIRA report including component analysis, values-based risk ratings, automated impact/likelihood scoring, and mapped mitigation controls from FAIRA Part C. Produces an audit-ready risk summary suitable for executive review, procurement assurance, and compliance documentation.
+                </p>
+              </div>
+              <div className="mt-auto">
+                <Button 
+                  className={`w-full ${hasAccess('faira') ? 'bg-orange-600 hover:bg-orange-700' : 'bg-gray-400 cursor-not-allowed'}`}
+                  onClick={hasAccess('faira') ? handleFairaAssessment : () => toast.error('You do not have permission to access this assessment. Please contact your administrator.')}
+                  disabled={!hasAccess('faira') || creating}
+                  data-testid="faira-assessment-btn"
+                >
+                  {creating ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="loading-spinner w-4 h-4"></div>
+                      <span>Creating...</span>
+                    </div>
+                  ) : (
+                    'Start FAIRA Assessment'
+                  )}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
     </div>
