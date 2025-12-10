@@ -353,7 +353,7 @@ export default function AssessmentSelector() {
                   <span className="font-semibold">Best For:</span> Government agencies, councils, universities, and vendors needing structured, defensible AI risk assessment.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Outcome:</span> Provides a full FAIRA report with risk ratings, scoring, mitigation controls, and audit-ready documentation for assurance and compliance.
+                  <span className="font-semibold">Outcome:</span> A full FAIRA report with risk ratings, scoring, mitigation controls, and audit-ready documentation for assurance and compliance.
                 </p>
               </div>
               <div className="mt-auto">
