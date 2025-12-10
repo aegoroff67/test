@@ -293,7 +293,7 @@ export default function AssessmentSelector() {
             <Badge className={`absolute top-4 right-4 text-xs ${hasAccess('system') ? 'bg-teal-100 text-teal-700 border-teal-300' : 'bg-gray-100 text-gray-700 border-gray-300'}`}>
               {hasAccess('system') ? 'Available Now' : 'Requires Permission'}
             </Badge>
-            <CardHeader>
+            <CardHeader className="pb-[10px]">
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-100">
                 <Bot className="h-6 w-6 text-teal-600" aria-hidden />
               </div>
