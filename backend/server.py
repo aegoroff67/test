@@ -619,7 +619,7 @@ async def update_user_assessment_access(
 ):
     """Update user assessment access (Super Admin only)"""
     # Validate assessment types
-    valid_assessments = ["awareness", "readiness", "system", "orgwide"]
+    valid_assessments = ["awareness", "readiness", "system", "orgwide", "faira"]
     for assessment in assessment_access:
         if assessment not in valid_assessments:
             raise HTTPException(
