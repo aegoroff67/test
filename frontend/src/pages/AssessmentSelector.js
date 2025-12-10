@@ -212,7 +212,7 @@ export default function AssessmentSelector() {
             <Badge className={`absolute top-4 right-4 text-xs ${hasAccess('readiness') ? 'bg-blue-100 text-blue-700 border-blue-300' : 'bg-gray-100 text-gray-700 border-gray-300'}`}>
               {hasAccess('readiness') ? 'Available Now' : 'Requires Permission'}
             </Badge>
-            <CardHeader>
+            <CardHeader className="pb-[10px]">
               <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100">
                 <Rocket className="h-6 w-6 text-blue-600" aria-hidden />
               </div>
