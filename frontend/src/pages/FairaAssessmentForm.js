@@ -57,9 +57,9 @@ const defaultState = {
   
   // A3: Human Interface and Impact
   A3_1: [], // interface types (multiselect)
-  A3_2_technical: 3, // 1-5 scale
-  A3_2_domain: 3,
-  A3_2_ai_literacy: 3,
+  A3_2_technical: null, // 1-5 scale
+  A3_2_domain: null,
+  A3_2_ai_literacy: null,
   A3_3: [], // impacted groups (multiselect)
   A3_3_other: "",
   A3_4: [], // notification methods (multiselect)
