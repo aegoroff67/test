@@ -419,7 +419,7 @@ function Dashboard() {
                           <span className="text-gray-600">Progress</span>
                           <span className="font-medium">
                             {assessment.assessment_type === 'FAIRA' 
-                              ? `${(assessment.faira_form && Object.keys(assessment.faira_form).length > 3) ? 'Form in progress' : 'Not started'}`
+                              ? `${assessment.progress}%`
                               : `${assessment.progress}/${assessment.total_questions}`
                             }
                           </span>
@@ -429,7 +429,7 @@ function Dashboard() {
                             className="bg-teal-600 h-2 rounded-full progress-bar"
                             style={{
                               width: assessment.assessment_type === 'FAIRA'
-                                ? ((assessment.faira_form && Object.keys(assessment.faira_form).length > 3) ? '50%' : '0%')
+                                ? `${assessment.progress}%`
                                 : `${(assessment.progress / assessment.total_questions) * 100}%`
                             }}
                           ></div>
