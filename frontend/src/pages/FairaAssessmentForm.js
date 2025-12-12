@@ -172,16 +172,24 @@ export default function FairaAssessmentForm() {
       if (!id) return;
       
       try {
+        console.log('Fetching assessment data for ID:', id);
         const response = await axios.get(`${API}/assessments/${id}`);
+        console.log('Fetched assessment:', response.data);
+        console.log('FAIRA form data:', response.data?.faira_form);
+        
         if (response.data && response.data.faira_form) {
+          console.log('Loading saved form data');
           // Merge saved data with default state to handle any new fields
           setForm(prevForm => ({
             ...defaultState,
             ...response.data.faira_form
           }));
+        } else {
+          console.log('No saved form data found, using default state');
         }
       } catch (error) {
         console.error('Error fetching form data:', error);
+        console.error('Error response:', error.response?.data);
       } finally {
         setLoading(false);
       }
