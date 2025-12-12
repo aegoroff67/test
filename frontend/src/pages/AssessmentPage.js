@@ -46,13 +46,6 @@ import euAiActAlignmentData from '../data/euAiActAlignmentData.json';
 
 // Framework configuration - centralizes all framework modal setup
 const FRAMEWORK_CONFIG = {
-  faira: {
-    id: 'faira',
-    name: 'FAIRA',
-    component: FairaAlignmentModal,
-    data: fairaAlignmentData,
-    color: 'amber'
-  },
   nist: {
     id: 'nist',
     name: 'NIST AI RMF',
