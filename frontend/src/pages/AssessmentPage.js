@@ -869,20 +869,6 @@ function AssessmentPage() {
                           EU AI Act - {euAiActAlignmentData[currentQuestion.code].alignmentType === 'Fully Aligns' ? 'Full' : 'Partial'}
                         </button>
                       )}
-                      {/* FAIRA Alignment Badge - Only show if FAIRA selected and question has alignment */}
-                      {selectedFrameworks.faira && fairaAlignmentData[currentQuestion.code] && (
-                        <button
-                          onClick={() => handleOpenFrameworkModal('faira')}
-                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                            fairaAlignmentData[currentQuestion.code].alignmentType === 'Direct alignment'
-                              ? 'bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200'
-                              : 'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100'
-                          }`}
-                          title="Click to view FAIRA alignment details"
-                        >
-                          FAIRA - {fairaAlignmentData[currentQuestion.code].alignmentType.replace(' alignment', '')}
-                        </button>
-                      )}
                       {/* NIST AI RMF Alignment Badge - Only show if NIST selected and question has alignment */}
                       {selectedFrameworks.nist && nistAlignmentData[currentQuestion.code] && (
                         <button
