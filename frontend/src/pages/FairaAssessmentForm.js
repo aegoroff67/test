@@ -491,6 +491,17 @@ export default function FairaAssessmentForm() {
     </div>
   );
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-bg flex items-center justify-center">
+        <div className="text-center">
+          <div className="loading-spinner w-8 h-8 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading assessment...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-bg flex flex-col">
       {/* Header */}
