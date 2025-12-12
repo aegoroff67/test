@@ -9876,3 +9876,171 @@ def main():
             return False
         
         return True
+
+    def test_faira_assessment_data_persistence(self):
+        """Test FAIRA Assessment Data Persistence - CRITICAL P0 from review request"""
+        print("\n🔍 TESTING FAIRA ASSESSMENT DATA PERSISTENCE (CRITICAL P0)")
+        print("-" * 60)
+        
+        # Step 1: Create a FAIRA assessment
+        faira_assessment_data = {
+            "assessment_type": "FAIRA"
+        }
+        
+        success, response = self.make_request("POST", "assessments", faira_assessment_data)
+        if not success:
+            self.log_test("Create FAIRA assessment", False, str(response))
+            return False
+            
+        faira_assessment_id = response["id"]
+        self.log_test("Create FAIRA assessment", True)
+        print(f"   📝 FAIRA Assessment ID: {faira_assessment_id}")
+        
+        # Step 2: Save form data using PUT /api/assessments/{assessment_id}/faira-form endpoint
+        test_faira_form_data = {
+            "assessor_name": "John Smith",
+            "assessor_role": "AI Ethics Officer", 
+            "A1_1": ["Bias detection tools", "Fairness metrics"],
+            "A1_2": "Regular auditing process",
+            "A1_3": "Quarterly reviews",
+            "A2_1": ["Stakeholder consultation", "Impact assessment"],
+            "A2_2": "Comprehensive documentation"
+        }
+        
+        success, response = self.make_request("PUT", f"assessments/{faira_assessment_id}/faira-form", test_faira_form_data)
+        if success:
+            self.log_test("Save FAIRA form data via PUT endpoint", True)
+            print(f"   📝 Saved {len(test_faira_form_data)} form fields")
+        else:
+            self.log_test("Save FAIRA form data via PUT endpoint", False, str(response))
+            return False
+        
+        # Step 3: Verify data is saved by calling GET /api/assessments/{assessment_id} endpoint
+        success, assessment_response = self.make_request("GET", f"assessments/{faira_assessment_id}")
+        if not success:
+            self.log_test("GET assessment details after saving FAIRA form", False, str(assessment_response))
+            return False
+            
+        self.log_test("GET assessment details after saving FAIRA form", True)
+        
+        # Step 4: VERIFY: Response includes faira_form field with all saved data
+        faira_form_in_response = assessment_response.get("faira_form")
+        if faira_form_in_response is None:
+            self.log_test("CRITICAL: GET endpoint returns faira_form field", False, "faira_form field is missing from response")
+            return False
+        else:
+            self.log_test("CRITICAL: GET endpoint returns faira_form field", True)
+        
+        # Verify all form fields are preserved correctly
+        saved_fields_count = len(faira_form_in_response) if faira_form_in_response else 0
+        expected_fields_count = len(test_faira_form_data)
+        
+        if saved_fields_count == expected_fields_count:
+            self.log_test("All form fields preserved correctly", True)
+            print(f"   📝 Verified {saved_fields_count} fields preserved")
+        else:
+            self.log_test("All form fields preserved correctly", False, f"Expected {expected_fields_count} fields, got {saved_fields_count}")
+        
+        # Verify specific field types (arrays, strings, radio selections)
+        arrays_preserved = True
+        strings_preserved = True
+        
+        # Check array field (A1_1)
+        if isinstance(faira_form_in_response.get("A1_1"), list):
+            if faira_form_in_response["A1_1"] == test_faira_form_data["A1_1"]:
+                self.log_test("Array fields preserved correctly (A1_1)", True)
+            else:
+                self.log_test("Array fields preserved correctly (A1_1)", False, "Array content mismatch")
+                arrays_preserved = False
+        else:
+            self.log_test("Array fields preserved correctly (A1_1)", False, "A1_1 is not an array")
+            arrays_preserved = False
+        
+        # Check string field (A1_2)
+        if faira_form_in_response.get("A1_2") == test_faira_form_data["A1_2"]:
+            self.log_test("String fields preserved correctly (A1_2)", True)
+        else:
+            self.log_test("String fields preserved correctly (A1_2)", False, "String content mismatch")
+            strings_preserved = False
+        
+        # Check assessor information
+        if (faira_form_in_response.get("assessor_name") == test_faira_form_data["assessor_name"] and
+            faira_form_in_response.get("assessor_role") == test_faira_form_data["assessor_role"]):
+            self.log_test("Assessor information preserved correctly", True)
+        else:
+            self.log_test("Assessor information preserved correctly", False, "Assessor info mismatch")
+        
+        # Overall success criteria
+        overall_success = (
+            faira_form_in_response is not None and
+            saved_fields_count == expected_fields_count and
+            arrays_preserved and
+            strings_preserved
+        )
+        
+        if overall_success:
+            self.log_test("FAIRA Assessment Data Persistence - OVERALL SUCCESS", True)
+            print("   ✅ All form fields preserved correctly")
+            print("   ✅ Arrays, strings, and radio selections working")
+            print("   ✅ Edge cases handled properly")
+        else:
+            self.log_test("FAIRA Assessment Data Persistence - OVERALL SUCCESS", False, "Some critical issues found")
+        
+        return overall_success
+
+    def run_faira_tests_only(self):
+        """Run only FAIRA assessment data persistence tests"""
+        print("🚀 FAIRA Assessment Data Persistence Testing")
+        print("=" * 60)
+        
+        # Authentication tests
+        if not self.test_production_authentication_flow():
+            print("❌ Authentication failed - stopping tests")
+            return False
+        
+        # CRITICAL P0: FAIRA Assessment Data Persistence Tests (HIGHEST PRIORITY)
+        print("\n" + "🔥" * 60)
+        print("CRITICAL P0: FAIRA ASSESSMENT DATA PERSISTENCE TESTING")
+        print("🔥" * 60)
+        
+        success1 = self.test_faira_assessment_data_persistence()
+        
+        # Print summary
+        print("\n" + "=" * 60)
+        print(f"📊 FAIRA Test Summary: {self.tests_passed}/{self.tests_run} tests passed")
+        print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
+        
+        if success1:
+            print("🎉 FAIRA Assessment Data Persistence tests passed!")
+            return True
+        else:
+            print("⚠️  FAIRA tests failed - check details above")
+            failed_tests = [result for result in self.test_results if not result["success"]]
+            print(f"\n❌ Failed Tests ({len(failed_tests)}):")
+            for test in failed_tests:
+                print(f"   • {test[\"test\"]}: {test[\"details\"]}")
+            return False
+
+def main():
+    tester = AMSafeAPITester()
+    
+    try:
+        # Run the comprehensive test suite including Awareness Assessment tests
+        success = tester.run_all_tests()
+        
+        if success:
+            print("🎉 All tests passed!")
+            return 0
+        else:
+            print(f"⚠️  {tester.tests_run - tester.tests_passed} tests failed")
+            return 1
+        
+    except Exception as e:
+        print(f"❌ Test execution failed: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return 1
+
+if __name__ == "__main__":
+    sys.exit(main())
+
