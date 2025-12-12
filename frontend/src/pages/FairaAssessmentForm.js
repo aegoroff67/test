@@ -2601,7 +2601,7 @@ export default function FairaAssessmentForm() {
             </div>
 
             {/* B8: Accountability */}
-            <div className="space-y-6 pt-6 border-t">
+            <div className="space-y-6 pt-6 border-t" id="B8_1">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">B8. Accountability</h3>
               </div>
