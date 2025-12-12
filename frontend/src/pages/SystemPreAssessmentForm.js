@@ -266,9 +266,6 @@ export default function SystemPreAssessmentForm() {
     });
   }
 
-  // Check if FAIRA is selected
-  const isFairaSelected = form.frameworks.includes("Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)");
-
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
