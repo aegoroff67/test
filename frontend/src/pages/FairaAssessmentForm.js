@@ -1294,7 +1294,7 @@ export default function FairaAssessmentForm() {
               </div>
 
               {/* A3.5 */}
-              <div className="space-y-3">
+              <div className="space-y-3" id="A3_5a">
                 <Label>A3.5(a) What are the expected impacts of this AI solution on staff? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
