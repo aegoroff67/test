@@ -1645,6 +1645,52 @@ async def update_awareness_info(
     
     return {"status": "success", "message": "Awareness information saved"}
 
+@api_router.put("/assessments/{assessment_id}/faira-form")
+async def update_faira_form(
+    assessment_id: str,
+    faira_form: dict,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Update FAIRA assessment form data"""
+    # Verify assessment belongs to user's organization
+    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Check if this is marked as completed
+    status = faira_form.pop("status", None)
+    
+    # Update the assessment name if assessor name is provided
+    updated_name = assessment["name"]
+    if faira_form.get("assessor_name"):
+        assessment_type = assessment.get("assessment_type", "FAIRA")
+        started_at = assessment["started_at"]
+        if isinstance(started_at, str):
+            started_at = datetime.fromisoformat(started_at.replace('Z', '+00:00'))
+        started_date = started_at.strftime("%Y-%m-%d")
+        # Generate new name: [Type]_[Assessor]_Status_YYYY-MM-DD
+        status_text = "Completed" if status == "completed" else "In-Progress"
+        updated_name = f"{assessment_type}_{faira_form['assessor_name']}_{ status_text}_{started_date}"
+    
+    # Prepare update data
+    update_data = {
+        "faira_form": faira_form,
+        "name": updated_name
+    }
+    
+    # If status is completed, update assessment status
+    if status == "completed":
+        update_data["status"] = "completed"
+        update_data["completed_at"] = datetime.now(timezone.utc)
+    
+    # Update assessment with faira_form data
+    await db.assessments.update_one(
+        {"id": assessment_id},
+        {"$set": update_data}
+    )
+    
+    return {"status": "success", "message": "FAIRA form data saved"}
+
 @api_router.post("/assessments/{assessment_id}/organisation-info")
 async def update_organisation_info(
     assessment_id: str,
