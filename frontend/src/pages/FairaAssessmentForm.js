@@ -665,12 +665,12 @@ export default function FairaAssessmentForm() {
         {/* Form Content */}
         <form onSubmit={handleSubmit} className="flex-1 max-w-5xl mx-auto p-6 space-y-8 pb-32">
         
-        {/* BLOCK 1: Assessment Details */}
+        {/* BLOCK 1: Assessment Overview */}
         <Card>
           <CardHeader className="bg-orange-50 border-b border-orange-100">
             <div className="flex items-center space-x-2">
               <ShieldCheck className="h-5 w-5 text-orange-600" />
-              <CardTitle className="text-xl">Assessment Details</CardTitle>
+              <CardTitle className="text-xl">Assessment Overview</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="grid gap-4 p-6 md:grid-cols-3">
