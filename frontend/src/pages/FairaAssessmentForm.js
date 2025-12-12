@@ -2768,34 +2768,49 @@ export default function FairaAssessmentForm() {
         </Card>
         
         {/* Actions */}
-        <div className="flex items-center justify-between gap-3 sticky bottom-0 bg-white p-4 border-t shadow-lg rounded-lg">
-          <Button 
-            type="button" 
-            variant="outline" 
-            onClick={handleSaveDraft}
-            disabled={submitting}
-          >
-            <Save className="h-4 w-4 mr-2" />
-            Save Draft
-          </Button>
-          <div className="flex gap-3">
+        <div className="fixed bottom-0 left-0 lg:left-80 right-0 bg-white border-t shadow-lg z-10">
+          <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
             <Button 
               type="button" 
-              variant="secondary" 
-              onClick={() => setForm(defaultState)}
+              variant="outline" 
+              onClick={handleSaveDraft}
+              disabled={submitting}
             >
-              Reset
+              <Save className="h-4 w-4 mr-2" />
+              Save Draft
             </Button>
-            <Button 
-              type="submit" 
-              disabled={submitting || !form.declaration_confirmed}
-              className="bg-orange-600 hover:bg-orange-700"
-            >
-              {submitting ? "Submitting..." : "Complete Assessment"}
-            </Button>
+            <div className="flex gap-3">
+              <Button 
+                type="button" 
+                variant="secondary" 
+                onClick={() => setForm(defaultState)}
+              >
+                Reset
+              </Button>
+              <div 
+                className="relative"
+                onMouseEnter={() => !isComplete && setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
+              >
+                <Button 
+                  type="submit" 
+                  disabled={submitting || !isComplete}
+                  className={`${isComplete ? 'bg-orange-600 hover:bg-orange-700' : 'bg-gray-400 cursor-not-allowed'}`}
+                >
+                  {submitting ? "Submitting..." : "Complete Assessment"}
+                </Button>
+                {!isComplete && showTooltip && (
+                  <div className="absolute bottom-full mb-2 right-0 w-64 px-3 py-2 text-xs text-white bg-gray-900 rounded-lg shadow-lg">
+                    Complete all required fields to finish the assessment.
+                    <div className="absolute top-full right-4 -mt-1 border-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </form>
+      </div>
     </div>
   );
 }
