@@ -35,7 +35,6 @@ import Iso42001AlignmentModal from '../components/Iso42001AlignmentModal';
 import AuAssuranceAlignmentModal from '../components/AuAssuranceAlignmentModal';
 import SingaporeMafAlignmentModal from '../components/SingaporeMafAlignmentModal';
 import OecdPrinciplesAlignmentModal from '../components/OecdPrinciplesAlignmentModal';
-import fairaAlignmentData from '../data/fairaAlignmentData.json';
 import nistAlignmentData from '../data/nistAlignmentData.json';
 import iso42001AlignmentData from '../data/iso42001AlignmentData.json';
 import auEthicsAlignmentData from '../data/auEthicsAlignmentData.json';
