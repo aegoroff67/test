@@ -1322,9 +1322,11 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
                 awareness_total_questions if assessment.get("assessment_type") == "Awareness" 
                 else readiness_total_questions if assessment.get("assessment_type") == "Readiness"
                 else organisation_total_questions if assessment.get("assessment_type") == "Orgwide"
+                else 71 if assessment.get("assessment_type") == "FAIRA"  # FAIRA has ~71 questions
                 else system_total_questions
             ),
             system_info=assessment.get("system_info"),
+            faira_form=assessment.get("faira_form"),
             pending_review_count=assessment.get("pending_review_count", 0)
         )
         for assessment in assessments
