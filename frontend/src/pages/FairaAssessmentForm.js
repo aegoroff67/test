@@ -1340,8 +1340,7 @@ export default function FairaAssessmentForm() {
                         "Structured records",
                         "Voice input",
                         "Sensor data",
-                        "User selection/choices",
-                        "None"
+                        "User selection/choices"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
