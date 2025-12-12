@@ -1269,7 +1269,7 @@ export default function FairaAssessmentForm() {
               </div>
 
               {/* A3.4 */}
-              <div className="space-y-2">
+              <div className="space-y-2" id="A3_4">
                 <Label>A3.4 How will impacted parties be informed of AI use? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
