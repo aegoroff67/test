@@ -355,7 +355,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <span className="text-lg text-green-600 leading-none flex items-center">●</span>
+                              <span className="text-xl text-green-600 leading-none flex items-center">●</span>
                               <span className="text-sm font-medium text-gray-700">Fully Aligns</span>
                             </div>
                             <span className="text-lg font-bold text-green-600">{stats.fullyAligned}%</span>
