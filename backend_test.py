@@ -10018,7 +10018,7 @@ def main():
             failed_tests = [result for result in self.test_results if not result["success"]]
             print(f"\n❌ Failed Tests ({len(failed_tests)}):")
             for test in failed_tests:
-                print(f"   • {test[\"test\"]}: {test[\"details\"]}")
+                print(f"   • {test['test']}: {test['details']}")
             return False
 
 def main():
