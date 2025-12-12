@@ -9625,5 +9625,249 @@ def main():
         
         return True
 
+    def test_faira_assessment_data_persistence(self):
+        """Test FAIRA Assessment Data Persistence - CRITICAL P0 from review request"""
+        print("\n🔍 TESTING FAIRA ASSESSMENT DATA PERSISTENCE (CRITICAL P0)")
+        print("-" * 60)
+        
+        # Step 1: Create a FAIRA assessment
+        faira_assessment_data = {
+            "assessment_type": "FAIRA"
+        }
+        
+        success, response = self.make_request('POST', 'assessments', faira_assessment_data)
+        if not success:
+            self.log_test("Create FAIRA assessment", False, str(response))
+            return False
+            
+        faira_assessment_id = response['id']
+        self.log_test("Create FAIRA assessment", True)
+        print(f"   📝 FAIRA Assessment ID: {faira_assessment_id}")
+        
+        # Step 2: Save form data using PUT /api/assessments/{assessment_id}/faira-form endpoint
+        test_faira_form_data = {
+            "assessor_name": "John Smith",
+            "assessor_role": "AI Ethics Officer", 
+            "A1_1": ["Bias detection tools", "Fairness metrics"],
+            "A1_2": "Regular auditing process",
+            "A1_3": "Quarterly reviews",
+            "A2_1": ["Stakeholder consultation", "Impact assessment"],
+            "A2_2": "Comprehensive documentation",
+            "B1_1": ["Technical documentation", "User guides"],
+            "B1_2": "Clear explanations provided",
+            "B2_1": ["Model interpretability", "Decision explanations"],
+            "B2_2": "Explainable AI techniques used",
+            "C1_1": ["Governance framework", "Accountability measures"],
+            "C1_2": "Clear responsibility assignment",
+            "C2_1": ["Audit trails", "Decision logging"],
+            "C2_2": "Comprehensive audit system",
+            "D1_1": ["Data validation", "Quality checks"],
+            "D1_2": "Robust data pipeline",
+            "D2_1": ["Version control", "Data lineage"],
+            "D2_2": "Complete data tracking",
+            "E1_1": ["Performance monitoring", "Reliability testing"],
+            "E1_2": "Continuous monitoring",
+            "E2_1": ["Error handling", "Fallback mechanisms"],
+            "E2_2": "Robust error management",
+            "F1_1": ["Security protocols", "Access controls"],
+            "F1_2": "Multi-layer security",
+            "F2_1": ["Threat assessment", "Security monitoring"],
+            "F2_2": "Proactive security measures",
+            "G1_1": ["Privacy by design", "Data protection"],
+            "G1_2": "Strong privacy controls",
+            "G2_1": ["Consent management", "Data minimization"],
+            "G2_2": "Privacy-first approach",
+            "H1_1": ["Safety protocols", "Risk assessment"],
+            "H1_2": "Comprehensive safety measures",
+            "H2_1": ["Testing procedures", "Safety validation"],
+            "H2_2": "Rigorous safety testing",
+            "I1_1": ["Inclusive design", "Accessibility features"],
+            "I1_2": "Universal accessibility",
+            "I2_1": ["Diverse testing", "Inclusive validation"],
+            "I2_2": "Comprehensive inclusion testing",
+            "J1_1": ["Environmental impact", "Resource efficiency"],
+            "J1_2": "Sustainable practices",
+            "J2_1": ["Carbon footprint", "Green computing"],
+            "J2_2": "Environmental responsibility"
+        }
+        
+        success, response = self.make_request('PUT', f'assessments/{faira_assessment_id}/faira-form', test_faira_form_data)
+        if success:
+            self.log_test("Save FAIRA form data via PUT endpoint", True)
+            print(f"   📝 Saved {len(test_faira_form_data)} form fields")
+        else:
+            self.log_test("Save FAIRA form data via PUT endpoint", False, str(response))
+            return False
+        
+        # Step 3: Verify data is saved by calling GET /api/assessments/{assessment_id} endpoint
+        success, assessment_response = self.make_request('GET', f'assessments/{faira_assessment_id}')
+        if not success:
+            self.log_test("GET assessment details after saving FAIRA form", False, str(assessment_response))
+            return False
+            
+        self.log_test("GET assessment details after saving FAIRA form", True)
+        
+        # Step 4: VERIFY: Response includes faira_form field with all saved data
+        faira_form_in_response = assessment_response.get('faira_form')
+        if faira_form_in_response is None:
+            self.log_test("CRITICAL: GET endpoint returns faira_form field", False, "faira_form field is missing from response")
+            return False
+        else:
+            self.log_test("CRITICAL: GET endpoint returns faira_form field", True)
+        
+        # Verify all form fields are preserved correctly
+        saved_fields_count = len(faira_form_in_response) if faira_form_in_response else 0
+        expected_fields_count = len(test_faira_form_data)
+        
+        if saved_fields_count == expected_fields_count:
+            self.log_test("All form fields preserved correctly", True)
+            print(f"   📝 Verified {saved_fields_count} fields preserved")
+        else:
+            self.log_test("All form fields preserved correctly", False, f"Expected {expected_fields_count} fields, got {saved_fields_count}")
+        
+        # Verify specific field types (arrays, strings, radio selections)
+        arrays_preserved = True
+        strings_preserved = True
+        
+        # Check array field (A1_1)
+        if isinstance(faira_form_in_response.get('A1_1'), list):
+            if faira_form_in_response['A1_1'] == test_faira_form_data['A1_1']:
+                self.log_test("Array fields preserved correctly (A1_1)", True)
+            else:
+                self.log_test("Array fields preserved correctly (A1_1)", False, "Array content mismatch")
+                arrays_preserved = False
+        else:
+            self.log_test("Array fields preserved correctly (A1_1)", False, "A1_1 is not an array")
+            arrays_preserved = False
+        
+        # Check string field (A1_2)
+        if faira_form_in_response.get('A1_2') == test_faira_form_data['A1_2']:
+            self.log_test("String fields preserved correctly (A1_2)", True)
+        else:
+            self.log_test("String fields preserved correctly (A1_2)", False, "String content mismatch")
+            strings_preserved = False
+        
+        # Check assessor information
+        if (faira_form_in_response.get('assessor_name') == test_faira_form_data['assessor_name'] and
+            faira_form_in_response.get('assessor_role') == test_faira_form_data['assessor_role']):
+            self.log_test("Assessor information preserved correctly", True)
+        else:
+            self.log_test("Assessor information preserved correctly", False, "Assessor info mismatch")
+        
+        # Step 5: Test edge cases
+        
+        # Edge Case 1: FAIRA assessment with no saved form data (should return faira_form: null)
+        success, empty_response = self.make_request('POST', 'assessments', {"assessment_type": "FAIRA"})
+        if success:
+            empty_faira_id = empty_response['id']
+            success, empty_assessment = self.make_request('GET', f'assessments/{empty_faira_id}')
+            if success:
+                empty_faira_form = empty_assessment.get('faira_form')
+                if empty_faira_form is None:
+                    self.log_test("FAIRA assessment with no saved data returns faira_form: null", True)
+                else:
+                    self.log_test("FAIRA assessment with no saved data returns faira_form: null", False, f"Got: {empty_faira_form}")
+            else:
+                self.log_test("Get empty FAIRA assessment", False, str(empty_assessment))
+        else:
+            self.log_test("Create empty FAIRA assessment for edge case", False, str(empty_response))
+        
+        # Edge Case 2: System assessment (should not have faira_form field or be null)
+        success, system_response = self.make_request('POST', 'assessments', {"assessment_type": "System"})
+        if success:
+            system_assessment_id = system_response['id']
+            success, system_assessment = self.make_request('GET', f'assessments/{system_assessment_id}')
+            if success:
+                system_faira_form = system_assessment.get('faira_form')
+                if system_faira_form is None:
+                    self.log_test("System assessment does not have faira_form field", True)
+                else:
+                    self.log_test("System assessment does not have faira_form field", False, f"Unexpected faira_form: {system_faira_form}")
+            else:
+                self.log_test("Get System assessment for edge case", False, str(system_assessment))
+        else:
+            self.log_test("Create System assessment for edge case", False, str(system_response))
+        
+        # Overall success criteria
+        overall_success = (
+            faira_form_in_response is not None and
+            saved_fields_count == expected_fields_count and
+            arrays_preserved and
+            strings_preserved
+        )
+        
+        if overall_success:
+            self.log_test("FAIRA Assessment Data Persistence - OVERALL SUCCESS", True)
+            print("   ✅ All form fields preserved correctly")
+            print("   ✅ Arrays, strings, and radio selections working")
+            print("   ✅ Edge cases handled properly")
+        else:
+            self.log_test("FAIRA Assessment Data Persistence - OVERALL SUCCESS", False, "Some critical issues found")
+        
+        return overall_success
+
+    def test_faira_form_endpoint_validation(self):
+        """Test FAIRA form endpoint validation and error handling"""
+        print("\n🔍 TESTING FAIRA FORM ENDPOINT VALIDATION")
+        print("-" * 50)
+        
+        # Test 1: Try to save FAIRA form data to non-FAIRA assessment
+        success, system_response = self.make_request('POST', 'assessments', {"assessment_type": "System"})
+        if success:
+            system_id = system_response['id']
+            
+            # Try to save FAIRA form to System assessment (should fail)
+            test_data = {"assessor_name": "Test", "A1_1": ["test"]}
+            success, response = self.make_request('PUT', f'assessments/{system_id}/faira-form', test_data, expected_status=400)
+            if success:
+                self.log_test("FAIRA form endpoint rejects non-FAIRA assessments", True)
+            else:
+                self.log_test("FAIRA form endpoint rejects non-FAIRA assessments", False, "Should reject non-FAIRA assessments")
+        
+        # Test 2: Try to save to non-existent assessment
+        fake_id = "non-existent-assessment-id"
+        test_data = {"assessor_name": "Test"}
+        success, response = self.make_request('PUT', f'assessments/{fake_id}/faira-form', test_data, expected_status=404)
+        if success:
+            self.log_test("FAIRA form endpoint returns 404 for non-existent assessment", True)
+        else:
+            self.log_test("FAIRA form endpoint returns 404 for non-existent assessment", False, "Should return 404")
+        
+        return True
+
+    def run_faira_tests_only(self):
+        """Run only FAIRA assessment data persistence tests"""
+        print("🚀 FAIRA Assessment Data Persistence Testing")
+        print("=" * 60)
+        
+        # Authentication tests
+        if not self.test_user_signup_and_login():
+            print("❌ Authentication failed - stopping tests")
+            return False
+        
+        # CRITICAL P0: FAIRA Assessment Data Persistence Tests (HIGHEST PRIORITY)
+        print("\n" + "🔥" * 60)
+        print("CRITICAL P0: FAIRA ASSESSMENT DATA PERSISTENCE TESTING")
+        print("🔥" * 60)
+        
+        success1 = self.test_faira_assessment_data_persistence()
+        success2 = self.test_faira_form_endpoint_validation()
+        
+        # Print summary
+        print("\n" + "=" * 60)
+        print(f"📊 FAIRA Test Summary: {self.tests_passed}/{self.tests_run} tests passed")
+        print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
+        
+        if success1 and success2:
+            print("🎉 FAIRA Assessment Data Persistence tests passed!")
+            return True
+        else:
+            print("⚠️  FAIRA tests failed - check details above")
+            failed_tests = [result for result in self.test_results if not result['success']]
+            print(f"\n❌ Failed Tests ({len(failed_tests)}):")
+            for test in failed_tests:
+                print(f"   • {test['test']}: {test['details']}")
+            return False
+
 if __name__ == "__main__":
     sys.exit(main())
