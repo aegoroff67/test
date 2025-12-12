@@ -1690,8 +1690,7 @@ export default function FairaAssessmentForm() {
                         "Excessive data exposure",
                         "Output reveals sensitive attributes",
                         "Outputs sent to incorrect system",
-                        "Injection or poisoning risk",
-                        "None identified"
+                        "Injection or poisoning risk"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
