@@ -8656,6 +8656,14 @@ class AMSafeAPITester:
             if not self.test_production_authentication_flow():
                 print("❌ Production authentication failed - continuing with other tests")
         
+        # === CRITICAL P0: FAIRA ASSESSMENT DATA PERSISTENCE (HIGHEST PRIORITY) ===
+        print("\n" + "🔥" * 80)
+        print("CRITICAL P0: FAIRA ASSESSMENT DATA PERSISTENCE TESTING (HIGHEST PRIORITY)")
+        print("🔥" * 80)
+        
+        self.test_faira_assessment_data_persistence()
+        self.test_faira_form_endpoint_validation()
+        
         # === AI READINESS ASSESSMENT BUG FIXES (PRIORITY TEST) ===
         print("\n" + "🎯 AI READINESS ASSESSMENT BUG FIXES (PRIORITY TEST)" + "\n" + "=" * 60)
         
