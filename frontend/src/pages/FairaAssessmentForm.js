@@ -409,6 +409,24 @@ export default function FairaAssessmentForm() {
   }
 
   const progress = calculateProgress();
+  const sectionStatus = getSectionCompletion();
+  const isComplete = progress === 100;
+
+  const sectionsList = [
+    { id: 'A1', name: 'A1. AI Solution Fundamentals' },
+    { id: 'A2', name: 'A2. Data and Inputs' },
+    { id: 'A3', name: 'A3. Human Interface and Impact' },
+    { id: 'A4', name: 'A4. Outputs and Actions' },
+    { id: 'A5', name: 'A5. Governance and Oversight' },
+    { id: 'B1', name: 'B1. Human, Societal and Environmental Wellbeing' },
+    { id: 'B2', name: 'B2. Human-Centred Values' },
+    { id: 'B3', name: 'B3. Fairness' },
+    { id: 'B4', name: 'B4. Privacy Protection and Security' },
+    { id: 'B5', name: 'B5. Reliability and Safety' },
+    { id: 'B6', name: 'B6. Transparency and Explainability' },
+    { id: 'B7', name: 'B7. Contestability' },
+    { id: 'B8', name: 'B8. Accountability' }
+  ];
 
   // Helper component for radio scale
   const RadioScale = ({ value, onChange, min = 1, max = 5, labels = {} }) => (
@@ -428,7 +446,7 @@ export default function FairaAssessmentForm() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-bg pb-20">
+    <div className="min-h-screen bg-gradient-bg pb-20 flex">
       {/* Header */}
       <header className="bg-white shadow-sm border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
