@@ -1596,7 +1596,934 @@ export default function FairaAssessmentForm() {
           </CardContent>
         </Card>
 
-        {/* TO BE CONTINUED - Part B will be added in the next file update */}
+        {/* BLOCK 3: Part B - Values Assessment */}
+        <Card>
+          <CardHeader className="bg-orange-50 border-b border-orange-100">
+            <CardTitle className="text-2xl font-bold">Part B: Values Assessment</CardTitle>
+            <p className="text-sm text-gray-600 mt-1">Assessment against core values: ethics, fairness, privacy, reliability, transparency, and accountability</p>
+          </CardHeader>
+          <CardContent className="p-6 space-y-8">
+            
+            {/* B1: Human, Societal, and Environmental Wellbeing */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">B1. Human, Societal, and Environmental Wellbeing</h3>
+              </div>
+              <Separator />
+              
+              {/* B1.1 */}
+              <div className="space-y-4">
+                <Label>B1.1 How will the AI solution benefit (1 = Very Low, 5 = Very High):</Label>
+                <div className="space-y-3 ml-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-48">Individual wellbeing:</span>
+                    <RadioScale 
+                      value={form.B1_1_individual} 
+                      onChange={(val) => update("B1_1_individual", val)} 
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-48">Organizational efficiency:</span>
+                    <RadioScale 
+                      value={form.B1_1_organizational} 
+                      onChange={(val) => update("B1_1_organizational", val)} 
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-48">Social outcomes:</span>
+                    <RadioScale 
+                      value={form.B1_1_social} 
+                      onChange={(val) => update("B1_1_social", val)} 
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-48">Environmental outcomes:</span>
+                    <RadioScale 
+                      value={form.B1_1_environmental} 
+                      onChange={(val) => update("B1_1_environmental", val)} 
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* B1.2 */}
+              <div className="space-y-2">
+                <Label>B1.2 What negative impacts might arise from the AI solution? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Privacy risks",
+                    "Bias/discrimination",
+                    "Transparency issues",
+                    "Safety risks",
+                    "Employment impacts",
+                    "Social harm",
+                    "Environmental impact",
+                    "Accessibility issues",
+                    "Legal/regulatory risks",
+                    "Loss of trust"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.B1_2.includes(option)}
+                        onCheckedChange={() => toggleInArray("B1_2", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* B1.3 */}
+              <div className="space-y-2">
+                <Label>B1.3 Will the AI solution affect employee employment?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B1_3 === "Yes"}
+                      onChange={() => update("B1_3", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B1_3 === "No"}
+                      onChange={() => update("B1_3", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B1_3 === "Unknown"}
+                      onChange={() => update("B1_3", "Unknown")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Unknown</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* B2: Human-Centered Values */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">B2. Human-Centered Values</h3>
+              </div>
+              <Separator />
+              
+              {/* B2.1 */}
+              <div className="space-y-2">
+                <Label>B2.1 Has a Human Rights Impact Assessment been completed?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B2_1 === "Yes"}
+                      onChange={() => update("B2_1", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B2_1 === "No"}
+                      onChange={() => update("B2_1", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* B2.2 */}
+              <div className="space-y-4">
+                <Label>B2.2 Rate the potential impact on:</Label>
+                <div className="space-y-3 ml-4">
+                  <div>
+                    <span className="text-sm font-medium block mb-2">Human rights:</span>
+                    <div className="flex space-x-4">
+                      {["Positive", "Neutral", "Negative", "Unknown"].map((opt) => (
+                        <label key={opt} className="flex items-center space-x-2">
+                          <input
+                            type="radio"
+                            checked={form.B2_2_rights === opt}
+                            onChange={() => update("B2_2_rights", opt)}
+                            className="h-4 w-4 text-orange-600"
+                          />
+                          <span className="text-sm">{opt}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium block mb-2">Diversity:</span>
+                    <div className="flex space-x-4">
+                      {["Positive", "Neutral", "Negative", "Unknown"].map((opt) => (
+                        <label key={opt} className="flex items-center space-x-2">
+                          <input
+                            type="radio"
+                            checked={form.B2_2_diversity === opt}
+                            onChange={() => update("B2_2_diversity", opt)}
+                            className="h-4 w-4 text-orange-600"
+                          />
+                          <span className="text-sm">{opt}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium block mb-2">Individual autonomy:</span>
+                    <div className="flex space-x-4">
+                      {["Positive", "Neutral", "Negative", "Unknown"].map((opt) => (
+                        <label key={opt} className="flex items-center space-x-2">
+                          <input
+                            type="radio"
+                            checked={form.B2_2_autonomy === opt}
+                            onChange={() => update("B2_2_autonomy", opt)}
+                            className="h-4 w-4 text-orange-600"
+                          />
+                          <span className="text-sm">{opt}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* B2.3 */}
+              <div className="space-y-3">
+                <Label>B2.3 Have diverse perspectives been incorporated in the design?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B2_3 === "Yes"}
+                      onChange={() => update("B2_3", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B2_3 === "No"}
+                      onChange={() => update("B2_3", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.B2_3 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Which perspectives? (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "People with disabilities",
+                        "Cultural diversity",
+                        "Gender diversity",
+                        "Age diversity",
+                        "Indigenous perspectives",
+                        "Socioeconomic diversity"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.B2_3_perspectives.includes(option)}
+                            onCheckedChange={() => toggleInArray("B2_3_perspectives", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                      <label className="flex items-center space-x-2">
+                        <Checkbox
+                          checked={form.B2_3_perspectives.includes("Other")}
+                          onCheckedChange={() => toggleInArray("B2_3_perspectives", "Other")}
+                        />
+                        <span className="text-sm">Other (specify)</span>
+                      </label>
+                    </div>
+                    {form.B2_3_perspectives.includes("Other") && (
+                      <Input
+                        value={form.B2_3_perspectives_other}
+                        onChange={(e) => update("B2_3_perspectives_other", e.target.value)}
+                        placeholder="Please specify other perspectives"
+                        className="mt-2"
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* B3: Fairness */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">B3. Fairness</h3>
+              </div>
+              <Separator />
+              
+              {/* B3.1 */}
+              <div className="space-y-3">
+                <Label>B3.1 Has the AI solution been tested for fairness and bias?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B3_1 === "Yes"}
+                      onChange={() => update("B3_1", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B3_1 === "No"}
+                      onChange={() => update("B3_1", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.B3_1 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Select testing methods (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Statistical parity analysis",
+                        "Disparate impact analysis",
+                        "Dataset bias review",
+                        "Model interpretability testing",
+                        "Human review panels",
+                        "Synthetic scenario testing",
+                        "Accessibility testing",
+                        "Penetration/security testing",
+                        "Vendor-provided tests",
+                        "Informal or ad-hoc checks only (no formal testing) (flag as risk)"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.B3_1_methods.includes(option)}
+                            onCheckedChange={() => toggleInArray("B3_1_methods", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* B3.2 */}
+              <div className="space-y-3">
+                <Label>B3.2 Could the AI solution result in unfair discrimination?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B3_2 === "Yes"}
+                      onChange={() => update("B3_2", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B3_2 === "No"}
+                      onChange={() => update("B3_2", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B3_2 === "Unknown"}
+                      onChange={() => update("B3_2", "Unknown")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Unknown</span>
+                  </label>
+                </div>
+                
+                {(form.B3_2 === "Yes" || form.B3_2 === "Unknown") && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Against which groups? (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Age groups",
+                        "People with disabilities",
+                        "Racial or ethnic groups",
+                        "Religious groups",
+                        "Gender",
+                        "Sexual orientation",
+                        "Socioeconomic status"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.B3_2_groups.includes(option)}
+                            onCheckedChange={() => toggleInArray("B3_2_groups", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* B4: Privacy Protection and Security */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">B4. Privacy Protection and Security</h3>
+              </div>
+              <Separator />
+              
+              {/* B4.1 */}
+              <div className="space-y-2">
+                <Label>B4.1 Has a Privacy Impact Assessment been completed?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B4_1 === "Yes"}
+                      onChange={() => update("B4_1", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B4_1 === "No"}
+                      onChange={() => update("B4_1", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* B4.2 */}
+              <div className="space-y-3">
+                <Label>B4.2 Does the system collect, use, or disclose personal information?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B4_2 === "Yes"}
+                      onChange={() => update("B4_2", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B4_2 === "No"}
+                      onChange={() => update("B4_2", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.B4_2 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Is this information (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Identifiable",
+                        "Sensitive",
+                        "Health-related",
+                        "Financial",
+                        "Biometric"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.B4_2_types.includes(option)}
+                            onCheckedChange={() => toggleInArray("B4_2_types", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                      <label className="flex items-center space-x-2">
+                        <Checkbox
+                          checked={form.B4_2_types.includes("Other")}
+                          onCheckedChange={() => toggleInArray("B4_2_types", "Other")}
+                        />
+                        <span className="text-sm">Other (specify)</span>
+                      </label>
+                    </div>
+                    {form.B4_2_types.includes("Other") && (
+                      <Input
+                        value={form.B4_2_types_other}
+                        onChange={(e) => update("B4_2_types_other", e.target.value)}
+                        placeholder="Please specify other information types"
+                        className="mt-2"
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* B4.3 */}
+              <div className="space-y-2">
+                <Label>B4.3 What security measures are in place? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Access controls",
+                    "Encryption",
+                    "Security testing",
+                    "Data anonymization",
+                    "Privacy-enhancing technologies"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.B4_3.includes(option)}
+                        onCheckedChange={() => toggleInArray("B4_3", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* B5: Reliability and Safety */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">B5. Reliability and Safety</h3>
+              </div>
+              <Separator />
+              
+              {/* B5.1 */}
+              <div className="space-y-3">
+                <Label>B5.1 Has the system been tested for reliability?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B5_1 === "Yes"}
+                      onChange={() => update("B5_1", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B5_1 === "No"}
+                      onChange={() => update("B5_1", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.B5_1 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Rate reliability test results (1 = Very Low, 5 = Very High):</Label>
+                    <RadioScale 
+                      value={form.B5_1_rating} 
+                      onChange={(val) => update("B5_1_rating", val)} 
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* B5.2 */}
+              <div className="space-y-2">
+                <Label>B5.2 Is there a process to disengage the system if issues arise?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B5_2 === "Yes"}
+                      onChange={() => update("B5_2", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B5_2 === "No"}
+                      onChange={() => update("B5_2", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* B5.3 */}
+              <div className="space-y-3">
+                <Label>B5.3 Is this AI solution for use in high-risk environments?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B5_3 === "Yes"}
+                      onChange={() => update("B5_3", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B5_3 === "No"}
+                      onChange={() => update("B5_3", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.B5_3 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Which environments? (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Essential services",
+                        "Critical infrastructure",
+                        "Health services",
+                        "Education",
+                        "Law enforcement",
+                        "Administration of justice",
+                        "Democratic processes"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.B5_3_environments.includes(option)}
+                            onCheckedChange={() => toggleInArray("B5_3_environments", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* B6: Transparency and Explainability */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">B6. Transparency and Explainability</h3>
+              </div>
+              <Separator />
+              
+              {/* B6.1 */}
+              <div className="space-y-2">
+                <Label>B6.1 How transparent is the AI solution's operation? (1 = Very Low, 5 = Very High):</Label>
+                <RadioScale 
+                  value={form.B6_1} 
+                  onChange={(val) => update("B6_1", val)} 
+                />
+              </div>
+
+              {/* B6.2 */}
+              <div className="space-y-2">
+                <Label>B6.2 Can the system explain its outputs or decisions? (1 = Very Low, 5 = Very High):</Label>
+                <RadioScale 
+                  value={form.B6_2} 
+                  onChange={(val) => update("B6_2", val)} 
+                />
+              </div>
+
+              {/* B6.3 */}
+              <div className="space-y-2">
+                <Label htmlFor="B6_3">B6.3 How will people be informed they are interacting with AI?</Label>
+                <Textarea
+                  id="B6_3"
+                  value={form.B6_3}
+                  onChange={(e) => update("B6_3", e.target.value)}
+                  placeholder="Describe how AI interaction is communicated"
+                  rows={3}
+                />
+              </div>
+
+              {/* B6.4 */}
+              <div className="space-y-3">
+                <Label>B6.4 Are there limitations to explaining how the system works?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B6_4 === "Yes"}
+                      onChange={() => update("B6_4", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B6_4 === "No"}
+                      onChange={() => update("B6_4", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.B6_4 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg">
+                    <Label htmlFor="B6_4_describe">Describe limitations:</Label>
+                    <Textarea
+                      id="B6_4_describe"
+                      value={form.B6_4_describe}
+                      onChange={(e) => update("B6_4_describe", e.target.value)}
+                      placeholder="Describe the limitations"
+                      rows={3}
+                      className="mt-2"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* B7: Contestability */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">B7. Contestability</h3>
+              </div>
+              <Separator />
+              
+              {/* B7.1 */}
+              <div className="space-y-3">
+                <Label>B7.1 Is there a process for people to challenge AI outcomes?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B7_1 === "Yes"}
+                      onChange={() => update("B7_1", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B7_1 === "No"}
+                      onChange={() => update("B7_1", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.B7_1 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg">
+                    <Label htmlFor="B7_1_describe">Describe the process:</Label>
+                    <Textarea
+                      id="B7_1_describe"
+                      value={form.B7_1_describe}
+                      onChange={(e) => update("B7_1_describe", e.target.value)}
+                      placeholder="Describe the challenge process"
+                      rows={3}
+                      className="mt-2"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* B7.2 */}
+              <div className="space-y-2">
+                <Label>B7.2 How quickly can challenges be addressed?</Label>
+                <select
+                  value={form.B7_2}
+                  onChange={(e) => update("B7_2", e.target.value)}
+                  className="w-full p-2 border rounded-md"
+                >
+                  <option value="">Select timeframe</option>
+                  <option value="Immediately">Immediately</option>
+                  <option value="Within hours">Within hours</option>
+                  <option value="Within days">Within days</option>
+                  <option value="Within weeks">Within weeks</option>
+                  <option value="Longer than weeks">Longer than weeks</option>
+                  <option value="Unknown">Unknown</option>
+                </select>
+              </div>
+            </div>
+
+            {/* B8: Accountability */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">B8. Accountability</h3>
+              </div>
+              <Separator />
+              
+              {/* B8.1 */}
+              <div className="space-y-2">
+                <Label htmlFor="B8_1">B8.1 Who has oversight of the AI system?</Label>
+                <Input
+                  id="B8_1"
+                  value={form.B8_1}
+                  onChange={(e) => update("B8_1", e.target.value)}
+                  placeholder="Name role or position"
+                />
+              </div>
+
+              {/* B8.2 */}
+              <div className="space-y-2">
+                <Label>B8.2 Are clear roles and responsibilities established?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B8_2 === "Yes"}
+                      onChange={() => update("B8_2", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B8_2 === "No"}
+                      onChange={() => update("B8_2", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* B8.3 */}
+              <div className="space-y-2">
+                <Label>B8.3 Have staff been trained on AI risk management?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B8_3 === "Yes"}
+                      onChange={() => update("B8_3", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B8_3 === "No"}
+                      onChange={() => update("B8_3", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* B8.4 */}
+              <div className="space-y-3">
+                <Label>B8.4 Are there safeguards against overreliance on AI outputs?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B8_4 === "Yes"}
+                      onChange={() => update("B8_4", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.B8_4 === "No"}
+                      onChange={() => update("B8_4", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.B8_4 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Select safeguards (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Mandatory human review",
+                        "Confidence thresholds",
+                        "Explainability requirements",
+                        "Training for staff",
+                        "Decision override controls",
+                        "System warnings",
+                        "Monitoring of decision quality"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.B8_4_safeguards.includes(option)}
+                            onCheckedChange={() => toggleInArray("B8_4_safeguards", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* BLOCK 4: Declaration */}
+        <Card>
+          <CardHeader className="bg-orange-50 border-b border-orange-100">
+            <div className="flex items-center space-x-2">
+              <AlertCircle className="h-5 w-5 text-orange-600" />
+              <CardTitle className="text-xl">Declaration</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="p-6 space-y-4">
+            <div className="flex items-start space-x-3 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+              <Checkbox
+                id="declaration_confirmed"
+                checked={form.declaration_confirmed}
+                onCheckedChange={(checked) => update("declaration_confirmed", checked)}
+                required
+              />
+              <Label htmlFor="declaration_confirmed" className="text-sm font-medium cursor-pointer">
+                I confirm that the information provided in this FAIRA assessment is accurate to the best of my knowledge.
+              </Label>
+            </div>
+            
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="declaration_assessor">Name of assessor *</Label>
+                <Input
+                  id="declaration_assessor"
+                  value={form.declaration_assessor}
+                  onChange={(e) => update("declaration_assessor", e.target.value)}
+                  required
+                  placeholder="Enter your name"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="declaration_date">Date *</Label>
+                <Input
+                  id="declaration_date"
+                  type="date"
+                  value={form.declaration_date}
+                  onChange={(e) => update("declaration_date", e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
         
         {/* Actions */}
         <div className="flex items-center justify-between gap-3 sticky bottom-0 bg-white p-4 border-t shadow-lg rounded-lg">
