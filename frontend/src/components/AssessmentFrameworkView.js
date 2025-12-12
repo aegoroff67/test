@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { X, Info, Circle, CircleDot } from 'lucide-react';
+import { X, Info } from 'lucide-react';
 
 // Import all framework alignment data
 import nistAlignmentData from '../data/nistAlignmentData.json';
