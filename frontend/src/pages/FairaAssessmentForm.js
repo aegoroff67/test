@@ -164,6 +164,31 @@ export default function FairaAssessmentForm() {
   const [autoSaving, setAutoSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch existing form data on mount
+  useEffect(() => {
+    const fetchFormData = async () => {
+      if (!id) return;
+      
+      try {
+        const response = await axios.get(`${API}/assessments/${id}`);
+        if (response.data && response.data.faira_form) {
+          // Merge saved data with default state to handle any new fields
+          setForm(prevForm => ({
+            ...defaultState,
+            ...response.data.faira_form
+          }));
+        }
+      } catch (error) {
+        console.error('Error fetching form data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFormData();
+  }, [id]);
 
   // Calculate progress percentage - only count applicable fields
   const calculateProgress = () => {
