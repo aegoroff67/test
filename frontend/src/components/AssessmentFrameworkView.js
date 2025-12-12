@@ -56,13 +56,6 @@ const FRAMEWORKS = [
     color: 'purple'
   },
   {
-    id: 'faira',
-    name: 'FAIRA (QLD) (2024)',
-    systemName: 'Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)',
-    data: fairaAlignmentData,
-    color: 'amber'
-  },
-  {
     id: 'nist',
     name: 'NIST AI RMF (2023)',
     systemName: 'NIST AI RMF (2023)',
