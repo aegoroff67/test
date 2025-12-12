@@ -240,6 +240,7 @@ export default function FairaAssessmentForm() {
     // Calculate applicable fields
     let totalFields = 0;
     let filledFields = 0;
+    const unfilledFields = [];
 
     Object.keys(defaultState).forEach(key => {
       // Skip excluded fields
@@ -253,34 +254,61 @@ export default function FairaAssessmentForm() {
         if (conditionalFields[key]()) {
           totalFields++;
           const value = form[key];
+          let isFilled = false;
           if (value !== null && value !== undefined) {
             if (Array.isArray(value)) {
-              if (value.length > 0) filledFields++;
+              if (value.length > 0) {
+                filledFields++;
+                isFilled = true;
+              }
             } else if (typeof value === 'number') {
               filledFields++;
+              isFilled = true;
             } else if (typeof value === 'boolean') {
-              if (value) filledFields++;
+              if (value) {
+                filledFields++;
+                isFilled = true;
+              }
             } else if (value && value.toString().trim() !== '') {
               filledFields++;
+              isFilled = true;
             }
           }
+          if (!isFilled) unfilledFields.push(key);
         }
       } else {
         // Always count non-conditional fields
         totalFields++;
         const value = form[key];
+        let isFilled = false;
         if (value !== null && value !== undefined) {
           if (Array.isArray(value)) {
-            if (value.length > 0) filledFields++;
+            if (value.length > 0) {
+              filledFields++;
+              isFilled = true;
+            }
           } else if (typeof value === 'number') {
             filledFields++;
+            isFilled = true;
           } else if (typeof value === 'boolean') {
-            if (value) filledFields++;
+            if (value) {
+              filledFields++;
+              isFilled = true;
+            }
           } else if (value && value.toString().trim() !== '') {
             filledFields++;
+            isFilled = true;
           }
         }
+        if (!isFilled) unfilledFields.push(key);
       }
+    });
+
+    console.log('FAIRA Progress Debug:', {
+      totalFields,
+      filledFields,
+      percentage: Math.round((filledFields / totalFields) * 100),
+      unfilledFields
     });
 
     return totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
