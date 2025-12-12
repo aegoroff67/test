@@ -9589,6 +9589,40 @@ class AMSafeAPITester:
         
         return True
 
+    def run_faira_tests_only(self):
+        """Run only FAIRA assessment data persistence tests"""
+        print("🚀 FAIRA Assessment Data Persistence Testing")
+        print("=" * 60)
+        
+        # Authentication tests
+        if not self.test_production_authentication_flow():
+            print("❌ Authentication failed - stopping tests")
+            return False
+        
+        # CRITICAL P0: FAIRA Assessment Data Persistence Tests (HIGHEST PRIORITY)
+        print("\n" + "🔥" * 60)
+        print("CRITICAL P0: FAIRA ASSESSMENT DATA PERSISTENCE TESTING")
+        print("🔥" * 60)
+        
+        success1 = self.test_faira_assessment_data_persistence()
+        success2 = self.test_faira_form_endpoint_validation()
+        
+        # Print summary
+        print("\n" + "=" * 60)
+        print(f"📊 FAIRA Test Summary: {self.tests_passed}/{self.tests_run} tests passed")
+        print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
+        
+        if success1 and success2:
+            print("🎉 FAIRA Assessment Data Persistence tests passed!")
+            return True
+        else:
+            print("⚠️  FAIRA tests failed - check details above")
+            failed_tests = [result for result in self.test_results if not result['success']]
+            print(f"\n❌ Failed Tests ({len(failed_tests)}):")
+            for test in failed_tests:
+                print(f"   • {test['test']}: {test['details']}")
+            return False
+
 def main():
     tester = AMSafeAPITester()
     
