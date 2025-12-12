@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { X, Info } from 'lucide-react';
 
 // Import all framework alignment data
-import fairaAlignmentData from '../data/fairaAlignmentData.json';
 import nistAlignmentData from '../data/nistAlignmentData.json';
 import iso42001AlignmentData from '../data/iso42001AlignmentData.json';
 import auEthicsAlignmentData from '../data/auEthicsAlignmentData.json';
