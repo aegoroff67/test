@@ -432,7 +432,7 @@ function Dashboard() {
                       
                       <div className="flex gap-2">
                         <Button 
-                          onClick={() => navigate(`/assessment/${assessment.id}`)}
+                          onClick={() => navigate(getResumeRoute(assessment))}
                           className="flex-1 bg-teal-600 hover:bg-teal-700"
                           data-testid={`resume-assessment-${assessment.id}`}
                         >
