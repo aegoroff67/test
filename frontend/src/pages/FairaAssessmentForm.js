@@ -164,18 +164,75 @@ export default function FairaAssessmentForm() {
   const [autoSaving, setAutoSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState(null);
 
-  // Calculate progress percentage
+  // Calculate progress percentage - only count applicable fields
   const calculateProgress = () => {
-    const totalFields = Object.keys(defaultState).length;
-    const filledFields = Object.keys(form).filter(key => {
-      const value = form[key];
-      if (value === null || value === undefined) return false;
-      if (Array.isArray(value)) return value.length > 0;
-      if (typeof value === 'number') return true;
-      if (typeof value === 'boolean') return value;
-      return value && value.toString().trim() !== '';
-    }).length;
-    return Math.round((filledFields / totalFields) * 100);
+    // List of conditional fields that should only count if their parent condition is met
+    const conditionalFields = {
+      'A1_3_other': () => form.A1_3.includes('Other'),
+      'A1_6_actions': () => form.A1_6 === 'Yes',
+      'A1_6_actions_other': () => form.A1_6 === 'Yes' && form.A1_6_actions.includes('Other'),
+      'A1_7_other': () => form.A1_7.includes('Other'),
+      'A2_4_other': () => form.A2_4.includes('Other'),
+      'A2_7_regulation': () => form.A2_7 === 'Yes',
+      'A2_8_types': () => form.A2_8 === 'Yes',
+      'A3_3_other': () => form.A3_3.includes('Other'),
+      'A4_5_scenarios': () => form.A4_5 === 'Yes',
+      'A5_12_other': () => form.A5_12.includes('Other'),
+      'B2_3_perspectives': () => form.B2_3 === 'Yes',
+      'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && form.B2_3_perspectives.includes('Other'),
+      'B3_1_methods': () => form.B3_1 === 'Yes',
+      'B3_2_groups': () => form.B3_2 === 'Yes' || form.B3_2 === 'Unknown',
+      'B4_2_types': () => form.B4_2 === 'Yes',
+      'B4_2_types_other': () => form.B4_2 === 'Yes' && form.B4_2_types.includes('Other'),
+      'B5_1_rating': () => form.B5_1 === 'Yes',
+      'B5_3_environments': () => form.B5_3 === 'Yes',
+      'B6_4_describe': () => form.B6_4 === 'Yes',
+      'B7_1_describe': () => form.B7_1 === 'Yes',
+      'B8_4_safeguards': () => form.B8_4 === 'Yes'
+    };
+
+    // Calculate applicable fields
+    let totalFields = 0;
+    let filledFields = 0;
+
+    Object.keys(defaultState).forEach(key => {
+      // Check if this is a conditional field
+      if (conditionalFields[key]) {
+        // Only count if condition is met
+        if (conditionalFields[key]()) {
+          totalFields++;
+          const value = form[key];
+          if (value !== null && value !== undefined) {
+            if (Array.isArray(value)) {
+              if (value.length > 0) filledFields++;
+            } else if (typeof value === 'number') {
+              filledFields++;
+            } else if (typeof value === 'boolean') {
+              if (value) filledFields++;
+            } else if (value && value.toString().trim() !== '') {
+              filledFields++;
+            }
+          }
+        }
+      } else {
+        // Always count non-conditional fields
+        totalFields++;
+        const value = form[key];
+        if (value !== null && value !== undefined) {
+          if (Array.isArray(value)) {
+            if (value.length > 0) filledFields++;
+          } else if (typeof value === 'number') {
+            filledFields++;
+          } else if (typeof value === 'boolean') {
+            if (value) filledFields++;
+          } else if (value && value.toString().trim() !== '') {
+            filledFields++;
+          }
+        }
+      }
+    });
+
+    return totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
   };
 
   function update(key, value) {
