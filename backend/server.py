@@ -1335,8 +1335,11 @@ async def delete_assessment(
     assessment_id: str,
     current_user: UserResponse = Depends(get_current_user)
 ):
-    # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    # SUPER_ADMIN can delete any assessment, regular users can only delete their org's assessments
+    if current_user.role == "SUPER_ADMIN":
+        assessment = await db.assessments.find_one({"id": assessment_id})
+    else:
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
     
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
