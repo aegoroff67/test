@@ -164,8 +164,15 @@ function Dashboard() {
   };
 
   const getResumeRoute = (assessment) => {
-    // Route to appropriate onboarding page based on assessment type and status
+    // Route to appropriate page based on assessment type
     const assessmentType = assessment.assessment_type;
+    
+    // FAIRA assessments only have the onboarding form (no separate question flow)
+    if (assessmentType === 'FAIRA') {
+      return `/assessment/${assessment.id}/faira-onboarding`;
+    }
+    
+    // For other types, check if they've started answering questions
     const hasStartedQuestions = assessment.answers && assessment.answers.length > 0;
     
     // If they've started answering questions, go to main assessment page
@@ -177,8 +184,6 @@ function Dashboard() {
     switch(assessmentType) {
       case 'Awareness':
         return `/assessment/${assessment.id}/awareness-onboarding`;
-      case 'FAIRA':
-        return `/assessment/${assessment.id}/faira-onboarding`;
       case 'System':
         return `/assessment/${assessment.id}/system-onboarding`;
       case 'Orgwide':
