@@ -18,7 +18,7 @@ const API = `${BACKEND_URL}/api`;
 
 // Default state with flat structure
 const defaultState = {
-  // Assessment Details
+  // Assessment Overview
   assessor_name: "",
   assessor_role: "",
   assessor_branch: "",
