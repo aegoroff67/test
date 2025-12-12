@@ -169,6 +169,7 @@ export default function FairaAssessmentForm() {
     const totalFields = Object.keys(defaultState).length;
     const filledFields = Object.keys(form).filter(key => {
       const value = form[key];
+      if (value === null || value === undefined) return false;
       if (Array.isArray(value)) return value.length > 0;
       if (typeof value === 'number') return true;
       if (typeof value === 'boolean') return value;
