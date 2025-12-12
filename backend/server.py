@@ -1665,6 +1665,28 @@ async def update_faira_form(
     # Check if this is marked as completed
     status = faira_form.pop("status", None)
     
+    # Calculate progress based on filled fields (exclude auto-filled and declaration fields)
+    excluded_fields = ['declaration_date', 'declaration_confirmed', 'declaration_name', 'declaration_role']
+    total_fields = 0
+    filled_fields = 0
+    
+    for key, value in faira_form.items():
+        if key not in excluded_fields:
+            total_fields += 1
+            # Check if field is filled
+            if value is not None and value != "" and value != []:
+                if isinstance(value, list) and len(value) > 0:
+                    filled_fields += 1
+                elif isinstance(value, (int, float)):
+                    filled_fields += 1
+                elif isinstance(value, bool) and value:
+                    filled_fields += 1
+                elif isinstance(value, str) and value.strip():
+                    filled_fields += 1
+    
+    # Calculate progress percentage (approximately 71 questions total)
+    progress = round((filled_fields / total_fields * 100)) if total_fields > 0 else 0
+    
     # Update the assessment name if assessor name is provided
     updated_name = assessment["name"]
     if faira_form.get("assessor_name"):
@@ -1680,7 +1702,8 @@ async def update_faira_form(
     # Prepare update data
     update_data = {
         "faira_form": faira_form,
-        "name": updated_name
+        "name": updated_name,
+        "progress": progress
     }
     
     # If status is completed, update assessment status
