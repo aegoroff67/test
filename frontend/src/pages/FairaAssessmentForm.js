@@ -209,6 +209,9 @@ export default function FairaAssessmentForm() {
 
   // Calculate progress percentage - only count applicable fields
   const calculateProgress = () => {
+    // Fields to exclude from progress calculation (auto-filled or declaration fields)
+    const excludedFields = ['declaration_date', 'declaration_confirmed', 'declaration_name', 'declaration_role'];
+    
     // List of conditional fields that should only count if their parent condition is met
     const conditionalFields = {
       'A1_3_other': () => form.A1_3.includes('Other'),
@@ -239,6 +242,11 @@ export default function FairaAssessmentForm() {
     let filledFields = 0;
 
     Object.keys(defaultState).forEach(key => {
+      // Skip excluded fields
+      if (excludedFields.includes(key)) {
+        return;
+      }
+      
       // Check if this is a conditional field
       if (conditionalFields[key]) {
         // Only count if condition is met
