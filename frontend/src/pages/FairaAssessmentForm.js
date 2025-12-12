@@ -913,7 +913,7 @@ export default function FairaAssessmentForm() {
             </div>
 
             {/* A2: Data and Inputs */}
-            <div className="space-y-6 pt-6 border-t">
+            <div className="space-y-6 pt-6 border-t" id="A2_1">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">A2. Data and Inputs</h3>
                 <p className="text-sm text-gray-600">Maps to FAIRA 1.8-1.9 (data used and data quality) and AI use inputs (Table 3)</p>
