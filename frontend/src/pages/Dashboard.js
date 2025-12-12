@@ -146,7 +146,7 @@ function Dashboard() {
         };
       case 'FAIRA':
         return {
-          icon: Bot,
+          icon: ShieldCheck,
           label: 'FAIRA Risk',
           bgColor: 'bg-orange-100',
           textColor: 'text-orange-700',
