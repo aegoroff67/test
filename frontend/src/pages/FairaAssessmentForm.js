@@ -1201,7 +1201,7 @@ export default function FairaAssessmentForm() {
               </div>
 
               {/* A3.2 */}
-              <div className="space-y-4">
+              <div className="space-y-4" id="A3_2_technical">
                 <Label>A3.2 What expertise is required to use the AI solution? (1 = Very Low, 5 = Very High):</Label>
                 <div className="space-y-3 ml-4">
                   <div className="flex items-center justify-between">
