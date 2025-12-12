@@ -618,7 +618,7 @@ export default function FairaAssessmentForm() {
           <CardContent className="p-6 space-y-8">
             
             {/* A1: AI Solution Fundamentals */}
-            <div className="space-y-6">
+            <div className="space-y-6" id="A1_1">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">A1. AI Solution Fundamentals</h3>
                 <p className="text-sm text-gray-600">Maps to FAIRA Table 1: AI solution (Questions 1.1-1.10)</p>
