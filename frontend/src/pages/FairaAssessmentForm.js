@@ -64,9 +64,9 @@ const defaultState = {
   A3_3_other: "",
   A3_4: [], // notification methods (multiselect)
   A3_5a: [], // staff impacts (multiselect)
-  A3_5b: 3, // severity 1-5
+  A3_5b: null, // severity 1-5
   A3_6a: [], // group impacts (multiselect)
-  A3_6b: 2, // severity 1-3
+  A3_6b: null, // severity 1-3
   
   // A4: Outputs and Actions
   A4_1: [], // primary outputs (multiselect)
