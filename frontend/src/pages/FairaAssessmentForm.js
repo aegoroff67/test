@@ -1,0 +1,1632 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { ArrowLeft, ShieldCheck, Save, CheckCircle, AlertCircle } from "lucide-react";
+import { toast } from 'sonner';
+import axios from 'axios';
+import Logo from '../components/Logo';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
+
+// Default state with flat structure
+const defaultState = {
+  // Assessment Details
+  assessor_name: "",
+  assessor_role: "",
+  assessor_branch: "",
+  
+  // A1: AI Solution Fundamentals
+  A1_1: [], // primary function (multiselect)
+  A1_2: "", // version
+  A1_3: [], // AI features (multiselect)
+  A1_3_other: "",
+  A1_4: [], // decisions addressed (multiselect)
+  A1_5: [], // tangible benefits (multiselect)
+  A1_6: "", // convert to actions (Yes/No)
+  A1_6_actions: [], // if yes - actions (multiselect)
+  A1_6_actions_other: "",
+  A1_7: [], // AI model type (multiselect)
+  A1_7_other: "",
+  A1_8: [], // source (multiselect)
+  A1_9: [], // integration (multiselect)
+  
+  // A2: Data and Inputs
+  A2_1: [], // tracking (multiselect)
+  A2_2: "", // environmental data (text)
+  A2_3: [], // safeguards (multiselect)
+  A2_4: [], // data types (multiselect)
+  A2_4_other: "",
+  A2_5_accuracy: 3, // 1-5 scale
+  A2_5_completeness: 3,
+  A2_5_reliability: 3,
+  A2_5_relevance: 3,
+  A2_5_timeliness: 3,
+  A2_6: "", // BIL (single select)
+  A2_7: "", // regulated data (Yes/No)
+  A2_7_regulation: "",
+  A2_8: "", // user inputs required (Yes/No)
+  A2_8_types: [], // if yes - input types (multiselect)
+  
+  // A3: Human Interface and Impact
+  A3_1: [], // interface types (multiselect)
+  A3_2_technical: 3, // 1-5 scale
+  A3_2_domain: 3,
+  A3_2_ai_literacy: 3,
+  A3_3: [], // impacted groups (multiselect)
+  A3_3_other: "",
+  A3_4: [], // notification methods (multiselect)
+  A3_5a: [], // staff impacts (multiselect)
+  A3_5b: 3, // severity 1-5
+  A3_6a: [], // group impacts (multiselect)
+  A3_6b: 2, // severity 1-3
+  
+  // A4: Outputs and Actions
+  A4_1: [], // primary outputs (multiselect)
+  A4_2: "", // external without review (Yes/No)
+  A4_3: "", // BIL outputs (single select)
+  A4_4: [], // tracking outputs (multiselect)
+  A4_5: "", // unauthorized access (Yes/No)
+  A4_5_scenarios: [],
+  A4_6: [], // regulated data (multiselect)
+  A4_7: "", // PII access (text)
+  A4_8: "", // legal/regulatory actions (text)
+  
+  // A5: Governance and Oversight
+  A5_1: "", // accountability (single select)
+  A5_2: "", // tracking method (text)
+  A5_3: [], // monitoring processes (multiselect)
+  A5_4: "", // frequency (single select)
+  A5_5: "", // independent review (Yes/No)
+  A5_6: "", // responsible role (single select)
+  A5_7: [], // stakeholder engagement (multiselect)
+  A5_8: [], // detecting harm (multiselect)
+  A5_9: [], // values/principles (multiselect)
+  A5_10: "", // sector frameworks (text)
+  A5_11: "", // deployment location (single select)
+  A5_12: [], // frameworks/standards (multiselect)
+  A5_12_other: "",
+  
+  // B1: Human, Societal, and Environmental Wellbeing
+  B1_1_individual: 3, // 1-5 scale
+  B1_1_organizational: 3,
+  B1_1_social: 3,
+  B1_1_environmental: 3,
+  B1_2: [], // negative impacts (multiselect)
+  B1_3: "", // employment impact (Yes/No/Unknown)
+  
+  // B2: Human-Centered Values
+  B2_1: "", // HRIA completed (Yes/No)
+  B2_2_rights: "", // Positive/Neutral/Negative/Unknown
+  B2_2_diversity: "",
+  B2_2_autonomy: "",
+  B2_3: "", // diverse perspectives (Yes/No)
+  B2_3_perspectives: [],
+  B2_3_perspectives_other: "",
+  
+  // B3: Fairness
+  B3_1: "", // tested for fairness (Yes/No)
+  B3_1_methods: [],
+  B3_2: "", // unfair discrimination (Yes/No/Unknown)
+  B3_2_groups: [],
+  
+  // B4: Privacy Protection and Security
+  B4_1: "", // PIA completed (Yes/No)
+  B4_2: "", // collects personal info (Yes/No)
+  B4_2_types: [],
+  B4_2_types_other: "",
+  B4_3: [], // security measures (multiselect)
+  
+  // B5: Reliability and Safety
+  B5_1: "", // tested for reliability (Yes/No)
+  B5_1_rating: 3,
+  B5_2: "", // disengage process (Yes/No)
+  B5_3: "", // high-risk environment (Yes/No)
+  B5_3_environments: [],
+  
+  // B6: Transparency and Explainability
+  B6_1: 3, // transparency 1-5
+  B6_2: 3, // explainability 1-5
+  B6_3: "", // how informed (text)
+  B6_4: "", // limitations (Yes/No)
+  B6_4_describe: "",
+  
+  // B7: Contestability
+  B7_1: "", // challenge process (Yes/No)
+  B7_1_describe: "",
+  B7_2: "", // response time (select)
+  
+  // B8: Accountability
+  B8_1: "", // oversight (text)
+  B8_2: "", // roles established (Yes/No)
+  B8_3: "", // staff trained (Yes/No)
+  B8_4: "", // safeguards (Yes/No)
+  B8_4_safeguards: [],
+  
+  // Declaration
+  declaration_confirmed: false,
+  declaration_assessor: "",
+  declaration_date: new Date().toISOString().split('T')[0]
+};
+
+export default function FairaAssessmentForm() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [form, setForm] = useState(defaultState);
+  const [submitting, setSubmitting] = useState(false);
+  const [autoSaving, setAutoSaving] = useState(false);
+  const [lastSaved, setLastSaved] = useState(null);
+
+  // Calculate progress percentage
+  const calculateProgress = () => {
+    const totalFields = Object.keys(defaultState).length;
+    const filledFields = Object.keys(form).filter(key => {
+      const value = form[key];
+      if (Array.isArray(value)) return value.length > 0;
+      if (typeof value === 'number') return true;
+      if (typeof value === 'boolean') return value;
+      return value && value.toString().trim() !== '';
+    }).length;
+    return Math.round((filledFields / totalFields) * 100);
+  };
+
+  function update(key, value) {
+    setForm((f) => ({ ...f, [key]: value }));
+  }
+
+  function toggleInArray(key, value) {
+    setForm((f) => {
+      const arr = new Set(f[key] ?? []);
+      arr.has(value) ? arr.delete(value) : arr.add(value);
+      return { ...f, [key]: Array.from(arr) };
+    });
+  }
+
+  // Auto-save functionality
+  useEffect(() => {
+    const autoSaveTimer = setTimeout(() => {
+      if (id && !submitting) {
+        handleAutoSave();
+      }
+    }, 3000); // Auto-save after 3 seconds of inactivity
+
+    return () => clearTimeout(autoSaveTimer);
+  }, [form]);
+
+  const handleAutoSave = async () => {
+    if (!id) return;
+    setAutoSaving(true);
+    try {
+      await axios.put(`${API}/assessments/${id}/faira-form`, form);
+      setLastSaved(new Date());
+    } catch (error) {
+      console.error('Auto-save error:', error);
+    } finally {
+      setAutoSaving(false);
+    }
+  };
+
+  const handleSaveDraft = async () => {
+    setSubmitting(true);
+    try {
+      await axios.put(`${API}/assessments/${id}/faira-form`, form);
+      toast.success('Draft saved successfully!');
+      setLastSaved(new Date());
+    } catch (error) {
+      console.error('Save draft error:', error);
+      toast.error('Failed to save draft');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    
+    if (!form.declaration_confirmed) {
+      toast.error('Please confirm the declaration to complete the assessment');
+      return;
+    }
+    
+    setSubmitting(true);
+    try {
+      await axios.put(`${API}/assessments/${id}/faira-form`, { ...form, status: 'completed' });
+      toast.success('FAIRA assessment completed successfully!');
+      navigate(`/assessment/${id}`);
+    } catch (error) {
+      console.error('Submit error:', error);
+      toast.error(error.response?.data?.detail || 'Failed to submit assessment');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  const progress = calculateProgress();
+
+  // Helper component for radio scale
+  const RadioScale = ({ value, onChange, min = 1, max = 5, labels = {} }) => (
+    <div className="flex items-center space-x-4">
+      {Array.from({ length: max - min + 1 }, (_, i) => min + i).map((num) => (
+        <label key={num} className="flex flex-col items-center cursor-pointer">
+          <input
+            type="radio"
+            checked={value === num}
+            onChange={() => onChange(num)}
+            className="h-4 w-4 text-orange-600 focus:ring-orange-500"
+          />
+          <span className="text-xs mt-1">{labels[num] || num}</span>
+        </label>
+      ))}
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-bg pb-20">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-3">
+              <Logo className="h-10 w-10" />
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">FAIRA Risk Assessment</h1>
+                <p className="text-xs text-orange-600 font-medium">Foundational AI Risk Assessment Framework</p>
+              </div>
+            </div>
+            
+            {/* Progress Indicator */}
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-gray-600">Progress:</span>
+                <Badge variant="secondary" className="bg-orange-100 text-orange-700">
+                  {progress}%
+                </Badge>
+              </div>
+              {autoSaving && (
+                <span className="text-xs text-gray-500 flex items-center">
+                  <Save className="h-3 w-3 mr-1 animate-pulse" />
+                  Saving...
+                </span>
+              )}
+              {lastSaved && !autoSaving && (
+                <span className="text-xs text-green-600 flex items-center">
+                  <CheckCircle className="h-3 w-3 mr-1" />
+                  Saved {new Date(lastSaved).toLocaleTimeString()}
+                </span>
+              )}
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => navigate('/dashboard')}
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Dashboard
+              </Button>
+            </div>
+          </div>
+          
+          {/* Progress Bar */}
+          <div className="h-1 bg-gray-200">
+            <div 
+              className="h-full bg-orange-500 transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* Form Content */}
+      <form onSubmit={handleSubmit} className="max-w-6xl mx-auto p-6 space-y-8">
+        
+        {/* BLOCK 1: Assessment Details */}
+        <Card>
+          <CardHeader className="bg-orange-50 border-b border-orange-100">
+            <div className="flex items-center space-x-2">
+              <ShieldCheck className="h-5 w-5 text-orange-600" />
+              <CardTitle className="text-xl">Assessment Details</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="grid gap-4 p-6 md:grid-cols-3">
+            <div className="space-y-2">
+              <Label htmlFor="assessor_name">Assessor Name *</Label>
+              <Input
+                id="assessor_name"
+                value={form.assessor_name}
+                onChange={(e) => update("assessor_name", e.target.value)}
+                required
+                placeholder="Enter your name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="assessor_role">Role *</Label>
+              <Input
+                id="assessor_role"
+                value={form.assessor_role}
+                onChange={(e) => update("assessor_role", e.target.value)}
+                required
+                placeholder="Enter your role"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="assessor_branch">Branch *</Label>
+              <Input
+                id="assessor_branch"
+                value={form.assessor_branch}
+                onChange={(e) => update("assessor_branch", e.target.value)}
+                required
+                placeholder="Enter your branch"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* BLOCK 2: Part A - Components Analysis */}
+        <Card>
+          <CardHeader className="bg-orange-50 border-b border-orange-100">
+            <CardTitle className="text-2xl font-bold">Part A: Components Analysis</CardTitle>
+            <p className="text-sm text-gray-600 mt-1">Systematic breakdown of the AI solution components</p>
+          </CardHeader>
+          <CardContent className="p-6 space-y-8">
+            
+            {/* A1: AI Solution Fundamentals */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">A1. AI Solution Fundamentals</h3>
+                <p className="text-sm text-gray-600">Maps to FAIRA Table 1: AI solution (Questions 1.1-1.10)</p>
+              </div>
+              <Separator />
+              
+              {/* A1.1 */}
+              <div className="space-y-2">
+                <Label>A1.1 What is the primary function of the AI solution? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Information retrieval",
+                    "Natural language understanding",
+                    "Prediction / forecasting",
+                    "Classification",
+                    "Recommendation",
+                    "Summarisation",
+                    "Decision support",
+                    "Process automation",
+                    "Compliance monitoring",
+                    "Content generation"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A1_1.includes(option)}
+                        onCheckedChange={() => toggleInArray("A1_1", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A1.2 */}
+              <div className="space-y-2">
+                <Label htmlFor="A1_2">A1.2 What version of the AI solution does this FAIRA assessment apply to?</Label>
+                <Input
+                  id="A1_2"
+                  value={form.A1_2}
+                  onChange={(e) => update("A1_2", e.target.value)}
+                  placeholder="e.g., v1.2.0"
+                />
+              </div>
+
+              {/* A1.3 */}
+              <div className="space-y-2">
+                <Label>A1.3 Select all AI features that apply:</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Natural language processing",
+                    "Data analysis and visualization",
+                    "Automated content generation",
+                    "Integration with existing systems",
+                    "Personalized recommendations",
+                    "Collaboration enhancement",
+                    "Task automation",
+                    "Security and compliance",
+                    "Voice recognition"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A1_3.includes(option)}
+                        onCheckedChange={() => toggleInArray("A1_3", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                  <label className="flex items-center space-x-2">
+                    <Checkbox
+                      checked={form.A1_3.includes("Other")}
+                      onCheckedChange={() => toggleInArray("A1_3", "Other")}
+                    />
+                    <span className="text-sm">Other (specify)</span>
+                  </label>
+                </div>
+                {form.A1_3.includes("Other") && (
+                  <Input
+                    value={form.A1_3_other}
+                    onChange={(e) => update("A1_3_other", e.target.value)}
+                    placeholder="Please specify other AI features"
+                    className="mt-2"
+                  />
+                )}
+              </div>
+
+              {/* A1.4 */}
+              <div className="space-y-2">
+                <Label>A1.4 What decisions will be addressed by the AI functionality? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Content development and approval",
+                    "Data interpretation and business strategy",
+                    "Prioritization of communications",
+                    "Workflow optimization",
+                    "Security and compliance oversight",
+                    "Resource allocation",
+                    "Crisis management",
+                    "Employee training",
+                    "Customer relationship management",
+                    "Administrative decision-making (regulated by law)"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A1_4.includes(option)}
+                        onCheckedChange={() => toggleInArray("A1_4", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A1.5 */}
+              <div className="space-y-2">
+                <Label>A1.5 What tangible benefits does this AI solution provide? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Increased efficiency",
+                    "Reduced manual effort",
+                    "Improved decision-making",
+                    "Faster processing time",
+                    "Improved accuracy or consistency",
+                    "Enhanced user experience",
+                    "Cost reduction",
+                    "Improved accessibility",
+                    "Reduced risk or error",
+                    "Better service delivery",
+                    "Improved communication",
+                    "Increased transparency"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A1_5.includes(option)}
+                        onCheckedChange={() => toggleInArray("A1_5", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A1.6 */}
+              <div className="space-y-3">
+                <Label>A1.6 Can the AI solution convert decisions into actions without human intervention?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A1_6 === "Yes"}
+                      onChange={() => update("A1_6", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A1_6 === "No"}
+                      onChange={() => update("A1_6", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.A1_6 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Describe these actions (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Sends notifications",
+                        "Updates internal records",
+                        "Applies rules/decisions automatically",
+                        "Initiates workflows",
+                        "Generates external communications",
+                        "Allocates resources",
+                        "Approves/declines items",
+                        "Triggers system events"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A1_6_actions.includes(option)}
+                            onCheckedChange={() => toggleInArray("A1_6_actions", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                      <label className="flex items-center space-x-2">
+                        <Checkbox
+                          checked={form.A1_6_actions.includes("Other")}
+                          onCheckedChange={() => toggleInArray("A1_6_actions", "Other")}
+                        />
+                        <span className="text-sm">Other (specify)</span>
+                      </label>
+                    </div>
+                    {form.A1_6_actions.includes("Other") && (
+                      <Input
+                        value={form.A1_6_actions_other}
+                        onChange={(e) => update("A1_6_actions_other", e.target.value)}
+                        placeholder="Please specify other actions"
+                        className="mt-2"
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* A1.7 */}
+              <div className="space-y-2">
+                <Label>A1.7 What type of AI model or technique is used? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Large Language Model",
+                    "Computer Vision",
+                    "Supervised learning",
+                    "Unsupervised learning",
+                    "Reinforcement learning",
+                    "Rule-based system",
+                    "Neural network"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A1_7.includes(option)}
+                        onCheckedChange={() => toggleInArray("A1_7", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                  <label className="flex items-center space-x-2">
+                    <Checkbox
+                      checked={form.A1_7.includes("Other")}
+                      onCheckedChange={() => toggleInArray("A1_7", "Other")}
+                    />
+                    <span className="text-sm">Other (specify)</span>
+                  </label>
+                </div>
+                {form.A1_7.includes("Other") && (
+                  <Input
+                    value={form.A1_7_other}
+                    onChange={(e) => update("A1_7_other", e.target.value)}
+                    placeholder="Please specify other AI model types"
+                    className="mt-2"
+                  />
+                )}
+              </div>
+
+              {/* A1.8 */}
+              <div className="space-y-2">
+                <Label>A1.8 What is the source of the AI solution? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Commercial off-the-shelf",
+                    "Bespoke development",
+                    "Open-source",
+                    "Hybrid approach"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A1_8.includes(option)}
+                        onCheckedChange={() => toggleInArray("A1_8", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A1.9 */}
+              <div className="space-y-2">
+                <Label>A1.9 How does the AI solution integrate with other systems? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "REST API",
+                    "Webhooks",
+                    "Batch data transfer",
+                    "Real-time data stream",
+                    "File-based integration",
+                    "Embedded widget/iframe",
+                    "Database connection",
+                    "Message queue (e.g., Kafka)"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A1_9.includes(option)}
+                        onCheckedChange={() => toggleInArray("A1_9", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* A2: Data and Inputs */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">A2. Data and Inputs</h3>
+                <p className="text-sm text-gray-600">Maps to FAIRA 1.8-1.9 (data used and data quality) and AI use inputs (Table 3)</p>
+              </div>
+              <Separator />
+              
+              {/* A2.1 */}
+              <div className="space-y-2">
+                <Label>A2.1 How are AI use inputs tracked and recorded? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Audit logs",
+                    "Access logs",
+                    "CRM/Case management logging",
+                    "System-level logging",
+                    "Manual records",
+                    "No inputs tracked or recorded (flag as risk)"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A2_1.includes(option)}
+                        onCheckedChange={() => toggleInArray("A2_1", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A2.2 */}
+              <div className="space-y-2">
+                <Label htmlFor="A2_2">A2.2 Does the AI require data from the digital or physical environment? If yes, what data and can users limit or trace it?</Label>
+                <Textarea
+                  id="A2_2"
+                  value={form.A2_2}
+                  onChange={(e) => update("A2_2", e.target.value)}
+                  placeholder="Describe environmental data requirements and user controls"
+                  rows={3}
+                />
+              </div>
+
+              {/* A2.3 */}
+              <div className="space-y-2">
+                <Label>A2.3 What safeguards exist to detect and handle corrupted, missing, or out-of-range data inputs? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Input validation",
+                    "Range checking",
+                    "Schema enforcement",
+                    "Fallback defaults",
+                    "Human review",
+                    "Data quality monitoring",
+                    "Error alerts",
+                    "No safeguards identified (flag as risk)"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A2_3.includes(option)}
+                        onCheckedChange={() => toggleInArray("A2_3", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A2.4 */}
+              <div className="space-y-2">
+                <Label>A2.4 What data does the AI solution use? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Government data",
+                    "Open data",
+                    "Synthetic data",
+                    "Personal information",
+                    "Sensitive information",
+                    "Internet data"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A2_4.includes(option)}
+                        onCheckedChange={() => toggleInArray("A2_4", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                  <label className="flex items-center space-x-2">
+                    <Checkbox
+                      checked={form.A2_4.includes("Other")}
+                      onCheckedChange={() => toggleInArray("A2_4", "Other")}
+                    />
+                    <span className="text-sm">Other (specify)</span>
+                  </label>
+                </div>
+                {form.A2_4.includes("Other") && (
+                  <Input
+                    value={form.A2_4_other}
+                    onChange={(e) => update("A2_4_other", e.target.value)}
+                    placeholder="Please specify other data types"
+                    className="mt-2"
+                  />
+                )}
+              </div>
+
+              {/* A2.5 */}
+              <div className="space-y-4">
+                <Label>A2.5 Rate the quality of the input data (1 = Very Low, 5 = Very High):</Label>
+                <div className="space-y-3 ml-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-32">Accuracy:</span>
+                    <RadioScale 
+                      value={form.A2_5_accuracy} 
+                      onChange={(val) => update("A2_5_accuracy", val)} 
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-32">Completeness:</span>
+                    <RadioScale 
+                      value={form.A2_5_completeness} 
+                      onChange={(val) => update("A2_5_completeness", val)} 
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-32">Reliability:</span>
+                    <RadioScale 
+                      value={form.A2_5_reliability} 
+                      onChange={(val) => update("A2_5_reliability", val)} 
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-32">Relevance:</span>
+                    <RadioScale 
+                      value={form.A2_5_relevance} 
+                      onChange={(val) => update("A2_5_relevance", val)} 
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-32">Timeliness:</span>
+                    <RadioScale 
+                      value={form.A2_5_timeliness} 
+                      onChange={(val) => update("A2_5_timeliness", val)} 
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* A2.6 */}
+              <div className="space-y-2">
+                <Label>A2.6 What is the Business Impact Level (BIL) of the input data?</Label>
+                <select
+                  value={form.A2_6}
+                  onChange={(e) => update("A2_6", e.target.value)}
+                  className="w-full p-2 border rounded-md"
+                >
+                  <option value="">Select BIL</option>
+                  <option value="Official">Official</option>
+                  <option value="Official: Sensitive">Official: Sensitive</option>
+                  <option value="Protected">Protected</option>
+                  <option value="Highly Protected">Highly Protected</option>
+                  <option value="Secret">Secret</option>
+                  <option value="Top Secret">Top Secret</option>
+                </select>
+              </div>
+
+              {/* A2.7 */}
+              <div className="space-y-3">
+                <Label>A2.7 Does the solution use regulated data?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A2_7 === "Yes"}
+                      onChange={() => update("A2_7", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A2_7 === "No"}
+                      onChange={() => update("A2_7", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.A2_7 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg">
+                    <Label htmlFor="A2_7_regulation">Specify the regulation:</Label>
+                    <Input
+                      id="A2_7_regulation"
+                      value={form.A2_7_regulation}
+                      onChange={(e) => update("A2_7_regulation", e.target.value)}
+                      placeholder="e.g., GDPR, Privacy Act 1988"
+                      className="mt-2"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* A2.8 */}
+              <div className="space-y-3">
+                <Label>A2.8 Does the solution require user inputs to operate?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A2_8 === "Yes"}
+                      onChange={() => update("A2_8", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A2_8 === "No"}
+                      onChange={() => update("A2_8", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.A2_8 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Select the types of inputs (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Free-text prompts",
+                        "Uploaded files",
+                        "Form fields",
+                        "API request data",
+                        "Structured records",
+                        "Voice input",
+                        "Sensor data",
+                        "User selection/choices",
+                        "None"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A2_8_types.includes(option)}
+                            onCheckedChange={() => toggleInArray("A2_8_types", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* A3: Human Interface and Impact */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">A3. Human Interface and Impact</h3>
+                <p className="text-sm text-gray-600">Maps to FAIRA Table 2 (HMI) and Table 5 (Object of AI action)</p>
+              </div>
+              <Separator />
+              
+              {/* A3.1 */}
+              <div className="space-y-2">
+                <Label>A3.1 How does the system interface with humans? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Chat interface",
+                    "Web application",
+                    "Mobile application",
+                    "API integration",
+                    "Voice interface",
+                    "Dashboard"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A3_1.includes(option)}
+                        onCheckedChange={() => toggleInArray("A3_1", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A3.2 */}
+              <div className="space-y-4">
+                <Label>A3.2 What expertise is required to use the AI solution? (1 = Very Low, 5 = Very High):</Label>
+                <div className="space-y-3 ml-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-48">Technical expertise:</span>
+                    <RadioScale 
+                      value={form.A3_2_technical} 
+                      onChange={(val) => update("A3_2_technical", val)} 
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-48">Domain knowledge:</span>
+                    <RadioScale 
+                      value={form.A3_2_domain} 
+                      onChange={(val) => update("A3_2_domain", val)} 
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium w-48">AI literacy:</span>
+                    <RadioScale 
+                      value={form.A3_2_ai_literacy} 
+                      onChange={(val) => update("A3_2_ai_literacy", val)} 
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* A3.3 */}
+              <div className="space-y-2">
+                <Label>A3.3 Who will be impacted by the AI system? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Queensland Government employees",
+                    "General public",
+                    "Vulnerable communities",
+                    "Children",
+                    "Elderly",
+                    "People with disabilities",
+                    "Indigenous peoples",
+                    "Small businesses"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A3_3.includes(option)}
+                        onCheckedChange={() => toggleInArray("A3_3", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                  <label className="flex items-center space-x-2">
+                    <Checkbox
+                      checked={form.A3_3.includes("Other")}
+                      onCheckedChange={() => toggleInArray("A3_3", "Other")}
+                    />
+                    <span className="text-sm">Other (specify)</span>
+                  </label>
+                </div>
+                {form.A3_3.includes("Other") && (
+                  <Input
+                    value={form.A3_3_other}
+                    onChange={(e) => update("A3_3_other", e.target.value)}
+                    placeholder="Please specify other impacted groups"
+                    className="mt-2"
+                  />
+                )}
+              </div>
+
+              {/* A3.4 */}
+              <div className="space-y-2">
+                <Label>A3.4 How will impacted parties be informed of AI use? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Website notice",
+                    "In-app notice",
+                    "Email communication",
+                    "Terms & conditions",
+                    "Public-facing AI statement",
+                    "Staff training",
+                    "Consent/acknowledgement",
+                    "No planned notifications (flag as risk)"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A3_4.includes(option)}
+                        onCheckedChange={() => toggleInArray("A3_4", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A3.5 */}
+              <div className="space-y-3">
+                <Label>A3.5(a) What are the expected impacts of this AI solution on staff? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Increased workload",
+                    "Reduced workload",
+                    "Reduced autonomy",
+                    "Improved autonomy",
+                    "De-skilling risk",
+                    "Skill enhancement",
+                    "Accountability ambiguity",
+                    "Increased accountability clarity",
+                    "Stress or psychological impact",
+                    "Job redesign required",
+                    "No significant impact"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A3_5a.includes(option)}
+                        onCheckedChange={() => toggleInArray("A3_5a", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+                
+                <div className="mt-4">
+                  <Label>A3.5(b) Rate the overall severity of these impacts (1 = Very Low, 5 = Very High):</Label>
+                  <div className="mt-2">
+                    <RadioScale 
+                      value={form.A3_5b} 
+                      onChange={(val) => update("A3_5b", val)} 
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* A3.6 */}
+              <div className="space-y-3">
+                <Label>A3.6(a) How will each impacted group be affected? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Service quality changes",
+                    "Accessibility changes",
+                    "Decision-making impacts",
+                    "Delay reduction",
+                    "Bias or fairness concerns",
+                    "Data/privacy concerns",
+                    "Security concerns",
+                    "Communication changes",
+                    "Risk of exclusion",
+                    "Increased assistance/support",
+                    "None/minimal impact"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A3_6a.includes(option)}
+                        onCheckedChange={() => toggleInArray("A3_6a", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+                
+                <div className="mt-4">
+                  <Label>A3.6(b) Rate the overall severity of these impacts (1 = Minor, 2 = Moderate, 3 = Major):</Label>
+                  <div className="mt-2">
+                    <RadioScale 
+                      value={form.A3_6b} 
+                      onChange={(val) => update("A3_6b", val)} 
+                      min={1}
+                      max={3}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* A4: Outputs and Actions */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">A4. Outputs and Actions</h3>
+                <p className="text-sm text-gray-600">Maps to FAIRA Table 4: AI use outputs</p>
+              </div>
+              <Separator />
+              
+              {/* A4.1 */}
+              <div className="space-y-2">
+                <Label>A4.1 What are the primary outputs of the AI system? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Text responses",
+                    "Visual outputs",
+                    "Recommendations",
+                    "Decisions",
+                    "Data analysis",
+                    "Predictions",
+                    "Actions in systems"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A4_1.includes(option)}
+                        onCheckedChange={() => toggleInArray("A4_1", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A4.2 */}
+              <div className="space-y-2">
+                <Label>A4.2 Are outputs sent to external systems without human review?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A4_2 === "Yes"}
+                      onChange={() => update("A4_2", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A4_2 === "No"}
+                      onChange={() => update("A4_2", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* A4.3 */}
+              <div className="space-y-2">
+                <Label>A4.3 What is the Business Impact Level (BIL) of the outputs?</Label>
+                <select
+                  value={form.A4_3}
+                  onChange={(e) => update("A4_3", e.target.value)}
+                  className="w-full p-2 border rounded-md"
+                >
+                  <option value="">Select BIL</option>
+                  <option value="Official">Official</option>
+                  <option value="Official: Sensitive">Official: Sensitive</option>
+                  <option value="Protected">Protected</option>
+                  <option value="Highly Protected">Highly Protected</option>
+                  <option value="Secret">Secret</option>
+                  <option value="Top Secret">Top Secret</option>
+                </select>
+              </div>
+
+              {/* A4.4 */}
+              <div className="space-y-2">
+                <Label>A4.4 How are AI outputs tracked and recorded? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Stored in database",
+                    "Logged in audit system",
+                    "Logged in CRM/case system",
+                    "Logged in activity logs",
+                    "Not currently tracked (flag as risk)",
+                    "Retention based on policy"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A4_4.includes(option)}
+                        onCheckedChange={() => toggleInArray("A4_4", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A4.5 */}
+              <div className="space-y-3">
+                <Label>A4.5 Could any AI outputs allow unauthorised access to information?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A4_5 === "Yes"}
+                      onChange={() => update("A4_5", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A4_5 === "No"}
+                      onChange={() => update("A4_5", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.A4_5 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Select scenarios and mitigations (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Misrouted outputs",
+                        "Excessive data exposure",
+                        "Output reveals sensitive attributes",
+                        "Outputs sent to incorrect system",
+                        "Injection or poisoning risk",
+                        "None identified"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A4_5_scenarios.includes(option)}
+                            onCheckedChange={() => toggleInArray("A4_5_scenarios", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* A4.6 */}
+              <div className="space-y-2">
+                <Label>A4.6 Do outputs involve data regulated by law? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Personal",
+                    "Sensitive",
+                    "Financial",
+                    "Health",
+                    "Child-related",
+                    "Law enforcement",
+                    "Indigenous data",
+                    "Confidential government data",
+                    "Operationally sensitive data"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A4_6.includes(option)}
+                        onCheckedChange={() => toggleInArray("A4_6", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A4.7 */}
+              <div className="space-y-2">
+                <Label htmlFor="A4_7">A4.7 Do outputs contain personally identifiable information? Who can access it (internal / external)?</Label>
+                <Textarea
+                  id="A4_7"
+                  value={form.A4_7}
+                  onChange={(e) => update("A4_7", e.target.value)}
+                  placeholder="Describe PII in outputs and access controls"
+                  rows={3}
+                />
+              </div>
+
+              {/* A4.8 */}
+              <div className="space-y-2">
+                <Label htmlFor="A4_8">A4.8 Are any AI outputs directly used to trigger actions with legal or regulatory effect? If yes, describe and justify.</Label>
+                <Textarea
+                  id="A4_8"
+                  value={form.A4_8}
+                  onChange={(e) => update("A4_8", e.target.value)}
+                  placeholder="Describe legal/regulatory actions and justification"
+                  rows={3}
+                />
+              </div>
+            </div>
+
+            {/* A5: Governance and Oversight */}
+            <div className="space-y-6 pt-6 border-t">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">A5. Governance and Oversight</h3>
+                <p className="text-sm text-gray-600">Maps to FAIRA Table 9 (Monitoring & evaluation) plus accountability references</p>
+              </div>
+              <Separator />
+              
+              {/* A5.1 */}
+              <div className="space-y-2">
+                <Label>A5.1 Who is accountable for decisions made using this system?</Label>
+                <select
+                  value={form.A5_1}
+                  onChange={(e) => update("A5_1", e.target.value)}
+                  className="w-full p-2 border rounded-md"
+                >
+                  <option value="">Select role</option>
+                  <option value="Product owner">Product owner</option>
+                  <option value="System owner">System owner</option>
+                  <option value="Executive sponsor">Executive sponsor</option>
+                  <option value="Service manager">Service manager</option>
+                  <option value="Data custodian">Data custodian</option>
+                  <option value="Governance committee">Governance committee</option>
+                  <option value="AI oversight board">AI oversight board</option>
+                </select>
+              </div>
+
+              {/* A5.2 */}
+              <div className="space-y-2">
+                <Label htmlFor="A5_2">A5.2 How are AI use inputs and outputs tracked and recorded?</Label>
+                <Textarea
+                  id="A5_2"
+                  value={form.A5_2}
+                  onChange={(e) => update("A5_2", e.target.value)}
+                  placeholder="Describe tracking mechanisms"
+                  rows={3}
+                />
+              </div>
+
+              {/* A5.3 */}
+              <div className="space-y-2">
+                <Label>A5.3 What monitoring and evaluation processes are in place? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Regular system audits",
+                    "Continuous performance monitoring",
+                    "User feedback collection",
+                    "Periodic stakeholder reviews"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A5_3.includes(option)}
+                        onCheckedChange={() => toggleInArray("A5_3", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A5.4 */}
+              <div className="space-y-2">
+                <Label>A5.4 How frequently will monitoring and evaluation occur?</Label>
+                <select
+                  value={form.A5_4}
+                  onChange={(e) => update("A5_4", e.target.value)}
+                  className="w-full p-2 border rounded-md"
+                >
+                  <option value="">Select frequency</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="quarterly">Quarterly</option>
+                  <option value="annually">Annually</option>
+                  <option value="event-driven">Event-driven</option>
+                </select>
+              </div>
+
+              {/* A5.5 */}
+              <div className="space-y-2">
+                <Label>A5.5 Has the AI solution been subject to independent review?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A5_5 === "Yes"}
+                      onChange={() => update("A5_5", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A5_5 === "No"}
+                      onChange={() => update("A5_5", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* A5.6 */}
+              <div className="space-y-2">
+                <Label>A5.6 Who is responsible for monitoring and evaluation?</Label>
+                <select
+                  value={form.A5_6}
+                  onChange={(e) => update("A5_6", e.target.value)}
+                  className="w-full p-2 border rounded-md"
+                >
+                  <option value="">Select role</option>
+                  <option value="ICT operations">ICT operations</option>
+                  <option value="Data science team">Data science team</option>
+                  <option value="Risk/Compliance">Risk/Compliance</option>
+                  <option value="Business owner">Business owner</option>
+                  <option value="Vendor">Vendor</option>
+                  <option value="Customer-facing staff">Customer-facing staff</option>
+                  <option value="External auditor">External auditor</option>
+                </select>
+              </div>
+
+              {/* A5.7 */}
+              <div className="space-y-2">
+                <Label>A5.7 How are stakeholders engaged in monitoring and evaluation? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Workshops",
+                    "Public consultation",
+                    "Union consultation",
+                    "Focus groups",
+                    "User feedback sessions",
+                    "Accessibility reviews",
+                    "No engagements planned (flag as risk)"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A5_7.includes(option)}
+                        onCheckedChange={() => toggleInArray("A5_7", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A5.8 */}
+              <div className="space-y-2">
+                <Label>A5.8 How are undesirable or harmful results detected? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Alerting and monitoring",
+                    "User complaints",
+                    "Human review triggers",
+                    "Automated anomaly detection",
+                    "Escalation procedures",
+                    "Incident response team",
+                    "No defined contingencies (flag as risk)"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A5_8.includes(option)}
+                        onCheckedChange={() => toggleInArray("A5_8", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A5.9 */}
+              <div className="space-y-2">
+                <Label>A5.9 Which values and principles informed the AI solution's design? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "Australia's AI Ethics Principles",
+                    "Human Rights Act",
+                    "Data governance policies",
+                    "WHS",
+                    "Accessibility standards",
+                    "Agency ethics statements",
+                    "Privacy principles",
+                    "Risk management framework"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A5_9.includes(option)}
+                        onCheckedChange={() => toggleInArray("A5_9", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* A5.10 */}
+              <div className="space-y-2">
+                <Label htmlFor="A5_10">A5.10 Which sector-specific frameworks and obligations apply?</Label>
+                <Textarea
+                  id="A5_10"
+                  value={form.A5_10}
+                  onChange={(e) => update("A5_10", e.target.value)}
+                  placeholder="e.g., health, policing, education frameworks"
+                  rows={3}
+                />
+              </div>
+
+              {/* A5.11 */}
+              <div className="space-y-2">
+                <Label>A5.11 Where will this AI solution be deployed?</Label>
+                <select
+                  value={form.A5_11}
+                  onChange={(e) => update("A5_11", e.target.value)}
+                  className="w-full p-2 border rounded-md"
+                >
+                  <option value="">Select deployment location</option>
+                  <option value="Internal use only">Internal use only</option>
+                  <option value="Internal + selected partners">Internal + selected partners</option>
+                  <option value="Public-facing">Public-facing</option>
+                  <option value="Citizen-facing high-sensitivity">Citizen-facing high-sensitivity</option>
+                  <option value="Embedded in another product">Embedded in another product</option>
+                  <option value="Multi-channel deployment">Multi-channel deployment</option>
+                </select>
+              </div>
+
+              {/* A5.12 */}
+              <div className="space-y-2">
+                <Label>A5.12 Which national and international AI frameworks and standards apply? (Select all that apply)</Label>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {[
+                    "National Framework for the Assurance of AI in Government",
+                    "Queensland Government Enterprise Architecture",
+                    "ISO/IEC 42001",
+                    "ISO 27001",
+                    "ISO 31000",
+                    "NIST AI RMF",
+                    "OECD AI Principles",
+                    "EU AI Act",
+                    "Singapore MAF"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={form.A5_12.includes(option)}
+                        onCheckedChange={() => toggleInArray("A5_12", option)}
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                  <label className="flex items-center space-x-2">
+                    <Checkbox
+                      checked={form.A5_12.includes("Other")}
+                      onCheckedChange={() => toggleInArray("A5_12", "Other")}
+                    />
+                    <span className="text-sm">Other (specify)</span>
+                  </label>
+                </div>
+                {form.A5_12.includes("Other") && (
+                  <Input
+                    value={form.A5_12_other}
+                    onChange={(e) => update("A5_12_other", e.target.value)}
+                    placeholder="Please specify other frameworks"
+                    className="mt-2"
+                  />
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* TO BE CONTINUED - Part B will be added in the next file update */}
+        
+        {/* Actions */}
+        <div className="flex items-center justify-between gap-3 sticky bottom-0 bg-white p-4 border-t shadow-lg rounded-lg">
+          <Button 
+            type="button" 
+            variant="outline" 
+            onClick={handleSaveDraft}
+            disabled={submitting}
+          >
+            <Save className="h-4 w-4 mr-2" />
+            Save Draft
+          </Button>
+          <div className="flex gap-3">
+            <Button 
+              type="button" 
+              variant="secondary" 
+              onClick={() => setForm(defaultState)}
+            >
+              Reset
+            </Button>
+            <Button 
+              type="submit" 
+              disabled={submitting || !form.declaration_confirmed}
+              className="bg-orange-600 hover:bg-orange-700"
+            >
+              {submitting ? "Submitting..." : "Complete Assessment"}
+            </Button>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+}
