@@ -291,7 +291,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
               <div key={domain.domain_name} className="flex flex-col">
                 {/* Domain Header */}
                 <div className="mb-2 text-center h-20 flex flex-col justify-start items-center">
-                  <div className="text-xs font-semibold text-gray-900 mb-1 break-words" title={domain.domain_name}>
+                  <div className="text-sm font-semibold text-gray-900 mb-1 break-words" title={domain.domain_name}>
                     {domain.domain_name}
                   </div>
                   <Badge variant="secondary" className="text-xs">
