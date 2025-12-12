@@ -136,6 +136,14 @@ function App() {
               } 
             />
             <Route 
+              path="/assessment/:id/faira-onboarding" 
+              element={
+                <ProtectedRoute>
+                  <FairaAssessmentForm />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/assessment/:id" 
               element={
                 <ProtectedRoute>
