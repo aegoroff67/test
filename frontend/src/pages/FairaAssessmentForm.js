@@ -1733,7 +1733,7 @@ export default function FairaAssessmentForm() {
 
               {/* A4.7 */}
               <div className="space-y-2">
-                <Label htmlFor="A4_7">A4.7 Do outputs contain personally identifiable information? Who can access it (internal / external)?</Label>
+                <Label htmlFor="A4_7">A4.7 Do outputs contain personally identifiable information? If yes, who can access it (internal / external)?</Label>
                 <Textarea
                   id="A4_7"
                   value={form.A4_7}
