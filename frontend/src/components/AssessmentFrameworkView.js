@@ -295,7 +295,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                     {domain.domain_name}
                   </div>
                   <Badge variant="secondary" className="text-xs">
-                    {domain.questions.length} Q
+                    {domain.questions.length} Questions
                   </Badge>
                 </div>
                 
