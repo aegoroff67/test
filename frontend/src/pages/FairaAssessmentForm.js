@@ -1373,7 +1373,7 @@ export default function FairaAssessmentForm() {
             </div>
 
             {/* A4: Outputs and Actions */}
-            <div className="space-y-6 pt-6 border-t">
+            <div className="space-y-6 pt-6 border-t" id="A4_1">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">A4. Outputs and Actions</h3>
                 <p className="text-sm text-gray-600">Maps to FAIRA Table 4: AI use outputs</p>
