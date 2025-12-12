@@ -163,6 +163,7 @@ export default function FairaAssessmentForm() {
   const [submitting, setSubmitting] = useState(false);
   const [autoSaving, setAutoSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   // Calculate progress percentage - only count applicable fields
   const calculateProgress = () => {
