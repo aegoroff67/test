@@ -425,11 +425,14 @@ export default function FairaAssessmentForm() {
   const handleSaveDraft = async () => {
     setSubmitting(true);
     try {
-      await axios.put(`${API}/assessments/${id}/faira-form`, form);
+      console.log('Saving draft with data:', form);
+      const response = await axios.put(`${API}/assessments/${id}/faira-form`, form);
+      console.log('Save draft response:', response.data);
       toast.success('Draft saved successfully!');
       setLastSaved(new Date());
     } catch (error) {
       console.error('Save draft error:', error);
+      console.error('Error response:', error.response?.data);
       toast.error('Failed to save draft');
     } finally {
       setSubmitting(false);
