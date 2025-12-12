@@ -1609,10 +1609,7 @@
 
 ## test_plan:
   current_focus:
-    - "Seed AI maturity sector benchmarks into database"
-    - "Create API endpoints for sector benchmarks"
-    - "Create DomainBenchmarkRadar component"
-    - "Add radio button toggle and conditional rendering to ResultsPage"
+    - "Test FAIRA Assessment Data Persistence - CRITICAL P0"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
