@@ -140,7 +140,6 @@ function AssessmentPage() {
   
   // Track which frameworks are selected for this assessment
   const [selectedFrameworks, setSelectedFrameworks] = useState({
-    faira: false,
     nist: false,
     iso42001: false,
     auEthics: false,
