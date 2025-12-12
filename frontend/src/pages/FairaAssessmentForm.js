@@ -1292,7 +1292,7 @@ export default function FairaAssessmentForm() {
                 
                 {form.A2_7 === "Yes" && (
                   <div className="ml-4 p-4 bg-gray-50 rounded-lg">
-                    <Label htmlFor="A2_7_regulation">Specify the regulation:</Label>
+                    <Label htmlFor="A2_7_regulation">Specify the regulation(s):</Label>
                     <Input
                       id="A2_7_regulation"
                       value={form.A2_7_regulation}
