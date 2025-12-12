@@ -1178,7 +1178,7 @@ export default function FairaAssessmentForm() {
               <Separator />
               
               {/* A3.1 */}
-              <div className="space-y-2">
+              <div className="space-y-2" id="A3_1">
                 <Label>A3.1 How does the system interface with humans? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
