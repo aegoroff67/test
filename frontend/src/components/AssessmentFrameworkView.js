@@ -257,15 +257,15 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
             {/* Legend - Moved to header */}
             <div className="flex items-center gap-4 text-xs bg-gray-50 px-4 py-2 rounded-lg border border-gray-200">
               <div className="flex items-center gap-2">
-                <span className="text-xl text-green-600 leading-none flex items-center">●</span>
+                <span className="text-2xl text-green-600 leading-none flex items-center">●</span>
                 <span className="text-gray-700 font-medium">Fully Aligns</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-lg text-yellow-600 leading-none flex items-center">◐</span>
+                <span className="text-xl text-yellow-600 leading-none flex items-center">◐</span>
                 <span className="text-gray-700 font-medium">Partially Aligns</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-lg text-gray-400 leading-none flex items-center">○</span>
+                <span className="text-xl text-gray-400 leading-none flex items-center">○</span>
                 <span className="text-gray-700 font-medium">No Alignment</span>
               </div>
             </div>
