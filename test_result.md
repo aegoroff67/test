@@ -1679,3 +1679,24 @@
     - agent: "testing"
     - message: "CRITICAL BACKEND AUTHORIZATION ISSUE IDENTIFIED: Frontend delete assessment functionality testing completed. The user's reported 'Failed to delete assessment' error is caused by a backend authorization logic inconsistency. SUPER_ADMIN users can view ALL assessments (GET /api/assessments returns all assessments regardless of organization) but can only delete assessments from their own organization (DELETE /api/assessments/{id} checks org_id match). This creates confusing UX where users see assessments they cannot delete. Frontend implementation is correct - sends proper DELETE requests, handles 404 responses correctly, shows appropriate error toasts. Backend needs fix: either restrict SUPER_ADMIN view to their org assessments OR allow SUPER_ADMIN to delete any assessment. AssessmentResponse model also missing user_id/org_id fields preventing frontend ownership determination."
 
+
+## backend:
+  - task: "Fix delete assessment authorization logic for SUPER_ADMIN"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported 'Failed to delete assessment' error when trying to delete In Progress assessments from main dashboard. Frontend testing revealed issue is in backend authorization logic, not frontend."
+        - working: true
+        - agent: "main"
+        - comment: "IMPLEMENTED FIX: Root cause was authorization inconsistency - SUPER_ADMIN could view ALL assessments but could only delete assessments from their own organization. BACKEND CHANGES: Updated DELETE /api/assessments/{assessment_id} endpoint (line 1337-1339) to check user role: 1) If SUPER_ADMIN: find assessment without org_id check (allows deletion of any assessment), 2) If regular user: find assessment with org_id check (only their org's assessments). This aligns with GET endpoint behavior where SUPER_ADMIN sees all assessments. Backend restarted successfully. TESTING: Verified with curl that SUPER_ADMIN can now delete assessments from any organization (tested assessment 51369ff3-d0d5-4a30-959d-9576f95ea027 from different org - DELETE returned 200 OK). Assessment count reduced from 10 to 9 after successful deletion. Fix is production-ready and resolves the user's reported issue completely."
+
+## agent_communication:
+    - agent: "main"
+    - message: "CRITICAL DELETE BUG FIXED: Resolved authorization inconsistency where SUPER_ADMIN could view all assessments but only delete their own org's assessments. Updated delete endpoint to allow SUPER_ADMIN to delete any assessment, matching the GET endpoint behavior. Tested successfully with curl - SUPER_ADMIN can now delete any assessment regardless of organization. User's 'Failed to delete assessment' error should now be resolved."
+
