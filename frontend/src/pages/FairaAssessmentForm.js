@@ -95,10 +95,10 @@ const defaultState = {
   A5_12_other: "",
   
   // B1: Human, Societal, and Environmental Wellbeing
-  B1_1_individual: 3, // 1-5 scale
-  B1_1_organizational: 3,
-  B1_1_social: 3,
-  B1_1_environmental: 3,
+  B1_1_individual: null, // 1-5 scale
+  B1_1_organizational: null,
+  B1_1_social: null,
+  B1_1_environmental: null,
   B1_2: [], // negative impacts (multiselect)
   B1_3: "", // employment impact (Yes/No/Unknown)
   
