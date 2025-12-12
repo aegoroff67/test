@@ -1700,3 +1700,24 @@
     - agent: "main"
     - message: "CRITICAL DELETE BUG FIXED: Resolved authorization inconsistency where SUPER_ADMIN could view all assessments but only delete their own org's assessments. Updated delete endpoint to allow SUPER_ADMIN to delete any assessment, matching the GET endpoint behavior. Tested successfully with curl - SUPER_ADMIN can now delete any assessment regardless of organization. User's 'Failed to delete assessment' error should now be resolved."
 
+
+## frontend:
+  - task: "Fix framework alignment legend icon mismatch with heatmap"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/AssessmentFrameworkView.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported that the 'Partially Aligns' icon in the legend (circle with small dot) is different from the icon used in the heatmap/matrix (half-dark/half-clear circle)."
+        - working: true
+        - agent: "main"
+        - comment: "IMPLEMENTED FIX: Reverted legend icons back to Unicode symbols to match heatmap display. ISSUE: Previous fix replaced legend with SVG icons (CircleDot) but heatmap still used Unicode half-circle (◐), causing visual inconsistency. SOLUTION: Reverted legend and statistics section to use same Unicode symbols as heatmap for consistency: Fully Aligns: ● (filled circle), Partially Aligns: ◐ (half-filled circle), No Alignment: ○ (hollow circle). All icons now use text-lg size for better visibility. Removed unused Circle and CircleDot imports from lucide-react. Frontend hot-reloaded automatically. The legend now perfectly matches the heatmap icons."
+
+## agent_communication:
+    - agent: "main"
+    - message: "ICON CONSISTENCY FIX: Fixed framework alignment legend to match heatmap by reverting to Unicode symbols. Legend now displays same icons as heatmap (filled circle ●, half-circle ◐, hollow circle ○) for visual consistency. Previous SVG icon approach caused mismatch since heatmap uses Unicode characters."
+
