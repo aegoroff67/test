@@ -1951,7 +1951,7 @@ export default function FairaAssessmentForm() {
             </div>
 
             {/* B2: Human-Centered Values */}
-            <div className="space-y-6 pt-6 border-t">
+            <div className="space-y-6 pt-6 border-t" id="B2_1">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">B2. Human-Centered Values</h3>
               </div>
