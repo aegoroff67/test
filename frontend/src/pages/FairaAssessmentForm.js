@@ -132,8 +132,8 @@ const defaultState = {
   B5_3_environments: [],
   
   // B6: Transparency and Explainability
-  B6_1: 3, // transparency 1-5
-  B6_2: 3, // explainability 1-5
+  B6_1: null, // transparency 1-5
+  B6_2: null, // explainability 1-5
   B6_3: "", // how informed (text)
   B6_4: "", // limitations (Yes/No)
   B6_4_describe: "",
