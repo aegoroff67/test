@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, ShieldCheck, Save, CheckCircle, AlertCircle } from "lucide-react";
+import { ArrowLeft, ShieldCheck, Save, CheckCircle, AlertCircle, Check, Circle } from "lucide-react";
 import { toast } from 'sonner';
 import axios from 'axios';
 import Logo from '../components/Logo';
