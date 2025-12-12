@@ -195,38 +195,7 @@ const defaultState = {
   evidenceRepoUrl: "",
   assessor_name: "",
   assessment_date: "",
-  framework_version: "v2025.11",
-  // FAIRA Additional Information
-  faira: {
-    "FA-ON-01": [],
-    "FA-ON-01-OTHER": "",
-    "FA-ON-02": "",
-    "FA-ON-03": [],
-    "FA-ON-03-OTHER": "",
-    "FA-ON-04": "",
-    "FA-ON-05": [],
-    "FA-ON-05-OTHER": "",
-    "FA-ON-06": [],
-    "FA-ON-06-OTHER": "",
-    "FA-ON-07": "",
-    "FA-ON-08": [],
-    "FA-ON-08-OTHER": "",
-    "FA-ON-09": [],
-    "FA-ON-10": "",
-    "FA-ON-11": [],
-    "FA-ON-11-OTHER": "",
-    "FA-ON-12": [],
-    "FA-ON-13": [],
-    "FA-ON-14": "",
-    "FA-ON-15": [],
-    "FA-ON-15-OTHER": "",
-    "FA-ON-16": "",
-    "FA-ON-16A": "",
-    "FA-ON-17": [],
-    "FA-ON-18": "",
-    "FA-ON-19": "",
-    "FA-ON-20": ""
-  }
+  framework_version: "v2025.11"
 };
 
 export default function SystemPreAssessmentForm() {
