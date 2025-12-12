@@ -1608,3 +1608,40 @@
     - agent: "testing"
     - message: "SECTOR BENCHMARKS API TESTING COMPLETED SUCCESSFULLY: Comprehensive testing of the sector benchmarks API endpoints for radar chart feature completed with 100% success rate (24/24 tests passed). ALL REVIEW REQUEST REQUIREMENTS VERIFIED: ✅ 1. GET /api/sectors endpoint: Returns 200 OK, contains 'sectors' array with exactly 8 sectors (Education, Finance / Insurance, Healthcare, Local Government / Public Sector, Not-for-profit / Charity, Retail / Hospitality, Technology / Software, Utilities / Critical Infrastructure), sectors sorted alphabetically, ✅ 2. GET /api/sectors/{sector}/benchmarks endpoint: Returns 200 OK for valid sectors, response contains 'sector' and 'benchmarks' fields, benchmarks object contains exactly 11 domain keys (Accountability, Security, Privacy, Safety, Transparency, Fairness, Explainability, Reliability, Data Integrity, Inclusivity, Sustainability), all domain scores are numeric and in 0-100 range, ✅ 3. URL encoding handling: FIXED FastAPI routing issue with forward slashes using {sector:path} converter in server.py line 2035, properly handles sectors like 'Finance / Insurance', 'Technology / Software', 'Not-for-profit / Charity', ✅ 4. Error handling: Returns 404 with appropriate error message for non-existent sectors, ✅ 5. Data integrity verification: Finance sector has higher scores (Security: 45, Accountability: 40), Not-for-profit sector has lower scores (all domains 20-26 range), all scores within reasonable benchmarking ranges (20-50), ✅ 6. Benchmark seeding: Successfully seeded 88 benchmark records (8 sectors × 11 domains) into sector_benchmarks collection, startup seeding process working with duplicate prevention. TECHNICAL FIXES APPLIED: Fixed URL path parameter handling for sectors containing forward slashes by changing from {sector} to {sector:path} in FastAPI route definition. This allows proper URL decoding of sectors like 'Finance / Insurance' without 404 errors. The sector benchmarks API is fully functional and ready for radar chart integration. All endpoints are production-ready and meet the specifications outlined in the review request."
 
+
+## backend:
+  - task: "Fix FAIRA assessment data persistence - saved data not loading on resume"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "User reported that after saving a FAIRA assessment draft, clicking 'Resume Assessment' on Dashboard loads an empty form. Console logs show frontend successfully saves data to backend, but when fetching assessment, faira_form field is undefined."
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED FIX: Root cause identified - GET /api/assessments/{assessment_id} endpoint was not returning faira_form field even though data was successfully saved. BACKEND CHANGES: 1) Added faira_form field to AssessmentResponse Pydantic model (line 312), 2) Updated get_assessment endpoint to include faira_form in response by adding faira_form=assessment.get('faira_form') (line 1377). Now when user resumes FAIRA assessment, the GET endpoint returns the saved faira_form data so frontend can populate all 71 form fields. Backend restarted successfully. Ready for testing to verify: 1) Start FAIRA assessment, 2) Fill in data, 3) Save draft, 4) Navigate to dashboard and confirm status is 'In Progress', 5) Click 'Resume', 6) Confirm form loads with saved data."
+
+## frontend:
+  - task: "Fix framework alignment legend icons visual inconsistency"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/AssessmentFrameworkView.js"
+    stuck_count: 1
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: false
+        - agent: "user"
+        - comment: "Green 'Fully Aligns' icon (●) appears visually smaller and sometimes misaligned compared to 'Partially Aligns' (◐) and 'No Alignment' (○) icons on Framework Alignment page."
+        - working: "NA"
+        - agent: "main"
+        - comment: "IMPLEMENTED FIX: Replaced Unicode characters with SVG icons from lucide-react for consistency. FRONTEND CHANGES: 1) Added Circle and CircleDot to imports from lucide-react, 2) Replaced legend icons in header section - Fully Aligns: <Circle className='h-4 w-4 text-green-600 fill-green-600' />, Partially Aligns: <CircleDot className='h-4 w-4 text-yellow-600' />, No Alignment: <Circle className='h-4 w-4 text-gray-400' />, 3) Also replaced icons in statistics section with same SVG components. All icons now consistent size (h-4 w-4) and properly aligned using flex items-center. Frontend hot-reloaded automatically. Ready for testing to verify visual consistency of alignment icons."
+
+## agent_communication:
+    - agent: "main"
+    - message: "PRIORITY FIXES COMPLETED: Fixed critical P0 FAIRA data persistence bug by adding faira_form field to backend GET endpoint response. Also fixed P2 UI polish issue by replacing Unicode alignment icons with consistent SVG icons from lucide-react. Ready for comprehensive testing of: 1) FAIRA save/resume flow, 2) Framework alignment icon visual consistency. Note: 'Top 3 Action Steps' calculation logic was already correct (sorts by individual question scores, not domain scores). Need testing subagent to verify all fixes work correctly."
+
