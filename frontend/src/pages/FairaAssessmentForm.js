@@ -1571,7 +1571,7 @@ export default function FairaAssessmentForm() {
             </div>
 
             {/* A5: Governance and Oversight */}
-            <div className="space-y-6 pt-6 border-t">
+            <div className="space-y-6 pt-6 border-t" id="A5_1">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">A5. Governance and Oversight</h3>
                 <p className="text-sm text-gray-600">Maps to FAIRA Table 9 (Monitoring & evaluation) plus accountability references</p>
