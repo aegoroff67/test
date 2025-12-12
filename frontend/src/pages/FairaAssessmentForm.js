@@ -2103,7 +2103,7 @@ export default function FairaAssessmentForm() {
             </div>
 
             {/* B3: Fairness */}
-            <div className="space-y-6 pt-6 border-t">
+            <div className="space-y-6 pt-6 border-t" id="B3_1">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">B3. Fairness</h3>
               </div>
