@@ -531,6 +531,35 @@ export default function FairaAssessmentForm() {
               {sectionsList.map((section) => {
                 const status = sectionStatus[section.id];
                 const isCompleted = status?.completed;
+                const progress = status?.progress || 0;
+                
+                // Determine color scheme based on progress
+                let bgColor, borderColor, hoverBg, iconColor, textColor, progressTextColor;
+                
+                if (isCompleted) {
+                  // 100% complete - Green
+                  bgColor = 'bg-green-50';
+                  borderColor = 'border-l-4 border-green-500';
+                  hoverBg = 'hover:bg-green-100';
+                  iconColor = 'bg-green-500';
+                  textColor = 'text-green-700';
+                } else if (progress === 0) {
+                  // 0% complete - Red/Orange
+                  bgColor = 'bg-red-50';
+                  borderColor = 'border-l-4 border-red-400';
+                  hoverBg = 'hover:bg-red-100';
+                  iconColor = 'text-red-400';
+                  textColor = 'text-gray-700';
+                  progressTextColor = 'text-red-600';
+                } else {
+                  // Partial completion - Amber/Yellow
+                  bgColor = 'bg-amber-50';
+                  borderColor = 'border-l-4 border-amber-400';
+                  hoverBg = 'hover:bg-amber-100';
+                  iconColor = 'text-amber-500';
+                  textColor = 'text-gray-700';
+                  progressTextColor = 'text-amber-600';
+                }
                 
                 return (
                   <button
@@ -541,27 +570,25 @@ export default function FairaAssessmentForm() {
                         scrollToField(status.firstUnanswered);
                       }
                     }}
-                    className={`w-full text-left px-3 py-2 rounded-lg transition-all flex items-start gap-2 ${
-                      isCompleted 
-                        ? 'bg-green-50 hover:bg-green-100 cursor-pointer' 
-                        : 'bg-gray-50 hover:bg-orange-50 cursor-pointer'
-                    }`}
+                    className={`w-full text-left px-3 py-2 rounded-lg transition-all flex items-start gap-2 ${bgColor} ${borderColor} ${hoverBg} cursor-pointer`}
                   >
                     <div className="flex-shrink-0 mt-0.5">
                       {isCompleted ? (
-                        <div className="h-5 w-5 rounded-full bg-green-500 flex items-center justify-center">
+                        <div className={`h-5 w-5 rounded-full ${iconColor} flex items-center justify-center`}>
                           <Check className="h-3 w-3 text-white" />
                         </div>
                       ) : (
-                        <Circle className="h-5 w-5 text-gray-400" />
+                        <Circle className={`h-5 w-5 ${iconColor}`} />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-medium ${isCompleted ? 'text-green-700' : 'text-gray-700'}`}>
+                      <p className={`text-sm font-medium ${textColor}`}>
                         {section.name}
                       </p>
                       {!isCompleted && (
-                        <p className="text-xs text-gray-500 mt-0.5">{status?.progress}% complete</p>
+                        <p className={`text-xs ${progressTextColor || 'text-gray-500'} font-semibold mt-0.5`}>
+                          {progress}% complete
+                        </p>
                       )}
                     </div>
                   </button>
