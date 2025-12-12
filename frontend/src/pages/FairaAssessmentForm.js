@@ -1170,7 +1170,7 @@ export default function FairaAssessmentForm() {
             </div>
 
             {/* A3: Human Interface and Impact */}
-            <div className="space-y-6 pt-6 border-t">
+            <div className="space-y-6 pt-6 border-t" id="A3_1">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">A3. Human Interface and Impact</h3>
                 <p className="text-sm text-gray-600">Maps to FAIRA Table 2 (HMI) and Table 5 (Object of AI action)</p>
