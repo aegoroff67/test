@@ -173,11 +173,12 @@ function Dashboard() {
       return `/assessment/${assessment.id}/faira-onboarding`;
     }
     
-    // For other types, check if they've started answering questions
-    const hasStartedQuestions = assessment.answers && assessment.answers.length > 0;
+    // Check if onboarding has been completed (system_info exists) or if they have progress
+    const hasCompletedOnboarding = assessment.system_info && Object.keys(assessment.system_info).length > 0;
+    const hasProgress = assessment.progress > 0;
     
-    // If they've started answering questions, go to main assessment page
-    if (hasStartedQuestions) {
+    // If they've completed onboarding or have progress, go to main assessment page
+    if (hasCompletedOnboarding || hasProgress) {
       return `/assessment/${assessment.id}`;
     }
     
