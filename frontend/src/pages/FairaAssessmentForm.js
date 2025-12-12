@@ -236,6 +236,107 @@ export default function FairaAssessmentForm() {
     return totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
   };
 
+  // Calculate section completion status
+  const getSectionCompletion = () => {
+    const sections = {
+      'A1': ['A1_1', 'A1_2', 'A1_3', 'A1_4', 'A1_5', 'A1_6', 'A1_7', 'A1_8', 'A1_9'],
+      'A2': ['A2_1', 'A2_2', 'A2_3', 'A2_4', 'A2_5_accuracy', 'A2_5_completeness', 'A2_5_reliability', 'A2_5_relevance', 'A2_5_timeliness', 'A2_6', 'A2_7', 'A2_8'],
+      'A3': ['A3_1', 'A3_2_technical', 'A3_2_domain', 'A3_2_ai_literacy', 'A3_3', 'A3_4', 'A3_5a', 'A3_5b', 'A3_6a', 'A3_6b'],
+      'A4': ['A4_1', 'A4_2', 'A4_3', 'A4_4', 'A4_5', 'A4_6', 'A4_7', 'A4_8'],
+      'A5': ['A5_1', 'A5_2', 'A5_3', 'A5_4', 'A5_5', 'A5_6', 'A5_7', 'A5_8', 'A5_9', 'A5_10', 'A5_11', 'A5_12'],
+      'B1': ['B1_1_individual', 'B1_1_organizational', 'B1_1_social', 'B1_1_environmental', 'B1_2', 'B1_3'],
+      'B2': ['B2_1', 'B2_2_rights', 'B2_2_diversity', 'B2_2_autonomy', 'B2_3'],
+      'B3': ['B3_1', 'B3_2'],
+      'B4': ['B4_1', 'B4_2', 'B4_3'],
+      'B5': ['B5_1', 'B5_2', 'B5_3'],
+      'B6': ['B6_1', 'B6_2', 'B6_3', 'B6_4'],
+      'B7': ['B7_1', 'B7_2'],
+      'B8': ['B8_1', 'B8_2', 'B8_3', 'B8_4']
+    };
+
+    const conditionalFields = {
+      'A1_3_other': () => form.A1_3.includes('Other'),
+      'A1_6_actions': () => form.A1_6 === 'Yes',
+      'A1_6_actions_other': () => form.A1_6 === 'Yes' && form.A1_6_actions.includes('Other'),
+      'A1_7_other': () => form.A1_7.includes('Other'),
+      'A2_4_other': () => form.A2_4.includes('Other'),
+      'A2_7_regulation': () => form.A2_7 === 'Yes',
+      'A2_8_types': () => form.A2_8 === 'Yes',
+      'A3_3_other': () => form.A3_3.includes('Other'),
+      'A4_5_scenarios': () => form.A4_5 === 'Yes',
+      'A5_12_other': () => form.A5_12.includes('Other'),
+      'B2_3_perspectives': () => form.B2_3 === 'Yes',
+      'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && form.B2_3_perspectives.includes('Other'),
+      'B3_1_methods': () => form.B3_1 === 'Yes',
+      'B3_2_groups': () => form.B3_2 === 'Yes' || form.B3_2 === 'Unknown',
+      'B4_2_types': () => form.B4_2 === 'Yes',
+      'B4_2_types_other': () => form.B4_2 === 'Yes' && form.B4_2_types.includes('Other'),
+      'B5_1_rating': () => form.B5_1 === 'Yes',
+      'B5_3_environments': () => form.B5_3 === 'Yes',
+      'B6_4_describe': () => form.B6_4 === 'Yes',
+      'B7_1_describe': () => form.B7_1 === 'Yes',
+      'B8_4_safeguards': () => form.B8_4 === 'Yes'
+    };
+
+    const isFieldFilled = (key) => {
+      const value = form[key];
+      if (value === null || value === undefined) return false;
+      if (Array.isArray(value)) return value.length > 0;
+      if (typeof value === 'number') return true;
+      if (typeof value === 'boolean') return value;
+      return value && value.toString().trim() !== '';
+    };
+
+    const sectionStatus = {};
+    Object.keys(sections).forEach(sectionId => {
+      const fields = sections[sectionId];
+      let totalApplicable = 0;
+      let completed = 0;
+      let firstUnanswered = null;
+
+      fields.forEach(fieldId => {
+        // Check if field is conditional
+        if (conditionalFields[fieldId]) {
+          if (conditionalFields[fieldId]()) {
+            totalApplicable++;
+            if (isFieldFilled(fieldId)) {
+              completed++;
+            } else if (!firstUnanswered) {
+              firstUnanswered = fieldId;
+            }
+          }
+        } else {
+          totalApplicable++;
+          if (isFieldFilled(fieldId)) {
+            completed++;
+          } else if (!firstUnanswered) {
+            firstUnanswered = fieldId;
+          }
+        }
+      });
+
+      sectionStatus[sectionId] = {
+        completed: totalApplicable > 0 && completed === totalApplicable,
+        progress: totalApplicable > 0 ? Math.round((completed / totalApplicable) * 100) : 0,
+        firstUnanswered
+      };
+    });
+
+    return sectionStatus;
+  };
+
+  const scrollToField = (fieldId) => {
+    const element = document.getElementById(fieldId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Flash the field to draw attention
+      element.classList.add('ring-2', 'ring-orange-400', 'rounded');
+      setTimeout(() => {
+        element.classList.remove('ring-2', 'ring-orange-400', 'rounded');
+      }, 2000);
+    }
+  };
+
   function update(key, value) {
     setForm((f) => ({ ...f, [key]: value }));
   }
