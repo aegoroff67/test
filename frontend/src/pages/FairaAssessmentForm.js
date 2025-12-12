@@ -326,7 +326,28 @@ export default function FairaAssessmentForm() {
   };
 
   const scrollToField = (fieldId) => {
-    const element = document.getElementById(fieldId);
+    // Try to find the specific field element first
+    let element = document.getElementById(fieldId);
+    
+    // If not found, try to find the section container
+    if (!element) {
+      // Extract section prefix (e.g., "A3" from "A3_2_technical")
+      const sectionMatch = fieldId.match(/^([AB]\d+)/);
+      if (sectionMatch) {
+        const sectionId = sectionMatch[1];
+        // Try common first field patterns for each section
+        const firstFieldPatterns = [
+          `${sectionId}_1`,
+          `${fieldId}` // Try the exact field ID again
+        ];
+        
+        for (const pattern of firstFieldPatterns) {
+          element = document.getElementById(pattern);
+          if (element) break;
+        }
+      }
+    }
+    
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
       // Flash the field to draw attention
