@@ -44,11 +44,11 @@ const defaultState = {
   A2_3: [], // safeguards (multiselect)
   A2_4: [], // data types (multiselect)
   A2_4_other: "",
-  A2_5_accuracy: 3, // 1-5 scale
-  A2_5_completeness: 3,
-  A2_5_reliability: 3,
-  A2_5_relevance: 3,
-  A2_5_timeliness: 3,
+  A2_5_accuracy: null, // 1-5 scale
+  A2_5_completeness: null,
+  A2_5_reliability: null,
+  A2_5_relevance: null,
+  A2_5_timeliness: null,
   A2_6: "", // BIL (single select)
   A2_7: "", // regulated data (Yes/No)
   A2_7_regulation: "",
