@@ -170,7 +170,6 @@ function AssessmentPage() {
       
       // Update selected frameworks using unified state
       setSelectedFrameworks({
-        faira: frameworks.includes("Foundational AI Risk Assessment Framework (FAIRA) (QLD) (2024)"),
         nist: frameworks.includes("NIST AI RMF (2023)"),
         iso42001: frameworks.includes("AS ISO/IEC 42001:2023"),
         auEthics: frameworks.includes("Australian AI Ethics Principles (2024)"),
