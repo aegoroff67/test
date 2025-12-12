@@ -126,7 +126,7 @@ const defaultState = {
   
   // B5: Reliability and Safety
   B5_1: "", // tested for reliability (Yes/No)
-  B5_1_rating: 3,
+  B5_1_rating: null,
   B5_2: "", // disengage process (Yes/No)
   B5_3: "", // high-risk environment (Yes/No)
   B5_3_environments: [],
