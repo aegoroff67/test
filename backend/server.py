@@ -1375,7 +1375,8 @@ async def get_assessment(assessment_id: str, current_user: UserResponse = Depend
         completed_at=assessment.get("completed_at"),
         progress=assessment["progress"],
         total_questions=total_questions,
-        system_info=assessment.get("system_info")
+        system_info=assessment.get("system_info"),
+        faira_form=assessment.get("faira_form")
     )
 
 @api_router.put("/assessments/{assessment_id}/system-info")
