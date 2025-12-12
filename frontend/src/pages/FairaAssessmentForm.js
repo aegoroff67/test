@@ -160,8 +160,9 @@ const defaultState = {
   
   // Declaration
   declaration_confirmed: false,
-  declaration_assessor: "",
-  declaration_date: new Date().toISOString().split('T')[0]
+  declaration_name: "",
+  declaration_date: new Date().toISOString().split('T')[0],
+  declaration_role: ""
 };
 
 export default function FairaAssessmentForm() {
@@ -2908,38 +2909,50 @@ export default function FairaAssessmentForm() {
               <CardTitle className="text-xl">Declaration</CardTitle>
             </div>
           </CardHeader>
-          <CardContent className="p-6 space-y-4">
+          <CardContent className="p-6 space-y-6">
             <div className="flex items-start space-x-3 p-4 bg-amber-50 border border-amber-200 rounded-lg">
               <Checkbox
                 id="declaration_confirmed"
                 checked={form.declaration_confirmed}
                 onCheckedChange={(checked) => update("declaration_confirmed", checked)}
                 required
+                className="mt-0.5"
               />
-              <Label htmlFor="declaration_confirmed" className="text-sm font-medium cursor-pointer">
-                I confirm that the information provided in this FAIRA assessment is accurate to the best of my knowledge.
+              <Label htmlFor="declaration_confirmed" className="text-sm font-medium cursor-pointer leading-relaxed">
+                I certify that all information provided in this FAIRA assessment is accurate and complete to the best of my knowledge.
               </Label>
             </div>
             
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="declaration_assessor">Name of assessor *</Label>
+                <Label htmlFor="declaration_name">Name of person making this declaration: *</Label>
                 <Input
-                  id="declaration_assessor"
-                  value={form.declaration_assessor}
-                  onChange={(e) => update("declaration_assessor", e.target.value)}
+                  id="declaration_name"
+                  value={form.declaration_name || form.assessor_name}
+                  onChange={(e) => update("declaration_name", e.target.value)}
                   required
                   placeholder="Enter your name"
                 />
               </div>
+              
               <div className="space-y-2">
-                <Label htmlFor="declaration_date">Date *</Label>
+                <Label htmlFor="declaration_date">Date: *</Label>
                 <Input
                   id="declaration_date"
                   type="date"
                   value={form.declaration_date}
                   onChange={(e) => update("declaration_date", e.target.value)}
                   required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="declaration_role">(Optional) Role/Title:</Label>
+                <Input
+                  id="declaration_role"
+                  value={form.declaration_role || form.assessor_role}
+                  onChange={(e) => update("declaration_role", e.target.value)}
+                  placeholder="Enter your role or title"
                 />
               </div>
             </div>
