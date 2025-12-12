@@ -500,8 +500,72 @@ export default function FairaAssessmentForm() {
         </div>
       </header>
 
-      {/* Form Content */}
-      <form onSubmit={handleSubmit} className="max-w-6xl mx-auto p-6 space-y-8">
+      {/* Main Content Area with Sidebar */}
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <aside className="w-80 bg-white border-r shadow-sm sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto hidden lg:block">
+          <div className="p-6">
+            <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">Assessment Progress</h3>
+            <div className="space-y-2">
+              {sectionsList.map((section) => {
+                const status = sectionStatus[section.id];
+                const isCompleted = status?.completed;
+                
+                return (
+                  <button
+                    key={section.id}
+                    type="button"
+                    onClick={() => {
+                      if (!isCompleted && status?.firstUnanswered) {
+                        scrollToField(status.firstUnanswered);
+                      }
+                    }}
+                    className={`w-full text-left px-3 py-2 rounded-lg transition-all flex items-start gap-2 ${
+                      isCompleted 
+                        ? 'bg-green-50 hover:bg-green-100 cursor-pointer' 
+                        : 'bg-gray-50 hover:bg-orange-50 cursor-pointer'
+                    }`}
+                  >
+                    <div className="flex-shrink-0 mt-0.5">
+                      {isCompleted ? (
+                        <div className="h-5 w-5 rounded-full bg-green-500 flex items-center justify-center">
+                          <Check className="h-3 w-3 text-white" />
+                        </div>
+                      ) : (
+                        <Circle className="h-5 w-5 text-gray-400" />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-sm font-medium ${isCompleted ? 'text-green-700' : 'text-gray-700'}`}>
+                        {section.name}
+                      </p>
+                      {!isCompleted && (
+                        <p className="text-xs text-gray-500 mt-0.5">{status?.progress}% complete</p>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+            
+            {/* Overall Progress Summary */}
+            <div className="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-200">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-semibold text-orange-900">Overall Progress</span>
+                <span className="text-lg font-bold text-orange-600">{progress}%</span>
+              </div>
+              <div className="h-2 bg-orange-200 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-orange-500 transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        {/* Form Content */}
+        <form onSubmit={handleSubmit} className="flex-1 max-w-5xl mx-auto p-6 space-y-8 pb-32">
         
         {/* BLOCK 1: Assessment Details */}
         <Card>
