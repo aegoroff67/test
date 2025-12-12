@@ -410,10 +410,13 @@ export default function FairaAssessmentForm() {
     if (!id) return;
     setAutoSaving(true);
     try {
-      await axios.put(`${API}/assessments/${id}/faira-form`, form);
+      console.log('Auto-saving form data:', form);
+      const response = await axios.put(`${API}/assessments/${id}/faira-form`, form);
+      console.log('Auto-save response:', response.data);
       setLastSaved(new Date());
     } catch (error) {
       console.error('Auto-save error:', error);
+      console.error('Error details:', error.response?.data);
     } finally {
       setAutoSaving(false);
     }
