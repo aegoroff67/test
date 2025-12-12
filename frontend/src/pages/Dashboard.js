@@ -143,6 +143,14 @@ function Dashboard() {
           textColor: 'text-purple-700',
           iconColor: 'text-purple-600'
         };
+      case 'FAIRA':
+        return {
+          icon: Bot,
+          label: 'FAIRA Risk',
+          bgColor: 'bg-orange-100',
+          textColor: 'text-orange-700',
+          iconColor: 'text-orange-600'
+        };
       case 'System':
       default:
         return {
@@ -152,6 +160,34 @@ function Dashboard() {
           textColor: 'text-teal-700',
           iconColor: 'text-teal-600'
         };
+    }
+  };
+
+  const getResumeRoute = (assessment) => {
+    // Route to appropriate onboarding page based on assessment type and status
+    const assessmentType = assessment.assessment_type;
+    const hasStartedQuestions = assessment.answers && assessment.answers.length > 0;
+    
+    // If they've started answering questions, go to main assessment page
+    if (hasStartedQuestions) {
+      return `/assessment/${assessment.id}`;
+    }
+    
+    // Otherwise, route to onboarding page based on type
+    switch(assessmentType) {
+      case 'Awareness':
+        return `/assessment/${assessment.id}/awareness-onboarding`;
+      case 'FAIRA':
+        return `/assessment/${assessment.id}/faira-onboarding`;
+      case 'System':
+        return `/assessment/${assessment.id}/system-onboarding`;
+      case 'Orgwide':
+      case 'Organisation':
+        return `/assessment/${assessment.id}/org-onboarding`;
+      case 'Readiness':
+        return `/assessment/${assessment.id}/readiness-onboarding`;
+      default:
+        return `/assessment/${assessment.id}`;
     }
   };
 
