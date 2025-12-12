@@ -1,0 +1,1549 @@
+{
+  "formMetadata": {
+    "name": "FAIRA Risk Assessment Form",
+    "version": "1.0",
+    "totalFields": 71,
+    "sections": 4,
+    "description": "Foundational AI Risk Assessment Framework - Complete form schema with field bindings and response types"
+  },
+  "sections": [
+    {
+      "sectionId": "assessment_details",
+      "sectionName": "Assessment Details",
+      "sectionDescription": "Administrative information about the assessor",
+      "fields": [
+        {
+          "fieldId": "assessor_name",
+          "questionText": "Assessor Name",
+          "componentType": "input",
+          "responseType": "text",
+          "required": true,
+          "stateBinding": "form.assessor_name",
+          "placeholder": "Enter your name"
+        },
+        {
+          "fieldId": "assessor_role",
+          "questionText": "Role",
+          "componentType": "input",
+          "responseType": "text",
+          "required": true,
+          "stateBinding": "form.assessor_role",
+          "placeholder": "Enter your role"
+        },
+        {
+          "fieldId": "assessor_branch",
+          "questionText": "Branch",
+          "componentType": "input",
+          "responseType": "text",
+          "required": true,
+          "stateBinding": "form.assessor_branch",
+          "placeholder": "Enter your branch"
+        }
+      ]
+    },
+    {
+      "sectionId": "part_a",
+      "sectionName": "Part A: Components Analysis",
+      "sectionDescription": "Systematic breakdown of the AI solution components",
+      "subsections": [
+        {
+          "subsectionId": "A1",
+          "subsectionName": "A1. AI Solution Fundamentals",
+          "subsectionDescription": "Maps to FAIRA Table 1: AI solution (Questions 1.1-1.10)",
+          "fields": [
+            {
+              "fieldId": "A1_1",
+              "questionNumber": "A1.1",
+              "questionText": "What is the primary function of the AI solution?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A1_1",
+              "options": [
+                "Information retrieval",
+                "Natural language understanding",
+                "Prediction / forecasting",
+                "Classification",
+                "Recommendation",
+                "Summarisation",
+                "Decision support",
+                "Process automation",
+                "Compliance monitoring",
+                "Content generation"
+              ]
+            },
+            {
+              "fieldId": "A1_2",
+              "questionNumber": "A1.2",
+              "questionText": "What version of the AI solution does this FAIRA assessment apply to?",
+              "componentType": "input",
+              "responseType": "text",
+              "stateBinding": "form.A1_2",
+              "placeholder": "e.g., v1.2.0"
+            },
+            {
+              "fieldId": "A1_3",
+              "questionNumber": "A1.3",
+              "questionText": "Select all AI features that apply:",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A1_3",
+              "options": [
+                "Natural language processing",
+                "Data analysis and visualization",
+                "Automated content generation",
+                "Integration with existing systems",
+                "Personalized recommendations",
+                "Collaboration enhancement",
+                "Task automation",
+                "Security and compliance",
+                "Voice recognition",
+                "Other"
+              ],
+              "conditionalFields": [
+                {
+                  "fieldId": "A1_3_other",
+                  "condition": "A1_3 includes 'Other'",
+                  "componentType": "input",
+                  "responseType": "text",
+                  "stateBinding": "form.A1_3_other",
+                  "placeholder": "Please specify other AI features"
+                }
+              ]
+            },
+            {
+              "fieldId": "A1_4",
+              "questionNumber": "A1.4",
+              "questionText": "What decisions will be addressed by the AI functionality?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A1_4",
+              "options": [
+                "Content development and approval",
+                "Data interpretation and business strategy",
+                "Prioritization of communications",
+                "Workflow optimization",
+                "Security and compliance oversight",
+                "Resource allocation",
+                "Crisis management",
+                "Employee training",
+                "Customer relationship management",
+                "Administrative decision-making (regulated by law)"
+              ]
+            },
+            {
+              "fieldId": "A1_5",
+              "questionNumber": "A1.5",
+              "questionText": "What tangible benefits does this AI solution provide?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A1_5",
+              "options": [
+                "Increased efficiency",
+                "Reduced manual effort",
+                "Improved decision-making",
+                "Faster processing time",
+                "Improved accuracy or consistency",
+                "Enhanced user experience",
+                "Cost reduction",
+                "Improved accessibility",
+                "Reduced risk or error",
+                "Better service delivery",
+                "Improved communication",
+                "Increased transparency"
+              ]
+            },
+            {
+              "fieldId": "A1_6",
+              "questionNumber": "A1.6",
+              "questionText": "Can the AI solution convert decisions into actions without human intervention?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.A1_6",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "A1_6_actions",
+                  "condition": "A1_6 === 'Yes'",
+                  "questionText": "Describe these actions",
+                  "componentType": "multiselect",
+                  "responseType": "array",
+                  "stateBinding": "form.A1_6_actions",
+                  "options": [
+                    "Sends notifications",
+                    "Updates internal records",
+                    "Applies rules/decisions automatically",
+                    "Initiates workflows",
+                    "Generates external communications",
+                    "Allocates resources",
+                    "Approves/declines items",
+                    "Triggers system events",
+                    "Other"
+                  ]
+                },
+                {
+                  "fieldId": "A1_6_actions_other",
+                  "condition": "A1_6_actions includes 'Other'",
+                  "componentType": "input",
+                  "responseType": "text",
+                  "stateBinding": "form.A1_6_actions_other",
+                  "placeholder": "Please specify other actions"
+                }
+              ]
+            },
+            {
+              "fieldId": "A1_7",
+              "questionNumber": "A1.7",
+              "questionText": "What type of AI model or technique is used?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A1_7",
+              "options": [
+                "Large Language Model",
+                "Computer Vision",
+                "Supervised learning",
+                "Unsupervised learning",
+                "Reinforcement learning",
+                "Rule-based system",
+                "Neural network",
+                "Other"
+              ],
+              "conditionalFields": [
+                {
+                  "fieldId": "A1_7_other",
+                  "condition": "A1_7 includes 'Other'",
+                  "componentType": "input",
+                  "responseType": "text",
+                  "stateBinding": "form.A1_7_other",
+                  "placeholder": "Please specify other AI model types"
+                }
+              ]
+            },
+            {
+              "fieldId": "A1_8",
+              "questionNumber": "A1.8",
+              "questionText": "What is the source of the AI solution?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A1_8",
+              "options": [
+                "Commercial off-the-shelf",
+                "Bespoke development",
+                "Open-source",
+                "Hybrid approach"
+              ]
+            },
+            {
+              "fieldId": "A1_9",
+              "questionNumber": "A1.9",
+              "questionText": "How does the AI solution integrate with other systems?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A1_9",
+              "options": [
+                "REST API",
+                "Webhooks",
+                "Batch data transfer",
+                "Real-time data stream",
+                "File-based integration",
+                "Embedded widget/iframe",
+                "Database connection",
+                "Message queue (e.g., Kafka)"
+              ]
+            }
+          ]
+        },
+        {
+          "subsectionId": "A2",
+          "subsectionName": "A2. Data and Inputs",
+          "subsectionDescription": "Maps to FAIRA 1.8-1.9 (data used and data quality) and AI use inputs (Table 3)",
+          "fields": [
+            {
+              "fieldId": "A2_1",
+              "questionNumber": "A2.1",
+              "questionText": "How are AI use inputs tracked and recorded?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A2_1",
+              "options": [
+                "Audit logs",
+                "Access logs",
+                "CRM/Case management logging",
+                "System-level logging",
+                "Manual records",
+                "No inputs tracked or recorded (flag as risk)"
+              ]
+            },
+            {
+              "fieldId": "A2_2",
+              "questionNumber": "A2.2",
+              "questionText": "Does the AI require data from the digital or physical environment? If yes, what data and can users limit or trace it?",
+              "componentType": "textarea",
+              "responseType": "text",
+              "stateBinding": "form.A2_2",
+              "placeholder": "Describe environmental data requirements and user controls",
+              "rows": 3
+            },
+            {
+              "fieldId": "A2_3",
+              "questionNumber": "A2.3",
+              "questionText": "What safeguards exist to detect and handle corrupted, missing, or out-of-range data inputs?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A2_3",
+              "options": [
+                "Input validation",
+                "Range checking",
+                "Schema enforcement",
+                "Fallback defaults",
+                "Human review",
+                "Data quality monitoring",
+                "Error alerts",
+                "No safeguards identified (flag as risk)"
+              ]
+            },
+            {
+              "fieldId": "A2_4",
+              "questionNumber": "A2.4",
+              "questionText": "What data does the AI solution use?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A2_4",
+              "options": [
+                "Government data",
+                "Open data",
+                "Synthetic data",
+                "Personal information",
+                "Sensitive information",
+                "Internet data",
+                "Other"
+              ],
+              "conditionalFields": [
+                {
+                  "fieldId": "A2_4_other",
+                  "condition": "A2_4 includes 'Other'",
+                  "componentType": "input",
+                  "responseType": "text",
+                  "stateBinding": "form.A2_4_other",
+                  "placeholder": "Please specify other data types"
+                }
+              ]
+            },
+            {
+              "fieldId": "A2_5",
+              "questionNumber": "A2.5",
+              "questionText": "Rate the quality of the input data",
+              "componentType": "radio_scale_group",
+              "responseType": "object",
+              "subfields": [
+                {
+                  "subfieldId": "A2_5_accuracy",
+                  "label": "Accuracy",
+                  "stateBinding": "form.A2_5_accuracy",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                },
+                {
+                  "subfieldId": "A2_5_completeness",
+                  "label": "Completeness",
+                  "stateBinding": "form.A2_5_completeness",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                },
+                {
+                  "subfieldId": "A2_5_reliability",
+                  "label": "Reliability",
+                  "stateBinding": "form.A2_5_reliability",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                },
+                {
+                  "subfieldId": "A2_5_relevance",
+                  "label": "Relevance",
+                  "stateBinding": "form.A2_5_relevance",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                },
+                {
+                  "subfieldId": "A2_5_timeliness",
+                  "label": "Timeliness",
+                  "stateBinding": "form.A2_5_timeliness",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                }
+              ]
+            },
+            {
+              "fieldId": "A2_6",
+              "questionNumber": "A2.6",
+              "questionText": "What is the Business Impact Level (BIL) of the input data?",
+              "componentType": "select",
+              "responseType": "string",
+              "stateBinding": "form.A2_6",
+              "options": [
+                "Official",
+                "Official: Sensitive",
+                "Protected",
+                "Highly Protected",
+                "Secret",
+                "Top Secret"
+              ]
+            },
+            {
+              "fieldId": "A2_7",
+              "questionNumber": "A2.7",
+              "questionText": "Does the solution use regulated data?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.A2_7",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "A2_7_regulation",
+                  "condition": "A2_7 === 'Yes'",
+                  "questionText": "Specify the regulation",
+                  "componentType": "input",
+                  "responseType": "text",
+                  "stateBinding": "form.A2_7_regulation",
+                  "placeholder": "e.g., GDPR, Privacy Act 1988"
+                }
+              ]
+            },
+            {
+              "fieldId": "A2_8",
+              "questionNumber": "A2.8",
+              "questionText": "Does the solution require user inputs to operate?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.A2_8",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "A2_8_types",
+                  "condition": "A2_8 === 'Yes'",
+                  "questionText": "Select the types of inputs",
+                  "componentType": "multiselect",
+                  "responseType": "array",
+                  "stateBinding": "form.A2_8_types",
+                  "options": [
+                    "Free-text prompts",
+                    "Uploaded files",
+                    "Form fields",
+                    "API request data",
+                    "Structured records",
+                    "Voice input",
+                    "Sensor data",
+                    "User selection/choices",
+                    "None"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "subsectionId": "A3",
+          "subsectionName": "A3. Human Interface and Impact",
+          "subsectionDescription": "Maps to FAIRA Table 2 (HMI) and Table 5 (Object of AI action)",
+          "fields": [
+            {
+              "fieldId": "A3_1",
+              "questionNumber": "A3.1",
+              "questionText": "How does the system interface with humans?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A3_1",
+              "options": [
+                "Chat interface",
+                "Web application",
+                "Mobile application",
+                "API integration",
+                "Voice interface",
+                "Dashboard"
+              ]
+            },
+            {
+              "fieldId": "A3_2",
+              "questionNumber": "A3.2",
+              "questionText": "What expertise is required to use the AI solution?",
+              "componentType": "radio_scale_group",
+              "responseType": "object",
+              "subfields": [
+                {
+                  "subfieldId": "A3_2_technical",
+                  "label": "Technical expertise",
+                  "stateBinding": "form.A3_2_technical",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                },
+                {
+                  "subfieldId": "A3_2_domain",
+                  "label": "Domain knowledge",
+                  "stateBinding": "form.A3_2_domain",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                },
+                {
+                  "subfieldId": "A3_2_ai_literacy",
+                  "label": "AI literacy",
+                  "stateBinding": "form.A3_2_ai_literacy",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                }
+              ]
+            },
+            {
+              "fieldId": "A3_3",
+              "questionNumber": "A3.3",
+              "questionText": "Who will be impacted by the AI system?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A3_3",
+              "options": [
+                "Queensland Government employees",
+                "General public",
+                "Vulnerable communities",
+                "Children",
+                "Elderly",
+                "People with disabilities",
+                "Indigenous peoples",
+                "Small businesses",
+                "Other"
+              ],
+              "conditionalFields": [
+                {
+                  "fieldId": "A3_3_other",
+                  "condition": "A3_3 includes 'Other'",
+                  "componentType": "input",
+                  "responseType": "text",
+                  "stateBinding": "form.A3_3_other",
+                  "placeholder": "Please specify other impacted groups"
+                }
+              ]
+            },
+            {
+              "fieldId": "A3_4",
+              "questionNumber": "A3.4",
+              "questionText": "How will impacted parties be informed of AI use?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A3_4",
+              "options": [
+                "Website notice",
+                "In-app notice",
+                "Email communication",
+                "Terms & conditions",
+                "Public-facing AI statement",
+                "Staff training",
+                "Consent/acknowledgement",
+                "No planned notifications (flag as risk)"
+              ]
+            },
+            {
+              "fieldId": "A3_5a",
+              "questionNumber": "A3.5(a)",
+              "questionText": "What are the expected impacts of this AI solution on staff?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A3_5a",
+              "options": [
+                "Increased workload",
+                "Reduced workload",
+                "Reduced autonomy",
+                "Improved autonomy",
+                "De-skilling risk",
+                "Skill enhancement",
+                "Accountability ambiguity",
+                "Increased accountability clarity",
+                "Stress or psychological impact",
+                "Job redesign required",
+                "No significant impact"
+              ]
+            },
+            {
+              "fieldId": "A3_5b",
+              "questionNumber": "A3.5(b)",
+              "questionText": "Rate the overall severity of these impacts",
+              "componentType": "radio_scale",
+              "responseType": "number",
+              "stateBinding": "form.A3_5b",
+              "scale": "1-5",
+              "defaultValue": 3,
+              "labels": {
+                "1": "Very Low",
+                "5": "Very High"
+              }
+            },
+            {
+              "fieldId": "A3_6a",
+              "questionNumber": "A3.6(a)",
+              "questionText": "How will each impacted group be affected?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A3_6a",
+              "options": [
+                "Service quality changes",
+                "Accessibility changes",
+                "Decision-making impacts",
+                "Delay reduction",
+                "Bias or fairness concerns",
+                "Data/privacy concerns",
+                "Security concerns",
+                "Communication changes",
+                "Risk of exclusion",
+                "Increased assistance/support",
+                "None/minimal impact"
+              ]
+            },
+            {
+              "fieldId": "A3_6b",
+              "questionNumber": "A3.6(b)",
+              "questionText": "Rate the overall severity of these impacts",
+              "componentType": "radio_scale",
+              "responseType": "number",
+              "stateBinding": "form.A3_6b",
+              "scale": "1-3",
+              "defaultValue": 2,
+              "labels": {
+                "1": "Minor",
+                "2": "Moderate",
+                "3": "Major"
+              }
+            }
+          ]
+        },
+        {
+          "subsectionId": "A4",
+          "subsectionName": "A4. Outputs and Actions",
+          "subsectionDescription": "Maps to FAIRA Table 4: AI use outputs",
+          "fields": [
+            {
+              "fieldId": "A4_1",
+              "questionNumber": "A4.1",
+              "questionText": "What are the primary outputs of the AI system?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A4_1",
+              "options": [
+                "Text responses",
+                "Visual outputs",
+                "Recommendations",
+                "Decisions",
+                "Data analysis",
+                "Predictions",
+                "Actions in systems"
+              ]
+            },
+            {
+              "fieldId": "A4_2",
+              "questionNumber": "A4.2",
+              "questionText": "Are outputs sent to external systems without human review?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.A4_2",
+              "options": ["Yes", "No"]
+            },
+            {
+              "fieldId": "A4_3",
+              "questionNumber": "A4.3",
+              "questionText": "What is the Business Impact Level (BIL) of the outputs?",
+              "componentType": "select",
+              "responseType": "string",
+              "stateBinding": "form.A4_3",
+              "options": [
+                "Official",
+                "Official: Sensitive",
+                "Protected",
+                "Highly Protected",
+                "Secret",
+                "Top Secret"
+              ]
+            },
+            {
+              "fieldId": "A4_4",
+              "questionNumber": "A4.4",
+              "questionText": "How are AI outputs tracked and recorded?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A4_4",
+              "options": [
+                "Stored in database",
+                "Logged in audit system",
+                "Logged in CRM/case system",
+                "Logged in activity logs",
+                "Not currently tracked (flag as risk)",
+                "Retention based on policy"
+              ]
+            },
+            {
+              "fieldId": "A4_5",
+              "questionNumber": "A4.5",
+              "questionText": "Could any AI outputs allow unauthorised access to information?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.A4_5",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "A4_5_scenarios",
+                  "condition": "A4_5 === 'Yes'",
+                  "questionText": "Select scenarios and mitigations",
+                  "componentType": "multiselect",
+                  "responseType": "array",
+                  "stateBinding": "form.A4_5_scenarios",
+                  "options": [
+                    "Misrouted outputs",
+                    "Excessive data exposure",
+                    "Output reveals sensitive attributes",
+                    "Outputs sent to incorrect system",
+                    "Injection or poisoning risk",
+                    "None identified"
+                  ]
+                }
+              ]
+            },
+            {
+              "fieldId": "A4_6",
+              "questionNumber": "A4.6",
+              "questionText": "Do outputs involve data regulated by law?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A4_6",
+              "options": [
+                "Personal",
+                "Sensitive",
+                "Financial",
+                "Health",
+                "Child-related",
+                "Law enforcement",
+                "Indigenous data",
+                "Confidential government data",
+                "Operationally sensitive data"
+              ]
+            },
+            {
+              "fieldId": "A4_7",
+              "questionNumber": "A4.7",
+              "questionText": "Do outputs contain personally identifiable information? Who can access it (internal / external)?",
+              "componentType": "textarea",
+              "responseType": "text",
+              "stateBinding": "form.A4_7",
+              "placeholder": "Describe PII in outputs and access controls",
+              "rows": 3
+            },
+            {
+              "fieldId": "A4_8",
+              "questionNumber": "A4.8",
+              "questionText": "Are any AI outputs directly used to trigger actions with legal or regulatory effect? If yes, describe and justify.",
+              "componentType": "textarea",
+              "responseType": "text",
+              "stateBinding": "form.A4_8",
+              "placeholder": "Describe legal/regulatory actions and justification",
+              "rows": 3
+            }
+          ]
+        },
+        {
+          "subsectionId": "A5",
+          "subsectionName": "A5. Governance and Oversight",
+          "subsectionDescription": "Maps to FAIRA Table 9 (Monitoring & evaluation) plus accountability references",
+          "fields": [
+            {
+              "fieldId": "A5_1",
+              "questionNumber": "A5.1",
+              "questionText": "Who is accountable for decisions made using this system?",
+              "componentType": "select",
+              "responseType": "string",
+              "stateBinding": "form.A5_1",
+              "options": [
+                "Product owner",
+                "System owner",
+                "Executive sponsor",
+                "Service manager",
+                "Data custodian",
+                "Governance committee",
+                "AI oversight board"
+              ]
+            },
+            {
+              "fieldId": "A5_2",
+              "questionNumber": "A5.2",
+              "questionText": "How are AI use inputs and outputs tracked and recorded?",
+              "componentType": "textarea",
+              "responseType": "text",
+              "stateBinding": "form.A5_2",
+              "placeholder": "Describe tracking mechanisms",
+              "rows": 3
+            },
+            {
+              "fieldId": "A5_3",
+              "questionNumber": "A5.3",
+              "questionText": "What monitoring and evaluation processes are in place?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A5_3",
+              "options": [
+                "Regular system audits",
+                "Continuous performance monitoring",
+                "User feedback collection",
+                "Periodic stakeholder reviews"
+              ]
+            },
+            {
+              "fieldId": "A5_4",
+              "questionNumber": "A5.4",
+              "questionText": "How frequently will monitoring and evaluation occur?",
+              "componentType": "select",
+              "responseType": "string",
+              "stateBinding": "form.A5_4",
+              "options": [
+                "weekly",
+                "monthly",
+                "quarterly",
+                "annually",
+                "event-driven"
+              ]
+            },
+            {
+              "fieldId": "A5_5",
+              "questionNumber": "A5.5",
+              "questionText": "Has the AI solution been subject to independent review?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.A5_5",
+              "options": ["Yes", "No"]
+            },
+            {
+              "fieldId": "A5_6",
+              "questionNumber": "A5.6",
+              "questionText": "Who is responsible for monitoring and evaluation?",
+              "componentType": "select",
+              "responseType": "string",
+              "stateBinding": "form.A5_6",
+              "options": [
+                "ICT operations",
+                "Data science team",
+                "Risk/Compliance",
+                "Business owner",
+                "Vendor",
+                "Customer-facing staff",
+                "External auditor"
+              ]
+            },
+            {
+              "fieldId": "A5_7",
+              "questionNumber": "A5.7",
+              "questionText": "How are stakeholders engaged in monitoring and evaluation?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A5_7",
+              "options": [
+                "Workshops",
+                "Public consultation",
+                "Union consultation",
+                "Focus groups",
+                "User feedback sessions",
+                "Accessibility reviews",
+                "No engagements planned (flag as risk)"
+              ]
+            },
+            {
+              "fieldId": "A5_8",
+              "questionNumber": "A5.8",
+              "questionText": "How are undesirable or harmful results detected?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A5_8",
+              "options": [
+                "Alerting and monitoring",
+                "User complaints",
+                "Human review triggers",
+                "Automated anomaly detection",
+                "Escalation procedures",
+                "Incident response team",
+                "No defined contingencies (flag as risk)"
+              ]
+            },
+            {
+              "fieldId": "A5_9",
+              "questionNumber": "A5.9",
+              "questionText": "Which values and principles informed the AI solution's design?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A5_9",
+              "options": [
+                "Australia's AI Ethics Principles",
+                "Human Rights Act",
+                "Data governance policies",
+                "WHS",
+                "Accessibility standards",
+                "Agency ethics statements",
+                "Privacy principles",
+                "Risk management framework"
+              ]
+            },
+            {
+              "fieldId": "A5_10",
+              "questionNumber": "A5.10",
+              "questionText": "Which sector-specific frameworks and obligations apply?",
+              "componentType": "textarea",
+              "responseType": "text",
+              "stateBinding": "form.A5_10",
+              "placeholder": "e.g., health, policing, education frameworks",
+              "rows": 3
+            },
+            {
+              "fieldId": "A5_11",
+              "questionNumber": "A5.11",
+              "questionText": "Where will this AI solution be deployed?",
+              "componentType": "select",
+              "responseType": "string",
+              "stateBinding": "form.A5_11",
+              "options": [
+                "Internal use only",
+                "Internal + selected partners",
+                "Public-facing",
+                "Citizen-facing high-sensitivity",
+                "Embedded in another product",
+                "Multi-channel deployment"
+              ]
+            },
+            {
+              "fieldId": "A5_12",
+              "questionNumber": "A5.12",
+              "questionText": "Which national and international AI frameworks and standards apply?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.A5_12",
+              "options": [
+                "National Framework for the Assurance of AI in Government",
+                "Queensland Government Enterprise Architecture",
+                "ISO/IEC 42001",
+                "ISO 27001",
+                "ISO 31000",
+                "NIST AI RMF",
+                "OECD AI Principles",
+                "EU AI Act",
+                "Singapore MAF",
+                "Other"
+              ],
+              "conditionalFields": [
+                {
+                  "fieldId": "A5_12_other",
+                  "condition": "A5_12 includes 'Other'",
+                  "componentType": "input",
+                  "responseType": "text",
+                  "stateBinding": "form.A5_12_other",
+                  "placeholder": "Please specify other frameworks"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "part_b",
+      "sectionName": "Part B: Values Assessment",
+      "sectionDescription": "Assessment against core values: ethics, fairness, privacy, reliability, transparency, and accountability",
+      "subsections": [
+        {
+          "subsectionId": "B1",
+          "subsectionName": "B1. Human, Societal, and Environmental Wellbeing",
+          "fields": [
+            {
+              "fieldId": "B1_1",
+              "questionNumber": "B1.1",
+              "questionText": "How will the AI solution benefit",
+              "componentType": "radio_scale_group",
+              "responseType": "object",
+              "subfields": [
+                {
+                  "subfieldId": "B1_1_individual",
+                  "label": "Individual wellbeing",
+                  "stateBinding": "form.B1_1_individual",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                },
+                {
+                  "subfieldId": "B1_1_organizational",
+                  "label": "Organizational efficiency",
+                  "stateBinding": "form.B1_1_organizational",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                },
+                {
+                  "subfieldId": "B1_1_social",
+                  "label": "Social outcomes",
+                  "stateBinding": "form.B1_1_social",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                },
+                {
+                  "subfieldId": "B1_1_environmental",
+                  "label": "Environmental outcomes",
+                  "stateBinding": "form.B1_1_environmental",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                }
+              ]
+            },
+            {
+              "fieldId": "B1_2",
+              "questionNumber": "B1.2",
+              "questionText": "What negative impacts might arise from the AI solution?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.B1_2",
+              "options": [
+                "Privacy risks",
+                "Bias/discrimination",
+                "Transparency issues",
+                "Safety risks",
+                "Employment impacts",
+                "Social harm",
+                "Environmental impact",
+                "Accessibility issues",
+                "Legal/regulatory risks",
+                "Loss of trust"
+              ]
+            },
+            {
+              "fieldId": "B1_3",
+              "questionNumber": "B1.3",
+              "questionText": "Will the AI solution affect employee employment?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B1_3",
+              "options": ["Yes", "No", "Unknown"]
+            }
+          ]
+        },
+        {
+          "subsectionId": "B2",
+          "subsectionName": "B2. Human-Centered Values",
+          "fields": [
+            {
+              "fieldId": "B2_1",
+              "questionNumber": "B2.1",
+              "questionText": "Has a Human Rights Impact Assessment been completed?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B2_1",
+              "options": ["Yes", "No"]
+            },
+            {
+              "fieldId": "B2_2",
+              "questionNumber": "B2.2",
+              "questionText": "Rate the potential impact on",
+              "componentType": "radio_group",
+              "responseType": "object",
+              "subfields": [
+                {
+                  "subfieldId": "B2_2_rights",
+                  "label": "Human rights",
+                  "stateBinding": "form.B2_2_rights",
+                  "options": ["Positive", "Neutral", "Negative", "Unknown"]
+                },
+                {
+                  "subfieldId": "B2_2_diversity",
+                  "label": "Diversity",
+                  "stateBinding": "form.B2_2_diversity",
+                  "options": ["Positive", "Neutral", "Negative", "Unknown"]
+                },
+                {
+                  "subfieldId": "B2_2_autonomy",
+                  "label": "Individual autonomy",
+                  "stateBinding": "form.B2_2_autonomy",
+                  "options": ["Positive", "Neutral", "Negative", "Unknown"]
+                }
+              ]
+            },
+            {
+              "fieldId": "B2_3",
+              "questionNumber": "B2.3",
+              "questionText": "Have diverse perspectives been incorporated in the design?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B2_3",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "B2_3_perspectives",
+                  "condition": "B2_3 === 'Yes'",
+                  "questionText": "Which perspectives?",
+                  "componentType": "multiselect",
+                  "responseType": "array",
+                  "stateBinding": "form.B2_3_perspectives",
+                  "options": [
+                    "People with disabilities",
+                    "Cultural diversity",
+                    "Gender diversity",
+                    "Age diversity",
+                    "Indigenous perspectives",
+                    "Socioeconomic diversity",
+                    "Other"
+                  ]
+                },
+                {
+                  "fieldId": "B2_3_perspectives_other",
+                  "condition": "B2_3_perspectives includes 'Other'",
+                  "componentType": "input",
+                  "responseType": "text",
+                  "stateBinding": "form.B2_3_perspectives_other",
+                  "placeholder": "Please specify other perspectives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "subsectionId": "B3",
+          "subsectionName": "B3. Fairness",
+          "fields": [
+            {
+              "fieldId": "B3_1",
+              "questionNumber": "B3.1",
+              "questionText": "Has the AI solution been tested for fairness and bias?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B3_1",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "B3_1_methods",
+                  "condition": "B3_1 === 'Yes'",
+                  "questionText": "Select testing methods",
+                  "componentType": "multiselect",
+                  "responseType": "array",
+                  "stateBinding": "form.B3_1_methods",
+                  "options": [
+                    "Statistical parity analysis",
+                    "Disparate impact analysis",
+                    "Dataset bias review",
+                    "Model interpretability testing",
+                    "Human review panels",
+                    "Synthetic scenario testing",
+                    "Accessibility testing",
+                    "Penetration/security testing",
+                    "Vendor-provided tests",
+                    "Informal or ad-hoc checks only (no formal testing) (flag as risk)"
+                  ]
+                }
+              ]
+            },
+            {
+              "fieldId": "B3_2",
+              "questionNumber": "B3.2",
+              "questionText": "Could the AI solution result in unfair discrimination?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B3_2",
+              "options": ["Yes", "No", "Unknown"],
+              "conditionalFields": [
+                {
+                  "fieldId": "B3_2_groups",
+                  "condition": "B3_2 === 'Yes' OR B3_2 === 'Unknown'",
+                  "questionText": "Against which groups?",
+                  "componentType": "multiselect",
+                  "responseType": "array",
+                  "stateBinding": "form.B3_2_groups",
+                  "options": [
+                    "Age groups",
+                    "People with disabilities",
+                    "Racial or ethnic groups",
+                    "Religious groups",
+                    "Gender",
+                    "Sexual orientation",
+                    "Socioeconomic status"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "subsectionId": "B4",
+          "subsectionName": "B4. Privacy Protection and Security",
+          "fields": [
+            {
+              "fieldId": "B4_1",
+              "questionNumber": "B4.1",
+              "questionText": "Has a Privacy Impact Assessment been completed?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B4_1",
+              "options": ["Yes", "No"]
+            },
+            {
+              "fieldId": "B4_2",
+              "questionNumber": "B4.2",
+              "questionText": "Does the system collect, use, or disclose personal information?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B4_2",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "B4_2_types",
+                  "condition": "B4_2 === 'Yes'",
+                  "questionText": "Is this information",
+                  "componentType": "multiselect",
+                  "responseType": "array",
+                  "stateBinding": "form.B4_2_types",
+                  "options": [
+                    "Identifiable",
+                    "Sensitive",
+                    "Health-related",
+                    "Financial",
+                    "Biometric",
+                    "Other"
+                  ]
+                },
+                {
+                  "fieldId": "B4_2_types_other",
+                  "condition": "B4_2_types includes 'Other'",
+                  "componentType": "input",
+                  "responseType": "text",
+                  "stateBinding": "form.B4_2_types_other",
+                  "placeholder": "Please specify other information types"
+                }
+              ]
+            },
+            {
+              "fieldId": "B4_3",
+              "questionNumber": "B4.3",
+              "questionText": "What security measures are in place?",
+              "componentType": "multiselect",
+              "responseType": "array",
+              "stateBinding": "form.B4_3",
+              "options": [
+                "Access controls",
+                "Encryption",
+                "Security testing",
+                "Data anonymization",
+                "Privacy-enhancing technologies"
+              ]
+            }
+          ]
+        },
+        {
+          "subsectionId": "B5",
+          "subsectionName": "B5. Reliability and Safety",
+          "fields": [
+            {
+              "fieldId": "B5_1",
+              "questionNumber": "B5.1",
+              "questionText": "Has the system been tested for reliability?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B5_1",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "B5_1_rating",
+                  "condition": "B5_1 === 'Yes'",
+                  "questionText": "Rate reliability test results",
+                  "componentType": "radio_scale",
+                  "responseType": "number",
+                  "stateBinding": "form.B5_1_rating",
+                  "scale": "1-5",
+                  "defaultValue": 3
+                }
+              ]
+            },
+            {
+              "fieldId": "B5_2",
+              "questionNumber": "B5.2",
+              "questionText": "Is there a process to disengage the system if issues arise?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B5_2",
+              "options": ["Yes", "No"]
+            },
+            {
+              "fieldId": "B5_3",
+              "questionNumber": "B5.3",
+              "questionText": "Is this AI solution for use in high-risk environments?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B5_3",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "B5_3_environments",
+                  "condition": "B5_3 === 'Yes'",
+                  "questionText": "Which environments?",
+                  "componentType": "multiselect",
+                  "responseType": "array",
+                  "stateBinding": "form.B5_3_environments",
+                  "options": [
+                    "Essential services",
+                    "Critical infrastructure",
+                    "Health services",
+                    "Education",
+                    "Law enforcement",
+                    "Administration of justice",
+                    "Democratic processes"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "subsectionId": "B6",
+          "subsectionName": "B6. Transparency and Explainability",
+          "fields": [
+            {
+              "fieldId": "B6_1",
+              "questionNumber": "B6.1",
+              "questionText": "How transparent is the AI solution's operation?",
+              "componentType": "radio_scale",
+              "responseType": "number",
+              "stateBinding": "form.B6_1",
+              "scale": "1-5",
+              "defaultValue": 3,
+              "labels": {
+                "1": "Very Low",
+                "5": "Very High"
+              }
+            },
+            {
+              "fieldId": "B6_2",
+              "questionNumber": "B6.2",
+              "questionText": "Can the system explain its outputs or decisions?",
+              "componentType": "radio_scale",
+              "responseType": "number",
+              "stateBinding": "form.B6_2",
+              "scale": "1-5",
+              "defaultValue": 3,
+              "labels": {
+                "1": "Very Low",
+                "5": "Very High"
+              }
+            },
+            {
+              "fieldId": "B6_3",
+              "questionNumber": "B6.3",
+              "questionText": "How will people be informed they are interacting with AI?",
+              "componentType": "textarea",
+              "responseType": "text",
+              "stateBinding": "form.B6_3",
+              "placeholder": "Describe how AI interaction is communicated",
+              "rows": 3
+            },
+            {
+              "fieldId": "B6_4",
+              "questionNumber": "B6.4",
+              "questionText": "Are there limitations to explaining how the system works?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B6_4",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "B6_4_describe",
+                  "condition": "B6_4 === 'Yes'",
+                  "questionText": "Describe limitations",
+                  "componentType": "textarea",
+                  "responseType": "text",
+                  "stateBinding": "form.B6_4_describe",
+                  "placeholder": "Describe the limitations",
+                  "rows": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "subsectionId": "B7",
+          "subsectionName": "B7. Contestability",
+          "fields": [
+            {
+              "fieldId": "B7_1",
+              "questionNumber": "B7.1",
+              "questionText": "Is there a process for people to challenge AI outcomes?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B7_1",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "B7_1_describe",
+                  "condition": "B7_1 === 'Yes'",
+                  "questionText": "Describe the process",
+                  "componentType": "textarea",
+                  "responseType": "text",
+                  "stateBinding": "form.B7_1_describe",
+                  "placeholder": "Describe the challenge process",
+                  "rows": 3
+                }
+              ]
+            },
+            {
+              "fieldId": "B7_2",
+              "questionNumber": "B7.2",
+              "questionText": "How quickly can challenges be addressed?",
+              "componentType": "select",
+              "responseType": "string",
+              "stateBinding": "form.B7_2",
+              "options": [
+                "Immediately",
+                "Within hours",
+                "Within days",
+                "Within weeks",
+                "Longer than weeks",
+                "Unknown"
+              ]
+            }
+          ]
+        },
+        {
+          "subsectionId": "B8",
+          "subsectionName": "B8. Accountability",
+          "fields": [
+            {
+              "fieldId": "B8_1",
+              "questionNumber": "B8.1",
+              "questionText": "Who has oversight of the AI system?",
+              "componentType": "input",
+              "responseType": "text",
+              "stateBinding": "form.B8_1",
+              "placeholder": "Name role or position"
+            },
+            {
+              "fieldId": "B8_2",
+              "questionNumber": "B8.2",
+              "questionText": "Are clear roles and responsibilities established?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B8_2",
+              "options": ["Yes", "No"]
+            },
+            {
+              "fieldId": "B8_3",
+              "questionNumber": "B8.3",
+              "questionText": "Have staff been trained on AI risk management?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B8_3",
+              "options": ["Yes", "No"]
+            },
+            {
+              "fieldId": "B8_4",
+              "questionNumber": "B8.4",
+              "questionText": "Are there safeguards against overreliance on AI outputs?",
+              "componentType": "radio",
+              "responseType": "string",
+              "stateBinding": "form.B8_4",
+              "options": ["Yes", "No"],
+              "conditionalFields": [
+                {
+                  "fieldId": "B8_4_safeguards",
+                  "condition": "B8_4 === 'Yes'",
+                  "questionText": "Select safeguards",
+                  "componentType": "multiselect",
+                  "responseType": "array",
+                  "stateBinding": "form.B8_4_safeguards",
+                  "options": [
+                    "Mandatory human review",
+                    "Confidence thresholds",
+                    "Explainability requirements",
+                    "Training for staff",
+                    "Decision override controls",
+                    "System warnings",
+                    "Monitoring of decision quality"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "declaration",
+      "sectionName": "Declaration",
+      "sectionDescription": "Confirmation and attestation",
+      "fields": [
+        {
+          "fieldId": "declaration_confirmed",
+          "questionText": "I confirm that the information provided in this FAIRA assessment is accurate to the best of my knowledge",
+          "componentType": "checkbox",
+          "responseType": "boolean",
+          "stateBinding": "form.declaration_confirmed",
+          "required": true
+        },
+        {
+          "fieldId": "declaration_assessor",
+          "questionText": "Name of assessor",
+          "componentType": "input",
+          "responseType": "text",
+          "stateBinding": "form.declaration_assessor",
+          "required": true,
+          "placeholder": "Enter your name"
+        },
+        {
+          "fieldId": "declaration_date",
+          "questionText": "Date",
+          "componentType": "input",
+          "inputType": "date",
+          "responseType": "date",
+          "stateBinding": "form.declaration_date",
+          "required": true,
+          "defaultValue": "Current date (ISO format)"
+        }
+      ]
+    }
+  ],
+  "stateStructure": {
+    "description": "Flat state structure with all fields at root level",
+    "example": {
+      "assessor_name": "",
+      "A1_1": [],
+      "A1_2": "",
+      "A2_5_accuracy": 3,
+      "B1_1_individual": 3,
+      "declaration_confirmed": false
+    }
+  },
+  "componentTypes": {
+    "input": "Single-line text input",
+    "textarea": "Multi-line text input",
+    "multiselect": "Checkbox group allowing multiple selections",
+    "radio": "Radio button group for single selection",
+    "radio_scale": "Radio buttons arranged as numerical scale (1-5 or 1-3)",
+    "radio_scale_group": "Multiple radio scales grouped together",
+    "radio_group": "Multiple radio selections grouped (e.g., Positive/Neutral/Negative)",
+    "select": "Dropdown selection",
+    "checkbox": "Single checkbox for boolean values"
+  },
+  "conditionalLogic": {
+    "description": "Fields that appear/hide based on parent field values",
+    "examples": [
+      {
+        "parent": "A1_6",
+        "condition": "A1_6 === 'Yes'",
+        "children": ["A1_6_actions", "A1_6_actions_other"]
+      },
+      {
+        "parent": "A2_7",
+        "condition": "A2_7 === 'Yes'",
+        "children": ["A2_7_regulation"]
+      },
+      {
+        "parent": "B3_2",
+        "condition": "B3_2 === 'Yes' OR B3_2 === 'Unknown'",
+        "children": ["B3_2_groups"]
+      }
+    ]
+  },
+  "features": {
+    "autoSave": "Form auto-saves every 3 seconds after user stops typing/selecting",
+    "manualSave": "User can manually save draft via 'Save Draft' button",
+    "progressTracking": "Real-time progress percentage displayed in header",
+    "progressBar": "Visual progress bar at top of page",
+    "validation": "Required fields validated on submit",
+    "responsiveLayout": "2-column grid for options on medium+ screens"
+  }
+}
