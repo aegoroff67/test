@@ -417,14 +417,19 @@ function Dashboard() {
                         <div className="flex justify-between text-sm mb-2">
                           <span className="text-gray-600">Progress</span>
                           <span className="font-medium">
-                            {assessment.progress}/{assessment.total_questions}
+                            {assessment.assessment_type === 'FAIRA' 
+                              ? `${assessment.faira_form ? 'Form saved' : 'Not started'}`
+                              : `${assessment.progress}/${assessment.total_questions}`
+                            }
                           </span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
                             className="bg-teal-600 h-2 rounded-full progress-bar"
                             style={{
-                              width: `${(assessment.progress / assessment.total_questions) * 100}%`
+                              width: assessment.assessment_type === 'FAIRA'
+                                ? (assessment.faira_form ? '50%' : '0%')
+                                : `${(assessment.progress / assessment.total_questions) * 100}%`
                             }}
                           ></div>
                         </div>
