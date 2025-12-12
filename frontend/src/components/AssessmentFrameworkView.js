@@ -355,7 +355,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <Circle className="h-4 w-4 text-green-600 fill-green-600" />
+                              <span className="text-lg text-green-600 leading-none flex items-center">●</span>
                               <span className="text-sm font-medium text-gray-700">Fully Aligns</span>
                             </div>
                             <span className="text-lg font-bold text-green-600">{stats.fullyAligned}%</span>
@@ -363,7 +363,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                           
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <CircleDot className="h-4 w-4 text-yellow-600" />
+                              <span className="text-lg text-yellow-600 leading-none flex items-center">◐</span>
                               <span className="text-sm font-medium text-gray-700">Partially Aligns</span>
                             </div>
                             <span className="text-lg font-bold text-yellow-600">{stats.partiallyAligned}%</span>
@@ -371,7 +371,7 @@ function AssessmentFrameworkView({ assessmentId, assessmentType, onClose, onQues
                           
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <Circle className="h-4 w-4 text-gray-400" />
+                              <span className="text-lg text-gray-400 leading-none flex items-center">○</span>
                               <span className="text-sm font-medium text-gray-700">No Alignment</span>
                             </div>
                             <span className="text-lg font-bold text-gray-500">{stats.noAlignment}%</span>
