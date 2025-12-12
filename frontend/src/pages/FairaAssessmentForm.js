@@ -1847,7 +1847,7 @@ export default function FairaAssessmentForm() {
           <CardContent className="p-6 space-y-8">
             
             {/* B1: Human, Societal, and Environmental Wellbeing */}
-            <div className="space-y-6">
+            <div className="space-y-6" id="B1_1_individual">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">B1. Human, Societal, and Environmental Wellbeing</h3>
               </div>
