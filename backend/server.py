@@ -1668,7 +1668,8 @@ async def update_faira_form(
     status = faira_form.pop("status", None)
     
     # Calculate progress based on filled fields (exclude auto-filled or optional fields)
-    excluded_fields = ['declaration_date', 'assessor_email', 'declaration_role', 'A2_7_regulation']
+    # Also exclude deprecated/renamed fields that may still exist in saved data
+    excluded_fields = ['declaration_date', 'assessor_email', 'declaration_role', 'A2_7_regulation', 'declaration_assessor']
     
     # Conditional fields that only count if their parent condition is met
     conditional_fields = {
