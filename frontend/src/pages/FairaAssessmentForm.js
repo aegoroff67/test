@@ -2019,15 +2019,171 @@ export default function FairaAssessmentForm() {
               </div>
 
               {/* A5.10 */}
-              <div className="space-y-2">
-                <Label htmlFor="A5_10">A5.10 Which sector-specific frameworks and obligations apply?</Label>
-                <Textarea
-                  id="A5_10"
-                  value={form.A5_10}
-                  onChange={(e) => update("A5_10", e.target.value)}
-                  placeholder="e.g., health, policing, education frameworks"
-                  rows={3}
-                />
+              <div className="space-y-3" id="A5_10">
+                <Label>A5.10 Are there sector-specific frameworks, laws, or regulatory obligations that apply to this AI solution?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A5_10 === "Yes"}
+                      onChange={() => update("A5_10", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A5_10 === "No"}
+                      onChange={() => update("A5_10", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
+                
+                {form.A5_10 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-4">
+                    {/* Commonwealth Legislation */}
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-sm text-gray-900">Commonwealth (Federal) Legislation</h4>
+                      <div className="grid gap-2 md:grid-cols-2">
+                        {[
+                          "Privacy Act 1988",
+                          "Australian Privacy Principles (APPs)",
+                          "Notifiable Data Breaches (NDB) Scheme",
+                          "Archives Act 1983",
+                          "Freedom of Information Act 1982",
+                          "Security of Critical Infrastructure Act (SOCI)",
+                          "Criminal Code Act (cybercrime, identity, child exploitation provisions)"
+                        ].map((option) => (
+                          <label key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              checked={form.A5_10_commonwealth.includes(option)}
+                              onCheckedChange={() => toggleInArray("A5_10_commonwealth", option)}
+                            />
+                            <span className="text-sm">{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Queensland State Legislation */}
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-sm text-gray-900">Queensland State Legislation</h4>
+                      <div className="grid gap-2 md:grid-cols-2">
+                        {[
+                          "Information Privacy Act 2009 (Qld)",
+                          "Right to Information Act 2009",
+                          "Public Records Act 2002",
+                          "Child Protection Act",
+                          "Domestic and Family Violence Protection Act",
+                          "Youth Justice Act",
+                          "Mental Health Act",
+                          "Hospital and Health Boards Act (confidentiality obligations)",
+                          "Police Powers and Responsibilities Act"
+                        ].map((option) => (
+                          <label key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              checked={form.A5_10_qld.includes(option)}
+                              onCheckedChange={() => toggleInArray("A5_10_qld", option)}
+                            />
+                            <span className="text-sm">{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Sector-Specific Regulatory Obligations */}
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-sm text-gray-900">Sector-Specific Regulatory Obligations</h4>
+                      <p className="text-xs text-gray-600">(Select any that apply to the domain of the AI solution)</p>
+                      <div className="grid gap-2 md:grid-cols-2">
+                        {[
+                          "Health information / clinical safety requirements",
+                          "Law enforcement / justice sector requirements",
+                          "Education sector obligations",
+                          "Transport or safety-critical operational standards",
+                          "Financial or taxation regulatory requirements",
+                          "Indigenous cultural data governance / data sovereignty",
+                          "Workplace surveillance obligations",
+                          "Safety-of-life or emergency services obligations",
+                          "Critical infrastructure operational safety requirements"
+                        ].map((option) => (
+                          <label key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              checked={form.A5_10_sector.includes(option)}
+                              onCheckedChange={() => toggleInArray("A5_10_sector", option)}
+                            />
+                            <span className="text-sm">{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Applicable Frameworks, Standards, and Policies */}
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-sm text-gray-900">Applicable Frameworks, Standards, and Policies</h4>
+                      <div className="grid gap-2 md:grid-cols-2">
+                        {[
+                          "QGEA / IS18:2018 Information Security Policy",
+                          "QLD Government AI Ethical Principles",
+                          "QLD FAIRA Framework (this assessment)",
+                          "Australian Government AI Ethics Principles",
+                          "ISO/IEC 42001 (AI Management System)",
+                          "ISO/IEC 27001 / 27002 (Information Security Management)",
+                          "ISO/IEC 27701 (Privacy Information Management)",
+                          "ISO 31000 (Risk Management)",
+                          "NIST AI Risk Management Framework",
+                          "Other standards or frameworks (specify below)"
+                        ].map((option) => (
+                          <label key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              checked={form.A5_10_frameworks.includes(option)}
+                              onCheckedChange={() => toggleInArray("A5_10_frameworks", option)}
+                            />
+                            <span className="text-sm">{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                      
+                      {form.A5_10_frameworks.includes("Other standards or frameworks (specify below)") && (
+                        <div className="mt-2">
+                          <Input
+                            id="A5_10_frameworks_other"
+                            value={form.A5_10_frameworks_other}
+                            onChange={(e) => update("A5_10_frameworks_other", e.target.value)}
+                            placeholder="Specify other standards or frameworks"
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Other regulations text field */}
+                    <div className="space-y-2">
+                      <Label htmlFor="A5_10_other">Other regulations, obligations, or frameworks (optional):</Label>
+                      <Textarea
+                        id="A5_10_other"
+                        value={form.A5_10_other}
+                        onChange={(e) => update("A5_10_other", e.target.value)}
+                        placeholder="Specify any other regulations, obligations, or frameworks"
+                        rows={2}
+                      />
+                    </div>
+
+                    {/* Impact description */}
+                    <div className="space-y-2">
+                      <Label htmlFor="A5_10_impact">If Yes, briefly describe how these obligations impact the AI system (optional):</Label>
+                      <Textarea
+                        id="A5_10_impact"
+                        value={form.A5_10_impact}
+                        onChange={(e) => update("A5_10_impact", e.target.value)}
+                        placeholder="Describe the impact of these regulatory obligations"
+                        rows={3}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* A5.11 */}
