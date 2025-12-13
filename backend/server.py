@@ -1724,7 +1724,6 @@ async def update_faira_form(
     
     total_fields = 0
     filled_fields = 0
-    filled_list = []  # Track which fields are counted as filled
     
     for key, value in faira_form.items():
         # Skip excluded fields
@@ -1788,10 +1787,6 @@ async def update_faira_form(
                 
                 if has_filled:
                     filled_fields += 1
-                    filled_list.append(f"{key}=Yes(with conditionals)")
-                else:
-                    # Debug: Yes without filled conditionals
-                    print(f"  [REJECTED] {key}=Yes but conditionals not filled")
             else:
                 # Regular field check
                 if value is not None and value != "" and value != []:
