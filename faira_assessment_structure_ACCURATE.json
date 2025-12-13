@@ -1,0 +1,529 @@
+{
+  "assessment_metadata": {
+    "name": "FAIRA Risk Assessment",
+    "version": "1.0",
+    "description": "Queensland Government Fair and Innovative Reforms for AI Risk Assessment",
+    "total_questions": 69,
+    "extracted_from": "FairaAssessmentForm.js",
+    "extraction_date": "2025-01-20"
+  },
+  "questions_by_section": {
+    "A1": {
+      "title": "A1. AI Solution Fundamentals",
+      "description": "Maps to FAIRA Table 1: AI solution (Questions 1.1-1.10)",
+      "questions": [
+        {
+          "id": "A1_1",
+          "question": "What is the primary function of the AI solution?",
+          "type": "multiselect",
+          "options": [
+            "Information retrieval",
+            "Natural language understanding",
+            "Prediction / forecasting",
+            "Classification",
+            "Recommendation",
+            "Summarisation",
+            "Decision support",
+            "Process automation",
+            "Compliance monitoring",
+            "Content generation"
+          ]
+        },
+        {
+          "id": "A1_2",
+          "question": "What version of the AI solution does this FAIRA assessment apply to?",
+          "type": "text"
+        },
+        {
+          "id": "A1_3",
+          "question": "Select all AI features that apply",
+          "type": "multiselect",
+          "has_other": true,
+          "options": [
+            "Natural language processing",
+            "Data analysis and visualization",
+            "Automated content generation",
+            "Integration with existing systems",
+            "Personalized recommendations",
+            "Collaboration enhancement",
+            "Task automation",
+            "Security and compliance",
+            "Voice recognition",
+            "Other"
+          ]
+        },
+        {
+          "id": "A1_4",
+          "question": "What decisions will be addressed by the AI functionality?",
+          "type": "multiselect",
+          "options": [
+            "Content development and approval",
+            "Data interpretation and business strategy",
+            "Prioritization of communications",
+            "Workflow optimization",
+            "Security and compliance oversight",
+            "Resource allocation",
+            "Crisis management",
+            "Employee training",
+            "Customer relationship management",
+            "Administrative decision-making (regulated by law)"
+          ]
+        },
+        {
+          "id": "A1_5",
+          "question": "What tangible benefits does this AI solution provide?",
+          "type": "multiselect",
+          "options": [
+            "Increased efficiency",
+            "Reduced manual effort",
+            "Improved decision-making",
+            "Faster processing time",
+            "Improved accuracy or consistency",
+            "Enhanced user experience",
+            "Cost reduction",
+            "Improved accessibility",
+            "Reduced risk or error",
+            "Better service delivery",
+            "Improved communication",
+            "Increased transparency"
+          ]
+        },
+        {
+          "id": "A1_6",
+          "question": "Can the AI solution convert decisions into actions without human intervention?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "A1_6_actions",
+              "question": "Describe these actions",
+              "type": "multiselect",
+              "has_other": true,
+              "options": [
+                "Sends notifications",
+                "Updates internal records",
+                "Applies rules/decisions automatically",
+                "Initiates workflows",
+                "Generates external communications",
+                "Allocates resources",
+                "Approves/declines items",
+                "Triggers system events",
+                "Other"
+              ]
+            }
+          }
+        },
+        {
+          "id": "A1_7",
+          "question": "What type of AI model or technique is used?",
+          "type": "multiselect",
+          "has_other": true,
+          "options": [
+            "Large Language Model",
+            "Computer Vision",
+            "Supervised learning",
+            "Unsupervised learning",
+            "Reinforcement learning",
+            "Rule-based system",
+            "Neural network",
+            "Other"
+          ]
+        },
+        {
+          "id": "A1_8",
+          "question": "What is the source of the AI solution?",
+          "type": "multiselect",
+          "options": [
+            "Commercial off-the-shelf",
+            "Bespoke development",
+            "Open-source",
+            "Hybrid approach"
+          ]
+        },
+        {
+          "id": "A1_9",
+          "question": "How does the AI solution integrate with other systems?",
+          "type": "multiselect",
+          "options": [
+            "REST API",
+            "Webhooks",
+            "Batch data transfer",
+            "Real-time data stream",
+            "File-based integration",
+            "Embedded widget/iframe",
+            "Database connection",
+            "Message queue (e.g., Kafka)"
+          ]
+        }
+      ]
+    },
+    "A2": {
+      "title": "A2. Data and Inputs",
+      "description": "Maps to FAIRA 1.8-1.9 (data used and data quality) and AI use inputs (Table 3)",
+      "questions": [
+        {
+          "id": "A2_1",
+          "question": "How are AI use inputs tracked and recorded?",
+          "type": "multiselect",
+          "options": [
+            "Audit logs",
+            "Access logs",
+            "CRM/Case management logging",
+            "System-level logging",
+            "Manual records",
+            "No inputs tracked or recorded (flag as risk)"
+          ]
+        },
+        {
+          "id": "A2_2",
+          "question": "Does the AI require data from the digital or physical environment? If yes, what data and can users limit or trace it?",
+          "type": "textarea"
+        },
+        {
+          "id": "A2_3",
+          "question": "What safeguards exist to detect and handle corrupted, missing, or out-of-range data inputs?",
+          "type": "multiselect",
+          "options": [
+            "Input validation",
+            "Range checking",
+            "Schema enforcement",
+            "Fallback defaults",
+            "Human review",
+            "Data quality monitoring",
+            "Error alerts",
+            "No safeguards identified (flag as risk)"
+          ]
+        },
+        {
+          "id": "A2_4",
+          "question": "What data does the AI solution use?",
+          "type": "multiselect",
+          "has_other": true,
+          "options": [
+            "Government data",
+            "Open data",
+            "Synthetic data",
+            "Personal information",
+            "Sensitive information",
+            "Internet data",
+            "Other"
+          ]
+        },
+        {
+          "id": "A2_5",
+          "question": "Rate the quality of the input data (1 = Very Low, 5 = Very High)",
+          "type": "rating_group",
+          "sub_ratings": [
+            {
+              "id": "A2_5_accuracy",
+              "label": "Accuracy",
+              "scale": "1-5"
+            },
+            {
+              "id": "A2_5_completeness",
+              "label": "Completeness",
+              "scale": "1-5"
+            },
+            {
+              "id": "A2_5_reliability",
+              "label": "Reliability",
+              "scale": "1-5"
+            },
+            {
+              "id": "A2_5_relevance",
+              "label": "Relevance",
+              "scale": "1-5"
+            },
+            {
+              "id": "A2_5_timeliness",
+              "label": "Timeliness",
+              "scale": "1-5"
+            }
+          ]
+        },
+        {
+          "id": "A2_6",
+          "question": "What is the Business Impact Level (BIL) of the input data?",
+          "type": "select",
+          "options": [
+            "Official",
+            "Official: Sensitive",
+            "Protected",
+            "Highly Protected",
+            "Secret",
+            "Top Secret"
+          ]
+        },
+        {
+          "id": "A2_7",
+          "question": "Does the solution use regulated or sensitive data?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "A2_7_data_types",
+              "question": "Select the types of regulated/sensitive data used",
+              "type": "multiselect",
+              "options": [
+                "Health information",
+                "Mental health information",
+                "Child protection information",
+                "Criminal justice / law enforcement data",
+                "Biometric data (faces, fingerprints, gait, voice, etc.)",
+                "Genetic information",
+                "Financial information",
+                "Taxation information",
+                "Indigenous cultural or sacred data",
+                "Location tracking data",
+                "Safety-critical operational data",
+                "Vulnerable persons data",
+                "Other regulated/sensitive data (specify)"
+              ]
+            }
+          }
+        },
+        {
+          "id": "A2_8",
+          "question": "Does the solution require user inputs to operate?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "A2_8_types",
+              "question": "Select the types of inputs",
+              "type": "multiselect",
+              "options": [
+                "Free-text prompts",
+                "Uploaded files",
+                "Form fields",
+                "API request data",
+                "Structured records",
+                "Voice input",
+                "Sensor data",
+                "User selection/choices"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "A3": {
+      "title": "A3. Human Interface and Impact",
+      "description": "Maps to FAIRA Table 2 (HMI) and Table 5 (Object of AI action)",
+      "questions": [
+        {
+          "id": "A3_1",
+          "question": "How does the system interface with humans?",
+          "type": "multiselect",
+          "options": [
+            "Chat interface",
+            "Web application",
+            "Mobile application",
+            "API integration",
+            "Voice interface",
+            "Dashboard"
+          ]
+        },
+        {
+          "id": "A3_2",
+          "question": "What expertise is required to use the AI solution? (1 = Very Low, 5 = Very High)",
+          "type": "rating_group",
+          "sub_ratings": [
+            {
+              "id": "A3_2_technical",
+              "label": "Technical expertise",
+              "scale": "1-5"
+            },
+            {
+              "id": "A3_2_domain",
+              "label": "Domain expertise",
+              "scale": "1-5"
+            },
+            {
+              "id": "A3_2_ai_literacy",
+              "label": "AI literacy",
+              "scale": "1-5"
+            }
+          ]
+        },
+        {
+          "id": "A3_3",
+          "question": "Who will be impacted by the AI system?",
+          "type": "multiselect",
+          "has_other": true,
+          "options": [
+            "Queensland Government employees",
+            "General public",
+            "Vulnerable communities",
+            "Children",
+            "Elderly",
+            "People with disabilities",
+            "Indigenous peoples",
+            "Small businesses",
+            "Other"
+          ]
+        },
+        {
+          "id": "A3_4",
+          "question": "How will impacted parties be informed of AI use?",
+          "type": "multiselect",
+          "options": [
+            "Website notice",
+            "In-app notice",
+            "Email communication",
+            "Terms & conditions",
+            "Public-facing AI statement",
+            "Staff training",
+            "Consent/acknowledgement",
+            "No planned notifications (flag as risk)"
+          ]
+        },
+        {
+          "id": "A3_5a",
+          "question": "What are the expected impacts of this AI solution on staff?",
+          "type": "multiselect",
+          "options": [
+            "Increased workload",
+            "Reduced workload",
+            "Reduced autonomy",
+            "Improved autonomy",
+            "De-skilling risk",
+            "Skill enhancement",
+            "Accountability ambiguity",
+            "Increased accountability clarity",
+            "Stress or psychological impact",
+            "Job redesign required",
+            "No significant impact"
+          ]
+        },
+        {
+          "id": "A3_5b",
+          "question": "Rate the overall severity of these impacts (1 = Very Low, 5 = Very High)",
+          "type": "rating",
+          "scale": "1-5"
+        },
+        {
+          "id": "A3_6a",
+          "question": "How will each impacted group be affected?",
+          "type": "multiselect",
+          "options": [
+            "Service quality changes",
+            "Accessibility changes",
+            "Decision-making impacts",
+            "Delay reduction",
+            "Bias or fairness concerns",
+            "Data/privacy concerns",
+            "Security concerns",
+            "Communication changes",
+            "Risk of exclusion",
+            "Increased assistance/support",
+            "None/minimal impact"
+          ]
+        },
+        {
+          "id": "A3_6b",
+          "question": "Rate the overall severity of these impacts (1 = Minor, 2 = Moderate, 3 = Major)",
+          "type": "rating",
+          "scale": "1-3"
+        }
+      ]
+    },
+    "A4": {
+      "title": "A4. Outputs and Actions",
+      "description": "Maps to FAIRA Table 4 (AI outputs) and related questions",
+      "questions": [
+        {
+          "id": "A4_1",
+          "question": "What are the primary outputs of the AI system?",
+          "type": "multiselect",
+          "options": [
+            "Text responses",
+            "Visual outputs",
+            "Recommendations",
+            "Decisions",
+            "Data analysis",
+            "Predictions",
+            "Actions in systems"
+          ]
+        },
+        {
+          "id": "A4_2",
+          "question": "Are outputs sent to external systems without human review?",
+          "type": "yesno"
+        },
+        {
+          "id": "A4_3",
+          "question": "What is the Business Impact Level (BIL) of the outputs?",
+          "type": "select",
+          "options": [
+            "Official",
+            "Official: Sensitive",
+            "Protected",
+            "Highly Protected",
+            "Secret",
+            "Top Secret"
+          ]
+        },
+        {
+          "id": "A4_4",
+          "question": "How are AI outputs tracked and recorded?",
+          "type": "multiselect",
+          "options": [
+            "Stored in database",
+            "Logged in audit system",
+            "Logged in CRM/case system",
+            "Logged in activity logs",
+            "Not currently tracked (flag as risk)",
+            "Retention based on policy"
+          ]
+        },
+        {
+          "id": "A4_5",
+          "question": "Could any AI outputs allow unauthorised access to information?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "A4_5_scenarios",
+              "question": "Describe potential scenarios",
+              "type": "multiselect",
+              "options": [
+                "Misrouted outputs",
+                "Excessive data exposure",
+                "Output reveals sensitive attributes",
+                "Outputs sent to incorrect system",
+                "Injection or poisoning risk"
+              ]
+            }
+          }
+        },
+        {
+          "id": "A4_6",
+          "question": "Do outputs involve data regulated by law?",
+          "type": "multiselect",
+          "options": [
+            "Personal",
+            "Sensitive",
+            "Financial",
+            "Health",
+            "Child-related",
+            "Law enforcement",
+            "Indigenous data",
+            "Confidential government data",
+            "Operationally sensitive data"
+          ]
+        },
+        {
+          "id": "A4_7",
+          "question": "Do outputs contain personally identifiable information? If yes, who can access it?",
+          "type": "textarea"
+        },
+        {
+          "id": "A4_8",
+          "question": "Are any AI outputs directly used to trigger actions with legal or regulatory effect?",
+          "type": "textarea"
+        }
+      ]
+    }
+  },
+  "scoring": {
+    "status": "AWAITING_USER_INPUT",
+    "instructions": "Please provide scoring weights and methodology for risk calculation"
+  }
+}
