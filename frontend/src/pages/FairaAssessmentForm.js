@@ -1284,8 +1284,8 @@ export default function FairaAssessmentForm() {
               </div>
 
               {/* A2.7 */}
-              <div className="space-y-3">
-                <Label>A2.7 Does the solution use regulated data?</Label>
+              <div className="space-y-3" id="A2_7">
+                <Label>A2.7 Does the solution use regulated or sensitive data?</Label>
                 <div className="flex space-x-4">
                   <label className="flex items-center space-x-2">
                     <input
@@ -1308,15 +1308,45 @@ export default function FairaAssessmentForm() {
                 </div>
                 
                 {form.A2_7 === "Yes" && (
-                  <div className="ml-4 p-4 bg-gray-50 rounded-lg">
-                    <Label htmlFor="A2_7_regulation">Specify the regulation(s):</Label>
-                    <Input
-                      id="A2_7_regulation"
-                      value={form.A2_7_regulation}
-                      onChange={(e) => update("A2_7_regulation", e.target.value)}
-                      placeholder="e.g., GDPR, Privacy Act 1988"
-                      className="mt-2"
-                    />
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Select the types of regulated/sensitive data used (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Health information",
+                        "Mental health information",
+                        "Child protection information",
+                        "Criminal justice / law enforcement data",
+                        "Biometric data (faces, fingerprints, gait, voice, etc.)",
+                        "Genetic information",
+                        "Financial information",
+                        "Taxation information",
+                        "Indigenous cultural or sacred data",
+                        "Location tracking data",
+                        "Safety-critical operational data",
+                        "Vulnerable persons data",
+                        "Other regulated/sensitive data (specify)"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A2_7_data_types.includes(option)}
+                            onCheckedChange={() => toggleInArray("A2_7_data_types", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                    
+                    {form.A2_7_data_types.includes("Other regulated/sensitive data (specify)") && (
+                      <div className="mt-3">
+                        <Input
+                          id="A2_7_data_types_other"
+                          value={form.A2_7_data_types_other}
+                          onChange={(e) => update("A2_7_data_types_other", e.target.value)}
+                          placeholder="Specify other regulated/sensitive data type"
+                          className="mt-2"
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
