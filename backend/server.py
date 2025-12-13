@@ -1743,14 +1743,19 @@ async def update_faira_form(
                             other_key = f"{key}_other"
                             if other_key in faira_form and faira_form[other_key] and str(faira_form[other_key]).strip():
                                 filled_fields += 1
+                                filled_list.append(f"{key}(conditional,with_other)")
                         else:
                             filled_fields += 1
+                            filled_list.append(f"{key}(conditional)")
                     elif isinstance(value, (int, float)):
                         filled_fields += 1
+                        filled_list.append(f"{key}(conditional,number)")
                     elif isinstance(value, bool) and value:
                         filled_fields += 1
+                        filled_list.append(f"{key}(conditional,bool)")
                     elif isinstance(value, str) and value.strip():
                         filled_fields += 1
+                        filled_list.append(f"{key}(conditional,text)")
         else:
             # Always count non-conditional fields
             total_fields += 1
@@ -1784,12 +1789,16 @@ async def update_faira_form(
                 if value is not None and value != "" and value != []:
                     if isinstance(value, list) and len(value) > 0:
                         filled_fields += 1
+                        filled_list.append(f"{key}(regular,list)")
                     elif isinstance(value, (int, float)):
                         filled_fields += 1
+                        filled_list.append(f"{key}(regular,number)")
                     elif isinstance(value, bool) and value:
                         filled_fields += 1
+                        filled_list.append(f"{key}(regular,bool)")
                     elif isinstance(value, str) and value.strip():
                         filled_fields += 1
+                        filled_list.append(f"{key}(regular,text)")
     
     # Calculate progress percentage
     progress = round((filled_fields / total_fields * 100)) if total_fields > 0 else 0
