@@ -528,7 +528,11 @@ function Dashboard() {
                       
                       <div className="flex gap-2">
                         <Button 
-                          onClick={() => navigate(`/results/${assessment.id}`)}
+                          onClick={() => navigate(
+                            assessment.assessment_type === 'FAIRA' 
+                              ? `/faira-results/${assessment.id}` 
+                              : `/results/${assessment.id}`
+                          )}
                           className="flex-1 bg-blue-600 hover:bg-blue-700"
                           data-testid={`view-results-${assessment.id}`}
                         >
