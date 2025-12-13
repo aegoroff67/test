@@ -219,6 +219,48 @@ export default function FairaAssessmentForm() {
   const isFieldProperlyFilled = (key, value) => {
     if (value === null || value === undefined) return false;
     
+    // Special handling for Yes/No questions with conditional selections
+    const conditionalYesNoQuestions = {
+      'A1_6': 'A1_6_actions',
+      'A2_7': 'A2_7_data_types',
+      'A2_8': 'A2_8_types',
+      'A4_5': 'A4_5_scenarios',
+      'A5_10': ['A5_10_commonwealth', 'A5_10_qld', 'A5_10_sector', 'A5_10_frameworks'],
+      'B2_3': 'B2_3_perspectives',
+      'B3_1': 'B3_1_methods',
+      'B3_2': 'B3_2_groups',
+      'B4_2': 'B4_2_types',
+      'B5_1': 'B5_1_rating',
+      'B5_3': 'B5_3_environments',
+      'B6_4': 'B6_4_describe',
+      'B7_1': 'B7_1_describe',
+      'B8_4': 'B8_4_safeguards'
+    };
+    
+    // If this is a Yes/No question with conditionals, check the conditional fields
+    if (conditionalYesNoQuestions[key] && value === 'Yes') {
+      const conditionalFields = Array.isArray(conditionalYesNoQuestions[key]) 
+        ? conditionalYesNoQuestions[key] 
+        : [conditionalYesNoQuestions[key]];
+      
+      // At least one conditional field must be filled
+      const hasFilledConditional = conditionalFields.some(condKey => {
+        const condValue = form[condKey];
+        if (Array.isArray(condValue) && condValue.length > 0) {
+          // Check if "Other" is selected and requires text
+          if (condValue.some(v => v && (v.includes('Other') || v.includes('specify')))) {
+            const otherFieldKey = `${condKey}_other`;
+            const otherValue = form[otherFieldKey];
+            return otherValue && otherValue.toString().trim() !== '';
+          }
+          return true;
+        }
+        return condValue && condValue.toString().trim() !== '';
+      });
+      
+      if (!hasFilledConditional) return false;
+    }
+    
     if (Array.isArray(value)) {
       if (value.length === 0) return false;
       // Special check: if array contains "Other", verify the _other field is filled
