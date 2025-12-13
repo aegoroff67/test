@@ -14,6 +14,7 @@ import OrgPreAssessmentForm from './pages/OrgPreAssessmentForm';
 import ReadinessPreAssessmentForm from './pages/ReadinessPreAssessmentForm';
 import AwarenessPreAssessmentForm from './pages/AwarenessPreAssessmentForm';
 import FairaAssessmentForm from './pages/FairaAssessmentForm';
+import FairaResultsPage from './pages/FairaResultsPage';
 import SettingsPage from './pages/SettingsPage';
 import ReviewAssessmentPage from './pages/ReviewAssessmentPage';
 import AssessmentPage from './pages/AssessmentPage';
