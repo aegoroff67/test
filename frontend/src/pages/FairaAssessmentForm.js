@@ -59,7 +59,8 @@ const defaultState = {
   A2_5_timeliness: null,
   A2_6: "", // BIL (single select)
   A2_7: "", // regulated data (Yes/No)
-  A2_7_regulation: "",
+  A2_7_data_types: [], // types of regulated/sensitive data
+  A2_7_data_types_other: "", // other regulated/sensitive data
   A2_8: "", // user inputs required (Yes/No)
   A2_8_types: [], // if yes - input types (multiselect)
   
