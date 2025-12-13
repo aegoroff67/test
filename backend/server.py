@@ -1710,7 +1710,7 @@ async def update_faira_form(
     
     # If status is completed, update assessment status
     if status == "completed":
-        update_data["status"] = "completed"
+        update_data["status"] = "COMPLETED"
         update_data["completed_at"] = datetime.now(timezone.utc)
     
     # Update assessment with faira_form data
