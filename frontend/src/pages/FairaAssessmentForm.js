@@ -207,6 +207,29 @@ export default function FairaAssessmentForm() {
     fetchFormData();
   }, [id]);
 
+  // Helper function to check if a field is properly filled (including "Other" validation)
+  const isFieldProperlyFilled = (key, value) => {
+    if (value === null || value === undefined) return false;
+    
+    if (Array.isArray(value)) {
+      if (value.length === 0) return false;
+      // Special check: if array contains "Other", verify the _other field is filled
+      if (value.some(v => v && (v.includes('Other') || v === 'Other (specify)'))) {
+        const otherFieldKey = `${key}_other`;
+        const otherValue = form[otherFieldKey];
+        // The _other field must be filled
+        if (!otherValue || otherValue.toString().trim() === '') {
+          return false;
+        }
+      }
+      return true;
+    }
+    
+    if (typeof value === 'number') return true;
+    if (typeof value === 'boolean') return value;
+    return value && value.toString().trim() !== '';
+  };
+
   // Calculate progress percentage - only count applicable fields
   const calculateProgress = () => {
     // Fields to exclude from progress calculation (auto-filled or optional fields)
@@ -254,53 +277,23 @@ export default function FairaAssessmentForm() {
         if (conditionalFields[key]()) {
           totalFields++;
           const value = form[key];
-          let isFilled = false;
-          if (value !== null && value !== undefined) {
-            if (Array.isArray(value)) {
-              if (value.length > 0) {
-                filledFields++;
-                isFilled = true;
-              }
-            } else if (typeof value === 'number') {
-              filledFields++;
-              isFilled = true;
-            } else if (typeof value === 'boolean') {
-              if (value) {
-                filledFields++;
-                isFilled = true;
-              }
-            } else if (value && value.toString().trim() !== '') {
-              filledFields++;
-              isFilled = true;
-            }
+          const isFilled = isFieldProperlyFilled(key, value);
+          if (isFilled) {
+            filledFields++;
+          } else {
+            unfilledFields.push(key);
           }
-          if (!isFilled) unfilledFields.push(key);
         }
       } else {
         // Always count non-conditional fields
         totalFields++;
         const value = form[key];
-        let isFilled = false;
-        if (value !== null && value !== undefined) {
-          if (Array.isArray(value)) {
-            if (value.length > 0) {
-              filledFields++;
-              isFilled = true;
-            }
-          } else if (typeof value === 'number') {
-            filledFields++;
-            isFilled = true;
-          } else if (typeof value === 'boolean') {
-            if (value) {
-              filledFields++;
-              isFilled = true;
-            }
-          } else if (value && value.toString().trim() !== '') {
-            filledFields++;
-            isFilled = true;
-          }
+        const isFilled = isFieldProperlyFilled(key, value);
+        if (isFilled) {
+          filledFields++;
+        } else {
+          unfilledFields.push(key);
         }
-        if (!isFilled) unfilledFields.push(key);
       }
     });
 
