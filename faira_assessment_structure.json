@@ -3,1470 +3,1197 @@
     "name": "FAIRA Risk Assessment",
     "version": "1.0",
     "description": "Queensland Government Fair and Innovative Reforms for AI Risk Assessment",
-    "total_sections": 13,
-    "scoring_ready": false
+    "total_questions": 69,
+    "sections": 13
   },
   "sections": [
     {
       "id": "assessment_overview",
       "title": "Assessment Overview",
-      "subsections": [
+      "fields": [
         {
-          "id": "part_a",
-          "title": "A. Assessment Information",
-          "questions": [
-            {
-              "id": "ai_system_name",
-              "question_text": "What is the name of the AI system being assessed?",
-              "field_type": "text",
-              "required": true,
-              "scoring_weight": null
-            },
-            {
-              "id": "ai_system_version",
-              "question_text": "Version or iteration of the AI system",
-              "field_type": "text",
-              "required": true,
-              "scoring_weight": null
-            },
-            {
-              "id": "business_unit",
-              "question_text": "Business unit or department",
-              "field_type": "text",
-              "required": true,
-              "scoring_weight": null
-            },
-            {
-              "id": "system_owner_name",
-              "question_text": "System owner name",
-              "field_type": "text",
-              "required": true,
-              "scoring_weight": null
-            },
-            {
-              "id": "system_owner_role",
-              "question_text": "System owner role/position",
-              "field_type": "text",
-              "required": true,
-              "scoring_weight": null
-            }
-          ]
+          "id": "ai_system_name",
+          "label": "AI System Name",
+          "type": "text",
+          "required": true
         },
         {
-          "id": "part_b",
-          "title": "B. Assessor Information",
-          "questions": [
-            {
-              "id": "assessor_name",
-              "question_text": "Assessor name",
-              "field_type": "text",
-              "required": true,
-              "scoring_weight": null
-            },
-            {
-              "id": "assessor_role",
-              "question_text": "Assessor role/position",
-              "field_type": "text",
-              "required": true,
-              "scoring_weight": null
-            },
-            {
-              "id": "assessor_branch",
-              "question_text": "Assessor branch/team",
-              "field_type": "text",
-              "required": true,
-              "scoring_weight": null
-            },
-            {
-              "id": "assessor_email",
-              "question_text": "Assessor email",
-              "field_type": "email",
-              "required": false,
-              "scoring_weight": null
-            }
-          ]
+          "id": "ai_system_version",
+          "label": "AI System Version",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "business_unit",
+          "label": "Business Unit / Branch",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "system_owner_name",
+          "label": "System Owner Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "system_owner_role",
+          "label": "System Owner Role/Title",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "assessor_name",
+          "label": "Assessor Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "assessor_role",
+          "label": "Assessor Role/Title",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "assessor_branch",
+          "label": "Assessor Branch / Division",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "assessor_email",
+          "label": "Assessor Email",
+          "type": "email",
+          "required": false
         }
       ]
     },
     {
       "id": "A1",
-      "title": "Part A1: AI Solution Fundamentals",
-      "description": "Understanding the core functionality and technical characteristics of the AI system",
+      "title": "A1. AI Solution Fundamentals",
+      "description": "Maps to FAIRA Table 1: AI solution (Questions 1.1-1.10)",
       "questions": [
         {
           "id": "A1_1",
-          "question_text": "What is the primary function of this AI system?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What is the primary function of the AI solution?",
+          "type": "multiselect",
           "options": [
-            "Prediction (forecasting future events or behaviors)",
-            "Classification (categorizing data into predefined groups)",
-            "Recommendation (suggesting actions or content)",
-            "Generation (creating new content, data, or outputs)",
-            "Optimization (improving processes or resource allocation)",
-            "Detection (identifying patterns, anomalies, or specific features)",
-            "Automation (performing tasks without human intervention)",
-            "Decision support (assisting humans in making decisions)"
-          ],
-          "scoring_weight": null,
-          "scoring_notes": "Different functions may have different risk profiles"
+            "Information retrieval",
+            "Natural language understanding",
+            "Prediction / forecasting",
+            "Classification",
+            "Recommendation",
+            "Summarisation",
+            "Decision support",
+            "Process automation",
+            "Compliance monitoring",
+            "Content generation"
+          ]
         },
         {
           "id": "A1_2",
-          "question_text": "What version or iteration of the AI system is being assessed?",
-          "field_type": "text",
-          "required": true,
-          "scoring_weight": null
+          "question": "What version of the AI solution does this FAIRA assessment apply to?",
+          "type": "text"
         },
         {
           "id": "A1_3",
-          "question_text": "What AI features or capabilities does the system include?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "Select all AI features that apply:",
+          "type": "multiselect",
+          "has_other": true,
           "options": [
             "Natural language processing",
-            "Computer vision",
-            "Speech recognition or synthesis",
-            "Predictive analytics",
-            "Anomaly detection",
-            "Pattern recognition",
-            "Autonomous decision-making",
-            "Adaptive learning",
+            "Data analysis and visualization",
+            "Automated content generation",
+            "Integration with existing systems",
+            "Personalized recommendations",
+            "Collaboration enhancement",
+            "Task automation",
+            "Security and compliance",
+            "Voice recognition",
             "Other"
-          ],
-          "has_other_specify": true,
-          "other_field_id": "A1_3_other",
-          "scoring_weight": null
+          ]
         },
         {
           "id": "A1_4",
-          "question_text": "What types of decisions or tasks does the AI system address?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What decisions will be addressed by the AI functionality?",
+          "type": "multiselect",
           "options": [
-            "Administrative processes",
-            "Service delivery",
+            "Content development and approval",
+            "Data interpretation and business strategy",
+            "Prioritization of communications",
+            "Workflow optimization",
+            "Security and compliance oversight",
             "Resource allocation",
-            "Risk assessment",
-            "Compliance monitoring",
-            "Customer/citizen interactions",
-            "Internal operations",
-            "Policy implementation",
-            "Emergency response",
-            "Investigation or enforcement"
-          ],
-          "scoring_weight": null
+            "Crisis management",
+            "Employee training",
+            "Customer relationship management",
+            "Administrative decision-making (regulated by law)"
+          ]
         },
         {
           "id": "A1_5",
-          "question_text": "What are the expected tangible benefits of the AI system?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What tangible benefits does this AI solution provide?",
+          "type": "multiselect",
           "options": [
-            "Improved efficiency",
+            "Increased efficiency",
+            "Reduced manual effort",
+            "Improved decision-making",
+            "Faster processing time",
+            "Improved accuracy or consistency",
+            "Enhanced user experience",
             "Cost reduction",
-            "Enhanced accuracy",
-            "Faster processing",
+            "Improved accessibility",
+            "Reduced risk or error",
             "Better service delivery",
-            "Increased consistency",
-            "Reduced human error",
-            "Scalability",
-            "Data-driven insights"
-          ],
-          "scoring_weight": null
+            "Improved communication",
+            "Increased transparency"
+          ]
         },
         {
           "id": "A1_6",
-          "question_text": "Does the AI system convert analysis into recommended or automated actions?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "A1_6_actions",
-              "field_type": "multiselect",
-              "question_text": "What types of actions?",
+          "question": "Can the AI solution convert decisions into actions without human intervention?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "A1_6_actions",
+              "question": "Describe these actions",
+              "type": "multiselect",
+              "has_other": true,
               "options": [
-                "Recommendations to staff",
-                "Automated notifications",
-                "Workflow triggers",
-                "Resource allocation",
-                "Service delivery modifications",
-                "Policy adjustments",
-                "Enforcement actions",
+                "Sends notifications",
+                "Updates internal records",
+                "Applies rules/decisions automatically",
+                "Initiates workflows",
+                "Generates external communications",
+                "Allocates resources",
+                "Approves/declines items",
+                "Triggers system events",
                 "Other"
-              ],
-              "has_other_specify": true,
-              "other_field_id": "A1_6_actions_other"
+              ]
             }
-          ],
-          "scoring_weight": null
+          }
         },
         {
           "id": "A1_7",
-          "question_text": "What type of AI model or approach does the system use?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What type of AI model or technique is used?",
+          "type": "multiselect",
+          "has_other": true,
           "options": [
-            "Machine learning (supervised)",
-            "Machine learning (unsupervised)",
-            "Deep learning/neural networks",
-            "Rule-based/expert system",
-            "Generative AI",
+            "Large Language Model",
+            "Computer Vision",
+            "Supervised learning",
+            "Unsupervised learning",
             "Reinforcement learning",
-            "Ensemble methods",
-            "Hybrid approach",
+            "Rule-based system",
+            "Neural network",
             "Other"
-          ],
-          "has_other_specify": true,
-          "other_field_id": "A1_7_other",
-          "scoring_weight": null
+          ]
         },
         {
           "id": "A1_8",
-          "question_text": "What is the source of the AI system?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What is the source of the AI solution?",
+          "type": "multiselect",
           "options": [
-            "Developed in-house",
-            "Commercial off-the-shelf (COTS)",
-            "Open source",
-            "Third-party vendor",
-            "Co-developed with external partner",
-            "Cloud-based service (SaaS/PaaS)",
-            "Government-shared solution"
-          ],
-          "scoring_weight": null,
-          "scoring_notes": "Different sources may have different governance implications"
+            "Commercial off-the-shelf",
+            "Bespoke development",
+            "Open-source",
+            "Hybrid approach"
+          ]
         },
         {
           "id": "A1_9",
-          "question_text": "How is the AI system integrated into existing workflows?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "How does the AI solution integrate with other systems?",
+          "type": "multiselect",
           "options": [
-            "Standalone system",
-            "Integrated into existing enterprise systems",
-            "API-based integration",
-            "Manual data transfer",
-            "Automated data pipeline",
-            "Cloud-to-cloud integration",
-            "Hybrid integration"
-          ],
-          "scoring_weight": null
+            "REST API",
+            "Webhooks",
+            "Batch data transfer",
+            "Real-time data stream",
+            "File-based integration",
+            "Embedded widget/iframe",
+            "Database connection",
+            "Message queue (e.g., Kafka)"
+          ]
         }
       ]
     },
     {
       "id": "A2",
-      "title": "Part A2: Data and Inputs",
-      "description": "Understanding data sources, quality, and sensitivity",
+      "title": "A2. Data and Inputs",
+      "description": "Maps to FAIRA 1.8-1.9 (data used and data quality) and AI use inputs (Table 3)",
       "questions": [
         {
           "id": "A2_1",
-          "question_text": "How does the system track data lineage and provenance?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "How are AI use inputs tracked and recorded?",
+          "type": "multiselect",
           "options": [
-            "Automated data lineage tracking",
-            "Manual documentation",
-            "Metadata tagging",
-            "Version control systems",
             "Audit logs",
-            "Data catalogs",
-            "No formal tracking mechanism"
-          ],
-          "scoring_weight": null
+            "Access logs",
+            "CRM/Case management logging",
+            "System-level logging",
+            "Manual records",
+            "No inputs tracked or recorded (flag as risk)"
+          ]
         },
         {
           "id": "A2_2",
-          "question_text": "Does the system use environmental or contextual data? If yes, describe.",
-          "field_type": "textarea",
-          "required": true,
-          "scoring_weight": null
+          "question": "Does the AI require data from the digital or physical environment? If yes, what data and can users limit or trace it?",
+          "type": "textarea"
         },
         {
           "id": "A2_3",
-          "question_text": "What safeguards are in place to ensure data quality and integrity?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What safeguards exist to detect and handle corrupted, missing, or out-of-range data inputs?",
+          "type": "multiselect",
           "options": [
-            "Data validation rules",
-            "Quality assurance processes",
-            "Regular data audits",
-            "Error detection and correction",
-            "Data cleansing procedures",
-            "Source verification",
-            "Automated data quality monitoring",
-            "Human review processes"
-          ],
-          "scoring_weight": null
+            "Input validation",
+            "Range checking",
+            "Schema enforcement",
+            "Fallback defaults",
+            "Human review",
+            "Data quality monitoring",
+            "Error alerts",
+            "No safeguards identified (flag as risk)"
+          ]
         },
         {
           "id": "A2_4",
-          "question_text": "What types of data does the AI system process?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What data does the AI solution use?",
+          "type": "multiselect",
+          "has_other": true,
           "options": [
+            "Government data",
+            "Open data",
+            "Synthetic data",
             "Personal information",
-            "Demographic data",
-            "Behavioral data",
-            "Transaction records",
-            "Health information",
-            "Financial data",
-            "Geospatial data",
-            "Biometric data",
-            "Text/documents",
-            "Images/video",
-            "Audio",
-            "Sensor data",
+            "Sensitive information",
+            "Internet data",
             "Other"
-          ],
-          "has_other_specify": true,
-          "other_field_id": "A2_4_other",
-          "scoring_weight": null
+          ]
         },
         {
           "id": "A2_5",
-          "question_text": "Rate the quality of input data across these dimensions (1=Poor, 5=Excellent)",
-          "field_type": "rating_group",
-          "required": true,
-          "sub_questions": [
+          "question": "Rate the quality of the input data (1 = Very Low, 5 = Very High)",
+          "type": "rating_group",
+          "sub_ratings": [
             {
               "id": "A2_5_accuracy",
-              "question_text": "Accuracy",
+              "label": "Accuracy",
               "scale": "1-5"
             },
             {
               "id": "A2_5_completeness",
-              "question_text": "Completeness",
+              "label": "Completeness",
               "scale": "1-5"
             },
             {
               "id": "A2_5_reliability",
-              "question_text": "Reliability",
+              "label": "Reliability",
               "scale": "1-5"
             },
             {
               "id": "A2_5_relevance",
-              "question_text": "Relevance",
+              "label": "Relevance",
               "scale": "1-5"
             },
             {
               "id": "A2_5_timeliness",
-              "question_text": "Timeliness",
+              "label": "Timeliness",
               "scale": "1-5"
             }
-          ],
-          "scoring_weight": null,
-          "scoring_notes": "Higher data quality may reduce certain risks"
+          ]
         },
         {
           "id": "A2_6",
-          "question_text": "What is the Business Impact Level (BIL) of the data inputs?",
-          "field_type": "select",
-          "required": true,
+          "question": "What is the Business Impact Level (BIL) of the input data?",
+          "type": "select",
           "options": [
-            "BIL 0 - Public information",
-            "BIL 1 - For internal use only",
-            "BIL 2 - Sensitive information",
-            "BIL 3 - Highly sensitive information",
-            "BIL 4 - Nationally significant information"
-          ],
-          "scoring_weight": null,
-          "scoring_notes": "Higher BIL indicates higher sensitivity and risk"
+            "Official",
+            "Official: Sensitive",
+            "Protected",
+            "Highly Protected",
+            "Secret",
+            "Top Secret"
+          ]
         },
         {
           "id": "A2_7",
-          "question_text": "Does the system process regulated or particularly sensitive data?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "A2_7_data_types",
-              "field_type": "multiselect",
-              "question_text": "Select all that apply:",
+          "question": "Does the solution use regulated or sensitive data?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "A2_7_data_types",
+              "question": "Select the types of regulated/sensitive data used",
+              "type": "multiselect",
+              "has_other": true,
               "options": [
-                "Personal information under Information Privacy Act 2009",
-                "Health information under Hospital and Health Boards Act 2011",
-                "Children's information requiring special protection",
-                "Information about vulnerable populations",
-                "Criminal justice or law enforcement data",
-                "National security information",
-                "Commercial-in-confidence information",
+                "Health information",
+                "Mental health information",
+                "Child protection information",
+                "Criminal justice / law enforcement data",
+                "Biometric data (faces, fingerprints, gait, voice, etc.)",
+                "Genetic information",
+                "Financial information",
+                "Taxation information",
+                "Indigenous cultural or sacred data",
+                "Location tracking data",
+                "Safety-critical operational data",
+                "Vulnerable persons data",
                 "Other regulated/sensitive data (specify)"
-              ],
-              "has_other_specify": true,
-              "other_field_id": "A2_7_data_types_other"
+              ]
             }
-          ],
-          "scoring_weight": null,
-          "scoring_notes": "Processing regulated data increases compliance requirements and risk"
+          }
         },
         {
           "id": "A2_8",
-          "question_text": "Does the AI system require user inputs during operation?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "A2_8_types",
-              "field_type": "multiselect",
-              "question_text": "What types of user inputs?",
+          "question": "Does the solution require user inputs to operate?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "A2_8_types",
+              "question": "Select the types of inputs",
+              "type": "multiselect",
               "options": [
-                "Free text entry",
-                "Structured form data",
-                "File uploads",
-                "Voice/audio input",
-                "Image/video upload",
-                "Selection from options",
-                "Biometric input"
+                "Free-text prompts",
+                "Uploaded files",
+                "Form fields",
+                "API request data",
+                "Structured records",
+                "Voice input",
+                "Sensor data",
+                "User selection/choices"
               ]
             }
-          ],
-          "scoring_weight": null
+          }
         }
       ]
     },
     {
       "id": "A3",
-      "title": "Part A3: Human Interface and Impact",
-      "description": "Understanding how humans interact with and are affected by the AI system",
+      "title": "A3. Human Interface and Impact",
+      "description": "Maps to FAIRA Table 2 (HMI) and Table 5 (Object of AI action)",
       "questions": [
         {
           "id": "A3_1",
-          "question_text": "What types of human-AI interaction does the system involve?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "How does the system interface with humans?",
+          "type": "multiselect",
           "options": [
-            "Direct user interface (GUI/web portal)",
-            "Chatbot or conversational interface",
-            "API integration (system-to-system)",
+            "Chat interface",
+            "Web application",
             "Mobile application",
+            "API integration",
             "Voice interface",
-            "Automated email/notifications",
-            "Dashboard or reporting interface",
-            "Physical/robotic interface",
-            "No direct interaction (fully automated)"
-          ],
-          "scoring_weight": null
+            "Dashboard"
+          ]
         },
         {
           "id": "A3_2",
-          "question_text": "Rate the expected technical literacy of primary users (1=Low, 5=High)",
-          "field_type": "rating_group",
-          "required": true,
-          "sub_questions": [
+          "question": "What expertise is required to use the AI solution? (1 = Very Low, 5 = Very High)",
+          "type": "rating_group",
+          "sub_ratings": [
             {
               "id": "A3_2_technical",
-              "question_text": "Technical/IT literacy",
+              "label": "Technical expertise",
               "scale": "1-5"
             },
             {
               "id": "A3_2_domain",
-              "question_text": "Domain expertise",
+              "label": "Domain expertise",
               "scale": "1-5"
             },
             {
               "id": "A3_2_ai_literacy",
-              "question_text": "AI/ML understanding",
+              "label": "AI literacy",
               "scale": "1-5"
             }
-          ],
-          "scoring_weight": null
+          ]
         },
         {
           "id": "A3_3",
-          "question_text": "Which groups are directly impacted by the AI system?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "Who will be impacted by the AI system?",
+          "type": "multiselect",
+          "has_other": true,
           "options": [
-            "General public/citizens",
-            "Government staff/employees",
+            "General public / customers",
+            "Government staff",
             "Service recipients",
-            "Business/industry",
+            "Business partners",
             "Vulnerable populations",
-            "Children and young people",
+            "Children / young people",
             "Aboriginal and Torres Strait Islander peoples",
             "Culturally and linguistically diverse communities",
             "People with disabilities",
-            "Rural/regional communities",
             "Other"
-          ],
-          "has_other_specify": true,
-          "other_field_id": "A3_3_other",
-          "scoring_weight": null
+          ]
         },
         {
           "id": "A3_4",
-          "question_text": "How are users notified that they are interacting with an AI system?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "How will impacted parties be informed of AI use?",
+          "type": "multiselect",
           "options": [
-            "Explicit notification at point of interaction",
-            "Information in terms of service/privacy policy",
-            "Training/orientation materials",
-            "Visual indicators (e.g., AI badge)",
-            "Documentation/user guides",
-            "No explicit notification",
-            "Not applicable (no direct user interaction)"
-          ],
-          "scoring_weight": null
+            "Explicit notification",
+            "Privacy policy / terms of service",
+            "User training",
+            "Visual indicator",
+            "Website / app disclosure",
+            "No disclosure planned"
+          ]
         },
         {
           "id": "A3_5a",
-          "question_text": "What potential impacts on staff/operators have been identified?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What are the expected impacts of this AI solution on staff?",
+          "type": "multiselect",
           "options": [
-            "Changed work processes",
+            "Changed workflows",
             "New skill requirements",
-            "Reduced decision-making autonomy",
-            "Job displacement concerns",
-            "Increased monitoring/surveillance",
-            "Workload changes",
-            "Stress or job satisfaction impacts",
-            "Positive empowerment/efficiency gains",
-            "No significant staff impacts identified"
-          ],
-          "scoring_weight": null
+            "Reduced manual tasks",
+            "Job transformation",
+            "Increased monitoring",
+            "Enhanced decision support",
+            "No significant impact"
+          ]
         },
         {
           "id": "A3_5b",
-          "question_text": "Rate the overall severity of staff impacts (1=Minimal, 5=Severe)",
-          "field_type": "rating",
-          "required": true,
-          "scale": "1-5",
-          "scoring_weight": null
+          "question": "Rate the overall severity of these impacts (1 = Very Low, 5 = Very High)",
+          "type": "rating",
+          "scale": "1-5"
         },
         {
           "id": "A3_6a",
-          "question_text": "What potential impacts on service recipients/affected groups have been identified?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "How will each impacted group be affected?",
+          "type": "multiselect",
           "options": [
-            "Changes to service access or delivery",
-            "Privacy implications",
-            "Fairness or discrimination concerns",
-            "Safety or wellbeing risks",
-            "Loss of human interaction",
-            "Autonomy or agency impacts",
-            "Financial impacts",
-            "Improved service quality or efficiency",
-            "Better outcomes or experiences",
-            "No significant impacts identified"
-          ],
-          "scoring_weight": null
+            "Service improvement",
+            "Faster response",
+            "Reduced access barriers",
+            "Privacy concerns",
+            "Fairness / bias risks",
+            "Safety risks",
+            "Autonomy / control reduced",
+            "No significant impact"
+          ]
         },
         {
           "id": "A3_6b",
-          "question_text": "Rate the overall severity of impacts on service recipients (1=Low, 3=High)",
-          "field_type": "rating",
-          "required": true,
-          "scale": "1-3",
-          "scoring_weight": null,
-          "scoring_notes": "Higher impact severity increases risk level"
+          "question": "Rate the overall severity of these impacts (1 = Minor, 2 = Moderate, 3 = Major)",
+          "type": "rating",
+          "scale": "1-3"
         }
       ]
     },
     {
       "id": "A4",
-      "title": "Part A4: Outputs and Actions",
-      "description": "Understanding what the AI system produces and how outputs are used",
+      "title": "A4. Outputs and Actions",
+      "description": "Maps to FAIRA Table 4 (AI outputs) and related questions",
       "questions": [
         {
           "id": "A4_1",
-          "question_text": "What are the primary outputs of the AI system?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What are the primary outputs of the AI system?",
+          "type": "multiselect",
           "options": [
-            "Predictions or forecasts",
-            "Classifications or categories",
-            "Risk scores or ratings",
+            "Predictions",
+            "Classifications",
             "Recommendations",
-            "Automated decisions",
             "Generated content",
-            "Alerts or notifications",
-            "Reports or analytics",
-            "Workflow triggers"
-          ],
-          "scoring_weight": null
+            "Risk scores",
+            "Automated decisions",
+            "Alerts / notifications",
+            "Reports / summaries"
+          ]
         },
         {
           "id": "A4_2",
-          "question_text": "Are outputs shared externally without human review?",
-          "field_type": "yesno",
-          "required": true,
-          "scoring_weight": null,
-          "scoring_notes": "Automated external outputs without review pose higher risk"
+          "question": "Are outputs sent to external systems without human review?",
+          "type": "yesno"
         },
         {
           "id": "A4_3",
-          "question_text": "What is the Business Impact Level (BIL) of the outputs?",
-          "field_type": "select",
-          "required": true,
+          "question": "What is the Business Impact Level (BIL) of the outputs?",
+          "type": "select",
           "options": [
-            "BIL 0 - Public information",
-            "BIL 1 - For internal use only",
-            "BIL 2 - Sensitive information",
-            "BIL 3 - Highly sensitive information",
-            "BIL 4 - Nationally significant information"
-          ],
-          "scoring_weight": null
+            "Official",
+            "Official: Sensitive",
+            "Protected",
+            "Highly Protected",
+            "Secret",
+            "Top Secret"
+          ]
         },
         {
           "id": "A4_4",
-          "question_text": "How are outputs tracked and monitored?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "How are AI outputs tracked and recorded?",
+          "type": "multiselect",
           "options": [
             "Automated logging",
+            "Audit trail",
             "Version control",
-            "Audit trails",
-            "Performance metrics",
-            "User feedback mechanisms",
-            "Manual documentation",
-            "No formal tracking"
-          ],
-          "scoring_weight": null
+            "User feedback",
+            "Manual records",
+            "Not tracked"
+          ]
         },
         {
           "id": "A4_5",
-          "question_text": "Could unauthorized access to outputs cause harm?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "A4_5_scenarios",
-              "field_type": "multiselect",
-              "question_text": "What types of harm could result?",
+          "question": "Could any AI outputs allow unauthorised access to information?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "A4_5_scenarios",
+              "question": "Describe potential scenarios",
+              "type": "multiselect",
               "options": [
                 "Privacy breach",
-                "Identity theft or fraud",
-                "Discrimination or unfair treatment",
-                "Safety or security risks",
-                "Reputational damage",
-                "Financial loss",
-                "Legal or regulatory consequences",
-                "Manipulation or misuse of information"
+                "Data leak",
+                "Access control bypass",
+                "Inference attack",
+                "Prompt injection",
+                "Model extraction"
               ]
             }
-          ],
-          "scoring_weight": null
+          }
         },
         {
           "id": "A4_6",
-          "question_text": "What types of regulated or sensitive data are included in outputs?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "Do outputs involve data regulated by law?",
+          "type": "multiselect",
           "options": [
-            "Personal identifiers",
-            "Health information",
-            "Financial information",
-            "Criminal justice data",
-            "Children's information",
-            "Information about vulnerable groups",
-            "Commercial-in-confidence",
-            "No sensitive data in outputs"
-          ],
-          "scoring_weight": null
+            "Personal information",
+            "Health records",
+            "Financial data",
+            "Law enforcement data",
+            "Children's data",
+            "Indigenous data",
+            "No regulated data"
+          ]
         },
         {
           "id": "A4_7",
-          "question_text": "Describe who has access to outputs containing personal information.",
-          "field_type": "textarea",
-          "required": true,
-          "scoring_weight": null
+          "question": "Do outputs contain personally identifiable information? If yes, who can access it?",
+          "type": "textarea"
         },
         {
           "id": "A4_8",
-          "question_text": "Describe any potential legal or regulatory actions that could result from AI outputs.",
-          "field_type": "textarea",
-          "required": true,
-          "scoring_weight": null
+          "question": "Are any AI outputs directly used to trigger actions with legal or regulatory effect?",
+          "type": "textarea"
         }
       ]
     },
     {
       "id": "A5",
-      "title": "Part A5: Governance and Oversight",
-      "description": "Understanding governance structures and oversight mechanisms",
+      "title": "A5. Governance and Oversight",
+      "description": "Maps to FAIRA governance questions",
       "questions": [
         {
           "id": "A5_1",
-          "question_text": "Where does accountability for the AI system ultimately reside?",
-          "field_type": "select",
-          "required": true,
+          "question": "Who is accountable for decisions made using this system?",
+          "type": "select",
           "options": [
             "Executive leadership",
-            "Program/service manager",
-            "Technology/IT leadership",
-            "Governance board or committee",
-            "External vendor/provider",
-            "Shared accountability model",
-            "Not clearly established"
-          ],
-          "scoring_weight": null
+            "Program manager",
+            "System owner",
+            "Technical team lead",
+            "Not defined"
+          ]
         },
         {
           "id": "A5_2",
-          "question_text": "How are decisions, recommendations, or actions tracked back to the AI system?",
-          "field_type": "textarea",
-          "required": true,
-          "scoring_weight": null
+          "question": "How are AI use inputs and outputs tracked and recorded?",
+          "type": "textarea"
         },
         {
           "id": "A5_3",
-          "question_text": "What monitoring and review processes are in place?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What monitoring and evaluation processes are in place?",
+          "type": "multiselect",
           "options": [
-            "Continuous automated monitoring",
-            "Periodic performance reviews",
-            "User feedback collection",
-            "Incident reporting mechanisms",
-            "Regular audits",
-            "Human oversight of outputs",
-            "Stakeholder consultations",
-            "No formal monitoring"
-          ],
-          "scoring_weight": null
+            "Performance monitoring",
+            "Human review",
+            "Audit process",
+            "Stakeholder feedback",
+            "Incident reporting",
+            "Regular reviews",
+            "No formal process"
+          ]
         },
         {
           "id": "A5_4",
-          "question_text": "How frequently is the AI system reviewed for accuracy and fairness?",
-          "field_type": "select",
-          "required": true,
+          "question": "How frequently will monitoring and evaluation occur?",
+          "type": "select",
           "options": [
-            "Continuously/real-time",
-            "Daily",
+            "Continuous",
             "Weekly",
             "Monthly",
             "Quarterly",
             "Annually",
-            "Ad hoc/as needed",
-            "Never formally reviewed"
-          ],
-          "scoring_weight": null
+            "Ad hoc"
+          ]
         },
         {
           "id": "A5_5",
-          "question_text": "Has the AI system undergone independent review or audit?",
-          "field_type": "yesno",
-          "required": true,
-          "scoring_weight": null
+          "question": "Has the AI solution been subject to independent review?",
+          "type": "yesno"
         },
         {
           "id": "A5_6",
-          "question_text": "Who is responsible for maintaining and updating the AI system?",
-          "field_type": "select",
-          "required": true,
+          "question": "Who is responsible for monitoring and evaluation?",
+          "type": "select",
           "options": [
-            "In-house technical team",
-            "External vendor",
-            "Shared responsibility (internal + vendor)",
-            "Third-party managed service",
-            "Not clearly assigned"
-          ],
-          "scoring_weight": null
+            "Internal team",
+            "External auditor",
+            "Governance committee",
+            "Not assigned"
+          ]
         },
         {
           "id": "A5_7",
-          "question_text": "What stakeholder engagement has occurred?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "How are stakeholders engaged in monitoring and evaluation?",
+          "type": "multiselect",
           "options": [
-            "Internal staff consultation",
-            "Service user feedback",
-            "Community engagement",
-            "Subject matter expert input",
-            "Legal/compliance review",
-            "Privacy office consultation",
-            "Ethics committee review",
-            "Union or staff representative input",
-            "Advocacy group consultation",
-            "No formal stakeholder engagement"
-          ],
-          "scoring_weight": null
+            "Regular consultations",
+            "Feedback channels",
+            "Co-design sessions",
+            "Advisory groups",
+            "Public reporting",
+            "No engagement"
+          ]
         },
         {
           "id": "A5_8",
-          "question_text": "What mechanisms exist for detecting potential harm?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "How are undesirable or harmful results detected?",
+          "type": "multiselect",
           "options": [
-            "Automated anomaly detection",
-            "User complaint systems",
-            "Regular performance metrics review",
-            "Bias and fairness testing",
-            "Safety monitoring protocols",
-            "Incident investigation processes",
-            "Whistleblower protections",
-            "No formal harm detection mechanisms"
-          ],
-          "scoring_weight": null
+            "Automated alerts",
+            "User complaints",
+            "Performance metrics",
+            "Regular audits",
+            "Incident investigations",
+            "No detection mechanism"
+          ]
         },
         {
           "id": "A5_9",
-          "question_text": "Which organizational values or AI principles guide this system?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "Which values and principles informed the AI solution's design?",
+          "type": "multiselect",
           "options": [
             "Transparency",
-            "Fairness and non-discrimination",
-            "Privacy and security",
+            "Fairness",
+            "Privacy",
             "Accountability",
+            "Safety",
             "Human oversight",
-            "Safety and reliability",
             "Inclusiveness",
-            "Sustainability",
-            "Public benefit",
-            "Not explicitly aligned to principles"
-          ],
-          "scoring_weight": null
+            "Sustainability"
+          ]
         },
         {
           "id": "A5_10",
-          "question_text": "Does the AI system operate in a sector with specific legal or regulatory obligations?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_fields": [
+          "question": "Are there sector-specific frameworks, laws, or regulatory obligations that apply?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "fields": [
                 {
                   "id": "A5_10_commonwealth",
-                  "field_type": "multiselect",
-                  "question_text": "Commonwealth legislation (select all that apply):",
-                  "options": [
-                    "Privacy Act 1988 (Cth)",
-                    "Australian Consumer Law",
-                    "Racial Discrimination Act 1975",
-                    "Sex Discrimination Act 1984",
-                    "Disability Discrimination Act 1992",
-                    "Age Discrimination Act 2004",
-                    "Work Health and Safety Act 2011",
-                    "Criminal Code Act 1995 (cybersecurity)",
-                    "Other Commonwealth legislation"
-                  ]
+                  "label": "Commonwealth legislation",
+                  "type": "multiselect"
                 },
                 {
                   "id": "A5_10_qld",
-                  "field_type": "multiselect",
-                  "question_text": "Queensland legislation (select all that apply):",
-                  "options": [
-                    "Information Privacy Act 2009",
-                    "Right to Information Act 2009",
-                    "Public Records Act 2002",
-                    "Hospital and Health Boards Act 2011",
-                    "Child Protection Act 1999",
-                    "Anti-Discrimination Act 1991",
-                    "Public Sector Ethics Act 1994",
-                    "Other Queensland legislation"
-                  ]
+                  "label": "Queensland legislation",
+                  "type": "multiselect"
                 },
                 {
                   "id": "A5_10_sector",
-                  "field_type": "multiselect",
-                  "question_text": "Sector-specific obligations (select all that apply):",
-                  "options": [
-                    "Health sector (e.g., health records, clinical decision support)",
-                    "Education sector (e.g., student data, assessment)",
-                    "Justice sector (e.g., criminal justice data, law enforcement)",
-                    "Child safety and protection",
-                    "Financial services or payments",
-                    "Critical infrastructure",
-                    "Emergency services",
-                    "Other sector obligations"
-                  ]
+                  "label": "Sector-specific obligations",
+                  "type": "multiselect"
                 },
                 {
                   "id": "A5_10_frameworks",
-                  "field_type": "multiselect",
-                  "question_text": "Frameworks and standards (select all that apply):",
-                  "options": [
-                    "Information Security Manual (ISM)",
-                    "Queensland Government Information Security Policy (IS18:2018)",
-                    "ISO 27001 (Information Security)",
-                    "ISO 42001 (AI Management System)",
-                    "Australian AI Ethics Principles",
-                    "Queensland Digital Declaration",
-                    "Other standards or frameworks (specify below)"
-                  ],
-                  "has_other_specify": true,
-                  "other_field_id": "A5_10_frameworks_other"
+                  "label": "Frameworks and standards",
+                  "type": "multiselect",
+                  "has_other": true
                 },
                 {
                   "id": "A5_10_other",
-                  "field_type": "textarea",
-                  "question_text": "Other relevant regulations or requirements:",
-                  "placeholder": "Please specify any other applicable regulations..."
+                  "label": "Other relevant regulations",
+                  "type": "textarea"
                 },
                 {
                   "id": "A5_10_impact",
-                  "field_type": "textarea",
-                  "question_text": "How do these obligations impact the design or operation of the AI system?",
-                  "placeholder": "Describe compliance measures, constraints, or design considerations..."
+                  "label": "Impact on design/operation",
+                  "type": "textarea"
                 }
               ]
             }
-          ],
-          "scoring_weight": null
+          }
         },
         {
           "id": "A5_11",
-          "question_text": "Where will the AI system be deployed?",
-          "field_type": "select",
-          "required": true,
+          "question": "Where will this AI solution be deployed?",
+          "type": "select",
           "options": [
-            "On-premises (government data center)",
+            "On-premises",
             "Queensland Government cloud",
-            "Australian commercial cloud",
-            "International cloud provider",
-            "Hybrid (multiple locations)",
-            "Third-party managed environment"
-          ],
-          "scoring_weight": null
+            "Australian cloud",
+            "International cloud",
+            "Hybrid",
+            "Third-party managed"
+          ]
         },
         {
           "id": "A5_12",
-          "question_text": "What frameworks or standards has the AI system been designed to meet?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "Which national and international AI frameworks and standards apply?",
+          "type": "multiselect",
+          "has_other": true,
           "options": [
             "Australian AI Ethics Principles",
-            "ISO 42001 (AI Management)",
-            "NIST AI Risk Management Framework",
-            "Queensland AI principles or guidelines",
-            "Department/agency-specific AI policy",
+            "ISO 42001",
+            "NIST AI RMF",
+            "Queensland AI guidelines",
+            "Agency-specific policy",
             "Industry standards",
-            "Accessibility standards (WCAG)",
-            "Security standards (ISO 27001, ISM)",
-            "No specific frameworks applied",
+            "Accessibility standards",
+            "Security standards",
+            "None",
             "Other"
-          ],
-          "has_other_specify": true,
-          "other_field_id": "A5_12_other",
-          "scoring_weight": null
+          ]
         }
       ]
     },
     {
       "id": "B1",
-      "title": "Part B1: Human, Societal and Environmental Wellbeing",
-      "description": "Assessing broader societal and environmental impacts",
+      "title": "B1. Human, Societal and Environmental Wellbeing",
+      "description": "Assessing broader impacts",
       "questions": [
         {
           "id": "B1_1",
-          "question_text": "Rate the potential positive or negative impact in each area (1=Very negative, 3=Neutral, 5=Very positive)",
-          "field_type": "rating_group",
-          "required": true,
-          "sub_questions": [
+          "question": "How will the AI solution benefit (1 = Very Low, 5 = Very High)",
+          "type": "rating_group",
+          "sub_ratings": [
             {
               "id": "B1_1_individual",
-              "question_text": "Individual wellbeing",
+              "label": "Individual wellbeing",
               "scale": "1-5"
             },
             {
               "id": "B1_1_organizational",
-              "question_text": "Organizational wellbeing",
+              "label": "Organizational performance",
               "scale": "1-5"
             },
             {
               "id": "B1_1_social",
-              "question_text": "Social/community wellbeing",
+              "label": "Social / community benefit",
               "scale": "1-5"
             },
             {
               "id": "B1_1_environmental",
-              "question_text": "Environmental impact",
+              "label": "Environmental sustainability",
               "scale": "1-5"
             }
-          ],
-          "scoring_weight": null
+          ]
         },
         {
           "id": "B1_2",
-          "question_text": "What potential negative societal impacts have been identified?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What negative impacts might arise from the AI solution?",
+          "type": "multiselect",
           "options": [
-            "Increased inequality or exclusion",
-            "Erosion of trust in institutions",
-            "Reduced human agency or autonomy",
-            "Social cohesion concerns",
-            "Environmental costs (e.g., energy use)",
-            "Job displacement or workforce disruption",
-            "Privacy or surveillance concerns",
-            "Concentration of power or decision-making",
-            "Cultural or language barriers",
-            "No significant negative impacts identified"
-          ],
-          "scoring_weight": null
+            "Privacy erosion",
+            "Inequality",
+            "Job displacement",
+            "Environmental impact",
+            "Reduced human agency",
+            "Social fragmentation",
+            "None identified"
+          ]
         },
         {
           "id": "B1_3",
-          "question_text": "Will the AI system affect employment or work practices?",
-          "field_type": "select",
-          "required": true,
+          "question": "Will the AI solution affect employee employment?",
+          "type": "select",
           "options": [
-            "Yes - job displacement expected",
-            "Yes - significant workflow changes",
-            "Yes - minor changes to work practices",
-            "No - no expected employment impact",
+            "Yes - job losses",
+            "Yes - job changes",
+            "No impact",
             "Unknown"
-          ],
-          "scoring_weight": null
+          ]
         }
       ]
     },
     {
       "id": "B2",
-      "title": "Part B2: Human-Centred Values",
-      "description": "Assessing alignment with human rights and values",
+      "title": "B2. Human-Centred Values",
+      "description": "Alignment with human rights and values",
       "questions": [
         {
           "id": "B2_1",
-          "question_text": "Has a Human Rights Impact Assessment (HRIA) been completed?",
-          "field_type": "yesno",
-          "required": true,
-          "scoring_weight": null
+          "question": "Has a Human Rights Impact Assessment been completed?",
+          "type": "yesno"
         },
         {
           "id": "B2_2",
-          "question_text": "Assess the AI system's impact on human values:",
-          "field_type": "rating_group",
-          "required": true,
-          "sub_questions": [
+          "question": "Rate the potential impact on",
+          "type": "rating_group",
+          "sub_ratings": [
             {
               "id": "B2_2_rights",
-              "question_text": "Human rights and dignity",
-              "scale": "custom",
-              "options": ["Positive", "Neutral", "Negative", "Unknown"]
+              "label": "Human rights and dignity",
+              "options": [
+                "Positive",
+                "Neutral",
+                "Negative",
+                "Unknown"
+              ]
             },
             {
               "id": "B2_2_diversity",
-              "question_text": "Diversity and inclusion",
-              "scale": "custom",
-              "options": ["Positive", "Neutral", "Negative", "Unknown"]
+              "label": "Diversity and inclusion",
+              "options": [
+                "Positive",
+                "Neutral",
+                "Negative",
+                "Unknown"
+              ]
             },
             {
               "id": "B2_2_autonomy",
-              "question_text": "Individual autonomy and choice",
-              "scale": "custom",
-              "options": ["Positive", "Neutral", "Negative", "Unknown"]
+              "label": "Individual autonomy",
+              "options": [
+                "Positive",
+                "Neutral",
+                "Negative",
+                "Unknown"
+              ]
             }
-          ],
-          "scoring_weight": null
+          ]
         },
         {
           "id": "B2_3",
-          "question_text": "Were diverse perspectives included in the design or testing?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "B2_3_perspectives",
-              "field_type": "multiselect",
-              "question_text": "Which perspectives were included?",
+          "question": "Have diverse perspectives been incorporated in the design?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "B2_3_perspectives",
+              "question": "Which perspectives were included?",
+              "type": "multiselect",
+              "has_other": true,
               "options": [
-                "End users/service recipients",
+                "End users",
                 "Aboriginal and Torres Strait Islander peoples",
-                "Culturally and linguistically diverse communities",
+                "Culturally diverse communities",
                 "People with disabilities",
-                "Gender diverse perspectives",
-                "Age-diverse perspectives",
-                "Rural and regional communities",
+                "Gender diverse",
+                "Age diverse",
+                "Regional communities",
                 "Subject matter experts",
-                "Legal/ethical experts",
+                "Ethics experts",
                 "Other"
-              ],
-              "has_other_specify": true,
-              "other_field_id": "B2_3_perspectives_other"
+              ]
             }
-          ],
-          "scoring_weight": null
+          }
         }
       ]
     },
     {
       "id": "B3",
-      "title": "Part B3: Fairness",
-      "description": "Assessing fairness and potential for discrimination",
+      "title": "B3. Fairness",
+      "description": "Assessing fairness and bias",
       "questions": [
         {
           "id": "B3_1",
-          "question_text": "Has the AI system been tested for fairness and bias?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "B3_1_methods",
-              "field_type": "multiselect",
-              "question_text": "What methods were used?",
+          "question": "Has the AI solution been tested for fairness and bias?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "B3_1_methods",
+              "question": "What methods were used?",
+              "type": "multiselect",
               "options": [
                 "Statistical bias testing",
-                "Fairness metrics analysis",
+                "Fairness metrics",
                 "Subgroup analysis",
                 "Adversarial testing",
-                "User feedback/complaints review",
+                "User feedback",
                 "Independent audit",
-                "Comparative human decision analysis",
-                "Simulation or scenario testing"
+                "Human comparison",
+                "Scenario testing"
               ]
             }
-          ],
-          "scoring_weight": null
+          }
         },
         {
           "id": "B3_2",
-          "question_text": "Could the AI system produce unfair or discriminatory outcomes?",
-          "field_type": "select",
-          "required": true,
+          "question": "Could the AI solution result in unfair discrimination?",
+          "type": "select",
           "options": [
-            "Yes - discrimination risk identified",
-            "No - no discrimination risk identified",
-            "Unknown - not yet assessed"
+            "Yes",
+            "No",
+            "Unknown"
           ],
-          "conditional_fields": [
-            {
-              "condition": ["Yes", "Unknown"],
-              "show_field": "B3_2_groups",
-              "field_type": "multiselect",
-              "question_text": "Which groups may be at risk?",
+          "conditional": {
+            "Yes_or_Unknown": {
+              "id": "B3_2_groups",
+              "question": "Which groups may be at risk?",
+              "type": "multiselect",
               "options": [
                 "Aboriginal and Torres Strait Islander peoples",
-                "Culturally and linguistically diverse communities",
+                "Culturally diverse",
                 "People with disabilities",
-                "Women/gender diverse people",
-                "Older or younger people",
-                "Rural/regional communities",
-                "Low socioeconomic groups",
+                "Women / gender diverse",
+                "Age groups",
+                "Regional communities",
+                "Low socioeconomic",
                 "Other vulnerable groups"
               ]
             }
-          ],
-          "scoring_weight": null
+          }
         }
       ]
     },
     {
       "id": "B4",
-      "title": "Part B4: Privacy Protection and Security",
-      "description": "Assessing privacy and security measures",
+      "title": "B4. Privacy Protection and Security",
+      "description": "Privacy and security measures",
       "questions": [
         {
           "id": "B4_1",
-          "question_text": "Has a Privacy Impact Assessment (PIA) been completed?",
-          "field_type": "yesno",
-          "required": true,
-          "scoring_weight": null
+          "question": "Has a Privacy Impact Assessment been completed?",
+          "type": "yesno"
         },
         {
           "id": "B4_2",
-          "question_text": "Does the AI system collect or process personal information?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "B4_2_types",
-              "field_type": "multiselect",
-              "question_text": "What types of personal information?",
+          "question": "Does the system collect, use, or disclose personal information?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "B4_2_types",
+              "question": "What types of personal information?",
+              "type": "multiselect",
+              "has_other": true,
               "options": [
-                "Names and contact details",
-                "Identification numbers (e.g., license, passport)",
-                "Demographic information",
-                "Financial information",
-                "Health information",
-                "Biometric data",
-                "Location data",
-                "Behavioral or preference data",
+                "Names / contact",
+                "ID numbers",
+                "Demographics",
+                "Financial",
+                "Health",
+                "Biometric",
+                "Location",
+                "Behavioral",
                 "Other"
-              ],
-              "has_other_specify": true,
-              "other_field_id": "B4_2_types_other"
+              ]
             }
-          ],
-          "scoring_weight": null
+          }
         },
         {
           "id": "B4_3",
-          "question_text": "What security measures are in place?",
-          "field_type": "multiselect",
-          "required": true,
+          "question": "What security measures are in place?",
+          "type": "multiselect",
           "options": [
-            "Encryption (at rest and in transit)",
-            "Access controls and authentication",
-            "Regular security audits/testing",
-            "Intrusion detection/prevention",
-            "Data minimization practices",
-            "Secure development lifecycle",
-            "Incident response plan",
-            "Security monitoring and logging",
-            "Physical security controls",
-            "No formal security measures"
-          ],
-          "scoring_weight": null
+            "Encryption",
+            "Access controls",
+            "Security audits",
+            "Intrusion detection",
+            "Data minimization",
+            "Secure development",
+            "Incident response",
+            "Monitoring",
+            "Physical security",
+            "None"
+          ]
         }
       ]
     },
     {
       "id": "B5",
-      "title": "Part B5: Reliability and Safety",
-      "description": "Assessing system reliability and safety controls",
+      "title": "B5. Reliability and Safety",
+      "description": "System reliability and safety controls",
       "questions": [
         {
           "id": "B5_1",
-          "question_text": "Has the AI system been tested for reliability and accuracy?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "B5_1_rating",
-              "field_type": "rating",
-              "question_text": "Rate the system's reliability (1=Low, 5=High):",
+          "question": "Has the system been tested for reliability?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "B5_1_rating",
+              "question": "Rate the system's reliability (1 = Very Low, 5 = Very High)",
+              "type": "rating",
               "scale": "1-5"
             }
-          ],
-          "scoring_weight": null
+          }
         },
         {
           "id": "B5_2",
-          "question_text": "Is there a documented process for disengaging or overriding the AI system?",
-          "field_type": "yesno",
-          "required": true,
-          "scoring_weight": null
+          "question": "Is there a process to disengage the system if issues arise?",
+          "type": "yesno"
         },
         {
           "id": "B5_3",
-          "question_text": "Will the AI system be used in a high-risk or safety-critical environment?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "B5_3_environments",
-              "field_type": "multiselect",
-              "question_text": "What environments?",
+          "question": "Is this AI solution for use in high-risk environments?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "B5_3_environments",
+              "question": "Which environments?",
+              "type": "multiselect",
               "options": [
-                "Healthcare/medical decision-making",
+                "Healthcare",
                 "Emergency response",
-                "Law enforcement or justice",
+                "Law enforcement",
                 "Child safety",
                 "Critical infrastructure",
                 "Financial services",
-                "Education assessment or placement",
+                "Education assessment",
                 "Employment decisions"
               ]
             }
-          ],
-          "scoring_weight": null
+          }
         }
       ]
     },
     {
       "id": "B6",
-      "title": "Part B6: Transparency and Explainability",
-      "description": "Assessing transparency and ability to explain AI decisions",
+      "title": "B6. Transparency and Explainability",
+      "description": "Transparency and explainability of AI decisions",
       "questions": [
         {
           "id": "B6_1",
-          "question_text": "Rate the transparency of the AI system's operations (1=Opaque, 5=Fully transparent)",
-          "field_type": "rating",
-          "required": true,
-          "scale": "1-5",
-          "scoring_weight": null
+          "question": "How transparent is the AI solution's operation? (1 = Very Low, 5 = Very High)",
+          "type": "rating",
+          "scale": "1-5"
         },
         {
           "id": "B6_2",
-          "question_text": "Rate the explainability of the AI system's decisions (1=Not explainable, 5=Fully explainable)",
-          "field_type": "rating",
-          "required": true,
-          "scale": "1-5",
-          "scoring_weight": null
+          "question": "Can the system explain its outputs or decisions? (1 = Very Low, 5 = Very High)",
+          "type": "rating",
+          "scale": "1-5"
         },
         {
           "id": "B6_3",
-          "question_text": "How are users or affected parties informed about how the AI system works?",
-          "field_type": "textarea",
-          "required": true,
-          "scoring_weight": null
+          "question": "How will people be informed they are interacting with AI?",
+          "type": "textarea"
         },
         {
           "id": "B6_4",
-          "question_text": "Are the AI system's limitations and potential errors communicated to users?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "B6_4_describe",
-              "field_type": "textarea",
-              "question_text": "How are limitations communicated?",
-              "placeholder": "Describe how users are informed of system limitations..."
+          "question": "Are there limitations to explaining how the system works?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "B6_4_describe",
+              "question": "Describe the limitations",
+              "type": "textarea"
             }
-          ],
-          "scoring_weight": null
+          }
         }
       ]
     },
     {
       "id": "B7",
-      "title": "Part B7: Contestability",
-      "description": "Assessing ability to challenge AI decisions",
+      "title": "B7. Contestability",
+      "description": "Ability to challenge AI decisions",
       "questions": [
         {
           "id": "B7_1",
-          "question_text": "Is there a process for individuals to challenge or appeal AI-informed decisions?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "B7_1_describe",
-              "field_type": "textarea",
-              "question_text": "Describe the contestability process:",
-              "placeholder": "Describe how individuals can challenge decisions..."
+          "question": "Is there a process for people to challenge AI outcomes?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "B7_1_describe",
+              "question": "Describe the contestability process",
+              "type": "textarea"
             }
-          ],
-          "scoring_weight": null
+          }
         },
         {
           "id": "B7_2",
-          "question_text": "What is the timeframe for responding to challenges or appeals?",
-          "field_type": "select",
-          "required": true,
+          "question": "How quickly can challenges be addressed?",
+          "type": "select",
           "options": [
-            "Immediate (same day)",
+            "Same day",
             "Within 48 hours",
             "Within 1 week",
             "Within 2 weeks",
             "Within 1 month",
-            "Longer than 1 month",
-            "No defined timeframe",
-            "Not applicable"
-          ],
-          "scoring_weight": null
+            "Longer",
+            "No timeframe",
+            "N/A"
+          ]
         }
       ]
     },
     {
       "id": "B8",
-      "title": "Part B8: Accountability",
-      "description": "Assessing accountability structures and training",
+      "title": "B8. Accountability",
+      "description": "Accountability structures and training",
       "questions": [
         {
           "id": "B8_1",
-          "question_text": "Describe the governance and oversight arrangements for this AI system.",
-          "field_type": "textarea",
-          "required": true,
-          "scoring_weight": null
+          "question": "Who has oversight of the AI system?",
+          "type": "textarea"
         },
         {
           "id": "B8_2",
-          "question_text": "Are clear roles and responsibilities established for AI system oversight?",
-          "field_type": "yesno",
-          "required": true,
-          "scoring_weight": null
+          "question": "Are clear roles and responsibilities established?",
+          "type": "yesno"
         },
         {
           "id": "B8_3",
-          "question_text": "Have staff been trained on responsible AI use and limitations?",
-          "field_type": "yesno",
-          "required": true,
-          "scoring_weight": null
+          "question": "Have staff been trained on AI risk management?",
+          "type": "yesno"
         },
         {
           "id": "B8_4",
-          "question_text": "Are there safeguards to prevent misuse or unintended consequences?",
-          "field_type": "yesno",
-          "required": true,
-          "conditional_fields": [
-            {
-              "condition": "Yes",
-              "show_field": "B8_4_safeguards",
-              "field_type": "multiselect",
-              "question_text": "What safeguards are in place?",
+          "question": "Are there safeguards against overreliance on AI outputs?",
+          "type": "yesno",
+          "conditional": {
+            "Yes": {
+              "id": "B8_4_safeguards",
+              "question": "What safeguards?",
+              "type": "multiselect",
               "options": [
-                "Use case restrictions",
+                "Use limitations",
                 "Access controls",
-                "Monitoring and alerts",
-                "Regular audits",
-                "Human-in-the-loop requirements",
-                "Incident response procedures",
-                "Ethics review process",
-                "Usage policies and guidelines"
+                "Monitoring",
+                "Audits",
+                "Human-in-the-loop",
+                "Incident response",
+                "Ethics review",
+                "Usage policies"
               ]
             }
-          ],
-          "scoring_weight": null
+          }
         }
       ]
     },
     {
       "id": "declaration",
       "title": "Declaration",
-      "description": "Formal declaration of assessment completion",
-      "questions": [
+      "fields": [
         {
           "id": "declaration_confirmed",
-          "question_text": "I confirm that the information provided in this assessment is accurate and complete to the best of my knowledge.",
-          "field_type": "checkbox",
-          "required": true,
-          "scoring_weight": null
+          "label": "I confirm the information provided is accurate",
+          "type": "checkbox",
+          "required": true
         },
         {
           "id": "declaration_name",
-          "question_text": "Full name",
-          "field_type": "text",
-          "required": true,
-          "scoring_weight": null
+          "label": "Full name",
+          "type": "text",
+          "required": true
         },
         {
           "id": "declaration_date",
-          "question_text": "Date",
-          "field_type": "date",
-          "required": true,
-          "auto_populated": true,
-          "scoring_weight": null
+          "label": "Date",
+          "type": "date",
+          "required": true
         },
         {
           "id": "declaration_role",
-          "question_text": "Role/Position",
-          "field_type": "text",
-          "required": false,
-          "scoring_weight": null
+          "label": "Role/Position",
+          "type": "text",
+          "required": false
         }
       ]
     }
   ],
-  "scoring_instructions": {
-    "methodology": "TO BE DEFINED - Please provide scoring weights and calculation methodology",
-    "risk_levels": {
-      "low": {
-        "score_range": "TBD",
-        "description": "Minimal risk identified"
-      },
-      "medium": {
-        "score_range": "TBD",
-        "description": "Moderate risk requiring mitigation"
-      },
-      "high": {
-        "score_range": "TBD",
-        "description": "Significant risk requiring comprehensive controls"
-      },
-      "critical": {
-        "score_range": "TBD",
-        "description": "Critical risk requiring immediate action"
-      }
-    },
-    "weighting_factors": "TO BE DEFINED - Please specify which questions contribute to overall risk score and their respective weights"
+  "scoring": {
+    "status": "NOT_IMPLEMENTED",
+    "instructions": "Please provide scoring weights and methodology for each question"
   }
 }
