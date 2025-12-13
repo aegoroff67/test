@@ -3453,16 +3453,16 @@ async def download_testing_checklist():
 # FAIRA Structure Download Endpoint
 @api_router.get("/download-faira-structure")
 async def download_faira_structure():
-    """Download the complete FAIRA assessment structure as JSON"""
+    """Download the complete FAIRA assessment structure as JSON with full metadata"""
     try:
-        json_file_path = Path("/tmp/all_options.json")
+        json_file_path = Path("/tmp/faira_complete_structure.json")
         if json_file_path.exists():
             with open(json_file_path, 'r') as f:
                 data = json.load(f)
             return JSONResponse(
                 content=data,
                 headers={
-                    "Content-Disposition": "attachment; filename=faira_structure.json"
+                    "Content-Disposition": "attachment; filename=faira_complete_structure.json"
                 }
             )
         else:
