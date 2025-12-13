@@ -98,7 +98,14 @@ const defaultState = {
   A5_7: [], // stakeholder engagement (multiselect)
   A5_8: [], // detecting harm (multiselect)
   A5_9: [], // values/principles (multiselect)
-  A5_10: "", // sector frameworks (text)
+  A5_10: "", // sector frameworks (Yes/No)
+  A5_10_commonwealth: [], // Commonwealth legislation
+  A5_10_qld: [], // Queensland legislation
+  A5_10_sector: [], // Sector-specific obligations
+  A5_10_frameworks: [], // Frameworks and standards
+  A5_10_frameworks_other: "", // Other frameworks specify
+  A5_10_other: "", // Other regulations text
+  A5_10_impact: "", // Impact description
   A5_11: "", // deployment location (single select)
   A5_12: [], // frameworks/standards (multiselect)
   A5_12_other: "",
