@@ -1789,8 +1789,27 @@ async def update_faira_form(
     # Calculate progress percentage
     progress = round((filled_fields / total_fields * 100)) if total_fields > 0 else 0
     
-    # Debug logging
+    # Debug logging - find which fields are filled
+    filled_list = []
+    for key, value in faira_form.items():
+        if key in excluded_fields:
+            continue
+        # Quick check if filled
+        is_filled = False
+        if value is not None and value != "" and value != []:
+            if isinstance(value, list) and len(value) > 0:
+                is_filled = True
+            elif isinstance(value, (int, float)):
+                is_filled = True
+            elif isinstance(value, bool) and value:
+                is_filled = True
+            elif isinstance(value, str) and value.strip():
+                is_filled = True
+        if is_filled:
+            filled_list.append(key)
+    
     print(f"[FAIRA Progress Backend] Total: {total_fields}, Filled: {filled_fields}, Progress: {progress}%")
+    print(f"[Backend Filled Fields Count]: {len(filled_list)}")
     
     # Update the assessment name if assessor name is provided
     updated_name = assessment["name"]
