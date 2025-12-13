@@ -3450,6 +3450,26 @@ async def download_testing_checklist():
         filename="AM_AI_SAFE_Testing_Checklist.pdf"
     )
 
+# FAIRA Structure Download Endpoint
+@api_router.get("/download-faira-structure")
+async def download_faira_structure():
+    """Download the complete FAIRA assessment structure as JSON"""
+    try:
+        json_file_path = Path("/tmp/all_options.json")
+        if json_file_path.exists():
+            with open(json_file_path, 'r') as f:
+                data = json.load(f)
+            return JSONResponse(
+                content=data,
+                headers={
+                    "Content-Disposition": "attachment; filename=faira_structure.json"
+                }
+            )
+        else:
+            raise HTTPException(status_code=404, detail="FAIRA structure file not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error downloading file: {str(e)}")
+
 # Include router
 app.include_router(api_router)
 
