@@ -490,7 +490,7 @@ export default function FairaAssessmentForm() {
     try {
       await axios.put(`${API}/assessments/${id}/faira-form`, { ...form, status: 'completed' });
       toast.success('FAIRA assessment completed successfully!');
-      navigate(`/assessment/${id}`);
+      navigate(`/faira-results/${id}`);
     } catch (error) {
       console.error('Submit error:', error);
       toast.error(error.response?.data?.detail || 'Failed to submit assessment');
