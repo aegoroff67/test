@@ -1788,6 +1788,9 @@ async def update_faira_form(
     # Calculate progress percentage
     progress = round((filled_fields / total_fields * 100)) if total_fields > 0 else 0
     
+    # Debug logging
+    print(f"[FAIRA Progress Backend] Total: {total_fields}, Filled: {filled_fields}, Progress: {progress}%")
+    
     # Update the assessment name if assessor name is provided
     updated_name = assessment["name"]
     if faira_form.get("assessor_name"):
