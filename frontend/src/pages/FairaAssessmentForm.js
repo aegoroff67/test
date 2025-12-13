@@ -359,7 +359,19 @@ export default function FairaAssessmentForm() {
     const isFieldFilled = (key) => {
       const value = form[key];
       if (value === null || value === undefined) return false;
-      if (Array.isArray(value)) return value.length > 0;
+      if (Array.isArray(value)) {
+        if (value.length === 0) return false;
+        // Special check: if array contains "Other" (or "Other (specify)"), verify the _other field is filled
+        if (value.some(v => v && (v.includes('Other') || v === 'Other (specify)'))) {
+          const otherFieldKey = `${key}_other`;
+          const otherValue = form[otherFieldKey];
+          // The _other field must be filled
+          if (!otherValue || otherValue.toString().trim() === '') {
+            return false;
+          }
+        }
+        return true;
+      }
       if (typeof value === 'number') return true;
       if (typeof value === 'boolean') return value;
       return value && value.toString().trim() !== '';
