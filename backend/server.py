@@ -1724,6 +1724,7 @@ async def update_faira_form(
     
     total_fields = 0
     filled_fields = 0
+    filled_list = []  # Track which fields are counted as filled
     
     for key, value in faira_form.items():
         # Skip excluded fields
@@ -1793,10 +1794,7 @@ async def update_faira_form(
     # Calculate progress percentage
     progress = round((filled_fields / total_fields * 100)) if total_fields > 0 else 0
     
-    # Debug logging - track filled fields
-    filled_list = []
-    
-    # Debug logging - find which fields are filled
+    # Debug logging - find which fields are filled (separate check)
     for key, value in faira_form.items():
         if key in excluded_fields:
             continue
