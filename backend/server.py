@@ -1772,8 +1772,16 @@ async def update_faira_form(
                     cf_value = faira_form.get(cf)
                     if cf_value:
                         if isinstance(cf_value, list) and len(cf_value) > 0:
-                            has_filled = True
-                            break
+                            # Check if list contains "Other" and validate the _other field
+                            if any('Other' in str(x) or 'specify' in str(x) for x in cf_value):
+                                other_key = f"{cf}_other"
+                                other_value = faira_form.get(other_key)
+                                if other_value and str(other_value).strip():
+                                    has_filled = True
+                                    break
+                            else:
+                                has_filled = True
+                                break
                         elif isinstance(cf_value, str) and cf_value.strip():
                             has_filled = True
                             break
