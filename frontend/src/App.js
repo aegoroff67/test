@@ -160,6 +160,14 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+            <Route 
+              path="/faira-results/:id" 
+              element={
+                <ProtectedRoute>
+                  <FairaResultsPage />
+                </ProtectedRoute>
+              } 
+            />
             <Route path="/" element={<Navigate to="/dashboard" />} />
           </Routes>
           <Toaster position="top-right" richColors />
