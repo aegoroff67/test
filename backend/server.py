@@ -1669,24 +1669,123 @@ async def update_faira_form(
     
     # Calculate progress based on filled fields (exclude auto-filled or optional fields)
     excluded_fields = ['declaration_date', 'assessor_email', 'declaration_role']
+    
+    # Conditional fields that only count if their parent condition is met
+    conditional_fields = {
+        'A1_3_other': lambda: 'Other' in faira_form.get('A1_3', []),
+        'A1_6_actions': lambda: faira_form.get('A1_6') == 'Yes',
+        'A1_6_actions_other': lambda: faira_form.get('A1_6') == 'Yes' and 'Other' in faira_form.get('A1_6_actions', []),
+        'A1_7_other': lambda: 'Other' in faira_form.get('A1_7', []),
+        'A2_4_other': lambda: 'Other' in faira_form.get('A2_4', []),
+        'A2_7_data_types': lambda: faira_form.get('A2_7') == 'Yes',
+        'A2_7_data_types_other': lambda: faira_form.get('A2_7') == 'Yes' and any('Other' in str(x) or 'specify' in str(x) for x in faira_form.get('A2_7_data_types', [])),
+        'A2_8_types': lambda: faira_form.get('A2_8') == 'Yes',
+        'A3_3_other': lambda: 'Other' in faira_form.get('A3_3', []),
+        'A4_5_scenarios': lambda: faira_form.get('A4_5') == 'Yes',
+        'A5_10_commonwealth': lambda: faira_form.get('A5_10') == 'Yes',
+        'A5_10_qld': lambda: faira_form.get('A5_10') == 'Yes',
+        'A5_10_sector': lambda: faira_form.get('A5_10') == 'Yes',
+        'A5_10_frameworks': lambda: faira_form.get('A5_10') == 'Yes',
+        'A5_10_frameworks_other': lambda: faira_form.get('A5_10') == 'Yes' and any('Other' in str(x) or 'specify' in str(x) for x in faira_form.get('A5_10_frameworks', [])),
+        'A5_10_other': lambda: faira_form.get('A5_10') == 'Yes',
+        'A5_10_impact': lambda: faira_form.get('A5_10') == 'Yes',
+        'A5_12_other': lambda: 'Other' in faira_form.get('A5_12', []),
+        'B2_3_perspectives': lambda: faira_form.get('B2_3') == 'Yes',
+        'B2_3_perspectives_other': lambda: faira_form.get('B2_3') == 'Yes' and 'Other' in faira_form.get('B2_3_perspectives', []),
+        'B3_1_methods': lambda: faira_form.get('B3_1') == 'Yes',
+        'B3_2_groups': lambda: faira_form.get('B3_2') in ['Yes', 'Unknown'],
+        'B4_2_types': lambda: faira_form.get('B4_2') == 'Yes',
+        'B4_2_types_other': lambda: faira_form.get('B4_2') == 'Yes' and 'Other' in faira_form.get('B4_2_types', []),
+        'B5_1_rating': lambda: faira_form.get('B5_1') == 'Yes',
+        'B5_3_environments': lambda: faira_form.get('B5_3') == 'Yes',
+        'B6_4_describe': lambda: faira_form.get('B6_4') == 'Yes',
+        'B7_1_describe': lambda: faira_form.get('B7_1') == 'Yes',
+        'B8_4_safeguards': lambda: faira_form.get('B8_4') == 'Yes'
+    }
+    
+    # Questions with conditional selections that must be filled when "Yes" is selected
+    conditional_yes_questions = {
+        'A1_6': 'A1_6_actions',
+        'A2_7': 'A2_7_data_types',
+        'A2_8': 'A2_8_types',
+        'A4_5': 'A4_5_scenarios',
+        'A5_10': ['A5_10_commonwealth', 'A5_10_qld', 'A5_10_sector', 'A5_10_frameworks'],
+        'B2_3': 'B2_3_perspectives',
+        'B3_1': 'B3_1_methods',
+        'B3_2': 'B3_2_groups',
+        'B4_2': 'B4_2_types',
+        'B5_1': 'B5_1_rating',
+        'B5_3': 'B5_3_environments',
+        'B6_4': 'B6_4_describe',
+        'B7_1': 'B7_1_describe',
+        'B8_4': 'B8_4_safeguards'
+    }
+    
     total_fields = 0
     filled_fields = 0
     
     for key, value in faira_form.items():
-        if key not in excluded_fields:
+        # Skip excluded fields
+        if key in excluded_fields:
+            continue
+            
+        # Check if this is a conditional field
+        if key in conditional_fields:
+            # Only count if condition is met
+            if conditional_fields[key]():
+                total_fields += 1
+                if value is not None and value != "" and value != []:
+                    if isinstance(value, list) and len(value) > 0:
+                        # Check if "Other" in list requires text field
+                        if any('Other' in str(x) or 'specify' in str(x) for x in value):
+                            other_key = f"{key}_other"
+                            if other_key in faira_form and faira_form[other_key] and str(faira_form[other_key]).strip():
+                                filled_fields += 1
+                        else:
+                            filled_fields += 1
+                    elif isinstance(value, (int, float)):
+                        filled_fields += 1
+                    elif isinstance(value, bool) and value:
+                        filled_fields += 1
+                    elif isinstance(value, str) and value.strip():
+                        filled_fields += 1
+        else:
+            # Always count non-conditional fields
             total_fields += 1
-            # Check if field is filled
-            if value is not None and value != "" and value != []:
-                if isinstance(value, list) and len(value) > 0:
+            
+            # Special check for Yes/No questions with conditionals
+            if key in conditional_yes_questions and value == 'Yes':
+                cond_fields = conditional_yes_questions[key]
+                if not isinstance(cond_fields, list):
+                    cond_fields = [cond_fields]
+                
+                # Check if at least one conditional field is filled
+                has_filled = False
+                for cf in cond_fields:
+                    cf_value = faira_form.get(cf)
+                    if cf_value:
+                        if isinstance(cf_value, list) and len(cf_value) > 0:
+                            has_filled = True
+                            break
+                        elif isinstance(cf_value, str) and cf_value.strip():
+                            has_filled = True
+                            break
+                
+                if has_filled:
                     filled_fields += 1
-                elif isinstance(value, (int, float)):
-                    filled_fields += 1
-                elif isinstance(value, bool) and value:
-                    filled_fields += 1
-                elif isinstance(value, str) and value.strip():
-                    filled_fields += 1
+            else:
+                # Regular field check
+                if value is not None and value != "" and value != []:
+                    if isinstance(value, list) and len(value) > 0:
+                        filled_fields += 1
+                    elif isinstance(value, (int, float)):
+                        filled_fields += 1
+                    elif isinstance(value, bool) and value:
+                        filled_fields += 1
+                    elif isinstance(value, str) and value.strip():
+                        filled_fields += 1
     
-    # Calculate progress percentage (approximately 71 questions total)
+    # Calculate progress percentage
     progress = round((filled_fields / total_fields * 100)) if total_fields > 0 else 0
     
     # Update the assessment name if assessor name is provided
