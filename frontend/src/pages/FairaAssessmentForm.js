@@ -355,13 +355,6 @@ export default function FairaAssessmentForm() {
       }
     });
 
-    console.log('FAIRA Progress Debug:', {
-      totalFields,
-      filledFields,
-      percentage: Math.round((filledFields / totalFields) * 100),
-      unfilledFields
-    });
-
     return totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
   };
 
