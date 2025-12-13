@@ -349,27 +349,6 @@ export default function FairaAssessmentForm() {
       'B8_4_safeguards': () => form.B8_4 === 'Yes'
     };
 
-    const isFieldFilled = (key) => {
-      const value = form[key];
-      if (value === null || value === undefined) return false;
-      if (Array.isArray(value)) {
-        if (value.length === 0) return false;
-        // Special check: if array contains "Other" (or "Other (specify)"), verify the _other field is filled
-        if (value.some(v => v && (v.includes('Other') || v === 'Other (specify)'))) {
-          const otherFieldKey = `${key}_other`;
-          const otherValue = form[otherFieldKey];
-          // The _other field must be filled
-          if (!otherValue || otherValue.toString().trim() === '') {
-            return false;
-          }
-        }
-        return true;
-      }
-      if (typeof value === 'number') return true;
-      if (typeof value === 'boolean') return value;
-      return value && value.toString().trim() !== '';
-    };
-
     const sectionStatus = {};
     Object.keys(sections).forEach(sectionId => {
       const fields = sections[sectionId];
@@ -382,7 +361,8 @@ export default function FairaAssessmentForm() {
         if (conditionalFields[fieldId]) {
           if (conditionalFields[fieldId]()) {
             totalApplicable++;
-            if (isFieldFilled(fieldId)) {
+            const value = form[fieldId];
+            if (isFieldProperlyFilled(fieldId, value)) {
               completed++;
             } else if (!firstUnanswered) {
               firstUnanswered = fieldId;
@@ -390,7 +370,8 @@ export default function FairaAssessmentForm() {
           }
         } else {
           totalApplicable++;
-          if (isFieldFilled(fieldId)) {
+          const value = form[fieldId];
+          if (isFieldProperlyFilled(fieldId, value)) {
             completed++;
           } else if (!firstUnanswered) {
             firstUnanswered = fieldId;
