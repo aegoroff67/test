@@ -1774,6 +1774,10 @@ async def update_faira_form(
                 
                 if has_filled:
                     filled_fields += 1
+                    filled_list.append(f"{key}=Yes(with conditionals)")
+                else:
+                    # Debug: Yes without filled conditionals
+                    print(f"  [REJECTED] {key}=Yes but conditionals not filled")
             else:
                 # Regular field check
                 if value is not None and value != "" and value != []:
@@ -1789,8 +1793,10 @@ async def update_faira_form(
     # Calculate progress percentage
     progress = round((filled_fields / total_fields * 100)) if total_fields > 0 else 0
     
-    # Debug logging - find which fields are filled
+    # Debug logging - track filled fields
     filled_list = []
+    
+    # Debug logging - find which fields are filled
     for key, value in faira_form.items():
         if key in excluded_fields:
             continue
