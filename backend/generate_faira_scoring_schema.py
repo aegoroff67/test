@@ -1439,6 +1439,71 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B8.2 - Roles Established → Control Effectiveness
+    schema["questions"]["B8_2"] = {
+        "id": "B8_2",
+        "text": "Have clear roles and responsibilities been established for AI oversight?",
+        "type": "yes_no",
+        "domains": ["Accountability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "mixed",
+            "options": {
+                "Yes": {"Control_Effectiveness": -2},
+                "No": {"Control_Effectiveness": 2}
+            },
+            "notes": "Established roles improve control effectiveness. Lack of clear roles increases risk."
+        }
+    }
+    
+    # B8.3 - Staff Trained → Control Effectiveness
+    schema["questions"]["B8_3"] = {
+        "id": "B8_3",
+        "text": "Have staff been trained on AI system use and limitations?",
+        "type": "yes_no",
+        "domains": ["Accountability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "mixed",
+            "options": {
+                "Yes": {"Control_Effectiveness": -2},
+                "No": {"Control_Effectiveness": 2}
+            },
+            "notes": "Staff training improves control effectiveness. Lack of training increases risk."
+        }
+    }
+    
+    # B8.4 - Safeguards Against Overreliance → Control Effectiveness (Two-part)
+    schema["questions"]["B8_4"] = {
+        "id": "B8_4",
+        "text": "Are safeguards in place to prevent overreliance on AI outputs?",
+        "type": "yes_no_with_options",
+        "domains": ["Accountability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "options": {
+                "No": {
+                    "Control_Effectiveness": 2
+                },
+                "Yes": {
+                    "Control_Effectiveness": -2,
+                    "sub_question": "B8_4_safeguards",
+                    "safeguards": {
+                        "Mandatory human review": {"Control_Effectiveness": -0.5},
+                        "Confidence thresholds": {"Control_Effectiveness": -0.5},
+                        "Explainability requirements": {"Control_Effectiveness": -0.5},
+                        "Training for staff": {"Control_Effectiveness": -0.5},
+                        "Decision override controls": {"Control_Effectiveness": -0.5},
+                        "System warnings": {"Control_Effectiveness": -0.5},
+                        "Monitoring of decision quality": {"Control_Effectiveness": -0.5}
+                    }
+                }
+            },
+            "notes": "Two-part question. If 'No', CE +2 only. If 'Yes', CE -2 PLUS each selected safeguard adds -0.5. Multiple safeguards are cumulative."
+        }
+    }
+    
     return schema
 
 
