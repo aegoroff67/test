@@ -1855,6 +1855,36 @@
         },
         "notes": "Two-part question. If 'No', Impact 0. If 'Yes', Impact +2 PLUS each selected PI type adds its modifier. Health, Financial, and Biometric data carry highest impact."
       }
+    },
+    "B4_3": {
+      "id": "B4_3",
+      "text": "What security measures are in place to protect personal information?",
+      "type": "multiselect",
+      "domains": [
+        "Privacy Protection and Security"
+      ],
+      "scoring": {
+        "target_metric": "Impact",
+        "modifier_type": "negative",
+        "options": {
+          "Access controls": {
+            "Impact": -1
+          },
+          "Encryption": {
+            "Impact": -2
+          },
+          "Security testing": {
+            "Impact": -2
+          },
+          "Anonymisation": {
+            "Impact": -2
+          },
+          "PETs": {
+            "Impact": -2
+          }
+        },
+        "notes": "Multiple selections are cumulative. Each security measure reduces privacy risk impact. Encryption, Security testing, Anonymisation, and PETs (Privacy Enhancing Technologies) provide stronger protection."
+      }
     }
   }
 }
