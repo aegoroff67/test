@@ -1158,6 +1158,39 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B3.2 - Discrimination Possible → Impact (Three-option with conditional sub-question)
+    schema["questions"]["B3_2"] = {
+        "id": "B3_2",
+        "text": "Could the AI system discriminate against specific groups?",
+        "type": "yes_unknown_no_with_options",
+        "domains": ["Fairness"],
+        "scoring": {
+            "target_metric": "Impact",
+            "options": {
+                "No": {
+                    "Impact": 0
+                },
+                "Unknown": {
+                    "Impact": 2
+                },
+                "Yes": {
+                    "Impact": 3,
+                    "sub_question": "B3_2_groups",
+                    "affected_groups": {
+                        "Age groups": {"Impact": 1},
+                        "People with disabilities": {"Impact": 1},
+                        "Racial or ethnic groups": {"Impact": 1},
+                        "Religious groups": {"Impact": 1},
+                        "Gender": {"Impact": 1},
+                        "Sexual orientation": {"Impact": 1},
+                        "Socioeconomic status": {"Impact": 1}
+                    }
+                }
+            },
+            "notes": "Three-option question. If 'No', Impact 0. If 'Unknown', Impact +2 only. If 'Yes', Impact +3 PLUS each selected group adds +1. This identifies potential discrimination risks."
+        }
+    }
+    
     return schema
 
 
