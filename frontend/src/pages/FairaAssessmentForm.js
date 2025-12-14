@@ -2166,8 +2166,7 @@ export default function FairaAssessmentForm() {
                           "ISO/IEC 27001 / 27002 (Information Security Management)",
                           "ISO/IEC 27701 (Privacy Information Management)",
                           "ISO 31000 (Risk Management)",
-                          "NIST AI Risk Management Framework",
-                          "Other standards or frameworks (specify below)"
+                          "NIST AI Risk Management Framework"
                         ].map((option) => (
                           <label key={option} className="flex items-center space-x-2">
                             <Checkbox
@@ -2178,17 +2177,6 @@ export default function FairaAssessmentForm() {
                           </label>
                         ))}
                       </div>
-                      
-                      {form.A5_10_frameworks.includes("Other standards or frameworks (specify below)") && (
-                        <div className="mt-2">
-                          <Input
-                            id="A5_10_frameworks_other"
-                            value={form.A5_10_frameworks_other}
-                            onChange={(e) => update("A5_10_frameworks_other", e.target.value)}
-                            placeholder="Specify other standards or frameworks"
-                          />
-                        </div>
-                      )}
                     </div>
 
                     {/* Other regulations text field */}
