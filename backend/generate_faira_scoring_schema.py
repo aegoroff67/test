@@ -1191,19 +1191,20 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # B4.1 - PIA Completed → Impact
+    # B4.1 - PIA Completed → Control Effectiveness
     schema["questions"]["B4_1"] = {
         "id": "B4_1",
         "text": "Has a Privacy Impact Assessment (PIA) been completed?",
         "type": "yes_no",
         "domains": ["Privacy Protection and Security"],
         "scoring": {
-            "target_metric": "Impact",
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "mixed",
             "options": {
-                "Yes": {"Impact": -2},
-                "No": {"Impact": 2}
+                "Yes": {"Control_Effectiveness": -2},
+                "No": {"Control_Effectiveness": 2}
             },
-            "notes": "Completing a PIA reduces privacy risk impact. Not completing one significantly increases privacy risk exposure."
+            "notes": "Completing a PIA improves control effectiveness. Not completing one increases risk exposure."
         }
     }
     
@@ -1235,23 +1236,23 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # B4.3 - Security Measures → Impact
+    # B4.3 - Security Measures → Control Effectiveness
     schema["questions"]["B4_3"] = {
         "id": "B4_3",
         "text": "What security measures are in place to protect personal information?",
         "type": "multiselect",
         "domains": ["Privacy Protection and Security"],
         "scoring": {
-            "target_metric": "Impact",
+            "target_metric": "Control_Effectiveness",
             "modifier_type": "negative",
             "options": {
-                "Access controls": {"Impact": -1},
-                "Encryption": {"Impact": -2},
-                "Security testing": {"Impact": -2},
-                "Anonymisation": {"Impact": -2},
-                "PETs": {"Impact": -2}
+                "Access controls": {"Control_Effectiveness": -1},
+                "Encryption": {"Control_Effectiveness": -2},
+                "Security testing": {"Control_Effectiveness": -2},
+                "Anonymisation": {"Control_Effectiveness": -2},
+                "PETs": {"Control_Effectiveness": -2}
             },
-            "notes": "Multiple selections are cumulative. Each security measure reduces privacy risk impact. Encryption, Security testing, Anonymisation, and PETs (Privacy Enhancing Technologies) provide stronger protection."
+            "notes": "Multiple selections are cumulative. Each security measure improves control effectiveness. Encryption, Security testing, Anonymisation, and PETs (Privacy Enhancing Technologies) provide stronger protection."
         }
     }
     
