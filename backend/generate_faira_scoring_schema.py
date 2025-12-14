@@ -838,6 +838,29 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # A5.9 - Values & Principles → Control Effectiveness
+    schema["questions"]["A5_9"] = {
+        "id": "A5_9",
+        "text": "Which values, principles, or frameworks guide the AI system's development and use?",
+        "type": "multiselect",
+        "domains": ["Accountability", "Transparency"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "options": {
+                "Australia's AI Ethics Principles": {"Control_Effectiveness": -1},
+                "Human Rights Act": {"Control_Effectiveness": -2},
+                "Data governance policies": {"Control_Effectiveness": -2},
+                "WHS": {"Control_Effectiveness": -1},
+                "Accessibility standards": {"Control_Effectiveness": -2},
+                "Agency ethics statements": {"Control_Effectiveness": -1},
+                "Privacy principles": {"Control_Effectiveness": -3},
+                "Risk management framework": {"Control_Effectiveness": -3}
+            },
+            "notes": "Adherence to established values, principles, and frameworks improves control effectiveness. Privacy principles and risk management frameworks provide the strongest control benefits."
+        }
+    }
+    
     return schema
 
 
