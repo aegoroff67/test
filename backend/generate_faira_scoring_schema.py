@@ -702,6 +702,19 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # A5.2 - Tracking Method (Text field - LLM classification pending)
+    schema["questions"]["A5_2"] = {
+        "id": "A5_2",
+        "text": "How is system performance tracked and reported?",
+        "type": "text",
+        "domains": ["Accountability", "Transparency"],
+        "scoring": {
+            "target_metric": "TBD",
+            "logic": "LLM-assisted classification required",
+            "notes": "Text response will be analyzed using LLM to determine appropriate Control Effectiveness modifiers."
+        }
+    }
+    
     return schema
 
 
