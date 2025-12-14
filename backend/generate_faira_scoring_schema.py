@@ -650,6 +650,32 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # A4.7 - PII in Outputs (Text field - LLM classification pending)
+    schema["questions"]["A4_7"] = {
+        "id": "A4_7",
+        "text": "Who has access to personally identifiable information (PII) in system outputs?",
+        "type": "text",
+        "domains": ["Privacy Protection and Security"],
+        "scoring": {
+            "target_metric": "TBD",
+            "logic": "LLM-assisted classification required",
+            "notes": "Text response will be analyzed using LLM to determine appropriate Impact/Likelihood modifiers."
+        }
+    }
+    
+    # A4.8 - Legal/Regulatory Actions (Text field - LLM classification pending)
+    schema["questions"]["A4_8"] = {
+        "id": "A4_8",
+        "text": "Could system outputs trigger legal, regulatory, or compliance actions?",
+        "type": "text",
+        "domains": ["Accountability", "Compliance"],
+        "scoring": {
+            "target_metric": "TBD",
+            "logic": "LLM-assisted classification required",
+            "notes": "Text response will be analyzed using LLM to determine appropriate Impact/Likelihood modifiers."
+        }
+    }
+    
     return schema
 
 
