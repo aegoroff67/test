@@ -627,6 +627,29 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # A4.6 - Regulated Output Data Types → Impact
+    schema["questions"]["A4_6"] = {
+        "id": "A4_6",
+        "text": "What types of regulated or sensitive data are included in system outputs?",
+        "type": "multiselect",
+        "domains": ["Privacy Protection and Security", "Fairness"],
+        "scoring": {
+            "target_metric": "Impact",
+            "options": {
+                "Personal": {"Impact": 2},
+                "Sensitive": {"Impact": 3},
+                "Financial": {"Impact": 3},
+                "Health": {"Impact": 4},
+                "Child-related": {"Impact": 5},
+                "Law enforcement": {"Impact": 5},
+                "Indigenous data": {"Impact": 5},
+                "Confidential government data": {"Impact": 4},
+                "Operationally sensitive data": {"Impact": 3}
+            },
+            "notes": "Each selected data type contributes its Impact value. Multiple selections are cumulative."
+        }
+    }
+    
     return schema
 
 
