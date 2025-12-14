@@ -816,6 +816,28 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # A5.8 - Harm Detection & Contingency → Control Effectiveness
+    schema["questions"]["A5_8"] = {
+        "id": "A5_8",
+        "text": "What methods exist for detecting harm and responding to incidents?",
+        "type": "multiselect",
+        "domains": ["Reliability and Safety", "Human, Societal and Environmental Wellbeing"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "options": {
+                "Alerting and monitoring": {"Control_Effectiveness": -3},
+                "User complaints": {"Control_Effectiveness": -1},
+                "Human review triggers": {"Control_Effectiveness": -3},
+                "Automated anomaly detection": {"Control_Effectiveness": -4},
+                "Escalation procedures": {"Control_Effectiveness": -3},
+                "Incident response team": {"Control_Effectiveness": -4},
+                "No defined contingencies": {"Control_Effectiveness": 0}
+            },
+            "notes": "Harm detection and response mechanisms improve control effectiveness. Automated detection and dedicated response teams provide the strongest control. 'No defined contingencies' should be flagged as a significant risk."
+        }
+    }
+    
     return schema
 
 
