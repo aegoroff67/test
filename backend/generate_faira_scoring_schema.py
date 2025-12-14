@@ -772,6 +772,28 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # A5.6 - Monitoring Roles → Control Effectiveness
+    schema["questions"]["A5_6"] = {
+        "id": "A5_6",
+        "text": "Who is responsible for ongoing monitoring?",
+        "type": "single_select",
+        "domains": ["Accountability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "options": {
+                "ICT Ops": {"Control_Effectiveness": -2},
+                "Data Science team": {"Control_Effectiveness": -2},
+                "Risk/Compliance": {"Control_Effectiveness": -3},
+                "Business Owner": {"Control_Effectiveness": -2},
+                "Vendor": {"Control_Effectiveness": -1},
+                "Customer-facing staff": {"Control_Effectiveness": -1},
+                "External auditor": {"Control_Effectiveness": -4}
+            },
+            "notes": "Different roles provide varying levels of control oversight. External auditors and Risk/Compliance roles provide the strongest control."
+        }
+    }
+    
     return schema
 
 
