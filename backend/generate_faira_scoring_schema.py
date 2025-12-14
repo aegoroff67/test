@@ -1356,6 +1356,46 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B6.1 - Transparency → Control Effectiveness
+    schema["questions"]["B6_1"] = {
+        "id": "B6_1",
+        "text": "How transparent is the AI solution's operation? (1 = Very Low, 5 = Very High)",
+        "type": "rating_scale",
+        "domains": ["Transparency and Explainability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "rating_scale": {
+                "1": {"Control_Effectiveness": 0},
+                "2": {"Control_Effectiveness": -0.5},
+                "3": {"Control_Effectiveness": -1.0},
+                "4": {"Control_Effectiveness": -1.5},
+                "5": {"Control_Effectiveness": -2.0}
+            },
+            "notes": "Rating scale 1-5. Higher transparency improves control effectiveness. Rating 1 (Very Low) has no effect, Rating 5 (Very High) provides strongest control benefit."
+        }
+    }
+    
+    # B6.2 - Explainability → Control Effectiveness
+    schema["questions"]["B6_2"] = {
+        "id": "B6_2",
+        "text": "Can the system explain its outputs or decisions? (1 = Very Low, 5 = Very High)",
+        "type": "rating_scale",
+        "domains": ["Transparency and Explainability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "rating_scale": {
+                "1": {"Control_Effectiveness": 0},
+                "2": {"Control_Effectiveness": -0.5},
+                "3": {"Control_Effectiveness": -1.0},
+                "4": {"Control_Effectiveness": -1.5},
+                "5": {"Control_Effectiveness": -2.0}
+            },
+            "notes": "Rating scale 1-5. Higher explainability improves control effectiveness. Rating 1 (Very Low) has no effect, Rating 5 (Very High) provides strongest control benefit."
+        }
+    }
+    
     return schema
 
 
