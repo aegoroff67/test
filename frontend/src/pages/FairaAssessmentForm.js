@@ -1906,7 +1906,8 @@ export default function FairaAssessmentForm() {
                     "Regular system audits",
                     "Continuous performance monitoring",
                     "User feedback collection",
-                    "Periodic stakeholder reviews"
+                    "Periodic stakeholder reviews",
+                    "Independent evaluation"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
