@@ -560,6 +560,27 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # A4.4 - Output Tracking → Control Effectiveness
+    schema["questions"]["A4_4"] = {
+        "id": "A4_4",
+        "text": "How are system outputs tracked?",
+        "type": "multiselect",
+        "domains": ["Accountability", "Contestability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "options": {
+                "Stored in database": {"Control_Effectiveness": -2},
+                "Logged in audit system": {"Control_Effectiveness": -3},
+                "Logged in CRM/case system": {"Control_Effectiveness": -2},
+                "Logged in activity logs": {"Control_Effectiveness": -2},
+                "Retention based on policy": {"Control_Effectiveness": -1},
+                "Not currently tracked": {"Control_Effectiveness": 0}
+            },
+            "notes": "Output tracking improves control effectiveness and enables contestability. 'Not currently tracked' should be flagged as a risk."
+        }
+    }
+    
     return schema
 
 
