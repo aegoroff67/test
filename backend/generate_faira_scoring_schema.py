@@ -1207,6 +1207,34 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B4.2 - Personal Info Used → Impact (Two-part)
+    schema["questions"]["B4_2"] = {
+        "id": "B4_2",
+        "text": "Does the AI system use personal information?",
+        "type": "yes_no_with_options",
+        "domains": ["Privacy Protection and Security"],
+        "scoring": {
+            "target_metric": "Impact",
+            "options": {
+                "No": {
+                    "Impact": 0
+                },
+                "Yes": {
+                    "Impact": 2,
+                    "sub_question": "B4_2_types",
+                    "pi_types": {
+                        "Identifiable": {"Impact": 1},
+                        "Sensitive": {"Impact": 2},
+                        "Health": {"Impact": 3},
+                        "Financial": {"Impact": 3},
+                        "Biometric": {"Impact": 3}
+                    }
+                }
+            },
+            "notes": "Two-part question. If 'No', Impact 0. If 'Yes', Impact +2 PLUS each selected PI type adds its modifier. Health, Financial, and Biometric data carry highest impact."
+        }
+    }
+    
     return schema
 
 
