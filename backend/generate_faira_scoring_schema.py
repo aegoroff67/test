@@ -951,6 +951,45 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # A5.11 - Deployment Location → Likelihood & Control Effectiveness (Dual-metric)
+    schema["questions"]["A5_11"] = {
+        "id": "A5_11",
+        "text": "Where will this AI solution be deployed?",
+        "type": "single_select",
+        "domains": ["Accountability", "Reliability and Safety", "Human, Societal and Environmental Wellbeing"],
+        "scoring": {
+            "target_metric": "Likelihood and Control_Effectiveness",
+            "modifier_type": "dual",
+            "options": {
+                "Internal use only": {
+                    "Likelihood": 0,
+                    "Control_Effectiveness": 0
+                },
+                "Internal + selected partners": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": -1
+                },
+                "Public-facing": {
+                    "Likelihood": 2,
+                    "Control_Effectiveness": -1
+                },
+                "Citizen-facing high-sensitivity": {
+                    "Likelihood": 3,
+                    "Control_Effectiveness": -2
+                },
+                "Embedded in another product": {
+                    "Likelihood": 2,
+                    "Control_Effectiveness": -1
+                },
+                "Multi-channel deployment": {
+                    "Likelihood": 3,
+                    "Control_Effectiveness": -2
+                }
+            },
+            "notes": "Single select - only ONE deployment location applies. Wider deployment increases likelihood of risk exposure but also may come with better controls. Citizen-facing and multi-channel deployments have highest risk exposure but strongest control requirements."
+        }
+    }
+    
     return schema
 
 
