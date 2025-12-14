@@ -1653,6 +1653,50 @@
         },
         "notes": "Each category is rated independently. Only ONE rating per category applies. All three ratings are cumulative. Positive impacts reduce risk, negative impacts increase it significantly."
       }
+    },
+    "B2_3": {
+      "id": "B2_3",
+      "text": "Were diverse perspectives included in the AI system's design and development?",
+      "type": "yes_no_with_options",
+      "domains": [
+        "Human-Centered Values"
+      ],
+      "scoring": {
+        "target_metric": "Impact",
+        "options": {
+          "No": {
+            "Impact": 2
+          },
+          "Yes": {
+            "Impact": -2,
+            "sub_question": "B2_3_perspectives",
+            "perspectives": {
+              "People with disabilities": {
+                "Impact": -0.5
+              },
+              "Cultural diversity": {
+                "Impact": -0.5
+              },
+              "Gender diversity": {
+                "Impact": -0.5
+              },
+              "Age diversity": {
+                "Impact": -0.5
+              },
+              "Indigenous perspectives": {
+                "Impact": -0.5
+              },
+              "Socioeconomic diversity": {
+                "Impact": -0.5
+              },
+              "Other": {
+                "Impact": 0
+              }
+            }
+          }
+        },
+        "notes": "Two-part question. If 'No', Impact +2. If 'Yes', Impact -2 PLUS each selected perspective adds -0.5. 'Other' option available but has no additional score modifier."
+      }
     }
   }
 }
