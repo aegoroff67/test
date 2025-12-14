@@ -794,6 +794,28 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # A5.7 - Stakeholder Engagement → Control Effectiveness
+    schema["questions"]["A5_7"] = {
+        "id": "A5_7",
+        "text": "What stakeholder engagement activities have been conducted?",
+        "type": "multiselect",
+        "domains": ["Human-centred values", "Fairness"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "options": {
+                "Workshops": {"Control_Effectiveness": -2},
+                "Public consultation": {"Control_Effectiveness": -3},
+                "Union consultation": {"Control_Effectiveness": -2},
+                "Focus groups": {"Control_Effectiveness": -2},
+                "User feedback sessions": {"Control_Effectiveness": -1},
+                "Accessibility reviews": {"Control_Effectiveness": -3},
+                "No engagements planned": {"Control_Effectiveness": 0}
+            },
+            "notes": "Stakeholder engagement improves control effectiveness by incorporating diverse perspectives. Public consultation and accessibility reviews provide strong control benefits."
+        }
+    }
+    
     return schema
 
 
