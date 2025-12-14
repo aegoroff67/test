@@ -1191,19 +1191,19 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # B4.1 - PIA Completed → Control Effectiveness
+    # B4.1 - PIA Completed → Impact
     schema["questions"]["B4_1"] = {
         "id": "B4_1",
         "text": "Has a Privacy Impact Assessment (PIA) been completed?",
         "type": "yes_no",
         "domains": ["Privacy Protection and Security"],
         "scoring": {
-            "target_metric": "Control_Effectiveness",
+            "target_metric": "Impact",
             "options": {
-                "Yes": {"Control_Effectiveness": -2},
-                "No": {"Control_Effectiveness": 2}
+                "Yes": {"Impact": -2},
+                "No": {"Impact": 2}
             },
-            "notes": "Completing a PIA improves control effectiveness. Not completing one significantly increases privacy risk exposure."
+            "notes": "Completing a PIA reduces privacy risk impact. Not completing one significantly increases privacy risk exposure."
         }
     }
     
