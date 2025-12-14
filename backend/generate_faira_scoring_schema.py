@@ -1035,6 +1035,22 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B2.1 - HRIA Completed → Control Effectiveness
+    schema["questions"]["B2_1"] = {
+        "id": "B2_1",
+        "text": "Has a Human Rights Impact Assessment (HRIA) been completed?",
+        "type": "yes_no",
+        "domains": ["Human-Centered Values"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "options": {
+                "Yes": {"Control_Effectiveness": -2},
+                "No": {"Control_Effectiveness": 1}
+            },
+            "notes": "Completing an HRIA improves control effectiveness. Not completing one increases risk exposure."
+        }
+    }
+    
     return schema
 
 
