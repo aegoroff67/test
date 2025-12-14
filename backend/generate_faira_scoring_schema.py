@@ -1418,6 +1418,27 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B7.2 - Challenge Speed → Control Effectiveness
+    schema["questions"]["B7_2"] = {
+        "id": "B7_2",
+        "text": "How quickly can a decision be challenged or reviewed?",
+        "type": "single_select",
+        "domains": ["Contestability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "mixed",
+            "options": {
+                "Immediately": {"Control_Effectiveness": -2},
+                "Within Hours": {"Control_Effectiveness": -1},
+                "Within Days": {"Control_Effectiveness": 0},
+                "Within Weeks": {"Control_Effectiveness": 1},
+                "Longer than weeks": {"Control_Effectiveness": 2},
+                "Unknown": {"Control_Effectiveness": 1}
+            },
+            "notes": "Single select - only ONE option applies. Faster challenge response improves control effectiveness. Immediate and hourly responses provide strongest control. Extended timelines or unknown processes increase risk."
+        }
+    }
+    
     return schema
 
 
