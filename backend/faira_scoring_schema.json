@@ -1797,6 +1797,26 @@
         },
         "notes": "Three-option question. If 'No', Impact 0. If 'Unknown', Impact +2 only. If 'Yes', Impact +3 PLUS each selected group adds +1. This identifies potential discrimination risks."
       }
+    },
+    "B4_1": {
+      "id": "B4_1",
+      "text": "Has a Privacy Impact Assessment (PIA) been completed?",
+      "type": "yes_no",
+      "domains": [
+        "Privacy Protection and Security"
+      ],
+      "scoring": {
+        "target_metric": "Control_Effectiveness",
+        "options": {
+          "Yes": {
+            "Control_Effectiveness": -2
+          },
+          "No": {
+            "Control_Effectiveness": 2
+          }
+        },
+        "notes": "Completing a PIA improves control effectiveness. Not completing one significantly increases privacy risk exposure."
+      }
     }
   }
 }
