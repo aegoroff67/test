@@ -1806,16 +1806,17 @@
         "Privacy Protection and Security"
       ],
       "scoring": {
-        "target_metric": "Impact",
+        "target_metric": "Control_Effectiveness",
+        "modifier_type": "mixed",
         "options": {
           "Yes": {
-            "Impact": -2
+            "Control_Effectiveness": -2
           },
           "No": {
-            "Impact": 2
+            "Control_Effectiveness": 2
           }
         },
-        "notes": "Completing a PIA reduces privacy risk impact. Not completing one significantly increases privacy risk exposure."
+        "notes": "Completing a PIA improves control effectiveness. Not completing one increases risk exposure."
       }
     },
     "B4_2": {
@@ -1864,26 +1865,26 @@
         "Privacy Protection and Security"
       ],
       "scoring": {
-        "target_metric": "Impact",
+        "target_metric": "Control_Effectiveness",
         "modifier_type": "negative",
         "options": {
           "Access controls": {
-            "Impact": -1
+            "Control_Effectiveness": -1
           },
           "Encryption": {
-            "Impact": -2
+            "Control_Effectiveness": -2
           },
           "Security testing": {
-            "Impact": -2
+            "Control_Effectiveness": -2
           },
           "Anonymisation": {
-            "Impact": -2
+            "Control_Effectiveness": -2
           },
           "PETs": {
-            "Impact": -2
+            "Control_Effectiveness": -2
           }
         },
-        "notes": "Multiple selections are cumulative. Each security measure reduces privacy risk impact. Encryption, Security testing, Anonymisation, and PETs (Privacy Enhancing Technologies) provide stronger protection."
+        "notes": "Multiple selections are cumulative. Each security measure improves control effectiveness. Encryption, Security testing, Anonymisation, and PETs (Privacy Enhancing Technologies) provide stronger protection."
       }
     }
   }
