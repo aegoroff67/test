@@ -1302,6 +1302,60 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B5.3 - High-risk Environment → Impact & Likelihood (Two-part, dual-metric)
+    schema["questions"]["B5_3"] = {
+        "id": "B5_3",
+        "text": "Does the AI system operate in a high-risk environment?",
+        "type": "yes_no_with_options",
+        "domains": ["Reliability and Safety"],
+        "scoring": {
+            "target_metric": "Impact and Likelihood",
+            "modifier_type": "dual",
+            "options": {
+                "No": {
+                    "Impact": 0,
+                    "Likelihood": 0
+                },
+                "Yes": {
+                    "Impact": 0,
+                    "Likelihood": 0,
+                    "sub_question": "B5_3_environments",
+                    "environments": {
+                        "Essential services": {
+                            "Impact": 3,
+                            "Likelihood": 1
+                        },
+                        "Critical infrastructure": {
+                            "Impact": 4,
+                            "Likelihood": 2
+                        },
+                        "Health services": {
+                            "Impact": 4,
+                            "Likelihood": 1
+                        },
+                        "Education": {
+                            "Impact": 2,
+                            "Likelihood": 0
+                        },
+                        "Law enforcement": {
+                            "Impact": 4,
+                            "Likelihood": 1
+                        },
+                        "Administration of justice": {
+                            "Impact": 4,
+                            "Likelihood": 0
+                        },
+                        "Democratic processes": {
+                            "Impact": 5,
+                            "Likelihood": 1
+                        }
+                    }
+                }
+            },
+            "notes": "Two-part question with dual metrics. If 'No', Impact 0 and Likelihood 0 only. If 'Yes', unlocks environment options. Each selected environment applies both Impact and Likelihood modifiers. Democratic processes carry the highest impact."
+        }
+    }
+    
     return schema
 
 
