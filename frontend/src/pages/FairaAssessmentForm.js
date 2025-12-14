@@ -2187,18 +2187,6 @@ export default function FairaAssessmentForm() {
                         rows={2}
                       />
                     </div>
-
-                    {/* Impact description */}
-                    <div className="space-y-2">
-                      <Label htmlFor="A5_10_impact">If Yes, briefly describe how these obligations impact the AI system (optional):</Label>
-                      <Textarea
-                        id="A5_10_impact"
-                        value={form.A5_10_impact}
-                        onChange={(e) => update("A5_10_impact", e.target.value)}
-                        placeholder="Describe the impact of these regulatory obligations"
-                        rows={3}
-                      />
-                    </div>
                   </div>
                 )}
               </div>
