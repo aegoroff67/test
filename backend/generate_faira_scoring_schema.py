@@ -676,6 +676,32 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # ============================================================================
+    # SECTION A5: Governance and Oversight
+    # ============================================================================
+    
+    # A5.1 - Accountability Role → Control Effectiveness
+    schema["questions"]["A5_1"] = {
+        "id": "A5_1",
+        "text": "Who is accountable for the AI system's performance and decisions?",
+        "type": "single_select",
+        "domains": ["Accountability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "options": {
+                "Product owner": {"Control_Effectiveness": -2},
+                "System owner": {"Control_Effectiveness": -3},
+                "Executive sponsor": {"Control_Effectiveness": -2},
+                "Service manager": {"Control_Effectiveness": -3},
+                "Data custodian": {"Control_Effectiveness": -3},
+                "Governance committee": {"Control_Effectiveness": -4},
+                "AI oversight board": {"Control_Effectiveness": -4}
+            },
+            "notes": "Clear accountability structures improve control effectiveness. Higher-level oversight (committees, boards) provide stronger governance."
+        }
+    }
+    
     return schema
 
 
