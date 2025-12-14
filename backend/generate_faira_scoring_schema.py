@@ -1256,6 +1256,35 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B5.1 - Reliability Testing → Control Effectiveness (Two-part with rating scale)
+    schema["questions"]["B5_1"] = {
+        "id": "B5_1",
+        "text": "Has the system been tested for reliability?",
+        "type": "yes_no_with_rating",
+        "domains": ["Reliability and Safety"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "negative",
+            "options": {
+                "No": {
+                    "Control_Effectiveness": 0
+                },
+                "Yes": {
+                    "Control_Effectiveness": 0,
+                    "sub_question": "B5_1_rating",
+                    "rating_scale": {
+                        "1": {"Control_Effectiveness": -0.5},
+                        "2": {"Control_Effectiveness": -1.0},
+                        "3": {"Control_Effectiveness": -1.5},
+                        "4": {"Control_Effectiveness": -2.0},
+                        "5": {"Control_Effectiveness": -3.0}
+                    }
+                }
+            },
+            "notes": "Two-part question. If 'No', CE 0 only. If 'Yes', CE 0 but unlocks rating scale (1-5). Rating reflects robustness of testing: 1 = Minimal/ad hoc, 5 = Comprehensive/formal. Higher ratings improve control effectiveness more."
+        }
+    }
+    
     return schema
 
 
