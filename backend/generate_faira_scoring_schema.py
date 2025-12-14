@@ -1125,6 +1125,39 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B3.1 - Bias Testing Completed → Impact (Two-part)
+    schema["questions"]["B3_1"] = {
+        "id": "B3_1",
+        "text": "Has bias testing been conducted on the AI system?",
+        "type": "yes_no_with_options",
+        "domains": ["Fairness"],
+        "scoring": {
+            "target_metric": "Impact",
+            "options": {
+                "No": {
+                    "Impact": 2
+                },
+                "Yes": {
+                    "Impact": -2,
+                    "sub_question": "B3_1_methods",
+                    "testing_methods": {
+                        "Statistical parity analysis": {"Impact": -1},
+                        "Disparate impact analysis": {"Impact": -1},
+                        "Dataset bias review": {"Impact": -1},
+                        "Model interpretability testing": {"Impact": -1},
+                        "Human review panels": {"Impact": -1},
+                        "Synthetic scenario testing": {"Impact": -1},
+                        "Accessibility testing": {"Impact": -1},
+                        "Penetration/security testing": {"Impact": -1},
+                        "Vendor-provided tests": {"Impact": -1},
+                        "Informal or ad-hoc checks only (no formal testing)": {"Impact": -1}
+                    }
+                }
+            },
+            "notes": "Two-part question. If 'No', Impact +2. If 'Yes', Impact -2 PLUS each selected testing method adds -1. 'Informal or ad-hoc checks only' should be flagged as a risk despite the -1 modifier, as it indicates lack of formal testing."
+        }
+    }
+    
     return schema
 
 
