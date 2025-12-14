@@ -1396,6 +1396,28 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B6.4 - Explainability Limitations → Control Effectiveness
+    schema["questions"]["B6_4"] = {
+        "id": "B6_4",
+        "text": "Are there known limitations to the system's explainability?",
+        "type": "yes_no_with_text",
+        "domains": ["Transparency and Explainability"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "options": {
+                "Yes": {"Control_Effectiveness": 2},
+                "No": {"Control_Effectiveness": 0}
+            },
+            "text_field": {
+                "field": "B6_4_description",
+                "label": "Describe limitations:",
+                "scoring": None,
+                "notes": "Text field for reporting purposes only. No scoring applied."
+            },
+            "notes": "If Yes, CE +2 (increases risk). Text description is captured for reporting but does not affect scoring."
+        }
+    }
+    
     return schema
 
 
