@@ -1285,6 +1285,23 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B5.2 - Disengagement Mechanism → Control Effectiveness
+    schema["questions"]["B5_2"] = {
+        "id": "B5_2",
+        "text": "Is there a process to disengage the system if issues arise?",
+        "type": "yes_no",
+        "domains": ["Reliability and Safety"],
+        "scoring": {
+            "target_metric": "Control_Effectiveness",
+            "modifier_type": "mixed",
+            "options": {
+                "Yes": {"Control_Effectiveness": -2},
+                "No": {"Control_Effectiveness": 2}
+            },
+            "notes": "Having a disengagement mechanism improves control effectiveness. Lacking one increases risk exposure."
+        }
+    }
+    
     return schema
 
 
