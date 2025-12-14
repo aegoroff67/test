@@ -1806,16 +1806,16 @@
         "Privacy Protection and Security"
       ],
       "scoring": {
-        "target_metric": "Control_Effectiveness",
+        "target_metric": "Impact",
         "options": {
           "Yes": {
-            "Control_Effectiveness": -2
+            "Impact": -2
           },
           "No": {
-            "Control_Effectiveness": 2
+            "Impact": 2
           }
         },
-        "notes": "Completing a PIA improves control effectiveness. Not completing one significantly increases privacy risk exposure."
+        "notes": "Completing a PIA reduces privacy risk impact. Not completing one significantly increases privacy risk exposure."
       }
     }
   }
