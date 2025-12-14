@@ -2237,47 +2237,6 @@ export default function FairaAssessmentForm() {
                   <option value="Multi-channel deployment">Multi-channel deployment</option>
                 </select>
               </div>
-
-              {/* A5.12 */}
-              <div className="space-y-2">
-                <Label>A5.12 Which national and international AI frameworks and standards apply? (Select all that apply)</Label>
-                <div className="grid gap-2 md:grid-cols-2">
-                  {[
-                    "National Framework for the Assurance of AI in Government",
-                    "Queensland Government Enterprise Architecture",
-                    "ISO/IEC 42001",
-                    "ISO 27001",
-                    "ISO 31000",
-                    "NIST AI RMF",
-                    "OECD AI Principles",
-                    "EU AI Act",
-                    "Singapore MAF"
-                  ].map((option) => (
-                    <label key={option} className="flex items-center space-x-2">
-                      <Checkbox
-                        checked={form.A5_12.includes(option)}
-                        onCheckedChange={() => toggleInArray("A5_12", option)}
-                      />
-                      <span className="text-sm">{option}</span>
-                    </label>
-                  ))}
-                  <label className="flex items-center space-x-2">
-                    <Checkbox
-                      checked={form.A5_12.includes("Other")}
-                      onCheckedChange={() => toggleInArray("A5_12", "Other")}
-                    />
-                    <span className="text-sm">Other (specify)</span>
-                  </label>
-                </div>
-                {form.A5_12.includes("Other") && (
-                  <Input
-                    value={form.A5_12_other}
-                    onChange={(e) => update("A5_12_other", e.target.value)}
-                    placeholder="Please specify other frameworks"
-                    className="mt-2"
-                  />
-                )}
-              </div>
             </div>
           </CardContent>
         </Card>
