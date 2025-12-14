@@ -990,6 +990,34 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # ============================================================================
+    # PART B: VALUES ASSESSMENT
+    # ============================================================================
+    
+    # B1.2 - Negative Impacts → Impact
+    schema["questions"]["B1_2"] = {
+        "id": "B1_2",
+        "text": "What negative impacts could the AI system create?",
+        "type": "multiselect",
+        "domains": ["Human, Societal and Environmental Wellbeing"],
+        "scoring": {
+            "target_metric": "Impact",
+            "options": {
+                "Privacy risks": {"Impact": 3},
+                "Bias/discrimination": {"Impact": 3},
+                "Transparency issues": {"Impact": 2},
+                "Safety risks": {"Impact": 4},
+                "Employment impacts": {"Impact": 2},
+                "Social harm": {"Impact": 3},
+                "Environmental impact": {"Impact": 2},
+                "Accessibility issues": {"Impact": 2},
+                "Legal/regulatory risks": {"Impact": 2},
+                "Loss of trust": {"Impact": 2}
+            },
+            "notes": "Multiple selections are cumulative. Safety risks have the highest impact modifier."
+        }
+    }
+    
     return schema
 
 
