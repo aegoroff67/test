@@ -1051,6 +1051,50 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B2.2 - Rights, Diversity, Autonomy → Impact (Multi-rating)
+    schema["questions"]["B2_2"] = {
+        "id": "B2_2",
+        "text": "Rate the AI system's impact on the following dimensions:",
+        "type": "multi_rating",
+        "domains": ["Human-Centered Values"],
+        "scoring": {
+            "target_metric": "Impact",
+            "categories": {
+                "human_rights": {
+                    "field": "B2_2_rights",
+                    "label": "Human Rights",
+                    "options": {
+                        "Positive": {"Impact": -1},
+                        "Neutral": {"Impact": 0},
+                        "Negative": {"Impact": 2},
+                        "Unknown": {"Impact": 1}
+                    }
+                },
+                "diversity": {
+                    "field": "B2_2_diversity",
+                    "label": "Diversity",
+                    "options": {
+                        "Positive": {"Impact": -1},
+                        "Neutral": {"Impact": 0},
+                        "Negative": {"Impact": 2},
+                        "Unknown": {"Impact": 1}
+                    }
+                },
+                "autonomy": {
+                    "field": "B2_2_autonomy",
+                    "label": "Individual Autonomy",
+                    "options": {
+                        "Positive": {"Impact": -1},
+                        "Neutral": {"Impact": 0},
+                        "Negative": {"Impact": 2},
+                        "Unknown": {"Impact": 1}
+                    }
+                }
+            },
+            "notes": "Each category is rated independently. Only ONE rating per category applies. All three ratings are cumulative. Positive impacts reduce risk, negative impacts increase it significantly."
+        }
+    }
+    
     return schema
 
 
