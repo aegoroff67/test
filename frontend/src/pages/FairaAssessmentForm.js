@@ -107,8 +107,6 @@ const defaultState = {
   A5_10_other: "", // Other regulations text
   A5_10_impact: "", // Impact description
   A5_11: "", // deployment location (single select)
-  A5_12: [], // frameworks/standards (multiselect)
-  A5_12_other: "",
   
   // B1: Human, Societal, and Environmental Wellbeing
   B1_1_individual: null, // 1-5 scale
