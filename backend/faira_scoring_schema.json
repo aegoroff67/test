@@ -830,6 +830,37 @@
           }
         }
       }
+    },
+    "A4_3": {
+      "id": "A4_3",
+      "text": "What is the Business Impact Level (BIL) of the system outputs?",
+      "type": "single_select",
+      "domains": [
+        "Privacy Protection and Security"
+      ],
+      "scoring": {
+        "target_metric": "Impact",
+        "options": {
+          "Official": {
+            "Impact": 0
+          },
+          "Official: Sensitive": {
+            "Impact": 1
+          },
+          "Protected": {
+            "Impact": 2
+          },
+          "Highly Protected": {
+            "Impact": 3
+          },
+          "Secret": {
+            "Impact": 4
+          },
+          "Top Secret": {
+            "Impact": 5
+          }
+        }
+      }
     }
   }
 }
