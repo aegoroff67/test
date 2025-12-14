@@ -2744,7 +2744,7 @@ export default function FairaAssessmentForm() {
                 
                 {form.B5_1 === "Yes" && (
                   <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
-                    <Label>Rate reliability test results (1 = Very Low, 5 = Very High):</Label>
+                    <Label>How robust was the reliability testing conducted?<br />(1 = Minimal / ad hoc testing, 5 = Comprehensive, formal testing)</Label>
                     <RadioScale 
                       value={form.B5_1_rating} 
                       onChange={(val) => update("B5_1_rating", val)} 
