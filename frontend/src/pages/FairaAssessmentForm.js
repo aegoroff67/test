@@ -103,7 +103,6 @@ const defaultState = {
   A5_10_qld: [], // Queensland legislation
   A5_10_sector: [], // Sector-specific obligations
   A5_10_frameworks: [], // Frameworks and standards
-  A5_10_frameworks_other: "", // Other frameworks specify
   A5_10_other: "", // Other regulations text
   A5_10_impact: "", // Impact description
   A5_11: "", // deployment location (single select)
