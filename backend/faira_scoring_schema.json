@@ -1294,6 +1294,169 @@
         },
         "notes": "Adherence to established values, principles, and frameworks improves control effectiveness. Privacy principles and risk management frameworks provide the strongest control benefits."
       }
+    },
+    "A5_10": {
+      "id": "A5_10",
+      "text": "Does the AI system operate under specific regulatory obligations or frameworks?",
+      "type": "yes_no_with_subsections",
+      "domains": [
+        "Accountability",
+        "Privacy Protection and Security"
+      ],
+      "scoring": {
+        "target_metric": "Control_Effectiveness",
+        "modifier_type": "negative",
+        "options": {
+          "No": {
+            "Control_Effectiveness": 0
+          },
+          "Yes": {
+            "Control_Effectiveness": 0,
+            "subsections": {
+              "commonwealth": {
+                "field": "A5_10_commonwealth",
+                "type": "multiselect",
+                "label": "Commonwealth (Federal) Legislation",
+                "options": {
+                  "Privacy Act 1988": {
+                    "Control_Effectiveness": -2
+                  },
+                  "Australian Privacy Principles (APPs)": {
+                    "Control_Effectiveness": -1
+                  },
+                  "Notifiable Data Breaches (NDB) Scheme": {
+                    "Control_Effectiveness": -1
+                  },
+                  "Archives Act 1983": {
+                    "Control_Effectiveness": -1
+                  },
+                  "Freedom of Information Act 1982": {
+                    "Control_Effectiveness": -1
+                  },
+                  "Security of Critical Infrastructure Act (SOCI)": {
+                    "Control_Effectiveness": -3
+                  },
+                  "Criminal Code Act (cybercrime, identity, child exploitation provisions)": {
+                    "Control_Effectiveness": -2
+                  }
+                }
+              },
+              "queensland": {
+                "field": "A5_10_qld",
+                "type": "multiselect",
+                "label": "Queensland State Legislation",
+                "options": {
+                  "Information Privacy Act 2009 (Qld)": {
+                    "Control_Effectiveness": -2
+                  },
+                  "Right to Information Act 2009": {
+                    "Control_Effectiveness": -1
+                  },
+                  "Public Records Act 2002": {
+                    "Control_Effectiveness": -1
+                  },
+                  "Child Protection Act": {
+                    "Control_Effectiveness": -3
+                  },
+                  "Domestic and Family Violence Protection Act": {
+                    "Control_Effectiveness": -3
+                  },
+                  "Youth Justice Act": {
+                    "Control_Effectiveness": -2
+                  },
+                  "Mental Health Act": {
+                    "Control_Effectiveness": -2
+                  },
+                  "Hospital and Health Boards Act (confidentiality obligations)": {
+                    "Control_Effectiveness": -2
+                  },
+                  "Police Powers and Responsibilities Act": {
+                    "Control_Effectiveness": -2
+                  }
+                }
+              },
+              "sector": {
+                "field": "A5_10_sector",
+                "type": "multiselect",
+                "label": "Sector-Specific Regulatory Obligations",
+                "options": {
+                  "Health information / clinical safety requirements": {
+                    "Control_Effectiveness": -2
+                  },
+                  "Law enforcement / justice sector requirements": {
+                    "Control_Effectiveness": -3
+                  },
+                  "Education sector obligations": {
+                    "Control_Effectiveness": -1
+                  },
+                  "Transport or safety-critical operational standards": {
+                    "Control_Effectiveness": -2
+                  },
+                  "Financial or taxation regulatory requirements": {
+                    "Control_Effectiveness": -2
+                  },
+                  "Indigenous cultural data governance / data sovereignty": {
+                    "Control_Effectiveness": -3
+                  },
+                  "Workplace surveillance obligations": {
+                    "Control_Effectiveness": -1
+                  },
+                  "Safety-of-life / emergency services obligations": {
+                    "Control_Effectiveness": -2
+                  },
+                  "Critical infrastructure operational safety requirements": {
+                    "Control_Effectiveness": -3
+                  }
+                }
+              },
+              "frameworks": {
+                "field": "A5_10_frameworks",
+                "type": "multiselect",
+                "label": "Frameworks, Standards, and Policies",
+                "options": {
+                  "QGEA / IS18:2018 Information Security Policy": {
+                    "Control_Effectiveness": -1
+                  },
+                  "QLD Government AI Ethical Principles": {
+                    "Control_Effectiveness": -1
+                  },
+                  "QLD FAIRA Framework (this assessment)": {
+                    "Control_Effectiveness": 0
+                  },
+                  "Australian Government AI Ethics Principles": {
+                    "Control_Effectiveness": -1
+                  },
+                  "ISO/IEC 42001 (AI Management System)": {
+                    "Control_Effectiveness": -2
+                  },
+                  "ISO/IEC 27001 / 27002 (Information Security Management)": {
+                    "Control_Effectiveness": -1
+                  },
+                  "ISO/IEC 27701 (Privacy Information Management)": {
+                    "Control_Effectiveness": -1
+                  },
+                  "ISO 31000 (Risk Management)": {
+                    "Control_Effectiveness": -1
+                  },
+                  "NIST AI Risk Management Framework": {
+                    "Control_Effectiveness": -2
+                  }
+                }
+              },
+              "other": {
+                "field": "A5_10_other",
+                "type": "text",
+                "label": "Other regulations, obligations, or frameworks (optional)",
+                "default_modifier": {
+                  "Control_Effectiveness": -1
+                },
+                "notes": "Free-text field with default CE -1. Can be LLM-classified later for adjustment if needed."
+              }
+            }
+          }
+        },
+        "notes": "Multi-part question. All modifiers only apply if 'Yes' is selected. Each subsection is cumulative. Strong controls from critical infrastructure, child protection, and law enforcement obligations."
+      }
     }
   }
 }
