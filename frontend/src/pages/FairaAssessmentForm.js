@@ -104,7 +104,6 @@ const defaultState = {
   A5_10_sector: [], // Sector-specific obligations
   A5_10_frameworks: [], // Frameworks and standards
   A5_10_other: "", // Other regulations text
-  A5_10_impact: "", // Impact description
   A5_11: "", // deployment location (single select)
   
   // B1: Human, Societal, and Environmental Wellbeing
@@ -299,7 +298,6 @@ export default function FairaAssessmentForm() {
       'A5_10_sector': () => form.A5_10 === 'Yes',
       'A5_10_frameworks': () => form.A5_10 === 'Yes',
       'A5_10_other': () => form.A5_10 === 'Yes',
-      'A5_10_impact': () => form.A5_10 === 'Yes',
       'B2_3_perspectives': () => form.B2_3 === 'Yes',
       'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && form.B2_3_perspectives.includes('Other'),
       'B3_1_methods': () => form.B3_1 === 'Yes',
@@ -387,7 +385,6 @@ export default function FairaAssessmentForm() {
       'A5_10_sector': () => form.A5_10 === 'Yes',
       'A5_10_frameworks': () => form.A5_10 === 'Yes',
       'A5_10_other': () => form.A5_10 === 'Yes',
-      'A5_10_impact': () => form.A5_10 === 'Yes',
       'B2_3_perspectives': () => form.B2_3 === 'Yes',
       'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && form.B2_3_perspectives.includes('Other'),
       'B3_1_methods': () => form.B3_1 === 'Yes',
