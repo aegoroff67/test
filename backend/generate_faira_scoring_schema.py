@@ -1018,6 +1018,23 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B1.3 - Employee Employment Impact → Impact
+    schema["questions"]["B1_3"] = {
+        "id": "B1_3",
+        "text": "Could the AI system affect employee employment or job roles?",
+        "type": "single_select",
+        "domains": ["Human, Societal and Environmental Wellbeing"],
+        "scoring": {
+            "target_metric": "Impact",
+            "options": {
+                "Yes": {"Impact": 2},
+                "Unknown": {"Impact": 1},
+                "No": {"Impact": 0}
+            },
+            "notes": "Single select - only ONE option applies. 'Unknown' reflects uncertainty about employment impacts."
+        }
+    }
+    
     return schema
 
 
