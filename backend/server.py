@@ -3455,7 +3455,7 @@ async def download_testing_checklist():
 async def download_faira_structure():
     """Download the complete FAIRA assessment structure as JSON with scoring configuration"""
     try:
-        json_file_path = Path("/tmp/faira_with_scoring.json")
+        json_file_path = Path("/tmp/faira_scoring_all_a1_plus_a2_1.json")
         if json_file_path.exists():
             with open(json_file_path, 'r') as f:
                 data = json.load(f)
