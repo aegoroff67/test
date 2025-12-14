@@ -1235,6 +1235,26 @@ def generate_complete_scoring_schema():
         }
     }
     
+    # B4.3 - Security Measures → Impact
+    schema["questions"]["B4_3"] = {
+        "id": "B4_3",
+        "text": "What security measures are in place to protect personal information?",
+        "type": "multiselect",
+        "domains": ["Privacy Protection and Security"],
+        "scoring": {
+            "target_metric": "Impact",
+            "modifier_type": "negative",
+            "options": {
+                "Access controls": {"Impact": -1},
+                "Encryption": {"Impact": -2},
+                "Security testing": {"Impact": -2},
+                "Anonymisation": {"Impact": -2},
+                "PETs": {"Impact": -2}
+            },
+            "notes": "Multiple selections are cumulative. Each security measure reduces privacy risk impact. Encryption, Security testing, Anonymisation, and PETs (Privacy Enhancing Technologies) provide stronger protection."
+        }
+    }
+    
     return schema
 
 
