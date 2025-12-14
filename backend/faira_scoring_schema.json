@@ -1122,6 +1122,28 @@
         },
         "notes": "More frequent monitoring improves control effectiveness. Weekly monitoring provides the strongest control."
       }
+    },
+    "A5_5": {
+      "id": "A5_5",
+      "text": "Has the system undergone independent review or audit?",
+      "type": "yes_no",
+      "domains": [
+        "Accountability",
+        "Transparency"
+      ],
+      "scoring": {
+        "target_metric": "Control_Effectiveness",
+        "modifier_type": "negative",
+        "options": {
+          "Yes": {
+            "Control_Effectiveness": -2
+          },
+          "No": {
+            "Control_Effectiveness": 0
+          }
+        },
+        "notes": "Independent review provides external validation and improves control effectiveness."
+      }
     }
   }
 }
