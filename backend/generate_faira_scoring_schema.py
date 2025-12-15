@@ -849,7 +849,7 @@ def generate_complete_scoring_schema():
         "id": "A5_2",
         "text": "How are AI use inputs and outputs tracked and recorded?",
         "type": "text",
-        "domains": ["Accountability", "Transparency and Explainability"],
+        "domains": ["Accountability"],
         "scoring": {
             "target_metric": "TBD",
             "logic": "Scoring to be addressed later"
