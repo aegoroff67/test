@@ -149,38 +149,50 @@
     },
     "A1_5": {
       "id": "A1_5",
-      "text": "What tangible benefits does the AI system provide?",
+      "text": "What tangible benefits does this AI solution provide?",
       "type": "multiselect",
       "domains": [
-        "Accountability"
+        "Transparency and Explainability",
+        "Reliability and Safety"
       ],
       "scoring": {
-        "target_metric": "Impact",
-        "modifier_type": "negative",
+        "target_metric": "Control_Effectiveness",
         "options": {
-          "Cost reduction": {
-            "Impact": -1
+          "Increased efficiency": {
+            "Control_Effectiveness": 0.5
           },
-          "Time savings": {
-            "Impact": -1
+          "Reduced manual effort": {
+            "Control_Effectiveness": 0.5
           },
-          "Improved accuracy": {
-            "Impact": -2
+          "Improved decision-making": {
+            "Control_Effectiveness": 1
+          },
+          "Faster processing time": {
+            "Control_Effectiveness": 0.5
+          },
+          "Improved accuracy or consistency": {
+            "Control_Effectiveness": 1
           },
           "Enhanced user experience": {
-            "Impact": -1
+            "Control_Effectiveness": 0.5
           },
-          "Scalability": {
-            "Impact": -1
+          "Cost reduction": {
+            "Control_Effectiveness": 0.5
           },
-          "Better decision-making": {
-            "Impact": -2
+          "Improved accessibility": {
+            "Control_Effectiveness": 1
           },
-          "Risk mitigation": {
-            "Impact": -2
+          "Reduced risk or error": {
+            "Control_Effectiveness": 1
           },
-          "Compliance support": {
-            "Impact": -2
+          "Better service delivery": {
+            "Control_Effectiveness": 1
+          },
+          "Improved communication": {
+            "Control_Effectiveness": 0.5
+          },
+          "Increased transparency": {
+            "Control_Effectiveness": 2
           }
         }
       }
