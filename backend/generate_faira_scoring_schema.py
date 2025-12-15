@@ -229,21 +229,23 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A1.9 - Integration → Likelihood
+    # A1.9 - Integration Types → Likelihood
     schema["questions"]["A1_9"] = {
         "id": "A1_9",
         "text": "How is the AI system integrated into your operations?",
         "type": "multiselect",
-        "domains": ["Reliability and Safety"],
+        "domains": ["Human, Societal and Environmental Wellbeing", "Privacy Protection and Security", "Accountability"],
         "scoring": {
             "target_metric": "Likelihood",
             "options": {
-                "Standalone tool": {"Likelihood": 1},
-                "Embedded in existing software": {"Likelihood": 2},
-                "Part of a broader system": {"Likelihood": 2},
-                "API or cloud service": {"Likelihood": 2},
-                "Mobile or edge deployment": {"Likelihood": 3},
-                "Real-time system": {"Likelihood": 3}
+                "REST API": {"Likelihood": 1},
+                "Webhooks": {"Likelihood": 1},
+                "Batch data transfer": {"Likelihood": 0.5},
+                "Real-time data stream": {"Likelihood": 2},
+                "File-based integration": {"Likelihood": 1},
+                "Embedded widget/iframe": {"Likelihood": 0.5},
+                "Database connection": {"Likelihood": 1},
+                "Message queue (e.g., Kafka)": {"Likelihood": 2}
             }
         }
     }
