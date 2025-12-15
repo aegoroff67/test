@@ -328,24 +328,25 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A2.5 - Data Quality → Likelihood (via DataQualityFactor)
+    # A2.5 - Data Quality Ratings → Likelihood
     schema["questions"]["A2_5"] = {
         "id": "A2_5",
         "text": "Rate the quality of input data on the following dimensions (1-5 scale)",
         "type": "rating_multi",
-        "domains": ["Reliability and Safety"],
+        "domains": ["Reliability and Safety", "Fairness"],
         "scoring": {
             "target_metric": "Likelihood",
             "special_computation": "DataQualityFactor",
             "dimensions": {
-                "accuracy": {"field": "A2_5_accuracy"},
-                "completeness": {"field": "A2_5_completeness"},
-                "reliability": {"field": "A2_5_reliability"},
-                "relevance": {"field": "A2_5_relevance"},
-                "timeliness": {"field": "A2_5_timeliness"}
+                "Accuracy": {"field": "A2_5_accuracy"},
+                "Completeness": {"field": "A2_5_completeness"},
+                "Reliability": {"field": "A2_5_reliability"},
+                "Relevance": {"field": "A2_5_relevance"},
+                "Timeliness": {"field": "A2_5_timeliness"}
             },
-            "formula": "DataQualityFactor = 6 - (average of 5 ratings)",
-            "notes": "Lower quality (rating=1) increases risk. Higher quality (rating=5) reduces risk. Factor ranges from 1.0 (perfect quality) to 5.0 (very poor quality)."
+            "formula": "DataQualityFactor = 6 - (average of all five scores)",
+            "range": "1 to 5",
+            "notes": "High quality (rating=5) lowers risk. Poor quality (rating=1) raises likelihood. DataQualityFactor ranges from +1 (perfect quality) to +5 (very poor quality)."
         }
     }
     
