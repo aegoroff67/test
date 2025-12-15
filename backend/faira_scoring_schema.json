@@ -396,11 +396,11 @@
       "text": "What environmental, external, or real-time data does the system rely on?",
       "type": "text",
       "domains": [
-        "Reliability and Safety"
+        "Privacy Protection and Security"
       ],
       "scoring": {
-        "target_metric": "Impact",
-        "logic": "Text analysis required - not scored automatically"
+        "target_metric": "TBD",
+        "logic": "Scoring to be addressed later"
       }
     },
     "A2_3": {
