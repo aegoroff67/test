@@ -1,4 +1,4 @@
-# FAIRA Risk Assessment - Complete Variable Reference
+# FAIRA Risk Assessment - Complete Variable Reference (CORRECTED)
 
 ## Master Formula
 
@@ -319,17 +319,24 @@ Where:
 
 ## Domain Summary
 
-**All 8 FAIRA Domains Covered:**
+**All Domains in FAIRA Assessment:**
 1. Accountability
-2. Transparency (and Explainability)
-3. Fairness
-4. Privacy Protection and Security
-5. Data Integrity
-6. Reliability and Safety
-7. Human-Centered Values
-8. Human, Societal and Environmental Wellbeing
+2. Transparency
+3. Transparency and Explainability
+4. Explainability
+5. Fairness
+6. Privacy
+7. Privacy Protection and Security
+8. Security
+9. Data Integrity
+10. Reliability and Safety
+11. Human-Centered Values
+12. Human-centred values (variant spelling)
+13. Human, Societal and Environmental Wellbeing
+14. Contestability
+15. Compliance
 
-Additional domain: Contestability
+**Note**: Some domain names have variants (e.g., "Human-Centered Values" vs "Human-centred values"). These should be normalized in the calculation engine.
 
 ---
 
