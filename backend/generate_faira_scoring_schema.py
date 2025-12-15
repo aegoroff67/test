@@ -764,7 +764,7 @@ def generate_complete_scoring_schema():
     # A4.6 - Regulated Output Data Types → Impact
     schema["questions"]["A4_6"] = {
         "id": "A4_6",
-        "text": "What types of regulated or sensitive data are included in system outputs?",
+        "text": "Do outputs involve data regulated by law?",
         "type": "multiselect",
         "domains": ["Privacy Protection and Security", "Fairness"],
         "scoring": {
