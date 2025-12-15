@@ -408,34 +408,39 @@
       "text": "What safeguards exist to ensure data quality and integrity?",
       "type": "multiselect",
       "domains": [
-        "Reliability and Safety"
+        "Reliability and Safety",
+        "Privacy Protection and Security"
       ],
       "scoring": {
-        "target_metric": "Control_Effectiveness",
-        "modifier_type": "negative",
+        "target_metric": "Likelihood",
+        "modifier_type": "mixed",
         "options": {
-          "Automated validation rules": {
-            "Control_Effectiveness": -2
+          "Input validation": {
+            "Likelihood": -1
           },
-          "Manual review processes": {
-            "Control_Effectiveness": -1
+          "Range checking": {
+            "Likelihood": -1
           },
-          "Data cleansing pipelines": {
-            "Control_Effectiveness": -2
+          "Schema enforcement": {
+            "Likelihood": -1
           },
-          "Anomaly detection": {
-            "Control_Effectiveness": -3
+          "Fallback defaults": {
+            "Likelihood": -0.5
           },
-          "Access controls": {
-            "Control_Effectiveness": -1
+          "Human review": {
+            "Likelihood": -1.5
           },
-          "Regular audits": {
-            "Control_Effectiveness": -2
+          "Data quality monitoring": {
+            "Likelihood": -1
           },
-          "No safeguards": {
-            "Control_Effectiveness": 0
+          "Error alerts": {
+            "Likelihood": -1
+          },
+          "No safeguards identified (flag as risk)": {
+            "Likelihood": 3
           }
-        }
+        },
+        "notes": "Each safeguard option reduces likelihood. 'No safeguards identified' increases risk and should be flagged."
       }
     },
     "A2_4": {
