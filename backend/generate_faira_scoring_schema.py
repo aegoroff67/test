@@ -350,20 +350,21 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A2.6 - Business Impact Level (BIL) → Impact
+    # A2.6 - Input BIL → Impact
     schema["questions"]["A2_6"] = {
         "id": "A2_6",
-        "text": "What is the Business Impact Level (BIL) of the input data?",
+        "text": "What is the highest sensitivity classification of data processed?",
         "type": "single_select",
         "domains": ["Privacy Protection and Security"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
-                "BIL-0 (Public)": {"Impact": 1},
-                "BIL-1 (Low)": {"Impact": 2},
-                "BIL-2 (Medium)": {"Impact": 3},
-                "BIL-3 (High)": {"Impact": 4},
-                "BIL-4 (Critical)": {"Impact": 5}
+                "Official": {"Impact": 0},
+                "Official: Sensitive": {"Impact": 1},
+                "Protected": {"Impact": 2},
+                "Highly Protected": {"Impact": 3},
+                "Secret": {"Impact": 4},
+                "Top Secret": {"Impact": 5}
             }
         }
     }
