@@ -353,7 +353,7 @@ def generate_complete_scoring_schema():
     # A2.6 - Input BIL → Impact
     schema["questions"]["A2_6"] = {
         "id": "A2_6",
-        "text": "What is the highest sensitivity classification of data processed?",
+        "text": "What is the Business Impact Level (BIL) of the input data?",
         "type": "single_select",
         "domains": ["Privacy Protection and Security"],
         "scoring": {
