@@ -1440,7 +1440,7 @@
     },
     "A5_10": {
       "id": "A5_10",
-      "text": "Does the AI system operate under specific regulatory obligations or frameworks?",
+      "text": "Are there sector-specific frameworks, laws, or regulatory obligations that apply to this AI solution?",
       "type": "yes_no_with_subsections",
       "domains": [
         "Accountability",
@@ -1563,7 +1563,7 @@
                   "QLD Government AI Ethical Principles": {
                     "Control_Effectiveness": -1
                   },
-                  "QLD FAIRA Framework (this assessment)": {
+                  "QLD FAIRA Framework": {
                     "Control_Effectiveness": 0
                   },
                   "Australian Government AI Ethics Principles": {
