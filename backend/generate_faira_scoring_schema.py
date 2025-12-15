@@ -132,33 +132,63 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A1.6 - Autonomy Level → Likelihood (via AutonomyFactor)
+    # A1.6 - Autonomy & Autonomous Actions → Dual Metric (Likelihood & Impact)
     schema["questions"]["A1_6"] = {
         "id": "A1_6",
-        "text": "Does the system convert its outputs directly into actions without human intervention?",
-        "type": "yes_no",
+        "text": "Can the AI solution convert decisions into actions without human intervention?",
+        "type": "yes_no_with_options",
         "domains": ["Accountability", "Reliability and Safety"],
         "scoring": {
-            "target_metric": "Likelihood",
+            "target_metric": "Likelihood and Impact",
+            "modifier_type": "dual",
             "special_computation": "AutonomyFactor",
             "options": {
-                "No": {"base": 1.0},
+                "No": {
+                    "Likelihood": 0,
+                    "Impact": 0
+                },
                 "Yes": {
-                    "base": 2.0,
+                    "Likelihood": 0,
+                    "Impact": 0,
+                    "AutonomyFactor": 3,
                     "sub_question": "A1_6_actions",
                     "actions": {
-                        "Notifications only": {"multiplier": 1.0},
-                        "Data updates": {"multiplier": 1.2},
-                        "Workflow triggers": {"multiplier": 1.3},
-                        "Financial transactions": {"multiplier": 1.8},
-                        "Access control changes": {"multiplier": 1.5},
-                        "Content publication": {"multiplier": 1.4},
-                        "Equipment control": {"multiplier": 1.9},
-                        "Other": {"multiplier": 1.1}
+                        "Sends notifications": {
+                            "Likelihood": 1,
+                            "Impact": 0
+                        },
+                        "Updates internal records": {
+                            "Likelihood": 2,
+                            "Impact": 1
+                        },
+                        "Applies rules/decisions automatically": {
+                            "Likelihood": 3,
+                            "Impact": 2
+                        },
+                        "Initiates workflows": {
+                            "Likelihood": 2,
+                            "Impact": 2
+                        },
+                        "Generates external communications": {
+                            "Likelihood": 3,
+                            "Impact": 2
+                        },
+                        "Allocates resources": {
+                            "Likelihood": 3,
+                            "Impact": 3
+                        },
+                        "Approves/declines items": {
+                            "Likelihood": 4,
+                            "Impact": 4
+                        },
+                        "Triggers system events": {
+                            "Likelihood": 4,
+                            "Impact": 4
+                        }
                     }
                 }
             },
-            "notes": "AutonomyFactor = base × max(action_multipliers). This modifies Total Likelihood in final calculation."
+            "notes": "If Yes: AutonomyFactor = +3 applies to Likelihood. Each selected action adds its Likelihood and Impact modifiers."
         }
     }
     
