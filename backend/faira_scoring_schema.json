@@ -638,7 +638,7 @@
             "Likelihood": 0,
             "sub_question": "A2_8_types",
             "input_types": {
-              "Free text prompts": {
+              "Free-text prompts": {
                 "Likelihood": 2
               },
               "Uploaded files": {
@@ -647,7 +647,7 @@
               "Form fields": {
                 "Likelihood": 1
               },
-              "API calls": {
+              "API request data": {
                 "Likelihood": 2
               },
               "Structured data": {
@@ -659,7 +659,7 @@
               "Sensor data": {
                 "Likelihood": 3
               },
-              "User selections": {
+              "User selection/choices": {
                 "Likelihood": 1
               }
             }
