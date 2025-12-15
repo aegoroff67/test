@@ -1058,7 +1058,7 @@ def generate_complete_scoring_schema():
                             "options": {
                                 "QGEA / IS18:2018 Information Security Policy": {"Control_Effectiveness": -1},
                                 "QLD Government AI Ethical Principles": {"Control_Effectiveness": -1},
-                                "QLD FAIRA Framework": {"Control_Effectiveness": 0},
+                                "QLD FAIRA Framework (this assessment)": {"Control_Effectiveness": 0},
                                 "Australian Government AI Ethics Principles": {"Control_Effectiveness": -1},
                                 "ISO/IEC 42001 (AI Management System)": {"Control_Effectiveness": -2},
                                 "ISO/IEC 27001 / 27002 (Information Security Management)": {"Control_Effectiveness": -1},
