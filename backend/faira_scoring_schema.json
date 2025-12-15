@@ -16,7 +16,7 @@
       "type": "multiselect",
       "domains": [
         "Accountability",
-        "Transparency"
+        "Transparency and Explainability"
       ],
       "scoring": {
         "target_metric": "Impact",
@@ -63,7 +63,7 @@
       "type": "multiselect",
       "domains": [
         "Accountability",
-        "Transparency"
+        "Transparency and Explainability"
       ],
       "scoring": {
         "target_metric": "Impact",
@@ -234,7 +234,7 @@
       "text": "What type(s) of AI model or algorithm does the system use?",
       "type": "multiselect",
       "domains": [
-        "Transparency",
+        "Transparency and Explainability",
         "Accountability"
       ],
       "scoring": {
@@ -279,7 +279,7 @@
       "type": "multiselect",
       "domains": [
         "Accountability",
-        "Transparency"
+        "Transparency and Explainability"
       ],
       "scoring": {
         "target_metric": "Impact",
@@ -341,8 +341,8 @@
       "text": "How are data sources and quality tracked?",
       "type": "multiselect",
       "domains": [
-        "Data Integrity",
-        "Transparency"
+        "Privacy Protection and Security",
+        "Transparency and Explainability"
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
@@ -374,7 +374,6 @@
       "text": "What environmental, external, or real-time data does the system rely on?",
       "type": "text",
       "domains": [
-        "Data Integrity",
         "Reliability and Safety"
       ],
       "scoring": {
@@ -387,7 +386,6 @@
       "text": "What safeguards exist to ensure data quality and integrity?",
       "type": "multiselect",
       "domains": [
-        "Data Integrity",
         "Reliability and Safety"
       ],
       "scoring": {
@@ -423,8 +421,7 @@
       "text": "What types of data does the system process?",
       "type": "multiselect",
       "domains": [
-        "Privacy",
-        "Data Integrity"
+        "Privacy Protection and Security"
       ],
       "scoring": {
         "target_metric": "Impact",
@@ -464,7 +461,6 @@
       "text": "Rate the quality of input data on the following dimensions (1-5 scale)",
       "type": "rating_multi",
       "domains": [
-        "Data Integrity",
         "Reliability and Safety"
       ],
       "scoring": {
@@ -496,8 +492,7 @@
       "text": "What is the Business Impact Level (BIL) of the input data?",
       "type": "single_select",
       "domains": [
-        "Privacy",
-        "Security"
+        "Privacy Protection and Security"
       ],
       "scoring": {
         "target_metric": "Impact",
@@ -525,8 +520,8 @@
       "text": "Does the system process regulated or sensitive data?",
       "type": "yes_no",
       "domains": [
-        "Privacy",
-        "Compliance"
+        "Privacy Protection and Security",
+        "Accountability"
       ],
       "scoring": {
         "target_metric": "Impact",
@@ -545,7 +540,6 @@
       "text": "Are user inputs required for the system to function?",
       "type": "yes_no",
       "domains": [
-        "Data Integrity",
         "Reliability and Safety"
       ],
       "scoring": {
@@ -565,7 +559,7 @@
       "text": "What types of human-AI interfaces does the system use?",
       "type": "multiselect",
       "domains": [
-        "Explainability",
+        "Transparency and Explainability",
         "Accountability"
       ],
       "scoring": {
@@ -601,7 +595,7 @@
       "type": "rating_multi",
       "domains": [
         "Accountability",
-        "Explainability"
+        "Transparency and Explainability"
       ],
       "scoring": {
         "target_metric": "Likelihood",
@@ -662,7 +656,7 @@
       "text": "How are affected parties notified that AI is involved in decisions?",
       "type": "multiselect",
       "domains": [
-        "Transparency",
+        "Transparency and Explainability",
         "Accountability"
       ],
       "scoring": {
@@ -773,7 +767,7 @@
       "type": "multiselect",
       "domains": [
         "Accountability",
-        "Transparency"
+        "Transparency and Explainability"
       ],
       "scoring": {
         "target_metric": "Impact",
@@ -1003,8 +997,7 @@
       "text": "Could system outputs trigger legal, regulatory, or compliance actions?",
       "type": "text",
       "domains": [
-        "Accountability",
-        "Compliance"
+        "Accountability"
       ],
       "scoring": {
         "target_metric": "TBD",
@@ -1054,7 +1047,7 @@
       "type": "text",
       "domains": [
         "Accountability",
-        "Transparency"
+        "Transparency and Explainability"
       ],
       "scoring": {
         "target_metric": "TBD",
@@ -1129,7 +1122,7 @@
       "type": "yes_no",
       "domains": [
         "Accountability",
-        "Transparency"
+        "Transparency and Explainability"
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
@@ -1186,7 +1179,7 @@
       "text": "What stakeholder engagement activities have been conducted?",
       "type": "multiselect",
       "domains": [
-        "Human-centred values",
+        "Human-centred Values",
         "Fairness"
       ],
       "scoring": {
@@ -1261,7 +1254,7 @@
       "type": "multiselect",
       "domains": [
         "Accountability",
-        "Transparency"
+        "Transparency and Explainability"
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
@@ -1571,7 +1564,7 @@
       "text": "Has a Human Rights Impact Assessment (HRIA) been completed?",
       "type": "yes_no",
       "domains": [
-        "Human-Centered Values"
+        "Human-centred Values"
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
@@ -1591,7 +1584,7 @@
       "text": "Rate the AI system's impact on the following dimensions:",
       "type": "multi_rating",
       "domains": [
-        "Human-Centered Values"
+        "Human-centred Values"
       ],
       "scoring": {
         "target_metric": "Impact",
@@ -1659,7 +1652,7 @@
       "text": "Were diverse perspectives included in the AI system's design and development?",
       "type": "yes_no_with_options",
       "domains": [
-        "Human-Centered Values"
+        "Human-centred Values"
       ],
       "scoring": {
         "target_metric": "Impact",
