@@ -1209,8 +1209,7 @@
       "text": "How are AI use inputs and outputs tracked and recorded?",
       "type": "text",
       "domains": [
-        "Accountability",
-        "Transparency and Explainability"
+        "Accountability"
       ],
       "scoring": {
         "target_metric": "TBD",
