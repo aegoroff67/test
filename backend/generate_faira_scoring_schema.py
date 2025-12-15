@@ -463,14 +463,14 @@ def generate_complete_scoring_schema():
                     "Likelihood": 0,
                     "sub_question": "A2_8_types",
                     "input_types": {
-                        "Free text prompts": {"Likelihood": 2},
+                        "Free-text prompts": {"Likelihood": 2},
                         "Uploaded files": {"Likelihood": 2},
                         "Form fields": {"Likelihood": 1},
-                        "API calls": {"Likelihood": 2},
+                        "API request data": {"Likelihood": 2},
                         "Structured data": {"Likelihood": 1},
                         "Voice input": {"Likelihood": 2},
                         "Sensor data": {"Likelihood": 3},
-                        "User selections": {"Likelihood": 1}
+                        "User selection/choices": {"Likelihood": 1}
                     }
                 }
             },
