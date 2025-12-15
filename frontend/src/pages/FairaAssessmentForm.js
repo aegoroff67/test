@@ -298,7 +298,7 @@ export default function FairaAssessmentForm() {
       'A5_10_qld': () => form.A5_10 === 'Yes',
       'A5_10_sector': () => form.A5_10 === 'Yes',
       'A5_10_frameworks': () => form.A5_10 === 'Yes',
-      'A5_10_other': () => form.A5_10 === 'Yes',
+      // A5_10_other is optional - not included in progress calculation
       'B2_3_perspectives': () => form.B2_3 === 'Yes',
       'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && form.B2_3_perspectives.includes('Other'),
       'B3_1_methods': () => form.B3_1 === 'Yes',
@@ -392,7 +392,7 @@ export default function FairaAssessmentForm() {
       'A5_10_qld': () => form.A5_10 === 'Yes',
       'A5_10_sector': () => form.A5_10 === 'Yes',
       'A5_10_frameworks': () => form.A5_10 === 'Yes',
-      'A5_10_other': () => form.A5_10 === 'Yes',
+      // A5_10_other is optional - not included in progress calculation
       'B2_3_perspectives': () => form.B2_3 === 'Yes',
       'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && form.B2_3_perspectives.includes('Other'),
       'B3_1_methods': () => form.B3_1 === 'Yes',
