@@ -286,24 +286,26 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A2.3 - Data Safeguards → Control Effectiveness (Negative - improves control)
+    # A2.3 - Safeguards for corrupted/missing data → Likelihood Reduction
     schema["questions"]["A2_3"] = {
         "id": "A2_3",
         "text": "What safeguards exist to ensure data quality and integrity?",
         "type": "multiselect",
-        "domains": ["Reliability and Safety"],
+        "domains": ["Reliability and Safety", "Privacy Protection and Security"],
         "scoring": {
-            "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
+            "target_metric": "Likelihood",
+            "modifier_type": "mixed",
             "options": {
-                "Automated validation rules": {"Control_Effectiveness": -2},
-                "Manual review processes": {"Control_Effectiveness": -1},
-                "Data cleansing pipelines": {"Control_Effectiveness": -2},
-                "Anomaly detection": {"Control_Effectiveness": -3},
-                "Access controls": {"Control_Effectiveness": -1},
-                "Regular audits": {"Control_Effectiveness": -2},
-                "No safeguards": {"Control_Effectiveness": 0}
-            }
+                "Input validation": {"Likelihood": -1},
+                "Range checking": {"Likelihood": -1},
+                "Schema enforcement": {"Likelihood": -1},
+                "Fallback defaults": {"Likelihood": -0.5},
+                "Human review": {"Likelihood": -1.5},
+                "Data quality monitoring": {"Likelihood": -1},
+                "Error alerts": {"Likelihood": -1},
+                "No safeguards identified (flag as risk)": {"Likelihood": 3}
+            },
+            "notes": "Each safeguard option reduces likelihood. 'No safeguards identified' increases risk and should be flagged."
         }
     }
     
