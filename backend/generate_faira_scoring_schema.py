@@ -652,25 +652,22 @@ def generate_complete_scoring_schema():
     # SECTION A4: Outputs and Actions
     # ============================================================================
     
-    # A4.1 - Primary Outputs → Impact
+    # A4.1 - Output Types → Likelihood
     schema["questions"]["A4_1"] = {
         "id": "A4_1",
         "text": "What are the primary outputs of the AI system?",
         "type": "multiselect",
-        "domains": ["Accountability", "Transparency and Explainability"],
+        "domains": ["Reliability and Safety"],
         "scoring": {
-            "target_metric": "Impact",
+            "target_metric": "Likelihood",
             "options": {
-                "Recommendations": {"Impact": 2},
-                "Classifications": {"Impact": 2},
-                "Predictions": {"Impact": 2},
-                "Risk scores": {"Impact": 3},
-                "Automated decisions": {"Impact": 4},
-                "Content generation": {"Impact": 2},
-                "Data insights": {"Impact": 1},
-                "Alerts or notifications": {"Impact": 2},
-                "Reports": {"Impact": 1},
-                "Other": {"Impact": 1}
+                "Text responses": {"Likelihood": 0.5},
+                "Visual outputs": {"Likelihood": 1},
+                "Recommendations": {"Likelihood": 1.5},
+                "Decisions": {"Likelihood": 2},
+                "Data analysis": {"Likelihood": 1},
+                "Predictions": {"Likelihood": 1.5},
+                "Actions in systems": {"Likelihood": 3}
             }
         }
     }
