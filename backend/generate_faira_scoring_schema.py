@@ -212,21 +212,19 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A1.8 - AI Source → Impact
+    # A1.8 - Source → Likelihood
     schema["questions"]["A1_8"] = {
         "id": "A1_8",
         "text": "Where did the AI system or model originate?",
         "type": "multiselect",
-        "domains": ["Accountability", "Transparency and Explainability"],
+        "domains": ["Reliability and Safety", "Privacy Protection and Security"],
         "scoring": {
-            "target_metric": "Impact",
+            "target_metric": "Likelihood",
             "options": {
-                "Developed in-house": {"Impact": 2},
-                "Third-party vendor": {"Impact": 3},
-                "Open-source model": {"Impact": 2},
-                "Cloud-based service": {"Impact": 2},
-                "Pre-trained model (customized)": {"Impact": 2},
-                "Pre-trained model (used as-is)": {"Impact": 3}
+                "Commercial off-the-shelf": {"Likelihood": 0.5},
+                "Bespoke development": {"Likelihood": 2},
+                "Open-source": {"Likelihood": 3},
+                "Hybrid approach": {"Likelihood": 2}
             }
         }
     }
