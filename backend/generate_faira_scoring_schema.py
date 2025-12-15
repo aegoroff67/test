@@ -856,23 +856,22 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A5.3 - Monitoring & Evaluation Processes → Control Effectiveness
+    # A5.3 - Monitoring & Evaluation Processes → CE
     schema["questions"]["A5_3"] = {
         "id": "A5_3",
-        "text": "What monitoring and evaluation processes are in place? (Select all that apply)",
+        "text": "What monitoring and evaluation processes are in place?",
         "type": "multiselect",
         "domains": ["Reliability and Safety", "Accountability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
             "options": {
-                "Regular system audits": {"Control_Effectiveness": -3},
-                "Continuous performance monitoring": {"Control_Effectiveness": -4},
-                "User feedback collection": {"Control_Effectiveness": -2},
-                "Periodic stakeholder reviews": {"Control_Effectiveness": -2},
-                "Independent evaluation": {"Control_Effectiveness": -4}
+                "Regular system audits": {"Control_Effectiveness": 3},
+                "Continuous performance monitoring": {"Control_Effectiveness": 4},
+                "User feedback collection": {"Control_Effectiveness": 2},
+                "Periodic stakeholder reviews": {"Control_Effectiveness": 2},
+                "Independent evaluation": {"Control_Effectiveness": 4}
             },
-            "notes": "Monitoring and evaluation processes improve control effectiveness. Multiple selections are cumulative."
+            "notes": "Each monitoring and evaluation process adds to Control Effectiveness. Multiple processes indicate comprehensive oversight."
         }
     }
     
