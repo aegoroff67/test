@@ -62,25 +62,24 @@ def generate_complete_scoring_schema():
         "scoring": None
     }
     
-    # A1.3 - AI Features → Impact
+    # A1.3 - AI Features → Likelihood
     schema["questions"]["A1_3"] = {
         "id": "A1_3",
         "text": "Which AI features or capabilities does the system include?",
         "type": "multiselect",
-        "domains": ["Accountability", "Transparency and Explainability"],
+        "domains": ["Reliability and Safety", "Transparency and Explainability"],
         "scoring": {
-            "target_metric": "Impact",
+            "target_metric": "Likelihood",
             "options": {
-                "Natural language processing": {"Impact": 1},
-                "Computer vision": {"Impact": 1},
-                "Recommendation engine": {"Impact": 2},
-                "Predictive modeling": {"Impact": 2},
-                "Anomaly detection": {"Impact": 2},
-                "Speech recognition": {"Impact": 1},
-                "Automated content generation": {"Impact": 1},
-                "Optimization algorithms": {"Impact": 2},
-                "Reinforcement learning": {"Impact": 3},
-                "Other": {"Impact": 1}
+                "Natural language processing": {"Likelihood": 1},
+                "Data analysis and visualization": {"Likelihood": 0.5},
+                "Automated content generation": {"Likelihood": 2},
+                "Integration with existing systems": {"Likelihood": 2},
+                "Personalized recommendations": {"Likelihood": 1.5},
+                "Collaboration enhancement": {"Likelihood": 0.5},
+                "Task automation": {"Likelihood": 2.5},
+                "Security and compliance": {"Likelihood": 3},
+                "Voice recognition": {"Likelihood": 1.5}
             }
         }
     }
