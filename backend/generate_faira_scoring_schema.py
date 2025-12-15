@@ -447,18 +447,34 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A2.8 - User Inputs Required → Likelihood
+    # A2.8 - User Inputs → Likelihood
     schema["questions"]["A2_8"] = {
         "id": "A2_8",
         "text": "Are user inputs required for the system to function?",
-        "type": "yes_no",
-        "domains": ["Reliability and Safety"],
+        "type": "yes_no_with_options",
+        "domains": ["Privacy Protection and Security", "Fairness", "Reliability and Safety"],
         "scoring": {
             "target_metric": "Likelihood",
             "options": {
-                "No": {"Likelihood": 0},
-                "Yes": {"Likelihood": 2}
-            }
+                "No": {
+                    "Likelihood": 0
+                },
+                "Yes": {
+                    "Likelihood": 0,
+                    "sub_question": "A2_8_types",
+                    "input_types": {
+                        "Free text prompts": {"Likelihood": 2},
+                        "Uploaded files": {"Likelihood": 2},
+                        "Form fields": {"Likelihood": 1},
+                        "API calls": {"Likelihood": 2},
+                        "Structured data": {"Likelihood": 1},
+                        "Voice input": {"Likelihood": 2},
+                        "Sensor data": {"Likelihood": 3},
+                        "User selections": {"Likelihood": 1}
+                    }
+                }
+            },
+            "notes": "Selecting YES does not add modifiers itself. Only when specific input types are selected does scoring occur."
         }
     }
     
