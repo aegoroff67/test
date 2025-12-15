@@ -1803,23 +1803,28 @@ export default function FairaAssessmentForm() {
               <div className="space-y-3">
                 <Label>A4.6 Do outputs involve data regulated by law?</Label>
                 <div className="flex gap-4">
-                  <label className="flex items-center space-x-2">
-                    <Checkbox
+                  <label className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="A4_6"
+                      value="Yes"
                       checked={form.A4_6 === "Yes"}
-                      onCheckedChange={() => {
-                        update("A4_6", form.A4_6 === "Yes" ? "" : "Yes");
-                        if (form.A4_6 === "Yes") update("A4_6_data_types", []);
-                      }}
+                      onChange={() => update("A4_6", "Yes")}
+                      className="w-4 h-4"
                     />
                     <span className="text-sm">Yes</span>
                   </label>
-                  <label className="flex items-center space-x-2">
-                    <Checkbox
+                  <label className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="A4_6"
+                      value="No"
                       checked={form.A4_6 === "No"}
-                      onCheckedChange={() => {
-                        update("A4_6", form.A4_6 === "No" ? "" : "No");
+                      onChange={() => {
+                        update("A4_6", "No");
                         update("A4_6_data_types", []);
                       }}
+                      className="w-4 h-4"
                     />
                     <span className="text-sm">No</span>
                   </label>
