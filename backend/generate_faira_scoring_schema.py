@@ -450,7 +450,7 @@ def generate_complete_scoring_schema():
     # A2.8 - User Inputs → Likelihood
     schema["questions"]["A2_8"] = {
         "id": "A2_8",
-        "text": "Are user inputs required for the system to function?",
+        "text": "Does the solution require user inputs to operate?",
         "type": "yes_no_with_options",
         "domains": ["Privacy Protection and Security", "Fairness", "Reliability and Safety"],
         "scoring": {
