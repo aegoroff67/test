@@ -35,18 +35,20 @@ def generate_complete_scoring_schema():
         "id": "A1_1",
         "text": "What is the primary function of the AI system?",
         "type": "multiselect",
-        "domains": ["Accountability", "Transparency and Explainability"],
+        "domains": ["Reliability and Safety", "Accountability"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
-                "Automate routine tasks": {"Impact": 1},
-                "Support human decision-making": {"Impact": 2},
-                "Make autonomous decisions": {"Impact": 3},
-                "Predict outcomes": {"Impact": 2},
-                "Generate content": {"Impact": 1},
-                "Classify or categorize data": {"Impact": 1},
-                "Detect anomalies or patterns": {"Impact": 2},
-                "Other": {"Impact": 1}
+                "Information retrieval": {"Impact": 0.5},
+                "Natural language understanding": {"Impact": 1},
+                "Prediction/forecasting": {"Impact": 1.5},
+                "Classification": {"Impact": 1.5},
+                "Recommendation": {"Impact": 2},
+                "Summarisation": {"Impact": 1},
+                "Decision support": {"Impact": 3},
+                "Process automation": {"Impact": 3},
+                "Compliance monitoring": {"Impact": 3},
+                "Content generation": {"Impact": 2.5}
             }
         }
     }
