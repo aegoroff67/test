@@ -706,24 +706,23 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A4.4 - Output Tracking → Control Effectiveness
+    # A4.4 - Output Tracking → CE
     schema["questions"]["A4_4"] = {
         "id": "A4_4",
-        "text": "How are system outputs tracked?",
+        "text": "How are AI outputs tracked and recorded?",
         "type": "multiselect",
         "domains": ["Accountability", "Contestability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
             "options": {
-                "Stored in database": {"Control_Effectiveness": -2},
-                "Logged in audit system": {"Control_Effectiveness": -3},
-                "Logged in CRM/case system": {"Control_Effectiveness": -2},
-                "Logged in activity logs": {"Control_Effectiveness": -2},
-                "Retention based on policy": {"Control_Effectiveness": -1},
-                "Not currently tracked": {"Control_Effectiveness": 0}
+                "Stored in database": {"Control_Effectiveness": 2},
+                "Logged in audit system": {"Control_Effectiveness": 3},
+                "Logged in CRM/case system": {"Control_Effectiveness": 2},
+                "Logged in activity logs": {"Control_Effectiveness": 2},
+                "Retention based on policy": {"Control_Effectiveness": 1},
+                "Not currently tracked (flag as risk)": {"Control_Effectiveness": 0}
             },
-            "notes": "Output tracking improves control effectiveness and enables contestability. 'Not currently tracked' should be flagged as a risk."
+            "notes": "Each tracking method adds to Control Effectiveness. 'Not currently tracked' should be flagged as a risk."
         }
     }
     
