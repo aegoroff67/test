@@ -543,22 +543,25 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A3.4 - Notification Methods → Control Effectiveness (Negative - improves control)
+    # A3.4 - Notification Method → Control Effectiveness
     schema["questions"]["A3_4"] = {
         "id": "A3_4",
-        "text": "How are affected parties notified that AI is involved in decisions?",
+        "text": "How will impacted parties be informed of AI use?",
         "type": "multiselect",
-        "domains": ["Transparency and Explainability", "Accountability"],
+        "domains": ["Transparency and Explainability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
             "options": {
-                "Explicit disclosure in interface": {"Control_Effectiveness": -3},
-                "Terms of service or policy": {"Control_Effectiveness": -1},
-                "On-demand explanation available": {"Control_Effectiveness": -2},
-                "Training or documentation": {"Control_Effectiveness": -2},
-                "No notification": {"Control_Effectiveness": 0}
-            }
+                "Website notice": {"Control_Effectiveness": 1},
+                "In-app notice": {"Control_Effectiveness": 1},
+                "Email communication": {"Control_Effectiveness": 1},
+                "Terms & Conditions": {"Control_Effectiveness": 0.5},
+                "Public-facing AI statement": {"Control_Effectiveness": 2},
+                "Staff training": {"Control_Effectiveness": 2},
+                "Consent/acknowledgement": {"Control_Effectiveness": 3},
+                "No planned notifications (flag as risk)": {"Control_Effectiveness": 0}
+            },
+            "notes": "Each notification method adds to Control Effectiveness. 'No planned notifications' should be flagged as a risk."
         }
     }
     
