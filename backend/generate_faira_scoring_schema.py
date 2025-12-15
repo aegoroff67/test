@@ -690,7 +690,7 @@ def generate_complete_scoring_schema():
     # A4.3 - Output BIL → Impact
     schema["questions"]["A4_3"] = {
         "id": "A4_3",
-        "text": "What is the Business Impact Level (BIL) of the system outputs?",
+        "text": "What is the Business Impact Level (BIL) of the outputs?",
         "type": "single_select",
         "domains": ["Privacy Protection and Security"],
         "scoring": {
