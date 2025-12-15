@@ -107,24 +107,27 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A1.5 - Tangible Benefits → Impact (Negative - Risk Reduction)
+    # A1.5 - Benefits → Control Effectiveness
     schema["questions"]["A1_5"] = {
         "id": "A1_5",
-        "text": "What tangible benefits does the AI system provide?",
+        "text": "What tangible benefits does this AI solution provide?",
         "type": "multiselect",
-        "domains": ["Accountability"],
+        "domains": ["Transparency and Explainability", "Reliability and Safety"],
         "scoring": {
-            "target_metric": "Impact",
-            "modifier_type": "negative",
+            "target_metric": "Control_Effectiveness",
             "options": {
-                "Cost reduction": {"Impact": -1},
-                "Time savings": {"Impact": -1},
-                "Improved accuracy": {"Impact": -2},
-                "Enhanced user experience": {"Impact": -1},
-                "Scalability": {"Impact": -1},
-                "Better decision-making": {"Impact": -2},
-                "Risk mitigation": {"Impact": -2},
-                "Compliance support": {"Impact": -2}
+                "Increased efficiency": {"Control_Effectiveness": 0.5},
+                "Reduced manual effort": {"Control_Effectiveness": 0.5},
+                "Improved decision-making": {"Control_Effectiveness": 1},
+                "Faster processing time": {"Control_Effectiveness": 0.5},
+                "Improved accuracy or consistency": {"Control_Effectiveness": 1},
+                "Enhanced user experience": {"Control_Effectiveness": 0.5},
+                "Cost reduction": {"Control_Effectiveness": 0.5},
+                "Improved accessibility": {"Control_Effectiveness": 1},
+                "Reduced risk or error": {"Control_Effectiveness": 1},
+                "Better service delivery": {"Control_Effectiveness": 1},
+                "Improved communication": {"Control_Effectiveness": 0.5},
+                "Increased transparency": {"Control_Effectiveness": 2}
             }
         }
     }
