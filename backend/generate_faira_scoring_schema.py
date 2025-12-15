@@ -875,7 +875,7 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A5.4 - Monitoring Frequency → Control Effectiveness
+    # A5.4 - Monitoring Frequency → CE (single select)
     schema["questions"]["A5_4"] = {
         "id": "A5_4",
         "text": "How frequently will monitoring and evaluation occur?",
@@ -883,15 +883,14 @@ def generate_complete_scoring_schema():
         "domains": ["Reliability and Safety"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
             "options": {
-                "Weekly": {"Control_Effectiveness": -4},
-                "Monthly": {"Control_Effectiveness": -3},
-                "Quarterly": {"Control_Effectiveness": -2},
-                "Annually": {"Control_Effectiveness": -1},
-                "Event-driven": {"Control_Effectiveness": -3}
+                "Weekly": {"Control_Effectiveness": 4},
+                "Monthly": {"Control_Effectiveness": 3},
+                "Quarterly": {"Control_Effectiveness": 2},
+                "Annually": {"Control_Effectiveness": 1},
+                "Event-driven": {"Control_Effectiveness": 3}
             },
-            "notes": "More frequent monitoring improves control effectiveness. Weekly monitoring provides the strongest control."
+            "notes": "More frequent monitoring provides stronger control effectiveness."
         }
     }
     
