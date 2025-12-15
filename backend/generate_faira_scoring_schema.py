@@ -796,7 +796,7 @@ def generate_complete_scoring_schema():
     # A4.7 - PII in Outputs (Text field - LLM classification pending)
     schema["questions"]["A4_7"] = {
         "id": "A4_7",
-        "text": "Who has access to personally identifiable information (PII) in system outputs?",
+        "text": "Do outputs contain personally identifiable information? If yes, who can access it (internal / external)?",
         "type": "text",
         "domains": ["Transparency and Explainability", "Accountability"],
         "scoring": {
@@ -809,7 +809,7 @@ def generate_complete_scoring_schema():
     # A4.8 - Legal/Regulatory Actions (Text field - LLM classification pending)
     schema["questions"]["A4_8"] = {
         "id": "A4_8",
-        "text": "Could system outputs trigger legal, regulatory, or compliance actions?",
+        "text": "Are any AI outputs directly used to trigger actions with legal or regulatory effect? If yes, describe and justify.",
         "type": "text",
         "domains": ["Accountability", "Reliability and Safety", "Human-centred Values"],
         "scoring": {
