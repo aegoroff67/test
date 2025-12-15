@@ -274,15 +274,15 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A2.2 - Environmental Data → Impact
+    # A2.2 - Environmental Data → Scoring TBD
     schema["questions"]["A2_2"] = {
         "id": "A2_2",
         "text": "What environmental, external, or real-time data does the system rely on?",
         "type": "text",
-        "domains": ["Reliability and Safety"],
+        "domains": ["Privacy Protection and Security"],
         "scoring": {
-            "target_metric": "Impact",
-            "logic": "Text analysis required - not scored automatically"
+            "target_metric": "TBD",
+            "logic": "Scoring to be addressed later"
         }
     }
     
