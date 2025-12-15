@@ -827,7 +827,7 @@ def generate_complete_scoring_schema():
     schema["questions"]["A5_1"] = {
         "id": "A5_1",
         "text": "Who is accountable for decisions made using this system?",
-        "type": "multiselect",
+        "type": "single_select",
         "domains": ["Accountability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
@@ -840,7 +840,7 @@ def generate_complete_scoring_schema():
                 "Governance committee": {"Control_Effectiveness": 4},
                 "AI oversight board": {"Control_Effectiveness": 4}
             },
-            "notes": "Each accountability role adds to Control Effectiveness. Multiple roles indicate distributed accountability."
+            "notes": "Select the primary accountability role. Higher-level oversight provides stronger governance."
         }
     }
     
