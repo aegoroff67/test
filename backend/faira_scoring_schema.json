@@ -940,41 +940,31 @@
       "text": "What are the primary outputs of the AI system?",
       "type": "multiselect",
       "domains": [
-        "Accountability",
-        "Transparency and Explainability"
+        "Reliability and Safety"
       ],
       "scoring": {
-        "target_metric": "Impact",
+        "target_metric": "Likelihood",
         "options": {
-          "Recommendations": {
-            "Impact": 2
+          "Text responses": {
+            "Likelihood": 0.5
           },
-          "Classifications": {
-            "Impact": 2
+          "Visual outputs": {
+            "Likelihood": 1
+          },
+          "Recommendations": {
+            "Likelihood": 1.5
+          },
+          "Decisions": {
+            "Likelihood": 2
+          },
+          "Data analysis": {
+            "Likelihood": 1
           },
           "Predictions": {
-            "Impact": 2
+            "Likelihood": 1.5
           },
-          "Risk scores": {
-            "Impact": 3
-          },
-          "Automated decisions": {
-            "Impact": 4
-          },
-          "Content generation": {
-            "Impact": 2
-          },
-          "Data insights": {
-            "Impact": 1
-          },
-          "Alerts or notifications": {
-            "Impact": 2
-          },
-          "Reports": {
-            "Impact": 1
-          },
-          "Other": {
-            "Impact": 1
+          "Actions in systems": {
+            "Likelihood": 3
           }
         }
       }
