@@ -798,10 +798,10 @@ def generate_complete_scoring_schema():
         "id": "A4_7",
         "text": "Who has access to personally identifiable information (PII) in system outputs?",
         "type": "text",
-        "domains": ["Privacy Protection and Security"],
+        "domains": ["Transparency and Explainability", "Accountability"],
         "scoring": {
             "target_metric": "TBD",
-            "logic": "LLM-assisted classification required",
+            "logic": "LLM-assisted classification required - scoring to be addressed later",
             "notes": "Text response will be analyzed using LLM to determine appropriate Impact/Likelihood modifiers."
         }
     }
@@ -811,10 +811,10 @@ def generate_complete_scoring_schema():
         "id": "A4_8",
         "text": "Could system outputs trigger legal, regulatory, or compliance actions?",
         "type": "text",
-        "domains": ["Accountability"],
+        "domains": ["Accountability", "Reliability and Safety", "Human-centred Values"],
         "scoring": {
             "target_metric": "TBD",
-            "logic": "LLM-assisted classification required",
+            "logic": "LLM-assisted classification required - scoring to be addressed later",
             "notes": "Text response will be analyzed using LLM to determine appropriate Impact/Likelihood modifiers."
         }
     }
