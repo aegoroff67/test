@@ -501,22 +501,23 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A3.2 - User Expertise → Likelihood (via ExpertiseFactor)
+    # A3.2 - Required Expertise → Likelihood (via ExpertiseFactor)
     schema["questions"]["A3_2"] = {
         "id": "A3_2",
-        "text": "Rate the typical expertise of users interacting with the system (1-5 scale)",
+        "text": "What expertise is required to use the AI solution? (1 = Very Low, 5 = Very High):",
         "type": "rating_multi",
-        "domains": ["Accountability", "Transparency and Explainability"],
+        "domains": ["Human-centred Values", "Accountability"],
         "scoring": {
             "target_metric": "Likelihood",
             "special_computation": "ExpertiseFactor",
             "dimensions": {
-                "technical": {"field": "A3_2_technical"},
-                "domain": {"field": "A3_2_domain"},
-                "ai_literacy": {"field": "A3_2_ai_literacy"}
+                "Technical expertise": {"field": "A3_2_technical"},
+                "Domain expertise": {"field": "A3_2_domain"},
+                "AI literacy": {"field": "A3_2_ai_literacy"}
             },
-            "formula": "ExpertiseFactor = 6 - (average of 3 ratings)",
-            "notes": "Lower expertise increases likelihood of misuse or misinterpretation. Factor ranges from 1.0 (expert users) to 5.0 (novice users)."
+            "formula": "ExpertiseFactor = average(Technical, Domain, AI Literacy) - 3",
+            "range": "-2 to +2",
+            "notes": "High expertise required (rating=5) → +2. Medium (rating=3) → 0. Low expertise required (rating=1) → -2. Lower expertise requirements reduce risk."
         }
     }
     
