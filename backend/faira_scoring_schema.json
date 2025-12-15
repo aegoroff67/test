@@ -56,7 +56,7 @@
     },
     "A1_2": {
       "id": "A1_2",
-      "text": "What version is the AI system currently at?",
+      "text": "What version of the AI solution does this FAIRA assessment apply to?",
       "type": "text",
       "domains": [],
       "scoring": null
