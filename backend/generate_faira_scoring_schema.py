@@ -681,8 +681,8 @@ def generate_complete_scoring_schema():
         "scoring": {
             "target_metric": "Likelihood",
             "options": {
-                "No": {"Likelihood": 0},
-                "Yes": {"Likelihood": 2}
+                "Yes": {"Likelihood": 2},
+                "No": {"Likelihood": 0}
             }
         }
     }
