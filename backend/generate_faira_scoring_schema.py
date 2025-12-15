@@ -35,7 +35,7 @@ def generate_complete_scoring_schema():
         "id": "A1_1",
         "text": "What is the primary function of the AI system?",
         "type": "multiselect",
-        "domains": ["Accountability", "Transparency"],
+        "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
@@ -65,7 +65,7 @@ def generate_complete_scoring_schema():
         "id": "A1_3",
         "text": "Which AI features or capabilities does the system include?",
         "type": "multiselect",
-        "domains": ["Accountability", "Transparency"],
+        "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
@@ -162,7 +162,7 @@ def generate_complete_scoring_schema():
         "id": "A1_7",
         "text": "What type(s) of AI model or algorithm does the system use?",
         "type": "multiselect",
-        "domains": ["Transparency", "Accountability"],
+        "domains": ["Transparency and Explainability", "Accountability"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
@@ -185,7 +185,7 @@ def generate_complete_scoring_schema():
         "id": "A1_8",
         "text": "Where did the AI system or model originate?",
         "type": "multiselect",
-        "domains": ["Accountability", "Transparency"],
+        "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
@@ -227,7 +227,7 @@ def generate_complete_scoring_schema():
         "id": "A2_1",
         "text": "How are data sources and quality tracked?",
         "type": "multiselect",
-        "domains": ["Data Integrity", "Transparency"],
+        "domains": ["Privacy Protection and Security", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
             "modifier_type": "negative",
@@ -247,7 +247,7 @@ def generate_complete_scoring_schema():
         "id": "A2_2",
         "text": "What environmental, external, or real-time data does the system rely on?",
         "type": "text",
-        "domains": ["Data Integrity", "Reliability and Safety"],
+        "domains": ["Reliability and Safety"],
         "scoring": {
             "target_metric": "Impact",
             "logic": "Text analysis required - not scored automatically"
@@ -259,7 +259,7 @@ def generate_complete_scoring_schema():
         "id": "A2_3",
         "text": "What safeguards exist to ensure data quality and integrity?",
         "type": "multiselect",
-        "domains": ["Data Integrity", "Reliability and Safety"],
+        "domains": ["Reliability and Safety"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
             "modifier_type": "negative",
@@ -280,7 +280,7 @@ def generate_complete_scoring_schema():
         "id": "A2_4",
         "text": "What types of data does the system process?",
         "type": "multiselect",
-        "domains": ["Privacy", "Data Integrity"],
+        "domains": ["Privacy Protection and Security"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
@@ -302,7 +302,7 @@ def generate_complete_scoring_schema():
         "id": "A2_5",
         "text": "Rate the quality of input data on the following dimensions (1-5 scale)",
         "type": "rating_multi",
-        "domains": ["Data Integrity", "Reliability and Safety"],
+        "domains": ["Reliability and Safety"],
         "scoring": {
             "target_metric": "Likelihood",
             "special_computation": "DataQualityFactor",
@@ -323,7 +323,7 @@ def generate_complete_scoring_schema():
         "id": "A2_6",
         "text": "What is the Business Impact Level (BIL) of the input data?",
         "type": "single_select",
-        "domains": ["Privacy", "Security"],
+        "domains": ["Privacy Protection and Security"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
@@ -341,7 +341,7 @@ def generate_complete_scoring_schema():
         "id": "A2_7",
         "text": "Does the system process regulated or sensitive data?",
         "type": "yes_no",
-        "domains": ["Privacy", "Compliance"],
+        "domains": ["Privacy Protection and Security", "Accountability"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
@@ -356,7 +356,7 @@ def generate_complete_scoring_schema():
         "id": "A2_8",
         "text": "Are user inputs required for the system to function?",
         "type": "yes_no",
-        "domains": ["Data Integrity", "Reliability and Safety"],
+        "domains": ["Reliability and Safety"],
         "scoring": {
             "target_metric": "Likelihood",
             "options": {
@@ -375,7 +375,7 @@ def generate_complete_scoring_schema():
         "id": "A3_1",
         "text": "What types of human-AI interfaces does the system use?",
         "type": "multiselect",
-        "domains": ["Explainability", "Accountability"],
+        "domains": ["Transparency and Explainability", "Accountability"],
         "scoring": {
             "target_metric": "Likelihood",
             "options": {
@@ -395,7 +395,7 @@ def generate_complete_scoring_schema():
         "id": "A3_2",
         "text": "Rate the typical expertise of users interacting with the system (1-5 scale)",
         "type": "rating_multi",
-        "domains": ["Accountability", "Explainability"],
+        "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Likelihood",
             "special_computation": "ExpertiseFactor",
@@ -435,7 +435,7 @@ def generate_complete_scoring_schema():
         "id": "A3_4",
         "text": "How are affected parties notified that AI is involved in decisions?",
         "type": "multiselect",
-        "domains": ["Transparency", "Accountability"],
+        "domains": ["Transparency and Explainability", "Accountability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
             "modifier_type": "negative",
@@ -508,7 +508,7 @@ def generate_complete_scoring_schema():
         "id": "A4_1",
         "text": "What are the primary outputs of the AI system?",
         "type": "multiselect",
-        "domains": ["Accountability", "Transparency"],
+        "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
@@ -668,7 +668,7 @@ def generate_complete_scoring_schema():
         "id": "A4_8",
         "text": "Could system outputs trigger legal, regulatory, or compliance actions?",
         "type": "text",
-        "domains": ["Accountability", "Compliance"],
+        "domains": ["Accountability"],
         "scoring": {
             "target_metric": "TBD",
             "logic": "LLM-assisted classification required",
@@ -707,7 +707,7 @@ def generate_complete_scoring_schema():
         "id": "A5_2",
         "text": "How is system performance tracked and reported?",
         "type": "text",
-        "domains": ["Accountability", "Transparency"],
+        "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "TBD",
             "logic": "LLM-assisted classification required",
@@ -760,7 +760,7 @@ def generate_complete_scoring_schema():
         "id": "A5_5",
         "text": "Has the system undergone independent review or audit?",
         "type": "yes_no",
-        "domains": ["Accountability", "Transparency"],
+        "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
             "modifier_type": "negative",
@@ -843,7 +843,7 @@ def generate_complete_scoring_schema():
         "id": "A5_9",
         "text": "Which values, principles, or frameworks guide the AI system's development and use?",
         "type": "multiselect",
-        "domains": ["Accountability", "Transparency"],
+        "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
             "modifier_type": "negative",
@@ -1040,7 +1040,7 @@ def generate_complete_scoring_schema():
         "id": "B2_1",
         "text": "Has a Human Rights Impact Assessment (HRIA) been completed?",
         "type": "yes_no",
-        "domains": ["Human-Centered Values"],
+        "domains": ["Human-centred Values"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
             "options": {
@@ -1056,7 +1056,7 @@ def generate_complete_scoring_schema():
         "id": "B2_2",
         "text": "Rate the AI system's impact on the following dimensions:",
         "type": "multi_rating",
-        "domains": ["Human-Centered Values"],
+        "domains": ["Human-centred Values"],
         "scoring": {
             "target_metric": "Impact",
             "categories": {
@@ -1100,7 +1100,7 @@ def generate_complete_scoring_schema():
         "id": "B2_3",
         "text": "Were diverse perspectives included in the AI system's design and development?",
         "type": "yes_no_with_options",
-        "domains": ["Human-Centered Values"],
+        "domains": ["Human-centred Values"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
