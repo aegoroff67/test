@@ -372,7 +372,7 @@ def generate_complete_scoring_schema():
     # A2.7 - Regulated Data → Impact and Likelihood
     schema["questions"]["A2_7"] = {
         "id": "A2_7",
-        "text": "Does the system process data subject to specific regulations or protections?",
+        "text": "Does the solution use regulated or sensitive data?",
         "type": "yes_no_with_options",
         "domains": ["Privacy Protection and Security", "Fairness", "Human, Societal and Environmental Wellbeing"],
         "scoring": {
