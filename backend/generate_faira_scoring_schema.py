@@ -765,22 +765,31 @@ def generate_complete_scoring_schema():
     schema["questions"]["A4_6"] = {
         "id": "A4_6",
         "text": "Do outputs involve data regulated by law?",
-        "type": "multiselect",
+        "type": "yes_no_with_options",
         "domains": ["Privacy Protection and Security", "Fairness"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
-                "Personal": {"Impact": 2},
-                "Sensitive": {"Impact": 3},
-                "Financial": {"Impact": 3},
-                "Health": {"Impact": 4},
-                "Child-related": {"Impact": 5},
-                "Law enforcement": {"Impact": 5},
-                "Indigenous data": {"Impact": 5},
-                "Confidential government data": {"Impact": 4},
-                "Operationally sensitive data": {"Impact": 3}
+                "No": {
+                    "Impact": 0
+                },
+                "Yes": {
+                    "Impact": 0,
+                    "sub_question": "A4_6_data_types",
+                    "data_types": {
+                        "Personal": {"Impact": 2},
+                        "Sensitive": {"Impact": 3},
+                        "Financial": {"Impact": 3},
+                        "Health": {"Impact": 4},
+                        "Child-related": {"Impact": 5},
+                        "Law enforcement": {"Impact": 5},
+                        "Indigenous data": {"Impact": 5},
+                        "Confidential government data": {"Impact": 4},
+                        "Operationally sensitive data": {"Impact": 3}
+                    }
+                }
             },
-            "notes": "Each selected data type contributes its Impact value. Multiple selections are cumulative."
+            "notes": "If Yes: select applicable regulated data types. Each selected data type adds to Impact cumulatively."
         }
     }
     
