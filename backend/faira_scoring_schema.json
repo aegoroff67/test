@@ -670,34 +670,31 @@
     },
     "A3_1": {
       "id": "A3_1",
-      "text": "What types of human-AI interfaces does the system use?",
+      "text": "How does the system interface with humans?",
       "type": "multiselect",
       "domains": [
         "Transparency and Explainability",
-        "Accountability"
+        "Contestability"
       ],
       "scoring": {
         "target_metric": "Likelihood",
         "options": {
-          "Dashboard or visualization": {
+          "Chat interface": {
+            "Likelihood": 2
+          },
+          "Web application": {
             "Likelihood": 1
           },
-          "Recommendation system": {
+          "Mobile application": {
+            "Likelihood": 1
+          },
+          "API integration": {
             "Likelihood": 2
           },
-          "Decision support interface": {
+          "Voice interface": {
             "Likelihood": 2
           },
-          "Automated alerts": {
-            "Likelihood": 2
-          },
-          "Chatbot or conversational AI": {
-            "Likelihood": 2
-          },
-          "Direct system integration (no user interface)": {
-            "Likelihood": 3
-          },
-          "Other": {
+          "Dashboard": {
             "Likelihood": 1
           }
         }
