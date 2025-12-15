@@ -309,24 +309,21 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A2.4 - Data Types → Impact
+    # A2.4 - Input Data Types → Impact
     schema["questions"]["A2_4"] = {
         "id": "A2_4",
         "text": "What types of data does the system process?",
         "type": "multiselect",
-        "domains": ["Privacy Protection and Security"],
+        "domains": ["Privacy Protection and Security", "Fairness"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
-                "Personal information": {"Impact": 3},
-                "Financial data": {"Impact": 3},
-                "Health information": {"Impact": 3},
-                "Operational metrics": {"Impact": 1},
-                "Transactional data": {"Impact": 2},
-                "Behavioral data": {"Impact": 2},
-                "Environmental sensors": {"Impact": 1},
-                "Public data": {"Impact": 1},
-                "Other": {"Impact": 1}
+                "Government data": {"Impact": 1},
+                "Open data": {"Impact": 0},
+                "Synthetic data": {"Impact": 0},
+                "Personal information": {"Impact": 2},
+                "Sensitive information": {"Impact": 3},
+                "Internet data": {"Impact": 2}
             }
         }
     }
