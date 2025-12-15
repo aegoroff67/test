@@ -56,7 +56,7 @@ def generate_complete_scoring_schema():
     # A1.2 - AI System Version → No scoring
     schema["questions"]["A1_2"] = {
         "id": "A1_2",
-        "text": "What version is the AI system currently at?",
+        "text": "What version of the AI solution does this FAIRA assessment apply to?",
         "type": "text",
         "domains": [],
         "scoring": None
