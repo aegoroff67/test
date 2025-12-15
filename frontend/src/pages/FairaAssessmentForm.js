@@ -349,7 +349,14 @@ export default function FairaAssessmentForm() {
       }
     });
 
-    return totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
+    // Debug: Log unfilled fields when progress is not 100%
+    const progress = totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
+    if (progress < 100 && unfilledFields.length > 0) {
+      console.log('DEBUG: Unfilled fields preventing 100% completion:', unfilledFields);
+      console.log('DEBUG: Total fields:', totalFields, 'Filled:', filledFields);
+    }
+    
+    return progress;
   };
 
   // Calculate section completion status
