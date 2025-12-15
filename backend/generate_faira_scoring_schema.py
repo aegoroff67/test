@@ -565,28 +565,43 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A3.5 - Staff Impacts with Severity → Impact (Two-part question)
+    # A3.5 - Staff Impacts → Impact (Two-part question)
     schema["questions"]["A3_5"] = {
         "id": "A3_5",
-        "text": "What impacts could the system have on staff? (Select impacts and rate severity 1-5)",
-        "type": "multiselect_with_severity",
-        "domains": ["Fairness", "Accountability"],
+        "text": "A3.5(a) What are the expected impacts of this AI solution on staff?",
+        "type": "multiselect_with_rating",
+        "domains": ["Human, Societal and Environmental Wellbeing", "Human-centred Values", "Accountability"],
         "scoring": {
             "target_metric": "Impact",
-            "part_a": "A3_5a",
-            "part_b": "A3_5b",
-            "impacts": {
-                "Job role changes": {"base_impact": 2},
-                "Workload redistribution": {"base_impact": 1},
-                "Performance monitoring": {"base_impact": 2},
-                "Career progression": {"base_impact": 3},
-                "Job security": {"base_impact": 4},
-                "Skills requirements": {"base_impact": 2},
-                "No significant impact": {"base_impact": 0}
+            "part_a": {
+                "sub_question": "A3_5a_impact_types",
+                "impact_types": {
+                    "Increased workload": {"Impact": 1},
+                    "Reduced workload": {"Impact": -1},
+                    "Reduced autonomy": {"Impact": 2},
+                    "Improved autonomy": {"Impact": 1},
+                    "De-skilling risk": {"Impact": 2},
+                    "Skill enhancement": {"Impact": -1},
+                    "Accountability ambiguity": {"Impact": 2},
+                    "Increased accountability clarity": {"Impact": -1},
+                    "Stress or psychological impact": {"Impact": 2},
+                    "Job redesign required": {"Impact": 2},
+                    "No significant impact": {"Impact": 0}
+                }
             },
-            "severity_multiplier": "A3_5b (rating 1-5)",
-            "formula": "Impact = sum(selected_base_impacts) × (severity_rating / 3)",
-            "notes": "Severity rating scales the cumulative impact. Rating of 3 is neutral, 5 doubles impact, 1 reduces to one-third."
+            "part_b": {
+                "text": "A3.5(b) Rate the overall severity of these impacts (1 = Very Low, 5 = Very High):",
+                "severity_field": "A3_5b_severity",
+                "severity_multiplier": {
+                    "1": 1.0,
+                    "2": 1.2,
+                    "3": 1.5,
+                    "4": 1.8,
+                    "5": 2.0
+                }
+            },
+            "formula": "A3_5_severityWeightedImpact = A3_5_baseImpact × severityMultiplier, where A3_5_baseImpact = sum(modifiers for each selected impact type)",
+            "notes": "Part (a): Select all applicable staff impacts. Part (b): Rate overall severity. Final impact is base impact multiplied by severity."
         }
     }
     
