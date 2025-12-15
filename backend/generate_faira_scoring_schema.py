@@ -84,24 +84,25 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A1.4 - Decisions Addressed → Impact
+    # A1.4 - Decisions Supported → Impact
     schema["questions"]["A1_4"] = {
         "id": "A1_4",
-        "text": "What types of decisions or problems does the AI system address?",
+        "text": "What decisions will be addressed by the AI functionality?",
         "type": "multiselect",
-        "domains": ["Accountability", "Fairness"],
+        "domains": ["Fairness", "Accountability", "Human, Societal and Environmental Wellbeing"],
         "scoring": {
             "target_metric": "Impact",
             "options": {
-                "Operational efficiency": {"Impact": 1},
-                "Resource allocation": {"Impact": 2},
-                "Risk assessment": {"Impact": 3},
-                "Customer interactions": {"Impact": 2},
-                "Compliance and regulatory": {"Impact": 3},
-                "Safety monitoring": {"Impact": 3},
-                "Quality control": {"Impact": 2},
-                "Strategic planning": {"Impact": 2},
-                "Personnel management": {"Impact": 3}
+                "Content development and approval": {"Impact": 1},
+                "Data interpretation and business strategy": {"Impact": 3},
+                "Prioritization of communications": {"Impact": 1},
+                "Workflow optimization": {"Impact": 1.5},
+                "Security and compliance oversight": {"Impact": 4},
+                "Resource allocation": {"Impact": 3},
+                "Crisis management": {"Impact": 4},
+                "Employee training": {"Impact": 0.5},
+                "Customer relationship management": {"Impact": 1},
+                "Administrative decision-making (regulated by law)": {"Impact": 4}
             }
         }
     }
