@@ -15,35 +15,41 @@
       "text": "What is the primary function of the AI system?",
       "type": "multiselect",
       "domains": [
-        "Accountability",
-        "Transparency and Explainability"
+        "Reliability and Safety",
+        "Accountability"
       ],
       "scoring": {
         "target_metric": "Impact",
         "options": {
-          "Automate routine tasks": {
+          "Information retrieval": {
+            "Impact": 0.5
+          },
+          "Natural language understanding": {
             "Impact": 1
           },
-          "Support human decision-making": {
+          "Prediction/forecasting": {
+            "Impact": 1.5
+          },
+          "Classification": {
+            "Impact": 1.5
+          },
+          "Recommendation": {
             "Impact": 2
           },
-          "Make autonomous decisions": {
+          "Summarisation": {
+            "Impact": 1
+          },
+          "Decision support": {
             "Impact": 3
           },
-          "Predict outcomes": {
-            "Impact": 2
+          "Process automation": {
+            "Impact": 3
           },
-          "Generate content": {
-            "Impact": 1
+          "Compliance monitoring": {
+            "Impact": 3
           },
-          "Classify or categorize data": {
-            "Impact": 1
-          },
-          "Detect anomalies or patterns": {
-            "Impact": 2
-          },
-          "Other": {
-            "Impact": 1
+          "Content generation": {
+            "Impact": 2.5
           }
         }
       }
