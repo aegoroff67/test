@@ -254,23 +254,23 @@ def generate_complete_scoring_schema():
     # SECTION A2: Data and Inputs
     # ============================================================================
     
-    # A2.1 - Data Tracking → Control Effectiveness (Negative - improves control)
+    # A2.1 - Input Tracking Method → Control Effectiveness
     schema["questions"]["A2_1"] = {
         "id": "A2_1",
         "text": "How are data sources and quality tracked?",
         "type": "multiselect",
-        "domains": ["Privacy Protection and Security", "Transparency and Explainability"],
+        "domains": ["Privacy Protection and Security", "Fairness"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
             "options": {
-                "We maintain a data catalog": {"Control_Effectiveness": -2},
-                "We track data lineage": {"Control_Effectiveness": -2},
-                "We monitor data quality metrics": {"Control_Effectiveness": -3},
-                "We version control datasets": {"Control_Effectiveness": -1},
-                "We document data transformations": {"Control_Effectiveness": -2},
-                "No formal tracking": {"Control_Effectiveness": 0}
-            }
+                "Audit logs": {"Control_Effectiveness": 3},
+                "Access logs": {"Control_Effectiveness": 2},
+                "CRM/Case management logging": {"Control_Effectiveness": 2},
+                "System-level logging": {"Control_Effectiveness": 3},
+                "Manual records": {"Control_Effectiveness": 0.5},
+                "No inputs tracked or recorded (flag as risk)": {"Control_Effectiveness": 0}
+            },
+            "notes": "Each selected option adds to CE. 'No inputs tracked or recorded' should be flagged as a risk."
         }
     }
     
