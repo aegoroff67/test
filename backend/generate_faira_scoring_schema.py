@@ -894,20 +894,18 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A5.5 - Independent Review → Control Effectiveness
+    # A5.5 - Independent Review → CE
     schema["questions"]["A5_5"] = {
         "id": "A5_5",
-        "text": "Has the system undergone independent review or audit?",
+        "text": "Has the AI solution been subject to independent review?",
         "type": "yes_no",
         "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
             "options": {
-                "Yes": {"Control_Effectiveness": -2},
+                "Yes": {"Control_Effectiveness": 2},
                 "No": {"Control_Effectiveness": 0}
-            },
-            "notes": "Independent review provides external validation and improves control effectiveness."
+            }
         }
     }
     
