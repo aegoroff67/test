@@ -870,42 +870,69 @@
     },
     "A3_6": {
       "id": "A3_6",
-      "text": "What impacts could the system have on external groups? (Select impacts and rate severity 1-3)",
-      "type": "multiselect_with_severity",
+      "text": "A3.6(a) How will each impacted group be affected?",
+      "type": "multiselect_with_rating",
       "domains": [
+        "Human, Societal and Environmental Wellbeing",
         "Fairness",
-        "Accountability"
+        "Privacy Protection and Security"
       ],
       "scoring": {
         "target_metric": "Impact",
-        "part_a": "A3_6a",
-        "part_b": "A3_6b",
-        "impacts": {
-          "Service quality changes": {
-            "base_impact": 2
-          },
-          "Access to services": {
-            "base_impact": 3
-          },
-          "Financial impact": {
-            "base_impact": 3
-          },
-          "Privacy concerns": {
-            "base_impact": 3
-          },
-          "Trust and perception": {
-            "base_impact": 2
-          },
-          "Legal or compliance risk": {
-            "base_impact": 4
-          },
-          "No significant impact": {
-            "base_impact": 0
+        "part_a": {
+          "sub_question": "A3_6a_impact_types",
+          "impact_types": {
+            "Service quality changes": {
+              "Impact": 1
+            },
+            "Accessibility changes": {
+              "Impact": 2
+            },
+            "Decision-making impacts": {
+              "Impact": 2
+            },
+            "Delay reduction": {
+              "Impact": -1
+            },
+            "Bias or fairness concerns": {
+              "Impact": 3
+            },
+            "Data/privacy concerns": {
+              "Impact": 2
+            },
+            "Security concerns": {
+              "Impact": 2
+            },
+            "Communication changes": {
+              "Impact": 1
+            },
+            "Risk of exclusion": {
+              "Impact": 3
+            },
+            "Increased assistance/support": {
+              "Impact": -1
+            },
+            "None/minimal impact": {
+              "Impact": 0
+            }
           }
         },
-        "severity_multiplier": "A3_6b (rating 1-3)",
-        "formula": "Impact = sum(selected_base_impacts) \u00d7 (severity_rating / 2)",
-        "notes": "Severity rating scales the cumulative impact. Rating of 2 is neutral, 3 increases impact by 50%, 1 cuts it in half."
+        "part_b": {
+          "text": "A3.6(b) Rate the overall severity of these impacts:",
+          "severity_field": "A3_6b_severity",
+          "severity_weight": {
+            "1": 1.0,
+            "2": 1.5,
+            "3": 2.0
+          },
+          "labels": {
+            "1": "Minor",
+            "2": "Moderate",
+            "3": "Major"
+          }
+        },
+        "formula": "A3_6_ImpactScore = (sum of impact modifiers) \u00d7 severity_weight",
+        "notes": "Part (a): Select all applicable group impacts. Part (b): Rate severity (1=Minor, 2=Moderate, 3=Major). Final impact is sum of modifiers multiplied by severity."
       }
     },
     "A4_1": {
