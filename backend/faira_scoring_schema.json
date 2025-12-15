@@ -448,37 +448,29 @@
       "text": "What types of data does the system process?",
       "type": "multiselect",
       "domains": [
-        "Privacy Protection and Security"
+        "Privacy Protection and Security",
+        "Fairness"
       ],
       "scoring": {
         "target_metric": "Impact",
         "options": {
+          "Government data": {
+            "Impact": 1
+          },
+          "Open data": {
+            "Impact": 0
+          },
+          "Synthetic data": {
+            "Impact": 0
+          },
           "Personal information": {
-            "Impact": 3
-          },
-          "Financial data": {
-            "Impact": 3
-          },
-          "Health information": {
-            "Impact": 3
-          },
-          "Operational metrics": {
-            "Impact": 1
-          },
-          "Transactional data": {
             "Impact": 2
           },
-          "Behavioral data": {
+          "Sensitive information": {
+            "Impact": 3
+          },
+          "Internet data": {
             "Impact": 2
-          },
-          "Environmental sensors": {
-            "Impact": 1
-          },
-          "Public data": {
-            "Impact": 1
-          },
-          "Other": {
-            "Impact": 1
           }
         }
       }
