@@ -521,24 +521,25 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A3.3 - Impacted Groups → Impact (Group-based with severity)
+    # A3.3 - Impacted Groups → Impact
     schema["questions"]["A3_3"] = {
         "id": "A3_3",
-        "text": "Which groups are impacted by the system's decisions?",
+        "text": "Who will be impacted by the AI system?",
         "type": "multiselect",
-        "domains": ["Fairness", "Accountability"],
+        "domains": ["Human, Societal and Environmental Wellbeing", "Fairness"],
         "scoring": {
             "target_metric": "Impact",
-            "groups": {
-                "Staff or employees": {"Impact": 2},
-                "Customers or clients": {"Impact": 2},
-                "Third-party stakeholders": {"Impact": 2},
-                "Regulatory bodies": {"Impact": 3},
-                "General public": {"Impact": 3},
-                "Vulnerable populations": {"Impact": 4},
-                "Other": {"Impact": 1}
+            "options": {
+                "Queensland Government employees": {"Impact": 1},
+                "General public": {"Impact": 2},
+                "Vulnerable communities": {"Impact": 4},
+                "Children": {"Impact": 4},
+                "Elderly": {"Impact": 3},
+                "People with disabilities": {"Impact": 4},
+                "Indigenous peoples": {"Impact": 4},
+                "Small businesses": {"Impact": 2}
             },
-            "notes": "Each selected group contributes its Impact value to the total."
+            "notes": "Each selected group adds to Impact cumulatively."
         }
     }
     
