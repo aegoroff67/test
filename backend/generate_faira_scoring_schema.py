@@ -930,70 +930,64 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A5.7 - Stakeholder Engagement → Control Effectiveness
+    # A5.7 - Stakeholder Engagement → CE (multiselect)
     schema["questions"]["A5_7"] = {
         "id": "A5_7",
-        "text": "What stakeholder engagement activities have been conducted?",
+        "text": "How are stakeholders engaged in monitoring and evaluation?",
         "type": "multiselect",
         "domains": ["Human-centred Values", "Fairness"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
             "options": {
-                "Workshops": {"Control_Effectiveness": -2},
-                "Public consultation": {"Control_Effectiveness": -3},
-                "Union consultation": {"Control_Effectiveness": -2},
-                "Focus groups": {"Control_Effectiveness": -2},
-                "User feedback sessions": {"Control_Effectiveness": -1},
-                "Accessibility reviews": {"Control_Effectiveness": -3},
+                "Workshops": {"Control_Effectiveness": 2},
+                "Public consultation": {"Control_Effectiveness": 3},
+                "Union consultation": {"Control_Effectiveness": 2},
+                "Focus groups": {"Control_Effectiveness": 2},
+                "User feedback sessions": {"Control_Effectiveness": 1},
+                "Accessibility reviews": {"Control_Effectiveness": 3},
                 "No engagements planned": {"Control_Effectiveness": 0}
-            },
-            "notes": "Stakeholder engagement improves control effectiveness by incorporating diverse perspectives. Public consultation and accessibility reviews provide strong control benefits."
+            }
         }
     }
     
-    # A5.8 - Harm Detection & Contingency → Control Effectiveness
+    # A5.8 - Harm Detection & Contingency → CE (multiselect)
     schema["questions"]["A5_8"] = {
         "id": "A5_8",
-        "text": "What methods exist for detecting harm and responding to incidents?",
+        "text": "How are undesirable or harmful results detected?",
         "type": "multiselect",
         "domains": ["Reliability and Safety", "Human, Societal and Environmental Wellbeing"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
             "options": {
-                "Alerting and monitoring": {"Control_Effectiveness": -3},
-                "User complaints": {"Control_Effectiveness": -1},
-                "Human review triggers": {"Control_Effectiveness": -3},
-                "Automated anomaly detection": {"Control_Effectiveness": -4},
-                "Escalation procedures": {"Control_Effectiveness": -3},
-                "Incident response team": {"Control_Effectiveness": -4},
-                "No defined contingencies": {"Control_Effectiveness": 0}
-            },
-            "notes": "Harm detection and response mechanisms improve control effectiveness. Automated detection and dedicated response teams provide the strongest control. 'No defined contingencies' should be flagged as a significant risk."
+                "Alerting and monitoring": {"Control_Effectiveness": 3},
+                "User complaints": {"Control_Effectiveness": 1},
+                "Human review triggers": {"Control_Effectiveness": 3},
+                "Automated anomaly detection": {"Control_Effectiveness": 4},
+                "Escalation procedures": {"Control_Effectiveness": 3},
+                "Incident response team": {"Control_Effectiveness": 4},
+                "No defined contingencies (flag as risk)": {"Control_Effectiveness": 0}
+            }
         }
     }
     
-    # A5.9 - Values & Principles → Control Effectiveness
+    # A5.9 - Values & Principles → CE (multiselect)
     schema["questions"]["A5_9"] = {
         "id": "A5_9",
-        "text": "Which values, principles, or frameworks guide the AI system's development and use?",
+        "text": "Which values and principles informed the AI solution's design?",
         "type": "multiselect",
         "domains": ["Accountability", "Transparency and Explainability"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
-            "modifier_type": "negative",
             "options": {
-                "Australia's AI Ethics Principles": {"Control_Effectiveness": -1},
-                "Human Rights Act": {"Control_Effectiveness": -2},
-                "Data governance policies": {"Control_Effectiveness": -2},
-                "WHS": {"Control_Effectiveness": -1},
-                "Accessibility standards": {"Control_Effectiveness": -2},
-                "Agency ethics statements": {"Control_Effectiveness": -1},
-                "Privacy principles": {"Control_Effectiveness": -3},
-                "Risk management framework": {"Control_Effectiveness": -3}
-            },
-            "notes": "Adherence to established values, principles, and frameworks improves control effectiveness. Privacy principles and risk management frameworks provide the strongest control benefits."
+                "Australia's AI Ethics Principles": {"Control_Effectiveness": 1},
+                "Human Rights Act": {"Control_Effectiveness": 2},
+                "Data governance policies": {"Control_Effectiveness": 2},
+                "WHS": {"Control_Effectiveness": 1},
+                "Accessibility standards": {"Control_Effectiveness": 2},
+                "Agency ethics statements": {"Control_Effectiveness": 1},
+                "Privacy principles": {"Control_Effectiveness": 3},
+                "Risk management framework": {"Control_Effectiveness": 3}
+            }
         }
     }
     
