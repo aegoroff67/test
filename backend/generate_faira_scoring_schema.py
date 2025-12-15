@@ -482,22 +482,21 @@ def generate_complete_scoring_schema():
     # SECTION A3: Human Interface and Impact
     # ============================================================================
     
-    # A3.1 - Interface Types → Likelihood
+    # A3.1 - Interface Type → Likelihood
     schema["questions"]["A3_1"] = {
         "id": "A3_1",
-        "text": "What types of human-AI interfaces does the system use?",
+        "text": "How does the system interface with humans?",
         "type": "multiselect",
-        "domains": ["Transparency and Explainability", "Accountability"],
+        "domains": ["Transparency and Explainability", "Contestability"],
         "scoring": {
             "target_metric": "Likelihood",
             "options": {
-                "Dashboard or visualization": {"Likelihood": 1},
-                "Recommendation system": {"Likelihood": 2},
-                "Decision support interface": {"Likelihood": 2},
-                "Automated alerts": {"Likelihood": 2},
-                "Chatbot or conversational AI": {"Likelihood": 2},
-                "Direct system integration (no user interface)": {"Likelihood": 3},
-                "Other": {"Likelihood": 1}
+                "Chat interface": {"Likelihood": 2},
+                "Web application": {"Likelihood": 1},
+                "Mobile application": {"Likelihood": 1},
+                "API integration": {"Likelihood": 2},
+                "Voice interface": {"Likelihood": 2},
+                "Dashboard": {"Likelihood": 1}
             }
         }
     }
