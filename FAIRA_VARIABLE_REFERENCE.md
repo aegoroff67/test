@@ -1,358 +1,769 @@
-# FAIRA Risk Assessment - Complete Variable Reference (CORRECTED)
+# FAIRA Assessment - Variable Reference Guide
+## Complete List of All Scoring Variables
+This document provides a comprehensive reference of all scoring variables, their question IDs, target metrics, and associated domains.
+---
 
-## Master Formula
+## Section A1
+### A1_1: What is the primary function of the AI system?
+**Type:** multiselect
+**Domains:** Accountability, Transparency and Explainability
+**Target Metric:** Impact
+**Scoring Options:**
+  - Automate routine tasks: Impact: 1
+  - Support human decision-making: Impact: 2
+  - Make autonomous decisions: Impact: 3
+  - Predict outcomes: Impact: 2
+  - Generate content: Impact: 1
+  - Classify or categorize data: Impact: 1
+  - Detect anomalies or patterns: Impact: 2
+  - Other: Impact: 1
 
-```
-Raw Risk Score = (Total Impact × Total Likelihood) ÷ Control Effectiveness
-```
+---
+### A1_2: What version is the AI system currently at?
+**Type:** text
+**Domains:** Accountability
+**Scoring:** None
 
-Where:
-- **Total Likelihood** is modified by three special computed factors:
-  - AutonomyFactor (from A1.6)
-  - DataQualityFactor (from A2.5)  
-  - ExpertiseFactor (from A3.2)
+---
+### A1_3: Which AI features or capabilities does the system include?
+**Type:** multiselect
+**Domains:** Accountability, Transparency and Explainability
+**Target Metric:** Impact
+**Scoring Options:**
+  - Natural language processing: Impact: 1
+  - Computer vision: Impact: 1
+  - Recommendation engine: Impact: 2
+  - Predictive modeling: Impact: 2
+  - Anomaly detection: Impact: 2
+  - Speech recognition: Impact: 1
+  - Automated content generation: Impact: 1
+  - Optimization algorithms: Impact: 2
+  - Reinforcement learning: Impact: 3
+  - Other: Impact: 1
+
+---
+### A1_4: What types of decisions or problems does the AI system address?
+**Type:** multiselect
+**Domains:** Accountability, Fairness
+**Target Metric:** Impact
+**Scoring Options:**
+  - Operational efficiency: Impact: 1
+  - Resource allocation: Impact: 2
+  - Risk assessment: Impact: 3
+  - Customer interactions: Impact: 2
+  - Compliance and regulatory: Impact: 3
+  - Safety monitoring: Impact: 3
+  - Quality control: Impact: 2
+  - Strategic planning: Impact: 2
+  - Personnel management: Impact: 3
+
+---
+### A1_5: What tangible benefits does the AI system provide?
+**Type:** multiselect
+**Domains:** Accountability
+**Target Metric:** Impact
+**Scoring Options:**
+  - Cost reduction: Impact: -1
+  - Time savings: Impact: -1
+  - Improved accuracy: Impact: -2
+  - Enhanced user experience: Impact: -1
+  - Scalability: Impact: -1
+  - Better decision-making: Impact: -2
+  - Risk mitigation: Impact: -2
+  - Compliance support: Impact: -2
+**Modifier Type:** negative
+
+---
+### A1_6: Does the system convert its outputs directly into actions without human intervention?
+**Type:** yes_no
+**Domains:** Accountability, Reliability and Safety
+**Target Metric:** Likelihood
+**Special Computation:** AutonomyFactor
+**Scoring Options:**
+  - No: base: 1.0
+  - Yes: base: 2.0
+**Notes:** AutonomyFactor = base × max(action_multipliers). This modifies Total Likelihood in final calculation.
+
+---
+### A1_7: What type(s) of AI model or algorithm does the system use?
+**Type:** multiselect
+**Domains:** Transparency and Explainability, Accountability
+**Target Metric:** Impact
+**Scoring Options:**
+  - Rule-based system: Impact: 1
+  - Linear/logistic regression: Impact: 1
+  - Decision trees: Impact: 1
+  - Random forest: Impact: 1
+  - Neural networks: Impact: 2
+  - Deep learning: Impact: 2
+  - Ensemble methods: Impact: 2
+  - Generative AI: Impact: 3
+  - Reinforcement learning: Impact: 3
+  - Other: Impact: 1
+
+---
+### A1_8: Where did the AI system or model originate?
+**Type:** multiselect
+**Domains:** Accountability, Transparency and Explainability
+**Target Metric:** Impact
+**Scoring Options:**
+  - Developed in-house: Impact: 2
+  - Third-party vendor: Impact: 3
+  - Open-source model: Impact: 2
+  - Cloud-based service: Impact: 2
+  - Pre-trained model (customized): Impact: 2
+  - Pre-trained model (used as-is): Impact: 3
+
+---
+### A1_9: How is the AI system integrated into your operations?
+**Type:** multiselect
+**Domains:** Reliability and Safety
+**Target Metric:** Likelihood
+**Scoring Options:**
+  - Standalone tool: Likelihood: 1
+  - Embedded in existing software: Likelihood: 2
+  - Part of a broader system: Likelihood: 2
+  - API or cloud service: Likelihood: 2
+  - Mobile or edge deployment: Likelihood: 3
+  - Real-time system: Likelihood: 3
 
 ---
 
-## Special Computed Factors
+## Section A2
+### A2_1: How are data sources and quality tracked?
+**Type:** multiselect
+**Domains:** Privacy Protection and Security, Transparency and Explainability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - We maintain a data catalog: Control_Effectiveness: -2
+  - We track data lineage: Control_Effectiveness: -2
+  - We monitor data quality metrics: Control_Effectiveness: -3
+  - We version control datasets: Control_Effectiveness: -1
+  - We document data transformations: Control_Effectiveness: -2
+  - No formal tracking: Control_Effectiveness: 0
+**Modifier Type:** negative
 
-### 1. AutonomyFactor (A1.6)
-**Question**: Does the system convert its outputs directly into actions without human intervention?
-- **If No**: Factor = 1.0
-- **If Yes**: Factor = 2.0 × max(selected action multipliers)
-  - Notifications only: 1.0
-  - Data updates: 1.2
-  - Workflow triggers: 1.3
-  - Financial transactions: 1.8
-  - Access control changes: 1.5
-  - Content publication: 1.4
-  - Equipment control: 1.9
-  - Other: 1.1
+---
+### A2_2: What environmental, external, or real-time data does the system rely on?
+**Type:** text
+**Domains:** Reliability and Safety
+**Target Metric:** Impact
 
-**Formula**: `AutonomyFactor = base × max(action_multipliers)`
+---
+### A2_3: What safeguards exist to ensure data quality and integrity?
+**Type:** multiselect
+**Domains:** Reliability and Safety
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Automated validation rules: Control_Effectiveness: -2
+  - Manual review processes: Control_Effectiveness: -1
+  - Data cleansing pipelines: Control_Effectiveness: -2
+  - Anomaly detection: Control_Effectiveness: -3
+  - Access controls: Control_Effectiveness: -1
+  - Regular audits: Control_Effectiveness: -2
+  - No safeguards: Control_Effectiveness: 0
+**Modifier Type:** negative
 
-**Modifies**: Total Likelihood
+---
+### A2_4: What types of data does the system process?
+**Type:** multiselect
+**Domains:** Privacy Protection and Security
+**Target Metric:** Impact
+**Scoring Options:**
+  - Personal information: Impact: 3
+  - Financial data: Impact: 3
+  - Health information: Impact: 3
+  - Operational metrics: Impact: 1
+  - Transactional data: Impact: 2
+  - Behavioral data: Impact: 2
+  - Environmental sensors: Impact: 1
+  - Public data: Impact: 1
+  - Other: Impact: 1
+
+---
+### A2_5: Rate the quality of input data on the following dimensions (1-5 scale)
+**Type:** rating_multi
+**Domains:** Reliability and Safety
+**Target Metric:** Likelihood
+**Special Computation:** DataQualityFactor
+**Formula:** DataQualityFactor = 6 - (average of 5 ratings)
+**Notes:** Lower quality (rating=1) increases risk. Higher quality (rating=5) reduces risk. Factor ranges from 1.0 (perfect quality) to 5.0 (very poor quality).
+
+---
+### A2_6: What is the Business Impact Level (BIL) of the input data?
+**Type:** single_select
+**Domains:** Privacy Protection and Security
+**Target Metric:** Impact
+**Scoring Options:**
+  - BIL-0 (Public): Impact: 1
+  - BIL-1 (Low): Impact: 2
+  - BIL-2 (Medium): Impact: 3
+  - BIL-3 (High): Impact: 4
+  - BIL-4 (Critical): Impact: 5
+
+---
+### A2_7: Does the system process regulated or sensitive data?
+**Type:** yes_no
+**Domains:** Privacy Protection and Security, Accountability
+**Target Metric:** Impact
+**Scoring Options:**
+  - No: Impact: 0
+  - Yes: Impact: 3
+
+---
+### A2_8: Are user inputs required for the system to function?
+**Type:** yes_no
+**Domains:** Reliability and Safety
+**Target Metric:** Likelihood
+**Scoring Options:**
+  - No: Likelihood: 0
+  - Yes: Likelihood: 2
 
 ---
 
-### 2. DataQualityFactor (A2.5)
-**Question**: Rate the quality of input data on the following dimensions (1-5 scale)
-- Dimensions:
-  - Accuracy (A2_5_accuracy)
-  - Completeness (A2_5_completeness)
-  - Reliability (A2_5_reliability)
-  - Relevance (A2_5_relevance)
-  - Timeliness (A2_5_timeliness)
+## Section A3
+### A3_1: What types of human-AI interfaces does the system use?
+**Type:** multiselect
+**Domains:** Transparency and Explainability, Accountability
+**Target Metric:** Likelihood
+**Scoring Options:**
+  - Dashboard or visualization: Likelihood: 1
+  - Recommendation system: Likelihood: 2
+  - Decision support interface: Likelihood: 2
+  - Automated alerts: Likelihood: 2
+  - Chatbot or conversational AI: Likelihood: 2
+  - Direct system integration (no user interface): Likelihood: 3
+  - Other: Likelihood: 1
 
-**Formula**: `DataQualityFactor = 6 - average(5 quality ratings)`
+---
+### A3_2: Rate the typical expertise of users interacting with the system (1-5 scale)
+**Type:** rating_multi
+**Domains:** Accountability, Transparency and Explainability
+**Target Metric:** Likelihood
+**Special Computation:** ExpertiseFactor
+**Formula:** ExpertiseFactor = 6 - (average of 3 ratings)
+**Notes:** Lower expertise increases likelihood of misuse or misinterpretation. Factor ranges from 1.0 (expert users) to 5.0 (novice users).
 
-**Range**: 1.0 (perfect quality, all ratings = 5) to 5.0 (very poor quality, all ratings = 1)
+---
+### A3_3: Which groups are impacted by the system's decisions?
+**Type:** multiselect
+**Domains:** Fairness, Accountability
+**Target Metric:** Impact
+**Notes:** Each selected group contributes its Impact value to the total.
 
-**Modifies**: Total Likelihood
+---
+### A3_4: How are affected parties notified that AI is involved in decisions?
+**Type:** multiselect
+**Domains:** Transparency and Explainability, Accountability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Explicit disclosure in interface: Control_Effectiveness: -3
+  - Terms of service or policy: Control_Effectiveness: -1
+  - On-demand explanation available: Control_Effectiveness: -2
+  - Training or documentation: Control_Effectiveness: -2
+  - No notification: Control_Effectiveness: 0
+**Modifier Type:** negative
+
+---
+### A3_5: What impacts could the system have on staff? (Select impacts and rate severity 1-5)
+**Type:** multiselect_with_severity
+**Domains:** Fairness, Accountability
+**Target Metric:** Impact
+**Notes:** Severity rating scales the cumulative impact. Rating of 3 is neutral, 5 doubles impact, 1 reduces to one-third.
+
+---
+### A3_6: What impacts could the system have on external groups? (Select impacts and rate severity 1-3)
+**Type:** multiselect_with_severity
+**Domains:** Fairness, Accountability
+**Target Metric:** Impact
+**Notes:** Severity rating scales the cumulative impact. Rating of 2 is neutral, 3 increases impact by 50%, 1 cuts it in half.
 
 ---
 
-### 3. ExpertiseFactor (A3.2)
-**Question**: Rate the typical expertise of users interacting with the system (1-5 scale)
-- Dimensions:
-  - Technical expertise (A3_2_technical)
-  - Domain expertise (A3_2_domain)
-  - AI literacy (A3_2_ai_literacy)
+## Section A4
+### A4_1: What are the primary outputs of the AI system?
+**Type:** multiselect
+**Domains:** Accountability, Transparency and Explainability
+**Target Metric:** Impact
+**Scoring Options:**
+  - Recommendations: Impact: 2
+  - Classifications: Impact: 2
+  - Predictions: Impact: 2
+  - Risk scores: Impact: 3
+  - Automated decisions: Impact: 4
+  - Content generation: Impact: 2
+  - Data insights: Impact: 1
+  - Alerts or notifications: Impact: 2
+  - Reports: Impact: 1
+  - Other: Impact: 1
 
-**Formula**: `ExpertiseFactor = 6 - average(3 expertise ratings)`
+---
+### A4_2: Are outputs sent to external systems without human review?
+**Type:** yes_no
+**Domains:** Accountability, Reliability and Safety
+**Target Metric:** Likelihood
+**Scoring Options:**
+  - No: Likelihood: 0
+  - Yes: Likelihood: 2
 
-**Range**: 1.0 (expert users, all ratings = 5) to 5.0 (novice users, all ratings = 1)
+---
+### A4_3: What is the Business Impact Level (BIL) of the system outputs?
+**Type:** single_select
+**Domains:** Privacy Protection and Security
+**Target Metric:** Impact
+**Scoring Options:**
+  - Official: Impact: 0
+  - Official: Sensitive: Impact: 1
+  - Protected: Impact: 2
+  - Highly Protected: Impact: 3
+  - Secret: Impact: 4
+  - Top Secret: Impact: 5
 
-**Modifies**: Total Likelihood
+---
+### A4_4: How are system outputs tracked?
+**Type:** multiselect
+**Domains:** Accountability, Contestability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Stored in database: Control_Effectiveness: -2
+  - Logged in audit system: Control_Effectiveness: -3
+  - Logged in CRM/case system: Control_Effectiveness: -2
+  - Logged in activity logs: Control_Effectiveness: -2
+  - Retention based on policy: Control_Effectiveness: -1
+  - Not currently tracked: Control_Effectiveness: 0
+**Modifier Type:** negative
+**Notes:** Output tracking improves control effectiveness and enables contestability. 'Not currently tracked' should be flagged as a risk.
+
+---
+### A4_5: Are there risks associated with unauthorized access to system outputs?
+**Type:** yes_no_with_options
+**Domains:** Privacy Protection and Security, Reliability and Safety
+**Target Metric:** Impact and Likelihood
+**Scoring Options:**
+  - No: Impact: 0, Likelihood: 0
+  - Yes: Impact: 0, Likelihood: 0
+**Modifier Type:** dual
+**Notes:** Two-part question. If 'No', no additional risk. If 'Yes', each selected risk scenario applies both Impact and Likelihood modifiers.
+
+---
+### A4_6: What types of regulated or sensitive data are included in system outputs?
+**Type:** multiselect
+**Domains:** Privacy Protection and Security, Fairness
+**Target Metric:** Impact
+**Scoring Options:**
+  - Personal: Impact: 2
+  - Sensitive: Impact: 3
+  - Financial: Impact: 3
+  - Health: Impact: 4
+  - Child-related: Impact: 5
+  - Law enforcement: Impact: 5
+  - Indigenous data: Impact: 5
+  - Confidential government data: Impact: 4
+  - Operationally sensitive data: Impact: 3
+**Notes:** Each selected data type contributes its Impact value. Multiple selections are cumulative.
+
+---
+### A4_7: Who has access to personally identifiable information (PII) in system outputs?
+**Type:** text
+**Domains:** Privacy Protection and Security
+**Target Metric:** TBD
+**Notes:** Text response will be analyzed using LLM to determine appropriate Impact/Likelihood modifiers.
+
+---
+### A4_8: Could system outputs trigger legal, regulatory, or compliance actions?
+**Type:** text
+**Domains:** Accountability
+**Target Metric:** TBD
+**Notes:** Text response will be analyzed using LLM to determine appropriate Impact/Likelihood modifiers.
 
 ---
 
-## Impact Variables
+## Section A5
+### A5_1: Who is accountable for the AI system's performance and decisions?
+**Type:** single_select
+**Domains:** Accountability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Product owner: Control_Effectiveness: -2
+  - System owner: Control_Effectiveness: -3
+  - Executive sponsor: Control_Effectiveness: -2
+  - Service manager: Control_Effectiveness: -3
+  - Data custodian: Control_Effectiveness: -3
+  - Governance committee: Control_Effectiveness: -4
+  - AI oversight board: Control_Effectiveness: -4
+**Modifier Type:** negative
+**Notes:** Clear accountability structures improve control effectiveness. Higher-level oversight (committees, boards) provide stronger governance.
 
-### Section A1: AI Solution Fundamentals
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A1_1 | Primary function | Automate tasks: +1, Support decisions: +2, Autonomous decisions: +3, Predict: +2, Generate content: +1, Classify: +1, Detect patterns: +2, Other: +1 | Accountability, Transparency |
-| A1_3 | AI features | NLP: +1, Computer vision: +1, Recommendation: +2, Predictive modeling: +2, Anomaly detection: +2, Speech: +1, Content gen: +1, Optimization: +2, RL: +3, Other: +1 | Accountability, Transparency |
-| A1_4 | Decision types | Operational: +1, Resource: +2, Risk: +3, Customer: +2, Compliance: +3, Safety: +3, Quality: +2, Strategic: +2, Personnel: +3 | Accountability, Fairness |
-| A1_5 | Tangible benefits (negative modifiers) | Cost: -1, Time: -1, Accuracy: -2, UX: -1, Scalability: -1, Better decisions: -2, Risk mitigation: -2, Compliance: -2 | Accountability |
-| A1_7 | AI model type | Rule-based: +1, Linear: +1, Decision trees: +1, Random forest: +1, Neural nets: +2, Deep learning: +2, Ensemble: +2, Generative: +3, RL: +3, Other: +1 | Transparency, Accountability |
-| A1_8 | AI source | In-house: +2, Third-party: +3, Open-source: +2, Cloud: +2, Pre-trained custom: +2, Pre-trained as-is: +3 | Accountability, Transparency |
+---
+### A5_10: Does the AI system operate under specific regulatory obligations or frameworks?
+**Type:** yes_no_with_subsections
+**Domains:** Accountability, Privacy Protection and Security
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - No: Control_Effectiveness: 0
+  - Yes: Control_Effectiveness: 0
+**Modifier Type:** negative
+**Notes:** Multi-part question. All modifiers only apply if 'Yes' is selected. Each subsection is cumulative. Strong controls from critical infrastructure, child protection, and law enforcement obligations.
 
-### Section A2: Data and Inputs
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A2_4 | Data types | Personal: +3, Financial: +3, Health: +3, Operational: +1, Transactional: +2, Behavioral: +2, Environmental: +1, Public: +1, Other: +1 | Privacy, Data Integrity |
-| A2_6 | Input BIL | BIL-0: +1, BIL-1: +2, BIL-2: +3, BIL-3: +4, BIL-4: +5 | Privacy, Security |
-| A2_7 | Regulated data | No: 0, Yes: +3 | Privacy, Compliance |
+---
+### A5_11: Where will this AI solution be deployed?
+**Type:** single_select
+**Domains:** Accountability, Reliability and Safety, Human, Societal and Environmental Wellbeing
+**Target Metric:** Likelihood and Control_Effectiveness
+**Scoring Options:**
+  - Internal use only: Likelihood: 0, Control_Effectiveness: 0
+  - Internal + selected partners: Likelihood: 1, Control_Effectiveness: -1
+  - Public-facing: Likelihood: 2, Control_Effectiveness: -1
+  - Citizen-facing high-sensitivity: Likelihood: 3, Control_Effectiveness: -2
+  - Embedded in another product: Likelihood: 2, Control_Effectiveness: -1
+  - Multi-channel deployment: Likelihood: 3, Control_Effectiveness: -2
+**Modifier Type:** dual
+**Notes:** Single select - only ONE deployment location applies. Wider deployment increases likelihood of risk exposure but also may come with better controls. Citizen-facing and multi-channel deployments have highest risk exposure but strongest control requirements.
 
-### Section A3: Human Interface and Impact
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A3_3 | Impacted groups | Staff: +2, Customers: +2, Third-party: +2, Regulatory: +3, Public: +3, Vulnerable: +4, Other: +1 | Fairness, Accountability |
-| A3_5 | Staff impacts (with severity multiplier) | Job role: 2, Workload: 1, Monitoring: 2, Career: 3, Job security: 4, Skills: 2, No impact: 0. Formula: sum(base) × (severity/3) | Fairness, Accountability |
-| A3_6 | Group impacts (with severity multiplier) | Service quality: 2, Access: 3, Financial: 3, Privacy: 3, Trust: 2, Legal: 4, No impact: 0. Formula: sum(base) × (severity/2) | Fairness, Accountability |
+---
+### A5_2: How is system performance tracked and reported?
+**Type:** text
+**Domains:** Accountability, Transparency and Explainability
+**Target Metric:** TBD
+**Notes:** Text response will be analyzed using LLM to determine appropriate Control Effectiveness modifiers.
 
-### Section A4: Outputs and Actions
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A4_1 | Primary outputs | Recommendations: +2, Classifications: +2, Predictions: +2, Risk scores: +3, Automated decisions: +4, Content: +2, Insights: +1, Alerts: +2, Reports: +1, Other: +1 | Accountability, Transparency |
-| A4_3 | Output BIL | Official: 0, Official Sensitive: +1, Protected: +2, Highly Protected: +3, Secret: +4, Top Secret: +5 | Privacy Protection & Security |
-| A4_5 | Output risks (dual: Impact & Likelihood) | If Yes: Misrouted: +2/+2, Excessive exposure: +3/+3, Sensitive attributes: +4/+4, Incorrect system: +3/+3, Injection: +4/+4 | Privacy Protection & Security, Reliability & Safety |
-| A4_6 | Regulated output data | Personal: +2, Sensitive: +3, Financial: +3, Health: +4, Child: +5, Law enforcement: +5, Indigenous: +5, Gov confidential: +4, Operational: +3 | Privacy Protection & Security, Fairness |
+---
+### A5_3: What monitoring and evaluation processes are in place? (Select all that apply)
+**Type:** multiselect
+**Domains:** Reliability and Safety, Accountability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Regular system audits: Control_Effectiveness: -3
+  - Continuous performance monitoring: Control_Effectiveness: -4
+  - User feedback collection: Control_Effectiveness: -2
+  - Periodic stakeholder reviews: Control_Effectiveness: -2
+  - Independent evaluation: Control_Effectiveness: -4
+**Modifier Type:** negative
+**Notes:** Monitoring and evaluation processes improve control effectiveness. Multiple selections are cumulative.
 
-### Section B1: Human, Societal and Environmental Wellbeing
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B1_2 | Negative impacts | Privacy: +3, Bias: +3, Transparency: +2, Safety: +4, Employment: +2, Social harm: +3, Environmental: +2, Accessibility: +2, Legal: +2, Trust: +2 | Human, Societal & Environmental Wellbeing |
-| B1_3 | Employee employment | Yes: +2, Unknown: +1, No: 0 | Human, Societal & Environmental Wellbeing |
+---
+### A5_4: How frequently will monitoring and evaluation occur?
+**Type:** single_select
+**Domains:** Reliability and Safety
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Weekly: Control_Effectiveness: -4
+  - Monthly: Control_Effectiveness: -3
+  - Quarterly: Control_Effectiveness: -2
+  - Annually: Control_Effectiveness: -1
+  - Event-driven: Control_Effectiveness: -3
+**Modifier Type:** negative
+**Notes:** More frequent monitoring improves control effectiveness. Weekly monitoring provides the strongest control.
 
-### Section B2: Human-Centered Values
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B2_2_rights | Human Rights rating | Positive: -1, Neutral: 0, Negative: +2, Unknown: +1 | Human-Centered Values |
-| B2_2_diversity | Diversity rating | Positive: -1, Neutral: 0, Negative: +2, Unknown: +1 | Human-Centered Values |
-| B2_2_autonomy | Individual Autonomy rating | Positive: -1, Neutral: 0, Negative: +2, Unknown: +1 | Human-Centered Values |
-| B2_3 | Diverse perspectives | No: +2, Yes: -2 + perspectives. Each perspective: -0.5 (Disabilities, Cultural, Gender, Age, Indigenous, Socioeconomic) | Human-Centered Values |
+---
+### A5_5: Has the system undergone independent review or audit?
+**Type:** yes_no
+**Domains:** Accountability, Transparency and Explainability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Yes: Control_Effectiveness: -2
+  - No: Control_Effectiveness: 0
+**Modifier Type:** negative
+**Notes:** Independent review provides external validation and improves control effectiveness.
 
-### Section B3: Fairness
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B3_1 | Bias testing | No: +2, Yes: -2 + methods. Each method: -1 (Statistical parity, Disparate impact, Dataset bias, Interpretability, Human panels, Synthetic testing, Accessibility, Security, Vendor tests, Informal) | Fairness |
-| B3_2 | Discrimination possible | No: 0, Unknown: +2, Yes: +3 + groups. Each group: +1 (Age, Disabilities, Racial/ethnic, Religious, Gender, Sexual orientation, Socioeconomic) | Fairness |
+---
+### A5_6: Who is responsible for ongoing monitoring?
+**Type:** single_select
+**Domains:** Accountability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - ICT Ops: Control_Effectiveness: -2
+  - Data Science team: Control_Effectiveness: -2
+  - Risk/Compliance: Control_Effectiveness: -3
+  - Business Owner: Control_Effectiveness: -2
+  - Vendor: Control_Effectiveness: -1
+  - Customer-facing staff: Control_Effectiveness: -1
+  - External auditor: Control_Effectiveness: -4
+**Modifier Type:** negative
+**Notes:** Different roles provide varying levels of control oversight. External auditors and Risk/Compliance roles provide the strongest control.
 
-### Section B4: Privacy Protection and Security
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B4_2 | Personal info used | No: 0, Yes: +2 + types. Identifiable: +1, Sensitive: +2, Health: +3, Financial: +3, Biometric: +3 | Privacy Protection & Security |
+---
+### A5_7: What stakeholder engagement activities have been conducted?
+**Type:** multiselect
+**Domains:** Human-centred Values, Fairness
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Workshops: Control_Effectiveness: -2
+  - Public consultation: Control_Effectiveness: -3
+  - Union consultation: Control_Effectiveness: -2
+  - Focus groups: Control_Effectiveness: -2
+  - User feedback sessions: Control_Effectiveness: -1
+  - Accessibility reviews: Control_Effectiveness: -3
+  - No engagements planned: Control_Effectiveness: 0
+**Modifier Type:** negative
+**Notes:** Stakeholder engagement improves control effectiveness by incorporating diverse perspectives. Public consultation and accessibility reviews provide strong control benefits.
 
-### Section B5: Reliability and Safety
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B5_3 | High-risk environment (dual: Impact & Likelihood) | If Yes: Essential services: +3/+1, Critical infra: +4/+2, Health: +4/+1, Education: +2/0, Law enforcement: +4/+1, Justice admin: +4/0, Democratic: +5/+1 | Reliability & Safety |
+---
+### A5_8: What methods exist for detecting harm and responding to incidents?
+**Type:** multiselect
+**Domains:** Reliability and Safety, Human, Societal and Environmental Wellbeing
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Alerting and monitoring: Control_Effectiveness: -3
+  - User complaints: Control_Effectiveness: -1
+  - Human review triggers: Control_Effectiveness: -3
+  - Automated anomaly detection: Control_Effectiveness: -4
+  - Escalation procedures: Control_Effectiveness: -3
+  - Incident response team: Control_Effectiveness: -4
+  - No defined contingencies: Control_Effectiveness: 0
+**Modifier Type:** negative
+**Notes:** Harm detection and response mechanisms improve control effectiveness. Automated detection and dedicated response teams provide the strongest control. 'No defined contingencies' should be flagged as a significant risk.
+
+---
+### A5_9: Which values, principles, or frameworks guide the AI system's development and use?
+**Type:** multiselect
+**Domains:** Accountability, Transparency and Explainability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Australia's AI Ethics Principles: Control_Effectiveness: -1
+  - Human Rights Act: Control_Effectiveness: -2
+  - Data governance policies: Control_Effectiveness: -2
+  - WHS: Control_Effectiveness: -1
+  - Accessibility standards: Control_Effectiveness: -2
+  - Agency ethics statements: Control_Effectiveness: -1
+  - Privacy principles: Control_Effectiveness: -3
+  - Risk management framework: Control_Effectiveness: -3
+**Modifier Type:** negative
+**Notes:** Adherence to established values, principles, and frameworks improves control effectiveness. Privacy principles and risk management frameworks provide the strongest control benefits.
 
 ---
 
-## Likelihood Variables
+## Section B1
+### B1_2: What negative impacts could the AI system create?
+**Type:** multiselect
+**Domains:** Human, Societal and Environmental Wellbeing
+**Target Metric:** Impact
+**Scoring Options:**
+  - Privacy risks: Impact: 3
+  - Bias/discrimination: Impact: 3
+  - Transparency issues: Impact: 2
+  - Safety risks: Impact: 4
+  - Employment impacts: Impact: 2
+  - Social harm: Impact: 3
+  - Environmental impact: Impact: 2
+  - Accessibility issues: Impact: 2
+  - Legal/regulatory risks: Impact: 2
+  - Loss of trust: Impact: 2
+**Notes:** Multiple selections are cumulative. Safety risks have the highest impact modifier.
 
-### Section A1: AI Solution Fundamentals
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A1_6 | Autonomy level | See AutonomyFactor (special computation) | Accountability, Reliability & Safety |
-| A1_9 | Integration | Standalone: +1, Embedded: +2, Part of system: +2, API/cloud: +2, Mobile/edge: +3, Real-time: +3 | Reliability & Safety |
-
-### Section A2: Data and Inputs
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A2_5 | Data quality | See DataQualityFactor (special computation) | Data Integrity, Reliability & Safety |
-| A2_8 | User inputs required | No: 0, Yes: +2 | Data Integrity, Reliability & Safety |
-
-### Section A3: Human Interface and Impact
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A3_1 | Interface types | Dashboard: +1, Recommendation: +2, Decision support: +2, Alerts: +2, Chatbot: +2, Direct integration: +3, Other: +1 | Explainability, Accountability |
-| A3_2 | User expertise | See ExpertiseFactor (special computation) | Accountability, Explainability |
-
-### Section A4: Outputs and Actions
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A4_2 | External outputs without review | No: 0, Yes: +2 | Accountability, Reliability & Safety |
-| A4_5 | Output risks (dual) | See Impact section above | Privacy Protection & Security, Reliability & Safety |
-
-### Section A5: Governance and Oversight
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A5_11 | Deployment location (dual: Likelihood & CE) | Internal only: 0/0, Internal+partners: +1/-1, Public: +2/-1, Citizen high-sensitivity: +3/-2, Embedded: +2/-1, Multi-channel: +3/-2 | Accountability, Reliability & Safety, Human/Societal/Environmental Wellbeing |
-
-### Section B5: Reliability and Safety
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B5_3 | High-risk environment (dual) | See Impact section above | Reliability & Safety |
+---
+### B1_3: Could the AI system affect employee employment or job roles?
+**Type:** single_select
+**Domains:** Human, Societal and Environmental Wellbeing
+**Target Metric:** Impact
+**Scoring Options:**
+  - Yes: Impact: 2
+  - Unknown: Impact: 1
+  - No: Impact: 0
+**Notes:** Single select - only ONE option applies. 'Unknown' reflects uncertainty about employment impacts.
 
 ---
 
-## Control Effectiveness Variables
+## Section B2
+### B2_1: Has a Human Rights Impact Assessment (HRIA) been completed?
+**Type:** yes_no
+**Domains:** Human-centred Values
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Yes: Control_Effectiveness: -2
+  - No: Control_Effectiveness: 1
+**Notes:** Completing an HRIA improves control effectiveness. Not completing one increases risk exposure.
 
-### Section A2: Data and Inputs
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A2_1 | Data tracking | Data catalog: -2, Lineage: -2, Quality metrics: -3, Version control: -1, Transformations: -2, No tracking: 0 | Data Integrity, Transparency |
-| A2_3 | Data safeguards | Validation: -2, Manual review: -1, Cleansing: -2, Anomaly detection: -3, Access controls: -1, Audits: -2, No safeguards: 0 | Data Integrity, Reliability & Safety |
+---
+### B2_2: Rate the AI system's impact on the following dimensions:
+**Type:** multi_rating
+**Domains:** Human-centred Values
+**Target Metric:** Impact
+**Notes:** Each category is rated independently. Only ONE rating per category applies. All three ratings are cumulative. Positive impacts reduce risk, negative impacts increase it significantly.
 
-### Section A3: Human Interface and Impact
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A3_4 | Notification methods | Explicit disclosure: -3, Terms of service: -1, On-demand explanation: -2, Training/docs: -2, No notification: 0 | Transparency, Accountability |
-
-### Section A4: Outputs and Actions
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A4_4 | Output tracking | Database: -2, Audit system: -3, CRM: -2, Activity logs: -2, Policy retention: -1, Not tracked: 0 | Accountability, Contestability |
-
-### Section A5: Governance and Oversight
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| A5_1 | Accountability role | Product owner: -2, System owner: -3, Executive sponsor: -2, Service manager: -3, Data custodian: -3, Gov committee: -4, AI oversight board: -4 | Accountability |
-| A5_3 | Monitoring processes | System audits: -3, Continuous monitoring: -4, User feedback: -2, Stakeholder reviews: -2, Independent eval: -4 | Reliability & Safety, Accountability |
-| A5_4 | Monitoring frequency | Weekly: -4, Monthly: -3, Quarterly: -2, Annually: -1, Event-driven: -3 | Reliability & Safety |
-| A5_5 | Independent review | Yes: -2, No: 0 | Accountability, Transparency |
-| A5_6 | Monitoring roles | ICT Ops: -2, Data Science: -2, Risk/Compliance: -3, Business Owner: -2, Vendor: -1, Customer-facing: -1, External auditor: -4 | Accountability |
-| A5_7 | Stakeholder engagement | Workshops: -2, Public consultation: -3, Union: -2, Focus groups: -2, User feedback: -1, Accessibility: -3, None: 0 | Human-centred values, Fairness |
-| A5_8 | Harm detection | Alerting: -3, User complaints: -1, Human triggers: -3, Automated anomaly: -4, Escalation: -3, Incident team: -4, No contingencies: 0 | Reliability & Safety, Human/Societal/Environmental Wellbeing |
-| A5_9 | Values & principles | AU AI Ethics: -1, Human Rights Act: -2, Data governance: -2, WHS: -1, Accessibility: -2, Agency ethics: -1, Privacy principles: -3, Risk framework: -3 | Accountability, Transparency |
-| A5_10 | Regulatory obligations | Complex multi-part. See detailed breakdown in A5_10 section | Accountability, Privacy Protection & Security |
-| A5_11 | Deployment location (dual) | See Likelihood section above | Accountability, Reliability & Safety, Human/Societal/Environmental Wellbeing |
-
-### Section B2: Human-Centered Values
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B2_1 | HRIA completed | Yes: -2, No: +1 | Human-Centered Values |
-
-### Section B4: Privacy Protection and Security
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B4_1 | PIA completed | Yes: -2, No: +2 | Privacy Protection & Security |
-| B4_3 | Security measures | Access controls: -1, Encryption: -2, Security testing: -2, Anonymisation: -2, PETs: -2 | Privacy Protection & Security |
-
-### Section B5: Reliability and Safety
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B5_1 | Reliability testing | No: 0, Yes: 0 + rating. Rating 1: -0.5, 2: -1, 3: -1.5, 4: -2, 5: -3 | Reliability & Safety |
-| B5_2 | Disengagement mechanism | Yes: -2, No: +2 | Reliability & Safety |
-
-### Section B6: Transparency and Explainability
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B6_1 | Transparency (1-5 rating) | 1: 0, 2: -0.5, 3: -1, 4: -1.5, 5: -2 | Transparency & Explainability |
-| B6_2 | Explainability (1-5 rating) | 1: 0, 2: -0.5, 3: -1, 4: -1.5, 5: -2 | Transparency & Explainability |
-| B6_4 | Explainability limitations | Yes: +2, No: 0 | Transparency & Explainability |
-
-### Section B7: Contestability
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B7_2 | Challenge speed | Immediately: -2, Hours: -1, Days: 0, Weeks: +1, Longer: +2, Unknown: +1 | Contestability |
-
-### Section B8: Accountability
-| Variable | Question | Options & Modifiers | Domain |
-|----------|----------|---------------------|--------|
-| B8_2 | Roles established | Yes: -2, No: +2 | Accountability |
-| B8_3 | Staff trained | Yes: -2, No: +2 | Accountability |
-| B8_4 | Safeguards vs overreliance | No: +2, Yes: -2 + safeguards. Each safeguard: -0.5 (Human review, Confidence thresholds, Explainability req, Training, Override controls, Warnings, Quality monitoring) | Accountability |
+---
+### B2_3: Were diverse perspectives included in the AI system's design and development?
+**Type:** yes_no_with_options
+**Domains:** Human-centred Values
+**Target Metric:** Impact
+**Scoring Options:**
+  - No: Impact: 2
+  - Yes: Impact: -2
+**Notes:** Two-part question. If 'No', Impact +2. If 'Yes', Impact -2 PLUS each selected perspective adds -0.5. 'Other' option available but has no additional score modifier.
 
 ---
 
-## A5.10 Detailed Breakdown (Regulatory Obligations)
+## Section B3
+### B3_1: Has bias testing been conducted on the AI system?
+**Type:** yes_no_with_options
+**Domains:** Fairness
+**Target Metric:** Impact
+**Scoring Options:**
+  - No: Impact: 2
+  - Yes: Impact: -2
+**Notes:** Two-part question. If 'No', Impact +2. If 'Yes', Impact -2 PLUS each selected testing method adds -1. 'Informal or ad-hoc checks only' should be flagged as a risk despite the -1 modifier, as it indicates lack of formal testing.
 
-**Main Question**: Does the AI system operate under specific regulatory obligations or frameworks?
-- No: CE 0
-- Yes: CE 0 + subsections
-
-**If Yes, four subsections** (cumulative):
-
-### Commonwealth (Federal) Legislation (A5_10_commonwealth)
-- Privacy Act 1988: -2
-- APPs: -1
-- NDB Scheme: -1
-- Archives Act 1983: -1
-- FOI Act 1982: -1
-- SOCI Act: -3
-- Criminal Code Act: -2
-
-### Queensland State Legislation (A5_10_qld)
-- Information Privacy Act 2009: -2
-- Right to Information Act 2009: -1
-- Public Records Act 2002: -1
-- Child Protection Act: -3
-- Domestic Violence Protection Act: -3
-- Youth Justice Act: -2
-- Mental Health Act: -2
-- Hospital and Health Boards Act: -2
-- Police Powers Act: -2
-
-### Sector-Specific Obligations (A5_10_sector)
-- Health information: -2
-- Law enforcement: -3
-- Education: -1
-- Transport/safety-critical: -2
-- Financial/taxation: -2
-- Indigenous data governance: -3
-- Workplace surveillance: -1
-- Safety-of-life/emergency: -2
-- Critical infrastructure: -3
-
-### Frameworks, Standards, Policies (A5_10_frameworks)
-- QGEA / IS18:2018: -1
-- QLD AI Ethical Principles: -1
-- QLD FAIRA Framework: 0
-- AU AI Ethics Principles: -1
-- ISO/IEC 42001: -2
-- ISO/IEC 27001/27002: -1
-- ISO/IEC 27701: -1
-- ISO 31000: -1
-- NIST AI RMF: -2
-
-### Other (text field) (A5_10_other)
-- Default modifier: -1
+---
+### B3_2: Could the AI system discriminate against specific groups?
+**Type:** yes_unknown_no_with_options
+**Domains:** Fairness
+**Target Metric:** Impact
+**Scoring Options:**
+  - No: Impact: 0
+  - Unknown: Impact: 2
+  - Yes: Impact: 3
+**Notes:** Three-option question. If 'No', Impact 0. If 'Unknown', Impact +2 only. If 'Yes', Impact +3 PLUS each selected group adds +1. This identifies potential discrimination risks.
 
 ---
 
-## Text Fields (Deferred for LLM Classification)
+## Section B4
+### B4_1: Has a Privacy Impact Assessment (PIA) been completed?
+**Type:** yes_no
+**Domains:** Privacy Protection and Security
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Yes: Control_Effectiveness: -2
+  - No: Control_Effectiveness: 2
+**Modifier Type:** mixed
+**Notes:** Completing a PIA improves control effectiveness. Not completing one increases risk exposure.
 
-| Question | Field | Target Metric | Domain |
-|----------|-------|---------------|--------|
-| A1_2 | AI system version | None (reporting only) | Accountability |
-| A2_2 | Environmental/external data | TBD | Data Integrity, Reliability & Safety |
-| A4_7 | PII access | TBD | Privacy Protection & Security |
-| A4_8 | Legal/regulatory triggers | TBD | Accountability, Compliance |
-| A5_2 | Performance tracking method | TBD | Accountability, Transparency |
-| B6_4_description | Explainability limitations description | None (reporting only) | Transparency & Explainability |
+---
+### B4_2: Does the AI system use personal information?
+**Type:** yes_no_with_options
+**Domains:** Privacy Protection and Security
+**Target Metric:** Impact
+**Scoring Options:**
+  - No: Impact: 0
+  - Yes: Impact: 2
+**Notes:** Two-part question. If 'No', Impact 0. If 'Yes', Impact +2 PLUS each selected PI type adds its modifier. Health, Financial, and Biometric data carry highest impact.
+
+---
+### B4_3: What security measures are in place to protect personal information?
+**Type:** multiselect
+**Domains:** Privacy Protection and Security
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Access controls: Control_Effectiveness: -1
+  - Encryption: Control_Effectiveness: -2
+  - Security testing: Control_Effectiveness: -2
+  - Anonymisation: Control_Effectiveness: -2
+  - PETs: Control_Effectiveness: -2
+**Modifier Type:** negative
+**Notes:** Multiple selections are cumulative. Each security measure improves control effectiveness. Encryption, Security testing, Anonymisation, and PETs (Privacy Enhancing Technologies) provide stronger protection.
 
 ---
 
-## Deferred Questions (To Be Addressed Later)
+## Section B5
+### B5_1: Has the system been tested for reliability?
+**Type:** yes_no_with_rating
+**Domains:** Reliability and Safety
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - No: Control_Effectiveness: 0
+  - Yes: Control_Effectiveness: 0
+**Modifier Type:** negative
+**Notes:** Two-part question. If 'No', CE 0 only. If 'Yes', CE 0 but unlocks rating scale (1-5). Rating reflects robustness of testing: 1 = Minimal/ad hoc, 5 = Comprehensive/formal. Higher ratings improve control effectiveness more.
 
-- B6.3 (entire question)
-- B7.1 (entire question)
-- B8.1 (entire question)
+---
+### B5_2: Is there a process to disengage the system if issues arise?
+**Type:** yes_no
+**Domains:** Reliability and Safety
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Yes: Control_Effectiveness: -2
+  - No: Control_Effectiveness: 2
+**Modifier Type:** mixed
+**Notes:** Having a disengagement mechanism improves control effectiveness. Lacking one increases risk exposure.
+
+---
+### B5_3: Does the AI system operate in a high-risk environment?
+**Type:** yes_no_with_options
+**Domains:** Reliability and Safety
+**Target Metric:** Impact and Likelihood
+**Scoring Options:**
+  - No: Impact: 0, Likelihood: 0
+  - Yes: Impact: 0, Likelihood: 0
+**Modifier Type:** dual
+**Notes:** Two-part question with dual metrics. If 'No', Impact 0 and Likelihood 0 only. If 'Yes', unlocks environment options. Each selected environment applies both Impact and Likelihood modifiers. Democratic processes carry the highest impact.
 
 ---
 
-## Domain Summary
+## Section B6
+### B6_1: How transparent is the AI solution's operation? (1 = Very Low, 5 = Very High)
+**Type:** rating_scale
+**Domains:** Transparency and Explainability
+**Target Metric:** Control_Effectiveness
+**Modifier Type:** negative
+**Notes:** Rating scale 1-5. Higher transparency improves control effectiveness. Rating 1 (Very Low) has no effect, Rating 5 (Very High) provides strongest control benefit.
 
-**All Domains in FAIRA Assessment:**
-1. Accountability
-2. Transparency
-3. Transparency and Explainability
-4. Explainability
-5. Fairness
-6. Privacy
-7. Privacy Protection and Security
-8. Security
-9. Data Integrity
-10. Reliability and Safety
-11. Human-Centered Values
-12. Human-centred values (variant spelling)
-13. Human, Societal and Environmental Wellbeing
-14. Contestability
-15. Compliance
+---
+### B6_2: Can the system explain its outputs or decisions? (1 = Very Low, 5 = Very High)
+**Type:** rating_scale
+**Domains:** Transparency and Explainability
+**Target Metric:** Control_Effectiveness
+**Modifier Type:** negative
+**Notes:** Rating scale 1-5. Higher explainability improves control effectiveness. Rating 1 (Very Low) has no effect, Rating 5 (Very High) provides strongest control benefit.
 
-**Note**: Some domain names have variants (e.g., "Human-Centered Values" vs "Human-centred values"). These should be normalized in the calculation engine.
+---
+### B6_4: Are there known limitations to the system's explainability?
+**Type:** yes_no_with_text
+**Domains:** Transparency and Explainability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Yes: Control_Effectiveness: 2
+  - No: Control_Effectiveness: 0
+**Notes:** If Yes, CE +2 (increases risk). Text description is captured for reporting but does not affect scoring.
 
 ---
 
-## Notes on Scoring Patterns
-
-- **Negative modifiers** (e.g., -2, -1) generally **improve** control effectiveness or **reduce** risk
-- **Positive modifiers** (e.g., +2, +3) generally **increase** risk or impact
-- **Cumulative questions** (multiselect): All selected options add together
-- **Single select questions**: Only ONE option applies
-- **Two-part questions**: Main answer + conditional sub-options
-- **Rating scales**: Typically 1-5, where higher ratings indicate better performance
-- **Dual-metric questions**: Affect both Impact and Likelihood simultaneously
+## Section B7
+### B7_2: How quickly can a decision be challenged or reviewed?
+**Type:** single_select
+**Domains:** Contestability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Immediately: Control_Effectiveness: -2
+  - Within Hours: Control_Effectiveness: -1
+  - Within Days: Control_Effectiveness: 0
+  - Within Weeks: Control_Effectiveness: 1
+  - Longer than weeks: Control_Effectiveness: 2
+  - Unknown: Control_Effectiveness: 1
+**Modifier Type:** mixed
+**Notes:** Single select - only ONE option applies. Faster challenge response improves control effectiveness. Immediate and hourly responses provide strongest control. Extended timelines or unknown processes increase risk.
 
 ---
 
-**Total Configured Questions**: 62 (42 in Part A, 20 in Part B)
-**Deferred Questions**: 8 text fields + 3 full questions
+## Section B8
+### B8_2: Have clear roles and responsibilities been established for AI oversight?
+**Type:** yes_no
+**Domains:** Accountability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Yes: Control_Effectiveness: -2
+  - No: Control_Effectiveness: 2
+**Modifier Type:** mixed
+**Notes:** Established roles improve control effectiveness. Lack of clear roles increases risk.
 
-**Generated**: FAIRA Scoring Schema v1.0
+---
+### B8_3: Have staff been trained on AI system use and limitations?
+**Type:** yes_no
+**Domains:** Accountability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - Yes: Control_Effectiveness: -2
+  - No: Control_Effectiveness: 2
+**Modifier Type:** mixed
+**Notes:** Staff training improves control effectiveness. Lack of training increases risk.
+
+---
+### B8_4: Are safeguards in place to prevent overreliance on AI outputs?
+**Type:** yes_no_with_options
+**Domains:** Accountability
+**Target Metric:** Control_Effectiveness
+**Scoring Options:**
+  - No: Control_Effectiveness: 2
+  - Yes: Control_Effectiveness: -2
+**Modifier Type:** negative
+**Notes:** Two-part question. If 'No', CE +2 only. If 'Yes', CE -2 PLUS each selected safeguard adds -0.5. Multiple safeguards are cumulative.
+
+---
