@@ -192,25 +192,22 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A1.7 - AI Model Type → Impact
+    # A1.7 - Model Type → Likelihood
     schema["questions"]["A1_7"] = {
         "id": "A1_7",
         "text": "What type(s) of AI model or algorithm does the system use?",
         "type": "multiselect",
-        "domains": ["Transparency and Explainability", "Accountability"],
+        "domains": ["Accountability", "Reliability and Safety"],
         "scoring": {
-            "target_metric": "Impact",
+            "target_metric": "Likelihood",
             "options": {
-                "Rule-based system": {"Impact": 1},
-                "Linear/logistic regression": {"Impact": 1},
-                "Decision trees": {"Impact": 1},
-                "Random forest": {"Impact": 1},
-                "Neural networks": {"Impact": 2},
-                "Deep learning": {"Impact": 2},
-                "Ensemble methods": {"Impact": 2},
-                "Generative AI": {"Impact": 3},
-                "Reinforcement learning": {"Impact": 3},
-                "Other": {"Impact": 1}
+                "Large Language Model": {"Likelihood": 3},
+                "Computer Vision": {"Likelihood": 3},
+                "Supervised learning": {"Likelihood": 1},
+                "Unsupervised learning": {"Likelihood": 2},
+                "Reinforcement learning": {"Likelihood": 4},
+                "Rule-based system": {"Likelihood": 0.5},
+                "Neural network": {"Likelihood": 2}
             }
         }
     }
