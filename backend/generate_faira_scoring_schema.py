@@ -369,18 +369,81 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A2.7 - Regulated Data → Impact
+    # A2.7 - Regulated Data → Impact and Likelihood
     schema["questions"]["A2_7"] = {
         "id": "A2_7",
-        "text": "Does the system process regulated or sensitive data?",
-        "type": "yes_no",
-        "domains": ["Privacy Protection and Security", "Accountability"],
+        "text": "Does the system process data subject to specific regulations or protections?",
+        "type": "yes_no_with_options",
+        "domains": ["Privacy Protection and Security", "Fairness", "Human, Societal and Environmental Wellbeing"],
         "scoring": {
-            "target_metric": "Impact",
+            "target_metric": "Impact and Likelihood",
+            "modifier_type": "dual",
             "options": {
-                "No": {"Impact": 0},
-                "Yes": {"Impact": 3}
-            }
+                "No": {
+                    "Impact": 0,
+                    "Likelihood": 0
+                },
+                "Yes": {
+                    "Impact": 2,
+                    "Likelihood": 0,
+                    "sub_question": "A2_7_types",
+                    "regulated_types": {
+                        "Health Information": {
+                            "Impact": 3,
+                            "Likelihood": 0
+                        },
+                        "Mental health information": {
+                            "Impact": 3,
+                            "Likelihood": 1
+                        },
+                        "Child protection information": {
+                            "Impact": 4,
+                            "Likelihood": 0
+                        },
+                        "Criminal justice / law enforcement": {
+                            "Impact": 4,
+                            "Likelihood": 1
+                        },
+                        "Biometric data (faces, fingerprints, gait, voice, etc.)": {
+                            "Impact": 3,
+                            "Likelihood": 1
+                        },
+                        "Genetic information": {
+                            "Impact": 4,
+                            "Likelihood": 0
+                        },
+                        "Financial information": {
+                            "Impact": 3,
+                            "Likelihood": 1
+                        },
+                        "Taxation information": {
+                            "Impact": 2,
+                            "Likelihood": 0
+                        },
+                        "Indigenous cultural or sacred data": {
+                            "Impact": 4,
+                            "Likelihood": 0
+                        },
+                        "Location tracking data": {
+                            "Impact": 2,
+                            "Likelihood": 1
+                        },
+                        "Safety-critical operational data": {
+                            "Impact": 3,
+                            "Likelihood": 2
+                        },
+                        "Vulnerable persons data": {
+                            "Impact": 3,
+                            "Likelihood": 1
+                        },
+                        "Other regulated/sensitive data": {
+                            "Impact": 2,
+                            "Likelihood": 0
+                        }
+                    }
+                }
+            },
+            "notes": "If Yes: base +2 Impact. Each selected regulated data type adds its Impact and Likelihood modifiers."
         }
     }
     
