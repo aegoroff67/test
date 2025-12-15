@@ -726,49 +726,38 @@ def generate_complete_scoring_schema():
         }
     }
     
-    # A4.5 - Output Risks → Impact & Likelihood (Dual-metric, Two-part)
+    # A4.5 - Output Risks → Impact & Likelihood
     schema["questions"]["A4_5"] = {
         "id": "A4_5",
-        "text": "Are there risks associated with unauthorized access to system outputs?",
-        "type": "yes_no_with_options",
+        "text": "Could any AI outputs allow unauthorised access to information?",
+        "type": "multiselect",
         "domains": ["Privacy Protection and Security", "Reliability and Safety"],
         "scoring": {
             "target_metric": "Impact and Likelihood",
             "modifier_type": "dual",
             "options": {
-                "No": {
-                    "Impact": 0,
-                    "Likelihood": 0
+                "Misrouted outputs": {
+                    "Impact": 2,
+                    "Likelihood": 2
                 },
-                "Yes": {
-                    "Impact": 0,
-                    "Likelihood": 0,
-                    "sub_question": "A4_5_scenarios",
-                    "risk_scenarios": {
-                        "Misrouted outputs": {
-                            "Impact": 2,
-                            "Likelihood": 2
-                        },
-                        "Excessive data exposure": {
-                            "Impact": 3,
-                            "Likelihood": 3
-                        },
-                        "Output reveals sensitive attributes": {
-                            "Impact": 4,
-                            "Likelihood": 4
-                        },
-                        "Outputs sent to incorrect system": {
-                            "Impact": 3,
-                            "Likelihood": 3
-                        },
-                        "Injection or poisoning risk": {
-                            "Impact": 4,
-                            "Likelihood": 4
-                        }
-                    }
+                "Excessive data exposure": {
+                    "Impact": 3,
+                    "Likelihood": 3
+                },
+                "Output reveals sensitive attributes": {
+                    "Impact": 4,
+                    "Likelihood": 4
+                },
+                "Outputs sent to incorrect system": {
+                    "Impact": 3,
+                    "Likelihood": 3
+                },
+                "Injection or poisoning risk": {
+                    "Impact": 4,
+                    "Likelihood": 4
                 }
             },
-            "notes": "Two-part question. If 'No', no additional risk. If 'Yes', each selected risk scenario applies both Impact and Likelihood modifiers."
+            "notes": "Each selected risk applies both Impact and Likelihood modifiers. Risks are cumulative."
         }
     }
     
