@@ -58,7 +58,7 @@ def generate_complete_scoring_schema():
         "id": "A1_2",
         "text": "What version is the AI system currently at?",
         "type": "text",
-        "domains": ["Accountability"],
+        "domains": [],
         "scoring": None
     }
     
