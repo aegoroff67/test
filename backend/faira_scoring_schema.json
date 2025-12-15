@@ -298,29 +298,23 @@
       "text": "Where did the AI system or model originate?",
       "type": "multiselect",
       "domains": [
-        "Accountability",
-        "Transparency and Explainability"
+        "Reliability and Safety",
+        "Privacy Protection and Security"
       ],
       "scoring": {
-        "target_metric": "Impact",
+        "target_metric": "Likelihood",
         "options": {
-          "Developed in-house": {
-            "Impact": 2
+          "Commercial off-the-shelf": {
+            "Likelihood": 0.5
           },
-          "Third-party vendor": {
-            "Impact": 3
+          "Bespoke development": {
+            "Likelihood": 2
           },
-          "Open-source model": {
-            "Impact": 2
+          "Open-source": {
+            "Likelihood": 3
           },
-          "Cloud-based service": {
-            "Impact": 2
-          },
-          "Pre-trained model (customized)": {
-            "Impact": 2
-          },
-          "Pre-trained model (used as-is)": {
-            "Impact": 3
+          "Hybrid approach": {
+            "Likelihood": 2
           }
         }
       }
