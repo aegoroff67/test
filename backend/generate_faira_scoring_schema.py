@@ -799,7 +799,7 @@ def generate_complete_scoring_schema():
         "id": "A5_7",
         "text": "What stakeholder engagement activities have been conducted?",
         "type": "multiselect",
-        "domains": ["Human-centred values", "Fairness"],
+        "domains": ["Human-centred Values", "Fairness"],
         "scoring": {
             "target_metric": "Control_Effectiveness",
             "modifier_type": "negative",
