@@ -364,31 +364,31 @@
       "type": "multiselect",
       "domains": [
         "Privacy Protection and Security",
-        "Transparency and Explainability"
+        "Fairness"
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
-        "modifier_type": "negative",
         "options": {
-          "We maintain a data catalog": {
-            "Control_Effectiveness": -2
+          "Audit logs": {
+            "Control_Effectiveness": 3
           },
-          "We track data lineage": {
-            "Control_Effectiveness": -2
+          "Access logs": {
+            "Control_Effectiveness": 2
           },
-          "We monitor data quality metrics": {
-            "Control_Effectiveness": -3
+          "CRM/Case management logging": {
+            "Control_Effectiveness": 2
           },
-          "We version control datasets": {
-            "Control_Effectiveness": -1
+          "System-level logging": {
+            "Control_Effectiveness": 3
           },
-          "We document data transformations": {
-            "Control_Effectiveness": -2
+          "Manual records": {
+            "Control_Effectiveness": 0.5
           },
-          "No formal tracking": {
+          "No inputs tracked or recorded (flag as risk)": {
             "Control_Effectiveness": 0
           }
-        }
+        },
+        "notes": "Each selected option adds to CE. 'No inputs tracked or recorded' should be flagged as a risk."
       }
     },
     "A2_2": {
