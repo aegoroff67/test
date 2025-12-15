@@ -324,28 +324,36 @@
       "text": "How is the AI system integrated into your operations?",
       "type": "multiselect",
       "domains": [
-        "Reliability and Safety"
+        "Human, Societal and Environmental Wellbeing",
+        "Privacy Protection and Security",
+        "Accountability"
       ],
       "scoring": {
         "target_metric": "Likelihood",
         "options": {
-          "Standalone tool": {
+          "REST API": {
             "Likelihood": 1
           },
-          "Embedded in existing software": {
+          "Webhooks": {
+            "Likelihood": 1
+          },
+          "Batch data transfer": {
+            "Likelihood": 0.5
+          },
+          "Real-time data stream": {
             "Likelihood": 2
           },
-          "Part of a broader system": {
+          "File-based integration": {
+            "Likelihood": 1
+          },
+          "Embedded widget/iframe": {
+            "Likelihood": 0.5
+          },
+          "Database connection": {
+            "Likelihood": 1
+          },
+          "Message queue (e.g., Kafka)": {
             "Likelihood": 2
-          },
-          "API or cloud service": {
-            "Likelihood": 2
-          },
-          "Mobile or edge deployment": {
-            "Likelihood": 3
-          },
-          "Real-time system": {
-            "Likelihood": 3
           }
         }
       }
