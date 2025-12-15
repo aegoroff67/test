@@ -195,7 +195,7 @@ def generate_complete_scoring_schema():
     # A1.7 - Model Type → Likelihood
     schema["questions"]["A1_7"] = {
         "id": "A1_7",
-        "text": "What type(s) of AI model or algorithm does the system use?",
+        "text": "What type of AI model or technique is used?",
         "type": "multiselect",
         "domains": ["Accountability", "Reliability and Safety"],
         "scoring": {
@@ -215,7 +215,7 @@ def generate_complete_scoring_schema():
     # A1.8 - Source → Likelihood
     schema["questions"]["A1_8"] = {
         "id": "A1_8",
-        "text": "Where did the AI system or model originate?",
+        "text": "What is the source of the AI solution?",
         "type": "multiselect",
         "domains": ["Reliability and Safety", "Privacy Protection and Security"],
         "scoring": {
@@ -232,7 +232,7 @@ def generate_complete_scoring_schema():
     # A1.9 - Integration Types → Likelihood
     schema["questions"]["A1_9"] = {
         "id": "A1_9",
-        "text": "How is the AI system integrated into your operations?",
+        "text": "How does the AI solution integrate with other systems?",
         "type": "multiselect",
         "domains": ["Human, Societal and Environmental Wellbeing", "Privacy Protection and Security", "Accountability"],
         "scoring": {
@@ -257,7 +257,7 @@ def generate_complete_scoring_schema():
     # A2.1 - Input Tracking Method → Control Effectiveness
     schema["questions"]["A2_1"] = {
         "id": "A2_1",
-        "text": "How are data sources and quality tracked?",
+        "text": "How are AI use inputs tracked and recorded?",
         "type": "multiselect",
         "domains": ["Privacy Protection and Security", "Fairness"],
         "scoring": {
@@ -277,7 +277,7 @@ def generate_complete_scoring_schema():
     # A2.2 - Environmental Data → Scoring TBD
     schema["questions"]["A2_2"] = {
         "id": "A2_2",
-        "text": "What environmental, external, or real-time data does the system rely on?",
+        "text": "Does the AI require data from the digital or physical environment? If yes, what data and can users limit or trace it?",
         "type": "text",
         "domains": ["Privacy Protection and Security"],
         "scoring": {
@@ -289,7 +289,7 @@ def generate_complete_scoring_schema():
     # A2.3 - Safeguards for corrupted/missing data → Likelihood Reduction
     schema["questions"]["A2_3"] = {
         "id": "A2_3",
-        "text": "What safeguards exist to ensure data quality and integrity?",
+        "text": "What safeguards exist to detect and handle corrupted, missing, or out-of-range data inputs?",
         "type": "multiselect",
         "domains": ["Reliability and Safety", "Privacy Protection and Security"],
         "scoring": {
@@ -312,7 +312,7 @@ def generate_complete_scoring_schema():
     # A2.4 - Input Data Types → Impact
     schema["questions"]["A2_4"] = {
         "id": "A2_4",
-        "text": "What types of data does the system process?",
+        "text": "What data does the AI solution use?",
         "type": "multiselect",
         "domains": ["Privacy Protection and Security", "Fairness"],
         "scoring": {
@@ -331,7 +331,7 @@ def generate_complete_scoring_schema():
     # A2.5 - Data Quality Ratings → Likelihood
     schema["questions"]["A2_5"] = {
         "id": "A2_5",
-        "text": "Rate the quality of input data on the following dimensions (1-5 scale)",
+        "text": "Rate the quality of the input data (1 = Very Low, 5 = Very High):",
         "type": "rating_multi",
         "domains": ["Reliability and Safety", "Fairness"],
         "scoring": {
