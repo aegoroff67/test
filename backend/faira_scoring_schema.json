@@ -1022,7 +1022,7 @@
     },
     "A4_4": {
       "id": "A4_4",
-      "text": "How are system outputs tracked?",
+      "text": "How are AI outputs tracked and recorded?",
       "type": "multiselect",
       "domains": [
         "Accountability",
@@ -1030,28 +1030,27 @@
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
-        "modifier_type": "negative",
         "options": {
           "Stored in database": {
-            "Control_Effectiveness": -2
+            "Control_Effectiveness": 2
           },
           "Logged in audit system": {
-            "Control_Effectiveness": -3
+            "Control_Effectiveness": 3
           },
           "Logged in CRM/case system": {
-            "Control_Effectiveness": -2
+            "Control_Effectiveness": 2
           },
           "Logged in activity logs": {
-            "Control_Effectiveness": -2
+            "Control_Effectiveness": 2
           },
           "Retention based on policy": {
-            "Control_Effectiveness": -1
+            "Control_Effectiveness": 1
           },
-          "Not currently tracked": {
+          "Not currently tracked (flag as risk)": {
             "Control_Effectiveness": 0
           }
         },
-        "notes": "Output tracking improves control effectiveness and enables contestability. 'Not currently tracked' should be flagged as a risk."
+        "notes": "Each tracking method adds to Control Effectiveness. 'Not currently tracked' should be flagged as a risk."
       }
     },
     "A4_5": {
