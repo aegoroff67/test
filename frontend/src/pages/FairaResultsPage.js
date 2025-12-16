@@ -400,7 +400,7 @@ function FairaResultsPage() {
 
         {/* Middle Panel - 50% width */}
         <div className="flex-1 bg-gray-50 overflow-y-auto">
-          <div className="p-6">
+          <div className="px-6 pb-6 pt-4">
             <div className="mb-6">
               <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
                 <Shield className="h-5 w-5 text-orange-600" />
