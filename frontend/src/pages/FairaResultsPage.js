@@ -464,44 +464,88 @@ function FairaResultsPage() {
                 <span>FAIRA Risk Profile</span>
               </h2>
               
-              {/* Radar Chart */}
-              <Card className="relative">
-                {/* Info Icon */}
-                <button
-                  onClick={() => setShowDomainInfoModal(true)}
-                  className="absolute top-[25px] left-[25px] z-10 p-1 rounded-full bg-blue-500 hover:bg-blue-600 transition-colors"
-                  title="Domain Information"
-                >
-                  <Info className="h-4 w-4 text-white" />
-                </button>
+              {/* 2x2 Grid of Radar Charts */}
+              <div className="grid grid-cols-2 gap-4">
+                {radarCharts.map((chart) => (
+                  <Card key={chart.id} className="relative">
+                    {/* Info Icon */}
+                    <button
+                      onClick={() => setActiveInfoModal(chart.id)}
+                      className="absolute top-2 left-2 z-10 p-1 rounded-full bg-blue-500 hover:bg-blue-600 transition-colors"
+                      title={`${chart.title} Information`}
+                    >
+                      <Info className="h-3 w-3 text-white" />
+                    </button>
 
-                <CardContent className="pt-6">
-                  <ResponsiveContainer width="100%" height={400}>
-                    <RadarChart data={radarData}>
-                      <PolarGrid stroke="#e5e7eb" />
-                      <PolarAngleAxis 
-                        dataKey="section" 
-                        tick={{ fill: '#6b7280', fontSize: 11 }}
-                      />
-                      <PolarRadiusAxis 
-                        angle={90} 
-                        domain={[0, 100]}
-                        tick={{ fill: '#6b7280', fontSize: 10 }}
-                      />
-                      <Radar 
-                        name="Risk Score" 
-                        dataKey="score" 
-                        stroke="#f97316" 
-                        fill="#f97316" 
-                        fillOpacity={0.5}
-                      />
-                    </RadarChart>
-                  </ResponsiveContainer>
-                  <p className="text-xs text-center text-gray-600 mt-2">
-                    FAIRA Risk Assessment Profile - Higher scores indicate increased risk
-                  </p>
-                </CardContent>
-              </Card>
+                    <CardContent className="pt-4 pb-2">
+                      <h3 className="text-sm font-semibold text-gray-900 text-center mb-2">{chart.title}</h3>
+                      <ResponsiveContainer width="100%" height={200}>
+                        <RadarChart data={chart.data}>
+                          <PolarGrid stroke="#e5e7eb" />
+                          <PolarAngleAxis 
+                            dataKey="section" 
+                            tick={{ fill: '#6b7280', fontSize: 9 }}
+                          />
+                          <PolarRadiusAxis 
+                            angle={90} 
+                            domain={[0, 100]}
+                            tick={{ fill: '#6b7280', fontSize: 8 }}
+                            tickCount={3}
+                          />
+                          <Radar 
+                            name={chart.title} 
+                            dataKey="score" 
+                            stroke={chart.color} 
+                            fill={chart.color} 
+                            fillOpacity={0.5}
+                          />
+                        </RadarChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Info Modal */}
+              {activeInfoModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                  <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                    <div className="flex items-center justify-between p-4 border-b">
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {radarCharts.find(c => c.id === activeInfoModal)?.title}
+                      </h3>
+                      <button
+                        onClick={() => setActiveInfoModal(null)}
+                        className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                      >
+                        <X className="h-5 w-5 text-gray-500" />
+                      </button>
+                    </div>
+                    <div className="p-4">
+                      <div className="mb-4">
+                        <p className="text-sm font-medium text-gray-700 mb-2">Formula:</p>
+                        <pre className="bg-gray-100 p-3 rounded text-sm font-mono text-gray-800 whitespace-pre-wrap">
+                          {radarCharts.find(c => c.id === activeInfoModal)?.formula}
+                        </pre>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-700 mb-2">Description:</p>
+                        <p className="text-sm text-gray-600">
+                          {radarCharts.find(c => c.id === activeInfoModal)?.description}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="p-4 border-t bg-gray-50 rounded-b-lg">
+                      <Button
+                        onClick={() => setActiveInfoModal(null)}
+                        className="w-full"
+                      >
+                        Close
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Top Risk Areas */}
