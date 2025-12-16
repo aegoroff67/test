@@ -96,12 +96,69 @@ function FairaResultsPage() {
     ]
   });
 
-  // Placeholder radar chart data
-  const radarData = riskSummary.section_scores.map(section => ({
+  // Placeholder radar chart data for 4 domain charts
+  const domainImpactData = riskSummary.section_scores.map(section => ({
     section: section.section_id,
-    score: section.risk_score,
+    score: Math.round(section.risk_score * 0.9 + Math.random() * 10), // Placeholder impact values
     fullMark: 100
   }));
+
+  const domainLikelihoodData = riskSummary.section_scores.map(section => ({
+    section: section.section_id,
+    score: Math.round(section.risk_score * 0.85 + Math.random() * 15), // Placeholder likelihood values
+    fullMark: 100
+  }));
+
+  const domainControlEffectivenessData = riskSummary.section_scores.map(section => ({
+    section: section.section_id,
+    score: Math.round(100 - section.risk_score * 0.7 + Math.random() * 10), // Placeholder CE values (inverse relationship)
+    fullMark: 100
+  }));
+
+  const domainRiskData = riskSummary.section_scores.map(section => ({
+    section: section.section_id,
+    score: section.risk_score, // Direct risk score
+    fullMark: 100
+  }));
+
+  // Chart configurations for the 4 radar charts
+  const radarCharts = [
+    {
+      id: 'impact',
+      title: 'Domain Impact',
+      data: domainImpactData,
+      color: '#ef4444', // Red
+      formula: 'Domain_Impact(D) =\nΣ(Impact modifiers from questions mapped to domain D)',
+      description: 'Measures the potential severity of negative outcomes if risks materialize within each domain.'
+    },
+    {
+      id: 'likelihood',
+      title: 'Domain Likelihood',
+      data: domainLikelihoodData,
+      color: '#f97316', // Orange
+      formula: 'Domain_Likelihood(D) =\nΣ(Likelihood modifiers from questions mapped to domain D)',
+      description: 'Estimates the probability of risk events occurring based on current system characteristics and controls.'
+    },
+    {
+      id: 'control',
+      title: 'Domain Control Effectiveness',
+      data: domainControlEffectivenessData,
+      color: '#22c55e', // Green
+      formula: 'Domain_CE(D) =\nBaseline_Domain_CE + Σ(CE modifiers from domain D)',
+      description: 'Evaluates how well existing controls mitigate identified risks. Higher scores indicate stronger controls.'
+    },
+    {
+      id: 'risk',
+      title: 'Domain Risk',
+      data: domainRiskData,
+      color: '#8b5cf6', // Purple
+      formula: 'Domain_Risk(D) =\n(Domain_Impact × Domain_Likelihood)\n÷ Domain_CE',
+      description: 'The calculated residual risk for each domain after accounting for impact, likelihood, and control effectiveness.'
+    }
+  ];
+
+  // State for info modal
+  const [activeInfoModal, setActiveInfoModal] = useState(null);
 
   // Response distribution placeholder
   const responseDistribution = [
