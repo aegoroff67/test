@@ -67,7 +67,7 @@ function FairaResultsPage() {
   const [loading, setLoading] = useState(true);
   const [generatingPDF, setGeneratingPDF] = useState(false);
   const [generatingReport, setGeneratingReport] = useState(false);
-  const [showDomainInfoModal, setShowDomainInfoModal] = useState(false);
+  // Removed: showDomainInfoModal - now using activeInfoModal defined below
 
   // Placeholder data for FAIRA risk analysis
   const [riskSummary, setRiskSummary] = useState({
