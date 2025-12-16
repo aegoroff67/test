@@ -96,28 +96,48 @@ function FairaResultsPage() {
     ]
   });
 
-  // Placeholder radar chart data for 4 domain charts
-  const domainImpactData = riskSummary.section_scores.map(section => ({
-    section: section.section_id,
-    score: Math.round(section.risk_score * 0.9 + Math.random() * 10), // Placeholder impact values
+  // The 8 FAIRA Part B domains with short labels for radar chart display
+  const fairadomains = [
+    { id: 'B1', shortLabel: 'Wellbeing', fullName: 'Human, Societal and Environmental Wellbeing' },
+    { id: 'B2', shortLabel: 'Transparency', fullName: 'Transparency and Explainability' },
+    { id: 'B3', shortLabel: 'Fairness', fullName: 'Fairness and Bias Mitigation' },
+    { id: 'B4', shortLabel: 'Robustness', fullName: 'Robustness and Security' },
+    { id: 'B5', shortLabel: 'Testing', fullName: 'Testing and Validation' },
+    { id: 'B6', shortLabel: 'Oversight', fullName: 'Human Oversight' },
+    { id: 'B7', shortLabel: 'Privacy', fullName: 'Privacy and Data Governance' },
+    { id: 'B8', shortLabel: 'Accountability', fullName: 'Accountability and Contestability' }
+  ];
+
+  // Generate placeholder scores for each domain (20-80 range)
+  // These will be replaced with actual calculated values once the scoring engine is built
+  const generatePlaceholderScore = () => Math.floor(Math.random() * 61) + 20;
+
+  // Placeholder radar chart data for 4 domain charts - only Part B domains
+  const domainImpactData = fairadomains.map(domain => ({
+    domain: domain.shortLabel,
+    fullName: domain.fullName,
+    score: generatePlaceholderScore(),
     fullMark: 100
   }));
 
-  const domainLikelihoodData = riskSummary.section_scores.map(section => ({
-    section: section.section_id,
-    score: Math.round(section.risk_score * 0.85 + Math.random() * 15), // Placeholder likelihood values
+  const domainLikelihoodData = fairadomains.map(domain => ({
+    domain: domain.shortLabel,
+    fullName: domain.fullName,
+    score: generatePlaceholderScore(),
     fullMark: 100
   }));
 
-  const domainControlEffectivenessData = riskSummary.section_scores.map(section => ({
-    section: section.section_id,
-    score: Math.round(100 - section.risk_score * 0.7 + Math.random() * 10), // Placeholder CE values (inverse relationship)
+  const domainControlEffectivenessData = fairadomains.map(domain => ({
+    domain: domain.shortLabel,
+    fullName: domain.fullName,
+    score: generatePlaceholderScore(),
     fullMark: 100
   }));
 
-  const domainRiskData = riskSummary.section_scores.map(section => ({
-    section: section.section_id,
-    score: section.risk_score, // Direct risk score
+  const domainRiskData = fairadomains.map(domain => ({
+    domain: domain.shortLabel,
+    fullName: domain.fullName,
+    score: generatePlaceholderScore(),
     fullMark: 100
   }));
 
@@ -128,7 +148,7 @@ function FairaResultsPage() {
       title: 'Domain Impact',
       data: domainImpactData,
       color: '#ef4444', // Red
-      formula: 'Domain_Impact(D) =\nΣ(Impact modifiers from questions mapped to domain D)',
+      formula: 'Σ(Impact modifiers per domain)',
       description: 'Measures the potential severity of negative outcomes if risks materialize within each domain.'
     },
     {
@@ -136,7 +156,7 @@ function FairaResultsPage() {
       title: 'Domain Likelihood',
       data: domainLikelihoodData,
       color: '#f97316', // Orange
-      formula: 'Domain_Likelihood(D) =\nΣ(Likelihood modifiers from questions mapped to domain D)',
+      formula: 'Σ(Likelihood modifiers per domain)',
       description: 'Estimates the probability of risk events occurring based on current system characteristics and controls.'
     },
     {
@@ -144,7 +164,7 @@ function FairaResultsPage() {
       title: 'Domain Control Effectiveness',
       data: domainControlEffectivenessData,
       color: '#22c55e', // Green
-      formula: 'Domain_CE(D) =\nBaseline_Domain_CE + Σ(CE modifiers from domain D)',
+      formula: 'Baseline_CE + Σ(CE modifiers)',
       description: 'Evaluates how well existing controls mitigate identified risks. Higher scores indicate stronger controls.'
     },
     {
@@ -152,7 +172,7 @@ function FairaResultsPage() {
       title: 'Domain Risk',
       data: domainRiskData,
       color: '#8b5cf6', // Purple
-      formula: 'Domain_Risk(D) =\n(Domain_Impact × Domain_Likelihood)\n÷ Domain_CE',
+      formula: '(Impact × Likelihood) ÷ CE',
       description: 'The calculated residual risk for each domain after accounting for impact, likelihood, and control effectiveness.'
     }
   ];
