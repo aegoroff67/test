@@ -17,7 +17,9 @@ import {
   CheckCircle2,
   FileText,
   Shield,
-  Grid3X3
+  Grid3X3,
+  Info,
+  X
 } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 
@@ -65,6 +67,7 @@ function FairaResultsPage() {
   const [loading, setLoading] = useState(true);
   const [generatingPDF, setGeneratingPDF] = useState(false);
   const [generatingReport, setGeneratingReport] = useState(false);
+  const [showDomainInfoModal, setShowDomainInfoModal] = useState(false);
 
   // Placeholder data for FAIRA risk analysis
   const [riskSummary, setRiskSummary] = useState({
@@ -405,7 +408,16 @@ function FairaResultsPage() {
               </h2>
               
               {/* Radar Chart */}
-              <Card>
+              <Card className="relative">
+                {/* Info Icon */}
+                <button
+                  onClick={() => setShowDomainInfoModal(true)}
+                  className="absolute top-[25px] left-[25px] z-10 p-1 rounded-full bg-blue-500 hover:bg-blue-600 transition-colors"
+                  title="Domain Information"
+                >
+                  <Info className="h-4 w-4 text-white" />
+                </button>
+
                 <CardContent className="pt-6">
                   <ResponsiveContainer width="100%" height={400}>
                     <RadarChart data={radarData}>
