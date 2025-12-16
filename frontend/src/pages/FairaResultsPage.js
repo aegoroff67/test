@@ -498,12 +498,13 @@ function FairaResultsPage() {
                     </button>
 
                     <CardContent className="pt-4 pb-2">
-                      <h3 className="text-sm font-semibold text-gray-900 text-center mb-2">{chart.title}</h3>
-                      <ResponsiveContainer width="100%" height={200}>
+                      <h3 className="text-sm font-semibold text-gray-900 text-center mb-1">{chart.title}</h3>
+                      <p className="text-xs text-gray-500 text-center mb-2 font-mono">{chart.formula}</p>
+                      <ResponsiveContainer width="100%" height={180}>
                         <RadarChart data={chart.data}>
                           <PolarGrid stroke="#e5e7eb" />
                           <PolarAngleAxis 
-                            dataKey="section" 
+                            dataKey="domain" 
                             tick={{ fill: '#6b7280', fontSize: 9 }}
                           />
                           <PolarRadiusAxis 
