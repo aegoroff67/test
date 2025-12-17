@@ -1853,7 +1853,7 @@ async def get_faira_scores(
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
-    if assessment.get("assessment_type") != "faira":
+    if assessment.get("assessment_type", "").lower() != "faira":
         raise HTTPException(status_code=400, detail="Not a FAIRA assessment")
     
     faira_form = assessment.get("faira_form", {})
