@@ -113,8 +113,8 @@ function FairaResultsPage() {
       title: 'Domain Impact',
       data: domainImpactData,
       color: '#ef4444', // Red
-      formula: 'Σ(Impact modifiers per domain)',
-      description: 'The potential severity of harm or adverse consequences within a specific AI ethics domain if the AI system fails or causes unintended effects.'
+      formula: 'Σ(Impact modifiers) + Σ(severity-weighted A3.5, A3.6)',
+      description: 'The potential severity of harm or adverse consequences within a specific AI ethics domain if the AI system fails or causes unintended effects. Includes: A1.x decision & autonomy impacts, A2 regulated data impacts, A3 human impacts, A4 output & legal impacts, B1–B5 impact contributors.'
     },
     {
       id: 'likelihood',
