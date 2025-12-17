@@ -149,7 +149,7 @@ function FairaResultsPage() {
       data: domainImpactData,
       color: '#ef4444', // Red
       formula: 'Σ(Impact modifiers per domain)',
-      description: 'Measures the potential severity of negative outcomes if risks materialize within each domain.'
+      description: 'The potential severity of harm or adverse consequences within a specific AI ethics domain if the AI system fails or causes unintended effects.'
     },
     {
       id: 'likelihood',
@@ -157,7 +157,7 @@ function FairaResultsPage() {
       data: domainLikelihoodData,
       color: '#f97316', // Orange
       formula: 'Σ(Likelihood modifiers per domain)',
-      description: 'Estimates the probability of risk events occurring based on current system characteristics and controls.'
+      description: 'The probability that risks within a specific AI ethics domain will materialise, given the system\'s design, data, autonomy, and operating context.'
     },
     {
       id: 'control',
@@ -165,7 +165,7 @@ function FairaResultsPage() {
       data: domainControlEffectivenessData,
       color: '#22c55e', // Green
       formula: 'Baseline_CE + Σ(CE modifiers)',
-      description: 'Evaluates how well existing controls mitigate identified risks. Higher scores indicate stronger controls.'
+      description: 'The strength of safeguards, governance, and controls in place to prevent, detect, or mitigate risks within a specific AI ethics domain.'
     },
     {
       id: 'risk',
@@ -173,7 +173,7 @@ function FairaResultsPage() {
       data: domainRiskData,
       color: '#8b5cf6', // Purple
       formula: '(Impact × Likelihood) ÷ CE',
-      description: 'The calculated residual risk for each domain after accounting for impact, likelihood, and control effectiveness.'
+      description: 'The residual level of risk within a specific AI ethics domain after considering both the severity and likelihood of harm and the effectiveness of existing controls.'
     }
   ];
 
