@@ -114,31 +114,31 @@ function FairaResultsPage() {
       data: domainImpactData,
       color: '#ef4444', // Red
       formula: 'Σ(Impact modifiers) + Σ(severity-weighted A3.5, A3.6)',
-      description: 'The potential severity of harm or adverse consequences within a specific AI ethics domain if the AI system fails or causes unintended effects. Includes: A1.x decision & autonomy impacts, A2 regulated data impacts, A3 human impacts, A4 output & legal impacts, B1–B5 impact contributors.'
+      description: 'The potential severity of harm or adverse consequences. Includes: A1.x decision & autonomy impacts, A2 regulated data impacts, A3 human impacts (severity-weighted), A4 output & legal impacts, B1–B5 impact contributors.'
     },
     {
       id: 'likelihood',
       title: 'Domain Likelihood',
       data: domainLikelihoodData,
       color: '#f97316', // Orange
-      formula: 'Σ(Likelihood modifiers per domain)',
-      description: 'The probability that risks within a specific AI ethics domain will materialise, given the system\'s design, data, autonomy, and operating context.'
+      formula: 'Σ(Likelihood modifiers) + AutonomyFactor + DataQualityFactor + ExpertiseFactor',
+      description: 'The probability that risks will materialise. Factors: AutonomyFactor (A1.6), DataQualityFactor (A2.5), ExpertiseFactor (A3.2), plus likelihood modifiers from all questions.'
     },
     {
       id: 'control',
       title: 'Domain Control Effectiveness',
       data: domainControlEffectivenessData,
       color: '#22c55e', // Green
-      formula: 'Baseline_CE + Σ(CE modifiers)',
-      description: 'The strength of safeguards, governance, and controls in place to prevent, detect, or mitigate risks within a specific AI ethics domain.'
+      formula: 'Baseline_CE (5) + Σ(CE modifiers)',
+      description: 'The strength of safeguards and controls. Baseline CE of 5 prevents division instability. Higher scores indicate stronger controls and governance.'
     },
     {
       id: 'risk',
       title: 'Domain Risk',
       data: domainRiskData,
       color: '#8b5cf6', // Purple
-      formula: '(Impact × Likelihood) ÷ CE',
-      description: 'The residual level of risk within a specific AI ethics domain after considering both the severity and likelihood of harm and the effectiveness of existing controls.'
+      formula: '(Impact × Likelihood) ÷ CE → Normalized 0-100',
+      description: 'Residual risk level. Raw score normalized to 0-100 scale. Risk Bands: Very Low (<20), Low (20-35), Medium (35-55), High (55-75), Very High (>75).'
     }
   ];
 
