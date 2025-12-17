@@ -129,7 +129,7 @@ function FairaResultsPage() {
       title: 'Domain Control Effectiveness',
       data: domainControlEffectivenessData,
       color: '#22c55e', // Green
-      formula: 'Domain_CE(D) = Baseline_Domain_CE + Σ(Domain CE modifiers)',
+      formula: 'Domain_CE = Σ(Domain CE modifiers)',
       description: 'How strong the safeguards and oversight are to manage risks in each domain.'
     },
     {
