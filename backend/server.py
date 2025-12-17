@@ -1837,6 +1837,40 @@ async def update_faira_form(
     
     return {"status": "success", "message": "FAIRA form data saved"}
 
+
+@api_router.get("/assessments/{assessment_id}/faira-scores")
+async def get_faira_scores(
+    assessment_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Get calculated FAIRA risk scores for radar charts"""
+    # Allow SUPER_ADMIN to view any assessment, others only their org's
+    if current_user.role == "SUPER_ADMIN":
+        assessment = await db.assessments.find_one({"id": assessment_id})
+    else:
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    if assessment.get("assessment_type") != "faira":
+        raise HTTPException(status_code=400, detail="Not a FAIRA assessment")
+    
+    faira_form = assessment.get("faira_form", {})
+    
+    # Calculate radar chart data
+    radar_data = get_radar_chart_data(faira_form)
+    
+    # Calculate overall risk summary
+    risk_summary = calculate_overall_risk(faira_form)
+    
+    return {
+        "assessment_id": assessment_id,
+        "radar_charts": radar_data,
+        "risk_summary": risk_summary
+    }
+
+
 @api_router.post("/assessments/{assessment_id}/organisation-info")
 async def update_organisation_info(
     assessment_id: str,
