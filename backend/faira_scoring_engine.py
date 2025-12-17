@@ -390,8 +390,26 @@ def _process_yes_unknown_no_with_options(scoring: Dict, form_value: Any, form_da
 
 def _process_multiselect_with_rating(scoring: Dict, form_value: Any, form_data: Dict,
                                       question_id: str, domains: List[str], result: Dict):
-    """Process multiselect with rating parts question type"""
-    # Process part_a (impact types)
+    """
+    Process multiselect with rating parts question type (A3.5, A3.6).
+    Applies severity weighting from part_b to impact scores from part_a.
+    
+    Formula: Total Impact += Σ(impact_type_scores) × severity_multiplier
+    """
+    # Get severity multiplier from part_b (default to 1.0)
+    severity_multiplier = 1.0
+    if "part_b" in scoring:
+        part_b = scoring["part_b"]
+        severity_field = part_b.get("severity_field", f"{question_id}b_severity")
+        severity_value = get_form_value(form_data, severity_field)
+        
+        if severity_value is not None:
+            severity_key = str(severity_value)
+            # Check for severity_multiplier or severity_weight
+            multipliers = part_b.get("severity_multiplier") or part_b.get("severity_weight", {})
+            severity_multiplier = float(multipliers.get(severity_key, 1.0))
+    
+    # Process part_a (impact types) with severity weighting
     if "part_a" in scoring:
         part_a = scoring["part_a"]
         sub_field = part_a.get("sub_question", f"{question_id}a_impact_types")
@@ -407,7 +425,9 @@ def _process_multiselect_with_rating(scoring: Dict, form_value: Any, form_data: 
                         if radar_domain and radar_domain in result:
                             for metric, value in item_scores.items():
                                 if metric in result[radar_domain]:
-                                    result[radar_domain][metric] += value
+                                    # Apply severity weighting to impact scores
+                                    weighted_value = value * severity_multiplier
+                                    result[radar_domain][metric] += weighted_value
 
 
 def _process_yes_no_with_subsections(scoring: Dict, form_value: Any, form_data: Dict,
