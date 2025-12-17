@@ -1315,10 +1315,10 @@ async def get_assessments(current_user: UserResponse = Depends(get_current_user)
             id=assessment["id"],
             name=assessment["name"],
             assessment_type=assessment.get("assessment_type", "System"),
-            status=assessment["status"],
-            started_at=assessment["started_at"],
+            status=assessment.get("status", "INCOMPLETE"),
+            started_at=assessment.get("started_at", assessment.get("created_at")),
             completed_at=assessment.get("completed_at"),
-            progress=assessment["progress"],
+            progress=assessment.get("progress", 0),
             total_questions=(
                 awareness_total_questions if assessment.get("assessment_type") == "Awareness" 
                 else readiness_total_questions if assessment.get("assessment_type") == "Readiness"
