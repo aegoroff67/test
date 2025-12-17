@@ -1,200 +1,198 @@
 <analysis>**original_problem_statement:** The user's initial goal was to refine the UI of the results and framework alignment pages. This quickly expanded into a major feature request: to build an entirely new, standalone FAIRA Risk Assessment. This involved creating a new assessment card, adding user management controls for it, and then building the comprehensive, single-page scrollable assessment form based on a user-provided document. The user also requested a significant refactoring to remove all traces of the FAIRA framework from the existing AI System Maturity Assessment to avoid confusion.
 
-Throughout the session, the user provided highly detailed, iterative feedback on UI/UX, including button layouts, padding, text, icon consistency, and the functionality of the new form (progress bar, sidebar navigation, save/load behavior). This involved debugging a critical data persistence issue, fixing progress calculation discrepancies, and creating a new results summary page for the FAIRA assessment. The user has now requested the implementation of a scoring/weighting system for the FAIRA assessment.
+Throughout the session, the user provided highly detailed, iterative feedback on UI/UX, including button layouts, padding, text, icon consistency, and the functionality of the new form (progress bar, sidebar navigation, save/load behavior). This involved debugging a critical data persistence issue, fixing progress calculation discrepancies, and creating a new results summary page for the FAIRA assessment.
+
+The user then provided a comprehensive scoring schema, which the agent implemented. This involved creating a backend scoring engine, an API endpoint, and updating the frontend results page to display calculated scores instead of placeholder data. The agent and user then went through an extensive process of debugging and refining the scoring methodology, including:
+- Fixing a critical JWT token expiry bug that caused data loss.
+- Correcting domain name mappings between the schema, backend, and frontend.
+- Implementing a complex scoring formula with multiple derived indicators.
+- Validating the calculations against a completed assessment.
+- Iteratively refining the scoring schema based on user feedback (e.g., correcting negative CE modifiers).
+- Improving the UI of the results page with new features like inherent vs. residual risk toggles and enhanced tooltips.
+- Debugging form completion logic issues.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The application is a full-stack AI maturity assessment platform. A major new feature, the FAIRA Risk Assessment, has been implemented and is mostly functional.
-- **FAIRA Assessment Form ()**: A comprehensive, single-page form with a sticky sidebar, section-based progress tracking, complex conditional logic, and auto-save functionality. Multiple questions have been updated with detailed, multi-select options.
-- **FAIRA Results Page ()**: A new results summary page has been created, formatted to match other assessment results pages, and includes placeholder radar charts with informational tooltips.
-- **Backend ()**: The backend has been significantly updated to:
-    - Fix a critical bug preventing FAIRA data from loading.
-    - Correctly calculate FAIRA progress, mirroring the complex frontend logic to ensure consistency.
-    - Fix an authorization bug preventing admins from deleting assessments.
-- **Dashboard ()**: Logic has been updated to correctly display FAIRA assessment status, progress, and route users to the appropriate form or results page.
-- **General UI**: Various UI polish items have been addressed, most notably the iterative sizing and alignment of framework alignment icons.
+The application is a full-stack AI maturity assessment platform. A major new feature, the FAIRA Risk Assessment, has been implemented and is almost fully functional, driven by a sophisticated backend scoring engine.
+- **FAIRA Assessment Form ()**: A comprehensive single-page form with sidebar navigation and complex conditional logic. Recent fixes were made to the progress calculation for question  and the conditional display for . It also now includes a local storage backup mechanism to prevent data loss on session expiry.
+- **Backend Scoring Engine ()**: A dedicated backend module that calculates risk scores based on a user-provided JSON schema (). It implements a complex methodology including overall risk, domain-level scores, and various derived indicators. It has been repeatedly updated to refine formulas and constants.
+- **FAIRA Results Page ()**: A detailed results page displaying the output of the scoring engine. It features a 2x2 grid of radar charts, an 'Inherent Risk' vs. 'Residual Risk' toggle, detailed tooltips, and other user-requested UI refinements.
+- **Backend ()**: The main FastAPI application, which now includes an API endpoint to serve the calculated scores (). It has also been patched to fix data loading bugs and a critical JWT token expiration issue.
+- **Scoring Schema ()**: The user-provided schema defining all scoring weights, which has been updated multiple times with corrected values per user feedback.
 
 **Last working item**:
-- **Last item agent was working:** The agent was working on two final UI tweaks for the  requested by the user:
-    1. Reducing the top padding in the central panel.
-    2. Adding informational icons and modal tooltips to the four radar charts.
-- **Status:** IN PROGRESS
-- **Agent Testing Done:** N
-- **Which testing method agent to use?** screenshot tool. The agent should take a screenshot of the  to verify that the padding has been reduced and that the blue info icons are correctly positioned on the radar chart panels.
-- **User Testing Done:** N
+    - Last item agent was working: The user requested to rename 'Domain Risk Scores' to 'Domain Risk Index' in the left panel of the FAIRA results page and to remove the '%' from the scores in that panel's pie chart.
+    - Status: NOT STARTED
+    - Agent Testing Done: N
+    - Which testing method agent to use? screenshot tool
+    - User Testing Done: N
 
 **All Pending/In progress Issue list**:
-- **Issue 1:** Finalize and verify UI tweaks on the FAIRA results page. (P0, HIGHEST)
-- **Issue 2:** A persistent ~1% progress discrepancy exists between the dashboard (backend calculation) and the FAIRA assessment form (frontend calculation). (P1)
-- **Issue 3:** The sidebar scroll-to-section feature in  was never fully verified. (P2)
-- **Issue 4:** The 'Top 3 Action Steps' on the main  are calculated using incorrect logic. (P3)
+  - Issue 1: Rename 'Domain Risk Scores' to 'Domain Risk Index' in the left panel and remove '%' from scores. (P0, HIGHEST)
+  - Issue 2: The 'Top 3 Action Steps' on the main  are calculated using incorrect logic. (P1)
+  - Issue 3: The sidebar scroll-to-section feature in  should be functionally verified. (P2)
+  - Issue 4: A persistent ~1% progress discrepancy between the dashboard and the FAIRA assessment form remains. (P3)
+  
+  Issues Detail:
+  - Issue 1: 
+     - Attempted fixes: None. This is the user's latest request.
+     - Next debug checklist: 
+        1. In , find the text Domain Risk Scores and change it to Domain Risk Index.
+        2. In the same file, locate the  component for .
+        3. Modify the  prop or formatter function for the  to remove the '%' character from the displayed value.
+     - Why fix this issue and what will be achieved with the fix? To align the UI with the user's latest textual and formatting preferences.
+     - Status:  NOT STARTED
+     - Is recurring issue? N
+     - Should Test frontend/backend/both after fix? Frontend
+     - Blocked on other issue: None
 
-**Issues Detail:**
-- **Issue 1:** Finalize and verify UI tweaks on the FAIRA results page.
-    - **Description:** The user requested padding reduction and the addition of info icons on the . The agent has executed  commands to implement these changes but has not verified them visually.
-    - **Attempted fixes:** The agent ran  commands.
-    - **Next debug checklist:**
-        1.  Take a screenshot of the  page.
-        2.  Visually confirm the padding is  (16px) instead of  (24px).
-        3.  Visually confirm the blue info icon appears in the top-left of each radar chart panel.
-    - **Why fix this issue and what will be achieved with the fix?** To complete the user's latest UI requests and ensure the results page matches their specification.
-    - **Status:** IN PROGRESS
-    - **Is recurring issue?** N
-    - **Should Test frontend/backend/both after fix?** Frontend
-    - **Blocked on other issue:** None.
+  - Issue 2: 
+     - Attempted fixes: None in this session. This issue was noted in the initial handoff but has not been addressed.
+     - Next debug checklist: 
+        1. Review the logic in  that generates the .
+        2. Modify the logic to iterate through and sort all individual  by their , instead of sorting the aggregated .
+     - Why fix this issue and what will be achieved with the fix? This will provide users with more accurate and specific recommendations on the original (non-FAIRA) assessment results page.
+     - Status:  NOT STARTED
+     - Is recurring issue? Y
+     - Should Test frontend/backend/both after fix? Frontend
+     - Blocked on other issue: None
 
-- **Issue 2:** Persistent ~1% progress discrepancy.
-    - **Description:** The FAIRA progress shown on the dashboard (calculated by the backend) sometimes differs by 1% from the progress shown on the assessment page itself (calculated by the frontend).
-    - **Attempted fixes:** The agent spent a significant amount of time trying to synchronize the backend Python logic with the frontend JavaScript logic, fixing several bugs in the process. The discrepancy was reduced from a large gap to just 1%. The agent concluded it might be a rounding difference and moved on.
-    - **Next debug checklist:**
-        1.  The root cause was never definitively identified. A full audit comparing the  logic on both frontend and backend for every single field type would be required.
-    - **Why fix this issue and what will be achieved with the fix?** Provides a more consistent user experience, though the agent and user have implicitly accepted the current state.
-    - **Status:** NOT STARTED
-    - **Is recurring issue?** Y
-    - **Should Test frontend/backend/both after fix?** Both
-    - **Blocked on other issue:** None.
+  - Issue 3: 
+     - Attempted fixes: The code was implemented in a previous session, and the user stated it was resolved, but the agent has not performed a functional test.
+     - Next debug checklist: 
+        1. Start a new FAIRA assessment.
+        2. Click on various section links in the sidebar (e.g., 'Part B', 'B8').
+        3. Confirm the viewport scrolls smoothly to the corresponding section header.
+     - Why fix this issue and what will be achieved with the fix? To confirm the usability of the long FAIRA form and ensure a smooth user experience.
+     - Status:  NOT STARTED
+     - Is recurring issue? N
+     - Should Test frontend/backend/both after fix? Frontend
+     - Blocked on other issue: None
 
-- **Issue 3:** Unverified sidebar scroll-to-section feature.
-    - **Description:** In a previous session, a fix was attempted for the sidebar navigation in  not scrolling to the correct section. The agent in this session confirmed the code exists but did not perform a functional test.
-    - **Attempted fixes:** Code using  was implemented in the previous session.
-    - **Next debug checklist:**
-        1.  Start a new FAIRA assessment.
-        2.  Click on various sections in the sidebar (e.g., 'Part B', 'B8').
-        3.  Confirm the viewport scrolls smoothly to the corresponding section header.
-    - **Why fix this issue and what will be achieved with the fix?** Improves the usability of the very long FAIRA form.
-    - **Status:** NOT STARTED
-    - **Is recurring issue?** N
-    - **Should Test frontend/backend/both after fix?** Frontend
-    - **Blocked on other issue:** None.
-
-- **Issue 4:** 'Top 3 Action Steps' incorrect calculation.
-    - **Description:** From the original handoff, the 'Top 3 Action Steps' on  are calculated based on the lowest *domain scores* instead of the three lowest-scoring *individual questions*. The agent looked at the code but mistakenly concluded it was correct without a deep investigation.
-    - **Attempted fixes:** None. The agent dismissed the issue.
-    - **Next debug checklist:**
-        1.  Review the logic in  that generates the .
-        2.  The current logic likely iterates over .
-        3.  Modify the logic to instead flatten all  from all domains, sort them by , and take the top 3 lowest.
-    - **Why fix this issue and what will be achieved with the fix?** Provides users with more accurate and actionable recommendations on the results page.
-    - **Status:** NOT STARTED
-    - **Is recurring issue?** Y
-    - **Should Test frontend/backend/both after fix?** Frontend
-    - **Blocked on other issue:** None.
+  - Issue 4: 
+     - Attempted fixes: In a previous session, backend and frontend logic was synchronized, which significantly reduced the discrepancy. The remaining 1% was accepted as a potential rounding difference.
+     - Next debug checklist: 
+        1. A full comparative audit of the progress calculation logic in  and  would be needed to isolate the exact source of the rounding difference.
+     - Why fix this issue and what will be achieved with the fix? To achieve perfect consistency between the dashboard and the assessment form, improving user trust. This is a low-priority polish item.
+     - Status:  NOT STARTED
+     - Is recurring issue? Y
+     - Should Test frontend/backend/both after fix? Both
+     - Blocked on other issue: None
 
 **In progress Task List**:
-- **Task 1:** Verification of UI changes on FAIRA results page.
-    - **Where to resume:** Take a screenshot of the .
-    - **What will be achieved with this?** Confirmation that the latest user requests for padding and info icons have been successfully implemented.
-    - **Status:** IN PROGRESS
-    - **Should Test frontend/backend/both after fix?** Frontend
-    - **Blocked on something:** None.
+- None.
 
 **Upcoming and Future Tasks**
-- **Upcoming Tasks:**
-    - **Task 1 (P0):** Implement the FAIRA scoring system. The user has requested this and provided an example. The agent has outlined the required changes (new backend schema, calculation logic, API endpoint, and frontend visualizations). This is blocked pending the user providing the complete scoring schema for all questions.
-    - **Task 2 (P1):** Implement the 'AI System Maturity Assessment - Framework Coverage' page.
-    - **Task 3 (P2):** Replace 'Control Intent'/'Reference(s)' in  with a data-driven table.
-    - **Task 4 (P3):** Implement a print-specific, multi-page CSS layout for the results summary page.
-    - **Task 5 (P4):** Develop backend functionality for generating DOCX reports.
-- **Future Tasks:**
-    - **Task 6 (P5):** Implement enterprise-level SSO (SAML/OIDC).
-    - **Task 7 (P6):** Implement a Stripe paywall for premium assessments.
+    Upcoming Tasks:
+    - Task 1 (P1): Implement the 'AI System Maturity Assessment - Framework Coverage' page.
+    - Task 2 (P2): Replace 'Control Intent'/'Reference(s)' in  with a data-driven table.
+    - Task 3 (P3): Implement a print-specific, multi-page CSS layout for the results summary page.
+    - Task 4 (P4): Develop backend functionality for generating DOCX reports.
+    Future Tasks:
+    - Task 5 (P5): Implement enterprise-level SSO (SAML/OIDC).
+    - Task 6 (P6): Implement a Stripe paywall for premium assessments.
 
 **Completed work in this session**
+- **FAIRA Scoring Engine Implementation:**
+  - Built and deployed a comprehensive backend scoring engine () based on a user-provided JSON schema.
+  - Implemented a complex scoring methodology covering Overall Risk, Domain Scores (Impact, Likelihood, CE, Risk), and multiple derived indicators.
+  - Created an API endpoint () to serve the results.
+- **FAIRA Results Page Overhaul:**
+  - Replaced all placeholder data with live data from the new scoring API.
+  - Implemented a 2x2 grid of radar charts and added an Inherent vs. Residual risk toggle.
 - **Critical Bug Fixes:**
-    - **FAIRA Data Persistence:** Fixed the backend  endpoint to correctly include  data, allowing users to resume saved assessments.
-    - **Assessment Deletion:** Fixed the  endpoint to allow  role to delete any assessment, resolving a frontend error.
-    - **Blank Screen on Resume:** Fixed routing logic in  to correctly check for  or  > 0, preventing a blank screen when resuming In Progress System assessments.
-    - **Backend Stability:** Fixed multiple  and  crashes in  that occurred during debugging and code cleanup.
-- **FAIRA Feature Enhancements:**
-    - **Progress Calculation Sync:** Re-implemented the FAIRA progress calculation logic in Python on the backend to mirror the complex frontend JS logic, resolving a major discrepancy between the dashboard and assessment page.
-    - **FAIRA Results Page:** Created a new  and formatted it with placeholder data and radar charts to match the look of other assessment results.
-    - **Form Content Updates:** Made numerous content and structural updates to the FAIRA form based on user requests (A2.7, A2.8, A4.5, A4.7, A5.10, Declaration, Assessment Overview).
-    - **Completion Logic:** Fixed progress being stuck at 98% by refining which fields are counted towards completion. Implemented stricter validation for conditional Yes questions to ensure sub-selections are filled.
-- **UI/UX Polish:**
-    - **Framework Icons:** Iteratively fixed visual inconsistencies with the 'Fully Aligns', 'Partially Aligns', and 'No Alignment' icons in , adjusting sizes and alignment to correct for optical illusions.
+  - **Data Loss on Session Expiry:** Fixed a critical bug where users lost work due to JWT token expiration. Increased token lifetime to 24 hours and added frontend local storage backup.
+  - **Data Loading & Login Failures:** Resolved a cascade of backend issues that prevented assessment loading () and user login.
+  - **Form Progress Stuck:** Debugged and fixed the frontend progress calculation logic for question  to correctly handle optional fields.
+- **UI/UX & Schema Refinements:**
+  - Iteratively updated radar chart domain names, tooltip content, and scoring formulas based on detailed user feedback.
+  - Corrected multiple negative Control Effectiveness modifiers in .
+  - Updated constants such as  and the formula for .
 
 **Earlier issues found/mentioned but not fixed**
-- **Issue 1:** The 'Top 3 Action Steps' on  are calculated incorrectly. This was mentioned in the initial handoff and was not resolved in this session.
-    - **Debug checklist:** Review logic in , change it from sorting  to sorting individual  by score.
-    - **Why to solve this issue and what will be achieved with this?** To provide users with more accurate and granular recommendations.
-    - **Should Test frontend/backend/both after fix:** Frontend
-    - **Is recurring issue?** Y
+   - Issue 1: The 'Top 3 Action Steps' on  are calculated incorrectly. This was mentioned in the initial handoff and was not resolved in this session.
+     - Debug checklist: Review logic in ; change it from sorting  to sorting individual  by score.
+     - Why to solve this issue and what will be achieved with this? To provide users with more accurate and granular recommendations.
+     - Should Test frontend/backend/both after fix: Frontend
+     - Is recurring issue? Y
 
 **Known issue recurrence from previous fork**
-- None.
+  - Issue recurrence in previous fork: The Top 3 Action Steps incorrect calculation on  was present in the initial handoff summary and remains unfixed.
+  - Recurrence count: 2
+  - Status: NOT STARTED
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Frontend/Backend Logic Synchronization:** A significant portion of the session was spent duplicating complex JavaScript validation and progress calculation logic in Python to ensure consistent behavior between the client and server. This highlights the brittleness of having business logic in two places.
-- **Iterative UI Debugging:** The agent went through multiple cycles of user feedback -> code change -> user feedback to fix a subtle optical illusion issue with icon sizes, demonstrating a tight feedback loop.
-- **State-Dependent Validation:** Implemented advanced validation where a field's completeness depends not just on its own value, but on the value of other fields (e.g., a Yes is only complete if its conditional sub-fields are also filled).
+- **Schema-Driven Backend Logic:** The entire scoring system is driven by the  file, centralizing complex business rules.
+- **Complex Frontend State Management:**  now manages dynamic chart data (inherent vs. residual risk) using  and .
+- **Authentication and Session Management:** A critical JWT token expiration issue was fixed by increasing the token lifetime and adding a frontend local storage backup as a fallback.
+- **Data Normalization for Display:** Multiple iterations were required to refine how raw scoring data is normalized for user-friendly display on 0-100 scales, a key part of the user experience.
 
 **key DB schema**
-- ** collection:** The schema was updated to include a calculated  field for FAIRA assessments, which is now updated on every draft save. The  field was corrected to use uppercase COMPLETED for consistency.
+  - ** collection:** {{, }}. The agent fixed bugs related to a missing  field and case sensitivity of . The  sub-document is the primary input for the scoring engine.
+  - ** collection:** {{, , }}. The agent debugged login issues related to these fields.
 
 **changes in tech stack**
-- None.
+  - None.
 
 **All files of reference**
-- **/app/frontend/src/pages/FairaAssessmentForm.js**: The core FAIRA assessment form, heavily modified with new content, fields, and validation logic.
-- **/app/backend/server.py**: The FastAPI backend, heavily modified to fix bugs and synchronize progress calculation logic with the frontend.
-- **/app/frontend/src/pages/FairaResultsPage.js**: A new file created to display FAIRA assessment results.
-- **/app/frontend/src/pages/Dashboard.js**: Updated to handle FAIRA assessment display and routing correctly.
-- **/app/frontend/src/components/AssessmentFrameworkView.js**: Updated to fix UI inconsistencies with icons.
-- **/app/frontend/src/App.js**: Updated with the new route for the FAIRA results page.
+- **/app/backend/faira_scoring_engine.py**: The new, central module for all FAIRA calculations.
+- **/app/frontend/src/pages/FairaResultsPage.js**: The primary frontend file for displaying FAIRA results, which was heavily modified.
+- **/app/backend/server.py**: The FastAPI backend, updated with the new scoring endpoint and several critical bug fixes.
+- **/app/backend/faira_scoring_schema.json**: The user-provided configuration file for scoring, which was modified multiple times.
+- **/app/frontend/src/pages/FairaAssessmentForm.js**: The form itself, which had its progress calculation logic and token expiry handling updated.
 
 **Areas that need refactoring**:
-- **/app/frontend/src/pages/FairaAssessmentForm.js**: This file is now extremely large and complex. It should be broken down into smaller components for each section to improve maintainability.
-- **/app/backend/server.py**: The progress calculation logic is a direct, imperative port of the frontend code and is tightly coupled to the form's structure. This should be refactored into a more declarative, schema-driven engine that is easier to maintain, especially before implementing the scoring system.
+- **/app/frontend/src/pages/FairaResultsPage.js**: This component has grown very large. It should be broken down into smaller, more focused components for better maintainability (e.g., a component for the radar chart grid, another for the info modal).
+- **/app/backend/faira_scoring_engine.py**: This file is now over 700 lines. The main calculation functions could be further modularized into smaller, more testable pieces.
 
 **key api endpoints**
-- ****: (Updated) Now calculates and saves the  percentage for the FAIRA assessment on every draft save.
-- ****: (Fixed) Now correctly returns the  data.
-- ****: (Updated) Correctly reflects the calculated progress of FAIRA assessments.
-- ****: (Fixed) Authorization logic was corrected to allow  to delete any assessment.
+- ****: (CREATED) Fetches the complete, calculated scoring results for a given FAIRA assessment.
+- ****: (DEBUGGED) The agent spent significant time debugging this endpoint to resolve user creation and authentication issues.
+- ****: (DEBUGGED) Fixed a  that caused this endpoint to fail if assessments were missing a  field.
+- ****: (DEBUGGED) Identified that a 401 Unauthorized response from this endpoint was the cause of data loss, leading to session management fixes.
 
 **Critical Info for New Agent**
-- **Your Immediate Task:** Verify the last UI changes on the  (padding and info icons) by taking a screenshot.
-- **Next Major Task (Blocked):** The user wants to implement a scoring system for the FAIRA assessment. You have already provided a plan for this. You must wait for the user to provide the complete scoring schema for all 71+ questions before proceeding with implementation.
-- **Brittle Logic:** Be aware that the progress calculation logic is duplicated in  (JavaScript) and  (Python). Any changes to this logic **must be made in both places** to avoid re-introducing progress discrepancies. This logic is complex and handles many conditional cases.
-- **Unresolved Issues:** Do not forget the two long-standing, lower-priority issues: the incorrect 'Top 3 Action Steps' calculation and the unverified sidebar scroll functionality.
+- **Your Immediate Task:** The user wants to rename 'Domain Risk Scores' to 'Domain Risk Index' in the left panel of  and remove the '%' from the scores in that panel's pie chart.
+- **Scoring Logic is Complex:** All scoring logic is in  and configured by . Changes to one often require changes to the other.
+- **User Data Exists:** The database contains real user accounts and completed assessments. Use existing accounts like  (password: ) to test with real data. Do not delete or overwrite existing data.
+- **Two Result Pages:** Remember there are two distinct results pages:  (for the original assessment, which has a known bug) and  (for the new FAIRA assessment, where most work is happening).
 
 **documents created in this job**
-- **/app/test_result.md**: Updated multiple times to reflect testing status after major fixes.
+  - /app/backend/faira_scoring_engine.py
+  - /app/backend/faira_scoring_schema.json
 
 **Last 10 User Messages and any pending user messages**
-1.  **User:** Requests a FAIRA results summary page formatted like the others. **Status:** Completed.
-2.  **User:** Reports the dashboard shows 6 total assessments when there should be 5. **Status:** Resolved (fixed a  vs  status mismatch).
-3.  **User:** Asks a question about how to implement a scoring system. **Status:** Completed (agent provided a detailed plan).
-4.  **User:** Requests a large content update for question A2.7. **Status:** Completed.
-5.  **User:** Requests a very large content update for question A5.10. **Status:** Completed.
-6.  **User:** Reports that conditional 'Yes' questions are marked complete even if sub-selections are empty. **Status:** Resolved.
-7.  **User:** Reports a progress discrepancy (87% vs 81%) between the dashboard and the form. **Status:** Resolved (by syncing backend/frontend logic).
-8.  **User:** Reports the discrepancy is now 82% vs 81%. **Status:** Investigated, reduced to a 1% difference, and accepted as a rounding issue.
-9.  **User:** Reports clicking 'Complete Assessment' causes a 'Failed to submit' error. **Status:** Resolved (fixed a backend crash from leftover debug code).
-10. **User:** Reports a login failure. **Status:** Resolved (fixed a backend crash from a syntax error).
-11. **User (Latest):** Requests UI tweaks on the FAIRA results page (info icons and padding). **Status:** In Progress (code written, not verified).
+ - **User:** what is the maximum Control Effectiveness score potentially acheivable based on my current FAIRA risk assessment scoring methodology? **Status: Completed (Agent answered)**
+ - **User:** what is the maximum domain-level control effectiveness score that could potentially be achieved? **Status: Completed (Agent answered)**
+ - **User:** Please modify the following formulae for the FAIRA risk assessment scoring methodology: 1. set a new constant: Domain_CE_Target = 25 2. for each domain: Domain_CE_Raw = Σ(CE modifiers mapped to domain) Domain_CE_Display = clamp( (Domain_CE_Raw / 25) × 100, 0, 100 ) **Status: Completed**
+ - **User:** Replace the entire content of each radar chart's tooltip... **Status: Completed**
+ - **User:** add 2 radio buttons to the Domain Risk radar chart... 'Inherent Risk' and 'Residual Risk'. **Status: Completed**
+ - **User:** update the content in the Domain Risk radar chart tooltip... **Status: Completed**
+ - **User:** increase the width of the tooltip modals... to 650px. **Status: Completed**
+ - **User:** change the 'Human' domain name... to 'Values'. **Status: Completed**
+ - **User:** what is the current setting for Max_Expected_Raw_Risk? **Status: Completed (Agent answered)**
+ - **User (Latest):** Rename 'Domain Risk Scores' in the left panel in the FAIRA risk assessment results page to 'Domain Risk Index' and remove the '%' from every score. **Status: NOT STARTED**
 
 **Project Health Check:**
-- **Broken:** The 'Top 3 Action Steps' feature on the main results page provides incorrect recommendations.
-- **Mocked:** The  contains placeholder data and charts that are not yet connected to any real scoring logic.
+- **Broken:** The 'Top 3 Action Steps' feature on the original  provides incorrect recommendations.
+- **Mocked:** None. The FAIRA results page is fully driven by the backend scoring engine.
 
 **3rd Party Integrations**
-- None.
+ - None
 
 **Testing status**
-- **Testing agent used after significant changes:** YES (Once, to investigate the delete assessment bug).
-- **Troubleshoot agent used after agent stuck in loop:** NO
-- **Test files created:** None
-- **Known regressions:** None.
+  - Testing agent used after significant changes: YES
+  - Troubleshoot agent used after agent stuck in loop: NO
+  - Test files created: []
+  - Known regressions: []
 
 **Credentials to test flow:**
-- N/A.
+- **User:** 
+- **Password:** 
 
 **What agent forgot to execute**
-- The agent did not resolve the 'Top 3 Action Steps' calculation logic issue, mistakenly dismissing it early in the session.
-- The agent did not perform a functional test to verify if the sidebar scrolling fix (from a previous session) actually works.
-- The agent did not visually verify its last code changes for the info icons and padding on the FAIRA results page.</analysis>
+- The agent has consistently deferred the fix for the 'Top 3 Action Steps' incorrect calculation on , which was carried over from the previous session.</analysis>
