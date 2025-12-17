@@ -39,16 +39,16 @@ DOMAIN_MAPPING = {
     "Contestability": "Accountability",  # Maps to Accountability
 }
 
-# All 8 radar chart domains with full names
+# All 8 radar chart domains with full names (matching Part B sections)
 FAIRA_DOMAINS = [
     {"id": "B1", "shortLabel": "Wellbeing", "fullName": "Human, Societal and Environmental Wellbeing"},
-    {"id": "B2", "shortLabel": "Transparency", "fullName": "Transparency and Explainability"},
-    {"id": "B3", "shortLabel": "Fairness", "fullName": "Fairness and Bias Mitigation"},
-    {"id": "B4", "shortLabel": "Robustness", "fullName": "Robustness and Security"},
-    {"id": "B5", "shortLabel": "Testing", "fullName": "Testing and Validation"},
-    {"id": "B6", "shortLabel": "Oversight", "fullName": "Human Oversight"},
-    {"id": "B7", "shortLabel": "Privacy", "fullName": "Privacy and Data Governance"},
-    {"id": "B8", "shortLabel": "Accountability", "fullName": "Accountability and Contestability"},
+    {"id": "B2", "shortLabel": "Human", "fullName": "Human-Centred Values"},
+    {"id": "B3", "shortLabel": "Fairness", "fullName": "Fairness"},
+    {"id": "B4", "shortLabel": "Privacy", "fullName": "Privacy Protection and Security"},
+    {"id": "B5", "shortLabel": "Reliability", "fullName": "Reliability and Safety"},
+    {"id": "B6", "shortLabel": "Transparency", "fullName": "Transparency and Explainability"},
+    {"id": "B7", "shortLabel": "Contestability", "fullName": "Contestability"},
+    {"id": "B8", "shortLabel": "Accountability", "fullName": "Accountability"},
 ]
 
 # Baseline Control Effectiveness for each domain
