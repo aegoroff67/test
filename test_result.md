@@ -798,6 +798,18 @@
   - task: "Replace AI System Maturity Assessment response categories with Foundational, Developing, Established, Leading and fix scoring calculations"
     implemented: true
     working: true
+
+  - task: "Test FAIRA Risk Assessment Results Page UI changes - Domain Risk Index header and pie chart legend without % symbols"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/FairaResultsPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "testing"
+        - comment: "TESTING INITIATED: Testing FAIRA Risk Assessment Results Page UI changes as requested in review. Requirements: 1) Left panel header should display 'Domain Risk Index' instead of 'Domain Risk Scores', 2) Pie chart legend should show scores WITHOUT '%' symbol (e.g., 'Low Risk: 25' not 'Low Risk: 25%'). Testing with credentials andrew@test.com/password123 and navigating to completed FAIRA assessment results page."
     file: "/app/backend/server.py, /app/backend/complete_questions.py, /app/backend/report_generator.py, /app/backend/readiness_questions.py, /app/backend/organisation_questions.py, /app/frontend/src/pages/AssessmentPage_awareness_support.js, /app/frontend/src/pages/ResultsPage.js"
     stuck_count: 0
     priority: "high"
