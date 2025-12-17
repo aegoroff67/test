@@ -353,13 +353,18 @@ export default function FairaAssessmentForm() {
       'A2_8_types': () => form.A2_8 === 'Yes',
       'A3_3_other': () => form.A3_3.includes('Other'),
       'A4_5_scenarios': () => form.A4_5 === 'Yes',
-      'A5_10_commonwealth': () => form.A5_10 === 'Yes',
-      'A5_10_qld': () => form.A5_10 === 'Yes',
-      'A5_10_sector': () => form.A5_10 === 'Yes',
-      'A5_10_frameworks': () => form.A5_10 === 'Yes',
-      'A5_10_frameworks_other': () => form.A5_10 === 'Yes' && form.A5_10_frameworks.includes('Other standards or frameworks (specify below)'),
-      'A5_10_other': () => form.A5_10 === 'Yes',
-      'A5_10_impact': () => form.A5_10 === 'Yes',
+      // A5_10 multiselect sections - at least one selection from any section completes the question
+      // Each section is only "required" if no other sections have selections yet
+      'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
+        !(form.A5_10_qld?.length > 0 || form.A5_10_sector?.length > 0 || form.A5_10_frameworks?.length > 0),
+      'A5_10_qld': () => form.A5_10 === 'Yes' && 
+        !(form.A5_10_commonwealth?.length > 0 || form.A5_10_sector?.length > 0 || form.A5_10_frameworks?.length > 0),
+      'A5_10_sector': () => form.A5_10 === 'Yes' && 
+        !(form.A5_10_commonwealth?.length > 0 || form.A5_10_qld?.length > 0 || form.A5_10_frameworks?.length > 0),
+      'A5_10_frameworks': () => form.A5_10 === 'Yes' && 
+        !(form.A5_10_commonwealth?.length > 0 || form.A5_10_qld?.length > 0 || form.A5_10_sector?.length > 0),
+      'A5_10_frameworks_other': () => form.A5_10 === 'Yes' && form.A5_10_frameworks?.includes('Other standards or frameworks (specify below)'),
+      // A5_10_other and A5_10_impact are optional - removed from conditional requirements
       'A5_12_other': () => form.A5_12.includes('Other'),
       'B2_3_perspectives': () => form.B2_3 === 'Yes',
       'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && form.B2_3_perspectives.includes('Other'),
@@ -443,13 +448,18 @@ export default function FairaAssessmentForm() {
       'A2_8_types': () => form.A2_8 === 'Yes',
       'A3_3_other': () => form.A3_3.includes('Other'),
       'A4_5_scenarios': () => form.A4_5 === 'Yes',
-      'A5_10_commonwealth': () => form.A5_10 === 'Yes',
-      'A5_10_qld': () => form.A5_10 === 'Yes',
-      'A5_10_sector': () => form.A5_10 === 'Yes',
-      'A5_10_frameworks': () => form.A5_10 === 'Yes',
-      'A5_10_frameworks_other': () => form.A5_10 === 'Yes' && form.A5_10_frameworks.includes('Other standards or frameworks (specify below)'),
-      'A5_10_other': () => form.A5_10 === 'Yes',
-      'A5_10_impact': () => form.A5_10 === 'Yes',
+      // A5_10 multiselect sections - at least one selection from any section completes the question
+      // Each section is only "required" if no other sections have selections yet
+      'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
+        !(form.A5_10_qld?.length > 0 || form.A5_10_sector?.length > 0 || form.A5_10_frameworks?.length > 0),
+      'A5_10_qld': () => form.A5_10 === 'Yes' && 
+        !(form.A5_10_commonwealth?.length > 0 || form.A5_10_sector?.length > 0 || form.A5_10_frameworks?.length > 0),
+      'A5_10_sector': () => form.A5_10 === 'Yes' && 
+        !(form.A5_10_commonwealth?.length > 0 || form.A5_10_qld?.length > 0 || form.A5_10_frameworks?.length > 0),
+      'A5_10_frameworks': () => form.A5_10 === 'Yes' && 
+        !(form.A5_10_commonwealth?.length > 0 || form.A5_10_qld?.length > 0 || form.A5_10_sector?.length > 0),
+      'A5_10_frameworks_other': () => form.A5_10 === 'Yes' && form.A5_10_frameworks?.includes('Other standards or frameworks (specify below)'),
+      // A5_10_other and A5_10_impact are optional - removed from conditional requirements
       'A5_12_other': () => form.A5_12.includes('Other'),
       'B2_3_perspectives': () => form.B2_3 === 'Yes',
       'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && form.B2_3_perspectives.includes('Other'),
