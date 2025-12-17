@@ -67,33 +67,17 @@ function FairaResultsPage() {
   const [loading, setLoading] = useState(true);
   const [generatingPDF, setGeneratingPDF] = useState(false);
   const [generatingReport, setGeneratingReport] = useState(false);
-  // Removed: showDomainInfoModal - now using activeInfoModal defined below
+  
+  // Radar chart data from API
+  const [radarChartData, setRadarChartData] = useState(null);
 
-  // Placeholder data for FAIRA risk analysis
+  // Risk summary data from API  
   const [riskSummary, setRiskSummary] = useState({
     overall_risk_level: 'Medium',
-    overall_risk_score: 58.5,
-    risk_category: 'Moderate Risk Profile',
-    section_scores: [
-      { section_id: 'A1', section_name: 'AI System Purpose and Function', risk_score: 45, risk_level: 'Low' },
-      { section_id: 'A2', section_name: 'Data and Inputs', risk_score: 72, risk_level: 'High' },
-      { section_id: 'A3', section_name: 'Human Interface and Impact', risk_score: 55, risk_level: 'Medium' },
-      { section_id: 'A4', section_name: 'Outputs and Decision Influence', risk_score: 68, risk_level: 'Medium' },
-      { section_id: 'A5', section_name: 'Regulatory and Ethical Context', risk_score: 62, risk_level: 'Medium' },
-      { section_id: 'B1', section_name: 'Human, Societal and Rights Impact', risk_score: 50, risk_level: 'Medium' },
-      { section_id: 'B2', section_name: 'Transparency and Explainability', risk_score: 48, risk_level: 'Medium' },
-      { section_id: 'B3', section_name: 'Fairness and Bias Mitigation', risk_score: 70, risk_level: 'High' },
-      { section_id: 'B4', section_name: 'Robustness and Security', risk_score: 65, risk_level: 'Medium' },
-      { section_id: 'B5', section_name: 'Testing and Validation', risk_score: 52, risk_level: 'Medium' },
-      { section_id: 'B6', section_name: 'Human Oversight', risk_score: 42, risk_level: 'Low' },
-      { section_id: 'B7', section_name: 'Privacy and Data Governance', risk_score: 75, risk_level: 'High' },
-      { section_id: 'B8', section_name: 'Accountability and Contestability', risk_score: 58, risk_level: 'Medium' }
-    ],
-    top_risk_areas: [
-      { section: 'B7', name: 'Privacy and Data Governance', risk_score: 75, concern_level: 'High' },
-      { section: 'A2', name: 'Data and Inputs', risk_score: 72, concern_level: 'High' },
-      { section: 'B3', name: 'Fairness and Bias Mitigation', risk_score: 70, concern_level: 'High' }
-    ]
+    overall_risk_score: 0,
+    risk_category: 'Calculating...',
+    section_scores: [],
+    top_risk_areas: []
   });
 
   // The 8 FAIRA Part B domains with short labels for radar chart display
