@@ -54,12 +54,12 @@ FAIRA_DOMAINS = [
 # Baseline Control Effectiveness for each domain
 BASELINE_CE = {
     "Wellbeing": 10.0,
-    "Transparency": 10.0,
+    "Human": 10.0,
     "Fairness": 10.0,
-    "Robustness": 10.0,
-    "Testing": 10.0,
-    "Oversight": 10.0,
     "Privacy": 10.0,
+    "Reliability": 10.0,
+    "Transparency": 10.0,
+    "Contestability": 10.0,
     "Accountability": 10.0,
 }
 
