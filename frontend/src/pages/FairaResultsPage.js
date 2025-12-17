@@ -570,6 +570,36 @@ function FairaResultsPage() {
                       <Info className="h-3 w-3 text-white" />
                     </button>
 
+                    {/* Risk Type Toggle - only for Domain Risk chart */}
+                    {chart.hasToggle && (
+                      <div className="absolute top-2 right-2 z-10 bg-white/90 rounded-md p-1.5 shadow-sm border border-gray-200">
+                        <div className="flex flex-col gap-1">
+                          <label className="flex items-center gap-1.5 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="riskViewType"
+                              value="inherent"
+                              checked={riskViewType === 'inherent'}
+                              onChange={(e) => setRiskViewType(e.target.value)}
+                              className="w-3 h-3 text-purple-600"
+                            />
+                            <span className="text-[10px] text-gray-700">Inherent Risk</span>
+                          </label>
+                          <label className="flex items-center gap-1.5 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="riskViewType"
+                              value="residual"
+                              checked={riskViewType === 'residual'}
+                              onChange={(e) => setRiskViewType(e.target.value)}
+                              className="w-3 h-3 text-purple-600"
+                            />
+                            <span className="text-[10px] text-gray-700">Residual Risk</span>
+                          </label>
+                        </div>
+                      </div>
+                    )}
+
                     <CardContent className="pt-4 pb-2">
                       <h3 className="text-sm font-semibold text-gray-900 text-center mb-2">{chart.title}</h3>
                       <ResponsiveContainer width="100%" height={180}>
