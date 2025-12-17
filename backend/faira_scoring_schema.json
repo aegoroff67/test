@@ -2009,25 +2009,25 @@
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
-        "modifier_type": "negative",
+        "modifier_type": "positive",
         "options": {
           "Access controls": {
-            "Control_Effectiveness": -1
+            "Control_Effectiveness": 1
           },
           "Encryption": {
-            "Control_Effectiveness": -2
+            "Control_Effectiveness": 2
           },
           "Security testing": {
-            "Control_Effectiveness": -2
+            "Control_Effectiveness": 2
           },
-          "Anonymisation": {
-            "Control_Effectiveness": -2
+          "Data anonymisation": {
+            "Control_Effectiveness": 2
           },
-          "PETs": {
-            "Control_Effectiveness": -2
+          "Privacy-enhancing technologies": {
+            "Control_Effectiveness": 2
           }
         },
-        "notes": "Multiple selections are cumulative. Each security measure improves control effectiveness. Encryption, Security testing, Anonymisation, and PETs (Privacy Enhancing Technologies) provide stronger protection."
+        "notes": "Multiple selections are cumulative. Each security measure improves control effectiveness."
       }
     },
     "B5_1": {
