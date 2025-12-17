@@ -337,7 +337,7 @@ function FairaResultsPage() {
                 </div>
                 <div className="text-center">
                   <p className="text-3xl font-bold text-gray-900">{riskSummary.section_scores.length}</p>
-                  <p className="text-xs text-gray-600">Sections Analyzed</p>
+                  <p className="text-xs text-gray-600">Domains Analysed</p>
                 </div>
               </div>
             </div>
@@ -442,7 +442,7 @@ function FairaResultsPage() {
           <div className="p-4">
             <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
               <Shield className="h-4 w-4 text-orange-600" />
-              <span>Section Risk Scores</span>
+              <span>Domain Risk Scores</span>
             </h2>
             
             <div className="space-y-2">
@@ -514,7 +514,7 @@ function FairaResultsPage() {
             <div className="mb-6">
               <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
                 <Shield className="h-5 w-5 text-orange-600" />
-                <span>FAIRA Risk Profile</span>
+                <span>FAIRA Domain Profiles</span>
               </h2>
               
               {/* 2x2 Grid of Radar Charts */}
