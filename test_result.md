@@ -1669,6 +1669,7 @@
 
 ## test_plan:
   current_focus:
+    - "Test FAIRA Risk Assessment Results Page UI changes - Domain Risk Index header and pie chart legend without % symbols"
     - "Test FAIRA Assessment Data Persistence - CRITICAL P0"
   stuck_tasks: []
   test_all: false
