@@ -64,7 +64,7 @@ BASELINE_CE = 5.0
 DOMAIN_CE_TARGET = 25.0
 
 # Normalization constant for risk score
-MAX_EXPECTED_RAW_RISK = 50.0
+MAX_EXPECTED_RAW_RISK = 120.0
 
 # Risk Rating Bands
 RISK_BANDS = {
