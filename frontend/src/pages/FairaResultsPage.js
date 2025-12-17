@@ -545,6 +545,20 @@ function FairaResultsPage() {
                             tick={{ fill: '#6b7280', fontSize: 8 }}
                             tickCount={3}
                           />
+                          <Tooltip 
+                            content={({ active, payload }) => {
+                              if (active && payload && payload.length) {
+                                const data = payload[0].payload;
+                                return (
+                                  <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-2">
+                                    <p className="text-xs font-semibold text-gray-900">{data.fullName}</p>
+                                    <p className="text-xs text-gray-600">Score: <span className="font-bold" style={{ color: chart.color }}>{data.score}</span></p>
+                                  </div>
+                                );
+                              }
+                              return null;
+                            }}
+                          />
                           <Radar 
                             name={chart.title} 
                             dataKey="score" 
