@@ -83,7 +83,7 @@ function FairaResultsPage() {
   // The 8 FAIRA Part B domains with short labels for radar chart display
   const fairadomains = [
     { id: 'B1', shortLabel: 'Wellbeing', fullName: 'Human, Societal and Environmental Wellbeing' },
-    { id: 'B2', shortLabel: 'Human', fullName: 'Human-Centred Values' },
+    { id: 'B2', shortLabel: 'Values', fullName: 'Human-Centred Values' },
     { id: 'B3', shortLabel: 'Fairness', fullName: 'Fairness' },
     { id: 'B4', shortLabel: 'Privacy', fullName: 'Privacy Protection and Security' },
     { id: 'B5', shortLabel: 'Reliability', fullName: 'Reliability and Safety' },
