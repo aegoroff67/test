@@ -504,6 +504,23 @@ export default function FairaAssessmentForm() {
     return () => clearTimeout(autoSaveTimer);
   }, [form]);
 
+  // Handle 401 errors (session expired)
+  const handleSessionExpired = () => {
+    toast.error('Your session has expired. Please log in again to continue.', {
+      duration: 5000
+    });
+    // Store current form data in localStorage before redirecting
+    try {
+      localStorage.setItem(`faira_backup_${id}`, JSON.stringify(form));
+      toast.info('Your unsaved changes have been backed up locally.');
+    } catch (e) {
+      console.error('Could not backup form data:', e);
+    }
+    setTimeout(() => {
+      window.location.href = '/auth';
+    }, 2000);
+  };
+
   const handleAutoSave = async () => {
     if (!id) return;
     setAutoSaving(true);
@@ -515,6 +532,9 @@ export default function FairaAssessmentForm() {
     } catch (error) {
       console.error('Auto-save error:', error);
       console.error('Error details:', error.response?.data);
+      if (error.response?.status === 401) {
+        handleSessionExpired();
+      }
     } finally {
       setAutoSaving(false);
     }
@@ -531,7 +551,11 @@ export default function FairaAssessmentForm() {
     } catch (error) {
       console.error('Save draft error:', error);
       console.error('Error response:', error.response?.data);
-      toast.error('Failed to save draft');
+      if (error.response?.status === 401) {
+        handleSessionExpired();
+      } else {
+        toast.error('Failed to save draft');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -549,10 +573,16 @@ export default function FairaAssessmentForm() {
     try {
       await axios.put(`${API}/assessments/${id}/faira-form`, { ...form, status: 'completed' });
       toast.success('FAIRA assessment completed successfully!');
+      // Clear any backup data on successful submit
+      localStorage.removeItem(`faira_backup_${id}`);
       navigate(`/faira-results/${id}`);
     } catch (error) {
       console.error('Submit error:', error);
-      toast.error(error.response?.data?.detail || 'Failed to submit assessment');
+      if (error.response?.status === 401) {
+        handleSessionExpired();
+      } else {
+        toast.error(error.response?.data?.detail || 'Failed to submit assessment');
+      }
     } finally {
       setSubmitting(false);
     }
