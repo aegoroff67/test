@@ -168,14 +168,17 @@ function FairaResultsPage() {
     {
       id: 'risk',
       title: 'Domain Risk',
-      data: domainRiskData,
+      data: riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData,
       color: '#8b5cf6', // Purple
-      formula: 'Domain_Risk = (Domain_Impact × Domain_Likelihood) ÷ Domain_CE',
+      formula: riskViewType === 'inherent' 
+        ? 'Domain_Risk = Domain_Impact × Domain_Likelihood'
+        : 'Domain_Risk = (Domain_Impact × Domain_Likelihood) ÷ Domain_CE',
       tooltipContent: {
         whatItShows: 'The level of risk remaining in this area after controls are taken into account.',
         whyItChanges: 'High impact or likelihood combined with weak controls leads to higher residual risk.',
         example: 'Even with strong controls, an AI used in a high-risk public context may still show elevated risk.'
-      }
+      },
+      hasToggle: true
     }
   ];
 
