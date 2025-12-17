@@ -654,26 +654,68 @@ function FairaResultsPage() {
                         <X className="h-5 w-5 text-gray-500" />
                       </button>
                     </div>
-                    <div className="p-4 space-y-4">
-                      <div>
-                        <p className="text-sm font-semibold text-gray-900 mb-1">What it shows</p>
-                        <p className="text-sm text-gray-600">
-                          {radarCharts.find(c => c.id === activeInfoModal)?.tooltipContent?.whatItShows}
-                        </p>
+                    {radarCharts.find(c => c.id === activeInfoModal)?.isRiskChart ? (
+                      <div className="p-4 space-y-4 max-h-[60vh] overflow-y-auto">
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">What this chart shows</p>
+                          <p className="text-sm text-gray-600">
+                            This chart shows the level of risk across each AI ethics domain.
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">Inherent Risk</p>
+                          <p className="text-sm text-gray-600">
+                            <strong>Inherent risk</strong> shows the level of risk <strong>before any controls or safeguards are applied.</strong> It reflects the system's underlying exposure based on impact and likelihood alone.
+                          </p>
+                          <p className="text-sm text-gray-600 italic mt-2">
+                            <strong>For example…</strong> An AI used in healthcare or law enforcement may show high inherent risk due to the potential severity of harm, even before considering controls.
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">Residual Risk</p>
+                          <p className="text-sm text-gray-600">
+                            <strong>Residual risk</strong> shows the level of risk <strong>remaining after controls and governance measures are applied.</strong> It reflects how effectively existing safeguards reduce risk.
+                          </p>
+                          <p className="text-sm text-gray-600 italic mt-2">
+                            <strong>For example…</strong> Strong oversight, testing, and accountability can significantly reduce residual risk, even where inherent risk is high.
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">Why both views matter</p>
+                          <p className="text-sm text-gray-600">
+                            Comparing inherent and residual risk helps explain <strong>where controls are effective</strong> and <strong>where additional safeguards may be required.</strong>
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">How to use this chart</p>
+                          <p className="text-sm text-gray-600">
+                            Use <strong>Residual Risk</strong> to understand current risk exposure.<br />
+                            Use <strong>Inherent Risk</strong> to understand why controls are needed and what they are mitigating.
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm font-semibold text-gray-900 mb-1">Why it changes</p>
-                        <p className="text-sm text-gray-600">
-                          {radarCharts.find(c => c.id === activeInfoModal)?.tooltipContent?.whyItChanges}
-                        </p>
+                    ) : (
+                      <div className="p-4 space-y-4">
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">What it shows</p>
+                          <p className="text-sm text-gray-600">
+                            {radarCharts.find(c => c.id === activeInfoModal)?.tooltipContent?.whatItShows}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">Why it changes</p>
+                          <p className="text-sm text-gray-600">
+                            {radarCharts.find(c => c.id === activeInfoModal)?.tooltipContent?.whyItChanges}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">For example…</p>
+                          <p className="text-sm text-gray-600 italic">
+                            {radarCharts.find(c => c.id === activeInfoModal)?.tooltipContent?.example}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm font-semibold text-gray-900 mb-1">For example…</p>
-                        <p className="text-sm text-gray-600 italic">
-                          {radarCharts.find(c => c.id === activeInfoModal)?.tooltipContent?.example}
-                        </p>
-                      </div>
-                    </div>
+                    )}
                     <div className="p-4 border-t bg-gray-50 rounded-b-lg">
                       <Button
                         onClick={() => setActiveInfoModal(null)}
