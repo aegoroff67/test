@@ -92,38 +92,19 @@ function FairaResultsPage() {
     { id: 'B8', shortLabel: 'Accountability', fullName: 'Accountability and Contestability' }
   ];
 
-  // Generate placeholder scores for each domain (20-80 range)
-  // These will be replaced with actual calculated values once the scoring engine is built
-  const generatePlaceholderScore = () => Math.floor(Math.random() * 61) + 20;
-
-  // Placeholder radar chart data for 4 domain charts - only Part B domains
-  const domainImpactData = fairadomains.map(domain => ({
+  // Default placeholder data (used while loading or if API fails)
+  const getDefaultChartData = () => fairadomains.map(domain => ({
     domain: domain.shortLabel,
     fullName: domain.fullName,
-    score: generatePlaceholderScore(),
+    score: 0,
     fullMark: 100
   }));
 
-  const domainLikelihoodData = fairadomains.map(domain => ({
-    domain: domain.shortLabel,
-    fullName: domain.fullName,
-    score: generatePlaceholderScore(),
-    fullMark: 100
-  }));
-
-  const domainControlEffectivenessData = fairadomains.map(domain => ({
-    domain: domain.shortLabel,
-    fullName: domain.fullName,
-    score: generatePlaceholderScore(),
-    fullMark: 100
-  }));
-
-  const domainRiskData = fairadomains.map(domain => ({
-    domain: domain.shortLabel,
-    fullName: domain.fullName,
-    score: generatePlaceholderScore(),
-    fullMark: 100
-  }));
+  // Get radar chart data from API response or use defaults
+  const domainImpactData = radarChartData?.domainImpact || getDefaultChartData();
+  const domainLikelihoodData = radarChartData?.domainLikelihood || getDefaultChartData();
+  const domainControlEffectivenessData = radarChartData?.domainControlEffectiveness || getDefaultChartData();
+  const domainRiskData = radarChartData?.domainRisk || getDefaultChartData();
 
   // Chart configurations for the 4 radar charts
   const radarCharts = [
@@ -164,13 +145,36 @@ function FairaResultsPage() {
   // State for info modal
   const [activeInfoModal, setActiveInfoModal] = useState(null);
 
-  // Response distribution placeholder
-  const responseDistribution = [
-    { name: 'Low Risk', value: 18, color: '#00B050' },
-    { name: 'Medium Risk', value: 45, color: '#FFFF00' },
-    { name: 'High Risk', value: 28, color: '#FFC000' },
-    { name: 'Critical Risk', value: 9, color: '#FF0000' }
-  ];
+  // Calculate response distribution from risk summary
+  const responseDistribution = React.useMemo(() => {
+    if (!riskSummary?.domain_scores) {
+      return [
+        { name: 'Low Risk', value: 25, color: '#00B050' },
+        { name: 'Medium Risk', value: 25, color: '#FFFF00' },
+        { name: 'High Risk', value: 25, color: '#FFC000' },
+        { name: 'Critical Risk', value: 25, color: '#FF0000' }
+      ];
+    }
+    
+    let low = 0, medium = 0, high = 0, critical = 0;
+    const domains = Object.values(riskSummary.domain_scores);
+    
+    domains.forEach(d => {
+      const risk = d.Risk || 0;
+      if (risk >= 75) critical++;
+      else if (risk >= 50) high++;
+      else if (risk >= 25) medium++;
+      else low++;
+    });
+    
+    const total = domains.length || 1;
+    return [
+      { name: 'Low Risk', value: Math.round((low / total) * 100), color: '#00B050' },
+      { name: 'Medium Risk', value: Math.round((medium / total) * 100), color: '#FFFF00' },
+      { name: 'High Risk', value: Math.round((high / total) * 100), color: '#FFC000' },
+      { name: 'Critical Risk', value: Math.round((critical / total) * 100), color: '#FF0000' }
+    ];
+  }, [riskSummary]);
 
   useEffect(() => {
     fetchResults();
@@ -178,15 +182,60 @@ function FairaResultsPage() {
 
   const fetchResults = async () => {
     try {
-      const response = await axios.get(`${API}/assessments/${id}`);
-      setAssessment(response.data);
-      setFairaData(response.data.faira_form || {});
+      // Fetch assessment data
+      const assessmentResponse = await axios.get(`${API}/assessments/${id}`);
+      setAssessment(assessmentResponse.data);
+      setFairaData(assessmentResponse.data.faira_form || {});
+      
+      // Fetch calculated scores from the scoring engine
+      try {
+        const scoresResponse = await axios.get(`${API}/assessments/${id}/faira-scores`);
+        if (scoresResponse.data) {
+          setRadarChartData(scoresResponse.data.radar_charts);
+          if (scoresResponse.data.risk_summary) {
+            const summary = scoresResponse.data.risk_summary;
+            setRiskSummary({
+              overall_risk_level: summary.overall_risk_level || 'Medium',
+              overall_risk_score: summary.overall_risk_score || 0,
+              risk_category: getRiskCategory(summary.overall_risk_level),
+              section_scores: Object.entries(summary.domain_scores || {}).map(([name, scores]) => ({
+                section_id: name,
+                section_name: fairadomains.find(d => d.shortLabel === name)?.fullName || name,
+                risk_score: scores.Risk || 0,
+                risk_level: getRiskLevelFromScore(scores.Risk || 0)
+              })),
+              top_risk_areas: summary.top_risk_areas || []
+            });
+          }
+        }
+      } catch (scoreError) {
+        console.warn('Could not fetch FAIRA scores:', scoreError);
+        // Continue with assessment display even if scores fail
+      }
+      
       setLoading(false);
     } catch (error) {
       console.error('Error fetching FAIRA results:', error);
       toast.error('Failed to load assessment results');
       setLoading(false);
     }
+  };
+  
+  const getRiskCategory = (level) => {
+    switch(level) {
+      case 'Critical': return 'Critical Risk Profile';
+      case 'High': return 'High Risk Profile';
+      case 'Medium': return 'Moderate Risk Profile';
+      case 'Low': return 'Low Risk Profile';
+      default: return 'Risk Profile';
+    }
+  };
+  
+  const getRiskLevelFromScore = (score) => {
+    if (score >= 75) return 'Critical';
+    if (score >= 50) return 'High';
+    if (score >= 25) return 'Medium';
+    return 'Low';
   };
 
   const handleGeneratePDF = async () => {
