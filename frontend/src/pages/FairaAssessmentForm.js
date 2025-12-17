@@ -194,8 +194,49 @@ export default function FairaAssessmentForm() {
         console.log('Fetched assessment:', response.data);
         console.log('FAIRA form data:', response.data?.faira_form);
         
+        // Check for local backup (from session expiry)
+        const backupKey = `faira_backup_${id}`;
+        const backupData = localStorage.getItem(backupKey);
+        
         if (response.data && response.data.faira_form) {
           console.log('Loading saved form data');
+          
+          // If there's backup data, ask user if they want to restore it
+          if (backupData) {
+            try {
+              const parsedBackup = JSON.parse(backupData);
+              const backupFields = Object.keys(parsedBackup).filter(k => parsedBackup[k]).length;
+              const serverFields = Object.keys(response.data.faira_form).filter(k => response.data.faira_form[k]).length;
+              
+              // If backup has more data, offer to restore
+              if (backupFields > serverFields) {
+                toast.info(
+                  `Found ${backupFields - serverFields} unsaved changes from your previous session. Click "Restore Backup" to recover them.`,
+                  {
+                    duration: 10000,
+                    action: {
+                      label: 'Restore Backup',
+                      onClick: () => {
+                        setForm(prevForm => ({
+                          ...defaultState,
+                          ...parsedBackup
+                        }));
+                        localStorage.removeItem(backupKey);
+                        toast.success('Backup restored! Please save your draft.');
+                      }
+                    }
+                  }
+                );
+              } else {
+                // Backup is older, remove it
+                localStorage.removeItem(backupKey);
+              }
+            } catch (e) {
+              console.error('Error parsing backup:', e);
+              localStorage.removeItem(backupKey);
+            }
+          }
+          
           // Merge saved data with default state to handle any new fields
           setForm(prevForm => ({
             ...defaultState,
@@ -203,6 +244,21 @@ export default function FairaAssessmentForm() {
           }));
         } else {
           console.log('No saved form data found, using default state');
+          
+          // If no server data but we have backup, restore it
+          if (backupData) {
+            try {
+              const parsedBackup = JSON.parse(backupData);
+              setForm(prevForm => ({
+                ...defaultState,
+                ...parsedBackup
+              }));
+              toast.info('Restored your previous unsaved work. Please save your draft.');
+              localStorage.removeItem(backupKey);
+            } catch (e) {
+              console.error('Error restoring backup:', e);
+            }
+          }
         }
       } catch (error) {
         console.error('Error fetching form data:', error);
