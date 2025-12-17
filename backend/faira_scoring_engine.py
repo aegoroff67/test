@@ -59,7 +59,9 @@ FAIRA_DOMAINS = [
 
 # Baseline Control Effectiveness (prevents division instability)
 BASELINE_CE = 5.0
-BASELINE_DOMAIN_CE = 5.0
+
+# Domain CE Target for normalization (used in Domain_CE_Display calculation)
+DOMAIN_CE_TARGET = 25.0
 
 # Normalization constant for risk score
 MAX_EXPECTED_RAW_RISK = 50.0
