@@ -181,30 +181,6 @@ function FairaResultsPage() {
 
   // State for info modal
   const [activeInfoModal, setActiveInfoModal] = useState(null);
-  
-  // State for Domain Risk view toggle (Inherent vs Residual)
-  const [riskViewType, setRiskViewType] = useState('residual');
-  
-  // Calculate Inherent Risk data (Impact × Likelihood, without CE division)
-  const domainInherentRiskData = React.useMemo(() => {
-    if (!riskSummary?.domain_scores) return getDefaultChartData();
-    
-    return fairadomains.map(domain => {
-      const scores = riskSummary.domain_scores[domain.shortLabel] || {};
-      // Inherent Risk = Impact × Likelihood (normalized)
-      // We need to work with the display values which are already 0-100
-      const impact = scores.Impact || 0;
-      const likelihood = scores.Likelihood || 0;
-      // Calculate inherent risk as percentage (both are 0-100, so product / 100 normalizes)
-      const inherentRisk = Math.min(100, (impact * likelihood) / 100);
-      return {
-        domain: domain.shortLabel,
-        fullName: domain.fullName,
-        score: Math.round(inherentRisk * 10) / 10,
-        fullMark: 100
-      };
-    });
-  }, [riskSummary, fairadomains]);
 
   // Calculate response distribution from risk summary
   const responseDistribution = React.useMemo(() => {
