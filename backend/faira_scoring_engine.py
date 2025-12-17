@@ -40,7 +40,7 @@ DOMAIN_MAPPING = {
     "Transparency and Explainability": "Transparency",
     "Fairness": "Fairness",
     "Human, Societal and Environmental Wellbeing": "Wellbeing",
-    "Human-centred Values": "Human",
+    "Human-centred Values": "Values",
     "Privacy Protection and Security": "Privacy",
     "Contestability": "Contestability",
 }
