@@ -478,7 +478,7 @@ function FairaResultsPage() {
           <div className="p-4">
             <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
               <Shield className="h-4 w-4 text-orange-600" />
-              <span>Domain Risk Scores</span>
+              <span>Domain Risk Index</span>
             </h2>
             
             <div className="space-y-2">
@@ -535,7 +535,7 @@ function FairaResultsPage() {
                     verticalAlign="bottom" 
                     height={36}
                     formatter={(value, entry) => (
-                      <span className="text-xs">{value}: {entry.payload.value}%</span>
+                      <span className="text-xs">{value}: {entry.payload.value}</span>
                     )}
                   />
                 </PieChart>
