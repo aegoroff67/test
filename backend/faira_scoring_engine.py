@@ -29,14 +29,14 @@ def load_scoring_schema() -> Dict:
 # Domain mapping between schema domains and radar chart domains
 DOMAIN_MAPPING = {
     # Schema domain -> Radar chart domain (short label)
-    "Reliability and Safety": "Robustness",
+    "Reliability and Safety": "Reliability",
     "Accountability": "Accountability",
     "Transparency and Explainability": "Transparency",
     "Fairness": "Fairness",
     "Human, Societal and Environmental Wellbeing": "Wellbeing",
-    "Human-centred Values": "Wellbeing",  # Maps to Wellbeing
+    "Human-centred Values": "Human",
     "Privacy Protection and Security": "Privacy",
-    "Contestability": "Accountability",  # Maps to Accountability
+    "Contestability": "Contestability",
 }
 
 # All 8 radar chart domains with full names (matching Part B sections)
