@@ -604,17 +604,23 @@ function FairaResultsPage() {
                         <X className="h-5 w-5 text-gray-500" />
                       </button>
                     </div>
-                    <div className="p-4">
-                      <div className="mb-4">
-                        <p className="text-sm font-medium text-gray-700 mb-2">Formula:</p>
-                        <pre className="bg-gray-100 p-3 rounded text-sm font-mono text-gray-800 whitespace-pre-wrap">
-                          {radarCharts.find(c => c.id === activeInfoModal)?.formula}
-                        </pre>
+                    <div className="p-4 space-y-4">
+                      <div>
+                        <p className="text-sm font-semibold text-gray-900 mb-1">What it shows</p>
+                        <p className="text-sm text-gray-600">
+                          {radarCharts.find(c => c.id === activeInfoModal)?.tooltipContent?.whatItShows}
+                        </p>
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-700 mb-2">Description:</p>
+                        <p className="text-sm font-semibold text-gray-900 mb-1">Why it changes</p>
                         <p className="text-sm text-gray-600">
-                          {radarCharts.find(c => c.id === activeInfoModal)?.description}
+                          {radarCharts.find(c => c.id === activeInfoModal)?.tooltipContent?.whyItChanges}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-gray-900 mb-1">For example…</p>
+                        <p className="text-sm text-gray-600 italic">
+                          {radarCharts.find(c => c.id === activeInfoModal)?.tooltipContent?.example}
                         </p>
                       </div>
                     </div>
