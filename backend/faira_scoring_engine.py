@@ -48,7 +48,7 @@ DOMAIN_MAPPING = {
 # All 8 radar chart domains with full names (matching Part B sections)
 FAIRA_DOMAINS = [
     {"id": "B1", "shortLabel": "Wellbeing", "fullName": "Human, Societal and Environmental Wellbeing"},
-    {"id": "B2", "shortLabel": "Human", "fullName": "Human-Centred Values"},
+    {"id": "B2", "shortLabel": "Values", "fullName": "Human-Centred Values"},
     {"id": "B3", "shortLabel": "Fairness", "fullName": "Fairness"},
     {"id": "B4", "shortLabel": "Privacy", "fullName": "Privacy Protection and Security"},
     {"id": "B5", "shortLabel": "Reliability", "fullName": "Reliability and Safety"},
