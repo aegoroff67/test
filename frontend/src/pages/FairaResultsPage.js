@@ -114,7 +114,11 @@ function FairaResultsPage() {
       data: domainImpactData,
       color: '#ef4444', // Red
       formula: 'Domain_Impact = Σ(Domain Impact modifiers)',
-      description: 'How serious the consequences would be in each domain if the AI system went wrong.'
+      tooltipContent: {
+        whatItShows: 'How serious the consequences would be in this area if the AI system caused harm.',
+        whyItChanges: 'Higher where decisions affect people\'s rights, safety, or access to services.',
+        example: 'An AI used in healthcare or law enforcement would have higher impact than one used for internal reporting.'
+      }
     },
     {
       id: 'likelihood',
@@ -122,7 +126,11 @@ function FairaResultsPage() {
       data: domainLikelihoodData,
       color: '#f97316', // Orange
       formula: 'Domain_Likelihood = Σ(Domain Likelihood modifiers)',
-      description: 'How likely problems are to occur in each domain based on how the AI is built and used.'
+      tooltipContent: {
+        whatItShows: 'How likely risks in this area are to occur based on how the AI is designed and used.',
+        whyItChanges: 'Increases with higher automation, poorer data quality, or limited human oversight.',
+        example: 'An AI that acts autonomously on live data is more likely to cause issues than one used only for decision support.'
+      }
     },
     {
       id: 'control',
@@ -130,7 +138,11 @@ function FairaResultsPage() {
       data: domainControlEffectivenessData,
       color: '#22c55e', // Green
       formula: 'Domain_CE = Σ(Domain CE modifiers)',
-      description: 'How strong the safeguards and oversight are to manage risks in each domain.'
+      tooltipContent: {
+        whatItShows: 'How strong the safeguards and governance are for managing risks in this area.',
+        whyItChanges: 'Improves when testing, oversight, training, and clear processes are in place.',
+        example: 'Regular audits, documented accountability, and clear escalation paths increase control effectiveness.'
+      }
     },
     {
       id: 'risk',
@@ -138,7 +150,11 @@ function FairaResultsPage() {
       data: domainRiskData,
       color: '#8b5cf6', // Purple
       formula: 'Domain_Risk = (Domain_Impact × Domain_Likelihood) ÷ Domain_CE',
-      description: 'The overall level of risk remaining in each domain after safeguards are taken into account.'
+      tooltipContent: {
+        whatItShows: 'The level of risk remaining in this area after controls are taken into account.',
+        whyItChanges: 'High impact or likelihood combined with weak controls leads to higher residual risk.',
+        example: 'Even with strong controls, an AI used in a high-risk public context may still show elevated risk.'
+      }
     }
   ];
 
