@@ -83,13 +83,13 @@ function FairaResultsPage() {
   // The 8 FAIRA Part B domains with short labels for radar chart display
   const fairadomains = [
     { id: 'B1', shortLabel: 'Wellbeing', fullName: 'Human, Societal and Environmental Wellbeing' },
-    { id: 'B2', shortLabel: 'Transparency', fullName: 'Transparency and Explainability' },
-    { id: 'B3', shortLabel: 'Fairness', fullName: 'Fairness and Bias Mitigation' },
-    { id: 'B4', shortLabel: 'Robustness', fullName: 'Robustness and Security' },
-    { id: 'B5', shortLabel: 'Testing', fullName: 'Testing and Validation' },
-    { id: 'B6', shortLabel: 'Oversight', fullName: 'Human Oversight' },
-    { id: 'B7', shortLabel: 'Privacy', fullName: 'Privacy and Data Governance' },
-    { id: 'B8', shortLabel: 'Accountability', fullName: 'Accountability and Contestability' }
+    { id: 'B2', shortLabel: 'Human', fullName: 'Human-Centred Values' },
+    { id: 'B3', shortLabel: 'Fairness', fullName: 'Fairness' },
+    { id: 'B4', shortLabel: 'Privacy', fullName: 'Privacy Protection and Security' },
+    { id: 'B5', shortLabel: 'Reliability', fullName: 'Reliability and Safety' },
+    { id: 'B6', shortLabel: 'Transparency', fullName: 'Transparency and Explainability' },
+    { id: 'B7', shortLabel: 'Contestability', fullName: 'Contestability' },
+    { id: 'B8', shortLabel: 'Accountability', fullName: 'Accountability' }
   ];
 
   // Default placeholder data (used while loading or if API fails)
