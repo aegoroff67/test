@@ -500,10 +500,10 @@ def calculate_domain_scores(form_data: Dict) -> Dict[str, Dict[str, float]]:
         
         scores["Risk"] = round(normalized_risk, 1)
         
-        # Also normalize other metrics to 0-100 for display
-        scores["Impact"] = min(round(scores["Impact"] * 5, 1), 100)
-        scores["Likelihood"] = min(round(scores["Likelihood"] * 5, 1), 100)
-        scores["Control_Effectiveness"] = min(round(scores["Control_Effectiveness"] * 5, 1), 100)
+        # Also normalize other metrics to 0-100 for display (clamp between 0 and 100)
+        scores["Impact"] = max(0, min(round(scores["Impact"] * 5, 1), 100))
+        scores["Likelihood"] = max(0, min(round(scores["Likelihood"] * 5, 1), 100))
+        scores["Control_Effectiveness"] = max(0, min(round(scores["Control_Effectiveness"] * 5, 1), 100))
     
     return domain_totals
 
