@@ -2736,7 +2736,7 @@ export default function FairaAssessmentForm() {
                   </label>
                 </div>
                 
-                {(form.B3_2 === "Yes" || form.B3_2 === "Unknown") && (
+                {form.B3_2 === "Yes" && (
                   <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
                     <Label>Against which groups? (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
