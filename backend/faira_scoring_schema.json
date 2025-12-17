@@ -2265,23 +2265,21 @@
     },
     "B8_2": {
       "id": "B8_2",
-      "text": "Have clear roles and responsibilities been established for AI oversight?",
+      "text": "Have roles and responsibilities for AI governance been established?",
       "type": "yes_no",
       "domains": [
         "Accountability"
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
-        "modifier_type": "mixed",
         "options": {
           "Yes": {
-            "Control_Effectiveness": -2
+            "Control_Effectiveness": 2
           },
           "No": {
-            "Control_Effectiveness": 2
+            "Control_Effectiveness": -2
           }
-        },
-        "notes": "Established roles improve control effectiveness. Lack of clear roles increases risk."
+        }
       }
     },
     "B8_3": {
