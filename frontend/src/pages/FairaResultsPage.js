@@ -113,7 +113,7 @@ function FairaResultsPage() {
       title: 'Domain Impact',
       data: domainImpactData,
       color: '#ef4444', // Red
-      formula: 'Σ(Impact modifiers) + Σ(severity-weighted A3.5, A3.6)',
+      formula: 'Domain_Impact = Σ(Domain Impact modifiers)',
       description: 'How serious the consequences would be in each domain if the AI system went wrong.'
     },
     {
@@ -121,7 +121,7 @@ function FairaResultsPage() {
       title: 'Domain Likelihood',
       data: domainLikelihoodData,
       color: '#f97316', // Orange
-      formula: 'Σ(Likelihood modifiers) + AutonomyFactor + DataQualityFactor + ExpertiseFactor',
+      formula: 'Domain_Likelihood = Σ(Domain Likelihood modifiers)',
       description: 'How likely problems are to occur in each domain based on how the AI is built and used.'
     },
     {
@@ -129,7 +129,7 @@ function FairaResultsPage() {
       title: 'Domain Control Effectiveness',
       data: domainControlEffectivenessData,
       color: '#22c55e', // Green
-      formula: 'Baseline_CE (5) + Σ(CE modifiers)',
+      formula: 'Domain_CE(D) = Baseline_Domain_CE + Σ(Domain CE modifiers)',
       description: 'How strong the safeguards and oversight are to manage risks in each domain.'
     },
     {
@@ -137,7 +137,7 @@ function FairaResultsPage() {
       title: 'Domain Risk',
       data: domainRiskData,
       color: '#8b5cf6', // Purple
-      formula: '(Impact × Likelihood) ÷ CE → Normalized 0-100',
+      formula: 'Domain_Risk = (Domain_Impact × Domain_Likelihood) ÷ Domain_CE',
       description: 'The overall level of risk remaining in each domain after safeguards are taken into account.'
     }
   ];
