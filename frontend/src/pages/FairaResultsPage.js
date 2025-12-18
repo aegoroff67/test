@@ -476,31 +476,60 @@ function FairaResultsPage() {
         {/* Left Panel - 25% width */}
         <div className="w-1/4 bg-white border-r overflow-y-auto">
           <div className="p-4">
-            <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
-              <Shield className="h-4 w-4 text-orange-600" />
-              <span>Domain Risk Index</span>
-            </h2>
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2">
+                <Shield className="h-4 w-4 text-orange-600" />
+                <span>{riskViewType === 'inherent' ? 'Inherent Domain Risk' : 'Residual Domain Risk'}</span>
+              </h2>
+              <div className="bg-gray-100 rounded-md p-1.5 border border-gray-200">
+                <div className="flex flex-col gap-1">
+                  <label className="flex items-center gap-1.5 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="leftPanelRiskViewType"
+                      value="inherent"
+                      checked={riskViewType === 'inherent'}
+                      onChange={(e) => setRiskViewType(e.target.value)}
+                      className="w-3 h-3 text-purple-600"
+                    />
+                    <span className="text-[10px] text-gray-700">Inherent</span>
+                  </label>
+                  <label className="flex items-center gap-1.5 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="leftPanelRiskViewType"
+                      value="residual"
+                      checked={riskViewType === 'residual'}
+                      onChange={(e) => setRiskViewType(e.target.value)}
+                      className="w-3 h-3 text-purple-600"
+                    />
+                    <span className="text-[10px] text-gray-700">Residual</span>
+                  </label>
+                </div>
+              </div>
+            </div>
             
             <div className="space-y-2">
-              {[...riskSummary.section_scores]
-                .sort((a, b) => b.risk_score - a.risk_score) // Sort by risk score, highest first
-                .map((section) => {
-                const colors = getRiskColor(section.risk_level);
+              {[...(riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData)]
+                .sort((a, b) => b.score - a.score) // Sort by score, highest first
+                .map((domain) => {
+                const riskLevel = getRiskLevelFromScore(domain.score);
+                const colors = getRiskColor(riskLevel);
                 return (
-                  <div key={section.section_id} className="space-y-0.5">
+                  <div key={domain.domain} className="space-y-0.5">
                     <div className="flex items-center">
                       <div 
-                        className="px-1 py-0.5 rounded text-xs font-bold"
+                        className="px-1 py-0.5 rounded text-xs font-bold min-w-[32px] text-center"
                         style={{ backgroundColor: colors.bg, color: colors.text }}
                       >
-                        {section.risk_score}%
+                        {Math.round(domain.score)}
                       </div>
-                      <span className="font-medium text-gray-900 text-xs ml-[15px]">{section.section_name}</span>
+                      <span className="font-medium text-gray-900 text-xs ml-[15px]">{domain.fullName}</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-1.5">
                       <div 
                         className="h-1.5 rounded-full transition-all duration-300"
-                        style={{ width: `${section.risk_score}%`, backgroundColor: colors.bg }}
+                        style={{ width: `${domain.score}%`, backgroundColor: colors.bg }}
                       ></div>
                     </div>
                   </div>
