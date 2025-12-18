@@ -492,7 +492,7 @@ function FairaResultsPage() {
                       onChange={(e) => setRiskViewType(e.target.value)}
                       className="w-3 h-3 text-purple-600"
                     />
-                    <span className="text-[10px] text-gray-700">Inherent</span>
+                    <span className="text-[10px] text-gray-700">Inherent Risk</span>
                   </label>
                   <label className="flex items-center gap-1.5 cursor-pointer">
                     <input
@@ -503,7 +503,7 @@ function FairaResultsPage() {
                       onChange={(e) => setRiskViewType(e.target.value)}
                       className="w-3 h-3 text-purple-600"
                     />
-                    <span className="text-[10px] text-gray-700">Residual</span>
+                    <span className="text-[10px] text-gray-700">Residual Risk</span>
                   </label>
                 </div>
               </div>
