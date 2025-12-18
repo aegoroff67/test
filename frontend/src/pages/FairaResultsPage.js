@@ -167,7 +167,7 @@ function FairaResultsPage() {
     },
     {
       id: 'risk',
-      title: 'Domain Risk',
+      title: riskViewType === 'inherent' ? 'Inherent Domain Risk' : 'Residual Domain Risk',
       data: riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData,
       color: '#8b5cf6', // Purple
       formula: riskViewType === 'inherent' 
