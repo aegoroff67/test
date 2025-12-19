@@ -577,8 +577,8 @@
   },
   "SE-2": {
     "domain": "Security",
-    "impact_weight": 0.96,
-    "effort_score": 0.72,
+    "impact_weight": 0.8,
+    "effort_score": 0.7,
     "regulatory_driver": "Strong regulatory expectation",
     "risk_category": "Adversarial manipulation & robustness risk",
     "lifecycle_phase": "Development, Testing, Deployment",
@@ -625,8 +625,8 @@
   },
   "SE-6": {
     "domain": "Security",
-    "impact_weight": 0.95,
-    "effort_score": 0.7,
+    "impact_weight": 0.9,
+    "effort_score": 0.6,
     "regulatory_driver": "Strong regulatory expectation",
     "risk_category": "Adversarial attack & input exploitation risk",
     "lifecycle_phase": "Development, Testing, Deployment",
