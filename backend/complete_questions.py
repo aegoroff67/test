@@ -551,6 +551,19 @@ COMPLETE_QUESTIONS_DATA = [
         "developing_answer": 'Acknowledge adversarial risks during model design but rely primarily on standard training techniques without robustness-focused testing.',
         "established_answer": 'Conduct targeted robustness testing and limited adversarial evaluations during model development, with documented mitigations for known weaknesses.',
         "leading_answer": 'Apply adversarial training, robustness testing, and stress-testing techniques during model development to improve resilience against manipulation, evasion, and poisoning attacks.',
+        "evidence_types": """To comply with **SE-2 ("How do you design and train your AI model to be robust against adversarial manipulation and evasion techniques?")**, organisations must demonstrate **design-time controls** that strengthen inherent model resilience.
+
+Key evidence types:
+
+• **Model Design Documentation:** Architecture decisions addressing robustness, regularisation, or ensemble approaches.
+• **Threat Modelling Artefacts:** Identification of adversarial techniques relevant to the model and mitigations applied during development.
+• **Adversarial Training Records:** Evidence of training with perturbed, malicious, or stress-test datasets.
+• **Robustness Testing Results:** Reports showing model performance under adversarial or out-of-distribution conditions.
+• **Data Quality Controls:** Dataset validation, poisoning detection, and provenance checks.
+• **Model Cards / Technical Documentation:** Disclosure of robustness assumptions, limitations, and known attack surfaces.
+• **Governance Oversight:** Reviews or approvals confirming robustness considerations were addressed prior to deployment.
+
+In short: compliance requires **preventive, design-time robustness controls**, not just operational security measures.""",
         "domain_order": 7,
         "order": 2
     },
