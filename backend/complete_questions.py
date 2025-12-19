@@ -608,6 +608,20 @@ In short: compliance requires **preventive, design-time robustness controls**, n
         "developing_answer": 'Rely on general IT security monitoring with limited visibility into AI-specific adversarial behavior.',
         "established_answer": 'Monitor AI system behavior for anomalies and respond to suspected adversarial activity using general security or incident management processes.',
         "leading_answer": 'Use runtime monitoring, anomaly detection, alerting, and defined incident response procedures to detect, respond to, and recover from adversarial attacks in production environments.',
+        "evidence_types": """To comply with **SE-6 ("What operational controls are in place to detect, respond to, and recover from adversarial attacks against the AI system in production?")**, organisations must demonstrate runtime and operational security capabilities.
+
+**Key evidence types:**
+
+• **Monitoring & Alerting Configurations:** Dashboards, alerts, and thresholds specific to AI system behaviour.
+• **Anomaly Detection Outputs:** Evidence of tools or processes identifying suspicious input/output patterns.
+• **Logging & Telemetry:** Runtime logs enabling investigation of adversarial events.
+• **Incident Response Procedures:** Playbooks covering detection, containment, analysis, and recovery for AI-related incidents.
+• **Security Operations Integration:** Evidence that AI systems are covered by SOC, SIEM, or IR processes.
+• **Red-Teaming / Simulation Results:** Findings from adversarial testing against deployed systems.
+• **Recovery Artefacts:** Records of model rollback, retraining, patching, or control updates following incidents.
+• **Operational Reviews:** Post-incident reviews or continuous improvement actions related to adversarial threats.
+
+**In short:** compliance requires **active monitoring, defined response capability, and recovery readiness**, not just preventive design controls.""",
         "domain_order": 7,
         "order": 6
     },
