@@ -949,7 +949,7 @@ In short: compliance requires **preventive, design-time robustness controls**, n
         "foundational_answer": 'No assessments are conducted to measure the environmental impact of the AI system.',
         "developing_answer": 'Estimate environmental impact informally without systematic tracking.',
         "established_answer": 'Conduct occasional assessments of energy usage and emissions during system updates or major changes.',
-        "leading_answer": 'Regularly measure and report the environmental impact.',
+        "leading_answer": 'Regularly measure and report the environmental impact of AI training and deployment, including energy usage and carbon emissions.',
         "domain_order": 11,
         "order": 1
     },
