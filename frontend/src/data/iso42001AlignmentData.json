@@ -721,66 +721,74 @@
   },
   "SU-1": {
     "domain": "Sustainability",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Low",
-    "alignmentRationale": "This question requires the organisation to assess the environmental impact of training and deploying its AI system, ideally using metrics such as energy use or carbon footprint. ISO/IEC 42001 expects organisations to consider environmental sustainability as part of societal impacts and notes that AI workloads can have significant environmental effects, but it does not explicitly mandate quantitative measurement of energy use or emissions per system. Because the question goes further than the explicit requirement by asking for concrete impact assessment, the alignment is partial.",
-    "citation": "B.9.3 -> p.42; B.5.2 -> p.27",
-    "controlIntent": "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible development and use of AI systems, which can include environmental sustainability. It also requires that AI system impact assessments consider potential consequences for individuals, groups and societies, which can include environmental and resource impacts. The guidance notes that AI systems, particularly large-scale machine learning models, can consume significant energy and generate carbon emissions. By evaluating energy consumption and carbon footprint, organisations can identify opportunities to reduce environmental impact, improve efficiency and align AI development with sustainability goals."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires documenting the environmental impact of hardware used for AI systems. The standard also acknowledges that AI development can be computationally intensive with environmental impacts.",
+    "controlAlignmentDetails": "B.4.5: Full Alignment, B.5.5: Full Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29)"
   },
   "SU-2": {
     "domain": "Sustainability",
     "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Low",
-    "alignmentRationale": "This question focuses on whether the organisation actively looks for algorithmic efficiency improvements to reduce computational load. ISO/IEC 42001 requires documentation of tooling resources, including optimisation methods, and identification of system and computing resource needs, which conceptually supports efficiency considerations but does not explicitly require exploring algorithmic optimisation for sustainability purposes. As a result, the alignment is partial.",
-    "citation": "B.6.1.2 -> p.30; B.9.3 -> p.42",
-    "controlIntent": "ISO/IEC 42001 notes that when an organisation defines objectives for responsible AI development, such as sustainability or resource efficiency, these objectives should be incorporated into requirements specification, model training and validation. The guidance notes that computational efficiency can be improved through techniques such as selecting simpler or more efficient model architectures, optimising hyperparameters, pruning unnecessary parameters, using quantisation or distillation, and training on smaller or more representative datasets. By prioritising efficiency, organisations can reduce energy consumption, cost and environmental impact while maintaining acceptable performance."
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard mentions environmental impacts of computational intensity but doesn't explicitly address algorithm optimization for efficiency. While the standard acknowledges the environmental concerns of AI computation, it lacks specific guidance on optimization approaches for sustainability.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment, B.5.5: Partial Alignment, B.4.4: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29; B.4.4 -> p.25",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29); Organizations should document information about their AI system tooling resources, including algorithm types and machine learning models (B.4.4, p.25)"
   },
   "SU-3": {
     "domain": "Sustainability",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "This question asks whether cloud or infrastructure choices are made with a preference for renewable energy. ISO/IEC 42001 directs organisations to consider climate change and environmental impacts as part of their context and to treat environmental sustainability as a societal impact of AI, but it does not explicitly require choosing providers based on renewable energy use. Because the question captures a specific design choice aligned with sustainability goals but not mandated by the standard, the alignment is partial.",
-    "citation": "B.7.4 -> p.38; B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring of AI systems, including metrics for monitoring performance. The guidance notes that if sustainability is identified as an objective, organisations should establish metrics such as energy consumption, carbon emissions, resource usage and computational efficiency, and monitor these during operation. It also notes that relevant information about AI systems, including environmental impacts, should be communicated to interested parties, which can include internal governance bodies, users, customers, regulators and the public. By monitoring and reporting environmental impact, organisations demonstrate transparency and accountability for sustainability."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses environmental impact of hardware but doesn't specifically mention renewable energy sources or cloud infrastructure selection criteria. The standard acknowledges environmental considerations broadly but lacks specific guidance on energy sourcing.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26)"
   },
   "SU-4": {
     "domain": "Sustainability",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Low",
-    "alignmentRationale": "This question requires estimation of the AI system's carbon footprint across training and deployment. ISO/IEC 42001 highlights environmental sustainability as a key impact area and notes that AI can contribute to greenhouse gas emissions, supporting the need to understand environmental effects. However, it does not explicitly require per-system carbon-footprint estimates. Thus, the question is consistent with the intent but only partially aligned with explicit requirements.",
-    "citation": "B.9.3 -> p.42",
-    "controlIntent": "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible use of AI systems, including sustainability, and implement mechanisms to achieve those objectives. The guidance notes that reducing environmental impact can involve measures such as procuring renewable energy for data centres and computing infrastructure, selecting cloud providers that use renewable energy, optimising workload scheduling to use energy when renewable sources are available, or participating in carbon offset programs to compensate for unavoidable emissions. These measures demonstrate organisational commitment to sustainability and help mitigate the environmental footprint of AI operations."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as it extends the standard's requirements for documenting environmental impact of hardware and acknowledging computational intensity impacts. While the standard doesn't specifically mention carbon footprint measurement, it does require assessment of environmental impacts that would include carbon emissions.",
+    "controlAlignmentDetails": "B.4.5: Full Alignment, B.5.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29)"
   },
   "SU-5": {
     "domain": "Sustainability",
     "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Low",
-    "alignmentRationale": "This question asks whether algorithms have been specifically optimised to reduce computational resource consumption. ISO/IEC 42001 requires organisations to document tooling resources and understand system and computing resource requirements, and it acknowledges that AI workloads can be resource-intensive with environmental impact. Nonetheless, it does not explicitly require algorithmic optimisation to minimise resource use as a sustainability measure. Therefore, the alignment is partial.",
-    "citation": "B.5.2 -> p.27",
-    "controlIntent": "ISO/IEC 42001 requires that organisations assess potential consequences of AI systems across their life cycle. The guidance notes that lifecycle considerations can extend beyond software to include the production, use and disposal of hardware and infrastructure, such as servers, GPUs, sensors and edge devices. The full environmental impact includes resource extraction, manufacturing energy and emissions, operational energy consumption, cooling requirements and electronic waste from disposal. By conducting lifecycle environmental assessments, organisations gain a comprehensive understanding of environmental impacts and can make more informed decisions about hardware procurement, usage and end-of-life management."
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard mentions environmental impacts of computational intensity but doesn't explicitly address algorithm optimization. While the standard acknowledges the environmental concerns of AI computation, it lacks specific guidance on reducing computational requirements.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment, B.5.5: Partial Alignment, B.4.4: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29; B.4.4 -> p.25",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29); Organizations should document information about their AI system tooling resources, including algorithm types and machine learning models (B.4.4, p.25)"
   },
   "SU-6": {
     "domain": "Sustainability",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "This question focuses on selecting hardware or cloud platforms based on energy efficiency characteristics. ISO/IEC 42001 requires documentation of system and computing resources and notes that organisations should consider the environmental impact of hardware used to run AI workloads, including manufacturing and operation. While this supports factoring energy efficiency into decisions, the standard stops short of mandating that only energy-efficient platforms be used. As a result, the alignment is partial.",
-    "citation": "B.9.3 -> p.42",
-    "controlIntent": "ISO/IEC 42001 notes that if sustainability is identified as an objective for AI systems, organisations should implement mechanisms to achieve it. The guidance notes that strategies to reduce electronic waste and extend hardware lifespan can include maintaining and upgrading existing hardware rather than replacing it, optimising software to run efficiently on older hardware, purchasing durable and repairable equipment, participating in hardware recycling or refurbishment programs, and designing AI systems to be compatible with a range of hardware configurations. These practices reduce resource consumption, lower costs and minimise the environmental impact of AI operations."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses environmental impact of hardware but doesn't specifically mention energy efficiency criteria for hardware selection. The standard acknowledges environmental considerations broadly but lacks specific guidance on energy-efficient hardware.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26)"
   },
   "SU-7": {
     "domain": "Sustainability",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "This question explores how the organisation explicitly balances environmental sustainability goals with performance requirements when designing and operating AI systems. ISO/IEC 42001 notes that AI development and use can significantly affect environmental sustainability and that organisations should consider these impacts alongside other objectives, including safety, but it does not describe specific trade-off frameworks or decision criteria. Because the question focuses on an explicit balancing process that is implied but not detailed in the standard, the alignment is partial.",
-    "citation": "B.5.2 -> p.27; B.5.3 -> p.28; B.5.4 -> p.28",
-    "controlIntent": "ISO/IEC 42001 requires that organisations establish a process for AI system impact assessment to assess potential consequences across the system's life cycle. The guidance notes that assessments should consider not only individual impacts but also broader societal and environmental implications, such as effects on employment, inequality, resource consumption, environmental degradation or community wellbeing. It requires that positive and negative impacts be identified, evaluated and documented, and that mitigation measures be implemented where necessary. By evaluating broader impacts, organisations take a holistic and responsible approach to AI development and deployment."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses both performance requirements and environmental impact separately but doesn't explicitly address balancing these concerns. The standard acknowledges both aspects but lacks guidance on resolving potential conflicts between them.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment, B.6.2.4: Partial Alignment, B.5.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.6.2.4 -> p.33; B.5.5 -> p.29",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); Organizations should evaluate their AI systems against documented criteria including performance requirements (B.6.2.4, p.33); AI development can be computationally intensive with environmental impacts (B.5.5, p.29)"
   },
   "SU-8": {
     "domain": "Sustainability",
     "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Low",
-    "alignmentRationale": "This question asks whether the organisation monitors and tracks environmental impact metrics for AI systems on an ongoing basis. ISO/IEC 42001 requires monitoring, measurement, analysis and evaluation of the AI management system's performance and emphasises environmental sustainability as a relevant impact area, which supports ongoing consideration of environmental effects. However, it does not explicitly require longitudinal tracking of specific environmental metrics for each AI system. Thus, the alignment is partial.",
-    "citation": "B.9.3 -> p.42; B.6.2.4 -> p.33",
-    "controlIntent": "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible development and use of AI systems, which can include sustainability goals such as reducing energy consumption, minimising carbon emissions or improving resource efficiency. It requires that AI systems be evaluated against documented criteria that reflect these objectives, and that organisations monitor performance and take corrective action when objectives are not met. The guidance notes that setting clear, measurable sustainability goals and tracking progress over time demonstrates organisational commitment to environmental responsibility and enables continuous improvement in reducing the environmental impact of AI systems."
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard requires documenting environmental impact but doesn't explicitly address ongoing tracking or monitoring of impact over time. While the standard acknowledges the need to document environmental impacts, it lacks specific requirements for continued monitoring throughout the AI system lifecycle.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment, B.5.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29)"
   }
 }
