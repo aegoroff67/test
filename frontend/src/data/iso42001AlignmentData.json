@@ -3,65 +3,73 @@
     "domain": "Fairness",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to put concrete mechanisms in place to detect and mitigate bias across the AI lifecycle. ISO/IEC 42001 expects organisations that define fairness as an objective to embed measures addressing bias within requirements definition, data handling, model training, evaluation and validation. Because the question directly targets these lifecycle-integrated bias-management practices, it fully aligns with the control's expectations.",
-    "citation": "B.6.1.2 -> p.30; B.5.4 -> p.28; B.9.3 -> p.42",
-    "controlIntent": "ISO/IEC 42001 requires organisations to identify objectives for responsible AI development and use, such as fairness, and to integrate measures to achieve them throughout the development lifecycle. It notes that if fairness is defined as an objective, it should be built into requirements, data handling, training and validation, supported by specific tools or methods to address unfairness or unwanted bias. It also requires assessing and documenting impacts on individuals and groups, including fairness, as part of AI system impact assessments, and treating fairness as a key objective for responsible use of AI systems."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires identifying and mitigating bias throughout multiple sections. The standard requires documenting potential bias issues in data, analyzing AI systems' ability to reinforce unwanted historical social biases, and establishing fairness as a core objective for responsible AI use.",
+    "controlAlignmentDetails": "B.4.3: Full Alignment, B.5.5: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.4.3 -> p.25; B.5.5 -> p.30; B.9.3 -> p.42",
+    "controlIntent": "The organization should document information about its data, including... potential bias issues (B.4.3, p.25); Organizations should analyze... their ability to reinforce unwanted historical social biases (B.5.5, p.30); Organizations should identify and document objectives for responsible use of AI systems, including fairness (B.9.3, p.42)"
   },
   "FA-2": {
     "domain": "Fairness",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks how the organisation checks that training data covers relevant demographic groups and avoids systematic exclusion or disadvantage. ISO/IEC 42001 requires assessment and documentation of impacts on individuals and groups and directs organisations to consider demographic representation when analysing fairness. Since demographic coverage in training data is fundamental to these required impact assessments, the question fully aligns with the control.",
-    "citation": "B.5.3 -> p.28; B.5.4 -> p.28",
-    "controlIntent": "ISO/IEC 42001 states that AI system impact assessments should document, among other items, relevant demographic groups the system applies to, as well as positive and negative impacts on individuals, groups and societies. It further requires assessing and documenting the potential impacts of AI systems on individuals or groups throughout the lifecycle, and specifies that organisations should consider governance principles, AI policies and objectives, as well as protection needs of groups such as children, impaired persons and elderly persons when assessing these impacts, including fairness."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires consideration of data representativeness and demographic factors in data acquisition and documentation. The standard emphasizes evaluating data subject demographics and potential biases as key considerations.",
+    "controlAlignmentDetails": "B.7.2: Full Alignment, B.7.3: Full Alignment",
+    "citation": "B.7.2 -> p.37; B.7.3 -> p.38",
+    "controlIntent": "Implementation guidance for data resources should consider... representativeness of training data (B.7.2, p.37); Data acquisition considerations include... data subject demographics and potential biases (B.7.3, p.38)"
   },
   "FA-3": {
     "domain": "Fairness",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires organisations to examine AI system outputs for unequal outcomes across different user groups. ISO/IEC 42001 instructs organisations to evaluate AI systems against fairness-related criteria and to assess impacts on individuals and groups. Because identifying disparities in outcomes is central to determining whether fairness objectives are being met, the question fully aligns with the control's evaluation requirements.",
-    "citation": "B.5.4 -> p.28; B.6.2.4 -> p.33",
-    "controlIntent": "ISO/IEC 42001 requires organisations to assess and document potential impacts of AI systems on individuals or groups of individuals throughout the system's life cycle, considering fairness and expectations about trustworthiness. It also specifies that AI systems should be evaluated against documented criteria, which can include responsible-AI objectives such as those in B.6.1.2 and B.9.3, and that if the system cannot meet these criteria the organisation should reconsider intended use, performance requirements and how to address impacts on individuals and societies."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires assessing AI system impacts on different demographic groups and documenting this in impact assessments. The standard specifically requires organizations to document which relevant demographic groups could be affected.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.5.4: Full Alignment",
+    "citation": "B.5.3 -> p.28; B.5.4 -> p.28",
+    "controlIntent": "Organizations should consider documenting... which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28); Organizations should assess and document the potential impacts on individuals or groups of individuals throughout the lifecycle of AI systems (B.5.4, p.28)"
   },
   "FA-4": {
     "domain": "Fairness",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks the organisation to define fairness in measurable terms and to use explicit criteria or metrics to evaluate outputs. ISO/IEC 42001 requires responsible-AI objectives such as fairness to be defined and operationalised through documented criteria and for AI systems to be evaluated against those criteria, with deficiencies addressed. As the question directly targets the establishment and use of fairness metrics, it fully aligns with the control.",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as it addresses measuring fairness, which is implied by the standard's requirements for evaluation and fairness objectives. While ISO 42001 doesn't detail specific fairness metrics, this question appropriately extends the standard's requirements by asking about specific measurement approaches that would be necessary to implement the required fairness objectives.",
+    "controlAlignmentDetails": "B.9.3: Full Alignment, B.6.2.4: Partial Alignment",
     "citation": "B.9.3 -> p.42; B.6.2.4 -> p.33",
-    "controlIntent": "ISO/IEC 42001 states that organisations should identify and document objectives for responsible use of AI systems, explicitly listing fairness among them, and then implement mechanisms to achieve those objectives. It also requires that AI systems be evaluated against documented evaluation criteria, which can be based on responsible-AI objectives such as those in B.6.1.2 and B.9.3, and that if the system cannot meet these criteria, the organisation should reconsider or manage the deficiencies and resulting impacts."
+    "controlIntent": "Organizations should identify and document objectives for responsible use of AI systems, including fairness (B.9.3, p.42); Evaluation plan criteria [should include]... responsible AI development objectives (B.6.2.4, p.33)"
   },
   "FA-5": {
     "domain": "Fairness",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to test for fairness and bias under realistic operating conditions rather than only in controlled development environments. ISO/IEC 42001 requires assessment of consequences of AI system behaviour across contexts of use, including predictable failures and differing impacts on individuals and groups. Real-world fairness evaluation directly supports these expectations, so the question fully aligns with the control.",
-    "citation": "B.5.2 -> p.27; B.5.4 -> p.28; B.6.2.4 -> p.33",
-    "controlIntent": "ISO/IEC 42001 requires that organisations establish an AI system impact assessment process to assess potential consequences for individuals, groups and societies across the system's life cycle, including identifying sources, events, outcomes, likelihood and mitigation measures. It also notes that documented impact assessments should consider positive and negative impacts, predictable failures and relevant demographic groups, and that evaluation plans for AI systems should be based on operational factors such as data quality, intended use and acceptable performance ranges when assessing system performance and its impacts."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires validation testing and performance evaluation, including assessing impacts in realistic usage contexts. The standard specifically mentions testing AI systems before deployment and monitoring them during operation for impacts including bias.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.6.2.5: Partial Alignment, B.9.4: Full Alignment",
+    "citation": "B.6.2.4 -> p.33; B.6.2.5 -> p.33; B.9.4 -> p.43",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Organizations should document how they plan to deploy their AI systems in test, development, and production environments (B.6.2.5, p.33); Monitoring considerations for AI systems... [include] monitoring AI system performance and accuracy (B.9.4, p.43)"
   },
   "FA-6": {
     "domain": "Fairness",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on the use of specific tools or frameworks to assess and mitigate bias. ISO/IEC 42001 requires that appropriate testing tools or methods be integrated into the development lifecycle where fairness is an objective but remains agnostic about which tools are used. Because the question emphasises a particular implementation (named tools) rather than the broader requirement to embed fairness measures throughout the lifecycle, the alignment is partial.",
-    "citation": "B.6.1.2 -> p.30",
-    "controlIntent": "ISO/IEC 42001 explains that when an organisation defines fairness as an objective for responsible AI development, this objective should be incorporated into requirements, data acquisition, data conditioning, model training, verification and validation. It further notes that measures should be integrated at various stages, such as requiring use of specific testing tools or methods to address unfairness or unwanted bias, but it does not prescribe which tools must be used."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as it extends the standard's requirements for bias mitigation and documentation of tooling resources. While ISO 42001 doesn't mention specific fairness tools like Fairlearn, this question appropriately implements the standard's requirements by asking about the specific tooling used to achieve the required fairness objectives.",
+    "controlAlignmentDetails": "B.4.4: Partial Alignment, B.9.3: Full Alignment",
+    "citation": "B.4.4 -> p.25; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document information about their AI system tooling resources, including... algorithm types and machine learning models, data conditioning tools, [and] evaluation methods (B.4.4, p.25); Organizations should identify and document objectives for responsible use of AI systems, including fairness (B.9.3, p.42)"
   },
   "FA-7": {
     "domain": "Fairness",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks whether fairness protections are explicitly extended to minority or underserved groups. ISO/IEC 42001 requires assessment of AI system impacts on different groups, including those with specific protection needs, as part of fairness and accessibility objectives. Since the question directly targets group-specific fairness considerations that the standard highlights, it fully aligns with the control.",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires considering vulnerable and underrepresented groups. The standard specifically mentions protecting vulnerable groups, which directly aligns with ensuring fairness for minority or underserved populations.",
+    "controlAlignmentDetails": "B.5.4: Full Alignment, B.9.3: Full Alignment",
     "citation": "B.5.4 -> p.28; B.9.3 -> p.42",
-    "controlIntent": "ISO/IEC 42001 states that when assessing AI system impacts on individuals or groups, organisations should consider their governance principles, AI policies and objectives, as well as expectations about trustworthiness. It specifically notes that protection needs of certain groups, such as children, impaired persons and elderly persons, should be taken into account and that areas of impact to consider can include fairness. It also lists fairness and accessibility among example objectives for responsible use of AI systems."
+    "controlIntent": "Organizations should consider their governance principles and protection needs of vulnerable groups like children, elderly persons, and impaired persons (B.5.4, p.28); Organizations should identify and document objectives for responsible use of AI systems, including fairness [and] accessibility (B.9.3, p.42)"
   },
   "FA-8": {
     "domain": "Fairness",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question checks whether fairness is built into design and development processes rather than treated as a reactive, post-deployment concern. ISO/IEC 42001 requires fairness objectives to be incorporated into design and development processes and for measures supporting those objectives to be integrated across the lifecycle. Because the question explicitly distinguishes proactive integration from purely reactive approaches, it fully aligns with the control.",
-    "citation": "A.6.1.2 -> p.18; B.6.1.2 -> p.30",
-    "controlIntent": "ISO/IEC 42001 requires organisations to identify and document objectives to guide responsible development of AI systems and to integrate measures to achieve those objectives within the development life cycle. It notes that if fairness is one such objective, it should be incorporated into requirements specification, data acquisition and conditioning, model training, verification and validation. The Annex A control on objectives for responsible development also requires that these objectives be taken into account when designing and developing AI systems."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires integrating fairness throughout the AI lifecycle, from design requirements through development to deployment and monitoring. The standard explicitly mentions incorporating fairness objectives into requirements and development processes.",
+    "controlAlignmentDetails": "B.6.1.3: Full Alignment, B.6.1.2: Full Alignment, B.6.2.6: Partial Alignment",
+    "citation": "B.6.1.3 -> p.30; B.6.1.2 -> p.30; B.6.2.6 -> p.36",
+    "controlIntent": "The organization should incorporate its responsible development objectives (see B.6.1.2) into its requirements and development processes (B.6.1.3, p.30); Organizations should identify and document objectives for responsible development of AI systems, including fairness (B.6.1.2, p.30); Organizations should document processes for monitoring AI system health (observability) (B.6.2.6, p.36)"
   },
   "TR-1": {
     "domain": "Transparency",
@@ -69,14 +77,14 @@
     "confidenceLevel": "High",
     "alignmentRationale": "This question requires the organisation to describe how clearly and comprehensively it communicates what the AI system does, how it works and where its limitations lie. ISO/IEC 42001 requires organisations to determine and provide necessary information so that users and stakeholders understand when they are interacting with an AI system, its intended purpose, potential harms or benefits, limitations and operational requirements. Because the question directly tests whether this information is being communicated at an appropriate level of detail, it fully aligns with the control.",
     "citation": "A.8.2 -> p.19; B.8.2 -> p.40; B.6.2.7 -> p.35",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system. The guidance explains that, despite system complexity, users should be able to understand when they are interacting with an AI system, how it works, its intended purpose, potential harms and benefits, limitations, operational requirements and how to override it. It also notes that technical documentation for the AI system should be prepared for relevant categories of interested parties—such as users, partners and supervisory authorities—and can include descriptions of the system, usage instructions, technical assumptions, limitations, and monitoring capabilities."
+    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system. The guidance explains that, despite system complexity, users should be able to understand when they are interacting with an AI system, how it works, its intended purpose, potential harms and benefits, limitations, operational requirements and how to override it. It also notes that technical documentation for the AI system should be prepared for relevant categories of interested parties\u2014such as users, partners and supervisory authorities\u2014and can include descriptions of the system, usage instructions, technical assumptions, limitations, and monitoring capabilities."
   },
   "TR-2": {
     "domain": "Transparency",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question asks whether the organisation systematically documents data sources, algorithms and lifecycle processes to support accountability and auditability. ISO/IEC 42001 requires documentation of AI system design and development, verification and validation measures, deployment, operation and monitoring, and it mandates defined data management processes including acquisition, selection, quality requirements and provenance. As the question focuses on the same structured documentation, it fully aligns with the control.",
-    "citation": "A.6.2.3 -> p.19; A.6.2.4 -> p.19; A.6.2.5 -> p.19; A.6.2.6 -> p.19; A.7.2–A.7.6 -> p.19; B.6.2.7 -> p.35",
+    "citation": "A.6.2.3 -> p.19; A.6.2.4 -> p.19; A.6.2.5 -> p.19; A.6.2.6 -> p.19; A.7.2\u2013A.7.6 -> p.19; B.6.2.7 -> p.35",
     "controlIntent": "ISO/IEC 42001 states that organisations shall document AI system design and development based on objectives and requirements, define and document verification and validation measures and their criteria, document deployment plans, and define and document elements needed for ongoing operation such as monitoring, repairs and updates. It also requires defining, documenting and implementing data management processes, documenting details of data acquisition and selection, specifying data quality requirements, recording data provenance and documenting criteria and methods for data preparation. The technical documentation guidance notes that documentation can include design and architecture, information about data used during development and other lifecycle artefacts."
   },
   "TR-3": {
@@ -149,7 +157,7 @@
     "confidenceLevel": "High",
     "alignmentRationale": "This question asks whether explanation content and format are tailored to different audiences such as end-users, regulators or technical teams. ISO/IEC 42001 requires organisations to determine what information and technical documentation are needed for each category of interested party and to provide it in appropriate form, and it defines explainability as providing understandable explanations of important factors influencing AI results. Because the question checks whether explanation formats are adapted to audience needs, it fully aligns with the control, although the mapping is somewhat interpretive.",
     "citation": "B.6.1.2 -> p.30",
-    "controlIntent": "ISO/IEC 42001 explains that when an organisation defines objectives for responsible AI development—such as explainability or transparency—these objectives should be incorporated into requirements specification, data acquisition and conditioning, model training, verification and validation. It notes that measures to achieve these objectives can be integrated at various lifecycle stages, including the selection of algorithms or architectures, and the use of specific testing or interpretability tools. However, the standard does not mandate particular technical approaches; it expects that the organisation will choose methods appropriate to its context and objectives."
+    "controlIntent": "ISO/IEC 42001 explains that when an organisation defines objectives for responsible AI development\u2014such as explainability or transparency\u2014these objectives should be incorporated into requirements specification, data acquisition and conditioning, model training, verification and validation. It notes that measures to achieve these objectives can be integrated at various lifecycle stages, including the selection of algorithms or architectures, and the use of specific testing or interpretability tools. However, the standard does not mandate particular technical approaches; it expects that the organisation will choose methods appropriate to its context and objectives."
   },
   "EX-4": {
     "domain": "Explainability",
@@ -189,7 +197,7 @@
     "confidenceLevel": "High",
     "alignmentRationale": "This question asks whether explanations are tailored to the needs of different stakeholder groups such as end-users, regulators and internal teams. ISO/IEC 42001 requires organisations to determine what technical documentation and information are needed for each relevant category of interested party and to provide it appropriately, and it defines explainability as providing understandable explanations to interested parties. As the question directly tests whether explanations are differentiated by group, it fully aligns with the control.",
     "citation": "B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system, and that this information should help users understand how the system works, its purpose, potential impacts and limitations, as well as how to override or query it. While the standard does not specify the technical means of delivering this information, providing explanations directly within the user interface—where and when users are interacting with the system—can improve accessibility and support better understanding and decision-making. This approach aligns with the standard's emphasis on enabling users to effectively and safely use the AI system."
+    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system, and that this information should help users understand how the system works, its purpose, potential impacts and limitations, as well as how to override or query it. While the standard does not specify the technical means of delivering this information, providing explanations directly within the user interface\u2014where and when users are interacting with the system\u2014can improve accessibility and support better understanding and decision-making. This approach aligns with the standard's emphasis on enabling users to effectively and safely use the AI system."
   },
   "AC-1": {
     "domain": "Accountability",
@@ -349,7 +357,7 @@
     "confidenceLevel": "Medium",
     "alignmentRationale": "This question requires the organisation to define clear, measurable reliability metrics and use them to evaluate system performance. ISO/IEC 42001 requires definition of verification and validation measures, specification of criteria for their use and inclusion of reliability and safety requirements, acceptable error rates and evaluation metrics in the evaluation criteria. Since the question focuses on defining and using such reliability metrics, it fully aligns with the control.",
     "citation": "A.7.5 -> p.19; A.7.6 -> p.19; B.7.4 -> p.38",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring, including maintenance, updates and performance tracking. It notes that AI systems may experience performance degradation due to changes in data distributions, operational environments or user behaviour—a phenomenon sometimes called model drift. The standard requires that organisations monitor for such degradation, assess associated risks and take corrective action, which can include retraining the model on updated data, adjusting parameters or modifying the system design. Documentation of updates and their impacts should also be maintained."
+    "controlIntent": "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring, including maintenance, updates and performance tracking. It notes that AI systems may experience performance degradation due to changes in data distributions, operational environments or user behaviour\u2014a phenomenon sometimes called model drift. The standard requires that organisations monitor for such degradation, assess associated risks and take corrective action, which can include retraining the model on updated data, adjusting parameters or modifying the system design. Documentation of updates and their impacts should also be maintained."
   },
   "RE-5": {
     "domain": "Reliability",
@@ -469,7 +477,7 @@
     "confidenceLevel": "Medium",
     "alignmentRationale": "This question examines mechanisms for obtaining, recording and managing user consent for data collection and processing in AI systems. ISO/IEC 42001 highlights privacy as a key responsible-use objective and requires that responsibilities for processing PII reflect applicable privacy requirements, which generally include lawful-basis concepts such as consent. However, it does not describe consent workflows, logging mechanisms or consent management explicitly. Because the question is more detailed than the standard in this area, the alignment is partial.",
     "citation": "A.7.2 -> p.19; B.7.2 -> p.37",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document data management processes, including data acquisition and selection. The guidance notes that organisations should document the rationale for including or excluding certain data and should consider principles such as data minimisation—collecting only data that is necessary, relevant and adequate for the intended purpose. Data minimisation reduces privacy risks, limits exposure in case of breaches, simplifies compliance with privacy regulations and improves system efficiency. The standard references privacy frameworks such as GDPR, which mandates data minimisation as a core principle."
+    "controlIntent": "ISO/IEC 42001 requires that organisations define and document data management processes, including data acquisition and selection. The guidance notes that organisations should document the rationale for including or excluding certain data and should consider principles such as data minimisation\u2014collecting only data that is necessary, relevant and adequate for the intended purpose. Data minimisation reduces privacy risks, limits exposure in case of breaches, simplifies compliance with privacy regulations and improves system efficiency. The standard references privacy frameworks such as GDPR, which mandates data minimisation as a core principle."
   },
   "PR-4": {
     "domain": "Privacy",
