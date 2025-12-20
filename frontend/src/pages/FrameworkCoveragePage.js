@@ -86,9 +86,9 @@ const FRAMEWORKS = [
 
 // Placeholder data for charts - grouped bar chart format
 const generatePlaceholderData = () => [
-  { category: 'Strong', inherent: 58, achieved: 39 },
-  { category: 'Moderate', inherent: 24, achieved: 32 },
-  { category: 'Weak', inherent: 8, achieved: 13 },
+  { category: 'Strong Coverage', inherent: 58, achieved: 39 },
+  { category: 'Moderate Coverage', inherent: 24, achieved: 32 },
+  { category: 'Weak Coverage', inherent: 8, achieved: 13 },
   { category: 'No Coverage', inherent: 10, achieved: 16 }
 ];
 
