@@ -162,6 +162,14 @@ function App() {
               } 
             />
             <Route 
+              path="/framework-coverage/:id" 
+              element={
+                <ProtectedRoute>
+                  <FrameworkCoveragePage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/faira-results/:id" 
               element={
                 <ProtectedRoute>
