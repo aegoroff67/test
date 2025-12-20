@@ -19,6 +19,7 @@ import SettingsPage from './pages/SettingsPage';
 import ReviewAssessmentPage from './pages/ReviewAssessmentPage';
 import AssessmentPage from './pages/AssessmentPage';
 import ResultsPage from './pages/ResultsPage';
+import FrameworkCoveragePage from './pages/FrameworkCoveragePage';
 
 // Import context
 import { AuthProvider, useAuth } from './context/AuthContext';
