@@ -433,67 +433,75 @@
   },
   "SE-1": {
     "domain": "Security",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks about concrete safeguards such as access controls, encryption and tamper protection for AI models and data. ISO/IEC 42001 requires organisations to identify AI-specific information security threats across the AI lifecycle, including data poisoning, model stealing and model inversion, and to manage these risks as part of trustworthiness. However, it does not prescribe specific mechanisms like particular access-control patterns or tamper-proof storage. Because the question focuses on implementation details that are consistent with, but not explicitly required by, the standard, the alignment is partial.",
-    "citation": "B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated data from unauthorised access, disclosure, modification, destruction or interference. The guidance notes that controls can include access management, authentication, authorisation, encryption, secure configuration, network security, audit logging and intrusion detection. The standard references ISO/IEC 27001 and ISO/IEC 27002 for comprehensive information security practices and notes that security considerations should be integrated throughout the AI lifecycle, from design and development to deployment and operation."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly addresses information security for AI systems, including protection against unauthorized access and tampering. The standard identifies security as a core objective and requires security considerations throughout the AI lifecycle.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.7.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.6.2.6 -> p.34; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document AI-specific information security threats (B.6.2.6, p.34); Implementation guidance for data resources should consider privacy and security implications of sensitive data, security and safety threats from data-dependent AI development (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
   },
   "SE-2": {
     "domain": "Security",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question examines how the organisation identifies and mitigates adversarial attacks designed to manipulate model outputs. ISO/IEC 42001 requires identification and management of AI-specific security threats, including data poisoning and other attacks that affect model behaviour, and expects security considerations to be integrated into design and development. It does not, however, mandate specific adversarial training or detection techniques. As a result, the question is consistent with the risk-management intent but only partially aligned with explicit requirements.",
-    "citation": "A.6.2.4 -> p.19; B.6.2.5 -> p.34; B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document verification and validation measures and their evaluation criteria, and apply these during AI system development. The guidance notes that verification and validation should include testing for security vulnerabilities, robustness against attacks and compliance with security requirements. It also notes that AI-specific risks, including adversarial attacks and security threats, should be identified and assessed. While the standard does not explicitly mandate penetration testing, the requirements for comprehensive validation and security controls support the use of such testing methods to identify and address vulnerabilities before deployment."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly mentions security threats specific to AI systems, including adversarial attacks. The standard specifically addresses data poisoning and model stealing as security threats that must be documented.",
+    "controlAlignmentDetails": "B.6.2.3: Full Alignment, B.7.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.6.2.3 -> p.32; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document security threats (like data poisoning and model stealing) (B.6.2.3, p.32); Implementation guidance for data resources should consider security and safety threats from data-dependent AI development (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
   },
   "SE-3": {
     "domain": "Security",
-    "alignmentType": "Partially Aligns",
+    "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks about periodic security audits and penetration tests focused on AI systems. ISO/IEC 42001 requires organisations to manage security concerns throughout the AI lifecycle and to define testing, verification and release criteria, but it does not specifically require penetration testing or formal security audits of AI systems. Therefore, the question reflects a stronger practice than the minimum requirements, leading to partial alignment.",
-    "citation": "B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated assets from unauthorised access, disclosure, modification or theft. The guidance notes that AI models, algorithms and training data can be valuable intellectual property and may be targets for theft or reverse engineering. Controls can include access restrictions, encryption, obfuscation, secure deployment environments, legal agreements and monitoring for unauthorised use. The standard references ISO/IEC 27001 for comprehensive guidance on protecting information assets, including intellectual property."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses security monitoring and evaluation broadly but doesn't specifically mention security audits or penetration testing. While the standard requires identifying security threats and implementing security measures, it lacks specific guidance on security testing methodologies.",
+    "controlAlignmentDetails": "B.6.2.6: Partial Alignment, B.3.2: Partial Alignment, B.9.3: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.3.2 -> p.23; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document AI-specific information security threats (B.6.2.6, p.34); Organizations should define roles and responsibilities related to AI systems for security (B.3.2, p.23); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
   },
   "SE-4": {
     "domain": "Security",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on end-to-end security controls protecting the AI model during training, deployment and operation. ISO/IEC 42001 requires documentation of design and development, including security threats, and mandates structured deployment, operation and monitoring processes that account for trustworthiness concerns such as security. However, it does not prescribe concrete mechanisms such as encrypted artefacts, secure training environments or hardened deployment pipelines. Because the question focuses on those implementation specifics, the alignment is partial.",
-    "citation": "B.10.1 -> p.43; B.10.2 -> p.44; B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 requires that organisations establish and maintain a process for managing AI incidents, which includes identifying, recording, investigating, analysing and responding to incidents such as security breaches, unauthorised access or cyber attacks. The guidance notes that organisations should implement monitoring mechanisms to detect security incidents, have procedures for responding promptly and effectively, and document incidents and their resolution. The standard also notes that security controls should include audit logging, intrusion detection and incident response capabilities. It references ISO/IEC 27001 and ISO/IEC 27035 for detailed guidance on information security incident management."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard addresses security throughout the AI lifecycle, including training, deployment, and operation phases. The standard requires security considerations at each stage of the AI system.",
+    "controlAlignmentDetails": "B.6.2.3: Full Alignment, B.6.2.5: Partial Alignment, B.6.2.6: Full Alignment",
+    "citation": "B.6.2.3 -> p.32; B.6.2.5 -> p.33; B.6.2.6 -> p.34",
+    "controlIntent": "Organizations should document security threats (like data poisoning and model stealing) [during design and training] (B.6.2.3, p.32); Organizations should document how they plan to deploy their AI systems in test, development, and production environments (B.6.2.5, p.33); Organizations should document AI-specific information security threats [during operation] (B.6.2.6, p.34)"
   },
   "SE-5": {
     "domain": "Security",
-    "alignmentType": "Partially Aligns",
+    "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks about safeguards such as access restrictions, version control and integrity checks to prevent unauthorised model changes. ISO/IEC 42001 requires documenting AI system resources and considering AI-specific security threats, including tampering, but it does not explicitly require particular integrity-preservation controls. As the question reflects one way to address these risks rather than a stated requirement, the alignment is partial.",
-    "citation": "A.5.4 -> p.17; B.6.2.5 -> p.34; B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 requires organisations to establish a process for assessing AI risks and opportunities, and to plan actions to address them. The guidance notes that AI-specific risks can include adversarial attacks, such as evasion attacks that cause misclassification, model inversion attacks that extract training data, and poisoning attacks that corrupt training data. The standard requires that verification and validation activities consider robustness against such attacks and that security controls be implemented to detect and mitigate them. While specific attack types are not exhaustively listed, the requirements for risk assessment and security testing provide a framework for addressing adversarial threats."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses security broadly but doesn't specifically mention safeguards against unauthorized model modifications. While the standard requires security measures that would logically include such safeguards, it lacks specific guidance on protecting AI models from unauthorized changes.",
+    "controlAlignmentDetails": "B.6.2.6: Partial Alignment, B.9.3: Partial Alignment, B.3.2: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.9.3 -> p.42; B.3.2 -> p.23",
+    "controlIntent": "Organizations should document AI-specific information security threats (B.6.2.6, p.34); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should define roles and responsibilities related to AI systems for security (B.3.2, p.23)"
   },
   "SE-6": {
     "domain": "Security",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on specific protective measures against adversarial input manipulation and other attacks targeting model behaviour. ISO/IEC 42001 requires identification and management of AI-specific security threats and incorporation of those threats into lifecycle processes, but it does not mandate particular adversarial defence techniques. Because the question emphasises implementation-level defences that the standard leaves open, the alignment is partial.",
-    "citation": "A.6.2.3 -> p.19; B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 requires that organisations document AI system design and development, including security considerations. The guidance notes that secure development practices, such as code reviews, static and dynamic analysis, secure coding standards, dependency management and vulnerability scanning, should be applied to AI system development. It also notes that third-party components, libraries and frameworks should be assessed for security risks and that their use should be controlled and documented. The standard references ISO/IEC 27001 and secure software development standards such as ISO/IEC 27034 for detailed guidance on integrating security into the development lifecycle."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly addresses adversarial attacks as a security threat. The standard specifically mentions data poisoning, which is a form of input manipulation attack.",
+    "controlAlignmentDetails": "B.6.2.3: Full Alignment, B.7.2: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.6.2.3 -> p.32; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document security threats (like data poisoning and model stealing) (B.6.2.3, p.32); Implementation guidance for data resources should consider security and safety threats from data-dependent AI development (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
   },
   "SE-7": {
     "domain": "Security",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks about concrete controls such as encryption or tokenisation to protect sensitive data handled in AI pipelines. ISO/IEC 42001 expects organisations to treat privacy and security as responsible-use objectives and to apply appropriate controls for processing PII, typically by reference to separate privacy and information security standards. It does not explicitly require specific techniques like encryption or tokenisation in the AI standard itself. As the question addresses implementation choices consistent with but not mandated by the control, the alignment is partial.",
-    "citation": "B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 states that organisations should implement security controls, including access management, to protect AI systems and associated data. The guidance notes that controls can include authentication and authorisation mechanisms, role-based access control, least privilege principles and audit logging of access and changes. By restricting access to training data, models and infrastructure to authorised personnel and maintaining logs of who accessed what and when, organisations protect against unauthorised use, accidental or malicious modification and insider threats. The standard references ISO/IEC 27001 and ISO/IEC 27002 for comprehensive guidance on access control and audit logging practices."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly addresses privacy and security for sensitive data used in AI systems. The standard requires consideration of privacy and security implications throughout data management processes.",
+    "controlAlignmentDetails": "B.7.2: Full Alignment, B.9.3: Full Alignment, B.4.3: Partial Alignment",
+    "citation": "B.7.2 -> p.37; B.9.3 -> p.42; B.4.3 -> p.25",
+    "controlIntent": "Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should document information about their data, including data rights (PII, copyright) (B.4.3, p.25)"
   },
   "SE-8": {
     "domain": "Security",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "This question evaluates whether the organisation conducts recurring vulnerability assessments and penetration tests specifically for AI systems. ISO/IEC 42001 requires security concerns to be managed throughout the AI lifecycle and testing and evaluation processes to be defined, but it does not explicitly mandate vulnerability scanning or penetration testing. Consequently, the question reflects a stronger assurance practice than the baseline standard, resulting in partial alignment.",
-    "citation": "B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated data from unauthorised access, disclosure, modification or destruction. The guidance notes that encryption is an important control for protecting sensitive data, both when stored (at rest) and when transmitted (in transit). Encryption helps ensure that even if data is intercepted or accessed without authorisation, it cannot be read or used by unauthorised parties. The standard references ISO/IEC 27001 and ISO/IEC 27002 for detailed guidance on encryption and cryptographic controls, including key management, algorithm selection and secure implementation practices."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses security evaluation broadly but doesn't specifically mention vulnerability assessments or penetration tests. While the standard requires identifying security threats and implementing security measures, it lacks specific guidance on security testing methodologies.",
+    "controlAlignmentDetails": "B.6.2.6: Partial Alignment, B.9.3: Partial Alignment, B.3.2: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.9.3 -> p.42; B.3.2 -> p.23",
+    "controlIntent": "Organizations should document AI-specific information security threats (B.6.2.6, p.34); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should define roles and responsibilities related to AI systems for security (B.3.2, p.23)"
   },
   "PR-1": {
     "domain": "Privacy",
