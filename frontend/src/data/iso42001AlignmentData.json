@@ -219,65 +219,73 @@
     "domain": "Accountability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to define responsibilities, processes and documentation for managing AI system failures and ensuring accountability when things go wrong. ISO/IEC 42001 requires roles and responsibilities for AI systems to be defined and allocated and calls for documentation of operation and monitoring, including handling repairs, failures and updates, as well as plans for managing failures and notifying users. Because the question addresses these structured accountability arrangements, it fully aligns with the control.",
-    "citation": "A.5.3 -> p.17; B.4 -> p.26",
-    "controlIntent": "ISO/IEC 42001 states that top management shall ensure that roles, responsibilities and authorities for the AI management system are assigned, communicated and understood within the organisation. The guidance notes that organisations should define and document roles such as AI system owner, data steward, model developer and compliance officer, and should clarify the responsibilities of each role in relation to AI governance, development, operation and oversight. This ensures that there is clear accountability for decisions and actions throughout the AI lifecycle."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly establishes accountability as a core objective and requires defining responsibilities for AI system management, including handling failures. The standard requires processes for handling deviations and exceptions.",
+    "controlAlignmentDetails": "B.3.1: Full Alignment, B.3.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.3.1 -> p.23; B.3.2 -> p.23; B.9.3 -> p.42",
+    "controlIntent": "Objective: To establish accountability for AI systems (B.3.1, p.23); Organizations should define roles and responsibilities related to AI systems for risk management, security, safety, development, performance, human oversight (B.3.2, p.23); Organizations should identify and document objectives for responsible use of AI systems, including accountability (B.9.3, p.42)"
   },
   "AC-2": {
     "domain": "Accountability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks whether formal governance mechanisms, such as oversight boards or committees, are in place to oversee AI systems and their outcomes. ISO/IEC 42001 requires establishing accountability within the organisation for implementing, operating and managing AI systems, defines AI-related roles and responsibilities and expects top management to assign and communicate relevant authorities. These requirements support formal oversight structures, so the question fully aligns with the control.",
-    "citation": "A.5.1 -> p.17; B.5.1 -> p.27",
-    "controlIntent": "ISO/IEC 42001 requires top management to demonstrate leadership and commitment to the AI management system, including establishing AI policies and ensuring that resources are available. It also requires organisations to establish a process for AI system impact assessment, which can involve reviewing systems for ethical, legal and societal implications. While the standard does not explicitly require ethics boards or oversight committees, it emphasises the importance of governance, accountability and stakeholder involvement, which many organisations address by creating dedicated review bodies to oversee AI development and deployment."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires establishing clear governance structures and defining roles for AI oversight. The standard specifically addresses monitoring AI outcomes as part of human oversight and operations.",
+    "controlAlignmentDetails": "B.3.2: Full Alignment, B.9.4: Full Alignment, A.3.2: Full Alignment",
+    "citation": "B.3.2 -> p.23; B.9.4 -> p.43; A.3.2 -> p.17",
+    "controlIntent": "Organizations should define roles and responsibilities related to AI systems (B.3.2, p.23); Oversight activities include monitoring AI system performance and accuracy, reporting concerns about outputs and impacts (B.9.4, p.43); AI roles and responsibilities shall be defined and allocated (A.3.2, p.17)"
   },
   "AC-3": {
     "domain": "Accountability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question focuses on whether there are defined escalation policies and processes when significant AI-related issues or concerns are identified. ISO/IEC 42001 requires processes for reporting concerns about the organisation's role with respect to AI systems and guidance that reporting mechanisms should allow escalation to management and protect reporters. It also requires documented plans for communicating incidents to users and determining which incidents must be communicated. Because the question directly targets these escalation arrangements, it fully aligns with the control.",
-    "citation": "B.8.2 -> p.40; B.10.2 -> p.44",
-    "controlIntent": "ISO/IEC 42001 states that information provided to users should include how to override, query or challenge the AI system, recognising that users may need mechanisms to contest decisions or outputs. It also requires organisations to establish and maintain a process for managing AI incidents, which can include handling complaints, investigating issues and taking corrective action. These requirements ensure that users and affected parties have recourse when they believe an AI system has made an error or caused harm, supporting accountability and trust."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires establishing reporting mechanisms for concerns and issues with AI systems. The standard details requirements for escalation processes, timelines, and resolution.",
+    "controlAlignmentDetails": "B.3.3: Full Alignment, B.8.3: Full Alignment, B.8.4: Full Alignment",
+    "citation": "B.3.3 -> p.23; B.8.3 -> p.40; B.8.4 -> p.41",
+    "controlIntent": "Organizations should establish a process to report concerns about AI systems including timely escalation to management (B.3.3, p.23); Organizations should provide capabilities for interested parties to report adverse impacts of the system (B.8.3, p.40); Organizations should document a plan for communicating incidents including timeline for notification (B.8.4, p.41)"
   },
   "AC-4": {
     "domain": "Accountability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks about structured mechanisms for handling and resolving customer complaints or disputes about AI decisions, potentially including appeals and human review. ISO/IEC 42001 requires processes for interested parties to report concerns or adverse impacts and for organisations to determine obligations to report information about AI systems and communicate incidents. While these requirements support receiving and responding to complaints, they do not explicitly mandate detailed dispute-resolution workflows or appeal rights. As a result, the alignment is partial.",
-    "citation": "A.9.2 -> p.20",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall conduct internal audits at planned intervals to provide information on whether the AI management system conforms to the organisation's own requirements and the requirements of the standard, and is effectively implemented and maintained. The guidance notes that audits should cover AI policies, processes, controls and system performance, and may include reviews of compliance with legal and ethical obligations. Regular audits support accountability by providing assurance that AI systems are being developed and used responsibly and in line with organisational and regulatory expectations."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires processes for addressing customer concerns and reporting mechanisms for external parties. The standard specifically addresses handling reports of adverse impacts.",
+    "controlAlignmentDetails": "B.8.3: Full Alignment, B.10.4: Full Alignment, B.3.3: Partial Alignment",
+    "citation": "B.8.3 -> p.40; B.10.4 -> p.45; B.3.3 -> p.23",
+    "controlIntent": "Organizations should provide capabilities for interested parties to report adverse impacts of the system (B.8.3, p.40); Organizations should understand customer expectations, recognize the complexity of supplier-customer relationships, identify risks related to AI products/services (B.10.4, p.45); Organizations should establish a process with appropriate investigation and resolution powers (B.3.3, p.23)"
   },
   "AC-5": {
     "domain": "Accountability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question examines whether AI governance roles and responsibilities are clearly defined, documented and communicated across technical, legal and operational teams. ISO/IEC 42001 requires roles and responsibilities for AI to be defined and allocated, calls for responsibilities to be specified to a level that enables individuals to perform their duties, and requires top management to ensure that responsibilities and authorities are assigned and communicated. It also expects responsibilities across the AI system lifecycle to be documented between the organisation and external parties. Because the question directly reflects these expectations, it fully aligns with the control.",
-    "citation": "A.5.3 -> p.17; B.9.4 -> p.42",
-    "controlIntent": "ISO/IEC 42001 requires organisations to assign and communicate roles, responsibilities and authorities for the AI management system and AI system activities. It also notes that human oversight of AI systems should be maintained, with consideration given to the extent and nature of oversight required depending on the system's characteristics and impacts. The standard emphasises that accountability should not be delegated entirely to automated systems; instead, individuals within the organisation should be responsible for decisions about AI development, deployment and use, and for addressing any harms or failures that occur."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires defining and allocating AI roles and responsibilities. This is a fundamental requirement stated in multiple sections.",
+    "controlAlignmentDetails": "A.3.2: Full Alignment, B.3.2: Full Alignment, B.10.2: Full Alignment",
+    "citation": "A.3.2 -> p.17; B.3.2 -> p.23; B.10.2 -> p.44",
+    "controlIntent": "AI roles and responsibilities shall be defined and allocated (A.3.2, p.17); Organizations should define roles and responsibilities for numerous areas including risk management, AI system impact assessments, security, safety, development, performance (B.3.2, p.23); Organizations should document and allocate responsibilities between all parties involved in AI systems (B.10.2, p.44)"
   },
   "AC-6": {
     "domain": "Accountability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to designate accountable owners for monitoring and managing the AI system from development through deployment and operation. ISO/IEC 42001 requires documentation of operational elements such as system and performance monitoring, repairs, updates and support, and guidance on documenting roles responsible for system health, failure handling and updates, including in collaboration with third parties. As the question directly probes lifecycle ownership and accountability, it fully aligns with the control.",
-    "citation": "A.7.5 -> p.19; B.10.1 -> p.43",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and maintain documented information as evidence of conformity with the AI management system and effective operation. It also requires that records related to AI systems, including logs of operation, maintenance, updates, incidents and performance metrics, be controlled and retained for appropriate periods. The guidance notes that maintaining comprehensive records supports accountability by enabling organisations to trace decisions, investigate incidents, demonstrate compliance with policies and legal requirements, and provide evidence during audits or regulatory reviews."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires defining roles and responsibilities throughout the AI system lifecycle, with specific emphasis on monitoring and management responsibilities.",
+    "controlAlignmentDetails": "B.3.2: Full Alignment, B.6.2.6: Full Alignment, B.9.4: Full Alignment",
+    "citation": "B.3.2 -> p.23; B.6.2.6 -> p.36; B.9.4 -> p.43",
+    "controlIntent": "Organizations should define roles for numerous areas including performance, human oversight, legal requirement fulfillment (B.3.2, p.23); Organizations should document personnel roles and responsibilities for system operation (B.6.2.6, p.36); Organizations should document how they intend to provide meaningful human oversight (B.9.4, p.43)"
   },
   "AC-7": {
     "domain": "Accountability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks whether event logs or audit trails are maintained to document AI system behaviour and support traceability of decisions. ISO/IEC 42001 requires organisations to determine at which phases of the AI system lifecycle record keeping of event logs should be enabled and explains that logs should capture information such as time and date of use, production data and outputs outside intended operation. Because the question focuses on maintaining such traceable records, it fully aligns with the control.",
-    "citation": "A.5.2 -> p.17; B.5.1 -> p.27; B.5.2 -> p.27; B.5.3 -> p.28; B.5.4 -> p.28",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall establish, implement and maintain an AI policy that includes commitment to conduct impact assessments. It requires that a process for AI system impact assessment be established to assess potential consequences for individuals, groups and societies across the system's life cycle, and to identify sources, events, outcomes, likelihood and mitigation measures. The standard notes that impact assessments should consider ethical, social, legal and trustworthiness aspects, and should be documented and updated as the system evolves. This ensures that organisations proactively identify and address potential harms, supporting responsible and accountable AI use."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires maintaining logs and documenting AI system operation. The standard includes detailed requirements for event logging and evidence of proper operation.",
+    "controlAlignmentDetails": "B.6.2.8: Full Alignment, B.6.2.6: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.8 -> p.36; B.6.2.6 -> p.36; B.9.4 -> p.43",
+    "controlIntent": "Organizations should ensure proper logging of events during AI system operation to maintain traceability of functionality (B.6.2.8, p.36); AI systems should be deployed according to documentation, with proper monitoring, maintaining event logs as evidence of proper operation (B.9.4, p.43); Organizations should document processes for monitoring AI system health (observability) (B.6.2.6, p.36)"
   },
   "AC-8": {
     "domain": "Accountability",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question focuses on mechanisms for addressing disputes or concerns about AI outcomes, such as appeal processes or review channels. ISO/IEC 42001 requires organisations to establish processes for reporting concerns and adverse impacts and to determine obligations for communicating information about AI systems and incidents to interested parties. While this supports receiving, investigating and communicating about concerns, it does not explicitly require comprehensive dispute-resolution or appeal mechanisms for individual decisions, so the alignment is partial.",
-    "citation": "B.10.1 -> p.43; B.10.2 -> p.44",
-    "controlIntent": "ISO/IEC 42001 requires that organisations plan actions to address AI risks and opportunities, and establish and maintain a process for managing AI incidents. It notes that the incident management process should include procedures for identifying, recording, investigating, analysing and responding to incidents, and for taking corrective action to prevent recurrence. The standard also requires that incidents and their resolution be documented, and that relevant information be communicated to affected parties and stakeholders. These requirements ensure that when AI systems cause harm or fail to meet expectations, the organisation has mechanisms in place to respond effectively, mitigate impacts and learn from the experience."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires establishing mechanisms for reporting and resolving concerns about AI systems. The standard details multiple requirements for addressing disputes and concerns from various stakeholders.",
+    "controlAlignmentDetails": "B.3.3: Full Alignment, B.8.3: Full Alignment, B.8.4: Full Alignment",
+    "citation": "B.3.3 -> p.23; B.8.3 -> p.40; B.8.4 -> p.41",
+    "controlIntent": "Reporting mechanisms should include appropriate investigation and resolution powers, protect reporters from reprisals, and include response mechanisms with appropriate timeframes (B.3.3, p.23); Organizations should provide capabilities for interested parties to report adverse impacts of the system (B.8.3, p.40); Organizations should document a plan for communicating incidents to system users (B.8.4, p.41)"
   },
   "DI-1": {
     "domain": "Data Integrity",
