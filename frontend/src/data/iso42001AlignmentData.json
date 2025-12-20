@@ -362,66 +362,74 @@
   "RE-1": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question requires the organisation to test the AI system across a range of conditions, including challenging scenarios, to confirm that performance is consistently within expected bounds. ISO/IEC 42001 requires definition of verification and validation measures, establishment of evaluation criteria and specification of performance-assessment methodologies (including metrics, data selection and conditions of use) to ensure reliable performance assessment. Because the question targets systematic testing under varying conditions, it fully aligns with the control.",
-    "citation": "A.6.2.2 -> p.18; A.6.2.4 -> p.19; B.6.2.4 -> p.33",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall define and document objectives and requirements for the AI system, including performance objectives. It requires that evaluation criteria be documented and that AI systems be evaluated against those criteria. The guidance notes that performance metrics can include accuracy, precision, recall, F1 score, latency and other measures relevant to the intended use. The standard emphasises that performance should be evaluated not only during development but also in operational conditions, and that systems should only be deployed if they meet documented performance requirements."
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires validation testing and performance evaluation under different conditions. The standard addresses testing methodologies and evaluation of AI systems against documented criteria.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.9.3: Full Alignment, B.6.2.5: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.9.3 -> p.42; B.6.2.5 -> p.33",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria including reliability and safety requirements (B.6.2.4, p.33); Organizations should identify and document objectives for responsible use of AI systems, including reliability (B.9.3, p.42); Organizations should document how they plan to deploy their AI systems in test, development, and production environments (B.6.2.5, p.33)"
   },
   "RE-2": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on whether stress tests or simulations are used to probe system behaviour under extreme or unusual conditions. ISO/IEC 42001 requires verification and validation measures and states that evaluation plans should consider reliability and safety requirements, acceptable error rates and operational factors, and may involve introducing erroneous or spurious data to see how performance is affected. While this supports robustness testing conceptually, the standard does not explicitly require formal stress tests or simulations, so the alignment is partial.",
-    "citation": "A.6.2.4 -> p.19; B.6.2.4 -> p.33; B.6.2.5 -> p.34",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall define and document verification and validation measures and their evaluation criteria, and apply these during AI system development. The guidance notes that testing should consider the intended use, deployment context, data quality and variability, edge cases and potential failure modes. It also notes that evaluation should be performed under conditions that simulate real-world operation as closely as possible. This ensures that AI systems are reliable and perform as expected not only in controlled environments but also in diverse and challenging operational conditions."
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires robust testing and validation of AI systems. The standard explicitly mentions evaluation against documented criteria and robustness as an objective.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.9.3: Full Alignment, B.6.1.2: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.9.3 -> p.42; B.6.1.2 -> p.30",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Organizations should identify and document objectives for responsible use of AI systems, including robustness and redundancy (B.9.3, p.42); Organizations should incorporate responsible development objectives into requirements and development processes (B.6.1.2, p.30)"
   },
   "RE-3": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks about continuous monitoring mechanisms to detect performance degradation, such as model or data drift, and to trigger corrective actions. ISO/IEC 42001 requires definition of elements for ongoing operation, including system and performance monitoring, repairs, updates and support, and guidance that monitoring should confirm that the system behaves as expected on production data and detect changes such as drift that may require retraining. Because the question directly addresses these monitoring practices, it fully aligns with the control.",
-    "citation": "A.7.5 -> p.19; B.7.4 -> p.38",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document elements needed for the ongoing operation of the AI system, including monitoring and maintenance. It states that metrics for monitoring system performance should be established and that actions should be taken when monitoring indicates that performance is unacceptable or deviates from expectations. The guidance notes that monitoring can include tracking accuracy, latency, data quality and user feedback, and that organisations should have processes in place to investigate performance degradation, diagnose root causes and implement corrective measures such as retraining, updating or decommissioning the system."
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires monitoring AI systems for performance changes and issues. The standard addresses system monitoring, particularly for AI systems that evolve through machine learning.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.9.4: Full Alignment, B.6.1.3: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.9.4 -> p.43; B.6.1.3 -> p.36",
+    "controlIntent": "Organizations should define and document system and performance monitoring requirements, especially how to handle AI systems that evolve through ML (B.6.2.6, p.34); Oversight activities include monitoring AI system performance and accuracy, reporting performance changes (B.9.4, p.43); Organizations should document processes for monitoring AI system health (observability) (B.6.1.3, p.36)"
   },
   "RE-4": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question requires the organisation to define clear, measurable reliability metrics and use them to evaluate system performance. ISO/IEC 42001 requires definition of verification and validation measures, specification of criteria for their use and inclusion of reliability and safety requirements, acceptable error rates and evaluation metrics in the evaluation criteria. Since the question focuses on defining and using such reliability metrics, it fully aligns with the control.",
-    "citation": "A.7.5 -> p.19; A.7.6 -> p.19; B.7.4 -> p.38",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring, including maintenance, updates and performance tracking. It notes that AI systems may experience performance degradation due to changes in data distributions, operational environments or user behaviour\u2014a phenomenon sometimes called model drift. The standard requires that organisations monitor for such degradation, assess associated risks and take corrective action, which can include retraining the model on updated data, adjusting parameters or modifying the system design. Documentation of updates and their impacts should also be maintained."
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires defining performance criteria and evaluation metrics for AI systems. The standard addresses performance assessment methodologies including specific metrics.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.6.2.6: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.6.2.6 -> p.34; B.9.3 -> p.42",
+    "controlIntent": "Evaluation plan criteria should include reliability and safety requirements (B.6.2.4, p.33); Performance criteria can include statistical aspects like error rates and processing duration (B.6.2.6, p.34); Organizations should identify and document objectives for responsible use of AI systems, including reliability (B.9.3, p.42)"
   },
   "RE-5": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks whether the organisation has proactively identified where and how the AI system might fail to inform safeguards and contingency plans. ISO/IEC 42001 requires planning for operation and monitoring, including processes to respond to and repair errors and failures, and it expects technical documentation to include plans for managing failures. However, it does not explicitly require a structured analysis of potential failure points in advance. As a result, the alignment is partial.",
-    "citation": "B.5.2 -> p.27; B.9.4 -> p.42; B.10.1 -> p.43; B.10.2 -> p.44",
-    "controlIntent": "ISO/IEC 42001 requires that organisations assess potential consequences of AI systems, including predictable failures, and plan actions to address risks. It notes that human oversight should be maintained, with consideration given to when and how humans can intervene if the system fails or produces unreliable outputs. The standard also requires that organisations establish processes for managing incidents, including procedures for identifying, recording and responding to failures. By implementing contingency plans, fallback mechanisms and human oversight, organisations ensure that when AI systems fail, there are alternative processes in place to maintain critical functions and minimise harm."
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires identifying and documenting predictable failures and system risks. The standard addresses failure analysis as part of impact assessments.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.6.2.6: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.6.2.6 -> p.36; B.9.3 -> p.42",
+    "controlIntent": "Organizations should consider documenting predictable failures (B.5.3, p.28); Organizations should document plans for managing failures (rollback plans, turning off features, update processes) (B.6.2.6, p.36); Organizations should identify and document objectives for responsible use of AI systems, including reliability (B.9.3, p.42)"
   },
   "RE-6": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on ensuring that the system performs reliably under varying or unusual conditions, including edge cases. ISO/IEC 42001 requires evaluation criteria that consider reliability and safety requirements, acceptable error rates and operational conditions of use and suggests that performance-assessment methodologies reflect operational attributes, potentially including degraded or erroneous inputs. While this supports assessing behaviour under varied conditions, the standard does not explicitly require targeted edge-case testing, so the alignment is partial.",
-    "citation": "A.6.2.4 -> p.19; B.6.2.5 -> p.34",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document verification and validation measures and their evaluation criteria. The guidance notes that verification and validation should include testing for robustness, which can involve exposing the AI system to challenging, edge-case or adversarial inputs to evaluate whether it behaves reliably and safely. The standard also requires that AI-specific risks, including adversarial attacks, be identified and addressed. While the term 'adversarial testing' is not explicitly used, the requirements for comprehensive validation and risk assessment support the use of such testing methods to ensure system robustness."
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard addresses system evaluation under different conditions and emphasizes robustness as an objective. The standard requires testing and performance monitoring to ensure consistent operation.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.9.3: Full Alignment, B.6.2.6: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.9.3 -> p.42; B.6.2.6 -> p.34",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Organizations should identify and document objectives for responsible use of AI systems, including reliability, robustness and redundancy (B.9.3, p.42); Organizations should define and document system and performance monitoring requirements (B.6.2.6, p.34)"
   },
   "RE-7": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question requires mechanisms to detect downtime and errors and restore normal operation promptly. ISO/IEC 42001 requires definition of elements for ongoing operation including system and performance monitoring, repairs, updates and support, and its guidance emphasises monitoring for errors and failures and having processes for response and repair. The standard also calls for capabilities that allow users and external parties to report adverse impacts. Because the question focuses on these detection and recovery mechanisms, it fully aligns with the control.",
-    "citation": "A.7.6 -> p.19; B.6.2.7 -> p.35",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document processes for updates and modifications to AI systems, and that records of changes be controlled and maintained. The guidance notes that technical documentation should include information about the AI system's design, architecture, versions, dependencies and configuration. Version control practices ensure that the organisation can trace which model version is deployed, reproduce previous versions if needed, understand the impact of changes and maintain consistency across development, testing and production environments. This supports system reliability and facilitates troubleshooting and audits."
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires documenting repair processes for errors and failures. The standard addresses system monitoring, error detection, and recovery procedures.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.6.2.8: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.6.2.8 -> p.36; B.9.4 -> p.43",
+    "controlIntent": "Organizations should document repair processes for errors and failures, system update procedures (B.6.2.6, p.34); Organizations should ensure proper logging of events during AI system operation to maintain traceability of functionality (B.6.2.8, p.36); Personnel should report performance changes and concerns about outputs and impacts (B.9.4, p.43)"
   },
   "RE-8": {
     "domain": "Reliability",
     "alignmentType": "Fully Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks whether the organisation has defined frequencies and processes for retesting and retraining models to maintain reliability over time. ISO/IEC 42001 requires elements for ongoing operation and monitoring, explains that performance must be monitored especially for systems that learn on production data and notes that concept or data drift can require retraining. It also states that evaluation frequency should be determined. As the question directly addresses how often such testing and retraining occur, it fully aligns with the control.",
-    "citation": "B.5.2 -> p.27; B.6.2.7 -> p.35; B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 requires that organisations assess potential consequences of AI systems, including predictable failures, and identify sources, events, outcomes and likelihood. It also requires that technical documentation include information about known limitations, assumptions and constraints, and that users be provided with information about limitations and how to interpret system outputs. The guidance notes that by documenting and communicating failure modes and limitations, organisations enable users to make informed decisions about when and how to rely on the AI system, and help prevent misuse or over-reliance that could lead to harm."
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard addresses model retraining, updates, and ongoing testing to maintain reliability. The standard has specific requirements for monitoring evolving AI systems and update procedures.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.6.2.4: Partial Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.6.2.4 -> p.33; B.9.4 -> p.43",
+    "controlIntent": "Organizations should define how to handle AI systems that evolve through ML, system update procedures (B.6.2.6, p.34); Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Personnel should monitor AI system performance and accuracy, reporting performance changes (B.9.4, p.43)"
   },
   "SE-1": {
     "domain": "Security",
