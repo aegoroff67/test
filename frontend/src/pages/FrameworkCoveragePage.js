@@ -145,10 +145,10 @@ function FrameworkCoveragePage() {
           <div className="flex items-start justify-between">
             <div className="flex items-start space-x-4">
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
                 onClick={() => navigate(`/results/${id}`)}
-                className="flex items-center space-x-2 mt-1"
+                className="flex items-center space-x-2 mt-1 border border-gray-300"
               >
                 <ArrowLeft className="h-4 w-4" />
                 <span>Back to Results</span>
@@ -162,7 +162,7 @@ function FrameworkCoveragePage() {
                   Framework Coverage Overview
                 </h1>
                 <p className="text-xs text-gray-600 leading-relaxed mt-1 max-w-3xl">
-                  This view shows how comprehensively the controls within selected AI governance frameworks are covered by the 
+                  This view shows how comprehensively the <span className="font-semibold">controls</span> within selected AI governance frameworks are covered by the 
                   AM AI SAFE assessment, based on how many assessment questions fully or partially address each framework control. 
                   It compares coverage provided by design (<span className="font-semibold text-blue-600">Inherent Coverage</span>) with 
                   coverage achieved based on assessment results (<span className="font-semibold text-green-600">Achieved Coverage</span>).
