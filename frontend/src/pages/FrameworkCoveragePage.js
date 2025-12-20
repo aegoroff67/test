@@ -84,11 +84,19 @@ const FRAMEWORKS = [
   }
 ];
 
-// Placeholder data for charts
+// Placeholder data for charts - grouped bar chart format
 const generatePlaceholderData = () => [
-  { name: 'Inherent', value: 75, fill: '#3B82F6' },
-  { name: 'Achieved', value: 45, fill: '#10B981' }
+  { category: 'Strong', inherent: 58, achieved: 39 },
+  { category: 'Moderate', inherent: 24, achieved: 32 },
+  { category: 'Weak', inherent: 8, achieved: 13 },
+  { category: 'No Coverage', inherent: 10, achieved: 16 }
 ];
+
+// Chart colors
+const CHART_COLORS = {
+  inherent: '#1B4F72',  // Dark teal/blue
+  achieved: '#E67E22'   // Orange
+};
 
 function FrameworkCoveragePage() {
   const { id } = useParams();
