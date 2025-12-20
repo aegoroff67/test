@@ -505,67 +505,75 @@
   },
   "PR-1": {
     "domain": "Privacy",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks how the organisation ensures that AI-related processing complies with specific privacy laws in relevant jurisdictions. ISO/IEC 42001 requires organisations to define responsible-use objectives that include privacy and to clarify responsibilities for processing PII in accordance with applicable privacy requirements and reference privacy standards, but it does not address particular laws by name or prescribe jurisdiction-specific compliance processes. Because the question is more prescriptive about legal regimes than the standard, the alignment is partial.",
-    "citation": "A.5.2 -> p.17; A.7.2 -> p.19; B.7.1 -> p.36; B.7.3 -> p.37",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall establish, implement and maintain an AI policy that includes commitment to comply with applicable legal, regulatory and contractual requirements. It requires that data management processes consider privacy requirements and that organisations identify and address privacy obligations related to the collection, use, storage and sharing of personal data. The standard notes that privacy considerations should be integrated throughout the AI lifecycle and that organisations should implement controls such as consent management, data minimisation, anonymisation and access restrictions. It references privacy standards such as ISO/IEC 27701 and legal frameworks such as GDPR for detailed guidance."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires consideration of legal requirements related to privacy. The standard addresses compliance with privacy regulations as part of data governance.",
+    "controlAlignmentDetails": "B.2.2: Full Alignment, B.7.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.2.2 -> p.21; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "The AI policy should be informed by legal requirements and contracts (B.2.2, p.21); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
   },
   "PR-2": {
     "domain": "Privacy",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on concrete privacy-preserving techniques such as anonymisation or pseudonymisation used to protect personal data throughout the AI lifecycle. ISO/IEC 42001 expects organisations to treat privacy as a responsible-use objective and to establish responsibilities and controls for PII processing, typically by adopting privacy-management standards, but it does not mandate particular techniques in the AI-specific text. As the question targets specific implementation choices consistent with, but not explicitly required by, the standard, the alignment is partial.",
-    "citation": "B.5.1 -> p.27; B.5.2 -> p.27; B.5.3 -> p.28; B.5.4 -> p.28",
-    "controlIntent": "ISO/IEC 42001 requires that organisations establish and maintain a process for AI system impact assessment to assess potential consequences for individuals, groups and societies across the system's life cycle. The guidance notes that impact assessments should consider privacy implications, including how personal data is collected, used, stored, shared and protected. The standard references privacy impact assessment methodologies and notes that in many jurisdictions, such as under GDPR, DPIAs are legally required for high-risk data processing activities. By conducting PIAs or DPIAs, organisations identify and mitigate privacy risks, demonstrate compliance and build trust with data subjects and regulators."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires protection of personal data and consideration of privacy implications throughout the AI lifecycle. The standard addresses privacy protection for data used in AI systems.",
+    "controlAlignmentDetails": "B.7.2: Full Alignment, B.9.3: Full Alignment, B.4.3: Partial Alignment",
+    "citation": "B.7.2 -> p.37; B.9.3 -> p.42; B.4.3 -> p.25",
+    "controlIntent": "Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should document information about their data, including data rights (PII, copyright) (B.4.3, p.25)"
   },
   "PR-3": {
     "domain": "Privacy",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "This question examines mechanisms for obtaining, recording and managing user consent for data collection and processing in AI systems. ISO/IEC 42001 highlights privacy as a key responsible-use objective and requires that responsibilities for processing PII reflect applicable privacy requirements, which generally include lawful-basis concepts such as consent. However, it does not describe consent workflows, logging mechanisms or consent management explicitly. Because the question is more detailed than the standard in this area, the alignment is partial.",
-    "citation": "A.7.2 -> p.19; B.7.2 -> p.37",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document data management processes, including data acquisition and selection. The guidance notes that organisations should document the rationale for including or excluding certain data and should consider principles such as data minimisation\u2014collecting only data that is necessary, relevant and adequate for the intended purpose. Data minimisation reduces privacy risks, limits exposure in case of breaches, simplifies compliance with privacy regulations and improves system efficiency. The standard references privacy frameworks such as GDPR, which mandates data minimisation as a core principle."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses data rights and privacy considerations broadly, but doesn't specifically detail consent management processes. While the standard requires documenting data rights including PII, it doesn't provide specific guidance on obtaining and managing user consent.",
+    "controlAlignmentDetails": "B.4.3: Partial Alignment, B.7.2: Partial Alignment, B.7.3: Partial Alignment",
+    "citation": "B.4.3 -> p.25; B.7.2 -> p.37; B.7.3 -> p.38",
+    "controlIntent": "Organizations should document information about their data, including data rights (PII, copyright) (B.4.3, p.25); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Data acquisition considerations include prior handling of data regarding privacy and security (B.7.3, p.38)"
   },
   "PR-4": {
     "domain": "Privacy",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks how the organisation enforces purpose limitation, preventing personal data from being reused in ways inconsistent with its original purpose. ISO/IEC 42001 expects organisations to align PII processing responsibilities with applicable privacy requirements, which typically include purpose-limitation principles, but the standard does not specify mechanisms such as purpose-based access controls or data-use tagging. As the question concentrates on practical enforcement mechanisms not explicitly described in the AI standard, the alignment is partial.",
-    "citation": "A.7.2 -> p.19; B.7.2 -> p.37; B.7.3 -> p.37",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document data management processes and document details of data acquisition, including the legal basis for collecting and using personal data. The guidance notes that in many jurisdictions, privacy laws such as GDPR require informed consent from individuals before their personal data can be processed, particularly for sensitive data or high-risk processing activities. The standard requires that organisations identify applicable legal requirements and implement processes to obtain, document and manage consent where required. This includes providing individuals with clear information about how their data will be used and allowing them to withdraw consent."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses data rights and privacy broadly, but doesn't specifically address purpose limitation. While the standard requires privacy considerations and documentation of intended data use, it doesn't explicitly address restricting data use to original purposes.",
+    "controlAlignmentDetails": "B.4.3: Partial Alignment, B.7.2: Partial Alignment, B.9.3: Partial Alignment",
+    "citation": "B.4.3 -> p.25; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document information about their data, including intended use of data (B.4.3, p.25); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
   },
   "PR-5": {
     "domain": "Privacy",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "This question explores whether the organisation systematically evaluates how well privacy controls work and how they interact with model performance, including trade-offs between privacy and utility. ISO/IEC 42001 requires organisations to define responsible-use objectives that include privacy alongside reliability and security and to manage trustworthiness concerns across the AI lifecycle, suggesting that multiple objectives must be balanced. Nevertheless, it does not explicitly require quantitative analysis of privacy controls versus performance. As such, the alignment is partial.",
-    "citation": "B.7.3 -> p.37",
-    "controlIntent": "ISO/IEC 42001 notes that organisations should identify and comply with applicable legal and regulatory requirements related to personal data, including data subject rights. The guidance references privacy frameworks such as GDPR, which grants individuals rights to access their personal data, request corrections, request deletion (right to be forgotten), restrict processing, object to processing and request data portability. The standard requires that organisations establish processes for receiving, verifying and responding to data subject requests in a timely manner, and for documenting such requests and responses. Supporting data subject rights demonstrates respect for privacy and compliance with legal obligations."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses privacy protection and performance evaluation separately, but doesn't specifically address evaluating the balance between them. While the standard requires both privacy protection and performance evaluation, it doesn't provide guidance on assessing privacy measure effectiveness or their impact on model performance.",
+    "controlAlignmentDetails": "B.7.2: Partial Alignment, B.9.3: Partial Alignment, B.6.2.4: Partial Alignment",
+    "citation": "B.7.2 -> p.37; B.9.3 -> p.42; B.6.2.4 -> p.33",
+    "controlIntent": "Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33)"
   },
   "PR-6": {
     "domain": "Privacy",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks how the organisation monitors AI systems in operation to detect and prevent privacy violations such as misuse or leakage of personal data. ISO/IEC 42001 requires organisations to manage privacy and security concerns across the lifecycle and to define elements for ongoing operation and monitoring, including performance monitoring and support, but it does not specify particular privacy-monitoring controls or alerting mechanisms. Because the question focuses on operational techniques beyond what the standard explicitly describes, the alignment is partial.",
-    "citation": "B.7.3 -> p.37",
-    "controlIntent": "ISO/IEC 42001 notes that organisations should implement appropriate technical and organisational measures to protect personal data, including privacy-enhancing technologies such as anonymisation and pseudonymisation. Anonymisation removes personal identifiers so that individuals can no longer be identified, thereby reducing privacy risks. Pseudonymisation replaces identifiers with pseudonyms, reducing the risk of re-identification while still allowing data to be linked. The guidance notes that anonymisation and pseudonymisation can be used during data preparation, storage and sharing to minimise privacy risks while enabling AI system development and operation. The standard references privacy standards such as ISO/IEC 27701 for detailed guidance on these techniques."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses system monitoring and privacy protection broadly, but doesn't specifically address monitoring for privacy violations. While the standard requires implementing privacy objectives and monitoring systems, it doesn't provide specific guidance on detecting and preventing privacy violations during operation.",
+    "controlAlignmentDetails": "B.6.2.6: Partial Alignment, B.9.3: Partial Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Organizations should define and document system and performance monitoring requirements (B.6.2.6, p.34); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight including reporting concerns about outputs and impacts (B.9.4, p.43)"
   },
   "PR-7": {
     "domain": "Privacy",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question requires explicit evaluation of privacy risks at both development and deployment stages of the AI system lifecycle. ISO/IEC 42001 mandates that trustworthiness concerns, including privacy, be managed across the lifecycle and that responsibilities and controls for PII processing be aligned with privacy frameworks, which supports multi-stage risk consideration. However, it does not specifically call out separate development- and deployment-phase privacy risk assessments. Therefore, the alignment is partial.",
-    "citation": "A.7.2 -> p.19; B.7.1 -> p.36; B.7.3 -> p.37",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document data management processes, including policies for data retention and deletion. The guidance notes that personal data should not be kept longer than necessary for the purposes for which it was collected, in line with privacy principles such as storage limitation under GDPR. The standard requires that organisations define retention periods, review data periodically and securely delete or anonymise data when it is no longer needed. Secure deletion practices ensure that data cannot be recovered or reconstructed, protecting individuals' privacy and reducing the organisation's liability and storage costs."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires privacy considerations throughout the AI lifecycle, including development and deployment phases. The standard addresses privacy as a consideration in multiple lifecycle stages.",
+    "controlAlignmentDetails": "B.5.2: Full Alignment, B.7.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.5.2 -> p.27; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should establish processes to assess potential consequences [including privacy impacts] (B.5.2, p.27); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
   },
   "PR-8": {
     "domain": "Privacy",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on how the organisation ensures that personal data used by AI systems remains compliant with data-protection requirements when moved across jurisdictions. ISO/IEC 42001 expects organisations to treat privacy as a responsible-use objective and to define responsibilities and controls for PII processing in line with applicable privacy requirements and reference standards, but it does not explicitly mention cross-border transfers or localisation obligations in the AI-specific guidance. As a result, the alignment is partial.",
-    "citation": "B.7.3 -> p.37",
-    "controlIntent": "ISO/IEC 42001 notes that organisations should identify and comply with legal and regulatory requirements related to sharing or transferring personal data, including cross-border data transfers. The guidance references privacy frameworks such as GDPR, which requires that personal data be shared or transferred only with appropriate legal basis and safeguards, such as adequacy decisions, standard contractual clauses, binding corporate rules or explicit consent. The standard requires that organisations document data flows, assess risks associated with sharing or transfer, and implement technical and organisational measures such as encryption, access controls and contractual protections to ensure that personal data remains protected when shared with third parties or transferred to other jurisdictions."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses legal compliance broadly, but doesn't specifically address cross-border data protection requirements. While the standard requires considering legal requirements, it doesn't provide specific guidance on managing cross-border data transfer compliance.",
+    "controlAlignmentDetails": "B.2.2: Partial Alignment, B.7.2: Partial Alignment, B.7.3: Partial Alignment",
+    "citation": "B.2.2 -> p.21; B.7.2 -> p.37; B.7.3 -> p.38",
+    "controlIntent": "The AI policy should be informed by legal requirements and contracts (B.2.2, p.21); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Data acquisition considerations include prior handling of data regarding privacy and security (B.7.3, p.38)"
   },
   "SA-1": {
     "domain": "Safety",
