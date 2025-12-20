@@ -669,7 +669,7 @@ function ResultsPage() {
                   Insights:
                 </div>
                 <Button 
-                  onClick={() => setShowFrameworkCoverage(true)}
+                  onClick={() => navigate(`/framework-coverage/${id}`)}
                   className="flex-1 bg-green-600 hover:bg-green-700 text-[10px] px-1.5 py-1.5 h-auto"
                   data-testid="framework-coverage-btn"
                 >
