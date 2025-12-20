@@ -75,65 +75,73 @@
     "domain": "Transparency",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to describe how clearly and comprehensively it communicates what the AI system does, how it works and where its limitations lie. ISO/IEC 42001 requires organisations to determine and provide necessary information so that users and stakeholders understand when they are interacting with an AI system, its intended purpose, potential harms or benefits, limitations and operational requirements. Because the question directly tests whether this information is being communicated at an appropriate level of detail, it fully aligns with the control.",
-    "citation": "A.8.2 -> p.19; B.8.2 -> p.40; B.6.2.7 -> p.35",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system. The guidance explains that, despite system complexity, users should be able to understand when they are interacting with an AI system, how it works, its intended purpose, potential harms and benefits, limitations, operational requirements and how to override it. It also notes that technical documentation for the AI system should be prepared for relevant categories of interested parties\u2014such as users, partners and supervisory authorities\u2014and can include descriptions of the system, usage instructions, technical assumptions, limitations, and monitoring capabilities."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires clear communication about AI system functionality and limitations to users. The standard lists specific types of information that should be provided, including system purpose, performance information, and technical limitations.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.8.2 -> p.40; B.9.3 -> p.42",
+    "controlIntent": "Users need to understand when they're interacting with an AI system... Information should include: system purpose, notification that users are interacting with AI, technical requirements, accuracy and performance information (B.8.2, p.40); Organizations should identify and document objectives for responsible use of AI systems, including transparency (B.9.3, p.42)"
   },
   "TR-2": {
     "domain": "Transparency",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks whether the organisation systematically documents data sources, algorithms and lifecycle processes to support accountability and auditability. ISO/IEC 42001 requires documentation of AI system design and development, verification and validation measures, deployment, operation and monitoring, and it mandates defined data management processes including acquisition, selection, quality requirements and provenance. As the question focuses on the same structured documentation, it fully aligns with the control.",
-    "citation": "A.6.2.3 -> p.19; A.6.2.4 -> p.19; A.6.2.5 -> p.19; A.6.2.6 -> p.19; A.7.2\u2013A.7.6 -> p.19; B.6.2.7 -> p.35",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall document AI system design and development based on objectives and requirements, define and document verification and validation measures and their criteria, document deployment plans, and define and document elements needed for ongoing operation such as monitoring, repairs and updates. It also requires defining, documenting and implementing data management processes, documenting details of data acquisition and selection, specifying data quality requirements, recording data provenance and documenting criteria and methods for data preparation. The technical documentation guidance notes that documentation can include design and architecture, information about data used during development and other lifecycle artefacts."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires comprehensive documentation of data sources, algorithms, and processes throughout the AI system lifecycle. Multiple sections explicitly require documenting these elements.",
+    "controlAlignmentDetails": "B.6.2.3: Full Alignment, B.6.2.7: Full Alignment, B.7.5: Full Alignment",
+    "citation": "B.6.2.3 -> p.32; B.6.2.7 -> p.36; B.7.5 -> p.38",
+    "controlIntent": "Organizations should document information about their AI system design choices such as machine learning approaches, learning algorithms and model types, how models are trained and data quality considerations, evaluation and refinement processes (B.6.2.3, p.32); The organization should document information about its data, including data provenance (B.7.5, p.38); Organizations should determine necessary documentation [including] documentation of data quality assumptions and measures (B.6.2.7, p.36)"
   },
   "TR-3": {
     "domain": "Transparency",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question evaluates whether external stakeholders such as regulators and customers are given sufficient information or tools to understand the AI system. ISO/IEC 42001 requires organisations to provide appropriate technical documentation and information to different categories of interested parties and to establish capabilities for interested parties to report adverse impacts. Because the question assesses whether such outward-facing transparency mechanisms exist, it fully aligns with the control.",
-    "citation": "B.8.2 -> p.40; B.6.2.7 -> p.35",
-    "controlIntent": "ISO/IEC 42001 notes that technical documentation should be prepared for relevant categories of interested parties, such as users, operators, partners and supervisory authorities, and may take various formats including user manuals, technical specifications and training materials. It also states that information provided to users should help them understand when they are interacting with an AI system, how it works, its intended purpose and potential harms and benefits, even though the underlying system may be highly complex. This implies that documentation should be tailored in level of detail and language to suit the intended audience."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires providing information to interested parties, including external stakeholders like regulators and customers. The standard specifically addresses what information should be shared with external parties.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.8.5: Full Alignment, B.10.4: Full Alignment",
+    "citation": "B.8.2 -> p.40; B.8.5 -> p.41; B.10.4 -> p.45",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should identify and document what information about their AI systems needs to be reported to interested parties... [including] technical system documentation, risk information, impact assessment results (B.8.5, p.41); Organizations should ensure their approach to AI development considers customer expectations and properly communicate information about domain limitations (B.10.4, p.45)"
   },
   "TR-4": {
     "domain": "Transparency",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks about structured internal and external communication processes for AI-related information. ISO/IEC 42001 requires organisations to determine internal and external communications relevant to the AI management system, including what will be communicated, when, to whom and how, and to ensure that users and other interested parties receive necessary information about the AI system. As the question directly probes these communication arrangements, it fully aligns with the control.",
-    "citation": "B.6.2.7 -> p.35",
-    "controlIntent": "ISO/IEC 42001 explains that technical documentation for the AI system should be prepared for relevant categories of interested parties, which can include users, operators, partners and supervisory authorities. The documentation can encompass descriptions of the system, its design and architecture, technical assumptions and constraints, known limitations, information about data used during development, verification and validation results, monitoring capabilities and update mechanisms. However, the standard does not mandate full transparency to all parties; rather, the detail and format should be appropriate to the recipient's role and needs."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard addresses both internal and external communication about AI systems. The standard covers information sharing mechanisms and documentation requirements for various stakeholders.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.8.5: Full Alignment, B.3.2: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.8.5 -> p.41; B.3.2 -> p.23",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should identify and document what information about their AI systems needs to be reported to interested parties (B.8.5, p.41); Organizations should define roles and responsibilities [which would include internal information sharing] (B.3.2, p.23)"
   },
   "TR-5": {
     "domain": "Transparency",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on identifying opaque, hard-to-explain components and on recognising their impact on transparency. ISO/IEC 42001 acknowledges that some AI systems can lack transparency or explainability and notes that such characteristics may require additional safeguards, but it does not mandate eliminating black-box models or fully resolving opacity. Because the question surfaces a specific transparency concern without being directly required by the control, and the standard addresses this only at a risk-management level, the alignment is partial.",
-    "citation": "B.8.2 -> p.40; B.6.2.4 -> p.33",
-    "controlIntent": "ISO/IEC 42001 states that information provided to users should help them understand when they are interacting with an AI system, how it works, its intended purpose, potential harms and benefits, known limitations and operational requirements, as well as how to override, query or challenge the system. It also requires that AI systems be evaluated against documented criteria and that deficiencies be managed, which implies that organisations need to understand system behaviour sufficiently to explain or justify outputs when necessary. However, the standard does not explicitly require explanations for every individual decision."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires transparency and explainability for AI systems, implying the identification of components that might limit these objectives. The standard requires documenting technical limitations that would include 'black-box' components.",
+    "controlAlignmentDetails": "B.6.2.7: Full Alignment, B.7.2: Partial Alignment, B.9.3: Full Alignment",
+    "citation": "B.6.2.7 -> p.35; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document technical limitations (B.6.2.7, p.35); Implementation guidance for data resources should consider transparency and explainability aspects (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including transparency [and] explainability (B.9.3, p.42)"
   },
   "TR-6": {
     "domain": "Transparency",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to explain how it discloses data sources and algorithmic choices, including relevant limitations and provenance, to stakeholders. ISO/IEC 42001 requires defined and documented processes for data management and provenance and states that technical documentation can include information about data sets used for training, validation and testing, as well as algorithmic choices and justification. Because the question checks whether this type of information is actually disclosed, it fully aligns with the control.",
-    "citation": "A.7.5 -> p.19; B.7.4 -> p.38; B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document elements needed for the ongoing operation of the AI system, including monitoring, maintenance, repairs and updates. It states that metrics for monitoring system performance should be established and that actions should be taken when monitoring indicates that performance is unacceptable or deviates from expectations. The standard also notes that organisations should communicate AI system information, including operational performance, to relevant interested parties, which may include internal governance bodies, users, partners and supervisory authorities, depending on the context and applicable requirements."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires documenting and disclosing information about data sources and algorithms used in AI systems. The standard addresses data provenance, source documentation, and algorithm documentation.",
+    "controlAlignmentDetails": "B.7.3: Full Alignment, B.7.5: Full Alignment, B.6.2.3: Full Alignment",
+    "citation": "B.7.3 -> p.38; B.7.5 -> p.38; B.6.2.3 -> p.32",
+    "controlIntent": "Data acquisition considerations include categories of data needed, data sources (internal, purchased, shared, open data, synthetic), characteristics of data sources (B.7.3, p.38); Organizations should track data provenance throughout the lifecycle of both the data and the AI system (B.7.5, p.38); Organizations should document information about their AI system design choices such as machine learning approaches, learning algorithms and model types (B.6.2.3, p.32)"
   },
   "TR-7": {
     "domain": "Transparency",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks whether users are clearly informed that they are interacting with an AI system rather than a human. ISO/IEC 42001 guidance on information for users emphasises that users must understand when they are interacting with an AI system and lists this as an example of information that should be provided. As the question matches this requirement directly, it fully aligns with the control.",
-    "citation": "A.7.5 -> p.19; A.7.6 -> p.19; B.7.4 -> p.38",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall define and document elements needed for ongoing operation and monitoring, including maintenance, repairs and updates. It requires that any updates or modifications to the AI system be controlled and that records of such changes be maintained. The guidance notes that when updates are made, organisations should consider impacts on system performance, safety and trustworthiness, and should communicate relevant information to appropriate interested parties. This implies that significant changes should be logged and that stakeholders who rely on the system should be informed of modifications that could affect its behaviour or performance."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires notifying users when they are interacting with AI systems. This is specifically listed as required information for users.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment",
+    "citation": "B.8.2 -> p.40",
+    "controlIntent": "Users need to understand when they're interacting with an AI system... Information should include: notification that users are interacting with AI (B.8.2, p.40)"
   },
   "TR-8": {
     "domain": "Transparency",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question evaluates whether the organisation produces regular transparency reports or equivalent documentation for regulators and customers. ISO/IEC 42001 requires organisations to provide capabilities for interested parties to report adverse impacts, to plan communication of incidents and to determine and document obligations to report information about the AI system to interested parties, including regulators and customers. It also notes that shared information can include technical documentation, risks, impact assessment results and logs. Because the question specifically probes such reporting practices, it fully aligns with the control.",
-    "citation": "B.8.2 -> p.40; B.5.2 -> p.27; B.6.2.7 -> p.35",
-    "controlIntent": "ISO/IEC 42001 states that information provided to users should include known limitations of the AI system and how to interpret its outputs. It also notes that technical documentation should describe technical assumptions, constraints and known limitations. The standard requires organisations to assess potential consequences of AI systems, including predictable failures, and to identify and evaluate impacts on individuals, groups and societies. By implication, if the organisation has identified limitations or failure modes, this information should be communicated to relevant interested parties, particularly users who depend on the system for decision-making."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires external reporting and documentation for interested parties, including regulators and customers. The standard details what types of information should be reported externally.",
+    "controlAlignmentDetails": "B.8.3: Full Alignment, B.8.4: Full Alignment, B.8.5: Full Alignment",
+    "citation": "B.8.3 -> p.40; B.8.4 -> p.41; B.8.5 -> p.41",
+    "controlIntent": "Organizations should provide capabilities for interested parties to report adverse impacts of the system (B.8.3, p.40); Organizations should document a plan for communicating incidents to system users (B.8.4, p.41); Organizations should identify and document what information about their AI systems needs to be reported to interested parties... [including] technical system documentation, risk information, impact assessment results (B.8.5, p.41)"
   },
   "EX-1": {
     "domain": "Explainability",
