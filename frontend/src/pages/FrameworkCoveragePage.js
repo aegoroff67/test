@@ -162,9 +162,10 @@ function FrameworkCoveragePage() {
               Framework Coverage Overview
             </h1>
             <p className="text-sm text-gray-600 leading-relaxed">
-              This view shows how AM AI SAFE aligns to selected AI governance frameworks by design 
-              (<span className="font-semibold text-blue-600">Inherent Coverage</span>) and how effectively 
-              those practices are implemented (<span className="font-semibold text-green-600">Achieved Coverage</span>).
+              This view shows the extent to which AM AI SAFE covers the controls within selected AI governance frameworks, 
+              based on how frequently each framework control is addressed by one or more AM AI SAFE questions. It compares 
+              the coverage provided by design (<span className="font-semibold text-blue-600">Inherent Coverage</span>) with 
+              the coverage actually achieved based on assessment results (<span className="font-semibold text-green-600">Achieved Coverage</span>).
             </p>
           </div>
         </div>
