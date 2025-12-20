@@ -208,52 +208,68 @@ function FrameworkCoveragePage() {
                 </CardHeader>
                 
                 <CardContent className="flex-1 flex flex-col">
-                  {/* Placeholder Bar Chart */}
-                  <div className="flex-1 min-h-[180px]">
+                  {/* Chart Title */}
+                  <div className="text-center mb-2">
+                    <span className="text-xs font-medium text-gray-700">Inherent vs Achieved Coverage</span>
+                  </div>
+                  
+                  {/* Grouped Bar Chart */}
+                  <div className="flex-1 min-h-[200px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
                         data={chartData}
-                        layout="vertical"
-                        margin={{ top: 10, right: 30, left: 10, bottom: 10 }}
+                        margin={{ top: 10, right: 10, left: -10, bottom: 5 }}
                       >
-                        <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
                         <XAxis 
-                          type="number" 
-                          domain={[0, 100]} 
-                          tickFormatter={(value) => `${value}%`}
-                          tick={{ fontSize: 10 }}
+                          dataKey="category" 
+                          tick={{ fontSize: 9 }}
+                          interval={0}
+                          tickLine={false}
+                          axisLine={{ stroke: '#E5E7EB' }}
                         />
                         <YAxis 
-                          type="category" 
-                          dataKey="name" 
-                          tick={{ fontSize: 11 }}
-                          width={60}
+                          domain={[0, 100]} 
+                          tickFormatter={(value) => `${value}%`}
+                          tick={{ fontSize: 9 }}
+                          tickLine={false}
+                          axisLine={{ stroke: '#E5E7EB' }}
+                          label={{ 
+                            value: '% of controls', 
+                            angle: -90, 
+                            position: 'insideLeft',
+                            style: { fontSize: 9, fill: '#6B7280' },
+                            offset: 15
+                          }}
                         />
                         <Tooltip 
-                          formatter={(value) => [`${value}%`, 'Coverage']}
-                          contentStyle={{ fontSize: 12 }}
+                          formatter={(value, name) => [`${value}%`, name === 'inherent' ? 'Inherent' : 'Achieved']}
+                          contentStyle={{ fontSize: 11 }}
                         />
                         <Bar 
-                          dataKey="value" 
-                          radius={[0, 4, 4, 0]}
-                          barSize={24}
-                        >
-                          {chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.fill} />
-                          ))}
-                        </Bar>
+                          dataKey="inherent" 
+                          fill={CHART_COLORS.inherent}
+                          radius={[2, 2, 0, 0]}
+                          barSize={20}
+                        />
+                        <Bar 
+                          dataKey="achieved" 
+                          fill={CHART_COLORS.achieved}
+                          radius={[2, 2, 0, 0]}
+                          barSize={20}
+                        />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
 
                   {/* Legend */}
-                  <div className="flex justify-center space-x-4 text-xs text-gray-600 mt-2 mb-3">
+                  <div className="flex justify-center space-x-4 text-xs text-gray-600 mt-1 mb-3">
                     <div className="flex items-center space-x-1">
-                      <div className="w-3 h-3 rounded bg-blue-500"></div>
+                      <div className="w-3 h-3 rounded" style={{ backgroundColor: CHART_COLORS.inherent }}></div>
                       <span>Inherent</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <div className="w-3 h-3 rounded bg-green-500"></div>
+                      <div className="w-3 h-3 rounded" style={{ backgroundColor: CHART_COLORS.achieved }}></div>
                       <span>Achieved</span>
                     </div>
                   </div>
