@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, confidenceLevel, alignmentRationale, citation, controlIntent } = alignmentData;
+  const { alignmentType, confidenceLevel, alignmentRationale, citation, controlIntent, controlAlignmentDetails } = alignmentData;
 
   // Function to get confidence level color based on level
   const getConfidenceLevelColor = (level) => {
@@ -106,13 +106,13 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
             </div>
           )}
 
-          {/* Citation - Custom title as requested by user */}
-          {citation && (
+          {/* Control Alignment Details */}
+          {controlAlignmentDetails && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">ISO/IEC 42001 Reference(s)</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">Control Alignment Details</h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-teal-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
-                  {citation}
+                  {controlAlignmentDetails}
                 </p>
               </div>
             </div>
