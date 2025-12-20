@@ -145,67 +145,75 @@
   },
   "EX-1": {
     "domain": "Explainability",
-    "alignmentType": "Partially Aligns",
+    "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to determine explainability expectations based on context, stakeholders and potential impacts. ISO/IEC 42001 requires organisations to identify and document objectives for responsible use of AI systems, explicitly including explainability, and to implement mechanisms to achieve those objectives. Annex guidance further links explainability needs to stakeholder information requirements and risk. Because the question asks how this calibration is done in practice, it fully aligns with the control.",
-    "citation": "B.6.1.2 -> p.30; B.8.2 -> p.40; B.9.3 -> p.42",
-    "controlIntent": "ISO/IEC 42001 notes that if an organisation defines objectives for responsible AI development, such as transparency and explainability, these should be integrated into requirements, data handling, model training and validation. It also states that users should be provided with information that helps them understand how the AI system works, its purpose, potential harms and benefits, and known limitations. The standard recognises that the level of detail and the form of explanation may vary depending on the audience and context, but it emphasises that transparency is an important element of trustworthy AI."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard establishes explainability as a key consideration for AI systems and requires organizations to determine appropriate levels of explainability based on risk and impact assessments. The standard explicitly identifies explainability as an objective for responsible AI use.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.9.3: Full Alignment, B.8.2: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.9.3 -> p.42; B.8.2 -> p.40",
+    "controlIntent": "Organizations should consider documenting intended use and misuse, positive/negative impacts, system complexity, [and] human oversight roles (B.5.3, p.28); Organizations should identify and document objectives for responsible use of AI systems, including transparency [and] explainability (B.9.3, p.42); Documentation should consider different stakeholders' needs (B.8.2, p.40)"
   },
   "EX-2": {
     "domain": "Explainability",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "High",
-    "alignmentRationale": "This question focuses on whether explanations are tested with users to verify that they can interpret them correctly. ISO/IEC 42001 requires evaluation plans to include methods, guidance or metrics to assess whether relevant interested parties who make or are subject to decisions based on AI outputs can adequately interpret those outputs. As the question operationalises this requirement by asking how such testing is carried out, it fully aligns with the control.",
-    "citation": "B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system. It notes that, despite the potential complexity of AI systems, users should be able to understand when they are interacting with an AI system, how it works, its intended purpose, potential harms and benefits, known limitations, operational requirements and how to override or query the system. This implies that explanations or descriptions should be provided in a manner that is accessible and meaningful to users, which may include non-technical stakeholders, and that the organisation should consider the audience's level of expertise when preparing information."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as it extends the standard's requirements for documentation and information that is accessible to various stakeholders. While the standard doesn't specify methods for testing explanation understandability, it does require that information be appropriate for different stakeholders and accessible, implying the need to verify understandability.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.5.3: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.5.3 -> p.28",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should consider documenting system complexity [which implies consideration of how to explain complex systems] (B.5.3, p.28)"
   },
   "EX-3": {
     "domain": "Explainability",
-    "alignmentType": "Partially Aligns",
+    "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks whether explanation content and format are tailored to different audiences such as end-users, regulators or technical teams. ISO/IEC 42001 requires organisations to determine what information and technical documentation are needed for each category of interested party and to provide it in appropriate form, and it defines explainability as providing understandable explanations of important factors influencing AI results. Because the question checks whether explanation formats are adapted to audience needs, it fully aligns with the control, although the mapping is somewhat interpretive.",
-    "citation": "B.6.1.2 -> p.30",
-    "controlIntent": "ISO/IEC 42001 explains that when an organisation defines objectives for responsible AI development\u2014such as explainability or transparency\u2014these objectives should be incorporated into requirements specification, data acquisition and conditioning, model training, verification and validation. It notes that measures to achieve these objectives can be integrated at various lifecycle stages, including the selection of algorithms or architectures, and the use of specific testing or interpretability tools. However, the standard does not mandate particular technical approaches; it expects that the organisation will choose methods appropriate to its context and objectives."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires considering different stakeholders' needs when providing information about AI systems. The standard emphasizes accessibility and appropriateness of information for various audiences.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.8.5: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.8.5 -> p.41",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should identify and document what information about their AI systems needs to be reported to interested parties (B.8.5, p.41)"
   },
   "EX-4": {
     "domain": "Explainability",
     "alignmentType": "Partially Aligns",
-    "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to assess whether explanations faithfully reflect the system's decision logic and include all relevant factors. ISO/IEC 42001 requires evaluation plans to include methods and metrics to assess whether interested parties can adequately interpret AI outputs and calls for AI systems to be evaluated against documented criteria, with evaluation methodologies improving completeness and reliability of performance assessment. As the question directly targets evaluation of explanation quality against such criteria, it fully aligns with the control.",
-    "citation": "B.6.1.2 -> p.30; B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 states that if explainability is identified as an objective for responsible AI development, measures to achieve it should be integrated into requirements, data handling, model training and validation. It also notes that users should be provided with information about how the AI system works. Offering feature importance or contribution scores is a technical approach that can support explainability by showing which data inputs influence outputs, thereby helping users understand and trust the system. The standard does not mandate this specific technique but allows organisations flexibility to implement suitable methods."
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard requires system evaluation and establishes explainability as an objective, but doesn't specifically address methods for evaluating explanation quality. The standard requires evaluation against documented criteria and verification, which implies but doesn't explicitly address assessing the accuracy and completeness of explanations.",
+    "controlAlignmentDetails": "B.6.2.4: Partial Alignment, B.9.3: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.9.3 -> p.42",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Organizations should identify and document objectives for responsible use of AI systems, including explainability (B.9.3, p.42)"
   },
   "EX-5": {
     "domain": "Explainability",
-    "alignmentType": "Partially Aligns",
+    "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question explores how the organisation balances model performance against explainability when choosing model architectures. ISO/IEC 42001 recognises lack of transparency or explainability as an AI-specific concern that can affect trustworthiness and accountability and notes that such risks require appropriate safeguards, but it does not prescribe explicit trade-off or decision processes between complexity and explainability. Because the question focuses on a design trade-off that is implied but not explicitly required by the standard, the alignment is partial.",
-    "citation": "A.6.2.4 -> p.19; B.6.2.7 -> p.35; B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 requires organisations to define and document verification and validation measures and their criteria, and to apply these measures during AI system development. It also states that technical documentation and user information should be accurate and reflect the true capabilities and limitations of the system. By implication, if explanations are provided as part of transparency or explainability efforts, they should be validated to ensure they accurately describe how the system operates and how inputs influence outputs, rather than providing misleading or overly simplistic descriptions."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard acknowledges system complexity considerations and requires documenting design choices including algorithm types and model selection. These requirements implicitly address the trade-offs between complexity and explainability in system design.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.6.2.3: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.6.2.3 -> p.32; B.9.3 -> p.42",
+    "controlIntent": "Organizations should consider documenting system complexity (B.5.3, p.28); Organizations should document information about their AI system design choices such as machine learning approaches, learning algorithms and model types (B.6.2.3, p.32); Organizations should identify and document objectives for responsible use of AI systems, including explainability (B.9.3, p.42)"
   },
   "EX-6": {
     "domain": "Explainability",
-    "alignmentType": "Partially Aligns",
+    "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to design the system and supporting materials so that users can understand why particular outputs or decisions were produced. ISO/IEC 42001 requires providing necessary information to users so they understand how the AI system works, its purpose, potential harms and benefits, limitations and operational requirements, and it calls for evaluation methods to determine whether interested parties can adequately interpret AI outputs. Because the question directly examines how interpretability for users is achieved, it fully aligns with the control.",
-    "citation": "B.6.2.7 -> p.35; B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 notes that technical documentation for the AI system should be prepared for relevant categories of interested parties, such as users, operators, partners and supervisory authorities, and that the level of detail and format may vary depending on the audience. It also states that information provided to users should help them understand how the system works, its purpose and limitations, despite its complexity. This guidance implies that organisations should tailor explanations and documentation to the technical proficiency and role of each stakeholder group, providing more detailed technical descriptions to specialists and more accessible summaries to end users or non-technical audiences."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly establishes explainability and transparency as objectives for responsible AI use. The standard requires providing appropriate information to users and making systems understandable.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.9.3: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Users need to understand when they're interacting with an AI system... Information should include: system purpose, interaction instructions (B.8.2, p.40); Organizations should identify and document objectives for responsible use of AI systems, including transparency [and] explainability (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight, including human reviewers checking AI system outputs (B.9.4, p.43)"
   },
   "EX-7": {
     "domain": "Explainability",
     "alignmentType": "Partially Aligns",
-    "confidenceLevel": "High",
-    "alignmentRationale": "This question focuses on specific tools and techniques used to increase model explainability. ISO/IEC 42001 requires organisations to define explainability as an objective where relevant and to integrate measures into the development lifecycle to achieve such objectives, noting that measures can include requirements to use specific tools or methods. However, the standard does not mandate particular tools such as SHAP or LIME. Because the question addresses one tool-based implementation of a more general requirement, the alignment is partial.",
-    "citation": "B.8.2 -> p.40; B.3.2 -> p.26",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system, enabling them to understand when they are interacting with it, how it works, its purpose, potential impacts and how to override or query it. It also notes that organisations should determine the needs and expectations of interested parties related to the AI system. By implication, if explanations are provided as part of transparency efforts, the organisation should assess whether those explanations are effective in helping users understand and appropriately use the system, which may involve gathering user feedback or conducting usability studies."
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard requires documenting AI system tooling and establishing explainability as an objective, but doesn't specifically address explainability tools or techniques. While the standard requires tooling documentation and explainability objectives, it lacks specific guidance on techniques for making complex models explainable.",
+    "controlAlignmentDetails": "B.4.4: Partial Alignment, B.9.3: Partial Alignment",
+    "citation": "B.4.4 -> p.25; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document information about their AI system tooling resources, including algorithm types and machine learning models, data conditioning tools, [and] evaluation methods (B.4.4, p.25); Organizations should identify and document objectives for responsible use of AI systems, including explainability (B.9.3, p.42)"
   },
   "EX-8": {
     "domain": "Explainability",
-    "alignmentType": "Partially Aligns",
+    "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks whether explanations are tailored to the needs of different stakeholder groups such as end-users, regulators and internal teams. ISO/IEC 42001 requires organisations to determine what technical documentation and information are needed for each relevant category of interested party and to provide it appropriately, and it defines explainability as providing understandable explanations to interested parties. As the question directly tests whether explanations are differentiated by group, it fully aligns with the control.",
-    "citation": "B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system, and that this information should help users understand how the system works, its purpose, potential impacts and limitations, as well as how to override or query it. While the standard does not specify the technical means of delivering this information, providing explanations directly within the user interface\u2014where and when users are interacting with the system\u2014can improve accessibility and support better understanding and decision-making. This approach aligns with the standard's emphasis on enabling users to effectively and safely use the AI system."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires considering different stakeholders' needs when providing information about AI systems. The standard specifically mentions tailoring documentation and information for different audiences.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.8.5: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.8.5 -> p.41; B.9.3 -> p.42",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should identify and document what information about their AI systems needs to be reported to interested parties (B.8.5, p.41); Organizations should identify and document objectives for responsible use of AI systems, including explainability (B.9.3, p.42)"
   },
   "AC-1": {
     "domain": "Accountability",
