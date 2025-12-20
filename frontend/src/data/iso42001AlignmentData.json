@@ -291,65 +291,73 @@
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to define, measure and maintain data accuracy, completeness and quality for data used in AI training, validation and production. ISO/IEC 42001 requires definition of data-quality requirements and ensures that data used to develop and operate AI systems meet those requirements, emphasising that the quality of training, validation, test and production data should be defined, measured and improved. Because the question directly addresses these practices, it fully aligns with the control.",
-    "citation": "A.7.2 -> p.19; B.7.1 -> p.36; B.7.2 -> p.37",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall define and document data management processes, including data quality requirements that specify characteristics such as accuracy, completeness, consistency, timeliness and relevance. It requires that data used for AI system development and operation be verified against these requirements and that appropriate controls be implemented for data acquisition, selection and preparation. The standard notes that organisations should consider the origin, format and quality of data, and should document data quality verification activities to ensure that AI systems are built on reliable and suitable data."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires defining and documenting data quality requirements. The standard has dedicated sections on data quality validation and documentation.",
+    "controlAlignmentDetails": "B.7.4: Full Alignment, B.4.3: Full Alignment, B.7.2: Full Alignment",
+    "citation": "B.7.4 -> p.38; B.4.3 -> p.25; B.7.2 -> p.37",
+    "controlIntent": "Organizations should define and document data quality requirements (B.7.4, p.38); Organizations should document information about their data, including quality measures (B.4.3, p.25); Implementation guidance for data resources should consider accuracy and data integrity (B.7.2, p.37)"
   },
   "DI-2": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question focuses on tracking data origin, movement and transformation over time, including recording updates and changes. ISO/IEC 42001 requires organisations to define and document processes for recording data provenance over the life cycles of both the data and the AI system and specifies that data documentation should include provenance and dates of last update or modification. As the question explicitly probes these lineage and change-tracking processes, it fully aligns with the control.",
-    "citation": "A.7.2 -> p.19; A.7.5 -> p.19; B.7.1 -> p.36; B.7.4 -> p.38",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document data management processes covering the entire lifecycle, including ongoing operation and monitoring. It states that data quality requirements should be specified and that metrics for monitoring system performance, including data quality, should be established. The standard notes that organisations should take action when monitoring indicates that data quality is degraded or that the AI system's performance is unacceptable. This ensures that data integrity is maintained not only during development but also throughout the operational life of the AI system."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires tracking data provenance throughout the lifecycle of both the data and the AI system. The standard has specific requirements for documenting data lineage.",
+    "controlAlignmentDetails": "B.7.5: Full Alignment, B.4.3: Full Alignment, B.7.6: Partial Alignment",
+    "citation": "B.7.5 -> p.38; B.4.3 -> p.25; B.7.6 -> p.39",
+    "controlIntent": "Organizations should track data provenance throughout the lifecycle of both the data and the AI system (B.7.5, p.38); Organizations should document information about their data, including data provenance and last update dates (B.4.3, p.25); Organizations should define criteria for data preparation [which includes tracking changes] (B.7.6, p.39)"
   },
   "DI-3": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks whether formal governance policies govern how data are collected, used, retained and disposed of across the AI lifecycle. ISO/IEC 42001 requires defined, documented and implemented data management processes, including acquisition and selection of data, and states that data documentation should include categories of data, intended use, applicable retention and disposal policies and quality requirements. Because the question targets these governance aspects explicitly, it fully aligns with the control.",
-    "citation": "A.7.3 -> p.19; B.7.2 -> p.37",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall document details of data acquisition and selection, and shall record data provenance. The guidance notes that data provenance information should include the source of data, methods of collection, any preprocessing or transformations applied, and the rationale for including or excluding certain data. Recording this information supports traceability, enables quality assurance, facilitates impact assessments and helps the organisation demonstrate compliance with legal and ethical obligations related to data use."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires documenting policies for data governance including retention. The standard addresses multiple aspects of data governance throughout the data lifecycle.",
+    "controlAlignmentDetails": "B.4.3: Full Alignment, B.7.2: Full Alignment, B.7.3: Full Alignment",
+    "citation": "B.4.3 -> p.25; B.7.2 -> p.37; B.7.3 -> p.38",
+    "controlIntent": "Organizations should document information about their data, including retention policies (B.4.3, p.25); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Data acquisition considerations include data rights (PII, copyright) [which involves usage policies] (B.7.3, p.38)"
   },
   "DI-4": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question requires the organisation to maintain data currency and accuracy over time through updates and validation. ISO/IEC 42001 requires that data-quality requirements be defined and met and that the quality of training, validation, test and production data be measured and improved, and it specifies that data documentation should record the date of last update or modification. These provisions support mechanisms for maintaining up-to-date and accurate data, so the question fully aligns with the control.",
-    "citation": "A.5.4 -> p.17; B.6.2.5 -> p.34; B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 requires organisations to establish a process for assessing AI risks and opportunities, and to plan actions to address them. It notes that AI-specific risks can include data quality issues, adversarial attacks and manipulation, and that organisations should consider these when designing verification and validation activities. The standard also requires that security controls be implemented to protect AI systems and their data from unauthorised access, modification or corruption. While 'data poisoning' is not explicitly mentioned, the standard's requirements for risk assessment, data quality verification and security controls provide a framework for addressing such threats."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires documenting data currency (last update dates) and accuracy. The standard addresses data quality aspects including accuracy throughout multiple sections.",
+    "controlAlignmentDetails": "B.4.3: Full Alignment, B.7.4: Full Alignment, B.7.2: Full Alignment",
+    "citation": "B.4.3 -> p.25; B.7.4 -> p.38; B.7.2 -> p.37",
+    "controlIntent": "Organizations should document information about their data, including last update dates (B.4.3, p.25); Organizations should define and document data quality requirements (B.7.4, p.38); Implementation guidance for data resources should consider accuracy and data integrity (B.7.2, p.37)"
   },
   "DI-5": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question examines how the organisation detects and remediates missing or incomplete data, for example through cleaning, imputation or other preparation techniques. ISO/IEC 42001 requires definition of criteria for data preparation and methods used and explains that data preparation often includes dealing with missing entries and applying imputation or other transformations. Because the question directly concerns such structured handling of missing data, it fully aligns with the control.",
-    "citation": "A.7.2 -> p.19; B.7.2 -> p.37",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall define, document and implement data management processes, including data acquisition and selection. It requires that data quality requirements be specified and that data be verified against those requirements before use. The guidance notes that when acquiring data from external sources, organisations should assess the reliability and trustworthiness of the source, verify that the data meets quality and ethical standards, and apply appropriate preprocessing or sanitisation to remove errors, outliers or malicious content. This ensures that external data does not introduce integrity or security risks into the AI system."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly mentions imputation for missing entries as part of data preparation. The standard specifically addresses handling missing data.",
+    "controlAlignmentDetails": "B.7.6: Full Alignment, B.7.4: Partial Alignment",
+    "citation": "B.7.6 -> p.39; B.7.4 -> p.38",
+    "controlIntent": "Organizations should define criteria for data preparation including imputation for missing entries (B.7.6, p.39); Organizations should define and document data quality requirements [which would address completeness] (B.7.4, p.38)"
   },
   "DI-6": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks about the organisation's approach to data preprocessing, including cleaning, normalisation and other transformations before model training or inference. ISO/IEC 42001 requires organisations to define and document criteria and methods for data preparation, notes that poor preparation can lead to AI system errors and lists typical preparation methods such as cleaning, imputation, normalisation and scaling. Since the question probes these structured preprocessing practices, it fully aligns with the control.",
-    "citation": "B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated data from unauthorised access, disclosure, modification, destruction or interference. It notes that controls can include access management, encryption, secure storage, audit logging and intrusion detection. The standard references ISO/IEC 27001 and ISO/IEC 27002 for comprehensive information security practices. By implementing these controls, organisations protect the integrity of data used by AI systems, ensuring that it is not corrupted, tampered with or accessed by unauthorised parties."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard provides detailed requirements for data preparation including specific preprocessing techniques. The standard explicitly lists multiple data preprocessing methods.",
+    "controlAlignmentDetails": "B.7.6: Full Alignment, B.4.3: Full Alignment",
+    "citation": "B.7.6 -> p.39; B.4.3 -> p.25",
+    "controlIntent": "Organizations should define criteria for data preparation including cleaning data, normalization, scaling, labelling target variables, encoding categorical variables (B.7.6, p.39); Organizations should document information about their data, including data preparation (B.4.3, p.25)"
   },
   "DI-7": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question focuses on whether external or third-party data sources are systematically assessed for quality and reliability before use in AI systems. ISO/IEC 42001 requires documenting acquisition and selection of data, including types and characteristics of data sources (internal, purchased, shared, open, synthetic) and associated metadata such as provenance, and it requires that data used meet defined quality requirements. Because the question targets evaluation of external data sources against such criteria, it fully aligns with the control.",
-    "citation": "A.7.2 -> p.19; B.7.1 -> p.36; B.10.1 -> p.43",
-    "controlIntent": "ISO/IEC 42001 requires that organisations specify data quality requirements, including accuracy and consistency, and verify that data meets these requirements. It also requires that organisations plan actions to address risks and opportunities, and take corrective action when deficiencies are identified. The guidance notes that data management processes should include procedures for data cleaning, error detection, validation and correction, and that organisations should document and address data quality issues promptly to prevent them from affecting AI system performance or trustworthiness."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires evaluating data sources, including third-party sources, and documenting their characteristics. The standard explicitly addresses considerations for various data sources.",
+    "controlAlignmentDetails": "B.7.3: Full Alignment, B.4.2: Full Alignment, B.10.3: Partial Alignment",
+    "citation": "B.7.3 -> p.38; B.4.2 -> p.24; B.10.3 -> p.44",
+    "controlIntent": "Data acquisition considerations include data sources (internal, purchased, shared, open data, synthetic), characteristics of data sources (B.7.3, p.38); Organizations should document resources that can be provided by the organization itself, customers, or third parties (B.4.2, p.24); Organizations should ensure suppliers align with responsible AI development practices (B.10.3, p.44)"
   },
   "DI-8": {
     "domain": "Data Integrity",
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "This question asks how the organisation ensures end-to-end traceability of data across the AI lifecycle, including where data came from, how it was transformed and how it was used. ISO/IEC 42001 requires defined and documented processes for recording data provenance covering creation, updates, transformations and sharing, and it notes that event logs can record production data to support traceability of functionality. As the question directly examines these lineage and traceability practices, it fully aligns with the control.",
-    "citation": "B.8.1 -> p.39",
-    "controlIntent": "ISO/IEC 42001 states that organisations should implement security controls to protect AI systems and associated data throughout their lifecycle, including during transmission and processing. The guidance notes that controls can include encryption for data in transit, checksums or hash functions to verify data integrity, secure communication protocols and validation checks at each processing stage. The standard references ISO/IEC 27001 and ISO/IEC 27002 for detailed information security practices. These measures ensure that data retains its integrity as it moves between systems, components or locations, and that any corruption or tampering is detected and addressed."
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires tracking data provenance throughout the lifecycle of both the data and the AI system. The standard has specific sections dedicated to data provenance.",
+    "controlAlignmentDetails": "B.7.5: Full Alignment, B.4.3: Full Alignment, B.7.6: Full Alignment",
+    "citation": "B.7.5 -> p.38; B.4.3 -> p.25; B.7.6 -> p.39",
+    "controlIntent": "Organizations should track data provenance throughout the lifecycle of both the data and the AI system (B.7.5, p.38); Organizations should document information about their data, including data provenance (B.4.3, p.25); Data provenance according to ISO 8000-2 should be maintained (B.7.6, p.39)"
   },
   "RE-1": {
     "domain": "Reliability",
