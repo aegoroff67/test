@@ -577,67 +577,75 @@
   },
   "SA-1": {
     "domain": "Safety",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks whether a structured safety impact assessment has been carried out for the AI system. ISO/IEC 42001 requires organisations to manage AI-system trustworthiness, including safety, throughout the lifecycle and to define testing, evaluation and validation steps, but it does not explicitly mandate a dedicated safety impact assessment artefact. The question reflects a stronger practice aligned with the intent of the standard but not explicitly required, so the alignment is partial.",
-    "citation": "A.5.4 -> p.17; B.5.1 -> p.27; B.5.2 -> p.27",
-    "controlIntent": "ISO/IEC 42001 requires that organisations establish a process for assessing AI risks and opportunities, and a process for AI system impact assessment to assess potential consequences for individuals, groups and societies. The guidance notes that risk and impact assessments should consider safety implications, including potential physical harm, psychological harm or harm to health and wellbeing. The standard requires that risks be identified, evaluated for likelihood and severity, and addressed through mitigation measures. It references safety standards such as ISO/IEC 23894 (guidance on AI safety) and ISO 31000 (risk management) for detailed methodologies."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires impact assessments that include safety considerations. The standard has dedicated sections for assessing impacts of AI systems.",
+    "controlAlignmentDetails": "B.5.2: Full Alignment, B.5.3: Full Alignment, B.6.2.4: Full Alignment",
+    "citation": "B.5.2 -> p.27; B.5.3 -> p.28; B.6.2.4 -> p.33",
+    "controlIntent": "Organizations should establish processes to assess potential consequences (B.5.2, p.27); Organizations should consider documenting positive/negative impacts, predictable failures (B.5.3, p.28); Evaluation plan criteria should include reliability and safety requirements (B.6.2.4, p.33)"
   },
   "SA-2": {
     "domain": "Safety",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question explores safeguards that prevent unintended harmful outcomes, such as design constraints, human oversight or risk controls. ISO/IEC 42001 emphasises intended use, foreseeable misuse and safety as part of trustworthiness and requires testing and validation to ensure safe operation before deployment. However, it does not prescribe specific mechanisms such as override controls or safety envelopes. Because the question focuses on concrete safeguards beyond the standard's general requirements, the alignment is partial.",
-    "citation": "B.9.4 -> p.42; B.10.1 -> p.43",
-    "controlIntent": "ISO/IEC 42001 notes that organisations should implement controls to mitigate AI risks, including safety risks. The guidance discusses human oversight as an important control, noting that the extent and nature of oversight should be determined based on the system's characteristics and impacts. It also notes that users should be informed about how to override, query or challenge the AI system, implying that fail-safe mechanisms and manual overrides should be available. The standard requires that organisations plan for incidents and have procedures for responding when AI systems fail or behave unexpectedly, including shutting down or isolating the system to prevent harm."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires identifying potential harms and implementing safety measures to prevent unintended consequences. The standard addresses safety as a core objective for responsible AI.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.9.3: Full Alignment, B.9.4: Full Alignment",
+    "citation": "B.5.3 -> p.28; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Organizations should consider documenting intended use and misuse, positive/negative impacts, predictable failures (B.5.3, p.28); Organizations should identify and document objectives for responsible use of AI systems, including safety (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight including reviewing outputs and reporting concerns (B.9.4, p.43)"
   },
   "SA-3": {
     "domain": "Safety",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks whether real-time monitoring tools are in place to detect unsafe behaviour as the system operates. ISO/IEC 42001 requires ongoing operation and monitoring processes, including system monitoring and performance checks, but it does not explicitly require real-time or near real-time safety monitoring technologies. As the question is more specific than the control in this respect, the alignment is partial.",
-    "citation": "A.6.2.4 -> p.19; B.6.2.5 -> p.34",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document verification and validation measures and their evaluation criteria, and apply these during AI system development. The guidance notes that verification and validation should include testing for safety, robustness and resilience, and should consider edge cases, unusual inputs, failure modes and safety-critical scenarios. The standard notes that testing should simulate real-world conditions, including challenging or adverse situations, to ensure that AI systems behave safely and predictably. It references safety standards such as ISO/IEC 23894 for AI-specific safety validation guidance."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires monitoring systems for safety issues and detecting problems during operation. The standard addresses system monitoring and observability requirements.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.6.2.8: Full Alignment, B.9.4: Full Alignment",
+    "citation": "B.6.2.6 -> p.34; B.6.2.8 -> p.36; B.9.4 -> p.43",
+    "controlIntent": "Organizations should define and document system and performance monitoring requirements (B.6.2.6, p.34); Organizations should ensure proper logging of events during AI system operation (B.6.2.8, p.36); Oversight activities include monitoring AI system performance and accuracy, reporting concerns about outputs and impacts (B.9.4, p.43)"
   },
   "SA-4": {
     "domain": "Safety",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question seeks mechanisms to prioritise human safety when system actions conflict with safety requirements, such as human override, automatic shutdown or other control hierarchies. ISO/IEC 42001 recognises safety as a responsible-use objective and requires managing trustworthiness risks, but it does not prescribe explicit control-priority rules or override mechanisms. Because the question addresses detailed safety-handling strategies that go beyond the text of the standard, the alignment is partial.",
-    "citation": "A.7.5 -> p.19; B.7.4 -> p.38; B.10.2 -> p.44",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring of AI systems, including metrics for monitoring performance and safety. It also requires that organisations establish and maintain a process for managing AI incidents, including identifying, recording, investigating and responding to safety-related incidents. The guidance notes that monitoring should detect deviations from expected behaviour, safety-critical errors or conditions that could lead to harm, and that organisations should have procedures for responding promptly, including alerting relevant personnel, taking corrective action and communicating with affected parties."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires human oversight of AI systems and procedures for handling conflicts or safety issues. The standard specifically addresses human intervention in AI systems.",
+    "controlAlignmentDetails": "B.9.4: Full Alignment, B.6.2.6: Full Alignment, B.5.3: Partial Alignment",
+    "citation": "B.9.4 -> p.43; B.6.2.6 -> p.34; B.5.3 -> p.28",
+    "controlIntent": "Organizations should document how they intend to provide meaningful human oversight including ensuring human oversight when required for acceptable use (B.9.4, p.43); Organizations should document repair processes for errors and failures (B.6.2.6, p.34); Organizations should consider documenting predictable failures (B.5.3, p.28)"
   },
   "SA-5": {
     "domain": "Safety",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on whether emergency shutdown or fail-stop procedures exist for situations where the AI system behaves unsafely. ISO/IEC 42001 requires organisations to plan deployment, validation, operation and monitoring to ensure safe functioning and to manage failures, but it does not explicitly require emergency shutdown protocols as a specific control. Therefore, the question is consistent with the underlying safety objectives but only partially aligned with explicit requirements.",
-    "citation": "B.5.2 -> p.27; B.6.2.1 -> p.31",
-    "controlIntent": "ISO/IEC 42001 requires that organisations assess potential consequences of AI systems across their life cycle, including interactions with other systems, components or the operational environment. The guidance notes that AI systems often operate as part of larger systems-of-systems, and that safety risks can arise from interactions, dependencies or integration issues. The standard requires that requirements for the AI system consider the operational context, including interfaces with other systems, and that organisations evaluate whether the AI system behaves safely and predictably when integrated into the broader system. This systems-level perspective is essential for identifying and mitigating emergent safety risks."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires plans for managing failures including turning off features. The standard addresses safety controls and emergency response procedures.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.9.3: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.36; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Organizations should document plans for managing failures (rollback plans, turning off features, update processes) (B.6.2.6, p.36); Organizations should identify and document objectives for responsible use of AI systems, including safety (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight (B.9.4, p.43)"
   },
   "SA-6": {
     "domain": "Safety",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks about structured identification and mitigation of risks or harms associated with the AI system. ISO/IEC 42001 requires organisations to manage trustworthiness risks, including safety, to evaluate foreseeable misuse and to define testing and validation steps. While these clauses support risk management conceptually, the standard does not provide a detailed methodology for hazard identification and mitigation. As a result, the alignment is partial.",
-    "citation": "B.8.2 -> p.40; B.6.2.7 -> p.35",
-    "controlIntent": "ISO/IEC 42001 states that organisations shall determine and provide the information users need about the AI system, including known limitations, potential harms and operational requirements. The guidance notes that users should understand safety-related precautions, such as conditions under which the system should not be used, required supervision or oversight, and how to respond if the system behaves unexpectedly. Technical documentation should also describe safety considerations, failure modes and mitigation measures. By communicating this information clearly, organisations enable users to operate AI systems safely and responsibly, reducing the risk of harm due to misuse or over-reliance."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires comprehensive risk identification and mitigation processes for AI systems. The standard addresses impact assessments and risk management throughout the AI lifecycle.",
+    "controlAlignmentDetails": "B.5.2: Full Alignment, B.5.3: Full Alignment, B.3.2: Full Alignment",
+    "citation": "B.5.2 -> p.27; B.5.3 -> p.28; B.3.2 -> p.23",
+    "controlIntent": "Organizations should establish processes to assess potential consequences (B.5.2, p.27); Organizations should consider documenting intended use and misuse, positive/negative impacts, predictable failures (B.5.3, p.28); Organizations should define roles and responsibilities related to AI systems for risk management (B.3.2, p.23)"
   },
   "SA-7": {
     "domain": "Safety",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question explores whether the system incorporates fail-safe mechanisms or redundancies so that unexpected behaviours do not lead to unsafe outcomes. ISO/IEC 42001 highlights robustness and safety as key objectives and requires lifecycle testing and monitoring but does not explicitly require redundant architectures or specific fail-safe designs. Because the question focuses on implementation patterns that go beyond the explicit text, the alignment is partial.",
-    "citation": "B.10.1 -> p.43; B.10.2 -> p.44",
-    "controlIntent": "ISO/IEC 42001 requires that organisations plan actions to address AI risks and opportunities, and establish processes for managing AI incidents. The guidance notes that when an AI system is found to be unsafe, underperforming or no longer fit for purpose, the organisation should have procedures for withdrawing, decommissioning or deactivating the system. This can include notifying affected parties, ceasing operations, retrieving or updating deployed systems, and ensuring that users are informed and transitioned to alternative solutions. The standard also requires that decisions about withdrawal and lessons learned be documented, supporting continuous improvement and responsible AI management."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires robustness, redundancy, and plans for managing failures. The standard addresses fail-safe mechanisms and recovery procedures.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.9.3: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.36; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Organizations should document plans for managing failures (rollback plans, turning off features, update processes) (B.6.2.6, p.36); Organizations should identify and document objectives for responsible use of AI systems, including robustness and redundancy (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight (B.9.4, p.43)"
   },
   "SA-8": {
     "domain": "Safety",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks about safety testing conducted in realistic or high-risk scenarios that mirror actual operating conditions. ISO/IEC 42001 requires testing, validation and evaluation that consider intended use and foreseeable misuse, which supports scenario-based safety testing conceptually, but it does not explicitly require testing in high-risk or stress-case environments. Accordingly, the alignment is partial.",
-    "citation": "A.7.1 -> p.19; A.9.2 -> p.20; B.5.1 -> p.27",
-    "controlIntent": "ISO/IEC 42001 requires that organisations ensure personnel working on AI systems are competent, which can include having appropriate expertise in safety engineering and risk management. It also requires that internal audits be conducted to evaluate conformity with requirements and effective implementation of the management system. While the standard does not explicitly require independent safety reviews, it notes that for high-risk or safety-critical AI systems, organisations should consider additional scrutiny, such as engaging external safety experts, conducting independent assessments or following domain-specific safety standards. This provides assurance that safety risks have been thoroughly evaluated and appropriately addressed."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires testing and evaluation with particular attention to high-risk applications. The standard specifically mentions evaluating high-risk AI applications like healthcare diagnosis and self-driving automobiles.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.5.5: Full Alignment, B.6.1.3: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.5.5 -> p.30; B.6.1.3 -> p.31",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Information about high-risk AI applications (healthcare diagnosis, self-driving automobiles) [requires additional testing] (B.5.5, p.30); Organizations should document life cycle stages, testing requirements and planned testing means (B.6.1.3, p.31)"
   },
   "IN-1": {
     "domain": "Inclusivity",
