@@ -649,67 +649,75 @@
   },
   "IN-1": {
     "domain": "Inclusivity",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question requires the organisation to implement measures to make the AI system accessible and usable for diverse users, including those with disabilities and underserved communities. ISO/IEC 42001 requires organisations to define responsible-use objectives that can include accessibility, usability and inclusiveness and to consider affected individuals and user needs during design. However, it does not prescribe specific accessibility techniques or detailed guidelines. Therefore, the question is aligned with the intent but more prescriptive, leading to partial alignment.",
-    "citation": "B.9.3 -> p.42; B.5.4 -> p.28",
-    "controlIntent": "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible use of AI systems, which can include accessibility. It also requires that impact assessments consider the needs and protection requirements of different groups, including impaired persons. The guidance notes that when accessibility is defined as an objective, organisations should integrate measures to achieve it throughout the AI lifecycle, such as designing user interfaces that support assistive technologies, providing alternative formats for information, and testing with users who have diverse abilities. By proactively addressing accessibility, organisations ensure that AI systems are inclusive and do not exclude or disadvantage persons with disabilities."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly establishes accessibility as a core objective for responsible AI use and requires consideration of diverse user needs. The standard addresses accessibility requirements for AI systems.",
+    "controlAlignmentDetails": "B.9.3: Full Alignment, B.5.4: Full Alignment, B.6.1.3: Partial Alignment",
+    "citation": "B.9.3 -> p.42; B.5.4 -> p.28; B.6.1.3 -> p.31",
+    "controlIntent": "Organizations should identify and document objectives for responsible use of AI systems, including accessibility (B.9.3, p.42); Organizations should consider their governance principles and protection needs of vulnerable groups like children, elderly persons, and impaired persons (B.5.4, p.28); Organizations should document usability and controllability requirements (B.6.1.3, p.31)"
   },
   "IN-2": {
     "domain": "Inclusivity",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question examines whether diverse stakeholder perspectives were explicitly sought and integrated during design and development. ISO/IEC 42001 requires identification of affected individuals and stakeholders and engagement with them to understand impacts and expectations, which conceptually supports including a range of perspectives. The standard does not explicitly require diversity criteria (such as culture or gender) in stakeholder selection, so the alignment is partial.",
-    "citation": "A.6.2.1 -> p.18; B.6.2.1 -> p.31; B.5.4 -> p.28",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document objectives and requirements for the AI system, taking into account the intended use, operational context and needs of interested parties. The guidance notes that organisations should consider the diversity of users, including differences in language, culture, technical proficiency, abilities and contexts of use. It also requires that impact assessments consider relevant demographic groups and the potential for differential impacts. By considering diverse user needs and contexts, organisations ensure that AI systems are designed inclusively and do not inadvertently exclude or disadvantage certain user groups."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires consideration of diverse expertise and engagement of interested parties in AI system development. The standard addresses the importance of diverse perspectives in design and development.",
+    "controlAlignmentDetails": "B.4.6: Full Alignment, B.6.1.3: Full Alignment, B.5.4: Partial Alignment",
+    "citation": "B.4.6 -> p.26; B.6.1.3 -> p.31; B.5.4 -> p.28",
+    "controlIntent": "Organizations should consider diverse expertise and various roles including domain specialists in human resources (B.4.6, p.26); Organizations should document engagement of interested parties in AI processes (B.6.1.3, p.31); Organizations should consider their governance principles and protection needs of vulnerable groups (B.5.4, p.28)"
   },
   "IN-3": {
     "domain": "Inclusivity",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks whether the organisation conducts audits to identify exclusionary outcomes or unintended impacts on particular user groups. ISO/IEC 42001 requires evaluating impacts on individuals and groups, considering foreseeable misuse and managing trustworthiness risks, which supports ongoing assessment of adverse impacts. However, it does not explicitly require named fairness or exclusion audits. Thus, the question is consistent with the intent but only partially aligned with explicit requirements.",
-    "citation": "B.3.2 -> p.26; B.5.3 -> p.28",
-    "controlIntent": "ISO/IEC 42001 requires that organisations determine the needs and expectations of interested parties that are relevant to the AI system, and document this information. The guidance notes that interested parties can include users, affected individuals and communities, civil society organisations, advocacy groups and representatives of marginalised or underrepresented populations. It also notes that AI system impact assessments should consider relevant demographic groups and should involve consultation or engagement with affected parties where appropriate. By engaging diverse stakeholders, organisations gain insights into potential impacts, identify blind spots and design AI systems that are more inclusive and equitable."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires assessing system impacts on individuals and groups, including potential negative impacts. The standard addresses evaluating AI systems for unintended consequences and exclusionary outcomes.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.5.4: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.5.4 -> p.28; B.9.4 -> p.43",
+    "controlIntent": "Organizations should consider documenting which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28); Organizations should assess and document the potential impacts on individuals or groups of individuals throughout the lifecycle of AI systems (B.5.4, p.28); Organizations should monitor AI system performance and report concerns about outputs and impacts (B.9.4, p.43)"
   },
   "IN-4": {
     "domain": "Inclusivity",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question focuses on how accessibility requirements for users with disabilities are incorporated into system design and implementation. ISO/IEC 42001 identifies accessibility, usability and inclusiveness as potential responsible-use objectives and requires that human factors and accessibility be addressed in design, but it does not reference specific accessibility standards or detailed technical requirements. Because the question targets practical implementation choices that go beyond the standard's general expectations, the alignment is partial.",
-    "citation": "B.5.2 -> p.27; B.5.3 -> p.28; B.5.4 -> p.28",
-    "controlIntent": "ISO/IEC 42001 requires that organisations establish a process for AI system impact assessment to assess potential consequences for individuals, groups and societies. The guidance notes that assessments should consider whether the AI system has differential impacts on different demographic or social groups, including potential for exclusion, disadvantage or discrimination. It requires that relevant demographic groups be documented and that negative impacts be identified, evaluated and addressed through mitigation measures. By proactively evaluating inclusivity and fairness, organisations can prevent AI systems from reinforcing or exacerbating inequalities."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly establishes accessibility as a requirement for AI systems and mentions consideration for impaired persons. The standard addresses accessibility needs in AI design.",
+    "controlAlignmentDetails": "B.9.3: Full Alignment, B.5.4: Full Alignment, B.6.1.3: Partial Alignment",
+    "citation": "B.9.3 -> p.42; B.5.4 -> p.28; B.6.1.3 -> p.31",
+    "controlIntent": "Organizations should identify and document objectives for responsible use of AI systems, including accessibility (B.9.3, p.42); Organizations should consider their governance principles and protection needs of vulnerable groups like children, elderly persons, and impaired persons (B.5.4, p.28); Organizations should document usability and controllability requirements (B.6.1.3, p.31)"
   },
   "IN-5": {
     "domain": "Inclusivity",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks whether stakeholders from diverse demographic backgrounds participate in design and testing activities. ISO/IEC 42001 requires identifying stakeholders and affected individuals and engaging with them, but it does not specify demographic diversity or representation thresholds for those participants. The question reflects a stronger practice than explicitly required by the standard, leading to partial alignment.",
-    "citation": "B.8.2 -> p.40; B.6.2.1 -> p.31",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define AI system requirements taking into account the intended use and operational context, and provide users with information about the AI system in a form they can understand. The guidance notes that user needs can include language preferences, cultural norms and contextual factors. While the standard does not explicitly require multilingual support or cultural adaptation, it emphasises that AI systems should be designed to meet the needs of their intended users, which can include providing interfaces and information in multiple languages, adapting to cultural contexts and avoiding assumptions or biases that exclude certain cultural or linguistic groups."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires engagement of interested parties and diverse expertise in AI system development. The standard specifically addresses including diverse roles in AI system processes.",
+    "controlAlignmentDetails": "B.4.6: Full Alignment, B.6.1.3: Full Alignment, B.3.2: Partial Alignment",
+    "citation": "B.4.6 -> p.26; B.6.1.3 -> p.31; B.3.2 -> p.23",
+    "controlIntent": "Organizations should consider diverse expertise and various roles including domain specialists in human resources (B.4.6, p.26); Organizations should document engagement of interested parties in AI processes (B.6.1.3, p.31); Organizations should define roles and responsibilities related to AI systems for various aspects (B.3.2, p.23)"
   },
   "IN-6": {
     "domain": "Inclusivity",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question explores specific measures taken to ensure the AI system meets the needs of underrepresented or marginalised communities. ISO/IEC 42001 requires consideration of impacts on individuals and groups and promotes accessible and inclusive design as part of responsible-use objectives, but it does not explicitly call out underrepresented communities or mandate equity-focused functionality. As such, the alignment is partial.",
-    "citation": "A.7.5 -> p.19; B.7.4 -> p.38; B.5.4 -> p.28",
-    "controlIntent": "ISO/IEC 42001 requires that organisations define and document ongoing operation and monitoring of AI systems, including metrics for monitoring performance. The guidance notes that monitoring should include evaluating whether the system performs equitably across different user groups and whether it produces disparate impacts. It also requires that organisations assess and document impacts on individuals or groups throughout the lifecycle, considering fairness and inclusivity. When monitoring indicates that the AI system disadvantages or excludes certain groups, the organisation should investigate the causes, assess associated risks and take corrective action, such as retraining, adjusting parameters or redesigning the system."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires considering impacts on different demographic groups and protection of vulnerable groups. The standard addresses fairness and accessibility requirements that support underrepresented communities.",
+    "controlAlignmentDetails": "B.5.4: Full Alignment, B.9.3: Full Alignment, B.5.3: Partial Alignment",
+    "citation": "B.5.4 -> p.28; B.9.3 -> p.42; B.5.3 -> p.28",
+    "controlIntent": "Organizations should consider their governance principles and protection needs of vulnerable groups (B.5.4, p.28); Organizations should identify and document objectives for responsible use of AI systems, including fairness [and] accessibility (B.9.3, p.42); Organizations should consider documenting which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28)"
   },
   "IN-7": {
     "domain": "Inclusivity",
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "This question examines whether the system accounts for language, cultural and regional differences in its design. ISO/IEC 42001 supports understanding affected groups, user needs and human factors in system design, which can encompass these aspects, but it does not explicitly require localisation or multi-language support. Because the question addresses specific inclusivity practices that extend beyond the explicit text, the alignment is partial.",
-    "citation": "A.7.1 -> p.19; B.8.2 -> p.40",
-    "controlIntent": "ISO/IEC 42001 requires that organisations determine the competence needed for persons working with or using AI systems, and provide appropriate training, awareness and support. It also requires that organisations determine and provide the information users need about the AI system, including how to use it, its purpose, limitations and how to override or query it. The guidance notes that training, user manuals, tutorials and support services can help ensure that users from diverse backgrounds and with varying levels of technical proficiency can access and effectively use the AI system. By providing appropriate training and support, organisations promote equitable access and prevent digital divides that could exclude less experienced or disadvantaged users."
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses consideration of different stakeholders and demographic groups broadly, but doesn't specifically mention language, cultural, or regional differences. While the standard requires inclusive design principles, it lacks specific guidance on addressing these particular differences.",
+    "controlAlignmentDetails": "B.5.3: Partial Alignment, B.9.3: Partial Alignment, B.5.4: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.9.3 -> p.42; B.5.4 -> p.28",
+    "controlIntent": "Organizations should consider documenting which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28); Organizations should identify and document objectives for responsible use of AI systems, including fairness [and] accessibility (B.9.3, p.42); Organizations should consider their governance principles and protection needs of vulnerable groups (B.5.4, p.28)"
   },
   "IN-8": {
     "domain": "Inclusivity",
-    "alignmentType": "Partially Aligns",
-    "confidenceLevel": "Medium",
-    "alignmentRationale": "This question asks how the organisation evaluates system performance across user groups to detect unintentional exclusion. ISO/IEC 42001 requires evaluating impacts on individuals and groups, monitoring system performance and managing trustworthiness concerns across the lifecycle, which supports assessing exclusion risks conceptually. However, it does not explicitly mandate demographic segmentation or exclusion testing, so the alignment is partial.",
-    "citation": "B.9.3 -> p.42; B.6.2.4 -> p.33; A.7.5 -> p.19",
-    "controlIntent": "ISO/IEC 42001 notes that organisations should identify and document objectives for responsible use of AI systems, which can include inclusivity, accessibility and equity. It requires that AI systems be evaluated against documented criteria that reflect these objectives, and that performance be monitored during operation. The guidance notes that organisations can establish metrics such as representation of diverse user groups, accessibility compliance scores, user satisfaction across demographics and measures of equitable outcomes. By defining inclusivity goals, measuring progress and tracking performance over time, organisations demonstrate commitment to inclusivity and create accountability for achieving equitable AI outcomes."
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires assessing impacts on different demographic groups and evaluating potential negative impacts. The standard addresses methods for identifying exclusionary outcomes.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.5.4: Full Alignment, B.6.2.4: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.5.4 -> p.28; B.6.2.4 -> p.33",
+    "controlIntent": "Organizations should consider documenting which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28); Organizations should assess and document the potential impacts on individuals or groups of individuals throughout the lifecycle of AI systems (B.5.4, p.28); Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33)"
   },
   "SU-1": {
     "domain": "Sustainability",
