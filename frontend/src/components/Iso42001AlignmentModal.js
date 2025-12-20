@@ -96,7 +96,7 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
           {controlIntent && (
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                Control Intent (Plain Language Summary)
+                ISO/IEC 42001 (2023) Citation(s)
               </h3>
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
                 <p className="text-sm text-gray-800 leading-relaxed">
