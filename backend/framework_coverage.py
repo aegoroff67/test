@@ -139,10 +139,15 @@ def calculate_achieved_coverage(
     # Create lookup for answers by question code
     answer_lookup = {}
     for answer in answers:
-        question_id = answer.get("question_id", "")
-        # Handle both formats: "FA-1" or full ID
-        if "-" in question_id and len(question_id) <= 6:
-            answer_lookup[question_id] = answer.get("numeric_score", 0)
+        # Use question_code if available (enriched by backend), otherwise try question_id
+        question_code = answer.get("question_code")
+        if question_code:
+            answer_lookup[question_code] = answer.get("numeric_score", 0)
+        else:
+            # Fallback: try to use question_id if it looks like a code (e.g., "FA-1")
+            question_id = answer.get("question_id", "")
+            if "-" in question_id and len(question_id) <= 6:
+                answer_lookup[question_id] = answer.get("numeric_score", 0)
     
     strong_count = 0
     moderate_count = 0
