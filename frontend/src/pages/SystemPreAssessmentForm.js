@@ -282,7 +282,7 @@ export default function SystemPreAssessmentForm() {
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="organizationName">Organization name</Label>
+              <Label htmlFor="organizationName">Organization name <span className="text-red-500">*</span></Label>
               <Input 
                 id="organizationName" 
                 value={form.organizationName} 
@@ -293,7 +293,7 @@ export default function SystemPreAssessmentForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="industry">Industry / Sector</Label>
+              <Label htmlFor="industry">Industry / Sector <span className="text-red-500">*</span></Label>
               <Select onValueChange={(v) => update("industry", v)} value={form.industry}>
                 <SelectTrigger id="industry">
                   <SelectValue placeholder="Select industry" />
