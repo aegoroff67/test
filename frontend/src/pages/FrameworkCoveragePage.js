@@ -208,7 +208,7 @@ function FrameworkCoveragePage() {
             
             // Check if this framework was selected in the assessment's pre-onboarding
             const selectedFrameworks = assessment?.system_info?.frameworks || [];
-            const isFrameworkSelected = selectedFrameworks.includes(framework.title);
+            const isFrameworkSelected = isFrameworkInSelection(framework.title, selectedFrameworks);
             
             return (
               <Card 
