@@ -186,21 +186,37 @@ function FrameworkCoveragePage() {
             const IconComponent = framework.icon;
             const chartData = generatePlaceholderData();
             
+            // Check if this framework was selected in the assessment's pre-onboarding
+            const selectedFrameworks = assessment?.system_info?.frameworks || [];
+            const isFrameworkSelected = selectedFrameworks.includes(framework.title);
+            
             return (
-              <Card key={framework.id} className="flex flex-col">
+              <Card 
+                key={framework.id} 
+                className={`flex flex-col relative ${!isFrameworkSelected ? 'opacity-50 bg-gray-100' : ''}`}
+              >
+                {/* Overlay banner for unselected frameworks */}
+                {!isFrameworkSelected && (
+                  <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+                    <div className="bg-gray-700 bg-opacity-90 text-white text-xs font-medium px-4 py-2 rounded-md shadow-lg transform -rotate-6">
+                      Framework not selected for this assessment
+                    </div>
+                  </div>
+                )}
+                
                 <CardHeader className="pb-2">
                   <div className="flex items-start space-x-3">
                     <div 
                       className="p-2 rounded-lg"
-                      style={{ backgroundColor: `${framework.color}15` }}
+                      style={{ backgroundColor: isFrameworkSelected ? `${framework.color}15` : '#E5E7EB' }}
                     >
                       <IconComponent 
                         className="h-5 w-5" 
-                        style={{ color: framework.color }}
+                        style={{ color: isFrameworkSelected ? framework.color : '#9CA3AF' }}
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <CardTitle className="text-sm font-semibold text-gray-900 leading-tight">
+                      <CardTitle className={`text-sm font-semibold leading-tight ${isFrameworkSelected ? 'text-gray-900' : 'text-gray-500'}`}>
                         {framework.title}
                       </CardTitle>
                     </div>
@@ -210,7 +226,9 @@ function FrameworkCoveragePage() {
                 <CardContent className="flex-1 flex flex-col">
                   {/* Chart Title */}
                   <div className="text-center mb-2">
-                    <span className="text-xs font-medium text-gray-700">Inherent vs Achieved Coverage</span>
+                    <span className={`text-xs font-medium ${isFrameworkSelected ? 'text-gray-700' : 'text-gray-400'}`}>
+                      Inherent vs Achieved Coverage
+                    </span>
                   </div>
                   
                   {/* Grouped Bar Chart */}
@@ -223,7 +241,7 @@ function FrameworkCoveragePage() {
                         <CartesianGrid strokeDasharray="3 3" vertical={false} />
                         <XAxis 
                           dataKey="category" 
-                          tick={{ fontSize: 9 }}
+                          tick={{ fontSize: 9, fill: isFrameworkSelected ? '#374151' : '#9CA3AF' }}
                           interval={0}
                           tickLine={false}
                           axisLine={{ stroke: '#E5E7EB' }}
@@ -231,14 +249,14 @@ function FrameworkCoveragePage() {
                         <YAxis 
                           domain={[0, 100]} 
                           tickFormatter={(value) => `${value}%`}
-                          tick={{ fontSize: 9 }}
+                          tick={{ fontSize: 9, fill: isFrameworkSelected ? '#374151' : '#9CA3AF' }}
                           tickLine={false}
                           axisLine={{ stroke: '#E5E7EB' }}
                           label={{ 
                             value: '% of controls', 
                             angle: -90, 
                             position: 'insideLeft',
-                            style: { fontSize: 9, fill: '#6B7280' },
+                            style: { fontSize: 9, fill: isFrameworkSelected ? '#6B7280' : '#9CA3AF' },
                             offset: 15
                           }}
                         />
@@ -248,13 +266,13 @@ function FrameworkCoveragePage() {
                         />
                         <Bar 
                           dataKey="inherent" 
-                          fill={CHART_COLORS.inherent}
+                          fill={isFrameworkSelected ? CHART_COLORS.inherent : '#D1D5DB'}
                           radius={[2, 2, 0, 0]}
                           barSize={20}
                         />
                         <Bar 
                           dataKey="achieved" 
-                          fill={CHART_COLORS.achieved}
+                          fill={isFrameworkSelected ? CHART_COLORS.achieved : '#9CA3AF'}
                           radius={[2, 2, 0, 0]}
                           barSize={20}
                         />
@@ -265,23 +283,30 @@ function FrameworkCoveragePage() {
                   {/* Legend */}
                   <div className="flex justify-center space-x-4 text-xs text-gray-600 mt-1 mb-3">
                     <div className="flex items-center space-x-1">
-                      <div className="w-3 h-3 rounded" style={{ backgroundColor: CHART_COLORS.inherent }}></div>
-                      <span>Inherent</span>
+                      <div className="w-3 h-3 rounded" style={{ backgroundColor: isFrameworkSelected ? CHART_COLORS.inherent : '#D1D5DB' }}></div>
+                      <span className={isFrameworkSelected ? '' : 'text-gray-400'}>Inherent</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <div className="w-3 h-3 rounded" style={{ backgroundColor: CHART_COLORS.achieved }}></div>
-                      <span>Achieved</span>
+                      <div className="w-3 h-3 rounded" style={{ backgroundColor: isFrameworkSelected ? CHART_COLORS.achieved : '#9CA3AF' }}></div>
+                      <span className={isFrameworkSelected ? '' : 'text-gray-400'}>Achieved</span>
                     </div>
                   </div>
 
                   {/* View Details Link */}
                   <div className="pt-2 border-t">
                     <button 
-                      className="w-full text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center justify-center space-x-1 py-1 transition-colors"
+                      className={`w-full text-sm font-medium flex items-center justify-center space-x-1 py-1 transition-colors ${
+                        isFrameworkSelected 
+                          ? 'text-blue-600 hover:text-blue-800' 
+                          : 'text-gray-400 cursor-not-allowed'
+                      }`}
                       onClick={() => {
-                        // Placeholder for future navigation
-                        toast.info(`${framework.title} details coming soon`);
+                        if (isFrameworkSelected) {
+                          // Placeholder for future navigation
+                          toast.info(`${framework.title} details coming soon`);
+                        }
                       }}
+                      disabled={!isFrameworkSelected}
                     >
                       <span>View details</span>
                       <ExternalLink className="h-3 w-3" />
