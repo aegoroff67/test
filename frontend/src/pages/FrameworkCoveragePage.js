@@ -124,25 +124,35 @@ function FrameworkCoveragePage() {
   const { user } = useAuth();
   
   const [assessment, setAssessment] = useState(null);
+  const [coverageData, setCoverageData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAssessment = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${API}/assessments/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setAssessment(response.data);
+        
+        // Fetch assessment and coverage data in parallel
+        const [assessmentRes, coverageRes] = await Promise.all([
+          axios.get(`${API}/assessments/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          axios.get(`${API}/assessments/${id}/framework-coverage`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+        ]);
+        
+        setAssessment(assessmentRes.data);
+        setCoverageData(coverageRes.data);
       } catch (error) {
-        console.error('Error fetching assessment:', error);
-        toast.error('Failed to load assessment data');
+        console.error('Error fetching data:', error);
+        toast.error('Failed to load framework coverage data');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchAssessment();
+    fetchData();
   }, [id]);
 
   if (loading) {
