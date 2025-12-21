@@ -1,0 +1,794 @@
+{
+  "FA-1": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires identifying and mitigating bias throughout multiple sections. The standard requires documenting potential bias issues in data, analyzing AI systems' ability to reinforce unwanted historical social biases, and establishing fairness as a core objective for responsible AI use.",
+    "controlAlignmentDetails": "B.4.3: Full Alignment, B.5.5: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.4.3 -> p.25; B.5.5 -> p.30; B.9.3 -> p.42",
+    "controlIntent": "The organization should document information about its data, including... potential bias issues (B.4.3, p.25); Organizations should analyze... their ability to reinforce unwanted historical social biases (B.5.5, p.30); Organizations should identify and document objectives for responsible use of AI systems, including fairness (B.9.3, p.42)"
+  },
+  "FA-2": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires consideration of data representativeness and demographic factors in data acquisition and documentation. The standard emphasizes evaluating data subject demographics and potential biases as key considerations.",
+    "controlAlignmentDetails": "B.7.2: Full Alignment, B.7.3: Full Alignment",
+    "citation": "B.7.2 -> p.37; B.7.3 -> p.38",
+    "controlIntent": "Implementation guidance for data resources should consider... representativeness of training data (B.7.2, p.37); Data acquisition considerations include... data subject demographics and potential biases (B.7.3, p.38)"
+  },
+  "FA-3": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires assessing AI system impacts on different demographic groups and documenting this in impact assessments. The standard specifically requires organizations to document which relevant demographic groups could be affected.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.5.4: Full Alignment",
+    "citation": "B.5.3 -> p.28; B.5.4 -> p.28",
+    "controlIntent": "Organizations should consider documenting... which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28); Organizations should assess and document the potential impacts on individuals or groups of individuals throughout the lifecycle of AI systems (B.5.4, p.28)"
+  },
+  "FA-4": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as it addresses measuring fairness, which is implied by the standard's requirements for evaluation and fairness objectives. While ISO 42001 doesn't detail specific fairness metrics, this question appropriately extends the standard's requirements by asking about specific measurement approaches that would be necessary to implement the required fairness objectives.",
+    "controlAlignmentDetails": "B.9.3: Full Alignment, B.6.2.4: Partial Alignment",
+    "citation": "B.9.3 -> p.42; B.6.2.4 -> p.33",
+    "controlIntent": "Organizations should identify and document objectives for responsible use of AI systems, including fairness (B.9.3, p.42); Evaluation plan criteria [should include]... responsible AI development objectives (B.6.2.4, p.33)"
+  },
+  "FA-5": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires validation testing and performance evaluation, including assessing impacts in realistic usage contexts. The standard specifically mentions testing AI systems before deployment and monitoring them during operation for impacts including bias.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.6.2.5: Partial Alignment, B.9.4: Full Alignment",
+    "citation": "B.6.2.4 -> p.33; B.6.2.5 -> p.33; B.9.4 -> p.43",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Organizations should document how they plan to deploy their AI systems in test, development, and production environments (B.6.2.5, p.33); Monitoring considerations for AI systems... [include] monitoring AI system performance and accuracy (B.9.4, p.43)"
+  },
+  "FA-6": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as it extends the standard's requirements for bias mitigation and documentation of tooling resources. While ISO 42001 doesn't mention specific fairness tools like Fairlearn, this question appropriately implements the standard's requirements by asking about the specific tooling used to achieve the required fairness objectives.",
+    "controlAlignmentDetails": "B.4.4: Partial Alignment, B.9.3: Full Alignment",
+    "citation": "B.4.4 -> p.25; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document information about their AI system tooling resources, including... algorithm types and machine learning models, data conditioning tools, [and] evaluation methods (B.4.4, p.25); Organizations should identify and document objectives for responsible use of AI systems, including fairness (B.9.3, p.42)"
+  },
+  "FA-7": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires considering vulnerable and underrepresented groups. The standard specifically mentions protecting vulnerable groups, which directly aligns with ensuring fairness for minority or underserved populations.",
+    "controlAlignmentDetails": "B.5.4: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.5.4 -> p.28; B.9.3 -> p.42",
+    "controlIntent": "Organizations should consider their governance principles and protection needs of vulnerable groups like children, elderly persons, and impaired persons (B.5.4, p.28); Organizations should identify and document objectives for responsible use of AI systems, including fairness [and] accessibility (B.9.3, p.42)"
+  },
+  "FA-8": {
+    "domain": "Fairness",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires integrating fairness throughout the AI lifecycle, from design requirements through development to deployment and monitoring. The standard explicitly mentions incorporating fairness objectives into requirements and development processes.",
+    "controlAlignmentDetails": "B.6.1.3: Full Alignment, B.6.1.2: Full Alignment, B.6.2.6: Partial Alignment",
+    "citation": "B.6.1.3 -> p.30; B.6.1.2 -> p.30; B.6.2.6 -> p.36",
+    "controlIntent": "The organization should incorporate its responsible development objectives (see B.6.1.2) into its requirements and development processes (B.6.1.3, p.30); Organizations should identify and document objectives for responsible development of AI systems, including fairness (B.6.1.2, p.30); Organizations should document processes for monitoring AI system health (observability) (B.6.2.6, p.36)"
+  },
+  "TR-1": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires clear communication about AI system functionality and limitations to users. The standard lists specific types of information that should be provided, including system purpose, performance information, and technical limitations.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.8.2 -> p.40; B.9.3 -> p.42",
+    "controlIntent": "Users need to understand when they're interacting with an AI system... Information should include: system purpose, notification that users are interacting with AI, technical requirements, accuracy and performance information (B.8.2, p.40); Organizations should identify and document objectives for responsible use of AI systems, including transparency (B.9.3, p.42)"
+  },
+  "TR-2": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires comprehensive documentation of data sources, algorithms, and processes throughout the AI system lifecycle. Multiple sections explicitly require documenting these elements.",
+    "controlAlignmentDetails": "B.6.2.3: Full Alignment, B.6.2.7: Full Alignment, B.7.5: Full Alignment",
+    "citation": "B.6.2.3 -> p.32; B.6.2.7 -> p.36; B.7.5 -> p.38",
+    "controlIntent": "Organizations should document information about their AI system design choices such as machine learning approaches, learning algorithms and model types, how models are trained and data quality considerations, evaluation and refinement processes (B.6.2.3, p.32); The organization should document information about its data, including data provenance (B.7.5, p.38); Organizations should determine necessary documentation [including] documentation of data quality assumptions and measures (B.6.2.7, p.36)"
+  },
+  "TR-3": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires providing information to interested parties, including external stakeholders like regulators and customers. The standard specifically addresses what information should be shared with external parties.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.8.5: Full Alignment, B.10.4: Full Alignment",
+    "citation": "B.8.2 -> p.40; B.8.5 -> p.41; B.10.4 -> p.45",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should identify and document what information about their AI systems needs to be reported to interested parties... [including] technical system documentation, risk information, impact assessment results (B.8.5, p.41); Organizations should ensure their approach to AI development considers customer expectations and properly communicate information about domain limitations (B.10.4, p.45)"
+  },
+  "TR-4": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard addresses both internal and external communication about AI systems. The standard covers information sharing mechanisms and documentation requirements for various stakeholders.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.8.5: Full Alignment, B.3.2: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.8.5 -> p.41; B.3.2 -> p.23",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should identify and document what information about their AI systems needs to be reported to interested parties (B.8.5, p.41); Organizations should define roles and responsibilities [which would include internal information sharing] (B.3.2, p.23)"
+  },
+  "TR-5": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires transparency and explainability for AI systems, implying the identification of components that might limit these objectives. The standard requires documenting technical limitations that would include 'black-box' components.",
+    "controlAlignmentDetails": "B.6.2.7: Full Alignment, B.7.2: Partial Alignment, B.9.3: Full Alignment",
+    "citation": "B.6.2.7 -> p.35; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document technical limitations (B.6.2.7, p.35); Implementation guidance for data resources should consider transparency and explainability aspects (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including transparency [and] explainability (B.9.3, p.42)"
+  },
+  "TR-6": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires documenting and disclosing information about data sources and algorithms used in AI systems. The standard addresses data provenance, source documentation, and algorithm documentation.",
+    "controlAlignmentDetails": "B.7.3: Full Alignment, B.7.5: Full Alignment, B.6.2.3: Full Alignment",
+    "citation": "B.7.3 -> p.38; B.7.5 -> p.38; B.6.2.3 -> p.32",
+    "controlIntent": "Data acquisition considerations include categories of data needed, data sources (internal, purchased, shared, open data, synthetic), characteristics of data sources (B.7.3, p.38); Organizations should track data provenance throughout the lifecycle of both the data and the AI system (B.7.5, p.38); Organizations should document information about their AI system design choices such as machine learning approaches, learning algorithms and model types (B.6.2.3, p.32)"
+  },
+  "TR-7": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires notifying users when they are interacting with AI systems. This is specifically listed as required information for users.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment",
+    "citation": "B.8.2 -> p.40",
+    "controlIntent": "Users need to understand when they're interacting with an AI system... Information should include: notification that users are interacting with AI (B.8.2, p.40)"
+  },
+  "TR-8": {
+    "domain": "Transparency",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires external reporting and documentation for interested parties, including regulators and customers. The standard details what types of information should be reported externally.",
+    "controlAlignmentDetails": "B.8.3: Full Alignment, B.8.4: Full Alignment, B.8.5: Full Alignment",
+    "citation": "B.8.3 -> p.40; B.8.4 -> p.41; B.8.5 -> p.41",
+    "controlIntent": "Organizations should provide capabilities for interested parties to report adverse impacts of the system (B.8.3, p.40); Organizations should document a plan for communicating incidents to system users (B.8.4, p.41); Organizations should identify and document what information about their AI systems needs to be reported to interested parties... [including] technical system documentation, risk information, impact assessment results (B.8.5, p.41)"
+  },
+  "EX-1": {
+    "domain": "Explainability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard establishes explainability as a key consideration for AI systems and requires organizations to determine appropriate levels of explainability based on risk and impact assessments. The standard explicitly identifies explainability as an objective for responsible AI use.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.9.3: Full Alignment, B.8.2: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.9.3 -> p.42; B.8.2 -> p.40",
+    "controlIntent": "Organizations should consider documenting intended use and misuse, positive/negative impacts, system complexity, [and] human oversight roles (B.5.3, p.28); Organizations should identify and document objectives for responsible use of AI systems, including transparency [and] explainability (B.9.3, p.42); Documentation should consider different stakeholders' needs (B.8.2, p.40)"
+  },
+  "EX-2": {
+    "domain": "Explainability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as it extends the standard's requirements for documentation and information that is accessible to various stakeholders. While the standard doesn't specify methods for testing explanation understandability, it does require that information be appropriate for different stakeholders and accessible, implying the need to verify understandability.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.5.3: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.5.3 -> p.28",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should consider documenting system complexity [which implies consideration of how to explain complex systems] (B.5.3, p.28)"
+  },
+  "EX-3": {
+    "domain": "Explainability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires considering different stakeholders' needs when providing information about AI systems. The standard emphasizes accessibility and appropriateness of information for various audiences.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.8.5: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.8.5 -> p.41",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should identify and document what information about their AI systems needs to be reported to interested parties (B.8.5, p.41)"
+  },
+  "EX-4": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard requires system evaluation and establishes explainability as an objective, but doesn't specifically address methods for evaluating explanation quality. The standard requires evaluation against documented criteria and verification, which implies but doesn't explicitly address assessing the accuracy and completeness of explanations.",
+    "controlAlignmentDetails": "B.6.2.4: Partial Alignment, B.9.3: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.9.3 -> p.42",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Organizations should identify and document objectives for responsible use of AI systems, including explainability (B.9.3, p.42)"
+  },
+  "EX-5": {
+    "domain": "Explainability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard acknowledges system complexity considerations and requires documenting design choices including algorithm types and model selection. These requirements implicitly address the trade-offs between complexity and explainability in system design.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.6.2.3: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.6.2.3 -> p.32; B.9.3 -> p.42",
+    "controlIntent": "Organizations should consider documenting system complexity (B.5.3, p.28); Organizations should document information about their AI system design choices such as machine learning approaches, learning algorithms and model types (B.6.2.3, p.32); Organizations should identify and document objectives for responsible use of AI systems, including explainability (B.9.3, p.42)"
+  },
+  "EX-6": {
+    "domain": "Explainability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly establishes explainability and transparency as objectives for responsible AI use. The standard requires providing appropriate information to users and making systems understandable.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.9.3: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Users need to understand when they're interacting with an AI system... Information should include: system purpose, interaction instructions (B.8.2, p.40); Organizations should identify and document objectives for responsible use of AI systems, including transparency [and] explainability (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight, including human reviewers checking AI system outputs (B.9.4, p.43)"
+  },
+  "EX-7": {
+    "domain": "Explainability",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard requires documenting AI system tooling and establishing explainability as an objective, but doesn't specifically address explainability tools or techniques. While the standard requires tooling documentation and explainability objectives, it lacks specific guidance on techniques for making complex models explainable.",
+    "controlAlignmentDetails": "B.4.4: Partial Alignment, B.9.3: Partial Alignment",
+    "citation": "B.4.4 -> p.25; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document information about their AI system tooling resources, including algorithm types and machine learning models, data conditioning tools, [and] evaluation methods (B.4.4, p.25); Organizations should identify and document objectives for responsible use of AI systems, including explainability (B.9.3, p.42)"
+  },
+  "EX-8": {
+    "domain": "Explainability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires considering different stakeholders' needs when providing information about AI systems. The standard specifically mentions tailoring documentation and information for different audiences.",
+    "controlAlignmentDetails": "B.8.2: Full Alignment, B.8.5: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.8.2 -> p.40; B.8.5 -> p.41; B.9.3 -> p.42",
+    "controlIntent": "Documentation should consider different stakeholders' needs... Information should be accessible and easy to find (B.8.2, p.40); Organizations should identify and document what information about their AI systems needs to be reported to interested parties (B.8.5, p.41); Organizations should identify and document objectives for responsible use of AI systems, including explainability (B.9.3, p.42)"
+  },
+  "AC-1": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly establishes accountability as a core objective and requires defining responsibilities for AI system management, including handling failures. The standard requires processes for handling deviations and exceptions.",
+    "controlAlignmentDetails": "B.3.1: Full Alignment, B.3.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.3.1 -> p.23; B.3.2 -> p.23; B.9.3 -> p.42",
+    "controlIntent": "Objective: To establish accountability for AI systems (B.3.1, p.23); Organizations should define roles and responsibilities related to AI systems for risk management, security, safety, development, performance, human oversight (B.3.2, p.23); Organizations should identify and document objectives for responsible use of AI systems, including accountability (B.9.3, p.42)"
+  },
+  "AC-2": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires establishing clear governance structures and defining roles for AI oversight. The standard specifically addresses monitoring AI outcomes as part of human oversight and operations.",
+    "controlAlignmentDetails": "B.3.2: Full Alignment, B.9.4: Full Alignment, A.3.2: Full Alignment",
+    "citation": "B.3.2 -> p.23; B.9.4 -> p.43; A.3.2 -> p.17",
+    "controlIntent": "Organizations should define roles and responsibilities related to AI systems (B.3.2, p.23); Oversight activities include monitoring AI system performance and accuracy, reporting concerns about outputs and impacts (B.9.4, p.43); AI roles and responsibilities shall be defined and allocated (A.3.2, p.17)"
+  },
+  "AC-3": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires establishing reporting mechanisms for concerns and issues with AI systems. The standard details requirements for escalation processes, timelines, and resolution.",
+    "controlAlignmentDetails": "B.3.3: Full Alignment, B.8.3: Full Alignment, B.8.4: Full Alignment",
+    "citation": "B.3.3 -> p.23; B.8.3 -> p.40; B.8.4 -> p.41",
+    "controlIntent": "Organizations should establish a process to report concerns about AI systems including timely escalation to management (B.3.3, p.23); Organizations should provide capabilities for interested parties to report adverse impacts of the system (B.8.3, p.40); Organizations should document a plan for communicating incidents including timeline for notification (B.8.4, p.41)"
+  },
+  "AC-4": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires processes for addressing customer concerns and reporting mechanisms for external parties. The standard specifically addresses handling reports of adverse impacts.",
+    "controlAlignmentDetails": "B.8.3: Full Alignment, B.10.4: Full Alignment, B.3.3: Partial Alignment",
+    "citation": "B.8.3 -> p.40; B.10.4 -> p.45; B.3.3 -> p.23",
+    "controlIntent": "Organizations should provide capabilities for interested parties to report adverse impacts of the system (B.8.3, p.40); Organizations should understand customer expectations, recognize the complexity of supplier-customer relationships, identify risks related to AI products/services (B.10.4, p.45); Organizations should establish a process with appropriate investigation and resolution powers (B.3.3, p.23)"
+  },
+  "AC-5": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires defining and allocating AI roles and responsibilities. This is a fundamental requirement stated in multiple sections.",
+    "controlAlignmentDetails": "A.3.2: Full Alignment, B.3.2: Full Alignment, B.10.2: Full Alignment",
+    "citation": "A.3.2 -> p.17; B.3.2 -> p.23; B.10.2 -> p.44",
+    "controlIntent": "AI roles and responsibilities shall be defined and allocated (A.3.2, p.17); Organizations should define roles and responsibilities for numerous areas including risk management, AI system impact assessments, security, safety, development, performance (B.3.2, p.23); Organizations should document and allocate responsibilities between all parties involved in AI systems (B.10.2, p.44)"
+  },
+  "AC-6": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires defining roles and responsibilities throughout the AI system lifecycle, with specific emphasis on monitoring and management responsibilities.",
+    "controlAlignmentDetails": "B.3.2: Full Alignment, B.6.2.6: Full Alignment, B.9.4: Full Alignment",
+    "citation": "B.3.2 -> p.23; B.6.2.6 -> p.36; B.9.4 -> p.43",
+    "controlIntent": "Organizations should define roles for numerous areas including performance, human oversight, legal requirement fulfillment (B.3.2, p.23); Organizations should document personnel roles and responsibilities for system operation (B.6.2.6, p.36); Organizations should document how they intend to provide meaningful human oversight (B.9.4, p.43)"
+  },
+  "AC-7": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires maintaining logs and documenting AI system operation. The standard includes detailed requirements for event logging and evidence of proper operation.",
+    "controlAlignmentDetails": "B.6.2.8: Full Alignment, B.6.2.6: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.8 -> p.36; B.6.2.6 -> p.36; B.9.4 -> p.43",
+    "controlIntent": "Organizations should ensure proper logging of events during AI system operation to maintain traceability of functionality (B.6.2.8, p.36); AI systems should be deployed according to documentation, with proper monitoring, maintaining event logs as evidence of proper operation (B.9.4, p.43); Organizations should document processes for monitoring AI system health (observability) (B.6.2.6, p.36)"
+  },
+  "AC-8": {
+    "domain": "Accountability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires establishing mechanisms for reporting and resolving concerns about AI systems. The standard details multiple requirements for addressing disputes and concerns from various stakeholders.",
+    "controlAlignmentDetails": "B.3.3: Full Alignment, B.8.3: Full Alignment, B.8.4: Full Alignment",
+    "citation": "B.3.3 -> p.23; B.8.3 -> p.40; B.8.4 -> p.41",
+    "controlIntent": "Reporting mechanisms should include appropriate investigation and resolution powers, protect reporters from reprisals, and include response mechanisms with appropriate timeframes (B.3.3, p.23); Organizations should provide capabilities for interested parties to report adverse impacts of the system (B.8.3, p.40); Organizations should document a plan for communicating incidents to system users (B.8.4, p.41)"
+  },
+  "DI-1": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires defining and documenting data quality requirements. The standard has dedicated sections on data quality validation and documentation.",
+    "controlAlignmentDetails": "B.7.4: Full Alignment, B.4.3: Full Alignment, B.7.2: Full Alignment",
+    "citation": "B.7.4 -> p.38; B.4.3 -> p.25; B.7.2 -> p.37",
+    "controlIntent": "Organizations should define and document data quality requirements (B.7.4, p.38); Organizations should document information about their data, including quality measures (B.4.3, p.25); Implementation guidance for data resources should consider accuracy and data integrity (B.7.2, p.37)"
+  },
+  "DI-2": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires tracking data provenance throughout the lifecycle of both the data and the AI system. The standard has specific requirements for documenting data lineage.",
+    "controlAlignmentDetails": "B.7.5: Full Alignment, B.4.3: Full Alignment, B.7.6: Partial Alignment",
+    "citation": "B.7.5 -> p.38; B.4.3 -> p.25; B.7.6 -> p.39",
+    "controlIntent": "Organizations should track data provenance throughout the lifecycle of both the data and the AI system (B.7.5, p.38); Organizations should document information about their data, including data provenance and last update dates (B.4.3, p.25); Organizations should define criteria for data preparation [which includes tracking changes] (B.7.6, p.39)"
+  },
+  "DI-3": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires documenting policies for data governance including retention. The standard addresses multiple aspects of data governance throughout the data lifecycle.",
+    "controlAlignmentDetails": "B.4.3: Full Alignment, B.7.2: Full Alignment, B.7.3: Full Alignment",
+    "citation": "B.4.3 -> p.25; B.7.2 -> p.37; B.7.3 -> p.38",
+    "controlIntent": "Organizations should document information about their data, including retention policies (B.4.3, p.25); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Data acquisition considerations include data rights (PII, copyright) [which involves usage policies] (B.7.3, p.38)"
+  },
+  "DI-4": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires documenting data currency (last update dates) and accuracy. The standard addresses data quality aspects including accuracy throughout multiple sections.",
+    "controlAlignmentDetails": "B.4.3: Full Alignment, B.7.4: Full Alignment, B.7.2: Full Alignment",
+    "citation": "B.4.3 -> p.25; B.7.4 -> p.38; B.7.2 -> p.37",
+    "controlIntent": "Organizations should document information about their data, including last update dates (B.4.3, p.25); Organizations should define and document data quality requirements (B.7.4, p.38); Implementation guidance for data resources should consider accuracy and data integrity (B.7.2, p.37)"
+  },
+  "DI-5": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly mentions imputation for missing entries as part of data preparation. The standard specifically addresses handling missing data.",
+    "controlAlignmentDetails": "B.7.6: Full Alignment, B.7.4: Partial Alignment",
+    "citation": "B.7.6 -> p.39; B.7.4 -> p.38",
+    "controlIntent": "Organizations should define criteria for data preparation including imputation for missing entries (B.7.6, p.39); Organizations should define and document data quality requirements [which would address completeness] (B.7.4, p.38)"
+  },
+  "DI-6": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard provides detailed requirements for data preparation including specific preprocessing techniques. The standard explicitly lists multiple data preprocessing methods.",
+    "controlAlignmentDetails": "B.7.6: Full Alignment, B.4.3: Full Alignment",
+    "citation": "B.7.6 -> p.39; B.4.3 -> p.25",
+    "controlIntent": "Organizations should define criteria for data preparation including cleaning data, normalization, scaling, labelling target variables, encoding categorical variables (B.7.6, p.39); Organizations should document information about their data, including data preparation (B.4.3, p.25)"
+  },
+  "DI-7": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires evaluating data sources, including third-party sources, and documenting their characteristics. The standard explicitly addresses considerations for various data sources.",
+    "controlAlignmentDetails": "B.7.3: Full Alignment, B.4.2: Full Alignment, B.10.3: Partial Alignment",
+    "citation": "B.7.3 -> p.38; B.4.2 -> p.24; B.10.3 -> p.44",
+    "controlIntent": "Data acquisition considerations include data sources (internal, purchased, shared, open data, synthetic), characteristics of data sources (B.7.3, p.38); Organizations should document resources that can be provided by the organization itself, customers, or third parties (B.4.2, p.24); Organizations should ensure suppliers align with responsible AI development practices (B.10.3, p.44)"
+  },
+  "DI-8": {
+    "domain": "Data Integrity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires tracking data provenance throughout the lifecycle of both the data and the AI system. The standard has specific sections dedicated to data provenance.",
+    "controlAlignmentDetails": "B.7.5: Full Alignment, B.4.3: Full Alignment, B.7.6: Full Alignment",
+    "citation": "B.7.5 -> p.38; B.4.3 -> p.25; B.7.6 -> p.39",
+    "controlIntent": "Organizations should track data provenance throughout the lifecycle of both the data and the AI system (B.7.5, p.38); Organizations should document information about their data, including data provenance (B.4.3, p.25); Data provenance according to ISO 8000-2 should be maintained (B.7.6, p.39)"
+  },
+  "RE-1": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires validation testing and performance evaluation under different conditions. The standard addresses testing methodologies and evaluation of AI systems against documented criteria.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.9.3: Full Alignment, B.6.2.5: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.9.3 -> p.42; B.6.2.5 -> p.33",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria including reliability and safety requirements (B.6.2.4, p.33); Organizations should identify and document objectives for responsible use of AI systems, including reliability (B.9.3, p.42); Organizations should document how they plan to deploy their AI systems in test, development, and production environments (B.6.2.5, p.33)"
+  },
+  "RE-2": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires robust testing and validation of AI systems. The standard explicitly mentions evaluation against documented criteria and robustness as an objective.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.9.3: Full Alignment, B.6.1.2: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.9.3 -> p.42; B.6.1.2 -> p.30",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Organizations should identify and document objectives for responsible use of AI systems, including robustness and redundancy (B.9.3, p.42); Organizations should incorporate responsible development objectives into requirements and development processes (B.6.1.2, p.30)"
+  },
+  "RE-3": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires monitoring AI systems for performance changes and issues. The standard addresses system monitoring, particularly for AI systems that evolve through machine learning.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.9.4: Full Alignment, B.6.1.3: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.9.4 -> p.43; B.6.1.3 -> p.36",
+    "controlIntent": "Organizations should define and document system and performance monitoring requirements, especially how to handle AI systems that evolve through ML (B.6.2.6, p.34); Oversight activities include monitoring AI system performance and accuracy, reporting performance changes (B.9.4, p.43); Organizations should document processes for monitoring AI system health (observability) (B.6.1.3, p.36)"
+  },
+  "RE-4": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires defining performance criteria and evaluation metrics for AI systems. The standard addresses performance assessment methodologies including specific metrics.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.6.2.6: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.6.2.6 -> p.34; B.9.3 -> p.42",
+    "controlIntent": "Evaluation plan criteria should include reliability and safety requirements (B.6.2.4, p.33); Performance criteria can include statistical aspects like error rates and processing duration (B.6.2.6, p.34); Organizations should identify and document objectives for responsible use of AI systems, including reliability (B.9.3, p.42)"
+  },
+  "RE-5": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires identifying and documenting predictable failures and system risks. The standard addresses failure analysis as part of impact assessments.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.6.2.6: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.6.2.6 -> p.36; B.9.3 -> p.42",
+    "controlIntent": "Organizations should consider documenting predictable failures (B.5.3, p.28); Organizations should document plans for managing failures (rollback plans, turning off features, update processes) (B.6.2.6, p.36); Organizations should identify and document objectives for responsible use of AI systems, including reliability (B.9.3, p.42)"
+  },
+  "RE-6": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard addresses system evaluation under different conditions and emphasizes robustness as an objective. The standard requires testing and performance monitoring to ensure consistent operation.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.9.3: Full Alignment, B.6.2.6: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.9.3 -> p.42; B.6.2.6 -> p.34",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Organizations should identify and document objectives for responsible use of AI systems, including reliability, robustness and redundancy (B.9.3, p.42); Organizations should define and document system and performance monitoring requirements (B.6.2.6, p.34)"
+  },
+  "RE-7": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires documenting repair processes for errors and failures. The standard addresses system monitoring, error detection, and recovery procedures.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.6.2.8: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.6.2.8 -> p.36; B.9.4 -> p.43",
+    "controlIntent": "Organizations should document repair processes for errors and failures, system update procedures (B.6.2.6, p.34); Organizations should ensure proper logging of events during AI system operation to maintain traceability of functionality (B.6.2.8, p.36); Personnel should report performance changes and concerns about outputs and impacts (B.9.4, p.43)"
+  },
+  "RE-8": {
+    "domain": "Reliability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard addresses model retraining, updates, and ongoing testing to maintain reliability. The standard has specific requirements for monitoring evolving AI systems and update procedures.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.6.2.4: Partial Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.6.2.4 -> p.33; B.9.4 -> p.43",
+    "controlIntent": "Organizations should define how to handle AI systems that evolve through ML, system update procedures (B.6.2.6, p.34); Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Personnel should monitor AI system performance and accuracy, reporting performance changes (B.9.4, p.43)"
+  },
+  "SE-1": {
+    "domain": "Security",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly addresses information security for AI systems, including protection against unauthorized access and tampering. The standard identifies security as a core objective and requires security considerations throughout the AI lifecycle.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.7.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.6.2.6 -> p.34; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document AI-specific information security threats (B.6.2.6, p.34); Implementation guidance for data resources should consider privacy and security implications of sensitive data, security and safety threats from data-dependent AI development (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
+  },
+  "SE-2": {
+    "domain": "Security",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly mentions security threats specific to AI systems, including adversarial attacks. The standard specifically addresses data poisoning and model stealing as security threats that must be documented.",
+    "controlAlignmentDetails": "B.6.2.3: Full Alignment, B.7.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.6.2.3 -> p.32; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document security threats (like data poisoning and model stealing) (B.6.2.3, p.32); Implementation guidance for data resources should consider security and safety threats from data-dependent AI development (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
+  },
+  "SE-3": {
+    "domain": "Security",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses security monitoring and evaluation broadly but doesn't specifically mention security audits or penetration testing. While the standard requires identifying security threats and implementing security measures, it lacks specific guidance on security testing methodologies.",
+    "controlAlignmentDetails": "B.6.2.6: Partial Alignment, B.3.2: Partial Alignment, B.9.3: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.3.2 -> p.23; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document AI-specific information security threats (B.6.2.6, p.34); Organizations should define roles and responsibilities related to AI systems for security (B.3.2, p.23); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
+  },
+  "SE-4": {
+    "domain": "Security",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard addresses security throughout the AI lifecycle, including training, deployment, and operation phases. The standard requires security considerations at each stage of the AI system.",
+    "controlAlignmentDetails": "B.6.2.3: Full Alignment, B.6.2.5: Partial Alignment, B.6.2.6: Full Alignment",
+    "citation": "B.6.2.3 -> p.32; B.6.2.5 -> p.33; B.6.2.6 -> p.34",
+    "controlIntent": "Organizations should document security threats (like data poisoning and model stealing) [during design and training] (B.6.2.3, p.32); Organizations should document how they plan to deploy their AI systems in test, development, and production environments (B.6.2.5, p.33); Organizations should document AI-specific information security threats [during operation] (B.6.2.6, p.34)"
+  },
+  "SE-5": {
+    "domain": "Security",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses security broadly but doesn't specifically mention safeguards against unauthorized model modifications. While the standard requires security measures that would logically include such safeguards, it lacks specific guidance on protecting AI models from unauthorized changes.",
+    "controlAlignmentDetails": "B.6.2.6: Partial Alignment, B.9.3: Partial Alignment, B.3.2: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.9.3 -> p.42; B.3.2 -> p.23",
+    "controlIntent": "Organizations should document AI-specific information security threats (B.6.2.6, p.34); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should define roles and responsibilities related to AI systems for security (B.3.2, p.23)"
+  },
+  "SE-6": {
+    "domain": "Security",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly addresses adversarial attacks as a security threat. The standard specifically mentions data poisoning, which is a form of input manipulation attack.",
+    "controlAlignmentDetails": "B.6.2.3: Full Alignment, B.7.2: Full Alignment, B.9.3: Partial Alignment",
+    "citation": "B.6.2.3 -> p.32; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document security threats (like data poisoning and model stealing) (B.6.2.3, p.32); Implementation guidance for data resources should consider security and safety threats from data-dependent AI development (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
+  },
+  "SE-7": {
+    "domain": "Security",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly addresses privacy and security for sensitive data used in AI systems. The standard requires consideration of privacy and security implications throughout data management processes.",
+    "controlAlignmentDetails": "B.7.2: Full Alignment, B.9.3: Full Alignment, B.4.3: Partial Alignment",
+    "citation": "B.7.2 -> p.37; B.9.3 -> p.42; B.4.3 -> p.25",
+    "controlIntent": "Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should document information about their data, including data rights (PII, copyright) (B.4.3, p.25)"
+  },
+  "SE-8": {
+    "domain": "Security",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses security evaluation broadly but doesn't specifically mention vulnerability assessments or penetration tests. While the standard requires identifying security threats and implementing security measures, it lacks specific guidance on security testing methodologies.",
+    "controlAlignmentDetails": "B.6.2.6: Partial Alignment, B.9.3: Partial Alignment, B.3.2: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.9.3 -> p.42; B.3.2 -> p.23",
+    "controlIntent": "Organizations should document AI-specific information security threats (B.6.2.6, p.34); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should define roles and responsibilities related to AI systems for security (B.3.2, p.23)"
+  },
+  "PR-1": {
+    "domain": "Privacy",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires consideration of legal requirements related to privacy. The standard addresses compliance with privacy regulations as part of data governance.",
+    "controlAlignmentDetails": "B.2.2: Full Alignment, B.7.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.2.2 -> p.21; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "The AI policy should be informed by legal requirements and contracts (B.2.2, p.21); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
+  },
+  "PR-2": {
+    "domain": "Privacy",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires protection of personal data and consideration of privacy implications throughout the AI lifecycle. The standard addresses privacy protection for data used in AI systems.",
+    "controlAlignmentDetails": "B.7.2: Full Alignment, B.9.3: Full Alignment, B.4.3: Partial Alignment",
+    "citation": "B.7.2 -> p.37; B.9.3 -> p.42; B.4.3 -> p.25",
+    "controlIntent": "Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should document information about their data, including data rights (PII, copyright) (B.4.3, p.25)"
+  },
+  "PR-3": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses data rights and privacy considerations broadly, but doesn't specifically detail consent management processes. While the standard requires documenting data rights including PII, it doesn't provide specific guidance on obtaining and managing user consent.",
+    "controlAlignmentDetails": "B.4.3: Partial Alignment, B.7.2: Partial Alignment, B.7.3: Partial Alignment",
+    "citation": "B.4.3 -> p.25; B.7.2 -> p.37; B.7.3 -> p.38",
+    "controlIntent": "Organizations should document information about their data, including data rights (PII, copyright) (B.4.3, p.25); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Data acquisition considerations include prior handling of data regarding privacy and security (B.7.3, p.38)"
+  },
+  "PR-4": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses data rights and privacy broadly, but doesn't specifically address purpose limitation. While the standard requires privacy considerations and documentation of intended data use, it doesn't explicitly address restricting data use to original purposes.",
+    "controlAlignmentDetails": "B.4.3: Partial Alignment, B.7.2: Partial Alignment, B.9.3: Partial Alignment",
+    "citation": "B.4.3 -> p.25; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should document information about their data, including intended use of data (B.4.3, p.25); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
+  },
+  "PR-5": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses privacy protection and performance evaluation separately, but doesn't specifically address evaluating the balance between them. While the standard requires both privacy protection and performance evaluation, it doesn't provide guidance on assessing privacy measure effectiveness or their impact on model performance.",
+    "controlAlignmentDetails": "B.7.2: Partial Alignment, B.9.3: Partial Alignment, B.6.2.4: Partial Alignment",
+    "citation": "B.7.2 -> p.37; B.9.3 -> p.42; B.6.2.4 -> p.33",
+    "controlIntent": "Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33)"
+  },
+  "PR-6": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses system monitoring and privacy protection broadly, but doesn't specifically address monitoring for privacy violations. While the standard requires implementing privacy objectives and monitoring systems, it doesn't provide specific guidance on detecting and preventing privacy violations during operation.",
+    "controlAlignmentDetails": "B.6.2.6: Partial Alignment, B.9.3: Partial Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.34; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Organizations should define and document system and performance monitoring requirements (B.6.2.6, p.34); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight including reporting concerns about outputs and impacts (B.9.4, p.43)"
+  },
+  "PR-7": {
+    "domain": "Privacy",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires privacy considerations throughout the AI lifecycle, including development and deployment phases. The standard addresses privacy as a consideration in multiple lifecycle stages.",
+    "controlAlignmentDetails": "B.5.2: Full Alignment, B.7.2: Full Alignment, B.9.3: Full Alignment",
+    "citation": "B.5.2 -> p.27; B.7.2 -> p.37; B.9.3 -> p.42",
+    "controlIntent": "Organizations should establish processes to assess potential consequences [including privacy impacts] (B.5.2, p.27); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Organizations should identify and document objectives for responsible use of AI systems, including privacy and security (B.9.3, p.42)"
+  },
+  "PR-8": {
+    "domain": "Privacy",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses legal compliance broadly, but doesn't specifically address cross-border data protection requirements. While the standard requires considering legal requirements, it doesn't provide specific guidance on managing cross-border data transfer compliance.",
+    "controlAlignmentDetails": "B.2.2: Partial Alignment, B.7.2: Partial Alignment, B.7.3: Partial Alignment",
+    "citation": "B.2.2 -> p.21; B.7.2 -> p.37; B.7.3 -> p.38",
+    "controlIntent": "The AI policy should be informed by legal requirements and contracts (B.2.2, p.21); Implementation guidance for data resources should consider privacy and security implications of sensitive data (B.7.2, p.37); Data acquisition considerations include prior handling of data regarding privacy and security (B.7.3, p.38)"
+  },
+  "SA-1": {
+    "domain": "Safety",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires impact assessments that include safety considerations. The standard has dedicated sections for assessing impacts of AI systems.",
+    "controlAlignmentDetails": "B.5.2: Full Alignment, B.5.3: Full Alignment, B.6.2.4: Full Alignment",
+    "citation": "B.5.2 -> p.27; B.5.3 -> p.28; B.6.2.4 -> p.33",
+    "controlIntent": "Organizations should establish processes to assess potential consequences (B.5.2, p.27); Organizations should consider documenting positive/negative impacts, predictable failures (B.5.3, p.28); Evaluation plan criteria should include reliability and safety requirements (B.6.2.4, p.33)"
+  },
+  "SA-2": {
+    "domain": "Safety",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires identifying potential harms and implementing safety measures to prevent unintended consequences. The standard addresses safety as a core objective for responsible AI.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.9.3: Full Alignment, B.9.4: Full Alignment",
+    "citation": "B.5.3 -> p.28; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Organizations should consider documenting intended use and misuse, positive/negative impacts, predictable failures (B.5.3, p.28); Organizations should identify and document objectives for responsible use of AI systems, including safety (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight including reviewing outputs and reporting concerns (B.9.4, p.43)"
+  },
+  "SA-3": {
+    "domain": "Safety",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires monitoring systems for safety issues and detecting problems during operation. The standard addresses system monitoring and observability requirements.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.6.2.8: Full Alignment, B.9.4: Full Alignment",
+    "citation": "B.6.2.6 -> p.34; B.6.2.8 -> p.36; B.9.4 -> p.43",
+    "controlIntent": "Organizations should define and document system and performance monitoring requirements (B.6.2.6, p.34); Organizations should ensure proper logging of events during AI system operation (B.6.2.8, p.36); Oversight activities include monitoring AI system performance and accuracy, reporting concerns about outputs and impacts (B.9.4, p.43)"
+  },
+  "SA-4": {
+    "domain": "Safety",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires human oversight of AI systems and procedures for handling conflicts or safety issues. The standard specifically addresses human intervention in AI systems.",
+    "controlAlignmentDetails": "B.9.4: Full Alignment, B.6.2.6: Full Alignment, B.5.3: Partial Alignment",
+    "citation": "B.9.4 -> p.43; B.6.2.6 -> p.34; B.5.3 -> p.28",
+    "controlIntent": "Organizations should document how they intend to provide meaningful human oversight including ensuring human oversight when required for acceptable use (B.9.4, p.43); Organizations should document repair processes for errors and failures (B.6.2.6, p.34); Organizations should consider documenting predictable failures (B.5.3, p.28)"
+  },
+  "SA-5": {
+    "domain": "Safety",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires plans for managing failures including turning off features. The standard addresses safety controls and emergency response procedures.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.9.3: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.36; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Organizations should document plans for managing failures (rollback plans, turning off features, update processes) (B.6.2.6, p.36); Organizations should identify and document objectives for responsible use of AI systems, including safety (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight (B.9.4, p.43)"
+  },
+  "SA-6": {
+    "domain": "Safety",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires comprehensive risk identification and mitigation processes for AI systems. The standard addresses impact assessments and risk management throughout the AI lifecycle.",
+    "controlAlignmentDetails": "B.5.2: Full Alignment, B.5.3: Full Alignment, B.3.2: Full Alignment",
+    "citation": "B.5.2 -> p.27; B.5.3 -> p.28; B.3.2 -> p.23",
+    "controlIntent": "Organizations should establish processes to assess potential consequences (B.5.2, p.27); Organizations should consider documenting intended use and misuse, positive/negative impacts, predictable failures (B.5.3, p.28); Organizations should define roles and responsibilities related to AI systems for risk management (B.3.2, p.23)"
+  },
+  "SA-7": {
+    "domain": "Safety",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires robustness, redundancy, and plans for managing failures. The standard addresses fail-safe mechanisms and recovery procedures.",
+    "controlAlignmentDetails": "B.6.2.6: Full Alignment, B.9.3: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.6.2.6 -> p.36; B.9.3 -> p.42; B.9.4 -> p.43",
+    "controlIntent": "Organizations should document plans for managing failures (rollback plans, turning off features, update processes) (B.6.2.6, p.36); Organizations should identify and document objectives for responsible use of AI systems, including robustness and redundancy (B.9.3, p.42); Organizations should document how they intend to provide meaningful human oversight (B.9.4, p.43)"
+  },
+  "SA-8": {
+    "domain": "Safety",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires testing and evaluation with particular attention to high-risk applications. The standard specifically mentions evaluating high-risk AI applications like healthcare diagnosis and self-driving automobiles.",
+    "controlAlignmentDetails": "B.6.2.4: Full Alignment, B.5.5: Full Alignment, B.6.1.3: Partial Alignment",
+    "citation": "B.6.2.4 -> p.33; B.5.5 -> p.30; B.6.1.3 -> p.31",
+    "controlIntent": "Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33); Information about high-risk AI applications (healthcare diagnosis, self-driving automobiles) [requires additional testing] (B.5.5, p.30); Organizations should document life cycle stages, testing requirements and planned testing means (B.6.1.3, p.31)"
+  },
+  "IN-1": {
+    "domain": "Inclusivity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly establishes accessibility as a core objective for responsible AI use and requires consideration of diverse user needs. The standard addresses accessibility requirements for AI systems.",
+    "controlAlignmentDetails": "B.9.3: Full Alignment, B.5.4: Full Alignment, B.6.1.3: Partial Alignment",
+    "citation": "B.9.3 -> p.42; B.5.4 -> p.28; B.6.1.3 -> p.31",
+    "controlIntent": "Organizations should identify and document objectives for responsible use of AI systems, including accessibility (B.9.3, p.42); Organizations should consider their governance principles and protection needs of vulnerable groups like children, elderly persons, and impaired persons (B.5.4, p.28); Organizations should document usability and controllability requirements (B.6.1.3, p.31)"
+  },
+  "IN-2": {
+    "domain": "Inclusivity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires consideration of diverse expertise and engagement of interested parties in AI system development. The standard addresses the importance of diverse perspectives in design and development.",
+    "controlAlignmentDetails": "B.4.6: Full Alignment, B.6.1.3: Full Alignment, B.5.4: Partial Alignment",
+    "citation": "B.4.6 -> p.26; B.6.1.3 -> p.31; B.5.4 -> p.28",
+    "controlIntent": "Organizations should consider diverse expertise and various roles including domain specialists in human resources (B.4.6, p.26); Organizations should document engagement of interested parties in AI processes (B.6.1.3, p.31); Organizations should consider their governance principles and protection needs of vulnerable groups (B.5.4, p.28)"
+  },
+  "IN-3": {
+    "domain": "Inclusivity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires assessing system impacts on individuals and groups, including potential negative impacts. The standard addresses evaluating AI systems for unintended consequences and exclusionary outcomes.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.5.4: Full Alignment, B.9.4: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.5.4 -> p.28; B.9.4 -> p.43",
+    "controlIntent": "Organizations should consider documenting which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28); Organizations should assess and document the potential impacts on individuals or groups of individuals throughout the lifecycle of AI systems (B.5.4, p.28); Organizations should monitor AI system performance and report concerns about outputs and impacts (B.9.4, p.43)"
+  },
+  "IN-4": {
+    "domain": "Inclusivity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly establishes accessibility as a requirement for AI systems and mentions consideration for impaired persons. The standard addresses accessibility needs in AI design.",
+    "controlAlignmentDetails": "B.9.3: Full Alignment, B.5.4: Full Alignment, B.6.1.3: Partial Alignment",
+    "citation": "B.9.3 -> p.42; B.5.4 -> p.28; B.6.1.3 -> p.31",
+    "controlIntent": "Organizations should identify and document objectives for responsible use of AI systems, including accessibility (B.9.3, p.42); Organizations should consider their governance principles and protection needs of vulnerable groups like children, elderly persons, and impaired persons (B.5.4, p.28); Organizations should document usability and controllability requirements (B.6.1.3, p.31)"
+  },
+  "IN-5": {
+    "domain": "Inclusivity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires engagement of interested parties and diverse expertise in AI system development. The standard specifically addresses including diverse roles in AI system processes.",
+    "controlAlignmentDetails": "B.4.6: Full Alignment, B.6.1.3: Full Alignment, B.3.2: Partial Alignment",
+    "citation": "B.4.6 -> p.26; B.6.1.3 -> p.31; B.3.2 -> p.23",
+    "controlIntent": "Organizations should consider diverse expertise and various roles including domain specialists in human resources (B.4.6, p.26); Organizations should document engagement of interested parties in AI processes (B.6.1.3, p.31); Organizations should define roles and responsibilities related to AI systems for various aspects (B.3.2, p.23)"
+  },
+  "IN-6": {
+    "domain": "Inclusivity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires considering impacts on different demographic groups and protection of vulnerable groups. The standard addresses fairness and accessibility requirements that support underrepresented communities.",
+    "controlAlignmentDetails": "B.5.4: Full Alignment, B.9.3: Full Alignment, B.5.3: Partial Alignment",
+    "citation": "B.5.4 -> p.28; B.9.3 -> p.42; B.5.3 -> p.28",
+    "controlIntent": "Organizations should consider their governance principles and protection needs of vulnerable groups (B.5.4, p.28); Organizations should identify and document objectives for responsible use of AI systems, including fairness [and] accessibility (B.9.3, p.42); Organizations should consider documenting which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28)"
+  },
+  "IN-7": {
+    "domain": "Inclusivity",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses consideration of different stakeholders and demographic groups broadly, but doesn't specifically mention language, cultural, or regional differences. While the standard requires inclusive design principles, it lacks specific guidance on addressing these particular differences.",
+    "controlAlignmentDetails": "B.5.3: Partial Alignment, B.9.3: Partial Alignment, B.5.4: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.9.3 -> p.42; B.5.4 -> p.28",
+    "controlIntent": "Organizations should consider documenting which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28); Organizations should identify and document objectives for responsible use of AI systems, including fairness [and] accessibility (B.9.3, p.42); Organizations should consider their governance principles and protection needs of vulnerable groups (B.5.4, p.28)"
+  },
+  "IN-8": {
+    "domain": "Inclusivity",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires assessing impacts on different demographic groups and evaluating potential negative impacts. The standard addresses methods for identifying exclusionary outcomes.",
+    "controlAlignmentDetails": "B.5.3: Full Alignment, B.5.4: Full Alignment, B.6.2.4: Partial Alignment",
+    "citation": "B.5.3 -> p.28; B.5.4 -> p.28; B.6.2.4 -> p.33",
+    "controlIntent": "Organizations should consider documenting which relevant demographic groups could be positively or negatively impacted (B.5.3, p.28); Organizations should assess and document the potential impacts on individuals or groups of individuals throughout the lifecycle of AI systems (B.5.4, p.28); Organizations should evaluate their AI systems against documented criteria (B.6.2.4, p.33)"
+  },
+  "SU-1": {
+    "domain": "Sustainability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "High",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires documenting the environmental impact of hardware used for AI systems. The standard also acknowledges that AI development can be computationally intensive with environmental impacts.",
+    "controlAlignmentDetails": "B.4.5: Full Alignment, B.5.5: Full Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29)"
+  },
+  "SU-2": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard mentions environmental impacts of computational intensity but doesn't explicitly address algorithm optimization for efficiency. While the standard acknowledges the environmental concerns of AI computation, it lacks specific guidance on optimization approaches for sustainability.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment, B.5.5: Partial Alignment, B.4.4: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29; B.4.4 -> p.25",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29); Organizations should document information about their AI system tooling resources, including algorithm types and machine learning models (B.4.4, p.25)"
+  },
+  "SU-3": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Low",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses environmental impact of hardware but doesn't specifically mention renewable energy sources or cloud infrastructure selection criteria. The standard acknowledges environmental considerations broadly but lacks specific guidance on energy sourcing.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26)"
+  },
+  "SU-4": {
+    "domain": "Sustainability",
+    "alignmentType": "Fully Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as it extends the standard's requirements for documenting environmental impact of hardware and acknowledging computational intensity impacts. While the standard doesn't specifically mention carbon footprint measurement, it does require assessment of environmental impacts that would include carbon emissions.",
+    "controlAlignmentDetails": "B.4.5: Full Alignment, B.5.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29)"
+  },
+  "SU-5": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard mentions environmental impacts of computational intensity but doesn't explicitly address algorithm optimization. While the standard acknowledges the environmental concerns of AI computation, it lacks specific guidance on reducing computational requirements.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment, B.5.5: Partial Alignment, B.4.4: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29; B.4.4 -> p.25",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29); Organizations should document information about their AI system tooling resources, including algorithm types and machine learning models (B.4.4, p.25)"
+  },
+  "SU-6": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Low",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses environmental impact of hardware but doesn't specifically mention energy efficiency criteria for hardware selection. The standard acknowledges environmental considerations broadly but lacks specific guidance on energy-efficient hardware.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26)"
+  },
+  "SU-7": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Low",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard addresses both performance requirements and environmental impact separately but doesn't explicitly address balancing these concerns. The standard acknowledges both aspects but lacks guidance on resolving potential conflicts between them.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment, B.6.2.4: Partial Alignment, B.5.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.6.2.4 -> p.33; B.5.5 -> p.29",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); Organizations should evaluate their AI systems against documented criteria including performance requirements (B.6.2.4, p.33); AI development can be computationally intensive with environmental impacts (B.5.5, p.29)"
+  },
+  "SU-8": {
+    "domain": "Sustainability",
+    "alignmentType": "Partially Aligns",
+    "confidenceLevel": "Medium",
+    "alignmentRationale": "This question PARTIALLY ALIGNS with ISO 42001 as the standard requires documenting environmental impact but doesn't explicitly address ongoing tracking or monitoring of impact over time. While the standard acknowledges the need to document environmental impacts, it lacks specific requirements for continued monitoring throughout the AI system lifecycle.",
+    "controlAlignmentDetails": "B.4.5: Partial Alignment, B.5.5: Partial Alignment",
+    "citation": "B.4.5 -> p.26; B.5.5 -> p.29",
+    "controlIntent": "Organizations should document environmental impact of hardware (B.4.5, p.26); AI development can be computationally intensive with environmental impacts (B.5.5, p.29)"
+  }
+}
