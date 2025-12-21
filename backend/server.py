@@ -1910,6 +1910,16 @@ async def get_assessment_framework_coverage(
         {"_id": 0}
     ).to_list(length=None)
     
+    # Get questions to build ID -> code mapping
+    questions = await db.questions.find({}, {"_id": 0, "id": 1, "code": 1}).to_list(length=None)
+    question_id_to_code = {q["id"]: q["code"] for q in questions}
+    
+    # Enrich answers with question codes
+    for answer in answers:
+        question_id = answer.get("question_id")
+        if question_id and question_id in question_id_to_code:
+            answer["question_code"] = question_id_to_code[question_id]
+    
     # Get selected frameworks from system_info
     system_info = assessment.get("system_info", {})
     selected_frameworks = system_info.get("frameworks", [])
