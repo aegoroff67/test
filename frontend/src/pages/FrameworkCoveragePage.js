@@ -98,12 +98,6 @@ const CHART_COLORS = {
   achieved: '#E67E22'   // Orange
 };
 
-// Chart colors
-const CHART_COLORS = {
-  inherent: '#1B4F72',  // Dark teal/blue
-  achieved: '#E67E22'   // Orange
-};
-
 function FrameworkCoveragePage() {
   const { id } = useParams();
   const navigate = useNavigate();
