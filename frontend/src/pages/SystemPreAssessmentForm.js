@@ -618,7 +618,7 @@ export default function SystemPreAssessmentForm() {
           </CardHeader>
           <CardContent className="grid gap-6 p-6 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="assessor_name">Assessment conducted by *</Label>
+              <Label htmlFor="assessor_name">Assessment conducted by <span className="text-red-500">*</span></Label>
               <Input
                 id="assessor_name"
                 value={form.assessor_name}
@@ -629,7 +629,7 @@ export default function SystemPreAssessmentForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="assessment_date">Assessment date *</Label>
+              <Label htmlFor="assessment_date">Assessment date <span className="text-red-500">*</span></Label>
               <Input
                 id="assessment_date"
                 type="date"
@@ -640,7 +640,7 @@ export default function SystemPreAssessmentForm() {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="framework_version">AM AI SAFE framework version *</Label>
+              <Label htmlFor="framework_version">AM AI SAFE framework version <span className="text-red-500">*</span></Label>
               <Input
                 id="framework_version"
                 value={form.framework_version}
