@@ -345,7 +345,7 @@ export default function SystemPreAssessmentForm() {
             </div>
 
             <div className="space-y-2">
-              <Label>Lifecycle stage</Label>
+              <Label>Lifecycle stage <span className="text-red-500">*</span></Label>
               <Select onValueChange={(v) => update("lifecycle", v)} value={form.lifecycle}>
                 <SelectTrigger><SelectValue placeholder="Select stage" /></SelectTrigger>
                 <SelectContent>
