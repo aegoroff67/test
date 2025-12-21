@@ -1872,6 +1872,62 @@ async def get_faira_scores(
     }
 
 
+@api_router.get("/assessments/{assessment_id}/framework-coverage")
+async def get_assessment_framework_coverage(
+    assessment_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """
+    Get framework coverage analytics for an assessment.
+    
+    This endpoint calculates how comprehensively the assessment covers various
+    AI governance frameworks, comparing inherent coverage (by design) with
+    achieved coverage (based on assessment results).
+    """
+    # Allow SUPER_ADMIN to view any assessment, others only their org's
+    if current_user.role == "SUPER_ADMIN":
+        assessment = await db.assessments.find_one({"id": assessment_id})
+    else:
+        assessment = await db.assessments.find_one({
+            "id": assessment_id, 
+            "org_id": current_user.org_id
+        })
+    
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    # Only System assessments have framework coverage
+    assessment_type = assessment.get("assessment_type", "System")
+    if assessment_type != "System":
+        raise HTTPException(
+            status_code=400, 
+            detail="Framework coverage is only available for System assessments"
+        )
+    
+    # Get answers for this assessment
+    answers = await db.answers.find(
+        {"assessment_id": assessment_id}, 
+        {"_id": 0}
+    ).to_list(length=None)
+    
+    # Get selected frameworks from system_info
+    system_info = assessment.get("system_info", {})
+    selected_frameworks = system_info.get("frameworks", [])
+    
+    # Calculate coverage for all frameworks
+    coverage_data = get_all_framework_coverage(
+        answers=answers,
+        selected_frameworks=selected_frameworks
+    )
+    
+    return {
+        "assessment_id": assessment_id,
+        "assessment_name": assessment.get("name"),
+        "selected_frameworks": selected_frameworks,
+        "frameworks": coverage_data
+    }
+
+
 @api_router.post("/assessments/{assessment_id}/organisation-info")
 async def update_organisation_info(
     assessment_id: str,
