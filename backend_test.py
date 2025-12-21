@@ -8862,6 +8862,13 @@ class AMSafeAPITester:
         # Test AU Guidance framework alignment feature implementation
         self.test_au_guidance_framework_alignment()
         
+        # === FRAMEWORK COVERAGE API TESTS (NEW) ===
+        print("\n" + "🔍 FRAMEWORK COVERAGE API TESTS (Review Request)" + "\n" + "=" * 60)
+        
+        # Test Framework Coverage API with specific login
+        if self.test_framework_coverage_login():
+            self.test_framework_coverage_api()
+        
         # === EXISTING PRODUCTION TESTS ===
         print("\n" + "📋 EXISTING PRODUCTION TESTS" + "\n" + "=" * 60)
         
