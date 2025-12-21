@@ -98,6 +98,26 @@ const CHART_COLORS = {
   achieved: '#E67E22'   // Orange
 };
 
+// Helper function to check if a framework is selected
+// Handles variations in naming (e.g., "NIST AI RMF" vs "NIST AI RMF (2023)")
+const isFrameworkInSelection = (frameworkTitle, selectedFrameworks) => {
+  if (!selectedFrameworks || selectedFrameworks.length === 0) return false;
+  
+  // Exact match first
+  if (selectedFrameworks.includes(frameworkTitle)) return true;
+  
+  // Partial match - check if framework name (without year) matches
+  const normalizeFramework = (name) => name.replace(/\s*\(\d{4}[^)]*\)\s*/g, '').trim().toLowerCase();
+  const normalizedTitle = normalizeFramework(frameworkTitle);
+  
+  return selectedFrameworks.some(selected => {
+    const normalizedSelected = normalizeFramework(selected);
+    return normalizedTitle === normalizedSelected || 
+           normalizedTitle.includes(normalizedSelected) || 
+           normalizedSelected.includes(normalizedTitle);
+  });
+};
+
 function FrameworkCoveragePage() {
   const { id } = useParams();
   const navigate = useNavigate();
