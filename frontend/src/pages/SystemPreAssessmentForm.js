@@ -323,25 +323,25 @@ export default function SystemPreAssessmentForm() {
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="systemName">System name</Label>
+              <Label htmlFor="systemName">System name <span className="text-red-500">*</span></Label>
               <Input id="systemName" value={form.systemName} onChange={(e) => update("systemName", e.target.value)}
                 placeholder="e.g., SmartRecruit Chatbot" required />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="owner">System owner</Label>
+              <Label htmlFor="owner">System owner <span className="text-red-500">*</span></Label>
               <Input id="owner" value={form.owner} onChange={(e) => update("owner", e.target.value)} placeholder="e.g., Jane Smith (Head of HR)" required />
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="description">Purpose / description</Label>
+              <Label htmlFor="description">Purpose / description <span className="text-red-500">*</span></Label>
               <Textarea id="description" value={form.description} onChange={(e) => update("description", e.target.value)}
-                placeholder="What does this AI system do and why does it exist?" rows={3} />
+                placeholder="What does this AI system do and why does it exist?" rows={3} required />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="department">Department / business function</Label>
-              <Input id="department" value={form.department} onChange={(e) => update("department", e.target.value)} placeholder="e.g., HR / People & Culture" />
+              <Label htmlFor="department">Department / business function <span className="text-red-500">*</span></Label>
+              <Input id="department" value={form.department} onChange={(e) => update("department", e.target.value)} placeholder="e.g., HR / People & Culture" required />
             </div>
 
             <div className="space-y-2">
