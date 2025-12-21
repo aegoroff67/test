@@ -8643,6 +8643,137 @@ class AMSafeAPITester:
         
         return True
 
+    def test_framework_coverage_login(self):
+        """Test login with specific credentials for framework coverage testing"""
+        login_data = {
+            "email": "andrew@test.com",
+            "password": "password123"
+        }
+        
+        success, response = self.make_request('POST', 'auth/login', login_data)
+        if success and 'access_token' in response:
+            self.token = response['access_token']
+            self.user_data = response['user']
+            self.log_test("Framework Coverage Login (andrew@test.com)", True)
+            return True
+        else:
+            self.log_test("Framework Coverage Login (andrew@test.com)", False, str(response))
+            return False
+
+    def test_framework_coverage_api(self):
+        """Test Framework Coverage API endpoint"""
+        print("\n🔍 TESTING FRAMEWORK COVERAGE API")
+        print("-" * 60)
+        
+        # Test assessment IDs from the review request
+        test_assessment_ids = [
+            "96186862-9f7e-4699-96b4-009953ad285e",  # NIST AI RMF selected
+            "d7c2d829-554c-4354-9507-102823cc1601"   # All frameworks selected
+        ]
+        
+        for assessment_id in test_assessment_ids:
+            print(f"\n📋 Testing Assessment ID: {assessment_id}")
+            
+            success, response = self.make_request('GET', f'assessments/{assessment_id}/framework-coverage')
+            if not success:
+                self.log_test(f"Framework Coverage API - {assessment_id}", False, str(response))
+                continue
+            
+            self.log_test(f"Framework Coverage API - {assessment_id}", True)
+            
+            # Verify response structure
+            required_fields = ['assessment_id', 'assessment_name', 'selected_frameworks', 'frameworks']
+            missing_fields = [field for field in required_fields if field not in response]
+            
+            if not missing_fields:
+                self.log_test(f"Response structure - {assessment_id}", True)
+            else:
+                self.log_test(f"Response structure - {assessment_id}", False, f"Missing fields: {missing_fields}")
+                continue
+            
+            # Verify frameworks array has 8 frameworks
+            frameworks = response.get('frameworks', [])
+            if len(frameworks) == 8:
+                self.log_test(f"8 frameworks returned - {assessment_id}", True)
+            else:
+                self.log_test(f"8 frameworks returned - {assessment_id}", False, f"Found {len(frameworks)} frameworks")
+            
+            # Verify each framework has required fields
+            framework_fields_valid = True
+            for framework in frameworks:
+                required_fw_fields = ['framework_id', 'title', 'is_selected', 'inherent_coverage', 'achieved_coverage', 'chart_data']
+                missing_fw_fields = [field for field in required_fw_fields if field not in framework]
+                if missing_fw_fields:
+                    framework_fields_valid = False
+                    self.log_test(f"Framework fields - {framework.get('title', 'Unknown')}", False, f"Missing: {missing_fw_fields}")
+                    break
+            
+            if framework_fields_valid:
+                self.log_test(f"All framework fields present - {assessment_id}", True)
+            
+            # Test specific assessment requirements
+            if assessment_id == "96186862-9f7e-4699-96b4-009953ad285e":
+                # Should have NIST AI RMF selected
+                nist_framework = None
+                for fw in frameworks:
+                    if "NIST AI RMF" in fw.get('title', ''):
+                        nist_framework = fw
+                        break
+                
+                if nist_framework and nist_framework.get('is_selected'):
+                    self.log_test("NIST AI RMF is selected (96186862)", True)
+                else:
+                    self.log_test("NIST AI RMF is selected (96186862)", False, "NIST AI RMF should be selected")
+                
+                # Other frameworks should be unselected
+                other_selected = [fw for fw in frameworks if fw.get('is_selected') and "NIST AI RMF" not in fw.get('title', '')]
+                if not other_selected:
+                    self.log_test("Other frameworks unselected (96186862)", True)
+                else:
+                    selected_titles = [fw.get('title') for fw in other_selected]
+                    self.log_test("Other frameworks unselected (96186862)", False, f"Unexpectedly selected: {selected_titles}")
+            
+            elif assessment_id == "d7c2d829-554c-4354-9507-102823cc1601":
+                # Should have all frameworks selected
+                selected_frameworks = [fw for fw in frameworks if fw.get('is_selected')]
+                if len(selected_frameworks) == 8:
+                    self.log_test("All frameworks selected (d7c2d829)", True)
+                else:
+                    self.log_test("All frameworks selected (d7c2d829)", False, f"Only {len(selected_frameworks)}/8 frameworks selected")
+            
+            # Verify chart data structure
+            chart_data_valid = True
+            for framework in frameworks:
+                chart_data = framework.get('chart_data', [])
+                if len(chart_data) != 4:
+                    chart_data_valid = False
+                    break
+                
+                for chart_item in chart_data:
+                    required_chart_fields = ['category', 'inherent', 'achieved']
+                    if not all(field in chart_item for field in required_chart_fields):
+                        chart_data_valid = False
+                        break
+                
+                if not chart_data_valid:
+                    break
+            
+            if chart_data_valid:
+                self.log_test(f"Chart data structure valid - {assessment_id}", True)
+            else:
+                self.log_test(f"Chart data structure valid - {assessment_id}", False, "Invalid chart data structure")
+            
+            # Print sample data for verification
+            print(f"   📊 Sample framework data:")
+            if frameworks:
+                sample_fw = frameworks[0]
+                print(f"      Title: {sample_fw.get('title')}")
+                print(f"      Selected: {sample_fw.get('is_selected')}")
+                print(f"      Inherent Coverage: {sample_fw.get('inherent_coverage')}")
+                print(f"      Achieved Coverage: {sample_fw.get('achieved_coverage')}")
+        
+        return True
+
     def run_all_tests(self):
         """Run all tests in sequence with focus on production issues"""
         print(f"🚀 Starting AM AI SAFE Production API Tests")
