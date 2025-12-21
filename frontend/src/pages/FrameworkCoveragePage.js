@@ -214,11 +214,23 @@ function FrameworkCoveragePage() {
         <div className="grid grid-cols-4 gap-6">
           {FRAMEWORKS.map((framework) => {
             const IconComponent = framework.icon;
-            const chartData = generatePlaceholderData();
             
-            // Check if this framework was selected in the assessment's pre-onboarding
-            const selectedFrameworks = assessment?.system_info?.frameworks || [];
-            const isFrameworkSelected = isFrameworkInSelection(framework.title, selectedFrameworks);
+            // Find the coverage data for this framework from the API response
+            const frameworkCoverage = coverageData?.frameworks?.find(
+              fw => fw.framework_id === framework.id
+            );
+            
+            // Use real data if available, otherwise use placeholder
+            const chartData = frameworkCoverage?.chart_data 
+              ? frameworkCoverage.chart_data.map(d => ({
+                  category: d.category,
+                  inherent: d.inherent,
+                  achieved: d.achieved
+                }))
+              : generatePlaceholderData();
+            
+            // Check if this framework was selected (from API response)
+            const isFrameworkSelected = frameworkCoverage?.is_selected ?? false;
             
             return (
               <Card 
