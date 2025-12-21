@@ -11,38 +11,43 @@ The user then provided a comprehensive scoring schema, which the agent implement
 - Improving the UI of the results page with new features like inherent vs. residual risk toggles and enhanced tooltips.
 - Debugging form completion logic issues.
 
+Subsequently, the user requested a massive content update for the 'AI System Maturity Assessment,' including changing question text, predefined answers, context, additional guidance, and evidence-type tooltips for numerous questions. This led to the discovery that question content is stored in a MongoDB database and requires direct updates, not just file changes.
+
+Finally, the user requested a new 'Framework Coverage' page to visualize assessment alignment with various governance frameworks, which the agent built with a placeholder UI.
+
 **User's preferred language**: English
 
 **what currently exists?**
-The application is a full-stack AI maturity assessment platform. A major new feature, the FAIRA Risk Assessment, has been implemented and is almost fully functional, driven by a sophisticated backend scoring engine.
-- **FAIRA Assessment Form ()**: A comprehensive single-page form with sidebar navigation and complex conditional logic. Recent fixes were made to the progress calculation for question  and the conditional display for . It also now includes a local storage backup mechanism to prevent data loss on session expiry.
-- **Backend Scoring Engine ()**: A dedicated backend module that calculates risk scores based on a user-provided JSON schema (). It implements a complex methodology including overall risk, domain-level scores, and various derived indicators. It has been repeatedly updated to refine formulas and constants.
-- **FAIRA Results Page ()**: A detailed results page displaying the output of the scoring engine. It features a 2x2 grid of radar charts, an 'Inherent Risk' vs. 'Residual Risk' toggle, detailed tooltips, and other user-requested UI refinements.
-- **Backend ()**: The main FastAPI application, which now includes an API endpoint to serve the calculated scores (). It has also been patched to fix data loading bugs and a critical JWT token expiration issue.
-- **Scoring Schema ()**: The user-provided schema defining all scoring weights, which has been updated multiple times with corrected values per user feedback.
+The application is a full-stack AI maturity and risk assessment platform.
+- **FAIRA Assessment**: A nearly complete module with a detailed assessment form, a sophisticated backend scoring engine, and a feature-rich results page. Recent UI tweaks were made to the results page.
+- **AI System Maturity Assessment**: The core assessment's content has been significantly updated. The agent updated questions, answers, context, and tooltips for multiple domains (especially Security) directly in the MongoDB database, having discovered that file-based changes in  do not propagate to existing assessments.
+- **Framework Alignment Data**: The  file has been completely overhauled with new, detailed content provided by the user for all domains. The modal component displaying this data () was updated to match the new data structure.
+- **NEW - Framework Coverage Page**: A new page () has been created, accessible from the main results page. It currently displays a static, mocked-up UI with a title, subtitle, and 8 placeholder cards containing grouped bar charts styled to the user's specification. The page is not yet connected to any backend data.
 
 **Last working item**:
-    - Last item agent was working: The user requested to rename 'Domain Risk Scores' to 'Domain Risk Index' in the left panel of the FAIRA results page and to remove the '%' from the scores in that panel's pie chart.
-    - Status: NOT STARTED
+    - Last item agent was working: The user requested that on the new 'Framework Coverage Overview' page, any framework card for a framework not selected in the assessment's pre-onboarding should be greyed out with a banner that reads 'Framework not selected for this assessment'. The agent identified that selected frameworks are stored in  and was about to implement the conditional rendering logic in .
+    - Status: IN PROGRESS
     - Agent Testing Done: N
     - Which testing method agent to use? screenshot tool
     - User Testing Done: N
 
 **All Pending/In progress Issue list**:
-  - Issue 1: Rename 'Domain Risk Scores' to 'Domain Risk Index' in the left panel and remove '%' from scores. (P0, HIGHEST)
+  - Issue 1: Grey out unselected framework cards on . (P0, HIGHEST)
   - Issue 2: The 'Top 3 Action Steps' on the main  are calculated using incorrect logic. (P1)
   - Issue 3: The sidebar scroll-to-section feature in  should be functionally verified. (P2)
   - Issue 4: A persistent ~1% progress discrepancy between the dashboard and the FAIRA assessment form remains. (P3)
   
   Issues Detail:
   - Issue 1: 
-     - Attempted fixes: None. This is the user's latest request.
+     - Attempted fixes: The agent successfully located where the user's selected frameworks are stored in the assessment data (). The next step is to fetch this data on the  and apply conditional styling to the framework cards.
      - Next debug checklist: 
-        1. In , find the text Domain Risk Scores and change it to Domain Risk Index.
-        2. In the same file, locate the  component for .
-        3. Modify the  prop or formatter function for the  to remove the '%' character from the displayed value.
-     - Why fix this issue and what will be achieved with the fix? To align the UI with the user's latest textual and formatting preferences.
-     - Status:  NOT STARTED
+        1. In , fetch the current assessment data, including .
+        2. In the component that renders the framework cards, map over the  constant.
+        3. For each framework, check if its title exists in the fetched  array.
+        4. Apply a conditional class (e.g., , ) and render the overlay banner if the framework is not selected.
+        5. Test with an assessment that has a partial selection of frameworks.
+     - Why fix this issue and what will be achieved with the fix? To accurately reflect the scope of the current assessment on the new framework coverage page.
+     - Status:  IN PROGRESS
      - Is recurring issue? N
      - Should Test frontend/backend/both after fix? Frontend
      - Blocked on other issue: None
@@ -81,34 +86,46 @@ The application is a full-stack AI maturity assessment platform. A major new fea
      - Blocked on other issue: None
 
 **In progress Task List**:
-- None.
+  - Task 1:  Implement Framework Coverage Analytics Page (P0)
+  
+ Task Detail:
+  - Task 1: 
+     - Where to resume: Currently working on . The immediate sub-task is to implement the logic to grey out cards for unselected frameworks. After that, the entire page needs to be connected to backend data to replace the static placeholders.
+     - What will be achieved with this? A new feature page that provides users with analytics on how their assessment results align with various governance frameworks.
+     - Status:  IN PROGRESS
+     - Should Test frontend/backend/both after fix? Both
+     - Blocked on something: No
 
 **Upcoming and Future Tasks**
     Upcoming Tasks:
-    - Task 1 (P1): Implement the 'AI System Maturity Assessment - Framework Coverage' page.
-    - Task 2 (P2): Replace 'Control Intent'/'Reference(s)' in  with a data-driven table.
-    - Task 3 (P3): Implement a print-specific, multi-page CSS layout for the results summary page.
-    - Task 4 (P4): Develop backend functionality for generating DOCX reports.
+    - Task 1 (P0): Implement the data calculation logic for the new 'Framework Coverage Overview' page to replace the mocked-up charts with real data.
+    - Task 2 (P1): Implement the 'AI System Maturity Assessment - Framework Coverage' page (This might be superseded by the new page, clarification needed).
+    - Task 3 (P2): Replace 'Control Intent'/'Reference(s)' in  with a data-driven table. (Partially done, but could be improved).
+    - Task 4 (P3): Implement a print-specific, multi-page CSS layout for the results summary page.
+    - Task 5 (P4): Develop backend functionality for generating DOCX reports.
     Future Tasks:
-    - Task 5 (P5): Implement enterprise-level SSO (SAML/OIDC).
-    - Task 6 (P6): Implement a Stripe paywall for premium assessments.
+    - Task 6 (P5): Implement enterprise-level SSO (SAML/OIDC).
+    - Task 7 (P6): Implement a Stripe paywall for premium assessments.
 
 **Completed work in this session**
-- **FAIRA Scoring Engine Implementation:**
-  - Built and deployed a comprehensive backend scoring engine () based on a user-provided JSON schema.
-  - Implemented a complex scoring methodology covering Overall Risk, Domain Scores (Impact, Likelihood, CE, Risk), and multiple derived indicators.
-  - Created an API endpoint () to serve the results.
-- **FAIRA Results Page Overhaul:**
-  - Replaced all placeholder data with live data from the new scoring API.
-  - Implemented a 2x2 grid of radar charts and added an Inherent vs. Residual risk toggle.
-- **Critical Bug Fixes:**
-  - **Data Loss on Session Expiry:** Fixed a critical bug where users lost work due to JWT token expiration. Increased token lifetime to 24 hours and added frontend local storage backup.
-  - **Data Loading & Login Failures:** Resolved a cascade of backend issues that prevented assessment loading () and user login.
-  - **Form Progress Stuck:** Debugged and fixed the frontend progress calculation logic for question  to correctly handle optional fields.
-- **UI/UX & Schema Refinements:**
-  - Iteratively updated radar chart domain names, tooltip content, and scoring formulas based on detailed user feedback.
-  - Corrected multiple negative Control Effectiveness modifiers in .
-  - Updated constants such as  and the formula for .
+- **Content & Data Overhaul:**
+  - **AI Maturity Assessment Questions:** Updated question text, predefined answers, context, additional guidance, and evidence-type tooltips for , , , and  directly in the MongoDB databases (, ) and synced the  file.
+  - **ISO 42001 Alignment:** Replaced the entire content for all 88 questions in  with new, detailed user-provided data.
+  - **Impact/Effort Scores:** Updated weightings for  and  in .
+- **New Feature: Framework Coverage Page:**
+  - Created a new page component: .
+  - Added a new route  in .
+  - Updated the Framework Coverage button on  to navigate to the new page.
+  - Built the complete static UI for the page, including a header, title, subtitle, and 8 placeholder cards with Recharts bar graphs styled to user specifications.
+- **UI/UX Refinements:**
+  - **FAIRA Results:** Renamed 'Domain Risk Scores' to 'Domain Risk Index', removed '%' from a pie chart, and implemented dynamic titles ('Inherent/Residual Domain Risk') based on a toggle state on .
+  - **ISO 42001 Modal:** Updated the title and data fields in  to align with the new data structure.
+  - **Framework Coverage Page:** Adjusted header layout to reduce whitespace and made minor text/styling updates per user request.
+- **Backend & Analysis:**
+  - **Database Discovery:** Identified that question content is served from MongoDB () and that file changes to  require a manual database update to take effect. Created and ran a script to perform these updates.
+  - **New Score Calculation:** Calculated and explained new FAIRA variables (, , ) for a specific assessment.
+  - **Generated Reports:** Provided on-the-fly analysis of the AI Maturity to ISO 42001 control mapping and a de-duplicated control list with alignment counts.
+  - **Architecture Plan:** Provided a detailed technical recommendation for implementing the framework coverage analytics feature.
 
 **Earlier issues found/mentioned but not fixed**
    - Issue 1: The 'Top 3 Action Steps' on  are calculated incorrectly. This was mentioned in the initial handoff and was not resolved in this session.
@@ -119,80 +136,80 @@ The application is a full-stack AI maturity assessment platform. A major new fea
 
 **Known issue recurrence from previous fork**
   - Issue recurrence in previous fork: The Top 3 Action Steps incorrect calculation on  was present in the initial handoff summary and remains unfixed.
-  - Recurrence count: 2
+  - Recurrence count: 3
   - Status: NOT STARTED
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Schema-Driven Backend Logic:** The entire scoring system is driven by the  file, centralizing complex business rules.
-- **Complex Frontend State Management:**  now manages dynamic chart data (inherent vs. residual risk) using  and .
-- **Authentication and Session Management:** A critical JWT token expiration issue was fixed by increasing the token lifetime and adding a frontend local storage backup as a fallback.
-- **Data Normalization for Display:** Multiple iterations were required to refine how raw scoring data is normalized for user-friendly display on 0-100 scales, a key part of the user experience.
+- **Database-Driven Content:** Critical discovery that question text and options for the AI System Maturity Assessment are stored in a MongoDB collection ( in the  database). Changes in source files like  are not automatically propagated; a direct DB update is required.
+- **Client-Side UI Development:** A new page () was built from scratch using React and the Recharts library for data visualization, demonstrating component-based architecture.
+- **Dynamic Data Analysis:** The agent performed several on-the-fly data analyses, such as generating the ISO 42001 control mapping summary and calculating new FAIRA risk scores, by fetching and processing data from API endpoints and files.
+- **Data Schema Evolution:** The agent successfully updated the data structure for the ISO 42001 alignment () and modified the corresponding frontend component () to consume the new fields.
 
 **key DB schema**
-  - ** collection:** {{, }}. The agent fixed bugs related to a missing  field and case sensitivity of . The  sub-document is the primary input for the scoring engine.
-  - ** collection:** {{, , }}. The agent debugged login issues related to these fields.
+  - ** collection:**  field identified as the source for selected frameworks in an assessment.
+  - ** collection (in  and  databases):** This collection holds the live question data used by the application. The agent discovered it must be updated directly for content changes to appear. Fields updated include , , , etc., and the addition of .
 
 **changes in tech stack**
   - None.
 
 **All files of reference**
-- **/app/backend/faira_scoring_engine.py**: The new, central module for all FAIRA calculations.
-- **/app/frontend/src/pages/FairaResultsPage.js**: The primary frontend file for displaying FAIRA results, which was heavily modified.
-- **/app/backend/server.py**: The FastAPI backend, updated with the new scoring endpoint and several critical bug fixes.
-- **/app/backend/faira_scoring_schema.json**: The user-provided configuration file for scoring, which was modified multiple times.
-- **/app/frontend/src/pages/FairaAssessmentForm.js**: The form itself, which had its progress calculation logic and token expiry handling updated.
+- **/app/frontend/src/pages/FrameworkCoveragePage.js**: (CREATED) New page for displaying framework coverage analytics. Currently static.
+- **/app/frontend/src/data/iso42001AlignmentData.json**: (HEAVILY UPDATED) The entire file content was replaced with new, detailed alignment data from the user.
+- **/app/backend/complete_questions.py**: (UPDATED) Modified to keep it in sync with direct database updates for questions SE-2, SE-6, AC-3, and SU-1.
+- **/app/frontend/src/components/Iso42001AlignmentModal.js**: (UPDATED) Modified to use new data fields () and change display titles.
+- **/app/backend/server.py**: (ANALYZED) The seeding logic () was investigated to understand why question changes weren't appearing.
+- **/app/backend/system_question_metadata.json**: (UPDATED) Impact and effort scores were modified for questions SE-2 and SE-6.
 
 **Areas that need refactoring**:
-- **/app/frontend/src/pages/FairaResultsPage.js**: This component has grown very large. It should be broken down into smaller, more focused components for better maintainability (e.g., a component for the radar chart grid, another for the info modal).
-- **/app/backend/faira_scoring_engine.py**: This file is now over 700 lines. The main calculation functions could be further modularized into smaller, more testable pieces.
+- **/app/backend/server.py**: The data seeding logic is not robust. It only runs if the  collection is empty, preventing easy updates to existing question sets. A proper migration/seeding script is needed.
+- **/app/frontend/src/pages/ResultsPage.js**: Still contains the unused state variable .
 
 **key api endpoints**
-- ****: (CREATED) Fetches the complete, calculated scoring results for a given FAIRA assessment.
-- ****: (DEBUGGED) The agent spent significant time debugging this endpoint to resolve user creation and authentication issues.
-- ****: (DEBUGGED) Fixed a  that caused this endpoint to fail if assessments were missing a  field.
-- ****: (DEBUGGED) Identified that a 401 Unauthorized response from this endpoint was the cause of data loss, leading to session management fixes.
+- ****: Used to fetch assessments and identify the  field.
+- ****: Used to fetch data for calculating new risk variables.
+- No new endpoints were created, but the agent's investigation into the data flow for the AI System Maturity assessment revealed that the  endpoint serves data from the  collection, not directly from the  variable in  for existing assessments.
 
 **Critical Info for New Agent**
-- **Your Immediate Task:** The user wants to rename 'Domain Risk Scores' to 'Domain Risk Index' in the left panel of  and remove the '%' from the scores in that panel's pie chart.
-- **Scoring Logic is Complex:** All scoring logic is in  and configured by . Changes to one often require changes to the other.
-- **User Data Exists:** The database contains real user accounts and completed assessments. Use existing accounts like  (password: ) to test with real data. Do not delete or overwrite existing data.
-- **Two Result Pages:** Remember there are two distinct results pages:  (for the original assessment, which has a known bug) and  (for the new FAIRA assessment, where most work is happening).
+- **Your Immediate Task:** The user wants to grey out unselected framework cards on the new . You need to fetch the assessment data (specifically ) and apply conditional rendering to the cards.
+- **CRITICAL - DATABASE IS THE SOURCE OF TRUTH FOR QUESTIONS:** Changes to the  file **WILL NOT** appear in the UI for existing assessments. You **MUST** write and execute a script to update the MongoDB collections ( in  and  databases) for any question content changes. The previous agent learned this the hard way after a user reported that updates weren't showing up.
+- **Framework Page is MOCKED:** The new  is entirely static. The next major step after the current task will be to replace all placeholder data with dynamically calculated values based on assessment results and framework mappings.
+- **Data Location:** The user's selected frameworks for an assessment are stored in the  collection document, under the path .
 
-**documents created in this job**
-  - /app/backend/faira_scoring_engine.py
-  - /app/backend/faira_scoring_schema.json
+**documents and test_reports created in this job**
+- None.
 
-**Last 10 User Messages and any pending user messages**
- - **User:** what is the maximum Control Effectiveness score potentially acheivable based on my current FAIRA risk assessment scoring methodology? **Status: Completed (Agent answered)**
- - **User:** what is the maximum domain-level control effectiveness score that could potentially be achieved? **Status: Completed (Agent answered)**
- - **User:** Please modify the following formulae for the FAIRA risk assessment scoring methodology: 1. set a new constant: Domain_CE_Target = 25 2. for each domain: Domain_CE_Raw = Σ(CE modifiers mapped to domain) Domain_CE_Display = clamp( (Domain_CE_Raw / 25) × 100, 0, 100 ) **Status: Completed**
- - **User:** Replace the entire content of each radar chart's tooltip... **Status: Completed**
- - **User:** add 2 radio buttons to the Domain Risk radar chart... 'Inherent Risk' and 'Residual Risk'. **Status: Completed**
- - **User:** update the content in the Domain Risk radar chart tooltip... **Status: Completed**
- - **User:** increase the width of the tooltip modals... to 650px. **Status: Completed**
- - **User:** change the 'Human' domain name... to 'Values'. **Status: Completed**
- - **User:** what is the current setting for Max_Expected_Raw_Risk? **Status: Completed (Agent answered)**
- - **User (Latest):** Rename 'Domain Risk Scores' in the left panel in the FAIRA risk assessment results page to 'Domain Risk Index' and remove the '%' from every score. **Status: NOT STARTED**
+**Last 10 User Messages and any pending HUMAN messages**
+- User: for any bar graphs in the Framework Coverage Overview page that have not had their framework selected in the AI System Maturity Assessment pre-assessment onboarding, have the bar chart card greyed out with a banner across it 'Framework not selected for this assessment'
+- User: update the X-axis words on each chart to read 'Strong Coverage', 'Moderate Coverage', 'Weak Coverage' and 'No Coverage'
+- User: please bold the word 'controls' in the first sentence of the subtitle. Also, please put a border around the 'Back to Results' button.
+- User: move the page title and subtitle up and to the right of the logo so the top of the title aligns with the top of the logo. There is too much white space.
+- User: modify the dummy bar graphs with something that looks like this:
+- User: update the Framework Coverage Overview page subtitle with the following: 'This view shows how comprehensively the controls within selected AI governance frameworks are covered by the AM AI SAFE assessment, based on how many assessment questions fully or partially address each framework control. It compares coverage provided by design (Inherent Coverage) with coverage achieved based on assessment results (Achieved Coverage).'
+- User: Update the subtitle of the Framework Coverage Overview page to read 'This view shows the extent to which AM AI SAFE covers the controls within selected AI governance frameworks, based on how frequently each framework control is addressed by one or more AM AI SAFE questions. It compares the coverage provided by design (Inherent Coverage) with the coverage actually achieved based on assessment results (Achieved Coverage).'
+- User: is the example content from '/frontend/src/data/iso42001AlignmentData.json' correct (i.e. is this a summarised version of the content being shown in the AI System Maturity Assessment framework alignment modal)?
+- User: I want to implement framework coverage analytics in AM AI SAFE... [detailed technical questions]
+- User: give me a de-duped list of all the ISO 42001 controls listed in the AI System Maturity Assessment with a column that shows how many Fully Aligns were associated with it; another column that shows how many Partially Aligns; and another columsn that shows how many No Alignment.
 
 **Project Health Check:**
 - **Broken:** The 'Top 3 Action Steps' feature on the original  provides incorrect recommendations.
-- **Mocked:** None. The FAIRA results page is fully driven by the backend scoring engine.
+- **Mocked:** The new  is entirely mocked. Its charts and data are static placeholders and not connected to any backend logic or assessment results.
 
 **3rd Party Integrations**
- - None
+- None
 
 **Testing status**
-  - Testing agent used after significant changes: YES
+  - Testing agent used after significant changes: NO
   - Troubleshoot agent used after agent stuck in loop: NO
   - Test files created: []
-  - Known regressions: []
+  - Known regressions: None in code, but there was a regression in understanding the data flow (file vs. database) which was identified and corrected.
 
 **Credentials to test flow:**
 - **User:** 
 - **Password:** 
 
 **What agent forgot to execute**
-- The agent has consistently deferred the fix for the 'Top 3 Action Steps' incorrect calculation on , which was carried over from the previous session.</analysis>
+- The agent has once again deferred fixing the incorrect 'Top 3 Action Steps' calculation on .
+- A minor cleanup: the unused state variable  still exists in  after its functionality was replaced by navigation.</analysis>
