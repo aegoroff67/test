@@ -67,6 +67,32 @@ export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, 
             )}
           </div>
 
+          {/* Alignment Details/Rationale - Moved up after Confidence Level */}
+          <div className="mb-6">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">
+              Alignment Details / Rationale
+            </h3>
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+              <p className="text-sm text-gray-800 leading-relaxed">
+                {alignmentDetails}
+              </p>
+            </div>
+          </div>
+
+          {/* Citation - Moved up after Alignment Details */}
+          {citation && (
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">
+                Australian AI Ethics Principles Citation(s)
+              </h3>
+              <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
+                <p className="text-sm text-gray-700 italic leading-relaxed">
+                  {citation}
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Overview */}
           {overview && (
             <div className="mb-6">
@@ -82,7 +108,7 @@ export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, 
           )}
 
           {/* Relevant Principles */}
-          <div className="mb-6">
+          <div>
             <h3 className="text-sm font-semibold text-gray-700 mb-3">Relevant Australian AI Ethics Principles</h3>
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
               <p className="text-sm text-gray-700 font-medium">
@@ -90,32 +116,6 @@ export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, 
               </p>
             </div>
           </div>
-
-          {/* Alignment Details/Rationale */}
-          <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">
-              Alignment Details / Rationale
-            </h3>
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-              <p className="text-sm text-gray-800 leading-relaxed">
-                {alignmentDetails}
-              </p>
-            </div>
-          </div>
-
-          {/* Citation */}
-          {citation && (
-            <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                Australian AI Ethics Principles Citation(s)
-              </h3>
-              <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
-                <p className="text-sm text-gray-700 italic leading-relaxed">
-                  {citation}
-                </p>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Footer */}
