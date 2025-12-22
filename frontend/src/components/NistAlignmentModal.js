@@ -68,27 +68,7 @@ export default function NistAlignmentModal({ isOpen, onClose, questionCode, ques
             )}
           </div>
 
-          {/* NIST AI RMF Function */}
-          <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">NIST AI RMF Function</h3>
-            <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
-              <p className="text-sm text-gray-800 font-medium">
-                {nistFunction}
-              </p>
-            </div>
-          </div>
-
-          {/* Category / Subcategory */}
-          <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Relevant Category / Subcategory</h3>
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <p className="text-sm text-gray-700 font-medium">
-                {categorySubcategory}
-              </p>
-            </div>
-          </div>
-
-          {/* Alignment Details / Rationale */}
+          {/* Alignment Details / Rationale - Moved up after Confidence Level */}
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-gray-700 mb-3">
               Alignment Details / Rationale
@@ -100,9 +80,9 @@ export default function NistAlignmentModal({ isOpen, onClose, questionCode, ques
             </div>
           </div>
 
-          {/* Citations */}
+          {/* Citations - Moved up after Alignment Details */}
           {citations && citations.length > 0 && (
-            <div>
+            <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
                 NIST AI RMF Citation(s)
               </h3>
@@ -117,6 +97,26 @@ export default function NistAlignmentModal({ isOpen, onClose, questionCode, ques
               </div>
             </div>
           )}
+
+          {/* NIST AI RMF Function */}
+          <div className="mb-6">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">NIST AI RMF Function</h3>
+            <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+              <p className="text-sm text-gray-800 font-medium">
+                {nistFunction}
+              </p>
+            </div>
+          </div>
+
+          {/* Category / Subcategory */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">Relevant Category / Subcategory</h3>
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <p className="text-sm text-gray-700 font-medium">
+                {categorySubcategory}
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Footer */}
