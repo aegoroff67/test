@@ -220,7 +220,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly establishes accountability as a core objective and requires defining responsibilities for AI system management, including handling failures. The standard requires processes for handling deviations and exceptions.",
-    "controlAlignmentDetails": "B.3.1: Full Alignment, B.3.2: Full Alignment, B.9.3: Full Alignment",
+    "controlAlignmentDetails": "B.3.2: Full Alignment, B.9.3: Full Alignment",
     "citation": "B.3.1 -> p.23; B.3.2 -> p.23; B.9.3 -> p.42",
     "controlIntent": "Objective: To establish accountability for AI systems (B.3.1, p.23); Organizations should define roles and responsibilities related to AI systems for risk management, security, safety, development, performance, human oversight (B.3.2, p.23); Organizations should identify and document objectives for responsible use of AI systems, including accountability (B.9.3, p.42)"
   },
@@ -229,7 +229,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard requires establishing clear governance structures and defining roles for AI oversight. The standard specifically addresses monitoring AI outcomes as part of human oversight and operations.",
-    "controlAlignmentDetails": "B.3.2: Full Alignment, B.9.4: Full Alignment, A.3.2: Full Alignment",
+    "controlAlignmentDetails": "B.3.2: Full Alignment, B.9.4: Full Alignment",
     "citation": "B.3.2 -> p.23; B.9.4 -> p.43; A.3.2 -> p.17",
     "controlIntent": "Organizations should define roles and responsibilities related to AI systems (B.3.2, p.23); Oversight activities include monitoring AI system performance and accuracy, reporting concerns about outputs and impacts (B.9.4, p.43); AI roles and responsibilities shall be defined and allocated (A.3.2, p.17)"
   },
@@ -256,7 +256,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question FULLY ALIGNS with ISO 42001 as the standard explicitly requires defining and allocating AI roles and responsibilities. This is a fundamental requirement stated in multiple sections.",
-    "controlAlignmentDetails": "A.3.2: Full Alignment, B.3.2: Full Alignment, B.10.2: Full Alignment",
+    "controlAlignmentDetails": "B.3.2: Full Alignment, B.10.2: Full Alignment",
     "citation": "A.3.2 -> p.17; B.3.2 -> p.23; B.10.2 -> p.44",
     "controlIntent": "AI roles and responsibilities shall be defined and allocated (A.3.2, p.17); Organizations should define roles and responsibilities for numerous areas including risk management, AI system impact assessments, security, safety, development, performance (B.3.2, p.23); Organizations should document and allocate responsibilities between all parties involved in AI systems (B.10.2, p.44)"
   },
