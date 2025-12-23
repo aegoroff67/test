@@ -7,7 +7,7 @@ import { X } from 'lucide-react';
 export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, overview, relevantPrinciples, alignmentDetails, confidenceLevel, framework_citations } = alignmentData;
+  const { alignmentType, relevantPrinciples, alignmentDetails, confidenceLevel, framework_citations } = alignmentData;
 
   return (
     <div 
