@@ -93,20 +93,6 @@ export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, 
             </div>
           )}
 
-          {/* Overview */}
-          {overview && (
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                Alignment Overview
-              </h3>
-              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                <p className="text-sm text-gray-800 leading-relaxed">
-                  {overview}
-                </p>
-              </div>
-            </div>
-          )}
-
           {/* Relevant Principles */}
           <div>
             <h3 className="text-sm font-semibold text-gray-700 mb-3">Relevant Australian AI Ethics Principles</h3>
