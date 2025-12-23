@@ -1,10 +1,12 @@
-import React from 'react';
-import { X } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, ChevronRight, ChevronDown } from 'lucide-react';
 
 export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, confidenceLevel, alignmentRationale, framework_citations, controlAlignmentDetails } = alignmentData;
+  const { alignmentType, confidenceLevel, alignmentRationale, framework_citations, controlAlignmentDetails, alignedControls } = alignmentData;
 
   // Function to get confidence level color based on level
   const getConfidenceLevelColor = (level) => {
@@ -23,6 +25,8 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
     return 'bg-gray-100 text-gray-800 border-gray-300';
   };
 
+  const controlCount = alignedControls?.length || 0;
+
   return (
     <div 
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
@@ -30,46 +34,41 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div 
-        className="bg-white rounded-lg w-full max-h-[90vh] overflow-hidden flex flex-col"
-        style={{ maxWidth: '55rem' }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header - Teal theme for ISO 42001 */}
-        <div className="bg-teal-600 text-white p-6">
-          <div className="flex justify-between items-start">
-            <div className="flex-1 pr-4">
-              <h2 className="text-xl font-semibold">
-                ISO/IEC 42001 (2023) Alignment Information
-              </h2>
-              <p className="text-sm text-teal-100 mt-1">
-                {questionCode}: {questionText}
-              </p>
+      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col">
+        {/* Header */}
+        <div className="bg-teal-700 text-white px-6 py-4 rounded-t-lg flex items-start justify-between">
+          <div className="flex-1 pr-4">
+            <div className="flex items-center space-x-2 mb-1">
+              <span className="text-teal-200 text-sm font-medium">{questionCode}</span>
+              <span className="text-teal-300">•</span>
+              <span className="text-teal-200 text-sm">ISO/IEC 42001:2023</span>
             </div>
-            <button
-              onClick={onClose}
-              className="text-white hover:bg-teal-700 rounded-lg p-2 transition-colors flex-shrink-0"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <h2 className="text-lg font-semibold leading-tight">
+              {questionText}
+            </h2>
           </div>
+          <button 
+            onClick={onClose}
+            className="text-teal-200 hover:text-white transition-colors flex-shrink-0"
+          >
+            <X className="h-6 w-6" />
+          </button>
         </div>
 
         {/* Content */}
         <div className="p-6 overflow-y-auto flex-1">
-          {/* Alignment Type & Confidence Level - Side by side */}
-          <div className="grid grid-cols-2 gap-6 mb-6">
+          {/* Alignment Type and Confidence Level */}
+          <div className="mb-6 flex items-center justify-between flex-wrap gap-4">
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-2">Alignment Type</h3>
               <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${
-                alignmentType === 'Fully Aligns'
-                  ? 'bg-teal-100 text-teal-800 border-teal-300'
-                  : 'bg-teal-50 text-teal-700 border-teal-200'
+                alignmentType === 'Fully Aligns' 
+                  ? 'bg-green-100 text-green-800 border-green-300' 
+                  : 'bg-blue-100 text-blue-800 border-blue-300'
               }`}>
                 {alignmentType}
               </div>
             </div>
-
             {confidenceLevel && (
               <div>
                 <h3 className="text-sm font-semibold text-gray-700 mb-2">Confidence Level</h3>
@@ -80,40 +79,91 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
             )}
           </div>
 
-          {/* Alignment Details / Rationale */}
-          <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">
-              Alignment Details / Rationale
-            </h3>
-            <div className="bg-teal-50 p-4 rounded-lg border border-teal-200">
-              <p className="text-sm text-gray-800 leading-relaxed">
-                {alignmentRationale}
-              </p>
-            </div>
-          </div>
-
-          {/* Control Intent (Plain Language Summary) */}
-          {framework_citations && (
+          {/* Alignment Rationale */}
+          {alignmentRationale && (
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                ISO/IEC 42001 (2023) Citation(s)
+                Alignment Details / Rationale
               </h3>
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
                 <p className="text-sm text-gray-800 leading-relaxed">
+                  {alignmentRationale}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* ISO/IEC 42001 Citation(s) */}
+          {framework_citations && (
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-3">
+                <h3 className="text-sm font-semibold text-gray-700">ISO/IEC 42001 (2023) Citation(s)</h3>
+              </div>
+              <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-teal-500">
+                <p className="text-sm text-gray-700 italic leading-relaxed">
                   {framework_citations}
                 </p>
               </div>
             </div>
           )}
 
-          {/* Framework Control(s) */}
-          {controlAlignmentDetails && (
+          {/* Framework Control Mapping - Expandable */}
+          {(alignedControls && alignedControls.length > 0) && (
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-3">Framework Control Mapping</h3>
-              <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-teal-500">
-                <p className="text-sm text-gray-700 italic leading-relaxed">
-                  {controlAlignmentDetails}
-                </p>
+              <div className="border border-gray-200 rounded-lg overflow-hidden">
+                {/* Expandable Header */}
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="w-full flex items-center gap-2 px-4 py-3 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                >
+                  {isExpanded ? (
+                    <ChevronDown className="h-4 w-4 text-gray-600" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4 text-gray-600" />
+                  )}
+                  <span className="text-sm text-teal-700 font-medium">View mapped controls</span>
+                  <span className="text-sm text-gray-500">({controlCount})</span>
+                </button>
+
+                {/* Expandable Table */}
+                {isExpanded && (
+                  <div className="border-t border-gray-200">
+                    <table className="w-full text-sm">
+                      <thead className="bg-gray-100">
+                        <tr>
+                          <th className="px-4 py-2 text-left font-semibold text-gray-700 border-b">Framework Control</th>
+                          <th className="px-4 py-2 text-left font-semibold text-gray-700 border-b">Alignment</th>
+                          <th className="px-4 py-2 text-left font-semibold text-gray-700 border-b">AM AI SAFE Control</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {alignedControls.map((control, index) => (
+                          <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                            <td className="px-4 py-2 border-b border-gray-100 font-medium text-gray-800">
+                              {control.nativeId}
+                            </td>
+                            <td className="px-4 py-2 border-b border-gray-100">
+                              <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                                control.alignmentType === 'full' 
+                                  ? 'bg-green-100 text-green-800' 
+                                  : 'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {control.alignmentType === 'full' ? 'Full' : 'Partial'}
+                              </span>
+                            </td>
+                            <td className="px-4 py-2 border-b border-gray-100 text-gray-700">
+                              <span className="font-medium text-teal-700">{control.controlId}</span>
+                              {control.description && (
+                                <span className="text-gray-500"> - {control.description}</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             </div>
           )}
