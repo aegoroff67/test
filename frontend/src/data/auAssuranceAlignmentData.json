@@ -3,528 +3,528 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Fairness principle",
-    "citation": "\"Well trained and supported staff should be able to identify, report and resolve biased AI outputs.\" (3.2. Comply with anti-discrimination obligations, p.16)"
+    "framework_citations": "\"Well trained and supported staff should be able to identify, report and resolve biased AI outputs.\" (3.2. Comply with anti-discrimination obligations, p.16)"
   },
   "FA-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Addresses the framework's emphasis on data quality and representation",
-    "citation": "\"Governments should ensure high-quality data and algorithmic design. Audits of AI inputs and outputs for unfair biases, data quality statements and other data governance and management practices may assist to understand and mitigate bias in AI systems.\" (3.3. Ensure quality of data and design, p.16)"
+    "framework_citations": "\"Governments should ensure high-quality data and algorithmic design. Audits of AI inputs and outputs for unfair biases, data quality statements and other data governance and management practices may assist to understand and mitigate bias in AI systems.\" (3.3. Ensure quality of data and design, p.16)"
   },
   "FA-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's focus on identifying and addressing bias",
-    "citation": "\"Governments should comply with relevant anti-discrimination legislation, policies and guidelines for protected attributes.\" (3.2. Comply with anti-discrimination obligations, p.16)"
+    "framework_citations": "\"Governments should comply with relevant anti-discrimination legislation, policies and guidelines for protected attributes.\" (3.2. Comply with anti-discrimination obligations, p.16)"
   },
   "FA-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Aligns with the framework's requirement to define fairness contextually",
-    "citation": "\"Governments should consider the expected benefits and potential impacts of using AI, as well as vulnerabilities of impacted groups, to determine 'fairness' in a use case's context.\" (3.1. Define fairness in context, p.16)"
+    "framework_citations": "\"Governments should consider the expected benefits and potential impacts of using AI, as well as vulnerabilities of impacted groups, to determine 'fairness' in a use case's context.\" (3.1. Define fairness in context, p.16)"
   },
   "FA-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes testing but doesn't specifically mention real-world scenarios for bias testing",
-    "citation": "\"Governments should evaluate AI systems in small-scale pilot environments to identify and mitigate problems and iterate and scale the solution.\" (5.2. Conduct pilot studies, p.20)"
+    "framework_citations": "\"Governments should evaluate AI systems in small-scale pilot environments to identify and mitigate problems and iterate and scale the solution.\" (5.2. Conduct pilot studies, p.20)"
   },
   "FA-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework mentions general tools but doesn't reference specific frameworks",
-    "citation": "\"Audits of AI inputs and outputs for unfair biases, data quality statements and other data governance and management practices may assist to understand and mitigate bias in AI systems.\" (3.3. Ensure quality of data and design, p.16)"
+    "framework_citations": "\"Audits of AI inputs and outputs for unfair biases, data quality statements and other data governance and management practices may assist to understand and mitigate bias in AI systems.\" (3.3. Ensure quality of data and design, p.16)"
   },
   "FA-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses the framework's emphasis on inclusivity and equitable outcomes",
-    "citation": "\"Governments should involve people with different lived experiences, including marginalisation, throughout the lifecycles of a use case to gather informed perspectives, remove preconceptions and avoid overlooking important considerations.\" (2.2. Incorporate diverse perspectives, p.14)"
+    "framework_citations": "\"Governments should involve people with different lived experiences, including marginalisation, throughout the lifecycles of a use case to gather informed perspectives, remove preconceptions and avoid overlooking important considerations.\" (2.2. Incorporate diverse perspectives, p.14)"
   },
   "FA-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes a proactive approach but doesn't explicitly contrast design phase versus post-deployment",
-    "citation": "\"Governments should ensure their use of AI is overseen by clearly identified roles and lines of accountability.\" (8.1. Establish clear roles and responsibilities, p.25)"
+    "framework_citations": "\"Governments should ensure their use of AI is overseen by clearly identified roles and lines of accountability.\" (8.1. Establish clear roles and responsibilities, p.25)"
   },
   "TR-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Transparency and Explainability principle",
-    "citation": "\"Governments should provide clear, simple explanations for how an AI system reaches an outcome.\" (6.3. Provide clear explanations, p.21)"
+    "framework_citations": "\"Governments should provide clear, simple explanations for how an AI system reaches an outcome.\" (6.3. Provide clear explanations, p.21)"
   },
   "TR-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Aligns with the framework's emphasis on maintaining reliable records",
-    "citation": "\"Governments should comply with legislation, policies and standards for maintaining reliable records of decisions, testing, and the information and data assets used in an AI system.\" (6.2. Maintain reliable data and information assets, p.21)"
+    "framework_citations": "\"Governments should comply with legislation, policies and standards for maintaining reliable records of decisions, testing, and the information and data assets used in an AI system.\" (6.2. Maintain reliable data and information assets, p.21)"
   },
   "TR-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses the framework's focus on enabling external scrutiny",
-    "citation": "\"This will enable internal and external scrutiny, continuity of knowledge and accountability.\" (6.2. Maintain reliable data and information assets, p.21)"
+    "framework_citations": "\"This will enable internal and external scrutiny, continuity of knowledge and accountability.\" (6.2. Maintain reliable data and information assets, p.21)"
   },
   "TR-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Aligns with the framework's emphasis on disclosure and communication",
-    "citation": "\"Governments should ensure their use of AI is disclosed to users or people who may be impacted by it.\" (6.1. Disclose the use of AI, p.21)"
+    "framework_citations": "\"Governments should ensure their use of AI is disclosed to users or people who may be impacted by it.\" (6.1. Disclose the use of AI, p.21)"
   },
   "TR-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses the framework's concern about explainability limitations",
-    "citation": "\"When explainability is limited, governments should weigh the benefits of AI use against explainability limitations.\" (6.3. Provide clear explanations, p.21)"
+    "framework_citations": "\"When explainability is limited, governments should weigh the benefits of AI use against explainability limitations.\" (6.3. Provide clear explanations, p.21)"
   },
   "TR-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's transparency requirements",
-    "citation": "\"Governments should maintain a register of when it uses AI, its purpose, intended uses, and limitations.\" (6.1. Disclose the use of AI, p.21)"
+    "framework_citations": "\"Governments should maintain a register of when it uses AI, its purpose, intended uses, and limitations.\" (6.1. Disclose the use of AI, p.21)"
   },
   "TR-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly aligns with the framework's transparency principle",
-    "citation": "\"There should be transparency and responsible disclosure so people can understand when they are being significantly impacted by AI, and can find out when an AI system is engaging with them.\" (6. Transparency and explainability, p.21)"
+    "framework_citations": "\"There should be transparency and responsible disclosure so people can understand when they are being significantly impacted by AI, and can find out when an AI system is engaging with them.\" (6. Transparency and explainability, p.21)"
   },
   "TR-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes transparency but doesn't specifically mention regular reports",
-    "citation": "\"Governments should maintain a register of when it uses AI, its purpose, intended uses, and limitations.\" (6.1. Disclose the use of AI, p.21)"
+    "framework_citations": "\"Governments should maintain a register of when it uses AI, its purpose, intended uses, and limitations.\" (6.1. Disclose the use of AI, p.21)"
   },
   "EX-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's risk-based approach to explainability",
-    "citation": "\"When explainability is limited, governments should weigh the benefits of AI use against explainability limitations.\" (6.3. Provide clear explanations, p.21)"
+    "framework_citations": "\"When explainability is limited, governments should weigh the benefits of AI use against explainability limitations.\" (6.3. Provide clear explanations, p.21)"
   },
   "EX-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Aligns with the framework's emphasis on clear explanations for all users",
-    "citation": "\"Governments should provide clear, simple explanations for how an AI system reaches an outcome.\" (6.3. Provide clear explanations, p.21)"
+    "framework_citations": "\"Governments should provide clear, simple explanations for how an AI system reaches an outcome.\" (6.3. Provide clear explanations, p.21)"
   },
   "EX-3": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes clarity but doesn't specifically mention multiple formats",
-    "citation": "\"Governments should ensure staff at frontline agencies are well-trained and supported to clearly explain AI-influenced outcomes to users and people.\" (6.4. Support and enable frontline staff, p.22)"
+    "framework_citations": "\"Governments should ensure staff at frontline agencies are well-trained and supported to clearly explain AI-influenced outcomes to users and people.\" (6.4. Support and enable frontline staff, p.22)"
   },
   "EX-4": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes explanation but doesn't address evaluating their accuracy",
-    "citation": "\"Governments should provide clear, simple explanations for how an AI system reaches an outcome.\" (6.3. Provide clear explanations, p.21)"
+    "framework_citations": "\"Governments should provide clear, simple explanations for how an AI system reaches an outcome.\" (6.3. Provide clear explanations, p.21)"
   },
   "EX-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses the framework's recognition of explainability limitations",
-    "citation": "\"When explainability is limited, governments should weigh the benefits of AI use against explainability limitations.\" (6.3. Provide clear explanations, p.21)"
+    "framework_citations": "\"When explainability is limited, governments should weigh the benefits of AI use against explainability limitations.\" (6.3. Provide clear explanations, p.21)"
   },
   "EX-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's requirement for explainable outcomes",
-    "citation": "\"When an AI system influences or is used as part of administrative decision making, decisions should be explainable, and humans accountable.\" (6.3. Provide clear explanations, p.21)"
+    "framework_citations": "\"When an AI system influences or is used as part of administrative decision making, decisions should be explainable, and humans accountable.\" (6.3. Provide clear explanations, p.21)"
   },
   "EX-7": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes explainability but doesn't mention technical tools",
-    "citation": "\"Governments should provide clear, simple explanations for how an AI system reaches an outcome.\" (6.3. Provide clear explanations, p.21)"
+    "framework_citations": "\"Governments should provide clear, simple explanations for how an AI system reaches an outcome.\" (6.3. Provide clear explanations, p.21)"
   },
   "EX-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Aligns with the framework's emphasis on targeted explanations",
-    "citation": "\"Consider the importance of human-to-human relationships for a range of people, including vulnerable people or groups, people facing complex needs and those uncomfortable with government's use of AI.\" (6.4. Support and enable frontline staff, p.22)"
+    "framework_citations": "\"Consider the importance of human-to-human relationships for a range of people, including vulnerable people or groups, people facing complex needs and those uncomfortable with government's use of AI.\" (6.4. Support and enable frontline staff, p.22)"
   },
   "AC-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Accountability principle",
-    "citation": "\"Those responsible for the different phases of the AI system lifecycle should be identifiable and accountable for the outcomes of the AI systems, and human oversight of AI systems should be enabled.\" (8. Accountability, p.25)"
+    "framework_citations": "\"Those responsible for the different phases of the AI system lifecycle should be identifiable and accountable for the outcomes of the AI systems, and human oversight of AI systems should be enabled.\" (8. Accountability, p.25)"
   },
   "AC-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly aligns with the framework's governance requirements",
-    "citation": "\"Existing decision-making and accountability structures should be adapted and updated to govern the use of AI.\" (Governance, p.7)"
+    "framework_citations": "\"Existing decision-making and accountability structures should be adapted and updated to govern the use of AI.\" (Governance, p.7)"
   },
   "AC-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's emphasis on risk culture and issue management",
-    "citation": "\"This fosters open discussion of uncertainties and opportunities, encourages staff to express their concerns and maintains processes to escalate to the appropriate accountable parties.\" (8.3. Embed a positive risk culture, p.25)"
+    "framework_citations": "\"This fosters open discussion of uncertainties and opportunities, encourages staff to express their concerns and maintains processes to escalate to the appropriate accountable parties.\" (8.3. Embed a positive risk culture, p.25)"
   },
   "AC-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Contestability principle",
-    "citation": "\"Governments should clearly communicate the rights and protections of those impacted by each AI use case and create an avenue to voice concerns and objections and seek recourse and redress.\" (7.2. Communicate rights and protections clearly, p.23)"
+    "framework_citations": "\"Governments should clearly communicate the rights and protections of those impacted by each AI use case and create an avenue to voice concerns and objections and seek recourse and redress.\" (7.2. Communicate rights and protections clearly, p.23)"
   },
   "AC-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Accountability principle",
-    "citation": "\"Governments should ensure their use of AI is overseen by clearly identified roles and lines of accountability.\" (8.1. Establish clear roles and responsibilities, p.25)"
+    "framework_citations": "\"Governments should ensure their use of AI is overseen by clearly identified roles and lines of accountability.\" (8.1. Establish clear roles and responsibilities, p.25)"
   },
   "AC-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Aligns with the framework's emphasis on lifecycle management",
-    "citation": "\"Risks should be managed throughout the AI system lifecycle, including reviews at transitions between lifecycle phases.\" (A Risk-Based Approach, p.8)"
+    "framework_citations": "\"Risks should be managed throughout the AI system lifecycle, including reviews at transitions between lifecycle phases.\" (A Risk-Based Approach, p.8)"
   },
   "AC-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's transparency requirements",
-    "citation": "\"Governments should comply with legislation, policies and standards for maintaining reliable records of decisions, testing, and the information and data assets used in an AI system.\" (6.2. Maintain reliable data and information assets, p.21)"
+    "framework_citations": "\"Governments should comply with legislation, policies and standards for maintaining reliable records of decisions, testing, and the information and data assets used in an AI system.\" (6.2. Maintain reliable data and information assets, p.21)"
   },
   "AC-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Contestability principle",
-    "citation": "\"Feedback and response mechanisms should be clear and transparent, ensure timely human review and exist across the use case's lifecycles.\" (7.2. Communicate rights and protections clearly, p.23)"
+    "framework_citations": "\"Feedback and response mechanisms should be clear and transparent, ensure timely human review and exist across the use case's lifecycles.\" (7.2. Communicate rights and protections clearly, p.23)"
   },
   "DI-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Data Governance cornerstone",
-    "citation": "\"It's therefore important to create, collect, manage, use and maintain datasets that are authenticated, reliable, accurate and representative, and maintain robust data governance practices that complies with relevant legislation.\" (Data Governance, p.7)"
+    "framework_citations": "\"It's therefore important to create, collect, manage, use and maintain datasets that are authenticated, reliable, accurate and representative, and maintain robust data governance practices that complies with relevant legislation.\" (Data Governance, p.7)"
   },
   "DI-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Aligns with the framework's emphasis on data governance",
-    "citation": "\"During system development governments should exercise discretion, prioritising traceability for datasets, processes, and decisions based on the potential for harm.\" (A Risk-Based Approach, p.8)"
+    "framework_citations": "\"During system development governments should exercise discretion, prioritising traceability for datasets, processes, and decisions based on the potential for harm.\" (A Risk-Based Approach, p.8)"
   },
   "DI-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Data Governance cornerstone",
-    "citation": "\"Data governance comprises the policies, processes, structures, roles and responsibilities to achieve this and is as important as any other governance process.\" (Data Governance, p.7)"
+    "framework_citations": "\"Data governance comprises the policies, processes, structures, roles and responsibilities to achieve this and is as important as any other governance process.\" (Data Governance, p.7)"
   },
   "DI-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's data quality requirements",
-    "citation": "\"It's therefore important to create, collect, manage, use and maintain datasets that are authenticated, reliable, accurate and representative.\" (Data Governance, p.7)"
+    "framework_citations": "\"It's therefore important to create, collect, manage, use and maintain datasets that are authenticated, reliable, accurate and representative.\" (Data Governance, p.7)"
   },
   "DI-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes data quality but doesn't specifically address missing data",
-    "citation": "\"It's therefore important to create, collect, manage, use and maintain datasets that are authenticated, reliable, accurate and representative.\" (Data Governance, p.7)"
+    "framework_citations": "\"It's therefore important to create, collect, manage, use and maintain datasets that are authenticated, reliable, accurate and representative.\" (Data Governance, p.7)"
   },
   "DI-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes data quality but doesn't detail preprocessing methods",
-    "citation": "\"The quality of an AI model's output is driven by the quality of its data.\" (Data Governance, p.7)"
+    "framework_citations": "\"The quality of an AI model's output is driven by the quality of its data.\" (Data Governance, p.7)"
   },
   "DI-7": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes data quality but doesn't address third-party sources",
-    "citation": "\"It's therefore important to create, collect, manage, use and maintain datasets that are authenticated, reliable, accurate and representative.\" (Data Governance, p.7)"
+    "framework_citations": "\"It's therefore important to create, collect, manage, use and maintain datasets that are authenticated, reliable, accurate and representative.\" (Data Governance, p.7)"
   },
   "DI-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's emphasis on traceability",
-    "citation": "\"During system development governments should exercise discretion, prioritising traceability for datasets, processes, and decisions based on the potential for harm.\" (A Risk-Based Approach, p.8)"
+    "framework_citations": "\"During system development governments should exercise discretion, prioritising traceability for datasets, processes, and decisions based on the potential for harm.\" (A Risk-Based Approach, p.8)"
   },
   "RE-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Reliability and Safety principle",
-    "citation": "\"Governments should test and verify the performance of AI systems. Red teaming, conformity assessments, reinforcement from human feedback, metrics and performance testing, and other methods may assist.\" (5.3. Test and verify, p.20)"
+    "framework_citations": "\"Governments should test and verify the performance of AI systems. Red teaming, conformity assessments, reinforcement from human feedback, metrics and performance testing, and other methods may assist.\" (5.3. Test and verify, p.20)"
   },
   "RE-2": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework mentions testing but doesn't reference stress tests or simulations",
-    "citation": "\"Governments should test and verify the performance of AI systems.\" (5.3. Test and verify, p.20)"
+    "framework_citations": "\"Governments should test and verify the performance of AI systems.\" (5.3. Test and verify, p.20)"
   },
   "RE-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's monitoring requirements",
-    "citation": "\"Governments should ensure their use of AI is continuously monitored and evaluated to ensure its operation is safe, reliable and aligned to ethics principles.\" (5.4. Monitor and evaluate, p.20)"
+    "framework_citations": "\"Governments should ensure their use of AI is continuously monitored and evaluated to ensure its operation is safe, reliable and aligned to ethics principles.\" (5.4. Monitor and evaluate, p.20)"
   },
   "RE-4": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes reliability but doesn't address defining success metrics",
-    "citation": "\"Governments should test and verify the performance of AI systems. Red teaming, conformity assessments, reinforcement from human feedback, metrics and performance testing, and other methods may assist.\" (5.3. Test and verify, p.20)"
+    "framework_citations": "\"Governments should test and verify the performance of AI systems. Red teaming, conformity assessments, reinforcement from human feedback, metrics and performance testing, and other methods may assist.\" (5.3. Test and verify, p.20)"
   },
   "RE-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Aligns with the framework's risk-based approach",
-    "citation": "\"Risks should be managed throughout the AI system lifecycle, including reviews at transitions between lifecycle phases.\" (A Risk-Based Approach, p.8)"
+    "framework_citations": "\"Risks should be managed throughout the AI system lifecycle, including reviews at transitions between lifecycle phases.\" (A Risk-Based Approach, p.8)"
   },
   "RE-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Reliability and Safety principle",
-    "citation": "\"Throughout their lifecycle, AI systems should reliably operate in accordance with their intended purpose.\" (5. Reliability and safety, p.20)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should reliably operate in accordance with their intended purpose.\" (5. Reliability and safety, p.20)"
   },
   "RE-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's emphasis on monitoring and disengagement",
-    "citation": "\"Governments should be prepared to quickly and safely disengage an AI system when an unresolvable problem is identified.\" (5.5. Be prepared to disengage, p.20)"
+    "framework_citations": "\"Governments should be prepared to quickly and safely disengage an AI system when an unresolvable problem is identified.\" (5.5. Be prepared to disengage, p.20)"
   },
   "RE-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework mentions monitoring but doesn't address retraining frequency",
-    "citation": "\"Governments should ensure their use of AI is continuously monitored and evaluated to ensure its operation is safe, reliable and aligned to ethics principles.\" (5.4. Monitor and evaluate, p.20)"
+    "framework_citations": "\"Governments should ensure their use of AI is continuously monitored and evaluated to ensure its operation is safe, reliable and aligned to ethics principles.\" (5.4. Monitor and evaluate, p.20)"
   },
   "SE-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Privacy Protection and Security principle",
-    "citation": "\"AI systems should respect and uphold privacy rights of individuals and ensure the protection of data.\" (4. Privacy protection and security, p.18)"
+    "framework_citations": "\"AI systems should respect and uphold privacy rights of individuals and ensure the protection of data.\" (4. Privacy protection and security, p.18)"
   },
   "SE-2": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes security but doesn't address adversarial attacks",
-    "citation": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
+    "framework_citations": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
   },
   "SE-3": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework mentions security but doesn't reference security audits or penetration testing",
-    "citation": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
+    "framework_citations": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
   },
   "SE-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Aligns with the framework's emphasis on lifecycle security",
-    "citation": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
+    "framework_citations": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
   },
   "SE-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's security requirements",
-    "citation": "\"Access to systems, applications and data repositories should be limited to authorised staff as required by their duties.\" (4.3. Secure systems and data, p.19)"
+    "framework_citations": "\"Access to systems, applications and data repositories should be limited to authorised staff as required by their duties.\" (4.3. Secure systems and data, p.19)"
   },
   "SE-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework mentions security but doesn't address adversarial attacks",
-    "citation": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
+    "framework_citations": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
   },
   "SE-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Privacy Protection and Security principle",
-    "citation": "\"Sensitive information should always be managed with caution.\" (4.2. Minimise and protect personal information, p.18)"
+    "framework_citations": "\"Sensitive information should always be managed with caution.\" (4.2. Minimise and protect personal information, p.18)"
   },
   "SE-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework mentions security but doesn't reference vulnerability assessments",
-    "citation": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
+    "framework_citations": "\"Governments should ensure each use case complies with security and data protection legislation, policies and guidelines, including through an AI system's supply chains.\" (4.3. Secure systems and data, p.19)"
   },
   "PR-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Privacy Protection and Security principle",
-    "citation": "\"Governments will ensure their use of AI complies with legislation, policy and guidelines that govern consent, collection, storage, use, disclosure and retention of personal information.\" (4.1. Comply with privacy obligations, p.18)"
+    "framework_citations": "\"Governments will ensure their use of AI complies with legislation, policy and guidelines that govern consent, collection, storage, use, disclosure and retention of personal information.\" (4.1. Comply with privacy obligations, p.18)"
   },
   "PR-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's privacy requirements",
-    "citation": "\"Governments should assess whether the collection, use and disclosure of personal information is necessary, reasonable and proportionate for each AI use case.\" (4.2. Minimise and protect personal information, p.18)"
+    "framework_citations": "\"Governments should assess whether the collection, use and disclosure of personal information is necessary, reasonable and proportionate for each AI use case.\" (4.2. Minimise and protect personal information, p.18)"
   },
   "PR-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's privacy requirements",
-    "citation": "\"This may include informing people when their personal information is being collected for an AI system or when personal information is used for a secondary purpose such as AI system training.\" (4.1. Comply with privacy obligations, p.18)"
+    "framework_citations": "\"This may include informing people when their personal information is being collected for an AI system or when personal information is used for a secondary purpose such as AI system training.\" (4.1. Comply with privacy obligations, p.18)"
   },
   "PR-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's privacy principles",
-    "citation": "\"Governments should assess whether the collection, use and disclosure of personal information is necessary, reasonable and proportionate for each AI use case.\" (4.2. Minimise and protect personal information, p.18)"
+    "framework_citations": "\"Governments should assess whether the collection, use and disclosure of personal information is necessary, reasonable and proportionate for each AI use case.\" (4.2. Minimise and protect personal information, p.18)"
   },
   "PR-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes privacy but doesn't address evaluating protection measures",
-    "citation": "\"'Privacy by design' principles and privacy impact assessments may assist to identify, assess and mitigate privacy risks.\" (4.1. Comply with privacy obligations, p.18)"
+    "framework_citations": "\"'Privacy by design' principles and privacy impact assessments may assist to identify, assess and mitigate privacy risks.\" (4.1. Comply with privacy obligations, p.18)"
   },
   "PR-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes privacy but doesn't address monitoring for violations",
-    "citation": "\"Governments will ensure their use of AI complies with legislation, policy and guidelines that govern consent, collection, storage, use, disclosure and retention of personal information.\" (4.1. Comply with privacy obligations, p.18)"
+    "framework_citations": "\"Governments will ensure their use of AI complies with legislation, policy and guidelines that govern consent, collection, storage, use, disclosure and retention of personal information.\" (4.1. Comply with privacy obligations, p.18)"
   },
   "PR-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's privacy requirements",
-    "citation": "\"'Privacy by design' principles and privacy impact assessments may assist to identify, assess and mitigate privacy risks.\" (4.1. Comply with privacy obligations, p.18)"
+    "framework_citations": "\"'Privacy by design' principles and privacy impact assessments may assist to identify, assess and mitigate privacy risks.\" (4.1. Comply with privacy obligations, p.18)"
   },
   "PR-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The framework emphasizes privacy but doesn't address cross-border compliance",
-    "citation": "\"Governments will ensure their use of AI complies with legislation, policy and guidelines that govern consent, collection, storage, use, disclosure and retention of personal information.\" (4.1. Comply with privacy obligations, p.18)"
+    "framework_citations": "\"Governments will ensure their use of AI complies with legislation, policy and guidelines that govern consent, collection, storage, use, disclosure and retention of personal information.\" (4.1. Comply with privacy obligations, p.18)"
   },
   "SA-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Reliability and Safety principle",
-    "citation": "\"This should encompass an AI system's performance, its use by people, and impacts on people, society and the environment, including feedback from those impacted by AI-influenced outcomes.\" (5.4. Monitor and evaluate, p.20)"
+    "framework_citations": "\"This should encompass an AI system's performance, its use by people, and impacts on people, society and the environment, including feedback from those impacted by AI-influenced outcomes.\" (5.4. Monitor and evaluate, p.20)"
   },
   "SA-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Reliability and Safety principle",
-    "citation": "\"Governments should test and verify the performance of AI systems. Red teaming, conformity assessments, reinforcement from human feedback, metrics and performance testing, and other methods may assist.\" (5.3. Test and verify, p.20)"
+    "framework_citations": "\"Governments should test and verify the performance of AI systems. Red teaming, conformity assessments, reinforcement from human feedback, metrics and performance testing, and other methods may assist.\" (5.3. Test and verify, p.20)"
   },
   "SA-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's monitoring requirements",
-    "citation": "\"Governments should ensure their use of AI is continuously monitored and evaluated to ensure its operation is safe, reliable and aligned to ethics principles.\" (5.4. Monitor and evaluate, p.20)"
+    "framework_citations": "\"Governments should ensure their use of AI is continuously monitored and evaluated to ensure its operation is safe, reliable and aligned to ethics principles.\" (5.4. Monitor and evaluate, p.20)"
   },
   "SA-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's Human, Societal and Environmental Wellbeing principle",
-    "citation": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
   },
   "SA-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's disengagement requirements",
-    "citation": "\"Governments should be prepared to quickly and safely disengage an AI system when an unresolvable problem is identified.\" (5.5. Be prepared to disengage, p.20)"
+    "framework_citations": "\"Governments should be prepared to quickly and safely disengage an AI system when an unresolvable problem is identified.\" (5.5. Be prepared to disengage, p.20)"
   },
   "SA-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's risk-based approach",
-    "citation": "\"The use of AI should be assessed and managed on a case-by-case basis. This ensures safe and responsible development, procurement and deployment in high-risk settings, with minimal administrative burden in lower-risk settings.\" (A Risk-Based Approach, p.8)"
+    "framework_citations": "\"The use of AI should be assessed and managed on a case-by-case basis. This ensures safe and responsible development, procurement and deployment in high-risk settings, with minimal administrative burden in lower-risk settings.\" (A Risk-Based Approach, p.8)"
   },
   "SA-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's reliability requirements",
-    "citation": "\"This could include a data breach, unauthorised access or system compromise. Consider such scenarios in business continuity, data breach and security response plans.\" (5.5. Be prepared to disengage, p.20)"
+    "framework_citations": "\"This could include a data breach, unauthorised access or system compromise. Consider such scenarios in business continuity, data breach and security response plans.\" (5.5. Be prepared to disengage, p.20)"
   },
   "SA-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's testing requirements",
-    "citation": "\"Governments should evaluate AI systems in small-scale pilot environments to identify and mitigate problems and iterate and scale the solution.\" (5.2. Conduct pilot studies, p.20)"
+    "framework_citations": "\"Governments should evaluate AI systems in small-scale pilot environments to identify and mitigate problems and iterate and scale the solution.\" (5.2. Conduct pilot studies, p.20)"
   },
   "IN-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Human-Centered Values principle",
-    "citation": "\"Governments should align to digital service and inclusion standards, and account for the needs, context and experience of individual users across an AI use case's lifecycle. Consider assistive technologies to support people who live with disability.\" (2.3. Ensure digital inclusion, p.15)"
+    "framework_citations": "\"Governments should align to digital service and inclusion standards, and account for the needs, context and experience of individual users across an AI use case's lifecycle. Consider assistive technologies to support people who live with disability.\" (2.3. Ensure digital inclusion, p.15)"
   },
   "IN-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Human-Centered Values principle",
-    "citation": "\"Governments should involve people with different lived experiences, including marginalisation, throughout the lifecycles of a use case to gather informed perspectives, remove preconceptions and avoid overlooking important considerations.\" (2.2. Incorporate diverse perspectives, p.14)"
+    "framework_citations": "\"Governments should involve people with different lived experiences, including marginalisation, throughout the lifecycles of a use case to gather informed perspectives, remove preconceptions and avoid overlooking important considerations.\" (2.2. Incorporate diverse perspectives, p.14)"
   },
   "IN-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's Fairness principle",
-    "citation": "\"Audits of AI inputs and outputs for unfair biases, data quality statements and other data governance and management practices may assist to understand and mitigate bias in AI systems.\" (3.3. Ensure quality of data and design, p.16)"
+    "framework_citations": "\"Audits of AI inputs and outputs for unfair biases, data quality statements and other data governance and management practices may assist to understand and mitigate bias in AI systems.\" (3.3. Ensure quality of data and design, p.16)"
   },
   "IN-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Human-Centered Values principle",
-    "citation": "\"Governments should align to digital service and inclusion standards, and account for the needs, context and experience of individual users across an AI use case's lifecycle. Consider assistive technologies to support people who live with disability.\" (2.3. Ensure digital inclusion, p.15)"
+    "framework_citations": "\"Governments should align to digital service and inclusion standards, and account for the needs, context and experience of individual users across an AI use case's lifecycle. Consider assistive technologies to support people who live with disability.\" (2.3. Ensure digital inclusion, p.15)"
   },
   "IN-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly supports the framework's Human-Centered Values principle",
-    "citation": "\"Governments should involve people with different lived experiences, including marginalisation, throughout the lifecycles of a use case to gather informed perspectives, remove preconceptions and avoid overlooking important considerations.\" (2.2. Incorporate diverse perspectives, p.14)"
+    "framework_citations": "\"Governments should involve people with different lived experiences, including marginalisation, throughout the lifecycles of a use case to gather informed perspectives, remove preconceptions and avoid overlooking important considerations.\" (2.2. Incorporate diverse perspectives, p.14)"
   },
   "IN-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's Fairness principle",
-    "citation": "\"Governments should consider the expected benefits and potential impacts of using AI, as well as vulnerabilities of impacted groups, to determine 'fairness' in a use case's context.\" (3.1. Define fairness in context, p.16)"
+    "framework_citations": "\"Governments should consider the expected benefits and potential impacts of using AI, as well as vulnerabilities of impacted groups, to determine 'fairness' in a use case's context.\" (3.1. Define fairness in context, p.16)"
   },
   "IN-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's Human-Centered Values principle",
-    "citation": "\"This may include representation of: people living with disability, multi-cultural communities, religious communities, people from different socio-economic backgrounds, diverse genders and sexualities, Aboriginal and Torres Strait Islander people.\" (2.2. Incorporate diverse perspectives, p.14)"
+    "framework_citations": "\"This may include representation of: people living with disability, multi-cultural communities, religious communities, people from different socio-economic backgrounds, diverse genders and sexualities, Aboriginal and Torres Strait Islander people.\" (2.2. Incorporate diverse perspectives, p.14)"
   },
   "IN-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Supports the framework's Fairness principle",
-    "citation": "\"AI systems should be inclusive and accessible, and should not involve or result in unfair discrimination against individuals, communities or groups.\" (3. Fairness, p.16)"
+    "framework_citations": "\"AI systems should be inclusive and accessible, and should not involve or result in unfair discrimination against individuals, communities or groups.\" (3. Fairness, p.16)"
   },
   "SU-1": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
     "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address AI's energy usage or carbon footprint",
-    "citation": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
   },
   "SU-2": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
     "alignmentRationale": "The framework doesn't specifically address computational efficiency",
-    "citation": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
   },
   "SU-3": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
     "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address renewable energy",
-    "citation": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
   },
   "SU-4": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
     "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address carbon footprint",
-    "citation": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
   },
   "SU-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
     "alignmentRationale": "The framework doesn't specifically address computational resource optimization",
-    "citation": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
   },
   "SU-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
     "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address energy efficiency",
-    "citation": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
   },
   "SU-7": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
     "alignmentRationale": "The framework doesn't specifically address this balance",
-    "citation": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
   },
   "SU-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
     "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address impact tracking",
-    "citation": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
+    "framework_citations": "\"Throughout their lifecycle, AI systems should benefit individuals, society and the environment.\" (1. Human, societal and environmental wellbeing, p.13)"
   }
 }
