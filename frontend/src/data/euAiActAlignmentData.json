@@ -3,528 +3,1304 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (95%)",
     "alignmentRationale": "The question directly addresses bias identification and mitigation, which is a core requirement in the EU AI Act regarding high-risk AI systems.",
-    "framework_citations": "Art. 10(2)(f): \"Data sets shall be subject to examination in view of possible biases that are likely to affect health and safety of persons, have a negative impact on fundamental rights or lead to discrimination\" and Art. 10(2)(g): \"appropriate measures to detect, prevent and mitigate possible biases\""
+    "framework_citations": "Art. 10(2)(f): \"Data sets shall be subject to examination in view of possible biases that are likely to affect health and safety of persons, have a negative impact on fundamental rights or lead to discrimination\" and Art. 10(2)(g): \"appropriate measures to detect, prevent and mitigate possible biases\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "FA-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (95%)",
     "alignmentRationale": "The question focuses on ensuring training data represents all relevant demographics, which directly corresponds to the EU AI Act's requirements on data quality.",
-    "framework_citations": "Art. 10(3): \"Data sets shall be relevant, sufficiently representative, and to the best extent possible free of errors and complete in view of the intended purpose... They shall have the appropriate statistical properties, including, where applicable, as regards the persons or groups of persons in relation to whom the high-risk AI system is intended to be used.\""
+    "framework_citations": "Art. 10(3): \"Data sets shall be relevant, sufficiently representative, and to the best extent possible free of errors and complete in view of the intended purpose... They shall have the appropriate statistical properties, including, where applicable, as regards the persons or groups of persons in relation to whom the high-risk AI system is intended to be used.\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "FA-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses evaluation of outputs for disparities across user groups, which aligns with the risk management and post-market monitoring requirements.",
-    "framework_citations": "Art. 9(2)(b): \"the estimation and evaluation of the risks that may emerge when the high-risk AI system is used in accordance with its intended purpose\" and Art. 72(2): \"The post-market monitoring system shall actively and systematically collect, document and analyse relevant data\""
+    "framework_citations": "Art. 9(2)(b): \"the estimation and evaluation of the risks that may emerge when the high-risk AI system is used in accordance with its intended purpose\" and Art. 72(2): \"The post-market monitoring system shall actively and systematically collect, document and analyse relevant data\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      },
+      {
+        "controlId": "EU-AIA-072",
+        "nativeId": "Art. 72",
+        "alignmentType": "full",
+        "description": "Post-market monitoring by providers and post-market monitoring plan for high-risk AI systems"
+      }
+    ]
   },
   "FA-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (85%)",
     "alignmentRationale": "The question specifically addresses how fairness is measured, which aligns with the risk assessment and monitoring requirements in the EU AI Act.",
-    "framework_citations": "Art. 9(4): \"The risk management measures... shall give due consideration to the effects and possible interaction resulting from the combined application of the requirements\" and Art. 15(2): \"To address the technical aspects of how to measure the appropriate levels of accuracy and robustness\""
+    "framework_citations": "Art. 9(4): \"The risk management measures... shall give due consideration to the effects and possible interaction resulting from the combined application of the requirements\" and Art. 15(2): \"To address the technical aspects of how to measure the appropriate levels of accuracy and robustness\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      },
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "FA-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses testing for biases in real-world scenarios, which directly aligns with the Act's requirements on testing and evaluation.",
-    "framework_citations": "Art. 9(6): \"High-risk AI systems shall be tested for the purpose of identifying the most appropriate and targeted risk management measures\" and Art. 9(8): \"The testing of high-risk AI systems shall be performed... against prior defined metrics and probabilistic thresholds\""
+    "framework_citations": "Art. 9(6): \"High-risk AI systems shall be tested for the purpose of identifying the most appropriate and targeted risk management measures\" and Art. 9(8): \"The testing of high-risk AI systems shall be performed... against prior defined metrics and probabilistic thresholds\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "FA-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (80%)",
     "alignmentRationale": "The question asks about frameworks/tools for bias assessment and mitigation, which aligns with the technical measures required in the Act.",
-    "framework_citations": "Art. 9(2)(d): \"the adoption of appropriate and targeted risk management measures\" and Art. 10(2)(g): \"appropriate measures to detect, prevent and mitigate possible biases\""
+    "framework_citations": "Art. 9(2)(d): \"the adoption of appropriate and targeted risk management measures\" and Art. 10(2)(g): \"appropriate measures to detect, prevent and mitigate possible biases\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      },
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "FA-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on fairness for minority or underserved groups, which aligns with the EU AI Act's non-discrimination and fundamental rights protections.",
-    "framework_citations": "Art. 10(2)(f): \"examination in view of possible biases... likely to affect health and safety of persons, have a negative impact on fundamental rights or lead to discrimination\" and Art. 10(3): \"appropriate statistical properties, including, where applicable, as regards the persons or groups of persons\""
+    "framework_citations": "Art. 10(2)(f): \"examination in view of possible biases... likely to affect health and safety of persons, have a negative impact on fundamental rights or lead to discrimination\" and Art. 10(3): \"appropriate statistical properties, including, where applicable, as regards the persons or groups of persons\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "FA-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (85%)",
     "alignmentRationale": "The question addresses whether fairness is embedded in the design process or addressed post-deployment, which aligns with risk management and design requirements.",
-    "framework_citations": "Art. 9(1): \"A risk management system shall be established, implemented, documented and maintained in relation to high-risk AI systems\" and Art. 9(2): \"The risk management system shall be understood as a continuous iterative process planned and run throughout the entire lifecycle of a high-risk AI system\""
+    "framework_citations": "Art. 9(1): \"A risk management system shall be established, implemented, documented and maintained in relation to high-risk AI systems\" and Art. 9(2): \"The risk management system shall be understood as a continuous iterative process planned and run throughout the entire lifecycle of a high-risk AI system\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "TR-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (95%)",
     "alignmentRationale": "The question addresses communicating AI system functionality and limitations to users/stakeholders, which directly aligns with transparency requirements.",
-    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent\" and Art. 13(2): \"High-risk AI systems shall be accompanied by instructions for use in an appropriate digital format or otherwise that include concise, complete, correct and clear information\""
+    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent\" and Art. 13(2): \"High-risk AI systems shall be accompanied by instructions for use in an appropriate digital format or otherwise that include concise, complete, correct and clear information\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "TR-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (95%)",
     "alignmentRationale": "The question focuses on documentation of data sources, algorithms, and processes, which aligns with technical documentation requirements.",
-    "framework_citations": "Art. 11(1): \"The technical documentation of a high-risk AI system shall be drawn up before that system is placed on the market or put into service\" and Annex IV which details documentation requirements including \"the description of the system architecture\""
+    "framework_citations": "Art. 11(1): \"The technical documentation of a high-risk AI system shall be drawn up before that system is placed on the market or put into service\" and Annex IV which details documentation requirements including \"the description of the system architecture\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-011",
+        "nativeId": "Art. 11",
+        "alignmentType": "full",
+        "description": "Technical documentation"
+      }
+    ]
   },
   "TR-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses mechanisms for external parties to understand AI systems, which aligns with documentation and information requirements.",
-    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent to enable deployers to interpret a system's output and use it appropriately\""
+    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent to enable deployers to interpret a system's output and use it appropriately\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "TR-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (85%)",
     "alignmentRationale": "The question focuses on how information about AI systems is shared with internal teams and external stakeholders, which aligns with communication requirements.",
-    "framework_citations": "Art. 13(2): \"High-risk AI systems shall be accompanied by instructions for use in an appropriate digital format or otherwise that include concise, complete, correct and clear information\""
+    "framework_citations": "Art. 13(2): \"High-risk AI systems shall be accompanied by instructions for use in an appropriate digital format or otherwise that include concise, complete, correct and clear information\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "TR-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (85%)",
     "alignmentRationale": "The question addresses \"black-box\" components that impede transparency, which aligns with the explainability requirements.",
-    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent to enable deployers to interpret a system's output and use it appropriately\""
+    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent to enable deployers to interpret a system's output and use it appropriately\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "TR-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on disclosing sources of data and algorithms, which directly aligns with documentation and transparency requirements.",
-    "framework_citations": "Art. 11(2) and Annex IV point 2(d): \"information about the data used\" and Art. 53(1)(d): \"draw up and make publicly available a sufficiently detailed summary about the content used for training of the general-purpose AI model\""
+    "framework_citations": "Art. 11(2) and Annex IV point 2(d): \"information about the data used\" and Art. 53(1)(d): \"draw up and make publicly available a sufficiently detailed summary about the content used for training of the general-purpose AI model\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-011",
+        "nativeId": "Art. 11",
+        "alignmentType": "full",
+        "description": "Technical documentation"
+      },
+      {
+        "controlId": "EU-AIA-053",
+        "nativeId": "Art. 53",
+        "alignmentType": "full",
+        "description": "Obligations for providers of general-purpose AI models"
+      }
+    ]
   },
   "TR-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (98%)",
     "alignmentRationale": "The question addresses whether users are made aware they're interacting with an AI system, which directly aligns with the transparency obligation.",
-    "framework_citations": "Art. 50(1): \"Providers shall ensure that AI systems intended to interact directly with natural persons are designed and developed in such a way that the natural persons concerned are informed that they are interacting with an AI system\""
+    "framework_citations": "Art. 50(1): \"Providers shall ensure that AI systems intended to interact directly with natural persons are designed and developed in such a way that the natural persons concerned are informed that they are interacting with an AI system\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-050",
+        "nativeId": "Art. 50",
+        "alignmentType": "full",
+        "description": "Transparency obligations for providers and deployers of certain AI systems"
+      }
+    ]
   },
   "TR-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on transparency reports or documentation for regulators or customers, which aligns with documentation requirements.",
-    "framework_citations": "Art. 71(4): \"the information contained in the EU database registered in accordance with Article 49 shall be accessible and publicly available in a user-friendly manner\" and Art. 11: \"Technical documentation\""
+    "framework_citations": "Art. 71(4): \"the information contained in the EU database registered in accordance with Article 49 shall be accessible and publicly available in a user-friendly manner\" and Art. 11: \"Technical documentation\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-071",
+        "nativeId": "Art. 71",
+        "alignmentType": "full",
+        "description": "EU database for high-risk AI systems"
+      },
+      {
+        "controlId": "EU-AIA-011",
+        "nativeId": "Art. 11",
+        "alignmentType": "full",
+        "description": "Technical documentation"
+      }
+    ]
   },
   "EX-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses determining appropriate levels of explainability, which aligns with the transparency requirements.",
-    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent\" and Art. 13(3): \"The instructions for use shall contain... information to enable deployers to interpret the output of the high-risk AI system\""
+    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent\" and Art. 13(3): \"The instructions for use shall contain... information to enable deployers to interpret the output of the high-risk AI system\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "EX-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (85%)",
     "alignmentRationale": "The question focuses on testing whether explanations are understandable to non-technical users, which aligns with user-centric transparency.",
-    "framework_citations": "Art. 13(2): \"High-risk AI systems shall be accompanied by instructions for use... that include concise, complete, correct and clear information that is relevant, accessible and comprehensible to deployers\""
+    "framework_citations": "Art. 13(2): \"High-risk AI systems shall be accompanied by instructions for use... that include concise, complete, correct and clear information that is relevant, accessible and comprehensible to deployers\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "EX-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (80%)",
     "alignmentRationale": "The question addresses providing explanations in different formats for different audiences, which aligns with accessibility requirements.",
-    "framework_citations": "Art. 13(3): \"The instructions for use shall contain... information to enable deployers to interpret the output of the high-risk AI system and use it appropriately\""
+    "framework_citations": "Art. 13(3): \"The instructions for use shall contain... information to enable deployers to interpret the output of the high-risk AI system and use it appropriately\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "EX-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (80%)",
     "alignmentRationale": "The question focuses on evaluating the accuracy and completeness of explanations, which aligns with the Act's accuracy and documentation requirements.",
-    "framework_citations": "Art. 13(3)(b)(iv): \"where applicable, information to enable deployers to interpret the output of the high-risk AI system\""
+    "framework_citations": "Art. 13(3)(b)(iv): \"where applicable, information to enable deployers to interpret the output of the high-risk AI system\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "EX-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium (75%)",
     "alignmentRationale": "The question addresses trade-offs between model complexity and explainability, which is relevant but not explicitly required in the Act.",
-    "framework_citations": "Art. 13(1): \"An appropriate type and degree of transparency shall be ensured with a view to achieving compliance with the relevant obligations\" - but specific trade-offs aren't explicitly addressed"
+    "framework_citations": "Art. 13(1): \"An appropriate type and degree of transparency shall be ensured with a view to achieving compliance with the relevant obligations\" - but specific trade-offs aren't explicitly addressed",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "partial",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "EX-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on ensuring decisions are interpretable by users, which aligns with transparency and human oversight requirements.",
-    "framework_citations": "Art. 14(4)(c): \"to correctly interpret the high-risk AI system's output, taking into account, for example, the interpretation tools and methods available\""
+    "framework_citations": "Art. 14(4)(c): \"to correctly interpret the high-risk AI system's output, taking into account, for example, the interpretation tools and methods available\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-014",
+        "nativeId": "Art. 14",
+        "alignmentType": "full",
+        "description": "Human oversight"
+      }
+    ]
   },
   "EX-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (80%)",
     "alignmentRationale": "The question addresses tools and techniques for making complex models explainable, which aligns with technical transparency measures.",
-    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent\" and Art. 14(4)(c): \"to correctly interpret the high-risk AI system's output\""
+    "framework_citations": "Art. 13(1): \"High-risk AI systems shall be designed and developed in such a way as to ensure that their operation is sufficiently transparent\" and Art. 14(4)(c): \"to correctly interpret the high-risk AI system's output\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      },
+      {
+        "controlId": "EU-AIA-014",
+        "nativeId": "Art. 14",
+        "alignmentType": "full",
+        "description": "Human oversight"
+      }
+    ]
   },
   "EX-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (80%)",
     "alignmentRationale": "The question focuses on tailoring explanations for specific groups, which aligns with the requirements for appropriate communications to different stakeholders.",
-    "framework_citations": "Art. 13(2): \"High-risk AI systems shall be accompanied by instructions for use... that include concise, complete, correct and clear information that is relevant, accessible and comprehensible to deployers\""
+    "framework_citations": "Art. 13(2): \"High-risk AI systems shall be accompanied by instructions for use... that include concise, complete, correct and clear information that is relevant, accessible and comprehensible to deployers\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-013",
+        "nativeId": "Art. 13",
+        "alignmentType": "full",
+        "description": "Transparency and provision of information to deployers"
+      }
+    ]
   },
   "AC-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses accountability for AI system failures, which aligns with the requirements on addressing issues and post-market monitoring.",
-    "framework_citations": "Art. 20: \"Providers of high-risk AI systems which consider or have reason to consider that a high-risk AI system... is not in conformity with this Regulation shall immediately take the necessary corrective actions\""
+    "framework_citations": "Art. 20: \"Providers of high-risk AI systems which consider or have reason to consider that a high-risk AI system... is not in conformity with this Regulation shall immediately take the necessary corrective actions\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-020",
+        "nativeId": "Art. 20",
+        "alignmentType": "full",
+        "description": "Corrective actions and duty of information"
+      }
+    ]
   },
   "AC-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on governance structures for monitoring AI outcomes, which aligns with oversight requirements.",
-    "framework_citations": "Art. 17: \"Quality management system\" and Art. 72: \"Post-market monitoring by providers and post-market monitoring plan for high-risk AI systems\""
+    "framework_citations": "Art. 17: \"Quality management system\" and Art. 72: \"Post-market monitoring by providers and post-market monitoring plan for high-risk AI systems\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-017",
+        "nativeId": "Art. 17",
+        "alignmentType": "full",
+        "description": "Quality management system"
+      },
+      {
+        "controlId": "EU-AIA-072",
+        "nativeId": "Art. 72",
+        "alignmentType": "full",
+        "description": "Post-market monitoring by providers and post-market monitoring plan for high-risk AI systems"
+      }
+    ]
   },
   "AC-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses policies for escalating issues, which aligns with corrective action requirements.",
-    "framework_citations": "Art. 20(2): \"Where the high-risk AI system presents a risk... the provider shall immediately investigate the causes\" and Art. 73: \"Reporting of serious incidents\""
+    "framework_citations": "Art. 20(2): \"Where the high-risk AI system presents a risk... the provider shall immediately investigate the causes\" and Art. 73: \"Reporting of serious incidents\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-020",
+        "nativeId": "Art. 20",
+        "alignmentType": "full",
+        "description": "Corrective actions and duty of information"
+      },
+      {
+        "controlId": "EU-AIA-073",
+        "nativeId": "Art. 73",
+        "alignmentType": "full",
+        "description": "Reporting of serious incidents"
+      }
+    ]
   },
   "AC-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question focuses on handling customer complaints/disputes related to AI outputs, which aligns with the handling of issues.",
-    "framework_citations": "Art. 85: \"Right to lodge a complaint with a market surveillance authority\" and Art. 86: \"Right to explanation of individual decision-making\""
+    "framework_citations": "Art. 85: \"Right to lodge a complaint with a market surveillance authority\" and Art. 86: \"Right to explanation of individual decision-making\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-085",
+        "nativeId": "Art. 85",
+        "alignmentType": "full",
+        "description": "Right to lodge a complaint with a market surveillance authority"
+      },
+      {
+        "controlId": "EU-AIA-086",
+        "nativeId": "Art. 86",
+        "alignmentType": "full",
+        "description": "Right to an explanation of individual decision-making"
+      }
+    ]
   },
   "AC-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses clarity of roles and responsibilities for AI governance, which aligns with organizational requirements.",
-    "framework_citations": "Art. 17(1)(m): \"an accountability framework setting out the responsibilities of the management and other staff\""
+    "framework_citations": "Art. 17(1)(m): \"an accountability framework setting out the responsibilities of the management and other staff\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-017",
+        "nativeId": "Art. 17",
+        "alignmentType": "full",
+        "description": "Quality management system"
+      }
+    ]
   },
   "AC-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on responsibility for monitoring and managing AI systems throughout their lifecycle, which aligns with lifecycle management requirements.",
-    "framework_citations": "Art. 16: \"Obligations of providers of high-risk AI systems\" and Art. 72: \"Post-market monitoring by providers\""
+    "framework_citations": "Art. 16: \"Obligations of providers of high-risk AI systems\" and Art. 72: \"Post-market monitoring by providers\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-016",
+        "nativeId": "Art. 16",
+        "alignmentType": "full",
+        "description": "Obligations of providers of high-risk AI systems"
+      }
+    ]
   },
   "AC-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses audit trails and logs documenting AI decision-making, which directly aligns with logging requirements.",
-    "framework_citations": "Art. 12: \"Record-keeping\" and Art. 12(1): \"High-risk AI systems shall technically allow for the automatic recording of events (logs) over the lifetime of the system\""
+    "framework_citations": "Art. 12: \"Record-keeping\" and Art. 12(1): \"High-risk AI systems shall technically allow for the automatic recording of events (logs) over the lifetime of the system\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-072",
+        "nativeId": "Art. 72",
+        "alignmentType": "full",
+        "description": "Post-market monitoring by providers and post-market monitoring plan for high-risk AI systems"
+      },
+      {
+        "controlId": "EU-AIA-012",
+        "nativeId": "Art. 12",
+        "alignmentType": "full",
+        "description": "Record-keeping"
+      }
+    ]
   },
   "AC-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on mechanisms to address disputes or concerns about AI outcomes, which aligns with requirements for addressing issues.",
-    "framework_citations": "Art. 85: \"Right to lodge a complaint with a market surveillance authority\" and Art. 86: \"Right to explanation of individual decision-making\""
+    "framework_citations": "Art. 85: \"Right to lodge a complaint with a market surveillance authority\" and Art. 86: \"Right to explanation of individual decision-making\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-085",
+        "nativeId": "Art. 85",
+        "alignmentType": "full",
+        "description": "Right to lodge a complaint with a market surveillance authority"
+      },
+      {
+        "controlId": "EU-AIA-086",
+        "nativeId": "Art. 86",
+        "alignmentType": "full",
+        "description": "Right to an explanation of individual decision-making"
+      }
+    ]
   },
   "DI-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses validation of data accuracy, completeness, and quality, which directly aligns with data requirements.",
-    "framework_citations": "Art. 10(2): \"Data sets shall be subject to data governance and management practices\" and Art. 10(3): \"Data sets shall be relevant, sufficiently representative, and to the best extent possible free of errors and complete\""
+    "framework_citations": "Art. 10(2): \"Data sets shall be subject to data governance and management practices\" and Art. 10(3): \"Data sets shall be relevant, sufficiently representative, and to the best extent possible free of errors and complete\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "DI-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on managing data lineage and tracking changes to data, which aligns with data governance requirements.",
-    "framework_citations": "Art. 10(2)(b): \"data collection processes and the origin of data\" and Art. 10(2)(c): \"relevant data-preparation processing operations\""
+    "framework_citations": "Art. 10(2)(b): \"data collection processes and the origin of data\" and Art. 10(2)(c): \"relevant data-preparation processing operations\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "DI-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses governance policies for data collection, usage, retention, and disposal, which aligns with data governance requirements.",
-    "framework_citations": "Art. 10(2): \"Data sets shall be subject to data governance and management practices\" including \"data collection processes\""
+    "framework_citations": "Art. 10(2): \"Data sets shall be subject to data governance and management practices\" including \"data collection processes\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "DI-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question focuses on ensuring data is up-to-date and accurate, which aligns with data quality requirements.",
-    "framework_citations": "Art. 10(3): \"Data sets shall be relevant, sufficiently representative, and to the best extent possible free of errors and complete\""
+    "framework_citations": "Art. 10(3): \"Data sets shall be relevant, sufficiently representative, and to the best extent possible free of errors and complete\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "DI-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses handling missing or incomplete data, which aligns with data quality requirements.",
-    "framework_citations": "Art. 10(3): \"Data sets shall be relevant, sufficiently representative, and to the best extent possible free of errors and complete in view of the intended purpose\""
+    "framework_citations": "Art. 10(3): \"Data sets shall be relevant, sufficiently representative, and to the best extent possible free of errors and complete in view of the intended purpose\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "DI-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question focuses on data preprocessing, which aligns with data preparation requirements.",
-    "framework_citations": "Art. 10(2)(c): \"relevant data-preparation processing operations, such as annotation, labelling, cleaning, updating, enrichment and aggregation\""
+    "framework_citations": "Art. 10(2)(c): \"relevant data-preparation processing operations, such as annotation, labelling, cleaning, updating, enrichment and aggregation\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "DI-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses evaluation of third-party data sources, which aligns with data quality and governance requirements.",
-    "framework_citations": "Art. 10(2)(b): \"data collection processes and the origin of data\""
+    "framework_citations": "Art. 10(2)(b): \"data collection processes and the origin of data\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "DI-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on tracking data lineage, which aligns with data governance and traceability requirements.",
-    "framework_citations": "Art. 10(2)(b): \"data collection processes and the origin of data\" and Art. 11: \"Technical documentation\""
+    "framework_citations": "Art. 10(2)(b): \"data collection processes and the origin of data\" and Art. 11: \"Technical documentation\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      },
+      {
+        "controlId": "EU-AIA-011",
+        "nativeId": "Art. 11",
+        "alignmentType": "full",
+        "description": "Technical documentation"
+      }
+    ]
   },
   "RE-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses testing AI systems under different conditions, which directly aligns with testing requirements.",
-    "framework_citations": "Art. 15(1): \"High-risk AI systems shall be designed and developed in such a way that they achieve an appropriate level of accuracy, robustness, and cybersecurity\""
+    "framework_citations": "Art. 15(1): \"High-risk AI systems shall be designed and developed in such a way that they achieve an appropriate level of accuracy, robustness, and cybersecurity\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "RE-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on stress tests or simulations for robustness, which aligns with technical robustness requirements.",
-    "framework_citations": "Art. 15(4): \"High-risk AI systems shall be as resilient as possible regarding errors, faults or inconsistencies\""
+    "framework_citations": "Art. 15(4): \"High-risk AI systems shall be as resilient as possible regarding errors, faults or inconsistencies\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "RE-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses monitoring for model drift or degradation, which aligns with post-market monitoring requirements.",
-    "framework_citations": "Art. 72(2): \"The post-market monitoring system shall actively and systematically collect, document and analyse relevant data which may be provided by deployers\""
+    "framework_citations": "Art. 72(2): \"The post-market monitoring system shall actively and systematically collect, document and analyse relevant data which may be provided by deployers\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-072",
+        "nativeId": "Art. 72",
+        "alignmentType": "full",
+        "description": "Post-market monitoring by providers and post-market monitoring plan for high-risk AI systems"
+      }
+    ]
   },
   "RE-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on defining success metrics for AI reliability, which aligns with performance measurement requirements.",
-    "framework_citations": "Art. 15(3): \"The levels of accuracy and the relevant accuracy metrics of high-risk AI systems shall be declared in the accompanying instructions of use\""
+    "framework_citations": "Art. 15(3): \"The levels of accuracy and the relevant accuracy metrics of high-risk AI systems shall be declared in the accompanying instructions of use\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "RE-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses identifying potential failure points, which aligns with risk management requirements.",
-    "framework_citations": "Art. 9(2)(a): \"the identification and analysis of the known and the reasonably foreseeable risks that the high-risk AI system can pose\""
+    "framework_citations": "Art. 9(2)(a): \"the identification and analysis of the known and the reasonably foreseeable risks that the high-risk AI system can pose\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "RE-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question focuses on consistent performance under varying conditions, which aligns with robustness requirements.",
-    "framework_citations": "Art. 15(1): \"High-risk AI systems shall be designed and developed in such a way that they achieve an appropriate level of accuracy, robustness, and cybersecurity, and perform consistently in those respects throughout their lifecycle\""
+    "framework_citations": "Art. 15(1): \"High-risk AI systems shall be designed and developed in such a way that they achieve an appropriate level of accuracy, robustness, and cybersecurity, and perform consistently in those respects throughout their lifecycle\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "RE-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses detecting and addressing system downtime or errors, which aligns with robustness requirements.",
-    "framework_citations": "Art. 15(4): \"The robustness of high-risk AI systems may be achieved through technical redundancy solutions, which may include backup or fail-safe plans\""
+    "framework_citations": "Art. 15(4): \"The robustness of high-risk AI systems may be achieved through technical redundancy solutions, which may include backup or fail-safe plans\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "RE-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on testing and retraining AI models to maintain reliability, which aligns with lifecycle management.",
-    "framework_citations": "Art. 15(1): \"High-risk AI systems shall... perform consistently in those respects throughout their lifecycle\""
+    "framework_citations": "Art. 15(1): \"High-risk AI systems shall... perform consistently in those respects throughout their lifecycle\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "SE-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses protecting AI models and data from unauthorized access or tampering, which aligns with cybersecurity requirements.",
-    "framework_citations": "Art. 15(5): \"High-risk AI systems shall be resilient against attempts by unauthorised third parties to alter their use, outputs or performance by exploiting system vulnerabilities\""
+    "framework_citations": "Art. 15(5): \"High-risk AI systems shall be resilient against attempts by unauthorised third parties to alter their use, outputs or performance by exploiting system vulnerabilities\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "SE-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on handling adversarial risks, which aligns with cybersecurity requirements.",
-    "framework_citations": "Art. 15(5): \"The technical solutions aiming to ensure the cybersecurity of high-risk AI systems shall be appropriate to the relevant circumstances and the risks\""
+    "framework_citations": "Art. 15(5): \"The technical solutions aiming to ensure the cybersecurity of high-risk AI systems shall be appropriate to the relevant circumstances and the risks\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "SE-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses security audits and penetration testing, which aligns with cybersecurity evaluation requirements.",
-    "framework_citations": "Art. 15(5): \"High-risk AI systems shall be resilient against attempts by unauthorised third parties to alter their use, outputs or performance by exploiting system vulnerabilities\""
+    "framework_citations": "Art. 15(5): \"High-risk AI systems shall be resilient against attempts by unauthorised third parties to alter their use, outputs or performance by exploiting system vulnerabilities\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "SE-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on securing AI models throughout their lifecycle, which aligns with cybersecurity requirements.",
-    "framework_citations": "Art. 15(5): \"The technical solutions aiming to ensure the cybersecurity of high-risk AI systems shall be appropriate to the relevant circumstances and the risks\""
+    "framework_citations": "Art. 15(5): \"The technical solutions aiming to ensure the cybersecurity of high-risk AI systems shall be appropriate to the relevant circumstances and the risks\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "SE-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses preventing unauthorized modifications to AI models, which directly aligns with cybersecurity requirements.",
-    "framework_citations": "Art. 15(5): \"High-risk AI systems shall be resilient against attempts by unauthorised third parties to alter their use, outputs or performance by exploiting system vulnerabilities\""
+    "framework_citations": "Art. 15(5): \"High-risk AI systems shall be resilient against attempts by unauthorised third parties to alter their use, outputs or performance by exploiting system vulnerabilities\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "SE-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question focuses on protecting against adversarial attacks, which aligns with specific cybersecurity requirements.",
-    "framework_citations": "Art. 15(5): \"The technical solutions to address AI specific vulnerabilities shall include, where appropriate, measures to prevent, detect, respond to, resolve and control for attacks trying to manipulate the training data set (data poisoning)...\""
+    "framework_citations": "Art. 15(5): \"The technical solutions to address AI specific vulnerabilities shall include, where appropriate, measures to prevent, detect, respond to, resolve and control for attacks trying to manipulate the training data set (data poisoning)...\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "SE-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses protecting sensitive data in AI pipelines, which aligns with data protection and security requirements.",
-    "framework_citations": "Art. 15(5): \"The technical solutions aiming to ensure the cybersecurity of high-risk AI systems shall be appropriate to the relevant circumstances and the risks\" and Art. 10 on data governance"
+    "framework_citations": "Art. 15(5): \"The technical solutions aiming to ensure the cybersecurity of high-risk AI systems shall be appropriate to the relevant circumstances and the risks\" and Art. 10 on data governance",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "SE-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on vulnerability assessments and penetration tests, which aligns with cybersecurity requirements.",
-    "framework_citations": "Art. 15(5): \"High-risk AI systems shall be resilient against attempts by unauthorised third parties to alter their use, outputs or performance by exploiting system vulnerabilities\""
+    "framework_citations": "Art. 15(5): \"High-risk AI systems shall be resilient against attempts by unauthorised third parties to alter their use, outputs or performance by exploiting system vulnerabilities\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "PR-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses compliance with data privacy laws, which aligns with the Act's requirements on data protection.",
-    "framework_citations": "Art. 2(7): \"This Regulation does not affect Regulation (EU) 2016/679 or (EU) 2016/679 or (EU) 2018/1725, or Directive 2002/58/EC or (EU) 2016/680\" and throughout references to compliance with data protection law"
+    "framework_citations": "Art. 2(7): \"This Regulation does not affect Regulation (EU) 2016/679 or (EU) 2016/679 or (EU) 2018/1725, or Directive 2002/58/EC or (EU) 2016/680\" and throughout references to compliance with data protection law",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-002",
+        "nativeId": "Art. 2",
+        "alignmentType": "full",
+        "description": "Defines the material and territorial scope of application of the EU AI Act"
+      }
+    ]
   },
   "PR-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question focuses on techniques to protect personal data, which aligns with data protection requirements.",
-    "framework_citations": "Art. 10(5): \"To the extent strictly necessary for the purpose of ensuring bias detection and correction... providers may process special categories of personal data, subject to appropriate safeguards\""
+    "framework_citations": "Art. 10(5): \"To the extent strictly necessary for the purpose of ensuring bias detection and correction... providers may process special categories of personal data, subject to appropriate safeguards\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "PR-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses managing user consent for data collection and processing, which aligns with data protection principles.",
-    "framework_citations": "Art. 61: \"Informed consent to participate in testing\" (though specific to testing contexts) and references to compliance with data protection legislation"
+    "framework_citations": "Art. 61: \"Informed consent to participate in testing\" (though specific to testing contexts) and references to compliance with data protection legislation",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-061",
+        "nativeId": "Art. 61",
+        "alignmentType": "full",
+        "description": "Defines procedures for post-market monitoring and continuous compliance of high-risk AI systems"
+      }
+    ]
   },
   "PR-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on ensuring data isn't used beyond its original purpose, which aligns with purpose limitation.",
-    "framework_citations": "Art. 10(2)(b): \"data collection processes and the origin of data, and in the case of personal data, the original purpose of the data collection\""
+    "framework_citations": "Art. 10(2)(b): \"data collection processes and the origin of data, and in the case of personal data, the original purpose of the data collection\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "PR-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (85%)",
     "alignmentRationale": "The question addresses evaluating privacy protection measures, which aligns with data protection requirements.",
-    "framework_citations": "Art. 9(2): \"The risk management system shall be understood as a continuous iterative process\" including risks to privacy"
+    "framework_citations": "Art. 9(2): \"The risk management system shall be understood as a continuous iterative process\" including risks to privacy",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "PR-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (85%)",
     "alignmentRationale": "The question focuses on monitoring and preventing privacy violations, which aligns with risk management for privacy.",
-    "framework_citations": "Art. 9(2): \"The risk management system shall be understood as a continuous iterative process\" and references to compliance with data protection law"
+    "framework_citations": "Art. 9(2): \"The risk management system shall be understood as a continuous iterative process\" and references to compliance with data protection law",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "PR-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses privacy risk evaluation during development and deployment, which aligns with risk assessment.",
-    "framework_citations": "Art. 27: \"Fundamental rights impact assessment for high-risk AI systems\" which includes privacy considerations"
+    "framework_citations": "Art. 27: \"Fundamental rights impact assessment for high-risk AI systems\" which includes privacy considerations",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-027",
+        "nativeId": "Art. 27",
+        "alignmentType": "full",
+        "description": "Fundamental rights impact assessment for high-risk AI systems"
+      }
+    ]
   },
   "PR-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium (80%)",
     "alignmentRationale": "The question focuses on cross-border data protection compliance, which aligns with international data transfer requirements.",
-    "framework_citations": "Art. 60(4)(e): \"data collected and processed for the purpose of the testing in real world conditions shall be transferred to third countries only provided that appropriate and applicable safeguards under Union law are implemented\""
+    "framework_citations": "Art. 60(4)(e): \"data collected and processed for the purpose of the testing in real world conditions shall be transferred to third countries only provided that appropriate and applicable safeguards under Union law are implemented\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-060",
+        "nativeId": "Art. 60",
+        "alignmentType": "full",
+        "description": "Testing in real world conditions"
+      }
+    ]
   },
   "SA-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses safety impact assessments, which directly aligns with risk assessment requirements.",
-    "framework_citations": "Art. 9(2): \"The risk management system shall comprise the following steps: (a) the identification and analysis of the known and the reasonably foreseeable risks that the high-risk AI system can pose to health, safety or fundamental rights\""
+    "framework_citations": "Art. 9(2): \"The risk management system shall comprise the following steps: (a) the identification and analysis of the known and the reasonably foreseeable risks that the high-risk AI system can pose to health, safety or fundamental rights\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "SA-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on preventing unintended harm, which aligns with risk management requirements.",
-    "framework_citations": "Art. 9(5): \"The risk management measures... shall be such that the relevant residual risk associated with each hazard, as well as the overall residual risk of the high-risk AI systems is judged to be acceptable\""
+    "framework_citations": "Art. 9(5): \"The risk management measures... shall be such that the relevant residual risk associated with each hazard, as well as the overall residual risk of the high-risk AI systems is judged to be acceptable\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "SA-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses real-time monitoring for unsafe behavior, which aligns with monitoring requirements.",
-    "framework_citations": "Art. 72(2): \"The post-market monitoring system shall actively and systematically collect, document and analyse relevant data\""
+    "framework_citations": "Art. 72(2): \"The post-market monitoring system shall actively and systematically collect, document and analyse relevant data\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-072",
+        "nativeId": "Art. 72",
+        "alignmentType": "full",
+        "description": "Post-market monitoring by providers and post-market monitoring plan for high-risk AI systems"
+      }
+    ]
   },
   "SA-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question focuses on handling conflicts with human safety requirements, which aligns with human oversight requirements.",
-    "framework_citations": "Art. 14(4)(d): \"to decide, in any particular situation, not to use the high-risk AI system or to otherwise disregard, override or reverse the output of the high-risk AI system\""
+    "framework_citations": "Art. 14(4)(d): \"to decide, in any particular situation, not to use the high-risk AI system or to otherwise disregard, override or reverse the output of the high-risk AI system\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-014",
+        "nativeId": "Art. 14",
+        "alignmentType": "full",
+        "description": "Human oversight"
+      }
+    ]
   },
   "SA-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses emergency protocols for shutting down unsafe AI systems, which aligns with safety requirements.",
-    "framework_citations": "Art. 14(4)(e): \"to intervene in the operation of the high-risk AI system or interrupt the system through a 'stop' button or a similar procedure that allows the system to come to a halt in a safe state\""
+    "framework_citations": "Art. 14(4)(e): \"to intervene in the operation of the high-risk AI system or interrupt the system through a 'stop' button or a similar procedure that allows the system to come to a halt in a safe state\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-014",
+        "nativeId": "Art. 14",
+        "alignmentType": "full",
+        "description": "Human oversight"
+      }
+    ]
   },
   "SA-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question focuses on identifying and mitigating risks, which directly aligns with risk management requirements.",
-    "framework_citations": "Art. 9(2): \"The risk management system shall comprise the following steps: (a) the identification and analysis of the known and the reasonably foreseeable risks\""
+    "framework_citations": "Art. 9(2): \"The risk management system shall comprise the following steps: (a) the identification and analysis of the known and the reasonably foreseeable risks\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "SA-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses fail-safe mechanisms, which aligns with robustness requirements.",
-    "framework_citations": "Art. 15(4): \"The robustness of high-risk AI systems may be achieved through technical redundancy solutions, which may include backup or fail-safe plans\""
+    "framework_citations": "Art. 15(4): \"The robustness of high-risk AI systems may be achieved through technical redundancy solutions, which may include backup or fail-safe plans\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-015",
+        "nativeId": "Art. 15",
+        "alignmentType": "full",
+        "description": "Accuracy, robustness and cybersecurity"
+      }
+    ]
   },
   "SA-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on safety testing in realistic or high-risk scenarios, which aligns with testing requirements.",
-    "framework_citations": "Art. 9(6): \"High-risk AI systems shall be tested for the purpose of identifying the most appropriate and targeted risk management measures\""
+    "framework_citations": "Art. 9(6): \"High-risk AI systems shall be tested for the purpose of identifying the most appropriate and targeted risk management measures\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "IN-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses accessibility for diverse users including those with disabilities, which aligns with accessibility requirements.",
-    "framework_citations": "Art. 16(l): \"ensure that the high-risk AI system complies with accessibility requirements in accordance with Directives (EU) 2016/2102 and (EU) 2019/882\""
+    "framework_citations": "Art. 16(l): \"ensure that the high-risk AI system complies with accessibility requirements in accordance with Directives (EU) 2016/2102 and (EU) 2019/882\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-016",
+        "nativeId": "Art. 16",
+        "alignmentType": "full",
+        "description": "Obligations of providers of high-risk AI systems"
+      }
+    ]
   },
   "IN-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on involving diverse perspectives during design and development, which aligns with inclusivity considerations.",
-    "framework_citations": "Art. 9(9): \"When implementing the risk management system... providers shall give consideration to whether... the high-risk AI system is likely to have an adverse impact on persons under the age of 18 and, as appropriate, other vulnerable groups\""
+    "framework_citations": "Art. 9(9): \"When implementing the risk management system... providers shall give consideration to whether... the high-risk AI system is likely to have an adverse impact on persons under the age of 18 and, as appropriate, other vulnerable groups\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "IN-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question addresses auditing for exclusionary outcomes, which aligns with fairness and risk assessment requirements.",
-    "framework_citations": "Art. 9(2): \"The risk management system shall comprise... the identification and analysis of the known and the reasonably foreseeable risks... to fundamental rights\""
+    "framework_citations": "Art. 9(2): \"The risk management system shall comprise... the identification and analysis of the known and the reasonably foreseeable risks... to fundamental rights\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "IN-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question focuses on accessibility for users with disabilities, which directly aligns with accessibility requirements.",
-    "framework_citations": "Art. 16(l): \"ensure that the high-risk AI system complies with accessibility requirements in accordance with Directives (EU) 2016/2102 and (EU) 2019/882\""
+    "framework_citations": "Art. 16(l): \"ensure that the high-risk AI system complies with accessibility requirements in accordance with Directives (EU) 2016/2102 and (EU) 2019/882\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-016",
+        "nativeId": "Art. 16",
+        "alignmentType": "full",
+        "description": "Obligations of providers of high-risk AI systems"
+      }
+    ]
   },
   "IN-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (85%)",
     "alignmentRationale": "The question addresses involvement of diverse stakeholders in design and testing, which aligns with inclusivity considerations.",
-    "framework_citations": "Art. 9(9): \"When implementing the risk management system... providers shall give consideration to whether... the high-risk AI system is likely to have an adverse impact on... vulnerable groups\""
+    "framework_citations": "Art. 9(9): \"When implementing the risk management system... providers shall give consideration to whether... the high-risk AI system is likely to have an adverse impact on... vulnerable groups\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-009",
+        "nativeId": "Art. 9",
+        "alignmentType": "full",
+        "description": "Risk management system"
+      }
+    ]
   },
   "IN-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (85%)",
     "alignmentRationale": "The question focuses on serving underrepresented communities effectively, which aligns with non-discrimination and equity considerations.",
-    "framework_citations": "Art. 10(2)(f): \"examination in view of possible biases that are likely to... lead to discrimination prohibited under Union law\""
+    "framework_citations": "Art. 10(2)(f): \"examination in view of possible biases that are likely to... lead to discrimination prohibited under Union law\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "IN-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Very High (95%)",
     "alignmentRationale": "The question addresses consideration of language, cultural, and regional differences, which aligns with data representativeness requirements.",
-    "framework_citations": "Art. 10(4): \"Data sets shall take into account, to the extent required by the intended purpose, the characteristics or elements that are particular to the specific geographical, contextual, behavioural or functional setting\""
+    "framework_citations": "Art. 10(4): \"Data sets shall take into account, to the extent required by the intended purpose, the characteristics or elements that are particular to the specific geographical, contextual, behavioural or functional setting\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "IN-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High (90%)",
     "alignmentRationale": "The question focuses on evaluating unintentional exclusion of user groups, which aligns with fairness and risk assessment.",
-    "framework_citations": "Art. 10(2)(f): \"examination in view of possible biases that are likely to affect health and safety of persons, have a negative impact on fundamental rights or lead to discrimination\""
+    "framework_citations": "Art. 10(2)(f): \"examination in view of possible biases that are likely to affect health and safety of persons, have a negative impact on fundamental rights or lead to discrimination\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-010",
+        "nativeId": "Art. 10",
+        "alignmentType": "full",
+        "description": "Data and data governance"
+      }
+    ]
   },
   "SU-1": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium (75%)",
     "alignmentRationale": "The question addresses environmental impact of AI systems, which is mentioned but not extensively detailed in the Act.",
-    "framework_citations": "Art. 95(2)(b): \"assessing and minimising the impact of AI systems on environmental sustainability, including as regards energy-efficient programming and techniques\" (as part of voluntary codes of conduct)"
+    "framework_citations": "Art. 95(2)(b): \"assessing and minimising the impact of AI systems on environmental sustainability, including as regards energy-efficient programming and techniques\" (as part of voluntary codes of conduct)",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-095",
+        "nativeId": "Art. 95",
+        "alignmentType": "partial",
+        "description": "Specifies transitional measures and phased application timelines for obligations under the Act"
+      }
+    ]
   },
   "SU-2": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium (75%)",
     "alignmentRationale": "The question focuses on algorithmic optimization for computational efficiency, which is encouraged but not extensively mandated.",
-    "framework_citations": "Art. 95(2)(b): \"assessing and minimising the impact of AI systems on environmental sustainability, including as regards energy-efficient programming and techniques for the efficient design, training and use of AI\" (as part of voluntary codes of conduct)"
+    "framework_citations": "Art. 95(2)(b): \"assessing and minimising the impact of AI systems on environmental sustainability, including as regards energy-efficient programming and techniques for the efficient design, training and use of AI\" (as part of voluntary codes of conduct)",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-095",
+        "nativeId": "Art. 95",
+        "alignmentType": "partial",
+        "description": "Specifies transitional measures and phased application timelines for obligations under the Act"
+      }
+    ]
   },
   "SU-3": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low (65%)",
     "alignmentRationale": "The question addresses using renewable energy sources, which is related to environmental sustainability but not extensively detailed.",
-    "framework_citations": "Art. 95(2)(b): \"environmental sustainability\" is mentioned but specific renewable energy requirements aren't extensively detailed"
+    "framework_citations": "Art. 95(2)(b): \"environmental sustainability\" is mentioned but specific renewable energy requirements aren't extensively detailed",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-095",
+        "nativeId": "Art. 95",
+        "alignmentType": "partial",
+        "description": "Specifies transitional measures and phased application timelines for obligations under the Act"
+      }
+    ]
   },
   "SU-4": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium (75%)",
     "alignmentRationale": "The question focuses on estimating carbon footprint, which is related to environmental considerations but not extensively detailed.",
-    "framework_citations": "Art. 53(2)(e): \"known or estimated energy consumption of the model\" for general-purpose AI models and Art. 112(6): \"progress on the development of standardisation deliverables on the energy-efficient development of general-purpose AI models\""
+    "framework_citations": "Art. 53(2)(e): \"known or estimated energy consumption of the model\" for general-purpose AI models and Art. 112(6): \"progress on the development of standardisation deliverables on the energy-efficient development of general-purpose AI models\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-053",
+        "nativeId": "Art. 53",
+        "alignmentType": "partial",
+        "description": "Obligations for providers of general-purpose AI models"
+      }
+    ]
   },
   "SU-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium (70%)",
     "alignmentRationale": "The question addresses algorithmic optimization to reduce resource requirements, which is encouraged but not extensively mandated.",
-    "framework_citations": "Art. 95(2)(b): \"energy-efficient programming and techniques for the efficient design, training and use of AI\" (as part of voluntary codes of conduct)"
+    "framework_citations": "Art. 95(2)(b): \"energy-efficient programming and techniques for the efficient design, training and use of AI\" (as part of voluntary codes of conduct)",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-095",
+        "nativeId": "Art. 95",
+        "alignmentType": "partial",
+        "description": "Specifies transitional measures and phased application timelines for obligations under the Act"
+      }
+    ]
   },
   "SU-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low (65%)",
     "alignmentRationale": "The question focuses on energy-efficient hardware or platforms, which is related to sustainability but not extensively detailed.",
-    "framework_citations": "Art. 95(2)(b): \"assessing and minimising the impact of AI systems on environmental sustainability\" (as part of voluntary codes of conduct)"
+    "framework_citations": "Art. 95(2)(b): \"assessing and minimising the impact of AI systems on environmental sustainability\" (as part of voluntary codes of conduct)",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-095",
+        "nativeId": "Art. 95",
+        "alignmentType": "partial",
+        "description": "Specifies transitional measures and phased application timelines for obligations under the Act"
+      }
+    ]
   },
   "SU-7": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low (60%)",
     "alignmentRationale": "The question addresses balancing sustainability with performance, which is encouraged but not extensively mandated.",
-    "framework_citations": "Art. 95(2)(b): \"environmental sustainability\" is mentioned but specific balancing requirements aren't extensively detailed in the Act. The balancing of sustainability and performance is only indirectly addressed within the voluntary codes of conduct framework."
+    "framework_citations": "Art. 95(2)(b): \"environmental sustainability\" is mentioned but specific balancing requirements aren't extensively detailed in the Act. The balancing of sustainability and performance is only indirectly addressed within the voluntary codes of conduct framework.",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-095",
+        "nativeId": "Art. 95",
+        "alignmentType": "partial",
+        "description": "Specifies transitional measures and phased application timelines for obligations under the Act"
+      }
+    ]
   },
   "SU-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium (70%)",
     "alignmentRationale": "The question focuses on tracking environmental impact over time, which is encouraged but not extensively mandated.",
-    "framework_citations": "Art. 40(2): \"standardisation requests shall also ask for deliverables on reporting and documentation processes to improve AI systems' resource performance\" and Art. 112(6): \"the Commission shall submit a report on the review of the progress on the development of standardisation deliverables on the energy-efficient development of general-purpose AI models\""
+    "framework_citations": "Art. 40(2): \"standardisation requests shall also ask for deliverables on reporting and documentation processes to improve AI systems' resource performance\" and Art. 112(6): \"the Commission shall submit a report on the review of the progress on the development of standardisation deliverables on the energy-efficient development of general-purpose AI models\"",
+    "alignedControls": [
+      {
+        "controlId": "EU-AIA-040",
+        "nativeId": "Art. 40",
+        "alignmentType": "partial",
+        "description": "Establishes common specifications that may be adopted where harmonised standards are not available"
+      }
+    ]
   }
 }
