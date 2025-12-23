@@ -106,10 +106,10 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
             </div>
           )}
 
-          {/* Control Alignment Details */}
+          {/* Framework Control(s) */}
           {controlAlignmentDetails && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">Control Alignment Details</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">Framework Control(s)</h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-teal-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
                   {controlAlignmentDetails}
