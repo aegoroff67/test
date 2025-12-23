@@ -3,7 +3,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "This question addresses bias identification and mitigation, core to ethical AI.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Directly supports the Fairness principle by ensuring AI systems avoid discrimination.",
+    "alignmentDetails": "Fully Aligns\u00a0with the Fairness principle as it explicitly evaluates systematic approaches to identifying and mitigating biases, which is fundamental to preventing discriminatory outcomes in AI systems.",
     "confidenceLevel": "High",
     "framework_citations": "\"Measures should be taken to ensure the AI produced decisions are compliant with anti-discrimination laws.\" (Fairness principle, paragraph 3)"
   },
@@ -11,7 +11,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses whether AI systems use representative training data.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Addresses a root cause of unfair AI systems\u2014biased training data.",
+    "alignmentDetails": "Fully Aligns\u00a0with Fairness by assessing whether training data adequately represents diverse demographics, addressing one of the primary sources of algorithmic bias that can lead to unfair treatment of underrepresented groups.",
     "confidenceLevel": "High",
     "framework_citations": "\"This is particularly important given concerns about the potential for AI to perpetuate societal injustices and have a disparate impact on vulnerable and underrepresented groups including, but not limited to, groups relating to age, disability, race, sex, intersex status, gender identity and sexual orientation.\" (Fairness principle, paragraph 2)"
   },
@@ -19,7 +19,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines whether organizations test for unequal outcomes across user groups.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Promotes evaluation to detect unfair discrimination in AI outputs.",
+    "alignmentDetails": "Fully Aligns\u00a0with Fairness principles by examining an organization's processes for detecting and measuring outcome disparities across different user groups, ensuring AI systems do not perpetuate or amplify existing inequities.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be inclusive and accessible, and should not involve or result in unfair discrimination against individuals, communities or groups.\" (Fairness principle, main statement)"
   },
@@ -27,7 +27,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Focuses on how organizations define and measure fairness metrics.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Enables quantifiable assessment of fairness in AI systems.",
+    "alignmentDetails": "Fully Aligns\u00a0with Fairness by evaluating how organizations define and implement quantifiable fairness metrics, enabling objective assessment of whether AI systems treat all users equitably.",
     "confidenceLevel": "High",
     "framework_citations": "\"Measures should be taken to ensure the AI produced decisions are compliant with anti-discrimination laws.\" (Fairness principle, paragraph 3)"
   },
@@ -35,7 +35,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses testing in real-world conditions to identify practical biases.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Ensures fairness is evaluated in actual deployment contexts.",
+    "alignmentDetails": "Fully Aligns\u00a0with Fairness through its focus on real-world testing scenarios, ensuring bias detection goes beyond theoretical assessment to identify how systems may perform inequitably in actual deployment contexts.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes both appropriate consultation with stakeholders, who may be affected by the AI system throughout its lifecycle, and ensuring people receive equitable access and treatment.\" (Fairness principle, paragraph 1)"
   },
@@ -43,7 +43,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Evaluates use of structured approaches for bias detection and mitigation.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Promotes systematic fairness assessment using established tools.",
+    "alignmentDetails": "Fully Aligns\u00a0with Fairness principles by evaluating the implementation of structured frameworks for bias assessment, promoting systematic rather than ad-hoc approaches to fairness evaluation.",
     "confidenceLevel": "High",
     "framework_citations": "\"Measures should be taken to ensure the AI produced decisions are compliant with anti-discrimination laws.\" (Fairness principle, paragraph 3)"
   },
@@ -51,7 +51,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Specifically addresses fairness for vulnerable populations.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Directly addresses concerns about disparate impacts on underrepresented groups.",
+    "alignmentDetails": "Fully Aligns\u00a0with Fairness by specifically addressing protections for minority and underserved populations, emphasizing the ethical requirement to prevent AI systems from disadvantaging vulnerable groups.",
     "confidenceLevel": "High",
     "framework_citations": "\"This is particularly important given concerns about the potential for AI to perpetuate societal injustices and have a disparate impact on vulnerable and underrepresented groups including, but not limited to, groups relating to age, disability, race, sex, intersex status, gender identity and sexual orientation.\" (Fairness principle, paragraph 2)"
   },
@@ -59,7 +59,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines whether fairness is proactive or reactive in the AI lifecycle.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Supports lifecycle approach to fairness emphasized in the principles.",
+    "alignmentDetails": "Fully Aligns\u00a0with Fairness by examining whether fairness considerations are proactively integrated throughout the AI development lifecycle rather than addressed reactively after problems emerge.",
     "confidenceLevel": "High",
     "framework_citations": "\"Throughout their lifecycle, AI systems should be inclusive and accessible, and should not involve or result in unfair discrimination against individuals, communities or groups.\" (Fairness principle, main statement)"
   },
@@ -67,7 +67,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses how organizations communicate AI capabilities and boundaries.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Directly supports transparency about what the system can and cannot do.",
+    "alignmentDetails": "Fully Aligns\u00a0with Transparency principles by assessing how clearly organizations communicate AI system capabilities and limitations to users, enabling informed decisions about appropriate system use.",
     "confidenceLevel": "High",
     "framework_citations": "\"Achieving transparency in AI systems through responsible disclosure is important to each stakeholder group for the following reasons: for users, what the system is doing and why...\" (Transparency principle, stakeholder disclosure section)"
   },
@@ -75,7 +75,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Evaluates documentation practices for AI components.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Enables transparency about data and algorithmic foundations.",
+    "alignmentDetails": "Fully Aligns\u00a0with Transparency by evaluating documentation practices for data sources and algorithmic components, providing visibility into the foundations that drive AI system behavior.",
     "confidenceLevel": "High",
     "framework_citations": "\"Achieving transparency in AI systems through responsible disclosure is important... for creators, including those undertaking the validation and certification of AI, the systems' processes and input data...\" (Transparency principle, stakeholder disclosure section)"
   },
@@ -83,7 +83,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses how external stakeholders can understand AI systems.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Enables transparency for regulators, auditors, and the public.",
+    "alignmentDetails": "Fully Aligns\u00a0with Transparency by examining mechanisms that allow external stakeholders, including regulators and auditors, to understand and evaluate AI systems, supporting accountability beyond internal oversight.",
     "confidenceLevel": "High",
     "framework_citations": "\"Achieving transparency in AI systems through responsible disclosure is important... for regulators in the context of investigations; for those in the legal process, to inform evidence and decision-making; for the public, to build confidence in the technology.\" (Transparency principle, stakeholder disclosure section)"
   },
@@ -91,7 +91,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines communication practices about AI systems.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Promotes effective sharing of AI information with stakeholders.",
+    "alignmentDetails": "Fully Aligns\u00a0with Transparency through its focus on effective information sharing practices, ensuring stakeholders receive appropriate information about AI systems in accessible formats.",
     "confidenceLevel": "High",
     "framework_citations": "\"Responsible disclosures should be provided in a timely manner, and provide reasonable justifications for AI systems outcomes.\" (Transparency principle, paragraph following stakeholder list)"
   },
@@ -99,7 +99,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Identifies transparency barriers in AI systems.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Addresses challenges to meaningful transparency.",
+    "alignmentDetails": "Fully Aligns\u00a0with Transparency by identifying \"black-box\" components that impede understanding, recognizing situations where additional transparency measures may be needed to achieve meaningful disclosure.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle also aims to ensure people have the ability to find out when an AI system is engaging with them (regardless of the level of impact), and are able to obtain a reasonable disclosure regarding the AI system.\" (Transparency principle, final paragraph)"
   },
@@ -107,7 +107,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines transparency about data and algorithm origins.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Supports disclosure about AI system foundations.",
+    "alignmentDetails": "Fully Aligns\u00a0with Transparency by examining whether organizations disclose the origins of data and algorithms used in AI systems, enabling stakeholders to understand potential influences on system behavior.",
     "confidenceLevel": "High",
     "framework_citations": "\"Achieving transparency in AI systems through responsible disclosure is important... for creators, including those undertaking the validation and certification of AI, the systems' processes and input data...\" (Transparency principle, stakeholder disclosure section)"
   },
@@ -115,7 +115,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses whether users know when they interact with AI.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Directly addresses principle requirement for disclosure of AI engagement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Transparency by assessing whether users are clearly informed when interacting with AI systems rather than humans, a fundamental disclosure requirement in ethical AI deployment.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle also aims to ensure people have the ability to find out when an AI system is engaging with them (regardless of the level of impact), and are able to obtain a reasonable disclosure regarding the AI system.\" (Transparency principle, final paragraph)"
   },
@@ -123,7 +123,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Evaluates formal reporting on AI systems.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Promotes structured disclosure of AI information.",
+    "alignmentDetails": "Fully Aligns\u00a0with Transparency principles by evaluating the publication of formal transparency reports, promoting structured, consistent disclosure of AI information to the public and stakeholders.",
     "confidenceLevel": "High",
     "framework_citations": "\"Responsible disclosures should be provided in a timely manner, and provide reasonable justifications for AI systems outcomes. This includes information that helps people understand outcomes, like key factors used in decision making.\" (Transparency principle, paragraph following stakeholder list)"
   },
@@ -131,7 +131,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses how organizations determine appropriate explainability.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Supports tailored explanations based on impact and stakeholder needs.",
+    "alignmentDetails": "Fully Aligns\u00a0with Explainability by assessing how organizations determine appropriate levels of explanation based on use case, impact, and stakeholder needs, supporting context-appropriate transparency.",
     "confidenceLevel": "High",
     "framework_citations": "\"Responsible disclosures should be provided in a timely manner, and provide reasonable justifications for AI systems outcomes.\" (Transparency principle, paragraph following stakeholder list)"
   },
@@ -139,7 +139,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses whether explanations are comprehensible to non-experts.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Ensures explanations fulfill their purpose of creating understanding.",
+    "alignmentDetails": "Fully Aligns\u00a0with Explainability through its focus on testing whether AI explanations are actually understandable to intended audiences, ensuring explanations fulfill their purpose of creating meaningful understanding.",
     "confidenceLevel": "High",
     "framework_citations": "\"Achieving transparency in AI systems through responsible disclosure is important to each stakeholder group for the following reasons: for users, what the system is doing and why...\" (Transparency principle, stakeholder disclosure section)"
   },
@@ -147,7 +147,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Evaluates explanation adaptability for different audiences.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Supports tailored explanations for diverse stakeholders.",
+    "alignmentDetails": "Fully Aligns\u00a0with Explainability by evaluating whether explanations are available in different formats to meet the needs of diverse stakeholders, promoting inclusive access to understanding.",
     "confidenceLevel": "High",
     "framework_citations": "\"Achieving transparency in AI systems through responsible disclosure is important to each stakeholder group...\" with different requirements listed for users, creators, operators, investigators, regulators, legal process, and public. (Transparency principle, stakeholder disclosure section)"
   },
@@ -155,7 +155,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines the reliability of AI explanations.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Ensures explanations reflect actual system behavior.",
+    "alignmentDetails": "Fully Aligns\u00a0with Explainability by examining processes that verify AI explanations accurately reflect actual system behavior, preventing misleading or incomplete explanations.",
     "confidenceLevel": "High",
     "framework_citations": "\"Responsible disclosures should be provided in a timely manner, and provide reasonable justifications for AI systems outcomes.\" (Transparency principle, paragraph following stakeholder list)"
   },
@@ -163,7 +163,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses balance between performance and explainability.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Acknowledges practical challenges in explanation implementation.",
+    "alignmentDetails": "Fully Aligns\u00a0with Explainability by addressing how organizations balance model performance against explainability requirements, acknowledging practical implementation challenges while seeking appropriate transparency.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes information that helps people understand outcomes, like key factors used in decision making.\" (Transparency principle, paragraph following stakeholder list)"
   },
@@ -171,7 +171,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Focuses on making AI decisions understandable to users.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Directly supports the goal of helping people understand AI impacts.",
+    "alignmentDetails": "Fully Aligns\u00a0with Explainability through its focus on making AI decisions interpretable to users, directly supporting the goal of helping people understand how AI systems affect their lives.",
     "confidenceLevel": "High",
     "framework_citations": "\"Responsible disclosures should be provided in a timely manner, and provide reasonable justifications for AI systems outcomes. This includes information that helps people understand outcomes, like key factors used in decision making.\" (Transparency principle, paragraph following stakeholder list)"
   },
@@ -179,7 +179,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses use of technologies to explain complex models.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Addresses technical mechanisms to achieve explanation goals.",
+    "alignmentDetails": "Fully Aligns\u00a0with Explainability by assessing the use of specialized tools and technologies to explain complex models, addressing technical mechanisms needed to achieve explanation goals.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes information that helps people understand outcomes, like key factors used in decision making.\" (Transparency principle, paragraph following stakeholder list)"
   },
@@ -187,7 +187,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Evaluates customization of explanations for different audiences.",
     "relevantPrinciples": "Transparency",
-    "alignmentDetails": "Addresses the diverse needs of different stakeholders.",
+    "alignmentDetails": "Fully Aligns\u00a0with Explainability by evaluating whether explanations are tailored to the specific needs of different stakeholder groups, recognizing that effective explanation requires adaptation to audience.",
     "confidenceLevel": "High",
     "framework_citations": "\"Achieving transparency in AI systems through responsible disclosure is important to each stakeholder group for the following reasons: for users... for creators... for those deploying and operating the system... for an accident investigator... for regulators... for those in the legal process... for the public...\" (Transparency principle, stakeholder disclosure section)"
   },
@@ -195,7 +195,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses responsibility when AI systems fail.",
     "relevantPrinciples": "Accountability",
-    "alignmentDetails": "Directly supports accountability for AI outcomes.",
+    "alignmentDetails": "Fully Aligns\u00a0with Accountability by addressing how responsibility is assigned when AI systems fail or cause harm, establishing clear lines of human accountability for AI outcomes.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle aims to acknowledge the relevant organisations' and individuals' responsibility for the outcomes of the AI systems that they design, develop, deploy and operate.\" (Accountability principle, paragraph 1)"
   },
@@ -203,7 +203,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Evaluates formal oversight of AI systems.",
     "relevantPrinciples": "Accountability",
-    "alignmentDetails": "Establishes mechanisms for ongoing accountability.",
+    "alignmentDetails": "Fully Aligns\u00a0with Accountability through its evaluation of formal governance structures for monitoring AI systems, ensuring ongoing oversight throughout the system lifecycle.",
     "confidenceLevel": "High",
     "framework_citations": "\"Mechanisms should be put in place to ensure responsibility and accountability for AI systems and their outcomes. This includes both before and after their design, development, deployment and operation.\" (Accountability principle, paragraph 2)"
   },
@@ -211,7 +211,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines processes for addressing AI problems.",
     "relevantPrinciples": "Accountability",
-    "alignmentDetails": "Ensures problems are appropriately handled.",
+    "alignmentDetails": "Fully Aligns\u00a0with Accountability by examining policies for escalating issues related to AI systems, ensuring problems are appropriately identified and addressed at the right organizational level.",
     "confidenceLevel": "High",
     "framework_citations": "\"The organisation and individual accountable for the decision should be identifiable as necessary. They must consider the appropriate level of human control or oversight for the particular AI system or use case.\" (Accountability principle, paragraph 2)"
   },
@@ -219,7 +219,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses response to customer concerns about AI decisions.",
     "relevantPrinciples": "Accountability, Contestability",
-    "alignmentDetails": "Supports both Accountability and Contestability principles.",
+    "alignmentDetails": "Fully Aligns\u00a0with both Accountability and Contestability principles by addressing how organizations respond to and resolve customer complaints about AI decisions or outputs.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle aims to ensure the provision of efficient, accessible mechanisms that allow people to challenge the use or output of an AI system, when that AI system significantly impacts a person, community, group or environment.\" (Contestability principle, paragraph 1)"
   },
@@ -227,7 +227,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses clarity of AI responsibility assignments.",
     "relevantPrinciples": "Accountability",
-    "alignmentDetails": "Establishes clear accountability for AI systems.",
+    "alignmentDetails": "Fully Aligns\u00a0with Accountability by assessing clarity in defining roles and responsibilities for AI governance, establishing unambiguous accountability for AI system oversight.",
     "confidenceLevel": "High",
     "framework_citations": "\"The organisation and individual accountable for the decision should be identifiable as necessary.\" (Accountability principle, paragraph 2)"
   },
@@ -235,7 +235,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines ongoing oversight throughout AI development.",
     "relevantPrinciples": "Accountability",
-    "alignmentDetails": "Supports lifecycle approach to accountability.",
+    "alignmentDetails": "Fully Aligns\u00a0with Accountability through its examination of monitoring practices throughout the AI lifecycle, supporting continuous rather than point-in-time oversight.",
     "confidenceLevel": "High",
     "framework_citations": "\"Mechanisms should be put in place to ensure responsibility and accountability for AI systems and their outcomes. This includes both before and after their design, development, deployment and operation.\" (Accountability principle, paragraph 2)"
   },
@@ -243,7 +243,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses record-keeping for AI decisions.",
     "relevantPrinciples": "Accountability",
-    "alignmentDetails": "Enables verification and oversight of AI behavior.",
+    "alignmentDetails": "Fully Aligns\u00a0with Accountability by addressing record-keeping practices for AI decisions, enabling verification, audit, and traceability of system behavior.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems that have a significant impact on an individual's rights should be accountable to external review, this includes providing timely, accurate, and complete information for the purposes of independent oversight bodies.\" (Accountability principle, paragraph 3)"
   },
@@ -251,7 +251,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Evaluates mechanisms to challenge AI decisions.",
     "relevantPrinciples": "Contestability",
-    "alignmentDetails": "Directly supports the Contestability principle.",
+    "alignmentDetails": "Fully Aligns\u00a0with Contestability principles by evaluating mechanisms that allow affected individuals to challenge or appeal AI-driven decisions that impact them.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle aims to ensure the provision of efficient, accessible mechanisms that allow people to challenge the use or output of an AI system... Knowing that redress for harm is possible, when things go wrong, is key to ensuring public trust in AI.\" (Contestability principle, paragraphs 1-2)"
   },
@@ -259,7 +259,7 @@
     "alignmentType": "Partially Aligns",
     "overview": "Assesses practices to ensure high-quality data for AI.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Contributes to reliability but lacks explicit mention in principles.",
+    "alignmentDetails": "Partially Aligns\u00a0with principles as it assesses practices to ensure data accuracy and quality, which contributes to reliability and trustworthiness but isn't explicitly mentioned in the principles.",
     "confidenceLevel": "Medium",
     "framework_citations": "\"This includes ensuring AI systems are reliable, accurate and reproducible as appropriate.\" (Reliability and Safety principle, paragraph 1)"
   },
@@ -267,7 +267,7 @@
     "alignmentType": "Partially Aligns",
     "overview": "Addresses tracking of data origin and transformations.",
     "relevantPrinciples": "Accountability",
-    "alignmentDetails": "Supports accountability but isn't explicitly mentioned.",
+    "alignmentDetails": "Partially Aligns\u00a0with principles by addressing tracking of data origins and transformations, which supports accountability but lacks direct mention in the ethical framework.",
     "confidenceLevel": "Medium",
     "framework_citations": "\"AI systems that have a significant impact on an individual's rights should be accountable to external review, this includes providing timely, accurate, and complete information...\" (Accountability principle, paragraph 3)"
   },
@@ -275,7 +275,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Evaluates formal data management policies.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Directly supports data governance requirements.",
+    "alignmentDetails": "Fully Aligns\u00a0with principles by evaluating formal data governance policies, directly supporting requirements for proper data stewardship and management.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes ensuring proper data governance, and management, for all data used and generated by the AI system throughout its lifecycle.\" (Privacy Protection and Security principle, paragraph 1)"
   },
@@ -283,7 +283,7 @@
     "alignmentType": "Partially Aligns",
     "overview": "Addresses data currency and freshness.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Contributes to reliability but isn't explicitly mentioned.",
+    "alignmentDetails": "Partially Aligns\u00a0with principles through its focus on data currency and timeliness, which contributes to system reliability but isn't explicitly addressed in the principles.",
     "confidenceLevel": "Medium",
     "framework_citations": "\"This includes ensuring AI systems are reliable, accurate and reproducible as appropriate.\" (Reliability and Safety principle, paragraph 1)"
   },
@@ -291,7 +291,7 @@
     "alignmentType": "Partially Aligns",
     "overview": "Examines handling of incomplete data.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Contributes to reliability but isn't explicitly mentioned.",
+    "alignmentDetails": "Partially Aligns\u00a0with principles by examining practices for handling incomplete data, which affects system reliability but isn't specifically mentioned in the ethical framework.",
     "confidenceLevel": "Medium",
     "framework_citations": "\"This includes ensuring AI systems are reliable, accurate and reproducible as appropriate.\" (Reliability and Safety principle, paragraph 1)"
   },
@@ -299,7 +299,7 @@
     "alignmentType": "Partially Aligns",
     "overview": "Addresses data cleaning and preparation.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Contributes to reliability but isn't explicitly mentioned.",
+    "alignmentDetails": "Partially Aligns\u00a0with principles through its assessment of data cleaning and preparation methods, which influence system performance but aren't directly referenced in the principles.",
     "confidenceLevel": "Medium",
     "framework_citations": "\"This includes ensuring AI systems are reliable, accurate and reproducible as appropriate.\" (Reliability and Safety principle, paragraph 1)"
   },
@@ -307,7 +307,7 @@
     "alignmentType": "Partially Aligns",
     "overview": "Assesses vetting of external data providers.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports data governance but isn't explicitly mentioned.",
+    "alignmentDetails": "Partially Aligns\u00a0with principles by addressing evaluation of third-party data sources, supporting data governance but lacking explicit mention in the framework.",
     "confidenceLevel": "Medium",
     "framework_citations": "\"This includes ensuring proper data governance, and management, for all data used and generated by the AI system throughout its lifecycle.\" (Privacy Protection and Security principle, paragraph 1)"
   },
@@ -315,7 +315,7 @@
     "alignmentType": "Partially Aligns",
     "overview": "Focuses on data traceability across the AI lifecycle.",
     "relevantPrinciples": "Accountability",
-    "alignmentDetails": "Supports accountability but isn't explicitly mentioned.",
+    "alignmentDetails": "Partially Aligns\u00a0with principles by focusing on data traceability across the AI lifecycle, which supports accountability but isn't specifically identified in the principles.",
     "confidenceLevel": "Medium",
     "framework_citations": "\"This includes providing timely, accurate, and complete information for the purposes of independent oversight bodies.\" (Accountability principle, paragraph 3)"
   },
@@ -323,7 +323,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses reliability testing across conditions.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Directly supports reliable operation requirements.",
+    "alignmentDetails": "Fully Aligns\u00a0with Reliability principles by addressing testing for consistent performance across varied conditions, which is essential for establishing trustworthy AI systems that function as expected regardless of circumstances.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle aims to ensure that AI systems reliably operate in accordance with their intended purpose throughout their lifecycle. This includes ensuring AI systems are reliable, accurate and reproducible as appropriate.\" (Reliability and Safety principle, paragraph 1)"
   },
@@ -331,7 +331,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Evaluates system performance under extreme conditions.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports testing requirements for reliability.",
+    "alignmentDetails": "Fully Aligns\u00a0with Reliability by evaluating stress testing practices for AI robustness, ensuring systems can withstand extreme conditions and edge cases without catastrophic failure.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be monitored and tested to ensure they continue to meet their intended purpose...\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -339,7 +339,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses detection of performance degradation.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports ongoing monitoring requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Reliability through its focus on monitoring for model drift, addressing how organizations detect and respond to performance degradation over time to maintain system effectiveness.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be monitored and tested to ensure they continue to meet their intended purpose, and any identified problems should be addressed with ongoing risk management as appropriate.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -347,7 +347,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses how reliability is measured.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Establishes criteria for reliable operation.",
+    "alignmentDetails": "Fully Aligns\u00a0with Reliability by addressing how organizations define and measure success metrics for reliability, establishing objective criteria for determining whether systems operate dependably.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes ensuring AI systems are reliable, accurate and reproducible as appropriate.\" (Reliability and Safety principle, paragraph 1)"
   },
@@ -355,7 +355,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines proactive identification of vulnerabilities.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports risk assessment aspect of reliability.",
+    "alignmentDetails": "Fully Aligns\u00a0with Reliability by examining proactive identification of potential failure points, supporting comprehensive risk assessment and preemptive mitigation strategies.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should not pose unreasonable safety risks, and should adopt safety measures that are proportionate to the magnitude of potential risks... any identified problems should be addressed with ongoing risk management as appropriate.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -363,7 +363,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Focuses on reliability across varying conditions.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Directly supports reliable operation requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Reliability principles through its emphasis on consistent performance across varying conditions, ensuring AI systems maintain quality outputs regardless of circumstantial changes.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle aims to ensure that AI systems reliably operate in accordance with their intended purpose throughout their lifecycle. This includes ensuring AI systems are reliable, accurate and reproducible as appropriate.\" (Reliability and Safety principle, paragraph 1)"
   },
@@ -371,7 +371,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses monitoring for failures.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports ongoing monitoring requirements.",
+    "alignmentDetails": "Fully Aligns\u00a0with Reliability by addressing mechanisms for detecting system downtime or failures, enabling prompt response to operational issues to minimize disruption.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be monitored and tested to ensure they continue to meet their intended purpose, and any identified problems should be addressed with ongoing risk management as appropriate.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -379,7 +379,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses ongoing system maintenance.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports testing and monitoring requirements.",
+    "alignmentDetails": "Fully Aligns\u00a0with Reliability through its focus on testing frequency and retraining schedules, supporting ongoing system maintenance to preserve performance quality over time.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be monitored and tested to ensure they continue to meet their intended purpose, and any identified problems should be addressed with ongoing risk management as appropriate.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -387,7 +387,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses AI system security measures.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports security requirements for AI systems.",
+    "alignmentDetails": "Fully Aligns\u00a0with Security principles by addressing measures that protect AI models from unauthorized access, safeguarding system integrity against external threats.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle also aims to ensure appropriate data and AI system security measures are in place.\" (Privacy Protection and Security principle, paragraph 2)"
   },
@@ -395,7 +395,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines defenses against malicious attacks.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Directly addresses adversarial attack resilience.",
+    "alignmentDetails": "Fully Aligns\u00a0with Security through its examination of defenses against adversarial risks, directly addressing the requirement for AI systems to be resilient against malicious attacks.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes the identification of potential security vulnerabilities, and assurance of resilience to adversarial attacks.\" (Privacy Protection and Security principle, paragraph 2)"
   },
@@ -403,7 +403,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses security testing practices.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports vulnerability identification requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Security by assessing security testing practices including audits and penetration testing, supporting systematic identification of vulnerabilities before they can be exploited.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes the identification of potential security vulnerabilities, and assurance of resilience to adversarial attacks.\" (Privacy Protection and Security principle, paragraph 2)"
   },
@@ -411,7 +411,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses security across development stages.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports lifecycle approach to security.",
+    "alignmentDetails": "Fully Aligns\u00a0with Security principles by addressing security measures throughout the entire AI lifecycle, ensuring protection at all stages from development through deployment and beyond.",
     "confidenceLevel": "High",
     "framework_citations": "\"Throughout their lifecycle, AI systems should respect and uphold privacy rights and data protection, and ensure the security of data.\" (Privacy Protection and Security principle, main statement)"
   },
@@ -419,7 +419,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines safeguards against tampering.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports security and resilience requirements.",
+    "alignmentDetails": "Fully Aligns\u00a0with Security by examining safeguards against unauthorized modifications to AI systems, protecting against tampering that could compromise functionality or safety.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes the identification of potential security vulnerabilities, and assurance of resilience to adversarial attacks... Security measures should account for unintended applications of AI systems, and potential abuse risks, with appropriate mitigation measures.\" (Privacy Protection and Security principle, paragraph 2)"
   },
@@ -427,7 +427,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses defenses against input manipulation.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Directly addresses adversarial attack resilience.",
+    "alignmentDetails": "Fully Aligns\u00a0with Security through its focus on defenses against adversarial input manipulation, ensuring AI systems remain reliable even when facing deliberately deceptive inputs.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes the identification of potential security vulnerabilities, and assurance of resilience to adversarial attacks.\" (Privacy Protection and Security principle, paragraph 2)"
   },
@@ -435,7 +435,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines data protection in AI pipelines.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Directly supports data protection requirements.",
+    "alignmentDetails": "Fully Aligns\u00a0with Security by examining data protection practices within AI pipelines, safeguarding sensitive information from exposure or misuse throughout processing.",
     "confidenceLevel": "High",
     "framework_citations": "\"Throughout their lifecycle, AI systems should respect and uphold privacy rights and data protection, and ensure the security of data.\" (Privacy Protection and Security principle, main statement)"
   },
@@ -443,7 +443,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses ongoing security testing.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports vulnerability identification requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Security principles through its assessment of regular vulnerability evaluation practices, supporting ongoing identification of emerging security weaknesses.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes the identification of potential security vulnerabilities, and assurance of resilience to adversarial attacks.\" (Privacy Protection and Security principle, paragraph 2)"
   },
@@ -451,7 +451,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses legal compliance with privacy regulations.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Directly supports privacy rights requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Privacy principles by addressing legal compliance with relevant privacy regulations, ensuring AI systems respect fundamental privacy rights established in law.",
     "confidenceLevel": "High",
     "framework_citations": "\"Throughout their lifecycle, AI systems should respect and uphold privacy rights and data protection, and ensure the security of data.\" (Privacy Protection and Security principle, main statement)"
   },
@@ -459,7 +459,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines methods for protecting personal information.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports data protection requirements.",
+    "alignmentDetails": "Fully Aligns\u00a0with Privacy through its examination of technical methods for protecting personal data, such as encryption and anonymization, supporting practical implementation of privacy protections.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes ensuring proper data governance, and management, for all data used and generated by the AI system throughout its lifecycle. For example, maintaining privacy through appropriate data anonymisation where used by AI systems.\" (Privacy Protection and Security principle, paragraph 1)"
   },
@@ -467,7 +467,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses obtaining permission for data use.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports respecting privacy rights.",
+    "alignmentDetails": "Fully Aligns\u00a0with Privacy by addressing consent management practices, ensuring users can provide informed permission for how their data is collected and used in AI systems.",
     "confidenceLevel": "High",
     "framework_citations": "\"Throughout their lifecycle, AI systems should respect and uphold privacy rights and data protection...\" (Privacy Protection and Security principle, main statement)"
   },
@@ -475,7 +475,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines limiting data use to stated purposes.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports proper data governance requirements.",
+    "alignmentDetails": "Fully Aligns\u00a0with Privacy principles by examining controls that prevent data use beyond stated purposes, supporting the ethical requirement for purpose limitation in data processing.",
     "confidenceLevel": "High",
     "framework_citations": "\"This includes ensuring proper data governance, and management, for all data used and generated by the AI system throughout its lifecycle.\" (Privacy Protection and Security principle, paragraph 1)"
   },
@@ -483,7 +483,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses assessment of privacy measures.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports security and mitigation requirements.",
+    "alignmentDetails": "Fully Aligns\u00a0with Privacy through its focus on evaluating the effectiveness of privacy protection measures, ensuring safeguards actually deliver their intended protections in practice.",
     "confidenceLevel": "High",
     "framework_citations": "\"Security measures should account for unintended applications of AI systems, and potential abuse risks, with appropriate mitigation measures.\" (Privacy Protection and Security principle, paragraph 2)"
   },
@@ -491,7 +491,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines detection of privacy breaches.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports ongoing privacy protection.",
+    "alignmentDetails": "Fully Aligns\u00a0with Privacy by examining monitoring systems for detecting privacy violations, supporting rapid identification and response to potential breaches.",
     "confidenceLevel": "High",
     "framework_citations": "\"Throughout their lifecycle, AI systems should respect and uphold privacy rights and data protection, and ensure the security of data.\" (Privacy Protection and Security principle, main statement)"
   },
@@ -499,7 +499,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses privacy assessment throughout development.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports lifecycle approach to privacy.",
+    "alignmentDetails": "Fully Aligns\u00a0with Privacy principles through its assessment of privacy risk evaluation throughout the AI lifecycle, ensuring continuous rather than point-in-time privacy protection.",
     "confidenceLevel": "High",
     "framework_citations": "\"Throughout their lifecycle, AI systems should respect and uphold privacy rights and data protection, and ensure the security of data.\" (Privacy Protection and Security principle, main statement)"
   },
@@ -507,7 +507,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines international privacy compliance.",
     "relevantPrinciples": "Privacy Protection and Security",
-    "alignmentDetails": "Supports comprehensive privacy protection.",
+    "alignmentDetails": "Fully Aligns\u00a0with Privacy by addressing cross-border data protection challenges, ensuring consistent privacy standards when AI systems operate across international boundaries.",
     "confidenceLevel": "High",
     "framework_citations": "\"Throughout their lifecycle, AI systems should respect and uphold privacy rights and data protection...\" (Privacy Protection and Security principle, main statement)"
   },
@@ -515,7 +515,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses formal safety risk evaluation.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports safety risk assessment requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Safety principles by addressing formal safety impact assessments, supporting systematic evaluation of potential harms before they can occur.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should not pose unreasonable safety risks, and should adopt safety measures that are proportionate to the magnitude of potential risks.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -523,7 +523,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines measures to avoid harmful outcomes.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Directly supports safety risk mitigation.",
+    "alignmentDetails": "Fully Aligns\u00a0with Safety through its examination of measures to prevent unintended harmful outcomes, directly supporting the requirement to mitigate risks to human wellbeing.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should not pose unreasonable safety risks, and should adopt safety measures that are proportionate to the magnitude of potential risks.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -531,7 +531,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses real-time safety monitoring.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports ongoing monitoring requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Safety by assessing real-time monitoring systems for unsafe AI behavior, enabling prompt detection and response to emerging safety issues.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be monitored and tested to ensure they continue to meet their intended purpose, and any identified problems should be addressed with ongoing risk management as appropriate.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -539,7 +539,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses prioritizing human wellbeing.",
     "relevantPrinciples": "Human-centered Values",
-    "alignmentDetails": "Supports human-centered values principle.",
+    "alignmentDetails": "Fully Aligns\u00a0with Safety principles by addressing how organizations handle conflicts between AI objectives and human safety, ensuring human wellbeing takes priority in system design.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle aims to ensure that AI systems are aligned with human values. Machines should serve humans, and not the other way around.\" (Human-centered Values principle, paragraph 1)"
   },
@@ -547,7 +547,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines procedures for halting dangerous systems.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports safety measures requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Safety by examining emergency shutdown protocols for dangerous systems, ensuring organizations can rapidly halt AI operations that pose imminent risks.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should not pose unreasonable safety risks, and should adopt safety measures that are proportionate to the magnitude of potential risks.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -555,7 +555,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses proactive risk management.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports risk assessment and management.",
+    "alignmentDetails": "Fully Aligns\u00a0with Safety through its focus on proactive risk identification and mitigation strategies, supporting comprehensive safety management throughout the AI lifecycle.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should not pose unreasonable safety risks, and should adopt safety measures that are proportionate to the magnitude of potential risks... and any identified problems should be addressed with ongoing risk management as appropriate.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -563,7 +563,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines safety backups and redundancies.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports safety measures requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Safety principles by addressing implementation of fail-safe mechanisms and redundancies, ensuring AI systems default to safe states when uncertainties or failures occur.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should not pose unreasonable safety risks, and should adopt safety measures that are proportionate to the magnitude of potential risks.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -571,7 +571,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses testing in representative environments.",
     "relevantPrinciples": "Reliability and Safety",
-    "alignmentDetails": "Supports testing requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Safety by examining safety testing practices in realistic scenarios, ensuring safety assessments reflect actual deployment conditions rather than idealized environments.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be monitored and tested to ensure they continue to meet their intended purpose, and any identified problems should be addressed with ongoing risk management as appropriate.\" (Reliability and Safety principle, paragraph 2)"
   },
@@ -579,7 +579,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses usability for diverse users.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Directly supports inclusivity requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Inclusivity principles by addressing accessibility features for diverse users, ensuring AI benefits are available to people of all abilities and backgrounds.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be inclusive and accessible, and should not involve or result in unfair discrimination against individuals, communities or groups.\" (Fairness principle, main statement)"
   },
@@ -587,7 +587,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines inclusion of varied viewpoints in design.",
     "relevantPrinciples": "Human-centered Values",
-    "alignmentDetails": "Supports human-centered values and diversity.",
+    "alignmentDetails": "Fully Aligns\u00a0with Inclusivity through its examination of how diverse perspectives are incorporated in AI design, supporting development of systems that reflect varied human values and needs.",
     "confidenceLevel": "High",
     "framework_citations": "\"This principle aims to ensure that AI systems are aligned with human values... AI systems should enable an equitable and democratic society by respecting, protecting and promoting human rights, enabling diversity, respecting human freedom and the autonomy of individuals...\" (Human-centered Values principle, paragraph 1)"
   },
@@ -595,7 +595,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses evaluation of potential discrimination.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Supports identification of unfair impacts.",
+    "alignmentDetails": "Fully Aligns\u00a0with Inclusivity by assessing auditing practices for exclusionary outcomes, enabling identification and correction of patterns that might unfairly impact certain groups.",
     "confidenceLevel": "High",
     "framework_citations": "\"This is particularly important given concerns about the potential for AI to perpetuate societal injustices and have a disparate impact on vulnerable and underrepresented groups...\" (Fairness principle, paragraph 2)"
   },
@@ -603,7 +603,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines support for users with disabilities.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Directly supports inclusivity requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Inclusivity principles by addressing specific accommodations for users with disabilities, ensuring AI systems don't create new barriers to participation.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be inclusive and accessible, and should not involve or result in unfair discrimination against individuals, communities or groups.\" (Fairness principle, main statement)"
   },
@@ -611,7 +611,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Assesses diversity in AI development teams.",
     "relevantPrinciples": "Human-centered Values",
-    "alignmentDetails": "Directly supports diverse perspectives requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Inclusivity through its focus on stakeholder diversity in AI development teams, recognizing that inclusive design requires diverse input throughout creation.",
     "confidenceLevel": "High",
     "framework_citations": "\"Organisations designing, developing, deploying or operating AI systems should ideally hire staff from diverse backgrounds, cultures and disciplines to ensure a wide range of perspectives, and to minimise the risk of missing important considerations only noticeable by some stakeholders.\" (Human-centered Values principle, paragraph 2)"
   },
@@ -619,7 +619,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines specific efforts for marginalized groups.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Addresses concerns about disparate impacts.",
+    "alignmentDetails": "Fully Aligns\u00a0with Inclusivity by examining specific efforts to ensure AI systems effectively serve underrepresented communities, addressing historical patterns of technological exclusion.",
     "confidenceLevel": "High",
     "framework_citations": "\"This is particularly important given concerns about the potential for AI to perpetuate societal injustices and have a disparate impact on vulnerable and underrepresented groups...\" (Fairness principle, paragraph 2)"
   },
@@ -627,7 +627,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses accessibility and usability principles.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Directly supports inclusive design requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Inclusivity principles by addressing language and cultural considerations in AI design, ensuring systems work effectively across diverse cultural contexts.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be inclusive and accessible, and should not involve or result in unfair discrimination against individuals, communities or groups.\" (Fairness principle, main statement)"
   },
@@ -635,7 +635,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines accessibility across user abilities.",
     "relevantPrinciples": "Fairness",
-    "alignmentDetails": "Supports comprehensive inclusivity requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Inclusivity through its examination of processes to identify subtle patterns of unintentional exclusion, addressing implicit biases that might otherwise go undetected.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should be inclusive and accessible, and should not involve or result in unfair discrimination against individuals, communities or groups.\" (Fairness principle, main statement)"
   },
@@ -643,7 +643,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses environmental impacts of AI systems.",
     "relevantPrinciples": "Human, Social and Environmental Wellbeing",
-    "alignmentDetails": "Directly supports environmental wellbeing requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Sustainability principles by addressing formal assessment of AI's environmental impact, supporting measurement of ecological footprints to inform responsible development.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should benefit individuals, society and the environment.\" (Human, Social and Environmental Wellbeing principle, main statement)"
   },
@@ -651,7 +651,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines social benefits of AI systems.",
     "relevantPrinciples": "Human, Social and Environmental Wellbeing",
-    "alignmentDetails": "Supports societal benefit requirement.",
+    "alignmentDetails": "Fully Aligns\u00a0with Sustainability through its examination of algorithm optimization practices for computational efficiency, reducing unnecessary resource consumption and associated environmental impacts.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should benefit individuals, society and the environment.\" (Human, Social and Environmental Wellbeing principle, main statement)"
   },
@@ -659,7 +659,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses long-term societal impacts.",
     "relevantPrinciples": "Human, Social and Environmental Wellbeing",
-    "alignmentDetails": "Supports comprehensive wellbeing consideration.",
+    "alignmentDetails": "Fully Aligns\u00a0with Sustainability by assessing utilization of renewable energy infrastructure for AI operations, supporting reduction of carbon emissions from energy-intensive computing.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should benefit individuals, society and the environment.\" (Human, Social and Environmental Wellbeing principle, main statement)"
   },
@@ -667,7 +667,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines resource efficiency in AI operations.",
     "relevantPrinciples": "Human, Social and Environmental Wellbeing",
-    "alignmentDetails": "Supports environmental stewardship.",
+    "alignmentDetails": "Fully Aligns\u00a0with Sustainability principles by addressing carbon footprint estimation methods, enabling organizations to quantify and report on climate impacts of their AI systems.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should benefit individuals, society and the environment.\" (Human, Social and Environmental Wellbeing principle, main statement)"
   },
@@ -675,7 +675,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses balancing benefits and harms.",
     "relevantPrinciples": "Human, Social and Environmental Wellbeing",
-    "alignmentDetails": "Supports holistic impact assessment.",
+    "alignmentDetails": "Fully Aligns\u00a0with Sustainability through its focus on resource efficiency optimization practices, ensuring AI systems minimize consumption of computing resources and associated energy use.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should benefit individuals, society and the environment.\" (Human, Social and Environmental Wellbeing principle, main statement)"
   },
@@ -683,7 +683,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines contribution to sustainable development goals.",
     "relevantPrinciples": "Human, Social and Environmental Wellbeing",
-    "alignmentDetails": "Supports broader societal benefits.",
+    "alignmentDetails": "Fully Aligns\u00a0with Sustainability by examining hardware selection criteria focused on energy efficiency, addressing the physical infrastructure component of AI's environmental footprint.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should benefit individuals, society and the environment.\" (Human, Social and Environmental Wellbeing principle, main statement)"
   },
@@ -691,7 +691,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Addresses monitoring of societal impacts.",
     "relevantPrinciples": "Human, Social and Environmental Wellbeing",
-    "alignmentDetails": "Supports ongoing wellbeing assessment.",
+    "alignmentDetails": "Fully Aligns\u00a0with Sustainability principles by addressing how organizations balance environmental considerations against performance requirements, supporting informed trade-off decisions.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should benefit individuals, society and the environment.\" (Human, Social and Environmental Wellbeing principle, main statement)"
   },
@@ -699,7 +699,7 @@
     "alignmentType": "Fully Aligns",
     "overview": "Examines stakeholder engagement in impact assessment.",
     "relevantPrinciples": "Human, Social and Environmental Wellbeing",
-    "alignmentDetails": "Supports comprehensive wellbeing consideration.",
+    "alignmentDetails": "Fully Aligns\u00a0with Sustainability through its assessment of ongoing environmental impact tracking, enabling continuous improvement in reducing ecological effects throughout system lifecycles.",
     "confidenceLevel": "High",
     "framework_citations": "\"AI systems should benefit individuals, society and the environment.\" (Human, Social and Environmental Wellbeing principle, main statement)"
   }
