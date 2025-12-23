@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 export default function AuAssuranceAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, confidenceLevel, alignmentRationale, citation } = alignmentData;
+  const { alignmentType, confidenceLevel, alignmentRationale, framework_citations } = alignmentData;
 
   // Function to get confidence level color based on level
   const getConfidenceLevelColor = (level) => {
@@ -92,12 +92,12 @@ export default function AuAssuranceAlignmentModal({ isOpen, onClose, questionCod
           </div>
 
           {/* Citation */}
-          {citation && (
+          {framework_citations && (
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-3">Australian National Framework for the Assurance of AI in Government Citation(s)</h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-orange-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
-                  {citation}
+                  {framework_citations}
                 </p>
               </div>
             </div>

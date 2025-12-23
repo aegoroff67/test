@@ -7,7 +7,7 @@ import { X } from 'lucide-react';
 export default function NistAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, function: nistFunction, categorySubcategory, reasoning, citations, confidenceLevel } = alignmentData;
+  const { alignmentType, function: nistFunction, categorySubcategory, reasoning, framework_citations, confidenceLevel } = alignmentData;
 
   return (
     <div 
@@ -81,13 +81,13 @@ export default function NistAlignmentModal({ isOpen, onClose, questionCode, ques
           </div>
 
           {/* Citations - Moved up after Alignment Details */}
-          {citations && citations.length > 0 && (
+          {framework_citations && framework_citations.length > 0 && (
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
                 NIST AI RMF Citation(s)
               </h3>
               <div className="space-y-3">
-                {citations.map((citation, index) => (
+                {framework_citations.map((citation, index) => (
                   <div key={index} className="bg-gray-50 p-4 rounded-lg border-l-4 border-indigo-500">
                     <p className="text-sm text-gray-700 leading-relaxed">
                       {citation}

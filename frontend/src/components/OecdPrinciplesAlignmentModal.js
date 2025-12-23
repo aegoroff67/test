@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 export default function OecdPrinciplesAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, confidenceLevel, alignmentRationale, citation } = alignmentData;
+  const { alignmentType, confidenceLevel, alignmentRationale, framework_citations } = alignmentData;
 
   // Function to get confidence level color based on level
   const getConfidenceLevelColor = (level) => {
@@ -92,12 +92,12 @@ export default function OecdPrinciplesAlignmentModal({ isOpen, onClose, question
           </div>
 
           {/* Citation */}
-          {citation && (
+          {framework_citations && (
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-3">OECD AI Principles Citation(s)</h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-slate-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
-                  {citation}
+                  {framework_citations}
                 </p>
               </div>
             </div>

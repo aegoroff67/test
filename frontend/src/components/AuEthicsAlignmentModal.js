@@ -7,7 +7,7 @@ import { X } from 'lucide-react';
 export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, overview, relevantPrinciples, alignmentDetails, confidenceLevel, citation } = alignmentData;
+  const { alignmentType, overview, relevantPrinciples, alignmentDetails, confidenceLevel, framework_citations } = alignmentData;
 
   return (
     <div 
@@ -80,14 +80,14 @@ export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, 
           </div>
 
           {/* Citation - Moved up after Alignment Details */}
-          {citation && (
+          {framework_citations && (
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
                 Australian AI Ethics Principles Citation(s)
               </h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
-                  {citation}
+                  {framework_citations}
                 </p>
               </div>
             </div>
