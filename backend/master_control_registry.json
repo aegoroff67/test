@@ -1,5 +1,5 @@
 {
-  "version": "2024-12-24-v2",
+  "version": "2024-12-24-v3",
   "frameworks": {
     "ISO 42001": {
       "fullName": "ISO/IEC 42001:2023",
@@ -1034,805 +1034,805 @@
           "controlId": "GAA-I-1.1.1a",
           "nativeId": "1.1.1a",
           "title": "Assign accountability for AI management",
-          "description": "Assign, document and clearly communicate who is accountable for the operation of the AI management system"
+          "description": "To ensure AI systems perform as required and obligations are met, assign, document and clearly communicate who is accountable across the organisation for the operation of the AI management system, inc..."
         },
         {
           "controlId": "GAA-I-1.1.1b",
           "nativeId": "1.1.1b",
           "title": "Assign accountability for AI system development and deployment",
-          "description": "Assign, document and clearly communicate who is accountable for the development and deployment of every AI system"
+          "description": "To ensure AI systems perform as required and obligations are met, assign, document and clearly communicate who is accountable across the organisation for the development and deployment of every AI sys..."
         },
         {
           "controlId": "GAA-I-1.1.1c",
           "nativeId": "1.1.1c",
           "title": "Assign accountability for third-party AI oversight",
-          "description": "Assign, document and clearly communicate who is accountable for oversight of third-party AI systems"
+          "description": "To ensure AI systems perform as required and obligations are met, assign, document and clearly communicate who is accountable across the organisation for oversight of the development and use of AI sys..."
         },
         {
           "controlId": "GAA-I-1.1.1d",
           "nativeId": "1.1.1d",
           "title": "Assign accountability for AI testing",
-          "description": "Assign, document and clearly communicate who is accountable for testing of AI systems"
+          "description": "To ensure AI systems perform as required and obligations are met, assign, document and clearly communicate who is accountable across the organisation for testing of AI systems across the organisation."
         },
         {
           "controlId": "GAA-I-1.1.1e",
           "nativeId": "1.1.1e",
           "title": "Assign accountability for AI redress",
-          "description": "Assign, document and clearly communicate who is accountable for oversight of concerns, challenges and requests for redress"
+          "description": "To ensure AI systems perform as required and obligations are met, assign, document and clearly communicate who is accountable across the organisation for oversight of concerns, challenges and requests..."
         },
         {
           "controlId": "GAA-I-1.1.1f",
           "nativeId": "1.1.1f",
           "title": "Assign accountability for AI system improvement",
-          "description": "Assign, document and clearly communicate who is accountable for the performance and continual improvement of the AI management system"
+          "description": "To ensure AI systems perform as required and obligations are met, assign, document and clearly communicate who is accountable across the organisation for the performance and continual improvement of t..."
         },
         {
           "controlId": "GAA-I-1.1.2",
           "nativeId": "1.1.2",
           "title": "Define competencies and authority for accountable people",
-          "description": "Define and communicate the required competencies and authority for each accountable person"
+          "description": "For each accountable person, define and communicate the required competencies and their authority."
         },
         {
           "controlId": "GAA-I-1.2.1a",
           "nativeId": "1.2.1a",
           "title": "Document AI supply chain accountabilities for monitoring",
-          "description": "Identify, document and communicate accountability for monitoring across the AI supply chain"
+          "description": "Identify, document and communicate accountability for shared responsibility across the AI supply chain for monitoring and evaluation."
         },
         {
           "controlId": "GAA-I-1.2.1b",
           "nativeId": "1.2.1b",
           "title": "Document oversight accountability across supply chain",
-          "description": "Identify, document and communicate accountability for human oversight across the AI supply chain"
+          "description": "Identify, document and communicate accountability for shared responsibility across the AI supply chain for human oversight and intervention."
         },
         {
           "controlId": "GAA-I-1.2.1c",
           "nativeId": "1.2.1c",
           "title": "Document issue resolution accountability across supply chain",
-          "description": "Identify, document and communicate accountability for issue resolution across the AI supply chain"
+          "description": "Identify, document and communicate accountability for shared responsibility across the AI supply chain for issue resolution and system updates."
         },
         {
           "controlId": "GAA-I-1.2.2",
           "nativeId": "1.2.2",
           "title": "Document developer obligations",
-          "description": "Document and communicate developer accountability and obligations towards downstream organisations"
+          "description": "Clearly document and communicate developer accountability and obligations towards downstream organisations."
         },
         {
           "controlId": "GAA-I-1.3.1",
           "nativeId": "1.3.1",
           "title": "Evaluate and provide AI literacy training",
-          "description": "Evaluate and document training needed to build broad AI understanding and accountability culture"
+          "description": "Evaluate and document training needed to build broad AI understanding and accountability culture."
         },
         {
           "controlId": "GAA-I-1.3.2a",
           "nativeId": "1.3.2a",
           "title": "Train personnel responsible for legal and regulatory compliance",
-          "description": "Provide training for those responsible for meeting legal and regulatory obligations"
+          "description": "Provide training for those responsible for meeting legal and regulatory obligations."
         },
         {
           "controlId": "GAA-I-1.3.2b",
           "nativeId": "1.3.2b",
           "title": "Train personnel handling personal identifiable information",
-          "description": "Provide training for those responsible for handling personally identifiable information"
+          "description": "Provide training for those responsible for handling personally identifiable information."
         },
         {
           "controlId": "GAA-I-1.3.2c",
           "nativeId": "1.3.2c",
           "title": "Train personnel operating AI systems",
-          "description": "Provide training for those responsible for operation, control, intervention or termination of AI systems"
+          "description": "Provide training for those responsible for operation, control, intervention or termination of AI systems."
         },
         {
           "controlId": "GAA-I-1.3.2d",
           "nativeId": "1.3.2d",
           "title": "Train personnel for AI oversight",
-          "description": "Provide training for those responsible for oversight and monitoring of AI systems"
+          "description": "Provide training for those responsible for oversight and monitoring of AI systems."
         },
         {
           "controlId": "GAA-I-1.3.2e",
           "nativeId": "1.3.2e",
           "title": "Train personnel for third-party AI procurement",
-          "description": "Provide training for those responsible for procurement of third-party AI systems"
+          "description": "Provide training for those responsible for procurement of third-party AI systems."
         },
         {
           "controlId": "GAA-I-1.3.2f",
           "nativeId": "1.3.2f",
           "title": "Train personnel for safe AI development",
-          "description": "Provide training for those responsible for safe and responsible development of AI systems"
+          "description": "Provide training for those responsible for safe and responsible development of AI systems."
         },
         {
           "controlId": "GAA-I-1.4.1a",
           "nativeId": "1.4.1a",
           "title": "Document strategic intent for AI",
-          "description": "Document and communicate the organisation's strategic intent to develop and deploy AI systems"
+          "description": "Document and communicate the organisation's strategic intent to develop and deploy AI systems."
         },
         {
           "controlId": "GAA-I-1.4.1b",
           "nativeId": "1.4.1b",
           "title": "Document relevant AI regulations",
-          "description": "Document and communicate the regulations relevant to AI systems development and deployment"
+          "description": "Document and communicate the regulations relevant to AI systems development and deployment."
         },
         {
           "controlId": "GAA-I-1.4.1c",
           "nativeId": "1.4.1c",
           "title": "Document AI governance policies and processes",
-          "description": "Document and communicate policies, processes and goals for safe and responsible AI"
+          "description": "Document and communicate policies, processes and goals for safe and responsible AI."
         },
         {
           "controlId": "GAA-I-1.4.2a",
           "nativeId": "1.4.2a",
           "title": "Implement deficiency identification process",
-          "description": "Document and implement a process to proactively identify deficiencies in the AI management system"
+          "description": "Document and implement a process to proactively identify deficiencies in the AI management system."
         },
         {
           "controlId": "GAA-I-1.4.2b",
           "nativeId": "1.4.2b",
           "title": "Plan AI management system changes",
-          "description": "Appropriately plan changes to the AI management system"
+          "description": "Appropriately plan changes to the AI management system."
         },
         {
           "controlId": "GAA-I-1.4.2c",
           "nativeId": "1.4.2c",
           "title": "Identify factors affecting AI management",
-          "description": "Identify and document internal and external factors affecting AI management"
+          "description": "Identify and document internal and external factors affecting AI management."
         },
         {
           "controlId": "GAA-I-1.4.2d",
           "nativeId": "1.4.2d",
           "title": "Provide sufficient resources for AI deployment",
-          "description": "Provide sufficient resources to deploy AI systems safely and responsibly"
+          "description": "Provide sufficient resources to deploy AI systems safely and responsibly."
         },
         {
           "controlId": "GAA-I-1.4.3",
           "nativeId": "1.4.3",
           "title": "Monitor organizational policy compliance",
-          "description": "Monitor compliance with organisational policies to identify and address gaps"
+          "description": "Monitor compliance with organisational policies to identify and address gaps."
         },
         {
           "controlId": "GAA-I-2.1.1",
           "nativeId": "2.1.1",
           "title": "Identify stakeholders and their needs",
-          "description": "Identify and document key stakeholders that may be impacted by AI"
+          "description": "Identify and document key stakeholders that may be impacted by AI."
         },
         {
           "controlId": "GAA-I-2.1.2",
           "nativeId": "2.1.2",
           "title": "Prioritize stakeholder needs",
-          "description": "Prioritise, select and document which stakeholder needs will be addressed"
+          "description": "Prioritise, select and document which stakeholder needs will be addressed."
         },
         {
           "controlId": "GAA-I-2.1.3",
           "nativeId": "2.1.3",
           "title": "Document commitment to preventing AI harms",
-          "description": "Document commitment to preventing harms to people from AI systems"
+          "description": "Document commitment to preventing harms to people from AI systems."
         },
         {
           "controlId": "GAA-I-2.1.4",
           "nativeId": "2.1.4",
           "title": "Document AI system scope",
-          "description": "Document the scope for each AI system including intended use cases and limitations"
+          "description": "Document the scope for each AI system including intended use cases and limitations."
         },
         {
           "controlId": "GAA-I-2.1.5a",
           "nativeId": "2.1.5a",
           "title": "Identify impacts to vulnerable groups",
-          "description": "Identify and document potential impacts to vulnerable groups"
+          "description": "Identify and document potential impacts to vulnerable groups."
         },
         {
           "controlId": "GAA-I-2.1.5b",
           "nativeId": "2.1.5b",
           "title": "Identify bias and discrimination risks",
-          "description": "Identify risks of unwanted bias or discriminatory outputs"
+          "description": "Identify risks of unwanted bias or discriminatory outputs."
         },
         {
           "controlId": "GAA-I-2.1.5c",
           "nativeId": "2.1.5c",
           "title": "Identify personal information use",
-          "description": "Identify use of an individual's personal information"
+          "description": "Identify use of an individual's personal information."
         },
         {
           "controlId": "GAA-I-2.1.5d",
           "nativeId": "2.1.5d",
           "title": "Identify decision-making impacts",
-          "description": "Identify where the system makes or influences decisions about people"
+          "description": "Identify where the system makes or influences decisions about people."
         },
         {
           "controlId": "GAA-I-2.1.6",
           "nativeId": "2.1.6",
           "title": "Conduct stakeholder impact analysis",
-          "description": "Conduct appropriate stakeholder impact analysis for documented risks"
+          "description": "Conduct appropriate stakeholder impact analysis for documented risks."
         },
         {
           "controlId": "GAA-I-2.1.7",
           "nativeId": "2.1.7",
           "title": "Monitor for potential harms",
-          "description": "Monitor for potential harms by engaging affected stakeholders"
+          "description": "Monitor for potential harms by engaging affected stakeholders."
         },
         {
           "controlId": "GAA-I-2.1.8",
           "nativeId": "2.1.8",
           "title": "Support ongoing stakeholder engagement",
-          "description": "Create processes to support ongoing engagement with stakeholders"
+          "description": "Create processes to support ongoing engagement with stakeholders."
         },
         {
           "controlId": "GAA-I-2.2.1a",
           "nativeId": "2.2.1a",
           "title": "Create stakeholder feedback process",
-          "description": "Create a process for stakeholders to raise concerns and receive responses"
+          "description": "Create a process for stakeholders to raise concerns and receive responses."
         },
         {
           "controlId": "GAA-I-2.2.1b",
           "nativeId": "2.2.1b",
           "title": "Evaluate contestability requirements",
-          "description": "Create a process for evaluation of contestability requirements"
+          "description": "Create a process for evaluation of contestability requirements."
         },
         {
           "controlId": "GAA-I-2.2.2",
           "nativeId": "2.2.2",
           "title": "Implement contestability mechanisms",
-          "description": "Implement mechanisms to enable contestability of AI use and decisions"
+          "description": "Implement mechanisms to enable contestability of AI use and decisions."
         },
         {
           "controlId": "GAA-I-2.2.3",
           "nativeId": "2.2.3",
           "title": "Implement developer feedback mechanisms",
-          "description": "Implement mechanisms to enable deployers to escalate feedback"
+          "description": "Implement mechanisms to enable deployers to escalate feedback."
         },
         {
           "controlId": "GAA-I-2.2.4",
           "nativeId": "2.2.4",
           "title": "Enable feedback-triggered redress",
-          "description": "Ensure people monitoring feedback can trigger redress processes"
+          "description": "Ensure people monitoring feedback can trigger redress processes."
         },
         {
           "controlId": "GAA-I-2.3.1",
           "nativeId": "2.3.1",
           "title": "Monitor redress processes for systemic issues",
-          "description": "Monitor contestability and redress processes to identify systemic risks"
+          "description": "Monitor contestability and redress processes to identify systemic risks."
         },
         {
           "controlId": "GAA-I-2.3.2",
           "nativeId": "2.3.2",
           "title": "Review stakeholder contests",
-          "description": "Create process to review and evaluate stakeholder contests of AI system use"
+          "description": "Create process to review and evaluate stakeholder contests of AI system use."
         },
         {
           "controlId": "GAA-I-3.1.1a",
           "nativeId": "3.1.1a",
           "title": "Create AI risk management framework",
-          "description": "Create a risk management framework for AI systems"
+          "description": "Create a risk management framework for AI systems."
         },
         {
           "controlId": "GAA-I-3.1.1b",
           "nativeId": "3.1.1b",
           "title": "Define risk tolerance criteria",
-          "description": "Create organisational-level risk tolerance criteria"
+          "description": "Create organisational-level risk tolerance criteria."
         },
         {
           "controlId": "GAA-I-3.1.1c",
           "nativeId": "3.1.1c",
           "title": "Document risk assessment processes",
-          "description": "Create and document AI impact assessment and risk assessment processes"
+          "description": "Create and document AI impact assessment and risk assessment processes."
         },
         {
           "controlId": "GAA-I-3.1.2",
           "nativeId": "3.1.2",
           "title": "Address supply chain risks",
-          "description": "Include steps to identify, assess and treat supply chain risks"
+          "description": "Include steps to identify, assess and treat supply chain risks."
         },
         {
           "controlId": "GAA-I-3.1.3",
           "nativeId": "3.1.3",
           "title": "Develop risk communication formats",
-          "description": "Adopt clear and consistent reporting formats for risk management"
+          "description": "Adopt clear and consistent reporting formats for risk management."
         },
         {
           "controlId": "GAA-I-3.2.1",
           "nativeId": "3.2.1",
           "title": "Establish risk triage system",
-          "description": "Establish a triage system to determine AI systems that may pose enhanced risk"
+          "description": "Establish a triage system to determine AI systems that may pose enhanced risk."
         },
         {
           "controlId": "GAA-I-3.2.2",
           "nativeId": "3.2.2",
           "title": "Perform system-specific risk assessments",
-          "description": "Perform and document a risk assessment for each AI system"
+          "description": "Perform and document a risk assessment for each AI system."
         },
         {
           "controlId": "GAA-I-3.2.3a",
           "nativeId": "3.2.3a",
           "title": "Identify stakeholder harms",
-          "description": "Identify potential severity and likelihood of harms to stakeholders"
+          "description": "Identify potential severity and likelihood of harms to stakeholders."
         },
         {
           "controlId": "GAA-I-3.2.3b",
           "nativeId": "3.2.3b",
           "title": "Identify legal and reputational risks",
-          "description": "Identify legal, commercial and reputational risks"
+          "description": "Identify legal, commercial and reputational risks."
         },
         {
           "controlId": "GAA-I-3.2.3c",
           "nativeId": "3.2.3c",
           "title": "Consider data governance risks",
-          "description": "Consider potential amplified and emerging data governance risks"
+          "description": "Consider potential amplified and emerging data governance risks."
         },
         {
           "controlId": "GAA-I-3.2.3d",
           "nativeId": "3.2.3d",
           "title": "Analyze risks systemically",
-          "description": "Analyze risks systemically using risk models"
+          "description": "Analyze risks systemically using risk models."
         },
         {
           "controlId": "GAA-I-3.2.3e",
           "nativeId": "3.2.3e",
           "title": "Compare risks to criteria",
-          "description": "Compare identified risks to pre-determined organisational risk criteria"
+          "description": "Compare identified risks to pre-determined organisational risk criteria."
         },
         {
           "controlId": "GAA-I-3.2.3f",
           "nativeId": "3.2.3f",
           "title": "Document unacceptable risks",
-          "description": "Document use cases that represent unacceptable level of risk"
+          "description": "Document use cases that represent unacceptable level of risk."
         },
         {
           "controlId": "GAA-I-3.2.3g",
           "nativeId": "3.2.3g",
           "title": "Communicate risk assessments",
-          "description": "Communicate risk assessments in clear reporting formats"
+          "description": "Communicate risk assessments in clear reporting formats."
         },
         {
           "controlId": "GAA-I-3.3.1",
           "nativeId": "3.3.1",
           "title": "Create risk treatment plan",
-          "description": "Create and implement a risk treatment plan"
+          "description": "Create and implement a risk treatment plan."
         },
         {
           "controlId": "GAA-I-3.3.2",
           "nativeId": "3.3.2",
           "title": "Communicate risk treatment plans",
-          "description": "Communicate risk treatment plans to relevant stakeholders"
+          "description": "Communicate risk treatment plans to relevant stakeholders."
         },
         {
           "controlId": "GAA-I-3.3.3",
           "nativeId": "3.3.3",
           "title": "Create deployment plan for residual risks",
-          "description": "Create a deployment plan for response to residual risks"
+          "description": "Create a deployment plan for response to residual risks."
         },
         {
           "controlId": "GAA-I-3.3.4",
           "nativeId": "3.3.4",
           "title": "Implement safety measures",
-          "description": "Research, document and implement leading safety measures"
+          "description": "Research, document and implement leading safety measures."
         },
         {
           "controlId": "GAA-I-3.4.1",
           "nativeId": "3.4.1",
           "title": "Report serious incidents",
-          "description": "Track, document and report serious incidents"
+          "description": "Track, document and report serious incidents."
         },
         {
           "controlId": "GAA-I-3.4.2",
           "nativeId": "3.4.2",
           "title": "Establish Online Safety Act compliance",
-          "description": "Create process to evaluate and fulfil Online Safety Act reporting obligations"
+          "description": "Create process to evaluate and fulfil Online Safety Act reporting obligations."
         },
         {
           "controlId": "GAA-I-3.4.3",
           "nativeId": "3.4.3",
           "title": "Comply with data breach reporting",
-          "description": "Conform to data breach reporting requirements"
+          "description": "Conform to data breach reporting requirements."
         },
         {
           "controlId": "GAA-I-3.4.4",
           "nativeId": "3.4.4",
           "title": "Maintain developer-deployer incident communication",
-          "description": "Maintain two-way communication for incident reporting"
+          "description": "Maintain two-way communication for incident reporting."
         },
         {
           "controlId": "GAA-I-3.4.5",
           "nativeId": "3.4.5",
           "title": "Monitor and evaluate risk assessments",
-          "description": "Monitor and evaluate risk assessments on a regular basis"
+          "description": "Monitor and evaluate risk assessments on a regular basis."
         },
         {
           "controlId": "GAA-I-3.4.6",
           "nativeId": "3.4.6",
           "title": "Improve risk management processes",
-          "description": "Monitor and continually improve risk management processes"
+          "description": "Monitor and continually improve risk management processes."
         },
         {
           "controlId": "GAA-I-4.1.1a",
           "nativeId": "4.1.1a",
           "title": "Document AI system accountability",
-          "description": "Maintain inventory with accountable people documented"
+          "description": "Maintain inventory with accountable people documented."
         },
         {
           "controlId": "GAA-I-4.1.1b",
           "nativeId": "4.1.1b",
           "title": "Document AI system purpose",
-          "description": "Maintain inventory with purpose and business goals"
+          "description": "Maintain inventory with purpose and business goals."
         },
         {
           "controlId": "GAA-I-4.1.1c",
           "nativeId": "4.1.1c",
           "title": "Document AI system capabilities",
-          "description": "Maintain inventory with capabilities and limitations"
+          "description": "Maintain inventory with capabilities and limitations."
         },
         {
           "controlId": "GAA-I-4.1.1d",
           "nativeId": "4.1.1d",
           "title": "Document AI system origin and updates",
-          "description": "Maintain inventory with origin, fine-tuning and updates"
+          "description": "Maintain inventory with origin, fine-tuning and updates."
         },
         {
           "controlId": "GAA-I-4.1.1e",
           "nativeId": "4.1.1e",
           "title": "Document technical requirements",
-          "description": "Maintain inventory with technical requirements and components"
+          "description": "Maintain inventory with technical requirements and components."
         },
         {
           "controlId": "GAA-I-4.1.1f",
           "nativeId": "4.1.1f",
           "title": "Document dataset provenance",
-          "description": "Maintain inventory with datasets and their provenance"
+          "description": "Maintain inventory with datasets and their provenance."
         },
         {
           "controlId": "GAA-I-4.1.1g",
           "nativeId": "4.1.1g",
           "title": "Document acceptance criteria and test results",
-          "description": "Maintain inventory with acceptance criteria and test results"
+          "description": "Maintain inventory with acceptance criteria and test results."
         },
         {
           "controlId": "GAA-I-4.1.1h",
           "nativeId": "4.1.1h",
           "title": "Document impact and risk assessments",
-          "description": "Maintain inventory with impact and risk assessments"
+          "description": "Maintain inventory with impact and risk assessments."
         },
         {
           "controlId": "GAA-I-4.1.1i",
           "nativeId": "4.1.1i",
           "title": "Document risks and treatment plan",
-          "description": "Maintain inventory with identified risks and treatment plan"
+          "description": "Maintain inventory with identified risks and treatment plan."
         },
         {
           "controlId": "GAA-I-4.1.1j",
           "nativeId": "4.1.1j",
           "title": "Document audit outcomes",
-          "description": "Maintain inventory with audit requirements and outcomes"
+          "description": "Maintain inventory with audit requirements and outcomes."
         },
         {
           "controlId": "GAA-I-4.1.1k",
           "nativeId": "4.1.1k",
           "title": "Document review dates",
-          "description": "Maintain inventory with dates of review"
+          "description": "Maintain inventory with dates of review."
         },
         {
           "controlId": "GAA-I-4.2.1a",
           "nativeId": "4.2.1a",
           "title": "Create transparency policy for AI users",
-          "description": "Create policy for transparently communicating to AI users"
+          "description": "Create policy for transparently communicating to AI users."
         },
         {
           "controlId": "GAA-I-4.2.1b",
           "nativeId": "4.2.1b",
           "title": "Create transparency policy for system capabilities",
-          "description": "Create policy for communicating capabilities, limitations and risks"
+          "description": "Create policy for communicating capabilities, limitations and risks."
         },
         {
           "controlId": "GAA-I-4.2.2a",
           "nativeId": "4.2.2a",
           "title": "Evaluate transparency requirements",
-          "description": "Evaluate transparency requirements for each stakeholder group"
+          "description": "Evaluate transparency requirements for each stakeholder group."
         },
         {
           "controlId": "GAA-I-4.2.2b",
           "nativeId": "4.2.2b",
           "title": "Evaluate transparency measures",
-          "description": "Evaluate transparency and explainability system requirements"
+          "description": "Evaluate transparency and explainability system requirements."
         },
         {
           "controlId": "GAA-I-4.2.2c",
           "nativeId": "4.2.2c",
           "title": "Document accessibility compliance",
-          "description": "Evaluate how accessibility obligations are met"
+          "description": "Evaluate how accessibility obligations are met."
         },
         {
           "controlId": "GAA-I-4.2.3",
           "nativeId": "4.2.3",
           "title": "Implement GPAI transparency mechanisms",
-          "description": "Create transparency mechanisms for GPAI systems"
+          "description": "Create transparency mechanisms for GPAI systems."
         },
         {
           "controlId": "GAA-I-4.2.4",
           "nativeId": "4.2.4",
           "title": "Choose interpretable systems",
-          "description": "Choose more interpretable and explainable systems where possible"
+          "description": "Choose more interpretable and explainable systems where possible."
         },
         {
           "controlId": "GAA-I-4.2.5",
           "nativeId": "4.2.5",
           "title": "Provide interpretable systems to deployers",
-          "description": "Provide reasonably interpretable AI systems to downstream deployers"
+          "description": "Provide reasonably interpretable AI systems to downstream deployers."
         },
         {
           "controlId": "GAA-I-4.2.6",
           "nativeId": "4.2.6",
           "title": "Test and communicate capabilities",
-          "description": "Conduct internal testing of capabilities and communicate results"
+          "description": "Conduct internal testing of capabilities and communicate results."
         },
         {
           "controlId": "GAA-I-4.3.1",
           "nativeId": "4.3.1",
           "title": "Document technical details",
-          "description": "Document or request technical details from upstream providers"
+          "description": "Document or request technical details from upstream providers."
         },
         {
           "controlId": "GAA-I-4.3.2a",
           "nativeId": "4.3.2a",
           "title": "Share technical details with deployers",
-          "description": "Share technical details with downstream deployers"
+          "description": "Share technical details with downstream deployers."
         },
         {
           "controlId": "GAA-I-4.3.2b",
           "nativeId": "4.3.2b",
           "title": "Share test methods with deployers",
-          "description": "Share test methods and results with downstream deployers"
+          "description": "Share test methods and results with downstream deployers."
         },
         {
           "controlId": "GAA-I-4.3.2c",
           "nativeId": "4.3.2c",
           "title": "Share limitations and risks with deployers",
-          "description": "Share known limitations, risks and mitigations"
+          "description": "Share known limitations, risks and mitigations."
         },
         {
           "controlId": "GAA-I-4.3.2d",
           "nativeId": "4.3.2d",
           "title": "Share data management information with deployers",
-          "description": "Share data management processes with deployers"
+          "description": "Share data management processes with deployers."
         },
         {
           "controlId": "GAA-I-4.3.2e",
           "nativeId": "4.3.2e",
           "title": "Share security practices with deployers",
-          "description": "Share privacy and cybersecurity practices"
+          "description": "Share privacy and cybersecurity practices."
         },
         {
           "controlId": "GAA-I-4.3.2f",
           "nativeId": "4.3.2f",
           "title": "Share transparency mechanisms with deployers",
-          "description": "Share transparency mechanisms implemented"
+          "description": "Share transparency mechanisms implemented."
         },
         {
           "controlId": "GAA-I-4.3.2g",
           "nativeId": "4.3.2g",
           "title": "Share GPAI information with stakeholders",
-          "description": "Share key GPAI information with stakeholders"
+          "description": "Share key GPAI information with stakeholders."
         },
         {
           "controlId": "GAA-I-4.3.2h",
           "nativeId": "4.3.2h",
           "title": "Manage access to model weights",
-          "description": "Restrict and manage access to model weights"
+          "description": "Restrict and manage access to model weights."
         },
         {
           "controlId": "GAA-I-4.3.3a",
           "nativeId": "4.3.3a",
           "title": "Share system issues with developers",
-          "description": "Share issues and observed risks with upstream developers"
+          "description": "Share issues and observed risks with upstream developers."
         },
         {
           "controlId": "GAA-I-4.3.3b",
           "nativeId": "4.3.3b",
           "title": "Share bias observations with developers",
-          "description": "Share unexpected bias observations with developers"
+          "description": "Share unexpected bias observations with developers."
         },
         {
           "controlId": "GAA-I-4.3.4",
           "nativeId": "4.3.4",
           "title": "Include information requirements in contracts",
-          "description": "Include required information in supplier contracts"
+          "description": "Include required information in supplier contracts."
         },
         {
           "controlId": "GAA-I-4.4.1",
           "nativeId": "4.4.1",
           "title": "Implement AI-generated content transparency",
-          "description": "Implement transparency mechanisms for AI generated content"
+          "description": "Implement transparency mechanisms for AI generated content."
         },
         {
           "controlId": "GAA-I-5.1.1",
           "nativeId": "5.1.1",
           "title": "Establish testing oversight",
-          "description": "Establish oversight mechanisms to review and approve testing"
+          "description": "Establish oversight mechanisms to review and approve testing."
         },
         {
           "controlId": "GAA-I-5.1.2",
           "nativeId": "5.1.2",
           "title": "Define acceptance criteria and test methodologies",
-          "description": "Define clear acceptance criteria and test methodologies"
+          "description": "Define clear acceptance criteria and test methodologies."
         },
         {
           "controlId": "GAA-I-5.1.3",
           "nativeId": "5.1.3",
           "title": "Document tests and outcomes",
-          "description": "Document tests and outcomes for external audits"
+          "description": "Document tests and outcomes for external audits."
         },
         {
           "controlId": "GAA-I-5.1.4",
           "nativeId": "5.1.4",
           "title": "Request provider test results",
-          "description": "Request test methodologies and results from providers"
+          "description": "Request test methodologies and results from providers."
         },
         {
           "controlId": "GAA-I-5.1.5",
           "nativeId": "5.1.5",
           "title": "Obtain deployment authorization",
-          "description": "Obtain documented deployment authorisation based on test results"
+          "description": "Obtain documented deployment authorisation based on test results."
         },
         {
           "controlId": "GAA-I-5.2.1",
           "nativeId": "5.2.1",
           "title": "Establish performance monitoring",
-          "description": "Establish monitoring systems to track key performance metrics"
+          "description": "Establish monitoring systems to track key performance metrics."
         },
         {
           "controlId": "GAA-I-5.2.2",
           "nativeId": "5.2.2",
           "title": "Implement system deployment process",
-          "description": "Implement deployment process mapping business targets to metrics"
+          "description": "Implement deployment process mapping business targets to metrics."
         },
         {
           "controlId": "GAA-I-5.2.3",
           "nativeId": "5.2.3",
           "title": "Establish issue response processes",
-          "description": "Establish response processes for addressing issues during operation"
+          "description": "Establish response processes for addressing issues during operation."
         },
         {
           "controlId": "GAA-I-5.2.4",
           "nativeId": "5.2.4",
           "title": "Conduct regular system reviews",
-          "description": "Establish regular system performance review cycles"
+          "description": "Establish regular system performance review cycles."
         },
         {
           "controlId": "GAA-I-5.2.5",
           "nativeId": "5.2.5",
           "title": "Document monitoring requirements",
-          "description": "Create and document monitoring requirements for each AI system"
+          "description": "Create and document monitoring requirements for each AI system."
         },
         {
           "controlId": "GAA-I-5.3.1",
           "nativeId": "5.3.1",
           "title": "Conduct GPAI safety evaluations",
-          "description": "Conduct safety evaluations that scale with model capabilities"
+          "description": "Conduct safety evaluations that scale with model capabilities."
         },
         {
           "controlId": "GAA-I-5.3.2",
           "nativeId": "5.3.2",
           "title": "Conduct independent review of testing",
-          "description": "Conduct independent review of testing and evaluation methodologies"
+          "description": "Conduct independent review of testing and evaluation methodologies."
         },
         {
           "controlId": "GAA-I-5.3.3",
           "nativeId": "5.3.3",
           "title": "Determine and conduct audits",
-          "description": "Create process to determine whether AI systems require auditing"
+          "description": "Create process to determine whether AI systems require auditing."
         },
         {
           "controlId": "GAA-I-5.4.1a",
           "nativeId": "5.4.1a",
           "title": "Implement data governance for AI",
-          "description": "Implement data governance processes for AI systems"
+          "description": "Implement data governance processes for AI systems."
         },
         {
           "controlId": "GAA-I-5.4.1b",
           "nativeId": "5.4.1b",
           "title": "Implement privacy policies for AI",
-          "description": "Implement privacy policies covering AI systems"
+          "description": "Implement privacy policies covering AI systems."
         },
         {
           "controlId": "GAA-I-5.4.1c",
           "nativeId": "5.4.1c",
           "title": "Implement cybersecurity for AI",
-          "description": "Implement cybersecurity processes for AI systems"
+          "description": "Implement cybersecurity processes for AI systems."
         },
         {
           "controlId": "GAA-I-5.4.2a",
           "nativeId": "5.4.2a",
           "title": "Define data requirements",
-          "description": "Define and document data quality and provenance requirements"
+          "description": "Define and document data quality and provenance requirements."
         },
         {
           "controlId": "GAA-I-5.4.2b",
           "nativeId": "5.4.2b",
           "title": "Document data sources and management",
-          "description": "Understand and document data sources and collection processes"
+          "description": "Understand and document data sources and collection processes."
         },
         {
           "controlId": "GAA-I-5.4.2c",
           "nativeId": "5.4.2c",
           "title": "Define cybersecurity processes",
-          "description": "Define processes for protecting AI models and systems"
+          "description": "Define processes for protecting AI models and systems."
         },
         {
           "controlId": "GAA-I-5.4.2d",
           "nativeId": "5.4.2d",
           "title": "Report on data provenance",
-          "description": "Report to stakeholders on data, model and system provenance"
+          "description": "Report to stakeholders on data, model and system provenance."
         },
         {
           "controlId": "GAA-I-5.4.2e",
           "nativeId": "5.4.2e",
           "title": "Document privacy principle application",
-          "description": "Document how Australian Privacy Principles have been applied"
+          "description": "Document how Australian Privacy Principles have been applied."
         },
         {
           "controlId": "GAA-I-5.4.2f",
           "nativeId": "5.4.2f",
           "title": "Document data usage rights",
-          "description": "Document data usage rights including intellectual property"
+          "description": "Document data usage rights including intellectual property."
         },
         {
           "controlId": "GAA-I-5.4.2g",
           "nativeId": "5.4.2g",
           "title": "Monitor for data leakage",
-          "description": "Monitor for leakage of personal and sensitive information"
+          "description": "Monitor for leakage of personal and sensitive information."
         },
         {
           "controlId": "GAA-I-6.1.1",
           "nativeId": "6.1.1",
           "title": "Maintain operational accountability",
-          "description": "Maintain operational accountability and human oversight throughout the lifecycle"
+          "description": "Maintain operational accountability and human oversight throughout the lifecycle."
         },
         {
           "controlId": "GAA-I-6.1.2",
           "nativeId": "6.1.2",
           "title": "Implement human intervention mechanisms",
-          "description": "Implement mechanisms to enable human control and intervention"
+          "description": "Implement mechanisms to enable human control and intervention."
         },
         {
           "controlId": "GAA-I-6.1.3",
           "nativeId": "6.1.3",
           "title": "Implement systemic risk oversight",
-          "description": "Implement mechanisms to enable human oversight for systemic risks"
+          "description": "Implement mechanisms to enable human oversight for systemic risks."
         },
         {
           "controlId": "GAA-I-6.1.4",
           "nativeId": "6.1.4",
           "title": "Train for system oversight",
-          "description": "Ensure appropriate training for anyone overseeing AI systems"
+          "description": "Ensure appropriate training for anyone overseeing AI systems."
         },
         {
           "controlId": "GAA-I-6.2.1a",
           "nativeId": "6.2.1a",
           "title": "Define decommissioning criteria",
-          "description": "Define criteria for when AI system termination might need to occur"
+          "description": "Define criteria for when AI system termination might need to occur."
         },
         {
           "controlId": "GAA-I-6.2.1b",
           "nativeId": "6.2.1b",
           "title": "Define decommissioning roles",
-          "description": "Define the most appropriate role to oversee decommissioning"
+          "description": "Define the most appropriate role to oversee decommissioning."
         },
         {
           "controlId": "GAA-I-6.2.1c",
           "nativeId": "6.2.1c",
           "title": "Assess critical infrastructure dependencies",
-          "description": "Determine whether system is essential to critical infrastructure"
+          "description": "Determine whether system is essential to critical infrastructure."
         },
         {
           "controlId": "GAA-I-6.2.2",
           "nativeId": "6.2.2",
           "title": "Create decommissioning communication process",
-          "description": "Create process for informing relevant parties of shutdown"
+          "description": "Create process for informing relevant parties of shutdown."
         },
         {
           "controlId": "GAA-I-6.2.3",
           "nativeId": "6.2.3",
           "title": "Determine alternative systems",
-          "description": "Determine whether alternative systems will need to be provided"
+          "description": "Determine whether alternative systems will need to be provided."
         },
         {
           "controlId": "GAA-I-6.2.4",
           "nativeId": "6.2.4",
           "title": "Maintain alternative pathways",
-          "description": "Maintain alternative pathways for critical functions"
+          "description": "Maintain alternative pathways for critical functions."
         }
       ],
       "controlCount": 134
