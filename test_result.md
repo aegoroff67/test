@@ -82,7 +82,7 @@ All OECD Principles alignment modal functionality working as expected with new c
 
 ---
 
-## Previous Test Results - Framework Coverage Feature
+## Previous Test: OECD Alignment Modal Update
 
 ### Previous Test Scope
 Testing the new Framework Coverage Overview page with real backend data integration.
