@@ -8774,6 +8774,190 @@ class AMSafeAPITester:
         
         return True
 
+    def test_framework_registry_summary(self):
+        """Test the framework registry summary endpoint"""
+        print("\n🔍 TESTING FRAMEWORK REGISTRY SUMMARY")
+        print("-" * 60)
+        
+        success, response = self.make_request('GET', 'framework-registry/summary')
+        if not success:
+            self.log_test("Framework Registry Summary Endpoint", False, str(response))
+            return False
+            
+        self.log_test("Framework Registry Summary Endpoint", True)
+        
+        # Verify response structure
+        required_fields = ['version', 'total_controls', 'framework_counts']
+        for field in required_fields:
+            if field not in response:
+                self.log_test(f"Registry summary has {field} field", False, f"Missing {field}")
+                return False
+            self.log_test(f"Registry summary has {field} field", True)
+        
+        # Verify version is "4"
+        if response.get('version') == "4":
+            self.log_test("Registry version is 4", True)
+        else:
+            self.log_test("Registry version is 4", False, f"Got version: {response.get('version')}")
+        
+        # Verify total controls is 411
+        if response.get('total_controls') == 411:
+            self.log_test("Total controls is 411", True)
+        else:
+            self.log_test("Total controls is 411", False, f"Got total: {response.get('total_controls')}")
+        
+        # Verify framework counts
+        expected_counts = {
+            'ISO42001': 38,
+            'NIST-RMF': 72,
+            'EU-AIA': 49,
+            'AEP': 8,
+            'GAA-I': 134,
+            'AU-ASS': 27,
+            'OECD': 26,
+            'SG-MAF': 57
+        }
+        
+        framework_counts = response.get('framework_counts', {})
+        all_counts_correct = True
+        
+        for framework, expected_count in expected_counts.items():
+            actual_count = framework_counts.get(framework)
+            if actual_count == expected_count:
+                self.log_test(f"{framework} has {expected_count} controls", True)
+            else:
+                self.log_test(f"{framework} has {expected_count} controls", False, 
+                            f"Expected {expected_count}, got {actual_count}")
+                all_counts_correct = False
+        
+        return all_counts_correct
+
+    def test_framework_coverage_endpoint(self):
+        """Test the framework coverage endpoint with specific assessment"""
+        print("\n🔍 TESTING FRAMEWORK COVERAGE ENDPOINT")
+        print("-" * 60)
+        
+        # Use the specific assessment ID from the review request
+        assessment_id = "aefbdaa2-5dc9-425a-938d-1b426acd10a5"
+        
+        success, response = self.make_request('GET', f'assessments/{assessment_id}/framework-coverage')
+        if not success:
+            self.log_test("Framework Coverage Endpoint", False, str(response))
+            return False
+            
+        self.log_test("Framework Coverage Endpoint", True)
+        
+        # Verify response structure
+        required_fields = ['assessment_id', 'assessment_name', 'selected_frameworks', 'frameworks']
+        for field in required_fields:
+            if field not in response:
+                self.log_test(f"Coverage response has {field} field", False, f"Missing {field}")
+                return False
+            self.log_test(f"Coverage response has {field} field", True)
+        
+        # Verify 8 frameworks returned
+        frameworks = response.get('frameworks', [])
+        if len(frameworks) == 8:
+            self.log_test("8 frameworks returned", True)
+        else:
+            self.log_test("8 frameworks returned", False, f"Got {len(frameworks)} frameworks")
+        
+        # Find OECD framework and verify its data
+        oecd_framework = None
+        for framework in frameworks:
+            if framework.get('registry_id') == 'OECD':
+                oecd_framework = framework
+                break
+        
+        if not oecd_framework:
+            self.log_test("OECD framework found", False, "OECD framework not in response")
+            return False
+            
+        self.log_test("OECD framework found", True)
+        
+        # Verify OECD total_controls is 26
+        total_controls = oecd_framework.get('total_controls')
+        if total_controls == 26:
+            self.log_test("OECD total_controls is 26", True)
+        else:
+            self.log_test("OECD total_controls is 26", False, f"Got {total_controls}")
+        
+        # Verify OECD controls_addressed is 14
+        controls_addressed = oecd_framework.get('controls_addressed')
+        if controls_addressed == 14:
+            self.log_test("OECD controls_addressed is 14", True)
+        else:
+            self.log_test("OECD controls_addressed is 14", False, f"Got {controls_addressed}")
+        
+        # Verify OECD inherent strong coverage is approximately 53.8%
+        inherent_coverage = oecd_framework.get('inherent_coverage', {})
+        inherent_strong = inherent_coverage.get('strong', 0)
+        if abs(inherent_strong - 53.8) < 0.1:  # Allow small floating point differences
+            self.log_test("OECD inherent strong coverage ~53.8%", True)
+        else:
+            self.log_test("OECD inherent strong coverage ~53.8%", False, f"Got {inherent_strong}%")
+        
+        # Verify each framework has required fields
+        framework_fields = ['framework_id', 'title', 'registry_id', 'total_controls', 'controls_addressed', 
+                          'inherent_coverage', 'achieved_coverage', 'chart_data', 'is_selected']
+        
+        all_frameworks_valid = True
+        for framework in frameworks:
+            framework_name = framework.get('title', 'Unknown')
+            for field in framework_fields:
+                if field not in framework:
+                    self.log_test(f"{framework_name} has {field} field", False, f"Missing {field}")
+                    all_frameworks_valid = False
+                else:
+                    self.log_test(f"{framework_name} has {field} field", True)
+        
+        # Verify frameworks with no alignedControls show 0% coverage
+        iso42001_framework = None
+        for framework in frameworks:
+            if framework.get('registry_id') == 'ISO42001':
+                iso42001_framework = framework
+                break
+        
+        if iso42001_framework:
+            iso_inherent = iso42001_framework.get('inherent_coverage', {})
+            iso_strong = iso_inherent.get('strong', 0)
+            if iso_strong == 0:
+                self.log_test("ISO42001 shows 0% inherent coverage (no alignments)", True)
+            else:
+                self.log_test("ISO42001 shows 0% inherent coverage (no alignments)", False, 
+                            f"Got {iso_strong}% coverage")
+        
+        return all_frameworks_valid
+
+    def test_framework_coverage_authentication(self):
+        """Test that framework coverage endpoints require authentication"""
+        print("\n🔍 TESTING FRAMEWORK COVERAGE AUTHENTICATION")
+        print("-" * 60)
+        
+        # Temporarily remove token to test authentication
+        original_token = self.token
+        self.token = None
+        
+        # Test registry summary without auth
+        success, response = self.make_request('GET', 'framework-registry/summary', expected_status=401)
+        if success:
+            self.log_test("Registry summary requires authentication", True)
+        else:
+            self.log_test("Registry summary requires authentication", False, "Should return 401 without auth")
+        
+        # Test framework coverage without auth
+        assessment_id = "aefbdaa2-5dc9-425a-938d-1b426acd10a5"
+        success, response = self.make_request('GET', f'assessments/{assessment_id}/framework-coverage', expected_status=401)
+        if success:
+            self.log_test("Framework coverage requires authentication", True)
+        else:
+            self.log_test("Framework coverage requires authentication", False, "Should return 401 without auth")
+        
+        # Restore token
+        self.token = original_token
+        
+        return True
+
     def run_all_tests(self):
         """Run all tests in sequence with focus on production issues"""
         print(f"🚀 Starting AM AI SAFE Production API Tests")
