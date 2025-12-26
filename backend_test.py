@@ -8964,7 +8964,12 @@ class AMSafeAPITester:
         if success:
             self.log_test("Registry summary requires authentication", True)
         else:
-            self.log_test("Registry summary requires authentication", False, "Should return 401 without auth")
+            # Check if it's actually returning 200 (which would mean no auth required)
+            success_200, response_200 = self.make_request('GET', 'framework-registry/summary', expected_status=200)
+            if success_200:
+                self.log_test("Registry summary requires authentication", False, "Endpoint accessible without auth (returns 200)")
+            else:
+                self.log_test("Registry summary requires authentication", False, "Should return 401 without auth")
         
         # Test framework coverage without auth
         assessment_id = "aefbdaa2-5dc9-425a-938d-1b426acd10a5"
@@ -8972,7 +8977,12 @@ class AMSafeAPITester:
         if success:
             self.log_test("Framework coverage requires authentication", True)
         else:
-            self.log_test("Framework coverage requires authentication", False, "Should return 401 without auth")
+            # Check if it's actually returning 200 (which would mean no auth required)
+            success_200, response_200 = self.make_request('GET', f'assessments/{assessment_id}/framework-coverage', expected_status=200)
+            if success_200:
+                self.log_test("Framework coverage requires authentication", False, "Endpoint accessible without auth (returns 200)")
+            else:
+                self.log_test("Framework coverage requires authentication", False, "Should return 401 without auth")
         
         # Restore token
         self.token = original_token
