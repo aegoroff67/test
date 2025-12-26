@@ -3,7 +3,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses bias identification and mitigation which is central to Practice 2",
-    "framework_citations": "Implementation Practice 2.1.5b; 2.1.6 (pp.23-24).",
+    "framework_citations": "Implementation Practice 2.1.5b; 2.1.6 (pp.23-24).\n\nSupporting guidance:\n\"AI systems can learn from and amplify existing issues such as unwanted bias in data. This can lead to unfair decisions or inappropriate generated content that could affect many people.\" (Foundations, Practice 2, p.6)",
     "alignedControls": [
       {
         "controlId": "GAA-I-2.1.5b",
@@ -23,7 +23,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Focuses on ensuring training data represents all relevant demographics, which is a key component of data quality requirements",
-    "framework_citations": "\"For each AI use case: Define and document the data quality, data/model provenance and data preparation requirements.\" (Implementation Practice 5.4.2a, p.6)",
+    "framework_citations": "\"For each AI use case: Define and document the data quality, data/model provenance and data preparation requirements.\" (Implementation Practice 5.4.2a, p.34)",
     "alignedControls": [
       {
         "controlId": "GAA-I-5.4.2a",
@@ -51,7 +51,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "Addresses measuring fairness in AI outputs, which supports impact assessment of unfair decisions",
-    "framework_citations": "Implementation Practice 2.1.1; 2.1.5a; 2.1.6 (pp.23-24).",
+    "framework_citations": "Implementation Practice 2.1.1; 2.1.5a; 2.1.6 (pp.23-24).\n\nSupporting guidance:\n\"Carry out a stakeholder impact assessment. Identify the groups and types of people your AI systems may affect... Assess all potential impacts, such as unfair decisions\" (Foundations, Practice 2.1, p.6)",
     "alignedControls": [
       {
         "controlId": "GAA-I-2.1.1",
@@ -77,7 +77,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Testing for biases in real-world scenarios aligns with pre-deployment testing requirements",
-    "framework_citations": "Implementation Practice 5.1.2; 5.3.2 (pp.33-34).",
+    "framework_citations": "Implementation Practice 5.1.2; 5.3.2 (pp.33-34).\n\nSupporting guidance:\n\"Test before you deploy a system. Consider how you want to use your AI system. Decide how you might test the system to ensure it is performing how you want it to, and conduct them.\" (Foundations, Practice 5.2, p.9)",
     "alignedControls": [
       {
         "controlId": "GAA-I-5.1.2",
@@ -97,7 +97,7 @@
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "Use of specific frameworks like Fairlearn is not explicitly mentioned, though general assessment of bias is covered",
-    "framework_citations": "Implementation Practice 3.3.1; 3.3.4 (p.28).",
+    "framework_citations": "Implementation Practice 3.3.1; 3.3.4 (p.28).\n\nSupporting guidance:\n\"Conduct risk assessments and create mitigation plans for each specific use case and identified impacts in that context.\" (Foundations, Practice 3.3, p.7)",
     "alignedControls": [
       {
         "controlId": "GAA-I-3.3.1",
@@ -117,7 +117,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Ensuring fairness for minority groups directly aligns with guidance focus on vulnerable populations",
-    "framework_citations": "Implementation Practice 2.1.5a; 2.1.8 (pp.23-24).",
+    "framework_citations": "Implementation Practice 2.1.5a; 2.1.8 (pp.23-24).\n\nSupporting guidance:\n\"Pay particular attention to vulnerable or marginalised cohorts.\" (Foundations, Practice 2.1, p.6)",
     "alignedControls": [
       {
         "controlId": "GAA-I-2.1.5a",
@@ -151,7 +151,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses transparency about system capabilities and limitations",
-    "framework_citations": "Implementation Practice 4.2.2b; 4.1.1 (pp.29-30).",
+    "framework_citations": "Implementation Practice 4.2.2b; 4.1.1 (pp.29-30).\n\nSupporting guidance:\n\"Identify, document and communicate AI system capabilities and limitations. Explaining these capabilities and limitations to relevant stakeholders can prevent their overreliance on or misuse of AI\" (Foundations, Practice 4.3, p.8)",
     "alignedControls": [
       {
         "controlId": "GAA-I-4.2.2b",
@@ -241,7 +241,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses user awareness of AI interaction",
-    "framework_citations": "Implementation Practice 4.2.1a; 4.3.1 (pp.30-31).",
+    "framework_citations": "Implementation Practice 4.2.1a; 4.3.1 (pp.30-31).\n\nSupporting guidance:\n\"Disclose your use of AI. Make it standard practice in your organisation to clearly communicate your use of AI to your stakeholders.\" (Foundations, Practice 4.2, p.8)",
     "alignedControls": [
       {
         "controlId": "GAA-I-4.2.1a",
@@ -289,7 +289,7 @@
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "Testing understandability for non-technical users is implied but specific testing methods aren't detailed",
-    "framework_citations": "Implementation Practice 4.2.2b; 4.2.5 (p.30).",
+    "framework_citations": "Implementation Practice 4.2.2b; 4.2.5 (p.30).\n\nSupporting guidance:\n\"Set up ways to explain AI outcomes, especially when they affect people. The detail in your explanation should match how serious the outcome is, and it should be easy for people who are affected to understand.\" (Foundations, Practice 4.5, p.8)",
     "alignedControls": [
       {
         "controlId": "GAA-I-4.2.2b",
@@ -309,7 +309,7 @@
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
     "alignmentRationale": "Providing multiple explanation formats is implied but not explicitly required",
-    "framework_citations": "Implementation Practice 4.2.2b; 4.2.5 (p.30).",
+    "framework_citations": "Implementation Practice 4.2.2b; 4.2.5 (p.30).\n\nSupporting guidance:\n\"Set up ways to explain AI outcomes, especially when they affect people. The detail in your explanation should match how serious the outcome is, and it should be easy for people who are affected to understand.\" (Foundations, Practice 4.5, p.8)",
     "alignedControls": [
       {
         "controlId": "GAA-I-4.2.2b",
@@ -357,7 +357,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses ensuring interpretable decisions for users",
-    "framework_citations": "Implementation Practice 4.2.2b; 2.2.2 (pp.24, 30).",
+    "framework_citations": "Implementation Practice 4.2.2b; 2.2.2 (pp.24, 30).\n\nSupporting guidance:\n\"Set up ways to explain AI outcomes, especially when they affect people. The detail in your explanation should match how serious the outcome is, and it should be easy for people who are affected to understand.\" (Foundations, Practice 4.5, p.8)",
     "alignedControls": [
       {
         "controlId": "GAA-I-4.2.2b",
@@ -391,7 +391,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "Tailoring explanations for specific groups aligns with guidance on matching detail to the audience",
-    "framework_citations": "Implementation Practice 4.2.2b (p.30).",
+    "framework_citations": "Implementation Practice 4.2.2b (p.30).\n\nSupporting guidance:\n\"The detail in your explanation should match how serious the outcome is, and it should be easy for people who are affected to understand.\" (Foundations, Practice 4.5, p.8)",
     "alignedControls": [
       {
         "controlId": "GAA-I-4.2.2b",
@@ -629,7 +629,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses testing for consistent performance under different conditions",
-    "framework_citations": "Implementation Practice 5.1.2; 5.3.2 (pp.33-34).",
+    "framework_citations": "Implementation Practice 5.1.2; 5.3.2 (pp.33-34).\n\nSupporting guidance:\n\"Test before you deploy a system. Consider how you want to use your AI system. Decide how you might test the system to ensure it is performing how you want it to, and conduct them.\" (Foundations, Practice 5.2, p.9)",
     "alignedControls": [
       {
         "controlId": "GAA-I-5.1.2",
@@ -649,7 +649,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Focuses on stress testing and simulations for robustness",
-    "framework_citations": "Implementation Practice 5.3.1; 5.3.3 (p.34).",
+    "framework_citations": "Implementation Practice 5.3.1; 5.3.3 (p.34).\n\nSupporting guidance:\n\"Stress-test your AI system to spot issues or vulnerabilities before others do. Make sure safety, security and policy controls are sound, even when someone deliberately tries to break or bypass them.\" (Foundations, Practice 5.5, p.9)",
     "alignedControls": [
       {
         "controlId": "GAA-I-5.3.1",
@@ -669,7 +669,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Addresses monitoring for model drift and performance degradation",
-    "framework_citations": "Implementation Practice 5.2.1; 5.2.4 (p.33).",
+    "framework_citations": "Implementation Practice 5.2.1; 5.2.4 (p.33).\n\nSupporting guidance:\n\"Monitor your system after you deploy it. Set up a monitoring process that helps you detect changes in performance and behaviour.\" (Foundations, Practice 5.3, p.9)",
     "alignedControls": [
       {
         "controlId": "GAA-I-5.2.1",
@@ -717,7 +717,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "Focuses on consistent performance under varying conditions including edge cases",
-    "framework_citations": "Implementation Practice 5.1.2 (p.33).",
+    "framework_citations": "Implementation Practice 5.1.2 (p.33).\n\nSupporting guidance:\n\"Test before you deploy a system. Consider how you want to use your AI system. Decide how you might test the system to ensure it is performing how you want it to, and conduct them.\" (Foundations, Practice 5.2, p.9)",
     "alignedControls": [
       {
         "controlId": "GAA-I-5.1.2",
@@ -983,7 +983,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses safety impact assessment",
-    "framework_citations": "Implementation Practice 2.1.1; 2.1.5a (pp.23-24).",
+    "framework_citations": "Implementation Practice 2.1.1; 2.1.5a (pp.23-24).\n\nSupporting guidance:\n\"Carry out a stakeholder impact assessment. Identify the groups and types of people your AI systems may affect. Pay particular attention to vulnerable or marginalised cohorts.\" (Foundations, Practice 2.1, p.6)",
     "alignedControls": [
       {
         "controlId": "GAA-I-2.1.1",
@@ -1017,7 +1017,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Addresses real-time monitoring for unsafe system behavior",
-    "framework_citations": "Implementation Practice 5.2.1; 5.2.4 (p.33).",
+    "framework_citations": "Implementation Practice 5.2.1; 5.2.4 (p.33).\n\nSupporting guidance:\n\"Monitor your system after you deploy it. Set up a monitoring process that helps you detect changes in performance and behaviour.\" (Foundations, Practice 5.3, p.9)",
     "alignedControls": [
       {
         "controlId": "GAA-I-5.2.1",
@@ -1037,7 +1037,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Covers handling conflicts between system actions and human safety",
-    "framework_citations": "Implementation Practice 6.2.1a (p.36).",
+    "framework_citations": "Implementation Practice 6.2.1a (p.36).\n\nSupporting guidance:\n\"Build in human override points. Make sure you have clear intervention points where humans can pause, override, roll back or shut down AI systems if needed.\" (Foundations, Practice 6.2, p.10)",
     "alignedControls": [
       {
         "controlId": "GAA-I-6.2.1a",
@@ -1079,7 +1079,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Addresses fail-safe mechanisms and redundancies for system safety",
-    "framework_citations": "Implementation Practice 6.2.1a (p.36).",
+    "framework_citations": "Implementation Practice 6.2.1a (p.36).\n\nSupporting guidance:\n\"Build in human override points. Make sure you have clear intervention points where humans can pause, override, roll back or shut down AI systems if needed.\" (Foundations, Practice 6.2, p.10)",
     "alignedControls": [
       {
         "controlId": "GAA-I-6.2.1a",
@@ -1093,7 +1093,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Covers safety testing in realistic or high-risk scenarios",
-    "framework_citations": "Implementation Practice 5.3.1 (p.34).",
+    "framework_citations": "Implementation Practice 5.3.1 (p.34).\n\nSupporting guidance:\n\"Stress-test your AI system to spot issues or vulnerabilities before others do.\" (Foundations, Practice 5.5, p.9)",
     "alignedControls": [
       {
         "controlId": "GAA-I-5.3.1",
@@ -1107,7 +1107,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Directly addresses system accessibility for diverse users including those with disabilities",
-    "framework_citations": "Implementation Practice 4.2.2c (p.30).",
+    "framework_citations": "\"How accessibility obligations and commitments are met by implementing human-centered design.\" (Implementation Practice 4.2.2c, p.30)",
     "alignedControls": [
       {
         "controlId": "GAA-I-4.2.2c",
@@ -1121,7 +1121,7 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "Focuses on incorporating diverse perspectives during design and development",
-    "framework_citations": "Implementation Practice 2.1.8 (p.24).",
+    "framework_citations": "Implementation Practice 2.1.8 (p.24).\n\nSupporting guidance:\n\"Engage your stakeholders early and continue engaging them throughout the AI lifecycle, especially your staff and customers. Understand their needs, concerns and how they might be affected.\" (Foundations, Practice 2.3, p.6)",
     "alignedControls": [
       {
         "controlId": "GAA-I-2.1.8",
