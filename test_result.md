@@ -18,6 +18,66 @@ Testing the OECD Principles alignment modal update with new content from CSV dat
 - Email: andrew@test.com
 - Password: password123
 
+## OECD Modal Test Results ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 26, 2025  
+**Assessment Tested:** System_Test_In-Progress_2025-12-21 (FA-1 question)  
+**Test Status:** All critical functionality verified successfully
+
+### Detailed Test Results
+
+#### 1. Modal Trigger ✅ PASSED
+- ✅ OECD alignment indicator found on System Maturity Assessment page
+- ✅ "OECD Principles - Full" button clickable and responsive
+- ✅ Modal opens immediately upon clicking alignment indicator
+
+#### 2. Modal Header Content ✅ PASSED
+- ✅ Question code "FA-1" displayed correctly in header
+- ✅ "OECD Principles on AI (2019)" framework name shown in header
+- ✅ Header uses correct slate/gray-blue color theme (bg-slate-600)
+- ✅ Question text properly displayed: "What measures have you implemented to identify and mitigate biases in your AI system?"
+
+#### 3. Alignment Badges ✅ PASSED
+- ✅ Alignment Type badge shows "Fully Aligns" with correct styling
+- ✅ Confidence Level badge shows "High" with appropriate color coding
+- ✅ Both badges positioned correctly side-by-side
+
+#### 4. Rationale Section ✅ PASSED
+- ✅ "Alignment Details / Rationale" section header present
+- ✅ Rationale content displayed with bg-slate-50 background
+- ✅ Content shows meaningful text: "This question directly addresses bias identification and mitigation which is core to the OECD's principle on respecting human rights and democratic values especially the focus on non-discrimination and fairness."
+
+#### 5. Citation Section ✅ PASSED
+- ✅ "OECD AI Principles Citation(s)" section header present
+- ✅ Citation content displayed with border-l-4 border-slate-500 styling
+- ✅ Citation includes proper reference: "Section 1.2.a"
+- ✅ Full citation text: "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice, and internationally recognised labour rights. (Section 1.2.a)"
+
+#### 6. Disclaimer ✅ PASSED
+- ✅ Disclaimer text present at bottom of modal
+- ✅ Correct disclaimer content: "Disclaimer: Framework alignments are indicative, derived mappings based on AM AI SAFE's independent interpretation of publicly available guidance. They do not constitute legal advice, regulatory approval, or official framework endorsement."
+
+#### 7. Modal Close Functionality ✅ PASSED
+- ✅ Close button present with bg-slate-600 styling
+- ✅ Modal closes successfully when Close button clicked
+- ✅ No modal remnants remain after closing
+
+### Technical Verification
+- **Modal Text Length:** 1023 characters (appropriate content volume)
+- **UI Theme Consistency:** Slate color scheme properly implemented
+- **Responsive Design:** Modal displays correctly on desktop viewport (1920x1080)
+- **Data Integration:** Real data from oecdPrinciplesAlignmentData.json successfully loaded
+
+### Integration Testing
+- ✅ System Maturity Assessment page loads correctly
+- ✅ Framework alignment badges display for all selected frameworks
+- ✅ OECD modal integrates seamlessly with existing assessment flow
+- ✅ No JavaScript errors or console warnings observed
+
+### Issues Found: None
+All OECD Principles alignment modal functionality working as expected with new content and UI updates.
+
 ---
 
 ## Previous Test Results - Framework Coverage Feature
