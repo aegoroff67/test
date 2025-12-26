@@ -6610,6 +6610,27 @@ class AMSafeAPITester:
         return success
 
     def test_login_with_provided_credentials(self):
+        """Test login with the specific credentials provided in the review request"""
+        print("\n🔍 TESTING LOGIN WITH PROVIDED CREDENTIALS")
+        print("-" * 60)
+        
+        # Test credentials from review request
+        login_data = {
+            "email": "andrew@test.com",
+            "password": "password123"
+        }
+        
+        success, response = self.make_request('POST', 'auth/login', login_data)
+        if success and 'access_token' in response:
+            self.token = response['access_token']
+            self.user_data = response['user']
+            self.log_test("Login with andrew@test.com", True)
+            print(f"   📝 User: {self.user_data.get('name', 'Unknown')}")
+            print(f"   📝 Organization: {self.user_data.get('organization_name', 'Unknown')}")
+            return True
+        else:
+            self.log_test("Login with andrew@test.com", False, str(response))
+            return False
         """Test login with the specific credentials provided in review request"""
         login_data = {
             "email": "superadmin@emergentmethods.ai",
