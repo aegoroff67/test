@@ -172,7 +172,7 @@ export default function EuAiActAlignmentModal({ isOpen, onClose, questionCode, q
           {/* Disclaimer */}
           <div className="mt-6 pt-4 border-t border-gray-200">
             <p className="text-xs text-gray-500 leading-relaxed">
-              <span className="font-semibold">Disclaimer:</span> Framework alignments are indicative, derived mappings based on AM AI SAFE's independent interpretation of publicly available guidance. They do not constitute legal advice, regulatory approval, or official framework endorsement.
+              <span className="font-semibold">Disclaimer:</span> Framework alignments are indicative, derived mappings based on AM AI SAFE&apos;s independent interpretation of publicly available guidance. They do not constitute legal advice, regulatory approval, or official framework endorsement.
             </p>
           </div>
         </div>
