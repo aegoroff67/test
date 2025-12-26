@@ -1938,6 +1938,20 @@ async def get_assessment_framework_coverage(
     }
 
 
+
+@api_router.get("/framework-registry/summary")
+async def get_framework_registry_summary(
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """
+    Get summary information from the master control registry.
+    
+    Returns version, total controls, and breakdown by framework.
+    """
+    return get_registry_summary()
+
+
+
 @api_router.post("/assessments/{assessment_id}/organisation-info")
 async def update_organisation_info(
     assessment_id: str,
