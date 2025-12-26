@@ -8971,6 +8971,14 @@ class AMSafeAPITester:
             if not self.test_production_authentication_flow():
                 print("❌ Production authentication failed - continuing with other tests")
         
+        # === FRAMEWORK COVERAGE TESTS (NEW PRIORITY) ===
+        print("\n" + "🎯 FRAMEWORK COVERAGE TESTS (NEW PRIORITY)" + "\n" + "=" * 60)
+        
+        # Test the updated framework coverage calculation with master control registry
+        self.test_framework_registry_summary()
+        self.test_framework_coverage_endpoint()
+        self.test_framework_coverage_authentication()
+        
         # === CRITICAL P0: FAIRA ASSESSMENT DATA PERSISTENCE (HIGHEST PRIORITY) ===
         print("\n" + "🔥" * 80)
         print("CRITICAL P0: FAIRA ASSESSMENT DATA PERSISTENCE TESTING (HIGHEST PRIORITY)")
