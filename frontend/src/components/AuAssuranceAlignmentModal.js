@@ -1,10 +1,12 @@
-import React from 'react';
-import { X } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, ChevronRight, ChevronDown } from 'lucide-react';
 
 export default function AuAssuranceAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
   if (!isOpen || !alignmentData) return null;
 
-  const { alignmentType, confidenceLevel, alignmentRationale, framework_citations } = alignmentData;
+  const { alignmentType, confidenceLevel, alignmentRationale, framework_citations, alignedControls } = alignmentData;
 
   // Function to get confidence level color based on level
   const getConfidenceLevelColor = (level) => {
@@ -23,6 +25,8 @@ export default function AuAssuranceAlignmentModal({ isOpen, onClose, questionCod
     return 'bg-gray-100 text-gray-800 border-gray-300';
   };
 
+  const controlCount = alignedControls?.length || 0;
+
   return (
     <div 
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
@@ -38,18 +42,20 @@ export default function AuAssuranceAlignmentModal({ isOpen, onClose, questionCod
         <div className="bg-orange-600 text-white p-6">
           <div className="flex justify-between items-start">
             <div className="flex-1 pr-4">
-              <h2 className="text-xl font-semibold">
-                Australian National Framework for the Assurance of AI in Government (2024) Alignment Information
+              <div className="flex items-center space-x-2 mb-1">
+                <span className="text-orange-200 text-sm font-medium">{questionCode}</span>
+                <span className="text-orange-300">•</span>
+                <span className="text-orange-200 text-sm">AU Assurance Framework</span>
+              </div>
+              <h2 className="text-lg font-semibold leading-tight">
+                {questionText}
               </h2>
-              <p className="text-sm text-orange-100 mt-1">
-                {questionCode}: {questionText}
-              </p>
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:bg-orange-700 rounded-lg p-2 transition-colors flex-shrink-0"
+              className="text-orange-200 hover:text-white transition-colors flex-shrink-0"
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             </button>
           </div>
         </div>
@@ -57,7 +63,7 @@ export default function AuAssuranceAlignmentModal({ isOpen, onClose, questionCod
         {/* Content */}
         <div className="p-6 overflow-y-auto flex-1">
           {/* Alignment Type & Confidence Level - Side by side */}
-          <div className="grid grid-cols-2 gap-6 mb-6">
+          <div className="mb-6 flex items-center justify-between flex-wrap gap-4">
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-2">Alignment Type</h3>
               <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${
@@ -93,12 +99,73 @@ export default function AuAssuranceAlignmentModal({ isOpen, onClose, questionCod
 
           {/* Citation */}
           {framework_citations && (
-            <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">Australian National Framework for the Assurance of AI in Government Citation(s)</h3>
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">AU Assurance Framework Citation(s)</h3>
               <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-orange-500">
                 <p className="text-sm text-gray-700 italic leading-relaxed">
                   {framework_citations}
                 </p>
+              </div>
+            </div>
+          )}
+
+          {/* Framework Control Mapping - Expandable */}
+          {(alignedControls && alignedControls.length > 0) && (
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">Framework Control Mapping</h3>
+              <div className="border border-gray-200 rounded-lg overflow-hidden">
+                {/* Expandable Header */}
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="w-full flex items-center gap-2 px-4 py-3 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                >
+                  {isExpanded ? (
+                    <ChevronDown className="h-4 w-4 text-gray-600" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4 text-gray-600" />
+                  )}
+                  <span className="text-sm text-orange-700 font-medium">View mapped controls</span>
+                  <span className="text-sm text-gray-500">({controlCount})</span>
+                </button>
+
+                {/* Expandable Table */}
+                {isExpanded && (
+                  <div className="border-t border-gray-200">
+                    <table className="w-full text-sm">
+                      <thead className="bg-gray-100">
+                        <tr>
+                          <th className="px-4 py-2 text-left font-semibold text-gray-700 border-b">Framework Control</th>
+                          <th className="px-4 py-2 text-left font-semibold text-gray-700 border-b">Alignment</th>
+                          <th className="px-4 py-2 text-left font-semibold text-gray-700 border-b">AM AI SAFE Control</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {alignedControls.map((control, index) => (
+                          <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                            <td className="px-4 py-2 border-b border-gray-100 font-medium text-gray-800">
+                              {control.nativeId}
+                            </td>
+                            <td className="px-4 py-2 border-b border-gray-100">
+                              <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                                control.alignmentType === 'full' 
+                                  ? 'bg-green-100 text-green-800' 
+                                  : 'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {control.alignmentType === 'full' ? 'Full' : 'Partial'}
+                              </span>
+                            </td>
+                            <td className="px-4 py-2 border-b border-gray-100 text-gray-700">
+                              <span className="font-medium text-orange-700">{control.controlId}</span>
+                              {control.description && (
+                                <span className="text-gray-500"> - {control.description}</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             </div>
           )}
