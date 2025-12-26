@@ -2,58 +2,47 @@
 
 Throughout the session, the user provided highly detailed, iterative feedback on UI/UX, including button layouts, padding, text, icon consistency, and the functionality of the new form (progress bar, sidebar navigation, save/load behavior). This involved debugging a critical data persistence issue, fixing progress calculation discrepancies, and creating a new results summary page for the FAIRA assessment.
 
-The user then provided a comprehensive scoring schema, which the agent implemented. This involved creating a backend scoring engine, an API endpoint, and updating the frontend results page to display calculated scores instead of placeholder data. The agent and user then went through an extensive process of debugging and refining the scoring methodology, including:
-- Fixing a critical JWT token expiry bug that caused data loss.
-- Correcting domain name mappings between the schema, backend, and frontend.
-- Implementing a complex scoring formula with multiple derived indicators.
-- Validating the calculations against a completed assessment.
-- Iteratively refining the scoring schema based on user feedback (e.g., correcting negative CE modifiers).
-- Improving the UI of the results page with new features like inherent vs. residual risk toggles and enhanced tooltips.
-- Debugging form completion logic issues.
+The user then provided a comprehensive scoring schema, which the agent implemented. This involved creating a backend scoring engine, an API endpoint, and updating the frontend results page to display calculated scores instead of placeholder data. The agent and user then went through an extensive process of debugging and refining the scoring methodology, including fixing a critical JWT token expiry bug that caused data loss.
 
 Subsequently, the user requested a massive content update for the 'AI System Maturity Assessment,' including changing question text, predefined answers, context, additional guidance, and evidence-type tooltips for numerous questions. This led to the discovery that question content is stored in a MongoDB database and requires direct updates, not just file changes.
 
-The user then requested a new 'Framework Coverage' page to visualize assessment alignment with various governance frameworks, which the agent built with a placeholder UI. This session focused on making that page fully dynamic with real data, and then pivoted to a new major feature: building a complete, centralized **Framework Control Registry** to serve as the source of truth for all framework-related analytics.
+The user then requested a new 'Framework Coverage' page to visualize assessment alignment with various governance frameworks, which the agent built with a placeholder UI. The previous session focused on making that page fully dynamic and pivoted to a new major feature: building a complete, centralized **Framework Control Registry** to serve as the source of truth for all framework-related analytics. The current session has been dedicated to populating this registry and updating all associated framework modals with data provided iteratively by the user.
 
 **User's preferred language**: English
 
 **what currently exists?**
 The application is a full-stack AI maturity and risk assessment platform.
-- **Framework Coverage Page:** A once-static page is now fully dynamic. It fetches calculated data from a new backend endpoint () and correctly greys out cards for frameworks not selected in the assessment.
-- **Framework Control Registry:** The architectural foundation has been laid. The user provided a master Excel file () containing 280 controls across 8 frameworks, which is now the definitive source of truth.
-- **Alignment Data Enrichment:** The alignment data files for **ISO 42001, NIST AI RMF, and EU AI Act** have been enriched with a new  array. This array links assessment questions to specific control IDs from the master registry.
-- **Standardized Data Fields:** Citation-related fields across all 8 framework alignment data files (e.g., , , ) have been standardized to a single field: .
-- **UI/UX Updates:**
-    - The  now has red asterisks () indicating mandatory text fields.
-    - The framework alignment modals for ISO 42001 and NIST AI RMF have been significantly enhanced with a new, expandable table UI that displays detailed control mappings, populated by the new  data.
-    - All 8 framework alignment modals have been updated to use the new  field.
-    - The Australian AI Ethics alignment modal has had content sections reordered and updated based on user requests.
+- **Master Control Registry:** A centralized JSON file, , exists and is on its 3rd version. It contains 390 controls across all 8 frameworks, serving as the single source of truth.
+- **Dynamic Alignment Modals:** The alignment modals for ISO 42001, NIST AI RMF, EU AI Act, Australian AI Ethics, Australian Guidance for AI Adoption, AU Assurance Framework, and Singapore MAF have been updated. They now feature a dynamic, expandable table that displays detailed control mappings.
+- **Enriched Alignment Data:** The corresponding JSON data files for the above 7 frameworks have been enriched with a new  array, linking assessment questions to control IDs from the master registry.
+- **Content Updates:** Citations and rationale text have been updated for the Australian Guidance and AU Assurance frameworks based on user-provided data.
+- **UI Standardization:** A disclaimer has been added to the footer of all 8 AI System Maturity Assessment alignment modals.
 
 **Last working item**:
-    - Last item agent was working: The agent was about to implement the new, expandable Framework Control Mapping table UI in the  component. This follows the successful implementation of the same UI for the ISO 42001 and NIST modals. The necessary data, including the  array, has already been generated and added to .
-    - Status: IN PROGRESS
+    - Last item agent was working: The agent was attempting to process user-provided data for the **OECD Principles** framework. It extracted the data from a CSV and tried to run a Python script to update the corresponding alignment data file, but the script failed.
+    - Status: BLOCKED
     - Agent Testing Done: N
-    - Which testing method agent to use? screenshot tool
+    - Which testing method agent to use? python -c
     - User Testing Done: N
 
 **All Pending/In progress Issue list**:
-  - Issue 1: Implement the expandable Framework Control Mapping table UI for the EU AI Act modal. (P0, HIGHEST)
-  - Issue 2: The 'Top 3 Action Steps' on the main  are calculated using incorrect logic. (P1)
-  - Issue 3: The sidebar scroll-to-section feature in  should be functionally verified. (P2)
-  - Issue 4: A persistent ~1% progress discrepancy between the dashboard and the FAIRA assessment form remains. (P3)
+  - Issue 1:  Python script to update OECD alignment data failed with . (P0, HIGHEST)
+  - Issue 2:  The 'Top 3 Action Steps' on the main  are calculated using incorrect logic. (P1)
+  - Issue 3:  The  question was present in the user's citation data for the Australian Guidance for AI Adoption framework but is missing from the alignment data file. The agent noted this discrepancy but has not resolved it. (P2)
+  - Issue 4:  The sidebar scroll-to-section feature in  should be functionally verified. (P3)
+  - Issue 5:  A persistent ~1% progress discrepancy between the dashboard and the FAIRA assessment form remains. (P4)
   
   Issues Detail:
   - Issue 1: 
-     - Attempted fixes: The UI pattern for this table was successfully created and implemented in  and . The backend data enrichment for the EU AI Act is also complete.
+     - Attempted fixes: The agent ran a Python script to update the OECD alignment file. The script failed because the hardcoded path  was incorrect.
      - Next debug checklist: 
-        1. View .
-        2. Replace the static  section with the new expandable table component, copying the pattern from .
-        3. Ensure the component correctly reads the  array from the alignment data prop.
-        4. Take a screenshot to verify the new UI renders correctly with the EU AI Act data.
-     - Why fix this issue and what will be achieved with the fix? To provide a consistent, detailed, and user-friendly UI for viewing control mappings across all frameworks.
+        1. List the contents of  to find the correct filename for the OECD alignment data (it is likely named ).
+        2. Correct the filename in the Python script.
+        3. Re-run the script to update the OECD alignment data file.
+     - Why fix this issue and what will be achieved with the fix? This is the final step in enriching all 8 framework data files. Fixing it will allow the agent to update the final alignment modal UI and complete the data ingestion phase of the task.
      - Status:  IN PROGRESS
      - Is recurring issue? N
-     - Should Test frontend/backend/both after fix? Frontend
+     - Should Test frontend/backend/both after fix? Backend (by verifying the file update)
      - Blocked on other issue: None
 
   - Issue 2: 
@@ -66,6 +55,17 @@ The application is a full-stack AI maturity and risk assessment platform.
      - Blocked on other issue: None
 
   - Issue 3: 
+     - Attempted fixes: The agent asked the user for clarification but did not receive a direct response and moved on.
+     - Next debug checklist: 
+        1. Review the  file.
+        2. Ask the user again if an alignment mapping should be created for question  for the Australian Guidance for AI Adoption framework.
+     - Why fix this issue and what will be achieved with the fix? To ensure data integrity and that all user-provided information is correctly represented in the system.
+     - Status:  NOT STARTED
+     - Is recurring issue? N
+     - Should Test frontend/backend/both after fix? Backend (data file)
+     - Blocked on other issue: None
+
+  - Issue 4: 
      - Attempted fixes: None in this session.
      - Next debug checklist: Start a FAIRA assessment and click on sidebar section links to confirm the viewport scrolls to the correct section headers.
      - Why fix this issue and what will be achieved with the fix? To confirm the usability of the long FAIRA form.
@@ -74,50 +74,47 @@ The application is a full-stack AI maturity and risk assessment platform.
      - Should Test frontend/backend/both after fix? Frontend
      - Blocked on other issue: None
 
-  - Issue 4: 
+  - Issue 5: 
      - Attempted fixes: None in this session.
      - Next debug checklist: Requires a full audit of progress calculation logic in both  and .
-     - Why fix this issue and what will be achieved with與 this fix? To achieve perfect consistency between the dashboard and the assessment form. This is a low-priority polish item.
+     - Why fix this issue and what will be achieved with this fix? To achieve perfect consistency between the dashboard and the assessment form. This is a low-priority polish item.
      - Status:  NOT STARTED
      - Is recurring issue? Y
      - Should Test frontend/backend/both after fix? Both
      - Blocked on other issue: None
 
 **In progress Task List**:
-  - Task 1:  Implement the Framework Control Registry and related UI/backend changes (P0)
+  - Task 1:  Complete the Framework Control Registry data enrichment and UI updates (P0)
   
  Task Detail:
   - Task 1: 
-     - Where to resume: The immediate sub-task is to finish the UI update for . After that, the agent must wait for the user to provide the question-to-control mapping data for the 5 remaining frameworks (AU AI Ethics, AU Guidance, AU Assurance, OECD, Singapore MAF).
-     - What will be achieved with this? A complete, centralized control registry and updated alignment data for all 8 frameworks, enabling highly accurate framework coverage calculations and a consistent, detailed UI for the user.
+     - Where to resume: The agent is blocked on updating the OECD Principles alignment data due to a . The immediate next step is to find the correct filename and retry the update script. Once the data is updated, the agent needs to update the  component with the expandable table UI.
+     - What will be achieved with this? A complete, centralized control registry and updated alignment data for all 8 frameworks, with a consistent, detailed UI for the user across all alignment modals.
      - Status:  IN PROGRESS
      - Should Test frontend/backend/both after fix? Both
-     - Blocked on something: Waiting for user to provide alignment mapping spreadsheets for the 5 remaining frameworks.
+     - Blocked on something:  in the update script.
 
 **Upcoming and Future Tasks**
     Upcoming Tasks:
-    - Task 1 (P0): Implement the expandable Framework Control Mapping table UI for the remaining 5 framework modals (AU Ethics, AU Guidance, AU Assurance, OECD, Singapore MAF) once the user provides the alignment data.
-    - Task 2 (P1): Update the backend coverage calculation logic in . The logic must be modified to use the **total control counts** from the master registry as the denominator for percentage calculations, ensuring controls with no alignment are correctly factored in.
-    - Task 3 (P2): Implement a print-specific, multi-page CSS layout for the results summary page.
-    - Task 4 (P3): Develop backend functionality for generating DOCX reports.
+    - Task 1 (P0): Update the backend coverage calculation logic in . The logic must be modified to use the **total control counts** from the master registry () as the denominator for percentage calculations. This will make the coverage stats more accurate.
+    - Task 2 (P1): Implement a print-specific, multi-page CSS layout for the results summary page.
+    - Task 3 (P2): Develop backend functionality for generating DOCX reports.
     Future Tasks:
-    - Task 5 (P4): Implement enterprise-level SSO (SAML/OIDC).
-    - Task 6 (P5): Implement a Stripe paywall for premium assessments.
+    - Task 4 (P3): Implement enterprise-level SSO (SAML/OIDC).
+    - Task 5 (P4): Implement a Stripe paywall for premium assessments.
 
 **Completed work in this session**
-- **Framework Coverage Page Made Dynamic:**
-  - Implemented logic to grey out unselected framework cards.
-  - Created a new backend endpoint () and calculation module () to serve real data.
-  - Connected the frontend page to the backend, replacing all mock data with live, calculated data.
-- **Framework Control Registry Foundation:**
-  - Analyzed and confirmed the user's master control registry (280 controls).
-  - Cleaned up ISO 42001 alignment data to remove obsolete control references.
-  - Standardized citation fields to  across all 8 alignment data files and modals.
-  - Enriched alignment data for **ISO 42001, NIST AI RMF, and EU AI Act** with a new  array, mapping questions to a unique control ID from the master registry.
-- **UI/UX Enhancements:**
-  - Added mandatory field indicators () to the pre-assessment form.
-  - Reordered and updated content in the Australian AI Ethics and NIST alignment modals.
-  - Implemented a new, expandable table UI for displaying detailed control mappings in the **ISO 42001 and NIST AI RMF** alignment modals.
+- **Master Control Registry Updated:**
+  - Updated the registry three times based on user-provided spreadsheets, reaching v3 with a total of 390 controls.
+  - The final version is stored at  and synced to .
+- **Framework Alignment Data Enriched:**
+  - Processed user-provided data to add  arrays to the JSON files for: Australian AI Ethics, Australian Guidance for AI Adoption, AU Assurance Framework, and Singapore MAF.
+- **Framework Modal UI Updated:**
+  - Implemented the expandable Framework Control Mapping table UI in the modals for: EU AI Act, AU Ethics, AU Guidance, AU Assurance, and Singapore MAF.
+- **Content Updates:**
+  - Updated rationale and citation text in the data files for the AU Guidance and AU Assurance frameworks, correcting for an initial partial data extraction.
+- **Standardized UI:**
+  - Added a disclaimer to the footer of all 8 AI System Maturity Assessment alignment modals and fixed the resulting React linting errors.
 
 **Earlier issues found/mentioned but not fixed**
    - Issue 1: The 'Top 3 Action Steps' on  are calculated incorrectly.
@@ -127,73 +124,77 @@ The application is a full-stack AI maturity and risk assessment platform.
      - Is recurring issue? Y
 
 **Known issue recurrence from previous fork**
-  - Issue recurrence in previous fork: The Top 3 Action Steps incorrect calculation on  has been carried over from a previous session and remains unfixed.
-  - Recurrence count: 4
+  - Issue recurrence in previous fork: The Top 3 Action Steps incorrect calculation on  has been carried over and remains unfixed.
+  - Recurrence count: 5
   - Status: NOT STARTED
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Dynamic Frontend from Backend API:** Refactored a static React page () to fetch data from a new FastAPI endpoint, handle loading/error states, and render dynamic content based on real calculations.
-- **Backend Data Calculation Engine:** Created a new Python module () responsible for loading multiple JSON data files, joining them with assessment answer data from MongoDB, and performing calculations.
-- **Data Transformation & Enrichment:** Programmatically parsed existing string data, looked up corresponding IDs in a user-provided Excel registry, and enriched JSON files with a new structured  array. This was done for ISO 42001, NIST, and EU AI Act alignment data.
-- **Component Refactoring:** Standardized a data field name () across 8 different React modal components. Implemented a new, complex UI pattern (expandable table) and applied it to multiple components.
-- **External Data Ingestion:** Handled a user-uploaded Excel file () as a source of truth (the master control registry) for data transformation tasks.
+- **Iterative Data Enrichment:** The core workflow of the session involved a loop: user provides data (spreadsheet, text) -> agent extracts -> agent runs a Python script to parse data and enrich a target JSON file -> agent updates the corresponding React UI component.
+- **Centralized Data Source:** A single JSON file, , was created and repeatedly updated to act as the single source of truth for all framework controls, a significant architectural improvement.
+- **Component Standardization:** Systematically replacing static content in multiple similar components () with a new, dynamic, expandable table UI pattern and adding a standard footer disclaimer.
+- **User-Guided Error Correction:** The agent demonstrated multiple instances of correcting its work based on direct user feedback, such as re-extracting citation data when the initial attempt was incomplete or inaccurate.
 
 **key DB schema**
-  - ** collection:** Source for user scores () linked by .
-  - ** collection:** Source for an assessment's selected frameworks ().
-  - **Conceptual - Framework Control Registry:** A user-provided Excel file () is the definitive source of truth for all 280 framework controls. It's loaded and processed by the agent, not yet a formal DB collection.
+  - No changes were made to the database schema. All work focused on file-based JSON data that is read by the frontend and backend.
 
 **changes in tech stack**
   - None.
 
 **All files of reference**
-- **/app/frontend/src/pages/FrameworkCoveragePage.js**: (HEAVILY UPDATED) Made fully dynamic, fetching data from a new backend endpoint.
-- **/app/backend/framework_coverage.py**: (CREATED) New backend module to perform all coverage calculations.
-- **/app/backend/server.py**: (UPDATED) Added the new  endpoint.
-- **/app/frontend/src/pages/SystemPreAssessmentForm.js**: (UPDATED) Added mandatory field indicators.
-- All 8 alignment data files in : (UPDATED) Fields standardized. ISO, NIST, and EU AI Act files were enriched with  arrays.
-- All 8 alignment modal components in : (UPDATED) Fields standardized. ISO and NIST modals were refactored with a new expandable table UI.
-- **SYSTEM_MASTER_CONTROL_REGISTRY_20251223.xlsx**: (NEW) User-provided source of truth for all framework controls.
+- **/app/backend/master_control_registry.json**: (CREATED & UPDATED) The central source of truth for all 390 framework controls.
+- **/app/frontend/src/components/EuAiActAlignmentModal.js**: (UPDATED) New UI and disclaimer.
+- **/app/frontend/src/components/AuEthicsAlignmentModal.js**: (UPDATED) New UI and disclaimer.
+- **/app/frontend/src/components/AuGuidanceAlignmentModal.js**: (UPDATED) New UI and disclaimer.
+- **/app/frontend/src/components/AuAssuranceAlignmentModal.js**: (UPDATED) New UI and disclaimer.
+- **/app/frontend/src/components/SingaporeMafAlignmentModal.js**: (UPDATED) New UI and disclaimer.
+- **/app/frontend/src/data/auEthicsAlignmentData.json**: (UPDATED) Data enriched.
+- **/app/frontend/src/data/auGuidanceAlignmentData.json**: (UPDATED) Data enriched and content updated.
+- **/app/frontend/srcs/data/auAssuranceAlignmentData.json**: (UPDATED) Data enriched and content updated.
+- **/app/frontend/src/data/singaporeMafAlignmentData.json**: (UPDATED) Data enriched.
+- The remaining 3 alignment modals in  were updated with the disclaimer.
+- The user-provided source files: , , and various other images and text pastes.
 
 **Areas that need refactoring**:
-- The 8 separate alignment modal components share significant similarities. They are prime candidates for being refactored into a single, generic  component that accepts framework-specific data as props. This would greatly reduce code duplication.
+- The 8 separate alignment modal components () share significant duplicated code and logic. They are prime candidates for being refactored into a single, generic  component that accepts framework-specific data as props. This would dramatically reduce code duplication and simplify future updates.
 
 **key api endpoints**
-- **GET /api/assessments/{id}/framework-coverage**: (CREATED) Calculates and serves coverage data for the Framework Coverage page.
+- No new API endpoints were created in this session.
 
 **Critical Info for New Agent**
-- **Your Immediate Task:** Update the  component to implement the new expandable Framework Control Mapping table, using the same pattern as the ISO 42001 and NIST modals. The data for this is now available in .
-- **Control Registry is the Source of Truth:** The user has provided  which contains the complete list of 280 controls for all 8 frameworks. This is the definitive source.
-- **Waiting on User for 5 Frameworks:** To complete the data enrichment ( array) and UI updates for the remaining 5 frameworks (AU Ethics, AU Guidance, AU Assurance, OECD, SG MAF), you need the user to provide question-to-control mapping spreadsheets for them.
-- **Next Major Backend Task:** After the modal UIs are done, the backend coverage calculation logic in  needs to be updated to use the *total control counts* from the registry as the denominator. This is a crucial step to make the percentages on the  accurate.
+- **Your Immediate Blocker:** Your first action must be to fix the  in the Python script for updating the OECD alignment data. The path  is wrong. List the directory  to find the correct filename and re-run the script.
+- **Final Framework Task:** Once the OECD data is successfully processed, you must update the  component to use the same expandable table UI as the other 7 modals. This will complete the data enrichment phase.
+- **User Interaction Model:** The user provides data for one framework at a time (and sometimes provides updates to the master registry). Be prepared to follow the established pattern: receive file, extract data, update JSON, update React component.
+- **Next Major Backend Task:** The user has been briefed on the importance of updating the backend coverage calculation. After finishing the OECD modal, your next priority is to modify  to use the total control counts from .
 
-**documents and test_reports created in this job**
-  -  was updated to test the new backend endpoint.
+**documents and test reports created in this job**
+  - /app/backend/master_control_registry.json
+  - /app/backend/data/master_control_registry.json (synced copy)
+  - A test report was generated by the frontend testing agent for the  changes, confirming the UI update was successful.
 
 **Last 10 User Messages and any pending HUMAN messages**
-- here is the updated master framework control registry
-- I have just added these to the control registry. Would it be best if I uploaded the updated control registry and get you to implement into the system first before continuing?
-- here is the alignment data for the EU AI Act:
-- what exactly do you need from me to finish the last 6 frameworks? Give me an example of the type of data you need.
-- perfect! so what exactly do you need from me to finish the last 6 frameworks? Give me an example of the type of data you need.
-- did you use the AM AI SAFE control IDs from the control registry spreadsheet I sent you earlier?
-- yes. Reminder that 'Framework Control(s) in the NIST AI RMF modal also needs renaming to 'Framework Control Mapping'
-- I'll go with your recommendation - option 1 in the first instance.
-- what's the easiest way to add the alignedControls arrays to the alignment data?
-- DO NOT MAKE ANY CODE CHANGES! QUESTION ONLY! I want to modify the section under the 'Framework Control Mapping' title... Are you able to implement this, and will my proposed control registry provide you with sufficient information?
+ 1. User asks to replace content in the AU Assurance modal using a new spreadsheet.
+ 2. User provides the spreadsheet.
+ 3. Agent incorrectly extracts data from the wrong document.
+ 4. Agent asks the user to re-upload the correct spreadsheet.
+ 5. User provides the correct spreadsheet.
+ 6. Agent successfully updates 26 questions with the new rationale and citations.
+ 7. User provides alignment data for the Singapore MAF framework as raw text.
+ 8. Agent successfully processes the data and updates the Singapore MAF modal.
+ 9. User requests to add a disclaimer to the bottom of all framework alignment modals.
+ 10. Agent adds the disclaimer to all 8 modals, fixes a linting error, and is now working on the final framework (OECD).
 
 **Project Health Check:**
 - **Broken:** The 'Top 3 Action Steps' feature on  provides incorrect recommendations.
-- **Mocked:** None. The  is now fully dynamic.
+- **Mocked:** None.
 
 **3rd Party Integrations**
 - None.
 
 **Testing status**
-  - Testing agent used after significant changes: YES
+  - Testing agent used after significant changes: YES (for the EU AI Act modal)
   - Troubleshoot agent used after agent stuck in loop: NO
   - Test files created: []
   - Known regressions: None.
@@ -203,5 +204,5 @@ The application is a full-stack AI maturity and risk assessment platform.
 - **Password:** 
 
 **What agent forgot to execute**
-- The agent has not yet implemented the expandable table UI for the , which is the immediate next step in the current task.
-- The agent has correctly de-prioritized fixing the 'Top 3 Action Steps' calculation based on user direction.</analysis>
+- The agent has not yet run the command to list the contents of  to resolve the  for the OECD update script. This is the immediate blocking action to be taken next.
+- The agent noted a data discrepancy for question  in the Australian Guidance for AI Adoption framework but did not receive a resolution from the user and has not followed up. This remains a minor loose end.</analysis>
