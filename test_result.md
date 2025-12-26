@@ -1,22 +1,24 @@
-# Test Results - OECD Framework Alignment Modal Update
+# Test Results - Backend Coverage Calculation Update
 
 ## Test Scope
-Testing the OECD Principles alignment modal update with new content from CSV data.
+Testing the updated backend framework coverage calculation that now uses master control registry total counts as denominators.
 
-## Current Test: OECD Alignment Modal
-- **File Updated:** `/app/frontend/src/data/oecdPrinciplesAlignmentData.json`
-- **Component Updated:** `/app/frontend/src/components/OecdPrinciplesAlignmentModal.js`
-- **Questions Updated:** 88 questions (FA-1 through SU-8)
-- **Changes Made:**
-  - Updated `alignmentRationale` field with new rationale text
-  - Updated `framework_citations` field with citation text + reference number
-  - Added expandable table UI for future control mappings
-  - Updated header layout to match other framework modals
-  - Added disclaimer footer
+## Current Test: Backend Coverage Calculation
+- **File Updated:** `/app/backend/framework_coverage.py`
+- **New Features:**
+  - Coverage percentages now calculated using total control counts from master registry
+  - New `get_registry_summary()` function added
+  - New API endpoint: `GET /api/framework-registry/summary`
+  - Inherent coverage now reflects % of framework controls addressed
+  - Achieved coverage tracks per-control coverage levels
 
 ## Test Credentials
 - Email: andrew@test.com
 - Password: password123
+
+## API Endpoints to Test
+1. `GET /api/framework-registry/summary` - Returns registry version, total controls, and framework breakdown
+2. `GET /api/assessments/{id}/framework-coverage` - Returns coverage data using registry control counts
 
 ## OECD Modal Test Results ✅ PASSED
 
