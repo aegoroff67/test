@@ -198,7 +198,7 @@
   "TR-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly aligns with the framework's transparency principle",
+    "alignmentRationale": "This question fully aligns with the framework.",
     "framework_citations": "Practice 6.1 \u2013 Disclose the use of AI (Transparency and explainability, p.21)",
     "alignedControls": [
       {
@@ -338,7 +338,7 @@
   "AC-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly supports the framework's Accountability principle",
+    "alignmentRationale": "This question fully aligns with the framework.",
     "framework_citations": "Practice 8.1 \u2013 Establish clear roles and responsibilities (Accountability, p.25)",
     "alignedControls": [
       {
@@ -352,7 +352,7 @@
   "AC-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly aligns with the framework's governance requirements",
+    "alignmentRationale": "This question fully aligns with the framework.",
     "framework_citations": "Practice 8.1 \u2013 Establish clear roles and responsibilities (Accountability, p.25)\nPractice 5.4 \u2013 Monitor and evaluate (Reliability and safety, p.20)",
     "alignedControls": [
       {
@@ -414,8 +414,8 @@
   "AC-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Aligns with the framework's emphasis on lifecycle management",
-    "framework_citations": "Practice 8.1 \u2013 Establish clear roles and responsibilities (Accountability, p.25)",
+    "alignmentRationale": "This question fully aligns with the framework.",
+    "framework_citations": "Practice 5.4 \u2013 Monitor and evaluate (Reliability and safety, p.20)",
     "alignedControls": [
       {
         "controlId": "NFAIG-5-04",
@@ -456,7 +456,7 @@
   "DI-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly supports the framework's Data Governance cornerstone",
+    "alignmentRationale": "This question fully aligns with the framework.",
     "framework_citations": "Practice 5.1 \u2013 Use appropriate datasets (Reliability and safety, p.20)",
     "alignedControls": [
       {
@@ -470,8 +470,8 @@
   "DI-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Aligns with the framework's emphasis on data governance",
-    "framework_citations": "Practice 5.1 \u2013 Use appropriate datasets (Reliability and safety, p.20)",
+    "alignmentRationale": "This question fully aligns with the framework.",
+    "framework_citations": "Practice 6.2 \u2013 Maintain reliable data and information assets (Transparency and explainability, p.21)",
     "alignedControls": [
       {
         "controlId": "NFAIG-6-02",
@@ -484,8 +484,8 @@
   "DI-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly supports the framework's Data Governance cornerstone",
-    "framework_citations": "Practice 5.1 \u2013 Use appropriate datasets (Reliability and safety, p.20)",
+    "alignmentRationale": "This question fully aligns with the framework.",
+    "framework_citations": "Practice 8.1 \u2013 Establish clear roles and responsibilities (Accountability, p.25)",
     "alignedControls": [
       {
         "controlId": "NFAIG-8-01",
@@ -498,7 +498,7 @@
   "DI-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly supports the framework's data quality requirements",
+    "alignmentRationale": "This question fully aligns with the framework.",
     "framework_citations": "Practice 5.1 \u2013 Use appropriate datasets (Reliability and safety, p.20)",
     "alignedControls": [
       {
@@ -512,7 +512,7 @@
   "DI-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "The framework emphasizes data quality but doesn't specifically address missing data",
+    "alignmentRationale": "This question partially aligns with the framework.",
     "framework_citations": "Practice 5.1 \u2013 Use appropriate datasets (Reliability and safety, p.20)",
     "alignedControls": [
       {
@@ -526,7 +526,7 @@
   "DI-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "The framework emphasizes data quality but doesn't detail preprocessing methods",
+    "alignmentRationale": "The framework expects data quality to be maintained.",
     "framework_citations": "Practice 5.1 \u2013 Use appropriate datasets (Reliability and safety, p.20)",
     "alignedControls": [
       {
@@ -540,7 +540,7 @@
   "DI-7": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
-    "alignmentRationale": "The framework emphasizes data quality but doesn't address third-party sources",
+    "alignmentRationale": "This question partially aligns with the framework.",
     "framework_citations": "Practice 5.1 \u2013 Use appropriate datasets (Reliability and safety, p.20)",
     "alignedControls": [
       {
@@ -554,8 +554,8 @@
   "DI-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly supports the framework's emphasis on traceability",
-    "framework_citations": "Practice 5.1 \u2013 Use appropriate datasets (Reliability and safety, p.20)",
+    "alignmentRationale": "This question fully aligns with the framework.",
+    "framework_citations": "Practice 6.2 \u2013 Maintain reliable data and information assets (Transparency and explainability, p.21)",
     "alignedControls": [
       {
         "controlId": "NFAIG-6-02",
@@ -624,8 +624,8 @@
   "RE-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Aligns with the framework's risk-based approach",
-    "framework_citations": "Practice 5.3 \u2013 Test and verify (Reliability and safety, p.20)",
+    "alignmentRationale": "This question fully aligns with the framework.",
+    "framework_citations": "Practice 5.5 \u2013 Be prepared to disengage (Reliability and safety, p.20)",
     "alignedControls": [
       {
         "controlId": "NFAIG-5-03",
@@ -638,7 +638,7 @@
   "RE-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly supports the framework's Reliability and Safety principle",
+    "alignmentRationale": "This question fully aligns with the framework.",
     "framework_citations": "Practice 5.3 \u2013 Test and verify (Reliability and safety, p.20)",
     "alignedControls": [
       {
@@ -680,7 +680,7 @@
   "SE-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly supports the framework's Privacy Protection and Security principle",
+    "alignmentRationale": "This question fully aligns with the framework.",
     "framework_citations": "Practice 4.3 \u2013 Secure systems and data (Privacy and protection, p.19)",
     "alignedControls": [
       {
@@ -946,8 +946,8 @@
   "SA-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Supports the framework's Human, Societal and Environmental Wellbeing principle",
-    "framework_citations": "Practice 5.4 \u2013 Monitor and evaluate (Reliability and safety, p.20)",
+    "alignmentRationale": "This question aligns with the framework.",
+    "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)",
     "alignedControls": [
       {
         "controlId": "NFAIG-1-03",
@@ -974,8 +974,8 @@
   "SA-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Directly supports the framework's risk-based approach",
-    "framework_citations": "Practice 5.2 \u2013 Conduct pilot studies (p.20)",
+    "alignmentRationale": "This question fully aligns with the framework.",
+    "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)\nPractice 5.4 \u2013 Monitor and evaluate (Reliability and safety, p.20)",
     "alignedControls": [
       {
         "controlId": "NFAIG-1-03",
@@ -1120,8 +1120,8 @@
   "IN-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
-    "alignmentRationale": "Supports the framework's Fairness principle",
-    "framework_citations": "Practice 2.2 \u2013 Incorporate diverse perspectives (p.14)",
+    "alignmentRationale": "This question fully aligns with the framework.",
+    "framework_citations": "Practice 3.2 \u2013 Comply with anti-discrimination obligations (Fairness, p.16)",
     "alignedControls": [
       {
         "controlId": "NFAIG-3-01",
@@ -1140,8 +1140,8 @@
   "SU-1": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address AI's energy usage or carbon footprint",
-    "framework_citations": "Practice 3.2 \u2013 Comply with anti-discrimination obligations (p.16)",
+    "alignmentRationale": "These questions partially align with the framework.",
+    "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)",
     "alignedControls": [
       {
         "controlId": "NFAIG-1-03",
@@ -1154,7 +1154,7 @@
   "SU-2": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "The framework doesn't specifically address computational efficiency",
+    "alignmentRationale": "These questions partially align with the framework.",
     "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)",
     "alignedControls": [
       {
@@ -1168,7 +1168,7 @@
   "SU-3": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address renewable energy",
+    "alignmentRationale": "These questions partially align with the framework.",
     "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)",
     "alignedControls": [
       {
@@ -1182,7 +1182,7 @@
   "SU-4": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address carbon footprint",
+    "alignmentRationale": "These questions partially align with the framework.",
     "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)",
     "alignedControls": [
       {
@@ -1196,7 +1196,7 @@
   "SU-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "The framework doesn't specifically address computational resource optimization",
+    "alignmentRationale": "These questions partially align with the framework.",
     "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)",
     "alignedControls": [
       {
@@ -1210,7 +1210,7 @@
   "SU-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address energy efficiency",
+    "alignmentRationale": "These questions partially align with the framework.",
     "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)",
     "alignedControls": [
       {
@@ -1224,7 +1224,7 @@
   "SU-7": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "The framework doesn't specifically address this balance",
+    "alignmentRationale": "These questions partially align with the framework.",
     "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)",
     "alignedControls": [
       {
@@ -1238,7 +1238,7 @@
   "SU-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Low",
-    "alignmentRationale": "The framework mentions environmental wellbeing but doesn't specifically address impact tracking",
+    "alignmentRationale": "These questions partially align with the framework.",
     "framework_citations": "Practice 1.3 \u2013 Assess impact (Human, societal and environmental wellbeing, p.13)",
     "alignedControls": [
       {
