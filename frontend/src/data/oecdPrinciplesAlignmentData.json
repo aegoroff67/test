@@ -3,528 +3,1144 @@
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses bias identification and mitigation which is core to the OECD's principle on respecting human rights and democratic values especially the focus on non-discrimination and fairness.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice, and internationally recognised labour rights. (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice, and internationally recognised labour rights. (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "FA-1",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "FA-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on representative data and prevention of harmful bias which is central to ensuring fairness and inclusion.",
-    "framework_citations": "Governments should also consider public investment and encourage private investment in open-source tools and open datasets that are representative and respect privacy and data protection to support an environment for AI research and development that is free of harmful bias and to improve interoperability and use of standards. (Section 2.1.b)"
+    "framework_citations": "Governments should also consider public investment and encourage private investment in open-source tools and open datasets that are representative and respect privacy and data protection to support an environment for AI research and development that is free of harmful bias and to improve interoperability and use of standards. (Section 2.1.b)",
+    "alignedControls": [
+      {
+        "controlId": "FA-2",
+        "nativeId": "OECD-2.1.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "FA-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question addresses the evaluation of AI systems for disparities which aligns with the OECD's risk management approach and focus on addressing risks related to harmful bias.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis and adopt responsible business conduct to address risks related to AI systems... Risks include those related to harmful bias, human rights including safety, security, and privacy, as well as labour and intellectual property rights. (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis and adopt responsible business conduct to address risks related to AI systems... Risks include those related to harmful bias, human rights including safety, security, and privacy, as well as labour and intellectual property rights. (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "FA-3",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "FA-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly relates to the OECD's emphasis on fairness as a key human-centered value to be respected in AI systems and the need to measure and evaluate performance.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice, and internationally recognised labour rights. (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice, and internationally recognised labour rights. (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "FA-4",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "FA-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on testing AI systems in realistic conditions to identify potential biases which is part of ensuring robust and safe AI.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "FA-5",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "FA-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "While the OECD principles emphasize bias mitigation they don't specifically mention tools or frameworks. However this question supports the implementation of the fairness principle.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis and adopt responsible business conduct to address risks related to AI systems... Risks include those related to harmful bias... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis and adopt responsible business conduct to address risks related to AI systems... Risks include those related to harmful bias... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "FA-6",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "partial"
+      }
+    ]
   },
   "FA-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's focus on inclusive growth and fairness particularly for underrepresented populations.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities... (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities... (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "FA-7",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "FA-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on implementing fairness throughout the AI system lifecycle not just as an afterthought.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "FA-8",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "TR-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's transparency principle specifically regarding providing meaningful information about AI capabilities and limitations.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. To this end, they should provide meaningful information... to foster a general understanding of AI systems, including their capabilities and limitations... (Section 1.3.i)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. To this end, they should provide meaningful information... to foster a general understanding of AI systems, including their capabilities and limitations... (Section 1.3.i)",
+    "alignedControls": [
+      {
+        "controlId": "TR-1",
+        "nativeId": "OECD-1.3.i",
+        "alignmentType": "full"
+      }
+    ]
   },
   "TR-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on traceability and transparency regarding AI systems' data sources and processes.",
-    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle, to enable analysis of the AI system's outputs and responses to inquiry, appropriate to the context and consistent with the state of the art. (Section 1.5.b)"
+    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle, to enable analysis of the AI system's outputs and responses to inquiry, appropriate to the context and consistent with the state of the art. (Section 1.5.b)",
+    "alignedControls": [
+      {
+        "controlId": "TR-2",
+        "nativeId": "OECD-1.5.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "TR-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly relates to the OECD's emphasis on providing information to stakeholders about how AI systems function.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. To this end, they should provide meaningful information, appropriate to the context, and consistent with the state of art... (Section 1.3)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. To this end, they should provide meaningful information, appropriate to the context, and consistent with the state of art... (Section 1.3)",
+    "alignedControls": [
+      {
+        "controlId": "TR-3",
+        "nativeId": "OECD-1.3",
+        "alignmentType": "full"
+      }
+    ]
   },
   "TR-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question addresses the OECD's focus on transparency and information sharing about AI systems.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. (Section 1.3)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. (Section 1.3)",
+    "alignedControls": [
+      {
+        "controlId": "TR-4",
+        "nativeId": "OECD-1.3",
+        "alignmentType": "full"
+      }
+    ]
   },
   "TR-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question relates to the OECD's emphasis on providing explanations about AI system functioning and being transparent about limitations.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... they should provide meaningful information... where feasible and useful, to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... they should provide meaningful information... where feasible and useful, to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)",
+    "alignedControls": [
+      {
+        "controlId": "TR-5",
+        "nativeId": "OECD-1.3.iii",
+        "alignmentType": "full"
+      }
+    ]
   },
   "TR-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's recommendation for transparency about data sources and processes.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)",
+    "alignedControls": [
+      {
+        "controlId": "TR-6",
+        "nativeId": "OECD-1.3.iii",
+        "alignmentType": "full"
+      }
+    ]
   },
   "TR-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly aligns with the OECD's requirement to make users aware of their interactions with AI systems.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to make stakeholders aware of their interactions with AI systems, including in the workplace... (Section 1.3.ii)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to make stakeholders aware of their interactions with AI systems, including in the workplace... (Section 1.3.ii)",
+    "alignedControls": [
+      {
+        "controlId": "TR-7",
+        "nativeId": "OECD-1.3.ii",
+        "alignmentType": "full"
+      }
+    ]
   },
   "TR-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on transparency and responsible disclosure regarding AI systems.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. (Section 1.3)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. (Section 1.3)",
+    "alignedControls": [
+      {
+        "controlId": "TR-8",
+        "nativeId": "OECD-1.3",
+        "alignmentType": "full"
+      }
+    ]
   },
   "EX-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on providing appropriate explanations about AI system functionality based on context.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. To this end, they should provide meaningful information, appropriate to the context, and consistent with the state of art... (Section 1.3)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. To this end, they should provide meaningful information, appropriate to the context, and consistent with the state of art... (Section 1.3)",
+    "alignedControls": [
+      {
+        "controlId": "EX-1",
+        "nativeId": "OECD-1.3",
+        "alignmentType": "full"
+      }
+    ]
   },
   "EX-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's requirement to provide easy-to-understand explanations of AI systems.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)",
+    "alignedControls": [
+      {
+        "controlId": "EX-2",
+        "nativeId": "OECD-1.3.iii",
+        "alignmentType": "full"
+      }
+    ]
   },
   "EX-3": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "While the OECD doesn't specifically mention different formats of explanations this question supports the principle of providing appropriate context-specific information.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. To this end, they should provide meaningful information, appropriate to the context, and consistent with the state of art... (Section 1.3)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. To this end, they should provide meaningful information, appropriate to the context, and consistent with the state of art... (Section 1.3)",
+    "alignedControls": [
+      {
+        "controlId": "EX-3",
+        "nativeId": "OECD-1.3",
+        "alignmentType": "full"
+      }
+    ]
   },
   "EX-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "While the OECD emphasizes explanations it doesn't explicitly address evaluating their accuracy and completeness though this is implied in responsible disclosure.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. (Section 1.3)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems. (Section 1.3)",
+    "alignedControls": [
+      {
+        "controlId": "EX-4",
+        "nativeId": "OECD-1.3",
+        "alignmentType": "partial"
+      }
+    ]
   },
   "EX-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "The OECD acknowledges the importance of explainability but doesn't explicitly address trade-offs with complexity though it recognizes \"where feasible and useful\" as a qualifier.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... where feasible and useful, to provide plain and easy-to-understand information... (Section 1.3.iii)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... where feasible and useful, to provide plain and easy-to-understand information... (Section 1.3.iii)",
+    "alignedControls": [
+      {
+        "controlId": "EX-5",
+        "nativeId": "OECD-1.3.iii",
+        "alignmentType": "partial"
+      }
+    ]
   },
   "EX-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly supports the OECD's emphasis on providing understandable explanations for AI decisions.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)",
+    "alignedControls": [
+      {
+        "controlId": "EX-6",
+        "nativeId": "OECD-1.3.iii",
+        "alignmentType": "full"
+      }
+    ]
   },
   "EX-7": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "While the OECD emphasizes explainability it doesn't specify particular tools or techniques though this question supports the implementation of the explainability principle.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision... (Section 1.3.iii)",
+    "alignedControls": [
+      {
+        "controlId": "EX-7",
+        "nativeId": "OECD-1.3.iii",
+        "alignmentType": "partial"
+      }
+    ]
   },
   "EX-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "This question aligns with the OECD's principle of providing appropriate context-specific explanations including for those adversely affected.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide information that enable those adversely affected by an AI system to challenge its output. (Section 1.3.iv)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide information that enable those adversely affected by an AI system to challenge its output. (Section 1.3.iv)",
+    "alignedControls": [
+      {
+        "controlId": "EX-8",
+        "nativeId": "OECD-1.3.iv",
+        "alignmentType": "full"
+      }
+    ]
   },
   "AC-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's accountability principle focusing on responsibility for AI system functioning.",
-    "framework_citations": "AI actors should be accountable for the proper functioning of AI systems and for the respect of the above principles, based on their roles, the context, and consistent with the state of the art. (Section 1.5.a)"
+    "framework_citations": "AI actors should be accountable for the proper functioning of AI systems and for the respect of the above principles, based on their roles, the context, and consistent with the state of the art. (Section 1.5.a)",
+    "alignedControls": [
+      {
+        "controlId": "AC-1",
+        "nativeId": "OECD-1.5.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "AC-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on risk management and responsible business conduct through appropriate governance.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis and adopt responsible business conduct... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis and adopt responsible business conduct... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "AC-2",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "AC-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's focus on accountability and risk management throughout the AI lifecycle.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "AC-3",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "AC-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question relates to the OECD's emphasis on providing means for those affected by AI to challenge its outputs.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide information that enable those adversely affected by an AI system to challenge its output. (Section 1.3.iv)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide information that enable those adversely affected by an AI system to challenge its output. (Section 1.3.iv)",
+    "alignedControls": [
+      {
+        "controlId": "AC-4",
+        "nativeId": "OECD-1.3.iv",
+        "alignmentType": "full"
+      }
+    ]
   },
   "AC-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on accountability based on roles and context.",
-    "framework_citations": "AI actors should be accountable for the proper functioning of AI systems and for the respect of the above principles, based on their roles, the context, and consistent with the state of the art. (Section 1.5.a)"
+    "framework_citations": "AI actors should be accountable for the proper functioning of AI systems and for the respect of the above principles, based on their roles, the context, and consistent with the state of the art. (Section 1.5.a)",
+    "alignedControls": [
+      {
+        "controlId": "AC-5",
+        "nativeId": "OECD-1.5.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "AC-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly relates to the OECD's focus on accountability throughout the AI system lifecycle.",
-    "framework_citations": "AI actors should be accountable for the proper functioning of AI systems and for the respect of the above principles, based on their roles, the context, and consistent with the state of the art. (Section 1.5.a)"
+    "framework_citations": "AI actors should be accountable for the proper functioning of AI systems and for the respect of the above principles, based on their roles, the context, and consistent with the state of the art. (Section 1.5.a)",
+    "alignedControls": [
+      {
+        "controlId": "AC-6",
+        "nativeId": "OECD-1.5.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "AC-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly aligns with the OECD's emphasis on traceability of AI processes and decisions.",
-    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle, to enable analysis of the AI system's outputs and responses to inquiry, appropriate to the context and consistent with the state of the art. (Section 1.5.b)"
+    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle, to enable analysis of the AI system's outputs and responses to inquiry, appropriate to the context and consistent with the state of the art. (Section 1.5.b)",
+    "alignedControls": [
+      {
+        "controlId": "AC-7",
+        "nativeId": "OECD-1.5.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "AC-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on providing means for those affected by AI to challenge outputs and on accountability.",
-    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide information that enable those adversely affected by an AI system to challenge its output. (Section 1.3.iv)"
+    "framework_citations": "AI Actors should commit to transparency and responsible disclosure regarding AI systems... to provide information that enable those adversely affected by an AI system to challenge its output. (Section 1.3.iv)",
+    "alignedControls": [
+      {
+        "controlId": "AC-8",
+        "nativeId": "OECD-1.3.iv",
+        "alignmentType": "full"
+      }
+    ]
   },
   "DI-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's emphasis on data quality and robustness of AI systems.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "DI-1",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "DI-2": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "This question directly aligns with the OECD's emphasis on traceability of datasets.",
-    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle... (Section 1.5.b)"
+    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle... (Section 1.5.b)",
+    "alignedControls": [
+      {
+        "controlId": "DI-2",
+        "nativeId": "OECD-1.5.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "DI-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's focus on privacy data protection and responsible data governance.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "DI-3",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "DI-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's emphasis on robust AI systems that function appropriately which requires accurate data.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "DI-4",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "DI-5": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "While the OECD emphasizes data quality and robustness it doesn't specifically address handling missing data though this supports the overall robustness principle.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "DI-5",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "partial"
+      }
+    ]
   },
   "DI-6": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "While the OECD emphasizes data quality and system robustness it doesn't specifically address data preprocessing techniques though this supports the overall traceability and robustness principles.",
-    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle... (Section 1.5.b)"
+    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle... (Section 1.5.b)",
+    "alignedControls": [
+      {
+        "controlId": "DI-6",
+        "nativeId": "OECD-1.5.b",
+        "alignmentType": "partial"
+      }
+    ]
   },
   "DI-7": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "This question aligns with the OECD's emphasis on responsible business conduct and cooperation between different AI actors including data suppliers.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis and adopt responsible business conduct to address risks related to AI systems, including, as appropriate, via co-operation between different AI actors, suppliers of AI knowledge and AI resources, AI system users, and other stakeholders. (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis and adopt responsible business conduct to address risks related to AI systems, including, as appropriate, via co-operation between different AI actors, suppliers of AI knowledge and AI resources, AI system users, and other stakeholders. (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "DI-7",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "DI-8": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "This question directly aligns with the OECD's emphasis on traceability of datasets and processes.",
-    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle, to enable analysis of the AI system's outputs and responses to inquiry, appropriate to the context and consistent with the state of the art. (Section 1.5.b)"
+    "framework_citations": "AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle, to enable analysis of the AI system's outputs and responses to inquiry, appropriate to the context and consistent with the state of the art. (Section 1.5.b)",
+    "alignedControls": [
+      {
+        "controlId": "DI-8",
+        "nativeId": "OECD-1.5.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "RE-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly aligns with the OECD's emphasis on robustness and consistent performance under various conditions.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "RE-1",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "RE-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's focus on robustness and safety testing under various conditions.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "RE-2",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "RE-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on ensuring robustness throughout the AI system lifecycle which includes ongoing monitoring.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "RE-3",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "RE-4": {
     "alignmentType": "Partially Aligns",
     "confidenceLevel": "Medium",
     "alignmentRationale": "While the OECD emphasizes robustness it doesn't specifically address defining success metrics though this supports implementing the robustness principle.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "RE-4",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "partial"
+      }
+    ]
   },
   "RE-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on risk management and ensuring robustness.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "RE-5",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "RE-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly aligns with the OECD's focus on robustness under various conditions.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "RE-6",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "RE-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on mechanisms to repair systems that exhibit undesired behavior.",
-    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)"
+    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)",
+    "alignedControls": [
+      {
+        "controlId": "RE-7",
+        "nativeId": "OECD-1.4.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "RE-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's emphasis on maintaining robustness throughout the AI system lifecycle.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "RE-8",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SE-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's emphasis on security throughout the AI lifecycle.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "SE-1",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SE-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's focus on security risks and information integrity.",
-    "framework_citations": "Mechanisms should also, where technically feasible, be in place to bolster information integrity while ensuring respect for freedom of expression. (Section 1.4.c)"
+    "framework_citations": "Mechanisms should also, where technically feasible, be in place to bolster information integrity while ensuring respect for freedom of expression. (Section 1.4.c)",
+    "alignedControls": [
+      {
+        "controlId": "SE-2",
+        "nativeId": "OECD-1.4.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SE-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's emphasis on ensuring security throughout the AI lifecycle.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "SE-3",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SE-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's focus on security throughout all phases of the AI lifecycle.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "SE-4",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SE-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on security and information integrity.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "SE-5",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SE-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question addresses the OECD's focus on security risks and protecting information integrity.",
-    "framework_citations": "Mechanisms should also, where technically feasible, be in place to bolster information integrity while ensuring respect for freedom of expression. (Section 1.4.c)"
+    "framework_citations": "Mechanisms should also, where technically feasible, be in place to bolster information integrity while ensuring respect for freedom of expression. (Section 1.4.c)",
+    "alignedControls": [
+      {
+        "controlId": "SE-6",
+        "nativeId": "OECD-1.4.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SE-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on privacy data protection and security.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "SE-7",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SE-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's emphasis on ensuring security and robustness throughout the AI lifecycle.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "SE-8",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "PR-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's emphasis on respecting privacy and data protection regulations.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "PR-1",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "PR-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on privacy and data protection throughout the AI lifecycle.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "PR-2",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "PR-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question addresses the OECD's focus on respecting individual autonomy and privacy in data collection.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "PR-3",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "PR-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on privacy and data protection principles which include purpose limitation.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "PR-4",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "PR-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question addresses the OECD's focus on balancing privacy protection with system performance which supports responsible stewardship.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights including safety, security, and privacy... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights including safety, security, and privacy... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "PR-5",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "PR-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on ongoing monitoring and risk management for privacy throughout the AI lifecycle.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights including safety, security, and privacy... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights including safety, security, and privacy... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "PR-6",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "PR-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's emphasis on applying risk management throughout all phases of the AI system lifecycle.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "PR-7",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "PR-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on respecting the rule of law including data protection regulations across jurisdictions.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "PR-8",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SA-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly supports the OECD's emphasis on risk management and ensuring AI systems are safe.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights including safety, security, and privacy... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights including safety, security, and privacy... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "SA-1",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SA-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's focus on preventing harm from AI systems and ensuring their safety.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "SA-2",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SA-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on ensuring safety throughout the AI system lifecycle including during operation.",
-    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)"
+    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)",
+    "alignedControls": [
+      {
+        "controlId": "SA-3",
+        "nativeId": "OECD-1.4.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SA-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's focus on human oversight and intervention in AI systems that pose safety risks.",
-    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)"
+    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)",
+    "alignedControls": [
+      {
+        "controlId": "SA-4",
+        "nativeId": "OECD-1.4.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SA-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly aligns with the OECD's requirement for mechanisms to safely decommission AI systems that exhibit undesired behavior.",
-    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)"
+    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)",
+    "alignedControls": [
+      {
+        "controlId": "SA-5",
+        "nativeId": "OECD-1.4.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SA-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's emphasis on systematic risk management for AI systems.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "SA-6",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SA-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's focus on mechanisms to handle AI systems that exhibit undesired behavior.",
-    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)"
+    "framework_citations": "Mechanisms should be in place, as appropriate, to ensure that if AI systems risk causing undue harm or exhibit undesired behaviour, they can be overridden, repaired, and/or decommissioned safely as needed. (Section 1.4.b)",
+    "alignedControls": [
+      {
+        "controlId": "SA-7",
+        "nativeId": "OECD-1.4.b",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SA-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's emphasis on ensuring AI systems are robust and safe under various conditions including adverse ones.",
-    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)"
+    "framework_citations": "AI systems should be robust, secure and safe throughout their entire lifecycle so that, in conditions of normal use, foreseeable use or misuse, or other adverse conditions, they function appropriately and do not pose unreasonable safety and/or security risks. (Section 1.4.a)",
+    "alignedControls": [
+      {
+        "controlId": "SA-8",
+        "nativeId": "OECD-1.4.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "IN-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's emphasis on advancing inclusion of underrepresented populations.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities... (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities... (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "IN-1",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "IN-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on diversity and inclusion in AI development.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "IN-2",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "IN-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question addresses the OECD's focus on identifying and addressing potential harms including those related to exclusion or discrimination.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "IN-3",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "IN-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly aligns with the OECD's emphasis on inclusive AI that advances inclusion of underrepresented populations.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities... (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities... (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "IN-4",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "IN-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's emphasis on diversity and inclusion in AI development.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "IN-5",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "IN-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question directly addresses the OECD's focus on advancing inclusion of underrepresented populations.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities... (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities... (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "IN-6",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "IN-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's emphasis on diversity and inclusivity in AI systems.",
-    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice... (Section 1.2.a)"
+    "framework_citations": "AI actors should respect the rule of law, human rights, democratic and human-centred values throughout the AI system lifecycle. These include non-discrimination and equality, freedom, dignity, autonomy of individuals, privacy and data protection, diversity, fairness, social justice... (Section 1.2.a)",
+    "alignedControls": [
+      {
+        "controlId": "IN-7",
+        "nativeId": "OECD-1.2.a",
+        "alignmentType": "full"
+      }
+    ]
   },
   "IN-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's focus on evaluating AI systems for potential biases or exclusionary impacts.",
-    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights... (Section 1.5.c)"
+    "framework_citations": "AI actors, should, based on their roles, the context, and their ability to act, apply a systematic risk management approach to each phase of the AI system lifecycle on an ongoing basis... Risks include those related to harmful bias, human rights... (Section 1.5.c)",
+    "alignedControls": [
+      {
+        "controlId": "IN-8",
+        "nativeId": "OECD-1.5.c",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SU-1": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on environmental sustainability as part of responsible AI stewardship.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities, and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet, such as augmenting human capabilities and enhancing creativity, advancing inclusion of underrepresented populations, reducing economic, social, gender and other inequalities, and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "SU-1",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SU-2": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's focus on environmental sustainability through efficient use of computational resources.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "SU-2",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SU-3": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on environmental sustainability and protecting natural environments.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "SU-3",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SU-4": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's focus on environmental sustainability and responsible stewardship of AI.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "SU-4",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SU-5": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on sustainable development and environmental protection in AI deployment.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "SU-5",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SU-6": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's focus on environmental sustainability in AI implementation.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "SU-6",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SU-7": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question aligns with the OECD's emphasis on balancing various objectives in responsible AI stewardship including performance and sustainability.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "SU-7",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   },
   "SU-8": {
     "alignmentType": "Fully Aligns",
     "confidenceLevel": "High",
     "alignmentRationale": "This question supports the OECD's emphasis on ongoing monitoring and responsible stewardship for environmental sustainability.",
-    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)"
+    "framework_citations": "Stakeholders should proactively engage in responsible stewardship of trustworthy AI in pursuit of beneficial outcomes for people and the planet... and protecting natural environments, thus invigorating inclusive growth, well-being, sustainable development and environmental sustainability. (Section 1.1)",
+    "alignedControls": [
+      {
+        "controlId": "SU-8",
+        "nativeId": "OECD-1.1",
+        "alignmentType": "full"
+      }
+    ]
   }
 }
