@@ -1,6 +1,28 @@
-# Test Results - Framework Coverage Feature
+# Test Results - OECD Framework Alignment Modal Update
 
 ## Test Scope
+Testing the OECD Principles alignment modal update with new content from CSV data.
+
+## Current Test: OECD Alignment Modal
+- **File Updated:** `/app/frontend/src/data/oecdPrinciplesAlignmentData.json`
+- **Component Updated:** `/app/frontend/src/components/OecdPrinciplesAlignmentModal.js`
+- **Questions Updated:** 88 questions (FA-1 through SU-8)
+- **Changes Made:**
+  - Updated `alignmentRationale` field with new rationale text
+  - Updated `framework_citations` field with citation text + reference number
+  - Added expandable table UI for future control mappings
+  - Updated header layout to match other framework modals
+  - Added disclaimer footer
+
+## Test Credentials
+- Email: andrew@test.com
+- Password: password123
+
+---
+
+## Previous Test Results - Framework Coverage Feature
+
+### Previous Test Scope
 Testing the new Framework Coverage Overview page with real backend data integration.
 
 ## Test Cases
