@@ -349,8 +349,8 @@ function FrameworkCoveragePage() {
                           {/* Right Panel */}
                           <div className="flex-1 space-y-1 pl-2">
                             <div className="flex items-center">
-                              <span className="font-medium">Effective Achieved:</span>
-                              <span className="ml-1">{effectiveAchieved.toFixed(1)}%</span>
+                              <span className="font-medium">Confidence-Weighted:</span>
+                              <span className="ml-1">{confidenceWeighted.toFixed(1)}%</span>
                             </div>
                             <div className="flex items-center">
                               <span className="font-medium">Coverage Gap:</span>
