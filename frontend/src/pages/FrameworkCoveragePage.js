@@ -326,7 +326,7 @@ function FrameworkCoveragePage() {
                       
                       const overallInherent = (inherentCoverage.strong || 0) + (inherentCoverage.moderate || 0);
                       const overallAchieved = (achievedCoverage.strong || 0) + (achievedCoverage.moderate || 0);
-                      const effectiveAchieved = ((achievedCoverage.strong || 0) * 1.0) + ((achievedCoverage.moderate || 0) * 0.6);
+                      const effectiveAchieved = ((achievedCoverage.strong || 0) * 1.0) + ((achievedCoverage.moderate || 0) * 0.5);
                       const coverageGap = overallInherent - overallAchieved;
                       
                       return (
