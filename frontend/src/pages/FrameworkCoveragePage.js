@@ -251,6 +251,11 @@ function FrameworkCoveragePage() {
                     <span className={`text-xs font-medium ${isFrameworkSelected ? 'text-gray-700' : 'text-gray-400'}`}>
                       Inherent vs Achieved Coverage
                     </span>
+                    {frameworkCoverage?.total_controls && (
+                      <div className={`text-[10px] ${isFrameworkSelected ? 'text-gray-500' : 'text-gray-400'}`}>
+                        Based on {frameworkCoverage.total_controls} total controls
+                      </div>
+                    )}
                   </div>
                   
                   {/* Grouped Bar Chart */}
