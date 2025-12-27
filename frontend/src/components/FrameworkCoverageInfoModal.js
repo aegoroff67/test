@@ -78,7 +78,7 @@ export default function FrameworkCoverageInfoModal({ isOpen, onClose }) {
 
           {/* Coverage Gap */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Coverage Gap</h3>
+            <h3 className="text-base font-semibold text-gray-700 mb-3">Coverage Gap</h3>
             <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
               <p className="text-sm text-gray-700 leading-relaxed">
                 The coverage gap represents residual governance risk between intended framework coverage and confidence-weighted implementation. Gap severity labels (<span className="text-green-600 font-medium">LOW</span> / <span className="text-yellow-600 font-medium">MODERATE</span> / <span className="text-red-600 font-medium">HIGH</span>) provide a qualitative indication of where further attention may be required.
