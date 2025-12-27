@@ -326,23 +326,38 @@ function FrameworkCoveragePage() {
                       
                       const overallInherent = (inherentCoverage.strong || 0) + (inherentCoverage.moderate || 0);
                       const overallAchieved = (achievedCoverage.strong || 0) + (achievedCoverage.moderate || 0);
+                      const effectiveAchieved = ((achievedCoverage.strong || 0) * 1.0) + ((achievedCoverage.moderate || 0) * 0.6);
                       const coverageGap = overallInherent - overallAchieved;
                       
                       return (
-                        <div className={`text-xs space-y-1 pt-1 ${isFrameworkSelected ? 'text-gray-700' : 'text-gray-400'}`}>
-                          <div className="flex items-center">
-                            <span className="font-medium">Overall Inherent Coverage:</span>
-                            <span className="ml-1">{overallInherent.toFixed(1)}%</span>
+                        <div className={`text-xs pt-1 flex ${isFrameworkSelected ? 'text-gray-700' : 'text-gray-400'}`}>
+                          {/* Left Panel */}
+                          <div className="flex-1 space-y-1 pr-2">
+                            <div className="flex items-center">
+                              <span className="font-medium">Overall Inherent:</span>
+                              <span className="ml-1">{overallInherent.toFixed(1)}%</span>
+                            </div>
+                            <div className="flex items-center">
+                              <span className="font-medium">Overall Achieved:</span>
+                              <span className="ml-1">{overallAchieved.toFixed(1)}%</span>
+                            </div>
                           </div>
-                          <div className="flex items-center">
-                            <span className="font-medium">Overall Achieved Coverage:</span>
-                            <span className="ml-1">{overallAchieved.toFixed(1)}%</span>
-                          </div>
-                          <div className="flex items-center">
-                            <span className="font-medium">Coverage Gap:</span>
-                            <span className={`ml-1 ${isFrameworkSelected && coverageGap > 0 ? 'text-amber-600' : ''}`}>
-                              {coverageGap.toFixed(1)}%
-                            </span>
+                          
+                          {/* Divider */}
+                          <div className={`w-px ${isFrameworkSelected ? 'bg-gray-300' : 'bg-gray-200'} mx-2`}></div>
+                          
+                          {/* Right Panel */}
+                          <div className="flex-1 space-y-1 pl-2">
+                            <div className="flex items-center">
+                              <span className="font-medium">Effective Achieved:</span>
+                              <span className="ml-1">{effectiveAchieved.toFixed(1)}%</span>
+                            </div>
+                            <div className="flex items-center">
+                              <span className="font-medium">Coverage Gap:</span>
+                              <span className={`ml-1 ${isFrameworkSelected && coverageGap > 0 ? 'text-amber-600' : ''}`}>
+                                {coverageGap.toFixed(1)}%
+                              </span>
+                            </div>
                           </div>
                         </div>
                       );
