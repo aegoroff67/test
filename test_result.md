@@ -479,3 +479,75 @@ AS ISO/IEC 42001:2023:
 ### Issues Found: None
 
 All Framework Coverage API and frontend integration tests passed successfully. The feature is working as expected with real data integration and proper UI behavior for both selected and unselected frameworks.
+
+---
+
+## Framework Coverage Overview Subtitle Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 27, 2025  
+**Assessment Tested:** 285d21ef-e5ad-44c7-9052-97c7b97127dc  
+**Test Status:** UI change successfully verified
+
+### Test Scope
+Testing the new UI change that adds "Based on X total controls" subtitle text under each chart title "Inherent vs Achieved Coverage" on the Framework Coverage Overview page.
+
+### Detailed Test Results
+
+#### 1. Page Navigation and Authentication ✅ PASSED
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ Navigation to Framework Coverage page successful
+- ✅ Framework Coverage Overview page loaded correctly
+- ✅ Assessment ID 285d21ef-e5ad-44c7-9052-97c7b97127dc accessible
+
+#### 2. Chart Title Verification ✅ PASSED
+- ✅ All framework cards display "Inherent vs Achieved Coverage" as chart title
+- ✅ Chart titles positioned correctly above the bar charts
+- ✅ 8 framework cards found with proper chart titles
+
+#### 3. Subtitle Implementation ✅ PASSED
+- ✅ All framework cards show "Based on X total controls" subtitle
+- ✅ Subtitle positioned correctly below chart title
+- ✅ Subtitle text uses smaller font size as expected
+- ✅ Subtitle color styling appropriate (gray text)
+
+#### 4. Control Count Verification ✅ PASSED
+All expected control counts verified:
+- ✅ ISO 42001: "Based on 38 total controls"
+- ✅ NIST AI RMF: "Based on 72 total controls"  
+- ✅ EU AI Act: "Based on 49 total controls"
+- ✅ AU Ethics: "Based on 8 total controls"
+- ✅ AU Guidance: "Based on 134 total controls"
+- ✅ AU Assurance: "Based on 27 total controls"
+- ✅ OECD: "Based on 26 total controls"
+- ✅ Singapore MAF: "Based on 57 total controls"
+
+#### 5. Visual Layout Verification ✅ PASSED
+- ✅ Subtitle text properly positioned between chart title and chart
+- ✅ Text hierarchy maintained (title > subtitle > chart)
+- ✅ No layout issues or text overlap observed
+- ✅ Responsive design maintained for desktop viewport
+- ✅ Framework cards grid layout unaffected by subtitle addition
+
+#### 6. Data Integration ✅ PASSED
+- ✅ Control counts sourced from backend API correctly
+- ✅ `total_controls` field from framework coverage API used
+- ✅ Subtitle only displays when control count data available
+- ✅ Real data integration working as expected
+
+### Technical Verification
+- **Implementation Location:** `/app/frontend/src/pages/FrameworkCoveragePage.js` lines 254-259
+- **Data Source:** `frameworkCoverage?.total_controls` from API response
+- **Conditional Rendering:** Subtitle only shows when control count data exists
+- **Styling:** Uses appropriate text size and color for subtitle hierarchy
+
+### Integration Testing
+- ✅ Framework Coverage page loads correctly with new subtitle feature
+- ✅ Backend API provides correct control count data
+- ✅ Frontend properly renders subtitle with dynamic control counts
+- ✅ No JavaScript errors or console warnings observed
+- ✅ All framework cards display consistently with new subtitle
+
+### Issues Found: None
+
+The UI change has been successfully implemented and verified. All framework cards now display the "Based on X total controls" subtitle with correct control counts as specified in the requirements.
