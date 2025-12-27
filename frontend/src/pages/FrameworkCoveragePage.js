@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import Logo from '../components/Logo';
+import FrameworkCoverageInfoModal from '../components/FrameworkCoverageInfoModal';
 import { 
   ArrowLeft, 
   BarChart3,
@@ -16,7 +17,8 @@ import {
   FileCheck,
   Layers,
   BookOpen,
-  Award
+  Award,
+  Info
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
