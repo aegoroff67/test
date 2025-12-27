@@ -3,6 +3,10 @@ Framework Coverage Calculator
 
 This module calculates how comprehensively the AM AI SAFE assessment covers
 various AI governance frameworks based on question alignment and assessment scores.
+
+Coverage is calculated as:
+- For frameworks WITH alignedControls data: unique controls addressed / total controls in registry
+- For frameworks WITHOUT alignedControls data: questions with alignment / total questions (legacy)
 """
 
 import json
@@ -58,10 +62,6 @@ FRAMEWORK_CONFIG = {
 TOTAL_QUESTIONS = 88
 
 # Score thresholds for coverage classification
-# Leading (4) or Established (3) = Strong coverage achieved
-# Developing (2) = Moderate coverage achieved  
-# Foundational (1) = Weak coverage achieved
-# No answer or 0 = No coverage achieved
 STRONG_SCORE_THRESHOLD = 3  # Score >= 3 (Established/Leading)
 MODERATE_SCORE_THRESHOLD = 2  # Score == 2 (Developing)
 WEAK_SCORE_THRESHOLD = 1  # Score == 1 (Foundational)
@@ -80,11 +80,9 @@ def load_master_registry() -> Dict[str, Any]:
     registry_path = Path(__file__).parent / "master_control_registry.json"
     
     if not registry_path.exists():
-        # Fallback to data folder
         registry_path = Path(__file__).parent / "data" / "master_control_registry.json"
     
     if not registry_path.exists():
-        # Return empty structure if registry not found
         return {"frameworkCounts": {}, "controls": []}
     
     with open(registry_path, 'r') as f:
@@ -94,15 +92,7 @@ def load_master_registry() -> Dict[str, Any]:
 
 
 def get_framework_control_count(framework_id: str) -> int:
-    """
-    Get the total number of controls for a framework from the master registry.
-    
-    Args:
-        framework_id: The framework ID as used in FRAMEWORK_CONFIG (e.g., 'iso42001')
-    
-    Returns:
-        Total control count from registry, or TOTAL_QUESTIONS as fallback
-    """
+    """Get the total number of controls for a framework from the master registry."""
     if framework_id not in FRAMEWORK_CONFIG:
         return TOTAL_QUESTIONS
     
@@ -131,152 +121,247 @@ def load_framework_data(framework_id: str) -> Optional[Dict[str, Any]]:
         return json.load(f)
 
 
-def calculate_inherent_coverage(framework_data: Dict[str, Any]) -> Dict[str, float]:
+def has_aligned_controls_data(framework_data: Dict[str, Any]) -> bool:
+    """Check if framework data has alignedControls populated"""
+    for alignment_info in framework_data.values():
+        if alignment_info.get("alignedControls"):
+            return True
+    return False
+
+
+def count_unique_controls(framework_data: Dict[str, Any]) -> Dict[str, int]:
+    """
+    Count unique controls addressed by the assessment questions.
+    Uses alignedControls arrays to count distinct framework controls.
+    """
+    full_align_controls = set()
+    partial_align_controls = set()
+    
+    for question_code, alignment_info in framework_data.items():
+        aligned_controls = alignment_info.get("alignedControls", [])
+        
+        for control in aligned_controls:
+            control_id = control.get("controlId") or control.get("nativeId")
+            if control_id:
+                ctrl_alignment = control.get("alignmentType", "full")
+                if ctrl_alignment == "full":
+                    full_align_controls.add(control_id)
+                else:
+                    partial_align_controls.add(control_id)
+    
+    # Remove partial controls that are also fully aligned
+    partial_align_controls -= full_align_controls
+    
+    return {
+        "full": len(full_align_controls),
+        "partial": len(partial_align_controls),
+        "total_unique": len(full_align_controls) + len(partial_align_controls)
+    }
+
+
+def calculate_inherent_coverage(framework_data: Dict[str, Any], framework_id: str) -> Dict[str, Any]:
     """
     Calculate inherent coverage (design-time) for a framework.
     
-    This represents how well the assessment questions cover the framework controls
-    by design, regardless of how the user answers.
-    
-    Returns percentages for:
-    - Strong Coverage: Questions with "Fully Aligns"
-    - Moderate Coverage: Questions with "Partially Aligns"
-    - Weak Coverage: (Reserved for future use)
-    - No Coverage: Questions with "No Alignment" or not mapped
+    If alignedControls data exists: coverage = unique controls addressed / total controls in registry
+    If no alignedControls data: coverage = questions with alignment / total questions (legacy)
     """
-    full_align_count = 0
-    partial_align_count = 0
-    no_align_count = 0
+    use_control_based = has_aligned_controls_data(framework_data)
     
-    # Count questions by alignment type
-    for question_code, alignment_info in framework_data.items():
-        alignment_type = alignment_info.get("alignmentType", "No Alignment")
+    if use_control_based:
+        # NEW: Control-based calculation using registry totals
+        total_controls = get_framework_control_count(framework_id)
+        control_counts = count_unique_controls(framework_data)
         
-        if alignment_type == "Fully Aligns":
-            full_align_count += 1
-        elif alignment_type == "Partially Aligns":
-            partial_align_count += 1
-        else:
-            no_align_count += 1
-    
-    # Questions not in the framework data are considered "No Coverage"
-    mapped_questions = len(framework_data)
-    unmapped_questions = max(0, TOTAL_QUESTIONS - mapped_questions)
-    no_align_count += unmapped_questions
-    
-    total = TOTAL_QUESTIONS
-    
-    return {
-        "strong": round((full_align_count / total) * 100, 1) if total > 0 else 0,
-        "moderate": round((partial_align_count / total) * 100, 1) if total > 0 else 0,
-        "weak": 0,  # Reserved - inherent coverage doesn't have "weak"
-        "none": round((no_align_count / total) * 100, 1) if total > 0 else 0
-    }
+        full_align_count = control_counts["full"]
+        partial_align_count = control_counts["partial"]
+        total_addressed = control_counts["total_unique"]
+        not_addressed = max(0, total_controls - total_addressed)
+        
+        return {
+            "strong": round((full_align_count / total_controls) * 100, 1) if total_controls > 0 else 0,
+            "moderate": round((partial_align_count / total_controls) * 100, 1) if total_controls > 0 else 0,
+            "weak": 0,
+            "none": round((not_addressed / total_controls) * 100, 1) if total_controls > 0 else 0,
+            "calculation_method": "control_based",
+            "total_controls": total_controls,
+            "controls_addressed": total_addressed
+        }
+    else:
+        # LEGACY: Question-based calculation
+        full_align_count = 0
+        partial_align_count = 0
+        no_align_count = 0
+        
+        for question_code, alignment_info in framework_data.items():
+            alignment_type = alignment_info.get("alignmentType", "No Alignment")
+            if alignment_type == "Fully Aligns":
+                full_align_count += 1
+            elif alignment_type == "Partially Aligns":
+                partial_align_count += 1
+            else:
+                no_align_count += 1
+        
+        mapped_questions = len(framework_data)
+        unmapped_questions = max(0, TOTAL_QUESTIONS - mapped_questions)
+        no_align_count += unmapped_questions
+        
+        total = TOTAL_QUESTIONS
+        
+        return {
+            "strong": round((full_align_count / total) * 100, 1) if total > 0 else 0,
+            "moderate": round((partial_align_count / total) * 100, 1) if total > 0 else 0,
+            "weak": 0,
+            "none": round((no_align_count / total) * 100, 1) if total > 0 else 0,
+            "calculation_method": "question_based",
+            "total_controls": get_framework_control_count(framework_id),
+            "controls_addressed": None
+        }
 
 
 def calculate_achieved_coverage(
     framework_data: Dict[str, Any], 
-    answers: List[Dict[str, Any]]
-) -> Dict[str, float]:
+    answers: List[Dict[str, Any]],
+    framework_id: str
+) -> Dict[str, Any]:
     """
     Calculate achieved coverage based on assessment answers.
     
-    This represents the actual coverage achieved based on how well
-    the user answered each question.
-    
-    Logic:
-    - A question with "Fully Aligns" + high score (3-4) = Strong Coverage
-    - A question with "Fully Aligns" + medium score (2) = Moderate Coverage
-    - A question with "Fully Aligns" + low score (1) = Weak Coverage
-    - A question with "Partially Aligns" + high score (3-4) = Moderate Coverage
-    - A question with "Partially Aligns" + medium score (2) = Weak Coverage
-    - A question with "Partially Aligns" + low score (1) = No Coverage
-    - Unanswered or "No Alignment" = No Coverage
+    If alignedControls data exists: track coverage per unique control
+    If no alignedControls data: track coverage per question (legacy)
     """
     # Create lookup for answers by question code
     answer_lookup = {}
     for answer in answers:
-        # Use question_code if available (enriched by backend), otherwise try question_id
         question_code = answer.get("question_code")
         if question_code:
             answer_lookup[question_code] = answer.get("numeric_score", 0)
         else:
-            # Fallback: try to use question_id if it looks like a code (e.g., "FA-1")
             question_id = answer.get("question_id", "")
             if "-" in question_id and len(question_id) <= 6:
                 answer_lookup[question_id] = answer.get("numeric_score", 0)
     
-    strong_count = 0
-    moderate_count = 0
-    weak_count = 0
-    no_coverage_count = 0
+    use_control_based = has_aligned_controls_data(framework_data)
     
-    # Process each question in the framework alignment data
-    for question_code, alignment_info in framework_data.items():
-        alignment_type = alignment_info.get("alignmentType", "No Alignment")
-        score = answer_lookup.get(question_code, 0)
+    if use_control_based:
+        # NEW: Control-based calculation
+        total_controls = get_framework_control_count(framework_id)
+        control_coverage = {}  # control_id -> best coverage level
         
-        if alignment_type == "Fully Aligns":
-            if score >= STRONG_SCORE_THRESHOLD:
-                strong_count += 1
-            elif score >= MODERATE_SCORE_THRESHOLD:
-                moderate_count += 1
-            elif score >= WEAK_SCORE_THRESHOLD:
-                weak_count += 1
-            else:
-                no_coverage_count += 1
+        for question_code, alignment_info in framework_data.items():
+            aligned_controls = alignment_info.get("alignedControls", [])
+            score = answer_lookup.get(question_code, 0)
+            
+            for control in aligned_controls:
+                control_id = control.get("controlId") or control.get("nativeId")
+                if not control_id:
+                    continue
                 
-        elif alignment_type == "Partially Aligns":
-            if score >= STRONG_SCORE_THRESHOLD:
-                moderate_count += 1
-            elif score >= MODERATE_SCORE_THRESHOLD:
-                weak_count += 1
+                ctrl_alignment = control.get("alignmentType", "full")
+                
+                # Calculate coverage level
+                if ctrl_alignment == "full":
+                    if score >= STRONG_SCORE_THRESHOLD:
+                        coverage_level = "strong"
+                    elif score >= MODERATE_SCORE_THRESHOLD:
+                        coverage_level = "moderate"
+                    elif score >= WEAK_SCORE_THRESHOLD:
+                        coverage_level = "weak"
+                    else:
+                        coverage_level = "none"
+                else:  # partial
+                    if score >= STRONG_SCORE_THRESHOLD:
+                        coverage_level = "moderate"
+                    elif score >= MODERATE_SCORE_THRESHOLD:
+                        coverage_level = "weak"
+                    else:
+                        coverage_level = "none"
+                
+                # Keep best coverage level per control
+                current = control_coverage.get(control_id, "none")
+                priority = {"strong": 4, "moderate": 3, "weak": 2, "none": 1}
+                if priority.get(coverage_level, 0) > priority.get(current, 0):
+                    control_coverage[control_id] = coverage_level
+        
+        strong_count = sum(1 for l in control_coverage.values() if l == "strong")
+        moderate_count = sum(1 for l in control_coverage.values() if l == "moderate")
+        weak_count = sum(1 for l in control_coverage.values() if l == "weak")
+        addressed = len(control_coverage)
+        not_addressed = max(0, total_controls - addressed)
+        no_coverage = sum(1 for l in control_coverage.values() if l == "none") + not_addressed
+        
+        return {
+            "strong": round((strong_count / total_controls) * 100, 1) if total_controls > 0 else 0,
+            "moderate": round((moderate_count / total_controls) * 100, 1) if total_controls > 0 else 0,
+            "weak": round((weak_count / total_controls) * 100, 1) if total_controls > 0 else 0,
+            "none": round((no_coverage / total_controls) * 100, 1) if total_controls > 0 else 0,
+            "calculation_method": "control_based"
+        }
+    else:
+        # LEGACY: Question-based calculation
+        strong_count = 0
+        moderate_count = 0
+        weak_count = 0
+        no_coverage_count = 0
+        
+        for question_code, alignment_info in framework_data.items():
+            alignment_type = alignment_info.get("alignmentType", "No Alignment")
+            score = answer_lookup.get(question_code, 0)
+            
+            if alignment_type == "Fully Aligns":
+                if score >= STRONG_SCORE_THRESHOLD:
+                    strong_count += 1
+                elif score >= MODERATE_SCORE_THRESHOLD:
+                    moderate_count += 1
+                elif score >= WEAK_SCORE_THRESHOLD:
+                    weak_count += 1
+                else:
+                    no_coverage_count += 1
+            elif alignment_type == "Partially Aligns":
+                if score >= STRONG_SCORE_THRESHOLD:
+                    moderate_count += 1
+                elif score >= MODERATE_SCORE_THRESHOLD:
+                    weak_count += 1
+                else:
+                    no_coverage_count += 1
             else:
                 no_coverage_count += 1
-        else:
-            # No Alignment
-            no_coverage_count += 1
-    
-    # Add unmapped questions to no coverage
-    mapped_questions = len(framework_data)
-    unmapped_questions = max(0, TOTAL_QUESTIONS - mapped_questions)
-    no_coverage_count += unmapped_questions
-    
-    total = TOTAL_QUESTIONS
-    
-    return {
-        "strong": round((strong_count / total) * 100, 1) if total > 0 else 0,
-        "moderate": round((moderate_count / total) * 100, 1) if total > 0 else 0,
-        "weak": round((weak_count / total) * 100, 1) if total > 0 else 0,
-        "none": round((no_coverage_count / total) * 100, 1) if total > 0 else 0
-    }
+        
+        mapped_questions = len(framework_data)
+        unmapped_questions = max(0, TOTAL_QUESTIONS - mapped_questions)
+        no_coverage_count += unmapped_questions
+        
+        total = TOTAL_QUESTIONS
+        
+        return {
+            "strong": round((strong_count / total) * 100, 1) if total > 0 else 0,
+            "moderate": round((moderate_count / total) * 100, 1) if total > 0 else 0,
+            "weak": round((weak_count / total) * 100, 1) if total > 0 else 0,
+            "none": round((no_coverage_count / total) * 100, 1) if total > 0 else 0,
+            "calculation_method": "question_based"
+        }
 
 
 def get_framework_coverage(
     framework_id: str,
     answers: Optional[List[Dict[str, Any]]] = None
 ) -> Optional[Dict[str, Any]]:
-    """
-    Get complete framework coverage data for a single framework.
-    
-    Returns inherent and achieved coverage percentages.
-    """
+    """Get complete framework coverage data for a single framework."""
     framework_data = load_framework_data(framework_id)
     if not framework_data:
         return None
     
     config = FRAMEWORK_CONFIG[framework_id]
-    inherent = calculate_inherent_coverage(framework_data)
-    achieved = calculate_achieved_coverage(framework_data, answers or [])
-    
-    # Get registry info for reference
-    total_controls = get_framework_control_count(framework_id)
+    inherent = calculate_inherent_coverage(framework_data, framework_id)
+    achieved = calculate_achieved_coverage(framework_data, answers or [], framework_id)
     
     return {
         "framework_id": framework_id,
         "title": config["title"],
         "registry_id": config.get("registry_id"),
-        "total_controls": total_controls,
+        "total_controls": inherent.get("total_controls"),
+        "controls_addressed": inherent.get("controls_addressed"),
+        "calculation_method": inherent.get("calculation_method"),
         "inherent_coverage": inherent,
         "achieved_coverage": achieved,
         "chart_data": [
@@ -308,27 +393,16 @@ def get_all_framework_coverage(
     answers: Optional[List[Dict[str, Any]]] = None,
     selected_frameworks: Optional[List[str]] = None
 ) -> List[Dict[str, Any]]:
-    """
-    Get framework coverage data for all frameworks.
-    
-    Args:
-        answers: List of assessment answers
-        selected_frameworks: Optional list of framework titles selected in the assessment.
-                           If provided, frameworks not selected will have is_selected=False.
-    
-    Returns list of framework coverage data sorted by framework ID.
-    """
+    """Get framework coverage data for all frameworks."""
     results = []
     
     for framework_id in FRAMEWORK_CONFIG:
         coverage = get_framework_coverage(framework_id, answers)
         if coverage:
-            # Check if this framework was selected in the assessment
             framework_title = FRAMEWORK_CONFIG[framework_id]["title"]
             is_selected = True
             
             if selected_frameworks is not None:
-                # Flexible matching for framework selection
                 is_selected = any(
                     framework_title.lower() in sel.lower() or 
                     sel.lower() in framework_title.lower() or
@@ -343,11 +417,7 @@ def get_all_framework_coverage(
 
 
 def get_registry_summary() -> Dict[str, Any]:
-    """
-    Get summary information from the master control registry.
-    
-    Returns version, total controls, and breakdown by framework.
-    """
+    """Get summary information from the master control registry."""
     registry = load_master_registry()
     
     return {
@@ -361,6 +431,5 @@ def get_registry_summary() -> Dict[str, Any]:
 def _normalize_framework_name(name: str) -> str:
     """Remove year annotations and normalize framework names for comparison"""
     import re
-    # Remove year patterns like (2023), (2024 final), etc.
     normalized = re.sub(r'\s*\(\d{4}[^)]*\)\s*', '', name).strip().lower()
     return normalized
