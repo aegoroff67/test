@@ -98,7 +98,7 @@ export default function FrameworkCoverageInfoModal({ isOpen, onClose }) {
 
           {/* How to use this view */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">How to use this view</h3>
+            <h3 className="text-base font-semibold text-gray-700 mb-3">How to use this view</h3>
             <div className="bg-green-50 p-4 rounded-lg border border-green-200">
               <p className="text-sm text-gray-700 leading-relaxed">
                 Use this information to support prioritisation, improvement planning, and informed discussions with governance, risk, and assurance stakeholders.
