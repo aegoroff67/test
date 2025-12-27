@@ -43,7 +43,7 @@ export default function FrameworkCoverageInfoModal({ isOpen, onClose }) {
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">•</span>
-                  <span><strong>Achieved Coverage</strong> — what is supported by the organisation's assessment responses.</span>
+                  <span><strong>Achieved Coverage</strong> — what is supported by the organisation&apos;s assessment responses.</span>
                 </li>
               </ul>
             </div>
