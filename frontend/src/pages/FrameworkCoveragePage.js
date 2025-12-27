@@ -9,7 +9,6 @@ import Logo from '../components/Logo';
 import { 
   ArrowLeft, 
   BarChart3,
-  ExternalLink,
   Shield,
   Globe,
   Building2,
