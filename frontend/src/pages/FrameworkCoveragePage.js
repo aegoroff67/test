@@ -319,24 +319,35 @@ function FrameworkCoveragePage() {
                     </div>
                   </div>
 
-                  {/* View Details Link */}
+                  {/* Coverage Summary */}
                   <div className="pt-2 border-t">
-                    <button 
-                      className={`w-full text-sm font-medium flex items-center justify-center space-x-1 py-1 transition-colors ${
-                        isFrameworkSelected 
-                          ? 'text-blue-600 hover:text-blue-800' 
-                          : 'text-gray-400 cursor-not-allowed'
-                      }`}
-                      onClick={() => {
-                        if (isFrameworkSelected) {
-                          // Placeholder for future navigation
-                          toast.info(`${framework.title} details coming soon`);
-                        }
-                      }}
-                      disabled={!isFrameworkSelected}
-                    >
-                      <span>View details</span>
-                      <ExternalLink className="h-3 w-3" />
+                    {(() => {
+                      const inherentCoverage = frameworkCoverage?.inherent_coverage || {};
+                      const achievedCoverage = frameworkCoverage?.achieved_coverage || {};
+                      
+                      const overallInherent = (inherentCoverage.strong || 0) + (inherentCoverage.moderate || 0);
+                      const overallAchieved = (achievedCoverage.strong || 0) + (achievedCoverage.moderate || 0);
+                      const coverageGap = overallInherent - overallAchieved;
+                      
+                      return (
+                        <div className={`text-xs space-y-1 py-1 ${isFrameworkSelected ? 'text-gray-700' : 'text-gray-400'}`}>
+                          <div className="flex items-center">
+                            <span className="font-medium">Overall Inherent Coverage:</span>
+                            <span className="ml-1">{overallInherent.toFixed(1)}%</span>
+                          </div>
+                          <div className="flex items-center">
+                            <span className="font-medium">Overall Achieved Coverage:</span>
+                            <span className="ml-1">{overallAchieved.toFixed(1)}%</span>
+                          </div>
+                          <div className="flex items-center">
+                            <span className="font-medium">Coverage Gap:</span>
+                            <span className={`ml-1 ${isFrameworkSelected && coverageGap > 0 ? 'text-amber-600' : ''}`}>
+                              {coverageGap.toFixed(1)}%
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })()}
                     </button>
                   </div>
                 </CardContent>
