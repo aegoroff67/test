@@ -170,7 +170,7 @@ function FrameworkCoveragePage() {
                 <h1 className="text-xl font-bold text-gray-900">
                   Framework Coverage Overview
                 </h1>
-                <p className="text-xs text-gray-600 leading-relaxed mt-1 max-w-3xl">
+                <p className="text-xs text-gray-600 leading-relaxed mt-1" style={{ maxWidth: '1100px' }}>
                   This view shows how comprehensively the <span className="font-semibold">controls</span> within selected AI governance frameworks are covered by the 
                   AM AI SAFE assessment, based on how many assessment questions fully or partially address each framework control. 
                   It compares coverage provided by design (<span className="font-semibold text-blue-600">Inherent Coverage</span>) with 
