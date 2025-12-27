@@ -348,7 +348,6 @@ function FrameworkCoveragePage() {
                         </div>
                       );
                     })()}
-                    </button>
                   </div>
                 </CardContent>
               </Card>
