@@ -551,3 +551,80 @@ All expected control counts verified:
 ### Issues Found: None
 
 The UI change has been successfully implemented and verified. All framework cards now display the "Based on X total controls" subtitle with correct control counts as specified in the requirements.
+
+---
+
+## Framework Coverage Bottom Panel Update Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 27, 2025  
+**Assessment Tested:** 285d21ef-e5ad-44c7-9052-97c7b97127dc  
+**Test Status:** All requirements successfully verified
+
+### Test Scope
+Testing the updated bottom panel on Framework Coverage Overview page that replaced "View Details" links with coverage summary metrics showing:
+- Overall Inherent Coverage: X%
+- Overall Achieved Coverage: X%
+- Coverage Gap: X%
+
+### Detailed Test Results
+
+#### 1. Authentication and Navigation ✅ PASSED
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ Navigation to Framework Coverage page for assessment ID: 285d21ef-e5ad-44c7-9052-97c7b97127dc successful
+- ✅ Page loaded correctly with "Framework Coverage Overview" title
+
+#### 2. Coverage Metrics Implementation ✅ PASSED
+- ✅ All 8 framework cards display "Overall Inherent Coverage:" with percentage
+- ✅ All 8 framework cards display "Overall Achieved Coverage:" with percentage  
+- ✅ All 8 framework cards display "Coverage Gap:" with percentage
+- ✅ All metrics are left-aligned in the bottom panel
+- ✅ Numbers formatted with one decimal place (e.g., 89.5%, 100.0%, 30.6%)
+
+#### 3. "View Details" Link Removal ✅ PASSED
+- ✅ No "View Details" links found on any framework cards
+- ✅ Bottom panel now exclusively shows coverage summary metrics
+- ✅ UI transition from link-based to metrics-based display successful
+
+#### 4. Calculation Verification ✅ PASSED
+- ✅ Overall Inherent = Strong Inherent + Moderate Inherent (verified)
+- ✅ Overall Achieved = Strong Achieved + Moderate Achieved (verified)
+- ✅ Coverage Gap = Overall Inherent - Overall Achieved (verified)
+- ✅ Sample calculations confirmed:
+  - ISO 42001: Inherent 89.5%, Achieved 89.5%, Gap 0.0%
+  - AU Ethics: Inherent 100.0%, Achieved 100.0%, Gap 0.0%
+  - AU Guidance: Inherent 30.6%, Achieved 30.6%, Gap 0.0%
+  - EU AI Act: Inherent 47.0%, Achieved 47.0%, Gap 0.0%
+  - NIST RMF: Inherent 55.6%, Achieved 55.6%, Gap 0.0%
+  - OECD: Inherent 53.8%, Achieved 53.8%, Gap 0.0%
+  - Singapore MAF: Inherent 63.2%, Achieved 63.2%, Gap 0.0%
+
+#### 5. Visual Layout Verification ✅ PASSED
+- ✅ Bottom panel positioned correctly below charts
+- ✅ Metrics are left-aligned within the panel
+- ✅ Consistent styling across all 8 framework cards
+- ✅ Proper spacing and typography maintained
+- ✅ Border-top styling (pt-2 border-t) applied correctly
+
+#### 6. Data Integration ✅ PASSED
+- ✅ Real coverage data from backend API displayed correctly
+- ✅ Metrics calculated dynamically from framework coverage data
+- ✅ No placeholder or hardcoded values observed
+- ✅ All frameworks show appropriate coverage percentages
+
+### Technical Verification
+- **Implementation Location:** `/app/frontend/src/pages/FrameworkCoveragePage.js` lines 322-350
+- **Data Source:** `frameworkCoverage?.inherent_coverage` and `frameworkCoverage?.achieved_coverage` from API
+- **Calculation Logic:** Correctly sums strong + moderate coverage for overall percentages
+- **UI Styling:** Uses appropriate text sizing and left-alignment for metrics display
+
+### Integration Testing
+- ✅ Framework Coverage page loads correctly with new bottom panel feature
+- ✅ Backend API provides correct coverage data for calculations
+- ✅ Frontend properly renders metrics with dynamic calculations
+- ✅ No JavaScript errors or console warnings observed
+- ✅ All 8 framework cards display consistently with new metrics
+
+### Issues Found: None
+
+The bottom panel update has been successfully implemented and verified. All framework cards now display the three coverage metrics (Overall Inherent Coverage, Overall Achieved Coverage, Coverage Gap) instead of the "View Details" link, with correct calculations, proper formatting, and left-aligned layout as specified in the requirements.
