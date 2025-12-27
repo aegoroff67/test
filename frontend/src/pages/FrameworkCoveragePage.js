@@ -170,9 +170,18 @@ function FrameworkCoveragePage() {
               <div className="h-10 w-px bg-gray-300 mt-1" />
               {/* Title and Subtitle - aligned with logo */}
               <div className="flex-1">
-                <h1 className="text-xl font-bold text-gray-900">
-                  Framework Coverage Overview
-                </h1>
+                <div className="flex items-center">
+                  <h1 className="text-xl font-bold text-gray-900">
+                    Framework Coverage Overview
+                  </h1>
+                  <button
+                    onClick={() => setShowInfoModal(true)}
+                    className="ml-2 p-1 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors"
+                    title="How to interpret this view"
+                  >
+                    <Info className="h-4 w-4 text-white" />
+                  </button>
+                </div>
                 <p className="text-xs text-gray-600 leading-relaxed mt-1" style={{ maxWidth: '1100px' }}>
                   This view shows how comprehensively the <span className="font-semibold">controls</span> within selected AI governance frameworks are covered by the 
                   AM AI SAFE assessment, based on how many assessment questions fully or partially address each framework control. 
@@ -190,6 +199,12 @@ function FrameworkCoveragePage() {
           </div>
         </div>
       </div>
+
+      {/* Info Modal */}
+      <FrameworkCoverageInfoModal 
+        isOpen={showInfoModal} 
+        onClose={() => setShowInfoModal(false)} 
+      />
 
       {/* Main Content - Framework Cards Grid */}
       <div className="flex-1 p-6">
