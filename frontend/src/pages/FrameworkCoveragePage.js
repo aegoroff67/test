@@ -182,30 +182,8 @@ function FrameworkCoveragePage() {
             </div>
             
             <div className="flex items-center space-x-3 mt-1">
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-gray-500 font-bold">
                 {assessment?.name || 'Assessment'}
-              </span>
-            </div>
-            <div className="flex items-center mt-2">
-              <TooltipProvider>
-                <UITooltip delayDuration={0}>
-                  <TooltipTrigger asChild>
-                    <Info className="h-4 w-4 text-blue-500 cursor-help mr-1.5 flex-shrink-0" />
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" align="end" className="max-w-sm p-3">
-                    <div className="text-sm space-y-2">
-                      <p className="font-semibold">How to interpret this view:</p>
-                      <ul className="list-disc list-inside space-y-1 text-xs">
-                        <li>Coverage is based on mapped AM AI SAFE assessment questions and provided responses.</li>
-                        <li>Confidence-weighted coverage adjusts for the strength and completeness of implementation, not just control presence.</li>
-                        <li>Results indicate relative alignment and residual gaps; they do not constitute legal, regulatory, or certification advice.</li>
-                      </ul>
-                    </div>
-                  </TooltipContent>
-                </UITooltip>
-              </TooltipProvider>
-              <span className="text-xs text-gray-500 italic">
-                Interpretation note: Coverage reflects confidence in implemented controls, not certification or regulatory compliance.
               </span>
             </div>
           </div>
