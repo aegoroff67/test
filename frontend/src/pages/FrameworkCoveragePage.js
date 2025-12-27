@@ -326,7 +326,7 @@ function FrameworkCoveragePage() {
                       
                       const overallInherent = (inherentCoverage.strong || 0) + (inherentCoverage.moderate || 0);
                       const overallAchieved = (achievedCoverage.strong || 0) + (achievedCoverage.moderate || 0);
-                      const effectiveAchieved = ((achievedCoverage.strong || 0) * 1.0) + ((achievedCoverage.moderate || 0) * 0.5);
+                      const confidenceWeighted = ((achievedCoverage.strong || 0) * 1.0) + ((achievedCoverage.moderate || 0) * 0.3) + ((achievedCoverage.weak || 0) * 0.1) - ((achievedCoverage.none || 0) * 0.2);
                       const coverageGap = overallInherent - overallAchieved;
                       
                       return (
