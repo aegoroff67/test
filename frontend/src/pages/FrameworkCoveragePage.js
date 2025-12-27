@@ -107,6 +107,7 @@ function FrameworkCoveragePage() {
   const [assessment, setAssessment] = useState(null);
   const [coverageData, setCoverageData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showInfoModal, setShowInfoModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
