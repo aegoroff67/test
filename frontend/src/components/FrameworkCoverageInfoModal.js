@@ -51,7 +51,7 @@ export default function FrameworkCoverageInfoModal({ isOpen, onClose }) {
 
           {/* Confidence-Weighted Coverage */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Confidence-Weighted Coverage</h3>
+            <h3 className="text-base font-semibold text-gray-700 mb-3">Confidence-Weighted Coverage</h3>
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <p className="text-sm text-gray-700 leading-relaxed mb-3">
                 Achieved coverage is adjusted to reflect the strength and completeness of implementation, not just whether a control is addressed.
