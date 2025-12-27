@@ -354,8 +354,18 @@ function FrameworkCoveragePage() {
                             </div>
                             <div className="flex items-center">
                               <span className="font-medium">Coverage Gap:</span>
-                              <span className={`ml-1 ${isFrameworkSelected && coverageGap > 0 ? 'text-amber-600' : ''}`}>
-                                {coverageGap.toFixed(1)}%
+                              <span className={`ml-1 ${
+                                isFrameworkSelected 
+                                  ? coverageGap <= 20 
+                                    ? 'text-green-600' 
+                                    : coverageGap <= 40 
+                                      ? 'text-yellow-600' 
+                                      : 'text-red-600'
+                                  : ''
+                              }`}>
+                                {coverageGap.toFixed(1)}% {isFrameworkSelected && (
+                                  coverageGap <= 20 ? '(LOW)' : coverageGap <= 40 ? '(MODERATE)' : '(HIGH)'
+                                )}
                               </span>
                             </div>
                           </div>
