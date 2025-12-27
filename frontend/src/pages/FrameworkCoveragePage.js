@@ -327,7 +327,7 @@ function FrameworkCoveragePage() {
                       const overallInherent = (inherentCoverage.strong || 0) + (inherentCoverage.moderate || 0);
                       const overallAchieved = (achievedCoverage.strong || 0) + (achievedCoverage.moderate || 0);
                       const confidenceWeighted = ((achievedCoverage.strong || 0) * 1.0) + ((achievedCoverage.moderate || 0) * 0.3) + ((achievedCoverage.weak || 0) * 0.1) - ((achievedCoverage.none || 0) * 0.2);
-                      const coverageGap = overallInherent > 0 ? (1 - (confidenceWeighted / overallInherent)) * 100 : 0;
+                      const coverageGap = overallInherent > 0 ? Math.max(0, (1 - (confidenceWeighted / overallInherent))) * 100 : 0;
                       
                       return (
                         <div className={`text-xs pt-1 flex ${isFrameworkSelected ? 'text-gray-700' : 'text-gray-400'}`}>
