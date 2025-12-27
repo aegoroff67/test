@@ -11,7 +11,7 @@ export default function FrameworkCoverageInfoModal({ isOpen, onClose }) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-lg shadow-xl w-full max-h-[90vh] flex flex-col" style={{ maxWidth: '1100px' }}>
+      <div className="bg-white rounded-lg shadow-xl w-full max-h-[90vh] flex flex-col" style={{ maxWidth: '1150px' }}>
         {/* Header */}
         <div className="bg-blue-600 text-white px-6 py-4 rounded-t-lg flex items-start justify-between">
           <div className="flex-1 pr-4">
