@@ -372,7 +372,7 @@ function FrameworkCoveragePage() {
                             </div>
                             <div className="flex items-center">
                               <span className="font-medium">Coverage Gap:</span>
-                              <span className={`ml-1 ${
+                              <span className={`ml-1 font-bold ${
                                 isFrameworkSelected 
                                   ? coverageGap <= 20 
                                     ? 'text-green-600' 
