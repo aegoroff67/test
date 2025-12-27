@@ -88,7 +88,7 @@ export default function FrameworkCoverageInfoModal({ isOpen, onClose }) {
 
           {/* Important note */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Important note</h3>
+            <h3 className="text-base font-semibold text-gray-700 mb-3">Important note</h3>
             <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
               <p className="text-sm text-gray-700 leading-relaxed">
                 Results are indicative and risk-based. They do not constitute legal, regulatory, or certification advice, and do not replace formal audits or independent assurance.
