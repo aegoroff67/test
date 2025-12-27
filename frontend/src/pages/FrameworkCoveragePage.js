@@ -377,7 +377,7 @@ function FrameworkCoveragePage() {
                                   ? coverageGap <= 20 
                                     ? 'text-green-600' 
                                     : coverageGap <= 40 
-                                      ? 'text-yellow-600' 
+                                      ? 'text-amber-600' 
                                       : 'text-red-600'
                                   : ''
                               }`}>
