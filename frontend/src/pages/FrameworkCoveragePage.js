@@ -329,7 +329,7 @@ function FrameworkCoveragePage() {
                       const coverageGap = overallInherent - overallAchieved;
                       
                       return (
-                        <div className={`text-xs space-y-1 py-1 ${isFrameworkSelected ? 'text-gray-700' : 'text-gray-400'}`}>
+                        <div className={`text-xs space-y-1 pt-1 ${isFrameworkSelected ? 'text-gray-700' : 'text-gray-400'}`}>
                           <div className="flex items-center">
                             <span className="font-medium">Overall Inherent Coverage:</span>
                             <span className="ml-1">{overallInherent.toFixed(1)}%</span>
