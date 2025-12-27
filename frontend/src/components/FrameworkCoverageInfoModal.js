@@ -31,7 +31,7 @@ export default function FrameworkCoverageInfoModal({ isOpen, onClose }) {
         <div className="p-6 overflow-y-auto flex-1">
           {/* What this shows */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">What this shows</h3>
+            <h3 className="text-base font-semibold text-gray-700 mb-3">What this shows</h3>
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
               <p className="text-sm text-gray-700 leading-relaxed mb-3">
                 This view summarises how comprehensively selected AI governance frameworks are addressed by the AM AI SAFE assessment for this system. It compares:
