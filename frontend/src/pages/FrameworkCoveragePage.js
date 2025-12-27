@@ -319,7 +319,7 @@ function FrameworkCoveragePage() {
                   </div>
 
                   {/* Coverage Summary */}
-                  <div className="pt-2 border-t">
+                  <div className="pt-2 border-t -mb-2.5">
                     {(() => {
                       const inherentCoverage = frameworkCoverage?.inherent_coverage || {};
                       const achievedCoverage = frameworkCoverage?.achieved_coverage || {};
