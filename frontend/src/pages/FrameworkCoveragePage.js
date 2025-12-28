@@ -109,6 +109,37 @@ function FrameworkCoveragePage() {
   const [coverageData, setCoverageData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [generatingPdf, setGeneratingPdf] = useState(false);
+
+  const handleGeneratePdf = async () => {
+    try {
+      setGeneratingPdf(true);
+      toast.info('Generating PDF... This may take a moment.');
+      
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${API}/assessments/${id}/framework-coverage-pdf`, {
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: 'blob'
+      });
+      
+      // Create download link
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Framework_Coverage_${assessment?.name || 'Assessment'}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      
+      toast.success('PDF downloaded successfully!');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      toast.error('Failed to generate PDF');
+    } finally {
+      setGeneratingPdf(false);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
