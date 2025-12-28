@@ -160,13 +160,6 @@ function AssessmentPage() {
     fetchAssessment();
   }, [id]);
 
-  // Fetch evidence when the current question changes
-  useEffect(() => {
-    if (currentQuestion?.id) {
-      fetchQuestionEvidence(currentQuestion.id);
-    }
-  }, [currentQuestion?.id]);
-
   const fetchAssessment = async (skipNav = false) => {
     try {
       // Fetch assessment metadata
