@@ -1432,6 +1432,144 @@ Testing the Evidence Upload persistence fix that was implemented to resolve the 
 
 ---
 
+## Evidence Register Page New Columns Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 29, 2025  
+**Assessment Tested:** Readiness_dfgfgfd_Completed_2025-11-18  
+**Test Status:** All critical functionality verified successfully
+
+### Test Scope
+Testing the updated Evidence Register page with new columns, including:
+- Navigation to Evidence Register from Results page
+- Verification of 9 total columns in the table
+- Data display verification in each column
+- New columns functionality: Linked Questions, Reusable, Status, Last Updated
+
+### Detailed Test Results
+
+#### 1. Navigation and Authentication ✅ PASSED
+- ✅ Successfully navigated to https://maturity-assess-2.preview.emergentagent.com
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ Found 6 completed assessments with "View Results" buttons
+- ✅ Successfully clicked first "View Results" button
+- ✅ Results page loaded correctly
+
+#### 2. Evidence Register Access ✅ PASSED
+- ✅ Evidence Register button found on Results page
+- ✅ Button clicked successfully
+- ✅ Evidence Register page loaded with correct title
+- ✅ Page displays "Evidence Register" heading and subtitle
+
+#### 3. Table Structure Verification ✅ PASSED
+- ✅ **Table has exactly 9 columns as required**
+- ✅ All expected column headers found:
+  1. Evidence (filename)
+  2. Type (evidence type)
+  3. Lifecycle (lifecycle phase)
+  4. Trust (trust level)
+  5. Scope (applies to scope)
+  6. Linked Questions (question IDs)
+  7. Reusable (tick icon if reusable)
+  8. Status (Active or Archived)
+  9. Last Updated (date)
+
+#### 4. Data Display Verification ✅ PASSED
+- ✅ **Found 15 evidence rows with data**
+- ✅ Evidence column: Shows filenames (e.g., "Framework Coverage Overview_tooltip.docx")
+- ✅ Type column: Shows evidence types (e.g., "Model Documentation", "Process Description")
+- ✅ Lifecycle column: Shows phases (e.g., "Design", "Development", "Operation")
+- ✅ Trust column: Shows trust levels (e.g., "Unspecified", "Draft", "Independently...")
+- ✅ Scope column: Shows scope values (e.g., "Unspecified", "Specific Model", "Organisation-wide")
+- ✅ Linked Questions column: Shows question IDs in teal color
+- ✅ Reusable column: Shows tick icons for reusable items (9 found)
+- ✅ Status column: Shows "Active" status for all items
+- ✅ Last Updated column: Shows formatted dates (e.g., "28 Dec 2025")
+
+#### 5. New Columns Functionality ✅ PASSED
+**Linked Questions Column:**
+- ✅ Displays question IDs in teal color for easy identification
+- ✅ Shows actual question UUIDs (e.g., "5aab4cc6-bb62-40d1-b300-fe5f11a888ec")
+- ✅ Multiple question IDs displayed correctly
+
+**Reusable Column:**
+- ✅ Shows green tick icons for reusable evidence items
+- ✅ Found 9 reusable evidence items with proper tick icons
+- ✅ Empty for non-reusable items (correct behavior)
+
+**Status Column:**
+- ✅ Shows "Active" status for all current evidence
+- ✅ Proper color coding (green for Active)
+- ✅ Ready to display "Archived" status when applicable
+
+**Last Updated Column:**
+- ✅ Shows formatted dates in "DD MMM YYYY" format
+- ✅ All 15 items have valid date entries
+- ✅ Consistent date formatting across all rows
+
+#### 6. Column Layout Verification ✅ PASSED
+- ✅ **Grid system uses 24 columns total**
+- ✅ Column spans correctly configured:
+  - Evidence: 5 spans
+  - Type: 3 spans
+  - Lifecycle: 3 spans
+  - Trust: 2 spans
+  - Scope: 3 spans
+  - Linked Questions: 3 spans
+  - Reusable: 2 spans
+  - Status: 1 span
+  - Last Updated: 2 spans
+- ✅ Total spans = 24 (correct for grid layout)
+
+#### 7. UI and Visual Verification ✅ PASSED
+- ✅ Table header properly styled with gray background
+- ✅ Column headers use uppercase text with proper spacing
+- ✅ Data rows have hover effects for better UX
+- ✅ Text truncation working correctly for long content
+- ✅ Icons and colors properly displayed
+- ✅ Responsive layout maintained
+
+#### 8. Stats Panel Verification ✅ PASSED
+- ✅ Shows "15 Evidence Artefacts" (correct count)
+- ✅ Shows "3 Questions Covered" (correct count)
+- ✅ Shows "9 Reusable" (matches reusable column data)
+- ✅ Shows "0 Archived" (correct for current data)
+
+### Technical Verification
+- **Implementation:** EvidenceRegisterPage.js correctly implements 9-column layout
+- **Grid System:** Uses CSS Grid with 24 columns and proper spans
+- **Data Integration:** Successfully fetches and displays evidence data from backend API
+- **Column Mapping:** All new columns properly mapped to data fields
+- **Responsive Design:** Table maintains proper layout on desktop viewport (1920×1080)
+
+### Integration Testing
+- ✅ Evidence Register integrates seamlessly with Results page workflow
+- ✅ Navigation from Results page working correctly
+- ✅ Backend API provides complete evidence data
+- ✅ No JavaScript errors or console warnings observed
+- ✅ All filtering and search functionality working with new columns
+
+### Key Requirements Successfully Verified
+1. ✅ **9 Total Columns:** Table has exactly 9 columns as specified
+2. ✅ **Column Names:** All column headers match requirements exactly
+3. ✅ **Data Display:** Each column displays correct data type and format
+4. ✅ **New Columns:** All 4 new columns (Linked Questions, Reusable, Status, Last Updated) working correctly
+5. ✅ **Visual Design:** Proper styling, icons, and color coding implemented
+6. ✅ **Navigation:** Accessible from Results page via Evidence Register button
+7. ✅ **Data Integrity:** Real data displayed correctly in all columns
+
+### Issues Found: None
+
+**CRITICAL SUCCESS:** The Evidence Register page has been successfully updated with all 9 required columns. The new columns (Linked Questions, Reusable, Status, Last Updated) are working perfectly and displaying data correctly. The table layout is properly configured with the correct column spans, and all data is being fetched and displayed as expected.
+
+The key changes verified:
+- **4 new columns added:** Linked Questions, Reusable, Status, Last Updated
+- **Total 9 columns:** All columns present and functional
+- **Data display:** Each column shows appropriate data with correct formatting
+- **Visual design:** Proper styling, icons, and color coding implemented
+
+---
+
 ## Evidence Upload Persistence and Display Testing ✅ PASSED
 
 ### Test Execution Summary
