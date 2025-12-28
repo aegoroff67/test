@@ -1056,6 +1056,170 @@ All Evidence Upload Modal reduced whitespace updates have been successfully impl
 
 ---
 
+## Evidence Drawer Functionality Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 28, 2025  
+**Assessment Tested:** System_Another AI System_In-Progress_2025-12-28 (FA-4 question)  
+**Test Status:** All critical functionality verified successfully
+
+### Test Scope
+Testing the new Evidence Drawer functionality that opens when clicking on uploaded evidence files (green pills), including:
+- Drawer opening from RIGHT side of screen
+- LEFT PANEL with file list and selection highlighting
+- RIGHT PANEL with 4 classification cards
+- File switching functionality
+- Classification setting changes
+- "Make this evidence reusable" checkbox
+- Footer with Cancel and Save buttons
+
+### Detailed Test Results
+
+#### 1. Navigation and Authentication ✅ PASSED
+- ✅ Successfully navigated to https://maturity-assess-2.preview.emergentagent.com
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ "Resume Assessment" button clicked successfully
+- ✅ Assessment page loaded with FA-4 question displayed
+
+#### 2. Evidence File Detection ✅ PASSED
+- ✅ Found evidence upload section with "Upload Evidence (Optional)" label
+- ✅ **CRITICAL: Found 3 uploaded evidence files displayed as green pills:**
+  - tmp__9oxdm7.txt
+  - tmp2kea2zj5.txt
+  - tmpq6v55yh_.txt
+- ✅ Green pills positioned correctly to the RIGHT of "Upload Evidence (Optional)" title
+- ✅ Files displayed with proper green styling (bg-green-50, text-green-700)
+
+#### 3. Evidence Drawer Opening ✅ PASSED
+- ✅ **CRITICAL: Clicked on first uploaded file pill (tmp__9oxdm7.txt)**
+- ✅ **Evidence Drawer opened successfully from the RIGHT side of screen**
+- ✅ Drawer positioned correctly at right edge of viewport (1920px width)
+- ✅ Drawer has proper dimensions and slide-in animation
+- ✅ Drawer header shows "Evidence Details" with question context (FA-4)
+
+#### 4. LEFT PANEL (File List) Verification ✅ PASSED
+- ✅ **LEFT PANEL found with correct width (300px)**
+- ✅ "Uploaded Files" header displayed correctly
+- ✅ Shows "3 file(s)" count accurately
+- ✅ **All 3 files listed in left panel:**
+  - tmp__9oxdm7.txt (highlighted as selected)
+  - tmp2kea2zj5.txt
+  - tmpq6v55yh_.txt
+- ✅ **First file (clicked file) is highlighted with teal background (bg-teal-50)**
+- ✅ File items display with proper file icons and names
+- ✅ Each file shows evidence type classification
+
+#### 5. RIGHT PANEL (Classification Cards) Verification ✅ PASSED
+- ✅ **RIGHT PANEL found with proper flex layout**
+- ✅ **All 4 classification cards present and functional:**
+
+**Evidence Type Card:**
+- ✅ Card title "Evidence Type" displayed
+- ✅ Shows "Policy" as currently selected (highlighted in teal)
+- ✅ All 15 options available in 3-column grid layout
+- ✅ Radio button selection working correctly
+
+**Lifecycle Phase Card:**
+- ✅ Card title "Lifecycle Phase" displayed
+- ✅ Shows "Operation" as currently selected
+- ✅ All 8 options available and selectable
+- ✅ Proper grid layout and styling
+
+**Trust Level Card:**
+- ✅ Card title "Trust Level" displayed
+- ✅ Shows "Unspecified" as currently selected
+- ✅ All 6 options available and functional
+- ✅ Consistent styling with other cards
+
+**Applies To Scope Card:**
+- ✅ Card title "Applies To Scope" displayed
+- ✅ Shows "Unspecified" as currently selected
+- ✅ All 6 options available and working
+- ✅ Proper radio button functionality
+
+#### 6. File Switching Functionality ✅ PASSED
+- ✅ **Successfully tested clicking on different files in left panel**
+- ✅ **When clicking second file, it becomes highlighted (bg-teal-50)**
+- ✅ **Right panel updates to show selected file's classification settings**
+- ✅ File name display in right panel header updates correctly
+- ✅ Previous file selection is properly deselected
+
+#### 7. Classification Setting Changes ✅ PASSED
+- ✅ **Successfully tested changing Evidence Type setting**
+- ✅ Clicked on different option and it became selected (teal highlighting)
+- ✅ Previous selection was properly deselected
+- ✅ Radio button visual feedback working correctly
+- ✅ Settings changes are reflected immediately in the UI
+
+#### 8. "Make this evidence reusable" Checkbox ✅ PASSED
+- ✅ **Checkbox found at bottom of right panel with correct text:**
+  - "Make this evidence reusable across other questions"
+- ✅ Checkbox positioned correctly below classification cards
+- ✅ Checkbox styling consistent with design (teal accent when checked)
+- ✅ Checkbox toggle functionality working properly
+
+#### 9. Footer Buttons Verification ✅ PASSED
+- ✅ **Footer contains both required buttons:**
+  - Cancel button (left side)
+  - Save button (right side)
+- ✅ Buttons properly positioned and styled
+- ✅ Save button shows enabled/disabled states appropriately
+- ✅ Cancel button always accessible and functional
+
+#### 10. Save Button State Management ✅ PASSED
+- ✅ **Save button becomes enabled when changes are made**
+- ✅ Button shows proper enabled styling after classification changes
+- ✅ Button state management working correctly
+- ✅ Visual feedback for user when changes are detected
+
+#### 11. Drawer Close Functionality ✅ PASSED
+- ✅ **Cancel button successfully closes the drawer**
+- ✅ Drawer disappears completely with proper animation
+- ✅ Assessment page returns to normal state
+- ✅ No drawer remnants remain in DOM after closing
+
+### Technical Verification
+- **Drawer Implementation:** Uses fixed positioning with right-0 top-0 classes
+- **Panel Layout:** Proper two-panel layout with 300px left panel and flex-1 right panel
+- **File Selection:** Teal highlighting (bg-teal-50) for selected files working correctly
+- **Classification Cards:** All 4 cards implemented with 3-column grid radio button layout
+- **State Management:** File switching and setting changes properly managed
+- **Responsive Design:** Drawer maintains proper layout on desktop viewport (1920×1080)
+
+### Integration Testing
+- ✅ Evidence Drawer integrates seamlessly with assessment workflow
+- ✅ Drawer triggered correctly from uploaded file pills on main assessment page
+- ✅ No JavaScript errors or console warnings observed
+- ✅ All drawer functionality working independently of question content
+- ✅ Proper cleanup when drawer is closed
+
+### Key Features Successfully Verified
+1. ✅ **Drawer Position:** Opens from RIGHT side of screen as specified
+2. ✅ **LEFT PANEL:** File list with selection highlighting and file count
+3. ✅ **RIGHT PANEL:** All 4 classification cards (Evidence Type, Lifecycle Phase, Trust Level, Applies To Scope)
+4. ✅ **File Switching:** Clicking different files updates right panel settings
+5. ✅ **Setting Changes:** Classification options can be changed with immediate visual feedback
+6. ✅ **Save Button:** Becomes enabled when changes are made
+7. ✅ **Reusable Checkbox:** Present with correct text and toggle functionality
+8. ✅ **Footer Buttons:** Cancel and Save buttons properly positioned and functional
+9. ✅ **Close Functionality:** Cancel button closes drawer completely
+
+### Issues Found: None
+
+**CRITICAL SUCCESS:** The Evidence Drawer functionality is working perfectly as specified in the requirements. All major features are implemented correctly:
+- Drawer opens from the RIGHT side when clicking uploaded file pills
+- LEFT PANEL shows file list with proper selection highlighting
+- RIGHT PANEL contains all 4 classification cards with full functionality
+- File switching works seamlessly
+- Classification settings can be changed
+- Save button state management works correctly
+- "Make this evidence reusable" checkbox is present and functional
+- Cancel and Save buttons work as expected
+
+The Evidence Drawer provides an excellent user experience for viewing and editing evidence metadata, with intuitive navigation between files and comprehensive classification options.
+
+---
+
 ## Evidence Upload Modal New Changes Testing ✅ PASSED
 
 ### Test Execution Summary
