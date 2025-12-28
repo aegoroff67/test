@@ -663,21 +663,33 @@ function ResultsPage() {
                 </Button>
               </div>
 
-              {/* Button 3 - Framework Coverage with Insights label */}
+              {/* Button 3 - Framework Coverage & Evidence Register with Insights label */}
               <div className="flex items-center gap-2">
                 <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
                   Insights:
                 </div>
-                <Button 
-                  onClick={() => navigate(`/framework-coverage/${id}`)}
-                  className="flex-1 bg-green-600 hover:bg-green-700 text-[10px] px-1.5 py-1.5 h-auto"
-                  data-testid="framework-coverage-btn"
-                >
-                  <div className="flex items-center justify-center space-x-1">
-                    <Grid3X3 className="h-3 w-3" />
-                    <span>Framework Coverage</span>
-                  </div>
-                </Button>
+                <div className="flex-1 flex gap-1">
+                  <Button 
+                    onClick={() => navigate(`/framework-coverage/${id}`)}
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-[10px] px-1 py-1.5 h-auto"
+                    data-testid="framework-coverage-btn"
+                  >
+                    <div className="flex items-center justify-center space-x-0.5">
+                      <Grid3X3 className="h-3 w-3" />
+                      <span>Framework Coverage</span>
+                    </div>
+                  </Button>
+                  <Button 
+                    onClick={() => navigate(`/evidence-register/${id}`)}
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-[10px] px-1 py-1.5 h-auto"
+                    data-testid="evidence-register-btn"
+                  >
+                    <div className="flex items-center justify-center space-x-0.5">
+                      <FileText className="h-3 w-3" />
+                      <span>Evidence Register</span>
+                    </div>
+                  </Button>
+                </div>
               </div>
 
               {/* Button 4 - Request Consultation with Actions label */}
