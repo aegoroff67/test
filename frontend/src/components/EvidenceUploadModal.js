@@ -248,7 +248,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
 
           {/* Right Panel - Metadata Cards */}
           <div className="flex-1 flex flex-col">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Classify Evidence</Label>
+            <Label className="text-sm font-medium text-gray-700 mb-2 h-5">Classify Evidence</Label>
             <div className="flex-1 flex flex-col gap-3">
               {renderOptionCard('Evidence Type', EVIDENCE_TYPE_OPTIONS, evidenceType, setEvidenceType)}
               {renderOptionCard('Lifecycle Phase', LIFECYCLE_PHASE_OPTIONS, lifecyclePhase, setLifecyclePhase)}
