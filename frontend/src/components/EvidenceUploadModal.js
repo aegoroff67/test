@@ -10,7 +10,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Upload, File, X, Check } from 'lucide-react';
 
 // Evidence metadata options
@@ -131,48 +130,46 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
   };
 
   const renderOptionCard = (title, options, selectedValue, onSelect) => (
-    <Card className="flex-1 min-h-0">
-      <CardHeader className="py-2 px-3">
+    <Card className="w-full">
+      <CardHeader className="py-2 px-4">
         <CardTitle className="text-sm font-semibold text-gray-900">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="py-1 px-3">
-        <ScrollArea className="h-[280px]">
-          <div className="space-y-1 pr-2">
-            {options.map((option) => (
+      <CardContent className="py-2 px-4">
+        <div className="flex flex-wrap gap-2">
+          {options.map((option) => (
+            <div
+              key={option}
+              onClick={() => onSelect(option)}
+              className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-md cursor-pointer transition-colors ${
+                selectedValue === option
+                  ? 'bg-teal-100 border border-teal-400'
+                  : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
+              }`}
+            >
               <div
-                key={option}
-                onClick={() => onSelect(option)}
-                className={`flex items-center space-x-2 p-2 rounded-md cursor-pointer transition-colors ${
+                className={`w-3 h-3 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                   selectedValue === option
-                    ? 'bg-teal-50 border border-teal-300'
-                    : 'hover:bg-gray-50 border border-transparent'
+                    ? 'border-teal-600 bg-teal-600'
+                    : 'border-gray-400'
                 }`}
               >
-                <div
-                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                    selectedValue === option
-                      ? 'border-teal-600 bg-teal-600'
-                      : 'border-gray-300'
-                  }`}
-                >
-                  {selectedValue === option && (
-                    <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                  )}
-                </div>
-                <span className={`text-sm ${selectedValue === option ? 'text-teal-900 font-medium' : 'text-gray-700'}`}>
-                  {option}
-                </span>
+                {selectedValue === option && (
+                  <div className="w-1 h-1 rounded-full bg-white" />
+                )}
               </div>
-            ))}
-          </div>
-        </ScrollArea>
+              <span className={`text-xs whitespace-nowrap ${selectedValue === option ? 'text-teal-900 font-medium' : 'text-gray-700'}`}>
+                {option}
+              </span>
+            </div>
+          ))}
+        </div>
       </CardContent>
     </Card>
   );
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[1500px] max-w-[95vw] h-[750px] max-h-[90vh] overflow-hidden">
+      <DialogContent className="w-[1500px] max-w-[95vw] h-[750px] max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold">Upload Evidence</DialogTitle>
           <DialogDescription className="text-sm text-gray-500">
@@ -180,7 +177,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex gap-6 flex-1 min-h-0" style={{ height: 'calc(100% - 120px)' }}>
+        <div className="flex gap-6 flex-1 min-h-0">
           {/* Left Panel - File Upload */}
           <div className="flex-1 flex flex-col">
             <Label className="text-sm font-medium text-gray-700 mb-2">Select File</Label>
@@ -250,9 +247,9 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
           </div>
 
           {/* Right Panel - Metadata Cards */}
-          <div className="flex-1 flex flex-col gap-2">
-            <Label className="text-sm font-medium text-gray-700">Classify Evidence</Label>
-            <div className="flex-1 grid grid-cols-2 gap-2">
+          <div className="flex-1 flex flex-col">
+            <Label className="text-sm font-medium text-gray-700 mb-2">Classify Evidence</Label>
+            <div className="flex-1 flex flex-col gap-3">
               {renderOptionCard('Evidence Type', EVIDENCE_TYPE_OPTIONS, evidenceType, setEvidenceType)}
               {renderOptionCard('Lifecycle Phase', LIFECYCLE_PHASE_OPTIONS, lifecyclePhase, setLifecyclePhase)}
               {renderOptionCard('Trust Level', TRUST_LEVEL_OPTIONS, trustLevel, setTrustLevel)}
