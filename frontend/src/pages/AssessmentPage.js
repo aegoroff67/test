@@ -1109,18 +1109,36 @@ function AssessmentPage() {
 
                 {/* Evidence Upload Section */}
                 <div className="space-y-1">
-                  <Label className="text-sm font-medium text-gray-900 flex items-center gap-2">
-                    <svg className={`h-3 w-3 text-${colors.primary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                    </svg>
-                    Upload Evidence (Optional)
-                    {(currentQuestion.evidence_types || helpContent[currentQuestion.code]) && (
-                      <InfoBadge 
-                        title="Click for evidence requirements and compliance guidance"
-                        onClick={handleOpenHelp}
-                      />
+                  <div className="flex items-start gap-3">
+                    <Label className="text-sm font-medium text-gray-900 flex items-center gap-2 flex-shrink-0">
+                      <svg className={`h-3 w-3 text-${colors.primary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                      </svg>
+                      Upload Evidence (Optional)
+                      {(currentQuestion.evidence_types || helpContent[currentQuestion.code]) && (
+                        <InfoBadge 
+                          title="Click for evidence requirements and compliance guidance"
+                          onClick={handleOpenHelp}
+                        />
+                      )}
+                    </Label>
+                    {/* Uploaded files displayed to the right of the title */}
+                    {uploadedFiles?.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 items-center">
+                        {uploadedFiles.map((file, index) => (
+                          <span key={file.evidence_id || index} className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-green-50 text-green-700 border border-green-200">
+                            <svg className="h-3 w-3 mr-1 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span className="max-w-[120px] truncate">{file.evidence_title || file.file_name || file.name}</span>
+                            <svg className="h-3 w-3 ml-1 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                          </span>
+                        ))}
+                      </div>
                     )}
-                  </Label>
+                  </div>
                   <div className="flex items-center space-x-2">
                     <Button
                       type="button"
@@ -1135,34 +1153,7 @@ function AssessmentPage() {
                       </svg>
                       Choose Files
                     </Button>
-                    {uploadedFiles?.length > 0 && (
-                      <span className="text-xs text-green-600 font-medium">
-                        {uploadedFiles.length} file{uploadedFiles.length > 1 ? 's' : ''} uploaded
-                      </span>
-                    )}
                   </div>
-                  {uploadedFiles?.length > 0 && (
-                    <div className="mt-1">
-                      <div className="flex flex-wrap gap-1">
-                        {uploadedFiles.map((file, index) => (
-                          <span key={index} className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-teal-50 text-teal-700 border border-teal-200">
-                            {file.name}
-                            {file.metadata?.evidenceType && (
-                              <span className="ml-1 text-teal-500">({file.metadata.evidenceType})</span>
-                            )}
-                            <button
-                              onClick={() => removeFile(index)}
-                              className="ml-1 text-teal-500 hover:text-teal-700"
-                            >
-                              <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                              </svg>
-                            </button>
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </CardContent>
             </Card>
