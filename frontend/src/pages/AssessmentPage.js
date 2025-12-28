@@ -132,6 +132,7 @@ function AssessmentPage() {
   const [otherText, setOtherText] = useState('');
   const [adminScore, setAdminScore] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [questionEvidence, setQuestionEvidence] = useState({}); // Store evidence per question
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [currentHelpContent, setCurrentHelpContent] = useState(null);
   const [skipAutoNavigation, setSkipAutoNavigation] = useState(false);
