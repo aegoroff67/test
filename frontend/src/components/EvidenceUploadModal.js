@@ -180,7 +180,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
         <div className="flex gap-6 flex-1 min-h-0">
           {/* Left Panel - File Upload */}
           <div className="flex-1 flex flex-col">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Select File</Label>
+            <Label className="text-sm font-medium text-gray-700 mb-2 h-5">Select File</Label>
             <div
               className={`flex-1 border-2 border-dashed rounded-lg flex flex-col items-center justify-center p-6 transition-colors ${
                 dragActive
