@@ -154,46 +154,64 @@ function FrameworkCoveragePage() {
       {/* Top Header Section - Full Width */}
       <div className="bg-white border-b shadow-sm">
         <div className="px-6 py-3">
-          {/* Header Row - Logo with Title/Subtitle */}
+          {/* Header Row */}
           <div className="flex items-start justify-between">
-            <div className="flex items-start space-x-4">
+            {/* Left Section: Logo + AM AI SAFE Title */}
+            <div className="flex items-center space-x-3">
+              <Logo size="sm" />
+              <div>
+                <h1 className="text-base font-bold text-gray-900">AM AI SAFE</h1>
+                <p className="text-xs text-teal-600">Framework Coverage Overview</p>
+              </div>
+            </div>
+
+            {/* Center Section: Framework Coverage Overview Content */}
+            <div className="flex-1 mx-6">
+              <div className="flex items-center">
+                <h2 className="text-lg font-bold text-gray-900">
+                  Framework Coverage Overview
+                </h2>
+                <InfoBadge
+                  className="ml-2"
+                  title="How to interpret this view"
+                  onClick={() => setShowInfoModal(true)}
+                />
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed mt-1" style={{ maxWidth: '1100px' }}>
+                This view shows how comprehensively the <span className="font-semibold">controls</span> within selected AI governance frameworks are covered by the 
+                AM AI SAFE assessment, based on how many assessment questions fully or partially address each framework control. 
+                It compares coverage provided by design (<span className="font-semibold text-blue-600">Inherent Coverage</span>) with 
+                coverage achieved based on assessment results (<span className="font-semibold text-green-600">Achieved Coverage</span>).
+              </p>
+            </div>
+
+            {/* Assessment Name */}
+            <div className="flex items-center mr-6">
+              <span className="text-sm text-gray-700 font-bold">
+                {assessment?.name || 'Assessment'}
+              </span>
+            </div>
+
+            {/* Right Section: Buttons */}
+            <div className="flex flex-col space-y-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => navigate(`/results/${id}`)}
-                className="flex items-center space-x-2 mt-1 border border-gray-300"
+                className="flex items-center space-x-2 border border-gray-300"
               >
                 <ArrowLeft className="h-4 w-4" />
                 <span>Back to Results</span>
               </Button>
-              <div className="h-10 w-px bg-gray-300 mt-1" />
-              <Logo size="sm" />
-              <div className="h-10 w-px bg-gray-300 mt-1" />
-              {/* Title and Subtitle - aligned with logo */}
-              <div className="flex-1">
-                <div className="flex items-center">
-                  <h1 className="text-xl font-bold text-gray-900">
-                    Framework Coverage Overview
-                  </h1>
-                  <InfoBadge
-                    className="ml-2"
-                    title="How to interpret this view"
-                    onClick={() => setShowInfoModal(true)}
-                  />
-                </div>
-                <p className="text-xs text-gray-600 leading-relaxed mt-1" style={{ maxWidth: '1100px' }}>
-                  This view shows how comprehensively the <span className="font-semibold">controls</span> within selected AI governance frameworks are covered by the 
-                  AM AI SAFE assessment, based on how many assessment questions fully or partially address each framework control. 
-                  It compares coverage provided by design (<span className="font-semibold text-blue-600">Inherent Coverage</span>) with 
-                  coverage achieved based on assessment results (<span className="font-semibold text-green-600">Achieved Coverage</span>).
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-3 mt-1">
-              <span className="text-sm text-gray-500 font-bold">
-                {assessment?.name || 'Assessment'}
-              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.print()}
+                className="flex items-center space-x-2 border border-gray-300"
+              >
+                <Printer className="h-4 w-4" />
+                <span>Print PDF</span>
+              </Button>
             </div>
           </div>
         </div>
