@@ -539,12 +539,7 @@ function AssessmentPage() {
   const fetchQuestionEvidence = async (questionId) => {
     if (!questionId) return;
     
-    // Check if we already have evidence cached for this question
-    if (questionEvidence[questionId]) {
-      setUploadedFiles(questionEvidence[questionId]);
-      return;
-    }
-    
+    // Always fetch fresh data from backend
     try {
       const response = await axios.get(`${API}/evidence/by-question/${questionId}`);
       const evidence = response.data || [];
@@ -561,6 +556,11 @@ function AssessmentPage() {
       // If no evidence found (404) or other error, just set empty array
       console.log('No evidence found for question:', questionId);
       setUploadedFiles([]);
+      // Also update cache to empty for this question
+      setQuestionEvidence(prev => ({
+        ...prev,
+        [questionId]: []
+      }));
     }
   };
 
