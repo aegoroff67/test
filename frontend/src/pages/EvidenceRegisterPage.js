@@ -118,12 +118,16 @@ function EvidenceRegisterPage() {
         setAssessment(assessmentRes.data);
         
         // Build a map from question UUID to question code
-        const questions = questionsRes.data || [];
+        // Questions are nested inside domains: [{domain: {...}, questions: [...]}]
+        const domainsWithQuestions = questionsRes.data || [];
         const idToCodeMap = {};
-        questions.forEach(q => {
-          if (q.id && q.code) {
-            idToCodeMap[q.id] = q.code;
-          }
+        domainsWithQuestions.forEach(domainObj => {
+          const questions = domainObj.questions || [];
+          questions.forEach(q => {
+            if (q.id && q.code) {
+              idToCodeMap[q.id] = q.code;
+            }
+          });
         });
         setQuestionIdToCode(idToCodeMap);
         
