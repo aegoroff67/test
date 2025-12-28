@@ -308,7 +308,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
         </div>
 
         {/* Footer */}
-        <DialogFooter className="p-4 border-t border-gray-200 flex justify-between items-center">
+        <DialogFooter className="p-4 border-t border-gray-200 flex flex-row justify-between items-center sm:justify-between">
           {/* Reusable Toggle - Left side of footer */}
           <label 
             className="flex items-center space-x-2 cursor-pointer"
