@@ -1192,6 +1192,14 @@ function AssessmentPage() {
         content={currentHelpContent?.content || null}
       />
 
+      {/* Evidence Upload Modal */}
+      <EvidenceUploadModal
+        isOpen={showEvidenceModal}
+        onClose={() => setShowEvidenceModal(false)}
+        onUpload={handleFileUpload}
+        questionCode={currentQuestion?.code}
+      />
+
       {/* Dynamic Framework Alignment Modals - Replaces 9 separate modal blocks */}
       {currentQuestion && Object.entries(FRAMEWORK_CONFIG).map(([key, config]) => {
         const ModalComponent = config.component;
