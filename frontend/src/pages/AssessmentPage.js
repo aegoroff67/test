@@ -257,10 +257,10 @@ function AssessmentPage() {
 
   // Fetch evidence when the current question changes
   useEffect(() => {
-    if (currentQuestion?.id) {
-      fetchQuestionEvidence(currentQuestion.id);
+    if (currentQuestion?.code) {
+      fetchQuestionEvidence(currentQuestion.code);
     }
-  }, [currentQuestion?.id]);
+  }, [currentQuestion?.code]);
 
   useEffect(() => {
     if (currentAnswer) {
