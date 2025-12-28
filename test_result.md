@@ -854,3 +854,102 @@ Testing the updated bottom panel on Framework Coverage Overview page that replac
 ### Issues Found: None
 
 The bottom panel update has been successfully implemented and verified. All framework cards now display the three coverage metrics (Overall Inherent Coverage, Overall Achieved Coverage, Coverage Gap) instead of the "View Details" link, with correct calculations, proper formatting, and left-aligned layout as specified in the requirements.
+
+---
+
+## Evidence Upload Modal Layout Update Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 28, 2025  
+**Assessment Tested:** System_Another AI System_In-Progress_2025-12-28 (FA-1 question)  
+**Test Status:** All layout changes successfully verified
+
+### Test Scope
+Testing the updated Evidence Upload Modal layout changes including:
+- Alignment of "Select File" and "Classify Evidence" labels at the top
+- Full-width stacked vertical layout for classification cards
+- Horizontal flex-wrap pill/tag style options display
+- Removal of scrollbars within cards
+- Radio button selection functionality
+
+### Detailed Test Results
+
+#### 1. Navigation and Modal Access ✅ PASSED
+- ✅ Successfully navigated to https://maturity-assess-2.preview.emergentagent.com
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ "Resume Assessment" button clicked successfully
+- ✅ Assessment page loaded with FA-1 question displayed
+- ✅ "Choose Files" button found and clicked successfully
+- ✅ Evidence Upload Modal opened immediately
+
+#### 2. Label Alignment Verification ✅ PASSED
+- ✅ "Select File" label found on left panel
+- ✅ "Classify Evidence" label found on right panel
+- ✅ **Perfect alignment achieved: Y difference = 0.0px**
+- ✅ Both labels positioned at exactly the same vertical position (top alignment)
+
+#### 3. Card Layout Verification ✅ PASSED
+- ✅ All 4 classification cards found: Evidence Type, Lifecycle Phase, Trust Level, Applies To Scope
+- ✅ **Cards are properly stacked vertically** (each card positioned below the previous one)
+- ✅ **Cards have consistent full width** (width difference = 0.0px)
+- ✅ Card positions verified:
+  - Card 1 (Evidence Type): Y=288.0, Width=713.0
+  - Card 2 (Lifecycle Phase): Y=498.0, Width=713.0
+  - Card 3 (Trust Level): Y=632.0, Width=713.0
+  - Card 4 (Applies To Scope): Y=766.0, Width=713.0
+
+#### 4. Option Display Verification ✅ PASSED
+- ✅ Found 30 option elements in Evidence Type card (15 options × 2 elements each)
+- ✅ **Options displayed with flex-wrap** (horizontal layout confirmed)
+- ✅ **Options styled as pills/tags** (rounded corners with padding)
+- ✅ All options properly formatted with radio button circles and text labels
+- ✅ Consistent styling across all 4 classification cards
+
+#### 5. Scrollbar Removal Verification ✅ PASSED
+- ✅ **No ScrollArea components found** - scrollbars successfully removed
+- ✅ **No overflow-auto classes found** in cards
+- ✅ All options visible without scrolling
+- ✅ Cards display all content within their boundaries
+
+#### 6. Radio Button Functionality ✅ PASSED
+- ✅ Successfully clicked "Policy" option in Evidence Type card
+- ✅ Visual selection feedback working (teal highlighting visible)
+- ✅ Successfully tested selections in all 4 cards:
+  - Evidence Type: Policy → Standard transition
+  - Lifecycle Phase: Development selection
+  - Trust Level: Approved selection
+  - Applies To Scope: Organisation-wide selection
+- ✅ Single-select behavior working correctly within each card
+
+#### 7. Modal Functionality ✅ PASSED
+- ✅ Modal dimensions: 1500px × 750px (as specified)
+- ✅ Two-panel layout working correctly (left: file upload, right: classification)
+- ✅ File upload area with drag-and-drop functionality present
+- ✅ "Browse Files" button functional
+- ✅ "Cancel" and "Upload Evidence" buttons present and functional
+- ✅ Modal close functionality working correctly
+
+### Technical Verification
+- **Layout Implementation:** Cards now use full-width vertical stacking instead of 2×2 grid
+- **Option Display:** Horizontal flex-wrap layout with pill/tag styling implemented
+- **Label Alignment:** Perfect top alignment achieved (0px difference)
+- **ScrollArea Removal:** All ScrollArea components successfully removed
+- **Responsive Design:** Modal maintains proper layout on desktop viewport (1920×1080)
+
+### Integration Testing
+- ✅ Evidence Upload Modal integrates properly with assessment workflow
+- ✅ Modal triggered from correct location in assessment question
+- ✅ No JavaScript errors or console warnings observed
+- ✅ All layout changes working seamlessly with existing functionality
+- ✅ Radio button selections maintain state during modal interaction
+
+### Key Layout Changes Verified
+1. ✅ **Label Alignment:** "Select File" and "Classify Evidence" labels perfectly aligned at top
+2. ✅ **Card Layout:** All 4 cards now full-width and stacked vertically (not 2×2 grid)
+3. ✅ **Option Display:** Options displayed horizontally as pill/tag style buttons with flex-wrap
+4. ✅ **Scrollbar Removal:** No scrollbars within cards - all options visible
+5. ✅ **Functionality Preserved:** Radio button selection and modal operations working correctly
+
+### Issues Found: None
+
+All Evidence Upload Modal layout changes have been successfully implemented and verified. The new layout provides better visual hierarchy, improved usability, and eliminates scrolling within classification cards while maintaining all existing functionality.
