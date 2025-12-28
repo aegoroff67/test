@@ -95,15 +95,19 @@ function EvidenceRegisterPage() {
   const [trustLevelFilter, setTrustLevelFilter] = useState('All Levels');
   const [scopeFilter, setScopeFilter] = useState('All Scopes');
   const [statusFilter, setStatusFilter] = useState('All Statuses');
+  const [questionIdToCode, setQuestionIdToCode] = useState({}); // Map UUID -> question code
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
         
-        // Fetch assessment and evidence data in parallel
-        const [assessmentRes, evidenceRes] = await Promise.all([
+        // Fetch assessment, questions, and evidence data in parallel
+        const [assessmentRes, questionsRes, evidenceRes] = await Promise.all([
           axios.get(`${API}/assessments/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          axios.get(`${API}/assessments/${id}/questions`, {
             headers: { Authorization: `Bearer ${token}` }
           }),
           axios.get(`${API}/evidence`, {
@@ -112,6 +116,17 @@ function EvidenceRegisterPage() {
         ]);
         
         setAssessment(assessmentRes.data);
+        
+        // Build a map from question UUID to question code
+        const questions = questionsRes.data || [];
+        const idToCodeMap = {};
+        questions.forEach(q => {
+          if (q.id && q.code) {
+            idToCodeMap[q.id] = q.code;
+          }
+        });
+        setQuestionIdToCode(idToCodeMap);
+        
         // Filter evidence that's linked to this assessment's questions
         const allEvidence = evidenceRes.data || [];
         setEvidence(allEvidence);
