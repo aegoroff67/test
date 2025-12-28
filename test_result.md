@@ -1053,3 +1053,119 @@ Testing the updated Evidence Upload Modal with reduced whitespace and layout cha
 ### Issues Found: None
 
 All Evidence Upload Modal reduced whitespace updates have been successfully implemented and verified. The new layout provides a cleaner, more compact appearance while maintaining full functionality and improving space utilization with the 3-column grid layout.
+
+---
+
+## Evidence Upload Modal New Changes Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 28, 2025  
+**Assessment Tested:** System_Another AI System_In-Progress_2025-12-28 (FA-1 question)  
+**Test Status:** All new requirements successfully verified
+
+### Test Scope
+Testing the updated Evidence Upload Modal with all the new changes including:
+- Trust Level card order verification
+- Trust Level default selection (Unspecified pre-selected)
+- Updated subtitle text under "Classify Evidence"
+- Reusable toggle checkbox functionality
+
+### Detailed Test Results
+
+#### 1. Navigation and Modal Access ✅ PASSED
+- ✅ Successfully navigated to https://maturity-assess-2.preview.emergentagent.com
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ "Resume Assessment" button clicked successfully
+- ✅ Assessment page loaded with FA-1 question displayed
+- ✅ "Choose Files" button found and clicked successfully
+- ✅ Evidence Upload Modal opened immediately
+
+#### 2. Trust Level Card Order Verification ✅ PASSED
+- ✅ **CONFIRMED: Trust Level options in correct order:**
+  1. Unspecified
+  2. Draft
+  3. Approved
+  4. Operational
+  5. Independently Reviewed
+  6. Regulator / External Assured
+- ✅ All 6 options present and displayed in the specified sequence
+- ✅ Options arranged in 3-column grid layout as expected
+
+#### 3. Trust Level Default Selection ✅ PASSED
+- ✅ **CONFIRMED: "Unspecified" is pre-selected by default**
+- ✅ Unspecified option shows teal highlight (bg-teal-50) indicating selection
+- ✅ Default selection visible immediately when modal opens
+- ✅ No other Trust Level options selected by default
+
+#### 4. Updated Subtitle Text ✅ PASSED
+- ✅ **CONFIRMED: Subtitle text is exactly as specified:**
+  - Expected: "These classifications are optional and help improve reporting and traceability. You can skip this step or update it later."
+  - Actual: "These classifications are optional and help improve reporting and traceability. You can skip this step or update it later."
+- ✅ Subtitle positioned correctly under "Classify Evidence" header
+- ✅ Text formatting and styling appropriate
+
+#### 5. Reusable Toggle Checkbox ✅ PASSED
+- ✅ **CONFIRMED: Reusable toggle checkbox present with correct text:**
+  - Text: "☐ Make this evidence reusable across other questions"
+- ✅ Checkbox positioned at bottom right panel below classification cards
+- ✅ Toggle functionality working (clickable and responds to interaction)
+- ✅ Checkbox uses proper styling with teal accent colors when checked
+- ✅ Toggle state changes correctly when clicked
+
+#### 6. Selection Functionality Testing ✅ PASSED
+- ✅ **Trust Level selection change verified:**
+  - Successfully clicked "Draft" option
+  - Draft option shows teal highlight when selected
+  - "Unspecified" properly deselected when "Draft" selected
+  - Single-select behavior working correctly
+- ✅ Radio button visual feedback working properly
+- ✅ Selection state maintained during modal interaction
+
+#### 7. Modal Layout and Structure ✅ PASSED
+- ✅ Modal dimensions: 1500px × 750px (as specified)
+- ✅ Two-panel layout working correctly:
+  - Left panel: "Upload Evidence" with file upload area
+  - Right panel: "Classify Evidence" with classification cards
+- ✅ All 4 classification cards present:
+  - Evidence Type (15 options)
+  - Lifecycle Phase (8 options)
+  - Trust Level (6 options)
+  - Applies To Scope (6 options)
+- ✅ 3-column grid layout for options within each card
+
+#### 8. File Upload Functionality ✅ PASSED
+- ✅ File upload area with drag-and-drop functionality present
+- ✅ "Browse Files" button visible and accessible
+- ✅ Supported file types listed: PDF, DOC, DOCX, JPG, PNG, XLSX, XLS, TXT, CSV
+- ✅ "Upload Evidence" button properly disabled when no file selected
+- ✅ "Cancel" button present and functional
+
+#### 9. Modal Close Functionality ✅ PASSED
+- ✅ Cancel button successfully closes modal
+- ✅ Modal disappears completely after closing
+- ✅ Assessment page returns to normal state
+
+### Technical Verification
+- **Trust Level Order:** Correctly implemented in TRUST_LEVEL_OPTIONS array
+- **Default Selection:** trustLevel state initialized to 'Unspecified'
+- **Subtitle Text:** Exact match with specified requirements
+- **Toggle Implementation:** Proper checkbox with isReusable state management
+- **Modal Implementation:** Uses shadcn/ui Dialog component correctly
+- **Responsive Design:** Modal maintains proper layout on desktop viewport (1920×1080)
+
+### Integration Testing
+- ✅ Evidence Upload Modal integrates properly with assessment workflow
+- ✅ Modal triggered from correct location in assessment question
+- ✅ No JavaScript errors or console warnings observed
+- ✅ All new changes working seamlessly with existing functionality
+- ✅ Radio button selections maintain state during modal interaction
+
+### Key Changes Successfully Verified
+1. ✅ **Trust Level Order:** Unspecified, Draft, Approved, Operational, Independently Reviewed, Regulator / External Assured
+2. ✅ **Trust Level Default:** "Unspecified" pre-selected with teal highlight
+3. ✅ **Updated Subtitle:** "These classifications are optional and help improve reporting and traceability. You can skip this step or update it later."
+4. ✅ **Reusable Toggle:** Checkbox with text "Make this evidence reusable across other questions"
+
+### Issues Found: None
+
+All Evidence Upload Modal new changes have been successfully implemented and verified. The Trust Level card order is correct, default selection works as expected, the subtitle text matches requirements exactly, and the reusable toggle checkbox is present and functional.
