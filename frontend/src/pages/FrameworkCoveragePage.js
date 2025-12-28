@@ -198,7 +198,7 @@ function FrameworkCoveragePage() {
             </div>
 
             {/* Center Section: Framework Coverage Overview Content */}
-            <div className="mx-6" style={{ maxWidth: '900px' }}>
+            <div className="mx-6" style={{ maxWidth: '1100px' }}>
               <div className="flex items-center">
                 <h2 className="text-lg font-bold text-gray-900">
                   Framework Coverage Overview
