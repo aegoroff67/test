@@ -501,11 +501,11 @@ function AssessmentPage() {
     // Add to uploaded files state
     setUploadedFiles(prev => [...prev, newEvidence]);
     
-    // Also update the questionEvidence cache
-    if (currentQuestion?.id) {
+    // Also update the questionEvidence cache using question code
+    if (currentQuestion?.code) {
       setQuestionEvidence(prev => ({
         ...prev,
-        [currentQuestion.id]: [...(prev[currentQuestion.id] || []), newEvidence]
+        [currentQuestion.code]: [...(prev[currentQuestion.code] || []), newEvidence]
       }));
     }
   };
