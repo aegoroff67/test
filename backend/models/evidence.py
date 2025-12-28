@@ -156,6 +156,7 @@ class EvidenceResponse(BaseModel):
     valid_from: Optional[str] = None
     valid_to: Optional[str] = None
     applies_to_scope: str
+    assessment_id: Optional[str] = None
     linked_question_ids: List[str]
     linked_am_control_ids: List[str]
     notes: Optional[str] = None
