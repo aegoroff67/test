@@ -2,14 +2,10 @@ import React, { useState, useRef } from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogFooter,
-  DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
 import { Upload, File, X, Check } from 'lucide-react';
 
 // Evidence metadata options
@@ -169,18 +165,20 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[1500px] max-w-[95vw] h-[750px] max-h-[90vh] overflow-hidden flex flex-col">
-        <DialogHeader>
-          <DialogTitle className="text-lg font-semibold">Upload Evidence</DialogTitle>
-          <DialogDescription className="text-sm text-gray-500">
-            Upload supporting evidence and classify it for {questionCode || 'this question'}
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="flex gap-6 flex-1 min-h-0 items-stretch">
-          {/* Left Panel - File Upload */}
-          <div className="flex-1 flex flex-col">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Select File</Label>
+      <DialogContent className="w-[1500px] max-w-[95vw] h-[750px] max-h-[90vh] overflow-hidden flex flex-col p-0">
+        {/* Main content area - split into two halves from the top */}
+        <div className="flex flex-1 min-h-0">
+          {/* Left Panel - Upload Evidence */}
+          <div className="flex-1 flex flex-col p-6 border-r border-gray-200">
+            {/* Left Header */}
+            <div className="mb-4">
+              <h2 className="text-lg font-semibold text-gray-900">Upload Evidence</h2>
+              <p className="text-sm text-gray-500">
+                Upload supporting evidence for {questionCode || 'this question'}
+              </p>
+            </div>
+            
+            {/* File Upload Area */}
             <div
               className={`flex-1 border-2 border-dashed rounded-lg flex flex-col items-center justify-center p-6 transition-colors ${
                 dragActive
@@ -246,10 +244,18 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
             </div>
           </div>
 
-          {/* Right Panel - Metadata Cards */}
-          <div className="flex-1 flex flex-col">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Classify Evidence</Label>
-            <div className="flex flex-col gap-3">
+          {/* Right Panel - Classify Evidence */}
+          <div className="flex-1 flex flex-col p-6">
+            {/* Right Header */}
+            <div className="mb-4">
+              <h2 className="text-lg font-semibold text-gray-900">Classify Evidence</h2>
+              <p className="text-sm text-gray-500">
+                Select the appropriate classification options
+              </p>
+            </div>
+            
+            {/* Classification Cards */}
+            <div className="flex flex-col gap-3 flex-1 overflow-auto">
               {renderOptionCard('Evidence Type', EVIDENCE_TYPE_OPTIONS, evidenceType, setEvidenceType)}
               {renderOptionCard('Lifecycle Phase', LIFECYCLE_PHASE_OPTIONS, lifecyclePhase, setLifecyclePhase)}
               {renderOptionCard('Trust Level', TRUST_LEVEL_OPTIONS, trustLevel, setTrustLevel)}
@@ -258,7 +264,8 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
           </div>
         </div>
 
-        <DialogFooter className="mt-4">
+        {/* Footer */}
+        <DialogFooter className="p-4 border-t border-gray-200">
           <Button variant="outline" onClick={handleClose}>
             Cancel
           </Button>
