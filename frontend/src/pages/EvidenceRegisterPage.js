@@ -170,6 +170,20 @@ function EvidenceRegisterPage() {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
 
+  // Convert linked question IDs (UUIDs or codes) to display-friendly question codes
+  const getLinkedQuestionCodes = (linkedIds) => {
+    if (!linkedIds || linkedIds.length === 0) return 'None';
+    
+    return linkedIds.map(id => {
+      // If it's already a question code format (like FA-1, TR-4), return as-is
+      if (id && /^[A-Z]{2,3}-\d+$/.test(id)) {
+        return id;
+      }
+      // Otherwise, try to map UUID to code
+      return questionIdToCode[id] || id;
+    }).join(', ');
+  };
+
   // Format date helper
   const formatDate = (dateString) => {
     if (!dateString) return '-';
