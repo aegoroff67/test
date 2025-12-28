@@ -537,31 +537,31 @@ function AssessmentPage() {
     }
   };
 
-  // Fetch evidence for a specific question
-  const fetchQuestionEvidence = async (questionId) => {
-    if (!questionId) return;
+  // Fetch evidence for a specific question by question code (e.g., "FA-1")
+  const fetchQuestionEvidence = async (questionCode) => {
+    if (!questionCode) return;
     
     // Always fetch fresh data from backend
     try {
-      const response = await axios.get(`${API}/evidence/by-question/${questionId}`);
+      const response = await axios.get(`${API}/evidence/by-question/${questionCode}`);
       const evidence = response.data || [];
       
       // Cache the evidence for this question
       setQuestionEvidence(prev => ({
         ...prev,
-        [questionId]: evidence
+        [questionCode]: evidence
       }));
       
       // Set as current uploaded files
       setUploadedFiles(evidence);
     } catch (error) {
       // If no evidence found (404) or other error, just set empty array
-      console.log('No evidence found for question:', questionId);
+      console.log('No evidence found for question:', questionCode);
       setUploadedFiles([]);
       // Also update cache to empty for this question
       setQuestionEvidence(prev => ({
         ...prev,
-        [questionId]: []
+        [questionCode]: []
       }));
     }
   };
