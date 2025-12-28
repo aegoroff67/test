@@ -3731,6 +3731,279 @@ async def download_testing_checklist():
         filename="AM_AI_SAFE_Testing_Checklist.pdf"
     )
 
+
+# ============================================================================
+# EVIDENCE API ENDPOINTS
+# ============================================================================
+
+@api_router.get("/evidence/enums")
+async def get_evidence_enums():
+    """Get all enum values for evidence fields"""
+    return {
+        "evidence_types": [e.value for e in EvidenceType],
+        "lifecycle_phases": [e.value for e in LifecyclePhase],
+        "trust_levels": [e.value for e in TrustLevel],
+        "applies_to_scopes": [e.value for e in AppliesToScope],
+        "statuses": [e.value for e in EvidenceStatus]
+    }
+
+
+@api_router.post("/evidence", response_model=EvidenceResponse)
+async def create_evidence(
+    evidence_data: EvidenceCreate,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Create a new evidence record"""
+    try:
+        # Validate at least one linked question
+        if not evidence_data.linked_question_ids or len(evidence_data.linked_question_ids) == 0:
+            raise HTTPException(status_code=400, detail="At least one linked question ID is required")
+        
+        now = datetime.now(timezone.utc)
+        
+        evidence = Evidence(
+            evidence_id=str(uuid.uuid4()),
+            evidence_title=evidence_data.evidence_title,
+            evidence_description=evidence_data.evidence_description,
+            file_name=evidence_data.file_name,
+            file_type=evidence_data.file_type,
+            file_url=evidence_data.file_url,
+            uploaded_by=current_user.id,
+            uploaded_date=now,
+            last_updated_date=now,
+            evidence_type=evidence_data.evidence_type or EvidenceType.UNSPECIFIED,
+            lifecycle_phase=evidence_data.lifecycle_phase or LifecyclePhase.UNSPECIFIED,
+            trust_level=evidence_data.trust_level or TrustLevel.UNSPECIFIED,
+            evidence_owner=evidence_data.evidence_owner,
+            valid_from=evidence_data.valid_from,
+            valid_to=evidence_data.valid_to,
+            applies_to_scope=evidence_data.applies_to_scope or AppliesToScope.UNSPECIFIED,
+            linked_question_ids=evidence_data.linked_question_ids,
+            linked_am_control_ids=evidence_data.linked_am_control_ids or [],
+            notes=evidence_data.notes,
+            is_reusable=evidence_data.is_reusable or False,
+            status=EvidenceStatus.ACTIVE,
+            org_id=current_user.org_id
+        )
+        
+        # Convert to dict for MongoDB
+        evidence_dict = evidence.model_dump()
+        # Convert datetime objects to ISO strings
+        evidence_dict['uploaded_date'] = evidence_dict['uploaded_date'].isoformat()
+        evidence_dict['last_updated_date'] = evidence_dict['last_updated_date'].isoformat()
+        if evidence_dict.get('valid_from'):
+            evidence_dict['valid_from'] = evidence_dict['valid_from'].isoformat()
+        if evidence_dict.get('valid_to'):
+            evidence_dict['valid_to'] = evidence_dict['valid_to'].isoformat()
+        # Convert enums to strings
+        evidence_dict['evidence_type'] = evidence_dict['evidence_type'].value
+        evidence_dict['lifecycle_phase'] = evidence_dict['lifecycle_phase'].value
+        evidence_dict['trust_level'] = evidence_dict['trust_level'].value
+        evidence_dict['applies_to_scope'] = evidence_dict['applies_to_scope'].value
+        evidence_dict['status'] = evidence_dict['status'].value
+        
+        await db.evidence.insert_one(evidence_dict)
+        
+        return EvidenceResponse(**evidence_dict)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating evidence: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to create evidence: {str(e)}")
+
+
+@api_router.get("/evidence", response_model=List[EvidenceResponse])
+async def list_evidence(
+    current_user: UserResponse = Depends(get_current_user),
+    status: Optional[str] = Query(None, description="Filter by status"),
+    evidence_type: Optional[str] = Query(None, description="Filter by evidence type"),
+    question_id: Optional[str] = Query(None, description="Filter by linked question ID")
+):
+    """List all evidence for the user's organization"""
+    try:
+        query = {"org_id": current_user.org_id}
+        
+        if status:
+            query["status"] = status
+        if evidence_type:
+            query["evidence_type"] = evidence_type
+        if question_id:
+            query["linked_question_ids"] = question_id
+        
+        evidence_list = await db.evidence.find(query, {"_id": 0}).to_list(1000)
+        
+        return [EvidenceResponse(**e) for e in evidence_list]
+        
+    except Exception as e:
+        logger.error(f"Error listing evidence: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to list evidence: {str(e)}")
+
+
+@api_router.get("/evidence/{evidence_id}", response_model=EvidenceResponse)
+async def get_evidence(
+    evidence_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Get a specific evidence record by ID"""
+    try:
+        evidence = await db.evidence.find_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id},
+            {"_id": 0}
+        )
+        
+        if not evidence:
+            raise HTTPException(status_code=404, detail="Evidence not found")
+        
+        return EvidenceResponse(**evidence)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting evidence: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get evidence: {str(e)}")
+
+
+@api_router.put("/evidence/{evidence_id}", response_model=EvidenceResponse)
+async def update_evidence(
+    evidence_id: str,
+    update_data: EvidenceUpdate,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Update an existing evidence record"""
+    try:
+        # Find existing evidence
+        existing = await db.evidence.find_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id}
+        )
+        
+        if not existing:
+            raise HTTPException(status_code=404, detail="Evidence not found")
+        
+        # Build update dict with only provided fields
+        update_dict = {}
+        update_fields = update_data.model_dump(exclude_unset=True)
+        
+        for field, value in update_fields.items():
+            if value is not None:
+                # Convert enums to string values
+                if isinstance(value, (EvidenceType, LifecyclePhase, TrustLevel, AppliesToScope, EvidenceStatus)):
+                    update_dict[field] = value.value
+                elif isinstance(value, datetime):
+                    update_dict[field] = value.isoformat()
+                else:
+                    update_dict[field] = value
+        
+        # Validate linked_question_ids if being updated
+        if 'linked_question_ids' in update_dict:
+            if not update_dict['linked_question_ids'] or len(update_dict['linked_question_ids']) == 0:
+                raise HTTPException(status_code=400, detail="At least one linked question ID is required")
+        
+        # Always update last_updated_date
+        update_dict['last_updated_date'] = datetime.now(timezone.utc).isoformat()
+        
+        # Perform update
+        await db.evidence.update_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id},
+            {"$set": update_dict}
+        )
+        
+        # Return updated evidence
+        updated = await db.evidence.find_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id},
+            {"_id": 0}
+        )
+        
+        return EvidenceResponse(**updated)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating evidence: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to update evidence: {str(e)}")
+
+
+@api_router.delete("/evidence/{evidence_id}")
+async def delete_evidence(
+    evidence_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Delete an evidence record (or archive it)"""
+    try:
+        # Find existing evidence
+        existing = await db.evidence.find_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id}
+        )
+        
+        if not existing:
+            raise HTTPException(status_code=404, detail="Evidence not found")
+        
+        # Option 1: Soft delete by setting status to Archived
+        await db.evidence.update_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id},
+            {
+                "$set": {
+                    "status": EvidenceStatus.ARCHIVED.value,
+                    "last_updated_date": datetime.now(timezone.utc).isoformat()
+                }
+            }
+        )
+        
+        return {"message": "Evidence archived successfully", "evidence_id": evidence_id}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting evidence: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to delete evidence: {str(e)}")
+
+
+@api_router.get("/evidence/by-question/{question_id}", response_model=List[EvidenceResponse])
+async def get_evidence_by_question(
+    question_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Get all evidence linked to a specific question"""
+    try:
+        evidence_list = await db.evidence.find(
+            {
+                "org_id": current_user.org_id,
+                "linked_question_ids": question_id,
+                "status": {"$ne": EvidenceStatus.ARCHIVED.value}
+            },
+            {"_id": 0}
+        ).to_list(100)
+        
+        return [EvidenceResponse(**e) for e in evidence_list]
+        
+    except Exception as e:
+        logger.error(f"Error getting evidence by question: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get evidence: {str(e)}")
+
+
+@api_router.get("/evidence/by-control/{control_id}", response_model=List[EvidenceResponse])
+async def get_evidence_by_control(
+    control_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Get all evidence linked to a specific AM AI SAFE control"""
+    try:
+        evidence_list = await db.evidence.find(
+            {
+                "org_id": current_user.org_id,
+                "linked_am_control_ids": control_id,
+                "status": {"$ne": EvidenceStatus.ARCHIVED.value}
+            },
+            {"_id": 0}
+        ).to_list(100)
+        
+        return [EvidenceResponse(**e) for e in evidence_list]
+        
+    except Exception as e:
+        logger.error(f"Error getting evidence by control: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get evidence: {str(e)}")
+
+
 # Include router
 app.include_router(api_router)
 
