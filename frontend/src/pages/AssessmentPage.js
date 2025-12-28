@@ -1246,6 +1246,7 @@ function AssessmentPage() {
         onUpload={handleFileUpload}
         questionCode={currentQuestion?.code}
         questionId={currentQuestion?.id}
+        assessmentId={id}
         currentUser={user}
       />
 
