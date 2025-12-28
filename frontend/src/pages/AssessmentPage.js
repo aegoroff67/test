@@ -135,6 +135,7 @@ function AssessmentPage() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [currentHelpContent, setCurrentHelpContent] = useState(null);
   const [skipAutoNavigation, setSkipAutoNavigation] = useState(false);
+  const [showEvidenceModal, setShowEvidenceModal] = useState(false);
   
   // Unified framework modal state - replaces 18 individual state variables
   const [activeFrameworkModal, setActiveFrameworkModal] = useState(null);
