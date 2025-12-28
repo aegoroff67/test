@@ -136,12 +136,13 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
         <CardTitle className="text-sm font-semibold text-gray-900">{title}</CardTitle>
       </CardHeader>
       <CardContent className="py-1 px-3">
-        <ScrollArea className="h-[140px]">
+        <ScrollArea className="h-[280px]">
           <div className="space-y-1 pr-2">
             {options.map((option) => (
-              <label
+              <div
                 key={option}
-                className={`flex items-center space-x-2 p-1.5 rounded-md cursor-pointer transition-colors ${
+                onClick={() => onSelect(option)}
+                className={`flex items-center space-x-2 p-2 rounded-md cursor-pointer transition-colors ${
                   selectedValue === option
                     ? 'bg-teal-50 border border-teal-300'
                     : 'hover:bg-gray-50 border border-transparent'
@@ -158,10 +159,10 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
                     <div className="w-1.5 h-1.5 rounded-full bg-white" />
                   )}
                 </div>
-                <span className={`text-xs ${selectedValue === option ? 'text-teal-900 font-medium' : 'text-gray-700'}`}>
+                <span className={`text-sm ${selectedValue === option ? 'text-teal-900 font-medium' : 'text-gray-700'}`}>
                   {option}
                 </span>
-              </label>
+              </div>
             ))}
           </div>
         </ScrollArea>
