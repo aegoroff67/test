@@ -520,7 +520,7 @@ function ResultsPage() {
                  : assessmentType === 'Readiness' ? 'Readiness Tier Description'
                  : 'Maturity Tier Description'}
               </p>
-              <div className="text-xs text-gray-700 space-y-1">
+              <div className="text-gray-700 space-y-1" style={{ fontSize: '11px' }}>
                 {assessmentType === 'Awareness' ? (
                   <>
                     <p><span className="font-bold">Established (86-100%):</span> Ready to Progress</p>
