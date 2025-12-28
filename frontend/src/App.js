@@ -20,6 +20,7 @@ import ReviewAssessmentPage from './pages/ReviewAssessmentPage';
 import AssessmentPage from './pages/AssessmentPage';
 import ResultsPage from './pages/ResultsPage';
 import FrameworkCoveragePage from './pages/FrameworkCoveragePage';
+import EvidenceRegisterPage from './pages/EvidenceRegisterPage';
 
 // Import context
 import { AuthProvider, useAuth } from './context/AuthContext';
