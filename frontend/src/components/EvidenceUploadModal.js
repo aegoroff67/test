@@ -304,52 +304,53 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
               {renderOptionCard('Trust Level', TRUST_LEVEL_OPTIONS, trustLevel, setTrustLevel)}
               {renderOptionCard('Applies To Scope', APPLIES_TO_SCOPE_OPTIONS, appliesToScope, setAppliesToScope)}
             </div>
-            
-            {/* Reusable Toggle */}
-            <div className="mt-4 pt-3 border-t border-gray-100">
-              <label 
-                className="flex items-center space-x-2 cursor-pointer"
-                onClick={() => setIsReusable(!isReusable)}
-              >
-                <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
-                  isReusable 
-                    ? 'bg-teal-600 border-teal-600' 
-                    : 'border-gray-400 bg-white'
-                }`}>
-                  {isReusable && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">
-                  Make this evidence reusable across other questions
-                </span>
-              </label>
-            </div>
           </div>
         </div>
 
         {/* Footer */}
-        <DialogFooter className="p-4 border-t border-gray-200">
-          <Button variant="outline" onClick={handleClose} disabled={uploading}>
-            Cancel
-          </Button>
-          <Button
-            onClick={handleUpload}
-            disabled={!selectedFile || uploading}
-            className="bg-teal-600 hover:bg-teal-700 text-white"
+        <DialogFooter className="p-4 border-t border-gray-200 flex justify-between items-center">
+          {/* Reusable Toggle - Left side of footer */}
+          <label 
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => setIsReusable(!isReusable)}
           >
-            {uploading ? (
-              <>
-                <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Uploading...
-              </>
-            ) : (
-              <>
-                <Check className="w-4 h-4 mr-2" />
-                Upload Evidence
-              </>
-            )}
-          </Button>
+            <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
+              isReusable 
+                ? 'bg-teal-600 border-teal-600' 
+                : 'border-gray-400 bg-white'
+            }`}>
+              {isReusable && (
+                <Check className="w-3 h-3 text-white" />
+              )}
+            </div>
+            <span className="text-sm text-gray-700">
+              Make this evidence reusable across other questions
+            </span>
+          </label>
+          
+          {/* Buttons - Right side of footer */}
+          <div className="flex items-center space-x-2">
+            <Button variant="outline" onClick={handleClose} disabled={uploading}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleUpload}
+              disabled={!selectedFile || uploading}
+              className="bg-teal-600 hover:bg-teal-700 text-white"
+            >
+              {uploading ? (
+                <>
+                  <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Uploading...
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4 mr-2" />
+                  Upload Evidence
+                </>
+              )}
+            </Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
