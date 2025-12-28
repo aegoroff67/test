@@ -264,12 +264,9 @@ function AssessmentPage() {
     if (currentAnswer) {
       setNote(currentAnswer.note || '');
       setOtherText(currentAnswer.other_text || '');
-      // Reset uploaded files for new question (files are per-question)
-      setUploadedFiles([]);
     } else {
       setNote('');
       setOtherText('');
-      setUploadedFiles([]);
     }
   }, [currentQuestionIndex, currentAnswer]);
 
