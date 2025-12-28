@@ -122,6 +122,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
       
       // Create Evidence record via API
       // Use questionCode (e.g., "FA-1") for linked_question_ids, not the UUID
+      // Include assessment_id to link evidence to specific assessment
       const evidenceData = {
         evidence_title: selectedFile.name,
         file_name: selectedFile.name,
@@ -131,6 +132,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
         lifecycle_phase: lifecyclePhase || 'Unspecified',
         trust_level: trustLevel || 'Unspecified',
         applies_to_scope: appliesToScope || 'Unspecified',
+        assessment_id: assessmentId,
         linked_question_ids: [questionCode],
         is_reusable: isReusable,
         notes: null
