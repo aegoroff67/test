@@ -3490,14 +3490,14 @@ async def generate_framework_coverage_pdf(
                 path=temp_pdf_path,
                 format='A4',
                 landscape=True,
-                scale=0.65,
+                scale=0.55,
                 print_background=True,
                 prefer_css_page_size=False,
                 margin={
-                    'top': '0.5cm',
-                    'right': '0.5cm',
-                    'bottom': '0.5cm',
-                    'left': '0.5cm'
+                    'top': '0.3cm',
+                    'right': '0.3cm',
+                    'bottom': '0.3cm',
+                    'left': '0.3cm'
                 }
             )
             
