@@ -121,19 +121,29 @@ function EvidenceRegisterPage() {
         // Questions are nested inside domains: [{domain: {...}, questions: [...]}]
         const domainsWithQuestions = questionsRes.data || [];
         const idToCodeMap = {};
+        const assessmentQuestionIds = new Set(); // Track all question IDs/codes for this assessment
+        
         domainsWithQuestions.forEach(domainObj => {
           const questions = domainObj.questions || [];
           questions.forEach(q => {
             if (q.id && q.code) {
               idToCodeMap[q.id] = q.code;
+              assessmentQuestionIds.add(q.id);
+              assessmentQuestionIds.add(q.code);
             }
           });
         });
         setQuestionIdToCode(idToCodeMap);
         
-        // Filter evidence that's linked to this assessment's questions
+        // Filter evidence to only show items linked to THIS assessment's questions
         const allEvidence = evidenceRes.data || [];
-        setEvidence(allEvidence);
+        const filteredEvidence = allEvidence.filter(evidence => {
+          const linkedIds = evidence.linked_question_ids || [];
+          // Check if any linked question ID/code belongs to this assessment
+          return linkedIds.some(linkedId => assessmentQuestionIds.has(linkedId));
+        });
+        
+        setEvidence(filteredEvidence);
       } catch (error) {
         console.error('Error fetching data:', error);
         toast.error('Failed to load evidence data');
