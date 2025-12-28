@@ -7,6 +7,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, File, X, Check } from 'lucide-react';
+import { toast } from 'sonner';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Evidence metadata options
 const EVIDENCE_TYPE_OPTIONS = [
@@ -38,11 +42,12 @@ const LIFECYCLE_PHASE_OPTIONS = [
   'Cross-Lifecycle'
 ];
 
+// Reordered as requested
 const TRUST_LEVEL_OPTIONS = [
   'Unspecified',
   'Draft',
-  'Operational',
   'Approved',
+  'Operational',
   'Independently Reviewed',
   'Regulator / External Assured'
 ];
@@ -56,13 +61,15 @@ const APPLIES_TO_SCOPE_OPTIONS = [
   'Unspecified'
 ];
 
-function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
+function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, questionId, currentUser }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
-  const [evidenceType, setEvidenceType] = useState('');
-  const [lifecyclePhase, setLifecyclePhase] = useState('');
-  const [trustLevel, setTrustLevel] = useState('');
-  const [appliesToScope, setAppliesToScope] = useState('');
+  const [evidenceType, setEvidenceType] = useState('Unspecified');
+  const [lifecyclePhase, setLifecyclePhase] = useState('Unspecified');
+  const [trustLevel, setTrustLevel] = useState('Unspecified'); // Default selected
+  const [appliesToScope, setAppliesToScope] = useState('Unspecified');
+  const [isReusable, setIsReusable] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleDrag = (e) => {
@@ -102,26 +109,62 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
     }
   };
 
-  const handleUpload = () => {
-    if (selectedFile) {
-      const metadata = {
-        evidenceType,
-        lifecyclePhase,
-        trustLevel,
-        appliesToScope,
-        questionCode
+  const handleUpload = async () => {
+    if (!selectedFile) return;
+    
+    setUploading(true);
+    
+    try {
+      // First, upload the file (you may need to implement file storage)
+      // For now, we'll create a placeholder URL - in production this should upload to S3/cloud storage
+      const fileUrl = `uploads/${Date.now()}_${selectedFile.name}`;
+      
+      // Create Evidence record via API
+      const evidenceData = {
+        evidence_title: selectedFile.name,
+        file_name: selectedFile.name,
+        file_type: selectedFile.type || selectedFile.name.split('.').pop(),
+        file_url: fileUrl,
+        evidence_type: evidenceType || 'Unspecified',
+        lifecycle_phase: lifecyclePhase || 'Unspecified',
+        trust_level: trustLevel || 'Unspecified',
+        applies_to_scope: appliesToScope || 'Unspecified',
+        linked_question_ids: [questionId || questionCode],
+        is_reusable: isReusable,
+        notes: null
       };
-      onUpload(selectedFile, metadata);
-      handleClose();
+      
+      const response = await axios.post(`${BACKEND_URL}/api/evidence`, evidenceData);
+      
+      if (response.data) {
+        toast.success('Evidence uploaded successfully!');
+        
+        // Call the parent's onUpload callback with the file and metadata
+        if (onUpload) {
+          onUpload(selectedFile, {
+            ...evidenceData,
+            evidence_id: response.data.evidence_id
+          });
+        }
+        
+        handleClose();
+      }
+    } catch (error) {
+      console.error('Error uploading evidence:', error);
+      const errorMessage = error.response?.data?.detail || 'Failed to upload evidence';
+      toast.error(errorMessage);
+    } finally {
+      setUploading(false);
     }
   };
 
   const handleClose = () => {
     setSelectedFile(null);
-    setEvidenceType('');
-    setLifecyclePhase('');
-    setTrustLevel('');
-    setAppliesToScope('');
+    setEvidenceType('Unspecified');
+    setLifecyclePhase('Unspecified');
+    setTrustLevel('Unspecified');
+    setAppliesToScope('Unspecified');
+    setIsReusable(false);
     onClose();
   };
 
@@ -250,32 +293,62 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
             <div className="mb-4">
               <h2 className="text-lg font-semibold text-gray-900">Classify Evidence</h2>
               <p className="text-sm text-gray-500">
-                Select the appropriate classification options
+                These classifications are optional and help improve reporting and traceability. You can skip this step or update it later.
               </p>
             </div>
             
             {/* Classification Cards */}
-            <div className="flex flex-col gap-3 flex-1 overflow-auto">
+            <div className="flex flex-col gap-3 flex-1">
               {renderOptionCard('Evidence Type', EVIDENCE_TYPE_OPTIONS, evidenceType, setEvidenceType)}
               {renderOptionCard('Lifecycle Phase', LIFECYCLE_PHASE_OPTIONS, lifecyclePhase, setLifecyclePhase)}
               {renderOptionCard('Trust Level', TRUST_LEVEL_OPTIONS, trustLevel, setTrustLevel)}
               {renderOptionCard('Applies To Scope', APPLIES_TO_SCOPE_OPTIONS, appliesToScope, setAppliesToScope)}
+            </div>
+            
+            {/* Reusable Toggle */}
+            <div className="mt-4 pt-3 border-t border-gray-100">
+              <label 
+                className="flex items-center space-x-2 cursor-pointer"
+                onClick={() => setIsReusable(!isReusable)}
+              >
+                <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
+                  isReusable 
+                    ? 'bg-teal-600 border-teal-600' 
+                    : 'border-gray-400 bg-white'
+                }`}>
+                  {isReusable && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">
+                  Make this evidence reusable across other questions
+                </span>
+              </label>
             </div>
           </div>
         </div>
 
         {/* Footer */}
         <DialogFooter className="p-4 border-t border-gray-200">
-          <Button variant="outline" onClick={handleClose}>
+          <Button variant="outline" onClick={handleClose} disabled={uploading}>
             Cancel
           </Button>
           <Button
             onClick={handleUpload}
-            disabled={!selectedFile}
+            disabled={!selectedFile || uploading}
             className="bg-teal-600 hover:bg-teal-700 text-white"
           >
-            <Check className="w-4 h-4 mr-2" />
-            Upload Evidence
+            {uploading ? (
+              <>
+                <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Uploading...
+              </>
+            ) : (
+              <>
+                <Check className="w-4 h-4 mr-2" />
+                Upload Evidence
+              </>
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>
