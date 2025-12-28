@@ -140,6 +140,13 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
       if (response.data) {
         toast.success('Evidence uploaded successfully!');
         
+        // Add to uploaded files list
+        setUploadedFiles(prev => [...prev, {
+          name: selectedFile.name,
+          evidence_id: response.data.evidence_id,
+          evidenceType: evidenceType
+        }]);
+        
         // Call the parent's onUpload callback with the file and metadata
         if (onUpload) {
           onUpload(selectedFile, {
@@ -148,7 +155,16 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
           });
         }
         
-        handleClose();
+        // Reset for next upload (but keep modal open and keep uploaded files list)
+        setSelectedFile(null);
+        setEvidenceType('Unspecified');
+        setLifecyclePhase('Unspecified');
+        setTrustLevel('Unspecified');
+        setAppliesToScope('Unspecified');
+        setIsReusable(false);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
       }
     } catch (error) {
       console.error('Error uploading evidence:', error);
