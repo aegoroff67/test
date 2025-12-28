@@ -135,11 +135,17 @@ function EvidenceRegisterPage() {
         });
         setQuestionIdToCode(idToCodeMap);
         
-        // Filter evidence to only show items linked to THIS assessment's questions
+        // Filter evidence to only show items linked to THIS assessment
+        // Primary filter: assessment_id matches
+        // Fallback filter: linked_question_ids contain questions from this assessment
         const allEvidence = evidenceRes.data || [];
         const filteredEvidence = allEvidence.filter(evidence => {
+          // If evidence has assessment_id, use that for filtering (new evidence)
+          if (evidence.assessment_id) {
+            return evidence.assessment_id === id;
+          }
+          // Fallback: check linked question IDs (legacy evidence without assessment_id)
           const linkedIds = evidence.linked_question_ids || [];
-          // Check if any linked question ID/code belongs to this assessment
           return linkedIds.some(linkedId => assessmentQuestionIds.has(linkedId));
         });
         
