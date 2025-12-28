@@ -436,7 +436,7 @@ function FrameworkCoveragePage() {
                                   : ''
                               }`}>
                                 {coverageGap.toFixed(1)}% {isFrameworkSelected && (
-                                  coverageGap <= 20 ? '(LOW)' : coverageGap <= 40 ? '(MODERATE)' : '(HIGH)'
+                                  coverageGap <= 20 ? '(LOW)' : coverageGap <= 40 ? '(MEDIUM)' : '(HIGH)'
                                 )}
                               </span>
                             </div>
