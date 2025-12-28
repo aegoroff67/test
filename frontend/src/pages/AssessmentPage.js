@@ -253,6 +253,13 @@ function AssessmentPage() {
   const responseOptions = currentQuestion ? getResponseOptions(assessmentType, currentQuestion.predefined_answers) : [];
   const colors = getColorScheme(assessmentType);
 
+  // Fetch evidence when the current question changes
+  useEffect(() => {
+    if (currentQuestion?.id) {
+      fetchQuestionEvidence(currentQuestion.id);
+    }
+  }, [currentQuestion?.id]);
+
   useEffect(() => {
     if (currentAnswer) {
       setNote(currentAnswer.note || '');
