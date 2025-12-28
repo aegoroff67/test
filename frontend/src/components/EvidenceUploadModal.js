@@ -177,6 +177,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
 
   const handleClose = () => {
     setSelectedFile(null);
+    setUploadedFiles([]);
     setEvidenceType('Unspecified');
     setLifecyclePhase('Unspecified');
     setTrustLevel('Unspecified');
