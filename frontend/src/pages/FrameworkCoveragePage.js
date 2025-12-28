@@ -18,7 +18,8 @@ import {
   FileCheck,
   Layers,
   BookOpen,
-  Award
+  Award,
+  Printer
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
