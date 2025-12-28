@@ -61,7 +61,7 @@ const APPLIES_TO_SCOPE_OPTIONS = [
   'Unspecified'
 ];
 
-function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, questionId, currentUser }) {
+function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, questionId, assessmentId, currentUser }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [dragActive, setDragActive] = useState(false);
