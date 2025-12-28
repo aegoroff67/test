@@ -490,23 +490,25 @@ function AssessmentPage() {
       return;
     }
     
-    // Store metadata with the file if provided
-    const filesWithMetadata = fileList.map(file => {
-      if (metadata) {
-        file.metadata = metadata;
-      }
-      return file;
-    });
+    // Create evidence object from metadata (comes from the modal's API response)
+    const newEvidence = {
+      evidence_id: metadata?.evidence_id,
+      evidence_title: metadata?.evidence_title || fileList[0]?.name,
+      file_name: metadata?.file_name || fileList[0]?.name,
+      evidence_type: metadata?.evidence_type || 'Unspecified',
+      ...metadata
+    };
     
     // Add to uploaded files state
-    setUploadedFiles(prev => [...prev, ...filesWithMetadata]);
+    setUploadedFiles(prev => [...prev, newEvidence]);
     
-    // If there's already an answer, save the files with it
-    if (currentAnswer) {
-      await saveFilesWithAnswer(currentAnswer.option, filesWithMetadata);
+    // Also update the questionEvidence cache
+    if (currentQuestion?.id) {
+      setQuestionEvidence(prev => ({
+        ...prev,
+        [currentQuestion.id]: [...(prev[currentQuestion.id] || []), newEvidence]
+      }));
     }
-    
-    toast.success(`${fileList.length} file${fileList.length > 1 ? 's' : ''} uploaded successfully`);
   };
 
   const removeFile = (indexToRemove) => {
