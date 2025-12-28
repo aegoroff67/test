@@ -25,6 +25,10 @@ from awareness_questions import AWARENESS_QUESTIONS_DATA
 from benchmark_utils import seed_benchmarks, get_sector_benchmarks, get_all_sectors
 from faira_scoring_engine import get_radar_chart_data, calculate_overall_risk
 from framework_coverage import get_all_framework_coverage, get_framework_coverage, FRAMEWORK_CONFIG, get_registry_summary
+from models.evidence import (
+    Evidence, EvidenceCreate, EvidenceUpdate, EvidenceResponse,
+    EvidenceType, LifecyclePhase, TrustLevel, AppliesToScope, EvidenceStatus
+)
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
