@@ -334,12 +334,16 @@ function EvidenceRegisterPage() {
         <Card>
           <CardContent className="p-0">
             {/* Table Header */}
-            <div className="grid grid-cols-12 gap-4 px-4 py-3 bg-gray-50 border-b text-xs font-semibold text-gray-600 uppercase tracking-wider">
-              <div className="col-span-4">Evidence</div>
-              <div className="col-span-2">Type</div>
-              <div className="col-span-2">Lifecycle</div>
+            <div className="grid grid-cols-24 gap-2 px-4 py-3 bg-gray-50 border-b text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <div className="col-span-5">Evidence</div>
+              <div className="col-span-3">Type</div>
+              <div className="col-span-3">Lifecycle</div>
               <div className="col-span-2">Trust</div>
-              <div className="col-span-2">Scope</div>
+              <div className="col-span-3">Scope</div>
+              <div className="col-span-3">Linked Questions</div>
+              <div className="col-span-2 text-center">Reusable</div>
+              <div className="col-span-1">Status</div>
+              <div className="col-span-2">Last Updated</div>
             </div>
 
             {/* Table Body */}
@@ -354,60 +358,73 @@ function EvidenceRegisterPage() {
                 filteredEvidence.map((item, index) => (
                   <div 
                     key={item.evidence_id || index} 
-                    className="grid grid-cols-12 gap-4 px-4 py-3 hover:bg-gray-50 transition-colors"
+                    className="grid grid-cols-24 gap-2 px-4 py-3 hover:bg-gray-50 transition-colors items-center"
                   >
-                    {/* Evidence Name & Linked Questions */}
-                    <div className="col-span-4">
-                      <div className="flex items-start space-x-2">
+                    {/* Evidence Name */}
+                    <div className="col-span-5">
+                      <div className="flex items-center space-x-2">
                         {getFileIcon(item.file_name)}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
-                            {item.evidence_title || item.file_name || 'Untitled'}
-                          </p>
-                          <div className="flex items-center space-x-1 mt-0.5">
-                            <span className="text-xs text-gray-500">Linked:</span>
-                            <span className="text-xs text-teal-600 font-medium">
-                              {(item.linked_question_ids || []).join(', ') || 'None'}
-                            </span>
-                          </div>
-                        </div>
-                        {/* Status indicators */}
-                        <div className="flex items-center space-x-1">
-                          {item.is_reusable && (
-                            <CheckCircle className="h-4 w-4 text-green-500" title="Reusable" />
-                          )}
-                          {item.status === 'Archived' && (
-                            <Archive className="h-4 w-4 text-gray-400" title="Archived" />
-                          )}
-                        </div>
+                        <p className="text-xs font-medium text-gray-900 truncate">
+                          {item.evidence_title || item.file_name || 'Untitled'}
+                        </p>
                       </div>
                     </div>
 
                     {/* Type */}
-                    <div className="col-span-2 flex items-center">
+                    <div className="col-span-3">
                       <span className="text-xs text-gray-700">
-                        {truncate(item.evidence_type || 'Unspecified', 20)}
+                        {truncate(item.evidence_type || 'Unspecified', 18)}
                       </span>
                     </div>
 
                     {/* Lifecycle */}
-                    <div className="col-span-2 flex items-center">
+                    <div className="col-span-3">
                       <span className="text-xs text-gray-700">
                         {truncate(item.lifecycle_phase || 'Unspecified', 15)}
                       </span>
                     </div>
 
                     {/* Trust */}
-                    <div className="col-span-2 flex items-center">
+                    <div className="col-span-2">
                       <span className="text-xs text-gray-700">
-                        {truncate(item.trust_level || 'Unspecified', 15)}
+                        {truncate(item.trust_level || 'Unspecified', 12)}
                       </span>
                     </div>
 
                     {/* Scope */}
-                    <div className="col-span-2 flex items-center">
+                    <div className="col-span-3">
                       <span className="text-xs text-gray-700">
                         {truncate(item.applies_to_scope || 'Unspecified', 15)}
+                      </span>
+                    </div>
+
+                    {/* Linked Questions */}
+                    <div className="col-span-3">
+                      <span className="text-xs text-teal-600 font-medium">
+                        {(item.linked_question_ids || []).join(', ') || 'None'}
+                      </span>
+                    </div>
+
+                    {/* Reusable */}
+                    <div className="col-span-2 flex justify-center">
+                      {item.is_reusable && (
+                        <CheckCircle className="h-4 w-4 text-green-500" title="Reusable" />
+                      )}
+                    </div>
+
+                    {/* Status */}
+                    <div className="col-span-1">
+                      <span className={`text-xs font-medium ${
+                        item.status === 'Archived' ? 'text-gray-500' : 'text-green-600'
+                      }`}>
+                        {item.status || 'Active'}
+                      </span>
+                    </div>
+
+                    {/* Last Updated */}
+                    <div className="col-span-2">
+                      <span className="text-xs text-gray-500">
+                        {formatDate(item.last_updated_date || item.uploaded_date)}
                       </span>
                     </div>
                   </div>
