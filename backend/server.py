@@ -3220,7 +3220,9 @@ async def generate_executive_summary_pdf(
         
         # Get frontend URL from environment (this points to external URL)
         frontend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:3000')
-        frontend_url = frontend_url.replace(':8001', ':3000')  # Ensure we're hitting frontend port
+        # If it's a backend URL with port 8001, switch to frontend port 3000
+        if ':8001' in frontend_url:
+            frontend_url = frontend_url.replace(':8001', ':3000')
         
         # Construct results page URL with view_type parameter
         results_url = f"{frontend_url}/results/{assessment_id}?view={view_type}"
