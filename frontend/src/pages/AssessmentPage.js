@@ -1198,6 +1198,8 @@ function AssessmentPage() {
         onClose={() => setShowEvidenceModal(false)}
         onUpload={handleFileUpload}
         questionCode={currentQuestion?.code}
+        questionId={currentQuestion?.id}
+        currentUser={user}
       />
 
       {/* Dynamic Framework Alignment Modals - Replaces 9 separate modal blocks */}
