@@ -121,6 +121,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
       const fileUrl = `uploads/${Date.now()}_${selectedFile.name}`;
       
       // Create Evidence record via API
+      // Use questionCode (e.g., "FA-1") for linked_question_ids, not the UUID
       const evidenceData = {
         evidence_title: selectedFile.name,
         file_name: selectedFile.name,
@@ -130,7 +131,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
         lifecycle_phase: lifecyclePhase || 'Unspecified',
         trust_level: trustLevel || 'Unspecified',
         applies_to_scope: appliesToScope || 'Unspecified',
-        linked_question_ids: [questionId || questionCode],
+        linked_question_ids: [questionCode],
         is_reusable: isReusable,
         notes: null
       };
