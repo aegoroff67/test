@@ -615,10 +615,10 @@ function ResultsPage() {
             
             {/* Last 20% - Action Buttons */}
             <div className="flex flex-col" style={{ width: '20%', gap: '3px' }}>
-              {/* Button 1 - Detailed Report with Exports label */}
+              {/* Button 1 - Detailed Report with Reports label */}
               <div className="flex items-center gap-2">
                 <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
-                  Exports:
+                  Reports:
                 </div>
                 <Button 
                   onClick={generateReport}
