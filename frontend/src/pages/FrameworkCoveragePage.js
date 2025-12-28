@@ -207,7 +207,7 @@ function FrameworkCoveragePage() {
                 variant="outline"
                 size="sm"
                 onClick={() => window.print()}
-                className="flex items-center space-x-2 border border-gray-300"
+                className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white border-blue-600"
               >
                 <Printer className="h-4 w-4" />
                 <span>Print PDF</span>
