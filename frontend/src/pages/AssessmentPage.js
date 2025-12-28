@@ -1135,11 +1135,15 @@ function AssessmentPage() {
                         />
                       )}
                     </Label>
-                    {/* Uploaded files displayed to the right of the title */}
+                    {/* Uploaded files displayed to the right of the title - clickable to open drawer */}
                     {uploadedFiles?.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 items-center">
                         {uploadedFiles.map((file, index) => (
-                          <span key={file.evidence_id || index} className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-green-50 text-green-700 border border-green-200">
+                          <button
+                            key={file.evidence_id || index}
+                            onClick={() => setShowEvidenceDrawer(true)}
+                            className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 hover:border-green-300 transition-colors cursor-pointer"
+                          >
                             <svg className="h-3 w-3 mr-1 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
@@ -1147,7 +1151,7 @@ function AssessmentPage() {
                             <svg className="h-3 w-3 ml-1 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                             </svg>
-                          </span>
+                          </button>
                         ))}
                       </div>
                     )}
