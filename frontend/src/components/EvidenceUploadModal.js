@@ -127,33 +127,33 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
 
   const renderOptionCard = (title, options, selectedValue, onSelect) => (
     <Card className="w-full">
-      <CardHeader className="py-2 px-4">
+      <CardHeader className="py-1.5 px-4">
         <CardTitle className="text-sm font-semibold text-gray-900">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="py-2 px-4">
-        <div className="flex flex-wrap gap-2">
+      <CardContent className="py-1.5 px-4">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-1">
           {options.map((option) => (
             <div
               key={option}
               onClick={() => onSelect(option)}
-              className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-md cursor-pointer transition-colors ${
+              className={`flex items-center space-x-2 py-1 cursor-pointer transition-colors rounded ${
                 selectedValue === option
-                  ? 'bg-teal-100 border border-teal-400'
-                  : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
+                  ? 'bg-teal-50'
+                  : 'hover:bg-gray-50'
               }`}
             >
               <div
-                className={`w-3 h-3 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                   selectedValue === option
                     ? 'border-teal-600 bg-teal-600'
                     : 'border-gray-400'
                 }`}
               >
                 {selectedValue === option && (
-                  <div className="w-1 h-1 rounded-full bg-white" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-white" />
                 )}
               </div>
-              <span className={`text-xs whitespace-nowrap ${selectedValue === option ? 'text-teal-900 font-medium' : 'text-gray-700'}`}>
+              <span className={`text-xs ${selectedValue === option ? 'text-teal-900 font-medium' : 'text-gray-700'}`}>
                 {option}
               </span>
             </div>
