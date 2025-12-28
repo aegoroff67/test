@@ -3386,7 +3386,10 @@ async def generate_framework_coverage_pdf(
         
         # Get frontend URL from environment
         frontend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:3000')
-        frontend_url = frontend_url.replace(':8001', ':3000')
+        # If it's a backend URL with port 8001, switch to frontend port 3000
+        # Otherwise use as-is (for production URLs without ports)
+        if ':8001' in frontend_url:
+            frontend_url = frontend_url.replace(':8001', ':3000')
         
         # Construct framework coverage page URL
         coverage_url = f"{frontend_url}/framework-coverage/{assessment_id}"
