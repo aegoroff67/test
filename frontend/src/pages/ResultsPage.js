@@ -513,8 +513,8 @@ function ResultsPage() {
               />
             </div>
 
-            {/* Second 20% - Maturity Tier Descriptions */}
-            <div className="px-4" style={{ width: '20%' }}>
+            {/* Second 15% - Maturity Tier Descriptions */}
+            <div className="px-4" style={{ width: '15%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2 mt-0">
                 {assessmentType === 'Awareness' ? 'Awareness Tier Description' 
                  : assessmentType === 'Readiness' ? 'Readiness Tier Description'
