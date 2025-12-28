@@ -1169,3 +1169,97 @@ Testing the updated Evidence Upload Modal with all the new changes including:
 ### Issues Found: None
 
 All Evidence Upload Modal new changes have been successfully implemented and verified. The Trust Level card order is correct, default selection works as expected, the subtitle text matches requirements exactly, and the reusable toggle checkbox is present and functional.
+
+---
+
+## Evidence Upload Modal Footer Layout Update Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 28, 2025  
+**Assessment Tested:** System_Another AI System_In-Progress_2025-12-28 (FA-1 question)  
+**Test Status:** All footer layout requirements successfully verified and fixed
+
+### Test Scope
+Testing the updated Evidence Upload Modal footer layout changes including:
+- "Make this evidence reusable across other questions" checkbox moved to FOOTER area
+- Checkbox positioned on the LEFT side of footer
+- "Cancel" and "Upload Evidence" buttons positioned on the RIGHT side of footer
+- All three elements horizontally center-aligned (same vertical position)
+- Checkbox toggle functionality verification
+
+### Detailed Test Results
+
+#### 1. Navigation and Modal Access ✅ PASSED
+- ✅ Successfully navigated to https://maturity-assess-2.preview.emergentagent.com
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ "Resume Assessment" button clicked successfully
+- ✅ Assessment page loaded with FA-1 question displayed
+- ✅ "Choose Files" button found and clicked successfully
+- ✅ Evidence Upload Modal opened immediately with correct dimensions (1500px × 750px)
+
+#### 2. Footer Layout Issue Identification and Fix ✅ PASSED
+- ✅ **Issue Identified:** DialogFooter component from shadcn/ui had default `sm:justify-end` class
+- ✅ **Root Cause:** Default shadcn/ui DialogFooter styles were overriding `justify-between` layout
+- ✅ **Fix Applied:** Updated DialogFooter className to include `sm:justify-between` to override default behavior
+- ✅ **Code Change:** Modified `/app/frontend/src/components/EvidenceUploadModal.js` line 311
+
+#### 3. Footer Layout Verification (After Fix) ✅ PASSED
+- ✅ **Checkbox Position:** "Make this evidence reusable across other questions" checkbox now positioned on LEFT side
+  - Checkbox center position: 411.0px vs Modal center: 960.0px
+  - ✅ Checkbox is clearly on the left side of footer (411 < 960)
+- ✅ **Buttons Position:** "Cancel" and "Upload Evidence" buttons positioned on RIGHT side
+  - Buttons center position: 1536.2px vs Modal center: 960.0px
+  - ✅ Buttons are clearly on the right side of footer (1536 > 960)
+
+#### 4. Horizontal Center-Alignment Verification ✅ PASSED
+- ✅ **Perfect Alignment:** All footer elements are horizontally center-aligned
+  - Vertical center positions:
+    - Checkbox: 880.0px
+    - Cancel button: 880.0px  
+    - Upload button: 880.0px
+  - ✅ Maximum vertical alignment difference: 0.0px (perfect alignment)
+
+#### 5. Checkbox Toggle Functionality ✅ PASSED
+- ✅ **Toggle ON:** Clicking checkbox shows checkmark when selected
+- ✅ **Toggle OFF:** Clicking checkbox again removes checkmark
+- ✅ **Visual Feedback:** Checkbox displays proper teal highlighting and checkmark icon
+- ✅ **Functionality:** Toggle state changes correctly with each click
+
+#### 6. Modal Structure and Integration ✅ PASSED
+- ✅ Modal maintains proper two-panel layout (Upload Evidence | Classify Evidence)
+- ✅ All 4 classification cards present and functional:
+  - Evidence Type (15 options)
+  - Lifecycle Phase (8 options)  
+  - Trust Level (6 options, "Unspecified" pre-selected)
+  - Applies To Scope (6 options)
+- ✅ File upload area with drag-and-drop functionality working
+- ✅ Modal close functionality working correctly
+
+### Technical Verification
+- **Footer Implementation:** Uses DialogFooter with corrected `flex flex-row justify-between items-center sm:justify-between`
+- **Layout Fix:** Successfully overrides shadcn/ui default `sm:justify-end` behavior
+- **Responsive Design:** Footer layout works correctly on desktop viewport (1920×1080)
+- **Component Integration:** Modal integrates seamlessly with assessment workflow
+
+### Integration Testing
+- ✅ Evidence Upload Modal integrates properly with assessment workflow
+- ✅ Modal triggered from correct location in assessment question
+- ✅ No JavaScript errors or console warnings observed
+- ✅ Footer layout changes working seamlessly with existing functionality
+- ✅ All previous modal features remain functional after footer layout update
+
+### Key Requirements Successfully Verified
+1. ✅ **Footer Area:** Checkbox moved from right panel to footer area
+2. ✅ **Left Positioning:** Checkbox positioned on LEFT side of footer
+3. ✅ **Right Positioning:** Cancel and Upload Evidence buttons on RIGHT side of footer
+4. ✅ **Horizontal Alignment:** All three elements perfectly center-aligned (0px difference)
+5. ✅ **Toggle Functionality:** Checkbox shows checkmark when selected and toggles correctly
+
+### Issues Found and Resolved
+- **Issue:** DialogFooter component default styles (`sm:justify-end`) were overriding layout
+- **Resolution:** Added `sm:justify-between` to className to properly override default behavior
+- **Result:** Footer now displays checkbox on left and buttons on right as required
+
+### Issues Found: None (After Fix)
+
+All Evidence Upload Modal footer layout changes have been successfully implemented and verified. The footer now correctly displays the reusable checkbox on the left side and the action buttons on the right side, with perfect horizontal center-alignment of all elements. The checkbox toggle functionality works correctly, showing a checkmark when selected.
