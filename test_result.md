@@ -953,3 +953,103 @@ Testing the updated Evidence Upload Modal layout changes including:
 ### Issues Found: None
 
 All Evidence Upload Modal layout changes have been successfully implemented and verified. The new layout provides better visual hierarchy, improved usability, and eliminates scrolling within classification cards while maintaining all existing functionality.
+
+---
+
+## Evidence Upload Modal Reduced Whitespace Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 28, 2025  
+**Assessment Tested:** System_Another AI System_In-Progress_2025-12-28 (FA-1 question)  
+**Test Status:** All requirements successfully verified
+
+### Test Scope
+Testing the updated Evidence Upload Modal with reduced whitespace and layout changes including:
+- Classification options NO LONGER have pill/tag borders (removed borders)
+- Options now displayed in a 3-COLUMN GRID layout (not flex-wrap)
+- Cards have less whitespace/padding
+- Radio button selection functionality maintained
+
+### Detailed Test Results
+
+#### 1. Navigation and Modal Access ✅ PASSED
+- ✅ Successfully navigated to https://maturity-assess-2.preview.emergentagent.com
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ "Resume Assessment" button clicked successfully
+- ✅ Assessment page loaded with FA-1 question displayed
+- ✅ "Choose Files" button found and clicked successfully
+- ✅ Evidence Upload Modal opened immediately
+
+#### 2. Modal Structure and Layout ✅ PASSED
+- ✅ Modal dimensions: 1500px × 750px (as specified)
+- ✅ Two-panel layout working correctly (left: file upload, right: classification)
+- ✅ "Upload Evidence" and "Classify Evidence" headers properly aligned
+- ✅ All 4 classification cards present: Evidence Type, Lifecycle Phase, Trust Level, Applies To Scope
+
+#### 3. 3-Column Grid Layout Implementation ✅ PASSED
+- ✅ **CONFIRMED: Options displayed in 3-column grid layout**
+- ✅ Evidence Type card shows 15 options in perfect 3-column grid
+- ✅ Lifecycle Phase card shows 8 options in 3-column grid
+- ✅ Trust Level card shows 6 options in 3-column grid
+- ✅ Applies To Scope card shows 6 options in 3-column grid
+- ✅ Grid layout uses `grid-cols-3` class (not flex-wrap)
+
+#### 4. Pill/Tag Border Removal ✅ PASSED
+- ✅ **CONFIRMED: Classification options NO LONGER have pill/tag borders**
+- ✅ Options display as simple radio button selections without rounded borders
+- ✅ Clean, minimal styling without pill/tag appearance
+- ✅ Options use basic background highlighting instead of border styling
+
+#### 5. Reduced Whitespace/Padding ✅ PASSED
+- ✅ **CONFIRMED: Cards have significantly less whitespace/padding**
+- ✅ Card headers use reduced padding: `py-1.5 px-4`
+- ✅ Card content uses reduced padding: `py-1.5 px-4`
+- ✅ Option items use minimal padding: `py-1`
+- ✅ Overall more compact appearance compared to previous version
+
+#### 6. Radio Button Selection Functionality ✅ PASSED
+- ✅ **Evidence Type Card:** Successfully tested Policy → Standard selection
+- ✅ **Lifecycle Phase Card:** Successfully selected Development option
+- ✅ **Trust Level Card:** Successfully selected Approved option
+- ✅ **Applies To Scope Card:** Successfully selected Organisation-wide option
+- ✅ Single selection behavior working correctly (previous selection deselected)
+- ✅ Visual feedback with teal highlighting on selection
+- ✅ Radio button circles show proper filled/unfilled states
+
+#### 7. Visual Verification ✅ PASSED
+- ✅ All options clearly visible without scrolling
+- ✅ 3-column layout provides optimal space utilization
+- ✅ Text remains readable with reduced padding
+- ✅ Consistent styling across all 4 classification cards
+- ✅ Modal maintains professional appearance with cleaner layout
+
+#### 8. Modal Functionality ✅ PASSED
+- ✅ File upload area with drag-and-drop functionality present
+- ✅ "Browse Files" button functional
+- ✅ Supported file types listed correctly
+- ✅ "Cancel" and "Upload Evidence" buttons present and functional
+- ✅ Modal close functionality working correctly
+
+### Technical Verification
+- **Grid Implementation:** `grid grid-cols-3 gap-x-4 gap-y-1` successfully implemented
+- **Border Removal:** No pill/tag borders on classification options
+- **Padding Reduction:** Card headers and content use `py-1.5 px-4`, options use `py-1`
+- **Selection Logic:** Radio button functionality maintained with proper state management
+- **Responsive Design:** Modal maintains proper layout on desktop viewport (1920×1080)
+
+### Integration Testing
+- ✅ Evidence Upload Modal integrates properly with assessment workflow
+- ✅ Modal triggered from correct location in assessment question
+- ✅ No JavaScript errors or console warnings observed
+- ✅ All layout changes working seamlessly with existing functionality
+- ✅ Radio button selections maintain state during modal interaction
+
+### Key Changes Successfully Verified
+1. ✅ **Pill/Tag Border Removal:** Classification options no longer have pill/tag borders
+2. ✅ **3-Column Grid Layout:** Options now displayed in 3-column grid (not flex-wrap)
+3. ✅ **Reduced Whitespace:** Cards have significantly less padding and whitespace
+4. ✅ **Functionality Preserved:** Radio button selection working perfectly
+
+### Issues Found: None
+
+All Evidence Upload Modal reduced whitespace updates have been successfully implemented and verified. The new layout provides a cleaner, more compact appearance while maintaining full functionality and improving space utilization with the 3-column grid layout.
