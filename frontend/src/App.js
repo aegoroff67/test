@@ -171,6 +171,14 @@ function App() {
               } 
             />
             <Route 
+              path="/evidence-register/:id" 
+              element={
+                <ProtectedRoute>
+                  <EvidenceRegisterPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/faira-results/:id" 
               element={
                 <ProtectedRoute>
