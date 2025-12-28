@@ -224,7 +224,7 @@ AS ISO/IEC 42001:2023:
 **Service Status:**
 - ✅ Frontend service running (supervisor status: RUNNING)
 - ✅ Backend service running (supervisor status: RUNNING)
-- ✅ Frontend accessible at https://riskassess-2.preview.emergentagent.com/ (HTTP 200)
+- ✅ Frontend accessible at https://maturity-assess-2.preview.emergentagent.com/ (HTTP 200)
 
 **Route Configuration:**
 - ✅ Framework Coverage route configured: /framework-coverage/:id
@@ -419,7 +419,7 @@ AS ISO/IEC 42001:2023:
 **Service Status:**
 - ✅ Frontend service running (supervisor status: RUNNING)
 - ✅ Backend service running (supervisor status: RUNNING)
-- ✅ Frontend accessible at https://riskassess-2.preview.emergentagent.com/ (HTTP 200)
+- ✅ Frontend accessible at https://maturity-assess-2.preview.emergentagent.com/ (HTTP 200)
 
 **Route Configuration:**
 - ✅ Framework Coverage route configured: /framework-coverage/:id
