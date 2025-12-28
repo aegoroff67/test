@@ -238,11 +238,16 @@ function FrameworkCoveragePage() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => window.print()}
-                className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white border-blue-600"
+                onClick={handleGeneratePdf}
+                disabled={generatingPdf}
+                className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white border-blue-600 disabled:opacity-50"
               >
-                <Printer className="h-4 w-4" />
-                <span>Print PDF</span>
+                {generatingPdf ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Printer className="h-4 w-4" />
+                )}
+                <span>{generatingPdf ? 'Generating...' : 'Print PDF'}</span>
               </Button>
             </div>
           </div>
