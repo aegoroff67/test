@@ -1172,6 +1172,102 @@ All Evidence Upload Modal new changes have been successfully implemented and ver
 
 ---
 
+## Evidence Upload Persistence Fix Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 28, 2025  
+**Assessment Tested:** System_Another AI System_In-Progress_2025-12-28 (FA-4 question)  
+**Test Status:** All critical functionality verified successfully
+
+### Test Scope
+Testing the Evidence Upload persistence fix that was implemented to resolve the issue where uploaded files were being reset when navigating between questions. The key fix was removing the code that was resetting uploadedFiles to empty array when changing questions, and always fetching fresh evidence data from the backend.
+
+### Detailed Test Results
+
+#### 1. Navigation and Authentication ✅ PASSED
+- ✅ Successfully navigated to https://maturity-assess-2.preview.emergentagent.com
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ "Resume Assessment" button clicked successfully
+- ✅ Assessment page loaded with FA-4 question displayed
+
+#### 2. Evidence Upload Modal Access ✅ PASSED
+- ✅ "Choose Files" button found and clicked successfully
+- ✅ Evidence Upload Modal opened immediately
+- ✅ Modal displayed with correct dimensions (1500px × 750px)
+- ✅ File upload functionality accessible
+
+#### 3. File Upload Process ✅ PASSED
+- ✅ Test file created and uploaded successfully
+- ✅ File upload via modal completed without errors
+- ✅ Upload process integrated with backend API correctly
+- ✅ Modal closed successfully after upload
+
+#### 4. Evidence Display on Main Page ✅ PASSED
+- ✅ **CRITICAL: Uploaded file appears as green pill next to "Upload Evidence (Optional)" title**
+- ✅ Evidence section found with proper labeling
+- ✅ Multiple evidence pills displayed correctly:
+  - AU Ethics - Full (framework alignment)
+  - tmp__9oxdm7.txt (previously uploaded file)
+  - tmp2kea2zj5.txt (previously uploaded file)
+  - tmpq6v55yh_.txt (newly uploaded test file)
+- ✅ Green pill styling confirmed with proper file icon and formatting
+
+#### 5. Navigation Between Questions ✅ PASSED
+- ✅ Successfully navigated from FA-4 to FA-5 using "Next" button
+- ✅ Question change confirmed (FA-4 → FA-5)
+- ✅ Successfully navigated back from FA-5 to FA-4 using "Previous" button
+- ✅ Returned to original question confirmed (FA-5 → FA-4)
+
+#### 6. Evidence Persistence Verification ✅ PASSED
+- ✅ **PERSISTENCE VERIFIED: All uploaded evidence still displayed after navigation**
+- ✅ Evidence section found after returning to FA-4
+- ✅ All 4 evidence pills still present after navigation:
+  - AU Ethics - Full
+  - tmp__9oxdm7.txt
+  - tmp2kea2zj5.txt
+  - tmpq6v55yh_.txt (test file persisted correctly)
+- ✅ **CRITICAL TEST PASSED: Evidence upload persistence is working correctly!**
+
+#### 7. Backend Integration ✅ PASSED
+- ✅ Evidence fetched from backend API correctly
+- ✅ Fresh evidence data loaded when changing questions
+- ✅ No evidence data loss during question navigation
+- ✅ Backend persistence working as expected
+
+### Technical Verification
+- **Fix Implementation:** Code that was resetting uploadedFiles to empty array when changing questions has been removed
+- **Backend Integration:** fetchQuestionEvidence() function always fetches fresh data from backend
+- **State Management:** Evidence state properly managed per question ID
+- **UI Integration:** Evidence display works seamlessly with assessment workflow
+- **Data Persistence:** Evidence persists correctly across question navigation
+
+### Integration Testing
+- ✅ Evidence Upload Modal integrates properly with assessment workflow
+- ✅ File upload API calls successful
+- ✅ Evidence persistence across question navigation working
+- ✅ No JavaScript errors or console warnings observed
+- ✅ All evidence display functionality working as specified
+
+### Key Features Successfully Verified
+1. ✅ **Evidence Upload:** Files can be uploaded via modal
+2. ✅ **Green Pill Display:** Uploaded files appear as green pills/tags to the RIGHT of "Upload Evidence (Optional)" title
+3. ✅ **Main Page Display:** Evidence displayed on main assessment page (not just in modal)
+4. ✅ **Navigation Persistence:** Evidence persists when navigating to next question and back
+5. ✅ **Multiple Evidence:** Multiple evidence items can be displayed simultaneously
+6. ✅ **Backend Integration:** Fresh evidence data fetched from backend for each question
+
+### Critical Fix Verification
+- ✅ **Before Fix:** Evidence was being reset when changing questions
+- ✅ **After Fix:** Evidence persists correctly when navigating between questions
+- ✅ **Root Cause:** Removed code that was resetting uploadedFiles array
+- ✅ **Solution:** Always fetch fresh evidence data from backend API
+
+### Issues Found: None
+
+**CRITICAL SUCCESS:** The Evidence Upload persistence fix is working perfectly as specified. The feature correctly shows uploaded files as green pills/tags positioned to the right of the "Upload Evidence (Optional)" title on the main assessment page, and evidence persists correctly when navigating between questions. The fix has successfully resolved the issue where evidence was being reset during question navigation.
+
+---
+
 ## Evidence Upload Persistence and Display Testing ✅ PASSED
 
 ### Test Execution Summary
