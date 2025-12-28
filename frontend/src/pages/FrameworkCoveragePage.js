@@ -19,7 +19,8 @@ import {
   Layers,
   BookOpen,
   Award,
-  Printer
+  Printer,
+  Loader2
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
