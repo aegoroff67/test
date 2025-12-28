@@ -155,6 +155,21 @@ function EvidenceRegisterPage() {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
 
+  // Format date helper
+  const formatDate = (dateString) => {
+    if (!dateString) return '-';
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      });
+    } catch {
+      return '-';
+    }
+  };
+
   // Get file icon based on extension
   const getFileIcon = (fileName) => {
     const ext = (fileName || '').split('.').pop()?.toLowerCase();
