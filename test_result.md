@@ -1263,3 +1263,114 @@ Testing the updated Evidence Upload Modal footer layout changes including:
 ### Issues Found: None (After Fix)
 
 All Evidence Upload Modal footer layout changes have been successfully implemented and verified. The footer now correctly displays the reusable checkbox on the left side and the action buttons on the right side, with perfect horizontal center-alignment of all elements. The checkbox toggle functionality works correctly, showing a checkmark when selected.
+
+---
+
+## Evidence Upload Modal Uploaded Files Display Feature Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 28, 2025  
+**Assessment Tested:** System_Another AI System_In-Progress_2025-12-28 (FA-1 question)  
+**Test Status:** All uploaded files display functionality verified successfully
+
+### Test Scope
+Testing the Evidence Upload Modal uploaded files display feature including:
+- File upload and display as green pills/tags to the RIGHT of "Upload Evidence" title
+- Multiple file upload support with list display
+- File selection area reset after upload
+- Modal persistence for additional uploads
+- Uploaded files list clearing when modal is reopened
+
+### Detailed Test Results
+
+#### 1. Navigation and Authentication ✅ PASSED
+- ✅ Successfully navigated to https://maturity-assess-2.preview.emergentagent.com
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ "Resume Assessment" button clicked successfully
+- ✅ Assessment page loaded with FA-1 question displayed
+
+#### 2. Evidence Upload Modal Access ✅ PASSED
+- ✅ "Choose Files" button found using data-testid="evidence-upload-btn"
+- ✅ Evidence Upload Modal opened immediately upon clicking
+- ✅ Modal displayed with correct dimensions (1500px × 750px)
+- ✅ Two-panel layout working correctly (Upload Evidence | Classify Evidence)
+
+#### 3. Initial State Verification ✅ PASSED
+- ✅ "Upload Evidence" title found on the left panel
+- ✅ No uploaded files displayed initially (correct empty state)
+- ✅ File upload area showing default drag-and-drop interface
+- ✅ Classification cards properly displayed on the right panel
+
+#### 4. File Upload Functionality ✅ PASSED
+- ✅ Test file selected successfully via file input
+- ✅ Selected file name displayed in upload area
+- ✅ "Upload Evidence" button enabled when file selected
+- ✅ File upload completed successfully without errors
+- ✅ Success toast notification working (evidence uploaded successfully)
+
+#### 5. Uploaded Files Display ✅ PASSED
+- ✅ **CRITICAL: Uploaded file appears as green pill/tag to the RIGHT of "Upload Evidence" title**
+- ✅ **Green pill styling confirmed:** bg-green-50 border-green-200 classes applied
+- ✅ **File name displayed in pill:** Shows actual filename (tmp8eg8dvhz.txt)
+- ✅ **Checkmark icon present:** File icon and checkmark icon both displayed
+- ✅ **Correct positioning:** Pill positioned to the right of title (verified via bounding box coordinates)
+
+#### 6. File Selection Area Reset ✅ PASSED
+- ✅ Upload area reset to default state after successful upload
+- ✅ "Drag and drop your file here" text displayed again
+- ✅ "Browse Files" button available for next upload
+- ✅ File input cleared and ready for additional uploads
+
+#### 7. Multiple File Upload Support ✅ PASSED
+- ✅ Second file uploaded successfully
+- ✅ **Both files appear in the list:** Found 2 uploaded file pills
+- ✅ Multiple green pills displayed side by side
+- ✅ Each file maintains individual pill styling and checkmark
+- ✅ File list grows dynamically with each upload
+
+#### 8. Modal Persistence ✅ PASSED
+- ✅ **Modal stays open for additional uploads** (as required)
+- ✅ Upload functionality remains available after each file upload
+- ✅ Classification options remain accessible
+- ✅ Footer buttons (Cancel, Upload Evidence) remain functional
+
+#### 9. Modal Close and Reopen Behavior ✅ PASSED
+- ✅ Cancel button successfully closes modal
+- ✅ Modal disappears completely after closing
+- ✅ **CRITICAL: Uploaded files list cleared when modal reopened**
+- ✅ Fresh state restored when reopening modal
+- ✅ No persistence of previous upload session
+
+#### 10. UI Design and Layout ✅ PASSED
+- ✅ Green pill/tag styling matches design requirements
+- ✅ File icons (File and Check) properly displayed
+- ✅ Text truncation working for long filenames (max-w-[150px])
+- ✅ Responsive flex-wrap layout for multiple files
+- ✅ Proper spacing and alignment with title area
+
+### Technical Verification
+- **File Display Implementation:** Uses flex-wrap gap-2 items-start layout
+- **Green Pill Styling:** bg-green-50 border border-green-200 text-xs classes
+- **Icon Integration:** File and Check icons from lucide-react properly displayed
+- **State Management:** uploadedFiles state array correctly managed
+- **Modal Persistence:** Modal remains open after uploads as designed
+- **State Reset:** uploadedFiles cleared in handleClose function
+
+### Integration Testing
+- ✅ Evidence Upload Modal integrates properly with assessment workflow
+- ✅ File upload API integration working (creates evidence records)
+- ✅ No JavaScript errors or console warnings observed
+- ✅ All uploaded files display functionality working seamlessly
+- ✅ Modal behavior consistent with design requirements
+
+### Key Features Successfully Verified
+1. ✅ **Uploaded Files Display:** Files appear as green pills/tags to the RIGHT of "Upload Evidence" title
+2. ✅ **Visual Design:** Green styling with file icon and checkmark icon
+3. ✅ **Multiple Files:** Support for uploading and displaying multiple files in list
+4. ✅ **Area Reset:** File selection area resets after each upload
+5. ✅ **Modal Persistence:** Modal stays open for additional uploads
+6. ✅ **State Clearing:** Uploaded files list cleared when modal is reopened
+
+### Issues Found: None
+
+All Evidence Upload Modal uploaded files display functionality working perfectly as specified. The feature correctly shows uploaded files as green pills/tags positioned to the right of the "Upload Evidence" title, supports multiple file uploads, maintains modal state for additional uploads, and properly clears the list when the modal is reopened.
