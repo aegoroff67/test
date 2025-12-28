@@ -1249,6 +1249,15 @@ function AssessmentPage() {
         currentUser={user}
       />
 
+      {/* Evidence Drawer - opens when clicking on uploaded files */}
+      <EvidenceDrawer
+        isOpen={showEvidenceDrawer}
+        onClose={() => setShowEvidenceDrawer(false)}
+        evidenceFiles={uploadedFiles}
+        onUpdate={handleEvidenceUpdate}
+        questionCode={currentQuestion?.code}
+      />
+
       {/* Dynamic Framework Alignment Modals - Replaces 9 separate modal blocks */}
       {currentQuestion && Object.entries(FRAMEWORK_CONFIG).map(([key, config]) => {
         const ModalComponent = config.component;
