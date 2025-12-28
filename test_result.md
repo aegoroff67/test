@@ -88,6 +88,123 @@ All framework coverage calculation updates working as expected with master contr
 
 ---
 
+## Evidence Upload Modal Testing ✅ PASSED
+
+### Test Execution Summary
+**Date:** December 28, 2025  
+**Assessment Tested:** 724af92f-5ee0-4d38-9a9c-11ad6abbc622 (FA-1 question)  
+**Test Status:** All critical functionality verified successfully
+
+### Test Scope
+Testing the new Evidence Upload Modal in the AI System Maturity Assessment, including:
+- Modal trigger functionality
+- UI components and layout
+- Classification cards with radio button selection
+- Modal close functionality
+
+### Detailed Test Results
+
+#### 1. Navigation and Authentication ✅ PASSED
+- ✅ Successfully navigated to https://maturity-assess-2.preview.emergentagent.com
+- ✅ Login with andrew@test.com / password123 successful
+- ✅ Direct navigation to assessment page working correctly
+- ✅ Assessment page loaded with question FA-1 displayed
+
+#### 2. Evidence Upload Section ✅ PASSED
+- ✅ Evidence upload section found at bottom of assessment question
+- ✅ "Choose Files" button located and accessible
+- ✅ Button positioned correctly in "Upload Evidence (Optional)" section
+- ✅ Evidence section includes proper labeling and info badge
+
+#### 3. Modal Trigger Functionality ✅ PASSED
+- ✅ "Choose Files" button clickable and responsive
+- ✅ Modal opens immediately upon clicking button
+- ✅ Modal displays with proper overlay and positioning
+- ✅ Modal content loads correctly without errors
+
+#### 4. Modal Header and Title ✅ PASSED
+- ✅ Modal title "Upload Evidence" displayed correctly
+- ✅ Subtitle shows "Upload supporting evidence and classify it for FA-1"
+- ✅ Modal header properly formatted and positioned
+- ✅ Close button (X) visible in top-right corner
+
+#### 5. Left Panel - File Upload Area ✅ PASSED
+- ✅ File upload dropzone area present with drag-and-drop functionality
+- ✅ "Drag and drop your file here" text displayed
+- ✅ "Browse Files" button available as alternative upload method
+- ✅ Supported file types listed: PDF, DOC, DOCX, JPG, PNG, XLSX, XLS, TXT, CSV
+- ✅ Upload area properly styled with dashed border
+
+#### 6. Right Panel - Classification Cards ✅ PASSED
+All 4 classification cards verified:
+
+**Evidence Type Card:**
+- ✅ Card title "Evidence Type" displayed
+- ✅ 15 options available including Policy, Standard, Procedure, etc.
+- ✅ Radio button selection working correctly
+- ✅ Scrollable area for all options
+
+**Lifecycle Phase Card:**
+- ✅ Card title "Lifecycle Phase" displayed  
+- ✅ 8 options available: Design, Development, Testing, Deployment, Operation, Monitoring, Decommissioning, Cross-Lifecycle
+- ✅ Radio button selection working correctly
+
+**Trust Level Card:**
+- ✅ Card title "Trust Level" displayed
+- ✅ 6 options available: Unspecified, Draft, Operational, Approved, Independently Reviewed, Regulator / External Assured
+- ✅ Radio button selection working correctly
+
+**Applies To Scope Card:**
+- ✅ Card title "Applies To Scope" displayed
+- ✅ 6 options available: Organisation-wide, Specific AI System, Specific Model, Specific Use Case, Third Party / Vendor, Unspecified
+- ✅ Radio button selection working correctly
+
+#### 7. Radio Button Functionality ✅ PASSED
+- ✅ Single selection enforced within each card
+- ✅ Visual feedback on selection (teal highlighting)
+- ✅ Successfully tested selections: Policy, Design, Draft, Organisation-wide
+- ✅ Radio buttons responsive and properly styled
+- ✅ Selection state maintained during modal interaction
+
+#### 8. Modal Footer Buttons ✅ PASSED
+- ✅ "Cancel" button present and functional
+- ✅ "Upload Evidence" button present with proper styling
+- ✅ Buttons properly positioned in footer area
+- ✅ Upload button shows disabled state when no file selected
+
+#### 9. Modal Close Functionality ✅ PASSED
+- ✅ Cancel button successfully closes modal
+- ✅ Modal disappears completely after closing
+- ✅ No modal remnants remain in DOM
+- ✅ Assessment page returns to normal state
+
+#### 10. UI Design and Layout ✅ PASSED
+- ✅ Modal responsive design works on desktop viewport (1920x1080)
+- ✅ Two-panel layout (left: file upload, right: classification) working correctly
+- ✅ Proper spacing and typography throughout modal
+- ✅ Consistent color scheme with teal accent colors
+- ✅ Cards properly sized and scrollable content areas
+
+### Technical Verification
+- **Modal Implementation:** Uses shadcn/ui Dialog component correctly
+- **File Upload:** Drag-and-drop and browse functionality implemented
+- **State Management:** Radio button selections properly managed
+- **Responsive Design:** Modal scales appropriately for desktop viewing
+- **Component Integration:** Modal integrates seamlessly with AssessmentPage
+
+### Integration Testing
+- ✅ Evidence Upload Modal integrates properly with assessment workflow
+- ✅ Modal triggered from correct location in assessment question
+- ✅ No JavaScript errors or console warnings observed
+- ✅ Modal functionality independent of question content
+- ✅ Proper cleanup when modal is closed
+
+### Issues Found: None
+
+All Evidence Upload Modal functionality working as expected with complete UI implementation, proper classification options, and seamless integration with the assessment workflow.
+
+---
+
 ## OECD Modal Test Results ✅ PASSED
 
 ### Test Execution Summary
