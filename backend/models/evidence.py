@@ -124,6 +124,7 @@ class Evidence(BaseModel):
     valid_from: Optional[datetime] = Field(None, description="Validity start date")
     valid_to: Optional[datetime] = Field(None, description="Validity end date")
     applies_to_scope: AppliesToScope = Field(AppliesToScope.UNSPECIFIED, description="Scope of applicability")
+    assessment_id: Optional[str] = Field(None, description="Assessment ID this evidence belongs to")
     linked_question_ids: List[str] = Field(..., min_length=1, description="At least one linked question ID required")
     linked_am_control_ids: List[str] = Field(default_factory=list, description="Linked AM AI SAFE control IDs")
     notes: Optional[str] = Field(None, description="Additional notes")
