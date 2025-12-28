@@ -217,8 +217,8 @@ function FrameworkCoveragePage() {
               </p>
             </div>
 
-            {/* Assessment Name */}
-            <div className="flex items-center mr-6">
+            {/* Assessment Name - Centered between content and buttons */}
+            <div className="flex items-center justify-center px-6">
               <span className="text-sm text-gray-700 font-bold">
                 {assessment?.name || 'Assessment'}
               </span>
