@@ -468,29 +468,37 @@ function AssessmentPage() {
     }
   };
 
-  const handleFileUpload = async (files) => {
-    if (!files || files.length === 0) return;
-    
-    const newFiles = Array.from(files);
+  const handleFileUpload = async (files, metadata = null) => {
+    // Handle both direct file input and modal upload
+    const fileList = files instanceof File ? [files] : (files ? Array.from(files) : []);
+    if (!fileList || fileList.length === 0) return;
     
     // Validate file sizes (max 10MB per file)
     const maxSize = 10 * 1024 * 1024; // 10MB
-    const oversizedFiles = newFiles.filter(file => file.size > maxSize);
+    const oversizedFiles = fileList.filter(file => file.size > maxSize);
     
     if (oversizedFiles.length > 0) {
       toast.error(`Some files are too large. Maximum size is 10MB per file.`);
       return;
     }
     
+    // Store metadata with the file if provided
+    const filesWithMetadata = fileList.map(file => {
+      if (metadata) {
+        file.metadata = metadata;
+      }
+      return file;
+    });
+    
     // Add to uploaded files state
-    setUploadedFiles(prev => [...prev, ...newFiles]);
+    setUploadedFiles(prev => [...prev, ...filesWithMetadata]);
     
     // If there's already an answer, save the files with it
     if (currentAnswer) {
-      await saveFilesWithAnswer(currentAnswer.option, newFiles);
+      await saveFilesWithAnswer(currentAnswer.option, filesWithMetadata);
     }
     
-    toast.success(`${newFiles.length} file${newFiles.length > 1 ? 's' : ''} uploaded successfully`);
+    toast.success(`${fileList.length} file${fileList.length > 1 ? 's' : ''} uploaded successfully`);
   };
 
   const removeFile = (indexToRemove) => {
