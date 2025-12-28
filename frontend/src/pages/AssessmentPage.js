@@ -1083,20 +1083,11 @@ function AssessmentPage() {
                     )}
                   </Label>
                   <div className="flex items-center space-x-2">
-                    <input
-                      type="file"
-                      id="evidence-upload"
-                      multiple
-                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xlsx,.xls"
-                      className="hidden"
-                      onChange={(e) => handleFileUpload(e.target.files)}
-                      data-testid="evidence-upload-input"
-                    />
                     <Button
                       type="button"
                       variant="outline"
                       size="sm"
-                      onClick={() => document.getElementById('evidence-upload')?.click()}
+                      onClick={() => setShowEvidenceModal(true)}
                       className="text-xs px-2 py-1 h-7"
                       data-testid="evidence-upload-btn"
                     >
@@ -1117,6 +1108,9 @@ function AssessmentPage() {
                         {uploadedFiles.map((file, index) => (
                           <span key={index} className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-teal-50 text-teal-700 border border-teal-200">
                             {file.name}
+                            {file.metadata?.evidenceType && (
+                              <span className="ml-1 text-teal-500">({file.metadata.evidenceType})</span>
+                            )}
                             <button
                               onClick={() => removeFile(index)}
                               className="ml-1 text-teal-500 hover:text-teal-700"
