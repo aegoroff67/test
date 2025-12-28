@@ -104,6 +104,7 @@ const FRAMEWORK_CONFIG = {
 };
 import HelpModal from '../components/HelpModal';
 import EvidenceUploadModal from '../components/EvidenceUploadModal';
+import EvidenceDrawer from '../components/EvidenceDrawer';
 import { helpContent } from '../data/helpContent';
 import questionGuidanceData from '../data/questionGuidance.json';
 import { getResponseOptions, getColorScheme } from './AssessmentPage_awareness_support';
