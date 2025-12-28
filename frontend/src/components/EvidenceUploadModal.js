@@ -172,7 +172,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl w-[95vw] max-h-[90vh] overflow-hidden">
+      <DialogContent className="w-[1500px] max-w-[95vw] h-[750px] max-h-[90vh] overflow-hidden">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold">Upload Evidence</DialogTitle>
           <DialogDescription className="text-sm text-gray-500">
@@ -180,7 +180,7 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode }) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex gap-4 h-[500px]">
+        <div className="flex gap-6 flex-1 min-h-0" style={{ height: 'calc(100% - 120px)' }}>
           {/* Left Panel - File Upload */}
           <div className="flex-1 flex flex-col">
             <Label className="text-sm font-medium text-gray-700 mb-2">Select File</Label>
