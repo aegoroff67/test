@@ -445,7 +445,7 @@ function EvidenceRegisterPage() {
                     {/* Linked Questions */}
                     <div className="col-span-3">
                       <span className="text-xs text-teal-600 font-medium">
-                        {(item.linked_question_ids || []).join(', ') || 'None'}
+                        {getLinkedQuestionCodes(item.linked_question_ids)}
                       </span>
                     </div>
 
