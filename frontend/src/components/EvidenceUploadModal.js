@@ -231,12 +231,33 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
         <div className="flex flex-1 min-h-0">
           {/* Left Panel - Upload Evidence */}
           <div className="flex-1 flex flex-col p-6 border-r border-gray-200">
-            {/* Left Header */}
+            {/* Left Header with uploaded files */}
             <div className="mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Upload Evidence</h2>
-              <p className="text-sm text-gray-500">
-                Upload supporting evidence for {questionCode || 'this question'}
-              </p>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <h2 className="text-lg font-semibold text-gray-900">Upload Evidence</h2>
+                  <p className="text-sm text-gray-500">
+                    Upload supporting evidence for {questionCode || 'this question'}
+                  </p>
+                </div>
+                {/* Uploaded files list */}
+                {uploadedFiles.length > 0 && (
+                  <div className="flex-1 flex flex-wrap gap-2 items-start">
+                    {uploadedFiles.map((file, index) => (
+                      <div
+                        key={index}
+                        className="inline-flex items-center px-2.5 py-1 rounded-md bg-green-50 border border-green-200 text-xs"
+                      >
+                        <File className="w-3 h-3 text-green-600 mr-1.5" />
+                        <span className="text-green-800 font-medium max-w-[150px] truncate">
+                          {file.name}
+                        </span>
+                        <Check className="w-3 h-3 text-green-600 ml-1.5" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
             
             {/* File Upload Area */}
