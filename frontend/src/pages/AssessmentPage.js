@@ -568,15 +568,15 @@ function AssessmentPage() {
 
   // Refresh evidence after updates from drawer
   const handleEvidenceUpdate = () => {
-    if (currentQuestion?.id) {
+    if (currentQuestion?.code) {
       // Clear cache for this question to force refresh
       setQuestionEvidence(prev => {
         const newCache = { ...prev };
-        delete newCache[currentQuestion.id];
+        delete newCache[currentQuestion.code];
         return newCache;
       });
       // Fetch fresh data
-      fetchQuestionEvidence(currentQuestion.id);
+      fetchQuestionEvidence(currentQuestion.code);
     }
   };
 
