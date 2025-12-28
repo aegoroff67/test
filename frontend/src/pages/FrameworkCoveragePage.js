@@ -198,7 +198,7 @@ function FrameworkCoveragePage() {
             </div>
 
             {/* Center Section: Framework Coverage Overview Content */}
-            <div className="flex-1 mx-6">
+            <div className="mx-6" style={{ maxWidth: '900px' }}>
               <div className="flex items-center">
                 <h2 className="text-lg font-bold text-gray-900">
                   Framework Coverage Overview
@@ -209,7 +209,7 @@ function FrameworkCoveragePage() {
                   onClick={() => setShowInfoModal(true)}
                 />
               </div>
-              <p className="text-xs text-gray-600 leading-relaxed mt-1" style={{ maxWidth: '1100px' }}>
+              <p className="text-xs text-gray-600 leading-relaxed mt-1">
                 This view shows how comprehensively the <span className="font-semibold">controls</span> within selected AI governance frameworks are covered by the 
                 AM AI SAFE assessment, based on how many assessment questions fully or partially address each framework control. 
                 It compares coverage provided by design (<span className="font-semibold text-blue-600">Inherent Coverage</span>) with 
@@ -217,9 +217,9 @@ function FrameworkCoveragePage() {
               </p>
             </div>
 
-            {/* Assessment Name - Centered between content and buttons */}
-            <div className="flex items-center justify-center px-6">
-              <span className="text-sm text-gray-700 font-bold">
+            {/* Assessment Name - Centered in remaining space */}
+            <div className="flex-1 flex items-center justify-center">
+              <span className="text-sm text-gray-700 font-bold text-center">
                 {assessment?.name || 'Assessment'}
               </span>
             </div>
