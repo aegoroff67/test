@@ -94,7 +94,9 @@ function EvidenceRegisterPage() {
   const [trustLevelFilter, setTrustLevelFilter] = useState([]);
   const [scopeFilter, setScopeFilter] = useState([]);
   const [statusFilter, setStatusFilter] = useState([]);
+  const [linkedQuestionFilter, setLinkedQuestionFilter] = useState(''); // Single-select for linked questions
   const [questionIdToCode, setQuestionIdToCode] = useState({}); // Map UUID -> question code
+  const [questionSummaries, setQuestionSummaries] = useState([]); // List of {code, summary, domain}
   
   // Dropdown open states
   const [openDropdown, setOpenDropdown] = useState(null);
