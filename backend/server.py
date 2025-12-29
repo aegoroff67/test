@@ -3756,6 +3756,232 @@ async def get_question_summaries():
         return []
 
 
+@api_router.get("/assessments/{assessment_id}/export-evidence")
+async def export_evidence_zip(
+    assessment_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """
+    Export all evidence artefacts for a completed assessment as a ZIP file.
+    Organized by question ID with README and CSV index.
+    """
+    try:
+        # Fetch the assessment
+        assessment = await db.assessments.find_one(
+            {"id": assessment_id, "org_id": current_user.org_id},
+            {"_id": 0}
+        )
+        
+        if not assessment:
+            raise HTTPException(status_code=404, detail="Assessment not found")
+        
+        # Check if assessment is completed
+        if assessment.get("status") != "COMPLETED":
+            raise HTTPException(status_code=400, detail="Evidence can only be exported for completed assessments")
+        
+        # Fetch all active evidence for this assessment
+        evidence_list = await db.evidence.find(
+            {"assessment_id": assessment_id, "status": {"$ne": "Archived"}},
+            {"_id": 0}
+        ).to_list(length=None)
+        
+        # Load question metadata for short titles
+        metadata_path = Path(__file__).parent / "system_question_metadata.json"
+        question_metadata = {}
+        if metadata_path.exists():
+            with open(metadata_path, 'r') as f:
+                question_metadata = json.load(f)
+        
+        # Get assessment details
+        assessment_name = assessment.get("name", "Unknown")
+        completion_date = assessment.get("completed_at")
+        if completion_date:
+            if isinstance(completion_date, str):
+                completion_date_str = completion_date[:10]
+            else:
+                completion_date_str = completion_date.strftime("%Y-%m-%d")
+        else:
+            completion_date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        
+        export_timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+        
+        # Sanitize assessment name for filename
+        safe_name = re.sub(r'[^\w\s-]', '', assessment_name).strip().replace(' ', '_')
+        zip_filename = f"AM_AI_SAFE_Evidence_{safe_name}_{completion_date_str}.zip"
+        
+        # Create ZIP in memory
+        zip_buffer = io.BytesIO()
+        
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zf:
+            # Generate README.txt
+            readme_content = f"""AM AI SAFE Evidence Export
+{'=' * 50}
+
+This ZIP archive contains evidence artefacts uploaded to support the AM AI SAFE AI System Maturity Assessment.
+
+Assessment: {assessment_name}
+Assessment Type: AI System Maturity Assessment
+Completion Date: {completion_date_str}
+Exported on: {export_timestamp}
+
+FOLDER STRUCTURE
+----------------
+Evidence is organised by AM AI SAFE question ID.
+Each folder is named: <QuestionID>_<Short_Question_Title>
+
+Some evidence may appear in multiple folders if it supports multiple questions.
+This duplication is intentional to maximise audit usability.
+
+FILES INCLUDED
+--------------
+- README.txt (this file)
+- evidence_index.csv (complete index of all evidence artefacts)
+- Question folders containing evidence files
+
+IMPORTANT NOTICE
+----------------
+All evidence is user-provided and has not been independently validated unless explicitly stated.
+Evidence classification (type, trust level, etc.) reflects user-assigned metadata at time of upload.
+
+Total Evidence Artefacts: {len(evidence_list)}
+"""
+            zf.writestr("README.txt", readme_content)
+            
+            # Generate evidence_index.csv
+            csv_buffer = io.StringIO()
+            csv_writer = csv.writer(csv_buffer)
+            csv_writer.writerow([
+                "filename",
+                "evidence_type",
+                "lifecycle_phase",
+                "trust_level",
+                "applies_to_scope",
+                "linked_question_id",
+                "reusable",
+                "last_updated_date"
+            ])
+            
+            # Track which questions have evidence
+            questions_with_evidence = set()
+            
+            for evidence in evidence_list:
+                linked_questions = evidence.get("linked_question_ids", [])
+                filename = evidence.get("file_name", evidence.get("evidence_title", "unknown"))
+                evidence_type = evidence.get("evidence_type", "Unspecified")
+                lifecycle_phase = evidence.get("lifecycle_phase", "Unspecified")
+                trust_level = evidence.get("trust_level", "Unspecified")
+                applies_to_scope = evidence.get("applies_to_scope", "Unspecified")
+                is_reusable = "Yes" if evidence.get("is_reusable") else "No"
+                last_updated = evidence.get("last_updated_date") or evidence.get("uploaded_date") or ""
+                if last_updated and not isinstance(last_updated, str):
+                    last_updated = last_updated.strftime("%Y-%m-%d")
+                elif last_updated and isinstance(last_updated, str):
+                    last_updated = last_updated[:10]
+                
+                # Write a row for each linked question
+                for question_id in linked_questions:
+                    # Normalize question ID (could be UUID or code)
+                    if question_id and re.match(r'^[A-Z]{2,3}-\d+$', question_id):
+                        question_code = question_id
+                    else:
+                        question_code = question_id  # Keep as-is if can't normalize
+                    
+                    questions_with_evidence.add(question_code)
+                    
+                    csv_writer.writerow([
+                        filename,
+                        evidence_type,
+                        lifecycle_phase,
+                        trust_level,
+                        applies_to_scope,
+                        question_code,
+                        is_reusable,
+                        last_updated
+                    ])
+            
+            zf.writestr("evidence_index.csv", csv_buffer.getvalue())
+            
+            # Helper function to sanitize folder/file names
+            def sanitize_name(name):
+                # Remove or replace special characters
+                sanitized = re.sub(r'[<>:"/\\|?*]', '', name)
+                sanitized = re.sub(r'\s+', '_', sanitized)
+                return sanitized[:50]  # Limit length
+            
+            # Create question folders and add evidence files
+            for question_code in questions_with_evidence:
+                # Get short title from metadata
+                meta = question_metadata.get(question_code, {})
+                short_title = meta.get("risk_category", "")
+                if short_title:
+                    folder_name = f"{question_code}_{sanitize_name(short_title)}"
+                else:
+                    folder_name = question_code
+                
+                # Find all evidence linked to this question
+                for evidence in evidence_list:
+                    linked_questions = evidence.get("linked_question_ids", [])
+                    if question_code in linked_questions:
+                        filename = evidence.get("file_name", evidence.get("evidence_title", "unknown"))
+                        safe_filename = sanitize_name(filename)
+                        
+                        # Get file content (if file_url exists and is accessible)
+                        file_url = evidence.get("file_url", "")
+                        file_content = None
+                        
+                        if file_url:
+                            # If it's a local file path
+                            if file_url.startswith("/") or file_url.startswith("file://"):
+                                local_path = file_url.replace("file://", "")
+                                if Path(local_path).exists():
+                                    with open(local_path, 'rb') as f:
+                                        file_content = f.read()
+                        
+                        if file_content:
+                            # Add actual file content
+                            zf.writestr(f"{folder_name}/{safe_filename}", file_content)
+                        else:
+                            # Create a placeholder text file with evidence metadata
+                            placeholder_content = f"""Evidence Placeholder
+{'=' * 40}
+
+This is a placeholder for evidence that could not be exported directly.
+
+Original Filename: {filename}
+Evidence Type: {evidence.get('evidence_type', 'Unspecified')}
+Lifecycle Phase: {evidence.get('lifecycle_phase', 'Unspecified')}
+Trust Level: {evidence.get('trust_level', 'Unspecified')}
+Applies To Scope: {evidence.get('applies_to_scope', 'Unspecified')}
+Reusable: {'Yes' if evidence.get('is_reusable') else 'No'}
+Linked Questions: {', '.join(linked_questions)}
+
+File URL: {file_url or 'Not available'}
+
+Note: The original file may be stored externally or was not available at export time.
+"""
+                            # Use .txt extension for placeholder
+                            placeholder_name = safe_filename if safe_filename.endswith('.txt') else f"{safe_filename}.txt"
+                            zf.writestr(f"{folder_name}/{placeholder_name}", placeholder_content)
+        
+        # Reset buffer position
+        zip_buffer.seek(0)
+        
+        # Return ZIP file as streaming response
+        return StreamingResponse(
+            zip_buffer,
+            media_type="application/zip",
+            headers={
+                "Content-Disposition": f'attachment; filename="{zip_filename}"'
+            }
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error exporting evidence ZIP: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to export evidence: {str(e)}")
+
+
 # Download PDF endpoint
 @api_router.get("/download/testing-checklist")
 async def download_testing_checklist():
