@@ -514,27 +514,12 @@ function AssessmentPage() {
     setUploadedFiles(prev => prev.filter((_, index) => index !== indexToRemove));
   };
 
+  // Note: Evidence is now saved directly through the EvidenceUploadModal via POST /api/evidence
+  // This function is deprecated and kept for reference only
   const saveFilesWithAnswer = async (option, files = uploadedFiles) => {
-    if (!currentQuestion || files.length === 0) return;
-    
-    try {
-      const formData = new FormData();
-      formData.append('question_id', currentQuestion.id);
-      formData.append('option', option);
-      
-      files.forEach((file, index) => {
-        formData.append(`evidence_${index}`, file);
-      });
-      
-      await axios.post(`${API}/assessments/${id}/answer/evidence`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-    } catch (error) {
-      console.error('Error uploading evidence files:', error);
-      toast.error('Failed to upload evidence files');
-    }
+    // Evidence upload is now handled by EvidenceUploadModal
+    // No additional action needed here
+    return;
   };
 
   // Fetch evidence for a specific question by question code (e.g., "FA-1")
