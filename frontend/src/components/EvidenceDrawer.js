@@ -346,7 +346,9 @@ function EvidenceDrawer({
                   
                   {/* Reuse Status */}
                   <div className="space-y-1">
-                    <Label className="text-xs font-medium text-gray-500">Reuse Status</Label>
+                    <Label className="text-xs font-medium text-gray-500">
+                      {isEditMode ? 'Allow this evidence to be reused across other questions?' : 'Reuse Status'}
+                    </Label>
                     {isEditMode ? (
                       <div className="flex items-center space-x-4 px-3 py-2 bg-white border border-gray-300 rounded-md">
                         <label className="flex items-center space-x-2 cursor-pointer">
