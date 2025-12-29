@@ -1078,6 +1078,104 @@ All Evidence Upload Modal reduced whitespace updates have been successfully impl
 
 ---
 
+## Evidence Register Multi-Select Filter Testing ❌ FAILED
+
+### Test Execution Summary
+**Date:** December 29, 2025  
+**Assessment Tested:** 724af92f-5ee0-4d38-9a9c-11ad6abbc622  
+**Test Status:** Unable to access Evidence Register page - Authentication/Navigation Issues
+
+### Test Scope
+Testing the Evidence Register multi-select filter functionality including:
+- Multi-select dropdowns (Evidence Type, Lifecycle Phase, Trust Level, Scope, Status)
+- Filter chips display with color coding
+- Filter logic (AND between categories, OR within categories)
+- "Clear all" functionality
+- Dropdown close behavior
+
+### Detailed Test Results
+
+#### 1. Authentication and Navigation ❌ FAILED
+- ✅ Login with andrew@test.com / password123 successful
+- ❌ **CRITICAL ISSUE: Session expires immediately after login**
+- ❌ Dashboard loads but "Resume Assessment" button not accessible
+- ❌ Direct navigation to Evidence Register URL fails
+- ❌ Page shows "You need to enable JavaScript to run this app" error
+
+#### 2. Evidence Register Page Access ❌ FAILED
+- ❌ Unable to access Evidence Register page at `/assessment/724af92f-5ee0-4d38-9a9c-11ad6abbc622/evidence-register`
+- ❌ Multiple navigation attempts failed:
+  - Dashboard → Resume Assessment → Evidence Register
+  - Direct URL navigation
+  - Results page → Evidence Register button
+- ❌ JavaScript loading issues detected in console logs
+
+#### 3. Technical Issues Identified
+- ❌ **Session Management Problem:** Authentication token expires immediately
+- ❌ **JavaScript Loading Issues:** PostHog and other assets failing to load
+- ❌ **Navigation Failures:** Cannot access assessment pages consistently
+- ❌ **React App Loading:** "You need to enable JavaScript" error suggests React app not initializing
+
+#### 4. Console Errors Detected
+```
+REQUEST FAILED: https://us-assets.i.posthog.com/static/web-vitals.js?v=1.310.1 - net::ERR_ABORTED
+REQUEST FAILED: https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.310.1 - net::ERR_ABORTED
+REQUEST FAILED: https://proof-tracker-2.preview.emergentagent.com/logo.png - net::ERR_ABORTED
+```
+
+### Root Cause Analysis
+The Evidence Register multi-select filter functionality **cannot be tested** due to fundamental infrastructure issues:
+
+1. **Authentication Issues:** Session tokens expire immediately after login
+2. **Asset Loading Failures:** Critical JavaScript assets not loading properly
+3. **React App Initialization:** Frontend application not starting correctly
+4. **Assessment Access:** Cannot access the specific assessment (724af92f-5ee0-4d38-9a9c-11ad6abbc622)
+
+### Evidence Register Implementation Review
+Based on code analysis of `/app/frontend/src/pages/EvidenceRegisterPage.js`:
+
+#### ✅ Implementation Appears Correct
+- **Multi-select dropdowns:** Properly implemented with checkbox arrays
+- **Filter state management:** Uses React state arrays for each filter type
+- **Color-coded chips:** Implemented with proper Tailwind classes:
+  - Teal for Evidence Type (`bg-teal-50 text-teal-700`)
+  - Blue for Lifecycle (`bg-blue-50 text-blue-700`)
+  - Purple for Trust Level (`bg-purple-50 text-purple-700`)
+  - Amber for Scope (`bg-amber-50 text-amber-700`)
+  - Gray for Status (`bg-gray-100 text-gray-700`)
+- **Clear all functionality:** Properly resets all filter arrays
+- **Filter logic:** Correctly implements AND between categories, OR within categories
+- **Dropdown close behavior:** Implemented with outside click detection
+
+#### ✅ Code Quality Assessment
+- **Filter Options:** All 5 filter types properly defined with comprehensive options
+- **State Management:** Proper React hooks usage for filter states
+- **UI Components:** Uses shadcn/ui components correctly
+- **Event Handling:** Proper checkbox change handlers and dropdown toggles
+- **Responsive Design:** Grid layout and responsive classes implemented
+
+### Issues Found: Critical Infrastructure Problems
+
+**BLOCKING ISSUES:**
+1. **Session Management Failure:** Cannot maintain authentication to access Evidence Register
+2. **Asset Loading Failures:** JavaScript dependencies not loading properly
+3. **React App Initialization:** Frontend application not starting correctly
+
+**IMPACT:** Cannot perform functional testing of Evidence Register multi-select filters due to infrastructure issues preventing page access.
+
+### Recommendations for Main Agent
+
+1. **IMMEDIATE ACTION REQUIRED:** Investigate and fix authentication/session management issues
+2. **Asset Loading:** Check CDN/asset serving configuration for PostHog and other dependencies
+3. **React App:** Verify frontend build and deployment configuration
+4. **Assessment Access:** Verify assessment ID 724af92f-5ee0-4d38-9a9c-11ad6abbc622 exists and is accessible
+5. **Environment Check:** Verify all environment variables and service configurations
+
+### Test Status: BLOCKED
+Evidence Register multi-select filter functionality **cannot be verified** due to infrastructure issues preventing access to the page. The implementation appears correct based on code review, but functional testing is blocked by authentication and asset loading problems.
+
+---
+
 ## Evidence Register Row Click and Drawer Functionality Testing ✅ PASSED
 
 ### Test Execution Summary
