@@ -3,11 +3,60 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { File, Check, X, Archive, Plus, Trash2 } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { File, Check, X, Archive, Plus, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
+// Dropdown options (matching EvidenceUploadModal)
+const EVIDENCE_TYPE_OPTIONS = [
+  'Policy',
+  'Standard',
+  'Procedure',
+  'Process Description',
+  'Risk Assessment',
+  'Impact Assessment',
+  'Technical Configuration',
+  'System Architecture',
+  'Model Documentation',
+  'Training Material',
+  'Contract / SLA',
+  'Audit Report',
+  'Log / Monitoring Output',
+  'Screenshot / Snapshot',
+  'Other'
+];
+
+const LIFECYCLE_PHASE_OPTIONS = [
+  'Design',
+  'Development',
+  'Testing',
+  'Deployment',
+  'Operation',
+  'Monitoring',
+  'Decommissioning',
+  'Cross-Lifecycle'
+];
+
+const TRUST_LEVEL_OPTIONS = [
+  'Unspecified',
+  'Draft',
+  'Approved',
+  'Operational',
+  'Independently Reviewed',
+  'Regulator / External Assured'
+];
+
+const APPLIES_TO_SCOPE_OPTIONS = [
+  'Organisation-wide',
+  'Specific AI System',
+  'Specific Model',
+  'Specific Use Case',
+  'Third Party / Vendor',
+  'Unspecified'
+];
 
 function EvidenceDrawer({ 
   isOpen, 
@@ -15,17 +64,36 @@ function EvidenceDrawer({
   evidence, 
   onUpdate, 
   questionIdToCode,
-  mode = 'view' // 'view' for Evidence Register (read-only except linked questions), 'edit' for Assessment page
+  mode = 'view' // 'view' for Evidence Register (read-only), 'edit' for Assessment page (in-progress)
 }) {
+  // Editable fields state
+  const [evidenceType, setEvidenceType] = useState('');
+  const [lifecyclePhase, setLifecyclePhase] = useState('');
+  const [trustLevel, setTrustLevel] = useState('');
+  const [appliesToScope, setAppliesToScope] = useState('');
+  const [isReusable, setIsReusable] = useState(false);
   const [linkedQuestions, setLinkedQuestions] = useState([]);
+  const [notes, setNotes] = useState('');
+  
   const [newQuestionId, setNewQuestionId] = useState('');
   const [saving, setSaving] = useState(false);
   const [archiving, setArchiving] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+  
+  // Dropdown open states
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   // Load evidence data when drawer opens or evidence changes
   useEffect(() => {
     if (isOpen && evidence) {
+      // Set all editable fields from evidence
+      setEvidenceType(evidence.evidence_type || 'Unspecified');
+      setLifecyclePhase(evidence.lifecycle_phase || 'Unspecified');
+      setTrustLevel(evidence.trust_level || 'Unspecified');
+      setAppliesToScope(evidence.applies_to_scope || 'Unspecified');
+      setIsReusable(evidence.is_reusable || false);
+      setNotes(evidence.notes || '');
+      
       // Convert UUIDs to codes if possible
       const codes = (evidence.linked_question_ids || []).map(id => {
         if (questionIdToCode && questionIdToCode[id]) {
@@ -44,8 +112,26 @@ function EvidenceDrawer({
       setLinkedQuestions([]);
       setNewQuestionId('');
       setHasChanges(false);
+      setOpenDropdown(null);
     }
   }, [isOpen]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (openDropdown && !event.target.closest('.dropdown-container')) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [openDropdown]);
+
+  const handleFieldChange = (setter) => (value) => {
+    setter(value);
+    setHasChanges(true);
+    setOpenDropdown(null);
+  };
 
   const handleAddQuestion = () => {
     const trimmed = newQuestionId.trim().toUpperCase();
@@ -72,11 +158,27 @@ function EvidenceDrawer({
       return;
     }
 
+    // If not reusable, only one question allowed
+    if (!isReusable && linkedQuestions.length > 1) {
+      toast.error('Non-reusable evidence can only be linked to one question');
+      return;
+    }
+
     setSaving(true);
     try {
       const updateData = {
-        linked_question_ids: linkedQuestions
+        linked_question_ids: linkedQuestions,
+        notes: notes
       };
+
+      // In edit mode (assessment in progress), include all classification fields
+      if (mode === 'edit') {
+        updateData.evidence_type = evidenceType;
+        updateData.lifecycle_phase = lifecyclePhase;
+        updateData.trust_level = trustLevel;
+        updateData.applies_to_scope = appliesToScope;
+        updateData.is_reusable = isReusable;
+      }
 
       await axios.put(`${BACKEND_URL}/api/evidence/${evidence.evidence_id}`, updateData);
       
@@ -145,7 +247,40 @@ function EvidenceDrawer({
     </div>
   );
 
+  // Render an editable dropdown field
+  const renderEditableDropdown = (label, value, options, dropdownKey, onChange) => (
+    <div className="space-y-1 dropdown-container relative">
+      <Label className="text-xs font-medium text-gray-500">{label}</Label>
+      <button
+        type="button"
+        onClick={() => setOpenDropdown(openDropdown === dropdownKey ? null : dropdownKey)}
+        className="w-full flex items-center justify-between px-3 py-2 bg-white border border-gray-300 rounded-md text-sm text-gray-900 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+      >
+        <span>{value || 'Select...'}</span>
+        <ChevronDown className="w-4 h-4 text-gray-500" />
+      </button>
+      {openDropdown === dropdownKey && (
+        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-48 overflow-auto">
+          {options.map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => onChange(option)}
+              className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 ${
+                value === option ? 'bg-teal-50 text-teal-700 font-medium' : 'text-gray-700'
+              }`}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
   if (!isOpen) return null;
+
+  const isEditMode = mode === 'edit';
 
   return (
     <>
@@ -184,35 +319,74 @@ function EvidenceDrawer({
         <div className="flex-1 overflow-auto p-4">
           {evidence ? (
             <div className="space-y-4">
-              {/* Read-only Classification Fields */}
+              {/* Classification Fields */}
               <Card>
                 <CardHeader className="py-3 px-4">
-                  <CardTitle className="text-sm font-semibold text-gray-900">Classification</CardTitle>
+                  <CardTitle className="text-sm font-semibold text-gray-900">
+                    Classification
+                    {isEditMode && <span className="ml-2 text-xs font-normal text-teal-600">(Editable)</span>}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="py-3 px-4 space-y-3">
-                  {renderReadOnlyField('Evidence Type', evidence.evidence_type)}
-                  {renderReadOnlyField('Lifecycle Phase', evidence.lifecycle_phase)}
-                  {renderReadOnlyField('Trust Level', evidence.trust_level)}
-                  {renderReadOnlyField('Applies To Scope', evidence.applies_to_scope)}
+                  {isEditMode ? (
+                    <>
+                      {renderEditableDropdown('Evidence Type', evidenceType, EVIDENCE_TYPE_OPTIONS, 'evidenceType', handleFieldChange(setEvidenceType))}
+                      {renderEditableDropdown('Lifecycle Phase', lifecyclePhase, LIFECYCLE_PHASE_OPTIONS, 'lifecyclePhase', handleFieldChange(setLifecyclePhase))}
+                      {renderEditableDropdown('Trust Level', trustLevel, TRUST_LEVEL_OPTIONS, 'trustLevel', handleFieldChange(setTrustLevel))}
+                      {renderEditableDropdown('Applies To Scope', appliesToScope, APPLIES_TO_SCOPE_OPTIONS, 'appliesToScope', handleFieldChange(setAppliesToScope))}
+                    </>
+                  ) : (
+                    <>
+                      {renderReadOnlyField('Evidence Type', evidence.evidence_type)}
+                      {renderReadOnlyField('Lifecycle Phase', evidence.lifecycle_phase)}
+                      {renderReadOnlyField('Trust Level', evidence.trust_level)}
+                      {renderReadOnlyField('Applies To Scope', evidence.applies_to_scope)}
+                    </>
+                  )}
                   
-                  {/* Reuse Status - Read only */}
+                  {/* Reuse Status */}
                   <div className="space-y-1">
                     <Label className="text-xs font-medium text-gray-500">Reuse Status</Label>
-                    <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-md">
-                      {evidence.is_reusable ? (
-                        <Check className="w-4 h-4 text-green-600" />
-                      ) : (
-                        <X className="w-4 h-4 text-red-500" />
-                      )}
-                      <span className="text-sm text-gray-900">
-                        {evidence.is_reusable ? 'Yes – Can be reused across questions' : 'No – Restricted to this question'}
-                      </span>
-                    </div>
+                    {isEditMode ? (
+                      <div className="flex items-center space-x-4 px-3 py-2 bg-white border border-gray-300 rounded-md">
+                        <label className="flex items-center space-x-2 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="reusable"
+                            checked={isReusable}
+                            onChange={() => handleFieldChange(setIsReusable)(true)}
+                            className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
+                          />
+                          <span className="text-sm text-gray-900">Yes – Reusable</span>
+                        </label>
+                        <label className="flex items-center space-x-2 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="reusable"
+                            checked={!isReusable}
+                            onChange={() => handleFieldChange(setIsReusable)(false)}
+                            className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
+                          />
+                          <span className="text-sm text-gray-900">No – Question-specific</span>
+                        </label>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-md">
+                        {evidence.is_reusable ? (
+                          <Check className="w-4 h-4 text-green-600" />
+                        ) : (
+                          <X className="w-4 h-4 text-red-500" />
+                        )}
+                        <span className="text-sm text-gray-900">
+                          {evidence.is_reusable ? 'Yes – Can be reused across questions' : 'No – Restricted to this question'}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Editable Linked Questions */}
+              {/* Linked Questions */}
               <Card>
                 <CardHeader className="py-3 px-4">
                   <CardTitle className="text-sm font-semibold text-gray-900">Linked Questions</CardTitle>
@@ -229,8 +403,8 @@ function EvidenceDrawer({
                           className="inline-flex items-center px-2.5 py-1 rounded-md bg-teal-50 border border-teal-200"
                         >
                           <span className="text-sm font-medium text-teal-800">{question}</span>
-                          {/* Only show remove button if reusable OR if this is the only question when not reusable */}
-                          {(evidence.is_reusable || linkedQuestions.length > 1) && (
+                          {/* Show remove button if: edit mode, OR (view mode AND reusable AND more than 1 question) */}
+                          {(isEditMode || (isReusable && linkedQuestions.length > 1)) && (
                             <button
                               onClick={() => handleRemoveQuestion(question)}
                               className="ml-1.5 p-0.5 hover:bg-teal-200 rounded-full transition-colors"
@@ -243,8 +417,8 @@ function EvidenceDrawer({
                     )}
                   </div>
                   
-                  {/* Add new question - only show if reusable */}
-                  {evidence.is_reusable ? (
+                  {/* Add new question */}
+                  {(isEditMode || isReusable) ? (
                     <>
                       <div className="flex items-center space-x-2">
                         <Input
@@ -254,24 +428,56 @@ function EvidenceDrawer({
                           onChange={(e) => setNewQuestionId(e.target.value)}
                           onKeyPress={(e) => e.key === 'Enter' && handleAddQuestion()}
                           className="flex-1 text-sm"
+                          disabled={!isReusable && linkedQuestions.length >= 1 && !isEditMode}
                         />
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={handleAddQuestion}
-                          disabled={!newQuestionId.trim()}
+                          disabled={!newQuestionId.trim() || (!isReusable && linkedQuestions.length >= 1 && !isEditMode)}
                         >
                           <Plus className="w-4 h-4" />
                         </Button>
                       </div>
-                      <p className="text-xs text-gray-500">
-                        Add or remove question IDs to update which questions this evidence supports.
-                      </p>
+                      {!isReusable && (
+                        <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-md px-3 py-2">
+                          This evidence is question-specific. {isEditMode ? 'Change Reuse Status to "Yes" to link to multiple questions.' : 'It cannot be linked to additional questions.'}
+                        </p>
+                      )}
+                      {isReusable && (
+                        <p className="text-xs text-gray-500">
+                          Add or remove question IDs to update which questions this evidence supports.
+                        </p>
+                      )}
                     </>
                   ) : (
                     <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-md px-3 py-2">
                       This evidence was uploaded as question-specific and cannot be reused across other questions.
                     </p>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Notes Section */}
+              <Card>
+                <CardHeader className="py-3 px-4">
+                  <CardTitle className="text-sm font-semibold text-gray-900">Notes</CardTitle>
+                </CardHeader>
+                <CardContent className="py-3 px-4">
+                  {isEditMode ? (
+                    <Textarea
+                      placeholder="Add notes about this evidence..."
+                      value={notes}
+                      onChange={(e) => {
+                        setNotes(e.target.value);
+                        setHasChanges(true);
+                      }}
+                      className="min-h-[100px] text-sm"
+                    />
+                  ) : (
+                    <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900 min-h-[60px]">
+                      {evidence.notes || <span className="text-gray-400 italic">No notes</span>}
+                    </div>
                   )}
                 </CardContent>
               </Card>
