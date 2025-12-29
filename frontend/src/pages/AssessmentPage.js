@@ -1127,7 +1127,10 @@ function AssessmentPage() {
                         {uploadedFiles.map((file, index) => (
                           <button
                             key={file.evidence_id || index}
-                            onClick={() => setShowEvidenceDrawer(true)}
+                            onClick={() => {
+                              setSelectedEvidenceForDrawer(file);
+                              setShowEvidenceDrawer(true);
+                            }}
                             className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 hover:border-green-300 transition-colors cursor-pointer"
                           >
                             <svg className="h-3 w-3 mr-1 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
