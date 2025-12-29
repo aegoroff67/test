@@ -468,7 +468,7 @@ function EvidenceRegisterPage() {
                     {/* Trust */}
                     <div className="col-span-2">
                       <span className="text-xs text-gray-700">
-                        {truncate(item.trust_level || 'Unspecified', 12)}}
+                        {truncate(item.trust_level || 'Unspecified', 12)}
                       </span>
                     </div>
 
