@@ -319,85 +319,274 @@ function EvidenceRegisterPage() {
       {/* Filters Panel */}
       <div className="bg-white border-b">
         <div className="px-6 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <span className="text-sm font-medium text-gray-700">Filters:</span>
-              
-              {/* Evidence Type Filter */}
-              <div className="relative">
-                <select
-                  value={evidenceTypeFilter}
-                  onChange={(e) => setEvidenceTypeFilter(e.target.value)}
-                  className="appearance-none bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 pr-8 text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                >
-                  {EVIDENCE_TYPE_OPTIONS.map(option => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-500 pointer-events-none" />
+          <div className="flex flex-col space-y-3">
+            {/* Filter dropdowns row */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <span className="text-sm font-medium text-gray-700">Filters:</span>
+                
+                {/* Evidence Type Multi-Select */}
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'type' ? null : 'type')}
+                    className="flex items-center justify-between min-w-[140px] bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  >
+                    <span>{evidenceTypeFilter.length === 0 ? 'Evidence Type' : `${evidenceTypeFilter.length} selected`}</span>
+                    <ChevronDown className="ml-2 h-3 w-3 text-gray-500" />
+                  </button>
+                  {openDropdown === 'type' && (
+                    <div className="absolute z-50 mt-1 w-56 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+                      {EVIDENCE_TYPE_OPTIONS.map(option => (
+                        <label key={option} className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={evidenceTypeFilter.includes(option)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setEvidenceTypeFilter([...evidenceTypeFilter, option]);
+                              } else {
+                                setEvidenceTypeFilter(evidenceTypeFilter.filter(v => v !== option));
+                              }
+                            }}
+                            className="h-3.5 w-3.5 text-teal-600 rounded border-gray-300 focus:ring-teal-500"
+                          />
+                          <span className="ml-2 text-xs text-gray-700">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Lifecycle Phase Multi-Select */}
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'lifecycle' ? null : 'lifecycle')}
+                    className="flex items-center justify-between min-w-[140px] bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  >
+                    <span>{lifecycleFilter.length === 0 ? 'Lifecycle Phase' : `${lifecycleFilter.length} selected`}</span>
+                    <ChevronDown className="ml-2 h-3 w-3 text-gray-500" />
+                  </button>
+                  {openDropdown === 'lifecycle' && (
+                    <div className="absolute z-50 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+                      {LIFECYCLE_PHASE_OPTIONS.map(option => (
+                        <label key={option} className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={lifecycleFilter.includes(option)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setLifecycleFilter([...lifecycleFilter, option]);
+                              } else {
+                                setLifecycleFilter(lifecycleFilter.filter(v => v !== option));
+                              }
+                            }}
+                            className="h-3.5 w-3.5 text-teal-600 rounded border-gray-300 focus:ring-teal-500"
+                          />
+                          <span className="ml-2 text-xs text-gray-700">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Trust Level Multi-Select */}
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'trust' ? null : 'trust')}
+                    className="flex items-center justify-between min-w-[130px] bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  >
+                    <span>{trustLevelFilter.length === 0 ? 'Trust Level' : `${trustLevelFilter.length} selected`}</span>
+                    <ChevronDown className="ml-2 h-3 w-3 text-gray-500" />
+                  </button>
+                  {openDropdown === 'trust' && (
+                    <div className="absolute z-50 mt-1 w-56 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+                      {TRUST_LEVEL_OPTIONS.map(option => (
+                        <label key={option} className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={trustLevelFilter.includes(option)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setTrustLevelFilter([...trustLevelFilter, option]);
+                              } else {
+                                setTrustLevelFilter(trustLevelFilter.filter(v => v !== option));
+                              }
+                            }}
+                            className="h-3.5 w-3.5 text-teal-600 rounded border-gray-300 focus:ring-teal-500"
+                          />
+                          <span className="ml-2 text-xs text-gray-700">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Scope Multi-Select */}
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'scope' ? null : 'scope')}
+                    className="flex items-center justify-between min-w-[130px] bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  >
+                    <span>{scopeFilter.length === 0 ? 'Scope' : `${scopeFilter.length} selected`}</span>
+                    <ChevronDown className="ml-2 h-3 w-3 text-gray-500" />
+                  </button>
+                  {openDropdown === 'scope' && (
+                    <div className="absolute z-50 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+                      {SCOPE_OPTIONS.map(option => (
+                        <label key={option} className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={scopeFilter.includes(option)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setScopeFilter([...scopeFilter, option]);
+                              } else {
+                                setScopeFilter(scopeFilter.filter(v => v !== option));
+                              }
+                            }}
+                            className="h-3.5 w-3.5 text-teal-600 rounded border-gray-300 focus:ring-teal-500"
+                          />
+                          <span className="ml-2 text-xs text-gray-700">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Status Multi-Select */}
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'status' ? null : 'status')}
+                    className="flex items-center justify-between min-w-[110px] bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  >
+                    <span>{statusFilter.length === 0 ? 'Status' : `${statusFilter.length} selected`}</span>
+                    <ChevronDown className="ml-2 h-3 w-3 text-gray-500" />
+                  </button>
+                  {openDropdown === 'status' && (
+                    <div className="absolute z-50 mt-1 w-36 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+                      {STATUS_OPTIONS.map(option => (
+                        <label key={option} className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={statusFilter.includes(option)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setStatusFilter([...statusFilter, option]);
+                              } else {
+                                setStatusFilter(statusFilter.filter(v => v !== option));
+                              }
+                            }}
+                            className="h-3.5 w-3.5 text-teal-600 rounded border-gray-300 focus:ring-teal-500"
+                          />
+                          <span className="ml-2 text-xs text-gray-700">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
 
-              {/* Lifecycle Phase Filter */}
+              {/* Search */}
               <div className="relative">
-                <select
-                  value={lifecycleFilter}
-                  onChange={(e) => setLifecycleFilter(e.target.value)}
-                  className="appearance-none bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 pr-8 text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                >
-                  {LIFECYCLE_PHASE_OPTIONS.map(option => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-500 pointer-events-none" />
-              </div>
-
-              {/* Trust Level Filter */}
-              <div className="relative">
-                <select
-                  value={trustLevelFilter}
-                  onChange={(e) => setTrustLevelFilter(e.target.value)}
-                  className="appearance-none bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 pr-8 text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                >
-                  {TRUST_LEVEL_OPTIONS.map(option => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-500 pointer-events-none" />
-              </div>
-
-              {/* Scope Filter */}
-              <div className="relative">
-                <select
-                  value={scopeFilter}
-                  onChange={(e) => setScopeFilter(e.target.value)}
-                  className="appearance-none bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 pr-8 text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                >
-                  {SCOPE_OPTIONS.map(option => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-500 pointer-events-none" />
-              </div>
-
-              {/* Status Filter */}
-              <div className="relative">
-                <select
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                  className="appearance-none bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 pr-8 text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                >
-                  {STATUS_OPTIONS.map(option => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-500 pointer-events-none" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  type="text"
+                  placeholder="Search evidence..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-9 pr-4 py-1.5 w-64 text-sm border-gray-200 focus:ring-teal-500"
+                />
               </div>
             </div>
 
-            {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input
+            {/* Selected filter chips */}
+            {(evidenceTypeFilter.length > 0 || lifecycleFilter.length > 0 || trustLevelFilter.length > 0 || scopeFilter.length > 0 || statusFilter.length > 0) && (
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-gray-500">Active filters:</span>
+                
+                {/* Evidence Type chips */}
+                {evidenceTypeFilter.map(value => (
+                  <span key={`type-${value}`} className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-teal-50 text-teal-700 border border-teal-200">
+                    {value}
+                    <button
+                      onClick={() => setEvidenceTypeFilter(evidenceTypeFilter.filter(v => v !== value))}
+                      className="ml-1 hover:text-teal-900"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+                
+                {/* Lifecycle chips */}
+                {lifecycleFilter.map(value => (
+                  <span key={`lifecycle-${value}`} className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-blue-50 text-blue-700 border border-blue-200">
+                    {value}
+                    <button
+                      onClick={() => setLifecycleFilter(lifecycleFilter.filter(v => v !== value))}
+                      className="ml-1 hover:text-blue-900"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+                
+                {/* Trust Level chips */}
+                {trustLevelFilter.map(value => (
+                  <span key={`trust-${value}`} className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-purple-50 text-purple-700 border border-purple-200">
+                    {value}
+                    <button
+                      onClick={() => setTrustLevelFilter(trustLevelFilter.filter(v => v !== value))}
+                      className="ml-1 hover:text-purple-900"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+                
+                {/* Scope chips */}
+                {scopeFilter.map(value => (
+                  <span key={`scope-${value}`} className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-amber-50 text-amber-700 border border-amber-200">
+                    {value}
+                    <button
+                      onClick={() => setScopeFilter(scopeFilter.filter(v => v !== value))}
+                      className="ml-1 hover:text-amber-900"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+                
+                {/* Status chips */}
+                {statusFilter.map(value => (
+                  <span key={`status-${value}`} className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-gray-100 text-gray-700 border border-gray-300">
+                    {value}
+                    <button
+                      onClick={() => setStatusFilter(statusFilter.filter(v => v !== value))}
+                      className="ml-1 hover:text-gray-900"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+                
+                {/* Clear all button */}
+                <button
+                  onClick={() => {
+                    setEvidenceTypeFilter([]);
+                    setLifecycleFilter([]);
+                    setTrustLevelFilter([]);
+                    setScopeFilter([]);
+                    setStatusFilter([]);
+                  }}
+                  className="text-xs text-gray-500 hover:text-gray-700 underline ml-2"
+                >
+                  Clear all
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
                 type="text"
                 placeholder="Search evidence..."
                 value={searchTerm}
