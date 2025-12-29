@@ -162,6 +162,7 @@ function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, on
                   <div className="flex-1 space-y-1">
                     {domain.questions.map((question) => {
                       const isPendingReview = question.review_status === 'PENDING_REVIEW';
+                      const questionHasEvidence = hasEvidence(question.question_id, question.question_code);
                       const bgColor = isPendingReview 
                         ? 'bg-blue-100 border-blue-300 text-blue-800 hover:bg-blue-200'
                         : question.answered
@@ -171,11 +172,15 @@ function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, on
                       return (
                       <div
                         key={question.question_id}
-                        className={`p-2 rounded text-center text-xs font-medium border transition-all cursor-pointer hover:shadow-md ${bgColor}`}
-                        title={`${question.question_code} - ${isPendingReview ? 'Pending Review 📝' : question.answered ? 'Answered ✓' : 'Not answered'} - Click to navigate`}
+                        className={`relative p-2 rounded text-center text-xs font-medium border transition-all cursor-pointer hover:shadow-md ${bgColor}`}
+                        title={`${question.question_code} - ${isPendingReview ? 'Pending Review 📝' : question.answered ? 'Answered ✓' : 'Not answered'}${questionHasEvidence ? ' - Has Evidence 📎' : ''} - Click to navigate`}
                         data-testid={`status-${question.question_code}`}
                         onClick={() => onQuestionClick && onQuestionClick(question.question_id)}
                       >
+                        {/* Blue dot indicator for evidence */}
+                        {questionHasEvidence && (
+                          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blue-500 rounded-full border-2 border-white shadow-sm"></span>
+                        )}
                         <div className="flex items-center justify-center space-x-1">
                           {question.answered ? (
                             <CheckCircle2 className={`h-3 w-3 ${isPendingReview ? 'text-blue-600' : 'text-green-600'}`} />
