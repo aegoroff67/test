@@ -4229,18 +4229,22 @@ async def delete_evidence(
 @api_router.get("/evidence/by-question/{question_id}", response_model=List[EvidenceResponse])
 async def get_evidence_by_question(
     question_id: str,
-    current_user: UserResponse = Depends(get_current_user)
+    current_user: UserResponse = Depends(get_current_user),
+    assessment_id: Optional[str] = Query(None, description="Filter by assessment ID")
 ):
     """Get all evidence linked to a specific question"""
     try:
-        evidence_list = await db.evidence.find(
-            {
-                "org_id": current_user.org_id,
-                "linked_question_ids": question_id,
-                "status": {"$ne": EvidenceStatus.ARCHIVED.value}
-            },
-            {"_id": 0}
-        ).to_list(100)
+        query = {
+            "org_id": current_user.org_id,
+            "linked_question_ids": question_id,
+            "status": {"$ne": EvidenceStatus.ARCHIVED.value}
+        }
+        
+        # Filter by assessment_id if provided
+        if assessment_id:
+            query["assessment_id"] = assessment_id
+        
+        evidence_list = await db.evidence.find(query, {"_id": 0}).to_list(100)
         
         return [EvidenceResponse(**e) for e in evidence_list]
         
