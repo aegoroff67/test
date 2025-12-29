@@ -515,6 +515,16 @@ function EvidenceRegisterPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Evidence Drawer */}
+      <EvidenceDrawer
+        isOpen={showDrawer}
+        onClose={() => setShowDrawer(false)}
+        evidence={selectedEvidence}
+        onUpdate={handleDrawerUpdate}
+        questionIdToCode={questionIdToCode}
+        mode="view"
+      />
     </div>
   );
 }
