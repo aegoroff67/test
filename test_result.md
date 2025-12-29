@@ -1,3 +1,25 @@
+# Test Results - Evidence Register Multi-Select Filters
+
+## Current Test: Evidence Register Multi-Select Filters
+- **File Under Test:** `/app/frontend/src/pages/EvidenceRegisterPage.js`
+- **Features to Test:**
+  - Multi-select dropdown filters (Evidence Type, Lifecycle Phase, Trust Level, Scope, Status)
+  - Selected filter values display as removable chips
+  - Filter logic correctly handles multiple selections (array-based filtering)
+  - "Clear all" button functionality
+  - Dropdown opens/closes properly
+  - Filter persistence when navigating
+
+## Test Credentials
+- Email: andrew@test.com
+- Password: password123
+
+## Assessment to Test
+- ID: 724af92f-5ee0-4d38-9a9c-11ad6abbc622
+- URL: /assessment/724af92f-5ee0-4d38-9a9c-11ad6abbc622/evidence-register
+
+---
+
 # Test Results - Backend Coverage Calculation Update
 
 ## Test Scope
