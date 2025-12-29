@@ -185,17 +185,17 @@ function EvidenceRegisterPage() {
     archived: evidence.filter(e => e.status === 'Archived').length
   };
 
-  // Filter evidence
+  // Filter evidence (empty array = show all)
   const filteredEvidence = evidence.filter(item => {
     const matchesSearch = searchTerm === '' || 
       (item.evidence_title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
       (item.file_name || '').toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesType = evidenceTypeFilter === 'All Types' || item.evidence_type === evidenceTypeFilter;
-    const matchesLifecycle = lifecycleFilter === 'All Phases' || item.lifecycle_phase === lifecycleFilter;
-    const matchesTrust = trustLevelFilter === 'All Levels' || item.trust_level === trustLevelFilter;
-    const matchesScope = scopeFilter === 'All Scopes' || item.applies_to_scope === scopeFilter;
-    const matchesStatus = statusFilter === 'All Statuses' || item.status === statusFilter;
+    const matchesType = evidenceTypeFilter.length === 0 || evidenceTypeFilter.includes(item.evidence_type);
+    const matchesLifecycle = lifecycleFilter.length === 0 || lifecycleFilter.includes(item.lifecycle_phase);
+    const matchesTrust = trustLevelFilter.length === 0 || trustLevelFilter.includes(item.trust_level);
+    const matchesScope = scopeFilter.length === 0 || scopeFilter.includes(item.applies_to_scope);
+    const matchesStatus = statusFilter.length === 0 || statusFilter.includes(item.status);
     
     return matchesSearch && matchesType && matchesLifecycle && matchesTrust && matchesScope && matchesStatus;
   });
