@@ -195,9 +195,9 @@ function EvidenceDrawer({
                   {renderReadOnlyField('Trust Level', evidence.trust_level)}
                   {renderReadOnlyField('Applies To Scope', evidence.applies_to_scope)}
                   
-                  {/* Reusable - Read only */}
+                  {/* Reuse Status - Read only */}
                   <div className="space-y-1">
-                    <Label className="text-xs font-medium text-gray-500">Reusable</Label>
+                    <Label className="text-xs font-medium text-gray-500">Reuse Status</Label>
                     <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-md">
                       <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
                         evidence.is_reusable 
