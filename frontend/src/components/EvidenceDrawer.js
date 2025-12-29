@@ -229,39 +229,50 @@ function EvidenceDrawer({
                           className="inline-flex items-center px-2.5 py-1 rounded-md bg-teal-50 border border-teal-200"
                         >
                           <span className="text-sm font-medium text-teal-800">{question}</span>
-                          <button
-                            onClick={() => handleRemoveQuestion(question)}
-                            className="ml-1.5 p-0.5 hover:bg-teal-200 rounded-full transition-colors"
-                          >
-                            <X className="w-3 h-3 text-teal-600" />
-                          </button>
+                          {/* Only show remove button if reusable OR if this is the only question when not reusable */}
+                          {(evidence.is_reusable || linkedQuestions.length > 1) && (
+                            <button
+                              onClick={() => handleRemoveQuestion(question)}
+                              className="ml-1.5 p-0.5 hover:bg-teal-200 rounded-full transition-colors"
+                            >
+                              <X className="w-3 h-3 text-teal-600" />
+                            </button>
+                          )}
                         </div>
                       ))
                     )}
                   </div>
                   
-                  {/* Add new question */}
-                  <div className="flex items-center space-x-2">
-                    <Input
-                      type="text"
-                      placeholder="Enter question ID (e.g., FA-5)"
-                      value={newQuestionId}
-                      onChange={(e) => setNewQuestionId(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleAddQuestion()}
-                      className="flex-1 text-sm"
-                    />
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={handleAddQuestion}
-                      disabled={!newQuestionId.trim()}
-                    >
-                      <Plus className="w-4 h-4" />
-                    </Button>
-                  </div>
-                  <p className="text-xs text-gray-500">
-                    Add or remove question IDs to update which questions this evidence supports.
-                  </p>
+                  {/* Add new question - only show if reusable */}
+                  {evidence.is_reusable ? (
+                    <>
+                      <div className="flex items-center space-x-2">
+                        <Input
+                          type="text"
+                          placeholder="Enter question ID (e.g., FA-5)"
+                          value={newQuestionId}
+                          onChange={(e) => setNewQuestionId(e.target.value)}
+                          onKeyPress={(e) => e.key === 'Enter' && handleAddQuestion()}
+                          className="flex-1 text-sm"
+                        />
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={handleAddQuestion}
+                          disabled={!newQuestionId.trim()}
+                        >
+                          <Plus className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <p className="text-xs text-gray-500">
+                        Add or remove question IDs to update which questions this evidence supports.
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-md px-3 py-2">
+                      This evidence was uploaded as question-specific and cannot be reused across other questions.
+                    </p>
+                  )}
                 </CardContent>
               </Card>
 
