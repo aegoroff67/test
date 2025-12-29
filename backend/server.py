@@ -4043,6 +4043,7 @@ async def create_evidence(
             valid_from=evidence_data.valid_from,
             valid_to=evidence_data.valid_to,
             applies_to_scope=evidence_data.applies_to_scope or AppliesToScope.UNSPECIFIED,
+            assessment_id=evidence_data.assessment_id,  # Include assessment_id from request
             linked_question_ids=evidence_data.linked_question_ids,
             linked_am_control_ids=evidence_data.linked_am_control_ids or [],
             notes=evidence_data.notes,
