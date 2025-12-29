@@ -1242,10 +1242,14 @@ function AssessmentPage() {
       {/* Evidence Drawer - opens when clicking on uploaded files */}
       <EvidenceDrawer
         isOpen={showEvidenceDrawer}
-        onClose={() => setShowEvidenceDrawer(false)}
-        evidenceFiles={uploadedFiles}
+        onClose={() => {
+          setShowEvidenceDrawer(false);
+          setSelectedEvidenceForDrawer(null);
+        }}
+        evidence={selectedEvidenceForDrawer}
         onUpdate={handleEvidenceUpdate}
         questionCode={currentQuestion?.code}
+        mode="edit"
       />
 
       {/* Dynamic Framework Alignment Modals - Replaces 9 separate modal blocks */}
