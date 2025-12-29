@@ -438,7 +438,8 @@ function EvidenceRegisterPage() {
                 filteredEvidence.map((item, index) => (
                   <div 
                     key={item.evidence_id || index} 
-                    className="grid grid-cols-24 gap-2 px-4 py-3 hover:bg-gray-50 transition-colors items-center"
+                    onClick={() => handleRowClick(item)}
+                    className="grid grid-cols-24 gap-2 px-4 py-3 hover:bg-teal-50 transition-colors items-center cursor-pointer"
                   >
                     {/* Evidence Name */}
                     <div className="col-span-5">
@@ -467,7 +468,7 @@ function EvidenceRegisterPage() {
                     {/* Trust */}
                     <div className="col-span-2">
                       <span className="text-xs text-gray-700">
-                        {truncate(item.trust_level || 'Unspecified', 12)}
+                        {truncate(item.trust_level || 'Unspecified', 12)}}
                       </span>
                     </div>
 
