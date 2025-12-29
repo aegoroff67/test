@@ -587,16 +587,6 @@ function EvidenceRegisterPage() {
           </div>
         </div>
       </div>
-                type="text"
-                placeholder="Search evidence..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-9 pr-4 py-1.5 w-64 text-sm border-gray-200 focus:ring-teal-500"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Main Evidence Table */}
       <div className="flex-1 px-6 py-4 overflow-auto">
