@@ -97,70 +97,85 @@ function EvidenceRegisterPage() {
   const [scopeFilter, setScopeFilter] = useState('All Scopes');
   const [statusFilter, setStatusFilter] = useState('All Statuses');
   const [questionIdToCode, setQuestionIdToCode] = useState({}); // Map UUID -> question code
+  
+  // Drawer states
+  const [showDrawer, setShowDrawer] = useState(false);
+  const [selectedEvidence, setSelectedEvidence] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      
+      // Fetch assessment, questions, and evidence data in parallel
+      const [assessmentRes, questionsRes, evidenceRes] = await Promise.all([
+        axios.get(`${API}/assessments/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        }),
+        axios.get(`${API}/assessments/${id}/questions`, {
+          headers: { Authorization: `Bearer ${token}` }
+        }),
+        axios.get(`${API}/evidence`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+      ]);
+      
+      setAssessment(assessmentRes.data);
+      
+      // Build a map from question UUID to question code
+      // Questions are nested inside domains: [{domain: {...}, questions: [...]}]
+      const domainsWithQuestions = questionsRes.data || [];
+      const idToCodeMap = {};
+      const assessmentQuestionIds = new Set(); // Track all question IDs/codes for this assessment
+      
+      domainsWithQuestions.forEach(domainObj => {
+        const questions = domainObj.questions || [];
+        questions.forEach(q => {
+          if (q.id && q.code) {
+            idToCodeMap[q.id] = q.code;
+            assessmentQuestionIds.add(q.id);
+            assessmentQuestionIds.add(q.code);
+          }
+        });
+      });
+      setQuestionIdToCode(idToCodeMap);
+      
+      // Filter evidence to only show items linked to THIS assessment
+      // Primary filter: assessment_id matches
+      // Fallback filter: linked_question_ids contain questions from this assessment
+      const allEvidence = evidenceRes.data || [];
+      const filteredEvidence = allEvidence.filter(evidence => {
+        // If evidence has assessment_id, use that for filtering (new evidence)
+        if (evidence.assessment_id) {
+          return evidence.assessment_id === id;
+        }
+        // Fallback: check linked question IDs (legacy evidence without assessment_id)
+        const linkedIds = evidence.linked_question_ids || [];
+        return linkedIds.some(linkedId => assessmentQuestionIds.has(linkedId));
+      });
+      
+      setEvidence(filteredEvidence);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      toast.error('Failed to load evidence data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        
-        // Fetch assessment, questions, and evidence data in parallel
-        const [assessmentRes, questionsRes, evidenceRes] = await Promise.all([
-          axios.get(`${API}/assessments/${id}`, {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get(`${API}/assessments/${id}/questions`, {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get(`${API}/evidence`, {
-            headers: { Authorization: `Bearer ${token}` }
-          })
-        ]);
-        
-        setAssessment(assessmentRes.data);
-        
-        // Build a map from question UUID to question code
-        // Questions are nested inside domains: [{domain: {...}, questions: [...]}]
-        const domainsWithQuestions = questionsRes.data || [];
-        const idToCodeMap = {};
-        const assessmentQuestionIds = new Set(); // Track all question IDs/codes for this assessment
-        
-        domainsWithQuestions.forEach(domainObj => {
-          const questions = domainObj.questions || [];
-          questions.forEach(q => {
-            if (q.id && q.code) {
-              idToCodeMap[q.id] = q.code;
-              assessmentQuestionIds.add(q.id);
-              assessmentQuestionIds.add(q.code);
-            }
-          });
-        });
-        setQuestionIdToCode(idToCodeMap);
-        
-        // Filter evidence to only show items linked to THIS assessment
-        // Primary filter: assessment_id matches
-        // Fallback filter: linked_question_ids contain questions from this assessment
-        const allEvidence = evidenceRes.data || [];
-        const filteredEvidence = allEvidence.filter(evidence => {
-          // If evidence has assessment_id, use that for filtering (new evidence)
-          if (evidence.assessment_id) {
-            return evidence.assessment_id === id;
-          }
-          // Fallback: check linked question IDs (legacy evidence without assessment_id)
-          const linkedIds = evidence.linked_question_ids || [];
-          return linkedIds.some(linkedId => assessmentQuestionIds.has(linkedId));
-        });
-        
-        setEvidence(filteredEvidence);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        toast.error('Failed to load evidence data');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, [id]);
+
+  // Handle row click to open drawer
+  const handleRowClick = (evidenceItem) => {
+    setSelectedEvidence(evidenceItem);
+    setShowDrawer(true);
+  };
+
+  // Handle drawer update (refresh data)
+  const handleDrawerUpdate = () => {
+    fetchData();
+  };
 
   // Calculate stats
   const stats = {
