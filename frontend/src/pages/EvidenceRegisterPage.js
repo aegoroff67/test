@@ -290,8 +290,8 @@ function EvidenceRegisterPage() {
               <p className="text-xs text-gray-500 mt-1">{assessment?.name || 'Loading...'}</p>
             </div>
 
-            {/* Right Section: Back Button */}
-            <div className="flex items-center space-x-3">
+            {/* Right Section: Back Button and Export */}
+            <div className="flex flex-col items-end space-y-2">
               <Button 
                 variant="outline" 
                 size="sm"
@@ -299,6 +299,14 @@ function EvidenceRegisterPage() {
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Results
+              </Button>
+              <Button 
+                size="sm"
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={() => toast.info('Export functionality coming soon')}
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Export Evidence (ZIP)
               </Button>
             </div>
           </div>
