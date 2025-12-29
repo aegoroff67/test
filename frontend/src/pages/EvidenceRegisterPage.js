@@ -295,6 +295,7 @@ function EvidenceRegisterPage() {
               <Button 
                 variant="outline" 
                 size="sm"
+                className="w-full"
                 onClick={() => navigate(`/results/${id}`)}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
@@ -302,7 +303,7 @@ function EvidenceRegisterPage() {
               </Button>
               <Button 
                 size="sm"
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                 onClick={() => toast.info('Export functionality coming soon')}
               >
                 <Download className="h-4 w-4 mr-2" />
