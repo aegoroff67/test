@@ -192,7 +192,7 @@ function EvidenceRegisterPage() {
     archived: evidence.filter(e => e.status === 'Archived').length
   };
 
-  // Filter evidence (empty array = show all)
+  // Filter evidence (empty array = show all, empty string for single-select = show all)
   const filteredEvidence = evidence.filter(item => {
     const matchesSearch = searchTerm === '' || 
       (item.evidence_title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -204,7 +204,15 @@ function EvidenceRegisterPage() {
     const matchesScope = scopeFilter.length === 0 || scopeFilter.includes(item.applies_to_scope);
     const matchesStatus = statusFilter.length === 0 || statusFilter.includes(item.status);
     
-    return matchesSearch && matchesType && matchesLifecycle && matchesTrust && matchesScope && matchesStatus;
+    // Linked question filter (single-select)
+    const matchesLinkedQuestion = linkedQuestionFilter === '' || 
+      (item.linked_question_ids || []).some(linkedId => {
+        // Check if the linked ID matches the filter (could be UUID or code)
+        const code = questionIdToCode[linkedId] || linkedId;
+        return code === linkedQuestionFilter;
+      });
+    
+    return matchesSearch && matchesType && matchesLifecycle && matchesTrust && matchesScope && matchesStatus && matchesLinkedQuestion;
   });
 
   // Truncate text helper
