@@ -527,9 +527,9 @@ function AssessmentPage() {
   const fetchQuestionEvidence = async (questionCode) => {
     if (!questionCode) return;
     
-    // Always fetch fresh data from backend
+    // Always fetch fresh data from backend, filtered by assessment_id
     try {
-      const response = await axios.get(`${API}/evidence/by-question/${questionCode}`);
+      const response = await axios.get(`${API}/evidence/by-question/${questionCode}?assessment_id=${id}`);
       const evidence = response.data || [];
       
       // Cache the evidence for this question
