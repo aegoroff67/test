@@ -1,199 +1,213 @@
-<analysis>**original_problem_statement:** The user's initial goal was to refine the UI of the results and framework alignment pages. This quickly expanded into a major feature request: to build an entirely new, standalone FAIRA Risk Assessment. This involved creating a new assessment card, user management controls, and a comprehensive, single-page scrollable assessment form. A significant refactoring was also done to remove all traces of the FAIRA framework from the existing AI System Maturity Assessment.
+<analysis>**original_problem_statement:** The initial request was to build a frontend modal for uploading Evidence associated with questions in the AI System Maturity Assessment. This involved creating a new modal with a file upload panel and a classification panel containing several single-select options.
 
-The project then evolved to include a detailed scoring schema implementation with a backend scoring engine, a massive content update for the AI System Maturity Assessment requiring direct database manipulation, and the creation of a new 'Framework Coverage' page. A pivotal change was the establishment of a centralized **Framework Control Registry** to serve as the single source of truth for all framework analytics.
-
-Most recently, the agent completed populating the registry for all 8 frameworks, significantly reworked the backend coverage calculation logic to use this new registry, and performed numerous iterative UI/UX enhancements on the , including adding a Print-to-PDF feature. The last action was to define a new  data object and create the corresponding backend model and CRUD API endpoints.
+This request quickly evolved through numerous iterative refinements, including:
+- Adjusting the modal's dimensions and layout multiple times.
+- Reordering options, setting default values, and updating descriptive text.
+- Adding a reusable toggle and connecting the modal to the backend to create evidence records.
+- Persisting uploaded evidence on the main assessment page, ensuring it remains visible when navigating between questions.
+- Building an Evidence Drawer to view and edit the details of already uploaded files.
+- Creating a brand new Evidence Register page to display all evidence for a given assessment, mirroring the layout of the Framework Coverage page.
+- Adding numerous columns, filters, and summary stats to the Evidence Register.
+- Fixing a critical bug where evidence was not scoped to a specific assessment, which required modifying the backend data model and associated API endpoints.
+- Converting the simple filters on the Evidence Register into multi-select dropdowns with chips.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The application is a full-stack AI maturity and risk assessment platform.
-- A Master Control Registry () is at v4 with 411 controls, serving as the single source of truth for framework analytics.
-- The backend coverage calculation logic in  is now a hybrid model. It uses the master registry for accurate denominators and prioritizes control-based counting for frameworks with enriched data, while maintaining backward compatibility for others.
-- The  has been heavily updated with a new header layout, detailed metrics (including a custom 'Confidence-Weighted' score), color-coded 'Coverage Gap' indicators, and an informational modal.
-- A Print to PDF feature is functional for the Framework Coverage page, using a server-side Playwright implementation.
-- A new Pydantic model for an  object has been created at .
-- A full suite of CRUD API endpoints for the new  model has been added to .
+- A feature-rich Evidence Upload Modal is integrated into the . It allows file uploads and classification, and successfully creates evidence records in the backend, linked to the specific question and assessment.
+- An Evidence Drawer component () allows users to view and update metadata for existing evidence files from both the  and .
+- A new Evidence Register page () has been created. It displays a filterable, sortable table of all evidence associated with a specific assessment.
+- The backend  model has been updated to include an  to properly scope evidence. The corresponding API endpoints have been updated.
+- The  has been updated with a new Evidence Register button and other minor layout adjustments.
+- The filters on the  are partially converted to be multi-select dropdowns, but the implementation is incomplete.
 
 **Last working item**:
-    - Last item agent was working: The agent created a new  data model and the corresponding CRUD API endpoints in the backend.
+    - Last item agent was working: The agent was in the process of converting the single-select dropdown filters on the  into multi-select dropdowns with chips to display selected values. The agent updated state management to use arrays, modified the filtering logic, and began rewriting the JSX for the filters panel.
     - Status: IN PROGRESS
     - Agent Testing Done: N
-    - Which testing method agent to use? backend testing agent
+    - Which testing method agent to use? Frontend testing agent
     - User Testing Done: N
 
 **All Pending/In progress Issue list**:
-  - Issue 1: Test the newly created CRUD API endpoints for the  object. (P0, HIGHEST)
-  - Issue 2: The 'Top 3 Action Steps' on the main  are calculated using incorrect logic. (P1)
-  - Issue 3: The  question was present in citation data for the Australian Guidance for AI Adoption framework but is missing from the alignment data file. The agent noted this discrepancy but has not resolved it. (P2)
-  - Issue 4: The sidebar scroll-to-section feature in  should be functionally verified. (P3)
-  - Issue 5: A persistent ~1% progress discrepancy between the dashboard and the FAIRA assessment form remains. (P4)
+  - Issue 1: Finalize and test the multi-select filter implementation on the . (P0, HIGHEST)
+  - Issue 2: Test the backend CRUD API endpoints for the  object. (P1)
+  - Issue 3: The 'Top 3 Action Steps' on the main  are calculated using incorrect logic. (P2)
+  - Issue 4: The  question was present in citation data for the Australian Guidance for AI Adoption framework but is missing from the alignment data file. (P3)
+  - Issue 5: The sidebar scroll-to-section feature in  should be functionally verified. (P4)
   
   Issues Detail:
   - Issue 1: 
-     - Attempted fixes: The agent has written the code for the Pydantic model and the FastAPI endpoints. No testing has been attempted yet.
+     - Attempted fixes: The agent has modified the state variables to be arrays, updated the  logic to handle array-based filtering, and started rewriting the filter panel JSX. The work is incomplete and untested.
+     - Next debug checklist: 
+        1. Create or identify a reusable  component.
+        2. Complete the implementation in  to use this component for all filters (Evidence Type, Lifecycle Phase, etc.).
+        3. Implement the UI to display selected filter values as removable chips.
+        4. Use the frontend testing agent to verify that multi-selection works, chips are displayed/removed correctly, and the evidence table filters as expected.
+     - Why fix this issue and what will be achieved with the fix? This will complete the user's request for more powerful filtering capabilities on the Evidence Register page.
+     - Status:  IN PROGRESS
+     - Is recurring issue? N
+     - Should Test frontend/backend/both after fix? Frontend
+     - Blocked on other issue: None
+
+  - Issue 2: 
+     - Attempted fixes: The agent has written the code for the Pydantic model and the FastAPI endpoints. No testing has been attempted. This was de-prioritized in favor of frontend feature development.
      - Next debug checklist: 
         1. Create a new test file: .
-        2. Write test cases for each CRUD operation: Create, Read (all and by ID), Update, and Delete.
+        2. Write test cases for each CRUD operation: Create, Read (all and by ID, with filtering by ), Update, and Delete.
         3. Use the backend testing agent to execute the tests.
-        4. Fix any issues that arise from testing.
-     - Why fix this issue and what will be achieved with the fix? This will validate the backend functionality for the new evidence management feature, ensuring it is ready for frontend integration.
+     - Why fix this issue and what will be achieved with the fix? To validate the backend functionality for the evidence management feature, ensuring data integrity and reliability.
      - Status:  NOT STARTED
      - Is recurring issue? N
      - Should Test frontend/backend/both after fix? Backend
      - Blocked on other issue: None
 
-  - Issue 2: 
-     - Attempted fixes: None. This is a known, recurring issue from previous sessions that has been consistently de-prioritized by the user.
+  - Issue 3: 
+     - Attempted fixes: None. This is a known, recurring issue.
      - Next debug checklist: Review the logic in  that generates the . The logic needs to sort all individual  by their , not the aggregated .
-     - Why fix this issue and what will be achieved with the fix? To provide users with more accurate and specific recommendations on the original assessment results page.
+     - Why fix this issue and what will be achieved with the fix? To provide users with more accurate and specific recommendations on the results page.
      - Status:  NOT STARTED
      - Is recurring issue? Y
      - Should Test frontend/backend/both after fix? Frontend
      - Blocked on other issue: None
 
-  - Issue 3: 
-     - Attempted fixes: The agent asked the user for clarification in a previous session but did not receive a direct response and moved on.
+  - Issue 4: 
+     - Attempted fixes: The agent noted the discrepancy in a previous session but did not resolve it.
      - Next debug checklist: 
-        1. Review the  file.
-        2. Ask the user again if an alignment mapping should be created for question  for the Australian Guidance for AI Adoption framework.
-     - Why fix this issue and what will be achieved with the fix? To ensure data integrity and that all user-provided information is correctly represented in the system.
+        1. Review .
+        2. Ask the user if an alignment mapping should be created for question .
+     - Why fix this issue and what will be achieved with the fix? To ensure data integrity.
      - Status:  NOT STARTED
      - Is recurring issue? N
      - Should Test frontend/backend/both after fix? Backend (data file)
      - Blocked on other issue: None
 
-  - Issue 4: 
-     - Attempted fixes: None in this session.
-     - Next debug checklist: Start a FAIRA assessment and click on sidebar section links to confirm the viewport scrolls to the correct section headers.
+  - Issue 5: 
+     - Attempted fixes: None.
+     - Next debug checklist: Manually test the scroll-to-section links in the  sidebar.
      - Why fix this issue and what will be achieved with the fix? To confirm the usability of the long FAIRA form.
      - Status:  NOT STARTED
      - Is recurring issue? N
      - Should Test frontend/backend/both after fix? Frontend
      - Blocked on other issue: None
 
-  - Issue 5: 
-     - Attempted fixes: None in this session.
-     - Next debug checklist: Requires a full audit of progress calculation logic in both  and .
-     - Why fix this issue and what will be achieved with this fix? To achieve perfect consistency between the dashboard and the assessment form. This is a low-priority polish item.
-     - Status:  NOT STARTED
-     - Is recurring issue? Y
-     - Should Test frontend/backend/both after fix? Both
-     - Blocked on other issue: None
-
 **In progress Task List**:
-  - Task 1:  Create a new  data object and associated functionality. (P0)
+  - Task 1:  Implement Evidence Management Feature. (P0)
   
  Task Detail:
   - Task 1: 
-     - Where to resume: The Pydantic model () and API endpoints () have been created. The immediate next step is to create a test file and thoroughly test all CRUD operations.
-     - What will be achieved with this? A fully functional and tested evidence management API in the backend, which will unblock frontend development for this feature.
+     - Where to resume: The final piece of the frontend implementation is converting the filters on  to multi-select dropdowns. The code has been partially modified but needs completion and testing.
+     - What will be achieved with this? A complete, user-accepted evidence management feature, including upload, viewing, editing, and a comprehensive register page with advanced filtering.
      - Status:  IN PROGRESS
-     - Should Test frontend/backend/both after fix? Backend
+     - Should Test frontend/backend/both after fix? Frontend
      - Blocked on something: None
 
 **Upcoming and Future Tasks**
     Upcoming Tasks:
-    - Task 1 (P0): Build a frontend interface for the new Evidence Management feature. This would include UI for uploading, viewing, editing, and linking evidence to assessment questions.
-    - Task 2 (P1): Implement a Coverage Gap Report feature. The user expressed strong interest in a view that lists specific framework controls not covered by an assessment's answers. The backend scripting for this is partially complete from the agent's investigation.
-    - Task 3 (P2): Implement a print-specific, multi-page CSS layout for the main .
-    - Task 4 (P3): Develop backend functionality for generating DOCX reports.
+    - Task 1 (P1): Implement a Coverage Gap Report feature, showing framework controls not covered by an assessment.
+    - Task 2 (P2): Implement a print-specific, multi-page CSS layout for the main .
+    - Task 3 (P3): Develop backend functionality for generating DOCX reports.
     Future Tasks:
-    - Task 5 (P4): Implement enterprise-level SSO (SAML/OIDC).
-    - Task 6 (P5): Implement a Stripe paywall for premium assessments.
+    - Task 4 (P4): Implement enterprise-level SSO (SAML/OIDC).
+    - Task 5 (P5): Implement a Stripe paywall for premium assessments.
 
 **Completed work in this session**
-- **Framework Control Registry & Data Sync:**
-  - Updated the master control registry to v4 with 411 controls, including the OECD framework.
-  - Synced all 8 enriched frontend alignment data files to the backend  directory, enabling accurate, control-based calculations for all frameworks.
-- **Backend Coverage Calculation Rework:**
-  - Refactored  to use a more accurate hybrid calculation logic: control-based for enriched frameworks, and question-based as a fallback. This fixed a regression and correctly calculated coverage for all frameworks, including OECD at 53.8%.
-- **Framework Coverage Page Enhancements ():**
-  - Completely redesigned the header/top panel layout based on iterative user feedback.
-  - Added Based on X total controls subtitles under each chart.
-  - Replaced the View Details link with a detailed bottom panel showing Overall Inherent Coverage, Overall Achieved Coverage, a new Confidence-Weighted metric, and a color-coded Coverage Gap.
-  - Added an info badge and modal with detailed explanatory text about the page's metrics.
-  - Updated numerous styling details like colors, font weights, and spacing per user requests.
-- **Print to PDF Feature:**
-  - Added a Print PDF button to the .
-  - Created a new backend endpoint () to generate the PDF using Playwright.
-  - Fixed a critical bug by installing Playwright browsers and corrected the URL generation logic for server-side rendering.
-- **New Evidence Data Model & API:**
-  - Created a new  directory and defined the  Pydantic model in .
-  - Implemented a full suite of CRUD API endpoints for the evidence object in .
+- **Evidence Upload Modal ():**
+  - Created a new modal component with a file dropzone and classification cards.
+  - Iteratively refined the UI/UX based on multiple user requests (layout, dimensions, text, option reordering, default values).
+  - Added a Make this evidence reusable toggle.
+  - Connected the modal to the backend  endpoint to create evidence records, correctly passing classification data, , and .
+- **Evidence Persistence ():**
+  - Implemented logic to fetch and display evidence for the current question.
+  - Fixed a critical bug where evidence disappeared upon navigating between questions by correcting state management logic.
+  - Displayed uploaded files as clickable pills below the question.
+- **Evidence Drawer ():**
+  - Created a new drawer component to view and edit metadata of existing evidence.
+  - Implemented functionality to save changes via .
+- **Evidence Register Page ():**
+  - Created a new page from scratch, mimicking the  layout.
+  - Implemented a summary stats panel and a filter section.
+  - Built a detailed table with 9 columns to display evidence information.
+  - Made table rows clickable to open the  for editing.
+- **Backend Evidence Model ():**
+  - Added a crucial  field to the  model to scope evidence correctly.
+  - Updated the  endpoint to accept .
+- **Bug Fixes:**
+  - **Assessment Scoping:** Fixed a major bug where the Evidence Register showed evidence from all assessments. The fix involved adding  to the model and filtering API calls by it.
+  - **Question ID Display:** Fixed the Linked Questions column to show human-readable codes (e.g., FA-1) instead of UUIDs by fetching all assessment questions and creating a client-side UUID-to-code map.
+  - **Redundant API Call:** Removed a call to a non-existent endpoint () that was causing an error after selecting an answer.
+- **UI/UX on Results Page ():**
+  - Halved the width of the Framework Coverage button and added a new Evidence Register button.
+  - Adjusted the layout widths of the summary panel.
+  - Renamed the Exports title to Reports.
+  - Reduced font size in the Maturity Tier Description panel.
+- **Configuration:**
+  - Extended Tailwind CSS config to support a 24-column grid.
 
 **Earlier issues found/mentioned but not fixed**
-   - Issue 1: The 'Top 3 Action Steps' on  are calculated incorrectly.
-     - Debug checklist: Review logic in ; sort individual  by score instead of .
-     - Why to solve this issue and what will be achieved with this? To provide users with more accurate and granular recommendations.
-     - Should Test frontend/backend/both after fix: Frontend
-     - Is recurring issue? Y
+   - Issue 1: The 'Top 3 Action Steps' on  are calculated incorrectly. This is a recurring issue.
    - Issue 2:  question discrepancy for Australian Guidance for AI Adoption framework.
-     - Debug checklist: Review  and ask user for clarification.
-     - Why to solve this issue and what will be achieved with this? To ensure data integrity.
-     - Should Test frontend/backend/both after fix: Backend
-     - Is recurring issue? N
 
 **Known issue recurrence from previous fork**
-  - Issue recurrence in previous fork: The Top 3 Action Steps incorrect calculation on  has been carried over and remains unfixed.
-  - Recurrence count: 6
+  - Issue recurrence in previous fork: The Top 3 Action Steps incorrect calculation on .
+  - Recurrence count: 7
   - Status: NOT STARTED
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Hybrid Backend Logic:** The coverage calculation in  now intelligently switches between a precise control-based method (for new data) and a legacy question-based method, ensuring both accuracy and backward compatibility.
-- **Data Synchronization:** A critical fix involved syncing updated data files from  to  to ensure the backend API uses the correct information.
-- **Pydantic Data Modeling:** A new  data entity was cleanly defined using a Pydantic model with enums, placed in a new  directory for better organization.
-- **Server-Side PDF Generation (Playwright):** Implemented and debugged a feature to generate PDFs of a React page on the server. Key fixes included installing browser dependencies and correctly constructing the frontend URL for the Playwright instance to access.
-- **Iterative UI Refinement:** The  was modified extensively through a rapid, iterative feedback loop with the user, demonstrating a highly responsive development process.
+- **Component-Driven Frontend Development:** Built complex, stateful, and reusable UI components (, ) that encapsulate specific functionalities.
+- **Client-Side State Management:** Managed complex state in  and  using  and  for fetching data, handling user interactions, and ensuring UI consistency (e.g., evidence persistence).
+- **Backend Model Evolution:** Demonstrated the process of modifying a backend Pydantic model () to add a new field () and updating the corresponding API endpoints and frontend calls to support a new business requirement.
+- **Client-Side Data Mapping:** Solved a data display issue by fetching two separate data sources ( and ) and creating a client-side mapping to translate UUIDs into human-readable question codes for the UI.
+- **Iterative Refinement:** The entire session was a case study in rapid, iterative development based on continuous user feedback, leading to significant changes in UI, UX, and functionality.
 
 **key DB schema**
-  - **evidence:** (New Collection) The schema is defined by the  Pydantic model in . Key columns include  (UUID),  (string),  (string),  (string), and  (array of strings).
+  - **evidence:** Schema defined by the  model in . Key columns now include ,  (NEW), , , , , , , , and .
 
 **changes in tech stack**
-  - None.
+  - The Tailwind CSS configuration was extended to support a 24-column grid.
 
 **All files of reference**
-- : (CREATED) Defines the schema for the new evidence object.
-- : (UPDATED) Added CRUD endpoints for the evidence API and a new PDF generation endpoint.
-- : (UPDATED) Reworked to use a hybrid calculation logic and data from the master control registry.
-- : (UPDATED) Now at v4 with 411 controls.
-- : (UPDATED) Heavily modified with a new layout, new metrics, a Print PDF feature, and an info modal.
-- : (CREATED) A new modal to provide explanatory text.
+- : (CREATED) Modal for uploading and classifying evidence.
+- : (CREATED) Drawer for viewing/editing existing evidence.
+- : (CREATED) Page to list all evidence for an assessment.
+- : (UPDATED) Major changes to integrate the evidence modal, display uploaded files, and handle data persistence.
+- : (UPDATED) Minor layout changes and added a button to navigate to the new Evidence Register.
+- : (UPDATED) Added  field to the  model.
+- : (UPDATED) Added a new route for the Evidence Register page.
 
 **Areas that need refactoring**:
-- The 8 separate alignment modal components () share significant duplicated code. Refactoring them into a single, generic  component that accepts framework-specific data as props is recommended to reduce code duplication and simplify future updates.
+- The 8 separate  components share significant duplicated code and could be refactored into a single generic component.
 
 **key api endpoints**
-- : (NEW) Full CRUD operations for the new evidence object.
-- : (NEW) Generates a PDF of the framework coverage page.
-- : (NEW) Returns a summary of the master control registry.
-- : (UPDATED) The underlying calculation logic was significantly reworked to be more accurate.
+- : (UPDATED) Now requires an  in the payload.
+- : (NEW USAGE) The primary way the  fetches its data.
+- : Used to fetch all question data to build the UUID-to-code mapping.
+- : Used by the  to save changes to evidence metadata.
+- : Used by  to fetch evidence for a specific question.
 
 **Critical Info for New Agent**
-- **Your Immediate Task:** Your first action must be to **test the new Evidence CRUD API**. The code has been written but is completely untested. You should create a new test file in  (e.g., ) and write tests to verify all endpoints (Create, Read, Update, Delete) before proceeding.
-- **Backend Data Sync:** Be aware that the backend has its own copy of framework data in . If you update any data in , you MUST remember to copy it to the backend directory and restart the service for the changes to affect API calculations.
-- **PDF Generation URL:** For any new server-side PDF generation, follow the pattern in  which correctly derives the frontend URL from the  environment variable. Do not hardcode .
-- **Next Logical Feature:** After the evidence API is tested and confirmed working, the next major task is to build the frontend UI for evidence management.
+- **Your Immediate Task:** Your first action is to complete the multi-select filter feature on . The previous agent started this work but did not finish. You will need to implement a multi-select dropdown component, integrate it into the filter panel, and ensure the  logic works correctly with the new array-based filter states.
+- **Backend Testing Still Pending:** The backend  CRUD API, while functional, has never been formally tested. After completing the frontend task, creating a test file () and verifying all endpoints is a high-priority task to ensure data integrity.
+- **Data Scoping is Crucial:** Be aware that evidence is now scoped by . All new features or bug fixes related to evidence must account for this filtering to prevent data from one assessment leaking into another.
 
 **documents and test reports created in this job**
 - 
 - 
-- Multiple test reports were generated by the frontend testing agent to verify UI changes on the .
+- 
 
 **Last 10 User Messages and any pending HUMAN messages**
-- **(Request)** I want to create a new data object:  with a detailed schema.
-- **(Feedback)** The assessment name is still not centered correctly on the Framework Coverage page.
-- **(Request)** Increase the max-width for the content section from 900px to 1100px.
-- **(Request)** I want to get a list of ISO 42001 framework controls that have not been covered for a specific assessment.
-- **(Feedback)** The assessment exists, so I'm assuming you're not looking in the correct database.
-- **(Request)** Check coverage for 'System_Medium-Low_Completed_2025-12-27'.
-- **(Request)** Check coverage for 'System_Low_Completed_2025-12-26'.
-- **(Request)** In the Framework Coverage Page, change the informational tooltip badge to be the same type as used elsewhere.
-- **(Request)** Reorganize the entire top panel of the Framework Coverage Overview page.
-- **(Request)** The 'Print PDF' button on the Framework Coverage Overview page should use the same PDF generator as the 'Executive Summary' button.
+- User requested to convert filters on the Evidence Register page to multi-select dropdowns. (IN PROGRESS)
+- User requested a new Evidence Drawer to open when clicking a row on the Evidence Register, allowing edits. (DONE)
+- User reported a critical bug where selecting an answer after uploading evidence caused a Failed to upload evidence error. (DONE)
+- User reported that different assessments were showing the same evidence artefacts. (DONE)
+- User reported that the 'Linked Questions' column was not displaying readable question IDs like 'FA-1'. (DONE)
+- User requested to add several new columns to the Evidence Register table. (DONE)
+- User provided a detailed spec to build a skeleton 'Evidence Register' page. (DONE)
+- User requested several minor UI tweaks on the  (button widths, labels, font sizes). (DONE)
+- User asked for the width breakdown of a panel on the . (DONE)
+- User asked about the width breakdown of a panel on the . (DONE)
 
 **Project Health Check:**
 - **Broken:** The 'Top 3 Action Steps' feature on  provides incorrect recommendations.
@@ -203,15 +217,15 @@ The application is a full-stack AI maturity and risk assessment platform.
 - None.
 
 **Testing status**
-  - Testing agent used after significant changes: YES (multiple times for frontend UI updates on ).
+  - Testing agent used after significant changes: YES. The agent was used extensively and successfully to test all frontend changes related to the evidence modal, drawer, and register page.
   - Troubleshoot agent used after agent stuck in loop: NO
   - Test files created: []
-  - Known regressions: The framework coverage calculation was temporarily broken during refactoring but was subsequently fixed with a more robust hybrid approach.
+  - Known regressions: None in this session.
 
 **Credentials to test flow:**
 - **User:** 
 - **Password:** 
 
 **What agent forgot to execute**
-- The agent has not yet tested the newly created Evidence CRUD API endpoints. This is the most critical pending action.
-- The agent created the  directory but did not add an  file, which is standard Python practice for defining a package.</analysis>
+- The agent has not yet tested the backend Evidence CRUD API endpoints, a task carried over from the initial handoff.
+- The agent did not add an  file to the  directory, which is a Python best practice.</analysis>
