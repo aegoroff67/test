@@ -4083,7 +4083,8 @@ async def list_evidence(
     current_user: UserResponse = Depends(get_current_user),
     status: Optional[str] = Query(None, description="Filter by status"),
     evidence_type: Optional[str] = Query(None, description="Filter by evidence type"),
-    question_id: Optional[str] = Query(None, description="Filter by linked question ID")
+    question_id: Optional[str] = Query(None, description="Filter by linked question ID"),
+    assessment_id: Optional[str] = Query(None, description="Filter by assessment ID")
 ):
     """List all evidence for the user's organization"""
     try:
@@ -4095,6 +4096,8 @@ async def list_evidence(
             query["evidence_type"] = evidence_type
         if question_id:
             query["linked_question_ids"] = question_id
+        if assessment_id:
+            query["assessment_id"] = assessment_id
         
         evidence_list = await db.evidence.find(query, {"_id": 0}).to_list(1000)
         
