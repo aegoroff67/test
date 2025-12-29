@@ -88,6 +88,7 @@ function EvidenceRegisterPage() {
   const [evidence, setEvidence] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [exporting, setExporting] = useState(false);
   
   // Filter states (arrays for multi-select, empty = show all)
   const [evidenceTypeFilter, setEvidenceTypeFilter] = useState([]);
@@ -105,6 +106,64 @@ function EvidenceRegisterPage() {
   // Drawer states
   const [showDrawer, setShowDrawer] = useState(false);
   const [selectedEvidence, setSelectedEvidence] = useState(null);
+
+  // Export evidence as ZIP
+  const handleExportEvidence = async () => {
+    // Check if assessment is completed
+    if (assessment?.status !== 'COMPLETED') {
+      toast.error('Evidence can only be exported for completed assessments');
+      return;
+    }
+    
+    // Check if there's any evidence to export
+    if (evidence.length === 0) {
+      toast.error('No evidence artefacts to export');
+      return;
+    }
+    
+    // Confirmation dialog
+    if (!window.confirm('This export may contain sensitive information. Do you want to continue?')) {
+      return;
+    }
+    
+    setExporting(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${API}/assessments/${id}/export-evidence`, {
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: 'blob'
+      });
+      
+      // Create download link
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      
+      // Extract filename from Content-Disposition header or use default
+      const contentDisposition = response.headers['content-disposition'];
+      let filename = `AM_AI_SAFE_Evidence_Export.zip`;
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
+      }
+      
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      
+      toast.success('Evidence exported successfully!');
+    } catch (error) {
+      console.error('Error exporting evidence:', error);
+      const errorMessage = error.response?.data?.detail || 'Failed to export evidence';
+      toast.error(errorMessage);
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const fetchData = async () => {
     try {
