@@ -675,7 +675,7 @@ function EvidenceRegisterPage() {
               <div className="col-span-2">Trust</div>
               <div className="col-span-3">Scope</div>
               <div className="col-span-3">Linked Questions</div>
-              <div className="col-span-2 text-center">Reusable</div>
+              <div className="col-span-2 text-center">Reuse Status</div>
               <div className="col-span-1">Status</div>
               <div className="col-span-2">Last Updated</div>
             </div>
