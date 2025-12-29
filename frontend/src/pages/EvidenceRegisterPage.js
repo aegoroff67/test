@@ -109,8 +109,8 @@ function EvidenceRegisterPage() {
     try {
       const token = localStorage.getItem('token');
       
-      // Fetch assessment, questions, and evidence data in parallel
-      const [assessmentRes, questionsRes, evidenceRes] = await Promise.all([
+      // Fetch assessment, questions, evidence data, and question summaries in parallel
+      const [assessmentRes, questionsRes, evidenceRes, summariesRes] = await Promise.all([
         axios.get(`${API}/assessments/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
@@ -119,10 +119,14 @@ function EvidenceRegisterPage() {
         }),
         axios.get(`${API}/evidence`, {
           headers: { Authorization: `Bearer ${token}` }
+        }),
+        axios.get(`${API}/questions/summaries`, {
+          headers: { Authorization: `Bearer ${token}` }
         })
       ]);
       
       setAssessment(assessmentRes.data);
+      setQuestionSummaries(summariesRes.data || []);
       
       // Build a map from question UUID to question code
       // Questions are nested inside domains: [{domain: {...}, questions: [...]}]
