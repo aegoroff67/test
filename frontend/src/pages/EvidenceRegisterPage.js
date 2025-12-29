@@ -22,9 +22,8 @@ import {
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Filter options
+// Filter options (without "All" options - multi-select handles empty state)
 const EVIDENCE_TYPE_OPTIONS = [
-  'All Types',
   'Policy',
   'Standard',
   'Procedure',
@@ -39,11 +38,11 @@ const EVIDENCE_TYPE_OPTIONS = [
   'Audit Report',
   'Log / Monitoring Output',
   'Screenshot / Snapshot',
-  'Other'
+  'Other',
+  'Unspecified'
 ];
 
 const LIFECYCLE_PHASE_OPTIONS = [
-  'All Phases',
   'Design',
   'Development',
   'Testing',
@@ -51,11 +50,11 @@ const LIFECYCLE_PHASE_OPTIONS = [
   'Operation',
   'Monitoring',
   'Decommissioning',
-  'Cross-Lifecycle'
+  'Cross-Lifecycle',
+  'Unspecified'
 ];
 
 const TRUST_LEVEL_OPTIONS = [
-  'All Levels',
   'Unspecified',
   'Draft',
   'Approved',
@@ -65,7 +64,6 @@ const TRUST_LEVEL_OPTIONS = [
 ];
 
 const SCOPE_OPTIONS = [
-  'All Scopes',
   'Organisation-wide',
   'Specific AI System',
   'Specific Model',
@@ -75,7 +73,6 @@ const SCOPE_OPTIONS = [
 ];
 
 const STATUS_OPTIONS = [
-  'All Statuses',
   'Active',
   'Archived'
 ];
