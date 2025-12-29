@@ -468,38 +468,6 @@ function EvidenceRegisterPage() {
                   )}
                 </div>
 
-                {/* Status Multi-Select */}
-                <div className="relative">
-                  <button
-                    onClick={() => setOpenDropdown(openDropdown === 'status' ? null : 'status')}
-                    className="flex items-center justify-between min-w-[110px] bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                  >
-                    <span>{statusFilter.length === 0 ? 'Status' : `${statusFilter.length} selected`}</span>
-                    <ChevronDown className="ml-2 h-3 w-3 text-gray-500" />
-                  </button>
-                  {openDropdown === 'status' && (
-                    <div className="absolute z-50 mt-1 w-36 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
-                      {STATUS_OPTIONS.map(option => (
-                        <label key={option} className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={statusFilter.includes(option)}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setStatusFilter([...statusFilter, option]);
-                              } else {
-                                setStatusFilter(statusFilter.filter(v => v !== option));
-                              }
-                            }}
-                            className="h-3.5 w-3.5 text-teal-600 rounded border-gray-300 focus:ring-teal-500"
-                          />
-                          <span className="ml-2 text-xs text-gray-700">{option}</span>
-                        </label>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
                 {/* Linked Questions Single-Select */}
                 <div className="relative">
                   <button
@@ -541,6 +509,38 @@ function EvidenceRegisterPage() {
                           <span className="font-medium">{q.code}</span>
                           <span className="text-gray-500"> – {q.summary}</span>
                         </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Status Multi-Select */}
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'status' ? null : 'status')}
+                    className="flex items-center justify-between min-w-[110px] bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  >
+                    <span>{statusFilter.length === 0 ? 'Status' : `${statusFilter.length} selected`}</span>
+                    <ChevronDown className="ml-2 h-3 w-3 text-gray-500" />
+                  </button>
+                  {openDropdown === 'status' && (
+                    <div className="absolute z-50 mt-1 w-36 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+                      {STATUS_OPTIONS.map(option => (
+                        <label key={option} className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={statusFilter.includes(option)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setStatusFilter([...statusFilter, option]);
+                              } else {
+                                setStatusFilter(statusFilter.filter(v => v !== option));
+                              }
+                            }}
+                            className="h-3.5 w-3.5 text-teal-600 rounded border-gray-300 focus:ring-teal-500"
+                          />
+                          <span className="ml-2 text-xs text-gray-700">{option}</span>
+                        </label>
                       ))}
                     </div>
                   )}
