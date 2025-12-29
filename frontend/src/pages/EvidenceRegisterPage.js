@@ -87,13 +87,16 @@ function EvidenceRegisterPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   
-  // Filter states
-  const [evidenceTypeFilter, setEvidenceTypeFilter] = useState('All Types');
-  const [lifecycleFilter, setLifecycleFilter] = useState('All Phases');
-  const [trustLevelFilter, setTrustLevelFilter] = useState('All Levels');
-  const [scopeFilter, setScopeFilter] = useState('All Scopes');
-  const [statusFilter, setStatusFilter] = useState('All Statuses');
+  // Filter states (arrays for multi-select, empty = show all)
+  const [evidenceTypeFilter, setEvidenceTypeFilter] = useState([]);
+  const [lifecycleFilter, setLifecycleFilter] = useState([]);
+  const [trustLevelFilter, setTrustLevelFilter] = useState([]);
+  const [scopeFilter, setScopeFilter] = useState([]);
+  const [statusFilter, setStatusFilter] = useState([]);
   const [questionIdToCode, setQuestionIdToCode] = useState({}); // Map UUID -> question code
+  
+  // Dropdown open states
+  const [openDropdown, setOpenDropdown] = useState(null);
   
   // Drawer states
   const [showDrawer, setShowDrawer] = useState(false);
