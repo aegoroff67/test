@@ -3717,6 +3717,43 @@ async def get_questions(domain_id: Optional[str] = None):
     questions = await db.questions.find(query, {"_id": 0}).sort("order").to_list(length=None)
     return questions
 
+
+@api_router.get("/questions/summaries")
+async def get_question_summaries():
+    """Get all question codes with their short summaries (risk_category from metadata)"""
+    try:
+        # Load system question metadata
+        metadata_path = PathLib(__file__).parent / "system_question_metadata.json"
+        question_metadata = {}
+        if metadata_path.exists():
+            with open(metadata_path, 'r') as f:
+                question_metadata = json_module.load(f)
+        
+        # Build list of question summaries
+        summaries = []
+        for code, meta in question_metadata.items():
+            summaries.append({
+                "code": code,
+                "summary": meta.get("risk_category", ""),
+                "domain": meta.get("domain", "")
+            })
+        
+        # Sort by domain and then by question number
+        def sort_key(item):
+            code = item["code"]
+            # Extract prefix (e.g., "FA") and number (e.g., "1")
+            parts = code.split("-")
+            prefix = parts[0] if parts else ""
+            num = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else 0
+            return (prefix, num)
+        
+        summaries.sort(key=sort_key)
+        return summaries
+    except Exception as e:
+        logger.error(f"Error loading question summaries: {e}")
+        return []
+
+
 # Download PDF endpoint
 @api_router.get("/download/testing-checklist")
 async def download_testing_checklist():
