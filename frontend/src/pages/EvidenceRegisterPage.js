@@ -630,6 +630,19 @@ function EvidenceRegisterPage() {
                   </span>
                 ))}
                 
+                {/* Linked Question chip */}
+                {linkedQuestionFilter !== '' && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    {linkedQuestionFilter}
+                    <button
+                      onClick={() => setLinkedQuestionFilter('')}
+                      className="ml-1 hover:text-emerald-900"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                
                 {/* Clear all button */}
                 <button
                   onClick={() => {
@@ -638,6 +651,7 @@ function EvidenceRegisterPage() {
                     setTrustLevelFilter([]);
                     setScopeFilter([]);
                     setStatusFilter([]);
+                    setLinkedQuestionFilter('');
                   }}
                   className="text-xs text-gray-500 hover:text-gray-700 underline ml-2"
                 >
