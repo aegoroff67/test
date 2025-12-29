@@ -199,17 +199,13 @@ function EvidenceDrawer({
                   <div className="space-y-1">
                     <Label className="text-xs font-medium text-gray-500">Reuse Status</Label>
                     <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-md">
-                      <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
-                        evidence.is_reusable 
-                          ? 'bg-teal-600 border-teal-600' 
-                          : 'border-gray-400 bg-white'
-                      }`}>
-                        {evidence.is_reusable && (
-                          <Check className="w-3 h-3 text-white" />
-                        )}
-                      </div>
+                      {evidence.is_reusable ? (
+                        <Check className="w-4 h-4 text-green-600" />
+                      ) : (
+                        <X className="w-4 h-4 text-red-500" />
+                      )}
                       <span className="text-sm text-gray-900">
-                        {evidence.is_reusable ? 'Yes - Can be reused across questions' : 'No'}
+                        {evidence.is_reusable ? 'Yes – Can be reused across questions' : 'No – Restricted to this question'}
                       </span>
                     </div>
                   </div>
