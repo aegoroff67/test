@@ -3723,11 +3723,11 @@ async def get_question_summaries():
     """Get all question codes with their short summaries (risk_category from metadata)"""
     try:
         # Load system question metadata
-        metadata_path = PathLib(__file__).parent / "system_question_metadata.json"
+        metadata_path = Path(__file__).parent / "system_question_metadata.json"
         question_metadata = {}
         if metadata_path.exists():
             with open(metadata_path, 'r') as f:
-                question_metadata = json_module.load(f)
+                question_metadata = json.load(f)
         
         # Build list of question summaries
         summaries = []
