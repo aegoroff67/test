@@ -499,6 +499,52 @@ function EvidenceRegisterPage() {
                     </div>
                   )}
                 </div>
+
+                {/* Linked Questions Single-Select */}
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'linkedQuestion' ? null : 'linkedQuestion')}
+                    className="flex items-center justify-between min-w-[160px] bg-gray-50 border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  >
+                    <span className="truncate max-w-[140px]">
+                      {linkedQuestionFilter === '' ? 'Linked Question' : linkedQuestionFilter}
+                    </span>
+                    <ChevronDown className="ml-2 h-3 w-3 text-gray-500 flex-shrink-0" />
+                  </button>
+                  {openDropdown === 'linkedQuestion' && (
+                    <div className="absolute z-50 mt-1 w-80 bg-white border border-gray-200 rounded-md shadow-lg max-h-72 overflow-auto">
+                      {/* Clear selection option */}
+                      <button
+                        onClick={() => {
+                          setLinkedQuestionFilter('');
+                          setOpenDropdown(null);
+                        }}
+                        className={`w-full text-left px-3 py-2 text-xs hover:bg-gray-50 ${
+                          linkedQuestionFilter === '' ? 'bg-teal-50 text-teal-700 font-medium' : 'text-gray-500'
+                        }`}
+                      >
+                        All Questions
+                      </button>
+                      <div className="border-t border-gray-100" />
+                      {/* Question options */}
+                      {questionSummaries.map(q => (
+                        <button
+                          key={q.code}
+                          onClick={() => {
+                            setLinkedQuestionFilter(q.code);
+                            setOpenDropdown(null);
+                          }}
+                          className={`w-full text-left px-3 py-2 text-xs hover:bg-gray-50 ${
+                            linkedQuestionFilter === q.code ? 'bg-teal-50 text-teal-700 font-medium' : 'text-gray-700'
+                          }`}
+                        >
+                          <span className="font-medium">{q.code}</span>
+                          <span className="text-gray-500"> – {q.summary}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Search */}
@@ -515,7 +561,7 @@ function EvidenceRegisterPage() {
             </div>
 
             {/* Selected filter chips */}
-            {(evidenceTypeFilter.length > 0 || lifecycleFilter.length > 0 || trustLevelFilter.length > 0 || scopeFilter.length > 0 || statusFilter.length > 0) && (
+            {(evidenceTypeFilter.length > 0 || lifecycleFilter.length > 0 || trustLevelFilter.length > 0 || scopeFilter.length > 0 || statusFilter.length > 0 || linkedQuestionFilter !== '') && (
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs text-gray-500">Active filters:</span>
                 
