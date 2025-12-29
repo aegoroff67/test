@@ -1,181 +1,148 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { File, Check, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { File, Check, X, Archive, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-// Evidence metadata options (same as EvidenceUploadModal)
-const EVIDENCE_TYPE_OPTIONS = [
-  'Policy',
-  'Standard',
-  'Procedure',
-  'Process Description',
-  'Risk Assessment',
-  'Impact Assessment',
-  'Technical Configuration',
-  'System Architecture',
-  'Model Documentation',
-  'Training Material',
-  'Contract / SLA',
-  'Audit Report',
-  'Log / Monitoring Output',
-  'Screenshot / Snapshot',
-  'Other'
-];
-
-const LIFECYCLE_PHASE_OPTIONS = [
-  'Design',
-  'Development',
-  'Testing',
-  'Deployment',
-  'Operation',
-  'Monitoring',
-  'Decommissioning',
-  'Cross-Lifecycle'
-];
-
-const TRUST_LEVEL_OPTIONS = [
-  'Unspecified',
-  'Draft',
-  'Approved',
-  'Operational',
-  'Independently Reviewed',
-  'Regulator / External Assured'
-];
-
-const APPLIES_TO_SCOPE_OPTIONS = [
-  'Organisation-wide',
-  'Specific AI System',
-  'Specific Model',
-  'Specific Use Case',
-  'Third Party / Vendor',
-  'Unspecified'
-];
-
-function EvidenceDrawer({ isOpen, onClose, evidenceFiles, onUpdate, questionCode }) {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [evidenceType, setEvidenceType] = useState('Unspecified');
-  const [lifecyclePhase, setLifecyclePhase] = useState('Unspecified');
-  const [trustLevel, setTrustLevel] = useState('Unspecified');
-  const [appliesToScope, setAppliesToScope] = useState('Unspecified');
-  const [isReusable, setIsReusable] = useState(false);
+function EvidenceDrawer({ 
+  isOpen, 
+  onClose, 
+  evidence, 
+  onUpdate, 
+  questionIdToCode,
+  mode = 'view' // 'view' for Evidence Register (read-only except linked questions), 'edit' for Assessment page
+}) {
+  const [linkedQuestions, setLinkedQuestions] = useState([]);
+  const [newQuestionId, setNewQuestionId] = useState('');
   const [saving, setSaving] = useState(false);
+  const [archiving, setArchiving] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
 
-  // Select the first file when drawer opens or files change
+  // Load evidence data when drawer opens or evidence changes
   useEffect(() => {
-    if (isOpen && evidenceFiles?.length > 0 && !selectedFile) {
-      selectFile(evidenceFiles[0]);
+    if (isOpen && evidence) {
+      // Convert UUIDs to codes if possible
+      const codes = (evidence.linked_question_ids || []).map(id => {
+        if (questionIdToCode && questionIdToCode[id]) {
+          return questionIdToCode[id];
+        }
+        return id;
+      });
+      setLinkedQuestions(codes);
+      setHasChanges(false);
     }
-  }, [isOpen, evidenceFiles]);
+  }, [isOpen, evidence, questionIdToCode]);
 
   // Reset when drawer closes
   useEffect(() => {
     if (!isOpen) {
-      setSelectedFile(null);
+      setLinkedQuestions([]);
+      setNewQuestionId('');
       setHasChanges(false);
     }
   }, [isOpen]);
 
-  const selectFile = (file) => {
-    setSelectedFile(file);
-    // Load the file's current settings
-    setEvidenceType(file.evidence_type || 'Unspecified');
-    setLifecyclePhase(file.lifecycle_phase || 'Unspecified');
-    setTrustLevel(file.trust_level || 'Unspecified');
-    setAppliesToScope(file.applies_to_scope || 'Unspecified');
-    setIsReusable(file.is_reusable || false);
-    setHasChanges(false);
+  const handleAddQuestion = () => {
+    const trimmed = newQuestionId.trim().toUpperCase();
+    if (trimmed && !linkedQuestions.includes(trimmed)) {
+      setLinkedQuestions([...linkedQuestions, trimmed]);
+      setNewQuestionId('');
+      setHasChanges(true);
+    }
   };
 
-  const handleSettingChange = (setter, value) => {
-    setter(value);
+  const handleRemoveQuestion = (questionToRemove) => {
+    setLinkedQuestions(linkedQuestions.filter(q => q !== questionToRemove));
     setHasChanges(true);
   };
 
   const handleSave = async () => {
-    if (!selectedFile?.evidence_id) {
+    if (!evidence?.evidence_id) {
       toast.error('Cannot save: No evidence selected');
+      return;
+    }
+
+    if (linkedQuestions.length === 0) {
+      toast.error('At least one linked question is required');
       return;
     }
 
     setSaving(true);
     try {
       const updateData = {
-        evidence_type: evidenceType,
-        lifecycle_phase: lifecyclePhase,
-        trust_level: trustLevel,
-        applies_to_scope: appliesToScope,
-        is_reusable: isReusable
+        linked_question_ids: linkedQuestions
       };
 
-      await axios.put(`${BACKEND_URL}/api/evidence/${selectedFile.evidence_id}`, updateData);
+      await axios.put(`${BACKEND_URL}/api/evidence/${evidence.evidence_id}`, updateData);
       
-      toast.success('Evidence settings saved!');
+      toast.success('Evidence updated successfully!');
       setHasChanges(false);
       
-      // Notify parent to refresh evidence list
       if (onUpdate) {
         onUpdate();
       }
     } catch (error) {
       console.error('Error saving evidence:', error);
-      toast.error(error.response?.data?.detail || 'Failed to save evidence settings');
+      toast.error(error.response?.data?.detail || 'Failed to save evidence');
     } finally {
       setSaving(false);
     }
   };
 
-  const handleCancel = () => {
+  const handleArchive = async () => {
+    if (!evidence?.evidence_id) {
+      toast.error('Cannot archive: No evidence selected');
+      return;
+    }
+
+    if (!window.confirm('Are you sure you want to archive this evidence? It will no longer appear in active reports.')) {
+      return;
+    }
+
+    setArchiving(true);
+    try {
+      const updateData = {
+        status: 'Archived'
+      };
+
+      await axios.put(`${BACKEND_URL}/api/evidence/${evidence.evidence_id}`, updateData);
+      
+      toast.success('Evidence archived successfully!');
+      
+      if (onUpdate) {
+        onUpdate();
+      }
+      onClose();
+    } catch (error) {
+      console.error('Error archiving evidence:', error);
+      toast.error(error.response?.data?.detail || 'Failed to archive evidence');
+    } finally {
+      setArchiving(false);
+    }
+  };
+
+  const handleClose = () => {
     if (hasChanges) {
-      // Reset to original values
-      if (selectedFile) {
-        selectFile(selectedFile);
+      if (!window.confirm('You have unsaved changes. Are you sure you want to close?')) {
+        return;
       }
     }
     onClose();
   };
 
-  const renderOptionCard = (title, options, selectedValue, onSelect) => (
-    <Card className="w-full">
-      <CardHeader className="py-1.5 px-4">
-        <CardTitle className="text-sm font-semibold text-gray-900">{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="py-1.5 px-4">
-        <div className="grid grid-cols-3 gap-x-4 gap-y-1">
-          {options.map((option) => (
-            <div
-              key={option}
-              onClick={() => handleSettingChange(onSelect, option)}
-              className={`flex items-center space-x-2 py-1 cursor-pointer transition-colors rounded ${
-                selectedValue === option
-                  ? 'bg-teal-50'
-                  : 'hover:bg-gray-50'
-              }`}
-            >
-              <div
-                className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                  selectedValue === option
-                    ? 'border-teal-600 bg-teal-600'
-                    : 'border-gray-400'
-                }`}
-              >
-                {selectedValue === option && (
-                  <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                )}
-              </div>
-              <span className={`text-xs ${selectedValue === option ? 'text-teal-900 font-medium' : 'text-gray-700'}`}>
-                {option}
-              </span>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+  // Render a read-only field
+  const renderReadOnlyField = (label, value) => (
+    <div className="space-y-1">
+      <Label className="text-xs font-medium text-gray-500">{label}</Label>
+      <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900">
+        {value || 'Unspecified'}
+      </div>
+    </div>
   );
 
   if (!isOpen) return null;
@@ -185,21 +152,28 @@ function EvidenceDrawer({ isOpen, onClose, evidenceFiles, onUpdate, questionCode
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black/50 z-40 transition-opacity"
-        onClick={handleCancel}
+        onClick={handleClose}
       />
       
       {/* Drawer */}
-      <div className="fixed right-0 top-0 h-full w-[1200px] max-w-[95vw] bg-white shadow-xl z-50 flex flex-col animate-in slide-in-from-right duration-300">
+      <div className="fixed right-0 top-0 h-full w-[500px] max-w-[95vw] bg-white shadow-xl z-50 flex flex-col animate-in slide-in-from-right duration-300">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">Evidence Details</h2>
-            <p className="text-sm text-gray-500">
-              View and edit evidence for {questionCode || 'this question'}
-            </p>
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-lg bg-teal-50 flex items-center justify-center">
+              <File className="w-5 h-5 text-teal-600" />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900 truncate max-w-[300px]">
+                {evidence?.evidence_title || evidence?.file_name || 'Evidence Details'}
+              </h2>
+              <p className="text-xs text-gray-500">
+                {evidence?.status === 'Archived' ? 'Archived' : 'Active'} • Uploaded {evidence?.uploaded_date ? new Date(evidence.uploaded_date).toLocaleDateString() : 'Unknown'}
+              </p>
+            </div>
           </div>
           <button
-            onClick={handleCancel}
+            onClick={handleClose}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
             <X className="w-5 h-5 text-gray-500" />
@@ -207,115 +181,141 @@ function EvidenceDrawer({ isOpen, onClose, evidenceFiles, onUpdate, questionCode
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-1 min-h-0">
-          {/* Left Panel - File List */}
-          <div className="w-[300px] border-r border-gray-200 flex flex-col">
-            <div className="p-4 border-b border-gray-100">
-              <h3 className="text-sm font-medium text-gray-700">Uploaded Files</h3>
-              <p className="text-xs text-gray-500 mt-1">{evidenceFiles?.length || 0} file(s)</p>
-            </div>
-            <ScrollArea className="flex-1">
-              <div className="p-2 space-y-1">
-                {evidenceFiles?.map((file, index) => (
-                  <div
-                    key={file.evidence_id || index}
-                    onClick={() => selectFile(file)}
-                    className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors ${
-                      selectedFile?.evidence_id === file.evidence_id
-                        ? 'bg-teal-50 border border-teal-200'
-                        : 'hover:bg-gray-50 border border-transparent'
-                    }`}
-                  >
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                      selectedFile?.evidence_id === file.evidence_id
-                        ? 'bg-teal-100'
-                        : 'bg-gray-100'
-                    }`}>
-                      <File className={`w-5 h-5 ${
-                        selectedFile?.evidence_id === file.evidence_id
-                          ? 'text-teal-600'
-                          : 'text-gray-500'
-                      }`} />
-                    </div>
-                    <div className="ml-3 flex-1 min-w-0">
-                      <p className={`text-sm font-medium truncate ${
-                        selectedFile?.evidence_id === file.evidence_id
-                          ? 'text-teal-900'
-                          : 'text-gray-900'
-                      }`}>
-                        {file.evidence_title || file.file_name || file.name}
-                      </p>
-                      <p className="text-xs text-gray-500 truncate">
-                        {file.evidence_type || 'Unspecified'}
-                      </p>
-                    </div>
-                    {selectedFile?.evidence_id === file.evidence_id && (
-                      <Check className="w-4 h-4 text-teal-600 flex-shrink-0" />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
-          </div>
-
-          {/* Right Panel - Classification Settings */}
-          <div className="flex-1 flex flex-col">
-            {selectedFile ? (
-              <>
-                <div className="p-4 border-b border-gray-100">
-                  <h3 className="text-sm font-medium text-gray-900">
-                    {selectedFile.evidence_title || selectedFile.file_name || selectedFile.name}
-                  </h3>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Edit the classification settings for this evidence
-                  </p>
-                </div>
-                <div className="flex-1 p-4 overflow-auto">
-                  <div className="flex flex-col gap-3">
-                    {renderOptionCard('Evidence Type', EVIDENCE_TYPE_OPTIONS, evidenceType, setEvidenceType)}
-                    {renderOptionCard('Lifecycle Phase', LIFECYCLE_PHASE_OPTIONS, lifecyclePhase, setLifecyclePhase)}
-                    {renderOptionCard('Trust Level', TRUST_LEVEL_OPTIONS, trustLevel, setTrustLevel)}
-                    {renderOptionCard('Applies To Scope', APPLIES_TO_SCOPE_OPTIONS, appliesToScope, setAppliesToScope)}
-                  </div>
+        <div className="flex-1 overflow-auto p-4">
+          {evidence ? (
+            <div className="space-y-4">
+              {/* Read-only Classification Fields */}
+              <Card>
+                <CardHeader className="py-3 px-4">
+                  <CardTitle className="text-sm font-semibold text-gray-900">Classification</CardTitle>
+                </CardHeader>
+                <CardContent className="py-3 px-4 space-y-3">
+                  {renderReadOnlyField('Evidence Type', evidence.evidence_type)}
+                  {renderReadOnlyField('Lifecycle Phase', evidence.lifecycle_phase)}
+                  {renderReadOnlyField('Trust Level', evidence.trust_level)}
+                  {renderReadOnlyField('Applies To Scope', evidence.applies_to_scope)}
                   
-                  {/* Reusable Toggle */}
-                  <div className="mt-4 pt-3 border-t border-gray-100">
-                    <label 
-                      className="flex items-center space-x-2 cursor-pointer"
-                      onClick={() => handleSettingChange(setIsReusable, !isReusable)}
-                    >
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
-                        isReusable 
+                  {/* Reusable - Read only */}
+                  <div className="space-y-1">
+                    <Label className="text-xs font-medium text-gray-500">Reusable</Label>
+                    <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-md">
+                      <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
+                        evidence.is_reusable 
                           ? 'bg-teal-600 border-teal-600' 
                           : 'border-gray-400 bg-white'
                       }`}>
-                        {isReusable && (
+                        {evidence.is_reusable && (
                           <Check className="w-3 h-3 text-white" />
                         )}
                       </div>
-                      <span className="text-sm text-gray-700">
-                        Make this evidence reusable across other questions
+                      <span className="text-sm text-gray-900">
+                        {evidence.is_reusable ? 'Yes - Can be reused across questions' : 'No'}
                       </span>
-                    </label>
+                    </div>
                   </div>
-                </div>
-              </>
-            ) : (
-              <div className="flex-1 flex items-center justify-center">
-                <p className="text-gray-500">Select a file to view its settings</p>
-              </div>
-            )}
-          </div>
+                </CardContent>
+              </Card>
+
+              {/* Editable Linked Questions */}
+              <Card>
+                <CardHeader className="py-3 px-4">
+                  <CardTitle className="text-sm font-semibold text-gray-900">Linked Questions</CardTitle>
+                </CardHeader>
+                <CardContent className="py-3 px-4 space-y-3">
+                  {/* Current linked questions */}
+                  <div className="flex flex-wrap gap-2">
+                    {linkedQuestions.length === 0 ? (
+                      <p className="text-sm text-gray-500">No questions linked</p>
+                    ) : (
+                      linkedQuestions.map((question, index) => (
+                        <div 
+                          key={index}
+                          className="inline-flex items-center px-2.5 py-1 rounded-md bg-teal-50 border border-teal-200"
+                        >
+                          <span className="text-sm font-medium text-teal-800">{question}</span>
+                          <button
+                            onClick={() => handleRemoveQuestion(question)}
+                            className="ml-1.5 p-0.5 hover:bg-teal-200 rounded-full transition-colors"
+                          >
+                            <X className="w-3 h-3 text-teal-600" />
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  
+                  {/* Add new question */}
+                  <div className="flex items-center space-x-2">
+                    <Input
+                      type="text"
+                      placeholder="Enter question ID (e.g., FA-5)"
+                      value={newQuestionId}
+                      onChange={(e) => setNewQuestionId(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && handleAddQuestion()}
+                      className="flex-1 text-sm"
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={handleAddQuestion}
+                      disabled={!newQuestionId.trim()}
+                    >
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    Add or remove question IDs to update which questions this evidence supports.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Archive Section */}
+              {evidence.status !== 'Archived' && (
+                <Card className="border-red-200">
+                  <CardHeader className="py-3 px-4">
+                    <CardTitle className="text-sm font-semibold text-red-700">Danger Zone</CardTitle>
+                  </CardHeader>
+                  <CardContent className="py-3 px-4">
+                    <Button
+                      variant="outline"
+                      onClick={handleArchive}
+                      disabled={archiving}
+                      className="w-full text-red-600 border-red-300 hover:bg-red-50"
+                    >
+                      {archiving ? (
+                        <>
+                          <div className="w-4 h-4 mr-2 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
+                          Archiving...
+                        </>
+                      ) : (
+                        <>
+                          <Archive className="w-4 h-4 mr-2" />
+                          Archive Evidence
+                        </>
+                      )}
+                    </Button>
+                    <p className="text-xs text-gray-500 mt-2">
+                      Archived evidence will no longer appear in active reports but can be restored later.
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          ) : (
+            <div className="flex-1 flex items-center justify-center">
+              <p className="text-gray-500">No evidence selected</p>
+            </div>
+          )}
         </div>
 
         {/* Footer */}
         <div className="p-4 border-t border-gray-200 flex justify-end items-center space-x-3">
-          <Button variant="outline" onClick={handleCancel} disabled={saving}>
+          <Button variant="outline" onClick={handleClose} disabled={saving}>
             Cancel
           </Button>
           <Button
             onClick={handleSave}
-            disabled={!selectedFile || saving || !hasChanges}
+            disabled={!hasChanges || saving}
             className="bg-teal-600 hover:bg-teal-700 text-white"
           >
             {saving ? (
@@ -324,7 +324,7 @@ function EvidenceDrawer({ isOpen, onClose, evidenceFiles, onUpdate, questionCode
                 Saving...
               </>
             ) : (
-              'Save'
+              'Save Changes'
             )}
           </Button>
         </div>
