@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import Logo from '../components/Logo';
+import EvidenceDrawer from '../components/EvidenceDrawer';
 import { 
   ArrowLeft, 
   FileText,
