@@ -16,7 +16,8 @@ import {
   CheckCircle,
   Archive,
   Link2,
-  ChevronDown
+  ChevronDown,
+  X
 } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
