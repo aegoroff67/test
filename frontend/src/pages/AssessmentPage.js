@@ -754,20 +754,11 @@ function AssessmentPage() {
           {/* Sidebar - Question Navigation */}
           <div className="lg:col-span-3 xl:col-span-2">
             <Card className="sticky top-2 lg:top-4 progress-sidebar">
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg flex items-center space-x-2">
-                    <CheckCircle2 className={`h-5 w-5 text-${colors.primary}`} />
-                    <span>Progress</span>
-                  </CardTitle>
-                  {/* Legend */}
-                  <div className="flex items-center space-x-3 text-xs text-gray-500">
-                    <div className="flex items-center space-x-1">
-                      <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                      <span>Evidence</span>
-                    </div>
-                  </div>
-                </div>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center space-x-2">
+                  <CheckCircle2 className={`h-5 w-5 text-${colors.primary}`} />
+                  <span>Progress</span>
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4 pb-4 sm:pb-5 progress-content">
                 {/* Current Question Info */}
@@ -781,39 +772,6 @@ function AssessmentPage() {
                   <p className="text-sm font-medium text-teal-900">
                     {currentQuestion.domain_name}
                   </p>
-                </div>
-
-                {/* Question Grid with Evidence Indicators */}
-                <div className="space-y-2">
-                  <h4 className="font-medium text-gray-900 text-sm">All Questions</h4>
-                  <div className="flex flex-wrap gap-1">
-                    {questions.map((q, idx) => {
-                      const isAnswered = !!answers[q.id];
-                      const hasEvidence = questionEvidence[q.code] && questionEvidence[q.code].length > 0;
-                      const isCurrent = idx === currentQuestionIndex;
-                      
-                      return (
-                        <button
-                          key={q.id}
-                          onClick={() => goToQuestion(idx)}
-                          className={`relative w-7 h-7 text-xs font-medium rounded transition-all ${
-                            isCurrent
-                              ? 'bg-teal-600 text-white ring-2 ring-teal-300'
-                              : isAnswered
-                                ? 'bg-green-100 text-green-800 hover:bg-green-200'
-                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                          }`}
-                          title={`${q.code}${hasEvidence ? ' (has evidence)' : ''}`}
-                        >
-                          {idx + 1}
-                          {/* Blue dot indicator for evidence */}
-                          {hasEvidence && (
-                            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-blue-500 rounded-full border border-white"></span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
                 </div>
 
                 {/* Domain Progress */}
