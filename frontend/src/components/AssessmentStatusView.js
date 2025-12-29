@@ -99,14 +99,23 @@ function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, on
                 ({statusData.completion_percentage}%)
               </p>
             </div>
-            <Button 
-              variant="ghost" 
-              onClick={onClose}
-              data-testid="close-status-view-btn"
-              className="text-gray-400 hover:text-gray-600"
-            >
-              <X className="h-5 w-5" />
-            </Button>
+            <div className="flex items-center space-x-4">
+              {/* Legend */}
+              <div className="flex items-center space-x-3 text-xs text-gray-600 bg-gray-50 px-3 py-1.5 rounded-md border border-gray-200">
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                  <span>Has Evidence</span>
+                </div>
+              </div>
+              <Button 
+                variant="ghost" 
+                onClick={onClose}
+                data-testid="close-status-view-btn"
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
           
           {/* Progress Bar */}
