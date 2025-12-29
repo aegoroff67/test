@@ -363,10 +363,27 @@ function EvidenceRegisterPage() {
               <Button 
                 size="sm"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                onClick={() => toast.info('Export functionality coming soon')}
+                onClick={handleExportEvidence}
+                disabled={exporting || evidence.length === 0 || assessment?.status !== 'COMPLETED'}
+                title={
+                  assessment?.status !== 'COMPLETED' 
+                    ? 'Evidence can only be exported for completed assessments'
+                    : evidence.length === 0 
+                      ? 'No evidence to export'
+                      : 'Export all evidence as ZIP'
+                }
               >
-                <Download className="h-4 w-4 mr-2" />
-                Export Evidence (ZIP)
+                {exporting ? (
+                  <>
+                    <div className="loading-spinner w-4 h-4 mr-2"></div>
+                    Exporting...
+                  </>
+                ) : (
+                  <>
+                    <Download className="h-4 w-4 mr-2" />
+                    Export Evidence (ZIP)
+                  </>
+                )}
               </Button>
             </div>
           </div>
