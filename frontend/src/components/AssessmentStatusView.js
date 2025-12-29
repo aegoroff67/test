@@ -11,6 +11,7 @@ const API = `${BACKEND_URL}/api`;
 function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, onClose, onQuestionClick }) {
   const [statusData, setStatusData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [questionEvidence, setQuestionEvidence] = useState({}); // Track which questions have evidence
   
   // Get assessment type display name
   const getAssessmentTypeTitle = () => {
@@ -29,6 +30,7 @@ function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, on
 
   useEffect(() => {
     fetchStatusData();
+    fetchEvidenceData();
   }, [assessmentId]);
 
   const fetchStatusData = async () => {
@@ -40,6 +42,32 @@ function AssessmentStatusView({ assessmentId, assessmentType, assessmentName, on
     } finally {
       setLoading(false);
     }
+  };
+
+  const fetchEvidenceData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${API}/evidence?assessment_id=${assessmentId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      // Build a map of question codes that have evidence
+      const evidenceMap = {};
+      (response.data || []).forEach(ev => {
+        (ev.linked_question_ids || []).forEach(qId => {
+          // qId could be a UUID or a question code like "FA-1"
+          evidenceMap[qId] = true;
+        });
+      });
+      setQuestionEvidence(evidenceMap);
+    } catch (error) {
+      console.error('Failed to fetch evidence data:', error);
+    }
+  };
+
+  // Check if a question has evidence (by ID or code)
+  const hasEvidence = (questionId, questionCode) => {
+    return questionEvidence[questionId] || questionEvidence[questionCode];
   };
 
   if (loading) {
