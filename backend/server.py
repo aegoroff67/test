@@ -2528,7 +2528,7 @@ Tier Name Mapping (for output formatting):
 Tone and style requirements:
 - Professional but encouraging
 - No jargon or unnecessary complexity
-- MINIMUM 150 words in the narrative section (before the Recommended Next Step line)
+- MINIMUM 150 words in the narrative section (before the Next Recommended Assessment line)
 - Avoid hallucinating any information not included in the inputs
 
 OUTPUT FORMAT (CRITICAL - FOLLOW EXACTLY):
@@ -2536,12 +2536,12 @@ Return the final result starting with this exact format:
 
 Your organisation has achieved **[score]%** **[Tier Name] AI Awareness**. [Continue with 150+ word narrative synthesizing the pre_onboarding_commentary and explaining how the score aligns with their context...]
 
-**Recommended Next Step:** [Insert single next step based on logic above]
+**Next Recommended Assessment:** [Insert single next step based on logic above]
 
 EXAMPLE:
 Your organisation has achieved **72.5%** **Developing AI Awareness**. Based on your responses, you demonstrate moderate familiarity with AI concepts and have established digital foundations in place...
 
-**Recommended Next Step:** Proceed to the AI Readiness Assessment"""
+**Next Recommended Assessment:** Proceed to the AI Readiness Assessment"""
 
                     # Initialize chat with emergentintegrations
                     chat = LlmChat(
