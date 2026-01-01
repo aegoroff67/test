@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
 import Logo from '../components/Logo';
-import { CheckCircle2, Users, BarChart3 } from 'lucide-react';
+import { CheckCircle2, Users, BarChart3, FileText } from 'lucide-react';
 import { INDUSTRIES } from '../constants/industries';
 
 function AuthPage() {
