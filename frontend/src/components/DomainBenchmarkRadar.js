@@ -30,13 +30,18 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector, assessmentType
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-3 border border-gray-200 rounded shadow-lg">
+        <div className="bg-white p-3 border border-gray-200 rounded shadow-lg max-w-xs">
           <p className="font-semibold text-gray-900 mb-2">{payload[0].payload.domain}</p>
           {payload.map((entry, index) => (
             <p key={index} style={{ color: entry.color }} className="text-sm">
               {entry.name}: {entry.value}%
             </p>
           ))}
+          {assessmentType === 'Awareness' && (
+            <p className="text-xs text-gray-500 mt-2 pt-2 border-t border-gray-200">
+              <span className="font-semibold">Note:</span> Based on completed AI Awareness assessments within your selected sector.
+            </p>
+          )}
         </div>
       );
     }
