@@ -927,24 +927,24 @@ function ResultsPage() {
                     {/* Info tooltip for Awareness heatmap legend */}
                     {viewMode === 'heatmap' && assessmentType === 'Awareness' && (
                       <div className="relative inline-block ml-2 group">
-                        <Info className="h-4 w-4 text-gray-400 hover:text-gray-600 cursor-help" />
+                        <Info className="h-4 w-4 text-blue-500 hover:text-blue-700 cursor-help" />
                         <div className="absolute left-0 top-6 z-50 hidden group-hover:block w-64 bg-white border border-gray-200 rounded-lg shadow-lg p-3">
                           <p className="text-xs font-semibold text-gray-700 mb-2">Heatmap Legend:</p>
                           <div className="space-y-1.5">
                             <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded bg-red-500"></div>
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FF0000' }}></div>
                               <span className="text-xs text-gray-600">Early Awareness (1/4)</span>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded bg-orange-500"></div>
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFC000' }}></div>
                               <span className="text-xs text-gray-600">Exploring Opportunities (2/4)</span>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded bg-yellow-400"></div>
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFFF00' }}></div>
                               <span className="text-xs text-gray-600">Building Readiness (3/4)</span>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded bg-green-500"></div>
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#00B050' }}></div>
                               <span className="text-xs text-gray-600">Ready to Progress (4/4)</span>
                             </div>
                           </div>
