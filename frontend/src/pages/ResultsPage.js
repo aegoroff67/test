@@ -1293,7 +1293,7 @@ function ResultsPage() {
                     <span>Top 3 Action Steps</span>
                   </h2>
                   <p className="text-xs text-gray-600 ml-6">
-                    Recommended actions based on your lowest scoring questions.
+                    Practical actions to strengthen AI awareness before progressing further.
                   </p>
                 </div>
                 <div className="space-y-2">
