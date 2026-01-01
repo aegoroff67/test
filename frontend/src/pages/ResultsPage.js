@@ -670,8 +670,14 @@ function ResultsPage() {
                 </div>
                 <div className="flex-1 flex gap-1">
                   <Button 
-                    onClick={() => navigate(`/framework-coverage/${id}`)}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-[10px] px-1 py-1.5 h-auto"
+                    onClick={() => assessmentType === 'System' && navigate(`/framework-coverage/${id}`)}
+                    className={`flex-1 text-[10px] px-1 py-1.5 h-auto ${
+                      assessmentType === 'System' 
+                        ? 'bg-green-600 hover:bg-green-700' 
+                        : 'bg-gray-400 cursor-not-allowed'
+                    }`}
+                    disabled={assessmentType !== 'System'}
+                    title={assessmentType !== 'System' ? 'Available for AI System Maturity Assessments only.' : ''}
                     data-testid="framework-coverage-btn"
                   >
                     <div className="flex items-center justify-center space-x-0.5">
@@ -680,8 +686,14 @@ function ResultsPage() {
                     </div>
                   </Button>
                   <Button 
-                    onClick={() => navigate(`/evidence-register/${id}`)}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-[10px] px-1 py-1.5 h-auto"
+                    onClick={() => assessmentType === 'System' && navigate(`/evidence-register/${id}`)}
+                    className={`flex-1 text-[10px] px-1 py-1.5 h-auto ${
+                      assessmentType === 'System' 
+                        ? 'bg-green-600 hover:bg-green-700' 
+                        : 'bg-gray-400 cursor-not-allowed'
+                    }`}
+                    disabled={assessmentType !== 'System'}
+                    title={assessmentType !== 'System' ? 'Available for AI System Maturity Assessments only.' : ''}
                     data-testid="evidence-register-btn"
                   >
                     <div className="flex items-center justify-center space-x-0.5">
