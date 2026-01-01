@@ -1127,22 +1127,61 @@ function ResultsPage() {
             {/* Assessment Results Commentary - Only for Awareness assessments */}
             {console.log('Assessment Type:', assessmentType, 'Has recommendation?', summary?.recommendation_summary)}
             {assessmentType === 'Awareness' && summary?.recommendation_summary && (
-              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <h3 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
-                  <svg className="h-5 w-5 text-blue-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  <span>Assessment Results Commentary</span>
-                </h3>
-                <div 
-                  className="text-sm text-gray-700 whitespace-pre-line"
-                  dangerouslySetInnerHTML={{
-                    __html: summary.recommendation_summary
-                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                      .replace(/\n/g, '<br />')
-                  }}
-                />
-              </div>
+              <>
+                {/* Parse the recommendation_summary to separate commentary from next recommended assessment */}
+                {(() => {
+                  const fullText = summary.recommendation_summary;
+                  // Match both old format "Recommended Next Step" and new format "Next Recommended Assessment"
+                  const splitRegex = /\*\*(Recommended Next Step|Next Recommended Assessment):\*\*/i;
+                  const parts = fullText.split(splitRegex);
+                  const commentary = parts[0]?.trim() || '';
+                  const nextAssessment = parts[2]?.trim() || '';
+                  
+                  return (
+                    <>
+                      {/* Commentary Card */}
+                      {commentary && (
+                        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                          <h3 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                            <svg className="h-5 w-5 text-blue-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>Assessment Results Commentary</span>
+                          </h3>
+                          <div 
+                            className="text-sm text-gray-700 whitespace-pre-line"
+                            dangerouslySetInnerHTML={{
+                              __html: commentary
+                                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                .replace(/\n/g, '<br />')
+                            }}
+                          />
+                        </div>
+                      )}
+                      
+                      {/* Next Recommended Assessment Card */}
+                      {nextAssessment && (
+                        <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                          <h3 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                            <svg className="h-5 w-5 text-green-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                              <path d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                            <span>Next Recommended Assessment</span>
+                          </h3>
+                          <div 
+                            className="text-sm text-gray-700"
+                            dangerouslySetInnerHTML={{
+                              __html: nextAssessment
+                                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                .replace(/\n/g, '<br />')
+                            }}
+                          />
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
+              </>
             )}
           </div>
         </div>
