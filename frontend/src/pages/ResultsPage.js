@@ -1150,13 +1150,33 @@ function ResultsPage() {
                             <span>Assessment Results Commentary</span>
                           </h3>
                           <div 
-                            className="text-sm text-gray-700 whitespace-pre-line"
+                            className={`text-sm text-gray-700 whitespace-pre-line overflow-hidden transition-all duration-300 ${
+                              commentaryExpanded ? '' : 'line-clamp-3'
+                            }`}
+                            style={!commentaryExpanded ? { display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' } : {}}
                             dangerouslySetInnerHTML={{
                               __html: commentary
                                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                                 .replace(/\n/g, '<br />')
                             }}
                           />
+                          <button
+                            onClick={() => setCommentaryExpanded(!commentaryExpanded)}
+                            className="mt-2 text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center space-x-1 transition-colors"
+                          >
+                            <span>{commentaryExpanded ? 'Collapse commentary' : 'Expand commentary'}</span>
+                            <svg 
+                              className={`h-4 w-4 transition-transform duration-200 ${commentaryExpanded ? 'rotate-180' : ''}`} 
+                              fill="none" 
+                              strokeLinecap="round" 
+                              strokeLinejoin="round" 
+                              strokeWidth="2" 
+                              viewBox="0 0 24 24" 
+                              stroke="currentColor"
+                            >
+                              <path d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                          </button>
                         </div>
                       )}
                       
