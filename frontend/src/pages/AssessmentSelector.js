@@ -185,13 +185,13 @@ export default function AssessmentSelector() {
               <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Discover your organisation's starting point on its AI journey. Learn what AI means for you and identify first steps to build confidence and capability.
+                  Establish your organisation's baseline understanding of AI and identify initial focus areas to build confidence and capability.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Best for:</span> Organisations new to AI or automation, wanting to raise awareness and begin safely.
+                  <span className="font-semibold">Best for:</span> Organisations new to AI, seeking to raise awareness and take informed first steps safely.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Outcome:</span> A simple "Starting Point Map" showing where to focus next — policy, data, training, or pilot exploration.
+                  <span className="font-semibold">Outcome:</span> A clear starting-point map highlighting priority areas for action — including policy, data, training, and pilot exploration.
                 </p>
               </div>
               <div className="mt-auto">
@@ -222,13 +222,13 @@ export default function AssessmentSelector() {
               <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Understand your organisation's preparedness for AI adoption. Identify governance gaps, risks, and capabilities before beginning implementation.
+                  Assess your organisation's readiness to adopt AI by identifying governance gaps, risks, and capability constraints prior to implementation.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Best for:</span> Organisations planning or piloting AI initiatives for the first time.
+                  <span className="font-semibold">Best for:</span> Organisations planning or piloting AI initiatives and seeking confidence before scaling.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Outcome:</span> A readiness map highlighting foundational improvements across leadership, policy, and data.
+                  <span className="font-semibold">Outcome:</span> A readiness map highlighting priority improvements across leadership, policy, and data foundations.
                 </p>
               </div>
               <div className="mt-auto">
@@ -259,13 +259,13 @@ export default function AssessmentSelector() {
               <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Evaluate your organisation's overall AI governance maturity across teams and projects. Benchmark policies, processes, and culture against global standards.
+                  Evaluate AI governance maturity across the organisation and benchmark policies, processes, and culture against recognised global standards.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Best for:</span> Organisations scaling AI initiatives or formalising governance across multiple departments.
+                  <span className="font-semibold">Best for:</span> Organisations scaling AI initiatives or formalising governance across multiple teams or departments.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Outcome:</span> An organisation-wide maturity heatmap highlighting systemic strengths and gaps.
+                  <span className="font-semibold">Outcome:</span> An organisation-wide maturity heatmap highlighting systemic strengths, gaps, and priority improvement areas.
                 </p>
               </div>
               <div className="mt-auto">
@@ -303,13 +303,13 @@ export default function AssessmentSelector() {
               <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Assess a specific AI system for governance, ethics, and compliance. Review bias, explainability, and lifecycle controls.
+                  Assess a specific AI system against governance, ethical, and compliance requirements, including bias management, explainability, and lifecycle controls.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Best for:</span> Teams managing an active AI model, automation, or data-driven application.
+                  <span className="font-semibold">Best for:</span> Teams responsible for an active AI model or AI-enabled system in production or pilot use.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Outcome:</span> A detailed assurance report ready for inclusion in risk and compliance reviews.
+                  <span className="font-semibold">Outcome:</span> A detailed system-level assurance report suitable for inclusion in risk, audit, and compliance reviews.
                 </p>
               </div>
               <div className="mt-auto">
@@ -347,13 +347,13 @@ export default function AssessmentSelector() {
               <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Evaluate AI solutions using Queensland's FAIRA framework to identify risks, assess impacts, meet governance obligations, and generate assurance-ready compliance documentation.
+                  Evaluate algorithmic and AI systems using Queensland's FAIRA framework to identify risks, assess impacts, meet governance obligations, and generate assurance-ready compliance documentation.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Best For:</span> Government agencies, councils, universities, and vendors needing structured, defensible AI risk assessment.
+                  <span className="font-semibold">Best for:</span> Government agencies, councils, universities, and vendors requiring structured, defensible AI risk assessments.
                 </p>
                 <p className="text-xs text-gray-500">
-                  <span className="font-semibold">Outcome:</span> A full FAIRA report with risk ratings, scoring, mitigation controls, and audit-ready documentation for assurance and compliance.
+                  <span className="font-semibold">Outcome:</span> A complete FAIRA assessment report, including risk ratings, scoring, mitigation controls, and audit-ready documentation.
                 </p>
               </div>
               <div className="mt-auto">
