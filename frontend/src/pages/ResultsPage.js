@@ -95,6 +95,7 @@ function ResultsPage() {
   const [actionSteps, setActionSteps] = useState(null);
   const [sectorAverage, setSectorAverage] = useState(null);
   const [showFrameworkCoverage, setShowFrameworkCoverage] = useState(false);
+  const [commentaryExpanded, setCommentaryExpanded] = useState(false);
 
   useEffect(() => {
     fetchResults();
