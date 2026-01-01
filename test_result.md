@@ -127,7 +127,7 @@ Testing the new Evidence Upload Modal in the AI System Maturity Assessment, incl
 ### Detailed Test Results
 
 #### 1. Navigation and Authentication ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ Direct navigation to assessment page working correctly
 - ✅ Assessment page loaded with question FA-1 displayed
@@ -244,7 +244,7 @@ Testing the updated Evidence Upload Modal with onClick handlers added to radio b
 ### Detailed Test Results
 
 #### 1. Navigation and Modal Access ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ "Resume Assessment" button clicked successfully
 - ✅ Assessment page loaded with FA-1 question displayed
@@ -472,7 +472,7 @@ AS ISO/IEC 42001:2023:
 **Service Status:**
 - ✅ Frontend service running (supervisor status: RUNNING)
 - ✅ Backend service running (supervisor status: RUNNING)
-- ✅ Frontend accessible at https://proof-tracker-2.preview.emergentagent.com/ (HTTP 200)
+- ✅ Frontend accessible at https://evidence-manager.preview.emergentagent.com/ (HTTP 200)
 
 **Route Configuration:**
 - ✅ Framework Coverage route configured: /framework-coverage/:id
@@ -667,7 +667,7 @@ AS ISO/IEC 42001:2023:
 **Service Status:**
 - ✅ Frontend service running (supervisor status: RUNNING)
 - ✅ Backend service running (supervisor status: RUNNING)
-- ✅ Frontend accessible at https://proof-tracker-2.preview.emergentagent.com/ (HTTP 200)
+- ✅ Frontend accessible at https://evidence-manager.preview.emergentagent.com/ (HTTP 200)
 
 **Route Configuration:**
 - ✅ Framework Coverage route configured: /framework-coverage/:id
@@ -897,7 +897,7 @@ Testing the updated Evidence Upload Modal layout changes including:
 ### Detailed Test Results
 
 #### 1. Navigation and Modal Access ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ "Resume Assessment" button clicked successfully
 - ✅ Assessment page loaded with FA-1 question displayed
@@ -995,7 +995,7 @@ Testing the updated Evidence Upload Modal with reduced whitespace and layout cha
 ### Detailed Test Results
 
 #### 1. Navigation and Modal Access ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ "Resume Assessment" button clicked successfully
 - ✅ Assessment page loaded with FA-1 question displayed
@@ -1120,7 +1120,7 @@ Testing the Evidence Register multi-select filter functionality including:
 ```
 REQUEST FAILED: https://us-assets.i.posthog.com/static/web-vitals.js?v=1.310.1 - net::ERR_ABORTED
 REQUEST FAILED: https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.310.1 - net::ERR_ABORTED
-REQUEST FAILED: https://proof-tracker-2.preview.emergentagent.com/logo.png - net::ERR_ABORTED
+REQUEST FAILED: https://evidence-manager.preview.emergentagent.com/logo.png - net::ERR_ABORTED
 ```
 
 ### Root Cause Analysis
@@ -1196,7 +1196,7 @@ Testing the Evidence Register row click and drawer functionality including:
 ### Detailed Test Results
 
 #### 1. Navigation and Authentication ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ Successfully accessed in-progress assessment with evidence data
 - ✅ Direct navigation to Evidence Register page working correctly
@@ -1340,7 +1340,7 @@ Testing the new Evidence Drawer functionality that opens when clicking on upload
 ### Detailed Test Results
 
 #### 1. Navigation and Authentication ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ "Resume Assessment" button clicked successfully
 - ✅ Assessment page loaded with FA-4 question displayed
@@ -1501,7 +1501,7 @@ Testing the updated Evidence Upload Modal with all the new changes including:
 ### Detailed Test Results
 
 #### 1. Navigation and Modal Access ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ "Resume Assessment" button clicked successfully
 - ✅ Assessment page loaded with FA-1 question displayed
@@ -1613,7 +1613,7 @@ Testing the Evidence Upload persistence fix that was implemented to resolve the 
 ### Detailed Test Results
 
 #### 1. Navigation and Authentication ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ "Resume Assessment" button clicked successfully
 - ✅ Assessment page loaded with FA-4 question displayed
@@ -1713,7 +1713,7 @@ Testing the updated Evidence Register page with new columns, including:
 ### Detailed Test Results
 
 #### 1. Navigation and Authentication ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ Found 6 completed assessments with "View Results" buttons
 - ✅ Successfully clicked first "View Results" button
@@ -1854,7 +1854,7 @@ Testing the Evidence Upload persistence and display on the Assessment Page, incl
 ### Detailed Test Results
 
 #### 1. Navigation and Authentication ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ "Resume Assessment" button clicked successfully
 - ✅ Assessment page loaded correctly after JavaScript fix
@@ -1946,7 +1946,7 @@ Testing the updated Evidence Upload Modal footer layout changes including:
 ### Detailed Test Results
 
 #### 1. Navigation and Modal Access ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ "Resume Assessment" button clicked successfully
 - ✅ Assessment page loaded with FA-1 question displayed
@@ -2040,7 +2040,7 @@ Testing the Evidence Upload Modal uploaded files display feature including:
 ### Detailed Test Results
 
 #### 1. Navigation and Authentication ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ "Resume Assessment" button clicked successfully
 - ✅ Assessment page loaded with FA-1 question displayed
@@ -2151,7 +2151,7 @@ Testing the new Evidence Register page functionality including:
 ### Detailed Test Results
 
 #### 1. Navigation and Authentication ✅ PASSED
-- ✅ Successfully navigated to https://proof-tracker-2.preview.emergentagent.com
+- ✅ Successfully navigated to https://evidence-manager.preview.emergentagent.com
 - ✅ Login with andrew@test.com / password123 successful
 - ✅ Dashboard loaded with 6 completed assessments found
 - ✅ Successfully clicked "View Results" on first completed assessment
