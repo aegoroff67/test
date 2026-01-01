@@ -112,7 +112,7 @@ function AuthPage() {
               Discover Your AI Governance Journey
             </h2>
             <p className="text-base text-gray-600 font-bold">
-              From Awareness to Assurance — Four Assessments, One Framework
+              From Awareness to Assurance — One Platform, Five Assessments
             </p>
           </div>
 
