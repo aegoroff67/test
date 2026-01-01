@@ -10,6 +10,29 @@ import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Responsi
  * @param {String} sector - Name of the sector for display
  * @param {String} assessmentType - Type of assessment (System, Awareness, etc.)
  */
+
+// Custom tooltip component defined outside to avoid re-creation on each render
+const CustomTooltip = ({ active, payload, assessmentType }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-3 border border-gray-200 rounded shadow-lg max-w-xs">
+        <p className="font-semibold text-gray-900 mb-2">{payload[0].payload.domain}</p>
+        {payload.map((entry, index) => (
+          <p key={index} style={{ color: entry.color }} className="text-sm">
+            {entry.name}: {entry.value}%
+          </p>
+        ))}
+        {assessmentType === 'Awareness' && (
+          <p className="text-xs text-gray-500 mt-2 pt-2 border-t border-gray-200">
+            <span className="font-semibold">Note:</span> Based on completed AI Awareness assessments within your selected sector.
+          </p>
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
 const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector, assessmentType }) => {
   // Format domain labels with line breaks for long names
   const formatDomainLabel = (domainName) => {
@@ -25,28 +48,6 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector, assessmentType
     'Your Score': Math.round(domain.percentage),
     'Sector Benchmark': benchmarks[domain.domain_name] || 0
   }));
-
-  // Custom tooltip
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-white p-3 border border-gray-200 rounded shadow-lg max-w-xs">
-          <p className="font-semibold text-gray-900 mb-2">{payload[0].payload.domain}</p>
-          {payload.map((entry, index) => (
-            <p key={index} style={{ color: entry.color }} className="text-sm">
-              {entry.name}: {entry.value}%
-            </p>
-          ))}
-          {assessmentType === 'Awareness' && (
-            <p className="text-xs text-gray-500 mt-2 pt-2 border-t border-gray-200">
-              <span className="font-semibold">Note:</span> Based on completed AI Awareness assessments within your selected sector.
-            </p>
-          )}
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -89,7 +90,7 @@ const DomainBenchmarkRadar = ({ domainScores, benchmarks, sector, assessmentType
               wrapperStyle={{ paddingTop: '10px', fontSize: '14px' }}
               iconSize={14}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={<CustomTooltip assessmentType={assessmentType} />} />
           </RadarChart>
         </ResponsiveContainer>
       </div>
