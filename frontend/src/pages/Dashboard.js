@@ -377,7 +377,7 @@ function Dashboard() {
                       No assessments in progress
                     </h3>
                     <p className="text-gray-600 mb-4">
-                      Start an AI assessment to evaluate organisational readiness, organisation-wide AI maturity, or the governance maturity of a specific AI system.
+                      Start an AI assessment to understand your organisation&apos;s readiness, governance maturity, or the maturity of a specific AI system.
                     </p>
                     <Button 
                       onClick={createNewAssessment}
