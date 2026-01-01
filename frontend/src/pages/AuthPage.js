@@ -101,8 +101,7 @@ function AuthPage() {
                 AI Governance, Risk & Assurance Platform
               </h2>
               <p className="text-lg text-gray-600">
-                <span className="font-bold">A</span>ssessment and <span className="font-bold">M</span>onitoring for <span className="font-bold">A</span>rtificial <span className="font-bold">I</span>ntelligence <span className="font-bold">S</span>ecurity, 
-                <span className="font-bold">A</span>ccountability, <span className="font-bold">F</span>airness, and <span className="font-bold">E</span>xplainability
+                <span className="font-bold">A</span>ssurance & <span className="font-bold">M</span>easurement for <span className="font-bold">AI</span> <span className="font-bold">S</span>afety and <span className="font-bold">A</span>ccountability
               </p>
             </div>
           </div>
