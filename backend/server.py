@@ -318,6 +318,9 @@ class AssessmentResponse(BaseModel):
     progress: int
     total_questions: int
     system_info: Optional[dict] = None
+    awareness_info: Optional[dict] = None
+    readiness_info: Optional[dict] = None
+    orgwide_info: Optional[dict] = None
     faira_form: Optional[dict] = None
     pending_review_count: int = 0
 
