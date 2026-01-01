@@ -18,7 +18,8 @@ import {
   FileText,
   Building2,
   Award,
-  Grid3X3
+  Grid3X3,
+  Info
 } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Tooltip, PieChart, Pie, Cell, Legend } from 'recharts';
 import MaturityStackedColumn from '../components/MaturityDonutChart';
