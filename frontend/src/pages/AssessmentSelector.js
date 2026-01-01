@@ -185,7 +185,7 @@ export default function AssessmentSelector() {
               <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Establish your organisation's baseline understanding of AI and identify initial focus areas to build confidence and capability.
+                  Establish your organisation&apos;s baseline understanding of AI and identify initial focus areas to build confidence and capability.
                 </p>
                 <p className="text-xs text-gray-500">
                   <span className="font-semibold">Best for:</span> Organisations new to AI, seeking to raise awareness and take informed first steps safely.
@@ -222,7 +222,7 @@ export default function AssessmentSelector() {
               <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Assess your organisation's readiness to adopt AI by identifying governance gaps, risks, and capability constraints prior to implementation.
+                  Assess your organisation&apos;s readiness to adopt AI by identifying governance gaps, risks, and capability constraints prior to implementation.
                 </p>
                 <p className="text-xs text-gray-500">
                   <span className="font-semibold">Best for:</span> Organisations planning or piloting AI initiatives and seeking confidence before scaling.
@@ -347,7 +347,7 @@ export default function AssessmentSelector() {
               <div className="space-y-3 mb-6 flex-1">
                 <p className="text-sm text-gray-600 font-semibold">Purpose:</p>
                 <p className="text-sm text-gray-600">
-                  Evaluate algorithmic and AI systems using Queensland's FAIRA framework to identify risks, assess impacts, meet governance obligations, and generate assurance-ready compliance documentation.
+                  Evaluate algorithmic and AI systems using Queensland&apos;s FAIRA framework to identify risks, assess impacts, meet governance obligations, and generate assurance-ready compliance documentation.
                 </p>
                 <p className="text-xs text-gray-500">
                   <span className="font-semibold">Best for:</span> Government agencies, councils, universities, and vendors requiring structured, defensible AI risk assessments.
