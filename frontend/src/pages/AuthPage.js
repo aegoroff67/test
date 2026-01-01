@@ -127,7 +127,7 @@ function AuthPage() {
                   Comprehensive Assessment Suite
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Progress through <strong>AI Awareness & Foundations</strong>, <strong>AI Readiness</strong>, <strong>Organisation-wide AI Maturity</strong>, <strong>AI System Maturity</strong>, and the <strong>FAIR AI Risk Assessment</strong> — each designed for a specific governance purpose.
+                  Progress through <strong>AI Awareness & Foundations</strong>, <strong>AI Readiness</strong>, <strong>Organisation-wide AI Maturity</strong>, <strong>AI System Maturity</strong>, and the <strong>FAIRA AI Risk Assessment</strong> — each designed for a specific governance purpose.
                 </p>
               </div>
             </div>
