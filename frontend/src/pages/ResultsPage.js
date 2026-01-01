@@ -988,7 +988,7 @@ function ResultsPage() {
                   {viewMode === 'radar' && (
                     <div className="text-[12px] text-gray-600 mt-1 ml-7">
                       <p>Comparing your AI domain {assessmentType === 'Awareness' ? 'awareness' : 'maturity'} against the <span className="font-bold">{benchmarkSector || assessment?.system_info?.industry || assessment?.awareness_info?.industry || user?.industry || 'sector'}</span> sector average.</p>
-                      <p className="mt-0.5">This comparison highlights relative strengths and gaps — not a target score.</p>
+                      <p className="mt-0.5">This comparison highlights relative strengths and gaps — <span className="font-bold">not</span> a target score.</p>
                     </div>
                   )}
                 </div>
