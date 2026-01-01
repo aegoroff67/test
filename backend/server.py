@@ -1392,6 +1392,9 @@ async def get_assessment(assessment_id: str, current_user: UserResponse = Depend
         progress=assessment["progress"],
         total_questions=total_questions,
         system_info=assessment.get("system_info"),
+        awareness_info=assessment.get("awareness_info"),
+        readiness_info=assessment.get("readiness_info"),
+        orgwide_info=assessment.get("orgwide_info"),
         faira_form=assessment.get("faira_form")
     )
 
