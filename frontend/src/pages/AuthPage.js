@@ -318,30 +318,6 @@ function AuthPage() {
                         />
                       </div>
                       
-                      <div className="space-y-2">
-                        <Label htmlFor="signup-industry">Industry / Sector *</Label>
-                        <Select 
-                          value={signUpData.industry} 
-                          onValueChange={(value) => setSignUpData({...signUpData, industry: value})}
-                          required
-                        >
-                          <SelectTrigger className="focus:ring-teal focus:border-teal-500" data-testid="signup-industry-select">
-                            <SelectValue placeholder="Select your industry" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {INDUSTRIES.map((industry) => (
-                              <SelectItem 
-                                key={industry} 
-                                value={industry}
-                                data-testid={`industry-${industry.toLowerCase().replace(' ', '-')}`}
-                              >
-                                {industry}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
                       <Button 
                         type="submit" 
                         className="w-full bg-teal-600 hover:bg-teal-700 btn-hover" 
