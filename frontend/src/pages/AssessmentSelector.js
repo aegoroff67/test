@@ -164,7 +164,7 @@ export default function AssessmentSelector() {
             Choose Your Assessment Type
           </h1>
           <p className="text-lg text-gray-600">
-            Select the assessment that best fits your organization's AI journey.
+            Select the assessment that best fits your organization&apos;s AI journey.
           </p>
         </div>
 
