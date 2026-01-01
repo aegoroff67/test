@@ -124,10 +124,10 @@ function AuthPage() {
               </div>
               <div className="text-left">
                 <h3 className="font-semibold text-gray-900 mb-1">
-                  Comprehensive AI Assessment Suite
+                  Comprehensive Assessment Suite
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Progress through four assessments — <strong>Awareness & Foundations</strong>, <strong>Readiness</strong>, <strong>Organisation-wide Maturity</strong>, and <strong>System Maturity</strong> — guiding your organisation from AI awareness to full governance assurance.
+                  Progress through <strong>AI Awareness & Foundations</strong>, <strong>AI Readiness</strong>, <strong>Organisation-wide AI Maturity</strong>, <strong>AI System Maturity</strong>, and the <strong>FAIR AI Risk Assessment</strong> — each designed for a specific governance purpose.
                 </p>
               </div>
             </div>
@@ -138,10 +138,24 @@ function AuthPage() {
               </div>
               <div className="text-left">
                 <h3 className="font-semibold text-gray-900 mb-1">
-                  Actionable Analytics
+                  Framework-Aligned Assurance
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Visualise your results instantly with interactive heatmaps, maturity scores, and prioritised recommendations.
+                  Operationalise global AI frameworks through <strong>control registries</strong>, <strong>inherent vs achieved coverage</strong>, and <strong>evidence-backed assurance</strong> at the system and risk level.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-start space-x-4">
+              <div className="bg-teal-100 p-2 rounded-lg flex-shrink-0">
+                <FileText className="h-6 w-6 text-teal-600" />
+              </div>
+              <div className="text-left">
+                <h3 className="font-semibold text-gray-900 mb-1">
+                  Evidence-Backed Insights
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Move beyond scores with interactive analytics, prioritised actions, and a structured <strong>evidence register</strong> suitable for boards, auditors, and regulators.
                 </p>
               </div>
             </div>
@@ -155,7 +169,7 @@ function AuthPage() {
                   Built for Every Stage
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Whether you're exploring AI or managing advanced deployments, AM AI SAFE adapts to your maturity level—helping you strengthen accountability, security, and compliance at every step.
+                  Whether exploring AI or governing deployed systems, AM AI SAFE adapts to your maturity — strengthening <strong>safety, accountability, and trust</strong> as AI use evolves.
                 </p>
               </div>
             </div>
