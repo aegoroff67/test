@@ -98,7 +98,7 @@ function AuthPage() {
             
             <div className="space-y-2">
               <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 leading-tight">
-                AI Governance and Risk Assessment Framework
+                AI Governance, Risk & Assurance Platform
               </h2>
               <p className="text-lg text-gray-600">
                 <span className="font-bold">A</span>ssessment and <span className="font-bold">M</span>onitoring for <span className="font-bold">A</span>rtificial <span className="font-bold">I</span>ntelligence <span className="font-bold">S</span>ecurity, 
