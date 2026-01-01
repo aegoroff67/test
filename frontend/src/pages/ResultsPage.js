@@ -669,38 +669,46 @@ function ResultsPage() {
                   Insights:
                 </div>
                 <div className="flex-1 flex gap-1">
-                  <Button 
-                    onClick={() => assessmentType === 'System' && navigate(`/framework-coverage/${id}`)}
-                    className={`flex-1 text-[10px] px-1 py-1.5 h-auto ${
-                      assessmentType === 'System' 
-                        ? 'bg-green-600 hover:bg-green-700' 
-                        : 'bg-gray-400 cursor-not-allowed'
-                    }`}
-                    disabled={assessmentType !== 'System'}
+                  <div 
+                    className="flex-1"
                     title={assessmentType !== 'System' ? 'Available for AI System Maturity Assessments only.' : ''}
-                    data-testid="framework-coverage-btn"
                   >
-                    <div className="flex items-center justify-center space-x-0.5">
-                      <Grid3X3 className="h-3 w-3" />
-                      <span>Framework Coverage</span>
-                    </div>
-                  </Button>
-                  <Button 
-                    onClick={() => assessmentType === 'System' && navigate(`/evidence-register/${id}`)}
-                    className={`flex-1 text-[10px] px-1 py-1.5 h-auto ${
-                      assessmentType === 'System' 
-                        ? 'bg-green-600 hover:bg-green-700' 
-                        : 'bg-gray-400 cursor-not-allowed'
-                    }`}
-                    disabled={assessmentType !== 'System'}
+                    <Button 
+                      onClick={() => assessmentType === 'System' && navigate(`/framework-coverage/${id}`)}
+                      className={`w-full text-[10px] px-1 py-1.5 h-auto ${
+                        assessmentType === 'System' 
+                          ? 'bg-green-600 hover:bg-green-700' 
+                          : 'bg-gray-400 cursor-not-allowed opacity-60'
+                      }`}
+                      disabled={assessmentType !== 'System'}
+                      data-testid="framework-coverage-btn"
+                    >
+                      <div className="flex items-center justify-center space-x-0.5">
+                        <Grid3X3 className="h-3 w-3" />
+                        <span>Framework Coverage</span>
+                      </div>
+                    </Button>
+                  </div>
+                  <div 
+                    className="flex-1"
                     title={assessmentType !== 'System' ? 'Available for AI System Maturity Assessments only.' : ''}
-                    data-testid="evidence-register-btn"
                   >
-                    <div className="flex items-center justify-center space-x-0.5">
-                      <FileText className="h-3 w-3" />
-                      <span>Evidence Register</span>
-                    </div>
-                  </Button>
+                    <Button 
+                      onClick={() => assessmentType === 'System' && navigate(`/evidence-register/${id}`)}
+                      className={`w-full text-[10px] px-1 py-1.5 h-auto ${
+                        assessmentType === 'System' 
+                          ? 'bg-green-600 hover:bg-green-700' 
+                          : 'bg-gray-400 cursor-not-allowed opacity-60'
+                      }`}
+                      disabled={assessmentType !== 'System'}
+                      data-testid="evidence-register-btn"
+                    >
+                      <div className="flex items-center justify-center space-x-0.5">
+                        <FileText className="h-3 w-3" />
+                        <span>Evidence Register</span>
+                      </div>
+                    </Button>
+                  </div>
                 </div>
               </div>
 
