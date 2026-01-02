@@ -1146,6 +1146,11 @@ function AssessmentPage() {
                         ))}
                       </div>
                     )}
+                    </div>
+                    {/* Subtitle for Readiness assessments */}
+                    {assessmentType === 'Readiness' && (
+                      <p className="text-xs text-gray-500 ml-5">Optional reference material — evidence is not required for readiness assessments.</p>
+                    )}
                   </div>
                   <div className="flex items-center space-x-2">
                     <Button
