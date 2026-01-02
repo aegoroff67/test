@@ -801,7 +801,7 @@ function ResultsPage() {
                   </li>
                   <li className="flex items-start space-x-2">
                     <span className="text-green-600 mt-0.5">•</span>
-                    <span>Recommended next steps are intended to <strong>build understanding and confidence</strong> before progressing to further assessments or activities.</span>
+                    <span>Recommended next steps are intended to <strong>build understanding and confidence</strong> before progressing to more detailed assessments or activities.</span>
                   </li>
                 </ul>
               </div>
