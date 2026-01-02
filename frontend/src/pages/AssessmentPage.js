@@ -1109,23 +1109,24 @@ function AssessmentPage() {
                 {/* Evidence Upload Section - Hidden for Awareness assessments */}
                 {assessmentType !== 'Awareness' && (
                 <div className="space-y-1">
-                  <div className="flex items-start gap-3">
-                    <Label className="text-sm font-medium text-gray-900 flex items-center gap-2 flex-shrink-0">
-                      <svg className={`h-3 w-3 text-${colors.primary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                      </svg>
-                      Upload Evidence (Optional)
-                      {(currentQuestion.evidence_types || helpContent[currentQuestion.code]) && (
-                        <InfoBadge 
-                          title="Click for evidence requirements and compliance guidance"
-                          onClick={handleOpenHelp}
-                        />
-                      )}
-                    </Label>
-                    {/* Uploaded files displayed to the right of the title - clickable to open drawer */}
-                    {uploadedFiles?.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 items-center">
-                        {uploadedFiles.map((file, index) => (
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-start gap-3">
+                      <Label className="text-sm font-medium text-gray-900 flex items-center gap-2 flex-shrink-0">
+                        <svg className={`h-3 w-3 text-${colors.primary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                        </svg>
+                        Upload Evidence (Optional)
+                        {(currentQuestion.evidence_types || helpContent[currentQuestion.code]) && (
+                          <InfoBadge 
+                            title="Click for evidence requirements and compliance guidance"
+                            onClick={handleOpenHelp}
+                          />
+                        )}
+                      </Label>
+                      {/* Uploaded files displayed to the right of the title - clickable to open drawer */}
+                      {uploadedFiles?.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 items-center">
+                          {uploadedFiles.map((file, index) => (
                           <button
                             key={file.evidence_id || index}
                             onClick={() => {
