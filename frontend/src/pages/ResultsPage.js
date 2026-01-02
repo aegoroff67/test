@@ -777,18 +777,48 @@ function ResultsPage() {
               })}
             </div>
 
-            {/* Response Distribution - For all assessment types */}
-            <div className="mt-6">
-              <h2 className="text-base font-bold text-gray-900 mb-1 flex items-center space-x-2">
-                <BarChart3 className="h-4 w-4 text-teal-600" />
-                <span>Response Distribution {
-                  assessmentType === 'Awareness' ? '(25 questions)' 
-                  : assessmentType === 'Readiness' ? '(48 questions)'
-                  : assessmentType === 'Orgwide' ? '(80 questions)'
-                  : assessmentType === 'System' ? '(88 questions)'
-                  : ''
-                }</span>
-              </h2>
+            {/* How To Read These Results - Only for Awareness assessments */}
+            {assessmentType === 'Awareness' && (
+              <div className="mt-6">
+                <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                  <svg className="h-4 w-4 text-green-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span>How To Read These Results</span>
+                </h2>
+                <ul className="space-y-2 text-xs text-gray-700">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-green-600 mt-0.5">•</span>
+                    <span>Scores reflect your organisation's <strong>current level of AI awareness</strong>, not readiness to deploy AI or compliance with standards.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-green-600 mt-0.5">•</span>
+                    <span>Differences in maturity across domains are <strong>normal at this stage</strong> and do not indicate risk or failure.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-green-600 mt-0.5">•</span>
+                    <span>Focus first on the <strong>Priority Improvement Areas</strong> and <strong>Top Action Steps</strong>, rather than the overall score.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-green-600 mt-0.5">•</span>
+                    <span>Recommended next steps are intended to <strong>build understanding and confidence</strong> before progressing to more detailed assessments.</span>
+                  </li>
+                </ul>
+              </div>
+            )}
+
+            {/* Response Distribution - For non-Awareness assessment types */}
+            {assessmentType !== 'Awareness' && (
+              <div className="mt-6">
+                <h2 className="text-base font-bold text-gray-900 mb-1 flex items-center space-x-2">
+                  <BarChart3 className="h-4 w-4 text-teal-600" />
+                  <span>Response Distribution {
+                    assessmentType === 'Readiness' ? '(48 questions)'
+                    : assessmentType === 'Orgwide' ? '(80 questions)'
+                    : assessmentType === 'System' ? '(88 questions)'
+                    : ''
+                  }</span>
+                </h2>
                 <div className="h-48">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -902,7 +932,8 @@ function ResultsPage() {
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
-            </div>
+              </div>
+            )}
           </div>
         </div>
 
