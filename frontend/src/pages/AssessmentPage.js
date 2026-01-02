@@ -1106,7 +1106,8 @@ function AssessmentPage() {
                   )}
                 </div>
 
-                {/* Evidence Upload Section */}
+                {/* Evidence Upload Section - Hidden for Awareness assessments */}
+                {assessmentType !== 'Awareness' && (
                 <div className="space-y-1">
                   <div className="flex items-start gap-3">
                     <Label className="text-sm font-medium text-gray-900 flex items-center gap-2 flex-shrink-0">
@@ -1161,6 +1162,7 @@ function AssessmentPage() {
                     </Button>
                   </div>
                 </div>
+                )}
               </CardContent>
             </Card>
 
