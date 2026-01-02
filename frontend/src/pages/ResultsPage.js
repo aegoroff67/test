@@ -843,8 +843,7 @@ function ResultsPage() {
                 <h2 className="text-base font-bold text-gray-900 mb-1 flex items-center space-x-2">
                   <BarChart3 className="h-4 w-4 text-teal-600" />
                   <span>Response Distribution {
-                    assessmentType === 'Readiness' ? '(48 questions)'
-                    : assessmentType === 'Orgwide' ? '(80 questions)'
+                    assessmentType === 'Orgwide' ? '(80 questions)'
                     : assessmentType === 'System' ? '(88 questions)'
                     : ''
                   }</span>
