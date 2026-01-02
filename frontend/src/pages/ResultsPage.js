@@ -1218,7 +1218,7 @@ function ResultsPage() {
                             <svg className="h-5 w-5 text-green-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                               <path d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                             </svg>
-                            <span>Next Recommended Assessment</span>
+                            <span>Next Recommended Steps</span>
                           </h3>
                           <div 
                             className="text-sm text-gray-700"
