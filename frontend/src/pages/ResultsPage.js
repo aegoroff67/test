@@ -1072,6 +1072,9 @@ function ResultsPage() {
                         </button>
                         <div className="absolute left-0 top-6 z-50 hidden group-hover:block w-72 bg-white border border-gray-200 rounded-lg shadow-lg p-3">
                           <p className="text-xs font-normal text-gray-600">Benchmarks are indicative only and based on aggregated, anonymised assessment data.</p>
+                          {assessmentType === 'System' && (
+                            <p className="text-xs font-normal text-gray-600 mt-2"><strong>Note:</strong> Based on completed AI System Maturity assessments within your selected sector.</p>
+                          )}
                         </div>
                       </div>
                     )}
