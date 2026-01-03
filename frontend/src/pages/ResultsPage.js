@@ -502,7 +502,13 @@ function ResultsPage() {
       </header>
 
       {/* Summary Section - Wrapper for PDF generation */}
-      <div className="results-summary-content bg-white border-b flex-shrink-0">
+      <div className={`results-summary-content border-b flex-shrink-0 ${
+        assessmentType === 'Awareness' ? 'bg-gradient-to-r from-green-50 to-green-100 border-green-200'
+        : assessmentType === 'Readiness' ? 'bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200'
+        : assessmentType === 'Orgwide' ? 'bg-gradient-to-r from-teal-50 to-teal-100 border-teal-200'
+        : assessmentType === 'System' ? 'bg-gradient-to-r from-teal-50 to-teal-100 border-teal-200'
+        : 'bg-white'
+      }`}>
         <div className="max-w-full px-6 py-4">
           <div className="flex items-start">
             {/* First 15% - Maturity Stacked Column */}
