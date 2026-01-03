@@ -521,8 +521,12 @@ function ResultsPage() {
               <MaturityStackedColumn 
                 score={summary.overall_percentage} 
                 assessmentType={assessmentType}
-                sectorAverage={(assessmentType === 'Awareness' || assessmentType === 'System') ? sectorAverage : null}
-                sectorName={assessmentType === 'System' ? (benchmarkSector || assessment?.system_info?.industry || user?.industry) : null}
+                sectorAverage={(assessmentType === 'Awareness' || assessmentType === 'System' || assessmentType === 'Readiness') ? sectorAverage : null}
+                sectorName={
+                  assessmentType === 'System' ? (benchmarkSector || assessment?.system_info?.industry || user?.industry) 
+                  : assessmentType === 'Readiness' ? (benchmarkSector || assessment?.readiness_info?.industry || user?.industry)
+                  : null
+                }
               />
             </div>
 
