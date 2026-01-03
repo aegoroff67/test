@@ -30,9 +30,9 @@ const MaturityStackedColumn = ({ score, assessmentType, sectorAverage, sectorNam
   // Calculate arrow position (percentage from bottom)
   const arrowPosition = score;
 
-  // Determine arrow color based on comparison with sector average (for Awareness and System)
+  // Determine arrow color based on comparison with sector average (for Awareness, System, and Readiness)
   const getUserArrowColor = () => {
-    if ((assessmentType === 'Awareness' || assessmentType === 'System') && sectorAverage !== null && sectorAverage !== undefined) {
+    if ((assessmentType === 'Awareness' || assessmentType === 'System' || assessmentType === 'Readiness') && sectorAverage !== null && sectorAverage !== undefined) {
       if (score > sectorAverage) return '#00B050'; // Green
       if (score < sectorAverage) return '#FF0000'; // Red
     }
@@ -85,8 +85,8 @@ const MaturityStackedColumn = ({ score, assessmentType, sectorAverage, sectorNam
           />
         </div>
 
-        {/* Sector average arrow indicator (for Awareness and System with valid sector average) */}
-        {(assessmentType === 'Awareness' || assessmentType === 'System') && sectorAverage !== null && sectorAverage !== undefined && sectorAverage !== score && (
+        {/* Sector average arrow indicator (for Awareness, System, and Readiness with valid sector average) */}
+        {(assessmentType === 'Awareness' || assessmentType === 'System' || assessmentType === 'Readiness') && sectorAverage !== null && sectorAverage !== undefined && sectorAverage !== score && (
           <div
             className="absolute left-0 flex items-center"
             style={{
@@ -116,8 +116,8 @@ const MaturityStackedColumn = ({ score, assessmentType, sectorAverage, sectorNam
         <div className="text-[15px] font-semibold text-gray-700 leading-tight text-center">
           {currentTier} {assessmentType === 'Awareness' ? 'AI Awareness' : assessmentType === 'Readiness' ? 'AI Readiness' : 'AI Maturity'}
         </div>
-        {/* Sector average (only for System assessments) */}
-        {assessmentType === 'System' && sectorAverage !== null && sectorAverage !== undefined && sectorName && (
+        {/* Sector average (for System and Readiness assessments) */}
+        {(assessmentType === 'System' || assessmentType === 'Readiness') && sectorAverage !== null && sectorAverage !== undefined && sectorName && (
           <div className="text-[11px] text-gray-600 leading-tight text-center mt-1">
             (<strong>{sectorName}</strong> sector average: <strong>{sectorAverage}%</strong>)
           </div>
