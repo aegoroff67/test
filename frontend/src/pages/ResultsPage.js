@@ -867,126 +867,33 @@ function ResultsPage() {
               </div>
             )}
 
-            {/* Response Distribution - For System assessment type only */}
+            {/* How To Read These Results - For System assessments */}
             {assessmentType === 'System' && (
               <div className="mt-6">
-                <h2 className="text-base font-bold text-gray-900 mb-1 flex items-center space-x-2">
-                  <BarChart3 className="h-4 w-4 text-teal-600" />
-                  <span>Response Distribution (88 questions)</span>
+                <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                  <svg className="h-4 w-4 text-teal-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span>How To Read These Results</span>
                 </h2>
-                <div className="h-48">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={(() => {
-                          // Calculate distribution of answers by score category (1-4 scale)
-                          const distribution = {
-                            'Foundational': 0,
-                            'Developing': 0,
-                            'Established': 0,
-                            'Leading': 0
-                          };
-                          
-                          // Count all answered questions based on numeric score
-                          answers.forEach(answer => {
-                            if (answer.numeric_score === 1) {
-                              distribution['Foundational']++;
-                            } else if (answer.numeric_score === 2) {
-                              distribution['Developing']++;
-                            } else if (answer.numeric_score === 3) {
-                              distribution['Established']++;
-                            } else if (answer.numeric_score === 4) {
-                              distribution['Leading']++;
-                            }
-                          });
-                          
-                          // Convert to array format for pie chart
-                          return Object.entries(distribution)
-                            .filter(([_, value]) => value > 0) // Only show categories with data
-                            .map(([name, value]) => ({ name, value }));
-                        })()}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={0}
-                        outerRadius={55}
-                        paddingAngle={2}
-                        dataKey="value"
-                        label={(props) => {
-                          const { cx, cy, midAngle, outerRadius, name, value } = props;
-                          const RADIAN = Math.PI / 180;
-                          const radius = outerRadius + 20;
-                          const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                          const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                          
-                          const total = answers.length;
-                          const percent = ((value / total) * 100).toFixed(1);
-                          
-                          return (
-                            <text
-                              x={x}
-                              y={y}
-                              fill="#333"
-                              textAnchor={x > cx ? 'start' : 'end'}
-                              dominantBaseline="central"
-                            >
-                              <tspan x={x} dy="0" fontSize="12" fontWeight="500">
-                                {name}: {value}
-                              </tspan>
-                              <tspan x={x} dy="14" fontSize="10" fill="#666">
-                                ({percent}%)
-                              </tspan>
-                            </text>
-                          );
-                        }}
-                        labelLine={{ stroke: '#666', strokeWidth: 1 }}
-                      >
-                        {(() => {
-                          // Define colors matching heatmap (updated for new categories)
-                          const colorMap = {
-                            'Foundational': '#FF0000',  // red
-                            'Developing': '#FFC000',    // orange
-                            'Established': '#FFFF00',   // yellow
-                            'Leading': '#00B050'        // green
-                          };
-                          
-                          const distribution = {
-                            'Foundational': 0,
-                            'Developing': 0,
-                            'Established': 0,
-                            'Leading': 0
-                          };
-                          
-                          answers.forEach(answer => {
-                            if (answer.numeric_score === 1) {
-                              distribution['Foundational']++;
-                            } else if (answer.numeric_score === 2) {
-                              distribution['Developing']++;
-                            } else if (answer.numeric_score === 3) {
-                              distribution['Established']++;
-                            } else if (answer.numeric_score === 4) {
-                              distribution['Leading']++;
-                            }
-                          });
-                          
-                          return Object.entries(distribution)
-                            .filter(([_, value]) => value > 0)
-                            .map(([name, _], index) => (
-                              <Cell key={`cell-${index}`} fill={colorMap[name]} />
-                            ));
-                        })()}
-                      </Pie>
-                      <Tooltip 
-                        formatter={(value) => `${value} questions`}
-                        contentStyle={{ 
-                          backgroundColor: 'white', 
-                          border: '1px solid #e5e7eb',
-                          borderRadius: '0.375rem',
-                          fontSize: '12px'
-                        }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
+                <ul className="space-y-2 text-xs text-gray-700">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-teal-600 mt-0.5">•</span>
+                    <span>Scores reflect the governance, control maturity, and operational assurance of this specific AI system, based on documented practices and supporting evidence.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-teal-600 mt-0.5">•</span>
+                    <span>Results do <strong>not</strong> constitute <strong>certification, regulatory approval, or a guarantee of compliance</strong>, and should be interpreted in the context of applicable laws, regulations, and organisational obligations.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-teal-600 mt-0.5">•</span>
+                    <span>Priority Improvement Areas identify <strong>system-level controls that require strengthening, automation, or closer oversight</strong> to reduce operational, ethical, or regulatory risk.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-teal-600 mt-0.5">•</span>
+                    <span>Framework coverage and linked evidence are provided to <strong>support assurance activities, internal review, and regulatory alignment</strong>, where appropriate, but final accountability remains with the organisation.</span>
+                  </li>
+                </ul>
               </div>
             )}
           </div>
