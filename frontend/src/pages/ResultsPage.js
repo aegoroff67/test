@@ -951,6 +951,8 @@ function ResultsPage() {
                         ? 'AI Awareness vs Sector Benchmark'
                         : assessmentType === 'Readiness'
                         ? 'AI Readiness vs Sector Benchmark'
+                        : assessmentType === 'Orgwide'
+                        ? 'Organisation-wide AI Maturity vs Sector Benchmark'
                         : 'AI System Domain Maturity vs Sector Benchmark'}
                     </span>
                     {/* Info tooltip for Awareness heatmap legend */}
