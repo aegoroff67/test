@@ -102,9 +102,9 @@ function ResultsPage() {
   }, [id]);
 
   useEffect(() => {
-    // Fetch benchmarks when switching to radar view for System, Awareness, or Readiness assessments
-    // Try to get industry from: 1) assessment.system_info/awareness_info/readiness_info, 2) user.industry, 3) selected industry
-    if (viewMode === 'radar' && (assessmentType === 'System' || assessmentType === 'Awareness' || assessmentType === 'Readiness') && !benchmarks) {
+    // Fetch benchmarks when switching to radar view for System, Awareness, Readiness, or Orgwide assessments
+    // Try to get industry from: 1) assessment.system_info/awareness_info/readiness_info/orgwide_info, 2) user.industry, 3) selected industry
+    if (viewMode === 'radar' && (assessmentType === 'System' || assessmentType === 'Awareness' || assessmentType === 'Readiness' || assessmentType === 'Orgwide') && !benchmarks) {
       let industry;
       
       // Get industry based on assessment type
@@ -114,11 +114,13 @@ function ResultsPage() {
         industry = assessment?.awareness_info?.industry || user?.industry || selectedIndustry;
       } else if (assessmentType === 'Readiness') {
         industry = assessment?.readiness_info?.industry || user?.industry || selectedIndustry;
+      } else if (assessmentType === 'Orgwide') {
+        industry = assessment?.orgwide_info?.industry || user?.industry || selectedIndustry;
       }
       
       console.log('Attempting to fetch benchmarks with industry:', industry);
       console.log('Assessment type:', assessmentType);
-      console.log('Assessment info:', assessment?.system_info || assessment?.awareness_info || assessment?.readiness_info);
+      console.log('Assessment info:', assessment?.system_info || assessment?.awareness_info || assessment?.readiness_info || assessment?.orgwide_info);
       console.log('User industry:', user?.industry);
       
       if (industry) {
@@ -132,8 +134,8 @@ function ResultsPage() {
   }, [viewMode, assessmentType, user, assessment, selectedIndustry]);
 
   useEffect(() => {
-    // Fetch sector average for Awareness, System, and Readiness assessments (needed for results summary)
-    if ((assessmentType === 'Awareness' || assessmentType === 'System' || assessmentType === 'Readiness') && assessment && sectorAverage === null) {
+    // Fetch sector average for Awareness, System, Readiness, and Orgwide assessments (needed for results summary)
+    if ((assessmentType === 'Awareness' || assessmentType === 'System' || assessmentType === 'Readiness' || assessmentType === 'Orgwide') && assessment && sectorAverage === null) {
       let industry;
       if (assessmentType === 'Awareness') {
         industry = assessment?.awareness_info?.industry || user?.industry;
@@ -141,6 +143,8 @@ function ResultsPage() {
         industry = assessment?.system_info?.industry || user?.industry;
       } else if (assessmentType === 'Readiness') {
         industry = assessment?.readiness_info?.industry || user?.industry;
+      } else if (assessmentType === 'Orgwide') {
+        industry = assessment?.orgwide_info?.industry || user?.industry;
       }
       
       if (industry) {
