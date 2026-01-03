@@ -84,15 +84,19 @@ const RiskStackedColumn = ({ score }) => {
   const arrowPosition = Math.round(Number(score) || 0);
 
   return (
-    <div className="flex items-center justify-center w-full" style={{ height: '120px', gap: '30px' }}>
-      {/* Stacked Column */}
-      <div className="relative flex flex-col" style={{ width: '75px', height: '100px' }}>
-        {tiers.map((tier, index) => (
-          <div
-            key={index}
-            className="relative border border-gray-800"
-            style={{
-              height: `${tier.percentage}%`,
+    <div className="flex flex-col items-center w-full">
+      {/* Title */}
+      <p className="text-sm font-bold text-gray-900 mb-2">Overall Risk Score</p>
+      
+      <div className="flex items-center justify-center w-full" style={{ height: '120px', gap: '30px' }}>
+        {/* Stacked Column */}
+        <div className="relative flex flex-col" style={{ width: '75px', height: '100px' }}>
+          {tiers.map((tier, index) => (
+            <div
+              key={index}
+              className="relative border border-gray-800"
+              style={{
+                height: `${tier.percentage}%`,
               backgroundColor: tier.color,
               display: 'flex',
               alignItems: 'center',
