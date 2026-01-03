@@ -1093,19 +1093,6 @@ function FairaResultsPage() {
                 </div>
               </div>
             )}
-
-            {/* How to read these results */}
-            <div className="mt-4 pt-4 border-t">
-              <h3 className="text-sm font-bold text-gray-900 mb-2">How to read these results</h3>
-              <div className="space-y-2 text-xs text-gray-700">
-                <p>
-                  Individual domain scores reflect <strong>localised residual risk within each risk area</strong>, while the overall risk score reflects the <strong>combined, system-level residual risk</strong> after considering cumulative impact, likelihood, and control effectiveness across all domains.
-                </p>
-                <p>
-                  As a result, multiple low or moderate domain risks can <strong>aggregate into a higher overall system risk</strong> where controls are insufficient to offset combined impact and likelihood. This approach ensures that <strong>systemic risk is not understated</strong> when assessing AI systems.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
