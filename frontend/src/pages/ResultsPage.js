@@ -635,7 +635,7 @@ function ResultsPage() {
                   ) : (
                     <div className="flex items-center justify-center space-x-1">
                       <Download className="h-3 w-3" />
-                      <span>Detailed Report</span>
+                      <span>Detailed Report (DOCX)</span>
                     </div>
                   )}
                 </Button>
