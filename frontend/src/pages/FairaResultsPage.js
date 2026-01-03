@@ -846,29 +846,30 @@ function FairaResultsPage() {
               <span>Assessment Information</span>
             </h2>
             
-            <div className="space-y-4 text-xs">
+            {/* 3-column grid for assessment info */}
+            <div className="grid grid-cols-3 gap-x-3 gap-y-2 text-xs">
               <div>
-                <p className="text-gray-600 mb-1">AI System Name</p>
-                <p className="font-medium text-gray-900">{fairaData.ai_system_name || 'Not specified'}</p>
+                <p className="text-gray-600 mb-0.5">AI System</p>
+                <p className="font-medium text-gray-900 truncate" title={fairaData.ai_system_name || 'Not specified'}>{fairaData.ai_system_name || 'Not specified'}</p>
               </div>
               
               <div>
-                <p className="text-gray-600 mb-1">System Version</p>
+                <p className="text-gray-600 mb-0.5">Version</p>
                 <p className="font-medium text-gray-900">{fairaData.ai_system_version || 'Not specified'}</p>
               </div>
               
               <div>
-                <p className="text-gray-600 mb-1">Business Unit</p>
-                <p className="font-medium text-gray-900">{fairaData.business_unit || 'Not specified'}</p>
+                <p className="text-gray-600 mb-0.5">Business Unit</p>
+                <p className="font-medium text-gray-900 truncate" title={fairaData.business_unit || 'Not specified'}>{fairaData.business_unit || 'Not specified'}</p>
               </div>
               
               <div>
-                <p className="text-gray-600 mb-1">Assessor</p>
-                <p className="font-medium text-gray-900">{fairaData.assessor_name || 'Not specified'}</p>
+                <p className="text-gray-600 mb-0.5">Assessor</p>
+                <p className="font-medium text-gray-900 truncate" title={fairaData.assessor_name || 'Not specified'}>{fairaData.assessor_name || 'Not specified'}</p>
               </div>
               
-              <div>
-                <p className="text-gray-600 mb-1">Completed Date</p>
+              <div className="col-span-2">
+                <p className="text-gray-600 mb-0.5">Completed Date</p>
                 <p className="font-medium text-gray-900">
                   {assessment.completed_at 
                     ? new Date(assessment.completed_at).toLocaleDateString('en-AU', { 
@@ -882,19 +883,19 @@ function FairaResultsPage() {
               </div>
             </div>
 
-            <div className="mt-6 pt-6 border-t">
-              <h3 className="text-sm font-bold text-gray-900 mb-3">Next Steps</h3>
-              <div className="space-y-2 text-xs">
+            <div className="mt-4 pt-4 border-t">
+              <h3 className="text-sm font-bold text-gray-900 mb-2">Next Steps</h3>
+              <div className="space-y-1.5 text-xs">
                 <div className="flex items-start space-x-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
                   <p className="text-gray-700">Review high-risk areas and develop mitigation plans</p>
                 </div>
                 <div className="flex items-start space-x-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
                   <p className="text-gray-700">Consult with stakeholders on priority risk controls</p>
                 </div>
                 <div className="flex items-start space-x-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
                   <p className="text-gray-700">Schedule follow-up assessment after implementing controls</p>
                 </div>
               </div>
@@ -902,16 +903,16 @@ function FairaResultsPage() {
 
             {/* Declaration Info */}
             {fairaData.declaration_confirmed && (
-              <div className="mt-6 pt-6 border-t">
-                <h3 className="text-sm font-bold text-gray-900 mb-3">Declaration</h3>
-                <div className="space-y-2 text-xs">
+              <div className="mt-4 pt-4 border-t">
+                <h3 className="text-sm font-bold text-gray-900 mb-2">Declaration</h3>
+                <div className="space-y-1.5 text-xs">
                   <div className="flex items-start space-x-2">
-                    <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
                     <p className="text-gray-700">
                       Assessment certified as accurate and complete
                     </p>
                   </div>
-                  <div className="pl-6 space-y-1 text-gray-600">
+                  <div className="pl-5 space-y-0.5 text-gray-600">
                     <p>By: {fairaData.declaration_name || fairaData.assessor_name}</p>
                     <p>Date: {fairaData.declaration_date || 'Not specified'}</p>
                   </div>
