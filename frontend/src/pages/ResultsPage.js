@@ -1001,20 +1001,20 @@ function ResultsPage() {
                           <p className="text-xs font-semibold text-gray-700 mb-2">Heatmap Legend:</p>
                           <div className="space-y-1.5">
                             <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FF0000' }}></div>
-                              <span className="text-xs font-normal text-gray-600">Early Awareness (1/4)</span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFC000' }}></div>
-                              <span className="text-xs font-normal text-gray-600">Exploring Opportunities (2/4)</span>
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#00B050' }}></div>
+                              <span className="text-xs font-normal text-gray-600">Ready to Progress (4/4)</span>
                             </div>
                             <div className="flex items-center space-x-2">
                               <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFFF00' }}></div>
                               <span className="text-xs font-normal text-gray-600">Building Readiness (3/4)</span>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#00B050' }}></div>
-                              <span className="text-xs font-normal text-gray-600">Ready to Progress (4/4)</span>
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFC000' }}></div>
+                              <span className="text-xs font-normal text-gray-600">Exploring Opportunities (2/4)</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FF0000' }}></div>
+                              <span className="text-xs font-normal text-gray-600">Early Awareness (1/4)</span>
                             </div>
                           </div>
                         </div>
@@ -1036,20 +1036,20 @@ function ResultsPage() {
                           <p className="text-xs font-semibold text-gray-700 mb-2">Heatmap Legend:</p>
                           <div className="space-y-1.5">
                             <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FF0000' }}></div>
-                              <span className="text-xs font-normal text-gray-600">Limited Foundations (1/4)</span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFC000' }}></div>
-                              <span className="text-xs font-normal text-gray-600">Emerging Capability (2/4)</span>
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#00B050' }}></div>
+                              <span className="text-xs font-normal text-gray-600">AI-Ready (4/4)</span>
                             </div>
                             <div className="flex items-center space-x-2">
                               <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFFF00' }}></div>
                               <span className="text-xs font-normal text-gray-600">Operational Readiness (3/4)</span>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#00B050' }}></div>
-                              <span className="text-xs font-normal text-gray-600">AI-Ready (4/4)</span>
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFC000' }}></div>
+                              <span className="text-xs font-normal text-gray-600">Emerging Capability (2/4)</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FF0000' }}></div>
+                              <span className="text-xs font-normal text-gray-600">Limited Foundations (1/4)</span>
                             </div>
                           </div>
                         </div>
