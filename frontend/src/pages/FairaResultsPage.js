@@ -618,7 +618,7 @@ function FairaResultsPage() {
                 </div>
                 <Button 
                   variant="outline"
-                  className="flex-1 text-[10px] px-1.5 py-1.5 h-auto"
+                  className="flex-1 text-[10px] px-1.5 py-1.5 h-auto bg-white"
                   onClick={() => window.open('https://vciso.one/contact', '_blank')}
                 >
                   <div className="flex items-center justify-center space-x-1">
