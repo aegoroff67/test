@@ -723,7 +723,7 @@ function ResultsPage() {
                 </div>
                 <Button 
                   variant="outline"
-                  className="flex-1 text-[10px] px-1.5 py-1.5 h-auto"
+                  className="flex-1 text-[10px] px-1.5 py-1.5 h-auto bg-white"
                   data-testid="request-consultation-btn"
                   onClick={() => window.open('https://vciso.one/contact', '_blank')}
                 >
