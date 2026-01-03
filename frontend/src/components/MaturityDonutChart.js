@@ -30,9 +30,9 @@ const MaturityStackedColumn = ({ score, assessmentType, sectorAverage, sectorNam
   // Calculate arrow position (percentage from bottom)
   const arrowPosition = score;
 
-  // Determine arrow color based on comparison with sector average (for Awareness, System, and Readiness)
+  // Determine arrow color based on comparison with sector average (for Awareness, System, Readiness, and Orgwide)
   const getUserArrowColor = () => {
-    if ((assessmentType === 'Awareness' || assessmentType === 'System' || assessmentType === 'Readiness') && sectorAverage !== null && sectorAverage !== undefined) {
+    if ((assessmentType === 'Awareness' || assessmentType === 'System' || assessmentType === 'Readiness' || assessmentType === 'Orgwide') && sectorAverage !== null && sectorAverage !== undefined) {
       if (score > sectorAverage) return '#00B050'; // Green
       if (score < sectorAverage) return '#FF0000'; // Red
     }
