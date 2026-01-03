@@ -279,32 +279,62 @@ function FairaResultsPage() {
     
     if (!riskSummary?.domain_scores) {
       return [
-        { name: 'Very Low', count: 0, color: tierColors['Very Low'] },
-        { name: 'Low', count: 0, color: tierColors['Low'] },
-        { name: 'Medium', count: 0, color: tierColors['Medium'] },
-        { name: 'High', count: 0, color: tierColors['High'] },
-        { name: 'Very High', count: 0, color: tierColors['Very High'] }
+        { name: 'Very Low', count: 0, color: tierColors['Very Low'], domains: [] },
+        { name: 'Low', count: 0, color: tierColors['Low'], domains: [] },
+        { name: 'Medium', count: 0, color: tierColors['Medium'], domains: [] },
+        { name: 'High', count: 0, color: tierColors['High'], domains: [] },
+        { name: 'Very High', count: 0, color: tierColors['Very High'], domains: [] }
       ];
     }
     
-    let veryLow = 0, low = 0, medium = 0, high = 0, veryHigh = 0;
-    const domains = Object.values(riskSummary.domain_scores);
+    const tierData = {
+      'Very Low': { count: 0, domains: [] },
+      'Low': { count: 0, domains: [] },
+      'Medium': { count: 0, domains: [] },
+      'High': { count: 0, domains: [] },
+      'Very High': { count: 0, domains: [] }
+    };
     
-    domains.forEach(d => {
-      const risk = d.Risk || 0;
-      if (risk >= 81) veryHigh++;
-      else if (risk >= 61) high++;
-      else if (risk >= 41) medium++;
-      else if (risk >= 21) low++;
-      else veryLow++;
+    // Domain name mapping for display
+    const domainDisplayNames = {
+      'Wellbeing': 'Human, Societal and Environmental Wellbeing',
+      'Values': 'Human-Centred Values',
+      'Fairness': 'Fairness',
+      'Privacy': 'Privacy Protection and Security',
+      'Reliability': 'Reliability and Safety',
+      'Transparency': 'Transparency and Explainability',
+      'Contestability': 'Contestability',
+      'Accountability': 'Accountability'
+    };
+    
+    Object.entries(riskSummary.domain_scores).forEach(([domainKey, scores]) => {
+      const risk = scores.Risk || 0;
+      const displayName = domainDisplayNames[domainKey] || domainKey;
+      
+      if (risk >= 81) {
+        tierData['Very High'].count++;
+        tierData['Very High'].domains.push(displayName);
+      } else if (risk >= 61) {
+        tierData['High'].count++;
+        tierData['High'].domains.push(displayName);
+      } else if (risk >= 41) {
+        tierData['Medium'].count++;
+        tierData['Medium'].domains.push(displayName);
+      } else if (risk >= 21) {
+        tierData['Low'].count++;
+        tierData['Low'].domains.push(displayName);
+      } else {
+        tierData['Very Low'].count++;
+        tierData['Very Low'].domains.push(displayName);
+      }
     });
     
     return [
-      { name: 'Very Low', count: veryLow, color: tierColors['Very Low'] },
-      { name: 'Low', count: low, color: tierColors['Low'] },
-      { name: 'Medium', count: medium, color: tierColors['Medium'] },
-      { name: 'High', count: high, color: tierColors['High'] },
-      { name: 'Very High', count: veryHigh, color: tierColors['Very High'] }
+      { name: 'Very Low', count: tierData['Very Low'].count, color: tierColors['Very Low'], domains: tierData['Very Low'].domains },
+      { name: 'Low', count: tierData['Low'].count, color: tierColors['Low'], domains: tierData['Low'].domains },
+      { name: 'Medium', count: tierData['Medium'].count, color: tierColors['Medium'], domains: tierData['Medium'].domains },
+      { name: 'High', count: tierData['High'].count, color: tierColors['High'], domains: tierData['High'].domains },
+      { name: 'Very High', count: tierData['Very High'].count, color: tierColors['Very High'], domains: tierData['Very High'].domains }
     ];
   }, [riskSummary]);
 
