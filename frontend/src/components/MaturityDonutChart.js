@@ -85,8 +85,8 @@ const MaturityStackedColumn = ({ score, assessmentType, sectorAverage, sectorNam
           />
         </div>
 
-        {/* Sector average arrow indicator (for Awareness, System, and Readiness with valid sector average) */}
-        {(assessmentType === 'Awareness' || assessmentType === 'System' || assessmentType === 'Readiness') && sectorAverage !== null && sectorAverage !== undefined && sectorAverage !== score && (
+        {/* Sector average arrow indicator (for Awareness, System, Readiness, and Orgwide with valid sector average) */}
+        {(assessmentType === 'Awareness' || assessmentType === 'System' || assessmentType === 'Readiness' || assessmentType === 'Orgwide') && sectorAverage !== null && sectorAverage !== undefined && sectorAverage !== score && (
           <div
             className="absolute left-0 flex items-center"
             style={{
