@@ -651,7 +651,7 @@ function FairaResultsPage() {
                 <BarChart3 className="h-4 w-4 text-orange-600" />
                 <span>Risk Distribution</span>
               </h2>
-              <p className="text-xs text-gray-600 mb-3">Based on {riskSummary.section_scores.length} assessed sections</p>
+              <p className="text-xs text-gray-600 mb-3">Based on 8 assessed domains</p>
               
               <ResponsiveContainer width="100%" height={200}>
                 <PieChart>
