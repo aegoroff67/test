@@ -837,16 +837,42 @@ function ResultsPage() {
               </div>
             )}
 
-            {/* Response Distribution - For Orgwide and System assessment types only */}
-            {(assessmentType === 'Orgwide' || assessmentType === 'System') && (
+            {/* How To Read These Results - For Orgwide assessments */}
+            {assessmentType === 'Orgwide' && (
+              <div className="mt-6">
+                <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                  <svg className="h-4 w-4 text-teal-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span>How To Read These Results</span>
+                </h2>
+                <ul className="space-y-2 text-xs text-gray-700">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-teal-600 mt-0.5">•</span>
+                    <span>Scores reflect the <strong>consistency</strong> and <strong>maturity</strong> of AI governance practices across the organisation, not certification, regulatory compliance, or system-level assurance.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-teal-600 mt-0.5">•</span>
+                    <span>Variation across domains indicates <strong>uneven adoption, integration, or enforcement of governance controls</strong>, which may introduce organisational risk if not addressed.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-teal-600 mt-0.5">•</span>
+                    <span>Priority Improvement Areas highlight governance domains that require <strong>formalisation, coordination, executive oversight, or clearer accountability</strong>.</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-teal-600 mt-0.5">•</span>
+                    <span>Progression to system-level assurance or regulatory alignment should occur only where organisational governance foundations are demonstrably mature and consistently applied.</span>
+                  </li>
+                </ul>
+              </div>
+            )}
+
+            {/* Response Distribution - For System assessment type only */}
+            {assessmentType === 'System' && (
               <div className="mt-6">
                 <h2 className="text-base font-bold text-gray-900 mb-1 flex items-center space-x-2">
                   <BarChart3 className="h-4 w-4 text-teal-600" />
-                  <span>Response Distribution {
-                    assessmentType === 'Orgwide' ? '(80 questions)'
-                    : assessmentType === 'System' ? '(88 questions)'
-                    : ''
-                  }</span>
+                  <span>Response Distribution (88 questions)</span>
                 </h2>
                 <div className="h-48">
                   <ResponsiveContainer width="100%" height="100%">
