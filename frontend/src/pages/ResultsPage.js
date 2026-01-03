@@ -102,9 +102,9 @@ function ResultsPage() {
   }, [id]);
 
   useEffect(() => {
-    // Fetch benchmarks when switching to radar view for System or Awareness assessments
-    // Try to get industry from: 1) assessment.system_info/awareness_info, 2) user.industry, 3) selected industry
-    if (viewMode === 'radar' && (assessmentType === 'System' || assessmentType === 'Awareness') && !benchmarks) {
+    // Fetch benchmarks when switching to radar view for System, Awareness, or Readiness assessments
+    // Try to get industry from: 1) assessment.system_info/awareness_info/readiness_info, 2) user.industry, 3) selected industry
+    if (viewMode === 'radar' && (assessmentType === 'System' || assessmentType === 'Awareness' || assessmentType === 'Readiness') && !benchmarks) {
       let industry;
       
       // Get industry based on assessment type
@@ -112,11 +112,13 @@ function ResultsPage() {
         industry = assessment?.system_info?.industry || user?.industry || selectedIndustry;
       } else if (assessmentType === 'Awareness') {
         industry = assessment?.awareness_info?.industry || user?.industry || selectedIndustry;
+      } else if (assessmentType === 'Readiness') {
+        industry = assessment?.readiness_info?.industry || user?.industry || selectedIndustry;
       }
       
       console.log('Attempting to fetch benchmarks with industry:', industry);
       console.log('Assessment type:', assessmentType);
-      console.log('Assessment info:', assessment?.system_info || assessment?.awareness_info);
+      console.log('Assessment info:', assessment?.system_info || assessment?.awareness_info || assessment?.readiness_info);
       console.log('User industry:', user?.industry);
       
       if (industry) {
