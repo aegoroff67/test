@@ -659,7 +659,7 @@ function ResultsPage() {
                   ) : (
                     <div className="flex items-center justify-center space-x-1">
                       <FileText className="h-3 w-3" />
-                      <span>Summary Report (PDF)</span>
+                      <span>Results Summary Report (PDF)</span>
                     </div>
                   )}
                 </Button>
