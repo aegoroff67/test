@@ -592,7 +592,18 @@ function ResultsPage() {
                   </>
                 ) : assessmentType === 'Readiness' ? (
                   <>
-                    The results indicate that <strong>{assessment?.readiness_info?.org_name || user?.organization_name}</strong> has achieved an overall AI readiness score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing the organization within the <strong>{summary.overall_maturity}</strong> readiness category. This rating reflects {
+                    The results indicate that <strong>{assessment?.readiness_info?.org_name || user?.organization_name}</strong> has achieved an overall AI readiness score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing the organization within the <strong>{summary.overall_maturity}</strong> readiness category{
+                      sectorAverage !== null && benchmarkSector ? (
+                        (() => {
+                          const userScore = summary.overall_percentage;
+                          const avgScore = sectorAverage;
+                          const comparison = userScore > avgScore ? 'above' : userScore < avgScore ? 'below' : 'equal to';
+                          return (
+                            <>, which is <strong>{comparison}</strong> the <strong>{benchmarkSector}</strong> sector AI readiness average of <strong>{avgScore}%</strong>.</>
+                          );
+                        })()
+                      ) : '.'
+                    } This rating reflects {
                       summary.overall_maturity === 'Leading'
                         ? 'comprehensive AI readiness across all foundational domains. The organization demonstrates strong governance, robust data practices, mature technology infrastructure, capable workforce, and embedded ethical frameworks. Leadership actively champions responsible AI, and the organization is well-prepared to deploy AI systems confidently and safely.'
                         : summary.overall_maturity === 'Established'
