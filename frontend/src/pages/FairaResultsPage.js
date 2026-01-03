@@ -459,33 +459,35 @@ function FairaResultsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="px-6 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Logo />
+      <header className="bg-white shadow-sm border-b flex-shrink-0">
+        <div className="max-w-full px-6">
+          <div className="flex justify-between items-center h-14">
+            {/* Logo & Title */}
+            <div className="flex items-center space-x-3">
+              <Logo className="h-10 w-10" />
               <div>
-                <div className="flex items-center space-x-2">
-                  <h1 className="text-lg font-bold text-gray-900">FAIRA Risk Assessment Results</h1>
-                  <Badge className={`${badgeInfo.color} flex items-center space-x-1`}>
-                    <BadgeIcon className="h-3 w-3" />
-                    <span>{riskSummary.overall_risk_level} Risk</span>
-                  </Badge>
-                </div>
-                <p className="text-xs text-gray-600">{assessment.name}</p>
+                <h1 className="text-base font-bold text-gray-900">AM AI SAFE</h1>
+                <p className="text-xs text-orange-600">FAIRA Risk Assessment Results</p>
               </div>
             </div>
-            <Button
-              variant="outline"
+
+            {/* Center - Assessment Name */}
+            <div className="flex flex-col items-center">
+              <p className="text-sm font-bold text-gray-900">{assessment?.name || 'Loading...'}</p>
+            </div>
+
+            {/* Back Button */}
+            <Button 
+              variant="outline" 
+              size="sm"
               onClick={() => navigate('/dashboard')}
-              className="flex items-center space-x-2"
             >
-              <ArrowLeft className="h-4 w-4" />
-              <span>Dashboard</span>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Dashboard
             </Button>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Results Summary Bar */}
       <div className="bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200">
