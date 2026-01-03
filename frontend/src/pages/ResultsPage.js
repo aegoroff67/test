@@ -1126,8 +1126,8 @@ function ResultsPage() {
                   )}
                 </div>
                 
-                {/* Radio buttons - show for System, Awareness, and Readiness assessments */}
-                {(assessmentType === 'System' || assessmentType === 'Awareness' || assessmentType === 'Readiness') && (
+                {/* Radio buttons - show for System, Awareness, Readiness, and Orgwide assessments */}
+                {(assessmentType === 'System' || assessmentType === 'Awareness' || assessmentType === 'Readiness' || assessmentType === 'Orgwide') && (
                   <div className="flex items-center space-x-4 mt-0.5">
                     <label className="flex items-center cursor-pointer">
                       <input
