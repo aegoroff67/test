@@ -386,12 +386,12 @@ function FairaResultsPage() {
               </p>
             </div>
             
-            {/* Last 15% - Action Buttons */}
-            <div className="flex flex-col" style={{ width: '15%', gap: '3px' }}>
-              {/* Button 1 - Detailed Report */}
+            {/* Last 20% - Action Buttons */}
+            <div className="flex flex-col" style={{ width: '20%', gap: '3px' }}>
+              {/* Button 1 - Detailed Report with Reports label */}
               <div className="flex items-center gap-2">
                 <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
-                  Exports:
+                  Reports:
                 </div>
                 <Button 
                   onClick={handleGenerateReport}
@@ -405,13 +405,13 @@ function FairaResultsPage() {
                   ) : (
                     <div className="flex items-center justify-center space-x-1">
                       <Download className="h-3 w-3" />
-                      <span>Detailed Report</span>
+                      <span>Detailed Report (DOCX)</span>
                     </div>
                   )}
                 </Button>
               </div>
 
-              {/* Button 2 - Executive Summary */}
+              {/* Button 2 - Results Summary Report */}
               <div className="flex items-center gap-2">
                 <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap invisible" style={{ width: '55px' }}>
                   Spacer:
@@ -428,29 +428,50 @@ function FairaResultsPage() {
                   ) : (
                     <div className="flex items-center justify-center space-x-1">
                       <FileText className="h-3 w-3" />
-                      <span>Executive Summary</span>
+                      <span>Results Summary Report (PDF)</span>
                     </div>
                   )}
                 </Button>
               </div>
 
-              {/* Button 3 - Framework Insights */}
+              {/* Button 3 - Framework Coverage & Evidence Register with Insights label */}
               <div className="flex items-center gap-2">
                 <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
                   Insights:
                 </div>
-                <Button 
-                  onClick={() => toast.info('Framework insights coming soon')}
-                  className="flex-1 bg-green-600 hover:bg-green-700 text-[10px] px-1.5 py-1.5 h-auto"
-                >
-                  <div className="flex items-center justify-center space-x-1">
-                    <Grid3X3 className="h-3 w-3" />
-                    <span>Risk Matrix</span>
+                <div className="flex-1 flex gap-1">
+                  <div 
+                    className="flex-1"
+                    title="Available for AI System Maturity Assessments only."
+                  >
+                    <Button 
+                      className="w-full text-[10px] px-1 py-1.5 h-auto bg-gray-400 cursor-not-allowed opacity-60"
+                      disabled={true}
+                    >
+                      <div className="flex items-center justify-center space-x-0.5">
+                        <Grid3X3 className="h-3 w-3" />
+                        <span>Framework Coverage</span>
+                      </div>
+                    </Button>
                   </div>
-                </Button>
+                  <div 
+                    className="flex-1"
+                    title="Available for AI System Maturity Assessments only."
+                  >
+                    <Button 
+                      className="w-full text-[10px] px-1 py-1.5 h-auto bg-gray-400 cursor-not-allowed opacity-60"
+                      disabled={true}
+                    >
+                      <div className="flex items-center justify-center space-x-0.5">
+                        <FileText className="h-3 w-3" />
+                        <span>Evidence Register</span>
+                      </div>
+                    </Button>
+                  </div>
+                </div>
               </div>
 
-              {/* Button 4 - Request Consultation */}
+              {/* Button 4 - Request Consultation with Actions label */}
               <div className="flex items-center gap-2">
                 <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
                   Actions:
