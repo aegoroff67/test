@@ -2812,7 +2812,7 @@ async def get_benchmarks_by_sector(sector: str, assessment_type: str = "System")
     
     Args:
         sector: Sector name (e.g., "Finance / Insurance")
-        assessment_type: Type of assessment ("System" or "Awareness")
+        assessment_type: Type of assessment ("System", "Awareness", or "Readiness")
     
     Note: Using {sector:path} to handle sectors with forward slashes like "Finance / Insurance"
     """
@@ -2844,6 +2844,33 @@ async def get_benchmarks_by_sector(sector: str, assessment_type: str = "System")
             else:
                 # If it's already a number, use it as is
                 benchmarks[domain] = float(range_str)
+        
+        # Get sector average
+        sector_average = benchmarks_data["sector_averages"].get(sector, benchmarks_data["sector_averages"].get("Other", 0))
+        
+        return {
+            "sector": sector,
+            "benchmarks": benchmarks,
+            "sector_average": sector_average
+        }
+    
+    # Handle Readiness assessment benchmarks
+    if assessment_type == "Readiness":
+        benchmark_path = os.path.join(os.path.dirname(__file__), "readiness_benchmarks.json")
+        with open(benchmark_path, 'r') as f:
+            benchmarks_data = json.load(f)
+        
+        # Get benchmarks for the sector (direct numeric values)
+        sector_benchmarks = benchmarks_data["benchmarks"].get(sector, benchmarks_data["benchmarks"].get("Other", {}))
+        
+        if not sector_benchmarks:
+            raise HTTPException(
+                status_code=404, 
+                detail=f"No Readiness benchmark data found for sector: {sector}"
+            )
+        
+        # Values are already numeric, no conversion needed
+        benchmarks = {domain: float(score) for domain, score in sector_benchmarks.items()}
         
         # Get sector average
         sector_average = benchmarks_data["sector_averages"].get(sector, benchmarks_data["sector_averages"].get("Other", 0))
