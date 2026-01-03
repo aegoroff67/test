@@ -267,32 +267,43 @@ function FairaResultsPage() {
 
   // Calculate response distribution from risk summary
   const responseDistribution = React.useMemo(() => {
+    // Define risk tier colors matching the stacked bar
+    const tierColors = {
+      'Very Low': '#00B050',
+      'Low': '#FFFF00', 
+      'Medium': '#FFC000',
+      'High': '#FF0000',
+      'Very High': '#7B0000'
+    };
+    
     if (!riskSummary?.domain_scores) {
       return [
-        { name: 'Low Risk', value: 25, color: '#00B050' },
-        { name: 'Medium Risk', value: 25, color: '#FFFF00' },
-        { name: 'High Risk', value: 25, color: '#FFC000' },
-        { name: 'Critical Risk', value: 25, color: '#FF0000' }
+        { name: 'Very Low', count: 0, color: tierColors['Very Low'] },
+        { name: 'Low', count: 0, color: tierColors['Low'] },
+        { name: 'Medium', count: 0, color: tierColors['Medium'] },
+        { name: 'High', count: 0, color: tierColors['High'] },
+        { name: 'Very High', count: 0, color: tierColors['Very High'] }
       ];
     }
     
-    let low = 0, medium = 0, high = 0, critical = 0;
+    let veryLow = 0, low = 0, medium = 0, high = 0, veryHigh = 0;
     const domains = Object.values(riskSummary.domain_scores);
     
     domains.forEach(d => {
       const risk = d.Risk || 0;
-      if (risk >= 75) critical++;
-      else if (risk >= 50) high++;
-      else if (risk >= 25) medium++;
-      else low++;
+      if (risk >= 81) veryHigh++;
+      else if (risk >= 61) high++;
+      else if (risk >= 41) medium++;
+      else if (risk >= 21) low++;
+      else veryLow++;
     });
     
-    const total = domains.length || 1;
     return [
-      { name: 'Low Risk', value: Math.round((low / total) * 100), color: '#00B050' },
-      { name: 'Medium Risk', value: Math.round((medium / total) * 100), color: '#FFFF00' },
-      { name: 'High Risk', value: Math.round((high / total) * 100), color: '#FFC000' },
-      { name: 'Critical Risk', value: Math.round((critical / total) * 100), color: '#FF0000' }
+      { name: 'Very Low', count: veryLow, color: tierColors['Very Low'] },
+      { name: 'Low', count: low, color: tierColors['Low'] },
+      { name: 'Medium', count: medium, color: tierColors['Medium'] },
+      { name: 'High', count: high, color: tierColors['High'] },
+      { name: 'Very High', count: veryHigh, color: tierColors['Very High'] }
     ];
   }, [riskSummary]);
 
