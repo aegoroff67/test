@@ -502,7 +502,9 @@ function ResultsPage() {
       </header>
 
       {/* Summary Section - Wrapper for PDF generation */}
-      <div className="results-summary-content bg-white border-b flex-shrink-0">
+      <div className={`results-summary-content border-b flex-shrink-0 ${
+        assessmentType === 'System' ? 'bg-gradient-to-r from-teal-50 to-teal-100/50' : 'bg-white'
+      }`}>
         <div className="max-w-full px-6 py-4">
           <div className="flex items-start">
             {/* First 15% - Maturity Stacked Column */}
