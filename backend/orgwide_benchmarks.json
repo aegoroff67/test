@@ -1,0 +1,149 @@
+{
+  "sector_averages": {
+    "Local Government / Public Sector": 39,
+    "Education": 31,
+    "Healthcare": 40,
+    "Finance / Insurance": 47,
+    "Technology / Software": 42,
+    "Utilities / Critical Infrastructure": 44,
+    "Manufacturing": 36,
+    "Retail / Hospitality": 29,
+    "Consulting / Professional Services": 38,
+    "Not-for-profit / Charity": 24,
+    "Other": 31
+  },
+  "benchmarks": {
+    "Local Government / Public Sector": {
+      "Accountability & Ethics": 42,
+      "Data Stewardship & Security": 48,
+      "Risk Management": 38,
+      "Continuous Improvement & Assurance": 30,
+      "Culture & Capability": 28,
+      "Fairness & Inclusivity": 34,
+      "Governance & Oversight": 44,
+      "Reliability & Safety": 32,
+      "Privacy & Legal Compliance": 46,
+      "Transparency & Explainability": 45
+    },
+    "Education": {
+      "Accountability & Ethics": 32,
+      "Data Stewardship & Security": 38,
+      "Risk Management": 28,
+      "Continuous Improvement & Assurance": 22,
+      "Culture & Capability": 30,
+      "Fairness & Inclusivity": 29,
+      "Governance & Oversight": 30,
+      "Reliability & Safety": 26,
+      "Privacy & Legal Compliance": 40,
+      "Transparency & Explainability": 33
+    },
+    "Healthcare": {
+      "Accountability & Ethics": 40,
+      "Data Stewardship & Security": 55,
+      "Risk Management": 42,
+      "Continuous Improvement & Assurance": 33,
+      "Culture & Capability": 32,
+      "Fairness & Inclusivity": 31,
+      "Governance & Oversight": 38,
+      "Reliability & Safety": 40,
+      "Privacy & Legal Compliance": 58,
+      "Transparency & Explainability": 30
+    },
+    "Finance / Insurance": {
+      "Accountability & Ethics": 45,
+      "Data Stewardship & Security": 62,
+      "Risk Management": 55,
+      "Continuous Improvement & Assurance": 40,
+      "Culture & Capability": 38,
+      "Fairness & Inclusivity": 33,
+      "Governance & Oversight": 52,
+      "Reliability & Safety": 44,
+      "Privacy & Legal Compliance": 63,
+      "Transparency & Explainability": 34
+    },
+    "Technology / Software": {
+      "Accountability & Ethics": 38,
+      "Data Stewardship & Security": 50,
+      "Risk Management": 40,
+      "Continuous Improvement & Assurance": 38,
+      "Culture & Capability": 52,
+      "Fairness & Inclusivity": 34,
+      "Governance & Oversight": 40,
+      "Reliability & Safety": 46,
+      "Privacy & Legal Compliance": 44,
+      "Transparency & Explainability": 42
+    },
+    "Utilities / Critical Infrastructure": {
+      "Accountability & Ethics": 42,
+      "Data Stewardship & Security": 58,
+      "Risk Management": 52,
+      "Continuous Improvement & Assurance": 42,
+      "Culture & Capability": 34,
+      "Fairness & Inclusivity": 28,
+      "Governance & Oversight": 48,
+      "Reliability & Safety": 52,
+      "Privacy & Legal Compliance": 55,
+      "Transparency & Explainability": 30
+    },
+    "Manufacturing": {
+      "Accountability & Ethics": 34,
+      "Data Stewardship & Security": 46,
+      "Risk Management": 38,
+      "Continuous Improvement & Assurance": 40,
+      "Culture & Capability": 30,
+      "Fairness & Inclusivity": 24,
+      "Governance & Oversight": 36,
+      "Reliability & Safety": 46,
+      "Privacy & Legal Compliance": 42,
+      "Transparency & Explainability": 22
+    },
+    "Retail / Hospitality": {
+      "Accountability & Ethics": 28,
+      "Data Stewardship & Security": 32,
+      "Risk Management": 26,
+      "Continuous Improvement & Assurance": 22,
+      "Culture & Capability": 36,
+      "Fairness & Inclusivity": 25,
+      "Governance & Oversight": 24,
+      "Reliability & Safety": 28,
+      "Privacy & Legal Compliance": 34,
+      "Transparency & Explainability": 30
+    },
+    "Consulting / Professional Services": {
+      "Accountability & Ethics": 40,
+      "Data Stewardship & Security": 45,
+      "Risk Management": 38,
+      "Continuous Improvement & Assurance": 34,
+      "Culture & Capability": 46,
+      "Fairness & Inclusivity": 30,
+      "Governance & Oversight": 36,
+      "Reliability & Safety": 32,
+      "Privacy & Legal Compliance": 42,
+      "Transparency & Explainability": 38
+    },
+    "Not-for-profit / Charity": {
+      "Accountability & Ethics": 24,
+      "Data Stewardship & Security": 28,
+      "Risk Management": 20,
+      "Continuous Improvement & Assurance": 18,
+      "Culture & Capability": 26,
+      "Fairness & Inclusivity": 24,
+      "Governance & Oversight": 22,
+      "Reliability & Safety": 20,
+      "Privacy & Legal Compliance": 30,
+      "Transparency & Explainability": 24
+    },
+    "Other": {
+      "Accountability & Ethics": 30,
+      "Data Stewardship & Security": 36,
+      "Risk Management": 28,
+      "Continuous Improvement & Assurance": 24,
+      "Culture & Capability": 34,
+      "Fairness & Inclusivity": 26,
+      "Governance & Oversight": 29,
+      "Reliability & Safety": 30,
+      "Privacy & Legal Compliance": 38,
+      "Transparency & Explainability": 32
+    }
+  }
+}
