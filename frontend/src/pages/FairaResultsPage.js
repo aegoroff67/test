@@ -364,17 +364,20 @@ function FairaResultsPage() {
       <div className="bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200">
         <div className="px-6 py-4">
           <div className="flex items-stretch gap-6">
-            {/* First 35% - Scores Display */}
-            <div className="flex flex-col justify-center" style={{ width: '35%' }}>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-gray-900">{riskSummary.overall_risk_score}%</p>
-                  <p className="text-xs text-gray-600">Overall Risk Score</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-gray-900">{riskSummary.section_scores.length}</p>
-                  <p className="text-xs text-gray-600">Domains Analysed</p>
-                </div>
+            {/* First 15% - Risk Stacked Column */}
+            <div className="flex flex-col items-center justify-center" style={{ width: '15%' }}>
+              <RiskStackedColumn score={riskSummary.overall_risk_score} />
+            </div>
+
+            {/* Second 15% - Risk Level Descriptions */}
+            <div className="px-4" style={{ width: '15%' }}>
+              <p className="text-sm font-bold text-gray-900 mb-2 mt-0">Risk Level Description</p>
+              <div className="text-gray-700 space-y-1" style={{ fontSize: '11px' }}>
+                <p><span className="font-bold">Very High (81-100%):</span> Critical Risk</p>
+                <p><span className="font-bold">High (61-80%):</span> Significant Risk</p>
+                <p><span className="font-bold">Medium (41-60%):</span> Moderate Risk</p>
+                <p><span className="font-bold">Low (21-40%):</span> Minor Risk</p>
+                <p><span className="font-bold">Very Low (0-20%):</span> Minimal Risk</p>
               </div>
             </div>
 
