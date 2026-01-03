@@ -8,7 +8,7 @@ import subprocess
 import os
 
 class CriticalReportTester:
-    def __init__(self, base_url="https://evidence-manager.preview.emergentagent.com"):
+    def __init__(self, base_url="https://results-ui-revamp.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.token = None
