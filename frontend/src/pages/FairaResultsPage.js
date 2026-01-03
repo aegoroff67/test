@@ -329,6 +329,7 @@ function FairaResultsPage() {
               overall_risk_level: summary.overall_risk_level || 'Medium',
               overall_risk_score: summary.overall_risk_score || 0,
               risk_category: getRiskCategory(summary.overall_risk_level),
+              domain_scores: summary.domain_scores || {},
               section_scores: Object.entries(summary.domain_scores || {}).map(([name, scores]) => ({
                 section_id: name,
                 section_name: fairadomains.find(d => d.shortLabel === name)?.fullName || name,
