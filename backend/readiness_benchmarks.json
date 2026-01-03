@@ -1,0 +1,127 @@
+{
+  "sector_averages": {
+    "Local Government / Public Sector": 56,
+    "Education": 56,
+    "Healthcare": 58,
+    "Finance / Insurance": 65,
+    "Technology / Software": 73,
+    "Utilities / Critical Infrastructure": 59,
+    "Manufacturing": 59,
+    "Retail / Hospitality": 55,
+    "Consulting / Professional Services": 62,
+    "Not-for-profit / Charity": 50,
+    "Other": 58
+  },
+  "benchmarks": {
+    "Local Government / Public Sector": {
+      "Strategic Alignment & Awareness": 58,
+      "Data Readiness": 55,
+      "Policy & Compliance Readiness": 62,
+      "Technology & Infrastructure": 54,
+      "Continuous Learning & Improvement": 50,
+      "Risk & Ethics Awareness": 58,
+      "Governance Foundations": 60,
+      "People & Culture": 52
+    },
+    "Education": {
+      "Strategic Alignment & Awareness": 56,
+      "Data Readiness": 50,
+      "Policy & Compliance Readiness": 62,
+      "Technology & Infrastructure": 52,
+      "Continuous Learning & Improvement": 56,
+      "Risk & Ethics Awareness": 58,
+      "Governance Foundations": 60,
+      "People & Culture": 54
+    },
+    "Healthcare": {
+      "Strategic Alignment & Awareness": 60,
+      "Data Readiness": 62,
+      "Policy & Compliance Readiness": 58,
+      "Technology & Infrastructure": 58,
+      "Continuous Learning & Improvement": 54,
+      "Risk & Ethics Awareness": 58,
+      "Governance Foundations": 60,
+      "People & Culture": 56
+    },
+    "Finance / Insurance": {
+      "Strategic Alignment & Awareness": 70,
+      "Data Readiness": 78,
+      "Policy & Compliance Readiness": 58,
+      "Technology & Infrastructure": 72,
+      "Continuous Learning & Improvement": 66,
+      "Risk & Ethics Awareness": 54,
+      "Governance Foundations": 57,
+      "People & Culture": 62
+    },
+    "Technology / Software": {
+      "Strategic Alignment & Awareness": 78,
+      "Data Readiness": 75,
+      "Policy & Compliance Readiness": 70,
+      "Technology & Infrastructure": 82,
+      "Continuous Learning & Improvement": 74,
+      "Risk & Ethics Awareness": 66,
+      "Governance Foundations": 69,
+      "People & Culture": 72
+    },
+    "Utilities / Critical Infrastructure": {
+      "Strategic Alignment & Awareness": 62,
+      "Data Readiness": 60,
+      "Policy & Compliance Readiness": 56,
+      "Technology & Infrastructure": 68,
+      "Continuous Learning & Improvement": 58,
+      "Risk & Ethics Awareness": 52,
+      "Governance Foundations": 56,
+      "People & Culture": 58
+    },
+    "Manufacturing": {
+      "Strategic Alignment & Awareness": 60,
+      "Data Readiness": 55,
+      "Policy & Compliance Readiness": 63,
+      "Technology & Infrastructure": 62,
+      "Continuous Learning & Improvement": 54,
+      "Risk & Ethics Awareness": 60,
+      "Governance Foundations": 63,
+      "People & Culture": 55
+    },
+    "Retail / Hospitality": {
+      "Strategic Alignment & Awareness": 58,
+      "Data Readiness": 52,
+      "Policy & Compliance Readiness": 56,
+      "Technology & Infrastructure": 58,
+      "Continuous Learning & Improvement": 52,
+      "Risk & Ethics Awareness": 52,
+      "Governance Foundations": 56,
+      "People & Culture": 54
+    },
+    "Consulting / Professional Services": {
+      "Strategic Alignment & Awareness": 66,
+      "Data Readiness": 62,
+      "Policy & Compliance Readiness": 57,
+      "Technology & Infrastructure": 68,
+      "Continuous Learning & Improvement": 66,
+      "Risk & Ethics Awareness": 54,
+      "Governance Foundations": 57,
+      "People & Culture": 65
+    },
+    "Not-for-profit / Charity": {
+      "Strategic Alignment & Awareness": 52,
+      "Data Readiness": 45,
+      "Policy & Compliance Readiness": 48,
+      "Technology & Infrastructure": 48,
+      "Continuous Learning & Improvement": 48,
+      "Risk & Ethics Awareness": 51,
+      "Governance Foundations": 54,
+      "People & Culture": 50
+    },
+    "Other": {
+      "Strategic Alignment & Awareness": 60,
+      "Data Readiness": 58,
+      "Policy & Compliance Readiness": 58,
+      "Technology & Infrastructure": 60,
+      "Continuous Learning & Improvement": 56,
+      "Risk & Ethics Awareness": 55,
+      "Governance Foundations": 58,
+      "People & Culture": 58
+    }
+  }
+}
