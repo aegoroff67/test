@@ -665,28 +665,32 @@ function FairaResultsPage() {
               <p className="text-xs text-gray-600 mb-3">Based on 8 assessed domains</p>
               
               <ResponsiveContainer width="100%" height={200}>
-                <PieChart>
-                  <Pie
-                    data={responseDistribution}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={40}
-                    outerRadius={80}
-                    paddingAngle={2}
-                    dataKey="value"
+                <BarChart data={responseDistribution} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis 
+                    dataKey="name" 
+                    tick={{ fontSize: 10 }}
+                    interval={0}
+                  />
+                  <YAxis 
+                    domain={[0, 8]}
+                    ticks={[1, 2, 3, 4, 5, 6, 7, 8]}
+                    tick={{ fontSize: 10 }}
+                    allowDecimals={false}
+                  />
+                  <Tooltip 
+                    formatter={(value) => [`${value} domain${value !== 1 ? 's' : ''}`, 'Count']}
+                    contentStyle={{ fontSize: '12px' }}
+                  />
+                  <Bar 
+                    dataKey="count" 
+                    radius={[4, 4, 0, 0]}
                   >
                     {responseDistribution.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
-                  </Pie>
-                  <Legend 
-                    verticalAlign="bottom" 
-                    height={36}
-                    formatter={(value, entry) => (
-                      <span className="text-xs">{value}: {entry.payload.value}</span>
-                    )}
-                  />
-                </PieChart>
+                  </Bar>
+                </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
