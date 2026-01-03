@@ -131,7 +131,7 @@ const RiskStackedColumn = ({ score }) => {
       {/* Score Display */}
       <div className="flex flex-col items-center">
         <div className="text-2xl font-bold text-gray-900">
-          {Math.round(score)}%
+          {Math.round(score)}
         </div>
         <div className="text-[15px] font-semibold text-gray-700 leading-tight text-center">
           {currentTier} Risk
