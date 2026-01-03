@@ -116,8 +116,8 @@ const MaturityStackedColumn = ({ score, assessmentType, sectorAverage, sectorNam
         <div className="text-[15px] font-semibold text-gray-700 leading-tight text-center">
           {currentTier} {assessmentType === 'Awareness' ? 'AI Awareness' : assessmentType === 'Readiness' ? 'AI Readiness' : 'AI Maturity'}
         </div>
-        {/* Sector average (for System and Readiness assessments) */}
-        {(assessmentType === 'System' || assessmentType === 'Readiness') && sectorAverage !== null && sectorAverage !== undefined && sectorName && (
+        {/* Sector average (for System, Readiness, and Orgwide assessments) */}
+        {(assessmentType === 'System' || assessmentType === 'Readiness' || assessmentType === 'Orgwide') && sectorAverage !== null && sectorAverage !== undefined && sectorName && (
           <div className="text-[11px] text-gray-600 leading-tight text-center mt-1">
             (<strong>{sectorName}</strong> sector average: <strong>{sectorAverage}%</strong>)
           </div>
