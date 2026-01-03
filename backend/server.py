@@ -2881,6 +2881,33 @@ async def get_benchmarks_by_sector(sector: str, assessment_type: str = "System")
             "sector_average": sector_average
         }
     
+    # Handle Orgwide assessment benchmarks
+    if assessment_type == "Orgwide":
+        benchmark_path = os.path.join(os.path.dirname(__file__), "orgwide_benchmarks.json")
+        with open(benchmark_path, 'r') as f:
+            benchmarks_data = json.load(f)
+        
+        # Get benchmarks for the sector (direct numeric values)
+        sector_benchmarks = benchmarks_data["benchmarks"].get(sector, benchmarks_data["benchmarks"].get("Other", {}))
+        
+        if not sector_benchmarks:
+            raise HTTPException(
+                status_code=404, 
+                detail=f"No Organisation-wide benchmark data found for sector: {sector}"
+            )
+        
+        # Values are already numeric, no conversion needed
+        benchmarks = {domain: float(score) for domain, score in sector_benchmarks.items()}
+        
+        # Get sector average
+        sector_average = benchmarks_data["sector_averages"].get(sector, benchmarks_data["sector_averages"].get("Other", 0))
+        
+        return {
+            "sector": sector,
+            "benchmarks": benchmarks,
+            "sector_average": sector_average
+        }
+    
     # Handle System assessment benchmarks (default)
     benchmarks = await get_sector_benchmarks(db, sector)
     
