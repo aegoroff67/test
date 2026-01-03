@@ -472,6 +472,7 @@ function ResultsPage() {
                 <p className={`text-xs ${
                   assessmentType === 'Awareness' ? 'text-green-600' 
                   : assessmentType === 'Readiness' ? 'text-blue-600'
+                  : assessmentType === 'Orgwide' ? 'text-purple-600'
                   : 'text-teal-600'
                 }`}>
                   {assessmentType === 'Awareness' ? 'AI Awareness & Foundations' 
