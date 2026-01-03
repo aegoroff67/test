@@ -160,6 +160,7 @@ function FairaResultsPage() {
     overall_risk_level: 'Medium',
     overall_risk_score: 0,
     risk_category: 'Calculating...',
+    domain_scores: {},
     section_scores: [],
     top_risk_areas: []
   });
