@@ -470,11 +470,11 @@ function FairaResultsPage() {
             <div className="px-4" style={{ width: '15%' }}>
               <p className="text-sm font-bold text-gray-900 mb-2 mt-0">Risk Level Description</p>
               <div className="text-gray-700 space-y-1" style={{ fontSize: '11px' }}>
-                <p><span className="font-bold">Very High (81-100%):</span> Critical Risk</p>
-                <p><span className="font-bold">High (61-80%):</span> Significant Risk</p>
-                <p><span className="font-bold">Medium (41-60%):</span> Moderate Risk</p>
-                <p><span className="font-bold">Low (21-40%):</span> Minor Risk</p>
-                <p><span className="font-bold">Very Low (0-20%):</span> Minimal Risk</p>
+                <p><span className="font-bold">Very High (81-100):</span> Critical Risk</p>
+                <p><span className="font-bold">High (61-80):</span> Significant Risk</p>
+                <p><span className="font-bold">Medium (41-60):</span> Moderate Risk</p>
+                <p><span className="font-bold">Low (21-40):</span> Minor Risk</p>
+                <p><span className="font-bold">Very Low (0-20):</span> Minimal Risk</p>
               </div>
             </div>
 
