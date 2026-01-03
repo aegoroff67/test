@@ -1023,6 +1023,41 @@ function ResultsPage() {
                         </div>
                       </div>
                     )}
+                    {/* Info tooltip for System heatmap legend */}
+                    {viewMode === 'heatmap' && assessmentType === 'System' && (
+                      <div className="relative inline-block ml-2 group">
+                        <button
+                          type="button"
+                          aria-label="Heatmap legend"
+                          className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-blue-600 text-white opacity-80 hover:opacity-100 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                        >
+                          <svg viewBox="0 0 24 24" aria-hidden="true" className="h-3.5 w-3.5">
+                            <path fill="currentColor" d="M11 10h2v8h-2v-8zm0-4h2v2h-2V6z" />
+                          </svg>
+                        </button>
+                        <div className="absolute left-0 top-6 z-50 hidden group-hover:block w-64 bg-white border border-gray-200 rounded-lg shadow-lg p-3">
+                          <p className="text-xs font-semibold text-gray-700 mb-2">Heatmap Legend:</p>
+                          <div className="space-y-1.5">
+                            <div className="flex items-center space-x-2">
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#00B050' }}></div>
+                              <span className="text-xs font-normal text-gray-600">Optimised Excellence (4/4)</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFFF00' }}></div>
+                              <span className="text-xs font-normal text-gray-600">Integrated Governance (3/4)</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FFC000' }}></div>
+                              <span className="text-xs font-normal text-gray-600">Emerging Structure (2/4)</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <div className="w-4 h-4 rounded" style={{ backgroundColor: '#FF0000' }}></div>
+                              <span className="text-xs font-normal text-gray-600">Ad-hoc Beginnings (1/4)</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     {/* Info tooltip for Sector Benchmark */}
                     {viewMode === 'radar' && (
                       <div className="relative inline-block ml-2 group">
