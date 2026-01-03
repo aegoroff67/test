@@ -177,7 +177,7 @@ function EvidenceRegisterPage() {
         axios.get(`${API}/assessments/${id}/questions`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
-        axios.get(`${API}/evidence`, {
+        axios.get(`${API}/evidence?assessment_id=${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
         axios.get(`${API}/questions/summaries`, {
@@ -192,35 +192,19 @@ function EvidenceRegisterPage() {
       // Questions are nested inside domains: [{domain: {...}, questions: [...]}]
       const domainsWithQuestions = questionsRes.data || [];
       const idToCodeMap = {};
-      const assessmentQuestionIds = new Set(); // Track all question IDs/codes for this assessment
       
       domainsWithQuestions.forEach(domainObj => {
         const questions = domainObj.questions || [];
         questions.forEach(q => {
           if (q.id && q.code) {
             idToCodeMap[q.id] = q.code;
-            assessmentQuestionIds.add(q.id);
-            assessmentQuestionIds.add(q.code);
           }
         });
       });
       setQuestionIdToCode(idToCodeMap);
       
-      // Filter evidence to only show items linked to THIS assessment
-      // Primary filter: assessment_id matches
-      // Fallback filter: linked_question_ids contain questions from this assessment
-      const allEvidence = evidenceRes.data || [];
-      const filteredEvidence = allEvidence.filter(evidence => {
-        // If evidence has assessment_id, use that for filtering (new evidence)
-        if (evidence.assessment_id) {
-          return evidence.assessment_id === id;
-        }
-        // Fallback: check linked question IDs (legacy evidence without assessment_id)
-        const linkedIds = evidence.linked_question_ids || [];
-        return linkedIds.some(linkedId => assessmentQuestionIds.has(linkedId));
-      });
-      
-      setEvidence(filteredEvidence);
+      // Evidence is already filtered by assessment_id from the backend
+      setEvidence(evidenceRes.data || []);
     } catch (error) {
       console.error('Error fetching data:', error);
       toast.error('Failed to load evidence data');
