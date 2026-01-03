@@ -140,6 +140,9 @@ const RiskStackedColumn = ({ score }) => {
         <div className="text-[15px] font-semibold text-gray-700 leading-tight text-center">
           {currentTier} Risk
         </div>
+        <div className="text-[10px] italic text-gray-500 mt-1 text-center">
+          Risk score shown as a normalised index (0–100).
+        </div>
       </div>
       </div>
     </div>
