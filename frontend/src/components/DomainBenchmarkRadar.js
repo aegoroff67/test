@@ -27,6 +27,11 @@ const CustomTooltip = ({ active, payload, assessmentType }) => {
             <span className="font-semibold">Note:</span> Based on completed AI Awareness assessments within your selected sector.
           </p>
         )}
+        {assessmentType === 'Readiness' && (
+          <p className="text-xs text-gray-500 mt-2 pt-2 border-t border-gray-200">
+            <span className="font-semibold">Note:</span> Based on completed AI Readiness assessments within your selected sector.
+          </p>
+        )}
         {assessmentType === 'System' && (
           <p className="text-xs text-gray-500 mt-2 pt-2 border-t border-gray-200">
             <span className="font-semibold">Note:</span> Based on completed AI System Maturity assessments within your selected sector.
