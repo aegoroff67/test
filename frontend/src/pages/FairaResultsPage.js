@@ -711,8 +711,25 @@ function FairaResultsPage() {
                     allowDecimals={false}
                   />
                   <Tooltip 
-                    formatter={(value) => [`${value} domain${value !== 1 ? 's' : ''}`, 'Count']}
-                    contentStyle={{ fontSize: '12px' }}
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        const data = payload[0].payload;
+                        return (
+                          <div className="bg-white p-3 border border-gray-200 rounded shadow-lg max-w-xs">
+                            <p className="font-bold text-gray-900 mb-1">{data.name}</p>
+                            <p className="text-sm text-gray-700 mb-2">{data.count} domain{data.count !== 1 ? 's' : ''}</p>
+                            {data.domains && data.domains.length > 0 && (
+                              <ul className="text-xs text-gray-600 list-disc list-inside space-y-0.5">
+                                {data.domains.map((domain, idx) => (
+                                  <li key={idx}>{domain}</li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        );
+                      }
+                      return null;
+                    }}
                   />
                   <Bar 
                     dataKey="count" 
