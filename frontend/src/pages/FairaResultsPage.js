@@ -903,7 +903,7 @@ function FairaResultsPage() {
                               <h3 className="font-semibold text-gray-900">{area.name}</h3>
                             </div>
                             <p className="text-sm text-gray-600">
-                              Risk Score: <strong>{area.risk_score}%</strong> - This section requires immediate attention and targeted risk mitigation strategies.
+                              Risk Score: <strong>{area.risk_score}</strong> - This section requires immediate attention and targeted risk mitigation strategies.
                             </p>
                           </div>
                           <div 
