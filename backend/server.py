@@ -1828,7 +1828,7 @@ async def update_faira_form(
         started_date = started_at.strftime("%Y-%m-%d")
         # Generate new name: [Type]_[Assessor]_Status_YYYY-MM-DD
         status_text = "Completed" if status == "completed" else "In-Progress"
-        updated_name = f"{assessment_type}_{faira_form['assessor_name']}_{ status_text}_{started_date}"
+        updated_name = f"{assessment_type}_{faira_form['assessor_name']}_{status_text}_{started_date}"
     
     # Prepare update data
     update_data = {
