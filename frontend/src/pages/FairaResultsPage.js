@@ -57,6 +57,90 @@ const getRiskBadge = (level) => {
   }
 };
 
+// Risk Stacked Column Component for FAIRA
+const RiskStackedColumn = ({ score }) => {
+  // Define the 5 risk tiers based on the specified bands
+  const tiers = [
+    { name: 'Very High', min: 81, max: 100, color: '#7B0000', percentage: 20 },  // Dark red
+    { name: 'High', min: 61, max: 80, color: '#FF0000', percentage: 20 },        // Red
+    { name: 'Medium', min: 41, max: 60, color: '#FFC000', percentage: 20 },      // Orange
+    { name: 'Low', min: 21, max: 40, color: '#FFFF00', percentage: 20 },         // Yellow
+    { name: 'Very Low', min: 0, max: 20, color: '#00B050', percentage: 20 }      // Green
+  ];
+
+  // Determine which tier the score falls into
+  const getCurrentTier = (score) => {
+    for (let tier of tiers) {
+      if (score >= tier.min && score <= tier.max) {
+        return tier.name;
+      }
+    }
+    return 'Very Low';
+  };
+
+  const currentTier = getCurrentTier(score);
+
+  // Calculate arrow position (percentage from bottom)
+  const arrowPosition = score;
+
+  return (
+    <div className="flex items-center justify-center w-full" style={{ height: '120px', gap: '30px' }}>
+      {/* Stacked Column */}
+      <div className="relative flex flex-col" style={{ width: '75px', height: '100px' }}>
+        {tiers.map((tier, index) => (
+          <div
+            key={index}
+            className="relative border border-gray-800"
+            style={{
+              height: `${tier.percentage}%`,
+              backgroundColor: tier.color,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <div className="text-center px-1">
+              <div className={`text-[9px] font-semibold leading-tight ${tier.name === 'Very High' ? 'text-white' : 'text-gray-900'}`}>
+                {tier.name}
+              </div>
+            </div>
+          </div>
+        ))}
+        
+        {/* Score arrow indicator */}
+        <div
+          className="absolute right-0 flex items-center"
+          style={{
+            bottom: `${arrowPosition}%`,
+            transform: 'translateY(50%)',
+            right: '-8px'
+          }}
+        >
+          <div
+            style={{
+              width: 0,
+              height: 0,
+              borderTop: '6px solid transparent',
+              borderBottom: '6px solid transparent',
+              borderRight: '8px solid #000000'
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Score Display */}
+      <div className="flex flex-col items-center">
+        <div className="text-2xl font-bold text-gray-900">
+          {Math.round(score)}%
+        </div>
+        <div className="text-[15px] font-semibold text-gray-700 leading-tight text-center">
+          {currentTier} Risk
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function FairaResultsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
