@@ -69,19 +69,19 @@ const RiskStackedColumn = ({ score }) => {
   ];
 
   // Determine which tier the score falls into
-  const getCurrentTier = (score) => {
-    for (let tier of tiers) {
-      if (score >= tier.min && score <= tier.max) {
-        return tier.name;
-      }
-    }
+  const getCurrentTier = (scoreValue) => {
+    const numScore = Math.round(Number(scoreValue) || 0);
+    if (numScore >= 81) return 'Very High';
+    if (numScore >= 61) return 'High';
+    if (numScore >= 41) return 'Medium';
+    if (numScore >= 21) return 'Low';
     return 'Very Low';
   };
 
   const currentTier = getCurrentTier(score);
 
   // Calculate arrow position (percentage from bottom)
-  const arrowPosition = score;
+  const arrowPosition = Math.round(Number(score) || 0);
 
   return (
     <div className="flex items-center justify-center w-full" style={{ height: '120px', gap: '30px' }}>
