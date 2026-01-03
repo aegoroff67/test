@@ -141,6 +141,7 @@ const RiskStackedColumn = ({ score }) => {
           {currentTier} Risk
         </div>
       </div>
+      </div>
     </div>
   );
 };
