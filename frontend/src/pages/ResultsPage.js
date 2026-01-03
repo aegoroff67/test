@@ -944,6 +944,8 @@ function ResultsPage() {
                         ? 'Assessment Response Heatmap' 
                         : assessmentType === 'Awareness'
                         ? 'AI Awareness vs Sector Benchmark'
+                        : assessmentType === 'Readiness'
+                        ? 'AI Readiness vs Sector Benchmark'
                         : 'AI System Domain Maturity vs Sector Benchmark'}
                     </span>
                     {/* Info tooltip for Awareness heatmap legend */}
