@@ -1663,7 +1663,7 @@ function ResultsPage() {
                                 {actionStep}
                               </div>
                               {/* Show impact/effort scores for System assessments with smart prioritization */}
-                              {assessmentType === 'System' && actionStepsPrioritization === 'smart' && (answer.impactWeight || answer.effortScore) && (
+                              {assessmentType === 'System' && actionStepsPrioritization === 'smart' && (answer.impactWeight > 0 || answer.effortScore > 0) && (
                                 <div className="flex items-center space-x-3 mt-2 text-[10px] text-gray-500">
                                   <span title="Higher impact = more significant improvement">
                                     Impact: <span className="font-medium text-gray-700">{(answer.impactWeight * 100).toFixed(0)}%</span>
