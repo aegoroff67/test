@@ -1362,14 +1362,25 @@ function ResultsPage() {
                         const percentage = (score / 4) * 100; // Max score is 4 (1-4 scale)
                         const colors = getScoreColor(percentage, question.reviewStatus);
                         
+                        // Check if this question is in the top 3 action steps (for System assessments)
+                        const actionStepRank = assessmentType === 'System' 
+                          ? top3ActionStepQuestionIds.find(item => item.questionId === question.id)?.rank 
+                          : null;
+                        
                         return (
                           <div
                             key={question.id}
-                            className="p-2 rounded text-center border border-gray-300"
+                            className="relative p-2 rounded text-center border border-gray-300"
                             style={{ backgroundColor: colors.bg, color: colors.text }}
-                            title={`${question.code}: ${question.text} (Score: ${score}/4)${question.reviewStatus === 'PENDING_REVIEW' ? ' - Pending Review' : ''}`}
+                            title={`${question.code}: ${question.text} (Score: ${score}/4)${question.reviewStatus === 'PENDING_REVIEW' ? ' - Pending Review' : ''}${actionStepRank ? ` - Action Step #${actionStepRank}` : ''}`}
                             data-testid={`heatmap-cell-${question.code}`}
                           >
+                            {/* Action step rank badge for System assessments */}
+                            {actionStepRank && (
+                              <div className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold shadow-sm border border-white">
+                                {actionStepRank}
+                              </div>
+                            )}
                             <div className="font-bold text-xs">{question.code}</div>
                             <div className="text-xs opacity-90">{question.reviewStatus === 'PENDING_REVIEW' ? 'Review' : `${score}/4`}</div>
                           </div>
