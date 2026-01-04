@@ -1460,6 +1460,7 @@ function ResultsPage() {
                     // Get the 3 lowest scoring questions, prioritized by:
                     // 1. Worst performing domain (lowest domain percentage)
                     // 2. Worst performing question within that domain (lowest question score)
+                    // 3. When domains tie, distribute across different domains before repeating
                     
                     // Create a lookup for domain scores by domain name
                     const domainScoreLookup = {};
@@ -1475,23 +1476,52 @@ function ResultsPage() {
                       return question?.domain_name || question?.domain || '';
                     };
                     
-                    const lowestScoringQuestions = [...answers]
-                      .map(answer => ({
-                        ...answer,
-                        domainName: getQuestionDomainName(answer.question_id),
-                        domainScore: domainScoreLookup[getQuestionDomainName(answer.question_id)] ?? 100
-                      }))
-                      .sort((a, b) => {
-                        // First sort by domain score (ascending - worst domains first)
-                        if (a.domainScore !== b.domainScore) {
-                          return a.domainScore - b.domainScore;
-                        }
-                        // Then sort by question score (ascending - worst questions first)
-                        return a.numeric_score - b.numeric_score;
-                      })
-                      .slice(0, 3);
+                    // Add domain info to each answer
+                    const answersWithDomain = [...answers].map(answer => ({
+                      ...answer,
+                      domainName: getQuestionDomainName(answer.question_id),
+                      domainScore: domainScoreLookup[getQuestionDomainName(answer.question_id)] ?? 100
+                    }));
                     
-                    return lowestScoringQuestions.map((answer, index) => {
+                    // Sort by domain score first, then by question score
+                    answersWithDomain.sort((a, b) => {
+                      // First sort by domain score (ascending - worst domains first)
+                      if (a.domainScore !== b.domainScore) {
+                        return a.domainScore - b.domainScore;
+                      }
+                      // Then sort by question score (ascending - worst questions first)
+                      return a.numeric_score - b.numeric_score;
+                    });
+                    
+                    // Select top 3, preferring different domains when scores are tied
+                    const selectedQuestions = [];
+                    const usedDomains = new Set();
+                    
+                    // First pass: pick the worst question from each unique worst-scoring domain
+                    for (const answer of answersWithDomain) {
+                      if (selectedQuestions.length >= 3) break;
+                      
+                      // Only consider questions with low scores (1/4 or 2/4) from the worst domains
+                      const worstDomainScore = answersWithDomain[0]?.domainScore ?? 0;
+                      if (answer.domainScore > worstDomainScore + 5) break; // Allow 5% tolerance for "tied" domains
+                      
+                      if (!usedDomains.has(answer.domainName)) {
+                        selectedQuestions.push(answer);
+                        usedDomains.add(answer.domainName);
+                      }
+                    }
+                    
+                    // Second pass: if we still need more, fill with remaining worst questions
+                    if (selectedQuestions.length < 3) {
+                      for (const answer of answersWithDomain) {
+                        if (selectedQuestions.length >= 3) break;
+                        if (!selectedQuestions.includes(answer)) {
+                          selectedQuestions.push(answer);
+                        }
+                      }
+                    }
+                    
+                    return selectedQuestions.map((answer, index) => {
                       const question = questions.find(q => q.id === answer.question_id);
                       const questionCode = question?.code;
                       const actionStep = actionSteps[questionCode];
