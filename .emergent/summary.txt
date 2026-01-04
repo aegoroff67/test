@@ -1,104 +1,76 @@
-<analysis>**original_problem_statement:** The initial request was to build a frontend modal for uploading Evidence associated with questions in the AI System Maturity Assessment. This involved creating a new modal with a file upload panel and a classification panel containing several single-select options.
+<analysis>**original_problem_statement:** The user's goal is to continue enhancing the assessment results pages by adding sector-specific data and features.
 
-This request quickly evolved through numerous iterative refinements, including:
-- Adjusting the modal's dimensions and layout multiple times.
-- Reordering options, setting default values, and updating descriptive text.
-- Adding a reusable toggle and connecting the modal to the backend to create evidence records.
-- Persisting uploaded evidence on the main assessment page, ensuring it remains visible when navigating between questions.
-- Building an Evidence Drawer to view and edit the details of already uploaded files.
-- Creating a brand new Evidence Register page to display all evidence for a given assessment, mirroring the layout of the Framework Coverage page.
-- Adding numerous columns, filters, and summary stats to the Evidence Register.
-- Fixing a critical bug where evidence was not scoped to a specific assessment, which required modifying the backend data model and associated API endpoints.
-- Converting the simple filters on the Evidence Register into multi-select dropdowns with chips.
+The initial request from the previous session was to complete the application of a purple color scheme to the Organisation-wide AI Maturity Assessment results page.
+
+Following that, the user provided a series of new feature requests with accompanying data in spreadsheets:
+1.  Implement sector benchmarking for the AI Readiness Assessment, including updates to the summary text, a score comparison in the domain scores table, and a new radar chart to compare user scores against sector averages.
+2.  Implement the same full suite of sector benchmarking features for the Organisation-wide AI Maturity Assessment.
+3.  Implement a Top 3 Action Steps section for the AI Readiness Assessment, using a provided list of sector-specific actions. This feature should display actions corresponding to the three worst-performing questions.
+4.  A bug was identified in the initial Top 3 Action Steps implementation where the sorting logic was incorrect. The user specified that the sorting should prioritize the worst-performing *domains* first, and then the worst-performing questions within those domains.
+5.  Implement a Top 3 Action Steps section for the Organisation-wide AI Maturity Assessment, using a provided spreadsheet of actions and the corrected sorting logic.
 
 **User's preferred language**: English
 
 **what currently exists?**
-- A feature-rich Evidence Upload Modal is integrated into the . It allows file uploads and classification, and successfully creates evidence records in the backend, linked to the specific question and assessment.
-- An Evidence Drawer component () allows users to view and update metadata for existing evidence files from both the  and .
-- A new Evidence Register page () has been created. It displays a filterable, sortable table of all evidence associated with a specific assessment.
-- The backend  model has been updated to include an  to properly scope evidence. The corresponding API endpoints have been updated.
-- The  has been updated with a new Evidence Register button and other minor layout adjustments.
-- The filters on the  are partially converted to be multi-select dropdowns, but the implementation is incomplete.
+- A full-stack application with a React frontend and FastAPI backend.
+- The results pages for all five assessment types (, , , , ) have been significantly enhanced.
+- The color scheme for the Organisation-wide AI Maturity Assessment results page is now consistently purple.
+- Sector benchmarking features (summary text comparison, score column with average, and a toggleable radar chart) have been fully implemented for the , , and  assessments.
+- A Top 3 Action Steps feature has been implemented for both  and  assessments.
+- A critical bug in the Top 3 Action Steps sorting logic has been fixed. The logic now correctly prioritizes showing actions from the worst-performing domains first, before considering the lowest-scoring individual questions. This was a complex fix involving enriching the frontend question data structure to retain domain context.
 
 **Last working item**:
-    - Last item agent was working: The agent was in the process of converting the single-select dropdown filters on the  into multi-select dropdowns with chips to display selected values. The agent updated state management to use arrays, modified the filtering logic, and began rewriting the JSX for the filters panel.
+    - Last item agent was working: The agent was beginning the implementation of sector-specific Top 3 Action Steps for the Organisation-wide AI Maturity Assessment. It successfully extracted the action steps from a user-provided spreadsheet and created the data file .
     - Status: IN PROGRESS
     - Agent Testing Done: N
-    - Which testing method agent to use? Frontend testing agent
+    - Which testing method agent to use? backend testing agent, screenshot tool
     - User Testing Done: N
 
 **All Pending/In progress Issue list**:
-  - Issue 1: Finalize and test the multi-select filter implementation on the . (P0, HIGHEST)
-  - Issue 2: Test the backend CRUD API endpoints for the  object. (P1)
-  - Issue 3: The 'Top 3 Action Steps' on the main  are calculated using incorrect logic. (P2)
-  - Issue 4: The  question was present in citation data for the Australian Guidance for AI Adoption framework but is missing from the alignment data file. (P3)
-  - Issue 5: The sidebar scroll-to-section feature in  should be functionally verified. (P4)
+  - Issue 1: Test the backend CRUD API endpoints for the  object. (P1)
+  - Issue 2: The  question was present in citation data for the Australian Guidance for AI Adoption framework but is missing from the alignment data file. (P2)
+  - Issue 3: The sidebar scroll-to-section feature in  should be functionally verified. (P3)
   
   Issues Detail:
   - Issue 1: 
-     - Attempted fixes: The agent has modified the state variables to be arrays, updated the  logic to handle array-based filtering, and started rewriting the filter panel JSX. The work is incomplete and untested.
-     - Next debug checklist: 
-        1. Create or identify a reusable  component.
-        2. Complete the implementation in  to use this component for all filters (Evidence Type, Lifecycle Phase, etc.).
-        3. Implement the UI to display selected filter values as removable chips.
-        4. Use the frontend testing agent to verify that multi-selection works, chips are displayed/removed correctly, and the evidence table filters as expected.
-     - Why fix this issue and what will be achieved with the fix? This will complete the user's request for more powerful filtering capabilities on the Evidence Register page.
-     - Status:  IN PROGRESS
-     - Is recurring issue? N
-     - Should Test frontend/backend/both after fix? Frontend
-     - Blocked on other issue: None
-
-  - Issue 2: 
-     - Attempted fixes: The agent has written the code for the Pydantic model and the FastAPI endpoints. No testing has been attempted. This was de-prioritized in favor of frontend feature development.
+     - Attempted fixes: None.
      - Next debug checklist: 
         1. Create a new test file: .
         2. Write test cases for each CRUD operation: Create, Read (all and by ID, with filtering by ), Update, and Delete.
         3. Use the backend testing agent to execute the tests.
-     - Why fix this issue and what will be achieved with the fix? To validate the backend functionality for the evidence management feature, ensuring data integrity and reliability.
+     - Why fix this issue and what will be achieved with the fix? To ensure the reliability and data integrity of the evidence management feature, preventing future regressions.
      - Status:  NOT STARTED
      - Is recurring issue? N
      - Should Test frontend/backend/both after fix? Backend
      - Blocked on other issue: None
-
-  - Issue 3: 
-     - Attempted fixes: None. This is a known, recurring issue.
-     - Next debug checklist: Review the logic in  that generates the . The logic needs to sort all individual  by their , not the aggregated .
-     - Why fix this issue and what will be achieved with the fix? To provide users with more accurate and specific recommendations on the results page.
-     - Status:  NOT STARTED
-     - Is recurring issue? Y
-     - Should Test frontend/backend/both after fix? Frontend
-     - Blocked on other issue: None
-
-  - Issue 4: 
-     - Attempted fixes: The agent noted the discrepancy in a previous session but did not resolve it.
+  - Issue 2: 
+     - Attempted fixes: None.
      - Next debug checklist: 
         1. Review .
         2. Ask the user if an alignment mapping should be created for question .
-     - Why fix this issue and what will be achieved with the fix? To ensure data integrity.
+     - Why fix this issue and what will be achieved with the fix? To ensure data consistency and integrity for the Australian framework.
      - Status:  NOT STARTED
      - Is recurring issue? N
      - Should Test frontend/backend/both after fix? Backend (data file)
      - Blocked on other issue: None
-
-  - Issue 5: 
+  - Issue 3: 
      - Attempted fixes: None.
-     - Next debug checklist: Manually test the scroll-to-section links in the  sidebar.
-     - Why fix this issue and what will be achieved with the fix? To confirm the usability of the long FAIRA form.
+     - Next debug checklist: Manually test the scroll-to-section links in the  sidebar to ensure they navigate correctly.
+     - Why fix this issue and what will be achieved with the fix? To confirm the usability of the long FAIRA assessment form.
      - Status:  NOT STARTED
      - Is recurring issue? N
      - Should Test frontend/backend/both after fix? Frontend
      - Blocked on other issue: None
 
 **In progress Task List**:
-  - Task 1:  Implement Evidence Management Feature. (P0)
-  
+  - Task 1:  Implement sector-specific Top 3 Action Steps for the Organisation-wide AI Maturity Assessment (P0)
+
  Task Detail:
   - Task 1: 
-     - Where to resume: The final piece of the frontend implementation is converting the filters on  to multi-select dropdowns. The code has been partially modified but needs completion and testing.
-     - What will be achieved with this? A complete, user-accepted evidence management feature, including upload, viewing, editing, and a comprehensive register page with advanced filtering.
+     - Where to resume: The data file  has been created. The next step is to create the backend API endpoint in . This will involve adding a new function  similar to the existing ones for  and .
+     - What will be achieved with this? The Organisation-wide results page will display a Top 3 Action Steps section with relevant, sector-specific advice based on the user's lowest-scoring domains and questions.
      - Status:  IN PROGRESS
-     - Should Test frontend/backend/both after fix? Frontend
+     - Should Test frontend/backend/both after fix? Both
      - Blocked on something: None
 
 **Upcoming and Future Tasks**
@@ -111,121 +83,102 @@ This request quickly evolved through numerous iterative refinements, including:
     - Task 5 (P5): Implement a Stripe paywall for premium assessments.
 
 **Completed work in this session**
-- **Evidence Upload Modal ():**
-  - Created a new modal component with a file dropzone and classification cards.
-  - Iteratively refined the UI/UX based on multiple user requests (layout, dimensions, text, option reordering, default values).
-  - Added a Make this evidence reusable toggle.
-  - Connected the modal to the backend  endpoint to create evidence records, correctly passing classification data, , and .
-- **Evidence Persistence ():**
-  - Implemented logic to fetch and display evidence for the current question.
-  - Fixed a critical bug where evidence disappeared upon navigating between questions by correcting state management logic.
-  - Displayed uploaded files as clickable pills below the question.
-- **Evidence Drawer ():**
-  - Created a new drawer component to view and edit metadata of existing evidence.
-  - Implemented functionality to save changes via .
-- **Evidence Register Page ():**
-  - Created a new page from scratch, mimicking the  layout.
-  - Implemented a summary stats panel and a filter section.
-  - Built a detailed table with 9 columns to display evidence information.
-  - Made table rows clickable to open the  for editing.
-- **Backend Evidence Model ():**
-  - Added a crucial  field to the  model to scope evidence correctly.
-  - Updated the  endpoint to accept .
-- **Bug Fixes:**
-  - **Assessment Scoping:** Fixed a major bug where the Evidence Register showed evidence from all assessments. The fix involved adding  to the model and filtering API calls by it.
-  - **Question ID Display:** Fixed the Linked Questions column to show human-readable codes (e.g., FA-1) instead of UUIDs by fetching all assessment questions and creating a client-side UUID-to-code map.
-  - **Redundant API Call:** Removed a call to a non-existent endpoint () that was causing an error after selecting an answer.
-- **UI/UX on Results Page ():**
-  - Halved the width of the Framework Coverage button and added a new Evidence Register button.
-  - Adjusted the layout widths of the summary panel.
-  - Renamed the Exports title to Reports.
-  - Reduced font size in the Maturity Tier Description panel.
-- **Configuration:**
-  - Extended Tailwind CSS config to support a 24-column grid.
+- **Feature Implementation:**
+  - **Readiness Benchmarking**: Implemented full sector benchmarking for AI Readiness assessments, including a data file (), backend API update, and frontend UI for summary text, score comparison, and a new radar chart.
+  - **Org-wide Benchmarking**: Implemented the same full suite of sector benchmarking features for Organisation-wide AI Maturity assessments ().
+  - **Readiness Action Steps**: Implemented the Top 3 Action Steps feature for AI Readiness assessments using a new data file () and a new backend API endpoint.
+
+- **Critical Bug Fix:**
+  - **Top 3 Action Steps Sorting Logic ()**: Fixed a significant and recurring bug in how action steps were selected. The logic was completely rewritten to correctly prioritize by the worst-performing *domains* first, then by the worst-scoring questions within those domains, and to ensure distribution across tied domains. This required modifying the frontend data processing to persist domain names on individual question objects.
+
+- **UI/UX Polish:**
+  - **Org-wide Color Scheme ()**: Completed the application of the purple color theme to all relevant elements on the Organisation-wide results page, including icons, titles, and backgrounds.
 
 **Earlier issues found/mentioned but not fixed**
-   - Issue 1: The 'Top 3 Action Steps' on  are calculated incorrectly. This is a recurring issue.
-   - Issue 2:  question discrepancy for Australian Guidance for AI Adoption framework.
+   - None in this session. The major recurring issue (Top 3 Action Steps incorrect logic) was resolved.
 
 **Known issue recurrence from previous fork**
   - Issue recurrence in previous fork: The Top 3 Action Steps incorrect calculation on .
-  - Recurrence count: 7
-  - Status: NOT STARTED
+  - Recurrence count: 9
+  - Status: RESOLVED
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Component-Driven Frontend Development:** Built complex, stateful, and reusable UI components (, ) that encapsulate specific functionalities.
-- **Client-Side State Management:** Managed complex state in  and  using  and  for fetching data, handling user interactions, and ensuring UI consistency (e.g., evidence persistence).
-- **Backend Model Evolution:** Demonstrated the process of modifying a backend Pydantic model () to add a new field () and updating the corresponding API endpoints and frontend calls to support a new business requirement.
-- **Client-Side Data Mapping:** Solved a data display issue by fetching two separate data sources ( and ) and creating a client-side mapping to translate UUIDs into human-readable question codes for the UI.
-- **Iterative Refinement:** The entire session was a case study in rapid, iterative development based on continuous user feedback, leading to significant changes in UI, UX, and functionality.
+- **Complex Sorting Logic**: A new sorting algorithm was implemented in  to select the Top 3 Action Steps. It performs a multi-level sort, first by domain performance (ascending), then by question score (ascending), and includes logic to iterate through domains with tied scores to ensure action steps are distributed rather than clustered in a single domain.
+- **Data Structure Transformation**: A critical bug was fixed by modifying the frontend data processing logic. When flattening the nested question data from the API, the  is now explicitly added to each question object. This preserved the context needed for the complex sorting logic to function correctly.
+- **Pattern-Based Feature Development**: The agent demonstrated the ability to replicate complex features (sector benchmarking with radar charts) across different assessment types (, ) by successfully identifying and following the existing implementation pattern.
 
 **key DB schema**
-  - **evidence:** Schema defined by the  model in . Key columns now include ,  (NEW), , , , , , , , and .
+  - No changes were made to the database schema. All new data is stored in static JSON files in the backend.
 
 **changes in tech stack**
-  - The Tailwind CSS configuration was extended to support a 24-column grid.
+  - None.
 
 **All files of reference**
-- : (CREATED) Modal for uploading and classifying evidence.
-- : (CREATED) Drawer for viewing/editing existing evidence.
-- : (CREATED) Page to list all evidence for an assessment.
-- : (UPDATED) Major changes to integrate the evidence modal, display uploaded files, and handle data persistence.
-- : (UPDATED) Minor layout changes and added a button to navigate to the new Evidence Register.
-- : (UPDATED) Added  field to the  model.
-- : (UPDATED) Added a new route for the Evidence Register page.
+- : The central file for this session's work. It was heavily modified to add benchmarking and action step features for two new assessment types, and contains the critical fix for the action step sorting logic.
+- : Updated to handle benchmark requests for  and  assessments and to add new API endpoints for .
+- : New file containing benchmark data.
+- : New file containing benchmark data.
+- : New file containing action step data.
+- : New file containing action step data.
+- : Updated to render data and tooltips for  and  assessments.
+- : Updated to display sector averages for  and  assessments.
 
 **Areas that need refactoring**:
-- The 8 separate  components share significant duplicated code and could be refactored into a single generic component.
+- : This file's complexity has grown significantly. It now contains display logic, data fetching, and complex data transformation for five different assessment types. It is a strong candidate for refactoring, potentially by breaking out the logic for each assessment type into its own dedicated component.
 
 **key api endpoints**
-- : (UPDATED) Now requires an  in the payload.
-- : (NEW USAGE) The primary way the  fetches its data.
-- : Used to fetch all question data to build the UUID-to-code mapping.
-- : Used by the  to save changes to evidence metadata.
-- : Used by  to fetch evidence for a specific question.
+- : (UPDATED) Now supports  and  in addition to  for the  parameter.
+- : (NEW) Fetches sector-specific action steps for the AI Readiness assessment.
+- : (USED) Utilized to parse user-uploaded spreadsheets containing benchmark and action step data.
 
 **Critical Info for New Agent**
-- **Your Immediate Task:** Your first action is to complete the multi-select filter feature on . The previous agent started this work but did not finish. You will need to implement a multi-select dropdown component, integrate it into the filter panel, and ensure the  logic works correctly with the new array-based filter states.
-- **Backend Testing Still Pending:** The backend  CRUD API, while functional, has never been formally tested. After completing the frontend task, creating a test file () and verifying all endpoints is a high-priority task to ensure data integrity.
-- **Data Scoping is Crucial:** Be aware that evidence is now scoped by . All new features or bug fixes related to evidence must account for this filtering to prevent data from one assessment leaking into another.
+- **Top 3 Action Steps Logic is Complex and Critical**: The recently fixed sorting logic for action steps is in  (around line 1480). It depends on each question object in the  array having a  property. This property is added during the data-flattening process (around line 260) after fetching from . Any changes to this flow could reintroduce the bug.
+- **Adding New Benchmarks/Actions is a Pattern**: To add benchmarks or action steps for a new assessment type, you must:
+    1. Create a new data file (e.g., ) in .
+    2. Add a new API endpoint in  to serve that file.
+    3. Update multiple conditional blocks in  to fetch and display the data for the new assessment type.
+- ** is Fragile**: This single file controls the UI for almost all assessment results. Be extremely cautious when editing it, as a small change can have unintended consequences for other assessment types due to the heavy use of conditional rendering.
 
 **documents and test reports created in this job**
 - 
 - 
 - 
+- 
 
 **Last 10 User Messages and any pending HUMAN messages**
-- User requested to convert filters on the Evidence Register page to multi-select dropdowns. (IN PROGRESS)
-- User requested a new Evidence Drawer to open when clicking a row on the Evidence Register, allowing edits. (DONE)
-- User reported a critical bug where selecting an answer after uploading evidence caused a Failed to upload evidence error. (DONE)
-- User reported that different assessments were showing the same evidence artefacts. (DONE)
-- User reported that the 'Linked Questions' column was not displaying readable question IDs like 'FA-1'. (DONE)
-- User requested to add several new columns to the Evidence Register table. (DONE)
-- User provided a detailed spec to build a skeleton 'Evidence Register' page. (DONE)
-- User requested several minor UI tweaks on the  (button widths, labels, font sizes). (DONE)
-- User asked for the width breakdown of a panel on the . (DONE)
-- User asked about the width breakdown of a panel on the . (DONE)
+- User requested to implement sector-specific action steps for the Organisation-wide AI Maturity Assessment. (IN PROGRESS)
+- User confirmed the fix for the Top 3 Action Steps sorting logic was correct. (RESOLVED)
+- User reported the bug in the Top 3 Action Steps sorting logic, specifying it should prioritize by domain first. (RESOLVED)
+- User requested to implement Top 3 Action Steps for the AI Readiness Assessment. (DONE)
+- User asked for an overview of the existing AI Awareness action steps implementation. (DONE)
+- User requested to implement sector benchmarking and a radar chart for the Organisation-wide AI Maturity Assessment. (DONE)
+- User requested to implement sector benchmarking and a radar chart for the AI Readiness Assessment. (DONE)
+- User requested to implement sector benchmarking data for the AI Readiness Assessment. (DONE)
+- User asked the agent to finish applying the purple color scheme to the Org-wide results page. (DONE)
+- User provided a spreadsheet for the Org-wide action steps. (PENDING ACTION)
 
 **Project Health Check:**
-- **Broken:** The 'Top 3 Action Steps' feature on  provides incorrect recommendations.
+- **Broken:** None. The previously broken Top 3 Action Steps feature is now fixed.
 - **Mocked:** None.
 
 **3rd Party Integrations**
-- None.
+- **OpenAI GPT-4o-mini**: Used via  library to generate the Assessment Results Commentary on the AI Awareness results page. This uses the Emergent LLM Key.
 
 **Testing status**
-  - Testing agent used after significant changes: YES. The agent was used extensively and successfully to test all frontend changes related to the evidence modal, drawer, and register page.
+  - Testing agent used after significant changes: NO
   - Troubleshoot agent used after agent stuck in loop: NO
   - Test files created: []
-  - Known regressions: None in this session.
+  - Known regressions: None. The known recurring regression (Top 3 Action Steps) was fixed in this session.
 
 **Credentials to test flow:**
 - **User:** 
 - **Password:** 
 
 **What agent forgot to execute**
-- The agent has not yet tested the backend Evidence CRUD API endpoints, a task carried over from the initial handoff.
-- The agent did not add an  file to the  directory, which is a Python best practice.</analysis>
+- The agent has not yet addressed the pending issues from the previous handoff summary:
+    - Creating a backend test file for the evidence API ().
+    - Investigating the  data discrepancy.
+    - Verifying the scroll functionality in .</analysis>
