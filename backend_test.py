@@ -10549,18 +10549,59 @@ def main():
                 print(f"   • {test['test']}: {test['details']}")
             return False
 
+    def run_action_steps_tests(self):
+        """Run tests specifically for the Organisation-wide Action Steps feature"""
+        print("🚀 Testing Organisation-wide Action Steps Feature")
+        print("=" * 80)
+        print("TESTING: Top 3 Action Steps for Organisation-wide AI Maturity Assessment")
+        print("CONTEXT: New sector-specific action steps endpoint and frontend integration")
+        print("=" * 80)
+        
+        # Reset test counters
+        self.tests_run = 0
+        self.tests_passed = 0
+        self.test_results = []
+        
+        # Test 1: Login with test credentials
+        if not self.test_login_with_test_credentials():
+            print("❌ Login failed - stopping tests")
+            return False
+        
+        # Test 2: Test the action steps endpoint
+        if not self.test_orgwide_action_steps_endpoint():
+            print("❌ Action steps endpoint tests failed")
+        
+        # Test 3: Check for existing Orgwide assessments
+        self.test_orgwide_assessment_exists()
+        
+        # Print summary
+        print("\n" + "=" * 60)
+        print(f"📊 Action Steps Test Summary: {self.tests_passed}/{self.tests_run} tests passed")
+        print(f"✅ Success Rate: {(self.tests_passed/self.tests_run)*100:.1f}%")
+        
+        if self.tests_passed == self.tests_run:
+            print("🎉 All Action Steps tests passed!")
+            return True
+        else:
+            print("⚠️  Some Action Steps tests failed - check details above")
+            failed_tests = [result for result in self.test_results if not result["success"]]
+            print(f"\n❌ Failed Tests ({len(failed_tests)}):")
+            for test in failed_tests:
+                print(f"   • {test['test']}: {test['details']}")
+            return False
+
 def main():
     tester = AMSafeAPITester()
     
     try:
-        # Run the comprehensive test suite including Awareness Assessment tests
-        success = tester.run_all_tests()
+        # Run the Action Steps test suite
+        success = tester.run_action_steps_tests()
         
         if success:
-            print("🎉 All tests passed!")
+            print("🎉 All Action Steps tests passed!")
             return 0
         else:
-            print(f"⚠️  {tester.tests_run - tester.tests_passed} tests failed")
+            print(f"⚠️  {tester.tests_run - tester.tests_passed} Action Steps tests failed")
             return 1
         
     except Exception as e:
