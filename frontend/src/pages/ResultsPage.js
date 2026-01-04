@@ -1451,17 +1451,19 @@ function ResultsPage() {
               </div>
             </div>
 
-            {/* Top 3 Action Steps - For Awareness and Readiness assessments */}
-            {(assessmentType === 'Awareness' || assessmentType === 'Readiness') && actionSteps && (
+            {/* Top 3 Action Steps - For Awareness, Readiness, and Orgwide assessments */}
+            {(assessmentType === 'Awareness' || assessmentType === 'Readiness' || assessmentType === 'Orgwide') && actionSteps && (
               <div className="mt-4">
                 <div className="mb-2">
                   <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
-                    <CheckCircle2 className={`h-4 w-4 ${assessmentType === 'Readiness' ? 'text-blue-600' : 'text-blue-600'}`} />
+                    <CheckCircle2 className={`h-4 w-4 ${assessmentType === 'Orgwide' ? 'text-purple-600' : 'text-blue-600'}`} />
                     <span>Top 3 Action Steps</span>
                   </h2>
                   <p className="text-xs text-gray-600 ml-6">
                     {assessmentType === 'Readiness' 
                       ? 'Practical actions to strengthen AI readiness before progressing further.'
+                      : assessmentType === 'Orgwide'
+                      ? 'Practical actions to strengthen organisation-wide AI maturity based on your lowest-scoring areas.'
                       : 'Practical actions to strengthen AI awareness before progressing further.'
                     }
                   </p>
