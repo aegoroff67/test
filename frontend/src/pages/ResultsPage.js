@@ -1455,8 +1455,8 @@ function ResultsPage() {
               </div>
             </div>
 
-            {/* Top 3 Action Steps - For Awareness, Readiness, and Orgwide assessments */}
-            {(assessmentType === 'Awareness' || assessmentType === 'Readiness' || assessmentType === 'Orgwide') && actionSteps && (
+            {/* Top 3 Action Steps - For Awareness, Readiness, Orgwide, and System assessments */}
+            {(assessmentType === 'Awareness' || assessmentType === 'Readiness' || assessmentType === 'Orgwide' || assessmentType === 'System') && actionSteps && (
               <div className="mt-4">
                 <div className="mb-2">
                   <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
@@ -1468,6 +1468,8 @@ function ResultsPage() {
                       ? 'Practical actions to strengthen AI readiness before progressing further.'
                       : assessmentType === 'Orgwide'
                       ? 'Practical actions to strengthen organisation-wide AI maturity based on your lowest-scoring areas.'
+                      : assessmentType === 'System'
+                      ? 'Practical actions to improve your AI system maturity based on your lowest-scoring areas.'
                       : 'Practical actions to strengthen AI awareness before progressing further.'
                     }
                   </p>
