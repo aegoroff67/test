@@ -1457,9 +1457,38 @@ function ResultsPage() {
                 </div>
                 <div className="space-y-2">
                   {(() => {
-                    // Get the 3 lowest scoring questions
+                    // Get the 3 lowest scoring questions, prioritized by:
+                    // 1. Worst performing domain (lowest domain percentage)
+                    // 2. Worst performing question within that domain (lowest question score)
+                    
+                    // Create a lookup for domain scores by domain name
+                    const domainScoreLookup = {};
+                    if (summary?.domain_scores) {
+                      summary.domain_scores.forEach(ds => {
+                        domainScoreLookup[ds.domain_name] = ds.percentage;
+                      });
+                    }
+                    
+                    // Get domain name for each question
+                    const getQuestionDomainName = (questionId) => {
+                      const question = questions.find(q => q.id === questionId);
+                      return question?.domain_name || question?.domain || '';
+                    };
+                    
                     const lowestScoringQuestions = [...answers]
-                      .sort((a, b) => a.numeric_score - b.numeric_score)
+                      .map(answer => ({
+                        ...answer,
+                        domainName: getQuestionDomainName(answer.question_id),
+                        domainScore: domainScoreLookup[getQuestionDomainName(answer.question_id)] ?? 100
+                      }))
+                      .sort((a, b) => {
+                        // First sort by domain score (ascending - worst domains first)
+                        if (a.domainScore !== b.domainScore) {
+                          return a.domainScore - b.domainScore;
+                        }
+                        // Then sort by question score (ascending - worst questions first)
+                        return a.numeric_score - b.numeric_score;
+                      })
                       .slice(0, 3);
                     
                     return lowestScoringQuestions.map((answer, index) => {
