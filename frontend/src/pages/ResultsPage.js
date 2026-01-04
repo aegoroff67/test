@@ -1456,7 +1456,7 @@ function ResultsPage() {
               <div className="mt-4">
                 <div className="mb-2">
                   <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
-                    <CheckCircle2 className={`h-4 w-4 ${assessmentType === 'Orgwide' ? 'text-purple-600' : 'text-blue-600'}`} />
+                    <CheckCircle2 className="h-4 w-4 text-blue-600" />
                     <span>Top 3 Action Steps</span>
                   </h2>
                   <p className="text-xs text-gray-600 ml-6">
