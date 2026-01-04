@@ -1511,10 +1511,8 @@ function ResultsPage() {
                 </div>
                 <div className="space-y-2">
                   {(() => {
-                    // Get the 3 lowest scoring questions, prioritized by:
-                    // 1. Worst performing domain (lowest domain percentage)
-                    // 2. Worst performing question within that domain (lowest question score)
-                    // 3. When domains tie, distribute across different domains before repeating
+                    // For System assessments with 'smart' prioritization, use priority_score
+                    // Otherwise use domain/question score prioritization
                     
                     // Create a lookup for domain scores by domain name
                     const domainScoreLookup = {};
@@ -1530,47 +1528,97 @@ function ResultsPage() {
                       return question?.domain_name || question?.domain || '';
                     };
                     
-                    // Add domain info to each answer
-                    const answersWithDomain = [...answers].map(answer => ({
-                      ...answer,
-                      domainName: getQuestionDomainName(answer.question_id),
-                      domainScore: domainScoreLookup[getQuestionDomainName(answer.question_id)] ?? 100
-                    }));
-                    
-                    // Sort by domain score first, then by question score
-                    answersWithDomain.sort((a, b) => {
-                      // First sort by domain score (ascending - worst domains first)
-                      if (a.domainScore !== b.domainScore) {
-                        return a.domainScore - b.domainScore;
-                      }
-                      // Then sort by question score (ascending - worst questions first)
-                      return a.numeric_score - b.numeric_score;
+                    // Add domain info and priority data to each answer
+                    const answersWithDomain = [...answers].map(answer => {
+                      const question = questions.find(q => q.id === answer.question_id);
+                      return {
+                        ...answer,
+                        domainName: getQuestionDomainName(answer.question_id),
+                        domainScore: domainScoreLookup[getQuestionDomainName(answer.question_id)] ?? 100,
+                        // For System assessment, get priority data from enriched answer
+                        priorityScore: answer.priority_score || 0,
+                        impactWeight: answer.impact_weight || 0,
+                        effortScore: answer.effort_score || 0,
+                        quadrantLabel: answer.quadrant_label || '',
+                        gap: 4 - (answer.numeric_score || 0)
+                      };
                     });
                     
-                    // Select top 3, preferring different domains when scores are tied
-                    const selectedQuestions = [];
-                    const usedDomains = new Set();
+                    let selectedQuestions = [];
                     
-                    // First pass: pick the worst question from each unique worst-scoring domain
-                    for (const answer of answersWithDomain) {
-                      if (selectedQuestions.length >= 3) break;
+                    // SMART PRIORITIZATION for System assessments
+                    if (assessmentType === 'System' && actionStepsPrioritization === 'smart') {
+                      // Calculate effective priority: high impact * high gap * low effort = better
+                      // We want: high impact, high gap (low score), LOW effort (easy to implement)
+                      // Formula: impact_weight * gap * (1 - effort_score) to favor lower effort
+                      const answersWithSmartPriority = answersWithDomain.map(answer => ({
+                        ...answer,
+                        smartPriority: answer.impactWeight * answer.gap * (1 - answer.effortScore)
+                      }));
                       
-                      // Only consider questions with low scores (1/4 or 2/4) from the worst domains
-                      const worstDomainScore = answersWithDomain[0]?.domainScore ?? 0;
-                      if (answer.domainScore > worstDomainScore + 5) break; // Allow 5% tolerance for "tied" domains
+                      // Sort by smart priority (descending - highest priority first)
+                      answersWithSmartPriority.sort((a, b) => b.smartPriority - a.smartPriority);
                       
-                      if (!usedDomains.has(answer.domainName)) {
-                        selectedQuestions.push(answer);
-                        usedDomains.add(answer.domainName);
+                      // Select top 3 with highest smart priority, preferring "Quick wins"
+                      const usedDomains = new Set();
+                      
+                      // First pass: pick high-priority questions from different domains
+                      for (const answer of answersWithSmartPriority) {
+                        if (selectedQuestions.length >= 3) break;
+                        if (answer.gap === 0) continue; // Skip perfect scores
+                        
+                        if (!usedDomains.has(answer.domainName)) {
+                          selectedQuestions.push(answer);
+                          usedDomains.add(answer.domainName);
+                        }
                       }
-                    }
-                    
-                    // Second pass: if we still need more, fill with remaining worst questions
-                    if (selectedQuestions.length < 3) {
+                      
+                      // Second pass: fill remaining slots if needed
+                      if (selectedQuestions.length < 3) {
+                        for (const answer of answersWithSmartPriority) {
+                          if (selectedQuestions.length >= 3) break;
+                          if (answer.gap === 0) continue;
+                          if (!selectedQuestions.includes(answer)) {
+                            selectedQuestions.push(answer);
+                          }
+                        }
+                      }
+                    } else {
+                      // DOMAIN SCORE PRIORITIZATION (default for other assessments)
+                      // Sort by domain score first, then by question score
+                      answersWithDomain.sort((a, b) => {
+                        // First sort by domain score (ascending - worst domains first)
+                        if (a.domainScore !== b.domainScore) {
+                          return a.domainScore - b.domainScore;
+                        }
+                        // Then sort by question score (ascending - worst questions first)
+                        return a.numeric_score - b.numeric_score;
+                      });
+                      
+                      // Select top 3, preferring different domains when scores are tied
+                      const usedDomains = new Set();
+                      
+                      // First pass: pick the worst question from each unique worst-scoring domain
                       for (const answer of answersWithDomain) {
                         if (selectedQuestions.length >= 3) break;
-                        if (!selectedQuestions.includes(answer)) {
+                        
+                        // Only consider questions with low scores from the worst domains
+                        const worstDomainScore = answersWithDomain[0]?.domainScore ?? 0;
+                        if (answer.domainScore > worstDomainScore + 5) break; // Allow 5% tolerance for "tied" domains
+                        
+                        if (!usedDomains.has(answer.domainName)) {
                           selectedQuestions.push(answer);
+                          usedDomains.add(answer.domainName);
+                        }
+                      }
+                      
+                      // Second pass: if we still need more, fill with remaining worst questions
+                      if (selectedQuestions.length < 3) {
+                        for (const answer of answersWithDomain) {
+                          if (selectedQuestions.length >= 3) break;
+                          if (!selectedQuestions.includes(answer)) {
+                            selectedQuestions.push(answer);
+                          }
                         }
                       }
                     }
