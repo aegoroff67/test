@@ -272,12 +272,27 @@ function ResultsPage() {
       });
       
       setQuestions(allQuestions);
-      setAnswers(answersData);
       
       const summaryResponse = await axios.get(`${API}/assessments/${id}/summary`);
       console.log('Summary response:', summaryResponse.data);
       console.log('Has recommendation_summary?', !!summaryResponse.data.recommendation_summary);
       setSummary(summaryResponse.data);
+      
+      // For System assessments, use enriched_answers from summary if available (contains impact_weight, effort_score, etc.)
+      if (assessmentType === 'System' && summaryResponse.data.enriched_answers) {
+        console.log('Using enriched answers from summary for System assessment');
+        // Map enriched answers to include question domain_name
+        const enrichedAnswersWithDomain = summaryResponse.data.enriched_answers.map(answer => {
+          const question = allQuestions.find(q => q.id === answer.question_id);
+          return {
+            ...answer,
+            question: question ? { ...question } : null
+          };
+        });
+        setAnswers(enrichedAnswersWithDomain);
+      } else {
+        setAnswers(answersData);
+      }
       
     } catch (error) {
       console.error('Error loading results:', error);
