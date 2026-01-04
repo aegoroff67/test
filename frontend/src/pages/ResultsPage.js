@@ -1440,16 +1440,19 @@ function ResultsPage() {
               </div>
             </div>
 
-            {/* Top 3 Action Steps - Only for Awareness assessments */}
-            {assessmentType === 'Awareness' && actionSteps && (
+            {/* Top 3 Action Steps - For Awareness and Readiness assessments */}
+            {(assessmentType === 'Awareness' || assessmentType === 'Readiness') && actionSteps && (
               <div className="mt-4">
                 <div className="mb-2">
                   <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
-                    <CheckCircle2 className="h-4 w-4 text-blue-600" />
+                    <CheckCircle2 className={`h-4 w-4 ${assessmentType === 'Readiness' ? 'text-blue-600' : 'text-blue-600'}`} />
                     <span>Top 3 Action Steps</span>
                   </h2>
                   <p className="text-xs text-gray-600 ml-6">
-                    Practical actions to strengthen AI awareness before progressing further.
+                    {assessmentType === 'Readiness' 
+                      ? 'Practical actions to strengthen AI readiness before progressing further.'
+                      : 'Practical actions to strengthen AI awareness before progressing further.'
+                    }
                   </p>
                 </div>
                 <div className="space-y-2">
@@ -1467,9 +1470,9 @@ function ResultsPage() {
                       if (!actionStep) return null;
                       
                       return (
-                        <div key={answer.question_id} className="p-3 bg-blue-50 rounded border border-blue-200">
+                        <div key={answer.question_id} className={`p-3 rounded border ${assessmentType === 'Readiness' ? 'bg-blue-50 border-blue-200' : 'bg-blue-50 border-blue-200'}`}>
                           <div className="flex items-start space-x-2">
-                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold mt-0.5">
+                            <div className={`flex-shrink-0 w-6 h-6 rounded-full text-white flex items-center justify-center text-xs font-bold mt-0.5 ${assessmentType === 'Readiness' ? 'bg-blue-600' : 'bg-blue-600'}`}>
                               {index + 1}
                             </div>
                             <div className="flex-1">
