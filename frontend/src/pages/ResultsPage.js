@@ -255,9 +255,13 @@ function ResultsPage() {
       
       questionData.forEach(domainData => {
         domainData.questions.forEach(question => {
-          allQuestions.push(question);
+          // Include domain_name from parent domain for later use
+          allQuestions.push({
+            ...question,
+            domain_name: domainData.domain?.name || question.domain_name
+          });
           if (question.answer) {
-            answersData.push({ ...question.answer, question });
+            answersData.push({ ...question.answer, question: { ...question, domain_name: domainData.domain?.name || question.domain_name } });
           }
         });
       });
