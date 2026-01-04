@@ -1630,6 +1630,14 @@ function ResultsPage() {
                       
                       if (!actionStep) return null;
                       
+                      // Determine quadrant badge color for System assessments with smart prioritization
+                      const getQuadrantBadgeStyle = (quadrant) => {
+                        if (quadrant?.includes('Quick win')) return 'bg-green-100 text-green-700';
+                        if (quadrant?.includes('Strategic')) return 'bg-purple-100 text-purple-700';
+                        if (quadrant?.includes('Opportunistic')) return 'bg-yellow-100 text-yellow-700';
+                        return 'bg-gray-100 text-gray-600';
+                      };
+                      
                       return (
                         <div key={answer.question_id} className="p-3 rounded border bg-blue-50 border-blue-200">
                           <div className="flex items-start space-x-2">
@@ -1637,12 +1645,37 @@ function ResultsPage() {
                               {index + 1}
                             </div>
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-gray-900 mb-1">
-                                {questionCode}: Score {answer.numeric_score}/4
+                              <div className="flex items-center justify-between mb-1">
+                                <div className="text-xs font-semibold text-gray-900">
+                                  {questionCode}: Score {answer.numeric_score}/4
+                                </div>
+                                {/* Show quadrant label for System assessments with smart prioritization */}
+                                {assessmentType === 'System' && actionStepsPrioritization === 'smart' && answer.quadrantLabel && (
+                                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${getQuadrantBadgeStyle(answer.quadrantLabel)}`}>
+                                    {answer.quadrantLabel.includes('Quick win') ? '⚡ Quick Win' 
+                                      : answer.quadrantLabel.includes('Strategic') ? '🎯 Strategic'
+                                      : answer.quadrantLabel.includes('Opportunistic') ? '💡 Opportunistic'
+                                      : '📋 Lower Priority'}
+                                  </span>
+                                )}
                               </div>
                               <div className="text-xs text-gray-700 leading-relaxed">
                                 {actionStep}
                               </div>
+                              {/* Show impact/effort scores for System assessments with smart prioritization */}
+                              {assessmentType === 'System' && actionStepsPrioritization === 'smart' && (answer.impactWeight || answer.effortScore) && (
+                                <div className="flex items-center space-x-3 mt-2 text-[10px] text-gray-500">
+                                  <span title="Higher impact = more significant improvement">
+                                    Impact: <span className="font-medium text-gray-700">{(answer.impactWeight * 100).toFixed(0)}%</span>
+                                  </span>
+                                  <span title="Lower effort = easier to implement">
+                                    Effort: <span className="font-medium text-gray-700">{(answer.effortScore * 100).toFixed(0)}%</span>
+                                  </span>
+                                  <span title="Gap from maximum score">
+                                    Gap: <span className="font-medium text-gray-700">{answer.gap}/4</span>
+                                  </span>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
