@@ -2961,6 +2961,40 @@ async def get_awareness_action_steps(sector: str):
     }
 
 
+@api_router.get("/readiness/action-steps/{sector:path}")
+async def get_readiness_action_steps(sector: str):
+    """
+    Get readiness action steps for a specific sector.
+    Returns question codes mapped to sector-specific action steps.
+    
+    Args:
+        sector: Sector name (e.g., "Finance / Insurance")
+    
+    Note: Using {sector:path} to handle sectors with forward slashes
+    """
+    import json
+    import os
+    
+    # Load readiness action steps from JSON file
+    action_steps_path = os.path.join(os.path.dirname(__file__), "readiness_actions.json")
+    with open(action_steps_path, 'r') as f:
+        all_action_steps = json.load(f)
+    
+    # Get action steps for the sector, fallback to "Other" if not found
+    sector_actions = all_action_steps.get(sector, all_action_steps.get("Other", {}))
+    
+    if not sector_actions:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No readiness action steps found for sector: {sector}"
+        )
+    
+    return {
+        "sector": sector,
+        "action_steps": sector_actions
+    }
+
+
 @api_router.get("/assessments/{assessment_id}/status")
 async def get_assessment_status(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
