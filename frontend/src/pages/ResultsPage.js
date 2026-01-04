@@ -313,12 +313,17 @@ function ResultsPage() {
     }
   };
 
-  const fetchActionSteps = async (industry) => {
+  const fetchActionSteps = async (industry, type = 'Awareness') => {
     try {
       const benchmarkSector = getBenchmarkSector(industry);
-      console.log('Fetching action steps for sector:', benchmarkSector);
+      console.log(`Fetching ${type} action steps for sector:`, benchmarkSector);
       
-      const response = await axios.get(`${API}/awareness/action-steps/${encodeURIComponent(benchmarkSector)}`);
+      // Use different endpoints for Awareness vs Readiness
+      const endpoint = type === 'Readiness' 
+        ? `${API}/readiness/action-steps/${encodeURIComponent(benchmarkSector)}`
+        : `${API}/awareness/action-steps/${encodeURIComponent(benchmarkSector)}`;
+      
+      const response = await axios.get(endpoint);
       console.log('Action steps response:', response.data);
       
       setActionSteps(response.data.action_steps);
