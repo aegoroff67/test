@@ -1542,9 +1542,9 @@ function ResultsPage() {
                       if (!actionStep) return null;
                       
                       return (
-                        <div key={answer.question_id} className={`p-3 rounded border ${assessmentType === 'Orgwide' ? 'bg-purple-50 border-purple-200' : 'bg-blue-50 border-blue-200'}`}>
+                        <div key={answer.question_id} className="p-3 rounded border bg-blue-50 border-blue-200">
                           <div className="flex items-start space-x-2">
-                            <div className={`flex-shrink-0 w-6 h-6 rounded-full text-white flex items-center justify-center text-xs font-bold mt-0.5 ${assessmentType === 'Orgwide' ? 'bg-purple-600' : 'bg-blue-600'}`}>
+                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold mt-0.5">
                               {index + 1}
                             </div>
                             <div className="flex-1">
