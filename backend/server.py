@@ -2995,6 +2995,46 @@ async def get_readiness_action_steps(sector: str):
     }
 
 
+@api_router.get("/orgwide/action-steps/{sector:path}")
+async def get_orgwide_action_steps(sector: str):
+    """
+    Get organisation-wide AI maturity action steps for a specific sector.
+    Returns question codes mapped to sector-specific action steps.
+    
+    Args:
+        sector: Sector name (e.g., "Finance / Insurance")
+    
+    Note: Using {sector:path} to handle sectors with forward slashes
+    """
+    import json
+    import os
+    
+    # Load orgwide action steps from JSON file
+    action_steps_path = os.path.join(os.path.dirname(__file__), "orgwide_actions.json")
+    try:
+        with open(action_steps_path, 'r') as f:
+            all_action_steps = json.load(f)
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=500,
+            detail="Organisation-wide action steps data file not found"
+        )
+    
+    # Get action steps for the sector, fallback to "Other" if not found
+    sector_actions = all_action_steps.get(sector, all_action_steps.get("Other", {}))
+    
+    if not sector_actions:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No organisation-wide action steps found for sector: {sector}"
+        )
+    
+    return {
+        "sector": sector,
+        "action_steps": sector_actions
+    }
+
+
 @api_router.get("/assessments/{assessment_id}/status")
 async def get_assessment_status(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
