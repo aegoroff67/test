@@ -98,6 +98,105 @@ function ResultsPage() {
   const [commentaryExpanded, setCommentaryExpanded] = useState(false);
   const [actionStepsPrioritization, setActionStepsPrioritization] = useState('smart'); // 'smart' or 'domain' - for System assessments
 
+  // Calculate top 3 action step question IDs based on prioritization method
+  // This is used to show badges on the heatmap for System assessments
+  const top3ActionStepQuestionIds = useMemo(() => {
+    if (assessmentType !== 'System' || !summary?.domain_scores || !answers.length || !questions.length) {
+      return [];
+    }
+
+    // Create a lookup for domain scores by domain name
+    const domainScoreLookup = {};
+    summary.domain_scores.forEach(ds => {
+      domainScoreLookup[ds.domain_name] = ds.percentage;
+    });
+
+    // Get domain name for each question
+    const getQuestionDomainName = (questionId) => {
+      const question = questions.find(q => q.id === questionId);
+      return question?.domain_name || question?.domain || '';
+    };
+
+    // Add domain info and priority data to each answer
+    const answersWithDomain = [...answers].map(answer => {
+      const question = questions.find(q => q.id === answer.question_id);
+      return {
+        ...answer,
+        questionCode: question?.code || '',
+        domainName: getQuestionDomainName(answer.question_id),
+        domainScore: domainScoreLookup[getQuestionDomainName(answer.question_id)] ?? 100,
+        priorityScore: answer.priority_score || 0,
+        impactWeight: answer.impact_weight || 0,
+        effortScore: answer.effort_score || 0,
+        gap: 4 - (answer.numeric_score || 0)
+      };
+    });
+
+    let selectedQuestions = [];
+
+    if (actionStepsPrioritization === 'smart') {
+      // SMART PRIORITIZATION
+      const answersWithSmartPriority = answersWithDomain.map(answer => ({
+        ...answer,
+        smartPriority: answer.impactWeight * answer.gap * (1 - answer.effortScore)
+      }));
+      answersWithSmartPriority.sort((a, b) => b.smartPriority - a.smartPriority);
+
+      const usedDomains = new Set();
+      for (const answer of answersWithSmartPriority) {
+        if (selectedQuestions.length >= 3) break;
+        if (answer.gap === 0) continue;
+        if (!usedDomains.has(answer.domainName)) {
+          selectedQuestions.push(answer);
+          usedDomains.add(answer.domainName);
+        }
+      }
+      if (selectedQuestions.length < 3) {
+        for (const answer of answersWithSmartPriority) {
+          if (selectedQuestions.length >= 3) break;
+          if (answer.gap === 0) continue;
+          if (!selectedQuestions.includes(answer)) {
+            selectedQuestions.push(answer);
+          }
+        }
+      }
+    } else {
+      // DOMAIN SCORE PRIORITIZATION
+      answersWithDomain.sort((a, b) => {
+        if (a.domainScore !== b.domainScore) {
+          return a.domainScore - b.domainScore;
+        }
+        return a.numeric_score - b.numeric_score;
+      });
+
+      const usedDomains = new Set();
+      const worstDomainScore = answersWithDomain[0]?.domainScore ?? 0;
+      for (const answer of answersWithDomain) {
+        if (selectedQuestions.length >= 3) break;
+        if (answer.domainScore > worstDomainScore + 5) break;
+        if (!usedDomains.has(answer.domainName)) {
+          selectedQuestions.push(answer);
+          usedDomains.add(answer.domainName);
+        }
+      }
+      if (selectedQuestions.length < 3) {
+        for (const answer of answersWithDomain) {
+          if (selectedQuestions.length >= 3) break;
+          if (!selectedQuestions.includes(answer)) {
+            selectedQuestions.push(answer);
+          }
+        }
+      }
+    }
+
+    // Return array of { questionId, rank } objects
+    return selectedQuestions.map((answer, index) => ({
+      questionId: answer.question_id,
+      questionCode: answer.questionCode,
+      rank: index + 1
+    }));
+  }, [assessmentType, summary, answers, questions, actionStepsPrioritization]);
+
   useEffect(() => {
     fetchResults();
   }, [id]);
