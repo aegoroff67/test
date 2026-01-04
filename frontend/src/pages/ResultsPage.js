@@ -96,6 +96,7 @@ function ResultsPage() {
   const [sectorAverage, setSectorAverage] = useState(null);
   const [showFrameworkCoverage, setShowFrameworkCoverage] = useState(false);
   const [commentaryExpanded, setCommentaryExpanded] = useState(false);
+  const [actionStepsPrioritization, setActionStepsPrioritization] = useState('smart'); // 'smart' or 'domain' - for System assessments
 
   useEffect(() => {
     fetchResults();
