@@ -684,7 +684,18 @@ function ResultsPage() {
                   </>
                 ) : (
                   <>
-                    The results indicate that <strong>{assessment?.system_info?.systemName || assessment?.system_info?.organizationName || user?.organization_name}</strong> has achieved an overall AI maturity score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing this system within the <strong>{summary.overall_maturity}</strong> AI Maturity category. This rating reflects {
+                    The results indicate that <strong>{assessment?.system_info?.systemName || assessment?.system_info?.organizationName || user?.organization_name}</strong> has achieved an overall AI maturity score of <strong>{summary.overall_percentage.toFixed(1)}%</strong>, placing this system within the <strong>{summary.overall_maturity}</strong> AI Maturity category{
+                      sectorAverage !== null && benchmarkSector ? (
+                        (() => {
+                          const userScore = summary.overall_percentage;
+                          const avgScore = sectorAverage;
+                          const comparison = userScore > avgScore ? 'above' : userScore < avgScore ? 'below' : 'equal to';
+                          return (
+                            <>, which is <strong>{comparison}</strong> the <strong>{benchmarkSector}</strong> sector AI system maturity average of <strong>{avgScore}%</strong>.</>
+                          );
+                        })()
+                      ) : '.'
+                    } This rating reflects {
                       summary.overall_maturity === 'Leading'
                         ? 'exemplary AI governance and ethical assurance, setting a benchmark for responsible AI leadership. Governance systems are fully embedded, adaptive, and continuously refined through data-driven insights, external validation, and innovation. The focus is on optimisation, transparency, and sustained improvement across all AI operations.'
                         : summary.overall_maturity === 'Established'
