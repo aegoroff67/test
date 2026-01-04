@@ -154,11 +154,16 @@ function ResultsPage() {
   }, [assessmentType, assessment, user, sectorAverage]);
 
   useEffect(() => {
-    // Fetch action steps for Awareness assessments
-    if (assessmentType === 'Awareness' && assessment && !actionSteps) {
-      const industry = assessment?.awareness_info?.industry || user?.industry;
+    // Fetch action steps for Awareness and Readiness assessments
+    if ((assessmentType === 'Awareness' || assessmentType === 'Readiness') && assessment && !actionSteps) {
+      let industry;
+      if (assessmentType === 'Awareness') {
+        industry = assessment?.awareness_info?.industry || user?.industry;
+      } else if (assessmentType === 'Readiness') {
+        industry = assessment?.readiness_info?.industry || user?.industry;
+      }
       if (industry) {
-        fetchActionSteps(industry);
+        fetchActionSteps(industry, assessmentType);
       }
     }
   }, [assessmentType, assessment, user, actionSteps]);
