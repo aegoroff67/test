@@ -1411,6 +1411,173 @@ class AMSafeAPITester:
         
         return True
 
+    def test_orgwide_action_steps_endpoint(self):
+        """Test the new Organisation-wide AI Maturity Assessment action steps endpoint"""
+        print("\n🔍 TESTING ORGWIDE ACTION STEPS ENDPOINT")
+        print("-" * 60)
+        
+        # Test valid sectors
+        valid_sectors = [
+            "Education",
+            "Healthcare", 
+            "Finance / Insurance",
+            "Technology / Software",
+            "Local Government / Public Sector"
+        ]
+        
+        for sector in valid_sectors:
+            # URL encode the sector for proper handling of slashes
+            import urllib.parse
+            encoded_sector = urllib.parse.quote(sector, safe='')
+            
+            success, response = self.make_request('GET', f'orgwide/action-steps/{encoded_sector}')
+            if success:
+                self.log_test(f"Action steps for '{sector}' sector", True)
+                
+                # Verify response structure
+                if 'sector' in response and 'action_steps' in response:
+                    self.log_test(f"'{sector}' response structure valid", True)
+                    
+                    # Verify sector field matches
+                    if response['sector'] == sector:
+                        self.log_test(f"'{sector}' sector field correct", True)
+                    else:
+                        self.log_test(f"'{sector}' sector field correct", False, 
+                                    f"Expected '{sector}', got '{response['sector']}'")
+                    
+                    # Verify action_steps is an object with question codes
+                    action_steps = response['action_steps']
+                    if isinstance(action_steps, dict):
+                        self.log_test(f"'{sector}' action_steps is object", True)
+                        
+                        # Count action steps - should be 80 for each sector
+                        step_count = len(action_steps)
+                        if step_count == 80:
+                            self.log_test(f"'{sector}' has 80 action steps", True)
+                        else:
+                            self.log_test(f"'{sector}' has 80 action steps", False, 
+                                        f"Found {step_count} action steps")
+                        
+                        # Verify question codes format (GO-01 to GO-08, AE-01 to AE-08, etc.)
+                        expected_prefixes = ['GO', 'AE', 'DS', 'RM', 'CA', 'CC', 'TR', 'EX', 'AC', 'DI']
+                        found_prefixes = set()
+                        valid_codes = 0
+                        
+                        for code in action_steps.keys():
+                            if '-' in code:
+                                prefix = code.split('-')[0]
+                                found_prefixes.add(prefix)
+                                if prefix in expected_prefixes:
+                                    valid_codes += 1
+                        
+                        if len(found_prefixes) >= 6:  # At least 6 domain prefixes
+                            self.log_test(f"'{sector}' has valid question code prefixes", True)
+                        else:
+                            self.log_test(f"'{sector}' has valid question code prefixes", False,
+                                        f"Found prefixes: {found_prefixes}")
+                        
+                    else:
+                        self.log_test(f"'{sector}' action_steps is object", False, 
+                                    f"action_steps is {type(action_steps)}")
+                else:
+                    self.log_test(f"'{sector}' response structure valid", False, 
+                                f"Missing required fields. Response keys: {list(response.keys())}")
+            else:
+                self.log_test(f"Action steps for '{sector}' sector", False, str(response))
+        
+        # Test fallback to "Other" sector for unknown sector
+        unknown_sector = "Unknown Industry"
+        encoded_unknown = urllib.parse.quote(unknown_sector, safe='')
+        success, response = self.make_request('GET', f'orgwide/action-steps/{encoded_unknown}')
+        if success:
+            self.log_test("Unknown sector fallback to 'Other'", True)
+            
+            # Verify it returns action steps (should fallback to "Other" sector)
+            if 'action_steps' in response and len(response['action_steps']) > 0:
+                self.log_test("Unknown sector returns action steps", True)
+            else:
+                self.log_test("Unknown sector returns action steps", False, "No action steps returned")
+        else:
+            self.log_test("Unknown sector fallback to 'Other'", False, str(response))
+        
+        # Test URL encoding with special characters
+        sector_with_slash = "Finance / Insurance"
+        encoded_slash = urllib.parse.quote(sector_with_slash, safe='')
+        success, response = self.make_request('GET', f'orgwide/action-steps/{encoded_slash}')
+        if success:
+            self.log_test("URL encoding handles slashes correctly", True)
+            if response.get('sector') == sector_with_slash:
+                self.log_test("Slash sector name preserved correctly", True)
+            else:
+                self.log_test("Slash sector name preserved correctly", False,
+                            f"Expected '{sector_with_slash}', got '{response.get('sector')}'")
+        else:
+            self.log_test("URL encoding handles slashes correctly", False, str(response))
+        
+        return True
+
+    def test_login_with_test_credentials(self):
+        """Test login with the specific test credentials from the review request"""
+        print("\n🔍 TESTING LOGIN WITH TEST CREDENTIALS")
+        print("-" * 60)
+        
+        # Test credentials from review request
+        test_credentials = {
+            "email": "andrew@test.com",
+            "password": "password123"
+        }
+        
+        success, response = self.make_request('POST', 'auth/login', test_credentials)
+        if success and 'access_token' in response:
+            self.token = response['access_token']
+            self.user_data = response['user']
+            self.log_test("Login with test credentials (andrew@test.com)", True)
+            
+            # Store user info for potential frontend testing
+            print(f"   📝 Logged in as: {self.user_data.get('name', 'Unknown')}")
+            print(f"   📝 Organization: {self.user_data.get('organization_name', 'Unknown')}")
+            print(f"   📝 User ID: {self.user_data.get('id', 'Unknown')}")
+            
+            return True
+        else:
+            self.log_test("Login with test credentials (andrew@test.com)", False, str(response))
+            return False
+
+    def test_orgwide_assessment_exists(self):
+        """Check if there are any completed Orgwide assessments for testing"""
+        print("\n🔍 CHECKING FOR EXISTING ORGWIDE ASSESSMENTS")
+        print("-" * 60)
+        
+        success, assessments = self.make_request('GET', 'assessments')
+        if not success:
+            self.log_test("Get assessments list", False, str(assessments))
+            return False
+        
+        self.log_test("Get assessments list", True)
+        
+        # Look for Orgwide assessments
+        orgwide_assessments = [a for a in assessments if a.get('assessment_type') == 'Orgwide']
+        completed_orgwide = [a for a in orgwide_assessments if a.get('status') == 'COMPLETED']
+        
+        if orgwide_assessments:
+            self.log_test(f"Found {len(orgwide_assessments)} Orgwide assessments", True)
+            
+            if completed_orgwide:
+                self.log_test(f"Found {len(completed_orgwide)} completed Orgwide assessments", True)
+                
+                # Store the first completed assessment for potential testing
+                self.completed_orgwide_id = completed_orgwide[0]['id']
+                print(f"   📝 Using assessment: {completed_orgwide[0]['name']}")
+                return True
+            else:
+                self.log_test("Found completed Orgwide assessments", False, 
+                            "No completed Orgwide assessments available for testing")
+        else:
+            self.log_test("Found Orgwide assessments", False, 
+                        "No Orgwide assessments found")
+        
+        return False
+
     def run_specific_fix_tests(self):
         """Run tests specifically for the submit assessment issue"""
         print("🚀 Testing Submit Assessment Issue Investigation")
