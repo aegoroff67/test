@@ -1460,17 +1460,51 @@ function ResultsPage() {
             {(assessmentType === 'Awareness' || assessmentType === 'Readiness' || assessmentType === 'Orgwide' || assessmentType === 'System') && actionSteps && (
               <div className="mt-4">
                 <div className="mb-2">
-                  <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
-                    <CheckCircle2 className="h-4 w-4 text-blue-600" />
-                    <span>Top 3 Action Steps</span>
-                  </h2>
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
+                      <CheckCircle2 className="h-4 w-4 text-blue-600" />
+                      <span>Top 3 Action Steps</span>
+                    </h2>
+                    {/* Prioritization toggle - only for System assessments */}
+                    {assessmentType === 'System' && (
+                      <div className="flex items-center space-x-2 text-xs">
+                        <span className="text-gray-500">Prioritise by:</span>
+                        <div className="flex bg-gray-100 rounded-md p-0.5">
+                          <button
+                            onClick={() => setActionStepsPrioritization('smart')}
+                            className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                              actionStepsPrioritization === 'smart'
+                                ? 'bg-blue-600 text-white'
+                                : 'text-gray-600 hover:text-gray-900'
+                            }`}
+                            title="Prioritises high-impact, lower-effort actions (Quick Wins)"
+                          >
+                            Smart Priority
+                          </button>
+                          <button
+                            onClick={() => setActionStepsPrioritization('domain')}
+                            className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                              actionStepsPrioritization === 'domain'
+                                ? 'bg-blue-600 text-white'
+                                : 'text-gray-600 hover:text-gray-900'
+                            }`}
+                            title="Prioritises worst-performing domains and questions"
+                          >
+                            Domain Score
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                   <p className="text-xs text-gray-600 ml-6">
                     {assessmentType === 'Readiness' 
                       ? 'Practical actions to strengthen AI readiness before progressing further.'
                       : assessmentType === 'Orgwide'
                       ? 'Practical actions to strengthen organisation-wide AI maturity based on your lowest-scoring areas.'
                       : assessmentType === 'System'
-                      ? 'Practical actions to improve your AI system maturity based on your lowest-scoring areas.'
+                      ? actionStepsPrioritization === 'smart'
+                        ? 'High-impact, lower-effort actions to improve your AI system maturity (Quick Wins prioritised).'
+                        : 'Practical actions based on your lowest-scoring domains and questions.'
                       : 'Practical actions to strengthen AI awareness before progressing further.'
                     }
                   </p>
