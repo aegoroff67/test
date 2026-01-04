@@ -326,12 +326,14 @@ function ResultsPage() {
       const benchmarkSector = getBenchmarkSector(industry);
       console.log(`Fetching ${type} action steps for sector:`, benchmarkSector);
       
-      // Use different endpoints for Awareness vs Readiness vs Orgwide
+      // Use different endpoints for Awareness vs Readiness vs Orgwide vs System
       let endpoint;
       if (type === 'Readiness') {
         endpoint = `${API}/readiness/action-steps/${encodeURIComponent(benchmarkSector)}`;
       } else if (type === 'Orgwide') {
         endpoint = `${API}/orgwide/action-steps/${encodeURIComponent(benchmarkSector)}`;
+      } else if (type === 'System') {
+        endpoint = `${API}/system/action-steps/${encodeURIComponent(benchmarkSector)}`;
       } else {
         endpoint = `${API}/awareness/action-steps/${encodeURIComponent(benchmarkSector)}`;
       }
