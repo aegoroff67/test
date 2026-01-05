@@ -829,3 +829,326 @@ def get_radar_chart_data(form_data: Dict) -> Dict[str, List[Dict]]:
         })
     
     return result
+
+
+
+# ============================================================================
+# CONTROLS RECOMMENDATION ENGINE
+# ============================================================================
+
+CONTROLS_PATH = Path(__file__).parent / "faira_partc_controls_and_rules.json"
+
+def load_controls_data() -> Dict:
+    """Load the FAIRA Part C controls and rules from JSON file"""
+    try:
+        with open(CONTROLS_PATH, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to load controls data: {e}")
+        return {"controls": [], "recommendation_rules": []}
+
+
+def get_risk_level_from_score(score: float) -> str:
+    """Convert numeric score to risk level string"""
+    if score >= 75:
+        return "Very High"
+    elif score >= 55:
+        return "High"
+    elif score >= 35:
+        return "Medium"
+    elif score >= 20:
+        return "Low"
+    return "Very Low"
+
+
+def evaluate_rule_condition(rule: Dict, form_data: Dict, risk_summary: Dict, domain_scores: Dict) -> bool:
+    """
+    Evaluate a rule's 'when' condition against form data and risk scores.
+    Returns True if the rule condition is met.
+    """
+    condition = rule.get("when", {})
+    condition_type = condition.get("type")
+    
+    if condition_type == "domain_threshold":
+        # Check if a specific domain's risk level meets a threshold
+        metric = condition.get("metric", "domain_residual_risk_level")
+        operator = condition.get("operator", ">=")
+        threshold_value = condition.get("value", "High")
+        target_domain = condition.get("domain")  # Optional: specific domain
+        
+        # Risk level ordering for comparison
+        risk_order = {"Very Low": 1, "Low": 2, "Medium": 3, "High": 4, "Very High": 5}
+        threshold_num = risk_order.get(threshold_value, 3)
+        
+        domains_to_check = []
+        if target_domain:
+            # Map full name to short label
+            for d in FAIRA_DOMAINS:
+                if d["fullName"] == target_domain or d["shortLabel"] == target_domain:
+                    domains_to_check.append(d["shortLabel"])
+                    break
+        else:
+            # Check all domains
+            domains_to_check = [d["shortLabel"] for d in FAIRA_DOMAINS]
+        
+        for domain_label in domains_to_check:
+            if domain_label in domain_scores:
+                risk_score = domain_scores[domain_label].get("Risk", 0)
+                risk_level = get_risk_level_from_score(risk_score)
+                domain_risk_num = risk_order.get(risk_level, 0)
+                
+                if operator == ">=" and domain_risk_num >= threshold_num:
+                    return True
+                elif operator == ">" and domain_risk_num > threshold_num:
+                    return True
+                elif operator == "==" and domain_risk_num == threshold_num:
+                    return True
+        
+        return False
+    
+    elif condition_type == "overall_threshold":
+        # Check overall risk level
+        metric = condition.get("metric", "overall_residual_risk_level")
+        operator = condition.get("operator", ">=")
+        threshold_value = condition.get("value", "High")
+        
+        risk_order = {"Very Low": 1, "Low": 2, "Medium": 3, "High": 4, "Very High": 5}
+        threshold_num = risk_order.get(threshold_value, 3)
+        
+        overall_level = risk_summary.get("overall_risk_level", "Medium")
+        overall_num = risk_order.get(overall_level, 0)
+        
+        if operator == ">=" and overall_num >= threshold_num:
+            return True
+        elif operator == ">" and overall_num > threshold_num:
+            return True
+        elif operator == "==" and overall_num == threshold_num:
+            return True
+        
+        return False
+    
+    elif condition_type == "question_value":
+        # Check specific question answer
+        question_id = condition.get("question_id", "")
+        # Normalize question ID format (A5.11 -> A5_11)
+        normalized_id = question_id.upper().replace('.', '_').replace('-', '_')
+        operator = condition.get("operator", "equals")
+        expected_values = condition.get("value")
+        
+        actual_value = get_form_value(form_data, normalized_id)
+        
+        if actual_value is None:
+            return False
+        
+        if operator == "equals":
+            return str(actual_value) == str(expected_values)
+        elif operator == "in":
+            if isinstance(expected_values, list):
+                if isinstance(actual_value, list):
+                    return any(v in expected_values for v in actual_value)
+                return str(actual_value) in expected_values
+            return False
+        elif operator == "contains":
+            if isinstance(actual_value, list):
+                return expected_values in actual_value
+            return expected_values in str(actual_value)
+        
+        return False
+    
+    elif condition_type == "domain_combo":
+        # Complex condition: check both inherent and residual risk levels for domains
+        # This is for the "high inherent but low residual" rule
+        inherent_op = condition.get("domain_inherent_operator", ">=")
+        inherent_value = condition.get("domain_inherent_value", "High")
+        residual_op = condition.get("domain_residual_operator", "<=")
+        residual_value = condition.get("domain_residual_value", "Low")
+        
+        risk_order = {"Very Low": 1, "Low": 2, "Medium": 3, "High": 4, "Very High": 5}
+        inherent_threshold = risk_order.get(inherent_value, 4)
+        residual_threshold = risk_order.get(residual_value, 2)
+        
+        # Check if any domain matches the combo condition
+        for domain_label in domain_scores:
+            risk_score = domain_scores[domain_label].get("Risk", 0)
+            risk_level = get_risk_level_from_score(risk_score)
+            residual_num = risk_order.get(risk_level, 0)
+            
+            # For inherent risk, calculate from Impact × Likelihood
+            impact = domain_scores[domain_label].get("Impact", 0) / 5  # Denormalize
+            likelihood = domain_scores[domain_label].get("Likelihood", 0) / 5  # Denormalize
+            inherent_score = min(100, (impact * likelihood) / 1.2)  # Simplified inherent
+            inherent_level = get_risk_level_from_score(inherent_score)
+            inherent_num = risk_order.get(inherent_level, 0)
+            
+            inherent_match = (inherent_op == ">=" and inherent_num >= inherent_threshold) or \
+                           (inherent_op == ">" and inherent_num > inherent_threshold)
+            residual_match = (residual_op == "<=" and residual_num <= residual_threshold) or \
+                            (residual_op == "<" and residual_num < residual_threshold)
+            
+            if inherent_match and residual_match:
+                return True
+        
+        return False
+    
+    return False
+
+
+def get_controls_by_ids(controls_list: List[Dict], control_ids: List[str]) -> List[Dict]:
+    """Get control objects by their IDs"""
+    return [c for c in controls_list if c.get("control_id") in control_ids]
+
+
+def get_controls_by_domain(controls_list: List[Dict], domain: str) -> List[Dict]:
+    """Get all controls that apply to a specific domain"""
+    result = []
+    for control in controls_list:
+        control_domains = control.get("domains", [])
+        if domain in control_domains:
+            result.append(control)
+    return result
+
+
+def get_recommended_controls(form_data: Dict, top_n: int = 3) -> Dict[str, Any]:
+    """
+    Process rules against form data and risk scores to recommend controls.
+    Returns top N controls prioritized by rule priority and relevance.
+    """
+    controls_data = load_controls_data()
+    all_controls = controls_data.get("controls", [])
+    rules = controls_data.get("recommendation_rules", [])
+    
+    # Calculate risk scores
+    risk_summary = calculate_overall_risk(form_data)
+    domain_scores = risk_summary.get("domain_scores", {})
+    
+    # Track matched controls with their priority and rationale
+    matched_controls = {}  # control_id -> {control, priority, rationale, triggered_by}
+    
+    # Priority ordering
+    priority_order = {"High": 3, "Medium": 2, "Low": 1}
+    
+    for rule in rules:
+        if evaluate_rule_condition(rule, form_data, risk_summary, domain_scores):
+            rule_priority = rule.get("priority", "Medium")
+            then_clause = rule.get("then", {})
+            
+            # Get controls to recommend
+            select_controls = then_clause.get("select_controls", {})
+            controls_to_add = []
+            
+            if "control_ids" in select_controls:
+                # Specific control IDs
+                controls_to_add = get_controls_by_ids(all_controls, select_controls["control_ids"])
+            elif select_controls.get("mode") == "by_domain":
+                # Get controls by domain from triggered domains
+                # For domain threshold rules, add controls for domains that triggered
+                for domain_info in FAIRA_DOMAINS:
+                    domain_label = domain_info["shortLabel"]
+                    full_name = domain_info["fullName"]
+                    if domain_label in domain_scores:
+                        risk_score = domain_scores[domain_label].get("Risk", 0)
+                        risk_level = get_risk_level_from_score(risk_score)
+                        
+                        # Check if this domain triggered the rule
+                        condition = rule.get("when", {})
+                        threshold_value = condition.get("value", "High")
+                        risk_order = {"Very Low": 1, "Low": 2, "Medium": 3, "High": 4, "Very High": 5}
+                        
+                        if risk_order.get(risk_level, 0) >= risk_order.get(threshold_value, 3):
+                            domain_controls = get_controls_by_domain(all_controls, full_name)
+                            
+                            # Apply filters if specified
+                            if not select_controls.get("include_all_controls_for_domain", True):
+                                control_types = select_controls.get("include_control_types", [])
+                                if control_types:
+                                    domain_controls = [c for c in domain_controls 
+                                                      if c.get("control_type") in control_types]
+                                max_per_domain = select_controls.get("max_controls_per_domain")
+                                if max_per_domain:
+                                    domain_controls = domain_controls[:max_per_domain]
+                            
+                            controls_to_add.extend(domain_controls)
+            
+            # Generate rationale from template
+            rationale_template = then_clause.get("rationale_template", "")
+            rationale = rationale_template
+            
+            # Replace placeholders in rationale
+            rationale = rationale.replace("{overall_residual_risk_level}", risk_summary.get("overall_risk_level", ""))
+            rationale = rationale.replace("{overall_risk_level}", risk_summary.get("overall_risk_level", ""))
+            
+            # Replace domain-specific placeholders
+            for domain_info in FAIRA_DOMAINS:
+                domain_label = domain_info["shortLabel"]
+                full_name = domain_info["fullName"]
+                if domain_label in domain_scores:
+                    risk_level = get_risk_level_from_score(domain_scores[domain_label].get("Risk", 0))
+                    rationale = rationale.replace("{domain_residual_risk_level}", risk_level)
+                    rationale = rationale.replace("{domain_inherent_risk_level}", risk_level)
+                    rationale = rationale.replace("{domain}", full_name)
+            
+            # Replace question value placeholders
+            for placeholder in re.findall(r'\{([A-Z]\d+\.\d+)\}', rationale):
+                normalized_id = placeholder.replace('.', '_')
+                value = get_form_value(form_data, normalized_id)
+                if value:
+                    rationale = rationale.replace(f"{{{placeholder}}}", str(value))
+            
+            # Add controls to matched set
+            for control in controls_to_add:
+                control_id = control.get("control_id")
+                current_priority = priority_order.get(rule_priority, 2)
+                
+                if control_id not in matched_controls:
+                    matched_controls[control_id] = {
+                        "control": control,
+                        "priority": current_priority,
+                        "priority_label": rule_priority,
+                        "rationale": rationale,
+                        "triggered_by": [rule.get("rule_id")]
+                    }
+                else:
+                    # Update if higher priority
+                    if current_priority > matched_controls[control_id]["priority"]:
+                        matched_controls[control_id]["priority"] = current_priority
+                        matched_controls[control_id]["priority_label"] = rule_priority
+                        matched_controls[control_id]["rationale"] = rationale
+                    matched_controls[control_id]["triggered_by"].append(rule.get("rule_id"))
+    
+    # Sort by priority (highest first) and get top N
+    sorted_controls = sorted(
+        matched_controls.values(),
+        key=lambda x: (-x["priority"], x["control"]["control_id"])
+    )
+    
+    top_controls = sorted_controls[:top_n]
+    
+    # Format output
+    result = {
+        "top_controls": [],
+        "total_matched": len(matched_controls),
+        "risk_summary": {
+            "overall_risk_level": risk_summary.get("overall_risk_level"),
+            "overall_risk_score": risk_summary.get("overall_risk_score")
+        }
+    }
+    
+    for i, item in enumerate(top_controls):
+        control = item["control"]
+        result["top_controls"].append({
+            "rank": i + 1,
+            "control_id": control.get("control_id"),
+            "title": control.get("title"),
+            "description": control.get("description"),
+            "detailed_description": control.get("detailed_description"),
+            "domains": control.get("domains", []),
+            "control_type": control.get("control_type"),
+            "implementation_effort": control.get("implementation_effort"),
+            "implementation_horizon": control.get("implementation_horizon"),
+            "evidence_examples": control.get("evidence_examples", []),
+            "priority": item["priority_label"],
+            "rationale": item["rationale"],
+            "triggered_by": item["triggered_by"]
+        })
+    
+    return result
