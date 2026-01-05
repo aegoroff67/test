@@ -154,6 +154,145 @@ const RiskStackedColumn = ({ score }) => {
   );
 };
 
+// Control Card Component for Top 3 Controls
+const ControlCard = ({ control, index }) => {
+  const [expanded, setExpanded] = useState(false);
+  
+  // Priority badge colors
+  const getPriorityColor = (priority) => {
+    switch(priority) {
+      case 'High':
+        return 'bg-red-100 text-red-700 border-red-200';
+      case 'Medium':
+        return 'bg-yellow-100 text-yellow-700 border-yellow-200';
+      case 'Low':
+        return 'bg-green-100 text-green-700 border-green-200';
+      default:
+        return 'bg-gray-100 text-gray-700 border-gray-200';
+    }
+  };
+
+  // Effort badge colors
+  const getEffortColor = (effort) => {
+    switch(effort) {
+      case 'Low':
+        return 'bg-green-50 text-green-600';
+      case 'Medium':
+        return 'bg-yellow-50 text-yellow-600';
+      case 'High':
+        return 'bg-red-50 text-red-600';
+      default:
+        return 'bg-gray-50 text-gray-600';
+    }
+  };
+
+  // Horizon badge colors
+  const getHorizonColor = (horizon) => {
+    switch(horizon) {
+      case 'Immediate':
+        return 'bg-teal-50 text-teal-600';
+      case 'Short-term':
+        return 'bg-blue-50 text-blue-600';
+      case 'Medium-term':
+        return 'bg-purple-50 text-purple-600';
+      case 'Ongoing':
+        return 'bg-orange-50 text-orange-600';
+      default:
+        return 'bg-gray-50 text-gray-600';
+    }
+  };
+
+  return (
+    <div className="border border-teal-200 rounded-lg bg-teal-50/50 overflow-hidden">
+      {/* Header - always visible */}
+      <div 
+        className="p-2 cursor-pointer hover:bg-teal-50 transition-colors"
+        onClick={() => setExpanded(!expanded)}
+      >
+        <div className="flex items-start gap-2">
+          {/* Rank badge */}
+          <div className="flex-shrink-0 w-5 h-5 rounded-full bg-teal-600 text-white flex items-center justify-center text-[10px] font-bold">
+            {index + 1}
+          </div>
+          
+          {/* Control title and priority */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <span className="text-xs font-semibold text-gray-900 leading-tight">{control.title}</span>
+              <span className={`px-1 py-0.5 rounded text-[9px] font-medium border ${getPriorityColor(control.priority)}`}>
+                {control.priority}
+              </span>
+            </div>
+            <p className="text-[10px] text-gray-600 line-clamp-2">{control.description}</p>
+          </div>
+          
+          {/* Expand/collapse icon */}
+          <div className="flex-shrink-0 text-gray-400">
+            {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </div>
+        </div>
+      </div>
+      
+      {/* Expanded content */}
+      {expanded && (
+        <div className="px-2 pb-2 pt-1 border-t border-teal-100 bg-white/50">
+          {/* Effort & Horizon badges */}
+          <div className="flex flex-wrap gap-1 mb-2">
+            <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium flex items-center gap-0.5 ${getEffortColor(control.implementation_effort)}`}>
+              <Zap className="h-2.5 w-2.5" />
+              {control.implementation_effort} Effort
+            </span>
+            <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium flex items-center gap-0.5 ${getHorizonColor(control.implementation_horizon)}`}>
+              <Clock className="h-2.5 w-2.5" />
+              {control.implementation_horizon}
+            </span>
+          </div>
+          
+          {/* Domains */}
+          <div className="mb-2">
+            <div className="text-[9px] font-semibold text-gray-500 uppercase mb-0.5">Domains</div>
+            <div className="flex flex-wrap gap-1">
+              {control.domains.map((domain, i) => (
+                <span key={i} className="px-1 py-0.5 bg-gray-100 text-gray-600 rounded text-[9px]">
+                  {domain}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          {/* Detailed description */}
+          <div className="mb-2">
+            <div className="text-[9px] font-semibold text-gray-500 uppercase mb-0.5">Details</div>
+            <p className="text-[10px] text-gray-700 leading-relaxed">{control.detailed_description}</p>
+          </div>
+          
+          {/* Rationale */}
+          {control.rationale && (
+            <div className="mb-2">
+              <div className="text-[9px] font-semibold text-gray-500 uppercase mb-0.5">Why This Control?</div>
+              <p className="text-[10px] text-teal-700 italic">{control.rationale}</p>
+            </div>
+          )}
+          
+          {/* Evidence examples */}
+          {control.evidence_examples && control.evidence_examples.length > 0 && (
+            <div>
+              <div className="text-[9px] font-semibold text-gray-500 uppercase mb-0.5">Evidence Examples</div>
+              <div className="flex flex-wrap gap-1">
+                {control.evidence_examples.slice(0, 4).map((example, i) => (
+                  <span key={i} className="px-1 py-0.5 bg-blue-50 text-blue-600 rounded text-[9px]">
+                    {example}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
 function FairaResultsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
