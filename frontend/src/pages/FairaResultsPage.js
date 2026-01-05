@@ -232,7 +232,7 @@ const ControlCard = ({ control, index, isExpanded, onToggle }) => {
       </div>
       
       {/* Expanded content */}
-      {expanded && (
+      {isExpanded && (
         <div className="px-2 pb-2 pt-1 border-t border-teal-100 bg-white/50">
           {/* Effort & Horizon badges */}
           <div className="flex flex-wrap gap-1 mb-2">
