@@ -942,36 +942,34 @@ function FairaResultsPage() {
 
             {/* Top 3 Domain Risks */}
             <div className="mb-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
-                <AlertTriangle className="h-5 w-5 text-red-600" />
-                <span>Top 3 Domain Risks</span>
-              </h2>
-              
-              <div className="space-y-3">
-                {riskSummary.top_risk_areas.map((area, index) => {
+              <div className="mb-2">
+                <h2 className="text-base font-bold text-gray-900 flex items-center space-x-2 mb-1">
+                  <AlertTriangle className="h-4 w-4 text-red-600" />
+                  <span>Top 3 Domain Risks</span>
+                </h2>
+                <p className="text-xs text-gray-600 ml-6">
+                  Domains with the highest risk scores requiring focused attention and targeted mitigation strategies.
+                </p>
+              </div>
+              <div className="space-y-1.5">
+                {riskSummary.top_risk_areas.slice(0, 3).map((area, index) => {
                   const colors = getRiskColor(area.concern_level);
                   return (
-                    <Card key={index}>
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-2 mb-1">
-                              <Badge className="text-xs">{area.section}</Badge>
-                              <h3 className="font-semibold text-gray-900">{area.name}</h3>
-                            </div>
-                            <p className="text-sm text-gray-600">
-                              Risk Score: <strong>{area.risk_score}</strong> - This section requires immediate attention and targeted risk mitigation strategies.
-                            </p>
-                          </div>
-                          <div 
-                            className="px-3 py-1 rounded font-bold text-sm ml-4"
-                            style={{ backgroundColor: colors.bg, color: colors.text }}
-                          >
-                            {area.concern_level}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div key={index} className="flex items-center space-x-2 p-2 bg-red-50 rounded border border-red-200">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-bold">
+                        {index + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-medium text-gray-900 truncate">{area.name}</div>
+                        <div className="text-[10px] text-gray-500">{area.section}</div>
+                      </div>
+                      <div 
+                        className="px-2 py-0.5 rounded text-xs font-bold"
+                        style={{ backgroundColor: colors.bg, color: colors.text }}
+                      >
+                        {area.concern_level}
+                      </div>
+                    </div>
                   );
                 })}
               </div>
