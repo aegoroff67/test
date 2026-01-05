@@ -1269,7 +1269,13 @@ function FairaResultsPage() {
               ) : topControls.length > 0 ? (
                 <div className="space-y-2">
                   {topControls.map((control, index) => (
-                    <ControlCard key={control.control_id} control={control} index={index} />
+                    <ControlCard 
+                      key={control.control_id} 
+                      control={control} 
+                      index={index}
+                      isExpanded={!!expandedControls[index]}
+                      onToggle={toggleControlExpanded}
+                    />
                   ))}
                 </div>
               ) : (
