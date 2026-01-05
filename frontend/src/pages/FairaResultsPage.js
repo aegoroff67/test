@@ -582,8 +582,15 @@ function FairaResultsPage() {
     setGeneratingPDF(true);
     try {
       const token = localStorage.getItem('token');
+      
+      // Get indices of expanded controls
+      const expandedIndices = Object.entries(expandedControls)
+        .filter(([_, isExpanded]) => isExpanded)
+        .map(([index]) => index)
+        .join(',');
+      
       const response = await axios.get(
-        `${API}/assessments/${id}/faira-results-pdf`,
+        `${API}/assessments/${id}/faira-results-pdf${expandedIndices ? `?expanded=${expandedIndices}` : ''}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           responseType: 'blob'
