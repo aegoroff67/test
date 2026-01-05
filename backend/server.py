@@ -3692,8 +3692,12 @@ async def generate_faira_results_pdf(
                     .flex-1 {
                         overflow: visible !important;
                     }
-                    /* Hide buttons and interactive elements */
-                    button:not(.print-show), 
+                    /* Style buttons as static labels for print */
+                    button {
+                        pointer-events: none !important;
+                        cursor: default !important;
+                    }
+                    /* Hide specific interactive-only elements */
                     .no-print {
                         display: none !important;
                     }
