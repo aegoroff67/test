@@ -155,9 +155,7 @@ const RiskStackedColumn = ({ score }) => {
 };
 
 // Control Card Component for Top 3 Controls
-const ControlCard = ({ control, index }) => {
-  const [expanded, setExpanded] = useState(false);
-  
+const ControlCard = ({ control, index, isExpanded, onToggle }) => {
   // Priority badge colors
   const getPriorityColor = (priority) => {
     switch(priority) {
