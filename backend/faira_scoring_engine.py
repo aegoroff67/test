@@ -10,6 +10,7 @@ Comprehensive scoring methodology for calculating:
 """
 
 import json
+import re
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 import logging
