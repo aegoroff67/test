@@ -19,7 +19,12 @@ import {
   Shield,
   Grid3X3,
   Info,
-  X
+  X,
+  Target,
+  Clock,
+  Zap,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
