@@ -160,6 +160,10 @@ function FairaResultsPage() {
   const [generatingPDF, setGeneratingPDF] = useState(false);
   const [generatingReport, setGeneratingReport] = useState(false);
   
+  // Top 3 Controls from API
+  const [topControls, setTopControls] = useState([]);
+  const [controlsLoading, setControlsLoading] = useState(false);
+  
   // Radar chart data from API
   const [radarChartData, setRadarChartData] = useState(null);
 
