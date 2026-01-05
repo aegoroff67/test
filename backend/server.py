@@ -3584,13 +3584,22 @@ async def generate_executive_summary_pdf(
 @api_router.get("/assessments/{assessment_id}/faira-results-pdf")
 async def generate_faira_results_pdf(
     assessment_id: str,
+    expanded: str = Query(default="", description="Comma-separated indices of expanded controls (e.g., '0,1,2')"),
     current_user: UserResponse = Depends(get_current_user)
 ):
     """Generate FAIRA Risk Assessment Results Summary PDF"""
     try:
         from playwright.async_api import async_playwright
         
-        logger.info(f"Generating FAIRA Results PDF for assessment: {assessment_id}")
+        # Parse expanded indices
+        expanded_indices = set()
+        if expanded:
+            try:
+                expanded_indices = set(int(i.strip()) for i in expanded.split(',') if i.strip())
+            except ValueError:
+                pass  # Ignore invalid indices
+        
+        logger.info(f"Generating FAIRA Results PDF for assessment: {assessment_id}, expanded controls: {expanded_indices}")
         
         # Set Playwright browser path
         os.environ['PLAYWRIGHT_BROWSERS_PATH'] = '/pw-browsers'
