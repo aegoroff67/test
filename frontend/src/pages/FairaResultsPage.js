@@ -1025,6 +1025,35 @@ function FairaResultsPage() {
               </div>
             </div>
 
+            {/* Top 3 Domain Risks */}
+            <div className="mt-4 pt-4 border-t">
+              <h3 className="text-sm font-bold text-gray-900 mb-2 flex items-center space-x-2">
+                <AlertTriangle className="h-4 w-4 text-red-600" />
+                <span>Top 3 Domain Risks</span>
+              </h3>
+              <div className="space-y-1.5">
+                {riskSummary.top_risk_areas.slice(0, 3).map((area, index) => {
+                  const colors = getRiskColor(area.concern_level);
+                  return (
+                    <div key={index} className="flex items-center space-x-2 p-2 bg-red-50 rounded border border-red-200">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-red-600 text-white flex items-center justify-center text-[10px] font-bold">
+                        {index + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-medium text-gray-900 truncate">{area.fullName}</div>
+                      </div>
+                      <div 
+                        className="px-1.5 py-0.5 rounded text-[10px] font-bold"
+                        style={{ backgroundColor: colors.bg, color: colors.text }}
+                      >
+                        {area.concern_level}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             <div className="mt-4 pt-4 border-t">
               <h3 className="text-sm font-bold text-gray-900 mb-2">Next Steps</h3>
               <div className="space-y-1.5 text-xs">
