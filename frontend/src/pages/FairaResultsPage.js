@@ -388,6 +388,20 @@ function FairaResultsPage() {
         // Continue with assessment display even if scores fail
       }
       
+      // Fetch recommended controls
+      setControlsLoading(true);
+      try {
+        const controlsResponse = await axios.get(`${API}/assessments/${id}/faira-controls?top_n=3`);
+        if (controlsResponse.data?.controls?.top_controls) {
+          setTopControls(controlsResponse.data.controls.top_controls);
+        }
+      } catch (controlsError) {
+        console.warn('Could not fetch FAIRA controls:', controlsError);
+        // Continue with results display even if controls fail
+      } finally {
+        setControlsLoading(false);
+      }
+      
       setLoading(false);
     } catch (error) {
       console.error('Error fetching FAIRA results:', error);
