@@ -960,8 +960,8 @@ function FairaResultsPage() {
                         {index + 1}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs font-medium text-gray-900 truncate">{area.name}</div>
-                        <div className="text-[10px] text-gray-500">{area.section}</div>
+                        <div className="text-xs font-medium text-gray-900 truncate">{area.fullName}</div>
+                        <div className="text-[10px] text-gray-500">{area.domain}</div>
                       </div>
                       <div 
                         className="px-2 py-0.5 rounded text-xs font-bold"
