@@ -25,7 +25,7 @@ import csv
 from complete_questions import COMPLETE_QUESTIONS_DATA
 from awareness_questions import AWARENESS_QUESTIONS_DATA
 from benchmark_utils import seed_benchmarks, get_sector_benchmarks, get_all_sectors
-from faira_scoring_engine import get_radar_chart_data, calculate_overall_risk
+from faira_scoring_engine import get_radar_chart_data, calculate_overall_risk, get_recommended_controls
 from framework_coverage import get_all_framework_coverage, get_framework_coverage, FRAMEWORK_CONFIG, get_registry_summary
 from models.evidence import (
     Evidence, EvidenceCreate, EvidenceUpdate, EvidenceResponse,
