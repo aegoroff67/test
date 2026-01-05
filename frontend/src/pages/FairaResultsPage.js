@@ -1311,7 +1311,7 @@ function FairaResultsPage() {
                   <div className="flex items-start space-x-2">
                     <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
                     <p className="text-gray-700">
-                      Assessment certified as accurate and complete
+                      I confirm that the information provided in this FAIRA assessment is accurate to the best of my knowledge at the time of completion.
                     </p>
                   </div>
                   <div className="pl-5 space-y-0.5 text-gray-600">
