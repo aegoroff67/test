@@ -3672,6 +3672,25 @@ async def generate_faira_results_pdf(
                 logger.error("Still on login page after setting token!")
                 raise Exception("Authentication failed - redirected to login page")
             
+            # Expand all Top 3 Controls cards for the PDF
+            try:
+                # Find all control cards by looking for the teal bordered containers
+                control_cards = await page.query_selector_all('.border-teal-200.rounded-lg')
+                logger.info(f"Found {len(control_cards)} control cards to expand")
+                
+                for i, card in enumerate(control_cards):
+                    try:
+                        await card.click()
+                        await page.wait_for_timeout(300)
+                        logger.info(f"Expanded control card {i + 1}")
+                    except Exception as card_error:
+                        logger.warning(f"Could not expand control card {i + 1}: {card_error}")
+                
+                # Wait for expansion animations to complete
+                await page.wait_for_timeout(500)
+            except Exception as expand_error:
+                logger.warning(f"Could not expand control cards: {expand_error}")
+            
             # Inject CSS for print styling
             await page.add_style_tag(content="""
                 @media print {
@@ -3696,6 +3715,12 @@ async def generate_faira_results_pdf(
                     button {
                         pointer-events: none !important;
                         cursor: default !important;
+                    }
+                    /* Hide expand/collapse chevrons in print */
+                    .border-teal-200 svg[class*="chevron"],
+                    .border-teal-200 .lucide-chevron-down,
+                    .border-teal-200 .lucide-chevron-up {
+                        display: none !important;
                     }
                     /* Hide specific interactive-only elements */
                     .no-print {
