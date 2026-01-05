@@ -1884,6 +1884,41 @@ async def get_faira_scores(
     }
 
 
+@api_router.get("/assessments/{assessment_id}/faira-controls")
+async def get_faira_controls(
+    assessment_id: str,
+    top_n: int = Query(default=3, ge=1, le=10, description="Number of top controls to return"),
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """
+    Get recommended controls for a FAIRA assessment based on risk profile.
+    
+    This endpoint analyzes the assessment's risk profile and form responses
+    to recommend the most relevant controls from Part C of the FAIRA framework.
+    """
+    # Allow SUPER_ADMIN to view any assessment, others only their org's
+    if current_user.role == "SUPER_ADMIN":
+        assessment = await db.assessments.find_one({"id": assessment_id})
+    else:
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    
+    if assessment.get("assessment_type", "").lower() != "faira":
+        raise HTTPException(status_code=400, detail="Not a FAIRA assessment")
+    
+    faira_form = assessment.get("faira_form", {})
+    
+    # Get recommended controls
+    controls_result = get_recommended_controls(faira_form, top_n=top_n)
+    
+    return {
+        "assessment_id": assessment_id,
+        "controls": controls_result
+    }
+
+
 @api_router.get("/assessments/{assessment_id}/framework-coverage")
 async def get_assessment_framework_coverage(
     assessment_id: str,
