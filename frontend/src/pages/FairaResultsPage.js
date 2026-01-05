@@ -574,8 +574,26 @@ function FairaResultsPage() {
   const handleGeneratePDF = async () => {
     setGeneratingPDF(true);
     try {
-      // Placeholder - PDF endpoint needs backend implementation
-      toast.info('PDF generation feature coming soon');
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        `${API}/assessments/${id}/faira-results-pdf`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          responseType: 'blob'
+        }
+      );
+      
+      // Create download link
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `FAIRA_Results_Summary_${assessment?.name || 'Assessment'}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      
+      toast.success('PDF report generated successfully');
     } catch (error) {
       console.error('Error generating PDF:', error);
       toast.error('Failed to generate PDF report');
