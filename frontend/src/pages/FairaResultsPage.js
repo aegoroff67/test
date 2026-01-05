@@ -205,7 +205,7 @@ const ControlCard = ({ control, index, isExpanded, onToggle }) => {
       {/* Header - always visible */}
       <div 
         className="p-2 cursor-pointer hover:bg-teal-50 transition-colors"
-        onClick={() => setExpanded(!expanded)}
+        onClick={() => onToggle(index)}
       >
         <div className="flex items-start gap-2">
           {/* Rank badge */}
@@ -226,7 +226,7 @@ const ControlCard = ({ control, index, isExpanded, onToggle }) => {
           
           {/* Expand/collapse icon */}
           <div className="flex-shrink-0 text-gray-400">
-            {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </div>
         </div>
       </div>
