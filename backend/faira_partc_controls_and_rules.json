@@ -13,7 +13,7 @@
       "implementation_horizon": "Immediate",
       "description": "Assign clear accountability for AI outcomes.",
       "detailed_description": "Formally assign accountability for AI system outcomes, including approval, monitoring, incident escalation, remediation, and risk acceptance. Document accountable roles (e.g., RACI/governance charter) and ensure responsibilities apply to both automated and AI-influenced decisions. Review role coverage when the system, data, or deployment context changes.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Accountability and governance controls"
       ],
       "evidence_examples": [
@@ -40,7 +40,7 @@
       "implementation_horizon": "Short-term",
       "description": "Define where human oversight is required for AI-influenced decisions.",
       "detailed_description": "Identify decision points where AI outputs could materially affect individuals, service access, safety, legal rights, or compliance. Specify when human review/approval is mandatory, when overrides are permitted, and what escalation pathways apply. Document thresholds, roles, and evidence required for sign-off, and test the workflow in operational scenarios.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Accountability and governance controls",
         "Part C – Reliability and safety controls"
       ],
@@ -67,7 +67,7 @@
       "implementation_horizon": "Short-term",
       "description": "Clarify accountability boundaries for vendor or partner AI components.",
       "detailed_description": "For externally sourced AI or components, define accountability boundaries and ensure the organisation retains accountable ownership for outcomes. Include contractual requirements for risk management, incident notification, change management, assurance evidence, and audit/inspection rights. Establish processes to manage vendor updates and dependencies that affect risk.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Accountability and governance controls",
         "Part C – Procurement and third‑party risk considerations"
       ],
@@ -94,7 +94,7 @@
       "implementation_horizon": "Ongoing",
       "description": "Periodically review whether accountability arrangements are effective in practice.",
       "detailed_description": "Conduct periodic reviews of accountability arrangements to confirm responsibilities remain clear, exercised, and sufficient. Include checks of decision logs, escalations, incidents, staff understanding, and governance meeting outcomes. Record actions and track completion, especially following incidents or material changes.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Accountability and governance controls",
         "Part C – Monitoring and assurance"
       ],
@@ -121,7 +121,7 @@
       "implementation_horizon": "Short-term",
       "description": "Test AI behaviour for reliability under realistic operating conditions.",
       "detailed_description": "Test the AI system against documented acceptance criteria, including performance consistency, error handling, edge cases, and failure modes. Validate behaviour across representative data and operational conditions, and repeat testing after material changes (model, data, prompts, integrations, environment). Store test results and sign-off decisions.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Reliability and safety controls"
       ],
       "evidence_examples": [
@@ -147,7 +147,7 @@
       "implementation_horizon": "Short-term",
       "description": "Provide safe pause/override/shutdown mechanisms for AI functionality.",
       "detailed_description": "Implement controls to safely disable, pause, or override AI outputs/actions (e.g., kill switch, rollback, fallback mode). Define who can trigger disengagement, under what conditions, and how service continuity is maintained. Test disengagement procedures periodically and after changes.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Reliability and safety controls"
       ],
       "evidence_examples": [
@@ -174,7 +174,7 @@
       "implementation_horizon": "Short-term",
       "description": "Integrate AI-specific failures into incident response and escalation.",
       "detailed_description": "Extend incident response to cover AI-specific failure modes (harmful outputs, model drift, prompt injection, data leakage, bias incidents). Define detection signals, severity triage, escalation paths, comms templates, containment steps, and post-incident review requirements. Maintain a log of AI incidents and lessons learned.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Reliability and safety controls",
         "Part C – Monitoring and assurance"
       ],
@@ -201,7 +201,7 @@
       "implementation_horizon": "Ongoing",
       "description": "Continuously monitor AI performance, drift, and unintended behaviour.",
       "detailed_description": "Define performance and safety KPIs (accuracy, error rates, drift indicators, hallucination rate, override frequency) and implement monitoring with alert thresholds. Review monitoring outputs regularly and trigger retraining, prompt changes, or rollback where thresholds are exceeded. Record reviews and actions taken.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Monitoring and assurance",
         "Part C – Reliability and safety controls"
       ],
@@ -228,7 +228,7 @@
       "implementation_horizon": "Short-term",
       "description": "Limit data to what is necessary and restrict access by role and need.",
       "detailed_description": "Map data flows and ensure only necessary data is collected, used, and retained. Implement role-based access control to training data, inputs, outputs, and logs. Enforce least privilege, separation of duties, and secure storage. Apply retention and disposal rules aligned to records and privacy obligations.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Privacy and data protection controls"
       ],
       "evidence_examples": [
@@ -254,7 +254,7 @@
       "implementation_horizon": "Short-term",
       "description": "Implement and track mitigations identified through privacy/data assessments.",
       "detailed_description": "Where privacy risks are identified (e.g., PIA, data risk assessment), implement mitigations such as anonymisation, pseudonymisation, redaction, consent/notice controls, access restrictions, and breach response readiness. Track mitigations to closure with owners and due dates, and re-assess after material changes.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Privacy and data protection controls",
         "Part C – Monitoring and assurance"
       ],
@@ -282,7 +282,7 @@
       "implementation_horizon": "Immediate",
       "description": "Prevent outputs from exposing sensitive or regulated information.",
       "detailed_description": "Implement output controls to prevent leakage of sensitive or regulated data (e.g., redaction, suppression, classification-based filters, prompt guardrails). Validate controls using test cases and ensure exceptions are logged and reviewed. Where applicable, apply least disclosure principles and safe response patterns.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Privacy and data protection controls",
         "Part C – Transparency and explainability considerations"
       ],
@@ -310,7 +310,7 @@
       "implementation_horizon": "Short-term",
       "description": "Apply security controls across AI infrastructure and connected systems.",
       "detailed_description": "Secure AI infrastructure, APIs, and integrations using standard security practices (authentication, encryption, network controls, vulnerability management, logging). Validate supply chain components, manage secrets, and harden integration points. Ensure security testing includes AI-specific threats (prompt injection, poisoning, model extraction) where relevant.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Privacy and data protection controls",
         "Part C – Reliability and safety controls"
       ],
@@ -337,7 +337,7 @@
       "implementation_horizon": "Short-term",
       "description": "Identify, mitigate, and monitor bias risks in AI outputs and decisions.",
       "detailed_description": "Assess training data and system outputs for bias that could produce unfair impacts on individuals or groups. Define fairness metrics appropriate to the context, test for disparate impact, implement mitigations (data balancing, constraints, human review), and monitor fairness outcomes over time with periodic re-testing.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Fairness controls"
       ],
       "evidence_examples": [
@@ -364,7 +364,7 @@
       "implementation_horizon": "Medium-term",
       "description": "Assess and address disproportionate impacts on affected groups.",
       "detailed_description": "Identify groups potentially affected by AI outcomes and assess whether impacts are disproportionate or unfair. Incorporate feedback and lived experience where appropriate, and implement corrective actions such as policy constraints, targeted monitoring, and additional safeguards for vulnerable groups.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Fairness controls",
         "Part C – Engagement and affected persons"
       ],
@@ -392,7 +392,7 @@
       "implementation_horizon": "Short-term",
       "description": "Ensure AI supports human agency and avoids inappropriate reliance.",
       "detailed_description": "Define appropriate use boundaries and ensure humans retain meaningful agency where judgement is required. Implement safeguards against automation bias and over-reliance (e.g., mandatory review, decision aids, training). Ensure AI outputs are framed as support, not authority, unless explicitly approved for automation with suitable safeguards.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Human-centred values controls",
         "Part C – Accountability and governance controls"
       ],
@@ -420,7 +420,7 @@
       "implementation_horizon": "Medium-term",
       "description": "Mitigate negative impacts on staff roles, workload, and wellbeing.",
       "detailed_description": "Assess workforce impacts (workload, job redesign, skills, stress) and implement mitigations such as training, role redesign, communications, and support arrangements. Engage affected staff early, define new responsibilities, and monitor wellbeing impacts after deployment.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Human-centred values controls",
         "Part C – Wellbeing and broader impacts"
       ],
@@ -447,7 +447,7 @@
       "implementation_horizon": "Immediate",
       "description": "Provide clear disclosure when AI is used and why.",
       "detailed_description": "Implement proportionate notices to inform users and affected parties when AI is used, its purpose, and key limitations. Ensure disclosures are accessible, understandable, and appropriate to the channel (UI notices, scripts, policies). Maintain versioned disclosure content and review when system behaviour changes.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Transparency and explainability controls",
         "Part C – Engagement and affected persons"
       ],
@@ -474,7 +474,7 @@
       "implementation_horizon": "Short-term",
       "description": "Provide meaningful explanations appropriate to the decision context.",
       "detailed_description": "Provide explanations for outputs/decisions proportionate to impact (what inputs mattered, high-level reasoning, confidence/limits, and how to seek review). Tailor explanations to audiences (staff, citizens, oversight bodies) and document limitations where full explainability is not feasible.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Transparency and explainability controls"
       ],
       "evidence_examples": [
@@ -501,7 +501,7 @@
       "implementation_horizon": "Short-term",
       "description": "Provide a clear contestability process with timely review and correction.",
       "detailed_description": "Establish accessible channels for affected parties to challenge AI outcomes. Define SLAs for response and review, ensure human review is available where appropriate, document how decisions are reconsidered, and record outcomes and corrective actions. Ensure staff understand the process and that systemic issues are escalated to governance.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Contestability controls",
         "Part C – Transparency and explainability controls"
       ],
@@ -528,7 +528,7 @@
       "implementation_horizon": "Ongoing",
       "description": "Consider and review broader societal and environmental impacts over time.",
       "detailed_description": "Identify potential broader impacts (community trust, exclusion, service equity, environmental footprint) and define monitoring/review cadence proportionate to scale and sensitivity. Record findings, engage stakeholders where appropriate, and implement mitigations where broader harms are identified.",
-      "faria_part_c_reference": [
+      "faira_part_c_reference": [
         "Part C – Wellbeing and broader impacts",
         "Part C – Monitoring and assurance"
       ],
