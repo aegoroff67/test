@@ -305,6 +305,15 @@ function FairaResultsPage() {
   // Top 3 Controls from API
   const [topControls, setTopControls] = useState([]);
   const [controlsLoading, setControlsLoading] = useState(false);
+  const [expandedControls, setExpandedControls] = useState({}); // Track expanded state by index
+  
+  // Toggle control expansion
+  const toggleControlExpanded = (index) => {
+    setExpandedControls(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
   
   // Radar chart data from API
   const [radarChartData, setRadarChartData] = useState(null);
