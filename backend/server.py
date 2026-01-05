@@ -3581,6 +3581,167 @@ async def generate_executive_summary_pdf(
         raise HTTPException(status_code=500, detail=f"Failed to generate PDF: {str(e)}")
 
 
+@api_router.get("/assessments/{assessment_id}/faira-results-pdf")
+async def generate_faira_results_pdf(
+    assessment_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Generate FAIRA Risk Assessment Results Summary PDF"""
+    try:
+        from playwright.async_api import async_playwright
+        
+        logger.info(f"Generating FAIRA Results PDF for assessment: {assessment_id}")
+        
+        # Set Playwright browser path
+        os.environ['PLAYWRIGHT_BROWSERS_PATH'] = '/pw-browsers'
+        
+        # Verify assessment belongs to user's organization and is a FAIRA assessment
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        if not assessment:
+            raise HTTPException(status_code=404, detail="Assessment not found")
+        
+        if assessment.get("assessment_type", "").lower() != "faira":
+            raise HTTPException(status_code=400, detail="Not a FAIRA assessment")
+        
+        # Get frontend URL from environment
+        frontend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:3000')
+        # If it's a backend URL with port 8001, switch to frontend port 3000
+        if ':8001' in frontend_url:
+            frontend_url = frontend_url.replace(':8001', ':3000')
+        
+        # Construct FAIRA results page URL
+        results_url = f"{frontend_url}/faira-results/{assessment_id}"
+        
+        logger.info(f"Generating FAIRA PDF for URL: {results_url}")
+        
+        # Create temporary file for PDF
+        temp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
+        temp_pdf_path = temp_pdf.name
+        temp_pdf.close()
+        
+        async with async_playwright() as p:
+            # Launch browser
+            browser = await p.chromium.launch(
+                headless=True,
+                args=['--no-sandbox', '--disable-setuid-sandbox']
+            )
+            context = await browser.new_context(
+                viewport={'width': 1920, 'height': 1080},
+                java_script_enabled=True
+            )
+            
+            page = await context.new_page()
+            
+            # Generate auth token
+            auth_token = jwt.encode(
+                {'sub': current_user.id, 'exp': datetime.now(timezone.utc) + timedelta(minutes=5)}, 
+                SECRET_KEY, 
+                algorithm=ALGORITHM
+            )
+            
+            # Navigate to the app first to set localStorage
+            logger.info(f"Navigating to base URL to set auth")
+            await page.goto(frontend_url, wait_until='domcontentloaded', timeout=30000)
+            
+            # Inject authentication token into localStorage
+            user_json = {
+                "id": current_user.id,
+                "email": current_user.email,
+                "organization_name": current_user.organization_name
+            }
+            import json
+            user_json_str = json.dumps(user_json).replace("'", "\\'")
+            
+            await page.evaluate(f"""
+                localStorage.setItem('token', '{auth_token}');
+                localStorage.setItem('user', '{user_json_str}');
+            """)
+            
+            logger.info(f"Auth token set, navigating to {results_url}")
+            
+            # Now navigate to FAIRA results page with authentication
+            response = await page.goto(results_url, wait_until='networkidle', timeout=60000)
+            logger.info(f"Page loaded with status: {response.status}")
+            
+            # Wait for dynamic content and charts to render
+            await page.wait_for_timeout(4000)
+            
+            # Check if we're on login page
+            login_check = await page.query_selector('text=Login') or await page.query_selector('text=Sign In')
+            if login_check:
+                logger.error("Still on login page after setting token!")
+                raise Exception("Authentication failed - redirected to login page")
+            
+            # Inject CSS for print styling
+            await page.add_style_tag(content="""
+                @media print {
+                    body, html {
+                        overflow: visible !important;
+                        height: auto !important;
+                        max-height: none !important;
+                    }
+                    .overflow-y-auto {
+                        overflow: visible !important;
+                        height: auto !important;
+                        max-height: none !important;
+                    }
+                    .h-screen, .min-h-screen {
+                        height: auto !important;
+                        min-height: auto !important;
+                    }
+                    .flex-1 {
+                        overflow: visible !important;
+                    }
+                    /* Hide buttons and interactive elements */
+                    button:not(.print-show), 
+                    .no-print {
+                        display: none !important;
+                    }
+                }
+            """)
+            
+            # Emulate print media
+            await page.emulate_media(media='print')
+            
+            # Generate PDF
+            await page.pdf(
+                path=temp_pdf_path,
+                format='A4',
+                landscape=True,
+                scale=0.65,
+                print_background=True,
+                prefer_css_page_size=False,
+                margin={
+                    'top': '0.5cm',
+                    'right': '0.5cm',
+                    'bottom': '0.5cm',
+                    'left': '0.5cm'
+                }
+            )
+            
+            logger.info(f"FAIRA PDF generated at: {temp_pdf_path}")
+            await browser.close()
+        
+        # Generate filename
+        assessment_name = assessment.get('name', 'FAIRA_Assessment')
+        assessment_name = assessment_name.replace('–', '-').replace('—', '-').replace(' ', '_')
+        assessment_name = assessment_name.encode('ascii', 'ignore').decode('ascii')
+        filename = f"FAIRA_Results_Summary_{assessment_name}.pdf"
+        
+        # Return PDF file
+        return FileResponse(
+            temp_pdf_path,
+            media_type='application/pdf',
+            filename=filename,
+            headers={
+                'Content-Disposition': f'attachment; filename="{filename}"'
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error generating FAIRA results PDF: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to generate PDF: {str(e)}")
+
 
 @api_router.get("/assessments/{assessment_id}/framework-coverage-pdf")
 async def generate_framework_coverage_pdf(
