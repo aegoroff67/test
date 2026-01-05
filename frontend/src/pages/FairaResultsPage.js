@@ -940,11 +940,11 @@ function FairaResultsPage() {
               )}
             </div>
 
-            {/* Top Risk Areas */}
+            {/* Top 3 Domain Risks */}
             <div className="mb-6">
               <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
                 <AlertTriangle className="h-5 w-5 text-red-600" />
-                <span>Top Risk Areas</span>
+                <span>Top 3 Domain Risks</span>
               </h2>
               
               <div className="space-y-3">
