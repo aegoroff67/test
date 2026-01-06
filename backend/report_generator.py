@@ -414,6 +414,10 @@ class AMReportGenerator:
         # Generate actions based on priority mapping rules
         actions = self._generate_actions_from_questions(questions_data)
         
+        # Get sector info from assessment data
+        sector_name = assessment_data.get('sector_name', '')
+        sector_actions = assessment_data.get('sector_actions', {'high': [], 'medium': [], 'low': []})
+        
         # Create report data structure matching the JSON model
         report_data = {
             "org": {
@@ -431,7 +435,10 @@ class AMReportGenerator:
                 "heatmapUrl": None  # Will be set when we generate the image
             },
             "actions": actions,
-            "heatmap_data": self._prepare_heatmap_data(questions_data)
+            "heatmap_data": self._prepare_heatmap_data(questions_data),
+            "questions_data": questions_data,  # Pass through for sector action generation
+            "sector_name": sector_name,
+            "sector_actions": sector_actions
         }
         
         return report_data
