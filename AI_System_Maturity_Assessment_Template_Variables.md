@@ -436,15 +436,15 @@ Assessment Sector: {{sector_name}}
 
 The following sectors have predefined action steps:
 - Local Government / Public Sector
-- Finance / Insurance
-- Healthcare
 - Education
-- Technology
-- Retail / E-commerce
+- Healthcare
+- Finance / Insurance
+- Technology / Software
+- Utilities / Critical Infrastructure
 - Manufacturing
-- Utilities / Energy
-- Transportation / Logistics
-- Professional Services
+- Retail / Hospitality
+- Consulting / Professional Services
+- Not-for-profit / Charity
 - Other
 
 ### Example Output
