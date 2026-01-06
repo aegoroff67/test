@@ -120,7 +120,9 @@ const CLOUD_PROVIDER_REGION_OPTIONS = [
       regionName: region.name
     }))
   ),
-  { value: "other", label: "Other / Not Applicable", provider: "Other", regionCode: "", regionName: "" }
+  { value: "multiple", label: "Multiple Regions", provider: "Multiple Regions", regionCode: "", regionName: "" },
+  { value: "global", label: "Global / Region-agnostic", provider: "Global / Region-agnostic", regionCode: "", regionName: "" },
+  { value: "vendor-managed", label: "Vendor-managed / Not disclosed", provider: "Vendor-managed / Not disclosed", regionCode: "", regionName: "" }
 ];
 
 const DATA_FLOW = ["Batch", "Real‑time", "Hybrid"];
