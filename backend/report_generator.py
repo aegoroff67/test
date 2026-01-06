@@ -1421,6 +1421,9 @@ Each cell represents the score for a specific question, enabling identification 
                 'sector_name': report_data.get('sector_name', ''),
                 'sector_actions': report_data.get('sector_actions', {'high': [], 'medium': [], 'low': []}),
                 
+                # System info from pre-assessment onboarding
+                'system_info': report_data.get('system_info', {}),
+                
                 # Add comprehensive content sections that will make the report much longer
                 'executive_summary': self._generate_comprehensive_executive_summary(report_data),
                 'assessment_methodology': self._generate_assessment_methodology(),
@@ -1439,6 +1442,7 @@ Each cell represents the score for a specific question, enabling identification 
             print(f"  Low priority actions: {len(template_context['actions']['low'])}")
             print(f"  Sector: {template_context['sector_name']}")
             print(f"  Sector actions - high: {len(template_context['sector_actions']['high'])}, medium: {len(template_context['sector_actions']['medium'])}, low: {len(template_context['sector_actions']['low'])}")
+            print(f"  System info keys: {list(template_context['system_info'].keys())}")
             
             # Show sample actions for debugging
             if template_context['actions']['high']:
