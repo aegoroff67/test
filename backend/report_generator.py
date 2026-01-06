@@ -1672,7 +1672,8 @@ Each cell represents the score for a specific question, enabling identification 
             "questions_data": questions_data,
             "summary": summary_data,
             "sector_name": sector_name,
-            "sector_actions": sector_actions
+            "sector_actions": sector_actions,
+            "system_info": system_info  # Pass system_info for template use
         }
         
         print(f"DEBUG: current_user type: {type(current_user)}")
@@ -1909,7 +1910,8 @@ Each cell represents the score for a specific question, enabling identification 
             "questions_data": questions_data,
             "summary": summary_data,
             "sector_name": sector_name,
-            "sector_actions": sector_actions
+            "sector_actions": sector_actions,
+            "system_info": system_info  # Pass system_info for template use
         }
         
         print(f"DEBUG: current_user type: {type(current_user)}")
