@@ -384,3 +384,91 @@ IMPLEMENTATION ROADMAP
 4. **Image Handling:** The `heatmap_image` and `radar_chart_image` variables are InlineImage objects that will automatically render in the Word document. Simply place the placeholder where you want the image to appear.
 
 5. **Text Sections:** The pre-generated text sections (executive_summary, domain_analysis, etc.) are already formatted with proper paragraphs and can be inserted directly into the template.
+
+---
+
+## 10. SECTOR-SPECIFIC ACTION STEPS (NEW)
+
+These variables provide sector/industry-specific recommendations based on the assessment's sector and question scores.
+
+### `{{sector_name}}`
+**Type:** String  
+**Description:** The industry/sector of the assessed AI system  
+**Example:** "Finance / Insurance"  
+**Usage:** 
+```
+Assessment Sector: {{sector_name}}
+```
+
+### `{{sector_actions.high}}`
+**Type:** Array of Objects  
+**Description:** High-priority sector-specific action steps (for questions scoring 1)  
+**Structure:**
+```json
+[
+  {
+    "domain": "Fairness",
+    "question_id": "FA-1",
+    "sector_action": "Deploy automated fairness monitoring tools to compare loan approval/rejection rates across protected characteristics...",
+    "score": 1
+  }
+]
+```
+**Usage in template:**
+```
+{% for action in sector_actions.high %}
+{{ loop.index }}. [{{ action.question_id }}] {{ action.domain }}
+   {{ action.sector_action }}
+{% endfor %}
+```
+
+### `{{sector_actions.medium}}`
+**Type:** Array of Objects  
+**Description:** Medium-priority sector-specific action steps (for questions scoring 2)  
+**Structure:** Same as `sector_actions.high`
+
+### `{{sector_actions.low}}`
+**Type:** Array of Objects  
+**Description:** Low-priority sector-specific action steps (for questions scoring 3)  
+**Structure:** Same as `sector_actions.high`
+
+### Available Sectors
+
+The following sectors have predefined action steps:
+- Local Government / Public Sector
+- Finance / Insurance
+- Healthcare
+- Education
+- Technology
+- Retail / E-commerce
+- Manufacturing
+- Utilities / Energy
+- Transportation / Logistics
+- Professional Services
+- Other
+
+### Example Output
+
+**For Finance / Insurance sector:**
+
+```
+HIGH PRIORITY SECTOR ACTIONS:
+
+1. [FA-1] Fairness
+   Deploy automated fairness monitoring tools to compare loan approval/rejection 
+   rates across protected characteristics, triggering audits when disparities 
+   exceed regulatory thresholds.
+
+2. [TR-2] Transparency
+   Create detailed model documentation repositories tracking data lineage, 
+   preprocessing steps, algorithmic decisions, and version history with 
+   comprehensive audit trails.
+
+MEDIUM PRIORITY SECTOR ACTIONS:
+
+1. [AC-4] Accountability
+   Implement comprehensive complaint handling for AI-influenced decisions, with 
+   dedicated specialists, documented procedures, and customer communication 
+   templates.
+```
+
