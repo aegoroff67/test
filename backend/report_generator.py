@@ -41,6 +41,112 @@ class AMReportGenerator:
             'Inclusivity': '#85C1E9',
             'Sustainability': '#82E0AA'
         }
+        self._sector_actions_cache = None
+    
+    def _load_sector_actions(self) -> Dict[str, Dict[str, str]]:
+        """Load sector-specific action steps from JSON file."""
+        if self._sector_actions_cache is not None:
+            return self._sector_actions_cache
+        
+        try:
+            backend_dir = Path(__file__).parent
+            actions_path = backend_dir / "system_actions.json"
+            if actions_path.exists():
+                import json
+                with open(actions_path, 'r') as f:
+                    self._sector_actions_cache = json.load(f)
+                return self._sector_actions_cache
+        except Exception as e:
+            print(f"Warning: Could not load sector actions: {e}")
+        
+        self._sector_actions_cache = {}
+        return self._sector_actions_cache
+    
+    def _generate_sector_actions(self, report_data: Dict[str, Any], sector_name: str) -> Dict[str, List[Dict[str, Any]]]:
+        """
+        Generate sector-specific action steps based on assessment scores.
+        
+        Args:
+            report_data: Report data containing questions and scores
+            sector_name: The sector/industry name (e.g., "Finance / Insurance")
+            
+        Returns:
+            Dictionary with 'high', 'medium', 'low' priority sector actions
+        """
+        sector_actions = {
+            'high': [],
+            'medium': [],
+            'low': []
+        }
+        
+        if not sector_name:
+            return sector_actions
+        
+        # Load all sector actions
+        all_sector_actions = self._load_sector_actions()
+        
+        # Get actions for this specific sector
+        sector_specific = all_sector_actions.get(sector_name, {})
+        if not sector_specific:
+            # Try to find a partial match
+            for key in all_sector_actions.keys():
+                if sector_name.lower() in key.lower() or key.lower() in sector_name.lower():
+                    sector_specific = all_sector_actions[key]
+                    break
+        
+        if not sector_specific:
+            print(f"No sector-specific actions found for: {sector_name}")
+            return sector_actions
+        
+        # Get questions data from report
+        questions_data = report_data.get('questions_data', [])
+        
+        # Domain mapping for display
+        domain_mapping = {
+            "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
+            "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
+            "SE": "Security", "PR": "Privacy", "SA": "Safety", 
+            "IN": "Inclusivity", "SU": "Sustainability"
+        }
+        
+        # Iterate through questions and match with sector actions
+        for domain_data in questions_data:
+            domain_info = domain_data.get('domain', {})
+            questions = domain_data.get('questions', [])
+            
+            for question in questions:
+                question_id = question.get('question_id', question.get('code', ''))
+                score = question.get('score', 0)
+                
+                # Get sector-specific action for this question
+                sector_action_text = sector_specific.get(question_id)
+                
+                if sector_action_text and score in [1, 2, 3]:
+                    # Get domain name from question ID prefix
+                    domain_prefix = question_id.split("-")[0] if "-" in question_id else ""
+                    domain_name = domain_mapping.get(domain_prefix, domain_info.get('name', 'Unknown'))
+                    
+                    action_item = {
+                        'domain': domain_name,
+                        'question_id': question_id,
+                        'sector_action': sector_action_text,
+                        'score': score
+                    }
+                    
+                    if score == 1:
+                        sector_actions['high'].append(action_item)
+                    elif score == 2:
+                        sector_actions['medium'].append(action_item)
+                    elif score == 3:
+                        sector_actions['low'].append(action_item)
+        
+        # Sort each priority list by question_id for consistency
+        for priority in ['high', 'medium', 'low']:
+            sector_actions[priority].sort(key=lambda x: x.get('question_id', ''))
+        
+        print(f"Generated sector actions for {sector_name}: high={len(sector_actions['high'])}, medium={len(sector_actions['medium'])}, low={len(sector_actions['low'])}")
+        
+        return sector_actions
     
     def _get_default_template_path(self) -> str:
         """Get the default template path - using v9 template updated 10/07/2025."""  
