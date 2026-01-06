@@ -145,9 +145,9 @@ const AssessmentCard = ({
         </div>
       </CardContent>
 
-      {/* Sliding tagline from bottom */}
+      {/* Sliding tagline from top */}
       <div 
-        className={`absolute bottom-0 left-0 right-0 ${config.taglineBg} backdrop-blur-sm transition-all duration-300 ease-out overflow-hidden`}
+        className={`absolute top-0 left-0 right-0 ${config.taglineBg} backdrop-blur-sm transition-all duration-300 ease-out overflow-hidden`}
         style={{
           height: isHovered && hasAccess ? '36px' : '0px',
           opacity: isHovered && hasAccess ? 1 : 0,
