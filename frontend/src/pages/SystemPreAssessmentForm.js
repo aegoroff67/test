@@ -433,7 +433,13 @@ export default function SystemPreAssessmentForm() {
 
             <div className="space-y-2">
               <Label>Hosting type</Label>
-              <Select value={form.hosting} onValueChange={(v) => update("hosting", v)}>
+              <Select value={form.hosting} onValueChange={(v) => {
+                update("hosting", v);
+                // Clear cloud provider when On-prem is selected
+                if (v === "On‑prem") {
+                  update("cloudProviderRegion", "");
+                }
+              }}>
                 <SelectTrigger><SelectValue placeholder="Select hosting" /></SelectTrigger>
                 <SelectContent>
                   {HOSTING.map((h) => (<SelectItem key={h} value={h}>{h}</SelectItem>))}
@@ -442,9 +448,18 @@ export default function SystemPreAssessmentForm() {
             </div>
 
             <div className="space-y-2">
-              <Label>Cloud / SaaS provider & region</Label>
-              <Select value={form.cloudProviderRegion} onValueChange={(v) => update("cloudProviderRegion", v)}>
-                <SelectTrigger><SelectValue placeholder="Select cloud provider and region" /></SelectTrigger>
+              <Label className={form.hosting === "On‑prem" ? "text-gray-400" : ""}>
+                Cloud / SaaS provider & region
+                {form.hosting === "On‑prem" && <span className="text-xs ml-2">(N/A for On-prem)</span>}
+              </Label>
+              <Select 
+                value={form.cloudProviderRegion} 
+                onValueChange={(v) => update("cloudProviderRegion", v)}
+                disabled={form.hosting === "On‑prem"}
+              >
+                <SelectTrigger className={form.hosting === "On‑prem" ? "opacity-50 cursor-not-allowed" : ""}>
+                  <SelectValue placeholder={form.hosting === "On‑prem" ? "Not applicable" : "Select cloud provider and region"} />
+                </SelectTrigger>
                 <SelectContent className="max-h-[300px]">
                   {CLOUD_PROVIDER_REGION_OPTIONS.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
