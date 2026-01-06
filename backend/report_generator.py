@@ -1646,11 +1646,26 @@ Each cell represents the score for a specific question, enabling identification 
                 "questions": sorted(questions, key=lambda q: q.get("order", 0))
             })
         
+        # Get sector/industry from assessment's system_info
+        system_info = assessment.get('system_info', {})
+        sector_name = system_info.get('industry', '')
+        print(f"DEBUG: Assessment sector/industry: {sector_name}")
+        
+        # Generate sector-specific actions
+        sector_actions = {'high': [], 'medium': [], 'low': []}
+        if sector_name:
+            sector_actions = self._generate_sector_actions(
+                {"questions_data": questions_data},
+                sector_name
+            )
+        
         # Prepare assessment data for report generation
         assessment_data = {
             "assessment": assessment,
             "questions_data": questions_data,
-            "summary": summary_data
+            "summary": summary_data,
+            "sector_name": sector_name,
+            "sector_actions": sector_actions
         }
         
         print(f"DEBUG: current_user type: {type(current_user)}")
@@ -1868,11 +1883,26 @@ Each cell represents the score for a specific question, enabling identification 
                 "questions": sorted(questions, key=lambda q: q.get("order", 0))
             })
         
+        # Get sector/industry from assessment's system_info
+        system_info = assessment.get('system_info', {})
+        sector_name = system_info.get('industry', '')
+        print(f"DEBUG: Assessment sector/industry: {sector_name}")
+        
+        # Generate sector-specific actions
+        sector_actions = {'high': [], 'medium': [], 'low': []}
+        if sector_name:
+            sector_actions = self._generate_sector_actions(
+                {"questions_data": questions_data},
+                sector_name
+            )
+        
         # Prepare assessment data for report generation
         assessment_data = {
             "assessment": assessment,
             "questions_data": questions_data,
-            "summary": summary_data
+            "summary": summary_data,
+            "sector_name": sector_name,
+            "sector_actions": sector_actions
         }
         
         print(f"DEBUG: current_user type: {type(current_user)}")
