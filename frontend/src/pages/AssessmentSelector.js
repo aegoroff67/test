@@ -37,7 +37,7 @@ const AssessmentCard = ({
       buttonBg: 'bg-green-600 hover:bg-green-700',
       badgeBg: 'bg-green-100 text-green-700 border-green-300',
       glowColor: 'rgba(34, 197, 94, 0.4)',
-      taglineBg: 'bg-green-600/90',
+      taglineBg: 'bg-green-600/75',
     },
     blue: {
       border: 'border-blue-500',
@@ -46,7 +46,7 @@ const AssessmentCard = ({
       buttonBg: 'bg-blue-600 hover:bg-blue-700',
       badgeBg: 'bg-blue-100 text-blue-700 border-blue-300',
       glowColor: 'rgba(59, 130, 246, 0.4)',
-      taglineBg: 'bg-blue-600/90',
+      taglineBg: 'bg-blue-600/75',
     },
     purple: {
       border: 'border-purple-500',
@@ -55,7 +55,7 @@ const AssessmentCard = ({
       buttonBg: 'bg-purple-600 hover:bg-purple-700',
       badgeBg: 'bg-purple-100 text-purple-700 border-purple-300',
       glowColor: 'rgba(147, 51, 234, 0.4)',
-      taglineBg: 'bg-purple-600/90',
+      taglineBg: 'bg-purple-600/75',
     },
     teal: {
       border: 'border-teal-500',
@@ -64,7 +64,7 @@ const AssessmentCard = ({
       buttonBg: 'bg-teal-600 hover:bg-teal-700',
       badgeBg: 'bg-teal-100 text-teal-700 border-teal-300',
       glowColor: 'rgba(20, 184, 166, 0.4)',
-      taglineBg: 'bg-teal-600/90',
+      taglineBg: 'bg-teal-600/75',
     },
     orange: {
       border: 'border-orange-500',
@@ -73,7 +73,7 @@ const AssessmentCard = ({
       buttonBg: 'bg-orange-600 hover:bg-orange-700',
       badgeBg: 'bg-orange-100 text-orange-700 border-orange-300',
       glowColor: 'rgba(249, 115, 22, 0.4)',
-      taglineBg: 'bg-orange-600/90',
+      taglineBg: 'bg-orange-600/75',
     },
   };
 
