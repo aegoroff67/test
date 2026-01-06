@@ -223,12 +223,19 @@ export default function SystemPreAssessmentForm() {
     try {
       // Parse the combined cloudProviderRegion value
       const formData = { ...form };
-      if (form.cloudProviderRegion && form.cloudProviderRegion !== "other") {
+      const specialOptions = ["multiple", "global", "vendor-managed"];
+      if (form.cloudProviderRegion && !specialOptions.includes(form.cloudProviderRegion)) {
         const [provider, regionCode] = form.cloudProviderRegion.split('|');
         formData.cloudProvider = provider;
         formData.cloudRegion = regionCode;
-      } else if (form.cloudProviderRegion === "other") {
-        formData.cloudProvider = "Other / Not Applicable";
+      } else if (form.cloudProviderRegion === "multiple") {
+        formData.cloudProvider = "Multiple Regions";
+        formData.cloudRegion = "";
+      } else if (form.cloudProviderRegion === "global") {
+        formData.cloudProvider = "Global / Region-agnostic";
+        formData.cloudRegion = "";
+      } else if (form.cloudProviderRegion === "vendor-managed") {
+        formData.cloudProvider = "Vendor-managed / Not disclosed";
         formData.cloudRegion = "";
       }
       // Remove the combined field before sending to backend
