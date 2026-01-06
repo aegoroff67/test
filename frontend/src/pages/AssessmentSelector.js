@@ -91,17 +91,7 @@ const AssessmentCard = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Animated glow border effect */}
-      {isHovered && hasAccess && (
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `linear-gradient(90deg, transparent, ${config.glowColor}, transparent)`,
-            animation: 'glowPulse 2s ease-in-out infinite',
-            opacity: 0.3,
-          }}
-        />
-      )}
+      {/* Animated glow border effect - removed */}
 
       <Badge className={`absolute top-4 right-4 text-xs ${hasAccess ? config.badgeBg : 'bg-gray-100 text-gray-700 border-gray-300'}`}>
         {hasAccess ? 'Available Now' : 'Requires Permission'}
