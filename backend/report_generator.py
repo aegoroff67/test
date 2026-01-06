@@ -438,7 +438,8 @@ class AMReportGenerator:
             "heatmap_data": self._prepare_heatmap_data(questions_data),
             "questions_data": questions_data,  # Pass through for sector action generation
             "sector_name": sector_name,
-            "sector_actions": sector_actions
+            "sector_actions": sector_actions,
+            "system_info": assessment_data.get('system_info', {})  # Pass system_info for template use
         }
         
         return report_data
