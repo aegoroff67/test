@@ -1931,7 +1931,8 @@ Each cell represents the score for a specific question, enabling identification 
         # Generate the report
         docx_bytes, pdf_bytes = await self.generate_report(
             assessment_id, assessment_data, user_data, 
-            view_type=view_type, benchmark_data=benchmark_data
+            view_type=view_type, benchmark_data=benchmark_data,
+            use_ai=use_ai
         )
         
         # Generate filename
