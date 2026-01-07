@@ -3367,6 +3367,7 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
 async def generate_report_docx(
     assessment_id: str, 
     view_type: str = Query(default="heatmap", regex="^(heatmap|radar)$"),
+    use_ai: bool = Query(default=False, description="Use AI to generate enhanced narrative content"),
     current_user: UserResponse = Depends(get_current_user)
 ):
     """Generate and download DOCX report for assessment using DOCX template."""
@@ -3376,6 +3377,7 @@ async def generate_report_docx(
         print(f"=== REPORT GENERATION DEBUG ===")
         print(f"Assessment ID: {assessment_id}")
         print(f"View Type: {view_type}")
+        print(f"Use AI: {use_ai}")
         print(f"User: {current_user.email}")
         
         # Initialize report generator
@@ -3383,7 +3385,7 @@ async def generate_report_docx(
         
         # Generate report with specified view type
         docx_bytes, filename = await report_generator.generate_report_for_assessment(
-            assessment_id, db, current_user, view_type=view_type
+            assessment_id, db, current_user, view_type=view_type, use_ai=use_ai
         )
         
         # Store report record in database
