@@ -1871,6 +1871,26 @@ Each cell represents the score for a specific question, enabling identification 
                 'key_findings': report_data.get('ai_key_findings') or self._generate_key_findings(report_data),
                 'implementation_roadmap': self._generate_implementation_roadmap(report_data),
                 
+                # AI-generated content in structure expected by test template schema
+                'ai_generated': {
+                    'executive_summary': report_data.get('ai_executive_summary') or self._generate_comprehensive_executive_summary(report_data),
+                    'key_findings': report_data.get('ai_key_findings') or self._generate_key_findings(report_data)
+                },
+                
+                # Maturity distribution for test template
+                'maturity': self._calculate_maturity_distribution(report_data),
+                
+                # Strengths and gaps in test template format
+                'strengths': {
+                    'top_3': top_3_strengths
+                },
+                'gaps': {
+                    'top_3': top_3_gaps
+                },
+                
+                # Domain results for test template (array format)
+                'domains': self._format_domains_for_template(report_data),
+                
             }
             
             # Debug output for troubleshooting
