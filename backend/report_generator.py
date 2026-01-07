@@ -148,6 +148,204 @@ class AMReportGenerator:
         
         return sector_actions
     
+    async def _generate_ai_enhanced_executive_summary(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate an AI-enhanced executive summary using LLM.
+        Falls back to template-based generation if AI fails.
+        """
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            
+            # Extract key data for the prompt
+            overall_score = report_data.get('overall', {}).get('score', 0)
+            overall_tier = report_data.get('overall', {}).get('tier', 'Unknown')
+            org_name = report_data.get('org', {}).get('name', 'the organization')
+            system_info = report_data.get('system_info', {})
+            system_name = system_info.get('systemName', 'the AI system')
+            industry = system_info.get('industry', '')
+            
+            # Get domain scores
+            heatmap_data = report_data.get('heatmap_data', {})
+            domains = heatmap_data.get('domains', [])
+            
+            # Sort to find top and bottom performers
+            domain_scores = []
+            for domain in domains:
+                domain_name = domain.get('name', '')
+                questions = domain.get('questions', [])
+                scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
+                if scores:
+                    avg_pct = (sum(scores) / (len(scores) * 4)) * 100
+                    domain_scores.append({'name': domain_name, 'percentage': avg_pct})
+            
+            sorted_domains = sorted(domain_scores, key=lambda x: x['percentage'], reverse=True)
+            top_3 = sorted_domains[:3] if len(sorted_domains) >= 3 else sorted_domains
+            bottom_3 = sorted_domains[-3:] if len(sorted_domains) >= 3 else sorted_domains
+            
+            system_prompt = """You are an expert AI governance consultant writing executive summaries for AI maturity assessment reports. 
+Your writing style is professional, insightful, and actionable. Write in a formal business report tone.
+Do not use markdown formatting - write in plain text suitable for a Word document.
+Keep paragraphs concise but comprehensive."""
+
+            user_prompt = f"""Write a comprehensive executive summary for an AI System Maturity Assessment report.
+
+ASSESSMENT DATA:
+- Organization: {org_name}
+- AI System: {system_name}
+- Industry: {industry}
+- Overall Maturity Score: {overall_score:.1f}%
+- Maturity Tier: {overall_tier}
+
+TOP PERFORMING DOMAINS:
+{chr(10).join([f"- {d['name']}: {d['percentage']:.0f}%" for d in top_3])}
+
+AREAS REQUIRING IMPROVEMENT:
+{chr(10).join([f"- {d['name']}: {d['percentage']:.0f}%" for d in bottom_3])}
+
+Write an executive summary that includes:
+1. Assessment objective and scope (mention the 11 domains and 88 questions of the AM AI SAFE framework)
+2. Overall results interpretation with context for the {overall_tier} tier
+3. Key strengths analysis - explain WHY these domains are performing well
+4. Areas for improvement - explain the IMPLICATIONS of lower scores in these areas
+5. Strategic recommendations summary (2-3 key actions)
+6. Forward-looking statement about the organization's AI governance journey
+
+The summary should be approximately 400-500 words, written as flowing paragraphs (not bullet points)."""
+
+            # Initialize LLM chat
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"exec_summary_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            # Send message and get response
+            user_message = UserMessage(text=user_prompt)
+            response = await chat.send_message(user_message)
+            
+            print("Successfully generated AI-enhanced executive summary")
+            return response.strip()
+            
+        except Exception as e:
+            print(f"AI executive summary generation failed, using template: {str(e)}")
+            return self._generate_comprehensive_executive_summary(report_data)
+    
+    async def _generate_ai_enhanced_key_findings(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI-enhanced key findings using LLM.
+        Falls back to template-based generation if AI fails.
+        """
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            
+            # Extract key data
+            overall_score = report_data.get('overall', {}).get('score', 0)
+            overall_tier = report_data.get('overall', {}).get('tier', 'Unknown')
+            org_name = report_data.get('org', {}).get('name', 'the organization')
+            system_info = report_data.get('system_info', {})
+            system_name = system_info.get('systemName', 'the AI system')
+            industry = system_info.get('industry', '')
+            
+            # Get domain analysis
+            heatmap_data = report_data.get('heatmap_data', {})
+            domains = heatmap_data.get('domains', [])
+            
+            domain_analysis = []
+            for domain in domains:
+                domain_name = domain.get('name', '')
+                questions = domain.get('questions', [])
+                scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
+                if scores:
+                    avg_pct = (sum(scores) / (len(scores) * 4)) * 100
+                    low_scores = len([s for s in scores if s <= 2])
+                    domain_analysis.append({
+                        'name': domain_name, 
+                        'percentage': avg_pct,
+                        'questions_assessed': len(scores),
+                        'low_scoring_questions': low_scores
+                    })
+            
+            sorted_domains = sorted(domain_analysis, key=lambda x: x['percentage'], reverse=True)
+            
+            # Calculate maturity distribution
+            high_maturity = len([d for d in domain_analysis if d['percentage'] >= 75])
+            moderate_maturity = len([d for d in domain_analysis if 50 <= d['percentage'] < 75])
+            developing_maturity = len([d for d in domain_analysis if 25 <= d['percentage'] < 50])
+            foundational_maturity = len([d for d in domain_analysis if d['percentage'] < 25])
+            
+            system_prompt = """You are an expert AI governance analyst writing detailed findings for AI maturity assessment reports.
+Your analysis is thorough, evidence-based, and provides actionable insights.
+Write in a professional consulting report style with clear structure.
+Do not use markdown formatting - write in plain text suitable for a Word document.
+Use numbered sections and clear paragraph breaks."""
+
+            user_prompt = f"""Write comprehensive key findings for an AI System Maturity Assessment report.
+
+ASSESSMENT DATA:
+- Organization: {org_name}
+- AI System: {system_name}
+- Industry: {industry}
+- Overall Score: {overall_score:.1f}%
+- Maturity Tier: {overall_tier}
+
+MATURITY DISTRIBUTION:
+- High Maturity (75%+): {high_maturity} domains
+- Moderate Maturity (50-74%): {moderate_maturity} domains  
+- Developing Maturity (25-49%): {developing_maturity} domains
+- Foundational (<25%): {foundational_maturity} domains
+
+DOMAIN-BY-DOMAIN SCORES:
+{chr(10).join([f"- {d['name']}: {d['percentage']:.0f}% ({d['questions_assessed']} questions, {d['low_scoring_questions']} scoring low)" for d in sorted_domains])}
+
+Write detailed key findings that include:
+
+1. OVERALL MATURITY ASSESSMENT
+   - Interpretation of the {overall_score:.1f}% score in context of the {industry} industry
+   - What the {overall_tier} tier means for the organization
+
+2. DOMAIN PERFORMANCE ANALYSIS
+   - Analysis of the highest performing domain ({sorted_domains[0]['name']} at {sorted_domains[0]['percentage']:.0f}%)
+   - Analysis of the lowest performing domain ({sorted_domains[-1]['name']} at {sorted_domains[-1]['percentage']:.0f}%)
+   - Patterns and correlations across domains
+
+3. RISK ASSESSMENT
+   - Key risk areas based on low-scoring domains
+   - Potential compliance and reputational implications
+   - Areas requiring immediate attention
+
+4. ORGANIZATIONAL READINESS
+   - Assessment of governance maturity
+   - Capability gaps identified
+   - Resource and investment implications
+
+5. COMPARATIVE INSIGHTS
+   - How technical vs governance domains compare
+   - Balance between AI capability and AI safety measures
+
+6. CRITICAL SUCCESS FACTORS
+   - What needs to happen for improvement
+   - Key dependencies and enablers
+
+The findings should be approximately 600-800 words with clear section headers."""
+
+            # Initialize LLM chat
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"key_findings_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            # Send message and get response
+            user_message = UserMessage(text=user_prompt)
+            response = await chat.send_message(user_message)
+            
+            print("Successfully generated AI-enhanced key findings")
+            return response.strip()
+            
+        except Exception as e:
+            print(f"AI key findings generation failed, using template: {str(e)}")
+            return self._generate_key_findings(report_data)
+    
     def _get_default_template_path(self) -> str:
         """Get the default template path - using v9 template updated 10/07/2025."""  
         backend_dir = Path(__file__).parent
