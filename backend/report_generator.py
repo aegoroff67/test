@@ -158,6 +158,7 @@ class AMReportGenerator:
         """
         Generate an AI-enhanced executive summary using LLM.
         Falls back to template-based generation if AI fails.
+        Uses new test prompts when use_test_template is enabled.
         """
         try:
             from emergentintegrations.llm.chat import LlmChat, UserMessage
@@ -167,33 +168,143 @@ class AMReportGenerator:
             overall_tier = report_data.get('overall', {}).get('tier', 'Unknown')
             org_name = report_data.get('org', {}).get('name', 'the organization')
             system_info = report_data.get('system_info', {})
-            system_name = system_info.get('systemName', 'the AI system')
+            system_name = system_info.get('systemName', system_info.get('system_name', 'the AI system'))
             industry = system_info.get('industry', '')
             
-            # Get domain scores
+            # Get domain scores and detailed analysis
             heatmap_data = report_data.get('heatmap_data', {})
             domains = heatmap_data.get('domains', [])
             
-            # Sort to find top and bottom performers
+            # Sort to find top and bottom performers with low-scoring question counts
             domain_scores = []
             for domain in domains:
                 domain_name = domain.get('name', '')
                 questions = domain.get('questions', [])
                 scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
+                low_scoring_count = len([s for s in scores if s <= 2])
                 if scores:
                     avg_pct = (sum(scores) / (len(scores) * 4)) * 100
-                    domain_scores.append({'name': domain_name, 'percentage': avg_pct})
+                    domain_scores.append({
+                        'name': domain_name, 
+                        'percentage': avg_pct,
+                        'question_count': len(scores),
+                        'low_scoring_count': low_scoring_count
+                    })
             
             sorted_domains = sorted(domain_scores, key=lambda x: x['percentage'], reverse=True)
             top_3 = sorted_domains[:3] if len(sorted_domains) >= 3 else sorted_domains
             bottom_3 = sorted_domains[-3:] if len(sorted_domains) >= 3 else sorted_domains
             
-            system_prompt = """You are an expert AI governance consultant writing executive summaries for AI maturity assessment reports. 
+            # Calculate maturity distribution
+            all_scores = []
+            for domain in domains:
+                questions = domain.get('questions', [])
+                for q in questions:
+                    if q.get('score') is not None:
+                        all_scores.append(q.get('score', 0))
+            
+            non_ideal = len([s for s in all_scores if s == 1])
+            basic = len([s for s in all_scores if s == 2])
+            good = len([s for s in all_scores if s == 3])
+            advanced = len([s for s in all_scores if s == 4])
+            
+            # Get priority actions counts
+            actions = report_data.get('actions', {})
+            high_priority_count = len(actions.get('high', []))
+            medium_priority_count = len(actions.get('medium', []))
+            low_priority_count = len(actions.get('low', []))
+            
+            # Get system context
+            lifecycle = system_info.get('lifecycle', system_info.get('lifecycleStage', 'Unknown'))
+            criticality = system_info.get('criticality', 'Unknown')
+            hosting = system_info.get('hosting', system_info.get('cloudProvider', 'Unknown'))
+            data_sensitivity = system_info.get('dataSensitivity', 'Unknown')
+            oversight = system_info.get('oversight', system_info.get('humanOversight', 'Unknown'))
+            
+            if self.use_test_template:
+                # NEW TEST PROMPT - Data-driven, conservative approach
+                system_prompt = """You are generating the Executive Summary section of an AI System Maturity Assessment report using the AM AI SAFE framework. Your task is to produce a clear, executive-level summary that is fully grounded in the data provided.
+
+⚠️ Critical rules:
+- Only state facts that are explicitly provided in the input data.
+- Do not invent policies, controls, processes, or cultural attributes.
+- If you discuss reasons or drivers, clearly label them as "likely contributors" and base them on observable patterns (e.g. domain scores, concentration of low-scoring questions, or recommendation themes).
+- Do not introduce any new numbers, percentages, counts, or rankings.
+- Do not reference external regulations or frameworks unless explicitly included in the input.
+- Avoid absolute claims such as "fully implemented", "comprehensive", "best practice", or "full marks" unless explicitly supported by the data.
+- Do not use markdown formatting - write in plain text suitable for a Word document."""
+
+                user_prompt = f"""Write the Executive Summary for an AI System Maturity Assessment report.
+
+ORGANISATION DETAILS:
+- Organisation: {org_name}
+- Industry: {industry}
+
+ASSESSMENT CONTEXT:
+- System Name: {system_name}
+- Lifecycle Stage: {lifecycle}
+- Business Criticality: {criticality}
+- Hosting Model: {hosting}
+- Data Sensitivity: {data_sensitivity}
+- Oversight Arrangements: {oversight}
+
+OVERALL RESULTS:
+- Overall Maturity Score: {overall_score:.1f}%
+- Maturity Tier: {overall_tier}
+
+DOMAIN RESULTS (sorted by score):
+{chr(10).join([f"- {d['name']}: {d['percentage']:.0f}% ({d['question_count']} questions, {d['low_scoring_count']} scoring low)" for d in sorted_domains])}
+
+MATURITY DISTRIBUTION:
+- Non-Ideal (score 1): {non_ideal} questions
+- Basic (score 2): {basic} questions
+- Good (score 3): {good} questions
+- Advanced (score 4): {advanced} questions
+
+PRIORITY ACTIONS:
+- High priority: {high_priority_count} actions
+- Medium priority: {medium_priority_count} actions
+- Low priority: {low_priority_count} actions
+
+TOP 3 STRENGTHS:
+{chr(10).join([f"- {d['name']}: {d['percentage']:.0f}%" for d in top_3])}
+
+TOP 3 GAPS:
+{chr(10).join([f"- {d['name']}: {d['percentage']:.0f}%" for d in bottom_3])}
+
+Required structure - Write the Executive Summary using the following structure exactly, in professional report language:
+
+1. Purpose of the Assessment
+Briefly restate the objective of the assessment and the scope of domains assessed.
+
+2. Assessment Context
+Summarise the system context using the provided lifecycle stage, criticality, hosting model, data sensitivity, and oversight arrangements. Do not infer risk beyond what this context reasonably implies.
+
+3. Overall Maturity Outcome
+State the overall AI maturity score and tier. Explain what this tier indicates at a high level (e.g. foundational, developing, established), without adding new metrics.
+
+4. Domain-Level Performance Overview
+Identify the strongest-performing domains and lowest-performing domains based on the provided scores. Where relevant, note patterns such as concentration of low-scoring questions. Any explanation of performance must be framed as likely contributors, not confirmed causes.
+
+5. Key Insights (Bullet Points)
+Provide 4–6 concise bullet points covering:
+- Overall maturity position
+- Strongest domain areas
+- Primary risk or gap concentration
+- Volume of high-priority actions identified
+- Any notable maturity distribution pattern
+
+6. Forward-Looking Summary
+Conclude with a short paragraph outlining how addressing the identified priority actions would improve AI governance and maturity over time, without promising outcomes or timelines."""
+
+            else:
+                # ORIGINAL PROMPT
+                system_prompt = """You are an expert AI governance consultant writing executive summaries for AI maturity assessment reports. 
 Your writing style is professional, insightful, and actionable. Write in a formal business report tone.
 Do not use markdown formatting - write in plain text suitable for a Word document.
 Keep paragraphs concise but comprehensive."""
 
-            user_prompt = f"""Write a comprehensive executive summary for an AI System Maturity Assessment report.
+                user_prompt = f"""Write a comprehensive executive summary for an AI System Maturity Assessment report.
 
 ASSESSMENT DATA:
 - Organization: {org_name}
@@ -229,7 +340,7 @@ The summary should be approximately 400-500 words, written as flowing paragraphs
             user_message = UserMessage(text=user_prompt)
             response = await chat.send_message(user_message)
             
-            print("Successfully generated AI-enhanced executive summary")
+            print(f"Successfully generated AI-enhanced executive summary (test_template={self.use_test_template})")
             return response.strip()
             
         except Exception as e:
