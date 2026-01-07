@@ -351,6 +351,7 @@ The summary should be approximately 400-500 words, written as flowing paragraphs
         """
         Generate AI-enhanced key findings using LLM.
         Falls back to template-based generation if AI fails.
+        Uses new test prompts when use_test_template is enabled.
         """
         try:
             from emergentintegrations.llm.chat import LlmChat, UserMessage
@@ -360,18 +361,24 @@ The summary should be approximately 400-500 words, written as flowing paragraphs
             overall_tier = report_data.get('overall', {}).get('tier', 'Unknown')
             org_name = report_data.get('org', {}).get('name', 'the organization')
             system_info = report_data.get('system_info', {})
-            system_name = system_info.get('systemName', 'the AI system')
+            system_name = system_info.get('systemName', system_info.get('system_name', 'the AI system'))
             industry = system_info.get('industry', '')
+            
+            # Get system context
+            lifecycle = system_info.get('lifecycle', system_info.get('lifecycleStage', 'Unknown'))
+            criticality = system_info.get('criticality', 'Unknown')
             
             # Get domain analysis
             heatmap_data = report_data.get('heatmap_data', {})
             domains = heatmap_data.get('domains', [])
             
             domain_analysis = []
+            all_scores = []
             for domain in domains:
                 domain_name = domain.get('name', '')
                 questions = domain.get('questions', [])
                 scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
+                all_scores.extend(scores)
                 if scores:
                     avg_pct = (sum(scores) / (len(scores) * 4)) * 100
                     low_scores = len([s for s in scores if s <= 2])
@@ -384,19 +391,107 @@ The summary should be approximately 400-500 words, written as flowing paragraphs
             
             sorted_domains = sorted(domain_analysis, key=lambda x: x['percentage'], reverse=True)
             
-            # Calculate maturity distribution
+            # Calculate maturity distribution (question-level for test prompt)
+            non_ideal = len([s for s in all_scores if s == 1])
+            basic = len([s for s in all_scores if s == 2])
+            good = len([s for s in all_scores if s == 3])
+            advanced = len([s for s in all_scores if s == 4])
+            
+            # Calculate domain-level maturity distribution (for original prompt)
             high_maturity = len([d for d in domain_analysis if d['percentage'] >= 75])
             moderate_maturity = len([d for d in domain_analysis if 50 <= d['percentage'] < 75])
             developing_maturity = len([d for d in domain_analysis if 25 <= d['percentage'] < 50])
             foundational_maturity = len([d for d in domain_analysis if d['percentage'] < 25])
             
-            system_prompt = """You are an expert AI governance analyst writing detailed findings for AI maturity assessment reports.
+            # Get priority actions with domain distribution
+            actions = report_data.get('actions', {})
+            high_actions = actions.get('high', [])
+            medium_actions = actions.get('medium', [])
+            low_actions = actions.get('low', [])
+            
+            # Get top 3 strengths and gaps
+            top_3 = sorted_domains[:3] if len(sorted_domains) >= 3 else sorted_domains
+            bottom_3 = sorted_domains[-3:] if len(sorted_domains) >= 3 else sorted_domains
+            
+            if self.use_test_template:
+                # NEW TEST PROMPT - Data-driven key findings
+                system_prompt = """You are generating the Key Findings & Risk Themes section of an AI System Maturity Assessment report using the AM AI SAFE framework. Your role is to identify data-driven findings based strictly on the assessment results provided.
+
+⚠️ Critical rules:
+- Every finding must be traceable to explicit input data (scores, distributions, question concentrations, or recommendation themes).
+- Do not introduce new statistics, benchmarks, or comparisons.
+- Do not reference external organisations, laws, or standards unless explicitly provided.
+- Avoid speculative language unless clearly framed as risk implication or likely impact.
+- Do not repeat the Executive Summary; focus on analytical insights.
+- Do not use markdown formatting - write in plain text suitable for a Word document."""
+
+                # Format high priority actions for the prompt
+                high_actions_text = chr(10).join([f"- {a.get('domain', 'Unknown')}: {a.get('question_id', 'N/A')} - {a.get('text', 'N/A')[:100]}..." for a in high_actions[:10]]) if high_actions else "None identified"
+                
+                user_prompt = f"""Write Key Findings & Risk Themes for an AI System Maturity Assessment report.
+
+OVERALL MATURITY:
+- Score: {overall_score:.1f}%
+- Tier: {overall_tier}
+
+DOMAIN-LEVEL SCORES (sorted by performance):
+{chr(10).join([f"- {d['name']}: {d['percentage']:.0f}% ({d['questions_assessed']} questions, {d['low_scoring_questions']} low-scoring)" for d in sorted_domains])}
+
+MATURITY DISTRIBUTION (question-level):
+- Non-Ideal (score 1): {non_ideal} questions
+- Basic (score 2): {basic} questions
+- Good (score 3): {good} questions
+- Advanced (score 4): {advanced} questions
+
+PRIORITY ACTIONS:
+- High priority: {len(high_actions)} actions
+- Medium priority: {len(medium_actions)} actions
+- Low priority: {len(low_actions)} actions
+
+SAMPLE HIGH PRIORITY ACTIONS:
+{high_actions_text}
+
+TOP 3 STRENGTHS:
+{chr(10).join([f"- {d['name']}: {d['percentage']:.0f}%" for d in top_3])}
+
+TOP 3 GAPS:
+{chr(10).join([f"- {d['name']}: {d['percentage']:.0f}%" for d in bottom_3])}
+
+SYSTEM CONTEXT:
+- Lifecycle Stage: {lifecycle}
+- Business Criticality: {criticality}
+
+Required output format - Produce 4 to 6 numbered findings, using the following structure for each finding:
+
+Finding X: [Short descriptive title]
+
+Observation: Describe the observable pattern in the assessment results (e.g. domain performance, maturity distribution, clustering of low scores).
+
+Evidence: Reference the specific data points that support the observation (e.g. domains involved, relative scores, concentration of high-priority actions).
+
+Risk Implication: Explain what this pattern may imply for AI governance, operational risk, assurance, or sustainability if not addressed.
+
+Content expectations - Across the full set of findings, ensure you cover:
+- At least one finding related to overall maturity distribution
+- At least one finding comparing strong vs weak domains
+- At least one finding based on concentration of high-priority actions
+- At least one finding informed by system lifecycle or criticality
+
+Style guidance:
+- Analytical and precise
+- Neutral and non-judgemental
+- Suitable for inclusion in a regulator-facing or board-level report
+- Avoid marketing language or recommendations (those appear later in the report)"""
+
+            else:
+                # ORIGINAL PROMPT
+                system_prompt = """You are an expert AI governance analyst writing detailed findings for AI maturity assessment reports.
 Your analysis is thorough, evidence-based, and provides actionable insights.
 Write in a professional consulting report style with clear structure.
 Do not use markdown formatting - write in plain text suitable for a Word document.
 Use numbered sections and clear paragraph breaks."""
 
-            user_prompt = f"""Write comprehensive key findings for an AI System Maturity Assessment report.
+                user_prompt = f"""Write comprehensive key findings for an AI System Maturity Assessment report.
 
 ASSESSMENT DATA:
 - Organization: {org_name}
@@ -456,7 +551,7 @@ The findings should be approximately 600-800 words with clear section headers.""
             user_message = UserMessage(text=user_prompt)
             response = await chat.send_message(user_message)
             
-            print("Successfully generated AI-enhanced key findings")
+            print(f"Successfully generated AI-enhanced key findings (test_template={self.use_test_template})")
             return response.strip()
             
         except Exception as e:
