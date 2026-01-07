@@ -25,9 +25,15 @@ from jinja2 import Environment, FileSystemLoader
 class AMReportGenerator:
     """Generates AM AI SAFE assessment reports in DOCX and PDF formats."""
     
-    def __init__(self, template_path: Optional[str] = None):
+    def __init__(self, template_path: Optional[str] = None, use_test_template: bool = False):
         """Initialize the report generator."""
-        self.template_path = template_path or self._get_default_template_path()
+        self.use_test_template = use_test_template
+        if template_path:
+            self.template_path = template_path
+        elif use_test_template:
+            self.template_path = self._get_test_template_path()
+        else:
+            self.template_path = self._get_default_template_path()
         self.domain_colors = {
             'Fairness': '#FF6B6B',
             'Transparency': '#4ECDC4', 
