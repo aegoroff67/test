@@ -390,7 +390,8 @@ The findings should be approximately 600-800 words with clear section headers.""
     
     async def generate_report(self, assessment_id: str, assessment_data: Dict[str, Any], 
                             user_data: Dict[str, Any], view_type: str = "heatmap", 
-                            benchmark_data: Dict[str, Any] = None) -> Tuple[bytes, bytes]:
+                            benchmark_data: Dict[str, Any] = None,
+                            use_ai: bool = False) -> Tuple[bytes, bytes]:
         """
         Generate DOCX and PDF reports from assessment data.
         
@@ -400,12 +401,30 @@ The findings should be approximately 600-800 words with clear section headers.""
             user_data: User information
             view_type: Type of visualization ('heatmap' or 'radar')
             benchmark_data: Benchmark data for radar chart comparison (optional)
+            use_ai: Whether to use AI for enhanced narrative generation
             
         Returns:
             Tuple of (docx_bytes, pdf_bytes)
         """
         # Transform data to match report model
         report_data = self._transform_assessment_data(assessment_data, user_data)
+        
+        # Generate AI-enhanced content if requested
+        if use_ai:
+            print("=== GENERATING AI-ENHANCED CONTENT ===")
+            try:
+                ai_exec_summary = await self._generate_ai_enhanced_executive_summary(report_data)
+                report_data['ai_executive_summary'] = ai_exec_summary
+                print(f"AI Executive Summary generated: {len(ai_exec_summary)} chars")
+            except Exception as e:
+                print(f"AI Executive Summary failed: {e}")
+                
+            try:
+                ai_key_findings = await self._generate_ai_enhanced_key_findings(report_data)
+                report_data['ai_key_findings'] = ai_key_findings
+                print(f"AI Key Findings generated: {len(ai_key_findings)} chars")
+            except Exception as e:
+                print(f"AI Key Findings failed: {e}")
         
         # Generate visualization image based on view_type
         print(f"=== VISUALIZATION GENERATION ===")
