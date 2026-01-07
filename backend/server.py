@@ -3368,6 +3368,7 @@ async def generate_report_docx(
     assessment_id: str, 
     view_type: str = Query(default="heatmap", regex="^(heatmap|radar)$"),
     use_ai: bool = Query(default=False, description="Use AI to generate enhanced narrative content"),
+    use_test_template: bool = Query(default=False, description="Use the test template and prompts for report generation"),
     current_user: UserResponse = Depends(get_current_user)
 ):
     """Generate and download DOCX report for assessment using DOCX template."""
@@ -3378,10 +3379,11 @@ async def generate_report_docx(
         print(f"Assessment ID: {assessment_id}")
         print(f"View Type: {view_type}")
         print(f"Use AI: {use_ai}")
+        print(f"Use Test Template: {use_test_template}")
         print(f"User: {current_user.email}")
         
-        # Initialize report generator
-        report_generator = AMReportGenerator()
+        # Initialize report generator with test template flag
+        report_generator = AMReportGenerator(use_test_template=use_test_template)
         
         # Generate report with specified view type
         docx_bytes, filename = await report_generator.generate_report_for_assessment(
