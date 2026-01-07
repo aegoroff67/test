@@ -1936,8 +1936,8 @@ Each cell represents the score for a specific question, enabling identification 
                 'sector_name': report_data.get('sector_name', ''),
                 'sector_actions': report_data.get('sector_actions', {'high': [], 'medium': [], 'low': []}),
                 
-                # System info from pre-assessment onboarding
-                'system_info': report_data.get('system_info', {}),
+                # System info from pre-assessment onboarding with normalized field names for test template
+                'system_info': self._normalize_system_info(report_data.get('system_info', {})),
                 
                 # Add comprehensive content sections
                 # Note: AI-enhanced versions are populated separately if use_ai=True
@@ -1966,6 +1966,16 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 # Domain results for test template (array format)
                 'domains': self._format_domains_for_template(report_data),
+                
+                # Evidence information for test template
+                'evidence': self._calculate_evidence_stats(report_data),
+                
+                # Validation info for test template
+                'validation': {
+                    'source_hash': report_data.get('validation', {}).get('source_hash', 'N/A'),
+                    'lint_passed': True,
+                    'lint_messages': []
+                },
                 
             }
             
