@@ -1925,12 +1925,8 @@ Each cell represents the score for a specific question, enabling identification 
                 'top_3_strengths': top_3_strengths,
                 'top_3_gaps': top_3_gaps,
                 
-                # Actions for working template with separate priority arrays
-                'actions': {
-                    'high': report_data.get('actions', {}).get('high', []),
-                    'medium': report_data.get('actions', {}).get('medium', []),
-                    'low': report_data.get('actions', {}).get('low', [])
-                },
+                # Actions for working template with separate priority arrays and summary
+                'actions': self._build_actions_with_summary(report_data),
                 
                 # Sector-specific action steps
                 'sector_name': report_data.get('sector_name', ''),
