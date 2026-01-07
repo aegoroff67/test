@@ -1798,6 +1798,82 @@ Each cell represents the score for a specific question, enabling identification 
         tr = table.rows[row_idx]._tr
         tbl.remove(tr)
     
+
+    def _calculate_maturity_distribution(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Calculate maturity distribution for test template schema."""
+        heatmap_data = report_data.get('heatmap_data', {})
+        domains = heatmap_data.get('domains', [])
+        
+        all_scores = []
+        for domain in domains:
+            questions = domain.get('questions', [])
+            for q in questions:
+                if q.get('score') is not None:
+                    all_scores.append(q.get('score', 0))
+        
+        non_ideal = len([s for s in all_scores if s == 1])
+        basic = len([s for s in all_scores if s == 2])
+        good = len([s for s in all_scores if s == 3])
+        advanced = len([s for s in all_scores if s == 4])
+        total = len(all_scores) if all_scores else 1
+        
+        return {
+            'non_ideal': non_ideal,
+            'basic': basic,
+            'good': good,
+            'advanced': advanced,
+            'total_questions': total,
+            'percent': {
+                'non_ideal': round((non_ideal / total) * 100, 1) if total > 0 else 0,
+                'basic': round((basic / total) * 100, 1) if total > 0 else 0,
+                'good': round((good / total) * 100, 1) if total > 0 else 0,
+                'advanced': round((advanced / total) * 100, 1) if total > 0 else 0
+            }
+        }
+    
+    def _format_domains_for_template(self, report_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Format domain results for test template schema."""
+        heatmap_data = report_data.get('heatmap_data', {})
+        domains = heatmap_data.get('domains', [])
+        
+        result = []
+        for domain in domains:
+            domain_name = domain.get('name', '')
+            questions = domain.get('questions', [])
+            scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
+            
+            if scores:
+                avg_pct = (sum(scores) / (len(scores) * 4)) * 100
+                low_scoring = [q for q in questions if q.get('score') is not None and q.get('score', 0) <= 2]
+                
+                # Determine tier based on score
+                if avg_pct >= 75:
+                    tier = "Advanced"
+                elif avg_pct >= 50:
+                    tier = "Good"
+                elif avg_pct >= 25:
+                    tier = "Basic"
+                else:
+                    tier = "Non-Ideal"
+                
+                result.append({
+                    'name': domain_name,
+                    'score': round(avg_pct, 1),
+                    'tier': tier,
+                    'question_count': len(scores),
+                    'low_scoring_question_count': len(low_scoring),
+                    'top_low_questions': [
+                        {
+                            'question_id': q.get('code', 'N/A'),
+                            'question_text': q.get('text', 'N/A')[:100],
+                            'score': round((q.get('score', 0) / 4) * 100, 1)
+                        }
+                        for q in sorted(low_scoring, key=lambda x: x.get('score', 0))[:5]
+                    ]
+                })
+        
+        return result
+
     def _generate_docx_report(self, report_data: Dict[str, Any], heatmap_image: bytes) -> bytes:
         """Generate DOCX report using template and data while preserving all styles."""
         try:
