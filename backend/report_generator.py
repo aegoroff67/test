@@ -1874,6 +1874,66 @@ Each cell represents the score for a specific question, enabling identification 
         
         return result
 
+    def _normalize_system_info(self, system_info: Dict[str, Any]) -> Dict[str, Any]:
+        """Normalize system_info field names for test template compatibility."""
+        return {
+            'lifecycle': system_info.get('lifecycle', system_info.get('lifecycleStage', 'Unknown')),
+            'criticality': system_info.get('criticality', 'Unknown'),
+            'ownership': system_info.get('ownership', system_info.get('systemOwnership', 'Unknown')),
+            'hosting': system_info.get('hosting', system_info.get('cloudProvider', 'Unknown')),
+            'dataSensitivity': system_info.get('dataSensitivity', 'Unknown'),
+            'oversight': system_info.get('oversight', system_info.get('humanOversight', 'Unknown')),
+            'system_name': system_info.get('system_name', system_info.get('systemName', 'AI System')),
+            'system_description': system_info.get('system_description', system_info.get('systemDescription', '')),
+            # Keep original fields too for backwards compatibility
+            **system_info
+        }
+    
+    def _build_actions_with_summary(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Build actions structure with summary for test template."""
+        actions = report_data.get('actions', {})
+        high_actions = actions.get('high', [])
+        medium_actions = actions.get('medium', [])
+        low_actions = actions.get('low', [])
+        
+        # Extract risk themes from high priority actions
+        risk_themes = list(set([a.get('risk_theme', a.get('domain', 'General')) for a in high_actions if a.get('risk_theme') or a.get('domain')]))[:5]
+        
+        return {
+            'high': high_actions,
+            'medium': medium_actions,
+            'low': low_actions,
+            'summary': {
+                'high_count': len(high_actions),
+                'medium_count': len(medium_actions),
+                'low_count': len(low_actions),
+                'top_risk_themes': risk_themes if risk_themes else ['No specific risk themes identified']
+            }
+        }
+    
+    def _calculate_evidence_stats(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Calculate evidence statistics for test template."""
+        # This would ideally pull from actual evidence records
+        # For now, return placeholder values
+        actions = report_data.get('actions', {})
+        high_actions = actions.get('high', [])
+        
+        return {
+            'count_total': 0,
+            'count_linked_to_high_priority': 0,
+            'coverage_percent': 0.0,
+            'gaps_count': len(high_actions),
+            'top_gaps': [
+                {
+                    'domain': a.get('domain', 'Unknown'),
+                    'question_id': a.get('question_id', 'N/A'),
+                    'reason': 'High priority action without linked evidence'
+                }
+                for a in high_actions[:5]
+            ]
+        }
+
+
     def _generate_docx_report(self, report_data: Dict[str, Any], heatmap_image: bytes) -> bytes:
         """Generate DOCX report using template and data while preserving all styles."""
         try:
