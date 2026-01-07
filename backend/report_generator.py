@@ -357,6 +357,16 @@ The findings should be approximately 600-800 words with clear section headers.""
         backend_dir = Path(__file__).parent
         return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx")
     
+    def _get_test_template_path(self) -> str:
+        """Get the test template path for testing new template structure."""  
+        backend_dir = Path(__file__).parent
+        return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_SYSTEM_test_template.docx")
+    
+    def _get_test_schema_path(self) -> str:
+        """Get the test schema path for validation."""
+        backend_dir = Path(__file__).parent
+        return str(backend_dir / "Test_System_report_schema.json")
+    
     def _get_html_template_path(self) -> str:
         """Get the HTML template path for PDF generation."""
         backend_dir = Path(__file__).parent
