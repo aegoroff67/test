@@ -472,3 +472,108 @@ MEDIUM PRIORITY SECTOR ACTIONS:
    templates.
 ```
 
+
+---
+
+## 11. PRE-ASSESSMENT SYSTEM INFORMATION
+
+All fields from the pre-assessment onboarding form are available via `{{system_info.fieldName}}`.
+
+### Organization Overview
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{system_info.organizationName}}` | Organization name | "Acme Corporation" |
+| `{{system_info.industry}}` | Industry/sector | "Finance / Insurance" |
+
+### System Information
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{system_info.systemName}}` | AI system name | "Loan Approval AI" |
+| `{{system_info.description}}` | System description | "ML model for loan decisions" |
+| `{{system_info.owner}}` | System owner | "Jane Doe" |
+| `{{system_info.department}}` | Department | "Risk Management" |
+| `{{system_info.lifecycle}}` | Lifecycle stage | "production" |
+| `{{system_info.usersStakeholders}}` | Users and stakeholders | "Loan officers, customers" |
+| `{{system_info.monthlyVolume}}` | Monthly volume | "50,000 applications" |
+| `{{system_info.criticality}}` | Business criticality | "High" |
+
+### Technical Details
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{system_info.modelType}}` | AI/ML model type | "Predictive Analytics / Tabular" |
+| `{{system_info.ownership}}` | Model ownership | "In-house" |
+| `{{system_info.hosting}}` | Hosting environment | "Public Cloud" |
+| `{{system_info.cloudProvider}}` | Cloud provider | "AWS" |
+| `{{system_info.cloudRegion}}` | Cloud region | "ap-southeast-2" |
+| `{{system_info.dataFlow}}` | Data flow description | "Real-time API calls" |
+
+### Data & Privacy
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{system_info.dataSensitivity}}` | Data sensitivity | "Sensitive (health, biometrics)" |
+| `{{system_info.dataSources}}` | Data sources | "CRM, credit bureau APIs" |
+| `{{system_info.representationNotes}}` | Bias/representation notes | "Historical underrepresentation" |
+| `{{system_info.hasRetentionPolicy}}` | Retention policy exists | true/false |
+
+### Governance & Oversight
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{system_info.oversight}}` | Human oversight model | "Human-in-the-loop" |
+| `{{system_info.artefacts}}` | Available documentation (array) | ["Model Card", "Risk Assessment"] |
+| `{{system_info.frameworks}}` | Aligned frameworks (array) | ["NIST AI RMF", "EU AI Act"] |
+| `{{system_info.regulations}}` | Applicable regulations (array) | ["GDPR", "Australian Privacy Act"] |
+
+**Oversight Options:**
+- Human-in-the-loop
+- Human-on-the-loop
+- No formal oversight
+
+### Ethics & Sustainability
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{system_info.ethicsCommitments}}` | Ethical commitments/principles | "Human-centric design, fairness" |
+| `{{system_info.sustainabilityGoals}}` | Sustainability goals | "Reduce carbon by 20% YoY" |
+
+### Optional (Advanced)
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{system_info.dependencies}}` | Third-party dependencies/APIs | "OpenAI API, AWS Rekognition" |
+| `{{system_info.versionRef}}` | Version reference | "v1.2 (2025-05)" |
+| `{{system_info.evidenceRepoUrl}}` | Evidence repository URL | "https://sharepoint.com/AI-Assurance" |
+
+### Assessment Metadata
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{system_info.assessor_name}}` | Assessor name | "John Smith" |
+| `{{system_info.assessment_date}}` | Assessment date | "2026-01-15" |
+| `{{system_info.framework_version}}` | Framework version | "v2025.11" |
+
+### Using Array Fields in Templates
+
+For array fields (artefacts, frameworks, regulations), use Jinja2 loops:
+
+```
+Available Documentation:
+{% for artefact in system_info.artefacts %}
+• {{ artefact }}
+{% endfor %}
+
+Aligned Frameworks:
+{% for fw in system_info.frameworks %}
+• {{ fw }}
+{% endfor %}
+
+Applicable Regulations:
+{% for reg in system_info.regulations %}
+• {{ reg }}
+{% endfor %}
+```
+
