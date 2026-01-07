@@ -1622,11 +1622,12 @@ Each cell represents the score for a specific question, enabling identification 
                 # System info from pre-assessment onboarding
                 'system_info': report_data.get('system_info', {}),
                 
-                # Add comprehensive content sections that will make the report much longer
-                'executive_summary': self._generate_comprehensive_executive_summary(report_data),
+                # Add comprehensive content sections
+                # Note: AI-enhanced versions are populated separately if use_ai=True
+                'executive_summary': report_data.get('ai_executive_summary') or self._generate_comprehensive_executive_summary(report_data),
                 'assessment_methodology': self._generate_assessment_methodology(),
                 'domain_analysis': self._generate_domain_analysis(report_data),
-                'key_findings': self._generate_key_findings(report_data),
+                'key_findings': report_data.get('ai_key_findings') or self._generate_key_findings(report_data),
                 'implementation_roadmap': self._generate_implementation_roadmap(report_data),
                 
             }
