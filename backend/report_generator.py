@@ -2130,8 +2130,10 @@ Each cell represents the score for a specific question, enabling identification 
             # Render the template - this will preserve all original fonts, colors, margins, layout
             doc.render(template_context)
             
-            # Populate recommendation tables programmatically (for v7 template)
-            self._populate_recommendation_tables(doc, report_data)
+            # Populate recommendation tables programmatically (for v7/v9 template only, not test template)
+            # The test template has 6 columns and uses Jinja2 loops directly
+            if not self.use_test_template:
+                self._populate_recommendation_tables(doc, report_data)
             
             # Save to bytes
             output_buffer = io.BytesIO()
