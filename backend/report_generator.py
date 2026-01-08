@@ -1890,14 +1890,66 @@ Each cell represents the score for a specific question, enabling identification 
         }
     
     def _build_actions_with_summary(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Build actions structure with summary for test template."""
+        """Build actions structure with summary for test template, enriched with sector-specific recommendations."""
         actions = report_data.get('actions', {})
-        high_actions = actions.get('high', [])
-        medium_actions = actions.get('medium', [])
-        low_actions = actions.get('low', [])
+        sector_actions = report_data.get('sector_actions', {})
         
-        # Extract risk themes from high priority actions
-        risk_themes = list(set([a.get('risk_theme', a.get('domain', 'General')) for a in high_actions if a.get('risk_theme') or a.get('domain')]))[:5]
+        # Create lookup for sector-specific action text by question_id
+        sector_action_lookup = {}
+        for priority in ['high', 'medium', 'low']:
+            for sa in sector_actions.get(priority, []):
+                q_id = sa.get('question_id', '')
+                if q_id:
+                    sector_action_lookup[q_id] = sa.get('sector_action', '')
+        
+        # Domain to risk theme mapping
+        domain_risk_themes = {
+            'Fairness': 'Bias & Discrimination Risk',
+            'Transparency': 'Disclosure & Communication Risk',
+            'Explainability': 'Decision Interpretability Risk',
+            'Accountability': 'Governance & Oversight Risk',
+            'Data Integrity': 'Data Quality & Lineage Risk',
+            'Reliability': 'System Performance Risk',
+            'Security': 'Cybersecurity & Access Risk',
+            'Privacy': 'Data Protection & Privacy Risk',
+            'Safety': 'Harm Prevention Risk',
+            'Inclusivity': 'Accessibility & Equity Risk',
+            'Sustainability': 'Environmental & Long-term Risk'
+        }
+        
+        # Timeframe and effort defaults based on priority
+        priority_defaults = {
+            'high': {'timeframe': '0-90 days', 'effort': 'High'},
+            'medium': {'timeframe': '3-6 months', 'effort': 'Medium'},
+            'low': {'timeframe': '6-12 months', 'effort': 'Low'}
+        }
+        
+        def enrich_action(action: Dict[str, Any], priority: str) -> Dict[str, Any]:
+            """Enrich an action item with additional fields for the test template."""
+            question_id = action.get('question_id', '')
+            domain = action.get('domain', 'Unknown')
+            
+            # Get sector-specific recommendation if available
+            sector_rec = sector_action_lookup.get(question_id, '')
+            
+            return {
+                'domain': domain,
+                'question_id': question_id,
+                'text': sector_rec if sector_rec else action.get('text', 'No recommendation available'),
+                'timeframe': action.get('timeframe', priority_defaults.get(priority, {}).get('timeframe', 'TBD')),
+                'effort': action.get('effort', priority_defaults.get(priority, {}).get('effort', 'Unknown')),
+                'risk_theme': action.get('risk_theme', domain_risk_themes.get(domain, 'General Risk')),
+                'priority': priority.capitalize()
+            }
+        
+        # Enrich all actions
+        high_actions = [enrich_action(a, 'high') for a in actions.get('high', [])]
+        medium_actions = [enrich_action(a, 'medium') for a in actions.get('medium', [])]
+        low_actions = [enrich_action(a, 'low') for a in actions.get('low', [])]
+        
+        # Extract unique risk themes
+        all_actions = high_actions + medium_actions + low_actions
+        risk_themes = list(set([a.get('risk_theme', 'General Risk') for a in all_actions]))[:5]
         
         return {
             'high': high_actions,
