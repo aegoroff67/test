@@ -1897,6 +1897,11 @@ Each cell represents the score for a specific question, enabling identification 
         actions = report_data.get('actions', {})
         sector_actions = report_data.get('sector_actions', {})
         
+        print(f"DEBUG _build_actions_with_summary:")
+        print(f"  - actions keys: {actions.keys() if actions else 'None'}")
+        print(f"  - sector_actions keys: {sector_actions.keys() if sector_actions else 'None'}")
+        print(f"  - sector_actions high count: {len(sector_actions.get('high', []))}")
+        
         # Create lookup for sector-specific action text by question_id
         sector_action_lookup = {}
         for priority in ['high', 'medium', 'low']:
@@ -1904,6 +1909,11 @@ Each cell represents the score for a specific question, enabling identification 
                 q_id = sa.get('question_id', '')
                 if q_id:
                     sector_action_lookup[q_id] = sa.get('sector_action', '')
+        
+        print(f"  - sector_action_lookup size: {len(sector_action_lookup)}")
+        if sector_action_lookup:
+            sample_key = list(sector_action_lookup.keys())[0]
+            print(f"  - Sample sector action: {sample_key} -> {sector_action_lookup[sample_key][:50]}...")
         
         # Domain to risk theme mapping
         domain_risk_themes = {
@@ -1935,7 +1945,7 @@ Each cell represents the score for a specific question, enabling identification 
             # Get sector-specific recommendation if available
             sector_rec = sector_action_lookup.get(question_id, '')
             
-            return {
+            enriched = {
                 'domain': domain,
                 'question_id': question_id,
                 'text': sector_rec if sector_rec else action.get('text', 'No recommendation available'),
@@ -1944,11 +1954,16 @@ Each cell represents the score for a specific question, enabling identification 
                 'risk_theme': action.get('risk_theme', domain_risk_themes.get(domain, 'General Risk')),
                 'priority': priority.capitalize()
             }
+            return enriched
         
         # Enrich all actions
         high_actions = [enrich_action(a, 'high') for a in actions.get('high', [])]
         medium_actions = [enrich_action(a, 'medium') for a in actions.get('medium', [])]
         low_actions = [enrich_action(a, 'low') for a in actions.get('low', [])]
+        
+        # Debug: show first enriched action
+        if high_actions:
+            print(f"  - Sample enriched high action: {high_actions[0]}")
         
         # Extract unique risk themes
         all_actions = high_actions + medium_actions + low_actions
