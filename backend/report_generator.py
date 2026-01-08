@@ -122,7 +122,10 @@ class AMReportGenerator:
             
             for question in questions:
                 question_id = question.get('question_id', question.get('code', ''))
+                # Score can be in different locations depending on data structure
                 score = question.get('score', 0)
+                if not score and question.get('answer'):
+                    score = question['answer'].get('numeric_score', 0)
                 
                 # Get sector-specific action for this question
                 sector_action_text = sector_specific.get(question_id)
