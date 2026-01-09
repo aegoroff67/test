@@ -2676,7 +2676,8 @@ Each cell represents the score for a specific question, enabling identification 
             "summary": summary_data,
             "sector_name": sector_name,
             "sector_actions": sector_actions,
-            "system_info": system_info  # Pass system_info for template use (may be empty for non-System assessments)
+            "system_info": system_info,  # Pass system_info for template use (may be empty for non-System assessments)
+            "awareness_info": assessment.get('awareness_info') or {},  # Pass awareness_info for Awareness assessments
         }
         
         print(f"DEBUG: current_user type: {type(current_user)}")
@@ -2916,7 +2917,8 @@ Each cell represents the score for a specific question, enabling identification 
             "summary": summary_data,
             "sector_name": sector_name,
             "sector_actions": sector_actions,
-            "system_info": system_info  # Pass system_info for template use (may be empty for non-System assessments)
+            "system_info": system_info,  # Pass system_info for template use (may be empty for non-System assessments)
+            "awareness_info": assessment.get('awareness_info') or {},  # Pass awareness_info for Awareness assessments
         }
         
         print(f"DEBUG: current_user type: {type(current_user)}")
