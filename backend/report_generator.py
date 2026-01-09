@@ -2308,7 +2308,127 @@ Each cell represents the score for a specific question, enabling identification 
                 
             }
             
-            # Debug output for troubleshooting
+            # Add Awareness-specific variables if this is an Awareness assessment
+            if self.assessment_type == 'Awareness':
+                awareness_info = report_data.get('awareness_info') or {}
+                
+                # Add all awareness_info fields as top-level variables
+                template_context.update({
+                    # Organization and contact info
+                    'org_name': awareness_info.get('org_name', ''),
+                    'contact_name': awareness_info.get('contact_name', ''),
+                    'contact_email': awareness_info.get('contact_email', ''),
+                    
+                    # Organization context
+                    'industry': awareness_info.get('industry', ''),
+                    'org_size': awareness_info.get('org_size', ''),
+                    'business_unit': awareness_info.get('business_unit', ''),
+                    
+                    # AI and digital maturity indicators
+                    'ai_familiarity': awareness_info.get('ai_familiarity', ''),
+                    'digital_maturity': awareness_info.get('digital_maturity', ''),
+                    'leadership_ai_interest': awareness_info.get('leadership_ai_interest', ''),
+                    'tech_change_comfort': awareness_info.get('tech_change_comfort', ''),
+                    'digital_initiatives_level': awareness_info.get('digital_initiatives_level', ''),
+                    'data_skill_confidence': awareness_info.get('data_skill_confidence', ''),
+                    'openness_to_learning': awareness_info.get('openness_to_learning', ''),
+                    
+                    # Assessment context
+                    'awareness_reason': awareness_info.get('awareness_reason', ''),
+                    'assessor_name': awareness_info.get('assessor_name', ''),
+                    'assessment_date': awareness_info.get('assessment_date', ''),
+                    'framework_version': awareness_info.get('framework_version', ''),
+                    
+                    # Arrays from awareness_info
+                    'awareness_outcomes': awareness_info.get('awareness_outcomes', []),
+                    'learning_preferences': awareness_info.get('learning_preferences', []),
+                    'governance_foundations': awareness_info.get('governance_foundations', []),
+                    'pre_onboarding_commentary': awareness_info.get('pre_onboarding_commentary', []),
+                    
+                    # Full awareness_info object for flexibility
+                    'awareness_info': awareness_info,
+                })
+                
+                # Build strengths list (domains scoring >= 70%)
+                strengths = []
+                for d in template_context.get('domains', []):
+                    if d.get('score', 0) >= 70:
+                        strengths.append(f"{d.get('name', 'Unknown')} ({d.get('score', 0):.0f}%)")
+                template_context['strengths'] = strengths
+                
+                # Build gaps list (domains scoring < 50%)
+                gaps = []
+                for d in template_context.get('domains', []):
+                    if d.get('score', 0) < 50:
+                        gaps.append(f"{d.get('name', 'Unknown')} ({d.get('score', 0):.0f}%)")
+                template_context['gaps'] = gaps
+                
+                # Build priority_actions list with priority and text
+                priority_actions = []
+                for action in template_context.get('actions', {}).get('high', []):
+                    priority_actions.append({
+                        'priority': 'High',
+                        'text': action.get('text', ''),
+                        'domain': action.get('domain', ''),
+                        'question_id': action.get('question_id', '')
+                    })
+                for action in template_context.get('actions', {}).get('medium', []):
+                    priority_actions.append({
+                        'priority': 'Medium',
+                        'text': action.get('text', ''),
+                        'domain': action.get('domain', ''),
+                        'question_id': action.get('question_id', '')
+                    })
+                for action in template_context.get('actions', {}).get('low', []):
+                    priority_actions.append({
+                        'priority': 'Low',
+                        'text': action.get('text', ''),
+                        'domain': action.get('domain', ''),
+                        'question_id': action.get('question_id', '')
+                    })
+                template_context['priority_actions'] = priority_actions
+                
+                # Build questions list with full details
+                questions = []
+                questions_data = report_data.get('questions_data', [])
+                q_num = 1
+                for domain_data in questions_data:
+                    domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+                    for q in domain_data.get('questions', []):
+                        answer = q.get('answer', {})
+                        score = answer.get('numeric_score', 0) if answer else 0
+                        
+                        # Determine maturity level from score
+                        if score >= 4:
+                            maturity_level = 'Advanced'
+                        elif score >= 3:
+                            maturity_level = 'Good'
+                        elif score >= 2:
+                            maturity_level = 'Basic'
+                        else:
+                            maturity_level = 'Non-Ideal'
+                        
+                        questions.append({
+                            'number': q_num,
+                            'code': q.get('code', ''),
+                            'text': q.get('text', ''),
+                            'domain': domain_name,
+                            'selected_option_label': answer.get('selected_option', {}).get('label', 'Not answered') if answer else 'Not answered',
+                            'selected_option_text': answer.get('selected_option', {}).get('text', '') if answer else '',
+                            'maturity_level': maturity_level,
+                            'score': score,
+                            'comment': answer.get('comment', '') if answer else ''
+                        })
+                        q_num += 1
+                template_context['questions'] = questions
+                
+                print(f"  Awareness-specific variables added:")
+                print(f"    - org_name: {template_context.get('org_name', 'N/A')}")
+                print(f"    - industry: {template_context.get('industry', 'N/A')}")
+                print(f"    - strengths: {len(strengths)} items")
+                print(f"    - gaps: {len(gaps)} items")
+                print(f"    - priority_actions: {len(priority_actions)} items")
+                print(f"    - questions: {len(questions)} items")
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
             print(f"  Overall score: {template_context['overall']['score']}")
