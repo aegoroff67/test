@@ -2605,7 +2605,10 @@ Each cell represents the score for a specific question, enabling identification 
             # Create domain info for Awareness
             domains_by_id = {
                 "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
-                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"}
+                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
+                "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
+                "Leadership Vision": {"id": "Leadership Vision", "name": "Leadership Vision"},
+                "Digital Readiness": {"id": "Digital Readiness", "name": "Digital Readiness"}
             }
         else:
             # Original logic for System/other assessments
@@ -2920,7 +2923,10 @@ Each cell represents the score for a specific question, enabling identification 
             # Create domain info for Awareness
             domains_by_id = {
                 "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
-                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"}
+                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
+                "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
+                "Leadership Vision": {"id": "Leadership Vision", "name": "Leadership Vision"},
+                "Digital Readiness": {"id": "Digital Readiness", "name": "Digital Readiness"}
             }
         else:
             # Original logic for System/other assessments
