@@ -1944,11 +1944,17 @@ Each cell represents the score for a specific question, enabling identification 
             
             # Get sector-specific recommendation if available
             sector_rec = sector_action_lookup.get(question_id, '')
+            default_rec = action.get('text', 'No recommendation available')
             
             enriched = {
                 'domain': domain,
                 'question_id': question_id,
-                'text': sector_rec if sector_rec else action.get('text', 'No recommendation available'),
+                # Default AM AI SAFE recommendation
+                'text': default_rec,
+                # Sector-specific action step (empty string if not available)
+                'sector_text': sector_rec,
+                # Combined: sector-specific if available, otherwise default
+                'recommendation': sector_rec if sector_rec else default_rec,
                 'timeframe': action.get('timeframe', priority_defaults.get(priority, {}).get('timeframe', 'TBD')),
                 'effort': action.get('effort', priority_defaults.get(priority, {}).get('effort', 'Unknown')),
                 'risk_theme': action.get('risk_theme', domain_risk_themes.get(domain, 'General Risk')),
