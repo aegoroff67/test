@@ -1964,14 +1964,20 @@ Each cell represents the score for a specific question, enabling identification 
         }
     
     def _build_actions_with_summary(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Build actions structure with summary for test template, enriched with sector-specific recommendations."""
+        """
+        Build actions structure with summary for templates.
+        Provides BOTH score-based and smart priority orderings.
+        """
         actions = report_data.get('actions', {})
         sector_actions = report_data.get('sector_actions', {})
         
+        # Load question metadata for smart priority calculation
+        question_metadata = self._load_question_metadata()
+        
         print(f"DEBUG _build_actions_with_summary:")
         print(f"  - actions keys: {actions.keys() if actions else 'None'}")
-        print(f"  - sector_actions keys: {sector_actions.keys() if sector_actions else 'None'}")
-        print(f"  - sector_actions high count: {len(sector_actions.get('high', []))}")
+        print(f"  - use_smart_priority: {self.use_smart_priority}")
+        print(f"  - question_metadata loaded: {len(question_metadata)} questions")
         
         # Create lookup for sector-specific action text by question_id
         sector_action_lookup = {}
@@ -1980,11 +1986,6 @@ Each cell represents the score for a specific question, enabling identification 
                 q_id = sa.get('question_id', '')
                 if q_id:
                     sector_action_lookup[q_id] = sa.get('sector_action', '')
-        
-        print(f"  - sector_action_lookup size: {len(sector_action_lookup)}")
-        if sector_action_lookup:
-            sample_key = list(sector_action_lookup.keys())[0]
-            print(f"  - Sample sector action: {sample_key} -> {sector_action_lookup[sample_key][:50]}...")
         
         # Domain to risk theme mapping
         domain_risk_themes = {
@@ -2001,21 +2002,45 @@ Each cell represents the score for a specific question, enabling identification 
             'Sustainability': 'Environmental & Long-term Risk'
         }
         
-        # Timeframe and effort defaults based on priority
-        priority_defaults = {
-            'high': {'timeframe': '0-90 days', 'effort': 'High'},
-            'medium': {'timeframe': '3-6 months', 'effort': 'Medium'},
-            'low': {'timeframe': '6-12 months', 'effort': 'Low'}
+        # Timeframe defaults based on quadrant (for smart priority) or score-based priority
+        quadrant_timeframes = {
+            'Quick win': '0-30 days',
+            'Strategic project': '3-6 months',
+            'Opportunistic improvement': '1-3 months',
+            'Lower priority': '6-12 months'
         }
         
-        def enrich_action(action: Dict[str, Any], priority: str) -> Dict[str, Any]:
-            """Enrich an action item with additional fields for the test template."""
+        score_priority_defaults = {
+            'high': {'timeframe': '0-90 days', 'effort_label': 'High'},
+            'medium': {'timeframe': '3-6 months', 'effort_label': 'Medium'},
+            'low': {'timeframe': '6-12 months', 'effort_label': 'Low'}
+        }
+        
+        def enrich_action(action: Dict[str, Any], score_priority: str) -> Dict[str, Any]:
+            """Enrich an action item with smart priority data and all fields."""
             question_id = action.get('question_id', '')
             domain = action.get('domain', 'Unknown')
+            
+            # Get metadata for this question
+            metadata = question_metadata.get(question_id, {})
+            impact_weight = metadata.get('impact_weight', 0.5)
+            effort_score = metadata.get('effort_score', 0.5)
+            
+            # Calculate gap from score (score 1 = gap 3, score 2 = gap 2, score 3 = gap 1)
+            score_map = {'high': 1, 'medium': 2, 'low': 3}
+            maturity_score = score_map.get(score_priority, 2)
+            gap = 4 - maturity_score
+            
+            # Calculate smart priority
+            smart_priority_score = self._calculate_smart_priority(impact_weight, gap, effort_score)
+            quadrant_label = self._get_quadrant_label(impact_weight, effort_score)
             
             # Get sector-specific recommendation if available
             sector_rec = sector_action_lookup.get(question_id, '')
             default_rec = action.get('text', 'No recommendation available')
+            
+            # Get action_steps from metadata if available
+            metadata_action_steps = metadata.get('action_steps', '')
             
             enriched = {
                 'domain': domain,
@@ -2024,37 +2049,110 @@ Each cell represents the score for a specific question, enabling identification 
                 'text': default_rec,
                 # Sector-specific action step (empty string if not available)
                 'sector_text': sector_rec,
+                # Metadata action steps (from system_question_metadata.json)
+                'metadata_action_steps': metadata_action_steps,
                 # Combined: sector-specific if available, otherwise default
                 'recommendation': sector_rec if sector_rec else default_rec,
-                'timeframe': action.get('timeframe', priority_defaults.get(priority, {}).get('timeframe', 'TBD')),
-                'effort': action.get('effort', priority_defaults.get(priority, {}).get('effort', 'Unknown')),
-                'risk_theme': action.get('risk_theme', domain_risk_themes.get(domain, 'General Risk')),
-                'priority': priority.capitalize()
+                # Score-based priority (high/medium/low based on maturity score)
+                'score_priority': score_priority.capitalize(),
+                # Smart priority data
+                'impact_weight': impact_weight,
+                'impact_percent': round(impact_weight * 100),
+                'effort_score': effort_score,
+                'effort_percent': round(effort_score * 100),
+                'gap': gap,
+                'smart_priority_score': round(smart_priority_score, 3),
+                'quadrant_label': quadrant_label,
+                # Timeframe based on quadrant for smart priority
+                'timeframe': quadrant_timeframes.get(quadrant_label, '3-6 months'),
+                'timeframe_score_based': score_priority_defaults.get(score_priority, {}).get('timeframe', 'TBD'),
+                # Effort label (from quadrant or score-based)
+                'effort': 'High' if effort_score > 0.6 else 'Medium' if effort_score > 0.3 else 'Low',
+                'effort_score_based': score_priority_defaults.get(score_priority, {}).get('effort_label', 'Unknown'),
+                'risk_theme': domain_risk_themes.get(domain, 'General Risk'),
+                # Additional metadata
+                'regulatory_driver': metadata.get('regulatory_driver', ''),
+                'risk_category': metadata.get('risk_category', ''),
+                'lifecycle_phase': metadata.get('lifecycle_phase', ''),
+                'effort_category': metadata.get('effort_category', '')
             }
             return enriched
         
-        # Enrich all actions
-        high_actions = [enrich_action(a, 'high') for a in actions.get('high', [])]
-        medium_actions = [enrich_action(a, 'medium') for a in actions.get('medium', [])]
-        low_actions = [enrich_action(a, 'low') for a in actions.get('low', [])]
+        # Enrich all actions from score-based tiers
+        all_enriched_actions = []
+        for priority in ['high', 'medium', 'low']:
+            for action in actions.get(priority, []):
+                enriched = enrich_action(action, priority)
+                all_enriched_actions.append(enriched)
         
-        # Debug: show first enriched action
-        if high_actions:
-            print(f"  - Sample enriched high action: {high_actions[0]}")
+        # Create SCORE-BASED ordering (current behavior)
+        high_actions_score = [a for a in all_enriched_actions if a['score_priority'] == 'High']
+        medium_actions_score = [a for a in all_enriched_actions if a['score_priority'] == 'Medium']
+        low_actions_score = [a for a in all_enriched_actions if a['score_priority'] == 'Low']
+        
+        # Create SMART PRIORITY ordering (sorted by smart_priority_score descending)
+        all_sorted_by_smart = sorted(all_enriched_actions, key=lambda x: x['smart_priority_score'], reverse=True)
+        
+        # Also categorize by quadrant for smart priority
+        quick_wins = [a for a in all_sorted_by_smart if a['quadrant_label'] == 'Quick win']
+        strategic_projects = [a for a in all_sorted_by_smart if a['quadrant_label'] == 'Strategic project']
+        opportunistic = [a for a in all_sorted_by_smart if a['quadrant_label'] == 'Opportunistic improvement']
+        lower_priority = [a for a in all_sorted_by_smart if a['quadrant_label'] == 'Lower priority']
         
         # Extract unique risk themes
-        all_actions = high_actions + medium_actions + low_actions
-        risk_themes = list(set([a.get('risk_theme', 'General Risk') for a in all_actions]))[:5]
+        risk_themes = list(set([a.get('risk_theme', 'General Risk') for a in all_enriched_actions]))[:5]
+        
+        # Debug output
+        print(f"  - Total enriched actions: {len(all_enriched_actions)}")
+        print(f"  - Quick wins: {len(quick_wins)}, Strategic: {len(strategic_projects)}, Opportunistic: {len(opportunistic)}, Lower: {len(lower_priority)}")
+        if all_sorted_by_smart:
+            top = all_sorted_by_smart[0]
+            print(f"  - Top smart priority: {top['question_id']} (score: {top['smart_priority_score']}, quadrant: {top['quadrant_label']})")
+        
+        # Determine which ordering to use as primary based on use_smart_priority flag
+        if self.use_smart_priority:
+            primary_high = quick_wins + strategic_projects  # High impact items
+            primary_medium = opportunistic
+            primary_low = lower_priority
+        else:
+            primary_high = high_actions_score
+            primary_medium = medium_actions_score
+            primary_low = low_actions_score
         
         return {
-            'high': high_actions,
-            'medium': medium_actions,
-            'low': low_actions,
+            # PRIMARY ordering (based on use_smart_priority flag)
+            'high': primary_high,
+            'medium': primary_medium,
+            'low': primary_low,
+            
+            # SCORE-BASED ordering (always available)
+            'by_score': {
+                'high': high_actions_score,
+                'medium': medium_actions_score,
+                'low': low_actions_score
+            },
+            
+            # SMART PRIORITY ordering (always available)
+            'by_smart_priority': {
+                'all': all_sorted_by_smart,
+                'quick_wins': quick_wins,
+                'strategic_projects': strategic_projects,
+                'opportunistic': opportunistic,
+                'lower_priority': lower_priority
+            },
+            
+            # Summary statistics
             'summary': {
-                'high_count': len(high_actions),
-                'medium_count': len(medium_actions),
-                'low_count': len(low_actions),
-                'top_risk_themes': risk_themes if risk_themes else ['No specific risk themes identified']
+                'high_count': len(primary_high),
+                'medium_count': len(primary_medium),
+                'low_count': len(primary_low),
+                'total_count': len(all_enriched_actions),
+                'quick_wins_count': len(quick_wins),
+                'strategic_projects_count': len(strategic_projects),
+                'opportunistic_count': len(opportunistic),
+                'lower_priority_count': len(lower_priority),
+                'top_risk_themes': risk_themes if risk_themes else ['No specific risk themes identified'],
+                'ordering_method': 'smart_priority' if self.use_smart_priority else 'score_based'
             }
         }
     
