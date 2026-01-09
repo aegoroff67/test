@@ -118,6 +118,30 @@ class AMReportGenerator:
         self._sector_actions_cache = {}
         return self._sector_actions_cache
     
+    def _get_template_for_assessment_type(self, assessment_type: str) -> str:
+        """Get the appropriate template path based on assessment type."""
+        backend_dir = Path(__file__).parent
+        
+        # Template mapping for each assessment type
+        template_map = {
+            'System': 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx',
+            'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.1.docx',
+            'Readiness': 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx',  # Fallback to System template
+            'Orgwide': 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx',    # Fallback to System template
+            'FAIRA': 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx',      # Fallback to System template
+        }
+        
+        template_filename = template_map.get(assessment_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
+        template_path = backend_dir / "templates" / "docx" / template_filename
+        
+        # Check if template exists, fallback to default if not
+        if not template_path.exists():
+            print(f"Warning: Template for {assessment_type} not found at {template_path}, using default")
+            template_path = backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx"
+        
+        print(f"DEBUG: Using template for {assessment_type}: {template_path.name}")
+        return str(template_path)
+
     def _generate_sector_actions(self, report_data: Dict[str, Any], sector_name: str) -> Dict[str, List[Dict[str, Any]]]:
         """
         Generate sector-specific action steps based on assessment scores.
