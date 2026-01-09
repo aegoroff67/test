@@ -2668,7 +2668,7 @@ Each cell represents the score for a specific question, enabling identification 
             print(f"  Domain: {domain['name']} - Questions: {len(questions)}")
             for question in questions[:2]:  # Show first 2 questions per domain
                 print(f"    Question {question.get('code', 'N/A')}: Score {question.get('answer', {}).get('numeric_score', 'N/A')}")
-        # Calculate summary data since summaries collection is empty
+        # Calculate summary data
         total_score = 0
         total_possible = 0
         domain_scores = []
@@ -2681,13 +2681,19 @@ Each cell represents the score for a specific question, enabling identification 
             
             domain_scores.append({
                 "domain_id": domain_id,
+                "domain_name": domain.get("name", "Unknown"),
                 "percentage": domain_percentage
             })
             
             total_score += domain_total
             total_possible += domain_possible
         
-        overall_percentage = (total_score / total_possible * 100) if total_possible > 0 else 0
+        # For Awareness assessments, prefer stored overall_percentage
+        if is_awareness and assessment.get('overall_percentage'):
+            overall_percentage = assessment.get('overall_percentage')
+            print(f"DEBUG: Using stored overall_percentage for Awareness: {overall_percentage}")
+        else:
+            overall_percentage = (total_score / total_possible * 100) if total_possible > 0 else 0
         
         # Calculate maturity tier
         # Categories: Excellent (91–100%), Good (81–90%), Moderate (61–80%), Low (41–60%), Basic (0–40%)
@@ -2974,7 +2980,7 @@ Each cell represents the score for a specific question, enabling identification 
             print(f"  Domain: {domain['name']} - Questions: {len(questions)}")
             for question in questions[:2]:  # Show first 2 questions per domain
                 print(f"    Question {question.get('code', 'N/A')}: Score {question.get('answer', {}).get('numeric_score', 'N/A')}")
-        # Calculate summary data since summaries collection is empty
+        # Calculate summary data
         total_score = 0
         total_possible = 0
         domain_scores = []
@@ -2987,13 +2993,19 @@ Each cell represents the score for a specific question, enabling identification 
             
             domain_scores.append({
                 "domain_id": domain_id,
+                "domain_name": domain.get("name", "Unknown"),
                 "percentage": domain_percentage
             })
             
             total_score += domain_total
             total_possible += domain_possible
         
-        overall_percentage = (total_score / total_possible * 100) if total_possible > 0 else 0
+        # For Awareness assessments, prefer stored overall_percentage
+        if is_awareness and assessment.get('overall_percentage'):
+            overall_percentage = assessment.get('overall_percentage')
+            print(f"DEBUG: Using stored overall_percentage for Awareness: {overall_percentage}")
+        else:
+            overall_percentage = (total_score / total_possible * 100) if total_possible > 0 else 0
         
         # Calculate maturity tier
         # Categories: Excellent (91–100%), Good (81–90%), Moderate (61–80%), Low (41–60%), Basic (0–40%)
