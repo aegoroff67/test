@@ -2207,6 +2207,11 @@ Each cell represents the score for a specific question, enabling identification 
     def _generate_docx_report(self, report_data: Dict[str, Any], heatmap_image: bytes) -> bytes:
         """Generate DOCX report using template and data while preserving all styles."""
         try:
+            # Debug: print report_data keys
+            print(f"DEBUG _generate_docx_report: report_data keys = {list(report_data.keys())}")
+            if 'awareness_info' in report_data:
+                print(f"DEBUG: awareness_info keys = {list(report_data.get('awareness_info', {}).keys())}")
+            
             # Load the template
             doc = DocxTemplate(self.template_path)
             
