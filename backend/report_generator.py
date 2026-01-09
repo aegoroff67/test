@@ -2541,58 +2541,123 @@ Each cell represents the score for a specific question, enabling identification 
         questions_by_domain = {}
         
         processed_answers = 0
-        for answer in answers:
-            # Get question UUID and map to code using questions collection
-            question_uuid = answer.get("question_id", "")
+        
+        # Determine if this is an Awareness assessment
+        is_awareness = self.assessment_type == 'Awareness'
+        
+        if is_awareness:
+            # For Awareness assessments, use AWARENESS_QUESTIONS_DATA
+            from awareness_questions import AWARENESS_QUESTIONS_DATA
             
-            # Get question code from UUID
-            question_code = question_uuid_to_code.get(question_uuid)
+            # Create mapping from question code to question details
+            awareness_questions_by_code = {}
+            for question_data in AWARENESS_QUESTIONS_DATA:
+                code = question_data.get('code')
+                if code:
+                    awareness_questions_by_code[code] = question_data
             
-            if question_code:
-                processed_answers += 1
-                # Get full question details from COMPLETE_QUESTIONS_DATA
-                question_details = questions_by_code.get(question_code)
+            # Awareness domain mapping
+            awareness_domain_mapping = {
+                "AU": "Awareness & Understanding",
+                "GT": "Governance & Trust Foundations"
+            }
+            
+            for answer in answers:
+                # For Awareness, question_id IS the code (e.g., "AU-01")
+                question_code = answer.get("question_id", "")
                 
-                if question_details:
-                    # Extract domain from question code (e.g., FA-1 -> Fairness domain)
+                if question_code and question_code in awareness_questions_by_code:
+                    processed_answers += 1
+                    question_details = awareness_questions_by_code[question_code]
+                    
+                    # Extract domain from question code
                     domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                    domain_name = awareness_domain_mapping.get(domain_prefix, "Unknown")
                     
-                    # Map domain prefixes to domain names
-                    domain_mapping = {
-                        "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
-                        "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
-                        "SE": "Security", "PR": "Privacy", "SA": "Safety", 
-                        "IN": "Inclusivity", "SU": "Sustainability"
-                    }
+                    # Use domain name as ID for Awareness (no domain collection)
+                    domain_id = domain_name
                     
-                    domain_name = domain_mapping.get(domain_prefix, "Unknown")
+                    if domain_id not in questions_by_domain:
+                        questions_by_domain[domain_id] = []
                     
-                    # Find matching domain in database
-                    matching_domain = None
-                    for domain in domains:
-                        if domain["name"] == domain_name:
-                            matching_domain = domain
-                            break
-                    
-                    if matching_domain:
-                        domain_id = matching_domain["id"]
-                        
-                        if domain_id not in questions_by_domain:
-                            questions_by_domain[domain_id] = []
-                        
-                        # Create question object with correct data
-                        question = {
-                            "id": question_uuid,
-                            "code": question_code,
-                            "text": question_details.get('text', f'Question {question_code}'),
-                            "domain_id": domain_id,
-                            "answer": {
-                                "numeric_score": answer.get("numeric_score", 0),
-                                "text": answer.get("option", ""),
-                                "question_id": question_uuid
-                            }
+                    question = {
+                        "id": question_code,
+                        "code": question_code,
+                        "text": question_details.get('text', f'Question {question_code}'),
+                        "domain_id": domain_id,
+                        "order": question_details.get('order', 0),
+                        "answer": {
+                            "numeric_score": answer.get("numeric_score", 0),
+                            "text": answer.get("option", ""),
+                            "question_id": question_code,
+                            "selected_option": {
+                                "label": answer.get("option", ""),
+                                "text": answer.get("option", "")
+                            },
+                            "comment": answer.get("note", "")
                         }
-                        questions_by_domain[domain_id].append(question)
+                    }
+                    questions_by_domain[domain_id].append(question)
+            
+            # Create domain info for Awareness
+            domains_by_id = {
+                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
+                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"}
+            }
+        else:
+            # Original logic for System/other assessments
+            for answer in answers:
+                # Get question UUID and map to code using questions collection
+                question_uuid = answer.get("question_id", "")
+                
+                # Get question code from UUID
+                question_code = question_uuid_to_code.get(question_uuid)
+                
+                if question_code:
+                    processed_answers += 1
+                    # Get full question details from COMPLETE_QUESTIONS_DATA
+                    question_details = questions_by_code.get(question_code)
+                    
+                    if question_details:
+                        # Extract domain from question code (e.g., FA-1 -> Fairness domain)
+                        domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                        
+                        # Map domain prefixes to domain names
+                        domain_mapping = {
+                            "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
+                            "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
+                            "SE": "Security", "PR": "Privacy", "SA": "Safety", 
+                            "IN": "Inclusivity", "SU": "Sustainability"
+                        }
+                        
+                        domain_name = domain_mapping.get(domain_prefix, "Unknown")
+                        
+                        # Find matching domain in database
+                        matching_domain = None
+                        for domain in domains:
+                            if domain["name"] == domain_name:
+                                matching_domain = domain
+                                break
+                        
+                        if matching_domain:
+                            domain_id = matching_domain["id"]
+                            
+                            if domain_id not in questions_by_domain:
+                                questions_by_domain[domain_id] = []
+                            
+                            # Create question object with correct data
+                            question = {
+                                "id": question_uuid,
+                                "code": question_code,
+                                "text": question_details.get('text', f'Question {question_code}'),
+                                "domain_id": domain_id,
+                                "answer": {
+                                    "numeric_score": answer.get("numeric_score", 0),
+                                    "text": answer.get("option", ""),
+                                    "question_id": question_uuid
+                                }
+                            }
+                            questions_by_domain[domain_id].append(question)
         
         
         print(f"DEBUG: Processed answers: {processed_answers}/{len(answers)}")
@@ -2782,58 +2847,123 @@ Each cell represents the score for a specific question, enabling identification 
         questions_by_domain = {}
         
         processed_answers = 0
-        for answer in answers:
-            # Get question UUID and map to code using questions collection
-            question_uuid = answer.get("question_id", "")
+        
+        # Determine if this is an Awareness assessment
+        is_awareness = self.assessment_type == 'Awareness'
+        
+        if is_awareness:
+            # For Awareness assessments, use AWARENESS_QUESTIONS_DATA
+            from awareness_questions import AWARENESS_QUESTIONS_DATA
             
-            # Get question code from UUID
-            question_code = question_uuid_to_code.get(question_uuid)
+            # Create mapping from question code to question details
+            awareness_questions_by_code = {}
+            for question_data in AWARENESS_QUESTIONS_DATA:
+                code = question_data.get('code')
+                if code:
+                    awareness_questions_by_code[code] = question_data
             
-            if question_code:
-                processed_answers += 1
-                # Get full question details from COMPLETE_QUESTIONS_DATA
-                question_details = questions_by_code.get(question_code)
+            # Awareness domain mapping
+            awareness_domain_mapping = {
+                "AU": "Awareness & Understanding",
+                "GT": "Governance & Trust Foundations"
+            }
+            
+            for answer in answers:
+                # For Awareness, question_id IS the code (e.g., "AU-01")
+                question_code = answer.get("question_id", "")
                 
-                if question_details:
-                    # Extract domain from question code (e.g., FA-1 -> Fairness domain)
+                if question_code and question_code in awareness_questions_by_code:
+                    processed_answers += 1
+                    question_details = awareness_questions_by_code[question_code]
+                    
+                    # Extract domain from question code
                     domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                    domain_name = awareness_domain_mapping.get(domain_prefix, "Unknown")
                     
-                    # Map domain prefixes to domain names
-                    domain_mapping = {
-                        "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
-                        "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
-                        "SE": "Security", "PR": "Privacy", "SA": "Safety", 
-                        "IN": "Inclusivity", "SU": "Sustainability"
-                    }
+                    # Use domain name as ID for Awareness (no domain collection)
+                    domain_id = domain_name
                     
-                    domain_name = domain_mapping.get(domain_prefix, "Unknown")
+                    if domain_id not in questions_by_domain:
+                        questions_by_domain[domain_id] = []
                     
-                    # Find matching domain in database
-                    matching_domain = None
-                    for domain in domains:
-                        if domain["name"] == domain_name:
-                            matching_domain = domain
-                            break
-                    
-                    if matching_domain:
-                        domain_id = matching_domain["id"]
-                        
-                        if domain_id not in questions_by_domain:
-                            questions_by_domain[domain_id] = []
-                        
-                        # Create question object with correct data
-                        question = {
-                            "id": question_uuid,
-                            "code": question_code,
-                            "text": question_details.get('text', f'Question {question_code}'),
-                            "domain_id": domain_id,
-                            "answer": {
-                                "numeric_score": answer.get("numeric_score", 0),
-                                "text": answer.get("option", ""),
-                                "question_id": question_uuid
-                            }
+                    question = {
+                        "id": question_code,
+                        "code": question_code,
+                        "text": question_details.get('text', f'Question {question_code}'),
+                        "domain_id": domain_id,
+                        "order": question_details.get('order', 0),
+                        "answer": {
+                            "numeric_score": answer.get("numeric_score", 0),
+                            "text": answer.get("option", ""),
+                            "question_id": question_code,
+                            "selected_option": {
+                                "label": answer.get("option", ""),
+                                "text": answer.get("option", "")
+                            },
+                            "comment": answer.get("note", "")
                         }
-                        questions_by_domain[domain_id].append(question)
+                    }
+                    questions_by_domain[domain_id].append(question)
+            
+            # Create domain info for Awareness
+            domains_by_id = {
+                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
+                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"}
+            }
+        else:
+            # Original logic for System/other assessments
+            for answer in answers:
+                # Get question UUID and map to code using questions collection
+                question_uuid = answer.get("question_id", "")
+                
+                # Get question code from UUID
+                question_code = question_uuid_to_code.get(question_uuid)
+                
+                if question_code:
+                    processed_answers += 1
+                    # Get full question details from COMPLETE_QUESTIONS_DATA
+                    question_details = questions_by_code.get(question_code)
+                    
+                    if question_details:
+                        # Extract domain from question code (e.g., FA-1 -> Fairness domain)
+                        domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                        
+                        # Map domain prefixes to domain names
+                        domain_mapping = {
+                            "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
+                            "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
+                            "SE": "Security", "PR": "Privacy", "SA": "Safety", 
+                            "IN": "Inclusivity", "SU": "Sustainability"
+                        }
+                        
+                        domain_name = domain_mapping.get(domain_prefix, "Unknown")
+                        
+                        # Find matching domain in database
+                        matching_domain = None
+                        for domain in domains:
+                            if domain["name"] == domain_name:
+                                matching_domain = domain
+                                break
+                        
+                        if matching_domain:
+                            domain_id = matching_domain["id"]
+                            
+                            if domain_id not in questions_by_domain:
+                                questions_by_domain[domain_id] = []
+                            
+                            # Create question object with correct data
+                            question = {
+                                "id": question_uuid,
+                                "code": question_code,
+                                "text": question_details.get('text', f'Question {question_code}'),
+                                "domain_id": domain_id,
+                                "answer": {
+                                    "numeric_score": answer.get("numeric_score", 0),
+                                    "text": answer.get("option", ""),
+                                    "question_id": question_uuid
+                                }
+                            }
+                            questions_by_domain[domain_id].append(question)
         
         
         print(f"DEBUG: Processed answers: {processed_answers}/{len(answers)}")
