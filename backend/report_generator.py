@@ -486,9 +486,9 @@ SYSTEM CONTEXT:
 - Lifecycle Stage: {lifecycle}
 - Business Criticality: {criticality}
 
-Required output format - Produce 4 to 6 numbered findings, using the following structure for each finding:
+Required output format - Produce 4 to 6 findings. For each finding, use the format below. Format each finding title as "Heading 2: Finding - [Short descriptive title]":
 
-Finding X: [Short descriptive title]
+Heading 2: Finding - [Short descriptive title]
 
 Observation: Describe the observable pattern in the assessment results (e.g. domain performance, maturity distribution, clustering of low scores).
 
