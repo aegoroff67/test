@@ -3369,21 +3369,27 @@ async def generate_report_docx(
     view_type: str = Query(default="heatmap", regex="^(heatmap|radar)$"),
     use_ai: bool = Query(default=False, description="Use AI to generate enhanced narrative content"),
     use_test_template: bool = Query(default=False, description="Use the test template and prompts for report generation"),
+    use_smart_priority: bool = Query(default=None, description="Use smart priority ordering (impact × gap × effort). Defaults to True for test template, False otherwise"),
     current_user: UserResponse = Depends(get_current_user)
 ):
     """Generate and download DOCX report for assessment using DOCX template."""
     from report_generator import AMReportGenerator
     
     try:
+        # Determine smart priority default based on template
+        if use_smart_priority is None:
+            use_smart_priority = use_test_template  # Default to True for test template
+        
         print(f"=== REPORT GENERATION DEBUG ===")
         print(f"Assessment ID: {assessment_id}")
         print(f"View Type: {view_type}")
         print(f"Use AI: {use_ai}")
         print(f"Use Test Template: {use_test_template}")
+        print(f"Use Smart Priority: {use_smart_priority}")
         print(f"User: {current_user.email}")
         
-        # Initialize report generator with test template flag
-        report_generator = AMReportGenerator(use_test_template=use_test_template)
+        # Initialize report generator with test template flag and smart priority
+        report_generator = AMReportGenerator(use_test_template=use_test_template, use_smart_priority=use_smart_priority)
         
         # Generate report with specified view type
         docx_bytes, filename = await report_generator.generate_report_for_assessment(
