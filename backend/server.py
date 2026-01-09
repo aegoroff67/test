@@ -3376,20 +3376,32 @@ async def generate_report_docx(
     from report_generator import AMReportGenerator
     
     try:
+        # Fetch assessment to get its type
+        assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
+        if not assessment:
+            raise HTTPException(status_code=404, detail="Assessment not found")
+        
+        assessment_type = assessment.get("assessment_type", "System")
+        
         # Determine smart priority default based on template
         if use_smart_priority is None:
             use_smart_priority = use_test_template  # Default to True for test template
         
         print(f"=== REPORT GENERATION DEBUG ===")
         print(f"Assessment ID: {assessment_id}")
+        print(f"Assessment Type: {assessment_type}")
         print(f"View Type: {view_type}")
         print(f"Use AI: {use_ai}")
         print(f"Use Test Template: {use_test_template}")
         print(f"Use Smart Priority: {use_smart_priority}")
         print(f"User: {current_user.email}")
         
-        # Initialize report generator with test template flag and smart priority
-        report_generator = AMReportGenerator(use_test_template=use_test_template, use_smart_priority=use_smart_priority)
+        # Initialize report generator with assessment type, test template flag and smart priority
+        report_generator = AMReportGenerator(
+            use_test_template=use_test_template, 
+            use_smart_priority=use_smart_priority,
+            assessment_type=assessment_type
+        )
         
         # Generate report with specified view type
         docx_bytes, filename = await report_generator.generate_report_for_assessment(
