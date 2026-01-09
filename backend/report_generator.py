@@ -286,21 +286,21 @@ TOP 3 STRENGTHS:
 TOP 3 GAPS:
 {chr(10).join([f"- {d['name']}: {d['percentage']:.0f}%" for d in bottom_3])}
 
-Required structure - Write the Executive Summary using the following structure exactly, in professional report language:
+Required structure - Write the Executive Summary using the following structure exactly, in professional report language. Format each section heading as "Heading 2: <heading text>":
 
-1. Purpose of the Assessment
+Heading 2: Purpose of the Assessment
 Briefly restate the objective of the assessment and the scope of domains assessed.
 
-2. Assessment Context
+Heading 2: Assessment Context
 Summarise the system context using the provided lifecycle stage, criticality, hosting model, data sensitivity, and oversight arrangements. Do not infer risk beyond what this context reasonably implies.
 
-3. Overall Maturity Outcome
+Heading 2: Overall Maturity Outcome
 State the overall AI maturity score and tier. Explain what this tier indicates at a high level (e.g. foundational, developing, established), without adding new metrics.
 
-4. Domain-Level Performance Overview
+Heading 2: Domain-Level Performance Overview
 Identify the strongest-performing domains and lowest-performing domains based on the provided scores. Where relevant, note patterns such as concentration of low-scoring questions. Any explanation of performance must be framed as likely contributors, not confirmed causes.
 
-5. Key Insights (Bullet Points)
+Heading 2: Key Insights
 Provide 4–6 concise bullet points covering:
 - Overall maturity position
 - Strongest domain areas
@@ -308,7 +308,7 @@ Provide 4–6 concise bullet points covering:
 - Volume of high-priority actions identified
 - Any notable maturity distribution pattern
 
-6. Forward-Looking Summary
+Heading 2: Forward-Looking Summary
 Conclude with a short paragraph outlining how addressing the identified priority actions would improve AI governance and maturity over time, without promising outcomes or timelines."""
 
             else:
