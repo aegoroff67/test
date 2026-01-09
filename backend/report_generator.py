@@ -25,9 +25,13 @@ from jinja2 import Environment, FileSystemLoader
 class AMReportGenerator:
     """Generates AM AI SAFE assessment reports in DOCX and PDF formats."""
     
-    def __init__(self, template_path: Optional[str] = None, use_test_template: bool = False):
+    def __init__(self, template_path: Optional[str] = None, use_test_template: bool = False, use_smart_priority: bool = False):
         """Initialize the report generator."""
         self.use_test_template = use_test_template
+        self.use_smart_priority = use_smart_priority
+        # For test template, default to smart priority unless explicitly set to False
+        if use_test_template and not use_smart_priority:
+            self.use_smart_priority = True
         if template_path:
             self.template_path = template_path
         elif use_test_template:
@@ -48,6 +52,51 @@ class AMReportGenerator:
             'Sustainability': '#82E0AA'
         }
         self._sector_actions_cache = None
+        self._question_metadata_cache = None
+    
+    def _load_question_metadata(self) -> Dict[str, Dict[str, Any]]:
+        """Load question metadata containing impact_weight, effort_score, etc."""
+        if self._question_metadata_cache is not None:
+            return self._question_metadata_cache
+        
+        try:
+            backend_dir = Path(__file__).parent
+            metadata_path = backend_dir / "system_question_metadata.json"
+            if metadata_path.exists():
+                import json
+                with open(metadata_path, 'r') as f:
+                    self._question_metadata_cache = json.load(f)
+                print(f"DEBUG: Loaded question metadata for {len(self._question_metadata_cache)} questions")
+                return self._question_metadata_cache
+        except Exception as e:
+            print(f"Warning: Could not load question metadata: {e}")
+        
+        self._question_metadata_cache = {}
+        return self._question_metadata_cache
+    
+    def _calculate_smart_priority(self, impact_weight: float, gap: int, effort_score: float) -> float:
+        """
+        Calculate smart priority score using the same formula as the frontend.
+        Formula: impact_weight × gap × (1 - effort_score)
+        - Higher impact = better
+        - Higher gap (lower maturity score) = better
+        - Lower effort = better (hence 1 - effort_score)
+        """
+        return impact_weight * gap * (1 - effort_score)
+    
+    def _get_quadrant_label(self, impact_weight: float, effort_score: float) -> str:
+        """
+        Determine quadrant label based on impact and effort.
+        Same logic as frontend/backend results page.
+        """
+        if impact_weight >= 0.8 and effort_score <= 0.5:
+            return "Quick win"
+        elif impact_weight >= 0.8 and effort_score > 0.5:
+            return "Strategic project"
+        elif impact_weight < 0.8 and effort_score <= 0.5:
+            return "Opportunistic improvement"
+        else:
+            return "Lower priority"
     
     def _load_sector_actions(self) -> Dict[str, Dict[str, str]]:
         """Load sector-specific action steps from JSON file."""
