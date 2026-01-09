@@ -977,7 +977,8 @@ The findings should be approximately 600-800 words with clear section headers.""
             "questions_data": questions_data,  # Pass through for sector action generation
             "sector_name": sector_name,
             "sector_actions": sector_actions,
-            "system_info": assessment_data.get('system_info', {})  # Pass system_info for template use
+            "system_info": assessment_data.get('system_info', {}),  # Pass system_info for template use
+            "awareness_info": assessment_data.get('awareness_info', {})  # Pass awareness_info for Awareness assessments
         }
         
         return report_data
