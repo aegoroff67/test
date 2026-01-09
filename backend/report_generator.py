@@ -235,7 +235,18 @@ class AMReportGenerator:
 - Do not introduce any new numbers, percentages, counts, or rankings.
 - Do not reference external regulations or frameworks unless explicitly included in the input.
 - Avoid absolute claims such as "fully implemented", "comprehensive", "best practice", or "full marks" unless explicitly supported by the data.
-- Do not use markdown formatting - write in plain text suitable for a Word document."""
+- Do not use markdown formatting - write in plain text suitable for a Word document.
+
+Heading format requirements:
+- The Executive Summary section will be inserted into a Word document that already contains H1 headings.
+- Any sub-headings you generate must be formatted as H2 only.
+- Use the following exact format for all sub-headings:
+
+Heading 2: <Heading text>
+
+- Do not use H1, H3, bullet-styled headings, markdown (##), or HTML tags.
+- Do not number the headings unless explicitly instructed.
+- Do not repeat the section title as a heading."""
 
                 user_prompt = f"""Write the Executive Summary for an AI System Maturity Assessment report.
 
