@@ -1154,7 +1154,102 @@ The findings should be approximately 600-800 words with clear section headers.""
         }
     
     def _generate_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
-        """Generate heatmap image exactly matching the results summary format."""
+        """Generate heatmap image based on assessment type."""
+        # Check if this is an Awareness assessment
+        if self.assessment_type == 'Awareness':
+            return self._generate_awareness_heatmap_image(report_data)
+        else:
+            return self._generate_system_heatmap_image(report_data)
+    
+    def _generate_awareness_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
+        """Generate heatmap image for Awareness assessments (5 domains, ~5 questions each)."""
+        heatmap_data = report_data.get('heatmap_data', {})
+        domains = heatmap_data.get('domains', [])
+        
+        if not domains:
+            domains = [{'name': 'No Data', 'questions': [{'code': 'N/A', 'score': 0} for _ in range(5)]}]
+        
+        # Create figure - wider to accommodate horizontal bar chart style
+        fig, ax = plt.subplots(figsize=(10, 6))
+        
+        # Define colors for 1-4 scale
+        def get_color(score):
+            if score == 1:
+                return '#FF0000'  # Red - Foundational
+            elif score == 2:
+                return '#FFC000'  # Orange - Developing
+            elif score == 3:
+                return '#FFFF00'  # Yellow - Established
+            elif score == 4:
+                return '#00B050'  # Green - Leading
+            else:
+                return '#CCCCCC'  # Gray - No score/unanswered
+        
+        num_domains = len(domains)
+        max_questions = max(len(d.get('questions', [])) for d in domains) if domains else 5
+        
+        for i, domain in enumerate(domains):
+            domain_name = domain.get('name', 'Unknown')
+            questions = domain.get('questions', [])
+            
+            # Calculate percentage score
+            total_possible = len([q for q in questions if q.get('code') != 'N/A']) * 4
+            total_actual = sum(q.get('score', 0) for q in questions if q.get('code') != 'N/A')
+            percentage = (total_actual / total_possible * 100) if total_possible > 0 else 0
+            
+            for j, question in enumerate(questions):
+                score = question.get('score', 0)
+                question_code = question.get('code', 'N/A')
+                
+                row_pos = num_domains - 1 - i
+                color = get_color(score)
+                rect = patches.Rectangle((j, row_pos), 1, 1, 
+                                       linewidth=1, edgecolor='white', facecolor=color)
+                ax.add_patch(rect)
+                
+                if question_code != 'N/A':
+                    ax.text(j+0.5, row_pos+0.5, question_code, 
+                           ha='center', va='center', color='white', 
+                           fontsize=9, fontweight='bold')
+            
+            # Add domain name and percentage
+            ax.text(-0.3, row_pos+0.5, f"{domain_name} ({percentage:.0f}%)", 
+                   ha='right', va='center', fontsize=10, fontweight='normal')
+        
+        # Set axis properties
+        ax.set_xlim(-4, max_questions)
+        ax.set_ylim(0, num_domains)
+        ax.set_aspect('equal')
+        ax.axis('off')
+        
+        # Add legend
+        legend_y = -0.8
+        legend_items = [
+            ('#FF0000', 'Foundational (1)'),
+            ('#FFC000', 'Developing (2)'),
+            ('#FFFF00', 'Established (3)'),
+            ('#00B050', 'Leading (4)')
+        ]
+        
+        for idx, (color, label) in enumerate(legend_items):
+            x_pos = idx * 2.5
+            rect = patches.Rectangle((x_pos, legend_y), 0.4, 0.4, facecolor=color, edgecolor='gray')
+            ax.add_patch(rect)
+            ax.text(x_pos + 0.5, legend_y + 0.2, label, fontsize=8, va='center')
+        
+        plt.tight_layout()
+        
+        # Save to bytes
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png', dpi=150, bbox_inches='tight', 
+                   facecolor='white', edgecolor='none', pad_inches=0.2)
+        plt.close(fig)
+        buffer.seek(0)
+        
+        return buffer.getvalue()
+    
+    def _generate_system_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
+        """Generate heatmap image for System assessments (11 domains, 8 questions each)."""
         heatmap_data = report_data.get('heatmap_data', {})
         domains = heatmap_data.get('domains', [])
         
