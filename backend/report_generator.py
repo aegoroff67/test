@@ -2535,14 +2535,15 @@ Each cell represents the score for a specific question, enabling identification 
                 "questions": sorted(questions, key=lambda q: q.get("order", 0))
             })
         
-        # Get sector/industry from assessment's system_info
-        system_info = assessment.get('system_info', {})
-        sector_name = system_info.get('industry', '')
+        # Get sector/industry from assessment's system_info (may not exist for all assessment types)
+        system_info = assessment.get('system_info') or {}
+        sector_name = system_info.get('industry', '') if system_info else ''
+        print(f"DEBUG: Assessment type: {self.assessment_type}")
         print(f"DEBUG: Assessment sector/industry: {sector_name}")
         
-        # Generate sector-specific actions
+        # Generate sector-specific actions (only for System assessments with sector info)
         sector_actions = {'high': [], 'medium': [], 'low': []}
-        if sector_name:
+        if sector_name and self.assessment_type == 'System':
             sector_actions = self._generate_sector_actions(
                 {"questions_data": questions_data},
                 sector_name
@@ -2555,7 +2556,7 @@ Each cell represents the score for a specific question, enabling identification 
             "summary": summary_data,
             "sector_name": sector_name,
             "sector_actions": sector_actions,
-            "system_info": system_info  # Pass system_info for template use
+            "system_info": system_info  # Pass system_info for template use (may be empty for non-System assessments)
         }
         
         print(f"DEBUG: current_user type: {type(current_user)}")
@@ -2774,14 +2775,15 @@ Each cell represents the score for a specific question, enabling identification 
                 "questions": sorted(questions, key=lambda q: q.get("order", 0))
             })
         
-        # Get sector/industry from assessment's system_info
-        system_info = assessment.get('system_info', {})
-        sector_name = system_info.get('industry', '')
+        # Get sector/industry from assessment's system_info (may not exist for all assessment types)
+        system_info = assessment.get('system_info') or {}
+        sector_name = system_info.get('industry', '') if system_info else ''
+        print(f"DEBUG: Assessment type: {self.assessment_type}")
         print(f"DEBUG: Assessment sector/industry: {sector_name}")
         
-        # Generate sector-specific actions
+        # Generate sector-specific actions (only for System assessments with sector info)
         sector_actions = {'high': [], 'medium': [], 'low': []}
-        if sector_name:
+        if sector_name and self.assessment_type == 'System':
             sector_actions = self._generate_sector_actions(
                 {"questions_data": questions_data},
                 sector_name
@@ -2794,7 +2796,7 @@ Each cell represents the score for a specific question, enabling identification 
             "summary": summary_data,
             "sector_name": sector_name,
             "sector_actions": sector_actions,
-            "system_info": system_info  # Pass system_info for template use
+            "system_info": system_info  # Pass system_info for template use (may be empty for non-System assessments)
         }
         
         print(f"DEBUG: current_user type: {type(current_user)}")
