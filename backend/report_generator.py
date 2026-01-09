@@ -25,10 +25,11 @@ from jinja2 import Environment, FileSystemLoader
 class AMReportGenerator:
     """Generates AM AI SAFE assessment reports in DOCX and PDF formats."""
     
-    def __init__(self, template_path: Optional[str] = None, use_test_template: bool = False, use_smart_priority: bool = False):
+    def __init__(self, template_path: Optional[str] = None, use_test_template: bool = False, use_smart_priority: bool = False, assessment_type: str = "System"):
         """Initialize the report generator."""
         self.use_test_template = use_test_template
         self.use_smart_priority = use_smart_priority
+        self.assessment_type = assessment_type
         # For test template, default to smart priority unless explicitly set to False
         if use_test_template and not use_smart_priority:
             self.use_smart_priority = True
@@ -37,7 +38,7 @@ class AMReportGenerator:
         elif use_test_template:
             self.template_path = self._get_test_template_path()
         else:
-            self.template_path = self._get_default_template_path()
+            self.template_path = self._get_template_for_assessment_type(assessment_type)
         self.domain_colors = {
             'Fairness': '#FF6B6B',
             'Transparency': '#4ECDC4', 
