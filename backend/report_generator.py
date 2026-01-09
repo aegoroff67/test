@@ -2559,7 +2559,10 @@ Each cell represents the score for a specific question, enabling identification 
             # Awareness domain mapping
             awareness_domain_mapping = {
                 "AU": "Awareness & Understanding",
-                "GT": "Governance & Trust Foundations"
+                "GT": "Governance & Trust Foundations",
+                "PS": "People & Skills",
+                "LV": "Leadership Vision",
+                "DR": "Digital Readiness"
             }
             
             for answer in answers:
@@ -2871,7 +2874,10 @@ Each cell represents the score for a specific question, enabling identification 
             # Awareness domain mapping
             awareness_domain_mapping = {
                 "AU": "Awareness & Understanding",
-                "GT": "Governance & Trust Foundations"
+                "GT": "Governance & Trust Foundations",
+                "PS": "People & Skills",
+                "LV": "Leadership Vision",
+                "DR": "Digital Readiness"
             }
             
             for answer in answers:
