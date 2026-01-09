@@ -437,7 +437,18 @@ The summary should be approximately 400-500 words, written as flowing paragraphs
 - Do not reference external organisations, laws, or standards unless explicitly provided.
 - Avoid speculative language unless clearly framed as risk implication or likely impact.
 - Do not repeat the Executive Summary; focus on analytical insights.
-- Do not use markdown formatting - write in plain text suitable for a Word document."""
+- Do not use markdown formatting - write in plain text suitable for a Word document.
+
+Heading format requirements:
+- The Key Findings section will be inserted into a Word document that already contains H1 headings.
+- Any sub-headings you generate must be formatted as H2 only.
+- Use the following exact format for all sub-headings:
+
+Heading 2: <Heading text>
+
+- Do not use H1, H3, bullet-styled headings, markdown (##), or HTML tags.
+- Do not number the headings unless explicitly instructed.
+- Do not repeat the section title as a heading."""
 
                 # Format high priority actions for the prompt
                 high_actions_text = chr(10).join([f"- {a.get('domain', 'Unknown')}: {a.get('question_id', 'N/A')} - {a.get('text', 'N/A')[:100]}..." for a in high_actions[:10]]) if high_actions else "None identified"
