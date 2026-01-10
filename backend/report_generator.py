@@ -2961,9 +2961,16 @@ Each cell represents the score for a specific question, enabling identification 
                 "questions": sorted(questions, key=lambda q: q.get("order", 0))
             })
         
-        # Get sector/industry from assessment's system_info (may not exist for all assessment types)
+        # Get sector/industry from assessment - differs by assessment type
         system_info = assessment.get('system_info') or {}
-        sector_name = system_info.get('industry', '') if system_info else ''
+        awareness_info = assessment.get('awareness_info') or {}
+        
+        # For Awareness assessments, get industry from awareness_info
+        if self.assessment_type == 'Awareness':
+            sector_name = awareness_info.get('industry', '')
+        else:
+            sector_name = system_info.get('industry', '') if system_info else ''
+        
         print(f"DEBUG: Assessment type: {self.assessment_type}")
         print(f"DEBUG: Assessment sector/industry: {sector_name}")
         
@@ -3279,9 +3286,16 @@ Each cell represents the score for a specific question, enabling identification 
                 "questions": sorted(questions, key=lambda q: q.get("order", 0))
             })
         
-        # Get sector/industry from assessment's system_info (may not exist for all assessment types)
+        # Get sector/industry from assessment - differs by assessment type
         system_info = assessment.get('system_info') or {}
-        sector_name = system_info.get('industry', '') if system_info else ''
+        awareness_info = assessment.get('awareness_info') or {}
+        
+        # For Awareness assessments, get industry from awareness_info
+        if self.assessment_type == 'Awareness':
+            sector_name = awareness_info.get('industry', '')
+        else:
+            sector_name = system_info.get('industry', '') if system_info else ''
+        
         print(f"DEBUG: Assessment type: {self.assessment_type}")
         print(f"DEBUG: Assessment sector/industry: {sector_name}")
         
