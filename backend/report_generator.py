@@ -1337,7 +1337,7 @@ The findings should be approximately 600-800 words with clear section headers.""
         return img_bytes
     
     def _generate_radar_chart_image(self, report_data: Dict[str, Any]) -> bytes:
-        """Generate radar chart showing domain scores."""
+        """Generate radar chart showing domain scores with sector benchmarks."""
         try:
             # Try to get domain_scores from different sources
             domain_scores = report_data.get('domain_scores', {})
@@ -1375,6 +1375,25 @@ The findings should be approximately 600-800 words with clear section headers.""
                 domains.append(domain_name)
                 scores.append(percentage)
             
+            # Get sector benchmark data
+            benchmark_data = report_data.get('benchmark_data', {})
+            benchmark_scores = []
+            
+            # Try to match benchmark domains to our domains
+            for domain_name in domains:
+                # Look for matching benchmark (try various key formats)
+                benchmark_value = None
+                for key in [domain_name, domain_name.replace(' & ', ' '), domain_name.lower()]:
+                    if key in benchmark_data:
+                        benchmark_value = benchmark_data[key]
+                        break
+                
+                # If no specific benchmark, use a default of 40% (sector average)
+                if benchmark_value is None:
+                    benchmark_value = 40.0
+                
+                benchmark_scores.append(benchmark_value)
+            
             # Number of variables
             num_vars = len(domains)
             
@@ -1383,14 +1402,19 @@ The findings should be approximately 600-800 words with clear section headers.""
             
             # Complete the loop
             scores += scores[:1]
+            benchmark_scores += benchmark_scores[:1]
             angles += angles[:1]
             
             # Create figure
-            fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(projection='polar'))
+            fig, ax = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection='polar'))
             
-            # Plot data
-            ax.plot(angles, scores, 'o-', linewidth=2, color='#14b8a6', label='Score')
-            ax.fill(angles, scores, alpha=0.25, color='#14b8a6')
+            # Plot organization scores (blue filled area)
+            ax.plot(angles, scores, 'o-', linewidth=2, color='#60a5fa', label='Your Score')
+            ax.fill(angles, scores, alpha=0.4, color='#60a5fa')
+            
+            # Plot sector benchmark (green dashed line)
+            ax.plot(angles, benchmark_scores, '--', linewidth=2, color='#10b981', label='Sector Benchmark')
+            ax.fill(angles, benchmark_scores, alpha=0.2, color='#10b981')
             
             # Fix axis to go in the right order
             ax.set_theta_offset(np.pi / 2)
@@ -1398,18 +1422,27 @@ The findings should be approximately 600-800 words with clear section headers.""
             
             # Set labels
             ax.set_xticks(angles[:-1])
-            ax.set_xticklabels(domains, size=9)
+            ax.set_xticklabels(domains, size=10)
             
             # Set y-axis limits
             ax.set_ylim(0, 100)
-            ax.set_yticks([25, 50, 75, 100])
-            ax.set_yticklabels(['25%', '50%', '75%', '100%'], size=8)
+            ax.set_yticks([0, 20, 40, 60, 80, 100])
+            ax.set_yticklabels(['0%', '20%', '40%', '60%', '80%', '100%'], size=8)
             
             # Add grid
-            ax.grid(True, linestyle='--', alpha=0.7)
+            ax.grid(True, linestyle='-', alpha=0.3)
             
-            # Add title
-            ax.set_title('Domain Performance Radar Chart', size=12, pad=20, fontweight='bold')
+            # Determine title based on assessment type
+            if self.assessment_type == 'Awareness':
+                title = 'AI Awareness vs Sector Benchmark'
+            else:
+                title = 'AI Maturity vs Sector Benchmark'
+            
+            # Add title (removed - will be in template)
+            # ax.set_title(title, size=14, pad=20, fontweight='bold')
+            
+            # Add legend at bottom
+            ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.08), ncol=2, fontsize=10)
             
             # Save to bytes
             img_buffer = io.BytesIO()
