@@ -2274,6 +2274,38 @@ Each cell represents the score for a specific question, enabling identification 
         tr = table.rows[row_idx]._tr
         tbl.remove(tr)
     
+    def _center_align_images(self, doc: DocxTemplate) -> None:
+        """Center-align all paragraphs containing images in the document."""
+        from docx.oxml import OxmlElement
+        from docx.oxml.ns import qn
+        from docx.enum.text import WD_ALIGN_PARAGRAPH
+        
+        docx_doc = doc.docx
+        
+        images_centered = 0
+        for paragraph in docx_doc.paragraphs:
+            # Check if paragraph contains an image (drawing element)
+            has_image = False
+            for run in paragraph.runs:
+                if run._element.findall('.//a:blip', namespaces={
+                    'a': 'http://schemas.openxmlformats.org/drawingml/2006/main'
+                }):
+                    has_image = True
+                    break
+                # Also check for inline images
+                if run._element.findall('.//w:drawing', namespaces={
+                    'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
+                }):
+                    has_image = True
+                    break
+            
+            if has_image:
+                # Center-align the paragraph
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                images_centered += 1
+        
+        print(f"DEBUG: Center-aligned {images_centered} paragraphs containing images")
+
 
     def _calculate_maturity_distribution(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
         """Calculate maturity distribution for test template schema."""
