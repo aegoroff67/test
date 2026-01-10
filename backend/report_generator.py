@@ -978,10 +978,61 @@ The findings should be approximately 600-800 words with clear section headers.""
             "sector_name": sector_name,
             "sector_actions": sector_actions,
             "system_info": assessment_data.get('system_info', {}),  # Pass system_info for template use
-            "awareness_info": assessment_data.get('awareness_info', {})  # Pass awareness_info for Awareness assessments
+            "awareness_info": assessment_data.get('awareness_info', {}),  # Pass awareness_info for Awareness assessments
+            "benchmark_data": self._load_benchmark_data(sector_name)  # Load sector benchmark data
         }
         
         return report_data
+    
+    def _load_benchmark_data(self, sector_name: str) -> Dict[str, float]:
+        """Load sector benchmark data for the radar chart."""
+        try:
+            import json
+            backend_dir = Path(__file__).parent
+            
+            # Choose the right benchmark file based on assessment type
+            if self.assessment_type == 'Awareness':
+                benchmark_path = backend_dir / "awareness_benchmarks.json"
+            else:
+                benchmark_path = backend_dir / "benchmarks.json"
+            
+            if not benchmark_path.exists():
+                print(f"Benchmark file not found: {benchmark_path}")
+                return {}
+            
+            with open(benchmark_path, 'r') as f:
+                benchmarks_data = json.load(f)
+            
+            # Get sector-specific benchmarks
+            sector_benchmarks = benchmarks_data.get("benchmarks", {}).get(sector_name, {})
+            
+            # If sector not found, try "Other"
+            if not sector_benchmarks:
+                sector_benchmarks = benchmarks_data.get("benchmarks", {}).get("Other", {})
+            
+            # Convert range strings (like "48-55") to mid-point values
+            benchmark_values = {}
+            for domain, range_str in sector_benchmarks.items():
+                if isinstance(range_str, str) and '-' in range_str:
+                    # Parse range and take midpoint
+                    parts = range_str.split('-')
+                    try:
+                        low = float(parts[0])
+                        high = float(parts[1])
+                        benchmark_values[domain] = (low + high) / 2
+                    except (ValueError, IndexError):
+                        benchmark_values[domain] = 50.0  # Default
+                elif isinstance(range_str, (int, float)):
+                    benchmark_values[domain] = float(range_str)
+                else:
+                    benchmark_values[domain] = 50.0  # Default
+            
+            print(f"DEBUG: Loaded benchmark data for sector '{sector_name}': {benchmark_values}")
+            return benchmark_values
+            
+        except Exception as e:
+            print(f"Error loading benchmark data: {str(e)}")
+            return {}
     
     def _calculate_tier(self, percentage: float) -> str:
         """Calculate the maturity tier based on percentage score.
