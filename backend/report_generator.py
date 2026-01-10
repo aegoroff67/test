@@ -172,10 +172,12 @@ class AMReportGenerator:
         }
         
         if not sector_name:
+            print("DEBUG _generate_sector_actions: No sector_name provided")
             return sector_actions
         
         # Load all sector actions (will use correct file based on assessment_type)
         all_sector_actions = self._load_sector_actions()
+        print(f"DEBUG _generate_sector_actions: Loaded {len(all_sector_actions)} sectors")
         
         # Get actions for this specific sector
         sector_specific = all_sector_actions.get(sector_name, {})
@@ -184,14 +186,19 @@ class AMReportGenerator:
             for key in all_sector_actions.keys():
                 if sector_name.lower() in key.lower() or key.lower() in sector_name.lower():
                     sector_specific = all_sector_actions[key]
+                    print(f"DEBUG _generate_sector_actions: Found partial match for '{sector_name}' -> '{key}'")
                     break
         
         if not sector_specific:
-            print(f"No sector-specific actions found for: {sector_name}")
+            print(f"DEBUG _generate_sector_actions: No sector-specific actions found for: {sector_name}")
+            print(f"DEBUG _generate_sector_actions: Available sectors: {list(all_sector_actions.keys())}")
             return sector_actions
+        
+        print(f"DEBUG _generate_sector_actions: Found {len(sector_specific)} actions for sector '{sector_name}'")
         
         # Get questions data from report
         questions_data = report_data.get('questions_data', [])
+        print(f"DEBUG _generate_sector_actions: questions_data has {len(questions_data)} domains")
         
         # Domain mapping depends on assessment type
         if self.assessment_type == 'Awareness':
@@ -211,11 +218,14 @@ class AMReportGenerator:
             }
         
         # Iterate through questions and match with sector actions
+        questions_processed = 0
+        actions_generated = 0
         for domain_data in questions_data:
             domain_info = domain_data.get('domain', {})
             questions = domain_data.get('questions', [])
             
             for question in questions:
+                questions_processed += 1
                 question_id = question.get('question_id', question.get('code', ''))
                 # Score can be in different locations depending on data structure
                 score = question.get('score', 0)
@@ -224,6 +234,9 @@ class AMReportGenerator:
                 
                 # Get sector-specific action for this question
                 sector_action_text = sector_specific.get(question_id)
+                
+                if questions_processed <= 3:
+                    print(f"DEBUG _generate_sector_actions: Q {question_id} score={score} has_action={bool(sector_action_text)}")
                 
                 if sector_action_text and score in [1, 2, 3]:
                     # Get domain name from question ID prefix
@@ -237,6 +250,7 @@ class AMReportGenerator:
                         'score': score
                     }
                     
+                    actions_generated += 1
                     if score == 1:
                         sector_actions['high'].append(action_item)
                     elif score == 2:
@@ -248,6 +262,7 @@ class AMReportGenerator:
         for priority in ['high', 'medium', 'low']:
             sector_actions[priority].sort(key=lambda x: x.get('question_id', ''))
         
+        print(f"DEBUG _generate_sector_actions: Processed {questions_processed} questions, generated {actions_generated} actions")
         print(f"Generated sector actions for {sector_name}: high={len(sector_actions['high'])}, medium={len(sector_actions['medium'])}, low={len(sector_actions['low'])}")
         
         return sector_actions
