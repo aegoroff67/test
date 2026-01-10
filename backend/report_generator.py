@@ -2344,15 +2344,23 @@ Each cell represents the score for a specific question, enabling identification 
         heatmap_data = report_data.get('heatmap_data', {})
         domains = heatmap_data.get('domains', [])
         
+        print(f"DEBUG _format_domains_for_template: {len(domains)} domains")
+        
         result = []
         for domain in domains:
             domain_name = domain.get('name', '')
             questions = domain.get('questions', [])
             scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
             
+            print(f"  Domain '{domain_name}': {len(questions)} questions, {len(scores)} scores, scores={scores}")
+            
             if scores:
+                # For Awareness: 5 questions * 4 max = 20 points max per domain
+                # For System: 8 questions * 4 max = 32 points max per domain
                 avg_pct = (sum(scores) / (len(scores) * 4)) * 100
                 low_scoring = [q for q in questions if q.get('score') is not None and q.get('score', 0) <= 2]
+                
+                print(f"    sum(scores)={sum(scores)}, len(scores)={len(scores)}, max_possible={len(scores)*4}, avg_pct={avg_pct:.1f}%")
                 
                 # Determine tier based on score
                 if avg_pct >= 75:
