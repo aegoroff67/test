@@ -2064,6 +2064,123 @@ Each cell represents the score for a specific question, enabling identification 
         self._populate_table_with_actions(medium_table, medium_actions)
         self._populate_table_with_actions(low_table, low_actions)
     
+    def _populate_awareness_sector_tables(self, doc: DocxTemplate, report_data: Dict[str, Any]) -> None:
+        """
+        Programmatically populate the sector action tables for Awareness assessments.
+        Uses sector_actions which has question_id, domain, and sector_action fields.
+        Column order: Question ID | Domain | Recommended Action
+        """
+        from docx.oxml import OxmlElement
+        from docx.oxml.ns import qn
+        from copy import deepcopy
+        
+        docx_doc = doc.docx
+        tables = docx_doc.tables
+        
+        if len(tables) < 3:
+            print(f"Warning: Expected at least 3 tables in template, found {len(tables)}")
+            return
+        
+        # Get the last 3 tables (High, Medium, Low priority sector actions)
+        high_table = tables[-3]
+        medium_table = tables[-2]
+        low_table = tables[-1]
+        
+        # Get sector_actions from report_data
+        sector_actions = report_data.get('sector_actions', {'high': [], 'medium': [], 'low': []})
+        high_actions = sector_actions.get('high', [])[:5]  # Top 5
+        medium_actions = sector_actions.get('medium', [])[:5]
+        low_actions = sector_actions.get('low', [])[:5]
+        
+        print(f"Populating Awareness sector tables: High={len(high_actions)}, Medium={len(medium_actions)}, Low={len(low_actions)}")
+        
+        # Populate each table with correct column order and field names
+        self._populate_sector_table(high_table, high_actions)
+        self._populate_sector_table(medium_table, medium_actions)
+        self._populate_sector_table(low_table, low_actions)
+    
+    def _populate_sector_table(self, table, actions: List[Dict[str, Any]]) -> None:
+        """
+        Populate a sector actions table with the correct column order.
+        Column 1: Question ID (action.question_id)
+        Column 2: Domain (action.domain)
+        Column 3: Recommended Action (action.sector_action)
+        """
+        from docx.oxml import OxmlElement
+        from docx.oxml.ns import qn
+        from copy import deepcopy
+        
+        # Remove all rows except header
+        while len(table.rows) > 1:
+            self._remove_row(table, 1)
+        
+        if not actions:
+            print(f"DEBUG: No actions to add, keeping only header row")
+            return
+        
+        header_row = table.rows[0]
+        header_tr = header_row._tr
+        tbl = table._element
+        
+        for action in actions:
+            tr = deepcopy(header_tr)
+            cells = tr.findall('.//w:tc', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'})
+            
+            if len(cells) >= 3:
+                # CORRECT ORDER: Question ID, Domain, Sector Action
+                values = [
+                    action.get('question_id', ''),
+                    action.get('domain', ''),
+                    action.get('sector_action', '')
+                ]
+                
+                for i in range(3):
+                    cell = cells[i]
+                    
+                    # Remove header background color
+                    tcPr = cell.find('.//w:tcPr', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'})
+                    if tcPr is not None:
+                        shd = tcPr.find('.//w:shd', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'})
+                        if shd is not None:
+                            tcPr.remove(shd)
+                    
+                    # Clear existing content
+                    for p in cell.findall('.//w:p', namespaces={'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}):
+                        cell.remove(p)
+                    
+                    # Add new paragraph
+                    p = OxmlElement('w:p')
+                    
+                    if values[i]:
+                        r = OxmlElement('w:r')
+                        rPr = OxmlElement('w:rPr')
+                        
+                        rFonts = OxmlElement('w:rFonts')
+                        rFonts.set(qn('w:ascii'), 'Arial')
+                        rFonts.set(qn('w:hAnsi'), 'Arial')
+                        rPr.append(rFonts)
+                        
+                        sz = OxmlElement('w:sz')
+                        sz.set(qn('w:val'), '20')
+                        rPr.append(sz)
+                        
+                        r.append(rPr)
+                        
+                        t = OxmlElement('w:t')
+                        t.text = values[i]
+                        r.append(t)
+                        p.append(r)
+                    
+                    cell.append(p)
+                
+                # Remove extra cells
+                for i in range(3, len(cells)):
+                    tr.remove(cells[i])
+            
+            tbl.append(tr)
+        
+        print(f"DEBUG: Added {len(actions)} sector action rows")
+    
     def _populate_table_with_actions(self, table, actions: List[Dict[str, Any]]) -> None:
         """
         Populate a table with action recommendations, creating one row per action.
