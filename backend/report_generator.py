@@ -3053,6 +3053,15 @@ Each cell represents the score for a specific question, enabling identification 
                 sector_name
             )
         
+        # DEBUG: Print what sector_actions contains BEFORE passing to assessment_data
+        print(f"DEBUG generate_report_for_assessment: sector_actions generated")
+        print(f"  - high: {len(sector_actions.get('high', []))} items")
+        print(f"  - medium: {len(sector_actions.get('medium', []))} items")
+        print(f"  - low: {len(sector_actions.get('low', []))} items")
+        if sector_actions.get('high'):
+            first = sector_actions['high'][0]
+            print(f"  - FIRST HIGH: question_id='{first.get('question_id')}', domain='{first.get('domain')}', sector_action='{first.get('sector_action', 'N/A')[:60]}...'")
+        
         # Prepare assessment data for report generation
         assessment_data = {
             "assessment": assessment,
@@ -3397,6 +3406,15 @@ Each cell represents the score for a specific question, enabling identification 
                 {"questions_data": questions_data},
                 sector_name
             )
+        
+        # DEBUG: Print what sector_actions contains BEFORE passing to assessment_data
+        print(f"DEBUG generate_report_for_assessment: sector_actions generated")
+        print(f"  - high: {len(sector_actions.get('high', []))} items")
+        print(f"  - medium: {len(sector_actions.get('medium', []))} items")
+        print(f"  - low: {len(sector_actions.get('low', []))} items")
+        if sector_actions.get('high'):
+            first = sector_actions['high'][0]
+            print(f"  - FIRST HIGH: question_id='{first.get('question_id')}', domain='{first.get('domain')}', sector_action='{first.get('sector_action', 'N/A')[:60]}...'")
         
         # Prepare assessment data for report generation
         assessment_data = {
