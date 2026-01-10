@@ -2695,6 +2695,13 @@ Each cell represents the score for a specific question, enabling identification 
             print(f"  Sector actions - high: {len(template_context['sector_actions']['high'])}, medium: {len(template_context['sector_actions']['medium'])}, low: {len(template_context['sector_actions']['low'])}")
             print(f"  System info keys: {list(template_context['system_info'].keys())}")
             
+            # Show sample sector actions for debugging
+            if template_context.get('sector_actions_high_top5'):
+                sample = template_context['sector_actions_high_top5'][0]
+                print(f"  Sample sector_actions_high_top5[0]: question_id={sample.get('question_id')}, domain={sample.get('domain')}, sector_action={sample.get('sector_action', 'N/A')[:50]}...")
+            else:
+                print(f"  sector_actions_high_top5 is EMPTY")
+            
             # Show sample actions for debugging
             if template_context['actions']['high']:
                 sample_high = template_context['actions']['high'][0]
