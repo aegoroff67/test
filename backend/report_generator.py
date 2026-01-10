@@ -99,24 +99,36 @@ class AMReportGenerator:
         else:
             return "Lower priority"
     
-    def _load_sector_actions(self) -> Dict[str, Dict[str, str]]:
-        """Load sector-specific action steps from JSON file."""
-        if self._sector_actions_cache is not None:
-            return self._sector_actions_cache
+    def _load_sector_actions(self, assessment_type: str = None) -> Dict[str, Dict[str, str]]:
+        """Load sector-specific action steps from JSON file based on assessment type."""
+        # Use provided assessment_type or fall back to instance attribute
+        effective_type = assessment_type or self.assessment_type
+        
+        # Use different cache key based on assessment type
+        cache_key = f"_sector_actions_cache_{effective_type}"
+        cached = getattr(self, cache_key, None)
+        if cached is not None:
+            return cached
         
         try:
             backend_dir = Path(__file__).parent
-            actions_path = backend_dir / "system_actions.json"
+            # Choose the appropriate actions file based on assessment type
+            if effective_type == 'Awareness':
+                actions_path = backend_dir / "awareness_actions.json"
+            else:
+                actions_path = backend_dir / "system_actions.json"
+            
             if actions_path.exists():
                 import json
                 with open(actions_path, 'r') as f:
-                    self._sector_actions_cache = json.load(f)
-                return self._sector_actions_cache
+                    result = json.load(f)
+                    setattr(self, cache_key, result)
+                    return result
         except Exception as e:
-            print(f"Warning: Could not load sector actions: {e}")
+            print(f"Warning: Could not load sector actions for {effective_type}: {e}")
         
-        self._sector_actions_cache = {}
-        return self._sector_actions_cache
+        setattr(self, cache_key, {})
+        return {}
     
     def _get_template_for_assessment_type(self, assessment_type: str) -> str:
         """Get the appropriate template path based on assessment type."""
