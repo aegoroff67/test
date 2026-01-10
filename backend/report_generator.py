@@ -1430,18 +1430,46 @@ The findings should be approximately 600-800 words with clear section headers.""
             benchmark_data = report_data.get('benchmark_data', {})
             benchmark_scores = []
             
+            # Domain name mapping for matching benchmark keys
+            domain_name_mapping = {
+                # Awareness domains
+                'Awareness & Understanding': ['Awareness & Understanding', 'Awareness'],
+                'Governance & Trust Foundations': ['Governance & Trust Foundations', 'Governance'],
+                'People & Skills': ['People & Skills', 'People'],
+                'Leadership Vision': ['Leadership & Vision', 'Leadership Vision', 'Leadership'],
+                'Digital Readiness': ['Data & Digital Readiness', 'Digital Readiness', 'Data'],
+                # System domains (for completeness)
+                'Fairness': ['Fairness'],
+                'Transparency': ['Transparency'],
+                'Explainability': ['Explainability'],
+                'Accountability': ['Accountability'],
+                'Data Integrity': ['Data Integrity'],
+                'Reliability': ['Reliability'],
+                'Security': ['Security'],
+                'Privacy': ['Privacy'],
+                'Safety': ['Safety'],
+                'Inclusivity': ['Inclusivity'],
+                'Sustainability': ['Sustainability']
+            }
+            
             # Try to match benchmark domains to our domains
             for domain_name in domains:
-                # Look for matching benchmark (try various key formats)
                 benchmark_value = None
-                for key in [domain_name, domain_name.replace(' & ', ' '), domain_name.lower()]:
-                    if key in benchmark_data:
-                        benchmark_value = benchmark_data[key]
-                        break
                 
-                # If no specific benchmark, use a default of 40% (sector average)
+                # Try direct match first
+                if domain_name in benchmark_data:
+                    benchmark_value = benchmark_data[domain_name]
+                else:
+                    # Try alternative names
+                    alternatives = domain_name_mapping.get(domain_name, [domain_name])
+                    for alt_name in alternatives:
+                        if alt_name in benchmark_data:
+                            benchmark_value = benchmark_data[alt_name]
+                            break
+                
+                # If no specific benchmark, use a default of 50% (sector average)
                 if benchmark_value is None:
-                    benchmark_value = 40.0
+                    benchmark_value = 50.0
                 
                 benchmark_scores.append(benchmark_value)
             
