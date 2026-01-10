@@ -174,7 +174,7 @@ class AMReportGenerator:
         if not sector_name:
             return sector_actions
         
-        # Load all sector actions
+        # Load all sector actions (will use correct file based on assessment_type)
         all_sector_actions = self._load_sector_actions()
         
         # Get actions for this specific sector
@@ -193,13 +193,22 @@ class AMReportGenerator:
         # Get questions data from report
         questions_data = report_data.get('questions_data', [])
         
-        # Domain mapping for display
-        domain_mapping = {
-            "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
-            "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
-            "SE": "Security", "PR": "Privacy", "SA": "Safety", 
-            "IN": "Inclusivity", "SU": "Sustainability"
-        }
+        # Domain mapping depends on assessment type
+        if self.assessment_type == 'Awareness':
+            domain_mapping = {
+                "AU": "Awareness & Understanding",
+                "GT": "Governance & Trust Foundations",
+                "PS": "People & Skills",
+                "LV": "Leadership Vision",
+                "DR": "Digital Readiness"
+            }
+        else:
+            domain_mapping = {
+                "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
+                "AC": "Accountability", "DI": "Data Integrity", "RE": "Reliability",
+                "SE": "Security", "PR": "Privacy", "SA": "Safety", 
+                "IN": "Inclusivity", "SU": "Sustainability"
+            }
         
         # Iterate through questions and match with sector actions
         for domain_data in questions_data:
