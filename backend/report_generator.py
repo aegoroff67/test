@@ -1218,12 +1218,15 @@ The findings should be approximately 600-800 words with clear section headers.""
             # Sort questions by score (lowest first, as shown in heatmap)
             question_scores.sort(key=lambda x: x['score'])
             
-            # Pad to 8 questions if needed
-            while len(question_scores) < 8:
-                question_scores.append({'code': 'N/A', 'score': 0, 'question_id': ''})
-            
-            # Take only first 8 questions
-            question_scores = question_scores[:8]
+            # Only pad/limit to 8 questions for System assessments
+            # Awareness assessments have 5 questions per domain
+            if self.assessment_type != 'Awareness':
+                # Pad to 8 questions if needed (for System assessments)
+                while len(question_scores) < 8:
+                    question_scores.append({'code': 'N/A', 'score': 0, 'question_id': ''})
+                
+                # Take only first 8 questions
+                question_scores = question_scores[:8]
             
             domains_with_scores.append({
                 'name': domain_name,
