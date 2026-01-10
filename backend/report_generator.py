@@ -2876,6 +2876,9 @@ Each cell represents the score for a specific question, enabling identification 
             # Render the template - this will preserve all original fonts, colors, margins, layout
             doc.render(template_context)
             
+            # Center-align images (heatmap and radar chart)
+            self._center_align_images(doc)
+            
             # Populate recommendation tables programmatically
             # Different handling for Awareness vs other assessment types
             if self.assessment_type == 'Awareness':
