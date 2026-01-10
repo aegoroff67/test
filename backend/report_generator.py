@@ -1339,7 +1339,20 @@ The findings should be approximately 600-800 words with clear section headers.""
     def _generate_radar_chart_image(self, report_data: Dict[str, Any]) -> bytes:
         """Generate radar chart showing domain scores."""
         try:
+            # Try to get domain_scores from different sources
             domain_scores = report_data.get('domain_scores', {})
+            
+            # If domain_scores is empty, extract from heatmap_data
+            if not domain_scores:
+                heatmap_data = report_data.get('heatmap_data', {})
+                domains_list = heatmap_data.get('domains', [])
+                
+                for domain in domains_list:
+                    domain_name = domain.get('name', 'Unknown')
+                    questions = domain.get('questions', [])
+                    scores = [q.get('score', 0) for q in questions if q.get('score', 0) > 0]
+                    if scores:
+                        domain_scores[domain_name] = scores
             
             if not domain_scores:
                 # Return empty image if no data
