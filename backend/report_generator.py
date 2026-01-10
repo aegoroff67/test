@@ -1162,15 +1162,15 @@ The findings should be approximately 600-800 words with clear section headers.""
             return self._generate_system_heatmap_image(report_data)
     
     def _generate_awareness_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
-        """Generate heatmap image for Awareness assessments (5 domains, ~5 questions each)."""
+        """Generate heatmap image for Awareness assessments (5 domains, 5 questions each)."""
         heatmap_data = report_data.get('heatmap_data', {})
         domains = heatmap_data.get('domains', [])
         
         if not domains:
             domains = [{'name': 'No Data', 'questions': [{'code': 'N/A', 'score': 0} for _ in range(5)]}]
         
-        # Create figure - wider to accommodate horizontal bar chart style
-        fig, ax = plt.subplots(figsize=(10, 6))
+        # Create figure - sized for 5x5 grid
+        fig, ax = plt.subplots(figsize=(10, 7))
         
         # Define colors for 1-4 scale
         def get_color(score):
@@ -1186,22 +1186,24 @@ The findings should be approximately 600-800 words with clear section headers.""
                 return '#CCCCCC'  # Gray - No score/unanswered
         
         num_domains = len(domains)
-        max_questions = max(len(d.get('questions', [])) for d in domains) if domains else 5
+        num_questions = 5  # Fixed at 5 questions per domain for Awareness
         
         for i, domain in enumerate(domains):
             domain_name = domain.get('name', 'Unknown')
             questions = domain.get('questions', [])
             
             # Calculate percentage score
-            total_possible = len([q for q in questions if q.get('code') != 'N/A']) * 4
-            total_actual = sum(q.get('score', 0) for q in questions if q.get('code') != 'N/A')
+            answered_questions = [q for q in questions if q.get('score', 0) > 0]
+            total_possible = len(answered_questions) * 4 if answered_questions else 1
+            total_actual = sum(q.get('score', 0) for q in answered_questions)
             percentage = (total_actual / total_possible * 100) if total_possible > 0 else 0
             
-            for j, question in enumerate(questions):
+            # Only draw cells for actual questions (max 5)
+            row_pos = num_domains - 1 - i
+            for j, question in enumerate(questions[:num_questions]):
                 score = question.get('score', 0)
                 question_code = question.get('code', 'N/A')
                 
-                row_pos = num_domains - 1 - i
                 color = get_color(score)
                 rect = patches.Rectangle((j, row_pos), 1, 1, 
                                        linewidth=1, edgecolor='white', facecolor=color)
@@ -1212,18 +1214,18 @@ The findings should be approximately 600-800 words with clear section headers.""
                            ha='center', va='center', color='white', 
                            fontsize=9, fontweight='bold')
             
-            # Add domain name and percentage
-            ax.text(-0.3, row_pos+0.5, f"{domain_name} ({percentage:.0f}%)", 
+            # Add domain name and percentage on the left
+            ax.text(-0.2, row_pos+0.5, f"{domain_name} ({percentage:.0f}%)", 
                    ha='right', va='center', fontsize=10, fontweight='normal')
         
-        # Set axis properties
-        ax.set_xlim(-4, max_questions)
-        ax.set_ylim(0, num_domains)
+        # Set axis properties - limit to exactly 5 columns
+        ax.set_xlim(-4.5, num_questions)
+        ax.set_ylim(-1.5, num_domains)
         ax.set_aspect('equal')
         ax.axis('off')
         
-        # Add legend
-        legend_y = -0.8
+        # Add legend at bottom
+        legend_y = -1.0
         legend_items = [
             ('#FF0000', 'Foundational (1)'),
             ('#FFC000', 'Developing (2)'),
@@ -1231,11 +1233,12 @@ The findings should be approximately 600-800 words with clear section headers.""
             ('#00B050', 'Leading (4)')
         ]
         
+        legend_start_x = 0
         for idx, (color, label) in enumerate(legend_items):
-            x_pos = idx * 2.5
-            rect = patches.Rectangle((x_pos, legend_y), 0.4, 0.4, facecolor=color, edgecolor='gray')
+            x_pos = legend_start_x + (idx * 1.5)
+            rect = patches.Rectangle((x_pos, legend_y), 0.3, 0.3, facecolor=color, edgecolor='gray')
             ax.add_patch(rect)
-            ax.text(x_pos + 0.5, legend_y + 0.2, label, fontsize=8, va='center')
+            ax.text(x_pos + 0.4, legend_y + 0.15, label, fontsize=8, va='center')
         
         plt.tight_layout()
         
