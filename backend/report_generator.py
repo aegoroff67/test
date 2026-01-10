@@ -3029,8 +3029,13 @@ Each cell represents the score for a specific question, enabling identification 
             use_ai=use_ai
         )
         
-        # Generate filename
-        safe_org_name = "".join(c for c in current_user.organization_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        # Generate filename - use assessment's organization_name, not the user's account org name
+        assessment_org_name = assessment.get('organization_name', '')
+        if not assessment_org_name:
+            # Fallback to user's organization name if assessment doesn't have one
+            assessment_org_name = current_user.organization_name
+        
+        safe_org_name = "".join(c for c in assessment_org_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
         safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
         filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.docx"
         
