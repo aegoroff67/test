@@ -2638,6 +2638,12 @@ Each cell represents the score for a specific question, enabling identification 
                     })
                 template_context['priority_actions'] = priority_actions
                 
+                # Build top 5 sector-specific actions for each priority level
+                sector_actions = template_context.get('sector_actions', {'high': [], 'medium': [], 'low': []})
+                template_context['sector_actions_high_top5'] = sector_actions.get('high', [])[:5]
+                template_context['sector_actions_medium_top5'] = sector_actions.get('medium', [])[:5]
+                template_context['sector_actions_low_top5'] = sector_actions.get('low', [])[:5]
+                
                 # Build questions list with full details
                 questions = []
                 questions_data = report_data.get('questions_data', [])
