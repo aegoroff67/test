@@ -2759,9 +2759,10 @@ Each cell represents the score for a specific question, enabling identification 
             # Render the template - this will preserve all original fonts, colors, margins, layout
             doc.render(template_context)
             
-            # Populate recommendation tables programmatically (for v7/v9 template only, not test template)
-            # The test template has 6 columns and uses Jinja2 loops directly
-            if not self.use_test_template:
+            # Populate recommendation tables programmatically (for System template only)
+            # The test template uses Jinja2 loops directly
+            # The Awareness template also uses Jinja2 loops for sector actions tables
+            if not self.use_test_template and self.assessment_type != 'Awareness':
                 self._populate_recommendation_tables(doc, report_data)
             
             # Save to bytes
