@@ -3056,10 +3056,25 @@ Each cell represents the score for a specific question, enabling identification 
             use_ai=use_ai
         )
         
-        # Generate filename - use assessment's organization_name, not the user's account org name
-        assessment_org_name = assessment.get('organization_name', '')
+        # Generate filename - use assessment's org_name from the appropriate info object
+        # The org_name is stored in different locations depending on assessment type
+        assessment_org_name = ''
+        if self.assessment_type == 'Awareness':
+            assessment_org_name = (assessment.get('awareness_info') or {}).get('org_name', '')
+        elif self.assessment_type == 'Readiness':
+            assessment_org_name = (assessment.get('readiness_info') or {}).get('org_name', '')
+        elif self.assessment_type == 'Orgwide':
+            assessment_org_name = (assessment.get('orgwide_info') or {}).get('org_name', '')
+        else:
+            # System or other types - check org_info first, then system_info
+            assessment_org_name = (assessment.get('org_info') or {}).get('org_name', '')
+            if not assessment_org_name:
+                assessment_org_name = (assessment.get('system_info') or {}).get('org_name', '')
+        
+        # Fallback to organization_name field if exists, then to user's organization name
         if not assessment_org_name:
-            # Fallback to user's organization name if assessment doesn't have one
+            assessment_org_name = assessment.get('organization_name', '')
+        if not assessment_org_name:
             assessment_org_name = current_user.organization_name
         
         safe_org_name = "".join(c for c in assessment_org_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
