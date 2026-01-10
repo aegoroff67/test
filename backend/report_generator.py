@@ -2668,6 +2668,9 @@ Each cell represents the score for a specific question, enabling identification 
                     print(f"  - First high action.domain: {first_high.get('domain')}")
                     print(f"  - First high action.question_id: {first_high.get('question_id')}")
                     print(f"  - First high action.sector_action: {first_high.get('sector_action', 'N/A')[:80]}...")
+                if sector_actions.get('medium'):
+                    first_med = sector_actions['medium'][0]
+                    print(f"  - First MEDIUM action: question_id='{first_med.get('question_id')}', domain='{first_med.get('domain')}', sector_action='{first_med.get('sector_action', 'N/A')[:60]}...'")
                 
                 template_context['sector_actions_high_top5'] = sector_actions.get('high', [])[:5]
                 template_context['sector_actions_medium_top5'] = sector_actions.get('medium', [])[:5]
@@ -2675,11 +2678,17 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 # DEBUG: Confirm the top5 lists
                 print(f"DEBUG sector_actions_high_top5 after assignment: {len(template_context['sector_actions_high_top5'])} items")
+                print(f"DEBUG sector_actions_medium_top5 after assignment: {len(template_context['sector_actions_medium_top5'])} items")
                 if template_context['sector_actions_high_top5']:
                     first = template_context['sector_actions_high_top5'][0]
                     print(f"  - First item domain: {first.get('domain')}")
                     print(f"  - First item question_id: {first.get('question_id')}")
                     print(f"  - First item sector_action: {first.get('sector_action', 'N/A')[:50]}...")
+                else:
+                    print(f"  sector_actions_high_top5 is EMPTY")
+                if template_context['sector_actions_medium_top5']:
+                    first_m = template_context['sector_actions_medium_top5'][0]
+                    print(f"  MEDIUM First: question_id='{first_m.get('question_id')}', domain='{first_m.get('domain')}')")
                 
                 # Build questions list with full details
                 questions = []
