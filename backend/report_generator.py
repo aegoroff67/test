@@ -726,6 +726,18 @@ The findings should be approximately 600-800 words with clear section headers.""
                 print(f"ERROR generating AI executive_snapshot: {e}")
                 narratives['executive_snapshot'] = ""
         
+        # Generate Context Interpretation (AI-2)
+        if cached_narratives.get('context_interpretation'):
+            narratives['context_interpretation'] = cached_narratives['context_interpretation']
+            print(f"DEBUG: Using cached AI context_interpretation narrative")
+        else:
+            try:
+                narratives['context_interpretation'] = await self._generate_ai_context_interpretation(report_data)
+                print(f"DEBUG: Generated new AI context_interpretation narrative ({len(narratives['context_interpretation'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI context_interpretation: {e}")
+                narratives['context_interpretation'] = ""
+        
         # Cache all generated narratives to database
         if narratives and assessment_id and db:
             try:
