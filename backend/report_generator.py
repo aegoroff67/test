@@ -3941,8 +3941,11 @@ Each cell represents the score for a specific question, enabling identification 
         else:
             overall_maturity = "Basic"
         
-        # Calculate overall_tier for Awareness assessments (Leading/Established/Developing/Foundational)
-        overall_tier = self._calculate_tier(overall_percentage)
+        # Calculate overall_tier for Awareness assessments (Established/Developing/Emerging/Introductory)
+        if self.assessment_type == 'Awareness':
+            overall_tier = self._calculate_awareness_tier(overall_percentage)
+        else:
+            overall_tier = self._calculate_tier(overall_percentage)
         
         # Identify top strengths and gaps from domain_scores
         sorted_domains = sorted(domain_scores, key=lambda x: x['percentage'], reverse=True)
@@ -4333,8 +4336,11 @@ Each cell represents the score for a specific question, enabling identification 
         else:
             overall_maturity = "Basic"
         
-        # Calculate overall_tier for Awareness assessments (Leading/Established/Developing/Foundational)
-        overall_tier = self._calculate_tier(overall_percentage)
+        # Calculate overall_tier for Awareness assessments (Established/Developing/Emerging/Introductory)
+        if self.assessment_type == 'Awareness':
+            overall_tier = self._calculate_awareness_tier(overall_percentage)
+        else:
+            overall_tier = self._calculate_tier(overall_percentage)
         
         # Identify top strengths and gaps from domain_scores
         sorted_domains = sorted(domain_scores, key=lambda x: x['percentage'], reverse=True)
