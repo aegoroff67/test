@@ -3295,6 +3295,13 @@ Each cell represents the score for a specific question, enabling identification 
             # Create inline image for heatmap - set to requested width
             heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(6.27))
             
+            # Generate awareness bar image (stacked bar chart) for Awareness assessments
+            if self.assessment_type == 'Awareness':
+                awareness_bar_bytes = self._generate_awareness_bar_image(report_data)
+                awareness_bar_inline = InlineImage(doc, io.BytesIO(awareness_bar_bytes), width=Inches(2.0))
+            else:
+                awareness_bar_inline = heatmap_inline  # Fallback for non-Awareness
+            
             # Generate radar chart image
             radar_chart_image = self._generate_radar_chart_image(report_data)
             radar_chart_inline = InlineImage(doc, io.BytesIO(radar_chart_image), width=Inches(3.5))
