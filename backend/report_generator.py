@@ -3816,7 +3816,7 @@ Each cell represents the score for a specific question, enabling identification 
                 "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
                 "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
                 "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
-                "Leadership Vision": {"id": "Leadership Vision", "name": "Leadership Vision"},
+                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership & Vision"},
                 "Digital Readiness": {"id": "Digital Readiness", "name": "Digital Readiness"}
             }
         else:
@@ -4197,7 +4197,7 @@ Each cell represents the score for a specific question, enabling identification 
                 "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
                 "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
                 "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
-                "Leadership Vision": {"id": "Leadership Vision", "name": "Leadership Vision"},
+                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership & Vision"},
                 "Digital Readiness": {"id": "Digital Readiness", "name": "Digital Readiness"}
             }
         else:
