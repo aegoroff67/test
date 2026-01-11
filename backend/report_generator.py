@@ -1574,7 +1574,8 @@ Output only the focus statement, nothing else."""
             "sector_actions": sector_actions,
             "system_info": assessment_data.get('system_info', {}),  # Pass system_info for template use
             "awareness_info": assessment_data.get('awareness_info', {}),  # Pass awareness_info for Awareness assessments
-            "benchmark_data": self._load_benchmark_data(sector_name)  # Load sector benchmark data
+            "benchmark_data": self._load_benchmark_data(sector_name),  # Load sector benchmark data
+            "ai_narratives": assessment_data.get('ai_narratives', {})  # Pass AI narratives for template use
         }
         
         return report_data
