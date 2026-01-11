@@ -3771,7 +3771,7 @@ Each cell represents the score for a specific question, enabling identification 
                 "GT": "Governance & Trust Foundations",
                 "PS": "People & Skills",
                 "LV": "Leadership & Vision",
-                "DR": "Digital Readiness"
+                "DR": "Data & Digital Readiness"
             }
             
             for answer in answers:
@@ -4152,7 +4152,7 @@ Each cell represents the score for a specific question, enabling identification 
                 "GT": "Governance & Trust Foundations",
                 "PS": "People & Skills",
                 "LV": "Leadership & Vision",
-                "DR": "Digital Readiness"
+                "DR": "Data & Digital Readiness"
             }
             
             for answer in answers:
