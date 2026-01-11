@@ -3452,8 +3452,12 @@ Each cell represents the score for a specific question, enabling identification 
                 # Build strengths list (domains scoring >= 70%)
                 strengths = []
                 for d in template_context.get('domains', []):
-                    if d.get('score', 0) >= 70:
-                        strengths.append(f"{d.get('name', 'Unknown')} ({d.get('score', 0):.0f}%)")
+                    score = d.get('score', 0)
+                    # Handle both numeric and string scores
+                    if isinstance(score, str):
+                        score = float(score.replace('%', ''))
+                    if score >= 70:
+                        strengths.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
                 template_context['strengths'] = strengths
                 
                 # Build strengths_summary as a readable string
@@ -3465,8 +3469,12 @@ Each cell represents the score for a specific question, enabling identification 
                 # Build gaps list (domains scoring < 50%)
                 gaps = []
                 for d in template_context.get('domains', []):
-                    if d.get('score', 0) < 50:
-                        gaps.append(f"{d.get('name', 'Unknown')} ({d.get('score', 0):.0f}%)")
+                    score = d.get('score', 0)
+                    # Handle both numeric and string scores
+                    if isinstance(score, str):
+                        score = float(score.replace('%', ''))
+                    if score < 50:
+                        gaps.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
                 template_context['gaps'] = gaps
                 
                 # Build gaps_summary as a readable string
