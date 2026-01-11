@@ -1024,6 +1024,70 @@ No headings or bullet points."""
             print(f"ERROR in _generate_ai_readiness_interpretation: {e}")
             return ""
 
+    async def _generate_ai_domain_patterns(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Domain-Level Pattern Summary narrative for Awareness assessments.
+        Used in: Section 4 – Awareness Assessment Results
+        Variable target: ai.domain_patterns
+        """
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            
+            # Extract domain data from heatmap_data
+            heatmap_data = report_data.get('heatmap_data', {})
+            domains = heatmap_data.get('domains', [])
+            
+            # Build domain summary for the prompt
+            domain_summaries = []
+            for domain in domains:
+                domain_name = domain.get('name', 'Unknown')
+                questions = domain.get('questions', [])
+                scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
+                if scores:
+                    avg_score = sum(scores) / len(scores)
+                    percentage = (avg_score / 4) * 100
+                    tier = self._calculate_tier(percentage)
+                    domain_summaries.append(f"{domain_name}: {tier} ({percentage:.0f}%)")
+            
+            domains_text = "\n".join([f"- {d}" for d in domain_summaries]) if domain_summaries else "No domain data available"
+            
+            system_prompt = """You are generating a summary of domain-level patterns for an AI Awareness & Foundations Assessment."""
+            
+            user_prompt = f"""Your task is to identify high-level patterns across awareness domains without restating scores or listing domains individually.
+
+CRITICAL RULES:
+- Do NOT repeat numeric scores.
+- Do NOT describe each domain one by one.
+- Do NOT introduce causes or recommendations.
+
+INPUT DATA:
+- Domain names, tiers, and scores:
+{domains_text}
+
+OUTPUT REQUIREMENTS:
+- 100–150 words
+- Analytical but accessible tone
+- Focus on balance, consistency, and spread of awareness
+- Highlight whether results are relatively even or uneven across domains
+
+Do not use bullet points or headings."""
+
+            # Initialize LLM chat
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"awareness_domain_patterns_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            # Send message and get response
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_ai_domain_patterns: {e}")
+            return ""
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
