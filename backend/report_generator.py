@@ -774,6 +774,18 @@ The findings should be approximately 600-800 words with clear section headers.""
                 print(f"ERROR generating AI domain_patterns: {e}")
                 narratives['domain_patterns'] = ""
         
+        # Generate Action Interpretation (AI-6)
+        if cached_narratives.get('action_interpretation'):
+            narratives['action_interpretation'] = cached_narratives['action_interpretation']
+            print(f"DEBUG: Using cached AI action_interpretation narrative")
+        else:
+            try:
+                narratives['action_interpretation'] = await self._generate_ai_action_interpretation(report_data)
+                print(f"DEBUG: Generated new AI action_interpretation narrative ({len(narratives['action_interpretation'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI action_interpretation: {e}")
+                narratives['action_interpretation'] = ""
+        
         # Cache all generated narratives to database
         if narratives and assessment_id and db:
             try:
