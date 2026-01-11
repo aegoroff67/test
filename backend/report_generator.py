@@ -206,8 +206,8 @@ class AMReportGenerator:
                 "AU": "Awareness & Understanding",
                 "GT": "Governance & Trust Foundations",
                 "PS": "People & Skills",
-                "LV": "Leadership Vision",
-                "DR": "Digital Readiness"
+                "LV": "Leadership & Vision",
+                "DR": "Data & Digital Readiness"
             }
         else:
             domain_mapping = {
