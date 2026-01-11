@@ -799,7 +799,7 @@ The findings should be approximately 600-800 words with clear section headers.""
                 narratives['next_focus'] = ""
         
         # Cache all generated narratives to database
-        if narratives and assessment_id and db:
+        if narratives and assessment_id and db is not None:
             try:
                 await db.assessments.update_one(
                     {"id": assessment_id},
