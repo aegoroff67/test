@@ -822,6 +822,64 @@ Do not include headings or formatting."""
             print(f"ERROR in _generate_ai_executive_snapshot: {e}")
             return ""
 
+    async def _generate_ai_context_interpretation(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Context Interpretation narrative for Awareness assessments.
+        Used in: Section 2 – Organisation & Context Profile
+        Variable target: ai.context_interpretation
+        """
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            
+            # Extract data from report_data
+            awareness_info = report_data.get('awareness_info', {})
+            industry = awareness_info.get('industry', report_data.get('sector_name', 'Unknown'))
+            ai_familiarity = awareness_info.get('ai_familiarity', 'Unknown')
+            digital_maturity = awareness_info.get('digital_maturity', 'Unknown')
+            leadership_ai_interest = awareness_info.get('leadership_ai_interest', 'Unknown')
+            tech_change_comfort = awareness_info.get('tech_change_comfort', 'Unknown')
+            
+            system_prompt = """You are generating a contextual interpretation for an AI Awareness & Foundations Assessment."""
+            
+            user_prompt = f"""Your task is to translate onboarding and context metadata into a short, neutral interpretation that helps the reader understand the organisation's starting point with AI.
+
+CRITICAL RULES:
+- Do NOT make recommendations.
+- Do NOT judge maturity as good or bad.
+- Do NOT introduce external benchmarks.
+- Frame all insights as implications, not conclusions.
+
+INPUT DATA:
+- Sector: {industry}
+- AI familiarity: {ai_familiarity}
+- Digital transformation stage: {digital_maturity}
+- Leadership interest in AI: {leadership_ai_interest}
+- Comfort with technology change: {tech_change_comfort}
+
+OUTPUT REQUIREMENTS:
+- 2–3 short paragraphs
+- Plain English, non-technical
+- Use phrasing such as "this suggests" or "this indicates"
+- Emphasise readiness for learning rather than deployment
+
+Do not use bullet points or headings."""
+
+            # Initialize LLM chat
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"awareness_context_interpretation_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            # Send message and get response
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_ai_context_interpretation: {e}")
+            return ""
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
