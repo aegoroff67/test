@@ -3270,12 +3270,35 @@ Each cell represents the score for a specific question, enabling identification 
                         strengths.append(f"{d.get('name', 'Unknown')} ({d.get('score', 0):.0f}%)")
                 template_context['strengths'] = strengths
                 
+                # Build strengths_summary as a readable string
+                if strengths:
+                    template_context['strengths_summary'] = ', '.join(strengths[:3])
+                else:
+                    template_context['strengths_summary'] = 'Building foundational awareness across all domains'
+                
                 # Build gaps list (domains scoring < 50%)
                 gaps = []
                 for d in template_context.get('domains', []):
                     if d.get('score', 0) < 50:
                         gaps.append(f"{d.get('name', 'Unknown')} ({d.get('score', 0):.0f}%)")
                 template_context['gaps'] = gaps
+                
+                # Build gaps_summary as a readable string
+                if gaps:
+                    template_context['gaps_summary'] = ', '.join(gaps[:3])
+                else:
+                    template_context['gaps_summary'] = 'No critical gaps identified'
+                
+                # Build next_focus recommendation based on tier
+                tier = template_context.get('overall', {}).get('tier', 'Developing')
+                if tier == 'Foundational':
+                    template_context['next_focus'] = 'Establish basic AI awareness and governance foundations'
+                elif tier == 'Developing':
+                    template_context['next_focus'] = 'Build structured awareness programs and refine governance frameworks'
+                elif tier == 'Established':
+                    template_context['next_focus'] = 'Deepen AI literacy and prepare for readiness assessment'
+                else:
+                    template_context['next_focus'] = 'Maintain leadership position and drive AI innovation'
                 
                 # Build priority_actions list with priority and text
                 priority_actions = []
