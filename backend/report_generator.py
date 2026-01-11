@@ -2134,7 +2134,7 @@ Output only the focus statement, nothing else."""
                 'Governance & Trust Foundations': ['Governance & Trust Foundations', 'Governance'],
                 'People & Skills': ['People & Skills', 'People'],
                 'Leadership & Vision': ['Leadership & Vision', 'Leadership Vision', 'Leadership'],
-                'Digital Readiness': ['Data & Digital Readiness', 'Digital Readiness', 'Data'],
+                'Data & Digital Readiness': ['Data & Digital Readiness', 'Digital Readiness', 'Data'],
                 # System domains (for completeness)
                 'Fairness': ['Fairness'],
                 'Transparency': ['Transparency'],
