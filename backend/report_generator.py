@@ -698,6 +698,118 @@ The findings should be approximately 600-800 words with clear section headers.""
         backend_dir = Path(__file__).parent
         return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx")
     
+    # ========================================
+    # AWARENESS AI NARRATIVE GENERATION
+    # ========================================
+    
+    async def _generate_awareness_ai_narratives(self, report_data: Dict[str, Any], assessment: Dict[str, Any], db) -> Dict[str, str]:
+        """
+        Generate all AI narratives for Awareness assessments.
+        Returns a dict with narrative keys that can be accessed as ai.executive_snapshot, etc.
+        Caches results in the database to avoid regeneration.
+        """
+        narratives = {}
+        assessment_id = assessment.get('id')
+        
+        # Check for cached narratives in database
+        cached_narratives = assessment.get('ai_narratives', {})
+        
+        # Generate Executive Snapshot (AI-1)
+        if cached_narratives.get('executive_snapshot'):
+            narratives['executive_snapshot'] = cached_narratives['executive_snapshot']
+            print(f"DEBUG: Using cached AI executive_snapshot narrative")
+        else:
+            try:
+                narratives['executive_snapshot'] = await self._generate_ai_executive_snapshot(report_data)
+                print(f"DEBUG: Generated new AI executive_snapshot narrative ({len(narratives['executive_snapshot'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI executive_snapshot: {e}")
+                narratives['executive_snapshot'] = ""
+        
+        # Cache all generated narratives to database
+        if narratives and assessment_id and db:
+            try:
+                await db.assessments.update_one(
+                    {"id": assessment_id},
+                    {"$set": {"ai_narratives": {**cached_narratives, **narratives}}}
+                )
+                print(f"DEBUG: Cached AI narratives to database")
+            except Exception as e:
+                print(f"ERROR caching AI narratives: {e}")
+        
+        return narratives
+    
+    async def _generate_ai_executive_snapshot(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Executive Snapshot narrative for Awareness assessments.
+        Used in: Section 1 – Executive Snapshot
+        Variable target: ai.executive_snapshot
+        """
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            
+            # Extract data from report_data
+            org_name = report_data.get('organization_name', 'The organisation')
+            overall = report_data.get('overall', {})
+            tier = overall.get('tier', 'Unknown')
+            score = overall.get('percentage', overall.get('score', 0))
+            strengths = report_data.get('strengths', [])
+            gaps = report_data.get('gaps', [])
+            industry = report_data.get('sector_name', report_data.get('industry', 'Unknown'))
+            
+            # Format lists as text (top 3 each)
+            strengths_text = ", ".join(strengths[:3]) if strengths else "None identified"
+            gaps_text = ", ".join(gaps[:3]) if gaps else "None identified"
+            
+            system_prompt = """You are generating the Executive Snapshot narrative for an AI Awareness & Foundations Assessment report."""
+            
+            user_prompt = f"""Your task is to explain the organisation's current AI awareness level in clear, executive-friendly language.
+
+CRITICAL RULES:
+- Use only the data provided.
+- Do NOT invent policies, controls, or practices.
+- Do NOT speculate about causes unless clearly framed as "this suggests".
+- Do NOT provide recommendations or next steps.
+- Do NOT repeat numeric scores more than once.
+- Do NOT use bullet points.
+
+INPUT DATA:
+- Organisation name: {org_name}
+- Awareness tier: {tier}
+- Awareness score: {score}%
+- Key strengths: {strengths_text}
+- Key gaps: {gaps_text}
+- Sector: {industry}
+
+OUTPUT REQUIREMENTS:
+- 120–180 words
+- Neutral, confidence-building tone
+- Written for senior leadership
+- Focus on what the result indicates at this stage of AI maturity
+
+Write 1–2 short paragraphs that:
+1. Explain what the current awareness tier means in practical terms
+2. Describe the general balance of strengths and gaps without listing them verbatim
+3. Reinforce that this assessment reflects awareness and foundations only
+
+Do not include headings or formatting."""
+
+            # Initialize LLM chat
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"awareness_executive_snapshot_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            # Send message and get response
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_ai_executive_snapshot: {e}")
+            return ""
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
