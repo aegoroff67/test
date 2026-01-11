@@ -1734,6 +1734,104 @@ No bullet points or headings."""
         else:
             return self._generate_system_heatmap_image(report_data)
     
+    def _generate_awareness_bar_image(self, report_data: Dict[str, Any]) -> bytes:
+        """Generate stacked bar chart image for Awareness assessments showing overall score and tier."""
+        overall = report_data.get('overall', {})
+        score = overall.get('score', 0)
+        sector_average = report_data.get('sector_average')
+        
+        # Define the 4 maturity tiers for Awareness (matching frontend MaturityStackedColumn)
+        tiers = [
+            {'name': 'Established', 'min': 86, 'max': 100, 'color': '#00B050', 'percentage': 15},
+            {'name': 'Developing', 'min': 66, 'max': 85, 'color': '#FFFF00', 'percentage': 20},
+            {'name': 'Emerging', 'min': 41, 'max': 65, 'color': '#FFC000', 'percentage': 25},
+            {'name': 'Introductory', 'min': 0, 'max': 40, 'color': '#FF0000', 'percentage': 40}
+        ]
+        
+        # Determine current tier
+        current_tier = 'Introductory'
+        for tier in tiers:
+            if tier['min'] <= score <= tier['max']:
+                current_tier = tier['name']
+                break
+        
+        # Create figure
+        fig, ax = plt.subplots(figsize=(4, 3))
+        
+        # Draw stacked bar (vertical)
+        bar_width = 0.8
+        bar_x = 0.5
+        current_y = 0
+        
+        # Draw from bottom to top (Introductory to Established)
+        for tier in reversed(tiers):
+            height = tier['percentage']
+            rect = patches.Rectangle(
+                (bar_x - bar_width/2, current_y), 
+                bar_width, 
+                height,
+                facecolor=tier['color'],
+                edgecolor='#333333',
+                linewidth=1
+            )
+            ax.add_patch(rect)
+            
+            # Add tier label
+            ax.text(bar_x, current_y + height/2, tier['name'], 
+                   ha='center', va='center', fontsize=8, fontweight='bold',
+                   color='#333333')
+            
+            current_y += height
+        
+        # Add score arrow (right side, pointing left)
+        arrow_y = score  # Score directly maps to y position (0-100)
+        
+        # Determine arrow color based on sector average comparison
+        if sector_average is not None:
+            if score > sector_average:
+                arrow_color = '#00B050'  # Green - above average
+            elif score < sector_average:
+                arrow_color = '#FF0000'  # Red - below average
+            else:
+                arrow_color = '#000000'  # Black - equal
+        else:
+            arrow_color = '#000000'
+        
+        # Draw user score arrow (pointing left from right side)
+        ax.annotate('', xy=(bar_x + bar_width/2, arrow_y), 
+                   xytext=(bar_x + bar_width/2 + 0.3, arrow_y),
+                   arrowprops=dict(arrowstyle='->', color=arrow_color, lw=2))
+        
+        # Add sector average arrow if available (left side, pointing right)
+        if sector_average is not None and sector_average != score:
+            ax.annotate('', xy=(bar_x - bar_width/2, sector_average), 
+                       xytext=(bar_x - bar_width/2 - 0.3, sector_average),
+                       arrowprops=dict(arrowstyle='->', color='#000000', lw=2))
+        
+        # Add score text on right
+        ax.text(bar_x + bar_width/2 + 0.5, arrow_y, f'{score:.0f}%', 
+               ha='left', va='center', fontsize=12, fontweight='bold', color=arrow_color)
+        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 8, f'{current_tier}', 
+               ha='left', va='center', fontsize=9, color='#666666')
+        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 15, 'AI Awareness', 
+               ha='left', va='center', fontsize=9, color='#666666')
+        
+        # Set axis limits and remove axes
+        ax.set_xlim(-0.5, 2.5)
+        ax.set_ylim(-5, 105)
+        ax.axis('off')
+        
+        plt.tight_layout()
+        
+        # Save to bytes
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png', dpi=150, bbox_inches='tight', 
+                   facecolor='white', edgecolor='none', pad_inches=0.1)
+        plt.close(fig)
+        buffer.seek(0)
+        
+        return buffer.getvalue()
+
     def _generate_awareness_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
         """Generate heatmap image for Awareness assessments (5 domains, 5 questions each)."""
         heatmap_data = report_data.get('heatmap_data', {})
