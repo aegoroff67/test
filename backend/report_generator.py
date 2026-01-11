@@ -750,6 +750,18 @@ The findings should be approximately 600-800 words with clear section headers.""
                 print(f"ERROR generating AI governance_interpretation: {e}")
                 narratives['governance_interpretation'] = ""
         
+        # Generate Readiness Interpretation (AI-4)
+        if cached_narratives.get('readiness_interpretation'):
+            narratives['readiness_interpretation'] = cached_narratives['readiness_interpretation']
+            print(f"DEBUG: Using cached AI readiness_interpretation narrative")
+        else:
+            try:
+                narratives['readiness_interpretation'] = await self._generate_ai_readiness_interpretation(report_data)
+                print(f"DEBUG: Generated new AI readiness_interpretation narrative ({len(narratives['readiness_interpretation'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI readiness_interpretation: {e}")
+                narratives['readiness_interpretation'] = ""
+        
         # Cache all generated narratives to database
         if narratives and assessment_id and db:
             try:
