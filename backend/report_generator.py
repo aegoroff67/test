@@ -3817,7 +3817,7 @@ Each cell represents the score for a specific question, enabling identification 
                 "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
                 "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
                 "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership & Vision"},
-                "Digital Readiness": {"id": "Digital Readiness", "name": "Digital Readiness"}
+                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data & Digital Readiness"}
             }
         else:
             # Original logic for System/other assessments
@@ -4198,7 +4198,7 @@ Each cell represents the score for a specific question, enabling identification 
                 "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
                 "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
                 "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership & Vision"},
-                "Digital Readiness": {"id": "Digital Readiness", "name": "Digital Readiness"}
+                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data & Digital Readiness"}
             }
         else:
             # Original logic for System/other assessments
