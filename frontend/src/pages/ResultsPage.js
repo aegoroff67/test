@@ -97,7 +97,6 @@ function ResultsPage() {
   const [showFrameworkCoverage, setShowFrameworkCoverage] = useState(false);
   const [commentaryExpanded, setCommentaryExpanded] = useState(false);
   const [actionStepsPrioritization, setActionStepsPrioritization] = useState('smart'); // 'smart' or 'domain' - for System assessments
-  const [useAI, setUseAI] = useState(true); // Enable AI-generated narratives in reports
 
   // Calculate top 3 action step question IDs based on prioritization method
   // This is used to show badges on the heatmap for System assessments
