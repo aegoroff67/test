@@ -1100,6 +1100,75 @@ Do not use bullet points or headings."""
             print(f"ERROR in _generate_ai_domain_patterns: {e}")
             return ""
 
+    async def _generate_ai_action_interpretation(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Action Interpretation Narrative for Awareness assessments.
+        Used in: Section 5 – Prioritised Awareness Actions
+        Variable target: ai.action_interpretation
+        """
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            
+            # Get overall tier
+            overall = report_data.get('overall', {})
+            tier = overall.get('tier', 'Unknown')
+            
+            # Get actions and extract top 5 from each priority
+            actions = report_data.get('actions', {})
+            high_actions = actions.get('high', [])[:5]
+            medium_actions = actions.get('medium', [])[:5]
+            low_actions = actions.get('low', [])[:5]
+            
+            # Format actions for prompt
+            def format_actions(action_list):
+                if not action_list:
+                    return "None"
+                return "; ".join([a.get('text', a.get('sector_action', 'Action'))[:100] for a in action_list])
+            
+            high_text = format_actions(high_actions)
+            medium_text = format_actions(medium_actions)
+            low_text = format_actions(low_actions)
+            
+            system_prompt = """You are generating a short narrative to explain the prioritised awareness actions selected for this report."""
+            
+            user_prompt = f"""Your task is to explain why these actions matter at the current awareness stage and how they support safe progress.
+
+CRITICAL RULES:
+- Do NOT add new actions.
+- Do NOT introduce timelines or delivery commitments.
+- Do NOT escalate urgency beyond awareness stage.
+- Reinforce that actions are intentionally limited.
+
+INPUT DATA:
+- Awareness tier: {tier}
+- High priority actions: {high_text}
+- Medium priority actions: {medium_text}
+- Low priority actions: {low_text}
+
+OUTPUT REQUIREMENTS:
+- 80–120 words
+- Reassuring, practical tone
+- Emphasise focus, momentum, and learning
+- Explicitly state that additional opportunities exist beyond those shown
+
+No bullet points or headings."""
+
+            # Initialize LLM chat
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"awareness_action_interpretation_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            # Send message and get response
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_ai_action_interpretation: {e}")
+            return ""
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
