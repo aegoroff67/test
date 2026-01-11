@@ -3165,6 +3165,9 @@ Each cell represents the score for a specific question, enabling identification 
                 # Heatmap image for direct placeholder replacement
                 'heatmap_image': heatmap_inline,
                 
+                # Awareness bar image (alias for heatmap_image for Awareness template)
+                'awareness_bar_image': heatmap_inline,
+                
                 # Radar chart image for direct placeholder replacement
                 'radar_chart_image': radar_chart_inline,
                 
