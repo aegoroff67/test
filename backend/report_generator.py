@@ -3923,9 +3923,20 @@ Each cell represents the score for a specific question, enabling identification 
         else:
             overall_maturity = "Basic"
         
+        # Calculate overall_tier for Awareness assessments (Leading/Established/Developing/Foundational)
+        overall_tier = self._calculate_tier(overall_percentage)
+        
+        # Identify top strengths and gaps from domain_scores
+        sorted_domains = sorted(domain_scores, key=lambda x: x['percentage'], reverse=True)
+        top_strengths = [d['domain_name'] for d in sorted_domains if d['percentage'] >= 75][:3]
+        top_gaps = [d['domain_name'] for d in sorted_domains if d['percentage'] < 75][-3:]  # Bottom performers
+        
         summary_data = {
             "overall_percentage": overall_percentage,
             "overall_maturity": overall_maturity,
+            "overall_tier": overall_tier,
+            "top_strengths": top_strengths,
+            "top_gaps": top_gaps,
             "domain_scores": domain_scores
         }
         
@@ -4304,9 +4315,20 @@ Each cell represents the score for a specific question, enabling identification 
         else:
             overall_maturity = "Basic"
         
+        # Calculate overall_tier for Awareness assessments (Leading/Established/Developing/Foundational)
+        overall_tier = self._calculate_tier(overall_percentage)
+        
+        # Identify top strengths and gaps from domain_scores
+        sorted_domains = sorted(domain_scores, key=lambda x: x['percentage'], reverse=True)
+        top_strengths = [d['domain_name'] for d in sorted_domains if d['percentage'] >= 75][:3]
+        top_gaps = [d['domain_name'] for d in sorted_domains if d['percentage'] < 75][-3:]  # Bottom performers
+        
         summary_data = {
             "overall_percentage": overall_percentage,
             "overall_maturity": overall_maturity,
+            "overall_tier": overall_tier,
+            "top_strengths": top_strengths,
+            "top_gaps": top_gaps,
             "domain_scores": domain_scores
         }
         
