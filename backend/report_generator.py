@@ -3361,6 +3361,31 @@ Each cell represents the score for a specific question, enabling identification 
             "awareness_info": assessment.get('awareness_info') or {},  # Pass awareness_info for Awareness assessments
         }
         
+        # Generate AI narratives for Awareness assessments if use_ai is enabled
+        if use_ai and self.assessment_type == 'Awareness':
+            print("=== GENERATING AWARENESS AI NARRATIVES ===")
+            try:
+                # Build report_data for AI narrative generation
+                ai_report_data = {
+                    'organization_name': (assessment.get('awareness_info') or {}).get('org_name', current_user.organization_name),
+                    'overall': {
+                        'tier': summary_data.get('overall_tier', 'Unknown'),
+                        'percentage': summary_data.get('overall_percentage', 0),
+                        'score': summary_data.get('overall_percentage', 0),
+                    },
+                    'strengths': summary_data.get('top_strengths', []),
+                    'gaps': summary_data.get('top_gaps', []),
+                    'sector_name': (assessment.get('awareness_info') or {}).get('industry', 'Unknown'),
+                    'industry': (assessment.get('awareness_info') or {}).get('industry', 'Unknown'),
+                }
+                
+                ai_narratives = await self._generate_awareness_ai_narratives(ai_report_data, assessment, db)
+                assessment_data['ai_narratives'] = ai_narratives
+                print(f"DEBUG: AI narratives generated: {list(ai_narratives.keys())}")
+            except Exception as e:
+                print(f"ERROR generating Awareness AI narratives: {e}")
+                assessment_data['ai_narratives'] = {}
+        
         print(f"DEBUG: current_user type: {type(current_user)}")
         print(f"DEBUG: current_user.organization_name: {getattr(current_user, 'organization_name', 'NOT SET')}")
         
