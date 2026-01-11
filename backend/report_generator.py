@@ -786,6 +786,18 @@ The findings should be approximately 600-800 words with clear section headers.""
                 print(f"ERROR generating AI action_interpretation: {e}")
                 narratives['action_interpretation'] = ""
         
+        # Generate Next Focus (AI-7)
+        if cached_narratives.get('next_focus'):
+            narratives['next_focus'] = cached_narratives['next_focus']
+            print(f"DEBUG: Using cached AI next_focus narrative")
+        else:
+            try:
+                narratives['next_focus'] = await self._generate_ai_next_focus(report_data)
+                print(f"DEBUG: Generated new AI next_focus narrative ({len(narratives['next_focus'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI next_focus: {e}")
+                narratives['next_focus'] = ""
+        
         # Cache all generated narratives to database
         if narratives and assessment_id and db:
             try:
