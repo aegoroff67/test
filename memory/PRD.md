@@ -45,6 +45,8 @@ Build a comprehensive AI assessment platform that generates detailed DOCX report
 - **All 6 AI Narratives**: Working and rendering correctly in DOCX
 - **Domain-Level Overview Table**: Properly displays domain names, tiers, and scores
 - **Template Variable Escaping**: Ampersands (`&`) properly escaped as `&amp;`
+- **Bug Fix: AI Tier "Unknown"**: Fixed missing `overall_tier` in summary_data
+- **Added Awareness-specific tier calculation**: Established/Developing/Emerging/Introductory (86/66/41/0%)
 
 ### Previous Work
 - Full authentication system (JWT-based)
