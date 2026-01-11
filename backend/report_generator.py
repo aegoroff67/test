@@ -3770,7 +3770,7 @@ Each cell represents the score for a specific question, enabling identification 
                 "AU": "Awareness & Understanding",
                 "GT": "Governance & Trust Foundations",
                 "PS": "People & Skills",
-                "LV": "Leadership Vision",
+                "LV": "Leadership & Vision",
                 "DR": "Digital Readiness"
             }
             
@@ -4151,7 +4151,7 @@ Each cell represents the score for a specific question, enabling identification 
                 "AU": "Awareness & Understanding",
                 "GT": "Governance & Trust Foundations",
                 "PS": "People & Skills",
-                "LV": "Leadership Vision",
+                "LV": "Leadership & Vision",
                 "DR": "Digital Readiness"
             }
             
