@@ -3511,6 +3511,9 @@ Each cell represents the score for a specific question, enabling identification 
                     
                     # Full awareness_info object for flexibility
                     'awareness_info': awareness_info,
+                    
+                    # Pre-formatted Results Summary text (matches frontend ResultsPage.js)
+                    'results_summary_text': self._generate_results_summary_text(report_data),
                 })
                 
                 # Build strengths list (domains scoring >= 70%)
