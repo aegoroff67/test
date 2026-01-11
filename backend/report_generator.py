@@ -1666,6 +1666,50 @@ Output only the focus statement, nothing else."""
         else:
             return "Introductory"
     
+    def _generate_results_summary_text(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate the complete Results Summary paragraph for Awareness assessments.
+        Matches the frontend ResultsPage.js Results Summary section.
+        """
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Introductory')
+        score = overall.get('score', 0)
+        
+        # Get organization name from awareness_info or org
+        awareness_info = report_data.get('awareness_info') or {}
+        org_name = awareness_info.get('org_name') or report_data.get('org', {}).get('name', 'Your organisation')
+        
+        # Get sector benchmark comparison if available
+        sector_average = report_data.get('sector_average')
+        sector_name = awareness_info.get('industry') or report_data.get('sector_name', '')
+        
+        # Build the opening sentence
+        summary = f"Your organisation demonstrates {tier} AI awareness with an overall score of {score:.1f}%"
+        
+        # Add sector comparison if available
+        if sector_average is not None and sector_name:
+            if score > sector_average:
+                comparison = "above"
+            elif score < sector_average:
+                comparison = "below"
+            else:
+                comparison = "equal to"
+            summary += f", which is {comparison} the {sector_name} sector AI awareness average of {sector_average:.0f}%."
+        else:
+            summary += "."
+        
+        # Add tier-specific explanatory text
+        if tier == 'Established':
+            summary += " Your organisation demonstrates strong and well-distributed AI awareness. Leaders and staff show clear understanding of AI concepts, realistic capabilities, and potential benefits and risks. This puts you in an excellent position to progress into formal readiness assessment and begin exploring structured AI initiatives or early pilots."
+        elif tier == 'Developing':
+            summary += " AI awareness is growing consistently across the organisation. Many individuals understand core concepts and can identify relevant opportunities, though some knowledge gaps remain. Strengthening leadership engagement, deepening practical understanding, and establishing light governance foundations will support your transition into readiness assessment."
+        elif tier == 'Emerging':
+            summary += " Your organisation is showing early signs of AI awareness, with isolated pockets of understanding and increasing curiosity. While some staff recognise potential use cases, overall knowledge remains inconsistent. Focus on foundational education, awareness sessions, and building shared language around AI to prepare for the next stage of capability development."
+        else:  # Introductory
+            summary += " Your organisation is at the beginning of its AI awareness journey. Most staff and leaders are unfamiliar with AI fundamentals, potential applications, or key risks. Priority should be placed on introductory education, building basic literacy, and fostering leadership interest before moving into deeper assessments or planning activities."
+        
+        return summary
+    
     def _load_recommendations_lookup(self) -> Dict[str, Any]:
         """Load recommendations lookup from JSON file."""
         import json
