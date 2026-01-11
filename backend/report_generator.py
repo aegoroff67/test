@@ -892,6 +892,111 @@ Do not use bullet points or headings."""
             print(f"ERROR in _generate_ai_context_interpretation: {e}")
             return ""
 
+    async def _generate_ai_governance_interpretation(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Governance Foundations Interpretation narrative for Awareness assessments.
+        Used in: Section 3 – Governance Foundations
+        Variable target: ai.governance_interpretation
+        """
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            
+            # Extract GT domain data from heatmap_data
+            heatmap_data = report_data.get('heatmap_data', {})
+            domains = heatmap_data.get('domains', [])
+            
+            # Find the GT (Governance & Trust Foundations) domain
+            gt_domain = None
+            gt_score = 0
+            gt_questions = []
+            for domain in domains:
+                domain_name = domain.get('name', '')
+                if 'Governance' in domain_name or domain_name.startswith('GT'):
+                    gt_domain = domain
+                    questions = domain.get('questions', [])
+                    scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
+                    if scores:
+                        gt_score = (sum(scores) / (len(scores) * 4)) * 100
+                    gt_questions = questions
+                    break
+            
+            # Extract individual question scores for GT domain
+            gt_question_scores = {}
+            if gt_questions:
+                for q in gt_questions:
+                    q_code = q.get('code', q.get('question_id', ''))
+                    q_score = q.get('score', 0)
+                    gt_question_scores[q_code] = q_score
+            
+            # Get overall score and tier for context
+            overall = report_data.get('overall', {})
+            overall_tier = overall.get('tier', 'Unknown')
+            overall_score = overall.get('percentage', overall.get('score', 0))
+            
+            # Get organization name and sector
+            org_name = report_data.get('organization_name', 'The organisation')
+            sector = report_data.get('sector_name', report_data.get('industry', 'Unknown'))
+            
+            # Format GT question scores for prompt
+            gt_scores_text = "\n".join([f"- {code}: {score}/4" for code, score in gt_question_scores.items()]) if gt_question_scores else "No detailed scores available"
+            
+            system_prompt = """You are generating the Governance Foundations Interpretation narrative for an AI Awareness & Foundations Assessment report."""
+            
+            user_prompt = f"""Your task is to interpret the organisation's readiness for AI governance based on their Governance & Trust Foundations domain results.
+
+CRITICAL RULES:
+- Use only the data provided.
+- Do NOT invent specific policies, committees, or governance structures.
+- Do NOT assume the organisation has or lacks any particular control.
+- Frame all observations as "the results suggest" or "this indicates".
+- Do NOT provide recommendations – those appear elsewhere in the report.
+- Do NOT use bullet points.
+- Keep the tone neutral and constructive.
+
+INPUT DATA:
+- Organisation name: {org_name}
+- Sector: {sector}
+- Overall awareness tier: {overall_tier}
+- Overall awareness score: {overall_score:.0f}%
+- Governance & Trust Foundations domain score: {gt_score:.0f}%
+
+GT DOMAIN QUESTION SCORES:
+{gt_scores_text}
+
+CONTEXT FOR GT QUESTIONS:
+- GT-01: Privacy and data-handling awareness
+- GT-02: Responsible AI use guidelines
+- GT-03: Transparency about AI tools and pilots
+- GT-04: AI risk-check processes
+- GT-05: Approval pathways and oversight
+
+OUTPUT REQUIREMENTS:
+- 2–3 short paragraphs (150–200 words total)
+- Plain English, non-technical
+- Focus on what the governance scores reveal about the organisation's foundation for responsible AI adoption
+- Address both areas of relative strength and areas where foundations may need strengthening
+- Emphasise that governance foundations support safe experimentation and scaling
+
+Write a narrative interpretation that helps leadership understand their governance readiness for AI without making specific recommendations.
+
+Do not include headings or formatting."""
+
+            # Initialize LLM chat
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"awareness_governance_interpretation_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            # Send message and get response
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_ai_governance_interpretation: {e}")
+            return ""
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
