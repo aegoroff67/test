@@ -1181,6 +1181,70 @@ No bullet points or headings."""
             print(f"ERROR in _generate_ai_action_interpretation: {e}")
             return ""
 
+    async def _generate_ai_next_focus(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI-powered next focus statement for Awareness assessments.
+        Used in: Executive Snapshot section
+        Variable target: next_focus
+        """
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            
+            # Get overall tier and gaps
+            overall = report_data.get('overall', {})
+            tier = overall.get('tier', 'Developing')
+            
+            # Build gaps summary from domains
+            heatmap_data = report_data.get('heatmap_data', {})
+            domains = heatmap_data.get('domains', [])
+            
+            gaps = []
+            for domain in domains:
+                domain_name = domain.get('name', 'Unknown')
+                questions = domain.get('questions', [])
+                scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
+                if scores:
+                    percentage = (sum(scores) / (len(scores) * 4)) * 100
+                    if percentage < 50:
+                        gaps.append(f"{domain_name} ({percentage:.0f}%)")
+            
+            gaps_summary = ', '.join(gaps[:3]) if gaps else 'No critical gaps identified'
+            
+            system_prompt = """You are generating a short "next focus" statement for an AI Awareness & Foundations Assessment executive summary."""
+            
+            user_prompt = f"""Generate a short "next focus" statement (6–12 words) that reflects the organisation's current AI awareness tier and top gaps.
+
+Rules:
+- One sentence fragment only
+- No recommendations or timelines
+- No technical language
+- Suitable for an executive summary
+- A short, plain-English focus statement (6–12 words)
+- Action-oriented but non-prescriptive
+- Aligned to the current awareness stage
+
+Inputs:
+- Awareness tier: {tier}
+- Top gaps: {gaps_summary}
+
+Output only the focus statement, nothing else."""
+
+            # Initialize LLM chat
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"awareness_next_focus_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            # Send message and get response
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_ai_next_focus: {e}")
+            return "Build foundational AI awareness across all domains"
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
