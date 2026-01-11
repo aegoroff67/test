@@ -3129,11 +3129,17 @@ Each cell represents the score for a specific question, enabling identification 
             top_3_strengths = self._format_top_3_strengths(report_data)
             top_3_gaps = self._format_top_3_gaps(report_data)
             
+            # For Awareness assessments, get info from awareness_info
+            awareness_info = report_data.get('awareness_info') or {}
+            
             # Prepare template context matching the exact template structure and placeholders
             template_context = {
-                # Organization information
+                # Organization information - populated from awareness_info for Awareness assessments
                 'org': {
-                    'name': report_data.get('org', {}).get('name', 'Organization')
+                    'name': awareness_info.get('org_name') or report_data.get('org', {}).get('name', 'Organization'),
+                    'industry': awareness_info.get('industry', ''),
+                    'size': awareness_info.get('org_size', ''),
+                    'business_unit': awareness_info.get('business_unit', ''),
                 },
                 
                 # Assessment information (date will be formatted by formatDate function)
