@@ -834,24 +834,6 @@ function ResultsPage() {
                   )}
                 </Button>
               </div>
-              
-              {/* Use AI Toggle - Only show for Awareness assessments */}
-              {assessmentType === 'Awareness' && (
-                <div className="flex items-center gap-2">
-                  <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap" style={{ width: '55px' }}>
-                  </div>
-                  <label className="flex items-center gap-1.5 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={useAI}
-                      onChange={(e) => setUseAI(e.target.checked)}
-                      className="w-3 h-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      data-testid="use-ai-toggle"
-                    />
-                    <span className="text-[10px] text-gray-600">Use AI-generated narratives</span>
-                  </label>
-                </div>
-              )}
 
               {/* Button 2 - Executive Summary */}
               <div className="flex items-center gap-2">
