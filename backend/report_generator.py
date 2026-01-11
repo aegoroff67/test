@@ -3473,16 +3473,23 @@ Each cell represents the score for a specific question, enabling identification 
                 else:
                     template_context['gaps_summary'] = 'No critical gaps identified'
                 
-                # Build next_focus recommendation based on tier
-                tier = template_context.get('overall', {}).get('tier', 'Developing')
-                if tier == 'Foundational':
-                    template_context['next_focus'] = 'Establish basic AI awareness and governance foundations'
-                elif tier == 'Developing':
-                    template_context['next_focus'] = 'Build structured awareness programs and refine governance frameworks'
-                elif tier == 'Established':
-                    template_context['next_focus'] = 'Deepen AI literacy and prepare for readiness assessment'
+                # Build next_focus - use AI-generated version if available, otherwise fallback
+                ai_narratives = report_data.get('ai_narratives', {})
+                ai_next_focus = ai_narratives.get('next_focus', '')
+                
+                if ai_next_focus:
+                    template_context['next_focus'] = ai_next_focus
                 else:
-                    template_context['next_focus'] = 'Maintain leadership position and drive AI innovation'
+                    # Fallback: Build next_focus recommendation based on tier
+                    tier = template_context.get('overall', {}).get('tier', 'Developing')
+                    if tier == 'Foundational':
+                        template_context['next_focus'] = 'Establish basic AI awareness and governance foundations'
+                    elif tier == 'Developing':
+                        template_context['next_focus'] = 'Build structured awareness programs and refine governance frameworks'
+                    elif tier == 'Established':
+                        template_context['next_focus'] = 'Deepen AI literacy and prepare for readiness assessment'
+                    else:
+                        template_context['next_focus'] = 'Maintain leadership position and drive AI innovation'
                 
                 # Build priority_actions list with priority and text
                 priority_actions = []
