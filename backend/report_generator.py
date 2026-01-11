@@ -2962,6 +2962,16 @@ Each cell represents the score for a specific question, enabling identification 
                     first_m = template_context['sector_actions_medium_top5'][0]
                     print(f"  MEDIUM First: question_id='{first_m.get('question_id')}', domain='{first_m.get('domain')}')")
                 
+                # Add AI-generated narratives if available
+                ai_narratives = report_data.get('ai_narratives', {})
+                template_context['ai'] = {
+                    'executive_snapshot': ai_narratives.get('executive_snapshot', ''),
+                    # Future AI narratives will be added here
+                }
+                print(f"DEBUG: Added AI narratives to template context: {list(template_context['ai'].keys())}")
+                if template_context['ai'].get('executive_snapshot'):
+                    print(f"  - executive_snapshot length: {len(template_context['ai']['executive_snapshot'])} chars")
+                
                 # Build questions list with full details
                 questions = []
                 questions_data = report_data.get('questions_data', [])
