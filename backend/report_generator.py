@@ -3341,7 +3341,7 @@ Each cell represents the score for a specific question, enabling identification 
                     'governance_interpretation': ai_narratives.get('governance_interpretation', ''),
                     'readiness_interpretation': ai_narratives.get('readiness_interpretation', ''),
                     'domain_patterns': ai_narratives.get('domain_patterns', ''),
-                    # Future AI narratives will be added here (AI-6)
+                    'action_interpretation': ai_narratives.get('action_interpretation', ''),
                 }
                 print(f"DEBUG: Added AI narratives to template context: {list(template_context['ai'].keys())}")
                 if template_context['ai'].get('executive_snapshot'):
@@ -3354,6 +3354,8 @@ Each cell represents the score for a specific question, enabling identification 
                     print(f"  - readiness_interpretation length: {len(template_context['ai']['readiness_interpretation'])} chars")
                 if template_context['ai'].get('domain_patterns'):
                     print(f"  - domain_patterns length: {len(template_context['ai']['domain_patterns'])} chars")
+                if template_context['ai'].get('action_interpretation'):
+                    print(f"  - action_interpretation length: {len(template_context['ai']['action_interpretation'])} chars")
                 
                 # Build questions list with full details
                 questions = []
