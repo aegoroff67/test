@@ -3035,7 +3035,8 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 result.append({
                     'name': domain_name,
-                    'score': f"{round(avg_pct)}%",  # Format as string with % for template
+                    'score': round(avg_pct, 1),  # Keep as number for comparisons
+                    'score_display': f"{round(avg_pct)}%",  # Formatted string for template
                     'tier': tier,
                     'question_count': len(scores),
                     'low_scoring_question_count': len(low_scoring),
