@@ -960,6 +960,58 @@ Do not use bullet points."""
             print(f"ERROR in _generate_ai_governance_interpretation: {e}")
             return ""
 
+    async def _generate_ai_readiness_interpretation(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Digital & Data Readiness Interpretation narrative for Awareness assessments.
+        Used in: Section 3 – Digital & Data Readiness Signals
+        Variable target: ai.readiness_interpretation
+        """
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            
+            # Get readiness signals from awareness_info
+            awareness_info = report_data.get('awareness_info', {})
+            digital_initiatives_level = awareness_info.get('digital_initiatives_level', 'Unknown')
+            data_skill_confidence = awareness_info.get('data_skill_confidence', 'Unknown')
+            openness_to_learning = awareness_info.get('openness_to_learning', 'Unknown')
+            
+            system_prompt = """You are generating an interpretation of digital and data readiness signals for an AI Awareness & Foundations Assessment."""
+            
+            user_prompt = f"""Your task is to explain what the organisation's reported readiness signals imply for the pace and style of AI awareness activities.
+
+CRITICAL RULES:
+- Do NOT suggest deploying AI systems.
+- Do NOT reference specific tools or technologies.
+- Focus on learning readiness, not capability gaps.
+
+INPUT DATA:
+- Digital / automation activity: {digital_initiatives_level}
+- Data & digital skill confidence: {data_skill_confidence}
+- Openness to AI learning: {openness_to_learning}
+
+OUTPUT REQUIREMENTS:
+- 1 short paragraph (50–80 words)
+- Calm, supportive tone
+- Emphasise appropriate pacing and framing of awareness initiatives
+
+No headings or bullet points."""
+
+            # Initialize LLM chat
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"awareness_readiness_interpretation_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            # Send message and get response
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_ai_readiness_interpretation: {e}")
+            return ""
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
