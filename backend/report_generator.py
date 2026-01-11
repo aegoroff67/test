@@ -1648,6 +1648,24 @@ Output only the focus statement, nothing else."""
         else:
             return "Foundational"
     
+    def _calculate_awareness_tier(self, percentage: float) -> str:
+        """Calculate the awareness tier for AI Awareness & Foundations assessments.
+        
+        Categories:
+        - Established (86-100%): Ready to Progress
+        - Developing (66-85%): Building Readiness
+        - Emerging (41-65%): Exploring Opportunities
+        - Introductory (0-40%): Early Awareness
+        """
+        if percentage >= 86:
+            return "Established"
+        elif percentage >= 66:
+            return "Developing"
+        elif percentage >= 41:
+            return "Emerging"
+        else:
+            return "Introductory"
+    
     def _load_recommendations_lookup(self) -> Dict[str, Any]:
         """Load recommendations lookup from JSON file."""
         import json
