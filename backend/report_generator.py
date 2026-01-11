@@ -3449,8 +3449,9 @@ Each cell represents the score for a specific question, enabling identification 
             print("=== GENERATING AWARENESS AI NARRATIVES ===")
             try:
                 # Build report_data for AI narrative generation
+                awareness_info = assessment.get('awareness_info') or {}
                 ai_report_data = {
-                    'organization_name': (assessment.get('awareness_info') or {}).get('org_name', current_user.organization_name),
+                    'organization_name': awareness_info.get('org_name', current_user.organization_name),
                     'overall': {
                         'tier': summary_data.get('overall_tier', 'Unknown'),
                         'percentage': summary_data.get('overall_percentage', 0),
@@ -3458,8 +3459,9 @@ Each cell represents the score for a specific question, enabling identification 
                     },
                     'strengths': summary_data.get('top_strengths', []),
                     'gaps': summary_data.get('top_gaps', []),
-                    'sector_name': (assessment.get('awareness_info') or {}).get('industry', 'Unknown'),
-                    'industry': (assessment.get('awareness_info') or {}).get('industry', 'Unknown'),
+                    'sector_name': awareness_info.get('industry', 'Unknown'),
+                    'industry': awareness_info.get('industry', 'Unknown'),
+                    'awareness_info': awareness_info,  # Pass full awareness_info for AI-2
                 }
                 
                 ai_narratives = await self._generate_awareness_ai_narratives(ai_report_data, assessment, db)
