@@ -3117,13 +3117,16 @@ Each cell represents the score for a specific question, enabling identification 
                 template_context['ai'] = {
                     'executive_snapshot': ai_narratives.get('executive_snapshot', ''),
                     'context_interpretation': ai_narratives.get('context_interpretation', ''),
-                    # Future AI narratives will be added here
+                    'governance_interpretation': ai_narratives.get('governance_interpretation', ''),
+                    # Future AI narratives will be added here (AI-4, AI-5, AI-6)
                 }
                 print(f"DEBUG: Added AI narratives to template context: {list(template_context['ai'].keys())}")
                 if template_context['ai'].get('executive_snapshot'):
                     print(f"  - executive_snapshot length: {len(template_context['ai']['executive_snapshot'])} chars")
                 if template_context['ai'].get('context_interpretation'):
                     print(f"  - context_interpretation length: {len(template_context['ai']['context_interpretation'])} chars")
+                if template_context['ai'].get('governance_interpretation'):
+                    print(f"  - governance_interpretation length: {len(template_context['ai']['governance_interpretation'])} chars")
                 
                 # Build questions list with full details
                 questions = []
