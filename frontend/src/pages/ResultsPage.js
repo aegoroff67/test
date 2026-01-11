@@ -471,10 +471,12 @@ function ResultsPage() {
       console.log('=== GENERATING REPORT ===');
       console.log('Current viewMode:', viewMode);
       console.log('Sending view_type:', viewMode);
+      console.log('Use AI:', useAI);
       
       const response = await axios.get(`${API}/assessments/${id}/report`, {
         params: {
-          view_type: viewMode  // 'heatmap' or 'radar'
+          view_type: viewMode,  // 'heatmap' or 'radar'
+          use_ai: useAI  // Enable AI-generated narratives
         },
         responseType: 'blob', // Important for handling binary DOCX data
         headers: {
