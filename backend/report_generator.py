@@ -3757,6 +3757,88 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - gaps: {len(gaps)} items")
                 print(f"    - priority_actions: {len(priority_actions)} items")
                 print(f"    - questions: {len(questions)} items")
+            
+            # Add Readiness-specific variables if this is a Readiness assessment
+            elif self.assessment_type == 'Readiness':
+                readiness_info = report_data.get('readiness_info') or {}
+                
+                # Add all readiness_info fields as top-level variables
+                template_context.update({
+                    # Organization and contact info
+                    'org_name': readiness_info.get('org_name', ''),
+                    'contact_name': readiness_info.get('contact_name', ''),
+                    'contact_email': readiness_info.get('contact_email', ''),
+                    
+                    # Organization context
+                    'industry': readiness_info.get('industry', ''),
+                    'org_size': readiness_info.get('org_size', ''),
+                    'business_unit': readiness_info.get('business_unit', ''),
+                    
+                    # Strategic Intent
+                    'ai_motivation': readiness_info.get('ai_motivation', ''),
+                    'leadership_commitment': readiness_info.get('leadership_commitment', ''),
+                    'ai_strategy_status': readiness_info.get('ai_strategy_status', ''),
+                    'ai_risk_awareness': readiness_info.get('ai_risk_awareness', ''),
+                    
+                    # Governance & Ethics
+                    'governance_foundations': readiness_info.get('governance_foundations', []),
+                    'decision_ownership': readiness_info.get('decision_ownership', ''),
+                    'ethical_principles': readiness_info.get('ethical_principles', []),
+                    
+                    # Data & Capability
+                    'data_maturity': readiness_info.get('data_maturity', ''),
+                    'ai_capability': readiness_info.get('ai_capability', ''),
+                    'current_tools': readiness_info.get('current_tools', []),
+                    'poc_status': readiness_info.get('poc_status', ''),
+                    
+                    # Assessment context
+                    'assessor_name': readiness_info.get('assessor_name', ''),
+                    'assessment_date': readiness_info.get('assessment_date', ''),
+                    'framework_version': readiness_info.get('framework_version', ''),
+                    
+                    # Full readiness_info object for flexibility
+                    'readiness_info': readiness_info,
+                    
+                    # Pre-formatted Results Summary text (matches frontend ResultsPage.js)
+                    'results_summary_text': self._generate_readiness_results_summary_text(report_data),
+                })
+                
+                # Build strengths list (domains scoring >= 70%)
+                strengths = []
+                for d in template_context.get('domains', []):
+                    score = d.get('score', 0)
+                    if isinstance(score, str):
+                        score = float(score.replace('%', ''))
+                    if score >= 70:
+                        strengths.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
+                template_context['strengths'] = strengths
+                
+                if strengths:
+                    template_context['strengths_summary'] = ', '.join(strengths[:3])
+                else:
+                    template_context['strengths_summary'] = 'Building foundational readiness across all domains'
+                
+                # Build gaps list (domains scoring < 50%)
+                gaps = []
+                for d in template_context.get('domains', []):
+                    score = d.get('score', 0)
+                    if isinstance(score, str):
+                        score = float(score.replace('%', ''))
+                    if score < 50:
+                        gaps.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
+                template_context['gaps'] = gaps
+                
+                if gaps:
+                    template_context['gaps_summary'] = ', '.join(gaps[:3])
+                else:
+                    template_context['gaps_summary'] = 'No critical gaps identified'
+                
+                print(f"  Readiness-specific variables added:")
+                print(f"    - org_name: {template_context.get('org_name', 'N/A')}")
+                print(f"    - industry: {template_context.get('industry', 'N/A')}")
+                print(f"    - strengths: {len(strengths)} items")
+                print(f"    - gaps: {len(gaps)} items")
+            
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
             print(f"  Overall score: {template_context['overall']['score']}")
