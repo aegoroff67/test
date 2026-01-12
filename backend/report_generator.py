@@ -1666,6 +1666,24 @@ Output only the focus statement, nothing else."""
         else:
             return "Introductory"
     
+    def _calculate_readiness_tier(self, percentage: float) -> str:
+        """Calculate the readiness tier for AI Readiness assessments.
+        
+        Categories:
+        - Leading (86-100%): AI-Ready
+        - Established (66-85%): Operational Readiness
+        - Developing (41-65%): Emerging Capability
+        - Foundational (0-40%): Limited Foundations
+        """
+        if percentage >= 86:
+            return "Leading"
+        elif percentage >= 66:
+            return "Established"
+        elif percentage >= 41:
+            return "Developing"
+        else:
+            return "Foundational"
+    
     def _generate_results_summary_text(self, report_data: Dict[str, Any]) -> str:
         """
         Generate the complete Results Summary paragraph for Awareness assessments.
