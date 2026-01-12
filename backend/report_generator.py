@@ -4050,9 +4050,11 @@ Each cell represents the score for a specific question, enabling identification 
         else:
             overall_maturity = "Basic"
         
-        # Calculate overall_tier for Awareness assessments (Established/Developing/Emerging/Introductory)
+        # Calculate overall_tier based on assessment type
         if self.assessment_type == 'Awareness':
             overall_tier = self._calculate_awareness_tier(overall_percentage)
+        elif self.assessment_type == 'Readiness':
+            overall_tier = self._calculate_readiness_tier(overall_percentage)
         else:
             overall_tier = self._calculate_tier(overall_percentage)
         
@@ -4445,9 +4447,11 @@ Each cell represents the score for a specific question, enabling identification 
         else:
             overall_maturity = "Basic"
         
-        # Calculate overall_tier for Awareness assessments (Established/Developing/Emerging/Introductory)
+        # Calculate overall_tier based on assessment type
         if self.assessment_type == 'Awareness':
             overall_tier = self._calculate_awareness_tier(overall_percentage)
+        elif self.assessment_type == 'Readiness':
+            overall_tier = self._calculate_readiness_tier(overall_percentage)
         else:
             overall_tier = self._calculate_tier(overall_percentage)
         
