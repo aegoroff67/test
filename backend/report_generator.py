@@ -1728,6 +1728,50 @@ Output only the focus statement, nothing else."""
         
         return summary
     
+    def _generate_readiness_results_summary_text(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate the complete Results Summary paragraph for Readiness assessments.
+        Matches the frontend ResultsPage.js Results Summary section.
+        """
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        # Get organization name from readiness_info or org
+        readiness_info = report_data.get('readiness_info') or {}
+        org_name = readiness_info.get('org_name') or report_data.get('org', {}).get('name', 'The organisation')
+        
+        # Get sector benchmark comparison if available
+        sector_average = report_data.get('sector_average')
+        sector_name = readiness_info.get('industry') or report_data.get('sector_name', '')
+        
+        # Build the opening sentence
+        summary = f"The results indicate that {org_name} has achieved an overall AI readiness score of {score:.1f}%, placing the organization within the {tier} readiness category"
+        
+        # Add sector comparison if available
+        if sector_average is not None and sector_name:
+            if score > sector_average:
+                comparison = "above"
+            elif score < sector_average:
+                comparison = "below"
+            else:
+                comparison = "equal to"
+            summary += f", which is {comparison} the {sector_name} sector AI readiness average of {sector_average:.0f}%."
+        else:
+            summary += "."
+        
+        # Add tier-specific explanatory text
+        if tier == 'Leading':
+            summary += " This rating reflects comprehensive AI readiness across all foundational domains. The organization demonstrates strong governance, robust data practices, mature technology infrastructure, capable workforce, and embedded ethical frameworks. Leadership actively champions responsible AI, and the organization is well-prepared to deploy AI systems confidently and safely."
+        elif tier == 'Established':
+            summary += " This rating reflects strong AI readiness foundations with governance structures, data management practices, and technology capabilities in place. The organization has clear policies, engaged leadership, and growing staff capability. Further strengthening of continuous improvement processes, stakeholder engagement, and advanced risk management will position the organization for leading-edge AI adoption."
+        elif tier == 'Developing':
+            summary += " This rating reflects emerging AI readiness with foundational elements beginning to take shape. Some governance, data, and technology practices exist, but consistency and maturity vary. Priority should be on formalizing AI governance frameworks, strengthening data quality and security, building staff capability, and establishing clear ethical guidelines before advancing to AI implementation."
+        else:  # Foundational
+            summary += " This rating reflects limited AI readiness with significant capability gaps across governance, data, technology, and workforce domains. Most foundational elements are informal or absent. Immediate focus should be on building basic governance structures, improving data management practices, securing technology infrastructure, and developing staff awareness before considering AI adoption."
+        
+        return summary
+    
     def _load_recommendations_lookup(self) -> Dict[str, Any]:
         """Load recommendations lookup from JSON file."""
         import json
