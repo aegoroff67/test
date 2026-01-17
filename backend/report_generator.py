@@ -4595,13 +4595,13 @@ Each cell represents the score for a specific question, enabling identification 
             # Readiness domain mapping (8 domains)
             readiness_domain_mapping = {
                 "SA": "Strategic Alignment &#38; Awareness",
-                "DR": "Data Readiness",
-                "PC": "Policy &#38; Compliance Readiness",
-                "TI": "Technology &#38; Infrastructure",
-                "CL": "Continuous Learning &#38; Improvement",
-                "RE": "Risk &#38; Ethics Awareness",
                 "GF": "Governance Foundations",
-                "PE": "People &#38; Culture"
+                "DR": "Data Readiness",
+                "TI": "Technology &#38; Infrastructure",
+                "PC": "People &#38; Culture",
+                "PR": "Policy &#38; Compliance Readiness",
+                "RE": "Risk &#38; Ethics Awareness",
+                "CL": "Continuous Learning &#38; Improvement"
             }
             
             for answer in answers:
@@ -5106,13 +5106,13 @@ Each cell represents the score for a specific question, enabling identification 
             # Readiness domain mapping (8 domains)
             readiness_domain_mapping = {
                 "SA": "Strategic Alignment &#38; Awareness",
-                "DR": "Data Readiness",
-                "PC": "Policy &#38; Compliance Readiness",
-                "TI": "Technology &#38; Infrastructure",
-                "CL": "Continuous Learning &#38; Improvement",
-                "RE": "Risk &#38; Ethics Awareness",
                 "GF": "Governance Foundations",
-                "PE": "People &#38; Culture"
+                "DR": "Data Readiness",
+                "TI": "Technology &#38; Infrastructure",
+                "PC": "People &#38; Culture",
+                "PR": "Policy &#38; Compliance Readiness",
+                "RE": "Risk &#38; Ethics Awareness",
+                "CL": "Continuous Learning &#38; Improvement"
             }
             
             for answer in answers:
