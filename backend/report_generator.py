@@ -4699,13 +4699,15 @@ Each cell represents the score for a specific question, enabling identification 
                 low_actions = actions.get('low', [])
                 
                 # Format actions for sector_actions template structure
+                # Template expects: question_id (code like DR-01), domain (name like Data Readiness), sector_action (recommendation)
                 def format_action_for_sector(action):
                     return {
-                        'question_id': action.get('question_id', ''),
-                        'domain': action.get('domain', ''),
-                        'sector_action': action.get('text', action.get('sector_action', ''))
+                        'question_id': action.get('question_id', ''),  # This is the question code (e.g., DR-01)
+                        'domain': action.get('domain', ''),  # This is the domain name (e.g., Data Readiness)
+                        'sector_action': action.get('recommendation', action.get('text', ''))  # The actual recommendation text
                     }
                 
+                # Only take first 5 from each priority level
                 template_context['sector_actions_high_top5'] = [format_action_for_sector(a) for a in high_actions[:5]]
                 template_context['sector_actions_medium_top5'] = [format_action_for_sector(a) for a in medium_actions[:5]]
                 template_context['sector_actions_low_top5'] = [format_action_for_sector(a) for a in low_actions[:5]]
@@ -4713,6 +4715,9 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - sector_actions_high_top5: {len(template_context['sector_actions_high_top5'])} items")
                 print(f"    - sector_actions_medium_top5: {len(template_context['sector_actions_medium_top5'])} items")
                 print(f"    - sector_actions_low_top5: {len(template_context['sector_actions_low_top5'])} items")
+                if template_context['sector_actions_high_top5']:
+                    sample = template_context['sector_actions_high_top5'][0]
+                    print(f"    - Sample high action: question_id={sample.get('question_id')}, domain={sample.get('domain')}, sector_action={sample.get('sector_action', '')[:50]}...")
             
             # Add Orgwide-specific variables if this is an Orgwide assessment
             elif self.assessment_type == 'Orgwide':
