@@ -4236,6 +4236,11 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - strengths: {len(strengths)} items")
                 print(f"    - gaps: {len(gaps)} items")
                 print(f"    - questions: {len(questions)} items")
+                if questions:
+                    sample_q = questions[0]
+                    print(f"    - Sample question keys: {list(sample_q.keys())}")
+                    print(f"    - Sample q.code: {sample_q.get('code')}")
+                    print(f"    - Sample q.selected_option_text: {sample_q.get('selected_option_text', 'N/A')[:80]}...")
             
             # Add Orgwide-specific variables if this is an Orgwide assessment
             elif self.assessment_type == 'Orgwide':
