@@ -671,6 +671,7 @@ function ResultsPage() {
                   assessmentType === 'System' ? (benchmarkSector || assessment?.system_info?.industry || user?.industry) 
                   : assessmentType === 'Readiness' ? (benchmarkSector || assessment?.readiness_info?.industry || user?.industry)
                   : assessmentType === 'Orgwide' ? (benchmarkSector || assessment?.orgwide_info?.industry || user?.industry)
+                  : assessmentType === 'Awareness' ? (benchmarkSector || assessment?.awareness_info?.industry || user?.industry)
                   : null
                 }
               />
