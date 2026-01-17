@@ -1540,9 +1540,18 @@ Output only the focus statement, nothing else."""
         summary_data = assessment_data.get('summary', {})
         assessment_info = assessment_data.get('assessment', {})
         
-        # Calculate overall score and tier
+        # Calculate overall score and tier based on assessment type
         overall_percentage = summary_data.get('overall_percentage', 0)
-        overall_tier = self._calculate_tier(overall_percentage)
+        if self.assessment_type == 'Awareness':
+            overall_tier = self._calculate_awareness_tier(overall_percentage)
+        elif self.assessment_type == 'Readiness':
+            overall_tier = self._calculate_readiness_tier(overall_percentage)
+        elif self.assessment_type == 'Orgwide':
+            overall_tier = self._calculate_orgwide_tier(overall_percentage)
+        elif self.assessment_type == 'System':
+            overall_tier = self._calculate_system_tier(overall_percentage)
+        else:
+            overall_tier = self._calculate_tier(overall_percentage)
         
         # Generate actions based on priority mapping rules
         actions = self._generate_actions_from_questions(questions_data)
