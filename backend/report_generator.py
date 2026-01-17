@@ -4699,15 +4699,18 @@ Each cell represents the score for a specific question, enabling identification 
                 low_actions = actions.get('low', [])
                 
                 # Format actions for sector_actions template structure
-                # NOTE: The template has placeholders swapped in the table cells
-                # Template cell 1 uses {{ action.question_id }} but header says "Question ID" and should show code
-                # Template cell 2 uses {{ action.domain }} but header says "Domain" and should show name
-                # To compensate for the template's swapped placeholders, we swap the values here
+                # IMPORTANT: The template has placeholders in wrong cells:
+                # - Cell 1 header "Question ID" but uses {{ action.question_id }} which gets question_id value
+                # - Cell 2 header "Domain" but uses {{ action.domain }} which gets domain value
+                # 
+                # But screenshot shows domain name in column 1 and question code in column 2
+                # This means template placeholders are CORRECT but column headers are wrong
+                # OR the Word table rows are not matching the header order
+                # 
+                # For now, keep the logical mapping - user may need to fix template column headers
                 def format_action_for_sector(action):
                     return {
-                        # Swap: Send domain name to question_id field (displays in cell 1 under "Question ID")
                         'question_id': action.get('question_id', ''),  # Question code like DR-01
-                        # Swap: Send question code to domain field (displays in cell 2 under "Domain")  
                         'domain': action.get('domain', ''),  # Domain name like Data Readiness
                         'sector_action': action.get('recommendation', action.get('text', ''))  # The actual recommendation text
                     }
