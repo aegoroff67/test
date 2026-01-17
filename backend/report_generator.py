@@ -3901,6 +3901,88 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - strengths: {len(strengths)} items")
                 print(f"    - gaps: {len(gaps)} items")
             
+            # Add Orgwide-specific variables if this is an Orgwide assessment
+            elif self.assessment_type == 'Orgwide':
+                orgwide_info = report_data.get('orgwide_info') or {}
+                
+                # Add all orgwide_info fields as top-level variables
+                template_context.update({
+                    # Organization and contact info
+                    'org_name': orgwide_info.get('org_name', ''),
+                    'contact_name': orgwide_info.get('contact_name', ''),
+                    'contact_email': orgwide_info.get('contact_email', ''),
+                    
+                    # Organization context
+                    'industry': orgwide_info.get('industry', ''),
+                    'org_size': orgwide_info.get('org_size', ''),
+                    'business_units_scope': orgwide_info.get('business_units_scope', ''),
+                    
+                    # AI Landscape & Scope
+                    'ai_project_count': orgwide_info.get('ai_project_count', ''),
+                    'ai_usage_areas': orgwide_info.get('ai_usage_areas', []),
+                    'ai_primary_purpose': orgwide_info.get('ai_primary_purpose', ''),
+                    'ai_sourcing_model': orgwide_info.get('ai_sourcing_model', ''),
+                    'ai_governance_committee_status': orgwide_info.get('ai_governance_committee_status', ''),
+                    
+                    # Governance & Risk
+                    'ai_frameworks': orgwide_info.get('ai_frameworks', []),
+                    'ai_risk_assessment_usage': orgwide_info.get('ai_risk_assessment_usage', ''),
+                    'policy_review_frequency': orgwide_info.get('policy_review_frequency', ''),
+                    'ai_register_status': orgwide_info.get('ai_register_status', ''),
+                    
+                    # Culture & Capability
+                    'exec_engagement_level': orgwide_info.get('exec_engagement_level', ''),
+                    'ai_training_maturity': orgwide_info.get('ai_training_maturity', ''),
+                    'ai_maturity_self_rating': orgwide_info.get('ai_maturity_self_rating', ''),
+                    
+                    # Assessment context
+                    'assessor_name': orgwide_info.get('assessor_name', ''),
+                    'assessment_date': orgwide_info.get('assessment_date', ''),
+                    'framework_version': orgwide_info.get('framework_version', ''),
+                    
+                    # Full orgwide_info object for flexibility
+                    'orgwide_info': orgwide_info,
+                    
+                    # Pre-formatted Results Summary text (matches frontend ResultsPage.js)
+                    'results_summary_text': self._generate_orgwide_results_summary_text(report_data),
+                })
+                
+                # Build strengths list (domains scoring >= 70%)
+                strengths = []
+                for d in template_context.get('domains', []):
+                    score = d.get('score', 0)
+                    if isinstance(score, str):
+                        score = float(score.replace('%', ''))
+                    if score >= 70:
+                        strengths.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
+                template_context['strengths'] = strengths
+                
+                if strengths:
+                    template_context['strengths_summary'] = ', '.join(strengths[:3])
+                else:
+                    template_context['strengths_summary'] = 'Building foundational maturity across all domains'
+                
+                # Build gaps list (domains scoring < 50%)
+                gaps = []
+                for d in template_context.get('domains', []):
+                    score = d.get('score', 0)
+                    if isinstance(score, str):
+                        score = float(score.replace('%', ''))
+                    if score < 50:
+                        gaps.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
+                template_context['gaps'] = gaps
+                
+                if gaps:
+                    template_context['gaps_summary'] = ', '.join(gaps[:3])
+                else:
+                    template_context['gaps_summary'] = 'No critical gaps identified'
+                
+                print(f"  Orgwide-specific variables added:")
+                print(f"    - org_name: {template_context.get('org_name', 'N/A')}")
+                print(f"    - industry: {template_context.get('industry', 'N/A')}")
+                print(f"    - strengths: {len(strengths)} items")
+                print(f"    - gaps: {len(gaps)} items")
+            
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
             print(f"  Overall score: {template_context['overall']['score']}")
