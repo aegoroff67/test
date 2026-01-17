@@ -1306,6 +1306,429 @@ Output only the focus statement, nothing else."""
             print(f"ERROR in _generate_ai_next_focus: {e}")
             return "Build foundational AI awareness across all domains"
 
+    async def _generate_readiness_ai_narratives(self, report_data: Dict[str, Any], assessment: Dict[str, Any], db) -> Dict[str, str]:
+        """
+        Generate all AI narratives for Readiness assessments.
+        Returns a dict with narrative keys that can be accessed as ai.executive_snapshot, etc.
+        Caches results in the database to avoid regeneration.
+        """
+        narratives = {}
+        assessment_id = assessment.get('id')
+        
+        # Check for cached narratives in database
+        cached_narratives = assessment.get('ai_narratives', {})
+        
+        # Generate Executive Snapshot for Readiness
+        if cached_narratives.get('executive_snapshot'):
+            narratives['executive_snapshot'] = cached_narratives['executive_snapshot']
+            print(f"DEBUG: Using cached AI executive_snapshot narrative (Readiness)")
+        else:
+            try:
+                narratives['executive_snapshot'] = await self._generate_readiness_ai_executive_snapshot(report_data)
+                print(f"DEBUG: Generated new AI executive_snapshot narrative (Readiness) ({len(narratives['executive_snapshot'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI executive_snapshot (Readiness): {e}")
+                narratives['executive_snapshot'] = ""
+        
+        # Generate Context Interpretation for Readiness
+        if cached_narratives.get('context_interpretation'):
+            narratives['context_interpretation'] = cached_narratives['context_interpretation']
+            print(f"DEBUG: Using cached AI context_interpretation narrative (Readiness)")
+        else:
+            try:
+                narratives['context_interpretation'] = await self._generate_readiness_ai_context_interpretation(report_data)
+                print(f"DEBUG: Generated new AI context_interpretation narrative (Readiness) ({len(narratives['context_interpretation'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI context_interpretation (Readiness): {e}")
+                narratives['context_interpretation'] = ""
+        
+        # Generate Governance & Ethics Readiness Interpretation
+        if cached_narratives.get('gov_ethics_readiness'):
+            narratives['gov_ethics_readiness'] = cached_narratives['gov_ethics_readiness']
+            print(f"DEBUG: Using cached AI gov_ethics_readiness narrative")
+        else:
+            try:
+                narratives['gov_ethics_readiness'] = await self._generate_readiness_ai_gov_ethics(report_data)
+                print(f"DEBUG: Generated new AI gov_ethics_readiness narrative ({len(narratives['gov_ethics_readiness'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI gov_ethics_readiness: {e}")
+                narratives['gov_ethics_readiness'] = ""
+        
+        # Generate Data, Capability & Technology Interpretation
+        if cached_narratives.get('data_capability_tech'):
+            narratives['data_capability_tech'] = cached_narratives['data_capability_tech']
+            print(f"DEBUG: Using cached AI data_capability_tech narrative")
+        else:
+            try:
+                narratives['data_capability_tech'] = await self._generate_readiness_ai_data_capability(report_data)
+                print(f"DEBUG: Generated new AI data_capability_tech narrative ({len(narratives['data_capability_tech'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI data_capability_tech: {e}")
+                narratives['data_capability_tech'] = ""
+        
+        # Generate Readiness Results Summary
+        if cached_narratives.get('readiness_results_summary'):
+            narratives['readiness_results_summary'] = cached_narratives['readiness_results_summary']
+            print(f"DEBUG: Using cached AI readiness_results_summary narrative")
+        else:
+            try:
+                narratives['readiness_results_summary'] = await self._generate_readiness_ai_results_summary(report_data)
+                print(f"DEBUG: Generated new AI readiness_results_summary narrative ({len(narratives['readiness_results_summary'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI readiness_results_summary: {e}")
+                narratives['readiness_results_summary'] = ""
+        
+        # Generate Action Interpretation for Readiness
+        if cached_narratives.get('action_interpretation'):
+            narratives['action_interpretation'] = cached_narratives['action_interpretation']
+            print(f"DEBUG: Using cached AI action_interpretation narrative (Readiness)")
+        else:
+            try:
+                narratives['action_interpretation'] = await self._generate_readiness_ai_action_interpretation(report_data)
+                print(f"DEBUG: Generated new AI action_interpretation narrative (Readiness) ({len(narratives['action_interpretation'])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI action_interpretation (Readiness): {e}")
+                narratives['action_interpretation'] = ""
+        
+        # Cache all generated narratives to database
+        if narratives and assessment_id and db is not None:
+            try:
+                await db.assessments.update_one(
+                    {"id": assessment_id},
+                    {"$set": {"ai_narratives": {**cached_narratives, **narratives}}}
+                )
+                print(f"DEBUG: Cached AI narratives to database (Readiness)")
+            except Exception as e:
+                print(f"ERROR caching AI narratives (Readiness): {e}")
+        
+        return narratives
+
+    async def _generate_readiness_ai_executive_snapshot(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Executive Snapshot for Readiness assessments.
+        Variable target: ai.executive_snapshot
+        """
+        from emergentintegrations.llm.chat import Chat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        readiness_info = report_data.get('readiness_info') or {}
+        org_name = readiness_info.get('org_name') or report_data.get('org', {}).get('name', 'The organisation')
+        industry = readiness_info.get('industry') or report_data.get('org', {}).get('industry', '')
+        org_size = readiness_info.get('org_size', '')
+        
+        # Get domain scores
+        domains = report_data.get('domains', [])
+        domain_summary = []
+        for d in domains:
+            d_score = d.get('score', 0)
+            if isinstance(d_score, str):
+                d_score = float(d_score.replace('%', ''))
+            domain_summary.append(f"- {d.get('name', 'Unknown')}: {d_score:.0f}%")
+        
+        # Get strengths and gaps
+        strengths = [d.get('name') for d in domains if isinstance(d.get('score', 0), (int, float)) and d.get('score', 0) >= 70]
+        gaps = [d.get('name') for d in domains if isinstance(d.get('score', 0), (int, float)) and d.get('score', 0) < 50]
+        
+        try:
+            chat = Chat(
+                api_key=self.emergent_api_key,
+                model="gpt-4o-mini",
+                system_message="""You are an AI readiness assessment expert writing executive summaries for organisational AI readiness reports.
+Write in a professional, consultative tone appropriate for senior leadership. Focus on actionable insights and strategic implications.
+Be concise but comprehensive. Use Australian English spelling."""
+            )
+            
+            user_prompt = f"""Write an executive snapshot (2-3 paragraphs, approximately 150-200 words) for this AI Readiness assessment:
+
+Organisation: {org_name}
+Industry: {industry}
+Organisation Size: {org_size}
+Overall Readiness Score: {score:.1f}%
+Readiness Tier: {tier}
+
+Domain Scores:
+{chr(10).join(domain_summary)}
+
+Key Strengths: {', '.join(strengths) if strengths else 'Building foundations across all domains'}
+Critical Gaps: {', '.join(gaps) if gaps else 'No critical gaps identified'}
+
+The snapshot should:
+1. Summarise the overall readiness position
+2. Highlight 2-3 key findings (both strengths and areas for improvement)
+3. Provide a strategic recommendation for next steps
+4. Reference the specific tier achieved and what it means
+
+Do not use bullet points - write in flowing paragraphs. Do not include a title or heading."""
+
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_readiness_ai_executive_snapshot: {e}")
+            return ""
+
+    async def _generate_readiness_ai_context_interpretation(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Context Interpretation for Readiness assessments.
+        Variable target: ai.context_interpretation
+        """
+        from emergentintegrations.llm.chat import Chat, UserMessage
+        
+        readiness_info = report_data.get('readiness_info') or {}
+        org_name = readiness_info.get('org_name') or report_data.get('org', {}).get('name', 'The organisation')
+        industry = readiness_info.get('industry') or report_data.get('org', {}).get('industry', '')
+        org_size = readiness_info.get('org_size', '')
+        ai_motivation = readiness_info.get('ai_motivation', '')
+        leadership_commitment = readiness_info.get('leadership_commitment', '')
+        ai_strategy_status = readiness_info.get('ai_strategy_status', '')
+        
+        try:
+            chat = Chat(
+                api_key=self.emergent_api_key,
+                model="gpt-4o-mini",
+                system_message="""You are an AI readiness assessment expert providing context interpretation for organisational AI readiness reports.
+Write in a professional, consultative tone. Focus on helping leadership understand their organisation's AI context.
+Use Australian English spelling."""
+            )
+            
+            user_prompt = f"""Write a context interpretation paragraph (100-150 words) for this AI Readiness assessment:
+
+Organisation: {org_name}
+Industry: {industry}
+Organisation Size: {org_size}
+AI Motivation: {ai_motivation}
+Leadership Commitment: {leadership_commitment}
+AI Strategy Status: {ai_strategy_status}
+
+The interpretation should:
+1. Explain the organisational context for AI readiness
+2. Reference industry-specific considerations
+3. Comment on the alignment between stated motivation and current readiness
+4. Note the significance of leadership commitment level
+
+Write in flowing prose without bullet points or headings."""
+
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_readiness_ai_context_interpretation: {e}")
+            return ""
+
+    async def _generate_readiness_ai_gov_ethics(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Governance & Ethics Readiness Interpretation for Readiness assessments.
+        Variable target: ai.gov_ethics_readiness
+        """
+        from emergentintegrations.llm.chat import Chat, UserMessage
+        
+        readiness_info = report_data.get('readiness_info') or {}
+        governance_foundations = readiness_info.get('governance_foundations', [])
+        decision_ownership = readiness_info.get('decision_ownership', '')
+        ethical_principles = readiness_info.get('ethical_principles', [])
+        
+        # Get relevant domain scores
+        domains = report_data.get('domains', [])
+        gov_score = next((d.get('score', 0) for d in domains if 'Governance' in d.get('name', '')), 0)
+        ethics_score = next((d.get('score', 0) for d in domains if 'Ethics' in d.get('name', '')), 0)
+        policy_score = next((d.get('score', 0) for d in domains if 'Policy' in d.get('name', '')), 0)
+        
+        try:
+            chat = Chat(
+                api_key=self.emergent_api_key,
+                model="gpt-4o-mini",
+                system_message="""You are an AI governance and ethics expert providing interpretation for organisational AI readiness reports.
+Write in a professional, consultative tone. Focus on governance structures, ethical frameworks, and policy readiness.
+Use Australian English spelling."""
+            )
+            
+            user_prompt = f"""Write a governance and ethics readiness interpretation paragraph (100-150 words) for this AI Readiness assessment:
+
+Governance Foundations in Place: {', '.join(governance_foundations) if governance_foundations else 'None currently in place'}
+AI Decision Ownership: {decision_ownership}
+Ethical Principles Referenced: {', '.join(ethical_principles) if ethical_principles else 'None currently referenced'}
+
+Domain Scores:
+- Governance Foundations: {gov_score:.0f}%
+- Risk & Ethics Awareness: {ethics_score:.0f}%
+- Policy & Compliance Readiness: {policy_score:.0f}%
+
+The interpretation should:
+1. Assess the current governance foundation for AI
+2. Evaluate ethical framework readiness
+3. Comment on decision ownership clarity
+4. Identify key governance gaps or strengths
+
+Write in flowing prose without bullet points or headings."""
+
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_readiness_ai_gov_ethics: {e}")
+            return ""
+
+    async def _generate_readiness_ai_data_capability(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Data, Capability & Technology Interpretation for Readiness assessments.
+        Variable target: ai.data_capability_tech
+        """
+        from emergentintegrations.llm.chat import Chat, UserMessage
+        
+        readiness_info = report_data.get('readiness_info') or {}
+        data_maturity = readiness_info.get('data_maturity', '')
+        ai_capability = readiness_info.get('ai_capability', '')
+        current_tools = readiness_info.get('current_tools', [])
+        poc_status = readiness_info.get('poc_status', '')
+        
+        # Get relevant domain scores
+        domains = report_data.get('domains', [])
+        data_score = next((d.get('score', 0) for d in domains if 'Data' in d.get('name', '')), 0)
+        tech_score = next((d.get('score', 0) for d in domains if 'Technology' in d.get('name', '')), 0)
+        people_score = next((d.get('score', 0) for d in domains if 'People' in d.get('name', '')), 0)
+        
+        try:
+            chat = Chat(
+                api_key=self.emergent_api_key,
+                model="gpt-4o-mini",
+                system_message="""You are an AI technology and data expert providing interpretation for organisational AI readiness reports.
+Write in a professional, consultative tone. Focus on data readiness, technical capability, and workforce skills.
+Use Australian English spelling."""
+            )
+            
+            user_prompt = f"""Write a data, capability and technology interpretation paragraph (100-150 words) for this AI Readiness assessment:
+
+Data Maturity Level: {data_maturity}
+AI Capability Status: {ai_capability}
+Current AI Tools/Platforms: {', '.join(current_tools) if current_tools else 'None currently in use'}
+Proof of Concept Status: {poc_status}
+
+Domain Scores:
+- Data Readiness: {data_score:.0f}%
+- Technology & Infrastructure: {tech_score:.0f}%
+- People & Culture: {people_score:.0f}%
+
+The interpretation should:
+1. Assess data management and quality readiness
+2. Evaluate technology infrastructure capability
+3. Comment on workforce skills and culture readiness
+4. Identify key capability gaps or strengths
+
+Write in flowing prose without bullet points or headings."""
+
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_readiness_ai_data_capability: {e}")
+            return ""
+
+    async def _generate_readiness_ai_results_summary(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Readiness Results Summary for Readiness assessments.
+        Variable target: ai.readiness_results_summary
+        """
+        from emergentintegrations.llm.chat import Chat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        # Get domain scores
+        domains = report_data.get('domains', [])
+        domain_summary = []
+        for d in domains:
+            d_score = d.get('score', 0)
+            if isinstance(d_score, str):
+                d_score = float(d_score.replace('%', ''))
+            domain_summary.append(f"- {d.get('name', 'Unknown')}: {d_score:.0f}%")
+        
+        try:
+            chat = Chat(
+                api_key=self.emergent_api_key,
+                model="gpt-4o-mini",
+                system_message="""You are an AI readiness assessment expert providing results interpretation for organisational AI readiness reports.
+Write in a professional, consultative tone. Focus on summarising results and their strategic implications.
+Use Australian English spelling."""
+            )
+            
+            user_prompt = f"""Write a readiness results summary paragraph (100-150 words) for this AI Readiness assessment:
+
+Overall Readiness Score: {score:.1f}%
+Readiness Tier: {tier}
+
+Domain Scores:
+{chr(10).join(domain_summary)}
+
+The summary should:
+1. Interpret the overall readiness score and tier
+2. Highlight the highest and lowest performing domains
+3. Explain what this tier means for AI adoption readiness
+4. Provide strategic context for the results
+
+Write in flowing prose without bullet points or headings."""
+
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_readiness_ai_results_summary: {e}")
+            return ""
+
+    async def _generate_readiness_ai_action_interpretation(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Action Interpretation for Readiness assessments.
+        Variable target: ai.action_interpretation
+        """
+        from emergentintegrations.llm.chat import Chat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
+        # Get priority actions
+        actions = report_data.get('actions', {})
+        high_priority = actions.get('high', [])[:5]
+        
+        action_text = []
+        for a in high_priority:
+            domain = a.get('domain', 'Unknown')
+            text = a.get('text', a.get('sector_action', ''))[:100]
+            action_text.append(f"- [{domain}] {text}")
+        
+        try:
+            chat = Chat(
+                api_key=self.emergent_api_key,
+                model="gpt-4o-mini",
+                system_message="""You are an AI readiness assessment expert providing action recommendations for organisational AI readiness reports.
+Write in a professional, consultative tone. Focus on practical, prioritised recommendations.
+Use Australian English spelling."""
+            )
+            
+            user_prompt = f"""Write an action interpretation paragraph (100-150 words) for this AI Readiness assessment:
+
+Current Readiness Tier: {tier}
+
+Top Priority Actions Identified:
+{chr(10).join(action_text) if action_text else 'Focus on building foundational capabilities across all domains'}
+
+The interpretation should:
+1. Explain the rationale for the prioritised actions
+2. Describe how addressing these gaps will improve readiness
+3. Suggest a phased approach to implementation
+4. Link actions to the overall tier improvement path
+
+Write in flowing prose without bullet points or headings."""
+
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_readiness_ai_action_interpretation: {e}")
+            return ""
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
