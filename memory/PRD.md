@@ -40,6 +40,15 @@ Build a comprehensive AI assessment platform that generates detailed DOCX report
 
 ## What's Been Implemented
 
+### January 17, 2026
+- **AI Readiness Template Variables Completed**:
+  - Added `readiness_bar_image` generation (stacked bar chart showing tier and score)
+  - Fixed domain mapping for 8 Readiness domains (SA, GF, DR, TI, PC, PR, RE, CL)
+  - Implemented `q.selected_option_text` mapping to full answer text from options
+  - Added `questions` list with full details for Readiness reports (48 questions)
+  - Implemented `results_summary_text` for Readiness assessments
+  - Fixed domain code mapping (PC→People & Culture, PR→Policy & Compliance Readiness)
+
 ### January 11, 2026
 - **Template v0.9.10 Integration**: Successfully configured and verified
 - **All 6 AI Narratives**: Working and rendering correctly in DOCX
