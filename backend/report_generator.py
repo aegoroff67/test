@@ -2060,10 +2060,13 @@ Output only the focus statement, nothing else."""
             return self._generate_system_heatmap_image(report_data)
     
     def _generate_awareness_bar_image(self, report_data: Dict[str, Any]) -> bytes:
-        """Generate stacked bar chart image for Awareness assessments showing overall score and tier."""
+        """Generate stacked bar chart image for Awareness assessments showing overall score and tier.
+        Matches the frontend MaturityStackedColumn component exactly.
+        """
         overall = report_data.get('overall', {})
         score = overall.get('score', 0)
         sector_average = report_data.get('sector_average')
+        sector_name = report_data.get('sector_name', '')
         
         # Define the 4 maturity tiers for Awareness (matching frontend MaturityStackedColumn)
         tiers = [
@@ -2108,42 +2111,46 @@ Output only the focus statement, nothing else."""
             
             current_y += height
         
-        # Add score arrow (right side, pointing left)
-        arrow_y = score  # Score directly maps to y position (0-100)
-        
-        # Determine arrow color based on sector average comparison
+        # Determine user arrow color based on sector average comparison (matching frontend)
         if sector_average is not None:
             if score > sector_average:
-                arrow_color = '#00B050'  # Green - above average
+                user_arrow_color = '#00B050'  # Green - above average
             elif score < sector_average:
-                arrow_color = '#FF0000'  # Red - below average
+                user_arrow_color = '#FF0000'  # Red - below average
             else:
-                arrow_color = '#000000'  # Black - equal
+                user_arrow_color = '#000000'  # Black - equal
         else:
-            arrow_color = '#000000'
+            user_arrow_color = '#000000'  # Black - no sector data
         
-        # Draw user score arrow (pointing left from right side)
+        # User score arrow on RIGHT side (pointing left toward the bar) - matches frontend
+        arrow_y = score  # Score directly maps to y position (0-100)
         ax.annotate('', xy=(bar_x + bar_width/2, arrow_y), 
                    xytext=(bar_x + bar_width/2 + 0.3, arrow_y),
-                   arrowprops=dict(arrowstyle='->', color=arrow_color, lw=2))
+                   arrowprops=dict(arrowstyle='->', color=user_arrow_color, lw=2))
         
-        # Add sector average arrow if available (left side, pointing right)
+        # Sector average arrow on LEFT side (pointing right toward the bar) - matches frontend
+        # Always black, only shown if sector_average exists and differs from score
         if sector_average is not None and sector_average != score:
             ax.annotate('', xy=(bar_x - bar_width/2, sector_average), 
                        xytext=(bar_x - bar_width/2 - 0.3, sector_average),
                        arrowprops=dict(arrowstyle='->', color='#000000', lw=2))
         
-        # Add score text on right
+        # Add score and tier text on right side
         ax.text(bar_x + bar_width/2 + 0.5, arrow_y, f'{score:.0f}%', 
-               ha='left', va='center', fontsize=12, fontweight='bold', color=arrow_color)
+               ha='left', va='center', fontsize=12, fontweight='bold', color=user_arrow_color)
         ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 8, f'{current_tier}', 
                ha='left', va='center', fontsize=9, color='#666666')
         ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 15, 'AI Awareness', 
                ha='left', va='center', fontsize=9, color='#666666')
         
+        # Add sector average text below the bar if available
+        if sector_average is not None and sector_name:
+            ax.text(bar_x, -12, f'({sector_name} sector average: {sector_average:.0f}%)', 
+                   ha='center', va='center', fontsize=7, color='#666666')
+        
         # Set axis limits and remove axes
         ax.set_xlim(-0.5, 2.5)
-        ax.set_ylim(-5, 105)
+        ax.set_ylim(-20, 105)
         ax.axis('off')
         
         plt.tight_layout()
