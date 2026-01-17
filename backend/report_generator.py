@@ -4699,20 +4699,19 @@ Each cell represents the score for a specific question, enabling identification 
                 low_actions = actions.get('low', [])
                 
                 # Format actions for sector_actions template structure
-                # IMPORTANT: The template has placeholders in wrong cells:
-                # - Cell 1 header "Question ID" but uses {{ action.question_id }} which gets question_id value
-                # - Cell 2 header "Domain" but uses {{ action.domain }} which gets domain value
-                # 
-                # But screenshot shows domain name in column 1 and question code in column 2
-                # This means template placeholders are CORRECT but column headers are wrong
-                # OR the Word table rows are not matching the header order
-                # 
-                # For now, keep the logical mapping - user may need to fix template column headers
+                # NOTE: The Readiness template v0.02 has placeholders in this order in the data row cells:
+                #   Cell 1: {{ action.question_id }} - but header says "Question ID" (wants code like DR-01)
+                #   Cell 2: {{ action.domain }} - but header says "Domain" (wants name like "Data Readiness")
+                # However, the rendered output shows the values are SWAPPED:
+                #   Cell 1 shows domain name, Cell 2 shows question code
+                # This is likely due to template cell order issue. To fix the display, we SWAP the values:
                 def format_action_for_sector(action):
                     return {
-                        'question_id': action.get('question_id', ''),  # Question code like DR-01
-                        'domain': action.get('domain', ''),  # Domain name like Data Readiness
-                        'sector_action': action.get('recommendation', action.get('text', ''))  # The actual recommendation text
+                        # SWAPPED: Send question_id to 'domain' field since it renders in cell 2 (Domain column)
+                        'domain': action.get('question_id', ''),
+                        # SWAPPED: Send domain name to 'question_id' field since it renders in cell 1 (Question ID column)  
+                        'question_id': action.get('domain', ''),
+                        'sector_action': action.get('recommendation', action.get('text', ''))
                     }
                 
                 # Only take first 5 from each priority level
@@ -4725,7 +4724,7 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - sector_actions_low_top5: {len(template_context['sector_actions_low_top5'])} items")
                 if template_context['sector_actions_high_top5']:
                     sample = template_context['sector_actions_high_top5'][0]
-                    print(f"    - Sample high action: question_id={sample.get('question_id')}, domain={sample.get('domain')}, sector_action={sample.get('sector_action', '')[:50]}...")
+                    print(f"    - Sample high action (SWAPPED for display): question_id(domain name)={sample.get('question_id')}, domain(code)={sample.get('domain')}")
             
             # Add Orgwide-specific variables if this is an Orgwide assessment
             elif self.assessment_type == 'Orgwide':
