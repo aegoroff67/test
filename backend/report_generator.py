@@ -4194,6 +4194,42 @@ Each cell represents the score for a specific question, enabling identification 
                 else:
                     template_context['gaps_summary'] = 'No critical gaps identified'
                 
+                # Build questions list with full details for Readiness
+                questions = []
+                questions_data = report_data.get('questions_data', [])
+                q_num = 1
+                for domain_data in questions_data:
+                    domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+                    # Use XML numeric entity for ampersand to ensure proper DOCX rendering
+                    domain_name_escaped = domain_name.replace('&', '&#38;') if domain_name else 'Unknown'
+                    for q in domain_data.get('questions', []):
+                        answer = q.get('answer', {})
+                        score = answer.get('numeric_score', 0) if answer else 0
+                        
+                        # Determine maturity level from score (Readiness-specific tiers)
+                        if score >= 4:
+                            maturity_level = 'Leading'
+                        elif score >= 3:
+                            maturity_level = 'Established'
+                        elif score >= 2:
+                            maturity_level = 'Developing'
+                        else:
+                            maturity_level = 'Foundational'
+                        
+                        questions.append({
+                            'number': q_num,
+                            'code': q.get('code', ''),
+                            'text': q.get('text', ''),
+                            'domain': domain_name_escaped,
+                            'selected_option_label': answer.get('selected_option', {}).get('label', 'Not answered') if answer else 'Not answered',
+                            'selected_option_text': answer.get('selected_option', {}).get('text', '') if answer else '',
+                            'maturity_level': maturity_level,
+                            'score': score,
+                            'comment': answer.get('comment', '') if answer else ''
+                        })
+                        q_num += 1
+                template_context['questions'] = questions
+                
                 print(f"  Readiness-specific variables added:")
                 print(f"    - org_name: {template_context.get('org_name', 'N/A')}")
                 print(f"    - industry: {template_context.get('industry', 'N/A')}")
