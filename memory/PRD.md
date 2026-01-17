@@ -80,10 +80,12 @@ Build a comprehensive AI assessment platform that generates detailed DOCX report
 
 ### P0 - Critical (Completed)
 - [x] Awareness DOCX report generation with AI narratives
+- [x] AI Readiness template variables (readiness_bar_image, domain mappings, q.selected_option_text)
 
 ### P1 - High Priority
+- [ ] Frontend toggle for `show_detailed_responses` parameter
 - [ ] Verify sector benchmark radar chart in reports
-- [ ] Create DOCX templates for Readiness, Org-wide, FAIRA
+- [ ] Create DOCX templates for Org-wide, FAIRA
 
 ### P2 - Medium Priority
 - [ ] Test Evidence API CRUD endpoints
