@@ -1629,6 +1629,7 @@ Output only the focus statement, nothing else."""
             "heatmap_data": self._prepare_heatmap_data(questions_data),
             "questions_data": questions_data,  # Pass through for sector action generation
             "sector_name": sector_name,
+            "sector_average": assessment_data.get('sector_average'),  # Pass sector_average for bar chart and results summary
             "sector_actions": sector_actions,
             "system_info": assessment_data.get('system_info', {}),  # Pass system_info for template use
             "awareness_info": assessment_data.get('awareness_info', {}),  # Pass awareness_info for Awareness assessments
