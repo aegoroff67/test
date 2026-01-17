@@ -4199,6 +4199,8 @@ Each cell represents the score for a specific question, enabling identification 
             overall_tier = self._calculate_awareness_tier(overall_percentage)
         elif self.assessment_type == 'Readiness':
             overall_tier = self._calculate_readiness_tier(overall_percentage)
+        elif self.assessment_type == 'Orgwide':
+            overall_tier = self._calculate_orgwide_tier(overall_percentage)
         else:
             overall_tier = self._calculate_tier(overall_percentage)
         
@@ -4596,6 +4598,8 @@ Each cell represents the score for a specific question, enabling identification 
             overall_tier = self._calculate_awareness_tier(overall_percentage)
         elif self.assessment_type == 'Readiness':
             overall_tier = self._calculate_readiness_tier(overall_percentage)
+        elif self.assessment_type == 'Orgwide':
+            overall_tier = self._calculate_orgwide_tier(overall_percentage)
         else:
             overall_tier = self._calculate_tier(overall_percentage)
         
