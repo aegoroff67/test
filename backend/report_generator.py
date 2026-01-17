@@ -1865,6 +1865,50 @@ Output only the focus statement, nothing else."""
             print(f"Warning: Could not load recommendations lookup: {e}")
             return {"recommendations": {}}
     
+    def _generate_system_results_summary_text(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate the complete Results Summary paragraph for AI System Maturity assessments.
+        Matches the frontend ResultsPage.js Results Summary section.
+        """
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        # Get system name from system_info or org
+        system_info = report_data.get('system_info') or {}
+        system_name = system_info.get('systemName') or system_info.get('system_name') or system_info.get('organizationName') or report_data.get('org', {}).get('name', 'The system')
+        
+        # Get sector benchmark comparison if available
+        sector_average = report_data.get('sector_average')
+        sector_name = system_info.get('industry') or report_data.get('sector_name', '')
+        
+        # Build the opening sentence
+        summary = f"The results indicate that {system_name} has achieved an overall AI maturity score of {score:.1f}%, placing this system within the {tier} AI Maturity category"
+        
+        # Add sector comparison if available
+        if sector_average is not None and sector_name:
+            if score > sector_average:
+                comparison = "above"
+            elif score < sector_average:
+                comparison = "below"
+            else:
+                comparison = "equal to"
+            summary += f", which is {comparison} the {sector_name} sector AI system maturity average of {sector_average:.0f}%."
+        else:
+            summary += "."
+        
+        # Add tier-specific explanatory text
+        if tier == 'Leading':
+            summary += " This rating reflects exemplary AI governance and ethical assurance, setting a benchmark for responsible AI leadership. Governance systems are fully embedded, adaptive, and continuously refined through data-driven insights, external validation, and innovation. The focus is on optimisation, transparency, and sustained improvement across all AI operations."
+        elif tier == 'Established':
+            summary += " This rating reflects well-defined and consistently applied AI governance frameworks across most domains. Risk management, transparency, and ethical oversight are integrated into day-to-day operations. Continuous monitoring and regular review cycles are evident, though further optimisation and automation would strengthen maturity and resilience against evolving AI risks."
+        elif tier == 'Developing':
+            summary += " This rating reflects growing awareness and emerging structure in its AI governance practices. Some policies and controls are in place, but they are applied inconsistently. Progress has been made in recognising key governance needs; however, targeted improvements are needed to achieve full integration and accountability across the AI lifecycle."
+        else:  # Foundational
+            summary += " This rating reflects minimal or inconsistent AI governance, with most practices being reactive or informal. Policies, processes, and accountability structures are largely undeveloped, resulting in fragmented oversight and heightened risk exposure. Immediate action is required to establish a foundational governance framework, define roles and responsibilities, and embed basic ethical and risk management principles."
+        
+        return summary
+    
     def _get_recommendation_text(self, question_code: str, recommendations_lookup: Dict[str, Any], domain_name: str) -> str:
         """Get specific recommendation text for a question code."""
         recommendations = recommendations_lookup.get("recommendations", {})
@@ -2756,6 +2800,50 @@ The assessment methodology ensures objective evaluation through standardized cri
         except Exception as e:
             print(f"Warning: Could not load recommendations lookup: {e}")
             return {"recommendations": {}}
+    
+    def _generate_system_results_summary_text(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate the complete Results Summary paragraph for AI System Maturity assessments.
+        Matches the frontend ResultsPage.js Results Summary section.
+        """
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        # Get system name from system_info or org
+        system_info = report_data.get('system_info') or {}
+        system_name = system_info.get('systemName') or system_info.get('system_name') or system_info.get('organizationName') or report_data.get('org', {}).get('name', 'The system')
+        
+        # Get sector benchmark comparison if available
+        sector_average = report_data.get('sector_average')
+        sector_name = system_info.get('industry') or report_data.get('sector_name', '')
+        
+        # Build the opening sentence
+        summary = f"The results indicate that {system_name} has achieved an overall AI maturity score of {score:.1f}%, placing this system within the {tier} AI Maturity category"
+        
+        # Add sector comparison if available
+        if sector_average is not None and sector_name:
+            if score > sector_average:
+                comparison = "above"
+            elif score < sector_average:
+                comparison = "below"
+            else:
+                comparison = "equal to"
+            summary += f", which is {comparison} the {sector_name} sector AI system maturity average of {sector_average:.0f}%."
+        else:
+            summary += "."
+        
+        # Add tier-specific explanatory text
+        if tier == 'Leading':
+            summary += " This rating reflects exemplary AI governance and ethical assurance, setting a benchmark for responsible AI leadership. Governance systems are fully embedded, adaptive, and continuously refined through data-driven insights, external validation, and innovation. The focus is on optimisation, transparency, and sustained improvement across all AI operations."
+        elif tier == 'Established':
+            summary += " This rating reflects well-defined and consistently applied AI governance frameworks across most domains. Risk management, transparency, and ethical oversight are integrated into day-to-day operations. Continuous monitoring and regular review cycles are evident, though further optimisation and automation would strengthen maturity and resilience against evolving AI risks."
+        elif tier == 'Developing':
+            summary += " This rating reflects growing awareness and emerging structure in its AI governance practices. Some policies and controls are in place, but they are applied inconsistently. Progress has been made in recognising key governance needs; however, targeted improvements are needed to achieve full integration and accountability across the AI lifecycle."
+        else:  # Foundational
+            summary += " This rating reflects minimal or inconsistent AI governance, with most practices being reactive or informal. Policies, processes, and accountability structures are largely undeveloped, resulting in fragmented oversight and heightened risk exposure. Immediate action is required to establish a foundational governance framework, define roles and responsibilities, and embed basic ethical and risk management principles."
+        
+        return summary
     
     def _get_recommendation_text(self, question_code: str, recommendations_lookup: Dict[str, Any], domain_name: str) -> str:
         """Get specific recommendation text for a question code."""
