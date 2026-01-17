@@ -4234,6 +4234,33 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - strengths: {len(strengths)} items")
                 print(f"    - gaps: {len(gaps)} items")
                 print(f"    - questions: {len(questions)} items")
+                
+                # Add openness_to_learning from readiness_info (used in template conditionals)
+                template_context['openness_to_learning'] = readiness_info.get('openness_to_learning', '')
+                
+                # Build next_focus recommendation based on tier
+                overall_tier = template_context.get('overall', {}).get('tier', 'Foundational')
+                if overall_tier == 'Foundational':
+                    template_context['next_focus'] = 'Focus on building basic governance structures, improving data management, and developing staff AI awareness before considering AI adoption.'
+                elif overall_tier == 'Developing':
+                    template_context['next_focus'] = 'Strengthen governance frameworks, formalize data quality processes, and establish clear ethical guidelines to advance AI readiness.'
+                elif overall_tier == 'Established':
+                    template_context['next_focus'] = 'Enhance continuous improvement processes, deepen stakeholder engagement, and refine risk management for leading-edge AI adoption.'
+                else:  # Leading
+                    template_context['next_focus'] = 'Maintain leadership position through innovation, knowledge sharing, and proactive adaptation to emerging AI technologies and standards.'
+                
+                # Add AI narratives for Readiness reports (with fallback empty strings)
+                ai_narratives = report_data.get('ai_narratives', {})
+                template_context['ai'] = {
+                    'executive_snapshot': ai_narratives.get('executive_snapshot', ''),
+                    'context_interpretation': ai_narratives.get('context_interpretation', ''),
+                    'gov_ethics_readiness': ai_narratives.get('gov_ethics_readiness', ''),
+                    'data_capability_tech': ai_narratives.get('data_capability_tech', ''),
+                    'readiness_results_summary': ai_narratives.get('readiness_results_summary', ''),
+                    'action_interpretation': ai_narratives.get('action_interpretation', ''),
+                }
+                print(f"    - openness_to_learning: {template_context.get('openness_to_learning', 'N/A')}")
+                print(f"    - next_focus: {template_context.get('next_focus', 'N/A')[:50]}...")
             
             # Add Orgwide-specific variables if this is an Orgwide assessment
             elif self.assessment_type == 'Orgwide':
