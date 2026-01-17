@@ -5145,16 +5145,16 @@ Each cell represents the score for a specific question, enabling identification 
                     }
                     questions_by_domain[domain_id].append(question)
             
-            # Create domain info for Readiness (8 domains)
+            # Create domain info for Readiness (8 domains) - use plain & as docxtpl handles escaping
             domains_by_id = {
-                "Strategic Alignment &#38; Awareness": {"id": "Strategic Alignment & Awareness", "name": "Strategic Alignment &#38; Awareness"},
+                "Strategic Alignment & Awareness": {"id": "Strategic Alignment & Awareness", "name": "Strategic Alignment & Awareness"},
                 "Data Readiness": {"id": "Data Readiness", "name": "Data Readiness"},
-                "Policy &#38; Compliance Readiness": {"id": "Policy & Compliance Readiness", "name": "Policy &#38; Compliance Readiness"},
-                "Technology &#38; Infrastructure": {"id": "Technology & Infrastructure", "name": "Technology &#38; Infrastructure"},
-                "Continuous Learning &#38; Improvement": {"id": "Continuous Learning & Improvement", "name": "Continuous Learning &#38; Improvement"},
-                "Risk &#38; Ethics Awareness": {"id": "Risk & Ethics Awareness", "name": "Risk &#38; Ethics Awareness"},
+                "Policy & Compliance Readiness": {"id": "Policy & Compliance Readiness", "name": "Policy & Compliance Readiness"},
+                "Technology & Infrastructure": {"id": "Technology & Infrastructure", "name": "Technology & Infrastructure"},
+                "Continuous Learning & Improvement": {"id": "Continuous Learning & Improvement", "name": "Continuous Learning & Improvement"},
+                "Risk & Ethics Awareness": {"id": "Risk & Ethics Awareness", "name": "Risk & Ethics Awareness"},
                 "Governance Foundations": {"id": "Governance Foundations", "name": "Governance Foundations"},
-                "People &#38; Culture": {"id": "People & Culture", "name": "People &#38; Culture"}
+                "People & Culture": {"id": "People & Culture", "name": "People & Culture"}
             }
         else:
             # Original logic for System/other assessments
@@ -5656,16 +5656,16 @@ Each cell represents the score for a specific question, enabling identification 
                     }
                     questions_by_domain[domain_id].append(question)
             
-            # Create domain info for Readiness (8 domains)
+            # Create domain info for Readiness (8 domains) - use plain & as docxtpl handles escaping
             domains_by_id = {
-                "Strategic Alignment &#38; Awareness": {"id": "Strategic Alignment & Awareness", "name": "Strategic Alignment &#38; Awareness"},
+                "Strategic Alignment & Awareness": {"id": "Strategic Alignment & Awareness", "name": "Strategic Alignment & Awareness"},
                 "Data Readiness": {"id": "Data Readiness", "name": "Data Readiness"},
-                "Policy &#38; Compliance Readiness": {"id": "Policy & Compliance Readiness", "name": "Policy &#38; Compliance Readiness"},
-                "Technology &#38; Infrastructure": {"id": "Technology & Infrastructure", "name": "Technology &#38; Infrastructure"},
-                "Continuous Learning &#38; Improvement": {"id": "Continuous Learning & Improvement", "name": "Continuous Learning &#38; Improvement"},
-                "Risk &#38; Ethics Awareness": {"id": "Risk & Ethics Awareness", "name": "Risk &#38; Ethics Awareness"},
+                "Policy & Compliance Readiness": {"id": "Policy & Compliance Readiness", "name": "Policy & Compliance Readiness"},
+                "Technology & Infrastructure": {"id": "Technology & Infrastructure", "name": "Technology & Infrastructure"},
+                "Continuous Learning & Improvement": {"id": "Continuous Learning & Improvement", "name": "Continuous Learning & Improvement"},
+                "Risk & Ethics Awareness": {"id": "Risk & Ethics Awareness", "name": "Risk & Ethics Awareness"},
                 "Governance Foundations": {"id": "Governance Foundations", "name": "Governance Foundations"},
-                "People &#38; Culture": {"id": "People & Culture", "name": "People &#38; Culture"}
+                "People & Culture": {"id": "People & Culture", "name": "People & Culture"}
             }
         else:
             # Original logic for System/other assessments
