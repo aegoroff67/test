@@ -4918,12 +4918,6 @@ Each cell represents the score for a specific question, enabling identification 
             # Helper function for date formatting in template
             template_context['formatDate'] = self.format_date
             
-            # DEBUG: Print sector_actions_high_top5 JUST BEFORE render
-            if self.assessment_type == 'Readiness' and template_context.get('sector_actions_high_top5'):
-                print("DEBUG JUST BEFORE RENDER - sector_actions_high_top5:")
-                for i, action in enumerate(template_context['sector_actions_high_top5'][:3]):
-                    print(f"  [{i}] question_id='{action.get('question_id')}', domain='{action.get('domain')}', sector_action='{action.get('sector_action', '')[:30]}...'")
-            
             # Render the template - this will preserve all original fonts, colors, margins, layout
             doc.render(template_context)
             
