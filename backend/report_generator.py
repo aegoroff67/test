@@ -3987,6 +3987,12 @@ Each cell represents the score for a specific question, enabling identification 
                         q_num += 1
                 template_context['questions'] = questions
                 
+                # Debug: Print first few question domains to verify & character
+                if questions:
+                    print(f"  First 3 question domains:")
+                    for q in questions[:3]:
+                        print(f"    - Domain: '{q.get('domain')}'")
+                
                 print(f"  Awareness-specific variables added:")
                 print(f"    - org_name: {template_context.get('org_name', 'N/A')}")
                 print(f"    - industry: {template_context.get('industry', 'N/A')}")
