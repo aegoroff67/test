@@ -156,32 +156,52 @@ class AMReportGenerator:
 
     def _get_sector_average(self, sector_name: str) -> float:
         """
-        Get the overall sector average from benchmark data.
-        This is a placeholder method that returns a default value.
-        In a full implementation, this would query the benchmark database.
+        Get the overall sector average from benchmark data files.
         
         Args:
             sector_name: The sector/industry name
             
         Returns:
-            Overall sector average as a percentage (0-100)
+            Overall sector average as a percentage (0-100), or None if not found
         """
-        # Default sector averages by industry (placeholder data)
-        sector_averages = {
-            'Finance / Insurance': 65.2,
-            'Healthcare': 58.7,
-            'Technology': 72.1,
-            'Manufacturing': 61.4,
-            'Government': 55.8,
-            'Education': 52.3,
-            'Retail': 59.6,
-            'Energy': 63.9,
-            'Transportation': 57.2,
-            'Telecommunications': 68.5
-        }
-        
-        # Return sector-specific average or default
-        return sector_averages.get(sector_name, 60.0)
+        if not sector_name:
+            return None
+            
+        try:
+            import json
+            backend_dir = Path(__file__).parent
+            
+            # Choose the right benchmark file based on assessment type
+            if self.assessment_type == 'Awareness':
+                benchmark_path = backend_dir / "awareness_benchmarks.json"
+            elif self.assessment_type == 'Readiness':
+                benchmark_path = backend_dir / "readiness_benchmarks.json"
+            elif self.assessment_type == 'Orgwide':
+                benchmark_path = backend_dir / "orgwide_benchmarks.json"
+            else:
+                benchmark_path = backend_dir / "benchmarks.json"
+            
+            if not benchmark_path.exists():
+                print(f"Benchmark file not found: {benchmark_path}")
+                return None
+            
+            with open(benchmark_path, 'r') as f:
+                benchmarks_data = json.load(f)
+            
+            # Get sector_average from the sector_averages section
+            sector_averages = benchmarks_data.get("sector_averages", {})
+            sector_average = sector_averages.get(sector_name)
+            
+            # If exact match not found, try "Other"
+            if sector_average is None:
+                sector_average = sector_averages.get("Other")
+            
+            print(f"DEBUG _get_sector_average: sector='{sector_name}', average={sector_average}")
+            return sector_average
+            
+        except Exception as e:
+            print(f"Error loading sector average: {str(e)}")
+            return None
 
     def _generate_sector_actions(self, report_data: Dict[str, Any], sector_name: str) -> Dict[str, List[Dict[str, Any]]]:
         """
