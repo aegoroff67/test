@@ -4423,6 +4423,23 @@ Each cell represents the score for a specific question, enabling identification 
                     if domain_id not in questions_by_domain:
                         questions_by_domain[domain_id] = []
                     
+                    # Map the option label to predefined answer text
+                    option_value = answer.get("option", "")
+                    option_to_text_map = {
+                        "EARLY_AWARENESS": question_details.get('early_awareness', ''),
+                        "EXPLORING_OPPORTUNITIES": question_details.get('exploring_opportunities', ''),
+                        "BUILDING_READINESS": question_details.get('building_readiness', ''),
+                        "READY_TO_PROGRESS": question_details.get('ready_to_progress', '')
+                    }
+                    option_to_label_map = {
+                        "EARLY_AWARENESS": "Early Awareness",
+                        "EXPLORING_OPPORTUNITIES": "Exploring Opportunities",
+                        "BUILDING_READINESS": "Building Readiness",
+                        "READY_TO_PROGRESS": "Ready to Progress"
+                    }
+                    selected_option_text = option_to_text_map.get(option_value, option_value)
+                    selected_option_label = option_to_label_map.get(option_value, option_value)
+                    
                     question = {
                         "id": question_code,
                         "code": question_code,
@@ -4431,11 +4448,11 @@ Each cell represents the score for a specific question, enabling identification 
                         "order": question_details.get('order', 0),
                         "answer": {
                             "numeric_score": answer.get("numeric_score", 0),
-                            "text": answer.get("option", ""),
+                            "text": selected_option_text,
                             "question_id": question_code,
                             "selected_option": {
-                                "label": answer.get("option", ""),
-                                "text": answer.get("option", "")
+                                "label": selected_option_label,
+                                "text": selected_option_text
                             },
                             "comment": answer.get("note", "")
                         }
@@ -4829,6 +4846,23 @@ Each cell represents the score for a specific question, enabling identification 
                     if domain_id not in questions_by_domain:
                         questions_by_domain[domain_id] = []
                     
+                    # Map the option label to predefined answer text
+                    option_value = answer.get("option", "")
+                    option_to_text_map = {
+                        "EARLY_AWARENESS": question_details.get('early_awareness', ''),
+                        "EXPLORING_OPPORTUNITIES": question_details.get('exploring_opportunities', ''),
+                        "BUILDING_READINESS": question_details.get('building_readiness', ''),
+                        "READY_TO_PROGRESS": question_details.get('ready_to_progress', '')
+                    }
+                    option_to_label_map = {
+                        "EARLY_AWARENESS": "Early Awareness",
+                        "EXPLORING_OPPORTUNITIES": "Exploring Opportunities",
+                        "BUILDING_READINESS": "Building Readiness",
+                        "READY_TO_PROGRESS": "Ready to Progress"
+                    }
+                    selected_option_text = option_to_text_map.get(option_value, option_value)
+                    selected_option_label = option_to_label_map.get(option_value, option_value)
+                    
                     question = {
                         "id": question_code,
                         "code": question_code,
@@ -4837,11 +4871,11 @@ Each cell represents the score for a specific question, enabling identification 
                         "order": question_details.get('order', 0),
                         "answer": {
                             "numeric_score": answer.get("numeric_score", 0),
-                            "text": answer.get("option", ""),
+                            "text": selected_option_text,
                             "question_id": question_code,
                             "selected_option": {
-                                "label": answer.get("option", ""),
-                                "text": answer.get("option", "")
+                                "label": selected_option_label,
+                                "text": selected_option_text
                             },
                             "comment": answer.get("note", "")
                         }
