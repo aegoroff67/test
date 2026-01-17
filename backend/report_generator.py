@@ -4089,6 +4089,101 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - strengths: {len(strengths)} items")
                 print(f"    - gaps: {len(gaps)} items")
             
+            # Add System-specific variables if this is a System assessment
+            elif self.assessment_type == 'System':
+                system_info = report_data.get('system_info') or {}
+                
+                # Add all system_info fields as top-level variables
+                template_context.update({
+                    # Organization info
+                    'organization_name': system_info.get('organizationName', ''),
+                    'org_name': system_info.get('organizationName', ''),
+                    'industry': system_info.get('industry', ''),
+                    
+                    # System Information
+                    'system_name': system_info.get('systemName', ''),
+                    'system_description': system_info.get('description', ''),
+                    'system_owner': system_info.get('owner', ''),
+                    'department': system_info.get('department', ''),
+                    'lifecycle': system_info.get('lifecycle', ''),
+                    'users_stakeholders': system_info.get('usersStakeholders', ''),
+                    'monthly_volume': system_info.get('monthlyVolume', ''),
+                    'criticality': system_info.get('criticality', ''),
+                    
+                    # Model & Technical Details
+                    'model_type': system_info.get('modelType', ''),
+                    'ownership': system_info.get('ownership', ''),
+                    'hosting': system_info.get('hosting', ''),
+                    'cloud_provider': system_info.get('cloudProvider', ''),
+                    'cloud_region': system_info.get('cloudRegion', ''),
+                    'data_flow': system_info.get('dataFlow', ''),
+                    'data_sensitivity': system_info.get('dataSensitivity', ''),
+                    'data_sources': system_info.get('dataSources', ''),
+                    'representation_notes': system_info.get('representationNotes', ''),
+                    'has_retention_policy': system_info.get('hasRetentionPolicy', False),
+                    
+                    # Governance & Oversight
+                    'oversight': system_info.get('oversight', ''),
+                    'artefacts': system_info.get('artefacts', []),
+                    'frameworks': system_info.get('frameworks', []),
+                    'regulations': system_info.get('regulations', []),
+                    'ethics_commitments': system_info.get('ethicsCommitments', ''),
+                    'sustainability_goals': system_info.get('sustainabilityGoals', ''),
+                    'dependencies': system_info.get('dependencies', ''),
+                    
+                    # Version & Evidence
+                    'version_ref': system_info.get('versionRef', ''),
+                    'evidence_repo_url': system_info.get('evidenceRepoUrl', ''),
+                    
+                    # Assessment context
+                    'assessor_name': system_info.get('assessor_name', ''),
+                    'assessment_date': system_info.get('assessment_date', ''),
+                    'framework_version': system_info.get('framework_version', ''),
+                    
+                    # Full system_info object for flexibility
+                    'system_info': system_info,
+                    
+                    # Pre-formatted Results Summary text (matches frontend ResultsPage.js)
+                    'results_summary_text': self._generate_system_results_summary_text(report_data),
+                })
+                
+                # Build strengths list (domains scoring >= 70%)
+                strengths = []
+                for d in template_context.get('domains', []):
+                    score = d.get('score', 0)
+                    if isinstance(score, str):
+                        score = float(score.replace('%', ''))
+                    if score >= 70:
+                        strengths.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
+                template_context['strengths'] = strengths
+                
+                if strengths:
+                    template_context['strengths_summary'] = ', '.join(strengths[:3])
+                else:
+                    template_context['strengths_summary'] = 'Building foundational maturity across all domains'
+                
+                # Build gaps list (domains scoring < 50%)
+                gaps = []
+                for d in template_context.get('domains', []):
+                    score = d.get('score', 0)
+                    if isinstance(score, str):
+                        score = float(score.replace('%', ''))
+                    if score < 50:
+                        gaps.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
+                template_context['gaps'] = gaps
+                
+                if gaps:
+                    template_context['gaps_summary'] = ', '.join(gaps[:3])
+                else:
+                    template_context['gaps_summary'] = 'No critical gaps identified'
+                
+                print(f"  System-specific variables added:")
+                print(f"    - system_name: {template_context.get('system_name', 'N/A')}")
+                print(f"    - organization_name: {template_context.get('organization_name', 'N/A')}")
+                print(f"    - industry: {template_context.get('industry', 'N/A')}")
+                print(f"    - strengths: {len(strengths)} items")
+                print(f"    - gaps: {len(gaps)} items")
+            
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
             print(f"  Overall score: {template_context['overall']['score']}")
