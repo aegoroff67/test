@@ -4235,6 +4235,7 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - industry: {template_context.get('industry', 'N/A')}")
                 print(f"    - strengths: {len(strengths)} items")
                 print(f"    - gaps: {len(gaps)} items")
+                print(f"    - questions: {len(questions)} items")
             
             # Add Orgwide-specific variables if this is an Orgwide assessment
             elif self.assessment_type == 'Orgwide':
