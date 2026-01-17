@@ -3959,8 +3959,6 @@ Each cell represents the score for a specific question, enabling identification 
                 q_num = 1
                 for domain_data in questions_data:
                     domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
-                    # Escape ampersand for DOCX XML rendering
-                    domain_name_escaped = domain_name.replace('&', '&amp;') if domain_name else 'Unknown'
                     for q in domain_data.get('questions', []):
                         answer = q.get('answer', {})
                         score = answer.get('numeric_score', 0) if answer else 0
@@ -3979,7 +3977,7 @@ Each cell represents the score for a specific question, enabling identification 
                             'number': q_num,
                             'code': q.get('code', ''),
                             'text': q.get('text', ''),
-                            'domain': domain_name_escaped,
+                            'domain': domain_name,
                             'selected_option_label': answer.get('selected_option', {}).get('label', 'Not answered') if answer else 'Not answered',
                             'selected_option_text': answer.get('selected_option', {}).get('text', '') if answer else '',
                             'maturity_level': maturity_level,
