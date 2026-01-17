@@ -3700,6 +3700,9 @@ Each cell represents the score for a specific question, enabling identification 
                     'tier': report_data.get('overall', {}).get('tier', 'Basic')
                 },
                 
+                # Report display options
+                'show_detailed_responses': True,  # Toggle for showing detailed question responses in appendix
+                
                 # Assets (heatmap image) - generate and embed properly  
                 'assets': {
                     'heatmapUrl': self._create_heatmap_for_template(heatmap_image) if heatmap_image else 'HEATMAP_IMAGE_PLACEHOLDER'
