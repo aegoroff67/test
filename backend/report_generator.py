@@ -154,6 +154,35 @@ class AMReportGenerator:
         print(f"DEBUG: Using template for {assessment_type}: {template_path.name}")
         return str(template_path)
 
+    def _get_sector_average(self, sector_name: str) -> float:
+        """
+        Get the overall sector average from benchmark data.
+        This is a placeholder method that returns a default value.
+        In a full implementation, this would query the benchmark database.
+        
+        Args:
+            sector_name: The sector/industry name
+            
+        Returns:
+            Overall sector average as a percentage (0-100)
+        """
+        # Default sector averages by industry (placeholder data)
+        sector_averages = {
+            'Finance / Insurance': 65.2,
+            'Healthcare': 58.7,
+            'Technology': 72.1,
+            'Manufacturing': 61.4,
+            'Government': 55.8,
+            'Education': 52.3,
+            'Retail': 59.6,
+            'Energy': 63.9,
+            'Transportation': 57.2,
+            'Telecommunications': 68.5
+        }
+        
+        # Return sector-specific average or default
+        return sector_averages.get(sector_name, 60.0)
+
     def _generate_sector_actions(self, report_data: Dict[str, Any], sector_name: str) -> Dict[str, List[Dict[str, Any]]]:
         """
         Generate sector-specific action steps based on assessment scores.
