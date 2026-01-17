@@ -1702,6 +1702,24 @@ Output only the focus statement, nothing else."""
         else:
             return "Foundational"
     
+    def _calculate_system_tier(self, percentage: float) -> str:
+        """Calculate the maturity tier for AI System Maturity assessments.
+        
+        Categories (same as Orgwide):
+        - Leading (86-100%): Optimised Excellence
+        - Established (66-85%): Integrated Governance
+        - Developing (41-65%): Emerging Structure
+        - Foundational (0-40%): Ad-hoc Beginnings
+        """
+        if percentage >= 86:
+            return "Leading"
+        elif percentage >= 66:
+            return "Established"
+        elif percentage >= 41:
+            return "Developing"
+        else:
+            return "Foundational"
+    
     def _generate_results_summary_text(self, report_data: Dict[str, Any]) -> str:
         """
         Generate the complete Results Summary paragraph for Awareness assessments.
