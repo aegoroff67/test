@@ -3963,15 +3963,15 @@ Each cell represents the score for a specific question, enabling identification 
                         answer = q.get('answer', {})
                         score = answer.get('numeric_score', 0) if answer else 0
                         
-                        # Determine maturity level from score
+                        # Determine maturity level from score (Awareness-specific tiers)
                         if score >= 4:
-                            maturity_level = 'Advanced'
+                            maturity_level = 'Established'
                         elif score >= 3:
-                            maturity_level = 'Good'
+                            maturity_level = 'Developing'
                         elif score >= 2:
-                            maturity_level = 'Basic'
+                            maturity_level = 'Emerging'
                         else:
-                            maturity_level = 'Non-Ideal'
+                            maturity_level = 'Introductory'
                         
                         questions.append({
                             'number': q_num,
