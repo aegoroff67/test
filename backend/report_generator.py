@@ -4689,9 +4689,9 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - openness_to_learning: {template_context.get('openness_to_learning', 'N/A')}")
                 print(f"    - next_focus: {template_context.get('next_focus', 'N/A')[:50]}...")
                 
-                # Build sector_actions for Readiness (use regular actions if no sector-specific data)
+                # Build sector_actions for Readiness (use template_context actions which is already populated)
                 # For Readiness, sector_actions are derived from the priority actions
-                actions = report_data.get('actions', {})
+                actions = template_context.get('actions', {})
                 high_actions = actions.get('high', [])
                 medium_actions = actions.get('medium', [])
                 low_actions = actions.get('low', [])
