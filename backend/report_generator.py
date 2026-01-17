@@ -1790,6 +1790,50 @@ Output only the focus statement, nothing else."""
         
         return summary
     
+    def _generate_orgwide_results_summary_text(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate the complete Results Summary paragraph for Organisation-wide AI Maturity assessments.
+        Matches the frontend ResultsPage.js Results Summary section.
+        """
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        # Get organization name from orgwide_info or org
+        orgwide_info = report_data.get('orgwide_info') or {}
+        org_name = orgwide_info.get('org_name') or report_data.get('org', {}).get('name', 'The organisation')
+        
+        # Get sector benchmark comparison if available
+        sector_average = report_data.get('sector_average')
+        sector_name = orgwide_info.get('industry') or report_data.get('sector_name', '')
+        
+        # Build the opening sentence
+        summary = f"The results indicate that {org_name} has achieved an overall Organisation-wide AI Maturity score of {score:.1f}%, placing the organisation within the {tier} maturity category"
+        
+        # Add sector comparison if available
+        if sector_average is not None and sector_name:
+            if score > sector_average:
+                comparison = "above"
+            elif score < sector_average:
+                comparison = "below"
+            else:
+                comparison = "equal to"
+            summary += f", which is {comparison} the {sector_name} sector AI maturity average of {sector_average:.0f}%."
+        else:
+            summary += "."
+        
+        # Add tier-specific explanatory text
+        if tier == 'Leading':
+            summary += " This rating reflects a highly mature and well-embedded AI governance capability. Oversight, ethics, risk management, transparency, and lifecycle assurance are consistently applied across the organisation. AI decisions are well-controlled, monitored, and aligned to recognised standards. This level reflects strong leadership commitment and positions the organisation as a benchmark for responsible AI practice."
+        elif tier == 'Established':
+            summary += " This rating reflects a well-developed and consistently applied AI governance framework. Most domains show strong performance, with clear roles, oversight, and documented processes. Some variability or manual effort remains, but overall governance is stable and repeatable. Strengthening lifecycle assurance, fairness safeguards, and organisation-wide alignment will support progress toward leading maturity."
+        elif tier == 'Developing':
+            summary += " This rating reflects emerging and partially consistent AI governance across the organisation. Foundational structures exist but are not yet fully integrated or uniformly adopted. Oversight, transparency, fairness, and continuous monitoring vary across teams. Priorities include formalising governance, strengthening coordination, improving risk and ethical oversight, and embedding systematic lifecycle processes to advance maturity."
+        else:  # Foundational
+            summary += " This rating reflects early-stage or inconsistent AI governance practices. Key policies, roles, risk controls, and oversight mechanisms are limited or undeveloped. AI maturity varies significantly across teams, and core safeguards are often missing. Establishing baseline governance structures, defining responsibilities, and building organisational awareness are essential next steps for improving responsible AI maturity."
+        
+        return summary
+    
     def _load_recommendations_lookup(self) -> Dict[str, Any]:
         """Load recommendations lookup from JSON file."""
         import json
