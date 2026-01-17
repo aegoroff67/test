@@ -5375,6 +5375,8 @@ Each cell represents the score for a specific question, enabling identification 
             "sector_actions": sector_actions,
             "system_info": system_info,  # Pass system_info for template use (may be empty for non-System assessments)
             "awareness_info": assessment.get('awareness_info') or {},  # Pass awareness_info for Awareness assessments
+            "readiness_info": assessment.get('readiness_info') or {},  # Pass readiness_info for Readiness assessments
+            "orgwide_info": assessment.get('orgwide_info') or {},  # Pass orgwide_info for Orgwide assessments
         }
         
         # Generate AI narratives for Awareness assessments if use_ai is enabled
