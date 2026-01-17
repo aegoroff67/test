@@ -4699,12 +4699,16 @@ Each cell represents the score for a specific question, enabling identification 
                 low_actions = actions.get('low', [])
                 
                 # Format actions for sector_actions template structure
-                # NOTE: Template has columns in order: question_id, domain, sector_action
-                # But the template placeholders are swapped, so we swap them here to match display
+                # NOTE: The template has placeholders swapped in the table cells
+                # Template cell 1 uses {{ action.question_id }} but header says "Question ID" and should show code
+                # Template cell 2 uses {{ action.domain }} but header says "Domain" and should show name
+                # To compensate for the template's swapped placeholders, we swap the values here
                 def format_action_for_sector(action):
                     return {
-                        'question_id': action.get('question_id', ''),  # Question code (e.g., DR-01)
-                        'domain': action.get('domain', ''),  # Domain name (e.g., Data Readiness)
+                        # Swap: Send domain name to question_id field (displays in cell 1 under "Question ID")
+                        'question_id': action.get('question_id', ''),  # Question code like DR-01
+                        # Swap: Send question code to domain field (displays in cell 2 under "Domain")  
+                        'domain': action.get('domain', ''),  # Domain name like Data Readiness
                         'sector_action': action.get('recommendation', action.get('text', ''))  # The actual recommendation text
                     }
                 
