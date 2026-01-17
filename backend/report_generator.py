@@ -4550,8 +4550,6 @@ Each cell represents the score for a specific question, enabling identification 
             # Add Readiness-specific variables if this is a Readiness assessment
             elif self.assessment_type == 'Readiness':
                 readiness_info = report_data.get('readiness_info') or {}
-                print(f"DEBUG: readiness_info keys: {list(readiness_info.keys())}")
-                print(f"DEBUG: readiness_info.org_name: {readiness_info.get('org_name', 'NOT FOUND')}")
                 
                 # Add all readiness_info fields as top-level variables
                 template_context.update({
