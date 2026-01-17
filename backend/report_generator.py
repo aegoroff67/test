@@ -4683,6 +4683,29 @@ Each cell represents the score for a specific question, enabling identification 
                 }
                 print(f"    - openness_to_learning: {template_context.get('openness_to_learning', 'N/A')}")
                 print(f"    - next_focus: {template_context.get('next_focus', 'N/A')[:50]}...")
+                
+                # Build sector_actions for Readiness (use regular actions if no sector-specific data)
+                # For Readiness, sector_actions are derived from the priority actions
+                actions = report_data.get('actions', {})
+                high_actions = actions.get('high', [])
+                medium_actions = actions.get('medium', [])
+                low_actions = actions.get('low', [])
+                
+                # Format actions for sector_actions template structure
+                def format_action_for_sector(action):
+                    return {
+                        'question_id': action.get('question_id', ''),
+                        'domain': action.get('domain', ''),
+                        'sector_action': action.get('text', action.get('sector_action', ''))
+                    }
+                
+                template_context['sector_actions_high_top5'] = [format_action_for_sector(a) for a in high_actions[:5]]
+                template_context['sector_actions_medium_top5'] = [format_action_for_sector(a) for a in medium_actions[:5]]
+                template_context['sector_actions_low_top5'] = [format_action_for_sector(a) for a in low_actions[:5]]
+                
+                print(f"    - sector_actions_high_top5: {len(template_context['sector_actions_high_top5'])} items")
+                print(f"    - sector_actions_medium_top5: {len(template_context['sector_actions_medium_top5'])} items")
+                print(f"    - sector_actions_low_top5: {len(template_context['sector_actions_low_top5'])} items")
             
             # Add Orgwide-specific variables if this is an Orgwide assessment
             elif self.assessment_type == 'Orgwide':
