@@ -3769,6 +3769,12 @@ Each cell represents the score for a specific question, enabling identification 
             else:
                 awareness_bar_inline = heatmap_inline  # Fallback for non-Awareness
             
+            # Generate readiness bar image (stacked bar chart) for Readiness assessments
+            readiness_bar_inline = None
+            if self.assessment_type == 'Readiness':
+                readiness_bar_bytes = self._generate_readiness_bar_image(report_data)
+                readiness_bar_inline = InlineImage(doc, io.BytesIO(readiness_bar_bytes), width=Inches(2.0))
+            
             # Generate radar chart image
             radar_chart_image = self._generate_radar_chart_image(report_data)
             radar_chart_inline = InlineImage(doc, io.BytesIO(radar_chart_image), width=Inches(3.5))
