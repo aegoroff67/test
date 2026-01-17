@@ -2056,6 +2056,8 @@ Write in flowing prose without bullet points or headings."""
             "sector_actions": sector_actions,
             "system_info": assessment_data.get('system_info', {}),  # Pass system_info for template use
             "awareness_info": assessment_data.get('awareness_info', {}),  # Pass awareness_info for Awareness assessments
+            "readiness_info": assessment_data.get('readiness_info', {}),  # Pass readiness_info for Readiness assessments
+            "orgwide_info": assessment_data.get('orgwide_info', {}),  # Pass orgwide_info for Orgwide assessments
             "benchmark_data": self._load_benchmark_data(sector_name),  # Load sector benchmark data
             "ai_narratives": assessment_data.get('ai_narratives', {})  # Pass AI narratives for template use
         }
