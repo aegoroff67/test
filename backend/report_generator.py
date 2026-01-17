@@ -2698,26 +2698,31 @@ Write in flowing prose without bullet points or headings."""
             
             current_y += height
         
-        # Determine user arrow color based on sector average comparison (matching frontend)
+        # Determine user arrow color based on score tier (matching frontend)
+        # For Readiness: Green if Established/Leading (66%+), Red if Foundational/Developing (<66%)
+        if score >= 66:
+            user_arrow_color = '#00B050'  # Green - good readiness
+        else:
+            user_arrow_color = '#FF0000'  # Red - needs improvement
+        
+        # If sector average is available, use comparison instead
         if sector_average is not None:
             if score > sector_average:
                 user_arrow_color = '#00B050'  # Green - above average
             elif score < sector_average:
                 user_arrow_color = '#FF0000'  # Red - below average
             else:
-                user_arrow_color = '#000000'  # Black - equal
-        else:
-            user_arrow_color = '#000000'  # Black - no sector data
+                user_arrow_color = '#FFC000'  # Orange - equal
         
-        # User score arrow on RIGHT side (pointing left toward the bar) - matches frontend
+        # User score arrow on RIGHT side (pointing left toward the bar) - always show
         arrow_y = score  # Score directly maps to y position (0-100)
         ax.annotate('', xy=(bar_x + bar_width/2, arrow_y), 
                    xytext=(bar_x + bar_width/2 + 0.3, arrow_y),
                    arrowprops=dict(arrowstyle='->', color=user_arrow_color, lw=2))
         
-        # Sector average arrow on LEFT side (pointing right toward the bar) - matches frontend
-        # Always black, only shown if sector_average exists and differs from score
-        if sector_average is not None and sector_average != score:
+        # Sector average arrow on LEFT side (pointing right toward the bar)
+        # Show black arrow if sector_average exists
+        if sector_average is not None:
             ax.annotate('', xy=(bar_x - bar_width/2, sector_average), 
                        xytext=(bar_x - bar_width/2 - 0.3, sector_average),
                        arrowprops=dict(arrowstyle='->', color='#000000', lw=2))
