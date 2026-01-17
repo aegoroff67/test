@@ -4596,12 +4596,17 @@ Each cell represents the score for a specific question, enabling identification 
             first = sector_actions['high'][0]
             print(f"  - FIRST HIGH: question_id='{first.get('question_id')}', domain='{first.get('domain')}', sector_action='{first.get('sector_action', 'N/A')[:60]}...'")
         
+        # Get sector_average from benchmark data
+        sector_average = self._get_sector_average(sector_name)
+        print(f"DEBUG: sector_average for '{sector_name}': {sector_average}")
+        
         # Prepare assessment data for report generation
         assessment_data = {
             "assessment": assessment,
             "questions_data": questions_data,
             "summary": summary_data,
             "sector_name": sector_name,
+            "sector_average": sector_average,  # Add sector_average for bar chart and results summary
             "sector_actions": sector_actions,
             "system_info": system_info,  # Pass system_info for template use (may be empty for non-System assessments)
             "awareness_info": assessment.get('awareness_info') or {},  # Pass awareness_info for Awareness assessments
@@ -4997,12 +5002,17 @@ Each cell represents the score for a specific question, enabling identification 
             first = sector_actions['high'][0]
             print(f"  - FIRST HIGH: question_id='{first.get('question_id')}', domain='{first.get('domain')}', sector_action='{first.get('sector_action', 'N/A')[:60]}...'")
         
+        # Get sector_average from benchmark data
+        sector_average = self._get_sector_average(sector_name)
+        print(f"DEBUG: sector_average for '{sector_name}': {sector_average}")
+        
         # Prepare assessment data for report generation
         assessment_data = {
             "assessment": assessment,
             "questions_data": questions_data,
             "summary": summary_data,
             "sector_name": sector_name,
+            "sector_average": sector_average,  # Add sector_average for bar chart and results summary
             "sector_actions": sector_actions,
             "system_info": system_info,  # Pass system_info for template use (may be empty for non-System assessments)
             "awareness_info": assessment.get('awareness_info') or {},  # Pass awareness_info for Awareness assessments
