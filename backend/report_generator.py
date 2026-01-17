@@ -4566,11 +4566,99 @@ Each cell represents the score for a specific question, enabling identification 
             
             # Create domain info for Awareness
             domains_by_id = {
-                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
-                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
-                "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
-                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership & Vision"},
-                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data & Digital Readiness"}
+                "Awareness &#38; Understanding": {"id": "Awareness & Understanding", "name": "Awareness &#38; Understanding"},
+                "Governance &#38; Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance &#38; Trust Foundations"},
+                "People &#38; Skills": {"id": "People & Skills", "name": "People &#38; Skills"},
+                "Leadership &#38; Vision": {"id": "Leadership & Vision", "name": "Leadership &#38; Vision"},
+                "Data &#38; Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data &#38; Digital Readiness"}
+            }
+        elif self.assessment_type == 'Readiness':
+            # For Readiness assessments, use READINESS_QUESTIONS_DATA
+            from readiness_questions import READINESS_QUESTIONS_DATA
+            
+            # Create mapping from question code to question details
+            readiness_questions_by_code = {}
+            for question_data in READINESS_QUESTIONS_DATA:
+                code = question_data.get('code')
+                if code:
+                    readiness_questions_by_code[code] = question_data
+            
+            # Readiness domain mapping (8 domains)
+            readiness_domain_mapping = {
+                "SA": "Strategic Alignment &#38; Awareness",
+                "DR": "Data Readiness",
+                "PC": "Policy &#38; Compliance Readiness",
+                "TI": "Technology &#38; Infrastructure",
+                "CL": "Continuous Learning &#38; Improvement",
+                "RE": "Risk &#38; Ethics Awareness",
+                "GF": "Governance Foundations",
+                "PE": "People &#38; Culture"
+            }
+            
+            for answer in answers:
+                # For Readiness, question_id IS the code (e.g., "SA-01")
+                question_code = answer.get("question_id", "")
+                
+                if question_code and question_code in readiness_questions_by_code:
+                    processed_answers += 1
+                    question_details = readiness_questions_by_code[question_code]
+                    
+                    # Extract domain from question code
+                    domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                    domain_name = readiness_domain_mapping.get(domain_prefix, "Unknown")
+                    
+                    # Use domain name as ID for Readiness (no domain collection)
+                    domain_id = domain_name
+                    
+                    if domain_id not in questions_by_domain:
+                        questions_by_domain[domain_id] = []
+                    
+                    # Map the option label to predefined answer text
+                    option_value = answer.get("option", "")
+                    option_to_text_map = {
+                        "FOUNDATIONAL": question_details.get('foundational', ''),
+                        "DEVELOPING": question_details.get('developing', ''),
+                        "ESTABLISHED": question_details.get('established', ''),
+                        "LEADING": question_details.get('leading', '')
+                    }
+                    option_to_label_map = {
+                        "FOUNDATIONAL": "Foundational",
+                        "DEVELOPING": "Developing",
+                        "ESTABLISHED": "Established",
+                        "LEADING": "Leading"
+                    }
+                    selected_option_text = option_to_text_map.get(option_value, option_value)
+                    selected_option_label = option_to_label_map.get(option_value, option_value)
+                    
+                    question = {
+                        "id": question_code,
+                        "code": question_code,
+                        "text": question_details.get('text', f'Question {question_code}'),
+                        "domain_id": domain_id,
+                        "order": question_details.get('order', 0),
+                        "answer": {
+                            "numeric_score": answer.get("numeric_score", 0),
+                            "text": selected_option_text,
+                            "question_id": question_code,
+                            "selected_option": {
+                                "label": selected_option_label,
+                                "text": selected_option_text
+                            },
+                            "comment": answer.get("note", "")
+                        }
+                    }
+                    questions_by_domain[domain_id].append(question)
+            
+            # Create domain info for Readiness (8 domains)
+            domains_by_id = {
+                "Strategic Alignment &#38; Awareness": {"id": "Strategic Alignment & Awareness", "name": "Strategic Alignment &#38; Awareness"},
+                "Data Readiness": {"id": "Data Readiness", "name": "Data Readiness"},
+                "Policy &#38; Compliance Readiness": {"id": "Policy & Compliance Readiness", "name": "Policy &#38; Compliance Readiness"},
+                "Technology &#38; Infrastructure": {"id": "Technology & Infrastructure", "name": "Technology &#38; Infrastructure"},
+                "Continuous Learning &#38; Improvement": {"id": "Continuous Learning & Improvement", "name": "Continuous Learning &#38; Improvement"},
+                "Risk &#38; Ethics Awareness": {"id": "Risk & Ethics Awareness", "name": "Risk &#38; Ethics Awareness"},
+                "Governance Foundations": {"id": "Governance Foundations", "name": "Governance Foundations"},
+                "People &#38; Culture": {"id": "People & Culture", "name": "People &#38; Culture"}
             }
         else:
             # Original logic for System/other assessments
@@ -4989,11 +5077,99 @@ Each cell represents the score for a specific question, enabling identification 
             
             # Create domain info for Awareness
             domains_by_id = {
-                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
-                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
-                "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
-                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership & Vision"},
-                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data & Digital Readiness"}
+                "Awareness &#38; Understanding": {"id": "Awareness & Understanding", "name": "Awareness &#38; Understanding"},
+                "Governance &#38; Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance &#38; Trust Foundations"},
+                "People &#38; Skills": {"id": "People & Skills", "name": "People &#38; Skills"},
+                "Leadership &#38; Vision": {"id": "Leadership & Vision", "name": "Leadership &#38; Vision"},
+                "Data &#38; Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data &#38; Digital Readiness"}
+            }
+        elif self.assessment_type == 'Readiness':
+            # For Readiness assessments, use READINESS_QUESTIONS_DATA
+            from readiness_questions import READINESS_QUESTIONS_DATA
+            
+            # Create mapping from question code to question details
+            readiness_questions_by_code = {}
+            for question_data in READINESS_QUESTIONS_DATA:
+                code = question_data.get('code')
+                if code:
+                    readiness_questions_by_code[code] = question_data
+            
+            # Readiness domain mapping (8 domains)
+            readiness_domain_mapping = {
+                "SA": "Strategic Alignment &#38; Awareness",
+                "DR": "Data Readiness",
+                "PC": "Policy &#38; Compliance Readiness",
+                "TI": "Technology &#38; Infrastructure",
+                "CL": "Continuous Learning &#38; Improvement",
+                "RE": "Risk &#38; Ethics Awareness",
+                "GF": "Governance Foundations",
+                "PE": "People &#38; Culture"
+            }
+            
+            for answer in answers:
+                # For Readiness, question_id IS the code (e.g., "SA-01")
+                question_code = answer.get("question_id", "")
+                
+                if question_code and question_code in readiness_questions_by_code:
+                    processed_answers += 1
+                    question_details = readiness_questions_by_code[question_code]
+                    
+                    # Extract domain from question code
+                    domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                    domain_name = readiness_domain_mapping.get(domain_prefix, "Unknown")
+                    
+                    # Use domain name as ID for Readiness (no domain collection)
+                    domain_id = domain_name
+                    
+                    if domain_id not in questions_by_domain:
+                        questions_by_domain[domain_id] = []
+                    
+                    # Map the option label to predefined answer text
+                    option_value = answer.get("option", "")
+                    option_to_text_map = {
+                        "FOUNDATIONAL": question_details.get('foundational', ''),
+                        "DEVELOPING": question_details.get('developing', ''),
+                        "ESTABLISHED": question_details.get('established', ''),
+                        "LEADING": question_details.get('leading', '')
+                    }
+                    option_to_label_map = {
+                        "FOUNDATIONAL": "Foundational",
+                        "DEVELOPING": "Developing",
+                        "ESTABLISHED": "Established",
+                        "LEADING": "Leading"
+                    }
+                    selected_option_text = option_to_text_map.get(option_value, option_value)
+                    selected_option_label = option_to_label_map.get(option_value, option_value)
+                    
+                    question = {
+                        "id": question_code,
+                        "code": question_code,
+                        "text": question_details.get('text', f'Question {question_code}'),
+                        "domain_id": domain_id,
+                        "order": question_details.get('order', 0),
+                        "answer": {
+                            "numeric_score": answer.get("numeric_score", 0),
+                            "text": selected_option_text,
+                            "question_id": question_code,
+                            "selected_option": {
+                                "label": selected_option_label,
+                                "text": selected_option_text
+                            },
+                            "comment": answer.get("note", "")
+                        }
+                    }
+                    questions_by_domain[domain_id].append(question)
+            
+            # Create domain info for Readiness (8 domains)
+            domains_by_id = {
+                "Strategic Alignment &#38; Awareness": {"id": "Strategic Alignment & Awareness", "name": "Strategic Alignment &#38; Awareness"},
+                "Data Readiness": {"id": "Data Readiness", "name": "Data Readiness"},
+                "Policy &#38; Compliance Readiness": {"id": "Policy & Compliance Readiness", "name": "Policy &#38; Compliance Readiness"},
+                "Technology &#38; Infrastructure": {"id": "Technology & Infrastructure", "name": "Technology &#38; Infrastructure"},
+                "Continuous Learning &#38; Improvement": {"id": "Continuous Learning & Improvement", "name": "Continuous Learning &#38; Improvement"},
+                "Risk &#38; Ethics Awareness": {"id": "Risk & Ethics Awareness", "name": "Risk &#38; Ethics Awareness"},
+                "Governance Foundations": {"id": "Governance Foundations", "name": "Governance Foundations"},
+                "People &#38; Culture": {"id": "People & Culture", "name": "People &#38; Culture"}
             }
         else:
             # Original logic for System/other assessments
