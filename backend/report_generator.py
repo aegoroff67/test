@@ -3772,8 +3772,10 @@ Each cell represents the score for a specific question, enabling identification 
             # Generate readiness bar image (stacked bar chart) for Readiness assessments
             readiness_bar_inline = None
             if self.assessment_type == 'Readiness':
+                print(f"DEBUG: Generating readiness_bar_image for Readiness assessment")
                 readiness_bar_bytes = self._generate_readiness_bar_image(report_data)
                 readiness_bar_inline = InlineImage(doc, io.BytesIO(readiness_bar_bytes), width=Inches(2.0))
+                print(f"DEBUG: readiness_bar_image generated successfully, size: {len(readiness_bar_bytes)} bytes")
             
             # Generate radar chart image
             radar_chart_image = self._generate_radar_chart_image(report_data)
