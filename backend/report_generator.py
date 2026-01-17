@@ -5079,16 +5079,16 @@ Each cell represents the score for a specific question, enabling identification 
                 if code:
                     readiness_questions_by_code[code] = question_data
             
-            # Readiness domain mapping (8 domains)
+            # Readiness domain mapping (8 domains) - use plain & as docxtpl handles escaping
             readiness_domain_mapping = {
-                "SA": "Strategic Alignment &#38; Awareness",
+                "SA": "Strategic Alignment & Awareness",
                 "GF": "Governance Foundations",
                 "DR": "Data Readiness",
-                "TI": "Technology &#38; Infrastructure",
-                "PC": "People &#38; Culture",
-                "PR": "Policy &#38; Compliance Readiness",
-                "RE": "Risk &#38; Ethics Awareness",
-                "CL": "Continuous Learning &#38; Improvement"
+                "TI": "Technology & Infrastructure",
+                "PC": "People & Culture",
+                "PR": "Policy & Compliance Readiness",
+                "RE": "Risk & Ethics Awareness",
+                "CL": "Continuous Learning & Improvement"
             }
             
             for answer in answers:
@@ -5590,16 +5590,16 @@ Each cell represents the score for a specific question, enabling identification 
                 if code:
                     readiness_questions_by_code[code] = question_data
             
-            # Readiness domain mapping (8 domains)
+            # Readiness domain mapping (8 domains) - use plain & as docxtpl handles escaping
             readiness_domain_mapping = {
-                "SA": "Strategic Alignment &#38; Awareness",
+                "SA": "Strategic Alignment & Awareness",
                 "GF": "Governance Foundations",
                 "DR": "Data Readiness",
-                "TI": "Technology &#38; Infrastructure",
-                "PC": "People &#38; Culture",
-                "PR": "Policy &#38; Compliance Readiness",
-                "RE": "Risk &#38; Ethics Awareness",
-                "CL": "Continuous Learning &#38; Improvement"
+                "TI": "Technology & Infrastructure",
+                "PC": "People & Culture",
+                "PR": "Policy & Compliance Readiness",
+                "RE": "Risk & Ethics Awareness",
+                "CL": "Continuous Learning & Improvement"
             }
             
             for answer in answers:
