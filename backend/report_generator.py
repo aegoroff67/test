@@ -3825,6 +3825,9 @@ Each cell represents the score for a specific question, enabling identification 
                 # Awareness bar image (stacked bar chart for Awareness template)
                 'awareness_bar_image': awareness_bar_inline,
                 
+                # Readiness bar image (stacked bar chart for Readiness template)
+                'readiness_bar_image': readiness_bar_inline,
+                
                 # Radar chart image for direct placeholder replacement
                 'radar_chart_image': radar_chart_inline,
                 
