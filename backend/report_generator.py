@@ -4204,15 +4204,16 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 print(f"    sum(scores)={sum(scores)}, len(scores)={len(scores)}, max_possible={len(scores)*4}, avg_pct={avg_pct:.1f}%")
                 
-                # Determine tier based on score
-                if avg_pct >= 75:
-                    tier = "Advanced"
-                elif avg_pct >= 50:
-                    tier = "Good"
-                elif avg_pct >= 25:
-                    tier = "Basic"
+                # Determine tier based on score using standard maturity tiers
+                # Foundational (0-40%), Developing (41-65%), Established (66-85%), Leading (86-100%)
+                if avg_pct >= 86:
+                    tier = "Leading"
+                elif avg_pct >= 66:
+                    tier = "Established"
+                elif avg_pct >= 41:
+                    tier = "Developing"
                 else:
-                    tier = "Non-Ideal"
+                    tier = "Foundational"
                 
                 result.append({
                     'name': domain_name,
