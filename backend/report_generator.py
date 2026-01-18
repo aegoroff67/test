@@ -1471,6 +1471,12 @@ Do not include headings or formatting."""
         ai_strategy_status = readiness_info.get('ai_strategy_status', 'Not specified')
         poc_status = readiness_info.get('poc_status', 'Not specified')
         
+        # Get Strategic Alignment domain scores
+        domains = report_data.get('domains', [])
+        strategic_alignment_score = next((d.get('percentage', d.get('score', 0)) for d in domains 
+                                          if 'Strategic' in d.get('domain_name', d.get('name', ''))), 0)
+        strategic_alignment_scores = f"Strategic Alignment & Awareness: {strategic_alignment_score:.0f}%"
+        
         system_prompt = "You are generating the Organisation & Strategic Context interpretation for an AI Readiness Assessment report."
         
         user_prompt = f"""Interpret the organisation's AI readiness results in light of its stated strategy and leadership posture.
@@ -1486,6 +1492,7 @@ INPUT DATA:
 - AI strategy or roadmap status: {ai_strategy_status}
 - AI pilots / proofs-of-concept status: {poc_status}
 - Overall readiness tier: {tier}
+- Strategic Alignment domain scores: {strategic_alignment_scores}
 
 OUTPUT REQUIREMENTS:
 - 120–160 words
@@ -1495,7 +1502,7 @@ STRUCTURE:
 1. Explain alignment or misalignment between intent and readiness
 2. Describe leadership posture and its influence on readiness signals
 3. Clarify whether readiness reflects deliberate planning or early exploration
-4. Explicitly comment on any significant variation in maturity within the same domain
+4. Explicitly comment on significant variation in maturity within the same domain
 
 Do not include headings or formatting."""
 
