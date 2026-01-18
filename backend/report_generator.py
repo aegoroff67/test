@@ -5644,6 +5644,44 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"ERROR generating Awareness AI narratives: {e}")
                 assessment_data['ai_narratives'] = {}
         
+        # Generate AI narratives for Readiness assessments if use_ai is enabled
+        if use_ai and self.assessment_type == 'Readiness':
+            print("=== GENERATING READINESS AI NARRATIVES ===")
+            try:
+                # Build report_data for AI narrative generation
+                readiness_info = assessment.get('readiness_info') or {}
+                ai_report_data = {
+                    'organization_name': readiness_info.get('org_name', current_user.organization_name),
+                    'overall': {
+                        'tier': summary_data.get('overall_tier', 'Unknown'),
+                        'percentage': summary_data.get('overall_percentage', 0),
+                        'score': summary_data.get('overall_percentage', 0),
+                    },
+                    'domains': summary_data.get('domain_scores', []),
+                    'sector_name': sector_name,
+                    'sector_average': sector_average,
+                    'benchmark_data': self._load_benchmark_data(sector_name),
+                    'actions': {
+                        'high': sector_actions.get('high', []),
+                        'medium': sector_actions.get('medium', []),
+                        'low': sector_actions.get('low', []),
+                    },
+                    'readiness_info': readiness_info,
+                    'org': {
+                        'name': readiness_info.get('org_name', current_user.organization_name),
+                        'industry': sector_name,
+                    },
+                }
+                
+                ai_narratives = await self._generate_readiness_ai_narratives(ai_report_data, assessment, db)
+                assessment_data['ai_narratives'] = ai_narratives
+                print(f"DEBUG: Readiness AI narratives generated: {list(ai_narratives.keys())}")
+            except Exception as e:
+                print(f"ERROR generating Readiness AI narratives: {e}")
+                import traceback
+                traceback.print_exc()
+                assessment_data['ai_narratives'] = {}
+        
         print(f"DEBUG: current_user type: {type(current_user)}")
         print(f"DEBUG: current_user.organization_name: {getattr(current_user, 'organization_name', 'NOT SET')}")
         
