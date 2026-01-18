@@ -1382,7 +1382,7 @@ Output only the focus statement, nothing else."""
         # Get domain scores
         domains = report_data.get('domains', [])
         
-        # Get strengths (score >= 70) and gaps (score < 50)
+        # Get strengths (score >= 70) and gaps (score < 60 for foundational domains)
         # Note: domain_scores uses 'domain_name' and 'percentage' fields
         strengths = []
         gaps = []
@@ -1392,16 +1392,21 @@ Output only the focus statement, nothing else."""
                 d_score = float(d_score.replace('%', ''))
             d_name = d.get('domain_name', d.get('name', 'Unknown'))
             if d_score >= 70:
-                strengths.append(d_name)
-            elif d_score < 50:
-                gaps.append(d_name)
+                strengths.append(f"{d_name} ({d_score:.0f}%)")
+            elif d_score < 60:
+                gaps.append(f"{d_name} ({d_score:.0f}%)")
         
         strengths_summary = ', '.join(strengths) if strengths else 'No domains currently at established level'
-        gaps_summary = ', '.join(gaps) if gaps else 'No critical gaps identified'
+        gaps_summary = ', '.join(gaps) if gaps else 'All domains above 60%'
         
         system_prompt = "You are generating the Executive Snapshot narrative for an AI Readiness Assessment report."
         
         user_prompt = f"""Explain the organisation's overall AI readiness position in clear, executive-level language.
+
+CRITICAL RULES:
+- Do NOT state or imply that "no critical gaps exist" unless all domain scores exceed 70%.
+- If any foundational domains (e.g. data, cybersecurity, resilience) score below 60%, explicitly describe these as readiness constraints.
+- Avoid language that could be interpreted as approval to proceed with AI implementation.
 
 INPUT DATA:
 - Organisation name: {org_name}
@@ -1421,6 +1426,9 @@ STRUCTURE:
 2. Contrast internal readiness with sector context at a high level
 3. Describe the balance between enabling signals and constraints
 4. Reinforce that this assessment evaluates readiness, not AI system assurance
+5. Include one explicit sentence describing the risk of proceeding with AI initiatives at the current readiness level
+
+Use constraint-aware language such as "may increase risk", "could limit reliability", or "would require further uplift" where applicable.
 
 Do not include headings or formatting."""
 
