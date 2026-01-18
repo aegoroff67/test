@@ -1745,6 +1745,10 @@ Do not include headings or formatting."""
         
         user_prompt = f"""Interpret sector benchmarking results for AI readiness.
 
+CRITICAL RULES:
+- Explicitly state that sector averages do not represent minimum acceptable thresholds.
+- Do NOT imply benchmarking justifies proceeding with AI initiatives.
+
 INPUT DATA:
 - Organisation readiness score: {score:.0f}%
 - Sector average score: {sector_average}%
@@ -1759,6 +1763,7 @@ STRUCTURE:
 1. Explain what the comparison shows at a high level
 2. Clarify appropriate use of benchmarking insights
 3. Reinforce limitations of sector averages
+4. State that benchmarking should not be used as a readiness gate
 
 Do not include headings or formatting."""
 
