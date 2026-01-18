@@ -1383,16 +1383,18 @@ Output only the focus statement, nothing else."""
         domains = report_data.get('domains', [])
         
         # Get strengths (score >= 70) and gaps (score < 50)
+        # Note: domain_scores uses 'domain_name' and 'percentage' fields
         strengths = []
         gaps = []
         for d in domains:
-            d_score = d.get('score', 0)
+            d_score = d.get('percentage', d.get('score', 0))
             if isinstance(d_score, str):
                 d_score = float(d_score.replace('%', ''))
+            d_name = d.get('domain_name', d.get('name', 'Unknown'))
             if d_score >= 70:
-                strengths.append(d.get('name', 'Unknown'))
+                strengths.append(d_name)
             elif d_score < 50:
-                gaps.append(d.get('name', 'Unknown'))
+                gaps.append(d_name)
         
         strengths_summary = ', '.join(strengths) if strengths else 'No domains currently at established level'
         gaps_summary = ', '.join(gaps) if gaps else 'No critical gaps identified'
