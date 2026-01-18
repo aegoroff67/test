@@ -1437,43 +1437,47 @@ Do not include headings or formatting."""
     async def _generate_readiness_ai_context_interpretation(self, report_data: Dict[str, Any]) -> str:
         """
         Generate AI Context Interpretation for Readiness assessments.
-        Variable target: ai.context_interpretation
+        Variable target: ai.r_context_interpretation
         """
         from emergentintegrations.llm.chat import Chat, UserMessage
         
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
         readiness_info = report_data.get('readiness_info') or {}
         org_name = readiness_info.get('org_name') or report_data.get('org', {}).get('name', 'The organisation')
-        industry = readiness_info.get('industry') or report_data.get('org', {}).get('industry', '')
-        org_size = readiness_info.get('org_size', '')
-        ai_motivation = readiness_info.get('ai_motivation', '')
-        leadership_commitment = readiness_info.get('leadership_commitment', '')
-        ai_strategy_status = readiness_info.get('ai_strategy_status', '')
+        readiness_motivation = readiness_info.get('ai_motivation', readiness_info.get('readiness_motivation', 'Not specified'))
+        leadership_commitment = readiness_info.get('leadership_commitment', 'Not specified')
+        ai_strategy_status = readiness_info.get('ai_strategy_status', 'Not specified')
+        poc_status = readiness_info.get('poc_status', 'Not specified')
         
         try:
             chat = Chat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
-                system_message="""You are an AI readiness assessment expert providing context interpretation for organisational AI readiness reports.
-Write in a professional, consultative tone. Focus on helping leadership understand their organisation's AI context.
-Use Australian English spelling."""
+                system_message="You are generating the Organisation & Strategic Context interpretation for an AI Readiness Assessment report."
             )
             
-            user_prompt = f"""Write a context interpretation paragraph (100-150 words) for this AI Readiness assessment:
+            user_prompt = f"""Interpret the organisation's AI readiness results in light of its stated strategy and leadership posture.
 
-Organisation: {org_name}
-Industry: {industry}
-Organisation Size: {org_size}
-AI Motivation: {ai_motivation}
-Leadership Commitment: {leadership_commitment}
-AI Strategy Status: {ai_strategy_status}
+INPUT DATA:
+- Organisation name: {org_name}
+- Primary motivation to explore AI: {readiness_motivation}
+- Leadership commitment level: {leadership_commitment}
+- AI strategy or roadmap status: {ai_strategy_status}
+- AI pilots / proofs-of-concept status: {poc_status}
+- Overall readiness tier: {tier}
 
-The interpretation should:
-1. Explain the organisational context for AI readiness
-2. Reference industry-specific considerations
-3. Comment on the alignment between stated motivation and current readiness
-4. Note the significance of leadership commitment level
+OUTPUT REQUIREMENTS:
+- 120–160 words
+- Analytical, explanatory tone
 
-Write in flowing prose without bullet points or headings."""
+STRUCTURE:
+1. Explain alignment or misalignment between intent and readiness
+2. Describe leadership posture and its influence on readiness signals
+3. Clarify whether readiness reflects deliberate planning or early exploration
+
+Do not include headings or formatting."""
 
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
