@@ -4988,17 +4988,21 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 # Add AI narratives for Readiness reports (with fallback empty strings)
                 # Using new variable naming convention: ai.r_* for Readiness
-                # docxtpl handles XML escaping automatically
+                # Use &amp; for XML compatibility in DOCX
+                def escape_ampersand(text: str) -> str:
+                    """Escape & as &amp; for DOCX XML compatibility."""
+                    return text.replace('&', '&amp;') if text else ''
+                
                 ai_narratives = report_data.get('ai_narratives', {})
                 template_context['ai'] = {
-                    'r_executive_snapshot': ai_narratives.get('r_executive_snapshot', ''),
-                    'r_context_interpretation': ai_narratives.get('r_context_interpretation', ''),
-                    'r_governance_interpretation': ai_narratives.get('r_governance_interpretation', ''),
-                    'r_data_tech_interpretation': ai_narratives.get('r_data_tech_interpretation', ''),
-                    'r_domain_patterns': ai_narratives.get('r_domain_patterns', ''),
-                    'r_sector_interpretation': ai_narratives.get('r_sector_interpretation', ''),
-                    'r_action_interpretation': ai_narratives.get('r_action_interpretation', ''),
-                    'r_pathway_rationale': ai_narratives.get('r_pathway_rationale', ''),
+                    'r_executive_snapshot': escape_ampersand(ai_narratives.get('r_executive_snapshot', '')),
+                    'r_context_interpretation': escape_ampersand(ai_narratives.get('r_context_interpretation', '')),
+                    'r_governance_interpretation': escape_ampersand(ai_narratives.get('r_governance_interpretation', '')),
+                    'r_data_tech_interpretation': escape_ampersand(ai_narratives.get('r_data_tech_interpretation', '')),
+                    'r_domain_patterns': escape_ampersand(ai_narratives.get('r_domain_patterns', '')),
+                    'r_sector_interpretation': escape_ampersand(ai_narratives.get('r_sector_interpretation', '')),
+                    'r_action_interpretation': escape_ampersand(ai_narratives.get('r_action_interpretation', '')),
+                    'r_pathway_rationale': escape_ampersand(ai_narratives.get('r_pathway_rationale', '')),
                 }
                 print(f"DEBUG: Added AI narratives to Readiness template context: {list(template_context['ai'].keys())}")
                 for key, value in template_context['ai'].items():
