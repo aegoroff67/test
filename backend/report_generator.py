@@ -4942,6 +4942,9 @@ Each cell represents the score for a specific question, enabling identification 
             if self.assessment_type == 'Awareness':
                 # Awareness uses sector_actions tables with question_id, domain, sector_action
                 self._populate_awareness_sector_tables(doc, report_data)
+            elif self.assessment_type == 'Readiness':
+                # Readiness uses the same table structure as Awareness (question_id, domain, sector_action)
+                self._populate_readiness_sector_tables(doc, report_data)
             elif not self.use_test_template:
                 # System/other templates use actions tables with domain, question_id, text
                 self._populate_recommendation_tables(doc, report_data)
