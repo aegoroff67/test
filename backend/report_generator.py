@@ -4712,6 +4712,8 @@ Each cell represents the score for a specific question, enabling identification 
                 q_num = 1
                 for domain_data in questions_data:
                     domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+                    if q_num == 1:
+                        print(f"DEBUG: First domain_name for questions = '{domain_name}'")
                     # docxtpl handles escaping automatically - use plain domain name
                     for q in domain_data.get('questions', []):
                         answer = q.get('answer', {})
