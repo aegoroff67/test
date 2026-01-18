@@ -138,7 +138,7 @@ class AMReportGenerator:
         template_map = {
             'System': 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx',
             'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
-            'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.03_20260118.docx',
+            'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.04_20260118.docx',
             'Orgwide': 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx',    # Fallback to System template
             'FAIRA': 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx',      # Fallback to System template
         }
