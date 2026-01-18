@@ -1309,7 +1309,15 @@ Output only the focus statement, nothing else."""
     async def _generate_readiness_ai_narratives(self, report_data: Dict[str, Any], assessment: Dict[str, Any], db) -> Dict[str, str]:
         """
         Generate all AI narratives for Readiness assessments.
-        Returns a dict with narrative keys that can be accessed as ai.executive_snapshot, etc.
+        Returns a dict with narrative keys matching template variables:
+        - ai.r_executive_snapshot
+        - ai.r_context_interpretation
+        - ai.r_governance_interpretation
+        - ai.r_data_tech_interpretation
+        - ai.r_domain_patterns
+        - ai.r_sector_interpretation
+        - ai.r_action_interpretation
+        - ai.r_pathway_rationale
         Caches results in the database to avoid regeneration.
         """
         narratives = {}
@@ -1318,77 +1326,29 @@ Output only the focus statement, nothing else."""
         # Check for cached narratives in database
         cached_narratives = assessment.get('ai_narratives', {})
         
-        # Generate Executive Snapshot for Readiness
-        if cached_narratives.get('executive_snapshot'):
-            narratives['executive_snapshot'] = cached_narratives['executive_snapshot']
-            print(f"DEBUG: Using cached AI executive_snapshot narrative (Readiness)")
-        else:
-            try:
-                narratives['executive_snapshot'] = await self._generate_readiness_ai_executive_snapshot(report_data)
-                print(f"DEBUG: Generated new AI executive_snapshot narrative (Readiness) ({len(narratives['executive_snapshot'])} chars)")
-            except Exception as e:
-                print(f"ERROR generating AI executive_snapshot (Readiness): {e}")
-                narratives['executive_snapshot'] = ""
+        # Define all narrative keys and their generator functions
+        narrative_generators = [
+            ('r_executive_snapshot', self._generate_readiness_ai_executive_snapshot),
+            ('r_context_interpretation', self._generate_readiness_ai_context_interpretation),
+            ('r_governance_interpretation', self._generate_readiness_ai_governance_interpretation),
+            ('r_data_tech_interpretation', self._generate_readiness_ai_data_tech_interpretation),
+            ('r_domain_patterns', self._generate_readiness_ai_domain_patterns),
+            ('r_sector_interpretation', self._generate_readiness_ai_sector_interpretation),
+            ('r_action_interpretation', self._generate_readiness_ai_action_interpretation),
+            ('r_pathway_rationale', self._generate_readiness_ai_pathway_rationale),
+        ]
         
-        # Generate Context Interpretation for Readiness
-        if cached_narratives.get('context_interpretation'):
-            narratives['context_interpretation'] = cached_narratives['context_interpretation']
-            print(f"DEBUG: Using cached AI context_interpretation narrative (Readiness)")
-        else:
-            try:
-                narratives['context_interpretation'] = await self._generate_readiness_ai_context_interpretation(report_data)
-                print(f"DEBUG: Generated new AI context_interpretation narrative (Readiness) ({len(narratives['context_interpretation'])} chars)")
-            except Exception as e:
-                print(f"ERROR generating AI context_interpretation (Readiness): {e}")
-                narratives['context_interpretation'] = ""
-        
-        # Generate Governance & Ethics Readiness Interpretation
-        if cached_narratives.get('gov_ethics_readiness'):
-            narratives['gov_ethics_readiness'] = cached_narratives['gov_ethics_readiness']
-            print(f"DEBUG: Using cached AI gov_ethics_readiness narrative")
-        else:
-            try:
-                narratives['gov_ethics_readiness'] = await self._generate_readiness_ai_gov_ethics(report_data)
-                print(f"DEBUG: Generated new AI gov_ethics_readiness narrative ({len(narratives['gov_ethics_readiness'])} chars)")
-            except Exception as e:
-                print(f"ERROR generating AI gov_ethics_readiness: {e}")
-                narratives['gov_ethics_readiness'] = ""
-        
-        # Generate Data, Capability & Technology Interpretation
-        if cached_narratives.get('data_capability_tech'):
-            narratives['data_capability_tech'] = cached_narratives['data_capability_tech']
-            print(f"DEBUG: Using cached AI data_capability_tech narrative")
-        else:
-            try:
-                narratives['data_capability_tech'] = await self._generate_readiness_ai_data_capability(report_data)
-                print(f"DEBUG: Generated new AI data_capability_tech narrative ({len(narratives['data_capability_tech'])} chars)")
-            except Exception as e:
-                print(f"ERROR generating AI data_capability_tech: {e}")
-                narratives['data_capability_tech'] = ""
-        
-        # Generate Readiness Results Summary
-        if cached_narratives.get('readiness_results_summary'):
-            narratives['readiness_results_summary'] = cached_narratives['readiness_results_summary']
-            print(f"DEBUG: Using cached AI readiness_results_summary narrative")
-        else:
-            try:
-                narratives['readiness_results_summary'] = await self._generate_readiness_ai_results_summary(report_data)
-                print(f"DEBUG: Generated new AI readiness_results_summary narrative ({len(narratives['readiness_results_summary'])} chars)")
-            except Exception as e:
-                print(f"ERROR generating AI readiness_results_summary: {e}")
-                narratives['readiness_results_summary'] = ""
-        
-        # Generate Action Interpretation for Readiness
-        if cached_narratives.get('action_interpretation'):
-            narratives['action_interpretation'] = cached_narratives['action_interpretation']
-            print(f"DEBUG: Using cached AI action_interpretation narrative (Readiness)")
-        else:
-            try:
-                narratives['action_interpretation'] = await self._generate_readiness_ai_action_interpretation(report_data)
-                print(f"DEBUG: Generated new AI action_interpretation narrative (Readiness) ({len(narratives['action_interpretation'])} chars)")
-            except Exception as e:
-                print(f"ERROR generating AI action_interpretation (Readiness): {e}")
-                narratives['action_interpretation'] = ""
+        for key, generator_func in narrative_generators:
+            if cached_narratives.get(key):
+                narratives[key] = cached_narratives[key]
+                print(f"DEBUG: Using cached AI {key} narrative (Readiness)")
+            else:
+                try:
+                    narratives[key] = await generator_func(report_data)
+                    print(f"DEBUG: Generated new AI {key} narrative (Readiness) ({len(narratives[key])} chars)")
+                except Exception as e:
+                    print(f"ERROR generating AI {key} (Readiness): {e}")
+                    narratives[key] = ""
         
         # Cache all generated narratives to database
         if narratives and assessment_id and db is not None:
