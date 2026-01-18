@@ -2745,11 +2745,6 @@ Write in flowing prose without bullet points or headings."""
         ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 15, 'AI Readiness', 
                ha='left', va='center', fontsize=9, color='#666666')
         
-        # Add sector average text below the bar if available
-        if sector_average is not None and sector_name:
-            ax.text(bar_x, -12, f'({sector_name} sector average: {sector_average:.0f}%)', 
-                   ha='center', va='center', fontsize=7, color='#666666')
-        
         # Set axis limits and remove axes
         ax.set_xlim(-0.5, 2.5)
         ax.set_ylim(-20, 105)
