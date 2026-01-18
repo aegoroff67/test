@@ -4884,15 +4884,22 @@ Each cell represents the score for a specific question, enabling identification 
                     template_context['next_focus'] = 'Maintain leadership position through innovation, knowledge sharing, and proactive adaptation to emerging AI technologies and standards.'
                 
                 # Add AI narratives for Readiness reports (with fallback empty strings)
+                # Using new variable naming convention: ai.r_* for Readiness
                 ai_narratives = report_data.get('ai_narratives', {})
                 template_context['ai'] = {
-                    'executive_snapshot': ai_narratives.get('executive_snapshot', ''),
-                    'context_interpretation': ai_narratives.get('context_interpretation', ''),
-                    'gov_ethics_readiness': ai_narratives.get('gov_ethics_readiness', ''),
-                    'data_capability_tech': ai_narratives.get('data_capability_tech', ''),
-                    'readiness_results_summary': ai_narratives.get('readiness_results_summary', ''),
-                    'action_interpretation': ai_narratives.get('action_interpretation', ''),
+                    'r_executive_snapshot': ai_narratives.get('r_executive_snapshot', ''),
+                    'r_context_interpretation': ai_narratives.get('r_context_interpretation', ''),
+                    'r_governance_interpretation': ai_narratives.get('r_governance_interpretation', ''),
+                    'r_data_tech_interpretation': ai_narratives.get('r_data_tech_interpretation', ''),
+                    'r_domain_patterns': ai_narratives.get('r_domain_patterns', ''),
+                    'r_sector_interpretation': ai_narratives.get('r_sector_interpretation', ''),
+                    'r_action_interpretation': ai_narratives.get('r_action_interpretation', ''),
+                    'r_pathway_rationale': ai_narratives.get('r_pathway_rationale', ''),
                 }
+                print(f"DEBUG: Added AI narratives to Readiness template context: {list(template_context['ai'].keys())}")
+                for key, value in template_context['ai'].items():
+                    if value:
+                        print(f"  - {key} length: {len(value)} chars")
                 print(f"    - openness_to_learning: {template_context.get('openness_to_learning', 'N/A')}")
                 print(f"    - next_focus: {template_context.get('next_focus', 'N/A')[:50]}...")
                 
