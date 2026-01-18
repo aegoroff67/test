@@ -1573,11 +1573,12 @@ Do not include headings or formatting."""
         current_tools = readiness_info.get('current_tools', [])
         
         # Get relevant domain scores
+        # Note: domain_scores uses 'domain_name' and 'percentage' fields
         domains = report_data.get('domains', [])
-        data_score = next((d.get('score', 0) for d in domains if 'Data' in d.get('name', '')), 0)
-        tech_score = next((d.get('score', 0) for d in domains if 'Technology' in d.get('name', '')), 0)
-        people_score = next((d.get('score', 0) for d in domains if 'People' in d.get('name', '')), 0)
-        learning_score = next((d.get('score', 0) for d in domains if 'Learning' in d.get('name', '')), 0)
+        data_score = next((d.get('percentage', d.get('score', 0)) for d in domains if 'Data' in d.get('domain_name', d.get('name', ''))), 0)
+        tech_score = next((d.get('percentage', d.get('score', 0)) for d in domains if 'Technology' in d.get('domain_name', d.get('name', ''))), 0)
+        people_score = next((d.get('percentage', d.get('score', 0)) for d in domains if 'People' in d.get('domain_name', d.get('name', ''))), 0)
+        learning_score = next((d.get('percentage', d.get('score', 0)) for d in domains if 'Learning' in d.get('domain_name', d.get('name', ''))), 0)
         
         data_scores_summary = f"Data Readiness: {data_score:.0f}%"
         tech_scores_summary = f"Technology & Infrastructure: {tech_score:.0f}%"
