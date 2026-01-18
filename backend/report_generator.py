@@ -1397,14 +1397,9 @@ Output only the focus statement, nothing else."""
         strengths_summary = ', '.join(strengths) if strengths else 'No domains currently at established level'
         gaps_summary = ', '.join(gaps) if gaps else 'No critical gaps identified'
         
-        try:
-            chat = LlmChat(
-                api_key=self.emergent_api_key,
-                model="gpt-4o-mini",
-                system_message="You are generating the Executive Snapshot narrative for an AI Readiness Assessment report."
-            )
-            
-            user_prompt = f"""Explain the organisation's overall AI readiness position in clear, executive-level language.
+        system_prompt = "You are generating the Executive Snapshot narrative for an AI Readiness Assessment report."
+        
+        user_prompt = f"""Explain the organisation's overall AI readiness position in clear, executive-level language.
 
 INPUT DATA:
 - Organisation name: {org_name}
@@ -1427,11 +1422,20 @@ STRUCTURE:
 
 Do not include headings or formatting."""
 
+        try:
+            chat = LlmChat(
+                api_key=self.emergent_api_key,
+                session_id=f"readiness_executive_snapshot_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
             print(f"ERROR in _generate_readiness_ai_executive_snapshot: {e}")
+            import traceback
+            traceback.print_exc()
             return ""
 
     async def _generate_readiness_ai_context_interpretation(self, report_data: Dict[str, Any]) -> str:
