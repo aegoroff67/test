@@ -1469,6 +1469,10 @@ Do not include headings or formatting."""
         
         user_prompt = f"""Interpret the organisation's AI readiness results in light of its stated strategy and leadership posture.
 
+CRITICAL RULES:
+- Do NOT infer intent beyond stated onboarding inputs.
+- Where wide variation exists within a domain, describe it as inconsistency, not progressive maturity.
+
 INPUT DATA:
 - Organisation name: {org_name}
 - Primary motivation to explore AI: {readiness_motivation}
@@ -1485,6 +1489,7 @@ STRUCTURE:
 1. Explain alignment or misalignment between intent and readiness
 2. Describe leadership posture and its influence on readiness signals
 3. Clarify whether readiness reflects deliberate planning or early exploration
+4. Explicitly comment on any significant variation in maturity within the same domain
 
 Do not include headings or formatting."""
 
