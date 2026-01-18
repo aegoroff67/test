@@ -4912,13 +4912,13 @@ Each cell represents the score for a specific question, enabling identification 
                 else:
                     template_context['strengths_summary'] = 'Building foundational readiness across all domains'
                 
-                # Build gaps list (domains scoring < 50%)
+                # Build gaps list (domains scoring < 60%)
                 gaps = []
                 for d in template_context.get('domains', []):
                     score = d.get('score', 0)
                     if isinstance(score, str):
                         score = float(score.replace('%', ''))
-                    if score < 50:
+                    if score < 60:
                         gaps.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
                 template_context['gaps'] = gaps
                 
