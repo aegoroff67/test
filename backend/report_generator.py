@@ -1824,6 +1824,9 @@ Do not include headings or formatting."""
         actions_medium_str = format_actions(actions_medium)
         actions_low_str = format_actions(actions_low)
         
+        # Check if high priority actions exist for the critical rule
+        has_high_priority = len(actions_high) > 0
+        
         system_prompt = "You are generating the recommendations narrative for an AI Readiness Assessment report."
         
         user_prompt = f"""Explain the intent and sequencing logic behind the recommended readiness actions.
@@ -1831,7 +1834,9 @@ Do not include headings or formatting."""
 CRITICAL RULES:
 - Do NOT introduce new recommendations.
 - Do NOT suggest starting with low-priority actions.
-- Frame actions as readiness prerequisites, not optimisation or compliance activities.
+- Do NOT state that no high-priority actions exist if actions_high is non-empty. (High priority actions present: {has_high_priority})
+- Frame actions as readiness prerequisites, not organisational programs or offices.
+- Acknowledge that some actions may be aspirational and should be scaled to organisational capacity at this readiness stage.
 
 INPUT DATA:
 - High priority actions:
@@ -1850,7 +1855,7 @@ STRUCTURE:
 1. Explain why prioritisation is necessary at this readiness stage
 2. Describe how high-priority actions address foundational readiness gaps
 3. Reinforce sequencing and proportionality
-4. Distinguish readiness actions from future maturity initiatives
+4. Distinguish readiness prerequisites from future maturity initiatives
 
 Do not include headings or formatting."""
 
