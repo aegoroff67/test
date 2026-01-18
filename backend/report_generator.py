@@ -2073,6 +2073,8 @@ Write in flowing prose without bullet points or headings."""
             # Choose the right benchmark file based on assessment type
             if self.assessment_type == 'Awareness':
                 benchmark_path = backend_dir / "awareness_benchmarks.json"
+            elif self.assessment_type == 'Readiness':
+                benchmark_path = backend_dir / "readiness_benchmarks.json"
             else:
                 benchmark_path = backend_dir / "benchmarks.json"
             
