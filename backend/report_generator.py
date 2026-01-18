@@ -1455,14 +1455,9 @@ Do not include headings or formatting."""
         ai_strategy_status = readiness_info.get('ai_strategy_status', 'Not specified')
         poc_status = readiness_info.get('poc_status', 'Not specified')
         
-        try:
-            chat = LlmChat(
-                api_key=self.emergent_api_key,
-                model="gpt-4o-mini",
-                system_message="You are generating the Organisation & Strategic Context interpretation for an AI Readiness Assessment report."
-            )
-            
-            user_prompt = f"""Interpret the organisation's AI readiness results in light of its stated strategy and leadership posture.
+        system_prompt = "You are generating the Organisation & Strategic Context interpretation for an AI Readiness Assessment report."
+        
+        user_prompt = f"""Interpret the organisation's AI readiness results in light of its stated strategy and leadership posture.
 
 INPUT DATA:
 - Organisation name: {org_name}
@@ -1483,11 +1478,20 @@ STRUCTURE:
 
 Do not include headings or formatting."""
 
+        try:
+            chat = LlmChat(
+                api_key=self.emergent_api_key,
+                session_id=f"readiness_context_interpretation_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
             print(f"ERROR in _generate_readiness_ai_context_interpretation: {e}")
+            import traceback
+            traceback.print_exc()
             return ""
 
     async def _generate_readiness_ai_governance_interpretation(self, report_data: Dict[str, Any]) -> str:
