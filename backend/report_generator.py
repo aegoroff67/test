@@ -1537,6 +1537,11 @@ Do not include headings or formatting."""
         
         user_prompt = f"""Interpret governance and decision-readiness signals relevant to AI adoption.
 
+CRITICAL RULES:
+- Do NOT recommend, prescribe, or suggest improvements.
+- Describe implications only, using phrasing such as "this may constrain", "this may limit", or "this suggests a gap".
+- Do NOT assess compliance or control effectiveness.
+
 INPUT DATA:
 - Existing governance foundations: {governance_foundations_str}
 - AI / technology approval authority: {ai_approval_authority}
@@ -1551,6 +1556,7 @@ STRUCTURE:
 1. Describe governance intent and accountability signals
 2. Highlight consistency or inconsistency across governance indicators
 3. Explain implications for decision-readiness (not compliance maturity)
+4. Explain how gaps may affect confidence in AI-related decisions
 
 Do not include headings or formatting."""
 
