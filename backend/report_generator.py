@@ -4207,8 +4207,7 @@ Each cell represents the score for a specific question, enabling identification 
         result = []
         for domain in domains:
             domain_name = domain.get('name', '')
-            # Use &amp; for XML compatibility in DOCX
-            domain_name = domain_name.replace('&', '&amp;') if domain_name else ''
+            # docxtpl handles XML escaping automatically - use plain &
             questions = domain.get('questions', [])
             scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
             
