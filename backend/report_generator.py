@@ -1607,6 +1607,11 @@ Do not include headings or formatting."""
         
         user_prompt = f"""Interpret whether current data, capability, and technology foundations are sufficient to support safe AI adoption.
 
+CRITICAL RULES:
+- Do NOT neutralise or soften low scores in data, cybersecurity, or resilience domains.
+- Do NOT assume AI systems exist.
+- Do NOT provide recommendations.
+
 INPUT DATA:
 - Data readiness scores summary: {data_scores_summary}
 - Technology readiness scores summary: {tech_scores_summary}
@@ -1621,6 +1626,7 @@ STRUCTURE:
 1. Describe overall strength of foundational enablers
 2. Explain how strengths and weaknesses interact
 3. Clarify whether conditions support low-risk AI experimentation
+4. Explicitly state how foundational weaknesses would amplify AI-related risk
 
 Do not include headings or formatting."""
 
