@@ -3662,7 +3662,7 @@ Each cell represents the score for a specific question, enabling identification 
         from docx.oxml import OxmlElement
         from docx.oxml.ns import qn
         from copy import deepcopy
-        from readiness_questions import READINESS_QUESTIONS_DATA
+        import json
         
         docx_doc = doc.docx
         tables = docx_doc.tables
@@ -3676,35 +3676,47 @@ Each cell represents the score for a specific question, enabling identification 
         medium_table = tables[-2]
         low_table = tables[-1]
         
-        # Build a mapping of question codes to their additional_guide
-        question_guides = {}
-        for q in READINESS_QUESTIONS_DATA:
-            code = q.get('code', '').strip()
-            guide = q.get('additional_guide', '')
-            if code and guide:
-                # Extract the first paragraph after the title as the recommendation
-                # The additional_guide often starts with a title like "Additional Guidance - ..."
-                lines = guide.split('\n')
-                recommendation_lines = []
-                for line in lines:
-                    line = line.strip()
-                    if line and not line.startswith('Additional Guidance') and not line.startswith('•'):
-                        recommendation_lines.append(line)
-                    if len(recommendation_lines) >= 2:  # Get first 2 meaningful lines
-                        break
-                question_guides[code] = ' '.join(recommendation_lines) if recommendation_lines else guide[:200]
+        # Load sector-specific actions from JSON file
+        sector_actions_file = Path(__file__).parent / "readiness_sector_actions.json"
+        sector_actions_data = {}
+        if sector_actions_file.exists():
+            try:
+                with open(sector_actions_file, 'r', encoding='utf-8') as f:
+                    sector_actions_data = json.load(f)
+                print(f"DEBUG: Loaded sector actions for {len(sector_actions_data)} industries")
+            except Exception as e:
+                print(f"ERROR loading readiness_sector_actions.json: {e}")
         
-        print(f"DEBUG _populate_readiness_sector_tables: Loaded {len(question_guides)} question guides")
+        # Get the sector/industry from report_data
+        sector_name = report_data.get('sector_name', '')
+        print(f"DEBUG _populate_readiness_sector_tables: sector_name='{sector_name}'")
         
-        # Build actions from report_data with question-specific guides
+        # Get sector-specific actions for this industry
+        industry_actions = sector_actions_data.get(sector_name, {})
+        if not industry_actions and sector_name:
+            # Try to find a close match
+            for ind in sector_actions_data.keys():
+                if sector_name.lower() in ind.lower() or ind.lower() in sector_name.lower():
+                    industry_actions = sector_actions_data[ind]
+                    print(f"DEBUG: Using actions from '{ind}' for '{sector_name}'")
+                    break
+        
+        if not industry_actions:
+            # Fallback to "Other Industries" if available
+            industry_actions = sector_actions_data.get('Other Industries', {})
+            print(f"DEBUG: Using 'Other Industries' fallback actions")
+        
+        print(f"DEBUG: Found {len(industry_actions)} sector-specific actions for industry")
+        
+        # Build actions from report_data with sector-specific action text
         actions = report_data.get('actions', {})
         
         def format_for_table(action):
             question_id = action.get('question_id', '')
-            # Get question-specific recommendation from additional_guide
-            sector_action = question_guides.get(question_id, '')
+            # Get sector-specific action text if available
+            sector_action = industry_actions.get(question_id, '')
             if not sector_action:
-                # Fallback to generic text if no guide found
+                # Fallback to generic text if no sector action found
                 sector_action = action.get('text', action.get('recommendation', ''))
             return {
                 'question_id': question_id,
@@ -3718,7 +3730,7 @@ Each cell represents the score for a specific question, enabling identification 
         
         print(f"Populating Readiness sector tables: High={len(high_actions)}, Medium={len(medium_actions)}, Low={len(low_actions)}")
         if high_actions:
-            print(f"  Sample high action: {high_actions[0].get('question_id')} - {high_actions[0].get('sector_action', '')[:60]}...")
+            print(f"  Sample high action: {high_actions[0].get('question_id')} - {high_actions[0].get('sector_action', '')[:80]}...")
         
         # Populate each table with correct column order (same as Awareness)
         self._populate_sector_table(high_table, high_actions)
