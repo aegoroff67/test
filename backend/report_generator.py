@@ -4691,30 +4691,43 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - openness_to_learning: {template_context.get('openness_to_learning', 'N/A')}")
                 print(f"    - next_focus: {template_context.get('next_focus', 'N/A')[:50]}...")
                 
-                # Build sector_actions for Readiness (use template_context actions which is already populated)
-                # For Readiness, sector_actions are derived from the priority actions
-                actions = template_context.get('actions', {})
-                high_actions = actions.get('high', [])
-                medium_actions = actions.get('medium', [])
-                low_actions = actions.get('low', [])
+                # Use sector_actions from report_data (same approach as Awareness)
+                # This contains actions in the correct structure from _generate_sector_actions
+                sector_actions = report_data.get('sector_actions', {})
+                print(f"DEBUG Readiness sector_actions from report_data: high={len(sector_actions.get('high', []))}, medium={len(sector_actions.get('medium', []))}, low={len(sector_actions.get('low', []))}")
                 
-                # Format actions for sector_actions template structure
-                # The template uses: {{ action.question_id }}, {{ action.domain }}, {{ action.sector_action }}
-                def format_action_for_sector(action):
-                    return {
-                        'question_id': action.get('question_id', ''),  # Question code like DR-01
-                        'domain': action.get('domain', ''),  # Domain name like Data Readiness
-                        'sector_action': action.get('recommendation', action.get('text', ''))  # Recommendation text
-                    }
-                
-                # Only take first 5 from each priority level
-                template_context['sector_actions_high_top5'] = [format_action_for_sector(a) for a in high_actions[:5]]
-                template_context['sector_actions_medium_top5'] = [format_action_for_sector(a) for a in medium_actions[:5]]
-                template_context['sector_actions_low_top5'] = [format_action_for_sector(a) for a in low_actions[:5]]
+                # If sector_actions is empty (no sector-specific data), fall back to building from actions
+                if not any([sector_actions.get('high'), sector_actions.get('medium'), sector_actions.get('low')]):
+                    print("DEBUG: No sector_actions in report_data, building from template_context['actions']")
+                    actions = template_context.get('actions', {})
+                    high_actions = actions.get('high', [])
+                    medium_actions = actions.get('medium', [])
+                    low_actions = actions.get('low', [])
+                    
+                    # Format actions for sector_actions template structure
+                    def format_action_for_sector(action):
+                        return {
+                            'question_id': action.get('question_id', ''),
+                            'domain': action.get('domain', ''),
+                            'sector_action': action.get('recommendation', action.get('text', ''))
+                        }
+                    
+                    template_context['sector_actions_high_top5'] = [format_action_for_sector(a) for a in high_actions[:5]]
+                    template_context['sector_actions_medium_top5'] = [format_action_for_sector(a) for a in medium_actions[:5]]
+                    template_context['sector_actions_low_top5'] = [format_action_for_sector(a) for a in low_actions[:5]]
+                else:
+                    # Use sector_actions directly (same as Awareness)
+                    print("DEBUG: Using sector_actions from report_data")
+                    template_context['sector_actions_high_top5'] = sector_actions.get('high', [])[:5]
+                    template_context['sector_actions_medium_top5'] = sector_actions.get('medium', [])[:5]
+                    template_context['sector_actions_low_top5'] = sector_actions.get('low', [])[:5]
                 
                 print(f"    - sector_actions_high_top5: {len(template_context['sector_actions_high_top5'])} items")
                 print(f"    - sector_actions_medium_top5: {len(template_context['sector_actions_medium_top5'])} items")
                 print(f"    - sector_actions_low_top5: {len(template_context['sector_actions_low_top5'])} items")
+                if template_context['sector_actions_high_top5']:
+                    sample = template_context['sector_actions_high_top5'][0]
+                    print(f"    - Sample: question_id='{sample.get('question_id')}', domain='{sample.get('domain')}'")
             
             # Add Orgwide-specific variables if this is an Orgwide assessment
             elif self.assessment_type == 'Orgwide':
