@@ -1674,6 +1674,9 @@ Do not include headings or formatting."""
         
         user_prompt = f"""Identify and explain patterns across AI readiness domains.
 
+CRITICAL RULES:
+- Treat wide score dispersion as a readiness risk signal, not normal progression.
+
 INPUT DATA:
 - Domain scores and tiers:
 {domain_results_str}
@@ -1687,6 +1690,7 @@ STRUCTURE:
 1. Identify notable consistency or imbalance across domains
 2. Explain how uneven maturity affects readiness reliability
 3. Highlight systemic rather than isolated signals
+4. Explain why uneven maturity increases readiness risk
 
 Do not include headings or formatting."""
 
