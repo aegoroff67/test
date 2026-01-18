@@ -5427,13 +5427,13 @@ Each cell represents the score for a specific question, enabling identification 
                     }
                     questions_by_domain[domain_id].append(question)
             
-            # Create domain info for Awareness
+            # Create domain info for Awareness - use plain & to match domain_mapping
             domains_by_id = {
-                "Awareness &#38; Understanding": {"id": "Awareness & Understanding", "name": "Awareness &#38; Understanding"},
-                "Governance &#38; Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance &#38; Trust Foundations"},
-                "People &#38; Skills": {"id": "People & Skills", "name": "People &#38; Skills"},
-                "Leadership &#38; Vision": {"id": "Leadership & Vision", "name": "Leadership &#38; Vision"},
-                "Data &#38; Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data &#38; Digital Readiness"}
+                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness &#38; Understanding"},
+                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance &#38; Trust Foundations"},
+                "People & Skills": {"id": "People & Skills", "name": "People &#38; Skills"},
+                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership &#38; Vision"},
+                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data &#38; Digital Readiness"}
             }
         elif self.assessment_type == 'Readiness':
             # For Readiness assessments, use READINESS_QUESTIONS_DATA
@@ -5984,13 +5984,13 @@ Each cell represents the score for a specific question, enabling identification 
                     }
                     questions_by_domain[domain_id].append(question)
             
-            # Create domain info for Awareness
+            # Create domain info for Awareness - use plain & to match domain_mapping
             domains_by_id = {
-                "Awareness &#38; Understanding": {"id": "Awareness & Understanding", "name": "Awareness &#38; Understanding"},
-                "Governance &#38; Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance &#38; Trust Foundations"},
-                "People &#38; Skills": {"id": "People & Skills", "name": "People &#38; Skills"},
-                "Leadership &#38; Vision": {"id": "Leadership & Vision", "name": "Leadership &#38; Vision"},
-                "Data &#38; Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data &#38; Digital Readiness"}
+                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness &#38; Understanding"},
+                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance &#38; Trust Foundations"},
+                "People & Skills": {"id": "People & Skills", "name": "People &#38; Skills"},
+                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership &#38; Vision"},
+                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data &#38; Digital Readiness"}
             }
         elif self.assessment_type == 'Readiness':
             # For Readiness assessments, use READINESS_QUESTIONS_DATA
