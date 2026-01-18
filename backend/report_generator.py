@@ -2510,15 +2510,19 @@ Write in flowing prose without bullet points or headings."""
             # Sort questions by score (lowest first, as shown in heatmap)
             question_scores.sort(key=lambda x: x['score'])
             
-            # Only pad/limit to 8 questions for System assessments
-            # Awareness assessments have 5 questions per domain
-            if self.assessment_type != 'Awareness':
+            # Different assessments have different numbers of questions per domain:
+            # - Awareness: 5 questions per domain
+            # - Readiness: 6 questions per domain  
+            # - System: 8 questions per domain
+            # Only pad for System assessments, not for Awareness or Readiness
+            if self.assessment_type == 'System':
                 # Pad to 8 questions if needed (for System assessments)
                 while len(question_scores) < 8:
                     question_scores.append({'code': 'N/A', 'score': 0, 'question_id': ''})
                 
                 # Take only first 8 questions
                 question_scores = question_scores[:8]
+            # For Awareness and Readiness, use actual question count without padding
             
             domains_with_scores.append({
                 'name': domain_name,
