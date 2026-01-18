@@ -1424,7 +1424,7 @@ Do not include headings or formatting."""
 
         try:
             chat = LlmChat(
-                api_key=self.emergent_api_key,
+                api_key="sk-emergent-01d3a5f175e7fB507B",
                 session_id=f"readiness_executive_snapshot_{id(report_data)}",
                 system_message=system_prompt
             ).with_model("openai", "gpt-4o-mini")
@@ -1480,7 +1480,7 @@ Do not include headings or formatting."""
 
         try:
             chat = LlmChat(
-                api_key=self.emergent_api_key,
+                api_key="sk-emergent-01d3a5f175e7fB507B",
                 session_id=f"readiness_context_interpretation_{id(report_data)}",
                 system_message=system_prompt
             ).with_model("openai", "gpt-4o-mini")
@@ -1540,7 +1540,7 @@ Do not include headings or formatting."""
 
         try:
             chat = LlmChat(
-                api_key=self.emergent_api_key,
+                api_key="sk-emergent-01d3a5f175e7fB507B",
                 session_id=f"readiness_governance_{id(report_data)}",
                 system_message=system_prompt
             ).with_model("openai", "gpt-4o-mini")
@@ -1603,7 +1603,7 @@ Do not include headings or formatting."""
 
         try:
             chat = LlmChat(
-                api_key=self.emergent_api_key,
+                api_key="sk-emergent-01d3a5f175e7fB507B",
                 session_id=f"readiness_data_tech_{id(report_data)}",
                 system_message=system_prompt
             ).with_model("openai", "gpt-4o-mini")
@@ -1661,7 +1661,7 @@ Do not include headings or formatting."""
 
         try:
             chat = LlmChat(
-                api_key=self.emergent_api_key,
+                api_key="sk-emergent-01d3a5f175e7fB507B",
                 session_id=f"readiness_domain_patterns_{id(report_data)}",
                 system_message=system_prompt
             ).with_model("openai", "gpt-4o-mini")
@@ -1728,7 +1728,7 @@ Do not include headings or formatting."""
 
         try:
             chat = LlmChat(
-                api_key=self.emergent_api_key,
+                api_key="sk-emergent-01d3a5f175e7fB507B",
                 session_id=f"readiness_sector_{id(report_data)}",
                 system_message=system_prompt
             ).with_model("openai", "gpt-4o-mini")
@@ -1796,7 +1796,7 @@ Do not include headings or formatting."""
 
         try:
             chat = LlmChat(
-                api_key=self.emergent_api_key,
+                api_key="sk-emergent-01d3a5f175e7fB507B",
                 session_id=f"readiness_action_{id(report_data)}",
                 system_message=system_prompt
             ).with_model("openai", "gpt-4o-mini")
@@ -1856,7 +1856,7 @@ Do not include headings or formatting."""
 
         try:
             chat = LlmChat(
-                api_key=self.emergent_api_key,
+                api_key="sk-emergent-01d3a5f175e7fB507B",
                 session_id=f"readiness_pathway_{id(report_data)}",
                 system_message=system_prompt
             ).with_model("openai", "gpt-4o-mini")
