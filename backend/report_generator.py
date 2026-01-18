@@ -3662,6 +3662,7 @@ Each cell represents the score for a specific question, enabling identification 
         from docx.oxml import OxmlElement
         from docx.oxml.ns import qn
         from copy import deepcopy
+        from readiness_questions import READINESS_QUESTIONS_DATA
         
         docx_doc = doc.docx
         tables = docx_doc.tables
@@ -3675,31 +3676,49 @@ Each cell represents the score for a specific question, enabling identification 
         medium_table = tables[-2]
         low_table = tables[-1]
         
-        # Get sector_actions from report_data first
-        sector_actions = report_data.get('sector_actions', {'high': [], 'medium': [], 'low': []})
+        # Build a mapping of question codes to their additional_guide
+        question_guides = {}
+        for q in READINESS_QUESTIONS_DATA:
+            code = q.get('code', '').strip()
+            guide = q.get('additional_guide', '')
+            if code and guide:
+                # Extract the first paragraph after the title as the recommendation
+                # The additional_guide often starts with a title like "Additional Guidance - ..."
+                lines = guide.split('\n')
+                recommendation_lines = []
+                for line in lines:
+                    line = line.strip()
+                    if line and not line.startswith('Additional Guidance') and not line.startswith('•'):
+                        recommendation_lines.append(line)
+                    if len(recommendation_lines) >= 2:  # Get first 2 meaningful lines
+                        break
+                question_guides[code] = ' '.join(recommendation_lines) if recommendation_lines else guide[:200]
         
-        # If sector_actions is empty, build from actions (same as we do in template context)
-        if not any([sector_actions.get('high'), sector_actions.get('medium'), sector_actions.get('low')]):
-            print("DEBUG _populate_readiness_sector_tables: Building from actions")
-            actions = report_data.get('actions', {})
-            
-            def format_for_table(action):
-                return {
-                    'question_id': action.get('question_id', ''),
-                    'domain': action.get('domain', ''),
-                    'sector_action': action.get('text', action.get('recommendation', ''))
-                }
-            
-            high_actions = [format_for_table(a) for a in actions.get('high', [])[:5]]
-            medium_actions = [format_for_table(a) for a in actions.get('medium', [])[:5]]
-            low_actions = [format_for_table(a) for a in actions.get('low', [])[:5]]
-        else:
-            print("DEBUG _populate_readiness_sector_tables: Using sector_actions from report_data")
-            high_actions = sector_actions.get('high', [])[:5]
-            medium_actions = sector_actions.get('medium', [])[:5]
-            low_actions = sector_actions.get('low', [])[:5]
+        print(f"DEBUG _populate_readiness_sector_tables: Loaded {len(question_guides)} question guides")
+        
+        # Build actions from report_data with question-specific guides
+        actions = report_data.get('actions', {})
+        
+        def format_for_table(action):
+            question_id = action.get('question_id', '')
+            # Get question-specific recommendation from additional_guide
+            sector_action = question_guides.get(question_id, '')
+            if not sector_action:
+                # Fallback to generic text if no guide found
+                sector_action = action.get('text', action.get('recommendation', ''))
+            return {
+                'question_id': question_id,
+                'domain': action.get('domain', ''),
+                'sector_action': sector_action
+            }
+        
+        high_actions = [format_for_table(a) for a in actions.get('high', [])[:5]]
+        medium_actions = [format_for_table(a) for a in actions.get('medium', [])[:5]]
+        low_actions = [format_for_table(a) for a in actions.get('low', [])[:5]]
         
         print(f"Populating Readiness sector tables: High={len(high_actions)}, Medium={len(medium_actions)}, Low={len(low_actions)}")
+        if high_actions:
+            print(f"  Sample high action: {high_actions[0].get('question_id')} - {high_actions[0].get('sector_action', '')[:60]}...")
         
         # Populate each table with correct column order (same as Awareness)
         self._populate_sector_table(high_table, high_actions)
