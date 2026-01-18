@@ -1693,13 +1693,14 @@ Do not include headings or formatting."""
         sector_average = report_data.get('sector_average', 0)
         
         # Get benchmark data for domain comparison
+        # Note: domain_scores uses 'domain_name' and 'percentage' fields
         benchmark_data = report_data.get('benchmark_data', {})
         domains = report_data.get('domains', [])
         
         sector_domain_comparison = []
         for d in domains:
-            d_name = d.get('name', '')
-            d_score = d.get('score', 0)
+            d_name = d.get('domain_name', d.get('name', ''))
+            d_score = d.get('percentage', d.get('score', 0))
             if isinstance(d_score, str):
                 d_score = float(d_score.replace('%', ''))
             benchmark_score = benchmark_data.get(d_name, 0)
