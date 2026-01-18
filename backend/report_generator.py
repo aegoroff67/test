@@ -1517,14 +1517,9 @@ Do not include headings or formatting."""
         governance_foundations_str = ', '.join(governance_foundations) if governance_foundations else 'None currently in place'
         ethical_principles_str = ', '.join(ethical_principles) if ethical_principles else 'None currently referenced'
         
-        try:
-            chat = LlmChat(
-                api_key=self.emergent_api_key,
-                model="gpt-4o-mini",
-                system_message="You are generating the Governance, Ethics & Decision Readiness interpretation for an AI Readiness Assessment report."
-            )
-            
-            user_prompt = f"""Interpret governance and decision-readiness signals relevant to AI adoption.
+        system_prompt = "You are generating the Governance, Ethics & Decision Readiness interpretation for an AI Readiness Assessment report."
+        
+        user_prompt = f"""Interpret governance and decision-readiness signals relevant to AI adoption.
 
 INPUT DATA:
 - Existing governance foundations: {governance_foundations_str}
@@ -1543,11 +1538,20 @@ STRUCTURE:
 
 Do not include headings or formatting."""
 
+        try:
+            chat = LlmChat(
+                api_key=self.emergent_api_key,
+                session_id=f"readiness_governance_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
             print(f"ERROR in _generate_readiness_ai_governance_interpretation: {e}")
+            import traceback
+            traceback.print_exc()
             return ""
 
     async def _generate_readiness_ai_data_tech_interpretation(self, report_data: Dict[str, Any]) -> str:
@@ -1576,14 +1580,9 @@ Do not include headings or formatting."""
         tech_scores_summary = f"Technology & Infrastructure: {tech_score:.0f}%"
         capability_summary = f"People & Culture: {people_score:.0f}%, Continuous Learning: {learning_score:.0f}%"
         
-        try:
-            chat = LlmChat(
-                api_key=self.emergent_api_key,
-                model="gpt-4o-mini",
-                system_message="You are generating the Data, Capability & Technology Readiness interpretation for an AI Readiness Assessment report."
-            )
-            
-            user_prompt = f"""Interpret whether current data, capability, and technology foundations are sufficient to support safe AI adoption.
+        system_prompt = "You are generating the Data, Capability & Technology Readiness interpretation for an AI Readiness Assessment report."
+        
+        user_prompt = f"""Interpret whether current data, capability, and technology foundations are sufficient to support safe AI adoption.
 
 INPUT DATA:
 - Data readiness scores summary: {data_scores_summary}
@@ -1602,11 +1601,20 @@ STRUCTURE:
 
 Do not include headings or formatting."""
 
+        try:
+            chat = LlmChat(
+                api_key=self.emergent_api_key,
+                session_id=f"readiness_data_tech_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
             print(f"ERROR in _generate_readiness_ai_data_tech_interpretation: {e}")
+            import traceback
+            traceback.print_exc()
             return ""
 
     async def _generate_readiness_ai_domain_patterns(self, report_data: Dict[str, Any]) -> str:
@@ -1631,14 +1639,9 @@ Do not include headings or formatting."""
         
         domain_results_str = '\n'.join(domain_results)
         
-        try:
-            chat = LlmChat(
-                api_key=self.emergent_api_key,
-                model="gpt-4o-mini",
-                system_message="You are generating the cross-domain readiness patterns analysis for an AI Readiness Assessment report."
-            )
-            
-            user_prompt = f"""Identify and explain patterns across AI readiness domains.
+        system_prompt = "You are generating the cross-domain readiness patterns analysis for an AI Readiness Assessment report."
+        
+        user_prompt = f"""Identify and explain patterns across AI readiness domains.
 
 INPUT DATA:
 - Domain scores and tiers:
@@ -1656,11 +1659,20 @@ STRUCTURE:
 
 Do not include headings or formatting."""
 
+        try:
+            chat = LlmChat(
+                api_key=self.emergent_api_key,
+                session_id=f"readiness_domain_patterns_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
             print(f"ERROR in _generate_readiness_ai_domain_patterns: {e}")
+            import traceback
+            traceback.print_exc()
             return ""
 
     async def _generate_readiness_ai_sector_interpretation(self, report_data: Dict[str, Any]) -> str:
@@ -1693,14 +1705,9 @@ Do not include headings or formatting."""
         
         sector_domain_comparison_str = '\n'.join(sector_domain_comparison) if sector_domain_comparison else 'No domain-level comparison available'
         
-        try:
-            chat = LlmChat(
-                api_key=self.emergent_api_key,
-                model="gpt-4o-mini",
-                system_message="You are generating the sector benchmarking interpretation for an AI Readiness Assessment report."
-            )
-            
-            user_prompt = f"""Interpret sector benchmarking results for AI readiness.
+        system_prompt = "You are generating the sector benchmarking interpretation for an AI Readiness Assessment report."
+        
+        user_prompt = f"""Interpret sector benchmarking results for AI readiness.
 
 INPUT DATA:
 - Organisation readiness score: {score:.0f}%
@@ -1719,11 +1726,20 @@ STRUCTURE:
 
 Do not include headings or formatting."""
 
+        try:
+            chat = LlmChat(
+                api_key=self.emergent_api_key,
+                session_id=f"readiness_sector_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
             print(f"ERROR in _generate_readiness_ai_sector_interpretation: {e}")
+            import traceback
+            traceback.print_exc()
             return ""
 
     async def _generate_readiness_ai_action_interpretation(self, report_data: Dict[str, Any]) -> str:
@@ -1754,14 +1770,9 @@ Do not include headings or formatting."""
         actions_medium_str = format_actions(actions_medium)
         actions_low_str = format_actions(actions_low)
         
-        try:
-            chat = LlmChat(
-                api_key=self.emergent_api_key,
-                model="gpt-4o-mini",
-                system_message="You are generating the recommendations narrative for an AI Readiness Assessment report."
-            )
-            
-            user_prompt = f"""Explain the intent and sequencing logic behind the recommended readiness actions.
+        system_prompt = "You are generating the recommendations narrative for an AI Readiness Assessment report."
+        
+        user_prompt = f"""Explain the intent and sequencing logic behind the recommended readiness actions.
 
 INPUT DATA:
 - High priority actions:
@@ -1783,11 +1794,20 @@ STRUCTURE:
 
 Do not include headings or formatting."""
 
+        try:
+            chat = LlmChat(
+                api_key=self.emergent_api_key,
+                session_id=f"readiness_action_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
             print(f"ERROR in _generate_readiness_ai_action_interpretation: {e}")
+            import traceback
+            traceback.print_exc()
             return ""
 
     async def _generate_readiness_ai_pathway_rationale(self, report_data: Dict[str, Any]) -> str:
@@ -1814,14 +1834,9 @@ Do not include headings or formatting."""
         else:  # Foundational
             recommended_pathway = 'Address foundational gaps and re-assess readiness before considering AI System Assessment'
         
-        try:
-            chat = LlmChat(
-                api_key=self.emergent_api_key,
-                model="gpt-4o-mini",
-                system_message="You are generating the pathway rationale for the \"Your Pathway Through the AM AI SAFE Framework\" section."
-            )
-            
-            user_prompt = f"""Explain why the recommended next assessment pathway is appropriate given the organisation's AI readiness level.
+        system_prompt = "You are generating the pathway rationale for the \"Your Pathway Through the AM AI SAFE Framework\" section."
+        
+        user_prompt = f"""Explain why the recommended next assessment pathway is appropriate given the organisation's AI readiness level.
 
 INPUT DATA:
 - Overall readiness tier: {tier}
@@ -1839,11 +1854,20 @@ STRUCTURE:
 
 Do not include headings or formatting."""
 
+        try:
+            chat = LlmChat(
+                api_key=self.emergent_api_key,
+                session_id=f"readiness_pathway_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
             print(f"ERROR in _generate_readiness_ai_pathway_rationale: {e}")
+            import traceback
+            traceback.print_exc()
             return ""
 
     def _get_test_template_path(self) -> str:
