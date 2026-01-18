@@ -1718,62 +1718,10 @@ Do not include headings or formatting."""
             print(f"ERROR in _generate_readiness_ai_sector_interpretation: {e}")
             return ""
 
-    async def _generate_readiness_ai_results_summary(self, report_data: Dict[str, Any]) -> str:
-        """
-        Generate AI Readiness Results Summary for Readiness assessments.
-        Variable target: ai.readiness_results_summary
-        """
-        from emergentintegrations.llm.chat import Chat, UserMessage
-        
-        overall = report_data.get('overall', {})
-        tier = overall.get('tier', 'Foundational')
-        score = overall.get('score', 0)
-        
-        # Get domain scores
-        domains = report_data.get('domains', [])
-        domain_summary = []
-        for d in domains:
-            d_score = d.get('score', 0)
-            if isinstance(d_score, str):
-                d_score = float(d_score.replace('%', ''))
-            domain_summary.append(f"- {d.get('name', 'Unknown')}: {d_score:.0f}%")
-        
-        try:
-            chat = Chat(
-                api_key=self.emergent_api_key,
-                model="gpt-4o-mini",
-                system_message="""You are an AI readiness assessment expert providing results interpretation for organisational AI readiness reports.
-Write in a professional, consultative tone. Focus on summarising results and their strategic implications.
-Use Australian English spelling."""
-            )
-            
-            user_prompt = f"""Write a readiness results summary paragraph (100-150 words) for this AI Readiness assessment:
-
-Overall Readiness Score: {score:.1f}%
-Readiness Tier: {tier}
-
-Domain Scores:
-{chr(10).join(domain_summary)}
-
-The summary should:
-1. Interpret the overall readiness score and tier
-2. Highlight the highest and lowest performing domains
-3. Explain what this tier means for AI adoption readiness
-4. Provide strategic context for the results
-
-Write in flowing prose without bullet points or headings."""
-
-            response = await chat.send_message(UserMessage(text=user_prompt))
-            return response.strip()
-            
-        except Exception as e:
-            print(f"ERROR in _generate_readiness_ai_results_summary: {e}")
-            return ""
-
     async def _generate_readiness_ai_action_interpretation(self, report_data: Dict[str, Any]) -> str:
         """
         Generate AI Action Interpretation for Readiness assessments.
-        Variable target: ai.action_interpretation
+        Variable target: ai.r_action_interpretation
         """
         from emergentintegrations.llm.chat import Chat, UserMessage
         
@@ -1782,43 +1730,112 @@ Write in flowing prose without bullet points or headings."""
         
         # Get priority actions
         actions = report_data.get('actions', {})
-        high_priority = actions.get('high', [])[:5]
+        actions_high = actions.get('high', [])[:5]
+        actions_medium = actions.get('medium', [])[:5]
+        actions_low = actions.get('low', [])[:5]
         
-        action_text = []
-        for a in high_priority:
-            domain = a.get('domain', 'Unknown')
-            text = a.get('text', a.get('sector_action', ''))[:100]
-            action_text.append(f"- [{domain}] {text}")
+        def format_actions(action_list):
+            texts = []
+            for a in action_list:
+                domain = a.get('domain', 'Unknown')
+                text = a.get('text', a.get('sector_action', ''))[:80]
+                texts.append(f"- [{domain}] {text}")
+            return '\n'.join(texts) if texts else 'None identified'
+        
+        actions_high_str = format_actions(actions_high)
+        actions_medium_str = format_actions(actions_medium)
+        actions_low_str = format_actions(actions_low)
         
         try:
             chat = Chat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
-                system_message="""You are an AI readiness assessment expert providing action recommendations for organisational AI readiness reports.
-Write in a professional, consultative tone. Focus on practical, prioritised recommendations.
-Use Australian English spelling."""
+                system_message="You are generating the recommendations narrative for an AI Readiness Assessment report."
             )
             
-            user_prompt = f"""Write an action interpretation paragraph (100-150 words) for this AI Readiness assessment:
+            user_prompt = f"""Explain the intent and sequencing logic behind the recommended readiness actions.
 
-Current Readiness Tier: {tier}
+INPUT DATA:
+- High priority actions:
+{actions_high_str}
+- Medium priority actions:
+{actions_medium_str}
+- Low priority actions:
+{actions_low_str}
+- Overall readiness tier: {tier}
 
-Top Priority Actions Identified:
-{chr(10).join(action_text) if action_text else 'Focus on building foundational capabilities across all domains'}
+OUTPUT REQUIREMENTS:
+- 130–180 words
+- Practical, proportionate tone
 
-The interpretation should:
-1. Explain the rationale for the prioritised actions
-2. Describe how addressing these gaps will improve readiness
-3. Suggest a phased approach to implementation
-4. Link actions to the overall tier improvement path
+STRUCTURE:
+1. Explain why prioritisation is necessary at this readiness stage
+2. Describe how actions support readiness uplift rather than compliance
+3. Reinforce sequencing and proportionality
 
-Write in flowing prose without bullet points or headings."""
+Do not include headings or formatting."""
 
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
             print(f"ERROR in _generate_readiness_ai_action_interpretation: {e}")
+            return ""
+
+    async def _generate_readiness_ai_pathway_rationale(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Pathway Rationale for Readiness assessments.
+        Variable target: ai.r_pathway_rationale
+        """
+        from emergentintegrations.llm.chat import Chat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        readiness_info = report_data.get('readiness_info') or {}
+        poc_status = readiness_info.get('poc_status', 'Not specified')
+        
+        # Determine recommended pathway based on tier
+        if tier == 'Leading' or tier == 'Established':
+            recommended_pathway = 'Progress to AI System Assessment for specific AI implementations'
+        elif tier == 'Operational Readiness':
+            recommended_pathway = 'Consider AI System Assessment for low-risk pilot projects, or continue building readiness foundations'
+        elif tier == 'Building Readiness':
+            recommended_pathway = 'Focus on strengthening readiness foundations before progressing to AI System Assessment'
+        else:  # Foundational
+            recommended_pathway = 'Address foundational gaps and re-assess readiness before considering AI System Assessment'
+        
+        try:
+            chat = Chat(
+                api_key=self.emergent_api_key,
+                model="gpt-4o-mini",
+                system_message="You are generating the pathway rationale for the \"Your Pathway Through the AM AI SAFE Framework\" section."
+            )
+            
+            user_prompt = f"""Explain why the recommended next assessment pathway is appropriate given the organisation's AI readiness level.
+
+INPUT DATA:
+- Overall readiness tier: {tier}
+- AI pilots / proofs-of-concept status: {poc_status}
+- Recommended pathway: {recommended_pathway}
+
+OUTPUT REQUIREMENTS:
+- 120–160 words
+- Decision-support tone
+
+STRUCTURE:
+1. Explain how readiness informs pathway selection
+2. Clarify risks of premature progression
+3. Reinforce optional, risk-informed advancement
+
+Do not include headings or formatting."""
+
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_readiness_ai_pathway_rationale: {e}")
             return ""
 
     def _get_test_template_path(self) -> str:
