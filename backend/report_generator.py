@@ -5430,6 +5430,12 @@ Each cell represents the score for a specific question, enabling identification 
         # For Awareness assessments, get industry from awareness_info
         if self.assessment_type == 'Awareness':
             sector_name = awareness_info.get('industry', '')
+        elif self.assessment_type == 'Readiness':
+            readiness_info = assessment.get('readiness_info') or {}
+            sector_name = readiness_info.get('industry', '')
+        elif self.assessment_type == 'Orgwide':
+            orgwide_info = assessment.get('orgwide_info') or {}
+            sector_name = orgwide_info.get('industry', '')
         else:
             sector_name = system_info.get('industry', '') if system_info else ''
         
@@ -5943,6 +5949,12 @@ Each cell represents the score for a specific question, enabling identification 
         # For Awareness assessments, get industry from awareness_info
         if self.assessment_type == 'Awareness':
             sector_name = awareness_info.get('industry', '')
+        elif self.assessment_type == 'Readiness':
+            readiness_info = assessment.get('readiness_info') or {}
+            sector_name = readiness_info.get('industry', '')
+        elif self.assessment_type == 'Orgwide':
+            orgwide_info = assessment.get('orgwide_info') or {}
+            sector_name = orgwide_info.get('industry', '')
         else:
             sector_name = system_info.get('industry', '') if system_info else ''
         
