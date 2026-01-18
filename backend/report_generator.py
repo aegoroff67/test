@@ -2728,6 +2728,14 @@ Write in flowing prose without bullet points or headings."""
             ax.annotate('', xy=(bar_x - bar_width/2, sector_average), 
                        xytext=(bar_x - bar_width/2 - 0.3, sector_average),
                        arrowprops=dict(arrowstyle='->', color='#000000', lw=2))
+            # Add sector average text below the black arrow on left side
+            if sector_name:
+                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 8, f'{sector_average:.0f}%', 
+                       ha='right', va='center', fontsize=10, fontweight='bold', color='#000000')
+                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 16, f'({sector_name}', 
+                       ha='right', va='center', fontsize=7, color='#666666')
+                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 22, 'sector average)', 
+                       ha='right', va='center', fontsize=7, color='#666666')
         
         # Add score and tier text on right side
         ax.text(bar_x + bar_width/2 + 0.5, arrow_y, f'{score:.0f}%', 
