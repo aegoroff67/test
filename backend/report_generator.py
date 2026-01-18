@@ -1368,7 +1368,7 @@ Output only the focus statement, nothing else."""
         Generate AI Executive Snapshot for Readiness assessments.
         Variable target: ai.r_executive_snapshot
         """
-        from emergentintegrations.llm.chat import Chat, UserMessage
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
         
         overall = report_data.get('overall', {})
         tier = overall.get('tier', 'Foundational')
@@ -1398,7 +1398,7 @@ Output only the focus statement, nothing else."""
         gaps_summary = ', '.join(gaps) if gaps else 'No critical gaps identified'
         
         try:
-            chat = Chat(
+            chat = LlmChat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
                 system_message="You are generating the Executive Snapshot narrative for an AI Readiness Assessment report."
@@ -1439,7 +1439,7 @@ Do not include headings or formatting."""
         Generate AI Context Interpretation for Readiness assessments.
         Variable target: ai.r_context_interpretation
         """
-        from emergentintegrations.llm.chat import Chat, UserMessage
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
         
         overall = report_data.get('overall', {})
         tier = overall.get('tier', 'Foundational')
@@ -1452,7 +1452,7 @@ Do not include headings or formatting."""
         poc_status = readiness_info.get('poc_status', 'Not specified')
         
         try:
-            chat = Chat(
+            chat = LlmChat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
                 system_message="You are generating the Organisation & Strategic Context interpretation for an AI Readiness Assessment report."
@@ -1491,7 +1491,7 @@ Do not include headings or formatting."""
         Generate AI Governance, Ethics & Decision Readiness interpretation for Readiness assessments.
         Variable target: ai.r_governance_interpretation
         """
-        from emergentintegrations.llm.chat import Chat, UserMessage
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
         
         readiness_info = report_data.get('readiness_info') or {}
         governance_foundations = readiness_info.get('governance_foundations', [])
@@ -1510,7 +1510,7 @@ Do not include headings or formatting."""
         ethical_principles_str = ', '.join(ethical_principles) if ethical_principles else 'None currently referenced'
         
         try:
-            chat = Chat(
+            chat = LlmChat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
                 system_message="You are generating the Governance, Ethics & Decision Readiness interpretation for an AI Readiness Assessment report."
@@ -1547,7 +1547,7 @@ Do not include headings or formatting."""
         Generate AI Data, Capability & Technology Readiness interpretation for Readiness assessments.
         Variable target: ai.r_data_tech_interpretation
         """
-        from emergentintegrations.llm.chat import Chat, UserMessage
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
         
         overall = report_data.get('overall', {})
         tier = overall.get('tier', 'Foundational')
@@ -1569,7 +1569,7 @@ Do not include headings or formatting."""
         capability_summary = f"People & Culture: {people_score:.0f}%, Continuous Learning: {learning_score:.0f}%"
         
         try:
-            chat = Chat(
+            chat = LlmChat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
                 system_message="You are generating the Data, Capability & Technology Readiness interpretation for an AI Readiness Assessment report."
@@ -1606,7 +1606,7 @@ Do not include headings or formatting."""
         Generate cross-domain readiness patterns analysis for Readiness assessments.
         Variable target: ai.r_domain_patterns
         """
-        from emergentintegrations.llm.chat import Chat, UserMessage
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
         
         overall = report_data.get('overall', {})
         tier = overall.get('tier', 'Foundational')
@@ -1624,7 +1624,7 @@ Do not include headings or formatting."""
         domain_results_str = '\n'.join(domain_results)
         
         try:
-            chat = Chat(
+            chat = LlmChat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
                 system_message="You are generating the cross-domain readiness patterns analysis for an AI Readiness Assessment report."
@@ -1660,7 +1660,7 @@ Do not include headings or formatting."""
         Generate sector benchmarking interpretation for Readiness assessments.
         Variable target: ai.r_sector_interpretation
         """
-        from emergentintegrations.llm.chat import Chat, UserMessage
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
         
         overall = report_data.get('overall', {})
         score = overall.get('score', 0)
@@ -1686,7 +1686,7 @@ Do not include headings or formatting."""
         sector_domain_comparison_str = '\n'.join(sector_domain_comparison) if sector_domain_comparison else 'No domain-level comparison available'
         
         try:
-            chat = Chat(
+            chat = LlmChat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
                 system_message="You are generating the sector benchmarking interpretation for an AI Readiness Assessment report."
@@ -1723,7 +1723,7 @@ Do not include headings or formatting."""
         Generate AI Action Interpretation for Readiness assessments.
         Variable target: ai.r_action_interpretation
         """
-        from emergentintegrations.llm.chat import Chat, UserMessage
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
         
         overall = report_data.get('overall', {})
         tier = overall.get('tier', 'Foundational')
@@ -1747,7 +1747,7 @@ Do not include headings or formatting."""
         actions_low_str = format_actions(actions_low)
         
         try:
-            chat = Chat(
+            chat = LlmChat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
                 system_message="You are generating the recommendations narrative for an AI Readiness Assessment report."
@@ -1787,7 +1787,7 @@ Do not include headings or formatting."""
         Generate AI Pathway Rationale for Readiness assessments.
         Variable target: ai.r_pathway_rationale
         """
-        from emergentintegrations.llm.chat import Chat, UserMessage
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
         
         overall = report_data.get('overall', {})
         tier = overall.get('tier', 'Foundational')
@@ -1807,7 +1807,7 @@ Do not include headings or formatting."""
             recommended_pathway = 'Address foundational gaps and re-assess readiness before considering AI System Assessment'
         
         try:
-            chat = Chat(
+            chat = LlmChat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
                 system_message="You are generating the pathway rationale for the \"Your Pathway Through the AM AI SAFE Framework\" section."
