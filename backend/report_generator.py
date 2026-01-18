@@ -1815,6 +1815,11 @@ Do not include headings or formatting."""
         
         user_prompt = f"""Explain the intent and sequencing logic behind the recommended readiness actions.
 
+CRITICAL RULES:
+- Do NOT introduce new recommendations.
+- Do NOT suggest starting with low-priority actions.
+- Frame actions as readiness prerequisites, not optimisation or compliance activities.
+
 INPUT DATA:
 - High priority actions:
 {actions_high_str}
@@ -1830,8 +1835,9 @@ OUTPUT REQUIREMENTS:
 
 STRUCTURE:
 1. Explain why prioritisation is necessary at this readiness stage
-2. Describe how actions support readiness uplift rather than compliance
+2. Describe how high-priority actions address foundational readiness gaps
 3. Reinforce sequencing and proportionality
+4. Distinguish readiness actions from future maturity initiatives
 
 Do not include headings or formatting."""
 
