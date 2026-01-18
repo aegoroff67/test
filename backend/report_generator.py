@@ -1382,15 +1382,18 @@ Output only the focus statement, nothing else."""
         # Get domain scores
         domains = report_data.get('domains', [])
         
-        # Get strengths (score >= 70) and gaps (score < 60 for foundational domains)
+        # Build domain results summary and identify strengths/gaps
         # Note: domain_scores uses 'domain_name' and 'percentage' fields
         strengths = []
         gaps = []
+        domain_results = []
         for d in domains:
             d_score = d.get('percentage', d.get('score', 0))
             if isinstance(d_score, str):
                 d_score = float(d_score.replace('%', ''))
             d_name = d.get('domain_name', d.get('name', 'Unknown'))
+            d_tier = self._calculate_readiness_tier(d_score)
+            domain_results.append(f"- {d_name}: {d_score:.0f}% ({d_tier})")
             if d_score >= 70:
                 strengths.append(f"{d_name} ({d_score:.0f}%)")
             elif d_score < 60:
@@ -1398,6 +1401,7 @@ Output only the focus statement, nothing else."""
         
         strengths_summary = ', '.join(strengths) if strengths else 'No domains currently at established level'
         gaps_summary = ', '.join(gaps) if gaps else 'All domains above 60%'
+        domain_results_str = '\n'.join(domain_results)
         
         system_prompt = "You are generating the Executive Snapshot narrative for an AI Readiness Assessment report."
         
@@ -1405,7 +1409,7 @@ Output only the focus statement, nothing else."""
 
 CRITICAL RULES:
 - Do NOT state or imply that "no critical gaps exist" unless all domain scores exceed 70%.
-- If any foundational domains (e.g. data, cybersecurity, resilience) score below 60%, explicitly describe these as readiness constraints.
+- If foundational domains (e.g. data, cybersecurity, resilience, policy) score below 60%, explicitly describe these as readiness constraints.
 - Avoid language that could be interpreted as approval to proceed with AI implementation.
 
 INPUT DATA:
@@ -1416,6 +1420,8 @@ INPUT DATA:
 - Sector average score: {sector_average}%
 - High-level strengths summary: {strengths_summary}
 - High-level gaps summary: {gaps_summary}
+- Domain scores summary:
+{domain_results_str}
 
 OUTPUT REQUIREMENTS:
 - 140–200 words
