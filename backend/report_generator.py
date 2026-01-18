@@ -1509,10 +1509,11 @@ Do not include headings or formatting."""
         ethical_principles = readiness_info.get('ethical_principles', [])
         
         # Get relevant domain scores for governance summary
+        # Note: domain_scores uses 'domain_name' and 'percentage' fields
         domains = report_data.get('domains', [])
-        gov_score = next((d.get('score', 0) for d in domains if 'Governance' in d.get('name', '')), 0)
-        ethics_score = next((d.get('score', 0) for d in domains if 'Ethics' in d.get('name', '')), 0)
-        policy_score = next((d.get('score', 0) for d in domains if 'Policy' in d.get('name', '')), 0)
+        gov_score = next((d.get('percentage', d.get('score', 0)) for d in domains if 'Governance' in d.get('domain_name', d.get('name', ''))), 0)
+        ethics_score = next((d.get('percentage', d.get('score', 0)) for d in domains if 'Ethics' in d.get('domain_name', d.get('name', ''))), 0)
+        policy_score = next((d.get('percentage', d.get('score', 0)) for d in domains if 'Policy' in d.get('domain_name', d.get('name', ''))), 0)
         
         governance_scores_summary = f"Governance Foundations: {gov_score:.0f}%, Risk & Ethics Awareness: {ethics_score:.0f}%, Policy & Compliance Readiness: {policy_score:.0f}%"
         
