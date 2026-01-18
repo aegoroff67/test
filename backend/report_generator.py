@@ -1632,14 +1632,16 @@ Do not include headings or formatting."""
         tier = overall.get('tier', 'Foundational')
         
         # Get domain scores and tiers
+        # Note: domain_scores uses 'domain_name' and 'percentage' fields
         domains = report_data.get('domains', [])
         domain_results = []
         for d in domains:
-            d_score = d.get('score', 0)
+            d_score = d.get('percentage', d.get('score', 0))
             if isinstance(d_score, str):
                 d_score = float(d_score.replace('%', ''))
+            d_name = d.get('domain_name', d.get('name', 'Unknown'))
             d_tier = self._calculate_readiness_tier(d_score)
-            domain_results.append(f"- {d.get('name', 'Unknown')}: {d_score:.0f}% ({d_tier})")
+            domain_results.append(f"- {d_name}: {d_score:.0f}% ({d_tier})")
         
         domain_results_str = '\n'.join(domain_results)
         
