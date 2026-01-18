@@ -1486,112 +1486,236 @@ Do not include headings or formatting."""
             print(f"ERROR in _generate_readiness_ai_context_interpretation: {e}")
             return ""
 
-    async def _generate_readiness_ai_gov_ethics(self, report_data: Dict[str, Any]) -> str:
+    async def _generate_readiness_ai_governance_interpretation(self, report_data: Dict[str, Any]) -> str:
         """
-        Generate AI Governance & Ethics Readiness Interpretation for Readiness assessments.
-        Variable target: ai.gov_ethics_readiness
+        Generate AI Governance, Ethics & Decision Readiness interpretation for Readiness assessments.
+        Variable target: ai.r_governance_interpretation
         """
         from emergentintegrations.llm.chat import Chat, UserMessage
         
         readiness_info = report_data.get('readiness_info') or {}
         governance_foundations = readiness_info.get('governance_foundations', [])
-        decision_ownership = readiness_info.get('decision_ownership', '')
+        ai_approval_authority = readiness_info.get('decision_ownership', readiness_info.get('ai_approval_authority', 'Not specified'))
         ethical_principles = readiness_info.get('ethical_principles', [])
         
-        # Get relevant domain scores
+        # Get relevant domain scores for governance summary
         domains = report_data.get('domains', [])
         gov_score = next((d.get('score', 0) for d in domains if 'Governance' in d.get('name', '')), 0)
         ethics_score = next((d.get('score', 0) for d in domains if 'Ethics' in d.get('name', '')), 0)
         policy_score = next((d.get('score', 0) for d in domains if 'Policy' in d.get('name', '')), 0)
         
+        governance_scores_summary = f"Governance Foundations: {gov_score:.0f}%, Risk & Ethics Awareness: {ethics_score:.0f}%, Policy & Compliance Readiness: {policy_score:.0f}%"
+        
+        governance_foundations_str = ', '.join(governance_foundations) if governance_foundations else 'None currently in place'
+        ethical_principles_str = ', '.join(ethical_principles) if ethical_principles else 'None currently referenced'
+        
         try:
             chat = Chat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
-                system_message="""You are an AI governance and ethics expert providing interpretation for organisational AI readiness reports.
-Write in a professional, consultative tone. Focus on governance structures, ethical frameworks, and policy readiness.
-Use Australian English spelling."""
+                system_message="You are generating the Governance, Ethics & Decision Readiness interpretation for an AI Readiness Assessment report."
             )
             
-            user_prompt = f"""Write a governance and ethics readiness interpretation paragraph (100-150 words) for this AI Readiness assessment:
+            user_prompt = f"""Interpret governance and decision-readiness signals relevant to AI adoption.
 
-Governance Foundations in Place: {', '.join(governance_foundations) if governance_foundations else 'None currently in place'}
-AI Decision Ownership: {decision_ownership}
-Ethical Principles Referenced: {', '.join(ethical_principles) if ethical_principles else 'None currently referenced'}
+INPUT DATA:
+- Existing governance foundations: {governance_foundations_str}
+- AI / technology approval authority: {ai_approval_authority}
+- Ethical principles referenced: {ethical_principles_str}
+- Governance domain scores summary: {governance_scores_summary}
 
-Domain Scores:
-- Governance Foundations: {gov_score:.0f}%
-- Risk & Ethics Awareness: {ethics_score:.0f}%
-- Policy & Compliance Readiness: {policy_score:.0f}%
+OUTPUT REQUIREMENTS:
+- 120–170 words
+- Measured, assurance-aware tone
 
-The interpretation should:
-1. Assess the current governance foundation for AI
-2. Evaluate ethical framework readiness
-3. Comment on decision ownership clarity
-4. Identify key governance gaps or strengths
+STRUCTURE:
+1. Describe governance intent and accountability signals
+2. Highlight consistency or inconsistency across governance indicators
+3. Explain implications for decision-readiness (not compliance maturity)
 
-Write in flowing prose without bullet points or headings."""
+Do not include headings or formatting."""
 
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
-            print(f"ERROR in _generate_readiness_ai_gov_ethics: {e}")
+            print(f"ERROR in _generate_readiness_ai_governance_interpretation: {e}")
             return ""
 
-    async def _generate_readiness_ai_data_capability(self, report_data: Dict[str, Any]) -> str:
+    async def _generate_readiness_ai_data_tech_interpretation(self, report_data: Dict[str, Any]) -> str:
         """
-        Generate AI Data, Capability & Technology Interpretation for Readiness assessments.
-        Variable target: ai.data_capability_tech
+        Generate AI Data, Capability & Technology Readiness interpretation for Readiness assessments.
+        Variable target: ai.r_data_tech_interpretation
         """
         from emergentintegrations.llm.chat import Chat, UserMessage
         
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
         readiness_info = report_data.get('readiness_info') or {}
-        data_maturity = readiness_info.get('data_maturity', '')
-        ai_capability = readiness_info.get('ai_capability', '')
+        data_maturity = readiness_info.get('data_maturity', 'Not specified')
+        ai_capability = readiness_info.get('ai_capability', 'Not specified')
         current_tools = readiness_info.get('current_tools', [])
-        poc_status = readiness_info.get('poc_status', '')
         
         # Get relevant domain scores
         domains = report_data.get('domains', [])
         data_score = next((d.get('score', 0) for d in domains if 'Data' in d.get('name', '')), 0)
         tech_score = next((d.get('score', 0) for d in domains if 'Technology' in d.get('name', '')), 0)
         people_score = next((d.get('score', 0) for d in domains if 'People' in d.get('name', '')), 0)
+        learning_score = next((d.get('score', 0) for d in domains if 'Learning' in d.get('name', '')), 0)
+        
+        data_scores_summary = f"Data Readiness: {data_score:.0f}%"
+        tech_scores_summary = f"Technology & Infrastructure: {tech_score:.0f}%"
+        capability_summary = f"People & Culture: {people_score:.0f}%, Continuous Learning: {learning_score:.0f}%"
         
         try:
             chat = Chat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
-                system_message="""You are an AI technology and data expert providing interpretation for organisational AI readiness reports.
-Write in a professional, consultative tone. Focus on data readiness, technical capability, and workforce skills.
-Use Australian English spelling."""
+                system_message="You are generating the Data, Capability & Technology Readiness interpretation for an AI Readiness Assessment report."
             )
             
-            user_prompt = f"""Write a data, capability and technology interpretation paragraph (100-150 words) for this AI Readiness assessment:
+            user_prompt = f"""Interpret whether current data, capability, and technology foundations are sufficient to support safe AI adoption.
 
-Data Maturity Level: {data_maturity}
-AI Capability Status: {ai_capability}
-Current AI Tools/Platforms: {', '.join(current_tools) if current_tools else 'None currently in use'}
-Proof of Concept Status: {poc_status}
+INPUT DATA:
+- Data readiness scores summary: {data_scores_summary}
+- Technology readiness scores summary: {tech_scores_summary}
+- Capability indicators: {capability_summary}
+- Overall readiness tier: {tier}
 
-Domain Scores:
-- Data Readiness: {data_score:.0f}%
-- Technology & Infrastructure: {tech_score:.0f}%
-- People & Culture: {people_score:.0f}%
+OUTPUT REQUIREMENTS:
+- 140–190 words
+- Candid, risk-aware tone
 
-The interpretation should:
-1. Assess data management and quality readiness
-2. Evaluate technology infrastructure capability
-3. Comment on workforce skills and culture readiness
-4. Identify key capability gaps or strengths
+STRUCTURE:
+1. Describe overall strength of foundational enablers
+2. Explain how strengths and weaknesses interact
+3. Clarify whether conditions support low-risk AI experimentation
 
-Write in flowing prose without bullet points or headings."""
+Do not include headings or formatting."""
 
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
             
         except Exception as e:
-            print(f"ERROR in _generate_readiness_ai_data_capability: {e}")
+            print(f"ERROR in _generate_readiness_ai_data_tech_interpretation: {e}")
+            return ""
+
+    async def _generate_readiness_ai_domain_patterns(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate cross-domain readiness patterns analysis for Readiness assessments.
+        Variable target: ai.r_domain_patterns
+        """
+        from emergentintegrations.llm.chat import Chat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
+        # Get domain scores and tiers
+        domains = report_data.get('domains', [])
+        domain_results = []
+        for d in domains:
+            d_score = d.get('score', 0)
+            if isinstance(d_score, str):
+                d_score = float(d_score.replace('%', ''))
+            d_tier = self._calculate_readiness_tier(d_score)
+            domain_results.append(f"- {d.get('name', 'Unknown')}: {d_score:.0f}% ({d_tier})")
+        
+        domain_results_str = '\n'.join(domain_results)
+        
+        try:
+            chat = Chat(
+                api_key=self.emergent_api_key,
+                model="gpt-4o-mini",
+                system_message="You are generating the cross-domain readiness patterns analysis for an AI Readiness Assessment report."
+            )
+            
+            user_prompt = f"""Identify and explain patterns across AI readiness domains.
+
+INPUT DATA:
+- Domain scores and tiers:
+{domain_results_str}
+- Overall readiness tier: {tier}
+
+OUTPUT REQUIREMENTS:
+- 120–160 words
+- Analytical, pattern-focused tone
+
+STRUCTURE:
+1. Identify notable consistency or imbalance across domains
+2. Explain how uneven maturity affects readiness reliability
+3. Highlight systemic rather than isolated signals
+
+Do not include headings or formatting."""
+
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_readiness_ai_domain_patterns: {e}")
+            return ""
+
+    async def _generate_readiness_ai_sector_interpretation(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate sector benchmarking interpretation for Readiness assessments.
+        Variable target: ai.r_sector_interpretation
+        """
+        from emergentintegrations.llm.chat import Chat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        score = overall.get('score', 0)
+        sector_average = report_data.get('sector_average', 0)
+        
+        # Get benchmark data for domain comparison
+        benchmark_data = report_data.get('benchmark_data', {})
+        domains = report_data.get('domains', [])
+        
+        sector_domain_comparison = []
+        for d in domains:
+            d_name = d.get('name', '')
+            d_score = d.get('score', 0)
+            if isinstance(d_score, str):
+                d_score = float(d_score.replace('%', ''))
+            benchmark_score = benchmark_data.get(d_name, 0)
+            diff = d_score - benchmark_score
+            if diff >= 0:
+                sector_domain_comparison.append(f"- {d_name}: {d_score:.0f}% vs sector {benchmark_score:.0f}% (+{diff:.0f}%)")
+            else:
+                sector_domain_comparison.append(f"- {d_name}: {d_score:.0f}% vs sector {benchmark_score:.0f}% ({diff:.0f}%)")
+        
+        sector_domain_comparison_str = '\n'.join(sector_domain_comparison) if sector_domain_comparison else 'No domain-level comparison available'
+        
+        try:
+            chat = Chat(
+                api_key=self.emergent_api_key,
+                model="gpt-4o-mini",
+                system_message="You are generating the sector benchmarking interpretation for an AI Readiness Assessment report."
+            )
+            
+            user_prompt = f"""Interpret sector benchmarking results for AI readiness.
+
+INPUT DATA:
+- Organisation readiness score: {score:.0f}%
+- Sector average score: {sector_average}%
+- Domain-level comparison summary:
+{sector_domain_comparison_str}
+
+OUTPUT REQUIREMENTS:
+- 100–140 words
+- Contextual, neutral tone
+
+STRUCTURE:
+1. Explain what the comparison shows at a high level
+2. Clarify appropriate use of benchmarking insights
+3. Reinforce limitations of sector averages
+
+Do not include headings or formatting."""
+
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_readiness_ai_sector_interpretation: {e}")
             return ""
 
     async def _generate_readiness_ai_results_summary(self, report_data: Dict[str, Any]) -> str:
