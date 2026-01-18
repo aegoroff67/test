@@ -1366,7 +1366,7 @@ Output only the focus statement, nothing else."""
     async def _generate_readiness_ai_executive_snapshot(self, report_data: Dict[str, Any]) -> str:
         """
         Generate AI Executive Snapshot for Readiness assessments.
-        Variable target: ai.executive_snapshot
+        Variable target: ai.r_executive_snapshot
         """
         from emergentintegrations.llm.chat import Chat, UserMessage
         
@@ -1376,52 +1376,56 @@ Output only the focus statement, nothing else."""
         
         readiness_info = report_data.get('readiness_info') or {}
         org_name = readiness_info.get('org_name') or report_data.get('org', {}).get('name', 'The organisation')
-        industry = readiness_info.get('industry') or report_data.get('org', {}).get('industry', '')
-        org_size = readiness_info.get('org_size', '')
+        industry = readiness_info.get('industry') or report_data.get('sector_name', '')
+        sector_average = report_data.get('sector_average', 0)
         
         # Get domain scores
         domains = report_data.get('domains', [])
-        domain_summary = []
+        
+        # Get strengths (score >= 70) and gaps (score < 50)
+        strengths = []
+        gaps = []
         for d in domains:
             d_score = d.get('score', 0)
             if isinstance(d_score, str):
                 d_score = float(d_score.replace('%', ''))
-            domain_summary.append(f"- {d.get('name', 'Unknown')}: {d_score:.0f}%")
+            if d_score >= 70:
+                strengths.append(d.get('name', 'Unknown'))
+            elif d_score < 50:
+                gaps.append(d.get('name', 'Unknown'))
         
-        # Get strengths and gaps
-        strengths = [d.get('name') for d in domains if isinstance(d.get('score', 0), (int, float)) and d.get('score', 0) >= 70]
-        gaps = [d.get('name') for d in domains if isinstance(d.get('score', 0), (int, float)) and d.get('score', 0) < 50]
+        strengths_summary = ', '.join(strengths) if strengths else 'No domains currently at established level'
+        gaps_summary = ', '.join(gaps) if gaps else 'No critical gaps identified'
         
         try:
             chat = Chat(
                 api_key=self.emergent_api_key,
                 model="gpt-4o-mini",
-                system_message="""You are an AI readiness assessment expert writing executive summaries for organisational AI readiness reports.
-Write in a professional, consultative tone appropriate for senior leadership. Focus on actionable insights and strategic implications.
-Be concise but comprehensive. Use Australian English spelling."""
+                system_message="You are generating the Executive Snapshot narrative for an AI Readiness Assessment report."
             )
             
-            user_prompt = f"""Write an executive snapshot (2-3 paragraphs, approximately 150-200 words) for this AI Readiness assessment:
+            user_prompt = f"""Explain the organisation's overall AI readiness position in clear, executive-level language.
 
-Organisation: {org_name}
-Industry: {industry}
-Organisation Size: {org_size}
-Overall Readiness Score: {score:.1f}%
-Readiness Tier: {tier}
+INPUT DATA:
+- Organisation name: {org_name}
+- AI Readiness tier: {tier}
+- AI Readiness score: {score:.0f}%
+- Sector: {industry}
+- Sector average score: {sector_average}%
+- High-level strengths summary: {strengths_summary}
+- High-level gaps summary: {gaps_summary}
 
-Domain Scores:
-{chr(10).join(domain_summary)}
+OUTPUT REQUIREMENTS:
+- 140–200 words
+- Written for senior leadership and board audiences
 
-Key Strengths: {', '.join(strengths) if strengths else 'Building foundations across all domains'}
-Critical Gaps: {', '.join(gaps) if gaps else 'No critical gaps identified'}
+STRUCTURE:
+1. Explain what the current readiness tier indicates in practical terms
+2. Contrast internal readiness with sector context at a high level
+3. Describe the balance between enabling signals and constraints
+4. Reinforce that this assessment evaluates readiness, not AI system assurance
 
-The snapshot should:
-1. Summarise the overall readiness position
-2. Highlight 2-3 key findings (both strengths and areas for improvement)
-3. Provide a strategic recommendation for next steps
-4. Reference the specific tier achieved and what it means
-
-Do not use bullet points - write in flowing paragraphs. Do not include a title or heading."""
+Do not include headings or formatting."""
 
             response = await chat.send_message(UserMessage(text=user_prompt))
             return response.strip()
