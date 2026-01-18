@@ -2889,8 +2889,8 @@ Do not include headings or formatting."""
                 current_tier = tier['name']
                 break
         
-        # Create figure - doubled width from 4 to 8
-        fig, ax = plt.subplots(figsize=(8, 3))
+        # Create figure - doubled both width and height (original was 4x3, now 8x6)
+        fig, ax = plt.subplots(figsize=(8, 6))
         
         # Draw stacked bar (vertical)
         bar_width = 0.8
@@ -2906,13 +2906,13 @@ Do not include headings or formatting."""
                 height,
                 facecolor=tier['color'],
                 edgecolor='#333333',
-                linewidth=1
+                linewidth=2
             )
             ax.add_patch(rect)
             
-            # Add tier label - increased font size from 8 to 10
+            # Add tier label - doubled font size
             ax.text(bar_x, current_y + height/2, tier['name'], 
-                   ha='center', va='center', fontsize=10, fontweight='bold',
+                   ha='center', va='center', fontsize=14, fontweight='bold',
                    color='#333333')
             
             current_y += height
@@ -2937,30 +2937,30 @@ Do not include headings or formatting."""
         arrow_y = score  # Score directly maps to y position (0-100)
         ax.annotate('', xy=(bar_x + bar_width/2, arrow_y), 
                    xytext=(bar_x + bar_width/2 + 0.3, arrow_y),
-                   arrowprops=dict(arrowstyle='->', color=user_arrow_color, lw=2))
+                   arrowprops=dict(arrowstyle='->', color=user_arrow_color, lw=3))
         
         # Sector average arrow on LEFT side (pointing right toward the bar)
         # Show black arrow if sector_average exists
         if sector_average is not None:
             ax.annotate('', xy=(bar_x - bar_width/2, sector_average), 
                        xytext=(bar_x - bar_width/2 - 0.3, sector_average),
-                       arrowprops=dict(arrowstyle='->', color='#000000', lw=2))
-            # Add sector average text below the black arrow on left side - increased font sizes
+                       arrowprops=dict(arrowstyle='->', color='#000000', lw=3))
+            # Add sector average text below the black arrow on left side - doubled font sizes
             if sector_name:
-                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 8, f'{sector_average:.0f}%', 
-                       ha='right', va='center', fontsize=14, fontweight='bold', color='#000000')
-                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 16, f'({sector_name}', 
-                       ha='right', va='center', fontsize=10, color='#666666')
-                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 22, 'sector average)', 
-                       ha='right', va='center', fontsize=10, color='#666666')
+                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 6, f'{sector_average:.0f}%', 
+                       ha='right', va='center', fontsize=20, fontweight='bold', color='#000000')
+                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 12, f'({sector_name}', 
+                       ha='right', va='center', fontsize=14, color='#666666')
+                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 17, 'sector average)', 
+                       ha='right', va='center', fontsize=14, color='#666666')
         
-        # Add score and tier text on right side - increased font sizes
+        # Add score and tier text on right side - doubled font sizes
         ax.text(bar_x + bar_width/2 + 0.5, arrow_y, f'{score:.0f}%', 
-               ha='left', va='center', fontsize=16, fontweight='bold', color=user_arrow_color)
-        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 8, f'{current_tier}', 
-               ha='left', va='center', fontsize=12, color='#666666')
-        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 15, 'AI Readiness', 
-               ha='left', va='center', fontsize=12, color='#666666')
+               ha='left', va='center', fontsize=24, fontweight='bold', color=user_arrow_color)
+        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 6, f'{current_tier}', 
+               ha='left', va='center', fontsize=16, color='#666666')
+        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 12, 'AI Readiness', 
+               ha='left', va='center', fontsize=16, color='#666666')
         
         # Set axis limits and remove axes
         ax.set_xlim(-0.5, 2.5)
