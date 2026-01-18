@@ -1885,6 +1885,10 @@ Do not include headings or formatting."""
         
         user_prompt = f"""Explain why the recommended next assessment pathway is appropriate given the organisation's AI readiness level.
 
+CRITICAL RULES:
+- Explicitly explain why system-level assessment may provide limited assurance at the current readiness tier, where applicable.
+- Do NOT promote progression as mandatory.
+
 INPUT DATA:
 - Overall readiness tier: {tier}
 - AI pilots / proofs-of-concept status: {poc_status}
@@ -1898,6 +1902,7 @@ STRUCTURE:
 1. Explain how readiness informs pathway selection
 2. Clarify risks of premature progression
 3. Reinforce optional, risk-informed advancement
+4. Include a clear caution against premature system-level assessment
 
 Do not include headings or formatting."""
 
