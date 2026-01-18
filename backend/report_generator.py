@@ -5422,14 +5422,13 @@ Each cell represents the score for a specific question, enabling identification 
                     }
                     questions_by_domain[domain_id].append(question)
             
-            # Create domain info for Awareness - use plain & to match domain_mapping
-            # docxtpl will handle XML escaping automatically
+            # Create domain info for Awareness - use &amp; for XML compatibility
             domains_by_id = {
-                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
-                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
-                "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
-                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership & Vision"},
-                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data & Digital Readiness"}
+                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness &amp; Understanding"},
+                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance &amp; Trust Foundations"},
+                "People & Skills": {"id": "People & Skills", "name": "People &amp; Skills"},
+                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership &amp; Vision"},
+                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data &amp; Digital Readiness"}
             }
         elif self.assessment_type == 'Readiness':
             # For Readiness assessments, use READINESS_QUESTIONS_DATA
@@ -5980,14 +5979,13 @@ Each cell represents the score for a specific question, enabling identification 
                     }
                     questions_by_domain[domain_id].append(question)
             
-            # Create domain info for Awareness - use plain & to match domain_mapping
-            # docxtpl will handle XML escaping automatically
+            # Create domain info for Awareness - use &amp; for XML compatibility
             domains_by_id = {
-                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness & Understanding"},
-                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance & Trust Foundations"},
-                "People & Skills": {"id": "People & Skills", "name": "People & Skills"},
-                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership & Vision"},
-                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data & Digital Readiness"}
+                "Awareness & Understanding": {"id": "Awareness & Understanding", "name": "Awareness &amp; Understanding"},
+                "Governance & Trust Foundations": {"id": "Governance & Trust Foundations", "name": "Governance &amp; Trust Foundations"},
+                "People & Skills": {"id": "People & Skills", "name": "People &amp; Skills"},
+                "Leadership & Vision": {"id": "Leadership & Vision", "name": "Leadership &amp; Vision"},
+                "Data & Digital Readiness": {"id": "Data & Digital Readiness", "name": "Data &amp; Digital Readiness"}
             }
         elif self.assessment_type == 'Readiness':
             # For Readiness assessments, use READINESS_QUESTIONS_DATA
