@@ -4817,8 +4817,15 @@ Each cell represents the score for a specific question, enabling identification 
                     # Debug: Check if escaping worked
                     dp = template_context['ai']['domain_patterns']
                     print(f"  - domain_patterns has '&amp;': {'&amp;' in dp}")
-                    print(f"  - domain_patterns has plain '&': {'&' in dp and '&amp;' not in dp}")
-                    print(f"  - domain_patterns first 200 chars: {dp[:200]}")
+                    has_plain_amp = False
+                    for i, char in enumerate(dp):
+                        if char == '&':
+                            has_plain_amp = True
+                            print(f"  - Found plain '&' at position {i}: ...{dp[max(0,i-20):i+20]}...")
+                            break
+                    if not has_plain_amp:
+                        print(f"  - domain_patterns has NO '&' characters at all")
+                    print(f"  - domain_patterns full content: {dp}")
                 if template_context['ai'].get('action_interpretation'):
                     print(f"  - action_interpretation length: {len(template_context['ai']['action_interpretation'])} chars")
                 
