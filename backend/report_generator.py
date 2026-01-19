@@ -4490,7 +4490,7 @@ Each cell represents the score for a specific question, enabling identification 
             'gaps_count': len(high_actions),
             'top_gaps': [
                 {
-                    'domain': a.get('domain', 'Unknown'),
+                    'domain': escape_xml(a.get('domain', 'Unknown')),
                     'question_id': a.get('question_id', 'N/A'),
                     'reason': 'High priority action without linked evidence'
                 }
