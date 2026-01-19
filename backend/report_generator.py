@@ -4835,8 +4835,8 @@ Each cell represents the score for a specific question, enabling identification 
                 q_num = 1
                 for domain_data in questions_data:
                     domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
-                    # docxtpl auto-escapes in question list context - use plain domain name
-                    domain_name_escaped = domain_name if domain_name else 'Unknown'
+                    # Escape XML special characters for safe docxtpl rendering
+                    domain_name_escaped = escape_xml(domain_name) if domain_name else 'Unknown'
                     for q in domain_data.get('questions', []):
                         answer = q.get('answer', {})
                         score = answer.get('numeric_score', 0) if answer else 0
