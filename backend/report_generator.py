@@ -4797,15 +4797,15 @@ Each cell represents the score for a specific question, enabling identification 
                     print(f"  MEDIUM First: question_id='{first_m.get('question_id')}', domain='{first_m.get('domain')}')")
                 
                 # Add AI-generated narratives if available
-                # autoescape=True in render() handles XML escaping
+                # Apply placeholder for & to preserve through docxtpl rendering
                 ai_narratives = report_data.get('ai_narratives', {})
                 template_context['ai'] = {
-                    'executive_snapshot': ai_narratives.get('executive_snapshot', ''),
-                    'context_interpretation': ai_narratives.get('context_interpretation', ''),
-                    'governance_interpretation': ai_narratives.get('governance_interpretation', ''),
-                    'readiness_interpretation': ai_narratives.get('readiness_interpretation', ''),
-                    'domain_patterns': ai_narratives.get('domain_patterns', ''),
-                    'action_interpretation': ai_narratives.get('action_interpretation', ''),
+                    'executive_snapshot': replace_amp_with_placeholder(ai_narratives.get('executive_snapshot', '')),
+                    'context_interpretation': replace_amp_with_placeholder(ai_narratives.get('context_interpretation', '')),
+                    'governance_interpretation': replace_amp_with_placeholder(ai_narratives.get('governance_interpretation', '')),
+                    'readiness_interpretation': replace_amp_with_placeholder(ai_narratives.get('readiness_interpretation', '')),
+                    'domain_patterns': replace_amp_with_placeholder(ai_narratives.get('domain_patterns', '')),
+                    'action_interpretation': replace_amp_with_placeholder(ai_narratives.get('action_interpretation', '')),
                 }
                 print(f"DEBUG: Added AI narratives to template context: {list(template_context['ai'].keys())}")
                 
