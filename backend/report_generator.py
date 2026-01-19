@@ -4716,8 +4716,8 @@ Each cell represents the score for a specific question, enabling identification 
                 ai_next_focus = ai_narratives.get('next_focus', '')
                 
                 if ai_next_focus:
-                    # Escape XML special characters for safe docxtpl rendering
-                    template_context['next_focus'] = escape_xml(ai_next_focus)
+                    # autoescape=True handles XML escaping
+                    template_context['next_focus'] = ai_next_focus
                 else:
                     # Fallback: Build next_focus recommendation based on tier
                     tier = template_context.get('overall', {}).get('tier', 'Developing')
