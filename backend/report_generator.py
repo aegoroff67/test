@@ -4336,8 +4336,6 @@ Each cell represents the score for a specific question, enabling identification 
             """Enrich an action item with smart priority data and all fields."""
             question_id = action.get('question_id', '')
             domain = action.get('domain', 'Unknown')
-            # Ensure domain is escaped for docxtpl template rendering
-            domain = escape_xml(domain) if domain else 'Unknown'
             
             # Get metadata for this question
             metadata = question_metadata.get(question_id, {})
