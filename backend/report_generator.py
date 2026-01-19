@@ -4814,6 +4814,11 @@ Each cell represents the score for a specific question, enabling identification 
                     print(f"  - readiness_interpretation length: {len(template_context['ai']['readiness_interpretation'])} chars")
                 if template_context['ai'].get('domain_patterns'):
                     print(f"  - domain_patterns length: {len(template_context['ai']['domain_patterns'])} chars")
+                    # Debug: Check if escaping worked
+                    dp = template_context['ai']['domain_patterns']
+                    print(f"  - domain_patterns has '&amp;': {'&amp;' in dp}")
+                    print(f"  - domain_patterns has plain '&': {'&' in dp and '&amp;' not in dp}")
+                    print(f"  - domain_patterns first 200 chars: {dp[:200]}")
                 if template_context['ai'].get('action_interpretation'):
                     print(f"  - action_interpretation length: {len(template_context['ai']['action_interpretation'])} chars")
                 
