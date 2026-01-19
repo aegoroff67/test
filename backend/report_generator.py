@@ -4220,7 +4220,7 @@ Each cell represents the score for a specific question, enabling identification 
         for domain in domains:
             domain_name = domain.get('name', '')
             # Escape XML special characters for docxtpl template rendering
-            domain_name_escaped = escape_xml(domain_name)
+            domain_name_escaped = domain_name
             questions = domain.get('questions', [])
             scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
             
