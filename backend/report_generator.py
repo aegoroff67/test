@@ -303,11 +303,9 @@ class AMReportGenerator:
                     # Get domain name from question ID prefix
                     domain_prefix = question_id.split("-")[0] if "-" in question_id else ""
                     domain_name = domain_mapping.get(domain_prefix, domain_info.get('name', 'Unknown'))
-                    # Escape XML special characters for docxtpl template rendering
-                    domain_name_escaped = escape_xml(domain_name)
                     
                     action_item = {
-                        'domain': domain_name_escaped,
+                        'domain': domain_name,
                         'question_id': question_id,
                         'sector_action': sector_action_text,
                         'score': score
