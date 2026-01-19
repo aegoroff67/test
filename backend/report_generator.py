@@ -14,12 +14,24 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import seaborn as sns
 import numpy as np
-from docxtpl import DocxTemplate, InlineImage
+from docxtpl import DocxTemplate, InlineImage, RichText
 from docx.shared import Inches, Pt, RGBColor
 import requests
 import subprocess
 from jinja2 import Environment, FileSystemLoader
+import xml.sax.saxutils as saxutils
 # from weasyprint import HTML, CSS  # Disabled - requires system libraries (pango, cairo)
+
+
+def escape_xml(text: str) -> str:
+    """Escape XML special characters for safe DOCX template rendering.
+    
+    docxtpl requires special characters like & < > to be properly escaped
+    when they appear in template variables that will be rendered as text.
+    """
+    if not text:
+        return text
+    return saxutils.escape(str(text))
 
 
 class AMReportGenerator:
