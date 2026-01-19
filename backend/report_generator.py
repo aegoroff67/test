@@ -5277,8 +5277,9 @@ Each cell represents the score for a specific question, enabling identification 
             # Helper function for date formatting in template
             template_context['formatDate'] = self.format_date
             
-            # Render the template - this will preserve all original fonts, colors, margins, layout
-            doc.render(template_context)
+            # Render the template with autoescape=True to properly escape & < > in variables
+            # This ensures ampersands in domain names like "Awareness & Understanding" are preserved
+            doc.render(template_context, autoescape=True)
             
             # Center-align images (heatmap and radar chart)
             self._center_align_images(doc)
