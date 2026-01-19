@@ -4793,15 +4793,15 @@ Each cell represents the score for a specific question, enabling identification 
                     print(f"  MEDIUM First: question_id='{first_m.get('question_id')}', domain='{first_m.get('domain')}')")
                 
                 # Add AI-generated narratives if available
-                # AI narratives may contain domain names with & that need XML escaping
+                # autoescape=True in render() handles XML escaping
                 ai_narratives = report_data.get('ai_narratives', {})
                 template_context['ai'] = {
-                    'executive_snapshot': escape_xml(ai_narratives.get('executive_snapshot', '')),
-                    'context_interpretation': escape_xml(ai_narratives.get('context_interpretation', '')),
-                    'governance_interpretation': escape_xml(ai_narratives.get('governance_interpretation', '')),
-                    'readiness_interpretation': escape_xml(ai_narratives.get('readiness_interpretation', '')),
-                    'domain_patterns': escape_xml(ai_narratives.get('domain_patterns', '')),
-                    'action_interpretation': escape_xml(ai_narratives.get('action_interpretation', '')),
+                    'executive_snapshot': ai_narratives.get('executive_snapshot', ''),
+                    'context_interpretation': ai_narratives.get('context_interpretation', ''),
+                    'governance_interpretation': ai_narratives.get('governance_interpretation', ''),
+                    'readiness_interpretation': ai_narratives.get('readiness_interpretation', ''),
+                    'domain_patterns': ai_narratives.get('domain_patterns', ''),
+                    'action_interpretation': ai_narratives.get('action_interpretation', ''),
                 }
                 print(f"DEBUG: Added AI narratives to template context: {list(template_context['ai'].keys())}")
                 if template_context['ai'].get('executive_snapshot'):
