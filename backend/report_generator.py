@@ -5036,7 +5036,7 @@ Each cell represents the score for a specific question, enabling identification 
                     def format_action_for_sector(action):
                         return {
                             'question_id': action.get('question_id', ''),
-                            'domain': escape_xml(action.get('domain', '')),
+                            'domain': action.get('domain', ''),
                             'sector_action': action.get('recommendation', action.get('text', ''))
                         }
                     
