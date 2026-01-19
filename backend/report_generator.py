@@ -4674,7 +4674,7 @@ Each cell represents the score for a specific question, enabling identification 
                     
                     # Pre-formatted Results Summary text (matches frontend ResultsPage.js)
                     # Escape XML special characters for safe docxtpl rendering
-                    'results_summary_text': escape_xml(self._generate_results_summary_text(report_data)),
+                    'results_summary_text': self._generate_results_summary_text(report_data),
                 })
                 
                 # Build strengths list (domains scoring >= 70%)
