@@ -4804,30 +4804,6 @@ Each cell represents the score for a specific question, enabling identification 
                     'action_interpretation': ai_narratives.get('action_interpretation', ''),
                 }
                 print(f"DEBUG: Added AI narratives to template context: {list(template_context['ai'].keys())}")
-                if template_context['ai'].get('executive_snapshot'):
-                    print(f"  - executive_snapshot length: {len(template_context['ai']['executive_snapshot'])} chars")
-                if template_context['ai'].get('context_interpretation'):
-                    print(f"  - context_interpretation length: {len(template_context['ai']['context_interpretation'])} chars")
-                if template_context['ai'].get('governance_interpretation'):
-                    print(f"  - governance_interpretation length: {len(template_context['ai']['governance_interpretation'])} chars")
-                if template_context['ai'].get('readiness_interpretation'):
-                    print(f"  - readiness_interpretation length: {len(template_context['ai']['readiness_interpretation'])} chars")
-                if template_context['ai'].get('domain_patterns'):
-                    print(f"  - domain_patterns length: {len(template_context['ai']['domain_patterns'])} chars")
-                    # Debug: Check if escaping worked
-                    dp = template_context['ai']['domain_patterns']
-                    print(f"  - domain_patterns has '&amp;': {'&amp;' in dp}")
-                    has_plain_amp = False
-                    for i, char in enumerate(dp):
-                        if char == '&':
-                            has_plain_amp = True
-                            print(f"  - Found plain '&' at position {i}: ...{dp[max(0,i-20):i+20]}...")
-                            break
-                    if not has_plain_amp:
-                        print(f"  - domain_patterns has NO '&' characters at all")
-                    print(f"  - domain_patterns full content: {dp}")
-                if template_context['ai'].get('action_interpretation'):
-                    print(f"  - action_interpretation length: {len(template_context['ai']['action_interpretation'])} chars")
                 
                 # Build questions list with full details
                 questions = []
