@@ -5263,48 +5263,14 @@ Each cell represents the score for a specific question, enabling identification 
             output_buffer = io.BytesIO()
             doc.save(output_buffer)
             output_buffer.seek(0)
-            docx_bytes = output_buffer.getvalue()
             
-            # Post-process: Replace ampersand placeholder with proper XML entity
-            # This is needed because docxtpl strips & in paragraph loops
-            docx_bytes = self._post_process_ampersands(docx_bytes)
-            
-            return docx_bytes
+            return output_buffer.getvalue()
             
         except Exception as e:
             print(f"Error generating DOCX report: {str(e)}")
             import traceback
             traceback.print_exc()
             raise Exception(f"Failed to generate DOCX report: {str(e)}")
-    
-    def _post_process_ampersands(self, docx_bytes: bytes) -> bytes:
-        """
-        Post-process DOCX to replace ampersand placeholders with proper XML entities.
-        
-        docxtpl strips & in paragraph loops ({% for %}), so we use AMP_PLACEHOLDER
-        during rendering and replace it with &amp; after the DOCX is generated.
-        """
-        import zipfile
-        
-        # Read the DOCX (which is a ZIP file)
-        input_buffer = io.BytesIO(docx_bytes)
-        files = {}
-        
-        with zipfile.ZipFile(input_buffer, 'r') as zin:
-            for name in zin.namelist():
-                files[name] = zin.read(name)
-        
-        # Replace placeholder with proper XML entity in all XML files
-        output_buffer = io.BytesIO()
-        with zipfile.ZipFile(output_buffer, 'w', zipfile.ZIP_DEFLATED) as zout:
-            for name, content in files.items():
-                if name.endswith('.xml'):
-                    # Replace placeholder with &amp;
-                    content = content.replace(AMP_PLACEHOLDER.encode(), b'&amp;')
-                zout.writestr(name, content)
-        
-        output_buffer.seek(0)
-        return output_buffer.read()
     
     async def generate_report_for_assessment(self, assessment_id: str, db, current_user, view_type: str = "heatmap", use_ai: bool = False) -> Tuple[bytes, str]:
         """
