@@ -4219,7 +4219,8 @@ Each cell represents the score for a specific question, enabling identification 
         result = []
         for domain in domains:
             domain_name = domain.get('name', '')
-            # docxtpl handles XML escaping automatically - use plain &
+            # Escape XML special characters for docxtpl template rendering
+            domain_name_escaped = escape_xml(domain_name)
             questions = domain.get('questions', [])
             scores = [q.get('score', 0) for q in questions if q.get('score') is not None]
             
@@ -4245,7 +4246,7 @@ Each cell represents the score for a specific question, enabling identification 
                     tier = "Foundational"
                 
                 result.append({
-                    'name': domain_name,
+                    'name': domain_name_escaped,  # Escaped for safe template rendering
                     'score': round(avg_pct, 1),  # Keep as number for comparisons
                     'score_display': f"{round(avg_pct)}%",  # Formatted string for template
                     'tier': tier,
