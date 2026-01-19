@@ -4835,8 +4835,10 @@ Each cell represents the score for a specific question, enabling identification 
                 q_num = 1
                 for domain_data in questions_data:
                     domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
-                    # Escape XML special characters for safe docxtpl rendering
-                    domain_name_escaped = escape_xml(domain_name) if domain_name else 'Unknown'
+                    # Use RichText to preserve & character in non-table-row loops
+                    # docxtpl strips & in regular {% for %} loops but RichText preserves it
+                    rt_domain = RichText()
+                    rt_domain.add(domain_name if domain_name else 'Unknown')
                     for q in domain_data.get('questions', []):
                         answer = q.get('answer', {})
                         score = answer.get('numeric_score', 0) if answer else 0
@@ -4855,7 +4857,7 @@ Each cell represents the score for a specific question, enabling identification 
                             'number': q_num,
                             'code': q.get('code', ''),
                             'text': q.get('text', ''),
-                            'domain': domain_name_escaped,
+                            'domain': rt_domain,  # RichText preserves & in regular for loops
                             'selected_option_label': answer.get('selected_option', {}).get('label', 'Not answered') if answer else 'Not answered',
                             'selected_option_text': answer.get('selected_option', {}).get('text', '') if answer else '',
                             'maturity_level': maturity_level,
