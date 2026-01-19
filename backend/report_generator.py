@@ -5279,8 +5279,13 @@ Each cell represents the score for a specific question, enabling identification 
             output_buffer = io.BytesIO()
             doc.save(output_buffer)
             output_buffer.seek(0)
+            docx_bytes = output_buffer.getvalue()
             
-            return output_buffer.getvalue()
+            # Post-process: Replace ampersand placeholder with proper XML entity
+            # This is needed because docxtpl strips & in paragraph loops
+            docx_bytes = self._post_process_ampersands(docx_bytes)
+            
+            return docx_bytes
             
         except Exception as e:
             print(f"Error generating DOCX report: {str(e)}")
