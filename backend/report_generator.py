@@ -19,7 +19,23 @@ from docx.shared import Inches, Pt, RGBColor
 import requests
 import subprocess
 from jinja2 import Environment, FileSystemLoader
+import zipfile
 # from weasyprint import HTML, CSS  # Disabled - requires system libraries (pango, cairo)
+
+# Placeholder for ampersand - used to preserve & in docxtpl paragraph loops
+# docxtpl strips & in {% for %} loops, so we use a placeholder and post-process
+AMP_PLACEHOLDER = '___AMP___'
+
+
+def replace_amp_with_placeholder(text: str) -> str:
+    """Replace & with placeholder for docxtpl rendering.
+    
+    docxtpl strips & in paragraph loops ({% for %}), so we use a placeholder
+    that gets replaced back to &amp; after the DOCX is generated.
+    """
+    if not text:
+        return text
+    return str(text).replace('&', AMP_PLACEHOLDER)
 
 
 class AMReportGenerator:
