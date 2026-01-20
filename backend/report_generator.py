@@ -5806,7 +5806,7 @@ Each cell represents the score for a specific question, enabling identification 
             readiness_info = assessment.get('readiness_info') or {}
             sector_name = readiness_info.get('industry', '')
         elif self.assessment_type == 'Orgwide':
-            orgwide_info = assessment.get('orgwide_info') or {}
+            orgwide_info = assessment.get('orgwide_info') or assessment.get('org_info') or {}
             sector_name = orgwide_info.get('industry', '')
         else:
             sector_name = system_info.get('industry', '') if system_info else ''
@@ -6364,7 +6364,7 @@ Each cell represents the score for a specific question, enabling identification 
             readiness_info = assessment.get('readiness_info') or {}
             sector_name = readiness_info.get('industry', '')
         elif self.assessment_type == 'Orgwide':
-            orgwide_info = assessment.get('orgwide_info') or {}
+            orgwide_info = assessment.get('orgwide_info') or assessment.get('org_info') or {}
             sector_name = orgwide_info.get('industry', '')
         else:
             sector_name = system_info.get('industry', '') if system_info else ''
