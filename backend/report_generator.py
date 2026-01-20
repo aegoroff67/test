@@ -5958,7 +5958,8 @@ Each cell represents the score for a specific question, enabling identification 
         elif self.assessment_type == 'Readiness':
             assessment_org_name = (assessment.get('readiness_info') or {}).get('org_name', '')
         elif self.assessment_type == 'Orgwide':
-            assessment_org_name = (assessment.get('orgwide_info') or {}).get('org_name', '')
+            # For Orgwide, check both orgwide_info and org_info (fallback)
+            assessment_org_name = (assessment.get('orgwide_info') or assessment.get('org_info') or {}).get('org_name', '')
         else:
             # System or other types - check org_info first, then system_info
             assessment_org_name = (assessment.get('org_info') or {}).get('org_name', '')
