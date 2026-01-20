@@ -155,7 +155,7 @@ class AMReportGenerator:
             'System': 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx',
             'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
             'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.07_20260118.docx',
-            'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.01_20260119.docx',
+            'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.01_20260119_fixed.docx',
             'FAIRA': 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx',      # Fallback to System template
         }
         
