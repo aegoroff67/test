@@ -5063,7 +5063,7 @@ Each cell represents the score for a specific question, enabling identification 
                 # Add all orgwide_info fields as top-level variables
                 template_context.update({
                     # Organization and contact info
-                    'org_name': orgwide_info.get('org_name', ''),
+                    'org_name': replace_amp_with_placeholder(orgwide_info.get('org_name', '')),
                     'contact_name': orgwide_info.get('contact_name', ''),
                     'contact_email': orgwide_info.get('contact_email', ''),
                     
@@ -5071,6 +5071,7 @@ Each cell represents the score for a specific question, enabling identification 
                     'industry': orgwide_info.get('industry', ''),
                     'org_size': orgwide_info.get('org_size', ''),
                     'business_units_scope': orgwide_info.get('business_units_scope', ''),
+                    'business_unit': orgwide_info.get('business_units_scope', ''),  # Alias for template
                     
                     # AI Landscape & Scope
                     'ai_project_count': orgwide_info.get('ai_project_count', ''),
@@ -5084,11 +5085,14 @@ Each cell represents the score for a specific question, enabling identification 
                     'ai_risk_assessment_usage': orgwide_info.get('ai_risk_assessment_usage', ''),
                     'policy_review_frequency': orgwide_info.get('policy_review_frequency', ''),
                     'ai_register_status': orgwide_info.get('ai_register_status', ''),
+                    'governance_foundations': orgwide_info.get('governance_foundations', []),
+                    'ethical_principles': orgwide_info.get('ethical_principles', []),
                     
                     # Culture & Capability
                     'exec_engagement_level': orgwide_info.get('exec_engagement_level', ''),
                     'ai_training_maturity': orgwide_info.get('ai_training_maturity', ''),
                     'ai_maturity_self_rating': orgwide_info.get('ai_maturity_self_rating', ''),
+                    'decision_ownership': orgwide_info.get('decision_ownership', ''),
                     
                     # Assessment context
                     'assessor_name': orgwide_info.get('assessor_name', ''),
@@ -5099,8 +5103,16 @@ Each cell represents the score for a specific question, enabling identification 
                     'orgwide_info': orgwide_info,
                     
                     # Pre-formatted Results Summary text (matches frontend ResultsPage.js)
-                    'results_summary_text': self._generate_orgwide_results_summary_text(report_data),
+                    'results_summary_text': replace_amp_with_placeholder(self._generate_orgwide_results_summary_text(report_data)),
                 })
+                
+                # Generate bar chart for Orgwide (using readiness bar style)
+                orgwide_bar_bytes = self._generate_readiness_bar_image(report_data)
+                template_context['readiness_bar_image'] = InlineImage(doc, io.BytesIO(orgwide_bar_bytes), width=Inches(2.0))
+                
+                # Generate radar chart for Orgwide
+                orgwide_radar_bytes = self._generate_radar_chart_image(report_data)
+                template_context['radar_chart_image'] = InlineImage(doc, io.BytesIO(orgwide_radar_bytes), width=Inches(3.5))
                 
                 # Build strengths list (domains scoring >= 70%)
                 strengths = []
@@ -5113,30 +5125,99 @@ Each cell represents the score for a specific question, enabling identification 
                 template_context['strengths'] = strengths
                 
                 if strengths:
-                    template_context['strengths_summary'] = ', '.join(strengths[:3])
+                    template_context['strengths_summary'] = replace_amp_with_placeholder(', '.join(strengths[:3]))
                 else:
                     template_context['strengths_summary'] = 'Building foundational maturity across all domains'
                 
-                # Build gaps list (domains scoring < 50%)
+                # Build gaps list (domains scoring < 60%)
                 gaps = []
                 for d in template_context.get('domains', []):
                     score = d.get('score', 0)
                     if isinstance(score, str):
                         score = float(score.replace('%', ''))
-                    if score < 50:
+                    if score < 60:
                         gaps.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
                 template_context['gaps'] = gaps
                 
                 if gaps:
-                    template_context['gaps_summary'] = ', '.join(gaps[:3])
+                    template_context['gaps_summary'] = replace_amp_with_placeholder(', '.join(gaps[:3]))
                 else:
                     template_context['gaps_summary'] = 'No critical gaps identified'
+                
+                # Build next_focus based on gaps or overall tier
+                overall_tier = template_context.get('overall', {}).get('tier', 'Developing')
+                if gaps:
+                    template_context['next_focus'] = replace_amp_with_placeholder(f"Focus on improving {gaps[0].split(' (')[0]} to strengthen overall AI maturity.")
+                elif overall_tier == 'Leading':
+                    template_context['next_focus'] = 'Maintain leadership position and drive AI innovation across the organisation.'
+                elif overall_tier == 'Established':
+                    template_context['next_focus'] = 'Advance to leading maturity by optimising AI governance and scaling successful initiatives.'
+                else:
+                    template_context['next_focus'] = 'Build foundational AI capabilities and establish governance frameworks.'
+                
+                # Add sector actions for Orgwide (similar to Readiness)
+                sector_actions = report_data.get('sector_actions', {'high': [], 'medium': [], 'low': []})
+                template_context['sector_actions_high_top5'] = sector_actions.get('high', [])[:5]
+                template_context['sector_actions_medium_top5'] = sector_actions.get('medium', [])[:5]
+                template_context['sector_actions_low_top5'] = sector_actions.get('low', [])[:5]
+                
+                # Build questions list with full details for Orgwide
+                questions = []
+                questions_data = report_data.get('questions_data', [])
+                q_num = 1
+                for domain_data in questions_data:
+                    domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+                    domain_name_for_template = replace_amp_with_placeholder(domain_name) if domain_name else 'Unknown'
+                    for q in domain_data.get('questions', []):
+                        answer = q.get('answer', {})
+                        score = answer.get('numeric_score', 0) if answer else 0
+                        
+                        # Determine maturity level from score
+                        if score >= 4:
+                            maturity_level = 'Leading'
+                        elif score >= 3:
+                            maturity_level = 'Established'
+                        elif score >= 2:
+                            maturity_level = 'Developing'
+                        else:
+                            maturity_level = 'Foundational'
+                        
+                        questions.append({
+                            'number': q_num,
+                            'code': q.get('code', ''),
+                            'text': q.get('text', ''),
+                            'domain': domain_name_for_template,
+                            'selected_option_label': answer.get('selected_option', {}).get('label', 'Not answered') if answer else 'Not answered',
+                            'selected_option_text': answer.get('selected_option', {}).get('text', '') if answer else '',
+                            'maturity_level': maturity_level,
+                            'score': score,
+                            'comment': answer.get('comment', '') if answer else ''
+                        })
+                        q_num += 1
+                template_context['questions'] = questions
+                template_context['show_detailed_responses'] = True
+                
+                # Add AI narratives for Orgwide (with placeholder for &)
+                ai_narratives = report_data.get('ai_narratives', {})
+                template_context['ai'] = {
+                    'o_executive_snapshot': replace_amp_with_placeholder(ai_narratives.get('o_executive_snapshot', '')),
+                    'o_context_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_context_interpretation', '')),
+                    'o_gov_account_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_gov_account_interpretation', '')),
+                    'o_domain_patterns': replace_amp_with_placeholder(ai_narratives.get('o_domain_patterns', '')),
+                    'o_sector_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_sector_interpretation', '')),
+                    # Also include readiness-style variables for compatibility
+                    'r_action_interpretation': replace_amp_with_placeholder(ai_narratives.get('r_action_interpretation', ai_narratives.get('o_action_interpretation', ''))),
+                    'r_governance_interpretation': replace_amp_with_placeholder(ai_narratives.get('r_governance_interpretation', ai_narratives.get('o_gov_account_interpretation', ''))),
+                    'r_pathway_rationale': replace_amp_with_placeholder(ai_narratives.get('r_pathway_rationale', ai_narratives.get('o_pathway_rationale', ''))),
+                }
                 
                 print(f"  Orgwide-specific variables added:")
                 print(f"    - org_name: {template_context.get('org_name', 'N/A')}")
                 print(f"    - industry: {template_context.get('industry', 'N/A')}")
                 print(f"    - strengths: {len(strengths)} items")
                 print(f"    - gaps: {len(gaps)} items")
+                print(f"    - questions: {len(questions)} items")
+                print(f"    - sector_actions_high_top5: {len(template_context.get('sector_actions_high_top5', []))} items")
             
             # Add System-specific variables if this is a System assessment
             elif self.assessment_type == 'System':
