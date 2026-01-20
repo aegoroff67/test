@@ -6297,6 +6297,98 @@ Each cell represents the score for a specific question, enabling identification 
                 "Governance Foundations": {"id": "Governance Foundations", "name": "Governance Foundations"},
                 "People & Culture": {"id": "People & Culture", "name": "People & Culture"}
             }
+        elif self.assessment_type == 'Orgwide':
+            # For Orgwide assessments, use ORGANISATION_QUESTIONS_DATA
+            from organisation_questions import ORGANISATION_QUESTIONS_DATA
+            
+            # Create mapping from question code to question details
+            orgwide_questions_by_code = {}
+            for question_data in ORGANISATION_QUESTIONS_DATA:
+                code = question_data.get('code')
+                if code:
+                    orgwide_questions_by_code[code] = question_data
+            
+            # Orgwide domain mapping (10 domains) - use plain & as docxtpl handles escaping
+            orgwide_domain_mapping = {
+                "AE": "Accountability & Ethics",
+                "CA": "Continuous Improvement & Assurance",
+                "CC": "Culture & Capability",
+                "DS": "Data Stewardship & Security",
+                "FI": "Fairness & Inclusivity",
+                "GO": "Governance & Oversight",
+                "PL": "Privacy & Legal Compliance",
+                "RS": "Reliability & Safety",
+                "RM": "Risk Management",
+                "TE": "Transparency & Explainability"
+            }
+            
+            for answer in answers:
+                # For Orgwide, question_id IS the code (e.g., "AE-01")
+                question_code = answer.get("question_id", "")
+                
+                if question_code and question_code in orgwide_questions_by_code:
+                    processed_answers += 1
+                    question_details = orgwide_questions_by_code[question_code]
+                    
+                    # Extract domain from question code
+                    domain_prefix = question_code.split("-")[0] if "-" in question_code else ""
+                    domain_name = orgwide_domain_mapping.get(domain_prefix, "Unknown")
+                    
+                    # Use domain name as ID for Orgwide (no domain collection)
+                    domain_id = domain_name
+                    
+                    if domain_id not in questions_by_domain:
+                        questions_by_domain[domain_id] = []
+                    
+                    # Map the option label to predefined answer text
+                    option_value = answer.get("option", "")
+                    option_to_text_map = {
+                        "FOUNDATIONAL": question_details.get('foundational', ''),
+                        "DEVELOPING": question_details.get('developing', ''),
+                        "ESTABLISHED": question_details.get('established', ''),
+                        "LEADING": question_details.get('leading', '')
+                    }
+                    option_to_label_map = {
+                        "FOUNDATIONAL": "Foundational",
+                        "DEVELOPING": "Developing",
+                        "ESTABLISHED": "Established",
+                        "LEADING": "Leading"
+                    }
+                    selected_option_text = option_to_text_map.get(option_value, option_value)
+                    selected_option_label = option_to_label_map.get(option_value, option_value)
+                    
+                    question = {
+                        "id": question_code,
+                        "code": question_code,
+                        "text": question_details.get('text', f'Question {question_code}'),
+                        "domain_id": domain_id,
+                        "order": question_details.get('order', 0),
+                        "answer": {
+                            "numeric_score": answer.get("numeric_score", 0),
+                            "text": selected_option_text,
+                            "question_id": question_code,
+                            "selected_option": {
+                                "label": selected_option_label,
+                                "text": selected_option_text
+                            },
+                            "comment": answer.get("note", "")
+                        }
+                    }
+                    questions_by_domain[domain_id].append(question)
+            
+            # Create domain info for Orgwide (10 domains) - use plain & as docxtpl handles escaping
+            domains_by_id = {
+                "Accountability & Ethics": {"id": "Accountability & Ethics", "name": "Accountability & Ethics"},
+                "Continuous Improvement & Assurance": {"id": "Continuous Improvement & Assurance", "name": "Continuous Improvement & Assurance"},
+                "Culture & Capability": {"id": "Culture & Capability", "name": "Culture & Capability"},
+                "Data Stewardship & Security": {"id": "Data Stewardship & Security", "name": "Data Stewardship & Security"},
+                "Fairness & Inclusivity": {"id": "Fairness & Inclusivity", "name": "Fairness & Inclusivity"},
+                "Governance & Oversight": {"id": "Governance & Oversight", "name": "Governance & Oversight"},
+                "Privacy & Legal Compliance": {"id": "Privacy & Legal Compliance", "name": "Privacy & Legal Compliance"},
+                "Reliability & Safety": {"id": "Reliability & Safety", "name": "Reliability & Safety"},
+                "Risk Management": {"id": "Risk Management", "name": "Risk Management"},
+                "Transparency & Explainability": {"id": "Transparency & Explainability", "name": "Transparency & Explainability"}
+            }
         else:
             # Original logic for System/other assessments
             for answer in answers:
