@@ -5202,13 +5202,12 @@ Each cell represents the score for a specific question, enabling identification 
                 template_context['ai'] = {
                     'o_executive_snapshot': replace_amp_with_placeholder(ai_narratives.get('o_executive_snapshot', '')),
                     'o_context_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_context_interpretation', '')),
-                    'o_gov_account_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_gov_account_interpretation', '')),
-                    'o_domain_patterns': replace_amp_with_placeholder(ai_narratives.get('o_domain_patterns', '')),
+                    'o_landscape': replace_amp_with_placeholder(ai_narratives.get('o_landscape', '')),
+                    'o_gov_oversight': replace_amp_with_placeholder(ai_narratives.get('o_gov_oversight', '')),
+                    'o_culture_capability': replace_amp_with_placeholder(ai_narratives.get('o_culture_capability', '')),
                     'o_sector_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_sector_interpretation', '')),
-                    # Also include readiness-style variables for compatibility
-                    'r_action_interpretation': replace_amp_with_placeholder(ai_narratives.get('r_action_interpretation', ai_narratives.get('o_action_interpretation', ''))),
-                    'r_governance_interpretation': replace_amp_with_placeholder(ai_narratives.get('r_governance_interpretation', ai_narratives.get('o_gov_account_interpretation', ''))),
-                    'r_pathway_rationale': replace_amp_with_placeholder(ai_narratives.get('r_pathway_rationale', ai_narratives.get('o_pathway_rationale', ''))),
+                    'o_action_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_action_interpretation', '')),
+                    'o_pathway_rationale': replace_amp_with_placeholder(ai_narratives.get('o_pathway_rationale', '')),
                 }
                 
                 print(f"  Orgwide-specific variables added:")
