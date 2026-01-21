@@ -2052,52 +2052,53 @@ Do not include headings or formatting."""
         """
         Generate AI Executive Snapshot for Orgwide assessments.
         Variable target: ai.o_executive_snapshot
+        Purpose: Explain what the overall maturity posture means for leadership decision-making.
         """
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         
         overall = report_data.get('overall', {})
         tier = overall.get('tier', 'Foundational')
-        score = overall.get('score', 0)
         
         orgwide_info = report_data.get('orgwide_info') or {}
         org_name = orgwide_info.get('org_name') or report_data.get('org', {}).get('name', 'The organisation')
         industry = report_data.get('sector_name') or orgwide_info.get('industry', '')
-        org_size = orgwide_info.get('org_size', 'Not specified')
-        ai_project_count = orgwide_info.get('ai_project_count', 'Not specified')
-        ai_sourcing_model = orgwide_info.get('ai_sourcing_model', 'Not specified')
+        org_size = orgwide_info.get('org_size', '')
+        ai_project_count = orgwide_info.get('ai_project_count', '')
+        ai_sourcing_model = orgwide_info.get('ai_sourcing_model', '')
         
         # Get strengths and gaps
-        strengths_summary = report_data.get('strengths_summary', 'Building foundational maturity across all domains')
-        gaps_summary = report_data.get('gaps_summary', 'Several domains require attention')
+        strengths_summary = report_data.get('strengths_summary', '')
+        gaps_summary = report_data.get('gaps_summary', '')
         
         system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
-Strict rules:
+The objective is clarity, synthesis, and executive usability.
+
+Global rules:
 - Do NOT assess individual AI systems.
 - Do NOT claim compliance, certification, or assurance.
-- Do NOT use prescriptive or mandatory language (avoid 'must', 'required').
-- Focus on organisational consistency, maturity, and patterns.
-- Use a professional, executive-friendly tone.
-- Avoid repeating numeric scores unless explicitly requested.
-- Reflect maturity, not readiness.
-- Use cautious, advisory phrasing (e.g. 'indicates', 'suggests', 'reflects')."""
+- Do NOT repeat tables, scores, or lists already shown elsewhere.
+- Do NOT use vague placeholders such as 'unspecified' when values are provided.
+- Avoid excessive hedging ('may', 'could') unless uncertainty is explicit in the inputs.
+- Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
+- Reflect maturity (consistency and embedment), not readiness or technical capability.
+- Use confident but non-prescriptive language (avoid 'must', 'required').
+- Assume an executive audience with limited time."""
 
         user_prompt = f"""Write a concise executive interpretation of {org_name}'s organisation-wide AI maturity posture.
 
 Context:
 - Sector: {industry}
 - Organisation size: {org_size}
-- Overall maturity tier: {tier}
-- Overall maturity score: {score}%
+- Maturity tier: {tier}
 - Key strengths: {strengths_summary}
 - Key gaps: {gaps_summary}
-- AI project count: {ai_project_count}
-- AI sourcing model: {ai_sourcing_model}
+- AI scale and sourcing: {ai_project_count}, {ai_sourcing_model}
 
 Guidance:
-- Focus on what this maturity level means at an enterprise level.
-- Emphasise consistency, scalability, and governance implications.
-- Do not assess individual AI systems.
-- 1–2 short paragraphs only, approximately 120 words.
+- Focus on implications for leadership, scalability, and risk oversight.
+- Clearly articulate what this maturity level enables and constrains.
+- Do not restate results already shown.
+- 1–2 short paragraphs, approximately 100 words.
 
 Do not include headings or formatting."""
 
