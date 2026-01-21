@@ -5144,14 +5144,28 @@ Each cell represents the score for a specific question, enabling identification 
                 orgwide_radar_bytes = self._generate_radar_chart_image(report_data)
                 template_context['radar_chart_image'] = InlineImage(doc, io.BytesIO(orgwide_radar_bytes), width=Inches(3.5))
                 
-                # Build strengths list (domains scoring >= 70%)
+                # Build strengths list (domains scoring >= 70%, or top 3 if none meet threshold)
                 strengths = []
-                for d in template_context.get('domains', []):
+                domains_sorted = sorted(template_context.get('domains', []), 
+                                       key=lambda x: float(str(x.get('score', 0)).replace('%', '')), 
+                                       reverse=True)
+                
+                # First try domains >= 70%
+                for d in domains_sorted:
                     score = d.get('score', 0)
                     if isinstance(score, str):
                         score = float(score.replace('%', ''))
                     if score >= 70:
                         strengths.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
+                
+                # If no domains >= 70%, use top 3 performing domains as relative strengths
+                if not strengths and domains_sorted:
+                    for d in domains_sorted[:3]:
+                        score = d.get('score', 0)
+                        if isinstance(score, str):
+                            score = float(score.replace('%', ''))
+                        strengths.append(f"{d.get('name', 'Unknown')} ({score:.0f}%)")
+                
                 template_context['strengths'] = strengths
                 
                 if strengths:
