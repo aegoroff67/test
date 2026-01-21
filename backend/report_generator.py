@@ -1984,6 +1984,571 @@ Do not include headings or formatting."""
             traceback.print_exc()
             return ""
 
+
+    # =============================
+    # ORGWIDE AI NARRATIVE FUNCTIONS
+    # =============================
+    
+    async def _generate_orgwide_ai_narratives(self, report_data: Dict[str, Any], assessment: Dict[str, Any], db) -> Dict[str, str]:
+        """
+        Generate all AI narratives for Orgwide assessments.
+        Returns a dict with narrative keys matching template variables:
+        - ai.o_executive_snapshot
+        - ai.o_landscape
+        - ai.o_gov_oversight
+        - ai.o_risk_policy
+        - ai.o_culture_capability
+        - ai.o_domain_patterns
+        - ai.o_sector_interpretation
+        - ai.o_pathway_rationale
+        Caches results in the database to avoid regeneration.
+        """
+        narratives = {}
+        assessment_id = assessment.get('id')
+        
+        # Check for cached narratives in database
+        cached_narratives = assessment.get('ai_narratives', {})
+        
+        # Define all narrative keys and their generator functions
+        narrative_generators = [
+            ('o_executive_snapshot', self._generate_orgwide_ai_executive_snapshot),
+            ('o_landscape', self._generate_orgwide_ai_landscape),
+            ('o_gov_oversight', self._generate_orgwide_ai_gov_oversight),
+            ('o_risk_policy', self._generate_orgwide_ai_risk_policy),
+            ('o_culture_capability', self._generate_orgwide_ai_culture_capability),
+            ('o_domain_patterns', self._generate_orgwide_ai_domain_patterns),
+            ('o_sector_interpretation', self._generate_orgwide_ai_sector_interpretation),
+            ('o_pathway_rationale', self._generate_orgwide_ai_pathway_rationale),
+        ]
+        
+        for key, generator_func in narrative_generators:
+            if cached_narratives.get(key):
+                narratives[key] = cached_narratives[key]
+                print(f"DEBUG: Using cached AI {key} narrative (Orgwide)")
+            else:
+                try:
+                    narratives[key] = await generator_func(report_data)
+                    print(f"DEBUG: Generated new AI {key} narrative (Orgwide) ({len(narratives[key])} chars)")
+                except Exception as e:
+                    print(f"ERROR generating AI {key} (Orgwide): {e}")
+                    import traceback
+                    traceback.print_exc()
+                    narratives[key] = ""
+        
+        # Cache all generated narratives to database
+        if narratives and assessment_id and db is not None:
+            try:
+                await db.assessments.update_one(
+                    {"id": assessment_id},
+                    {"$set": {"ai_narratives": {**cached_narratives, **narratives}}}
+                )
+                print(f"DEBUG: Cached AI narratives to database (Orgwide)")
+            except Exception as e:
+                print(f"ERROR caching AI narratives (Orgwide): {e}")
+        
+        return narratives
+
+    async def _generate_orgwide_ai_executive_snapshot(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Executive Snapshot for Orgwide assessments.
+        Variable target: ai.o_executive_snapshot
+        """
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        orgwide_info = report_data.get('orgwide_info') or {}
+        org_name = orgwide_info.get('org_name') or report_data.get('org', {}).get('name', 'The organisation')
+        industry = report_data.get('sector_name') or orgwide_info.get('industry', '')
+        org_size = orgwide_info.get('org_size', 'Not specified')
+        ai_project_count = orgwide_info.get('ai_project_count', 'Not specified')
+        ai_sourcing_model = orgwide_info.get('ai_sourcing_model', 'Not specified')
+        
+        # Get strengths and gaps
+        strengths_summary = report_data.get('strengths_summary', 'Building foundational maturity across all domains')
+        gaps_summary = report_data.get('gaps_summary', 'Several domains require attention')
+        
+        system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
+Strict rules:
+- Do NOT assess individual AI systems.
+- Do NOT claim compliance, certification, or assurance.
+- Do NOT use prescriptive or mandatory language (avoid 'must', 'required').
+- Focus on organisational consistency, maturity, and patterns.
+- Use a professional, executive-friendly tone.
+- Avoid repeating numeric scores unless explicitly requested.
+- Reflect maturity, not readiness.
+- Use cautious, advisory phrasing (e.g. 'indicates', 'suggests', 'reflects')."""
+
+        user_prompt = f"""Write a concise executive interpretation of {org_name}'s organisation-wide AI maturity posture.
+
+Context:
+- Sector: {industry}
+- Organisation size: {org_size}
+- Overall maturity tier: {tier}
+- Overall maturity score: {score}%
+- Key strengths: {strengths_summary}
+- Key gaps: {gaps_summary}
+- AI project count: {ai_project_count}
+- AI sourcing model: {ai_sourcing_model}
+
+Guidance:
+- Focus on what this maturity level means at an enterprise level.
+- Emphasise consistency, scalability, and governance implications.
+- Do not assess individual AI systems.
+- 1–2 short paragraphs only, approximately 120 words.
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"orgwide_exec_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_orgwide_ai_executive_snapshot: {e}")
+            import traceback
+            traceback.print_exc()
+            return ""
+
+    async def _generate_orgwide_ai_landscape(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate AI Landscape Summary for Orgwide assessments.
+        Variable target: ai.o_landscape
+        """
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
+        orgwide_info = report_data.get('orgwide_info') or {}
+        org_name = orgwide_info.get('org_name') or 'The organisation'
+        ai_project_count = orgwide_info.get('ai_project_count', 'Not specified')
+        ai_usage_areas = orgwide_info.get('ai_usage_areas', [])
+        ai_primary_purpose = orgwide_info.get('ai_primary_purpose', 'Not specified')
+        ai_sourcing_model = orgwide_info.get('ai_sourcing_model', 'Not specified')
+        
+        # Format usage areas
+        if isinstance(ai_usage_areas, list):
+            usage_areas_str = ', '.join(ai_usage_areas) if ai_usage_areas else 'Not specified'
+        else:
+            usage_areas_str = str(ai_usage_areas) or 'Not specified'
+        
+        system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
+Strict rules:
+- Do NOT assess individual AI systems.
+- Focus on organisational consistency, maturity, and patterns.
+- Use a professional, executive-friendly tone.
+- Use cautious, advisory phrasing (e.g. 'indicates', 'suggests', 'reflects')."""
+
+        user_prompt = f"""Write a short narrative summarising {org_name}'s AI landscape and its implications for organisation-wide maturity.
+
+Context:
+- AI project count: {ai_project_count}
+- AI usage areas: {usage_areas_str}
+- Primary AI purpose: {ai_primary_purpose}
+- AI sourcing model: {ai_sourcing_model}
+- Overall maturity tier: {tier}
+
+Guidance:
+- Focus on coordination, oversight complexity, and maturity pressure points.
+- Include a statement linking breadth/sourcing to coordination and oversight complexity.
+- Avoid describing individual AI solutions.
+- Do not list every usage area again (assume it is already listed above).
+- 1 short paragraph, approximately 90 words.
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"orgwide_landscape_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_orgwide_ai_landscape: {e}")
+            import traceback
+            traceback.print_exc()
+            return ""
+
+    async def _generate_orgwide_ai_gov_oversight(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate Governance, Oversight & Accountability Summary for Orgwide assessments.
+        Variable target: ai.o_gov_oversight
+        """
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
+        orgwide_info = report_data.get('orgwide_info') or {}
+        org_name = orgwide_info.get('org_name') or 'The organisation'
+        ai_governance_committee_status = orgwide_info.get('ai_governance_committee', 'Not specified')
+        exec_engagement_level = orgwide_info.get('exec_engagement', 'Not specified')
+        ai_register_status = orgwide_info.get('ai_register', 'Not specified')
+        
+        system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
+Strict rules:
+- Do NOT claim compliance, certification, or assurance.
+- Do NOT use prescriptive or mandatory language.
+- Focus on organisational consistency, maturity, and patterns.
+- Use a professional, executive-friendly tone.
+- Use cautious, advisory phrasing."""
+
+        user_prompt = f"""Generate a narrative assessment of governance, oversight, and accountability maturity for AI at an organisation-wide level.
+
+Context:
+- AI governance committee status: {ai_governance_committee_status}
+- Executive engagement level: {exec_engagement_level}
+- AI register status: {ai_register_status}
+- Overall maturity tier: {tier}
+
+Guidance:
+- Describe whether governance is embedded, emerging, or fragmented.
+- Include a clear characterisation (embedded / emerging / fragmented) based on the inputs.
+- Emphasise repeatability and consistency.
+- Avoid control testing language or assurance statements.
+- 1 paragraph, approximately 110 words.
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"orgwide_gov_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_orgwide_ai_gov_oversight: {e}")
+            import traceback
+            traceback.print_exc()
+            return ""
+
+    async def _generate_orgwide_ai_risk_policy(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate Risk, Policy & Framework Alignment Summary for Orgwide assessments.
+        Variable target: ai.o_risk_policy
+        """
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
+        orgwide_info = report_data.get('orgwide_info') or {}
+        org_name = orgwide_info.get('org_name') or 'The organisation'
+        ai_frameworks = orgwide_info.get('ai_frameworks', [])
+        ai_risk_assessment_usage = orgwide_info.get('ai_risk_assessment', 'Not specified')
+        policy_review_frequency = orgwide_info.get('policy_review_frequency', 'Not specified')
+        
+        # Format frameworks
+        if isinstance(ai_frameworks, list):
+            frameworks_str = ', '.join(ai_frameworks) if ai_frameworks else 'None specified'
+        else:
+            frameworks_str = str(ai_frameworks) or 'None specified'
+        
+        system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
+Strict rules:
+- Do NOT make regulatory compliance conclusions or legal advice.
+- Focus on organisational consistency, maturity, and patterns.
+- Use a professional, executive-friendly tone.
+- Use cautious, advisory phrasing."""
+
+        user_prompt = f"""Write a narrative interpretation of AI-related risk, policy, and framework alignment maturity.
+
+Context:
+- AI frameworks referenced: {frameworks_str}
+- AI risk assessment usage: {ai_risk_assessment_usage}
+- Policy review frequency: {policy_review_frequency}
+- Overall maturity tier: {tier}
+
+Guidance:
+- Focus on integration into enterprise risk practices.
+- Include a statement about whether AI risk is integrated into enterprise risk practices versus ad hoc.
+- Emphasise consistency over coverage.
+- Avoid regulatory compliance conclusions or legal advice tone.
+- 1 paragraph, approximately 120 words.
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"orgwide_risk_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_orgwide_ai_risk_policy: {e}")
+            import traceback
+            traceback.print_exc()
+            return ""
+
+    async def _generate_orgwide_ai_culture_capability(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate Culture, Capability & Operating Model Summary for Orgwide assessments.
+        Variable target: ai.o_culture_capability
+        """
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
+        orgwide_info = report_data.get('orgwide_info') or {}
+        org_name = orgwide_info.get('org_name') or 'The organisation'
+        exec_engagement_level = orgwide_info.get('exec_engagement', 'Not specified')
+        ai_training_maturity = orgwide_info.get('ai_training', 'Not specified')
+        ai_maturity_self_rating = orgwide_info.get('ai_maturity_self_rating', 'Not specified')
+        
+        system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
+Strict rules:
+- Do NOT use judgemental language or individual performance critique.
+- Focus on organisational consistency, maturity, and patterns.
+- Use a professional, executive-friendly tone.
+- Use cautious, advisory phrasing."""
+
+        user_prompt = f"""Generate a narrative assessing organisational culture, capability, and operating model maturity for AI.
+
+Context:
+- Executive engagement level: {exec_engagement_level}
+- AI training maturity: {ai_training_maturity}
+- Self-assessed AI maturity rating: {ai_maturity_self_rating}
+- Overall assessed maturity tier: {tier}
+
+Guidance:
+- Comment on alignment or divergence between perceived and assessed maturity, framed neutrally.
+- Focus on sustainability of AI practices.
+- Avoid judgemental language or individual performance critique.
+- 1 paragraph, approximately 120 words.
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"orgwide_culture_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_orgwide_ai_culture_capability: {e}")
+            import traceback
+            traceback.print_exc()
+            return ""
+
+    async def _generate_orgwide_ai_domain_patterns(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate Cross-Domain Maturity Patterns & Observations for Orgwide assessments.
+        Variable target: ai.o_domain_patterns
+        """
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
+        # Get domain scores
+        domains = report_data.get('domains', [])
+        
+        # Build domain summary
+        domain_summary = []
+        for d in domains:
+            d_name = d.get('name', 'Unknown')
+            d_tier = d.get('tier', 'Foundational')
+            domain_summary.append(f"- {d_name}: {d_tier}")
+        
+        domains_str = '\n'.join(domain_summary) if domain_summary else 'No domain data available'
+        
+        strengths_summary = report_data.get('strengths_summary', 'Building foundational maturity')
+        gaps_summary = report_data.get('gaps_summary', 'Several domains require attention')
+        
+        system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
+Strict rules:
+- Do NOT repeat domain tables or over-emphasise exact scores.
+- Focus on organisational consistency, maturity, and patterns.
+- Use a professional, executive-friendly tone.
+- Use cautious, advisory phrasing."""
+
+        user_prompt = f"""Analyse cross-domain AI maturity patterns and generate a narrative interpretation.
+
+Context:
+- Overall maturity tier: {tier}
+- Domain results:
+{domains_str}
+- Key strengths: {strengths_summary}
+- Key gaps: {gaps_summary}
+
+Guidance:
+- Focus on imbalance, dependencies, and weakest-domain effects.
+- Include a statement about consistency/fragmentation across domains and what that implies structurally.
+- Do not repeat numeric scores or domain tables.
+- 1–2 paragraphs, approximately 180 words.
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"orgwide_domains_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_orgwide_ai_domain_patterns: {e}")
+            import traceback
+            traceback.print_exc()
+            return ""
+
+    async def _generate_orgwide_ai_sector_interpretation(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate Sector Context Interpretation for Orgwide assessments.
+        Variable target: ai.o_sector_interpretation
+        """
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        orgwide_info = report_data.get('orgwide_info') or {}
+        org_name = orgwide_info.get('org_name') or 'The organisation'
+        industry = report_data.get('sector_name') or orgwide_info.get('industry', '')
+        sector_average = report_data.get('sector_average', 0)
+        
+        # Build sector comparison
+        if sector_average > 0:
+            if score > sector_average:
+                sector_comparison = f"Above sector average ({score}% vs {sector_average}% sector average)"
+            elif score < sector_average:
+                sector_comparison = f"Below sector average ({score}% vs {sector_average}% sector average)"
+            else:
+                sector_comparison = f"At sector average ({score}%)"
+        else:
+            sector_comparison = "Sector comparison data not available"
+        
+        system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
+Strict rules:
+- Do NOT make adequacy statements (e.g. 'sufficient', 'insufficient').
+- Do NOT use readiness language.
+- Focus on organisational maturity.
+- Use a professional, executive-friendly tone.
+- Use cautious, advisory phrasing."""
+
+        user_prompt = f"""Generate an indicative sector benchmarking interpretation for {org_name}.
+
+Context:
+- Sector: {industry}
+- Overall maturity tier: {tier}
+- Overall score: {score}%
+- Sector comparison: {sector_comparison}
+
+Guidance:
+- Explicitly state that benchmarks are indicative only and not minimum acceptable levels.
+- Provide a neutral statement about relative position.
+- Avoid statements of adequacy or insufficiency.
+- Avoid readiness language.
+- 1 paragraph, approximately 120 words.
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"orgwide_sector_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_orgwide_ai_sector_interpretation: {e}")
+            import traceback
+            traceback.print_exc()
+            return ""
+
+    async def _generate_orgwide_ai_pathway_rationale(self, report_data: Dict[str, Any]) -> str:
+        """
+        Generate Pathway Rationale for Orgwide assessments.
+        Variable target: ai.o_pathway_rationale
+        """
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
+        orgwide_info = report_data.get('orgwide_info') or {}
+        org_name = orgwide_info.get('org_name') or 'The organisation'
+        ai_project_count = orgwide_info.get('ai_project_count', 'Not specified')
+        ai_sourcing_model = orgwide_info.get('ai_sourcing_model', 'Not specified')
+        ai_governance_committee_status = orgwide_info.get('ai_governance_committee', 'Not specified')
+        ai_register_status = orgwide_info.get('ai_register', 'Not specified')
+        ai_risk_assessment_usage = orgwide_info.get('ai_risk_assessment', 'Not specified')
+        
+        system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
+Strict rules:
+- Do NOT mandate next assessments.
+- Do NOT make system-level assurance claims.
+- Focus on staged, risk-informed progression.
+- Use a professional, executive-friendly tone.
+- Use cautious, advisory phrasing."""
+
+        user_prompt = f"""Write a rationale explaining why the recommended AM AI SAFE pathway is appropriate for {org_name}.
+
+Context:
+- Overall maturity tier: {tier}
+- AI project count: {ai_project_count}
+- AI sourcing model: {ai_sourcing_model}
+- Governance committee status: {ai_governance_committee_status}
+- AI register status: {ai_register_status}
+- Risk assessment usage: {ai_risk_assessment_usage}
+
+Guidance:
+- Reinforce staged, risk-informed progression.
+- Provide a staged, risk-informed rationale linked to maturity tier and AI exposure.
+- Discourage premature system-level assurance where applicable.
+- Do not mandate next assessments.
+- 1 paragraph, approximately 140 words.
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"orgwide_pathway_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+            
+        except Exception as e:
+            print(f"ERROR in _generate_orgwide_ai_pathway_rationale: {e}")
+            import traceback
+            traceback.print_exc()
+            return ""
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
