@@ -2496,7 +2496,11 @@ Global rules:
 - Reflect maturity (consistency and embedment), not readiness or technical capability.
 - Use confident but non-prescriptive language.
 - Avoid legal conclusions or regulatory determinations.
-- Assume an executive audience with limited time."""
+- Assume an executive audience with limited time.
+
+FORBIDDEN TERMS (never use these):
+- 'advanced', 'leading', 'stronger', 'better than peers', 'ahead', 'superior'
+Instead use: 'higher relative to', 'comparatively elevated', 'above the indicative average'"""
 
         user_prompt = f"""Provide an indicative sector context interpretation for {org_name}.
 
