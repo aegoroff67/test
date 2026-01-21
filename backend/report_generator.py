@@ -2485,11 +2485,13 @@ Do not include headings or formatting."""
 The objective is clarity, synthesis, and executive usability.
 
 Global rules:
-- Do NOT make effectiveness or performance claims.
-- Do NOT use normative language.
+- Do NOT assess individual AI systems.
+- Do NOT claim compliance, certification, or assurance.
+- Do NOT repeat tables, scores, or lists already shown elsewhere.
 - Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
-- Reflect maturity (consistency and embedment), not readiness.
+- Reflect maturity (consistency and embedment), not readiness or technical capability.
 - Use confident but non-prescriptive language.
+- Avoid legal conclusions or regulatory determinations.
 - Assume an executive audience with limited time."""
 
         user_prompt = f"""Provide an indicative sector context interpretation for {org_name}.
@@ -2501,9 +2503,13 @@ Context:
 - Sector comparison: {sector_comparison}
 
 Guidance:
-- Include an explicit statement that benchmarks are indicative only.
-- Frame results as contextual reference points only.
-- Avoid value judgements, effectiveness claims, or normative language.
+- Frame results strictly as comparative indicators of organisation-wide AI maturity relative to sector norms.
+- All comparative statements must refer to organisation-wide AI maturity.
+- Do not imply superior performance, outcomes, or effectiveness.
+- Explicitly state that benchmarks are indicative only.
+- Avoid words such as 'advanced', 'leading', 'stronger', 'better than peers'.
+- Avoid effectiveness, capability, or outcome-based comparisons.
+- Avoid normative or judgement-based language.
 - 1 paragraph, approximately 110 words.
 
 Do not include headings or formatting."""
