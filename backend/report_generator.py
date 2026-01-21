@@ -5193,7 +5193,7 @@ Each cell represents the score for a specific question, enabling identification 
             readiness_bar_inline = None
             if self.assessment_type == 'Readiness':
                 readiness_bar_bytes = self._generate_readiness_bar_image(report_data)
-                readiness_bar_inline = InlineImage(doc, io.BytesIO(readiness_bar_bytes), width=Inches(2.0))
+                readiness_bar_inline = InlineImage(doc, io.BytesIO(readiness_bar_bytes), width=Inches(4.0))  # Doubled width
             
             # Generate radar chart image
             radar_chart_image = self._generate_radar_chart_image(report_data)
