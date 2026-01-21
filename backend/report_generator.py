@@ -2522,6 +2522,7 @@ Do not include headings or formatting."""
         """
         Generate Pathway Rationale for Orgwide assessments.
         Variable target: ai.o_pathway_rationale
+        Purpose: Explain why the recommended pathway is proportionate and staged.
         """
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         
@@ -2530,36 +2531,38 @@ Do not include headings or formatting."""
         
         orgwide_info = report_data.get('orgwide_info') or {}
         org_name = orgwide_info.get('org_name') or 'The organisation'
-        ai_project_count = orgwide_info.get('ai_project_count', 'Not specified')
-        ai_sourcing_model = orgwide_info.get('ai_sourcing_model', 'Not specified')
-        ai_governance_committee_status = orgwide_info.get('ai_governance_committee', 'Not specified')
-        ai_register_status = orgwide_info.get('ai_register', 'Not specified')
-        ai_risk_assessment_usage = orgwide_info.get('ai_risk_assessment', 'Not specified')
+        ai_project_count = orgwide_info.get('ai_project_count', '')
+        ai_sourcing_model = orgwide_info.get('ai_sourcing_model', '')
+        ai_governance_committee_status = orgwide_info.get('ai_governance_committee', '')
+        ai_register_status = orgwide_info.get('ai_register', '')
+        ai_risk_assessment_usage = orgwide_info.get('ai_risk_assessment', '')
         
         system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
-Strict rules:
-- Do NOT mandate next assessments.
-- Do NOT make system-level assurance claims.
-- Focus on staged, risk-informed progression.
-- Use a professional, executive-friendly tone.
-- Use cautious, advisory phrasing."""
+The objective is clarity, synthesis, and executive usability.
 
-        user_prompt = f"""Write a rationale explaining why the recommended AM AI SAFE pathway is appropriate for {org_name}.
+Global rules:
+- Do NOT mandate next assessments.
+- Do NOT use overly promotional tone.
+- Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
+- Reflect maturity (consistency and embedment), not readiness.
+- Use confident but non-prescriptive language.
+- Assume an executive audience with limited time."""
+
+        user_prompt = f"""Explain why the recommended AM AI SAFE pathway is appropriate for {org_name}.
 
 Context:
-- Overall maturity tier: {tier}
-- AI project count: {ai_project_count}
-- AI sourcing model: {ai_sourcing_model}
-- Governance committee status: {ai_governance_committee_status}
-- AI register status: {ai_register_status}
-- Risk assessment usage: {ai_risk_assessment_usage}
+- Maturity tier: {tier}
+- AI scale: {ai_project_count}
+- Sourcing model: {ai_sourcing_model}
+- Governance signals: committee={ai_governance_committee_status}, register={ai_register_status}, risk_usage={ai_risk_assessment_usage}
 
 Guidance:
-- Reinforce staged, risk-informed progression.
-- Provide a staged, risk-informed rationale linked to maturity tier and AI exposure.
-- Discourage premature system-level assurance where applicable.
-- Do not mandate next assessments.
-- 1 paragraph, approximately 140 words.
+- Explain why staged progression is appropriate at this maturity.
+- Include why premature assurance would add limited value.
+- Reinforce proportionate, risk-informed staging.
+- Emphasise avoidance of premature system-level assurance.
+- Do not mandate next assessments or use overly promotional tone.
+- 1 paragraph, approximately 120 words.
 
 Do not include headings or formatting."""
 
