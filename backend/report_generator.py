@@ -131,6 +131,10 @@ class AMReportGenerator:
             # Choose the appropriate actions file based on assessment type
             if effective_type == 'Awareness':
                 actions_path = backend_dir / "awareness_actions.json"
+            elif effective_type == 'Readiness':
+                actions_path = backend_dir / "readiness_actions.json"
+            elif effective_type == 'Orgwide':
+                actions_path = backend_dir / "orgwide_actions.json"
             else:
                 actions_path = backend_dir / "system_actions.json"
             
