@@ -6637,6 +6637,78 @@ Each cell represents the score for a specific question, enabling identification 
                 traceback.print_exc()
                 assessment_data['ai_narratives'] = {}
         
+        # Generate AI narratives for Orgwide assessments if use_ai is enabled
+        if use_ai and self.assessment_type == 'Orgwide':
+            print("=== GENERATING ORGWIDE AI NARRATIVES ===")
+            try:
+                # Build report_data for AI narrative generation
+                orgwide_info = assessment.get('orgwide_info') or assessment.get('org_info') or {}
+                
+                # Build domains list for narrative generation
+                domains_for_ai = []
+                for ds in summary_data.get('domain_scores', []):
+                    d_score = ds.get('percentage', ds.get('score', 0))
+                    if isinstance(d_score, str):
+                        d_score = float(d_score.replace('%', ''))
+                    d_tier = self._calculate_orgwide_tier(d_score)
+                    domains_for_ai.append({
+                        'name': ds.get('domain_name', ds.get('name', 'Unknown')),
+                        'tier': d_tier,
+                        'score': d_score,
+                        'score_display': f"{d_score:.0f}%"
+                    })
+                
+                # Build strengths and gaps summaries
+                strengths = []
+                gaps = []
+                for d in domains_for_ai:
+                    if d['score'] >= 70:
+                        strengths.append(f"{d['name']} ({d['score']:.0f}%)")
+                    elif d['score'] < 60:
+                        gaps.append(f"{d['name']} ({d['score']:.0f}%)")
+                
+                # If no domains >= 70%, use top 3 as relative strengths
+                if not strengths:
+                    sorted_domains = sorted(domains_for_ai, key=lambda x: x['score'], reverse=True)
+                    strengths = [f"{d['name']} ({d['score']:.0f}%)" for d in sorted_domains[:3]]
+                
+                strengths_summary = ', '.join(strengths) if strengths else 'Building foundational maturity across all domains'
+                gaps_summary = ', '.join(gaps) if gaps else 'All domains above 60%'
+                
+                ai_report_data = {
+                    'organization_name': orgwide_info.get('org_name', current_user.organization_name),
+                    'overall': {
+                        'tier': summary_data.get('overall_tier', 'Unknown'),
+                        'percentage': summary_data.get('overall_percentage', 0),
+                        'score': summary_data.get('overall_percentage', 0),
+                    },
+                    'domains': domains_for_ai,
+                    'sector_name': sector_name,
+                    'sector_average': sector_average,
+                    'strengths_summary': strengths_summary,
+                    'gaps_summary': gaps_summary,
+                    'benchmark_data': self._load_benchmark_data(sector_name),
+                    'actions': {
+                        'high': sector_actions.get('high', []),
+                        'medium': sector_actions.get('medium', []),
+                        'low': sector_actions.get('low', []),
+                    },
+                    'orgwide_info': orgwide_info,
+                    'org': {
+                        'name': orgwide_info.get('org_name', current_user.organization_name),
+                        'industry': sector_name,
+                    },
+                }
+                
+                ai_narratives = await self._generate_orgwide_ai_narratives(ai_report_data, assessment, db)
+                assessment_data['ai_narratives'] = ai_narratives
+                print(f"DEBUG: Orgwide AI narratives generated: {list(ai_narratives.keys())}")
+            except Exception as e:
+                print(f"ERROR generating Orgwide AI narratives: {e}")
+                import traceback
+                traceback.print_exc()
+                assessment_data['ai_narratives'] = {}
+        
         print(f"DEBUG: current_user type: {type(current_user)}")
         print(f"DEBUG: current_user.organization_name: {getattr(current_user, 'organization_name', 'NOT SET')}")
         
