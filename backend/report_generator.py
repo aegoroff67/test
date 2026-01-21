@@ -2192,6 +2192,7 @@ Do not include headings or formatting."""
         """
         Generate Governance, Oversight & Accountability Summary for Orgwide assessments.
         Variable target: ai.o_gov_oversight
+        Purpose: Clarify how governance structures operate in practice at this maturity level.
         """
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         
@@ -2199,33 +2200,36 @@ Do not include headings or formatting."""
         tier = overall.get('tier', 'Foundational')
         
         orgwide_info = report_data.get('orgwide_info') or {}
-        org_name = orgwide_info.get('org_name') or 'The organisation'
-        ai_governance_committee_status = orgwide_info.get('ai_governance_committee', 'Not specified')
-        exec_engagement_level = orgwide_info.get('exec_engagement', 'Not specified')
-        ai_register_status = orgwide_info.get('ai_register', 'Not specified')
+        ai_governance_committee_status = orgwide_info.get('ai_governance_committee', '')
+        exec_engagement_level = orgwide_info.get('exec_engagement', '')
+        ai_register_status = orgwide_info.get('ai_register', '')
         
         system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
-Strict rules:
-- Do NOT claim compliance, certification, or assurance.
-- Do NOT use prescriptive or mandatory language.
-- Focus on organisational consistency, maturity, and patterns.
-- Use a professional, executive-friendly tone.
-- Use cautious, advisory phrasing."""
+The objective is clarity, synthesis, and executive usability.
 
-        user_prompt = f"""Generate a narrative assessment of governance, oversight, and accountability maturity for AI at an organisation-wide level.
+Global rules:
+- Do NOT claim compliance, certification, or assurance.
+- Do NOT use vague placeholders such as 'unspecified' or 'unknown'.
+- Avoid excessive hedging unless uncertainty is explicit in the inputs.
+- Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
+- Reflect maturity (consistency and embedment), not readiness.
+- Use confident but non-prescriptive language.
+- Assume an executive audience with limited time."""
+
+        user_prompt = f"""Explain the maturity of AI governance, oversight, and accountability at an organisation-wide level.
 
 Context:
-- AI governance committee status: {ai_governance_committee_status}
-- Executive engagement level: {exec_engagement_level}
+- Governance committee status: {ai_governance_committee_status}
+- Executive engagement: {exec_engagement_level}
 - AI register status: {ai_register_status}
 - Overall maturity tier: {tier}
 
 Guidance:
-- Describe whether governance is embedded, emerging, or fragmented.
-- Include a clear characterisation (embedded / emerging / fragmented) based on the inputs.
-- Emphasise repeatability and consistency.
-- Avoid control testing language or assurance statements.
-- 1 paragraph, approximately 110 words.
+- Clearly characterise whether governance is embedded, emerging, or fragmented.
+- Describe the operational implications of the current state.
+- Describe implications for consistency and escalation.
+- Avoid audit or assurance language.
+- 1 paragraph, approximately 100 words.
 
 Do not include headings or formatting."""
 
