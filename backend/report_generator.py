@@ -2566,7 +2566,8 @@ Do not include headings or formatting."""
         
         # Get sector benchmark comparison if available
         sector_average = report_data.get('sector_average')
-        sector_name = orgwide_info.get('industry') or report_data.get('sector_name', '')
+        # Use sector_name from report_data (which is correctly set to organization's primary_industry)
+        sector_name = report_data.get('sector_name', '') or orgwide_info.get('industry', '')
         
         # Build the opening sentence
         summary = f"The results indicate that {org_name} has achieved an overall Organisation-wide AI Maturity score of {score:.1f}%, placing the organisation within the {tier} maturity category"
