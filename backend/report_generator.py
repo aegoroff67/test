@@ -2451,6 +2451,7 @@ Do not include headings or formatting."""
         """
         Generate Sector Context Interpretation for Orgwide assessments.
         Variable target: ai.o_sector_interpretation
+        Purpose: Contextualise maturity relative to sector norms without judgement.
         """
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         
@@ -2466,36 +2467,38 @@ Do not include headings or formatting."""
         # Build sector comparison
         if sector_average > 0:
             if score > sector_average:
-                sector_comparison = f"Above sector average ({score}% vs {sector_average}% sector average)"
+                sector_comparison = f"Above sector average ({score:.0f}% vs {sector_average:.0f}% sector average)"
             elif score < sector_average:
-                sector_comparison = f"Below sector average ({score}% vs {sector_average}% sector average)"
+                sector_comparison = f"Below sector average ({score:.0f}% vs {sector_average:.0f}% sector average)"
             else:
-                sector_comparison = f"At sector average ({score}%)"
+                sector_comparison = f"At sector average ({score:.0f}%)"
         else:
             sector_comparison = "Sector comparison data not available"
         
         system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
-Strict rules:
-- Do NOT make adequacy statements (e.g. 'sufficient', 'insufficient').
-- Do NOT use readiness language.
-- Focus on organisational maturity.
-- Use a professional, executive-friendly tone.
-- Use cautious, advisory phrasing."""
+The objective is clarity, synthesis, and executive usability.
 
-        user_prompt = f"""Generate an indicative sector benchmarking interpretation for {org_name}.
+Global rules:
+- Do NOT make effectiveness or performance claims.
+- Do NOT use normative language.
+- Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
+- Reflect maturity (consistency and embedment), not readiness.
+- Use confident but non-prescriptive language.
+- Assume an executive audience with limited time."""
+
+        user_prompt = f"""Provide an indicative sector context interpretation for {org_name}.
 
 Context:
 - Sector: {industry}
-- Overall maturity tier: {tier}
-- Overall score: {score}%
+- Maturity tier: {tier}
+- Score: {score:.0f}%
 - Sector comparison: {sector_comparison}
 
 Guidance:
-- Explicitly state that benchmarks are indicative only and not minimum acceptable levels.
-- Provide a neutral statement about relative position.
-- Avoid statements of adequacy or insufficiency.
-- Avoid readiness language.
-- 1 paragraph, approximately 120 words.
+- Include an explicit statement that benchmarks are indicative only.
+- Frame results as contextual reference points only.
+- Avoid value judgements, effectiveness claims, or normative language.
+- 1 paragraph, approximately 110 words.
 
 Do not include headings or formatting."""
 
