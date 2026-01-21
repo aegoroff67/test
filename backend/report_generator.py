@@ -5826,12 +5826,12 @@ Each cell represents the score for a specific question, enabling identification 
                 ai_narratives = report_data.get('ai_narratives', {})
                 template_context['ai'] = {
                     'o_executive_snapshot': replace_amp_with_placeholder(ai_narratives.get('o_executive_snapshot', '')),
-                    'o_context_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_context_interpretation', '')),
                     'o_landscape': replace_amp_with_placeholder(ai_narratives.get('o_landscape', '')),
                     'o_gov_oversight': replace_amp_with_placeholder(ai_narratives.get('o_gov_oversight', '')),
+                    'o_risk_policy': replace_amp_with_placeholder(ai_narratives.get('o_risk_policy', '')),
                     'o_culture_capability': replace_amp_with_placeholder(ai_narratives.get('o_culture_capability', '')),
+                    'o_domain_patterns': replace_amp_with_placeholder(ai_narratives.get('o_domain_patterns', '')),
                     'o_sector_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_sector_interpretation', '')),
-                    'o_action_interpretation': replace_amp_with_placeholder(ai_narratives.get('o_action_interpretation', '')),
                     'o_pathway_rationale': replace_amp_with_placeholder(ai_narratives.get('o_pathway_rationale', '')),
                 }
                 
@@ -5842,6 +5842,7 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - gaps: {len(gaps)} items")
                 print(f"    - questions: {len(questions)} items")
                 print(f"    - sector_actions_high_top5: {len(template_context.get('sector_actions_high_top5', []))} items")
+                print(f"    - ai_narratives: {list(ai_narratives.keys())}")
             
             # Add System-specific variables if this is a System assessment
             elif self.assessment_type == 'System':
