@@ -4709,6 +4709,26 @@ async def get_evidence_by_control(
         raise HTTPException(status_code=500, detail=f"Failed to get evidence: {str(e)}")
 
 
+# Schema download endpoints
+@api_router.get("/schema/system-preassessment-form")
+async def get_system_preassessment_schema():
+    """Download the AI System Maturity Assessment pre-assessment form schema as JSON"""
+    import json
+    from fastapi.responses import JSONResponse
+    
+    schema_path = Path(__file__).parent / "system_preassessment_form_schema.json"
+    if schema_path.exists():
+        with open(schema_path, 'r') as f:
+            schema = json.load(f)
+        return JSONResponse(
+            content=schema,
+            headers={"Content-Disposition": "attachment; filename=system_preassessment_form_schema.json"}
+        )
+    raise HTTPException(status_code=404, detail="Schema file not found")
+
+
+
+
 # Include router
 app.include_router(api_router)
 
