@@ -2507,7 +2507,7 @@ Guidance:
 - All comparative statements must refer to organisation-wide AI maturity.
 - Do not imply superior performance, outcomes, or effectiveness.
 - Explicitly state that benchmarks are indicative only.
-- Avoid words such as 'advanced', 'leading', 'stronger', 'better than peers'.
+- NEVER use these words: 'advanced', 'leading', 'stronger', 'better than peers', 'ahead', 'superior'.
 - Avoid effectiveness, capability, or outcome-based comparisons.
 - Avoid normative or judgement-based language.
 - 1 paragraph, approximately 110 words.
