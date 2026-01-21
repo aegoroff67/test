@@ -2292,9 +2292,10 @@ Context:
 
 Guidance:
 - Focus on consistency and integration into enterprise risk management.
-- Include statements about the degree of integration vs ad hoc handling.
+- Include statements about the degree of integration vs inconsistent or fragmented handling.
 - Include implications for risk visibility over time.
 - Avoid compliance framing or framework-by-framework summaries.
+- NEVER use: 'ad hoc', 'ad-hoc'. Instead use: 'inconsistent', 'fragmented', 'decentralised'.
 - 1 paragraph, approximately 110 words.
 
 Do not include headings or formatting."""
