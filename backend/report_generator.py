@@ -5910,9 +5910,9 @@ Each cell represents the score for a specific question, enabling identification 
         print(f"DEBUG: Assessment type: {self.assessment_type}")
         print(f"DEBUG: Assessment sector/industry: {sector_name}")
         
-        # Generate sector-specific actions (for System and Awareness assessments with sector info)
+        # Generate sector-specific actions (for System, Awareness, Readiness, and Orgwide assessments with sector info)
         sector_actions = {'high': [], 'medium': [], 'low': []}
-        if sector_name and self.assessment_type in ['System', 'Awareness']:
+        if sector_name and self.assessment_type in ['System', 'Awareness', 'Readiness', 'Orgwide']:
             sector_actions = self._generate_sector_actions(
                 {"questions_data": questions_data},
                 sector_name
@@ -6560,9 +6560,9 @@ Each cell represents the score for a specific question, enabling identification 
         print(f"DEBUG: Assessment type: {self.assessment_type}")
         print(f"DEBUG: Assessment sector/industry: {sector_name}")
         
-        # Generate sector-specific actions (for System and Awareness assessments with sector info)
+        # Generate sector-specific actions (for System, Awareness, Readiness, and Orgwide assessments with sector info)
         sector_actions = {'high': [], 'medium': [], 'low': []}
-        if sector_name and self.assessment_type in ['System', 'Awareness']:
+        if sector_name and self.assessment_type in ['System', 'Awareness', 'Readiness', 'Orgwide']:
             sector_actions = self._generate_sector_actions(
                 {"questions_data": questions_data},
                 sector_name
