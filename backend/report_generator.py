@@ -5185,7 +5185,7 @@ Each cell represents the score for a specific question, enabling identification 
             # Generate awareness bar image (stacked bar chart) for Awareness assessments
             if self.assessment_type == 'Awareness':
                 awareness_bar_bytes = self._generate_awareness_bar_image(report_data)
-                awareness_bar_inline = InlineImage(doc, io.BytesIO(awareness_bar_bytes), width=Inches(2.0))
+                awareness_bar_inline = InlineImage(doc, io.BytesIO(awareness_bar_bytes), width=Inches(4.0))  # Doubled width
             else:
                 awareness_bar_inline = heatmap_inline  # Fallback for non-Awareness
             
