@@ -5136,9 +5136,9 @@ Each cell represents the score for a specific question, enabling identification 
                     'results_summary_text': replace_amp_with_placeholder(self._generate_orgwide_results_summary_text(report_data)),
                 })
                 
-                # Generate bar chart for Orgwide (using readiness bar style)
+                # Generate bar chart for Orgwide (using readiness bar style) - doubled width
                 orgwide_bar_bytes = self._generate_readiness_bar_image(report_data)
-                template_context['readiness_bar_image'] = InlineImage(doc, io.BytesIO(orgwide_bar_bytes), width=Inches(2.0))
+                template_context['readiness_bar_image'] = InlineImage(doc, io.BytesIO(orgwide_bar_bytes), width=Inches(4.0))
                 
                 # Generate radar chart for Orgwide
                 orgwide_radar_bytes = self._generate_radar_chart_image(report_data)
