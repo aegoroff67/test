@@ -2229,6 +2229,7 @@ Guidance:
 - Describe the operational implications of the current state.
 - Describe implications for consistency and escalation.
 - Avoid audit or assurance language.
+- NEVER use: 'ad hoc', 'ad-hoc', 'reactive'. Instead use: 'fragmented', 'inconsistent', 'emerging'.
 - 1 paragraph, approximately 100 words.
 
 Do not include headings or formatting."""
