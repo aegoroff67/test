@@ -3254,7 +3254,7 @@ Do not include headings or formatting."""
                 'People & Skills': ['People & Skills', 'People'],
                 'Leadership & Vision': ['Leadership & Vision', 'Leadership Vision', 'Leadership'],
                 'Data & Digital Readiness': ['Data & Digital Readiness', 'Digital Readiness', 'Data'],
-                # System domains (for completeness)
+                # System domains
                 'Fairness': ['Fairness'],
                 'Transparency': ['Transparency'],
                 'Explainability': ['Explainability'],
@@ -3265,7 +3265,18 @@ Do not include headings or formatting."""
                 'Privacy': ['Privacy'],
                 'Safety': ['Safety'],
                 'Inclusivity': ['Inclusivity'],
-                'Sustainability': ['Sustainability']
+                'Sustainability': ['Sustainability'],
+                # Orgwide domains
+                'Accountability & Ethics': ['Accountability & Ethics', 'Accountability'],
+                'Continuous Improvement & Assurance': ['Continuous Improvement & Assurance', 'Continuous Improvement'],
+                'Culture & Capability': ['Culture & Capability', 'Culture'],
+                'Data Stewardship & Security': ['Data Stewardship & Security', 'Data Stewardship'],
+                'Fairness & Inclusivity': ['Fairness & Inclusivity'],
+                'Governance & Oversight': ['Governance & Oversight', 'Governance'],
+                'Privacy & Legal Compliance': ['Privacy & Legal Compliance', 'Privacy'],
+                'Reliability & Safety': ['Reliability & Safety'],
+                'Risk Management': ['Risk Management', 'Risk'],
+                'Transparency & Explainability': ['Transparency & Explainability'],
             }
             
             # Try to match benchmark domains to our domains
