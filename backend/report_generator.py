@@ -2122,6 +2122,7 @@ Do not include headings or formatting."""
         """
         Generate AI Landscape Summary for Orgwide assessments.
         Variable target: ai.o_landscape
+        Purpose: Explain how the AI landscape increases or reduces governance complexity.
         """
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         
@@ -2130,39 +2131,44 @@ Do not include headings or formatting."""
         
         orgwide_info = report_data.get('orgwide_info') or {}
         org_name = orgwide_info.get('org_name') or 'The organisation'
-        ai_project_count = orgwide_info.get('ai_project_count', 'Not specified')
+        ai_project_count = orgwide_info.get('ai_project_count', '')
         ai_usage_areas = orgwide_info.get('ai_usage_areas', [])
-        ai_primary_purpose = orgwide_info.get('ai_primary_purpose', 'Not specified')
-        ai_sourcing_model = orgwide_info.get('ai_sourcing_model', 'Not specified')
+        ai_primary_purpose = orgwide_info.get('ai_primary_purpose', '')
+        ai_sourcing_model = orgwide_info.get('ai_sourcing_model', '')
         
         # Format usage areas
         if isinstance(ai_usage_areas, list):
-            usage_areas_str = ', '.join(ai_usage_areas) if ai_usage_areas else 'Not specified'
+            usage_areas_str = ', '.join(ai_usage_areas) if ai_usage_areas else ''
         else:
-            usage_areas_str = str(ai_usage_areas) or 'Not specified'
+            usage_areas_str = str(ai_usage_areas) or ''
         
         system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
-Strict rules:
-- Do NOT assess individual AI systems.
-- Focus on organisational consistency, maturity, and patterns.
-- Use a professional, executive-friendly tone.
-- Use cautious, advisory phrasing (e.g. 'indicates', 'suggests', 'reflects')."""
+The objective is clarity, synthesis, and executive usability.
 
-        user_prompt = f"""Write a short narrative summarising {org_name}'s AI landscape and its implications for organisation-wide maturity.
+Global rules:
+- Do NOT assess individual AI systems.
+- Do NOT repeat tables, scores, or lists already shown elsewhere.
+- Do NOT use vague placeholders such as 'unspecified' when values are provided.
+- Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
+- Reflect maturity (consistency and embedment), not readiness or technical capability.
+- Use confident but non-prescriptive language.
+- Assume an executive audience with limited time."""
+
+        user_prompt = f"""Summarise how {org_name}'s current AI landscape influences organisation-wide maturity.
 
 Context:
-- AI project count: {ai_project_count}
-- AI usage areas: {usage_areas_str}
-- Primary AI purpose: {ai_primary_purpose}
-- AI sourcing model: {ai_sourcing_model}
-- Overall maturity tier: {tier}
+- AI scale: {ai_project_count}
+- Primary purpose: {ai_primary_purpose}
+- Usage breadth: {usage_areas_str}
+- Sourcing model: {ai_sourcing_model}
+- Maturity tier: {tier}
 
 Guidance:
-- Focus on coordination, oversight complexity, and maturity pressure points.
-- Include a statement linking breadth/sourcing to coordination and oversight complexity.
-- Avoid describing individual AI solutions.
-- Do not list every usage area again (assume it is already listed above).
-- 1 short paragraph, approximately 90 words.
+- Emphasise coordination, ownership, and governance complexity.
+- Include a link between AI breadth/sourcing and coordination effort.
+- Focus on implications, not descriptions.
+- Do not repeat the AI usage list or describe individual solutions.
+- 1 paragraph, approximately 85 words.
 
 Do not include headings or formatting."""
 
