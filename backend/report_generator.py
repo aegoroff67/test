@@ -278,6 +278,30 @@ class AMReportGenerator:
                 "LV": "Leadership & Vision",
                 "DR": "Data & Digital Readiness"
             }
+        elif self.assessment_type == 'Readiness':
+            domain_mapping = {
+                "SA": "Strategic Alignment & Awareness",
+                "GF": "Governance Foundations",
+                "DR": "Data Readiness",
+                "TI": "Technology & Infrastructure",
+                "PC": "People & Culture",
+                "PR": "Policy & Compliance Readiness",
+                "RE": "Risk & Ethics Awareness",
+                "CL": "Continuous Learning & Improvement"
+            }
+        elif self.assessment_type == 'Orgwide':
+            domain_mapping = {
+                "AE": "Accountability & Ethics",
+                "CA": "Continuous Improvement & Assurance",
+                "CC": "Culture & Capability",
+                "DS": "Data Stewardship & Security",
+                "FI": "Fairness & Inclusivity",
+                "GO": "Governance & Oversight",
+                "PL": "Privacy & Legal Compliance",
+                "RS": "Reliability & Safety",
+                "RM": "Risk Management",
+                "TE": "Transparency & Explainability"
+            }
         else:
             domain_mapping = {
                 "FA": "Fairness", "TR": "Transparency", "EX": "Explainability", 
