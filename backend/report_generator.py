@@ -2379,6 +2379,7 @@ Do not include headings or formatting."""
         """
         Generate Cross-Domain Maturity Patterns & Observations for Orgwide assessments.
         Variable target: ai.o_domain_patterns
+        Purpose: Explain structural maturity patterns across domains.
         """
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         
@@ -2395,32 +2396,38 @@ Do not include headings or formatting."""
             d_tier = d.get('tier', 'Foundational')
             domain_summary.append(f"- {d_name}: {d_tier}")
         
-        domains_str = '\n'.join(domain_summary) if domain_summary else 'No domain data available'
+        domains_str = '\n'.join(domain_summary) if domain_summary else ''
         
-        strengths_summary = report_data.get('strengths_summary', 'Building foundational maturity')
-        gaps_summary = report_data.get('gaps_summary', 'Several domains require attention')
+        strengths_summary = report_data.get('strengths_summary', '')
+        gaps_summary = report_data.get('gaps_summary', '')
         
         system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
-Strict rules:
-- Do NOT repeat domain tables or over-emphasise exact scores.
-- Focus on organisational consistency, maturity, and patterns.
-- Use a professional, executive-friendly tone.
-- Use cautious, advisory phrasing."""
+The objective is clarity, synthesis, and executive usability.
 
-        user_prompt = f"""Analyse cross-domain AI maturity patterns and generate a narrative interpretation.
+Global rules:
+- Do NOT repeat domain scores or tables already shown elsewhere.
+- Do NOT re-list strengths and gaps verbatim.
+- Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
+- Reflect maturity (consistency and embedment), not readiness.
+- Use confident but non-prescriptive language.
+- Assume an executive audience with limited time."""
+
+        user_prompt = f"""Analyse cross-domain AI maturity patterns and explain what they imply structurally.
 
 Context:
 - Overall maturity tier: {tier}
-- Domain results:
+- Domain maturity distribution:
 {domains_str}
 - Key strengths: {strengths_summary}
 - Key gaps: {gaps_summary}
 
 Guidance:
-- Focus on imbalance, dependencies, and weakest-domain effects.
-- Include a statement about consistency/fragmentation across domains and what that implies structurally.
-- Do not repeat numeric scores or domain tables.
-- 1–2 paragraphs, approximately 180 words.
+- Focus on imbalance, dependencies, and systemic effects.
+- Include discussion of weakest-domain effect on overall maturity.
+- Include dependency between domains.
+- Explain why strengths do not offset weaknesses.
+- Do not repeat domain scores or re-list strengths and gaps verbatim.
+- 1–2 paragraphs, approximately 170 words.
 
 Do not include headings or formatting."""
 
