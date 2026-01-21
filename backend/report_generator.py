@@ -2335,11 +2335,14 @@ Do not include headings or formatting."""
 The objective is clarity, synthesis, and executive usability.
 
 Global rules:
-- Do NOT use judgemental tone or generic culture statements.
+- Do NOT assess individual AI systems.
+- Do NOT claim compliance, certification, or assurance.
+- Do NOT use vague placeholders such as 'unspecified' when values are provided.
 - Avoid excessive hedging unless uncertainty is explicit in the inputs.
 - Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
-- Reflect maturity (consistency and embedment), not readiness.
+- Reflect maturity (consistency and embedment), not readiness or technical capability.
 - Use confident but non-prescriptive language.
+- Avoid legal conclusions or regulatory determinations.
 - Assume an executive audience with limited time."""
 
         user_prompt = f"""Explain how organisational culture, capability, and operating model support or constrain AI maturity.
@@ -2351,10 +2354,13 @@ Context:
 - Assessed maturity tier: {tier}
 
 Guidance:
-- Clearly explain alignment or divergence between perceived and assessed maturity.
-- Include implications for sustainability.
-- Focus on sustainability, not enthusiasm.
-- Avoid judgemental tone or generic culture statements.
+- Describe maturity using observable signals such as engagement, training, and embedment.
+- Where gaps exist, frame them in terms of decentralisation or inconsistent embedment rather than behavioural intent.
+- Include alignment or divergence between perceived and assessed maturity.
+- Include clear linkage between capability maturity and sustainability.
+- Focus on sustainability of AI practices.
+- Avoid terms such as 'reactive', 'immature', 'ad hoc', or 'unstructured' unless explicitly evidenced.
+- Do not attribute behavioural intent not supported by engagement or training inputs.
 - 1 paragraph, approximately 110 words.
 
 Do not include headings or formatting."""
