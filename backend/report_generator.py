@@ -5098,8 +5098,8 @@ Each cell represents the score for a specific question, enabling identification 
                     'contact_name': orgwide_info.get('contact_name', ''),
                     'contact_email': orgwide_info.get('contact_email', ''),
                     
-                    # Organization context
-                    'industry': orgwide_info.get('industry', ''),
+                    # Organization context - use sector_name from report_data (organization's primary_industry)
+                    'industry': replace_amp_with_placeholder(report_data.get('sector_name', '') or orgwide_info.get('industry', '')),
                     'org_size': orgwide_info.get('org_size', ''),
                     'business_units_scope': orgwide_info.get('business_units_scope', ''),
                     'business_unit': orgwide_info.get('business_units_scope', ''),  # Alias for template
