@@ -2359,7 +2359,7 @@ Guidance:
 - Include alignment or divergence between perceived and assessed maturity.
 - Include clear linkage between capability maturity and sustainability.
 - Focus on sustainability of AI practices.
-- Avoid terms such as 'reactive', 'immature', 'ad hoc', or 'unstructured' unless explicitly evidenced.
+- NEVER use these terms: 'reactive', 'immature', 'ad hoc', 'ad-hoc', 'unstructured'.
 - Do not attribute behavioural intent not supported by engagement or training inputs.
 - 1 paragraph, approximately 110 words.
 
