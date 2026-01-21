@@ -3936,7 +3936,7 @@ Each cell represents the score for a specific question, enabling identification 
     
     def _populate_readiness_sector_tables(self, doc: DocxTemplate, report_data: Dict[str, Any]) -> None:
         """
-        Programmatically populate the sector action tables for Readiness assessments.
+        Programmatically populate the sector action tables for Readiness and Orgwide assessments.
         Uses the same table structure as Awareness: question_id, domain, sector_action
         Column order: Question ID | Domain | Recommended Action
         """
@@ -3949,7 +3949,7 @@ Each cell represents the score for a specific question, enabling identification 
         tables = docx_doc.tables
         
         if len(tables) < 3:
-            print(f"Warning: Expected at least 3 tables in Readiness template, found {len(tables)}")
+            print(f"Warning: Expected at least 3 tables in template, found {len(tables)}")
             return
         
         # Get the last 3 tables (High, Medium, Low priority sector actions)
@@ -3957,16 +3957,20 @@ Each cell represents the score for a specific question, enabling identification 
         medium_table = tables[-2]
         low_table = tables[-1]
         
-        # Load sector-specific actions from JSON file
-        sector_actions_file = Path(__file__).parent / "readiness_sector_actions.json"
+        # Load sector-specific actions from JSON file based on assessment type
+        if self.assessment_type == 'Orgwide':
+            sector_actions_file = Path(__file__).parent / "orgwide_actions.json"
+        else:
+            sector_actions_file = Path(__file__).parent / "readiness_sector_actions.json"
+        
         sector_actions_data = {}
         if sector_actions_file.exists():
             try:
                 with open(sector_actions_file, 'r', encoding='utf-8') as f:
                     sector_actions_data = json.load(f)
-                print(f"DEBUG: Loaded sector actions for {len(sector_actions_data)} industries")
+                print(f"DEBUG: Loaded sector actions from {sector_actions_file.name} for {len(sector_actions_data)} industries")
             except Exception as e:
-                print(f"ERROR loading readiness_sector_actions.json: {e}")
+                print(f"ERROR loading {sector_actions_file.name}: {e}")
         
         # Get the sector/industry from report_data
         sector_name = report_data.get('sector_name', '')
