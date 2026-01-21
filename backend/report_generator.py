@@ -2319,6 +2319,7 @@ Do not include headings or formatting."""
         """
         Generate Culture, Capability & Operating Model Summary for Orgwide assessments.
         Variable target: ai.o_culture_capability
+        Purpose: Explain whether culture and capability can sustain current AI use.
         """
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         
@@ -2326,31 +2327,35 @@ Do not include headings or formatting."""
         tier = overall.get('tier', 'Foundational')
         
         orgwide_info = report_data.get('orgwide_info') or {}
-        org_name = orgwide_info.get('org_name') or 'The organisation'
-        exec_engagement_level = orgwide_info.get('exec_engagement', 'Not specified')
-        ai_training_maturity = orgwide_info.get('ai_training', 'Not specified')
-        ai_maturity_self_rating = orgwide_info.get('ai_maturity_self_rating', 'Not specified')
+        exec_engagement_level = orgwide_info.get('exec_engagement', '')
+        ai_training_maturity = orgwide_info.get('ai_training', '')
+        ai_maturity_self_rating = orgwide_info.get('ai_maturity_self_rating', '')
         
         system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
-Strict rules:
-- Do NOT use judgemental language or individual performance critique.
-- Focus on organisational consistency, maturity, and patterns.
-- Use a professional, executive-friendly tone.
-- Use cautious, advisory phrasing."""
+The objective is clarity, synthesis, and executive usability.
 
-        user_prompt = f"""Generate a narrative assessing organisational culture, capability, and operating model maturity for AI.
+Global rules:
+- Do NOT use judgemental tone or generic culture statements.
+- Avoid excessive hedging unless uncertainty is explicit in the inputs.
+- Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
+- Reflect maturity (consistency and embedment), not readiness.
+- Use confident but non-prescriptive language.
+- Assume an executive audience with limited time."""
+
+        user_prompt = f"""Explain how organisational culture, capability, and operating model support or constrain AI maturity.
 
 Context:
-- Executive engagement level: {exec_engagement_level}
-- AI training maturity: {ai_training_maturity}
-- Self-assessed AI maturity rating: {ai_maturity_self_rating}
-- Overall assessed maturity tier: {tier}
+- Executive engagement: {exec_engagement_level}
+- Training maturity: {ai_training_maturity}
+- Self-rated maturity: {ai_maturity_self_rating}
+- Assessed maturity tier: {tier}
 
 Guidance:
-- Comment on alignment or divergence between perceived and assessed maturity, framed neutrally.
-- Focus on sustainability of AI practices.
-- Avoid judgemental language or individual performance critique.
-- 1 paragraph, approximately 120 words.
+- Clearly explain alignment or divergence between perceived and assessed maturity.
+- Include implications for sustainability.
+- Focus on sustainability, not enthusiasm.
+- Avoid judgemental tone or generic culture statements.
+- 1 paragraph, approximately 110 words.
 
 Do not include headings or formatting."""
 
