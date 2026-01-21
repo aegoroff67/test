@@ -2343,7 +2343,11 @@ Global rules:
 - Reflect maturity (consistency and embedment), not readiness or technical capability.
 - Use confident but non-prescriptive language.
 - Avoid legal conclusions or regulatory determinations.
-- Assume an executive audience with limited time."""
+- Assume an executive audience with limited time.
+
+FORBIDDEN TERMS (never use these):
+- 'reactive', 'immature', 'ad hoc', 'ad-hoc', 'unstructured'
+Instead use: 'decentralised', 'inconsistently embedded', 'emerging'"""
 
         user_prompt = f"""Explain how organisational culture, capability, and operating model support or constrain AI maturity.
 
