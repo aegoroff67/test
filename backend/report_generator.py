@@ -2253,6 +2253,7 @@ Do not include headings or formatting."""
         """
         Generate Risk, Policy & Framework Alignment Summary for Orgwide assessments.
         Variable target: ai.o_risk_policy
+        Purpose: Explain how systematically AI risk is integrated into enterprise practices.
         """
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         
@@ -2260,38 +2261,41 @@ Do not include headings or formatting."""
         tier = overall.get('tier', 'Foundational')
         
         orgwide_info = report_data.get('orgwide_info') or {}
-        org_name = orgwide_info.get('org_name') or 'The organisation'
         ai_frameworks = orgwide_info.get('ai_frameworks', [])
-        ai_risk_assessment_usage = orgwide_info.get('ai_risk_assessment', 'Not specified')
-        policy_review_frequency = orgwide_info.get('policy_review_frequency', 'Not specified')
+        ai_risk_assessment_usage = orgwide_info.get('ai_risk_assessment', '')
+        policy_review_frequency = orgwide_info.get('policy_review_frequency', '')
         
         # Format frameworks
         if isinstance(ai_frameworks, list):
-            frameworks_str = ', '.join(ai_frameworks) if ai_frameworks else 'None specified'
+            frameworks_str = ', '.join(ai_frameworks) if ai_frameworks else ''
         else:
-            frameworks_str = str(ai_frameworks) or 'None specified'
+            frameworks_str = str(ai_frameworks) or ''
         
         system_prompt = """You are generating narrative content for an Organisation-wide AI Maturity Assessment report.
-Strict rules:
-- Do NOT make regulatory compliance conclusions or legal advice.
-- Focus on organisational consistency, maturity, and patterns.
-- Use a professional, executive-friendly tone.
-- Use cautious, advisory phrasing."""
+The objective is clarity, synthesis, and executive usability.
 
-        user_prompt = f"""Write a narrative interpretation of AI-related risk, policy, and framework alignment maturity.
+Global rules:
+- Do NOT make regulatory conclusions or legal advice.
+- Do NOT repeat tables, scores, or lists already shown elsewhere.
+- Focus on cause-and-effect relationships between maturity signals and organisational outcomes.
+- Reflect maturity (consistency and embedment), not readiness.
+- Use confident but non-prescriptive language.
+- Assume an executive audience with limited time."""
+
+        user_prompt = f"""Interpret the organisation's maturity in managing AI-related risk, policy, and frameworks.
 
 Context:
-- AI frameworks referenced: {frameworks_str}
-- AI risk assessment usage: {ai_risk_assessment_usage}
+- Frameworks referenced: {frameworks_str}
+- Risk assessment usage: {ai_risk_assessment_usage}
 - Policy review frequency: {policy_review_frequency}
-- Overall maturity tier: {tier}
+- Maturity tier: {tier}
 
 Guidance:
-- Focus on integration into enterprise risk practices.
-- Include a statement about whether AI risk is integrated into enterprise risk practices versus ad hoc.
-- Emphasise consistency over coverage.
-- Avoid regulatory compliance conclusions or legal advice tone.
-- 1 paragraph, approximately 120 words.
+- Focus on consistency and integration into enterprise risk management.
+- Include statements about the degree of integration vs ad hoc handling.
+- Include implications for risk visibility over time.
+- Avoid compliance framing or framework-by-framework summaries.
+- 1 paragraph, approximately 110 words.
 
 Do not include headings or formatting."""
 
