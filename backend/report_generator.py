@@ -5928,8 +5928,14 @@ Each cell represents the score for a specific question, enabling identification 
             readiness_info = assessment.get('readiness_info') or {}
             sector_name = readiness_info.get('industry', '')
         elif self.assessment_type == 'Orgwide':
-            orgwide_info = assessment.get('orgwide_info') or assessment.get('org_info') or {}
-            sector_name = orgwide_info.get('industry', '')
+            # For Orgwide, prefer the organization's primary_industry over org_info.industry
+            # This ensures sector benchmarks use the correct industry
+            org = await db.organizations.find_one({"id": current_user.org_id})
+            if org and org.get('primary_industry'):
+                sector_name = org.get('primary_industry')
+            else:
+                orgwide_info = assessment.get('orgwide_info') or assessment.get('org_info') or {}
+                sector_name = orgwide_info.get('industry', '')
         else:
             sector_name = system_info.get('industry', '') if system_info else ''
         
@@ -6578,8 +6584,14 @@ Each cell represents the score for a specific question, enabling identification 
             readiness_info = assessment.get('readiness_info') or {}
             sector_name = readiness_info.get('industry', '')
         elif self.assessment_type == 'Orgwide':
-            orgwide_info = assessment.get('orgwide_info') or assessment.get('org_info') or {}
-            sector_name = orgwide_info.get('industry', '')
+            # For Orgwide, prefer the organization's primary_industry over org_info.industry
+            # This ensures sector benchmarks use the correct industry
+            org = await db.organizations.find_one({"id": current_user.org_id})
+            if org and org.get('primary_industry'):
+                sector_name = org.get('primary_industry')
+            else:
+                orgwide_info = assessment.get('orgwide_info') or assessment.get('org_info') or {}
+                sector_name = orgwide_info.get('industry', '')
         else:
             sector_name = system_info.get('industry', '') if system_info else ''
         
