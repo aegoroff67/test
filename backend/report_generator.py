@@ -2296,7 +2296,7 @@ Guidance:
 - Include statements about the degree of integration vs inconsistent or fragmented handling.
 - Include implications for risk visibility over time.
 - Avoid compliance framing or framework-by-framework summaries.
-- NEVER use: 'ad hoc', 'ad-hoc'. Instead use: 'inconsistent', 'fragmented', 'decentralised'.
+- CRITICAL: Do NOT use the phrase 'ad hoc' or 'ad-hoc' anywhere. Use 'inconsistent', 'fragmented', or 'decentralised' instead.
 - 1 paragraph, approximately 110 words.
 
 Do not include headings or formatting."""
