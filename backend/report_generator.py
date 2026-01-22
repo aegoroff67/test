@@ -53,8 +53,10 @@ from report_modules.utils import (
 
 # Import AI narratives (refactored)
 from report_modules.ai_narratives import (
-    generate_awareness_narratives as generate_awareness_ai_narratives_modular,
-    generate_system_narratives as generate_system_ai_narratives_modular,
+    generate_awareness_narratives,
+    generate_readiness_narratives,
+    generate_orgwide_narratives,
+    generate_system_narratives,
 )
 
 
