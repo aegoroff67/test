@@ -6497,6 +6497,25 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"    - industry: {template_context.get('industry', 'N/A')}")
                 print(f"    - strengths: {len(strengths)} items")
                 print(f"    - gaps: {len(gaps)} items")
+                
+                # Add AI narratives for System reports (with fallback empty strings)
+                # Using variable naming convention: ai.s_* for System
+                # Apply placeholder for & to preserve through docxtpl rendering
+                ai_narratives = report_data.get('ai_narratives', {})
+                template_context['ai'] = {
+                    's_executive_snapshot': replace_amp_with_placeholder(ai_narratives.get('s_executive_snapshot', '')),
+                    's_gov_oversight': replace_amp_with_placeholder(ai_narratives.get('s_gov_oversight', '')),
+                    's_data_privacy_security': replace_amp_with_placeholder(ai_narratives.get('s_data_privacy_security', '')),
+                    's_reliability_safety_performance': replace_amp_with_placeholder(ai_narratives.get('s_reliability_safety_performance', '')),
+                    's_transparency_explainability_contestability': replace_amp_with_placeholder(ai_narratives.get('s_transparency_explainability_contestability', '')),
+                    's_fairness_bias_inclusivity': replace_amp_with_placeholder(ai_narratives.get('s_fairness_bias_inclusivity', '')),
+                    's_domain_patterns': replace_amp_with_placeholder(ai_narratives.get('s_domain_patterns', '')),
+                    's_pathway_rationale': replace_amp_with_placeholder(ai_narratives.get('s_pathway_rationale', '')),
+                }
+                print(f"DEBUG: Added AI narratives to System template context: {list(template_context['ai'].keys())}")
+                for key, value in template_context['ai'].items():
+                    if value:
+                        print(f"  - {key} length: {len(value)} chars")
             
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
