@@ -40,9 +40,10 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - **AI Awareness Report** - Fully functional with AI narratives, bar charts
 - **AI Readiness Report** - Fully functional with v0.08 template
 - **Org-wide Report** - Fully functional with v0.06 template, 8 AI narratives
-- **AI System Maturity Report** - ✅ COMPLETED with v0.04 template, 8 AI narratives
+- **AI System Maturity Report** - ✅ COMPLETED with v0.15 template, 8 AI narratives
 
-#### System Report Features (Just Fixed)
+#### System Report Features (Latest Fix - 2026-01-22)
+- **Heatmap Bug Fixed**: Removed `ax.set_aspect('equal')` that was causing the heatmap to render as a square image (aspect ~0.93) instead of wide (aspect ~1.5)
 - Results Summary text matching frontend
 - Bar chart image (`readiness_bar_image`)
 - Radar chart with correct sector benchmarks
