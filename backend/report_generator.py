@@ -6641,8 +6641,11 @@ Each cell represents the score for a specific question, enabling identification 
                         answer = q.get('answer', {})
                         score = answer.get('numeric_score', 0) if answer else 0
                         
-                        # Determine maturity level from score
-                        if score >= 4:
+                        # Determine maturity level from score or option
+                        option_value = answer.get('option', '') if answer else ''
+                        if option_value:
+                            maturity_level = option_value.capitalize()  # LEADING -> Leading
+                        elif score >= 4:
                             maturity_level = 'Leading'
                         elif score >= 3:
                             maturity_level = 'Established'
@@ -6651,22 +6654,38 @@ Each cell represents the score for a specific question, enabling identification 
                         else:
                             maturity_level = 'Foundational'
                         
+                        # Get the selected response text from the question's maturity level answer field
+                        # System questions store answer texts in fields like 'leading_answer', 'established_answer', etc.
+                        maturity_level_lower = maturity_level.lower()
+                        selected_option_text = q.get(f'{maturity_level_lower}_answer', '')
+                        
+                        # Fallback to selected_option.text if available (for compatibility)
+                        if not selected_option_text and answer:
+                            selected_option_text = answer.get('selected_option', {}).get('text', '') if isinstance(answer.get('selected_option'), dict) else ''
+                        
+                        # Replace ampersands to avoid XML issues
+                        if selected_option_text:
+                            selected_option_text = replace_amp_with_placeholder(selected_option_text)
+                        
                         questions.append({
                             'number': q_num,
                             'code': q.get('code', ''),
-                            'text': q.get('text', ''),
+                            'text': replace_amp_with_placeholder(q.get('text', '')),
                             'domain': domain_name_for_template,
-                            'selected_option_label': answer.get('selected_option', {}).get('label', 'Not answered') if answer else 'Not answered',
-                            'selected_option_text': answer.get('selected_option', {}).get('text', '') if answer else '',
+                            'selected_option_label': maturity_level,
+                            'selected_option_text': selected_option_text or 'Not answered',
                             'maturity_level': maturity_level,
                             'score': score,
                             'score_display': f"{score}/4",
-                            'comment': answer.get('comment', '') if answer else ''
+                            'comment': replace_amp_with_placeholder(answer.get('note', '') or answer.get('comment', '') or '') if answer else ''
                         })
                         q_num += 1
                 template_context['questions'] = questions
                 template_context['show_detailed_responses'] = True
                 print(f"DEBUG: System questions for Appendix: {len(questions)} items")
+                if questions:
+                    sample_q = questions[0]
+                    print(f"DEBUG: Sample question - code: {sample_q['code']}, selected_option_text: {sample_q['selected_option_text'][:80]}...")
             
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
