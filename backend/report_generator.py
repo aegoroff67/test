@@ -6688,6 +6688,35 @@ Each cell represents the score for a specific question, enabling identification 
                 if questions:
                     sample_q = questions[0]
                     print(f"DEBUG: Sample question - code: {sample_q['code']}, selected_option_text: {sample_q['selected_option_text'][:80]}...")
+                
+                # Generate framework coverage data for System assessments
+                # Build answers dict from questions_data for framework coverage calculation
+                answers_for_coverage = {}
+                questions_data = report_data.get('questions_data', [])
+                for domain_data in questions_data:
+                    for q in domain_data.get('questions', []):
+                        q_code = q.get('code', '')
+                        answer = q.get('answer', {})
+                        if q_code and answer:
+                            answers_for_coverage[q_code] = {
+                                'numeric_score': answer.get('numeric_score', 0),
+                                'option': answer.get('option', ''),
+                            }
+                
+                # Get selected frameworks from system_info
+                selected_frameworks = system_info.get('frameworks', [])
+                
+                # Calculate framework coverage
+                framework_coverage_data = get_all_framework_coverage(
+                    answers=answers_for_coverage,
+                    selected_frameworks=selected_frameworks
+                )
+                
+                # Add frameworks to template context
+                template_context['frameworks'] = framework_coverage_data
+                print(f"DEBUG: Framework coverage data: {len(framework_coverage_data)} frameworks")
+                for fw in framework_coverage_data[:2]:  # Show first 2 for debugging
+                    print(f"  - {fw.get('title', 'Unknown')}: is_selected={fw.get('is_selected')}, controls={fw.get('total_controls')}")
             
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
