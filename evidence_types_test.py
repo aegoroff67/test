@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 
 class EvidenceTypesAPITester:
-    def __init__(self, base_url="https://report-gen-8.preview.emergentagent.com"):
+    def __init__(self, base_url="https://aireport-5.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.token = None
