@@ -6077,9 +6077,14 @@ Each cell represents the score for a specific question, enabling identification 
                     'results_summary_text': self._generate_results_summary_text(report_data),
                 })
                 
-                # Build strengths list (domains scoring >= 70%)
+                # Build strengths list (domains scoring >= 70%, sorted by score descending)
                 strengths = []
-                for d in template_context.get('domains', []):
+                domains_for_strengths = sorted(
+                    template_context.get('domains', []),
+                    key=lambda d: float(str(d.get('score', 0)).replace('%', '')),
+                    reverse=True
+                )
+                for d in domains_for_strengths:
                     score = d.get('score', 0)
                     # Handle both numeric and string scores
                     if isinstance(score, str):
@@ -6094,9 +6099,14 @@ Each cell represents the score for a specific question, enabling identification 
                 else:
                     template_context['strengths_summary'] = 'Building foundational awareness across all domains'
                 
-                # Build gaps list (domains scoring < 50%)
+                # Build gaps list (domains scoring < 50%, sorted by score ascending - worst first)
                 gaps = []
-                for d in template_context.get('domains', []):
+                domains_for_gaps = sorted(
+                    template_context.get('domains', []),
+                    key=lambda d: float(str(d.get('score', 0)).replace('%', '')),
+                    reverse=False
+                )
+                for d in domains_for_gaps:
                     score = d.get('score', 0)
                     # Handle both numeric and string scores
                     if isinstance(score, str):
