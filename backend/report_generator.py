@@ -4148,21 +4148,19 @@ Do not include headings or formatting."""
         }
     
     def _generate_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
-        """Generate heatmap image based on assessment type."""
-        print(f"DEBUG _generate_heatmap_image: assessment_type={self.assessment_type}")
-        # Check if this is an Awareness assessment
-        if self.assessment_type == 'Awareness':
-            print("DEBUG: Routing to _generate_awareness_heatmap_image")
-            return self._generate_awareness_heatmap_image(report_data)
-        else:
-            print("DEBUG: Routing to _generate_system_heatmap_image")
-            return self._generate_system_heatmap_image(report_data)
+        """Generate heatmap image based on assessment type.
+        
+        Delegates to modular chart generation in report_modules.charts
+        """
+        # Use the refactored modular chart generation
+        return generate_heatmap(report_data, self.assessment_type)
     
     def _generate_awareness_bar_image(self, report_data: Dict[str, Any]) -> bytes:
-        """Generate stacked bar chart image for Awareness assessments showing overall score and tier.
-        Matches the frontend MaturityStackedColumn component exactly.
+        """Generate stacked bar chart image for Awareness assessments.
+        
+        Delegates to modular chart generation in report_modules.charts
         """
-        overall = report_data.get('overall', {})
+        return generate_bar_chart(report_data, 'Awareness')
         score = overall.get('score', 0)
         sector_average = report_data.get('sector_average')
         sector_name = report_data.get('sector_name', '')
