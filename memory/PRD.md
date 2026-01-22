@@ -36,11 +36,19 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 
 ### ✅ Completed (as of 2026-01-22)
 
-#### Report Types
+#### Report Types - ALL FUNCTIONAL
 - **AI Awareness Report** - Fully functional with AI narratives, bar charts
 - **AI Readiness Report** - Fully functional with v0.08 template
 - **Org-wide Report** - Fully functional with v0.06 template, 8 AI narratives
 - **AI System Maturity Report** - ✅ COMPLETED with v0.04 template, 8 AI narratives
+
+#### System Report Features (Just Fixed)
+- Results Summary text matching frontend
+- Bar chart image (`readiness_bar_image`)
+- Radar chart with correct sector benchmarks
+- Sector-specific action recommendations (5 per priority level)
+- Appendix A with 88 detailed question responses
+- All 8 AI-generated narratives
 
 #### Key Features
 - Jinja2 template rendering with docxtpl
@@ -49,7 +57,7 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - Domain score tables with maturity tiers
 - Heatmap and radar chart generation
 - Framework alignment data
-- Benchmark comparison (when available)
+- Benchmark comparison with sector-specific data
 
 #### Template Versions
 - Awareness: Default template
@@ -62,11 +70,10 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 ## Prioritized Backlog
 
 ### P0 - Critical
-- [ ] **Refactor `report_generator.py`** - Currently ~7500+ lines, needs modularization
+- [ ] **Refactor `report_generator.py`** - Currently ~8000+ lines, needs modularization
 
 ### P1 - High Priority
 - [ ] Frontend toggle for `show_detailed_responses` parameter on Results page
-- [ ] Verify sector benchmark radar chart in Awareness report
 - [ ] FAIRA assessment DOCX templates
 
 ### P2 - Medium Priority
@@ -90,10 +97,15 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - `/app/backend/report_generator.py` - Main report generation logic (MONOLITHIC - needs refactor)
 - `/app/backend/server.py` - FastAPI endpoints
 - `/app/backend/templates/docx/` - DOCX templates
+- `/app/backend/ai_maturity_benchmarks_SYSTEM.json` - System benchmark data
+- `/app/backend/awareness_benchmarks.json` - Awareness benchmark data
+- `/app/backend/orgwide_benchmarks.json` - Orgwide benchmark data
+- `/app/backend/readiness_benchmarks.json` - Readiness benchmark data
 
 ### Frontend
 - `/app/frontend/src/pages/ResultsPage.js` - Assessment results display
 - `/app/frontend/src/pages/SystemPreAssessmentForm.js` - System pre-assessment form
+- `/app/frontend/src/pages/FrameworkCoveragePage.js` - Framework coverage view
 
 ---
 
@@ -103,8 +115,44 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - `GET /api/assessments/{assessment_id}/report` - Generate DOCX report
   - Query params: `view_type`, `use_ai`, `show_detailed_responses`
 
+### Framework Coverage
+- `GET /api/assessments/{assessment_id}/framework-coverage` - Get framework coverage analytics
+
 ### Schema
 - `GET /api/schema/system-preassessment-form` - System pre-assessment JSON schema
+
+---
+
+## Template Variables (System Report)
+
+### Key Variables
+- `{{org_name}}` - Organization name
+- `{{system_name}}` - AI system name
+- `{{overall.score}}` - Overall maturity score
+- `{{overall.tier}}` - Maturity tier (Leading/Established/Developing/Foundational)
+- `{{results_summary_text}}` - Pre-formatted results summary
+- `{{readiness_bar_image}}` - Bar chart image
+- `{{radar_chart_image}}` - Radar chart with benchmarks
+- `{{heatmap_image}}` - Domain heatmap
+
+### Actions
+- `{{sector_actions_high_top5}}` - Top 5 high priority actions
+- `{{sector_actions_medium_top5}}` - Top 5 medium priority actions
+- `{{sector_actions_low_top5}}` - Top 5 low priority actions
+
+### AI Narratives (ai.s_*)
+- `{{ai.s_executive_snapshot}}`
+- `{{ai.s_gov_oversight}}`
+- `{{ai.s_data_privacy_security}}`
+- `{{ai.s_reliability_safety_performance}}`
+- `{{ai.s_transparency_explainability_contestability}}`
+- `{{ai.s_fairness_bias_inclusivity}}`
+- `{{ai.s_domain_patterns}}`
+- `{{ai.s_pathway_rationale}}`
+
+### Appendix
+- `{{questions}}` - List of 88 questions with details
+- `{{show_detailed_responses}}` - Toggle for appendix
 
 ---
 
