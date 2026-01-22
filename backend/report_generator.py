@@ -6653,8 +6653,12 @@ Each cell represents the score for a specific question, enabling identification 
             elif self.assessment_type == 'Orgwide':
                 # Orgwide uses the same table structure as Readiness (question_id, domain, sector_action)
                 self._populate_readiness_sector_tables(doc, report_data)
+            elif self.assessment_type == 'System':
+                # System template uses Jinja2 {%tr for %} loops which handle table rows correctly
+                # No programmatic table population needed - the loops use sector_actions_*_top5 (5 items)
+                print("DEBUG: System template uses Jinja2 loops for action tables - skipping programmatic population")
             elif not self.use_test_template:
-                # System/other templates use actions tables with domain, question_id, text
+                # Other templates use actions tables with domain, question_id, text
                 self._populate_recommendation_tables(doc, report_data)
             
             # Save to bytes
