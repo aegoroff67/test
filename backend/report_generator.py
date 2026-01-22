@@ -6551,6 +6551,63 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"DEBUG: System sector_actions_high_top5: {len(template_context['sector_actions_high_top5'])} items")
                 print(f"DEBUG: System sector_actions_medium_top5: {len(template_context['sector_actions_medium_top5'])} items")
                 print(f"DEBUG: System sector_actions_low_top5: {len(template_context['sector_actions_low_top5'])} items")
+                
+                # Generate bar chart for System (using readiness bar style)
+                system_bar_bytes = self._generate_readiness_bar_image(report_data)
+                template_context['readiness_bar_image'] = InlineImage(doc, io.BytesIO(system_bar_bytes), width=Inches(4.0))
+                
+                # Generate radar chart for System
+                system_radar_bytes = self._generate_radar_chart_image(report_data)
+                template_context['radar_chart_image'] = InlineImage(doc, io.BytesIO(system_radar_bytes), width=Inches(3.5))
+                
+                # Build next_focus based on gaps or overall tier
+                overall_tier = template_context.get('overall', {}).get('tier', 'Developing')
+                if gaps:
+                    template_context['next_focus'] = replace_amp_with_placeholder(f"Focus on improving {gaps[0].split(' (')[0]} to strengthen overall AI system maturity.")
+                elif overall_tier == 'Leading':
+                    template_context['next_focus'] = 'Maintain leading maturity position and drive continuous improvement across all domains.'
+                elif overall_tier == 'Established':
+                    template_context['next_focus'] = 'Advance to leading maturity by optimising governance controls and refining operational practices.'
+                else:
+                    template_context['next_focus'] = 'Build foundational governance capabilities and establish consistent practices across key domains.'
+                
+                # Build questions list with full details for System Appendix A
+                questions = []
+                questions_data = report_data.get('questions_data', [])
+                q_num = 1
+                for domain_data in questions_data:
+                    domain_name = domain_data.get('domain', {}).get('name', 'Unknown')
+                    domain_name_for_template = replace_amp_with_placeholder(domain_name) if domain_name else 'Unknown'
+                    for q in domain_data.get('questions', []):
+                        answer = q.get('answer', {})
+                        score = answer.get('numeric_score', 0) if answer else 0
+                        
+                        # Determine maturity level from score
+                        if score >= 4:
+                            maturity_level = 'Leading'
+                        elif score >= 3:
+                            maturity_level = 'Established'
+                        elif score >= 2:
+                            maturity_level = 'Developing'
+                        else:
+                            maturity_level = 'Foundational'
+                        
+                        questions.append({
+                            'number': q_num,
+                            'code': q.get('code', ''),
+                            'text': q.get('text', ''),
+                            'domain': domain_name_for_template,
+                            'selected_option_label': answer.get('selected_option', {}).get('label', 'Not answered') if answer else 'Not answered',
+                            'selected_option_text': answer.get('selected_option', {}).get('text', '') if answer else '',
+                            'maturity_level': maturity_level,
+                            'score': score,
+                            'score_display': f"{score}/4",
+                            'comment': answer.get('comment', '') if answer else ''
+                        })
+                        q_num += 1
+                template_context['questions'] = questions
+                template_context['show_detailed_responses'] = True
+                print(f"DEBUG: System questions for Appendix: {len(questions)} items")
             
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
