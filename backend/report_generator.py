@@ -3468,29 +3468,54 @@ Do not include headings or formatting."""
             with open(benchmark_path, 'r') as f:
                 benchmarks_data = json.load(f)
             
-            # Get sector-specific benchmarks
-            sector_benchmarks = benchmarks_data.get("benchmarks", {}).get(sector_name, {})
-            
-            # If sector not found, try "Other"
-            if not sector_benchmarks:
-                sector_benchmarks = benchmarks_data.get("benchmarks", {}).get("Other", {})
-            
-            # Convert range strings (like "48-55") to mid-point values
+            # Handle different benchmark file formats
             benchmark_values = {}
-            for domain, range_str in sector_benchmarks.items():
-                if isinstance(range_str, str) and '-' in range_str:
-                    # Parse range and take midpoint
-                    parts = range_str.split('-')
-                    try:
-                        low = float(parts[0])
-                        high = float(parts[1])
-                        benchmark_values[domain] = (low + high) / 2
-                    except (ValueError, IndexError):
+            
+            if self.assessment_type == 'System':
+                # System benchmark file is an array of objects with sector_type, domain_name, benchmark_mean_score
+                # Filter by sector and build domain->score mapping
+                for entry in benchmarks_data:
+                    entry_sector = entry.get('sector_type', '')
+                    # Check if sector matches (case-insensitive partial match)
+                    if sector_name and (sector_name.lower() in entry_sector.lower() or entry_sector.lower() in sector_name.lower()):
+                        domain = entry.get('domain_name', '')
+                        score = entry.get('benchmark_mean_score', 50)
+                        if domain:
+                            benchmark_values[domain] = float(score)
+                
+                # If no matches, try generic fallback
+                if not benchmark_values:
+                    # Use first sector's data as fallback or default 50%
+                    print(f"DEBUG: No benchmark data found for sector '{sector_name}', using defaults")
+                    benchmark_values = {
+                        'Fairness': 50.0, 'Transparency': 50.0, 'Explainability': 50.0,
+                        'Accountability': 50.0, 'Data Integrity': 50.0, 'Reliability': 50.0,
+                        'Security': 50.0, 'Privacy': 50.0, 'Safety': 50.0,
+                        'Inclusivity': 50.0, 'Sustainability': 50.0
+                    }
+            else:
+                # Other assessment types use nested structure: {"benchmarks": {"sector": {"domain": "range"}}}
+                sector_benchmarks = benchmarks_data.get("benchmarks", {}).get(sector_name, {})
+                
+                # If sector not found, try "Other"
+                if not sector_benchmarks:
+                    sector_benchmarks = benchmarks_data.get("benchmarks", {}).get("Other", {})
+                
+                # Convert range strings (like "48-55") to mid-point values
+                for domain, range_str in sector_benchmarks.items():
+                    if isinstance(range_str, str) and '-' in range_str:
+                        # Parse range and take midpoint
+                        parts = range_str.split('-')
+                        try:
+                            low = float(parts[0])
+                            high = float(parts[1])
+                            benchmark_values[domain] = (low + high) / 2
+                        except (ValueError, IndexError):
+                            benchmark_values[domain] = 50.0  # Default
+                    elif isinstance(range_str, (int, float)):
+                        benchmark_values[domain] = float(range_str)
+                    else:
                         benchmark_values[domain] = 50.0  # Default
-                elif isinstance(range_str, (int, float)):
-                    benchmark_values[domain] = float(range_str)
-                else:
-                    benchmark_values[domain] = 50.0  # Default
             
             print(f"DEBUG: Loaded benchmark data for sector '{sector_name}': {benchmark_values}")
             return benchmark_values
