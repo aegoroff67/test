@@ -7568,29 +7568,34 @@ Each cell represents the score for a specific question, enabling identification 
         
         # Generate filename - use assessment's org_name from the appropriate info object
         # The org_name is stored in different locations depending on assessment type
-        assessment_org_name = ''
+        # For System assessments, use system_name instead of org_name
+        assessment_name_for_file = ''
         if self.assessment_type == 'Awareness':
-            assessment_org_name = (assessment.get('awareness_info') or {}).get('org_name', '')
+            assessment_name_for_file = (assessment.get('awareness_info') or {}).get('org_name', '')
         elif self.assessment_type == 'Readiness':
-            assessment_org_name = (assessment.get('readiness_info') or {}).get('org_name', '')
+            assessment_name_for_file = (assessment.get('readiness_info') or {}).get('org_name', '')
         elif self.assessment_type == 'Orgwide':
             # For Orgwide, check both orgwide_info and org_info (fallback)
-            assessment_org_name = (assessment.get('orgwide_info') or assessment.get('org_info') or {}).get('org_name', '')
+            assessment_name_for_file = (assessment.get('orgwide_info') or assessment.get('org_info') or {}).get('org_name', '')
+        elif self.assessment_type == 'System':
+            # For System assessments, use system_name (systemName field)
+            system_info = assessment.get('system_info') or {}
+            assessment_name_for_file = system_info.get('systemName', '') or system_info.get('system_name', '')
         else:
-            # System or other types - check org_info first, then system_info
-            assessment_org_name = (assessment.get('org_info') or {}).get('org_name', '')
-            if not assessment_org_name:
-                assessment_org_name = (assessment.get('system_info') or {}).get('org_name', '')
+            # Other types - check org_info first, then system_info
+            assessment_name_for_file = (assessment.get('org_info') or {}).get('org_name', '')
+            if not assessment_name_for_file:
+                assessment_name_for_file = (assessment.get('system_info') or {}).get('org_name', '')
         
         # Fallback to organization_name field if exists, then to user's organization name
-        if not assessment_org_name:
-            assessment_org_name = assessment.get('organization_name', '')
-        if not assessment_org_name:
-            assessment_org_name = current_user.organization_name
+        if not assessment_name_for_file:
+            assessment_name_for_file = assessment.get('organization_name', '')
+        if not assessment_name_for_file:
+            assessment_name_for_file = current_user.organization_name
         
-        safe_org_name = "".join(c for c in assessment_org_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
-        safe_org_name = safe_org_name.replace(' ', '_') if safe_org_name else "Organization"
-        filename = f"AM_AI_SAFE_Assessment_{safe_org_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.docx"
+        safe_name = "".join(c for c in assessment_name_for_file if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        safe_name = safe_name.replace(' ', '_') if safe_name else "Assessment"
+        filename = f"AM_AI_SAFE_{self.assessment_type}_{safe_name}_{assessment.get('created_at', datetime.now(timezone.utc)).strftime('%Y-%m-%d')}.docx"
         
         return docx_bytes, filename
     
