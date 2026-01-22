@@ -1,20 +1,21 @@
 """
-AM AI SAFE Report Generator Package
-Modular report generation for assessment reports.
+AM AI SAFE Report Generator - Modular Components Package
+
+This package contains refactored components extracted from the monolithic
+report_generator.py file for better maintainability.
+
+Modules:
+- charts: Chart generation (heatmap, bar chart, radar chart)
+- utils: Utility functions (formatting, tier calculations, etc.)
+
+Usage:
+    from report_modules.charts import generate_heatmap, generate_radar_chart
+    from report_modules.utils import format_date, replace_amp_with_placeholder
 """
 
-# Re-export the main class from the legacy monolith for backward compatibility
-import sys
-from pathlib import Path
-
-# Ensure the backend directory is in path
-backend_dir = Path(__file__).parent.parent
-if str(backend_dir) not in sys.path:
-    sys.path.insert(0, str(backend_dir))
-
-# Import submodules
 from . import charts
 from . import utils
 
 __all__ = ['charts', 'utils']
+
 
