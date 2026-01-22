@@ -3587,6 +3587,23 @@ Do not include headings or formatting."""
         else:
             return "Foundational"
     
+    def _get_tier_for_score(self, score: float) -> str:
+        """Get tier name for a given score percentage.
+        
+        Uses the assessment_type to determine the correct tier calculation.
+        This is a convenience wrapper for use in AI narrative generation.
+        """
+        if self.assessment_type == 'Awareness':
+            return self._calculate_awareness_tier(score)
+        elif self.assessment_type == 'Readiness':
+            return self._calculate_readiness_tier(score)
+        elif self.assessment_type == 'Orgwide':
+            return self._calculate_orgwide_tier(score)
+        elif self.assessment_type == 'System':
+            return self._calculate_system_tier(score)
+        else:
+            return self._calculate_tier(score)
+    
     def _generate_results_summary_text(self, report_data: Dict[str, Any]) -> str:
         """
         Generate the complete Results Summary paragraph for Awareness assessments.
