@@ -32,7 +32,7 @@ import zipfile
 from framework_coverage import get_all_framework_coverage, FRAMEWORK_CONFIG
 
 # Import modular chart generation (refactored)
-from report_generator.charts import (
+from report_modules.charts import (
     generate_heatmap,
     generate_system_heatmap,
     generate_awareness_heatmap,
@@ -42,7 +42,7 @@ from report_generator.charts import (
 )
 
 # Import utilities (refactored)
-from report_generator.utils import (
+from report_modules.utils import (
     AMP_PLACEHOLDER,
     replace_amp_with_placeholder,
     format_date as util_format_date,
