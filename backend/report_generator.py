@@ -4532,7 +4532,8 @@ Do not include headings or formatting."""
         # Set axis properties for compact layout
         ax.set_xlim(-2.2, 8)
         ax.set_ylim(0, num_domains)
-        ax.set_aspect('equal')
+        # Note: Do NOT use set_aspect('equal') here - it forces the output to be square
+        # which makes the heatmap look like a radar chart. The figsize should control dimensions.
         
         # Remove ticks and labels
         ax.set_xticks([])
