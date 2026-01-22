@@ -6542,6 +6542,15 @@ Each cell represents the score for a specific question, enabling identification 
                 for key, value in template_context['ai'].items():
                     if value:
                         print(f"  - {key} length: {len(value)} chars")
+                
+                # Add sector actions for System reports (same as Orgwide)
+                sector_actions = report_data.get('sector_actions', {})
+                template_context['sector_actions_high_top5'] = sector_actions.get('high', [])[:5]
+                template_context['sector_actions_medium_top5'] = sector_actions.get('medium', [])[:5]
+                template_context['sector_actions_low_top5'] = sector_actions.get('low', [])[:5]
+                print(f"DEBUG: System sector_actions_high_top5: {len(template_context['sector_actions_high_top5'])} items")
+                print(f"DEBUG: System sector_actions_medium_top5: {len(template_context['sector_actions_medium_top5'])} items")
+                print(f"DEBUG: System sector_actions_low_top5: {len(template_context['sector_actions_low_top5'])} items")
             
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
