@@ -71,12 +71,13 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 ## Prioritized Backlog
 
 ### P0 - Critical
-- [x] **Refactor `report_generator.py`** - Phase 1 & 2 COMPLETE
-  - Phase 1: Charts extracted (~500 lines)
-  - Phase 2: AI Narratives module created (~760 lines)
-  - Total: ~1,460 lines in modular components
-  - Main file reduced from 8359 to 7829 lines
-  - Next phase: Connect AI narrative orchestrators to modular functions
+- [x] **Refactor `report_generator.py`** - COMPLETE ✅
+  - Original: 8,359 lines → Now: 5,394 lines (35% reduction)
+  - Extracted to `/app/backend/report_modules/`:
+    - `charts.py`: 493 lines (heatmap, bar, radar charts)
+    - `ai_narratives.py`: 1,167 lines (all 4 assessment types)
+    - `utils.py`: 209 lines (formatting, utilities)
+  - Total modular code: 1,893 lines
 
 ### P1 - High Priority
 - [ ] Frontend toggle for `show_detailed_responses` parameter on Results page
@@ -86,7 +87,6 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - [ ] Test backend CRUD API endpoints for `evidence` object
 - [ ] "Coverage Gap Report" feature
 - [ ] Print-specific multi-page CSS layout for ResultsPage.js
-- [ ] Continue refactoring: Replace inline AI narrative methods with modular versions
 
 ### P3 - Lower Priority
 - [ ] Fix missing `SU-1` question from Australian Guidance framework
@@ -101,11 +101,11 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 ## Key Files Reference
 
 ### Backend
-- `/app/backend/report_generator.py` - Main report generation logic (7829 lines, being refactored)
-- `/app/backend/report_modules/` - Refactored modular components:
-  - `charts.py` - Heatmap, bar chart, radar chart generation (493 lines)
+- `/app/backend/report_generator.py` - Main report generation (5,394 lines - refactored)
+- `/app/backend/report_modules/` - Modular components:
+  - `ai_narratives.py` - AI narrative generation for all 4 assessment types (1,167 lines)
+  - `charts.py` - Chart generation: heatmap, bar, radar (493 lines)
   - `utils.py` - Formatting, tier calculations, utilities (209 lines)
-  - `ai_narratives.py` - AI narrative generation for Awareness & System (761 lines)
 - `/app/backend/server.py` - FastAPI endpoints
 - `/app/backend/templates/docx/` - DOCX templates
 - `/app/backend/ai_maturity_benchmarks_SYSTEM.json` - System benchmark data
