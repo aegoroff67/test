@@ -6690,18 +6690,18 @@ Each cell represents the score for a specific question, enabling identification 
                     print(f"DEBUG: Sample question - code: {sample_q['code']}, selected_option_text: {sample_q['selected_option_text'][:80]}...")
                 
                 # Generate framework coverage data for System assessments
-                # Build answers dict from questions_data for framework coverage calculation
-                answers_for_coverage = {}
+                # Build answers list from questions_data for framework coverage calculation
+                answers_for_coverage = []
                 questions_data = report_data.get('questions_data', [])
                 for domain_data in questions_data:
                     for q in domain_data.get('questions', []):
                         q_code = q.get('code', '')
                         answer = q.get('answer', {})
                         if q_code and answer:
-                            answers_for_coverage[q_code] = {
+                            answers_for_coverage.append({
+                                'question_code': q_code,
                                 'numeric_score': answer.get('numeric_score', 0),
-                                'option': answer.get('option', ''),
-                            }
+                            })
                 
                 # Get selected frameworks from system_info
                 selected_frameworks = system_info.get('frameworks', [])
