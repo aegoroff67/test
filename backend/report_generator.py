@@ -4161,117 +4161,13 @@ Do not include headings or formatting."""
         Delegates to modular chart generation in report_modules.charts
         """
         return generate_bar_chart(report_data, 'Awareness')
-        score = overall.get('score', 0)
-        sector_average = report_data.get('sector_average')
-        sector_name = report_data.get('sector_name', '')
-        
-        # Define the 4 maturity tiers for Awareness (matching frontend MaturityStackedColumn)
-        tiers = [
-            {'name': 'Established', 'min': 86, 'max': 100, 'color': '#00B050', 'percentage': 15},
-            {'name': 'Developing', 'min': 66, 'max': 85, 'color': '#FFFF00', 'percentage': 20},
-            {'name': 'Emerging', 'min': 41, 'max': 65, 'color': '#FFC000', 'percentage': 25},
-            {'name': 'Introductory', 'min': 0, 'max': 40, 'color': '#FF0000', 'percentage': 40}
-        ]
-        
-        # Determine current tier
-        current_tier = 'Introductory'
-        for tier in tiers:
-            if tier['min'] <= score <= tier['max']:
-                current_tier = tier['name']
-                break
-        
-        # Create figure
-        fig, ax = plt.subplots(figsize=(4, 3))
-        
-        # Draw stacked bar (vertical)
-        bar_width = 0.8
-        bar_x = 0.5
-        current_y = 0
-        
-        # Draw from bottom to top (Introductory to Established)
-        for tier in reversed(tiers):
-            height = tier['percentage']
-            rect = patches.Rectangle(
-                (bar_x - bar_width/2, current_y), 
-                bar_width, 
-                height,
-                facecolor=tier['color'],
-                edgecolor='#333333',
-                linewidth=1
-            )
-            ax.add_patch(rect)
-            
-            # Add tier label
-            ax.text(bar_x, current_y + height/2, tier['name'], 
-                   ha='center', va='center', fontsize=8, fontweight='bold',
-                   color='#333333')
-            
-            current_y += height
-        
-        # Determine user arrow color based on sector average comparison (matching frontend)
-        if sector_average is not None:
-            if score > sector_average:
-                user_arrow_color = '#00B050'  # Green - above average
-            elif score < sector_average:
-                user_arrow_color = '#FF0000'  # Red - below average
-            else:
-                user_arrow_color = '#000000'  # Black - equal
-        else:
-            user_arrow_color = '#000000'  # Black - no sector data
-        
-        # User score arrow on RIGHT side (pointing left toward the bar) - matches frontend
-        arrow_y = score  # Score directly maps to y position (0-100)
-        ax.annotate('', xy=(bar_x + bar_width/2, arrow_y), 
-                   xytext=(bar_x + bar_width/2 + 0.3, arrow_y),
-                   arrowprops=dict(arrowstyle='->', color=user_arrow_color, lw=2))
-        
-        # Sector average arrow on LEFT side (pointing right toward the bar) - matches frontend
-        # Always black, only shown if sector_average exists and differs from score
-        if sector_average is not None and sector_average != score:
-            ax.annotate('', xy=(bar_x - bar_width/2, sector_average), 
-                       xytext=(bar_x - bar_width/2 - 0.3, sector_average),
-                       arrowprops=dict(arrowstyle='->', color='#000000', lw=2))
-            # Add sector average text below the black arrow on left side (same as Readiness)
-            if sector_name:
-                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 8, f'{sector_average:.0f}%', 
-                       ha='right', va='center', fontsize=10, fontweight='bold', color='#000000')
-                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 16, f'({sector_name}', 
-                       ha='right', va='center', fontsize=7, color='#666666')
-                ax.text(bar_x - bar_width/2 - 0.35, sector_average - 22, 'sector average)', 
-                       ha='right', va='center', fontsize=7, color='#666666')
-        
-        # Add score and tier text on right side
-        ax.text(bar_x + bar_width/2 + 0.5, arrow_y, f'{score:.0f}%', 
-               ha='left', va='center', fontsize=12, fontweight='bold', color=user_arrow_color)
-        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 8, f'{current_tier}', 
-               ha='left', va='center', fontsize=9, color='#666666')
-        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 15, 'AI Awareness', 
-               ha='left', va='center', fontsize=9, color='#666666')
-        
-        # Set axis limits and remove axes
-        ax.set_xlim(-0.5, 2.5)
-        ax.set_ylim(-20, 105)
-        ax.axis('off')
-        
-        plt.tight_layout()
-        
-        # Save to bytes
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='png', dpi=150, bbox_inches='tight', 
-                   facecolor='white', edgecolor='none', pad_inches=0.1)
-        plt.close(fig)
-        buffer.seek(0)
-        
-        return buffer.getvalue()
 
     def _generate_readiness_bar_image(self, report_data: Dict[str, Any]) -> bytes:
-        """Generate stacked bar chart image for Readiness assessments showing overall score and tier.
-        Matches the frontend MaturityStackedColumn component exactly.
+        """Generate stacked bar chart image for Readiness assessments.
+        
+        Delegates to modular chart generation in report_modules.charts
         """
-        overall = report_data.get('overall', {})
-        score = overall.get('score', 0)
-        sector_average = report_data.get('sector_average')
-        sector_name = report_data.get('sector_name', '')
+        return generate_bar_chart(report_data, self.assessment_type)
         
         # Define the 4 maturity tiers for Readiness (matching frontend)
         tiers = [
