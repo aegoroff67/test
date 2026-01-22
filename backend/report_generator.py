@@ -159,7 +159,7 @@ class AMReportGenerator:
         
         # Template mapping for each assessment type
         template_map = {
-            'System': 'AM_AI_SAFE_System_Report_TEMPLATE_v0.14_20260122.docx',
+            'System': 'AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx',
             'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
             'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
             'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
