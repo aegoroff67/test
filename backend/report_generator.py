@@ -51,6 +51,12 @@ from report_modules.utils import (
     DOMAIN_COLORS,
 )
 
+# Import AI narratives (refactored)
+from report_modules.ai_narratives import (
+    generate_awareness_narratives as generate_awareness_ai_narratives_modular,
+    generate_system_narratives as generate_system_ai_narratives_modular,
+)
+
 
 class AMReportGenerator:
     """Generates AM AI SAFE assessment reports in DOCX and PDF formats."""
