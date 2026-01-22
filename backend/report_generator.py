@@ -3456,6 +3456,8 @@ Do not include headings or formatting."""
                 benchmark_path = backend_dir / "readiness_benchmarks.json"
             elif self.assessment_type == 'Orgwide':
                 benchmark_path = backend_dir / "orgwide_benchmarks.json"
+            elif self.assessment_type == 'System':
+                benchmark_path = backend_dir / "ai_maturity_benchmarks_SYSTEM.json"
             else:
                 benchmark_path = backend_dir / "benchmarks.json"
             
