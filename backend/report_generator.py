@@ -6474,6 +6474,15 @@ Each cell represents the score for a specific question, enabling identification 
                     # Full system_info object for flexibility
                     'system_info': system_info,
                     
+                    # System object for template references like {{system.owner}}
+                    'system': {
+                        'owner': system_info.get('owner', ''),
+                        'department': system_info.get('department', ''),
+                        'name': system_info.get('systemName', ''),
+                        'description': system_info.get('description', ''),
+                        'lifecycle': system_info.get('lifecycle', ''),
+                    },
+                    
                     # Pre-formatted Results Summary text (matches frontend ResultsPage.js)
                     'results_summary_text': self._generate_system_results_summary_text(report_data),
                 })
