@@ -6518,7 +6518,6 @@ Each cell represents the score for a specific question, enabling identification 
                     # Governance & Oversight
                     'oversight': system_info.get('oversight', ''),
                     'artefacts': system_info.get('artefacts', []),
-                    'frameworks': system_info.get('frameworks', []),
                     'regulations': system_info.get('regulations', []),
                     'ethics_commitments': system_info.get('ethicsCommitments', ''),
                     'sustainability_goals': system_info.get('sustainabilityGoals', ''),
