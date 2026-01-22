@@ -2705,49 +2705,56 @@ Do not include headings or formatting."""
         lifecycle = system_info.get('lifecycle', '')
         criticality = system_info.get('criticality', '')
         
-        strengths_summary = report_data.get('strengths_summary', '')
-        gaps_summary = report_data.get('gaps_summary', '')
-        results_summary_text = report_data.get('results_summary_text', '')
-        next_focus = report_data.get('next_focus', '')
+        # Get sector for benchmark comparison
+        sector = system_info.get('industry', '') or system_info.get('sector', '')
+        sector_average = report_data.get('sector_average', None)
         
-        system_prompt = """You are generating the "Executive Interpretation" narrative for an AI System Maturity Assessment detailed report.
+        # Determine sector comparison language
+        if sector_average is not None:
+            if score > sector_average + 5:
+                sector_comparison = "sits above"
+            elif score < sector_average - 5:
+                sector_comparison = "sits below"
+            else:
+                sector_comparison = "sits broadly aligned with"
+        else:
+            sector_comparison = "sits within"
+        
+        system_prompt = """You are generating a concise executive maturity narrative for an AI System Maturity Assessment.
 
-Use ONLY the provided:
-- Pre-assessment onboarding fields (system context, lifecycle, criticality, hosting, data sensitivity, users/stakeholders, dependencies, applicable frameworks/regulations/artefacts)
-- Assessment results (overall score/tier, domain scores/tiers, strengths_summary, gaps_summary, results_summary_text, next_focus)
+Using ONLY the provided assessment results and system context, write a single paragraph that:
 
-Hard constraints:
-- Do NOT use compliance/certification language (e.g. "compliant", "certified", "approved", "meets regulatory requirements").
-- Do NOT use risk acceptance language (e.g. "risk is acceptable", "safe", "unsafe").
-- Do NOT claim model accuracy, performance, or outcome quality.
-- Avoid normative/judgemental wording (e.g. "should", "must", "below standard", "lagging", "leading").
-- Do NOT compare to sector averages or other organisations.
+- Summarises the overall AI system maturity posture for the system in neutral, executive language
+- Describes maturity signals only (presence, consistency, and scope of system-level practices)
+- References the system's lifecycle stage and business criticality for context
+- States the system's overall maturity score
+- Includes a brief, non-normative comparison to indicative sector benchmarking by stating whether the score sits above, broadly aligned with, or below the typical maturity range observed for AI systems in the sector
 
-Additional constraints:
-- Describe maturity signals only; do not assert effectiveness, sufficiency, or outcomes.
-- Do not state or imply that practices are "well-defined", "robust", "effective", or "integrated".
-- Avoid verbs that imply assurance or guarantees (e.g. "ensures", "demonstrates", "confirms").
-- Do not include recommendations, optimisation suggestions, or future-oriented advice.
-- Use neutral, observational language only.
+You must:
+- Use "indicative" or "typical range" language when referencing sector context
+- Use the term "sits" rather than "performs", "exceeds", or "lags"
 
-Tone: neutral, concise, board/audit appropriate."""
+You must NOT:
+- Assert effectiveness, sufficiency, safety, or outcomes
+- Use evaluative or assurance language (e.g. "robust", "effective", "integrated", "safe")
+- Include recommendations, optimisation language, or future actions
+- Reference frameworks, compliance, or regulatory readiness
+- Use normative language ("should", "must")
+- Compare the system to specific organisations or named peers
 
-        user_prompt = f"""Write 2–3 short paragraphs that:
-1) Summarise the overall maturity posture for {system_name} in plain executive language.
-2) Explain what the maturity posture implies for current use, given lifecycle stage '{lifecycle}' and business criticality '{criticality}'.
-3) Describe notable strengths and constraints at a high level WITHOUT prescribing specific actions.
+Tone: neutral, factual, executive-appropriate
+Length: no more than 120 words"""
 
-Context:
+        user_prompt = f"""Write a single paragraph executive summary for:
+
 - System: {system_name}
-- Overall maturity: {tier} ({score}%)
-- Lifecycle: {lifecycle}
-- Criticality: {criticality}
-- Key strengths: {strengths_summary}
-- Key gaps: {gaps_summary}
-- Results summary: {results_summary_text}
-- Next focus: {next_focus}
+- Overall maturity score: {score}% ({tier})
+- Lifecycle stage: {lifecycle}
+- Business criticality: {criticality}
+- Sector: {sector}
+- Sector comparison: The score {sector_comparison} the typical maturity range observed for AI systems in the {sector} sector
 
-Do not include headings or formatting."""
+Do not include headings or formatting. Keep to 120 words maximum."""
 
         try:
             chat = LlmChat(
