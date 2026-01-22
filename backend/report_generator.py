@@ -7164,9 +7164,16 @@ Each cell represents the score for a specific question, enabling identification 
                                 "code": question_code,
                                 "text": question_details.get('text', f'Question {question_code}'),
                                 "domain_id": domain_id,
+                                # Include maturity level answer texts for detailed responses appendix
+                                "leading_answer": question_details.get('leading_answer', ''),
+                                "established_answer": question_details.get('established_answer', ''),
+                                "developing_answer": question_details.get('developing_answer', ''),
+                                "foundational_answer": question_details.get('foundational_answer', ''),
                                 "answer": {
                                     "numeric_score": answer.get("numeric_score", 0),
+                                    "option": answer.get("option", ""),  # Store the option (LEADING, ESTABLISHED, etc.)
                                     "text": answer.get("option", ""),
+                                    "note": answer.get("note", ""),  # Store assessment notes
                                     "question_id": question_uuid
                                 }
                             }
@@ -7953,9 +7960,16 @@ Each cell represents the score for a specific question, enabling identification 
                                 "code": question_code,
                                 "text": question_details.get('text', f'Question {question_code}'),
                                 "domain_id": domain_id,
+                                # Include maturity level answer texts for detailed responses appendix
+                                "leading_answer": question_details.get('leading_answer', ''),
+                                "established_answer": question_details.get('established_answer', ''),
+                                "developing_answer": question_details.get('developing_answer', ''),
+                                "foundational_answer": question_details.get('foundational_answer', ''),
                                 "answer": {
                                     "numeric_score": answer.get("numeric_score", 0),
+                                    "option": answer.get("option", ""),  # Store the option (LEADING, ESTABLISHED, etc.)
                                     "text": answer.get("option", ""),
+                                    "note": answer.get("note", ""),  # Store assessment notes
                                     "question_id": question_uuid
                                 }
                             }
