@@ -4138,10 +4138,13 @@ Do not include headings or formatting."""
     
     def _generate_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
         """Generate heatmap image based on assessment type."""
+        print(f"DEBUG _generate_heatmap_image: assessment_type={self.assessment_type}")
         # Check if this is an Awareness assessment
         if self.assessment_type == 'Awareness':
+            print("DEBUG: Routing to _generate_awareness_heatmap_image")
             return self._generate_awareness_heatmap_image(report_data)
         else:
+            print("DEBUG: Routing to _generate_system_heatmap_image")
             return self._generate_system_heatmap_image(report_data)
     
     def _generate_awareness_bar_image(self, report_data: Dict[str, Any]) -> bytes:
