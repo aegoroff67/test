@@ -4177,90 +4177,11 @@ Do not include headings or formatting."""
         return generate_awareness_heatmap(report_data)
 
     def _generate_system_heatmap_image(self, report_data: Dict[str, Any]) -> bytes:
-        """Generate heatmap image for System assessments (11 domains, 8 questions each)."""
-        heatmap_data = report_data.get('heatmap_data', {})
-        domains = heatmap_data.get('domains', [])
+        """Generate heatmap image for System assessments.
         
-        if not domains:
-            # Create minimal empty heatmap
-            domains = [{'name': 'No Data', 'questions': [{'code': 'N/A', 'score': 0} for _ in range(8)]}]
-        
-        # Create figure with optimized height for compact rows
-        fig, ax = plt.subplots(figsize=(12, 6.5))
-        
-        # Define colors for 1-4 scale
-        def get_color(score):
-            if score == 1:
-                return '#FF0000'  # Red - Foundational
-            elif score == 2:
-                return '#FFC000'  # Orange - Developing
-            elif score == 3:
-                return '#FFFF00'  # Yellow - Established
-            elif score == 4:
-                return '#00B050'  # Green - Leading
-            else:
-                return '#CCCCCC'  # Gray - No score/unanswered
-        
-        # Create the heatmap grid exactly like the screenshot
-        num_domains = len(domains)
-        
-        for i, domain in enumerate(domains):
-            domain_name = domain['name']
-            questions = domain['questions']
-            
-            # Calculate percentage score for left side (like in screenshot)
-            total_possible = len([q for q in questions if q['code'] != 'N/A']) * 4  # 1-4 scale
-            total_actual = sum(q['score'] for q in questions if q['code'] != 'N/A')
-            percentage = (total_actual / total_possible * 100) if total_possible > 0 else 0
-            
-            for j, question in enumerate(questions[:8]):  # Only 8 questions per domain
-                score = question['score']
-                question_code = question['code']
-                
-                # Draw colored rectangle (invert i so lowest scores are at top)
-                row_pos = num_domains - 1 - i
-                color = get_color(score)
-                rect = patches.Rectangle((j, row_pos), 1, 1, 
-                                       linewidth=1, edgecolor='white', facecolor=color)
-                ax.add_patch(rect)
-                
-                # Add question code text (white text on colored background)
-                # Score numbers removed as color coding makes them redundant
-                if question_code != 'N/A':
-                    ax.text(j+0.5, row_pos+0.5, question_code, 
-                           ha='center', va='center', color='white', 
-                           fontsize=10, fontweight='bold')
-            
-            # Add domain name above percentage with minimal spacing to keep rows compact
-            ax.text(-1.9, row_pos+0.65, domain_name, 
-                   ha='left', va='center', fontsize=9, fontweight='normal')
-            ax.text(-1.9, row_pos+0.35, f'({percentage:.1f}%)', 
-                   ha='left', va='center', fontsize=7, color='gray')
-        
-        # Set axis properties for compact layout
-        ax.set_xlim(-2.2, 8)
-        ax.set_ylim(0, num_domains)
-        # Note: Do NOT use set_aspect('equal') here - it forces the output to be square
-        # which makes the heatmap look like a radar chart. The figsize should control dimensions.
-        
-        # Remove ticks and labels
-        ax.set_xticks([])
-        ax.set_yticks([])
-        ax.axis('off')
-        
-        # Adjust layout to match screenshot
-        plt.tight_layout()
-        plt.subplots_adjust(left=0.2)
-        
-        # Save to bytes
-        img_buffer = io.BytesIO()
-        plt.savefig(img_buffer, format='png', dpi=300, bbox_inches='tight', 
-                   facecolor='white', edgecolor='none')
-        img_buffer.seek(0)
-        img_bytes = img_buffer.getvalue()
-        plt.close(fig)
-        
-        return img_bytes
+        Delegates to modular chart generation in report_modules.charts
+        """
+        return generate_system_heatmap(report_data)
     
     def _generate_radar_chart_image(self, report_data: Dict[str, Any]) -> bytes:
         """Generate radar chart showing domain scores with sector benchmarks."""
