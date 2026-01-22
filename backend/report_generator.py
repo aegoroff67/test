@@ -859,7 +859,7 @@ The findings should be approximately 600-800 words with clear section headers.""
         api_key = os.environ.get('EMERGENT_LLM_KEY', 'sk-emergent-01d3a5f175e7fB507B')
         return await generate_system_narratives(report_data, assessment, db, api_key)
 
-        def _get_test_template_path(self) -> str:
+    def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
         return str(backend_dir / "templates" / "docx" / "AM_AI_SAFE_SYSTEM_test_template.docx")
