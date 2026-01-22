@@ -22,6 +22,9 @@ from jinja2 import Environment, FileSystemLoader
 import zipfile
 # from weasyprint import HTML, CSS  # Disabled - requires system libraries (pango, cairo)
 
+# Import framework coverage calculator
+from framework_coverage import get_all_framework_coverage, FRAMEWORK_CONFIG
+
 # Placeholder for ampersand - used to preserve & in docxtpl paragraph loops
 # docxtpl strips & in {% for %} loops, so we use a placeholder and post-process
 AMP_PLACEHOLDER = '___AMP___'
