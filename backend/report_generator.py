@@ -7269,6 +7269,67 @@ Each cell represents the score for a specific question, enabling identification 
                 traceback.print_exc()
                 assessment_data['ai_narratives'] = {}
         
+        # Generate AI narratives for System assessments if use_ai is enabled
+        if use_ai and self.assessment_type == 'System':
+            print("=== GENERATING SYSTEM AI NARRATIVES ===")
+            try:
+                system_info = assessment.get('system_info') or {}
+                
+                # Build domains list for narrative generation
+                domains_for_ai = []
+                for ds in summary_data.get('domain_scores', []):
+                    d_score = ds.get('percentage', ds.get('score', 0))
+                    if isinstance(d_score, str):
+                        d_score = float(d_score.replace('%', ''))
+                    d_tier = self._get_tier_for_score(d_score)
+                    domains_for_ai.append({
+                        'name': ds.get('domain_name', ds.get('name', 'Unknown')),
+                        'tier': d_tier,
+                        'score': d_score,
+                        'score_display': f"{d_score:.0f}%"
+                    })
+                
+                # Build strengths and gaps summaries
+                strengths = []
+                gaps = []
+                for d in domains_for_ai:
+                    if d['score'] >= 70:
+                        strengths.append(f"{d['name']} ({d['score']:.0f}%)")
+                    elif d['score'] < 60:
+                        gaps.append(f"{d['name']} ({d['score']:.0f}%)")
+                
+                if not strengths:
+                    sorted_domains = sorted(domains_for_ai, key=lambda x: x['score'], reverse=True)
+                    strengths = [f"{d['name']} ({d['score']:.0f}%)" for d in sorted_domains[:3]]
+                
+                strengths_summary = ', '.join(strengths) if strengths else 'Building foundational maturity across all domains'
+                gaps_summary = ', '.join(gaps) if gaps else 'All domains above 60%'
+                
+                ai_report_data = {
+                    'system_name': system_info.get('system_name') or system_info.get('systemName', ''),
+                    'overall': {
+                        'tier': summary_data.get('overall_tier', 'Unknown'),
+                        'percentage': summary_data.get('overall_percentage', 0),
+                        'score': summary_data.get('overall_percentage', 0),
+                    },
+                    'domains': domains_for_ai,
+                    'sector_name': sector_name,
+                    'sector_average': sector_average,
+                    'strengths_summary': strengths_summary,
+                    'gaps_summary': gaps_summary,
+                    'next_focus': summary_data.get('next_focus', ''),
+                    'system_info': system_info,
+                }
+                
+                ai_narratives = await self._generate_system_ai_narratives(ai_report_data, assessment, db)
+                assessment_data['ai_narratives'] = ai_narratives
+                print(f"DEBUG: System AI narratives generated: {list(ai_narratives.keys())}")
+            except Exception as e:
+                print(f"ERROR generating System AI narratives: {e}")
+                import traceback
+                traceback.print_exc()
+                assessment_data['ai_narratives'] = {}
+        
         print(f"DEBUG: current_user type: {type(current_user)}")
         print(f"DEBUG: current_user.organization_name: {getattr(current_user, 'organization_name', 'NOT SET')}")
         
