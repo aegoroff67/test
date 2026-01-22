@@ -64,7 +64,7 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - Awareness: Default template
 - Readiness: `AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx`
 - Orgwide: `AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx`
-- System: `AM_AI_SAFE_System_Report_TEMPLATE_v0.04_FIXED.docx`
+- System: `AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx`
 
 ---
 
