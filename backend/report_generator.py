@@ -2705,7 +2705,7 @@ Do not include headings or formatting."""
         lifecycle = system_info.get('lifecycle', '')
         criticality = system_info.get('criticality', '')
         
-        # Get industry for benchmark comparison (v0.22 uses 'industry' instead of 'sector')
+        # Get industry for benchmark comparison
         industry = system_info.get('industry', '') or system_info.get('sector', '')
         sector_average = report_data.get('sector_average', None)
         
@@ -2724,37 +2724,37 @@ Do not include headings or formatting."""
 
 Using ONLY the provided assessment results and system context, write a single paragraph that:
 
-- Summarises the overall AI system maturity posture for the system in neutral, executive language
+- Summarises the overall AI system maturity posture for the system in neutral, executive-appropriate language
 - Describes maturity signals only (presence, consistency, and scope of system-level practices)
 - References the system's lifecycle stage and business criticality for context
-- States the system's overall maturity score
-- Includes a brief, non-normative comparison to indicative sector benchmarking by stating whether the score sits above, broadly aligned with, or below the typical maturity range observed for AI systems in the industry
+- States the system's overall AI System Maturity score
+- Includes a brief, non-normative comparison to indicative sector benchmarking by stating whether the score sits above, broadly aligned with, or below the typical maturity range observed for AI systems in the industry sector
 
 You must:
 - Use "indicative" or "typical range" language when referencing sector context
-- Use the term "sits" rather than "performs", "exceeds", or "lags"
+- Use neutral positioning language such as "sits" rather than evaluative verbs
 
 You must NOT:
 - Assert effectiveness, sufficiency, safety, or outcomes
-- Use evaluative or assurance language (e.g. "robust", "effective", "integrated", "safe")
-- Include recommendations, optimisation language, or future actions
-- Reference frameworks, compliance, or regulatory readiness
+- Use evaluative or assurance language (e.g. "robust", "effective", "integrated", "mature")
+- Include recommendations, optimisation language, or future-oriented advice
+- Reference frameworks, compliance, regulatory readiness, or risk acceptance
 - Use normative language ("should", "must")
-- Compare the system to specific organisations or named peers
+- Compare the system to named organisations or specific peers
 
 Tone: neutral, factual, executive-appropriate
-Length: no more than 120 words"""
+Length: maximum 120 words"""
 
         user_prompt = f"""Write a single paragraph executive summary for:
 
 - System: {system_name}
-- Overall maturity score: {score}% ({tier})
+- Overall AI System Maturity score: {score}% ({tier})
 - Lifecycle stage: {lifecycle}
 - Business criticality: {criticality}
 - Industry: {industry}
 - Sector comparison: The score {sector_comparison} the typical maturity range observed for AI systems in the {industry} industry
 
-Do not include headings or formatting. Keep to 120 words maximum."""
+Do not include headings or formatting. Maximum 120 words."""
 
         try:
             chat = LlmChat(
