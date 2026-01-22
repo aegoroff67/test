@@ -4194,12 +4194,22 @@ Do not include headings or formatting."""
                 ax.text(bar_x - bar_width/2 - 0.35, sector_average - 22, 'sector average)', 
                        ha='right', va='center', fontsize=7, color='#666666')
         
+        # Determine label based on assessment type
+        if self.assessment_type == 'System':
+            assessment_label = 'AI System Maturity'
+        elif self.assessment_type == 'Orgwide':
+            assessment_label = 'Org-wide AI Maturity'
+        elif self.assessment_type == 'Awareness':
+            assessment_label = 'AI Awareness'
+        else:
+            assessment_label = 'AI Readiness'
+        
         # Add score and tier text on right side
         ax.text(bar_x + bar_width/2 + 0.5, arrow_y, f'{score:.0f}%', 
                ha='left', va='center', fontsize=12, fontweight='bold', color=user_arrow_color)
         ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 8, f'{current_tier}', 
                ha='left', va='center', fontsize=9, color='#666666')
-        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 15, 'AI Readiness', 
+        ax.text(bar_x + bar_width/2 + 0.5, arrow_y - 15, assessment_label, 
                ha='left', va='center', fontsize=9, color='#666666')
         
         # Set axis limits and remove axes
