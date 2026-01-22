@@ -198,6 +198,8 @@ class AMReportGenerator:
                 benchmark_path = backend_dir / "readiness_benchmarks.json"
             elif self.assessment_type == 'Orgwide':
                 benchmark_path = backend_dir / "orgwide_benchmarks.json"
+            elif self.assessment_type == 'System':
+                benchmark_path = backend_dir / "ai_maturity_benchmarks_SYSTEM.json"
             else:
                 benchmark_path = backend_dir / "benchmarks.json"
             
@@ -208,16 +210,36 @@ class AMReportGenerator:
             with open(benchmark_path, 'r') as f:
                 benchmarks_data = json.load(f)
             
-            # Get sector_average from the sector_averages section
-            sector_averages = benchmarks_data.get("sector_averages", {})
-            sector_average = sector_averages.get(sector_name)
-            
-            # If exact match not found, try "Other"
-            if sector_average is None:
-                sector_average = sector_averages.get("Other")
-            
-            print(f"DEBUG _get_sector_average: sector='{sector_name}', average={sector_average}")
-            return sector_average
+            # Handle System benchmark file format (array of objects)
+            if self.assessment_type == 'System':
+                # System benchmark file is an array with sector_type, domain_name, benchmark_mean_score
+                sector_scores = []
+                for entry in benchmarks_data:
+                    entry_sector = entry.get('sector_type', '')
+                    # Check if sector matches (case-insensitive partial match)
+                    if sector_name.lower() in entry_sector.lower() or entry_sector.lower() in sector_name.lower():
+                        score = entry.get('benchmark_mean_score', 0)
+                        if score:
+                            sector_scores.append(float(score))
+                
+                if sector_scores:
+                    sector_average = sum(sector_scores) / len(sector_scores)
+                    print(f"DEBUG _get_sector_average (System): sector='{sector_name}', average={sector_average:.1f}% from {len(sector_scores)} domains")
+                    return sector_average
+                else:
+                    print(f"DEBUG _get_sector_average (System): No data found for sector '{sector_name}'")
+                    return None
+            else:
+                # Other assessment types use nested structure with sector_averages
+                sector_averages = benchmarks_data.get("sector_averages", {})
+                sector_average = sector_averages.get(sector_name)
+                
+                # If exact match not found, try "Other"
+                if sector_average is None:
+                    sector_average = sector_averages.get("Other")
+                
+                print(f"DEBUG _get_sector_average: sector='{sector_name}', average={sector_average}")
+                return sector_average
             
         except Exception as e:
             print(f"Error loading sector average: {str(e)}")
