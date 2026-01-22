@@ -1,6 +1,12 @@
 """
 AM AI SAFE Report Generator
 Generates DOCX and PDF reports from assessment data using templates.
+
+NOTE: This file is being incrementally refactored into modular components.
+New modular code is in /app/backend/report_generator/ directory:
+- charts.py: Chart generation (heatmap, bar, radar)
+- utils.py: Utility functions (formatting, tier calculations)
+- ai_narratives.py: AI narrative generation (TODO)
 """
 
 import os
@@ -25,20 +31,25 @@ import zipfile
 # Import framework coverage calculator
 from framework_coverage import get_all_framework_coverage, FRAMEWORK_CONFIG
 
-# Placeholder for ampersand - used to preserve & in docxtpl paragraph loops
-# docxtpl strips & in {% for %} loops, so we use a placeholder and post-process
-AMP_PLACEHOLDER = '___AMP___'
+# Import modular chart generation (refactored)
+from report_generator.charts import (
+    generate_heatmap,
+    generate_system_heatmap,
+    generate_awareness_heatmap,
+    generate_bar_chart,
+    generate_radar_chart,
+    generate_radar_chart_with_benchmark,
+)
 
-
-def replace_amp_with_placeholder(text: str) -> str:
-    """Replace & with placeholder for docxtpl rendering.
-    
-    docxtpl strips & in paragraph loops ({% for %}), so we use a placeholder
-    that gets replaced back to &amp; after the DOCX is generated.
-    """
-    if not text:
-        return text
-    return str(text).replace('&', AMP_PLACEHOLDER)
+# Import utilities (refactored)
+from report_generator.utils import (
+    AMP_PLACEHOLDER,
+    replace_amp_with_placeholder,
+    format_date as util_format_date,
+    post_process_ampersands,
+    calculate_tier,
+    DOMAIN_COLORS,
+)
 
 
 class AMReportGenerator:
