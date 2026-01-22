@@ -2707,8 +2707,14 @@ Do not include headings or formatting."""
         
         strengths_summary = report_data.get('strengths_summary', '')
         gaps_summary = report_data.get('gaps_summary', '')
+        results_summary_text = report_data.get('results_summary_text', '')
+        next_focus = report_data.get('next_focus', '')
         
         system_prompt = """You are generating the "Executive Interpretation" narrative for an AI System Maturity Assessment detailed report.
+
+Use ONLY the provided:
+- Pre-assessment onboarding fields (system context, lifecycle, criticality, hosting, data sensitivity, users/stakeholders, dependencies, applicable frameworks/regulations/artefacts)
+- Assessment results (overall score/tier, domain scores/tiers, strengths_summary, gaps_summary, results_summary_text, next_focus)
 
 Hard constraints:
 - Do NOT use compliance/certification language (e.g. "compliant", "certified", "approved", "meets regulatory requirements").
@@ -2716,6 +2722,13 @@ Hard constraints:
 - Do NOT claim model accuracy, performance, or outcome quality.
 - Avoid normative/judgemental wording (e.g. "should", "must", "below standard", "lagging", "leading").
 - Do NOT compare to sector averages or other organisations.
+
+Additional constraints:
+- Describe maturity signals only; do not assert effectiveness, sufficiency, or outcomes.
+- Do not state or imply that practices are "well-defined", "robust", "effective", or "integrated".
+- Avoid verbs that imply assurance or guarantees (e.g. "ensures", "demonstrates", "confirms").
+- Do not include recommendations, optimisation suggestions, or future-oriented advice.
+- Use neutral, observational language only.
 
 Tone: neutral, concise, board/audit appropriate."""
 
@@ -2731,6 +2744,8 @@ Context:
 - Criticality: {criticality}
 - Key strengths: {strengths_summary}
 - Key gaps: {gaps_summary}
+- Results summary: {results_summary_text}
+- Next focus: {next_focus}
 
 Do not include headings or formatting."""
 
@@ -2760,11 +2775,23 @@ Do not include headings or formatting."""
         oversight = system_info.get('oversight', '')
         artefacts = system_info.get('artefacts', [])
         frameworks = system_info.get('frameworks', [])
+        regulations = system_info.get('regulations', [])
         
         artefacts_str = ', '.join(artefacts) if isinstance(artefacts, list) and artefacts else 'None specified'
         frameworks_str = ', '.join(frameworks) if isinstance(frameworks, list) and frameworks else 'None specified'
+        regulations_str = ', '.join(regulations) if isinstance(regulations, list) and regulations else 'None specified'
+        
+        # Get domain-level results for governance/oversight
+        domains = report_data.get('domains', [])
+        gov_domains = [d for d in domains if any(kw in d.get('name', '').lower() for kw in ['governance', 'accountability', 'oversight'])]
+        gov_domain_str = ', '.join([f"{d.get('name')}: {d.get('tier')}" for d in gov_domains]) if gov_domains else 'Not available'
         
         system_prompt = """You are generating the "System Governance, Oversight & Accountability Maturity Summary" narrative for an AI System Maturity Assessment.
+
+Use ONLY the provided:
+- System context (system_name, lifecycle, criticality, system_owner, department, oversight)
+- Any listed governance artefacts, applicable frameworks, and regulations (if provided)
+- Domain-level results for governance/oversight (domain score/tier and any relevant question-level signals or notes)
 
 Hard constraints:
 - No compliance/certification claims.
@@ -2772,11 +2799,18 @@ Hard constraints:
 - No individual/team blame.
 - No risk acceptance statements.
 
+Additional constraints:
+- Describe maturity signals only; do not assert effectiveness, sufficiency, or outcomes.
+- Do not state or imply that practices are "well-defined", "robust", "effective", or "integrated".
+- Avoid verbs that imply assurance or guarantees (e.g. "ensures", "demonstrates", "confirms").
+- Do not include recommendations, optimisation suggestions, or future-oriented advice.
+- Use neutral, observational language only.
+
 Tone: factual, system-scoped, executive-friendly."""
 
         user_prompt = f"""Write 1–2 short paragraphs that:
-- Describe the maturity of system-level accountability and oversight in practical terms (how defined, repeatable, embedded).
-- Comment on whether oversight mechanisms appear proportionate to lifecycle stage and criticality, WITHOUT prescribing actions.
+- Describe maturity signals for system-level accountability and oversight in practical terms (how explicit, repeatable, and embedded the practices appear), based on the provided inputs.
+- Comment on proportionality of oversight mechanisms relative to lifecycle stage and criticality, WITHOUT prescribing actions.
 - If governance artefacts are missing or sparse, describe this as a maturity constraint in neutral terms.
 
 Context:
@@ -2788,6 +2822,8 @@ Context:
 - Oversight model: {oversight}
 - Governance artefacts: {artefacts_str}
 - Frameworks: {frameworks_str}
+- Regulations: {regulations_str}
+- Governance domain results: {gov_domain_str}
 
 Do not include headings or formatting."""
 
@@ -2817,20 +2853,38 @@ Do not include headings or formatting."""
         representation_notes = system_info.get('representationNotes', system_info.get('representation_notes', ''))
         hosting = system_info.get('hosting', '')
         cloud_provider = system_info.get('cloudProviderRegion', system_info.get('cloud_provider', ''))
+        cloud_region = system_info.get('cloudRegion', '')
         dependencies = system_info.get('dependencies', '')
+        
+        # Get domain-level results for data/privacy/security
+        domains = report_data.get('domains', [])
+        relevant_domains = [d for d in domains if any(kw in d.get('name', '').lower() for kw in ['data', 'privacy', 'security'])]
+        domain_str = ', '.join([f"{d.get('name')}: {d.get('tier')}" for d in relevant_domains]) if relevant_domains else 'Not available'
         
         system_prompt = """You are generating the "Data, Privacy & Security Maturity Summary" narrative for an AI System Maturity Assessment.
 
+Use ONLY the provided:
+- Data sensitivity, data sources, data flow, retention policy flag, representation notes
+- Hosting details (hosting, cloud_provider, cloud_region), dependencies
+- Domain-level results for data/privacy/security and any related question-level signals or notes
+
 Hard constraints:
 - Do NOT imply compliance with privacy/security laws or standards.
-- Do NOT claim the system is secure or private; describe maturity of practices only.
+- Do NOT claim the system is secure or private; describe maturity signals only.
 - Avoid normative language ("should/must").
+
+Additional constraints:
+- Describe maturity signals only; do not assert effectiveness, sufficiency, or outcomes.
+- Do not state or imply that practices are "well-defined", "robust", "effective", or "integrated".
+- Avoid verbs that imply assurance or guarantees (e.g. "ensures", "demonstrates", "confirms").
+- Do not include recommendations, optimisation suggestions, or future-oriented advice.
+- Use neutral, observational language only.
 
 Tone: neutral, practical, system-scoped."""
 
         user_prompt = f"""Write 1–2 short paragraphs that:
-- Summarise how mature the system's data handling, privacy, and security practices appear (defined, consistent, operationalised).
-- Highlight key maturity strengths and constraints relevant to system context (e.g., sensitivity, hosting, third parties), WITHOUT prescribing actions.
+- Summarise maturity signals for the system's data handling, privacy, and security practices (how explicit, consistent, and operationalised they appear), based on the provided inputs.
+- Highlight key strengths and constraints relevant to system context (e.g., sensitivity, hosting, third parties), WITHOUT prescribing actions.
 - Where uncertainty exists due to missing information, state it neutrally (e.g., "limited evidence was indicated").
 
 Context:
@@ -2841,8 +2895,10 @@ Context:
 - Retention policy exists: {has_retention_policy}
 - Representation notes: {representation_notes}
 - Hosting: {hosting}
-- Cloud provider/region: {cloud_provider}
+- Cloud provider: {cloud_provider}
+- Cloud region: {cloud_region}
 - Dependencies: {dependencies}
+- Relevant domain results: {domain_str}
 
 Do not include headings or formatting."""
 
@@ -2870,19 +2926,35 @@ Do not include headings or formatting."""
         oversight = system_info.get('oversight', '')
         dependencies = system_info.get('dependencies', '')
         
+        # Get domain-level results for reliability/safety/performance
+        domains = report_data.get('domains', [])
+        relevant_domains = [d for d in domains if any(kw in d.get('name', '').lower() for kw in ['reliability', 'safety', 'performance'])]
+        domain_str = ', '.join([f"{d.get('name')}: {d.get('tier')}" for d in relevant_domains]) if relevant_domains else 'Not available'
+        
         system_prompt = """You are generating the "Reliability, Safety & Performance Maturity Summary" narrative for an AI System Maturity Assessment.
+
+Use ONLY the provided:
+- System context (system_name, lifecycle, criticality, oversight, dependencies)
+- Domain-level results for reliability/safety/performance and any related question-level signals or notes
 
 Hard constraints:
 - Do NOT claim model accuracy, outcome quality, or validated performance.
-- Do NOT declare the system safe/unsafe; discuss maturity of practices only.
+- Do NOT declare the system safe/unsafe; discuss maturity signals only.
 - Avoid compliance, certification, or prescriptive language.
+
+Additional constraints:
+- Describe maturity signals only; do not assert effectiveness, sufficiency, or outcomes.
+- Do not state or imply that practices are "well-defined", "robust", "effective", or "integrated".
+- Avoid verbs that imply assurance or guarantees (e.g. "ensures", "demonstrates", "confirms").
+- Do not include recommendations, optimisation suggestions, or future-oriented advice.
+- Use neutral, observational language only.
 
 Tone: calm, operational, executive-appropriate."""
 
         user_prompt = f"""Write 1–2 short paragraphs that:
-- Summarise the maturity of operational practices supporting reliable and safe system operation (monitoring, handling degraded behaviour, escalation/fallback as indicated).
-- Reflect proportional expectations based on lifecycle stage and criticality.
-- Describe constraints neutrally where practices appear informal, inconsistent, or unclear.
+- Summarise maturity signals for operational practices intended to support reliable and safe system operation (e.g., monitoring, handling degraded behaviour, escalation/fallback mechanisms as indicated), based on the provided inputs.
+- Reflect proportional expectations based on lifecycle stage and criticality, without asserting outcomes.
+- Describe constraints neutrally where practices appear informal, inconsistent, unclear, or not evidenced.
 
 Context:
 - System: {system_name}
@@ -2890,6 +2962,7 @@ Context:
 - Criticality: {criticality}
 - Oversight model: {oversight}
 - Dependencies: {dependencies}
+- Relevant domain results: {domain_str}
 
 Do not include headings or formatting."""
 
@@ -2920,20 +2993,37 @@ Do not include headings or formatting."""
         
         artefacts_str = ', '.join(artefacts) if isinstance(artefacts, list) and artefacts else 'None specified'
         
+        # Get domain-level results for transparency/explainability/contestability
+        domains = report_data.get('domains', [])
+        relevant_domains = [d for d in domains if any(kw in d.get('name', '').lower() for kw in ['transparency', 'explainability', 'contestability'])]
+        domain_str = ', '.join([f"{d.get('name')}: {d.get('tier')}" for d in relevant_domains]) if relevant_domains else 'Not available'
+        
         system_prompt = """You are generating the "Transparency, Explainability & Contestability Maturity Summary" narrative for an AI System Maturity Assessment.
+
+Use ONLY the provided:
+- Users/stakeholders, oversight, governance artefacts (if listed)
+- System context (system_name, lifecycle, criticality)
+- Domain-level results for transparency/explainability/contestability and any related question-level signals or notes
 
 Hard constraints:
 - No compliance claims.
 - No "should/must" language.
-- No claims that explanations are sufficient; describe maturity signals only.
+- Do NOT claim explanations are sufficient; describe maturity signals only.
 - No sector comparisons.
+
+Additional constraints:
+- Describe maturity signals only; do not assert effectiveness, sufficiency, or outcomes.
+- Do not state or imply that practices are "well-defined", "robust", "effective", or "integrated".
+- Avoid verbs that imply assurance or guarantees (e.g. "ensures", "demonstrates", "confirms").
+- Do not include recommendations, optimisation suggestions, or future-oriented advice.
+- Use neutral, observational language only.
 
 Tone: clear, non-technical, defensible."""
 
         user_prompt = f"""Write 1–2 short paragraphs that:
-- Summarise how mature transparency and explainability practices appear for the intended audience (clarity of purpose, limitations, and output interpretation as indicated).
-- Describe whether contestability/review mechanisms are evident (review/escalation/correction pathways as indicated).
-- Highlight maturity constraints neutrally if artefacts or mechanisms are limited or inconsistent.
+- Summarise maturity signals for transparency and explainability practices for the intended audience (e.g., purpose, limitations, output interpretation mechanisms as indicated), based on the provided inputs.
+- Describe whether contestability/review mechanisms are indicated (review/escalation/correction pathways as described), without asserting sufficiency.
+- Highlight constraints neutrally if artefacts or mechanisms are limited, inconsistent, or not evidenced.
 
 Context:
 - System: {system_name}
@@ -2942,6 +3032,7 @@ Context:
 - Users/Stakeholders: {users_stakeholders}
 - Oversight model: {oversight}
 - Governance artefacts: {artefacts_str}
+- Relevant domain results: {domain_str}
 
 Do not include headings or formatting."""
 
@@ -2970,7 +3061,17 @@ Do not include headings or formatting."""
         representation_notes = system_info.get('representationNotes', system_info.get('representation_notes', ''))
         ethics_commitments = system_info.get('ethicsCommitments', system_info.get('ethics_commitments', ''))
         
+        # Get domain-level results for fairness/bias/inclusivity
+        domains = report_data.get('domains', [])
+        relevant_domains = [d for d in domains if any(kw in d.get('name', '').lower() for kw in ['fairness', 'bias', 'inclusivity'])]
+        domain_str = ', '.join([f"{d.get('name')}: {d.get('tier')}" for d in relevant_domains]) if relevant_domains else 'Not available'
+        
         system_prompt = """You are generating the "Fairness, Bias & Inclusivity Maturity Summary" narrative for an AI System Maturity Assessment.
+
+Use ONLY the provided:
+- Data sensitivity, representation notes, ethical commitments
+- System context (system_name, lifecycle, criticality)
+- Domain-level results for fairness/bias/inclusivity and any related question-level signals or notes
 
 Hard constraints:
 - Do NOT claim outcomes are fair or unbiased.
@@ -2978,12 +3079,19 @@ Hard constraints:
 - No compliance/certification statements.
 - No individual/team attribution.
 
+Additional constraints:
+- Describe maturity signals only; do not assert effectiveness, sufficiency, or outcomes.
+- Do not state or imply that practices are "well-defined", "robust", "effective", or "integrated".
+- Avoid verbs that imply assurance or guarantees (e.g. "ensures", "demonstrates", "confirms").
+- Do not include recommendations, optimisation suggestions, or future-oriented advice.
+- Use neutral, observational language only.
+
 Tone: careful, neutral, executive-safe."""
 
         user_prompt = f"""Write 1–2 short paragraphs that:
-- Summarise the maturity of practices for identifying and managing fairness/bias considerations at the system level.
-- Refer to representation considerations as recorded, and note whether ongoing review/monitoring practices are indicated.
-- Explicitly avoid implying the system is unbiased; focus on maturity of controls and practices.
+- Summarise maturity signals for practices intended to identify and manage fairness/bias considerations at the system level, based on the provided inputs.
+- Refer to representation considerations as recorded, and note whether ongoing review/monitoring practices are indicated, without asserting outcomes.
+- Explicitly avoid implying the system is unbiased; focus on maturity signals for controls and practices.
 
 Context:
 - System: {system_name}
@@ -2992,6 +3100,7 @@ Context:
 - Data sensitivity: {data_sensitivity}
 - Representation notes: {representation_notes}
 - Ethical commitments: {ethics_commitments}
+- Relevant domain results: {domain_str}
 
 Do not include headings or formatting."""
 
@@ -3037,18 +3146,31 @@ Do not include headings or formatting."""
         
         system_prompt = """You are generating the "Cross-Domain Maturity Patterns & Observations Summary" narrative for an AI System Maturity Assessment.
 
+Use ONLY the provided:
+- Overall maturity (overall.score, overall.tier)
+- Domain scores/tiers (domains list)
+- Strengths summary, gaps summary
+- System context (system_name, lifecycle, criticality, data_sensitivity, dependencies, users_stakeholders)
+
 Hard constraints:
 - No recommendations or action prescriptions.
 - No sector comparisons.
 - No compliance or risk acceptance language.
 - Avoid normative wording ("should/must").
 
+Additional constraints:
+- Describe maturity signals only; do not assert effectiveness, sufficiency, or outcomes.
+- Do not state or imply that practices are "well-defined", "robust", "effective", or "integrated".
+- Avoid verbs that imply assurance or guarantees (e.g. "ensures", "demonstrates", "confirms").
+- Do not include recommendations, optimisation suggestions, or future-oriented advice.
+- Use neutral, observational language only.
+
 Tone: analytical, concise, defensible."""
 
         user_prompt = f"""Write 1–2 short paragraphs that:
-- Describe notable cross-domain patterns (e.g., uneven maturity distribution, dependencies between governance and operational domains).
-- Explain how lifecycle stage and criticality may influence interpretation of these patterns.
-- Avoid repeating the domain table; focus on insights.
+- Describe notable cross-domain patterns (e.g., uneven maturity distribution, dependencies between governance and operational domains) using neutral language.
+- Explain how lifecycle stage and criticality may influence interpretation of these patterns, without prescribing actions.
+- Avoid repeating the domain table; focus on relationships and observations.
 
 Context:
 - System: {system_name}
@@ -3095,11 +3217,26 @@ Do not include headings or formatting."""
         
         system_prompt = """You are generating the "Pathway Rationale" narrative for the "Your Pathway Through the AM AI SAFE Framework" section.
 
+Use ONLY the provided:
+- Overall maturity tier (overall.tier)
+- Lifecycle stage (lifecycle)
+- Business criticality (criticality)
+- Strengths summary
+- Gaps summary
+- Next focus (if provided)
+
 Hard constraints:
 - Do NOT state that further assessments are required; use conditional language only.
 - No compliance/certification or regulatory approval language.
 - No prescriptive "should/must" statements.
 - No sector benchmarking references.
+
+Additional constraints:
+- Describe maturity signals only; do not assert effectiveness, sufficiency, or outcomes.
+- Do not state or imply that practices are "well-defined", "robust", "effective", or "integrated".
+- Avoid verbs that imply assurance or guarantees (e.g. "ensures", "demonstrates", "confirms").
+- Do not include recommendations, optimisation suggestions, or future-oriented advice.
+- Use neutral, observational language only.
 
 Tone: neutral, practical, board/audit appropriate."""
 
