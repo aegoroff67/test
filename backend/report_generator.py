@@ -6556,9 +6556,14 @@ Each cell represents the score for a specific question, enabling identification 
                 else:
                     template_context['strengths_summary'] = 'Building foundational maturity across all domains'
                 
-                # Build gaps list (domains scoring < 60%)
+                # Build gaps list (domains scoring < 60%, sorted by score ascending - worst first)
                 gaps = []
-                for d in template_context.get('domains', []):
+                domains_for_gaps = sorted(
+                    template_context.get('domains', []),
+                    key=lambda d: float(str(d.get('score', 0)).replace('%', '')),
+                    reverse=False
+                )
+                for d in domains_for_gaps:
                     score = d.get('score', 0)
                     if isinstance(score, str):
                         score = float(score.replace('%', ''))
