@@ -2604,6 +2604,510 @@ Do not include headings or formatting."""
             traceback.print_exc()
             return ""
 
+    # =============================
+    # SYSTEM AI NARRATIVE FUNCTIONS
+    # =============================
+    
+    async def _generate_system_ai_narratives(self, report_data: Dict[str, Any], assessment: Dict[str, Any], db) -> Dict[str, str]:
+        """
+        Generate all AI narratives for System assessments.
+        Returns a dict with narrative keys matching template variables:
+        - ai.s_executive_snapshot
+        - ai.s_gov_oversight
+        - ai.s_data_privacy_security
+        - ai.s_reliability_safety_performance
+        - ai.s_transparency_explainability_contestability
+        - ai.s_fairness_bias_inclusivity
+        - ai.s_domain_patterns
+        - ai.s_pathway_rationale
+        Caches results in the database to avoid regeneration.
+        """
+        narratives = {}
+        assessment_id = assessment.get('id')
+        
+        # Check for cached narratives in database
+        cached_narratives = assessment.get('ai_narratives', {})
+        
+        # Define all narrative keys and their generator functions
+        narrative_generators = [
+            ('s_executive_snapshot', self._generate_system_ai_executive_snapshot),
+            ('s_gov_oversight', self._generate_system_ai_gov_oversight),
+            ('s_data_privacy_security', self._generate_system_ai_data_privacy_security),
+            ('s_reliability_safety_performance', self._generate_system_ai_reliability_safety_performance),
+            ('s_transparency_explainability_contestability', self._generate_system_ai_transparency_explainability),
+            ('s_fairness_bias_inclusivity', self._generate_system_ai_fairness_bias_inclusivity),
+            ('s_domain_patterns', self._generate_system_ai_domain_patterns),
+            ('s_pathway_rationale', self._generate_system_ai_pathway_rationale),
+        ]
+        
+        for key, generator_func in narrative_generators:
+            if cached_narratives.get(key):
+                narratives[key] = cached_narratives[key]
+                print(f"DEBUG: Using cached AI {key} narrative (System)")
+            else:
+                try:
+                    narratives[key] = await generator_func(report_data)
+                    print(f"DEBUG: Generated new AI {key} narrative (System) ({len(narratives[key])} chars)")
+                except Exception as e:
+                    print(f"ERROR generating AI {key} (System): {e}")
+                    import traceback
+                    traceback.print_exc()
+                    narratives[key] = ""
+        
+        # Cache all generated narratives to database
+        if narratives and assessment_id and db is not None:
+            try:
+                await db.assessments.update_one(
+                    {"id": assessment_id},
+                    {"$set": {"ai_narratives": {**cached_narratives, **narratives}}}
+                )
+                print(f"DEBUG: Cached AI narratives to database (System)")
+            except Exception as e:
+                print(f"ERROR caching AI narratives (System): {e}")
+        
+        return narratives
+
+    async def _generate_system_ai_executive_snapshot(self, report_data: Dict[str, Any]) -> str:
+        """Generate AI Executive Snapshot for System assessments. Variable: ai.s_executive_snapshot"""
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        system_info = report_data.get('system_info') or {}
+        system_name = system_info.get('system_name') or system_info.get('systemName', 'The system')
+        lifecycle = system_info.get('lifecycle', '')
+        criticality = system_info.get('criticality', '')
+        
+        strengths_summary = report_data.get('strengths_summary', '')
+        gaps_summary = report_data.get('gaps_summary', '')
+        
+        system_prompt = """You are generating the "Executive Interpretation" narrative for an AI System Maturity Assessment detailed report.
+
+Hard constraints:
+- Do NOT use compliance/certification language (e.g. "compliant", "certified", "approved", "meets regulatory requirements").
+- Do NOT use risk acceptance language (e.g. "risk is acceptable", "safe", "unsafe").
+- Do NOT claim model accuracy, performance, or outcome quality.
+- Avoid normative/judgemental wording (e.g. "should", "must", "below standard", "lagging", "leading").
+- Do NOT compare to sector averages or other organisations.
+
+Tone: neutral, concise, board/audit appropriate."""
+
+        user_prompt = f"""Write 2–3 short paragraphs that:
+1) Summarise the overall maturity posture for {system_name} in plain executive language.
+2) Explain what the maturity posture implies for current use, given lifecycle stage '{lifecycle}' and business criticality '{criticality}'.
+3) Describe notable strengths and constraints at a high level WITHOUT prescribing specific actions.
+
+Context:
+- System: {system_name}
+- Overall maturity: {tier} ({score}%)
+- Lifecycle: {lifecycle}
+- Criticality: {criticality}
+- Key strengths: {strengths_summary}
+- Key gaps: {gaps_summary}
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"system_exec_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+        except Exception as e:
+            print(f"ERROR in _generate_system_ai_executive_snapshot: {e}")
+            return ""
+
+    async def _generate_system_ai_gov_oversight(self, report_data: Dict[str, Any]) -> str:
+        """Generate Governance & Oversight narrative for System assessments. Variable: ai.s_gov_oversight"""
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        system_info = report_data.get('system_info') or {}
+        system_name = system_info.get('system_name') or system_info.get('systemName', 'The system')
+        lifecycle = system_info.get('lifecycle', '')
+        criticality = system_info.get('criticality', '')
+        system_owner = system_info.get('owner', '')
+        department = system_info.get('department', '')
+        oversight = system_info.get('oversight', '')
+        artefacts = system_info.get('artefacts', [])
+        frameworks = system_info.get('frameworks', [])
+        
+        artefacts_str = ', '.join(artefacts) if isinstance(artefacts, list) and artefacts else 'None specified'
+        frameworks_str = ', '.join(frameworks) if isinstance(frameworks, list) and frameworks else 'None specified'
+        
+        system_prompt = """You are generating the "System Governance, Oversight & Accountability Maturity Summary" narrative for an AI System Maturity Assessment.
+
+Hard constraints:
+- No compliance/certification claims.
+- No "should/must" language.
+- No individual/team blame.
+- No risk acceptance statements.
+
+Tone: factual, system-scoped, executive-friendly."""
+
+        user_prompt = f"""Write 1–2 short paragraphs that:
+- Describe the maturity of system-level accountability and oversight in practical terms (how defined, repeatable, embedded).
+- Comment on whether oversight mechanisms appear proportionate to lifecycle stage and criticality, WITHOUT prescribing actions.
+- If governance artefacts are missing or sparse, describe this as a maturity constraint in neutral terms.
+
+Context:
+- System: {system_name}
+- Lifecycle: {lifecycle}
+- Criticality: {criticality}
+- Owner: {system_owner}
+- Department: {department}
+- Oversight model: {oversight}
+- Governance artefacts: {artefacts_str}
+- Frameworks: {frameworks_str}
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"system_gov_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+        except Exception as e:
+            print(f"ERROR in _generate_system_ai_gov_oversight: {e}")
+            return ""
+
+    async def _generate_system_ai_data_privacy_security(self, report_data: Dict[str, Any]) -> str:
+        """Generate Data, Privacy & Security narrative for System assessments. Variable: ai.s_data_privacy_security"""
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        system_info = report_data.get('system_info') or {}
+        system_name = system_info.get('system_name') or system_info.get('systemName', 'The system')
+        data_sensitivity = system_info.get('dataSensitivity', system_info.get('data_sensitivity', ''))
+        data_sources = system_info.get('dataSources', system_info.get('data_sources', ''))
+        data_flow = system_info.get('dataFlow', system_info.get('data_flow', ''))
+        has_retention_policy = system_info.get('hasRetentionPolicy', system_info.get('has_retention_policy', False))
+        representation_notes = system_info.get('representationNotes', system_info.get('representation_notes', ''))
+        hosting = system_info.get('hosting', '')
+        cloud_provider = system_info.get('cloudProviderRegion', system_info.get('cloud_provider', ''))
+        dependencies = system_info.get('dependencies', '')
+        
+        system_prompt = """You are generating the "Data, Privacy & Security Maturity Summary" narrative for an AI System Maturity Assessment.
+
+Hard constraints:
+- Do NOT imply compliance with privacy/security laws or standards.
+- Do NOT claim the system is secure or private; describe maturity of practices only.
+- Avoid normative language ("should/must").
+
+Tone: neutral, practical, system-scoped."""
+
+        user_prompt = f"""Write 1–2 short paragraphs that:
+- Summarise how mature the system's data handling, privacy, and security practices appear (defined, consistent, operationalised).
+- Highlight key maturity strengths and constraints relevant to system context (e.g., sensitivity, hosting, third parties), WITHOUT prescribing actions.
+- Where uncertainty exists due to missing information, state it neutrally (e.g., "limited evidence was indicated").
+
+Context:
+- System: {system_name}
+- Data sensitivity: {data_sensitivity}
+- Data sources: {data_sources}
+- Data flow: {data_flow}
+- Retention policy exists: {has_retention_policy}
+- Representation notes: {representation_notes}
+- Hosting: {hosting}
+- Cloud provider/region: {cloud_provider}
+- Dependencies: {dependencies}
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"system_data_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+        except Exception as e:
+            print(f"ERROR in _generate_system_ai_data_privacy_security: {e}")
+            return ""
+
+    async def _generate_system_ai_reliability_safety_performance(self, report_data: Dict[str, Any]) -> str:
+        """Generate Reliability, Safety & Performance narrative for System assessments. Variable: ai.s_reliability_safety_performance"""
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        system_info = report_data.get('system_info') or {}
+        system_name = system_info.get('system_name') or system_info.get('systemName', 'The system')
+        lifecycle = system_info.get('lifecycle', '')
+        criticality = system_info.get('criticality', '')
+        oversight = system_info.get('oversight', '')
+        dependencies = system_info.get('dependencies', '')
+        
+        system_prompt = """You are generating the "Reliability, Safety & Performance Maturity Summary" narrative for an AI System Maturity Assessment.
+
+Hard constraints:
+- Do NOT claim model accuracy, outcome quality, or validated performance.
+- Do NOT declare the system safe/unsafe; discuss maturity of practices only.
+- Avoid compliance, certification, or prescriptive language.
+
+Tone: calm, operational, executive-appropriate."""
+
+        user_prompt = f"""Write 1–2 short paragraphs that:
+- Summarise the maturity of operational practices supporting reliable and safe system operation (monitoring, handling degraded behaviour, escalation/fallback as indicated).
+- Reflect proportional expectations based on lifecycle stage and criticality.
+- Describe constraints neutrally where practices appear informal, inconsistent, or unclear.
+
+Context:
+- System: {system_name}
+- Lifecycle: {lifecycle}
+- Criticality: {criticality}
+- Oversight model: {oversight}
+- Dependencies: {dependencies}
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"system_reliability_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+        except Exception as e:
+            print(f"ERROR in _generate_system_ai_reliability_safety_performance: {e}")
+            return ""
+
+    async def _generate_system_ai_transparency_explainability(self, report_data: Dict[str, Any]) -> str:
+        """Generate Transparency & Explainability narrative for System assessments. Variable: ai.s_transparency_explainability_contestability"""
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        system_info = report_data.get('system_info') or {}
+        system_name = system_info.get('system_name') or system_info.get('systemName', 'The system')
+        lifecycle = system_info.get('lifecycle', '')
+        criticality = system_info.get('criticality', '')
+        users_stakeholders = system_info.get('usersStakeholders', system_info.get('users_stakeholders', ''))
+        oversight = system_info.get('oversight', '')
+        artefacts = system_info.get('artefacts', [])
+        
+        artefacts_str = ', '.join(artefacts) if isinstance(artefacts, list) and artefacts else 'None specified'
+        
+        system_prompt = """You are generating the "Transparency, Explainability & Contestability Maturity Summary" narrative for an AI System Maturity Assessment.
+
+Hard constraints:
+- No compliance claims.
+- No "should/must" language.
+- No claims that explanations are sufficient; describe maturity signals only.
+- No sector comparisons.
+
+Tone: clear, non-technical, defensible."""
+
+        user_prompt = f"""Write 1–2 short paragraphs that:
+- Summarise how mature transparency and explainability practices appear for the intended audience (clarity of purpose, limitations, and output interpretation as indicated).
+- Describe whether contestability/review mechanisms are evident (review/escalation/correction pathways as indicated).
+- Highlight maturity constraints neutrally if artefacts or mechanisms are limited or inconsistent.
+
+Context:
+- System: {system_name}
+- Lifecycle: {lifecycle}
+- Criticality: {criticality}
+- Users/Stakeholders: {users_stakeholders}
+- Oversight model: {oversight}
+- Governance artefacts: {artefacts_str}
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"system_transparency_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+        except Exception as e:
+            print(f"ERROR in _generate_system_ai_transparency_explainability: {e}")
+            return ""
+
+    async def _generate_system_ai_fairness_bias_inclusivity(self, report_data: Dict[str, Any]) -> str:
+        """Generate Fairness, Bias & Inclusivity narrative for System assessments. Variable: ai.s_fairness_bias_inclusivity"""
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        system_info = report_data.get('system_info') or {}
+        system_name = system_info.get('system_name') or system_info.get('systemName', 'The system')
+        lifecycle = system_info.get('lifecycle', '')
+        criticality = system_info.get('criticality', '')
+        data_sensitivity = system_info.get('dataSensitivity', system_info.get('data_sensitivity', ''))
+        representation_notes = system_info.get('representationNotes', system_info.get('representation_notes', ''))
+        ethics_commitments = system_info.get('ethicsCommitments', system_info.get('ethics_commitments', ''))
+        
+        system_prompt = """You are generating the "Fairness, Bias & Inclusivity Maturity Summary" narrative for an AI System Maturity Assessment.
+
+Hard constraints:
+- Do NOT claim outcomes are fair or unbiased.
+- Avoid prescriptive language ("should/must").
+- No compliance/certification statements.
+- No individual/team attribution.
+
+Tone: careful, neutral, executive-safe."""
+
+        user_prompt = f"""Write 1–2 short paragraphs that:
+- Summarise the maturity of practices for identifying and managing fairness/bias considerations at the system level.
+- Refer to representation considerations as recorded, and note whether ongoing review/monitoring practices are indicated.
+- Explicitly avoid implying the system is unbiased; focus on maturity of controls and practices.
+
+Context:
+- System: {system_name}
+- Lifecycle: {lifecycle}
+- Criticality: {criticality}
+- Data sensitivity: {data_sensitivity}
+- Representation notes: {representation_notes}
+- Ethical commitments: {ethics_commitments}
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"system_fairness_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+        except Exception as e:
+            print(f"ERROR in _generate_system_ai_fairness_bias_inclusivity: {e}")
+            return ""
+
+    async def _generate_system_ai_domain_patterns(self, report_data: Dict[str, Any]) -> str:
+        """Generate Cross-Domain Maturity Patterns narrative for System assessments. Variable: ai.s_domain_patterns"""
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        score = overall.get('score', 0)
+        
+        system_info = report_data.get('system_info') or {}
+        system_name = system_info.get('system_name') or system_info.get('systemName', 'The system')
+        lifecycle = system_info.get('lifecycle', '')
+        criticality = system_info.get('criticality', '')
+        data_sensitivity = system_info.get('dataSensitivity', system_info.get('data_sensitivity', ''))
+        dependencies = system_info.get('dependencies', '')
+        users_stakeholders = system_info.get('usersStakeholders', system_info.get('users_stakeholders', ''))
+        
+        domains = report_data.get('domains', [])
+        domain_summary = []
+        for d in domains:
+            d_name = d.get('name', 'Unknown')
+            d_tier = d.get('tier', 'Foundational')
+            domain_summary.append(f"- {d_name}: {d_tier}")
+        domains_str = '\n'.join(domain_summary) if domain_summary else ''
+        
+        strengths_summary = report_data.get('strengths_summary', '')
+        gaps_summary = report_data.get('gaps_summary', '')
+        
+        system_prompt = """You are generating the "Cross-Domain Maturity Patterns & Observations Summary" narrative for an AI System Maturity Assessment.
+
+Hard constraints:
+- No recommendations or action prescriptions.
+- No sector comparisons.
+- No compliance or risk acceptance language.
+- Avoid normative wording ("should/must").
+
+Tone: analytical, concise, defensible."""
+
+        user_prompt = f"""Write 1–2 short paragraphs that:
+- Describe notable cross-domain patterns (e.g., uneven maturity distribution, dependencies between governance and operational domains).
+- Explain how lifecycle stage and criticality may influence interpretation of these patterns.
+- Avoid repeating the domain table; focus on insights.
+
+Context:
+- System: {system_name}
+- Overall maturity: {tier} ({score}%)
+- Lifecycle: {lifecycle}
+- Criticality: {criticality}
+- Data sensitivity: {data_sensitivity}
+- Dependencies: {dependencies}
+- Users/Stakeholders: {users_stakeholders}
+- Domain results:
+{domains_str}
+- Strengths: {strengths_summary}
+- Gaps: {gaps_summary}
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"system_domains_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+        except Exception as e:
+            print(f"ERROR in _generate_system_ai_domain_patterns: {e}")
+            return ""
+
+    async def _generate_system_ai_pathway_rationale(self, report_data: Dict[str, Any]) -> str:
+        """Generate Pathway Rationale narrative for System assessments. Variable: ai.s_pathway_rationale"""
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        overall = report_data.get('overall', {})
+        tier = overall.get('tier', 'Foundational')
+        
+        system_info = report_data.get('system_info') or {}
+        lifecycle = system_info.get('lifecycle', '')
+        criticality = system_info.get('criticality', '')
+        
+        strengths_summary = report_data.get('strengths_summary', '')
+        gaps_summary = report_data.get('gaps_summary', '')
+        next_focus = report_data.get('next_focus', '')
+        
+        system_prompt = """You are generating the "Pathway Rationale" narrative for the "Your Pathway Through the AM AI SAFE Framework" section.
+
+Hard constraints:
+- Do NOT state that further assessments are required; use conditional language only.
+- No compliance/certification or regulatory approval language.
+- No prescriptive "should/must" statements.
+- No sector benchmarking references.
+
+Tone: neutral, practical, board/audit appropriate."""
+
+        user_prompt = f"""Write 1–2 short paragraphs that:
+- Explain why the recommended pathway is proportionate for the system's current maturity posture and context.
+- Emphasise sequencing (stabilise → embed → validate → continuously assure) without implying mandatory progression.
+- If FAIRA or additional risk assessment is referenced elsewhere, frame it as conditional and context-dependent.
+
+Context:
+- Overall maturity tier: {tier}
+- Lifecycle stage: {lifecycle}
+- Business criticality: {criticality}
+- Strengths: {strengths_summary}
+- Gaps: {gaps_summary}
+- Next focus: {next_focus}
+
+Do not include headings or formatting."""
+
+        try:
+            chat = LlmChat(
+                api_key="sk-emergent-01d3a5f175e7fB507B",
+                session_id=f"system_pathway_{id(report_data)}",
+                system_message=system_prompt
+            ).with_model("openai", "gpt-4o-mini")
+            
+            response = await chat.send_message(UserMessage(text=user_prompt))
+            return response.strip()
+        except Exception as e:
+            print(f"ERROR in _generate_system_ai_pathway_rationale: {e}")
+            return ""
+
+
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
