@@ -2705,8 +2705,8 @@ Do not include headings or formatting."""
         lifecycle = system_info.get('lifecycle', '')
         criticality = system_info.get('criticality', '')
         
-        # Get sector for benchmark comparison
-        sector = system_info.get('industry', '') or system_info.get('sector', '')
+        # Get industry for benchmark comparison (v0.22 uses 'industry' instead of 'sector')
+        industry = system_info.get('industry', '') or system_info.get('sector', '')
         sector_average = report_data.get('sector_average', None)
         
         # Determine sector comparison language
@@ -2728,7 +2728,7 @@ Using ONLY the provided assessment results and system context, write a single pa
 - Describes maturity signals only (presence, consistency, and scope of system-level practices)
 - References the system's lifecycle stage and business criticality for context
 - States the system's overall maturity score
-- Includes a brief, non-normative comparison to indicative sector benchmarking by stating whether the score sits above, broadly aligned with, or below the typical maturity range observed for AI systems in the sector
+- Includes a brief, non-normative comparison to indicative sector benchmarking by stating whether the score sits above, broadly aligned with, or below the typical maturity range observed for AI systems in the industry
 
 You must:
 - Use "indicative" or "typical range" language when referencing sector context
@@ -2751,8 +2751,8 @@ Length: no more than 120 words"""
 - Overall maturity score: {score}% ({tier})
 - Lifecycle stage: {lifecycle}
 - Business criticality: {criticality}
-- Sector: {sector}
-- Sector comparison: The score {sector_comparison} the typical maturity range observed for AI systems in the {sector} sector
+- Industry: {industry}
+- Sector comparison: The score {sector_comparison} the typical maturity range observed for AI systems in the {industry} industry
 
 Do not include headings or formatting. Keep to 120 words maximum."""
 
