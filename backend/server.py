@@ -298,7 +298,8 @@ class UserResponse(BaseModel):
     organization_name: str
     industry: str  # Keep for backward compatibility - organization's industry
     default_industry: Optional[str] = None  # User's personal industry preference
-    assessment_access: List[str] = Field(default_factory=lambda: ["awareness"])  # Assessment types user can access
+    tier: int = 1  # User tier: 1=Awareness+Readiness, 2=+Orgwide, 3=All
+    assessment_access: List[str] = Field(default_factory=lambda: ["awareness"])  # Super-admin override
 
 class Token(BaseModel):
     access_token: str
