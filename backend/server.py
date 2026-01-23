@@ -516,9 +516,6 @@ async def login(user_data: UserLogin):
     
     org = await db.organizations.find_one({"id": user["org_id"]})
     
-    # Debug logging
-    print(f"DEBUG LOGIN: user email={user['email']}, tier from DB={user.get('tier')}")
-    
     # Create JWT token
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
@@ -538,8 +535,6 @@ async def login(user_data: UserLogin):
         tier=user.get("tier", 1),
         assessment_access=user.get("assessment_access", ["awareness"])
     )
-    
-    print(f"DEBUG LOGIN: returning tier={user_response.tier}")
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
 
