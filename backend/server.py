@@ -532,6 +532,7 @@ async def login(user_data: UserLogin):
         organization_name=org["name"] if org else "Unknown",
         industry=org["industry"] if org else "Unknown",
         default_industry=user.get("default_industry"),
+        tier=user.get("tier", 1),
         assessment_access=user.get("assessment_access", ["awareness"])
     )
     
