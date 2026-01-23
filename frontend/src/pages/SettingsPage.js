@@ -400,6 +400,17 @@ function SettingsPage() {
     }
   };
 
+  const updateUserTier = async (userId, tier) => {
+    try {
+      await axios.put(`${API}/admin/users/${userId}/tier`, null, { params: { tier } });
+      toast.success(`User tier updated to Tier ${tier}`);
+      fetchUsers();
+    } catch (error) {
+      toast.error('Failed to update user tier');
+      console.error(error);
+    }
+  };
+
 
   const resetPassword = async (userId, userEmail) => {
     if (!window.confirm(`Generate temporary password for ${userEmail}?`)) return;
