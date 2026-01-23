@@ -139,14 +139,14 @@ const AssessmentCard = ({
       <div 
         className={`absolute top-0 left-0 right-0 ${config.taglineBg} transition-all duration-300 ease-out overflow-hidden`}
         style={{
-          height: isHovered && hasAccess ? '36px' : '0px',
+          height: isHovered && hasAccess ? '52px' : '0px',
           opacity: isHovered && hasAccess ? 1 : 0,
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
         }}
       >
-        <div className="flex items-center justify-center h-full px-4">
-          <p className="text-white text-sm font-medium tracking-wide whitespace-nowrap">
+        <div className="flex items-center justify-center h-full px-3 py-2">
+          <p className="text-white text-xs font-medium tracking-wide text-center leading-tight">
             {tagline}
           </p>
         </div>
