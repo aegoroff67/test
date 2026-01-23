@@ -203,7 +203,8 @@ class User(BaseModel):
     is_active: bool = True
     default_industry: Optional[str] = None  # User's default industry preference
     timezone: str = "UTC"  # User's timezone (e.g., "Australia/Brisbane", "America/New_York")
-    assessment_access: List[str] = Field(default_factory=lambda: ["awareness"])  # Default access to awareness assessment only
+    tier: int = 1  # User tier: 1=Awareness+Readiness, 2=+Orgwide, 3=All assessments
+    assessment_access: List[str] = Field(default_factory=lambda: ["awareness"])  # Super-admin override for assessment access
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
