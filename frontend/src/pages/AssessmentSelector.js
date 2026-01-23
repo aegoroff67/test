@@ -173,11 +173,28 @@ export default function AssessmentSelector() {
   const { user } = useAuth();
   const [creating, setCreating] = useState(false);
   
-  // Get user's assessment access permissions (default to awareness only)
-  const assessmentAccess = user?.assessment_access || ['awareness'];
+  // Get user's tier (default to 1) and assessment access overrides
+  const userTier = user?.tier || 1;
+  const assessmentAccessOverride = user?.assessment_access || [];
+  const isSuperAdmin = user?.role === 'SUPER_ADMIN';
+  
+  // Define tier-based access
+  const tierAccess = {
+    1: ['awareness', 'readiness'],
+    2: ['awareness', 'readiness', 'orgwide'],
+    3: ['awareness', 'readiness', 'orgwide', 'system', 'faira']
+  };
   
   // Check if user has access to a specific assessment type
-  const hasAccess = (assessmentType) => assessmentAccess.includes(assessmentType);
+  // Super-admins can use assessment_access as an override
+  const hasAccess = (assessmentType) => {
+    // If super-admin has explicit assessment_access override, use that
+    if (isSuperAdmin && assessmentAccessOverride.length > 0) {
+      return assessmentAccessOverride.includes(assessmentType);
+    }
+    // Otherwise, use tier-based access
+    return tierAccess[userTier]?.includes(assessmentType) || false;
+  };
 
   const handleSystemAssessment = async () => {
     setCreating(true);
