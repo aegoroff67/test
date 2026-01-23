@@ -742,6 +742,23 @@ function SettingsPage() {
                               <option value="MEMBER">Member</option>
                             </select>
                           </td>
+                          <td className="p-3">
+                            <select
+                              value={u.tier || 1}
+                              onChange={(e) => updateUserTier(u.id, parseInt(e.target.value))}
+                              className="text-xs border rounded px-2 py-1"
+                              disabled={u.id === user.id}
+                              title={
+                                u.tier === 1 ? 'Tier 1: Awareness, Readiness' :
+                                u.tier === 2 ? 'Tier 2: Awareness, Readiness, Org-wide' :
+                                'Tier 3: All assessments'
+                              }
+                            >
+                              <option value={1}>Tier 1</option>
+                              <option value={2}>Tier 2</option>
+                              <option value={3}>Tier 3</option>
+                            </select>
+                          </td>
                           {isSuperAdmin && (
                             <td className="p-3">
                               <div className="flex flex-col gap-1">
