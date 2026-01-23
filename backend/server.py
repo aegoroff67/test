@@ -605,6 +605,7 @@ async def get_all_users(admin: UserResponse = Depends(require_super_admin)):
             organization_name=org["display_name"] or org["name"] if org else "Unknown",
             industry=org.get("primary_industry") or org.get("industry") if org else "Unknown",
             default_industry=user.get("default_industry"),
+            tier=user.get("tier", 1),
             assessment_access=user.get("assessment_access", ["awareness"])
         ))
     
@@ -771,6 +772,7 @@ async def get_org_users(current_user: UserResponse = Depends(require_org_admin))
             organization_name=org["display_name"] or org["name"] if org else "Unknown",
             industry=org.get("primary_industry") or org.get("industry") if org else "Unknown",
             default_industry=user.get("default_industry"),
+            tier=user.get("tier", 1),
             assessment_access=user.get("assessment_access", ["awareness"])
         ))
     
