@@ -1,0 +1,399 @@
+{
+  "schema_info": {
+    "version": "faira.template.v1.0",
+    "description": "Complete list of available FAIRA variables for DOCX report templates"
+  },
+  "organization_info": {
+    "org_name": {
+      "type": "string",
+      "source": "faira_form.A1_1",
+      "description": "Organization name"
+    },
+    "system_name": {
+      "type": "string",
+      "source": "faira_form.A1_2",
+      "description": "AI system name"
+    },
+    "contact_name": {
+      "type": "string",
+      "source": "pre_assessment",
+      "description": "Assessment contact name"
+    },
+    "contact_email": {
+      "type": "string",
+      "source": "pre_assessment",
+      "description": "Contact email"
+    },
+    "assessment_date": {
+      "type": "string",
+      "source": "assessment",
+      "description": "Date of assessment"
+    },
+    "assessor_name": {
+      "type": "string",
+      "source": "pre_assessment",
+      "description": "Assessor name"
+    }
+  },
+  "risk_scores": {
+    "overall_risk_score": {
+      "type": "number",
+      "range": "0-100",
+      "description": "Normalized overall risk score"
+    },
+    "overall_risk_level": {
+      "type": "string",
+      "values": [
+        "Very Low",
+        "Low",
+        "Medium",
+        "High",
+        "Very High"
+      ],
+      "description": "Risk rating band"
+    },
+    "raw_risk_score": {
+      "type": "number",
+      "description": "Raw risk before normalization"
+    },
+    "total_impact": {
+      "type": "number",
+      "description": "Total impact score across all questions"
+    },
+    "total_likelihood": {
+      "type": "number",
+      "description": "Total likelihood score"
+    },
+    "total_control_effectiveness": {
+      "type": "number",
+      "description": "Total control effectiveness score"
+    }
+  },
+  "special_factors": {
+    "autonomy_factor": {
+      "type": "number",
+      "description": "AI autonomy level modifier"
+    },
+    "data_quality_factor": {
+      "type": "number",
+      "description": "Data quality modifier"
+    },
+    "expertise_factor": {
+      "type": "number",
+      "description": "Expertise availability modifier"
+    },
+    "autonomy_indicator": {
+      "type": "object",
+      "description": "Autonomy risk indicator details"
+    },
+    "sensitive_data_indicator": {
+      "type": "object",
+      "description": "Sensitive data handling indicator"
+    },
+    "high_risk_context": {
+      "type": "object",
+      "description": "High-risk context indicator"
+    }
+  },
+  "domain_scores": {
+    "_description": "8 domains from Part B - AI Ethics Principles. Access via domain_scores.Wellbeing.Impact etc.",
+    "domains": [
+      {
+        "id": "B1",
+        "short_label": "Wellbeing",
+        "full_name": "Human, Societal and Environmental Wellbeing"
+      },
+      {
+        "id": "B2",
+        "short_label": "Values",
+        "full_name": "Human-Centred Values"
+      },
+      {
+        "id": "B3",
+        "short_label": "Fairness",
+        "full_name": "Fairness"
+      },
+      {
+        "id": "B4",
+        "short_label": "Privacy",
+        "full_name": "Privacy Protection and Security"
+      },
+      {
+        "id": "B5",
+        "short_label": "Reliability",
+        "full_name": "Reliability and Safety"
+      },
+      {
+        "id": "B6",
+        "short_label": "Transparency",
+        "full_name": "Transparency and Explainability"
+      },
+      {
+        "id": "B7",
+        "short_label": "Contestability",
+        "full_name": "Contestability"
+      },
+      {
+        "id": "B8",
+        "short_label": "Accountability",
+        "full_name": "Accountability"
+      }
+    ],
+    "per_domain_variables": {
+      "Impact": "Impact score (0-100)",
+      "Likelihood": "Likelihood score (0-100)",
+      "Control_Effectiveness": "CE score (0-100)",
+      "Risk": "Calculated domain risk (0-100)"
+    }
+  },
+  "top_risk_areas": {
+    "type": "array",
+    "max_items": 3,
+    "item_schema": {
+      "domain": "Short domain label",
+      "fullName": "Full domain name",
+      "risk_score": "Numeric risk score (0-100)",
+      "concern_level": "Risk level string (Very Low/Low/Medium/High/Very High)"
+    },
+    "description": "Top 3 highest risk domains sorted by risk_score descending"
+  },
+  "governance": {
+    "governance_score": {
+      "type": "number",
+      "description": "Governance maturity score"
+    },
+    "assurance_readiness": {
+      "type": "string",
+      "values": [
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "description": "Assurance readiness level"
+    },
+    "control_coverage_percent": {
+      "type": "number",
+      "range": "0-100",
+      "description": "Percentage of recommended controls addressed"
+    }
+  },
+  "recommended_controls": {
+    "type": "array",
+    "description": "Prioritized list of recommended controls from Part C",
+    "item_schema": {
+      "control_id": "Unique identifier (e.g., FAIRA-C-ACC-01)",
+      "title": "Control title",
+      "description": "Brief description",
+      "detailed_description": "Full description",
+      "domains": "Array of applicable domain names",
+      "priority": "High/Medium/Low",
+      "implementation_effort": "Low/Medium/High",
+      "implementation_horizon": "Immediate/Short-term/Medium-term/Long-term",
+      "evidence_examples": "Array of evidence example strings",
+      "rationale": "Why this control is recommended based on assessment"
+    }
+  },
+  "faira_form_responses": {
+    "_description": "Direct access to all form responses. Use faira_form.QUESTION_ID",
+    "part_a_sections": {
+      "A1": {
+        "name": "System Overview",
+        "questions": [
+          "A1_1",
+          "A1_2",
+          "A1_3",
+          "A1_4",
+          "A1_5",
+          "A1_6",
+          "A1_6_actions",
+          "A1_7",
+          "A1_8",
+          "A1_9"
+        ]
+      },
+      "A2": {
+        "name": "Data Characteristics",
+        "questions": [
+          "A2_1",
+          "A2_2",
+          "A2_3",
+          "A2_4",
+          "A2_5",
+          "A2_6",
+          "A2_7",
+          "A2_8"
+        ]
+      },
+      "A3": {
+        "name": "Users & Stakeholders",
+        "questions": [
+          "A3_1",
+          "A3_2",
+          "A3_3",
+          "A3_4",
+          "A3_5",
+          "A3_6"
+        ]
+      },
+      "A4": {
+        "name": "Deployment Context",
+        "questions": [
+          "A4_1",
+          "A4_2",
+          "A4_3",
+          "A4_4",
+          "A4_5",
+          "A4_6",
+          "A4_7",
+          "A4_8"
+        ]
+      },
+      "A5": {
+        "name": "Impact Assessment",
+        "questions": [
+          "A5_1",
+          "A5_2",
+          "A5_3",
+          "A5_4",
+          "A5_5",
+          "A5_6",
+          "A5_7",
+          "A5_8",
+          "A5_9",
+          "A5_10",
+          "A5_11"
+        ]
+      }
+    },
+    "part_b_sections": {
+      "B1": {
+        "name": "Human, Societal & Environmental Wellbeing",
+        "questions": [
+          "B1_1",
+          "B1_2"
+        ]
+      },
+      "B2": {
+        "name": "Human-Centred Values",
+        "questions": [
+          "B2_1",
+          "B2_2",
+          "B2_3"
+        ]
+      },
+      "B3": {
+        "name": "Fairness",
+        "questions": [
+          "B3_1",
+          "B3_2"
+        ]
+      },
+      "B4": {
+        "name": "Privacy Protection & Security",
+        "questions": [
+          "B4_1",
+          "B4_2",
+          "B4_3"
+        ]
+      },
+      "B5": {
+        "name": "Reliability & Safety",
+        "questions": [
+          "B5_1",
+          "B5_2",
+          "B5_3"
+        ]
+      },
+      "B6": {
+        "name": "Transparency & Explainability",
+        "questions": [
+          "B6_1",
+          "B6_2",
+          "B6_3"
+        ]
+      },
+      "B7": {
+        "name": "Contestability",
+        "questions": [
+          "B7_1"
+        ]
+      },
+      "B8": {
+        "name": "Accountability",
+        "questions": [
+          "B8_1",
+          "B8_2",
+          "B8_3"
+        ]
+      }
+    }
+  },
+  "all_controls": {
+    "_description": "All 20 Part C controls available",
+    "control_ids": [
+      "FAIRA-C-ACC-01",
+      "FAIRA-C-ACC-02",
+      "FAIRA-C-ACC-03",
+      "FAIRA-C-ACC-04",
+      "FAIRA-C-REL-01",
+      "FAIRA-C-REL-02",
+      "FAIRA-C-REL-03",
+      "FAIRA-C-REL-04",
+      "FAIRA-C-PRIV-01",
+      "FAIRA-C-PRIV-02",
+      "FAIRA-C-PRIV-03",
+      "FAIRA-C-PRIV-04",
+      "FAIRA-C-FAIR-01",
+      "FAIRA-C-FAIR-02",
+      "FAIRA-C-HUM-01",
+      "FAIRA-C-HUM-02",
+      "FAIRA-C-TRANS-01",
+      "FAIRA-C-TRANS-02",
+      "FAIRA-C-CONT-01",
+      "FAIRA-C-WELL-01"
+    ]
+  },
+  "images": {
+    "risk_gauge_image": {
+      "type": "InlineImage",
+      "description": "Risk score gauge/stacked column visualization"
+    },
+    "domain_radar_impact": {
+      "type": "InlineImage",
+      "description": "Radar chart - Domain Impact scores"
+    },
+    "domain_radar_likelihood": {
+      "type": "InlineImage",
+      "description": "Radar chart - Domain Likelihood scores"
+    },
+    "domain_radar_ce": {
+      "type": "InlineImage",
+      "description": "Radar chart - Domain Control Effectiveness"
+    },
+    "domain_radar_risk": {
+      "type": "InlineImage",
+      "description": "Radar chart - Residual Domain Risk scores"
+    },
+    "inherent_risk_radar": {
+      "type": "InlineImage",
+      "description": "Radar chart - Inherent Domain Risk (before controls)"
+    }
+  },
+  "ai_narratives": {
+    "_description": "AI-generated narrative content (when use_ai=true). Access via ai.VARIABLE_NAME",
+    "f_executive_snapshot": "Executive summary of FAIRA assessment findings",
+    "f_risk_profile_interpretation": "Interpretation of overall risk profile and scoring",
+    "f_domain_analysis": "Analysis of domain-level risks and patterns",
+    "f_control_recommendations": "Narrative about recommended controls and prioritization",
+    "f_next_steps": "Recommended next steps and implementation guidance"
+  },
+  "template_syntax_examples": {
+    "simple_variable": "{{org_name}}",
+    "nested_object": "{{domain_scores.Accountability.Risk}}",
+    "loop_over_array": "{% for control in recommended_controls %}\n  {{control.title}} - {{control.priority}}\n{% endfor %}",
+    "conditional": "{% if overall_risk_level == 'High' %}ATTENTION REQUIRED{% endif %}",
+    "image_placeholder": "{{risk_gauge_image}}",
+    "ai_narrative": "{{ai.f_executive_snapshot}}",
+    "form_response": "{{faira_form.A1_2}}"
+  }
+}
