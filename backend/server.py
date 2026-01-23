@@ -651,6 +651,34 @@ async def update_user_assessment_access(
     return {"success": True, "message": "User assessment access updated"}
 
 
+@api_router.put("/admin/users/{user_id}/tier")
+async def update_user_tier(
+    user_id: str,
+    tier: int,
+    admin: UserResponse = Depends(require_admin)
+):
+    """Update user tier (Admin only). Tier determines base assessment access:
+    - Tier 1: Awareness, Readiness
+    - Tier 2: Awareness, Readiness, Org-wide
+    - Tier 3: All assessments (Awareness, Readiness, Org-wide, System, FAIRA)
+    """
+    if tier not in [1, 2, 3]:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid tier. Must be 1, 2, or 3"
+        )
+    
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"tier": tier}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"success": True, "message": f"User tier updated to {tier}"}
+
+
 @api_router.put("/admin/users/{user_id}/toggle-active")
 async def toggle_user_active(
     user_id: str,
