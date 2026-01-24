@@ -1,0 +1,293 @@
+{
+  "metadata": {
+    "description": "FAIRA AI Narrative Prompts - 32 prompts used to generate AI content in the FAIRA detailed report",
+    "total_prompts": 32,
+    "sections": [
+      "Executive and Overview (3)",
+      "Context Notes - Part A (5)",
+      "Domain Analysis - Part B (10)",
+      "Controls Rationale (9)",
+      "Summary and Next Steps (5)"
+    ]
+  },
+  "prompts": {
+    "section_1_executive_and_overview": {
+      "f_executive_snapshot": {
+        "template_placeholder": "{{ai.f_executive_snapshot}}",
+        "description": "Executive summary narrative",
+        "system_prompt": "You are generating an executive snapshot for a FAIRA AI Risk Assessment report. Use British English. Be concise and factual.",
+        "prompt_template": "Using the FAIRA assessment results for {system_name}, generate a concise executive summary narrative.\n\nBase the narrative ONLY on:\n- Assessment scope: {assessment_scope}\n- Deployment context: {deployment_context}\n- Overall risk level: {overall_risk_level}\n- Overall risk score: {overall_risk_score}\n- Domains identified as top risk areas: {top_domains}\n\nExplain what the overall risk level represents in relative terms, how system context influences the risk profile, and how the assessment supports informed decision-making.\n\nDo not restate tables, charts, or individual domain scores.\nLimit the output to a maximum of two short paragraphs.",
+        "variables": ["system_name", "assessment_scope", "deployment_context", "overall_risk_level", "overall_risk_score", "top_domains"]
+      },
+      "f_risk_profile_interpretation": {
+        "template_placeholder": "{{ai.f_risk_profile_interpretation}}",
+        "description": "Risk profile interpretation",
+        "system_prompt": "You are interpreting a FAIRA risk profile. Use British English. Be analytical and objective.",
+        "prompt_template": "Interpret the overall FAIRA risk profile using the following normalised scores:\n- Impact: {overall_impact}\n- Likelihood: {overall_likelihood}\n- Control effectiveness: {overall_control}\n- Residual risk: {overall_risk}\n\nExplain how these dimensions interact and why residual risk may remain even where controls are present.\n\nDo not reference individual domains.\nDo not provide recommendations.",
+        "variables": ["overall_impact", "overall_likelihood", "overall_control", "overall_risk"]
+      },
+      "f_methodology_interpretation": {
+        "template_placeholder": "{{ai.f_methodology_interpretation}}",
+        "description": "Methodology explanation",
+        "system_prompt": "You are explaining the FAIRA assessment methodology. Use British English. Be clear and educational.",
+        "prompt_template": "Explain the FAIRA assessment methodology as applied to {system_name}.\n\nBase the explanation ONLY on:\n- Methodology description: {methodology}\n- Scoring approach: {scoring_method}\n- Normalisation approach: {normalisation}\n\nExplain how impact, likelihood, and control effectiveness are combined to produce relative residual risk scores.\n\nDo not justify or defend the methodology.\nDo not compare to other frameworks.",
+        "variables": ["system_name", "methodology", "scoring_method", "normalisation"]
+      }
+    },
+    "section_2_context_notes_part_a": {
+      "f_system_overview_notes": {
+        "template_placeholder": "{{ai.f_system_overview_notes}}",
+        "description": "System overview narrative",
+        "system_prompt": "You are providing a narrative overview of an AI system for a FAIRA assessment. Use British English.",
+        "prompt_template": "Provide a narrative overview of the assessed AI system.\n\nBase the narrative ONLY on:\n- System description: {system_desc}\n- Primary function: {primary_function}\n- Decision support role: {decision_role}\n\nExplain the system's role and purpose in context without evaluating effectiveness or suitability.",
+        "variables": ["system_desc", "primary_function", "decision_role"]
+      },
+      "f_data_context_notes": {
+        "template_placeholder": "{{ai.f_data_context_notes}}",
+        "description": "Data context summary",
+        "system_prompt": "You are summarising data context for a FAIRA AI risk assessment. Use British English.",
+        "prompt_template": "Summarise the data context relevant to the assessed AI system.\n\nBase the summary ONLY on:\n- Data sources: {data_sources}\n- Data types: {data_types}\n- Sensitive or regulated data indicators: {sensitive_data}\n- Data storage and retention context: {data_storage}\n\nExplain how data characteristics influence risk context without assessing safeguards.",
+        "variables": ["data_sources", "data_types", "sensitive_data", "data_storage"]
+      },
+      "f_user_stakeholder_context_notes": {
+        "template_placeholder": "{{ai.f_user_stakeholder_context_notes}}",
+        "description": "User/stakeholder context",
+        "system_prompt": "You are summarising user and stakeholder context for a FAIRA assessment. Use British English.",
+        "prompt_template": "Summarise the user and stakeholder context for the assessed AI system.\n\nBase the summary ONLY on:\n- User groups: {user_groups}\n- Stakeholder groups: {stakeholder_groups}\n- User expertise levels: {user_expertise}\n\nExplain how user and stakeholder characteristics influence system interaction and risk context.",
+        "variables": ["user_groups", "stakeholder_groups", "user_expertise"]
+      },
+      "f_deployment_context_notes": {
+        "template_placeholder": "{{ai.f_deployment_context_notes}}",
+        "description": "Deployment context summary",
+        "system_prompt": "You are summarising deployment context for a FAIRA assessment. Use British English.",
+        "prompt_template": "Summarise the deployment and operational context for the assessed AI system.\n\nBase the summary ONLY on:\n- Deployment model: {deployment_model}\n- Operational environment: {operational_env}\n- System integration context: {integration_context}\n\nExplain how deployment characteristics influence AI risk exposure without assessing technical design.",
+        "variables": ["deployment_model", "operational_env", "integration_context"]
+      },
+      "f_impact_context_notes": {
+        "template_placeholder": "{{ai.f_impact_context_notes}}",
+        "description": "Impact context summary",
+        "system_prompt": "You are summarising impact context for a FAIRA assessment. Use British English.",
+        "prompt_template": "Summarise the potential impact context associated with the assessed AI system.\n\nBase the summary ONLY on:\n- Impact scale: {impact_scale}\n- Impact severity considerations: {impact_severity}\n- Affected parties: {affected_parties}\n\nExplain how potential impacts shape the overall risk context without implying harm has occurred.",
+        "variables": ["impact_scale", "impact_severity", "affected_parties"]
+      }
+    },
+    "section_3_domain_analysis_part_b": {
+      "f_domain_analysis": {
+        "template_placeholder": "{{ai.f_domain_analysis}}",
+        "description": "Overall domain patterns synthesis",
+        "system_prompt": "You are synthesising patterns across FAIRA ethics domains. Use British English.",
+        "prompt_template": "Provide a brief synthesis of overall patterns observed across FAIRA ethics domains.\n\nBase the synthesis ONLY on:\n- Domain scores summary:\n{domain_summary}\n- Overall risk score: {overall_risk}\n\nIdentify high-level themes without referencing individual domain narratives or controls.",
+        "variables": ["domain_summary", "overall_risk"]
+      },
+      "f_domain_b1_analysis": {
+        "template_placeholder": "{{ai.f_domain_b1_analysis}}",
+        "description": "Accountability domain analysis",
+        "system_prompt": "You are analysing the Accountability domain for a FAIRA assessment. Use British English.",
+        "prompt_template": "Analyse the Accountability domain using:\nImpact {impact},\nLikelihood {likelihood},\nInherent risk {inherent_risk},\nControl effectiveness {control_effectiveness},\nResidual risk {residual_risk}.\n\nExplain factors influencing residual risk and the role of accountability arrangements.",
+        "variables": ["impact", "likelihood", "inherent_risk", "control_effectiveness", "residual_risk"]
+      },
+      "f_domain_b2_analysis": {
+        "template_placeholder": "{{ai.f_domain_b2_analysis}}",
+        "description": "Contestability domain analysis",
+        "system_prompt": "You are analysing the Contestability domain for a FAIRA assessment. Use British English.",
+        "prompt_template": "Analyse the Contestability domain using:\nImpact {impact},\nLikelihood {likelihood},\nInherent risk {inherent_risk},\nControl effectiveness {control_effectiveness},\nResidual risk {residual_risk}.\n\nExplain how review and challenge mechanisms influence residual risk.",
+        "variables": ["impact", "likelihood", "inherent_risk", "control_effectiveness", "residual_risk"]
+      },
+      "f_domain_b3_analysis": {
+        "template_placeholder": "{{ai.f_domain_b3_analysis}}",
+        "description": "Fairness domain analysis",
+        "system_prompt": "You are analysing the Fairness domain for a FAIRA assessment. Use British English.",
+        "prompt_template": "Analyse the Fairness domain using:\nImpact {impact},\nLikelihood {likelihood},\nInherent risk {inherent_risk},\nControl effectiveness {control_effectiveness},\nResidual risk {residual_risk}.\n\nData context: {data_types}, {sensitive_data}\n\nExplain contextual drivers of fairness-related risk.",
+        "variables": ["impact", "likelihood", "inherent_risk", "control_effectiveness", "residual_risk", "data_types", "sensitive_data"]
+      },
+      "f_domain_b4_analysis": {
+        "template_placeholder": "{{ai.f_domain_b4_analysis}}",
+        "description": "Wellbeing domain analysis (Human, Societal & Environmental)",
+        "system_prompt": "You are analysing the Wellbeing domain for a FAIRA assessment. Use British English.",
+        "prompt_template": "Analyse the Human, Societal & Environmental Wellbeing domain using:\nImpact {impact},\nLikelihood {likelihood},\nInherent risk {inherent_risk},\nControl effectiveness {control_effectiveness},\nResidual risk {residual_risk}.\n\nImpact context: {impact_scale}, {impact_severity}\n\nExplain how scale and downstream effects influence risk.",
+        "variables": ["impact", "likelihood", "inherent_risk", "control_effectiveness", "residual_risk", "impact_scale", "impact_severity"]
+      },
+      "f_domain_b5_analysis": {
+        "template_placeholder": "{{ai.f_domain_b5_analysis}}",
+        "description": "Human-Centred Values domain analysis",
+        "system_prompt": "You are analysing the Human-Centred Values domain for a FAIRA assessment. Use British English.",
+        "prompt_template": "Analyse the Human-Centred Values domain using:\nImpact {impact},\nLikelihood {likelihood},\nInherent risk {inherent_risk},\nControl effectiveness {control_effectiveness},\nResidual risk {residual_risk}.\n\nUser groups: {user_groups}\nExpertise levels: {user_expertise}\n\nExplain how user capability influences residual risk.",
+        "variables": ["impact", "likelihood", "inherent_risk", "control_effectiveness", "residual_risk", "user_groups", "user_expertise"]
+      },
+      "f_domain_b6_analysis": {
+        "template_placeholder": "{{ai.f_domain_b6_analysis}}",
+        "description": "Privacy Protection & Security domain analysis",
+        "system_prompt": "You are analysing the Privacy Protection & Security domain for a FAIRA assessment. Use British English.",
+        "prompt_template": "Analyse the Privacy Protection & Security domain using:\nImpact {impact},\nLikelihood {likelihood},\nInherent risk {inherent_risk},\nControl effectiveness {control_effectiveness},\nResidual risk {residual_risk}.\n\nData sensitivity context: {sensitive_data}\n\nExplain how data characteristics influence risk context.",
+        "variables": ["impact", "likelihood", "inherent_risk", "control_effectiveness", "residual_risk", "sensitive_data"]
+      },
+      "f_domain_b7_analysis": {
+        "template_placeholder": "{{ai.f_domain_b7_analysis}}",
+        "description": "Reliability & Safety domain analysis",
+        "system_prompt": "You are analysing the Reliability & Safety domain for a FAIRA assessment. Use British English.",
+        "prompt_template": "Analyse the Reliability & Safety domain using:\nImpact {impact},\nLikelihood {likelihood},\nInherent risk {inherent_risk},\nControl effectiveness {control_effectiveness},\nResidual risk {residual_risk}.\n\nImpact context: {impact_severity}\n\nExplain how reliability expectations shape residual risk.",
+        "variables": ["impact", "likelihood", "inherent_risk", "control_effectiveness", "residual_risk", "impact_severity"]
+      },
+      "f_domain_b8_analysis": {
+        "template_placeholder": "{{ai.f_domain_b8_analysis}}",
+        "description": "Transparency & Explainability domain analysis",
+        "system_prompt": "You are analysing the Transparency & Explainability domain for a FAIRA assessment. Use British English.",
+        "prompt_template": "Analyse the Transparency & Explainability domain using:\nImpact {impact},\nLikelihood {likelihood},\nInherent risk {inherent_risk},\nControl effectiveness {control_effectiveness},\nResidual risk {residual_risk}.\n\nUser expertise context: {user_expertise}\n\nExplain how understanding of outputs influences residual risk.",
+        "variables": ["impact", "likelihood", "inherent_risk", "control_effectiveness", "residual_risk", "user_expertise"]
+      },
+      "f_top_risk_areas_analysis": {
+        "template_placeholder": "{{ai.f_top_risk_areas_analysis}}",
+        "description": "Top risk areas explanation",
+        "system_prompt": "You are explaining top risk areas for a FAIRA assessment. Use British English.",
+        "prompt_template": "Explain why the domains listed as top risk areas represent the highest residual risk areas.\n\nTop risk domains: {top_domains}\n\nDomain score patterns:\n{domain_summary}\n\nDeployment context: {deployment_context}\n\nBase your explanation on domain score patterns and deployment context.",
+        "variables": ["top_domains", "domain_summary", "deployment_context"]
+      }
+    },
+    "section_4_controls_rationale": {
+      "f_controls_overview": {
+        "template_placeholder": "{{ai.f_controls_overview}}",
+        "description": "Controls overview",
+        "system_prompt": "You are providing a controls overview for a FAIRA assessment. Use British English.",
+        "prompt_template": "Provide a high-level overview of the control approach used in this assessment.\n\nBase the overview ONLY on:\n- Top risk domains: {top_domains}\n- Overall risk score: {overall_risk}\n\nExplain the balance between existing controls and recommended enhancements.",
+        "variables": ["top_domains", "overall_risk"]
+      },
+      "f_domain_b1_controls_rationale": {
+        "template_placeholder": "{{ai.f_domain_b1_controls_rationale}}",
+        "description": "Accountability controls rationale",
+        "system_prompt": "You are explaining control rationale for Accountability domain. Use British English. Limit to one short paragraph.",
+        "prompt_template": "Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Accountability domain have been selected.\n\nUse ONLY:\n- Residual risk: {residual_risk}\n- Inherent risk: {inherent_risk}\n- Control effectiveness: {control_effectiveness}\n- Recommended controls (Accountability): {controls}\n\nExplain:\n- What risk drivers these controls are intended to reduce (in governance/oversight terms)\n- Whether the emphasis is on strengthening existing arrangements versus addressing gaps\n- How these controls support clearer accountability and oversight without implying deficiencies\n\nDo NOT restate the controls verbatim. Do NOT recommend additional controls.\nLimit to one short paragraph.",
+        "variables": ["system_name", "residual_risk", "inherent_risk", "control_effectiveness", "controls"]
+      },
+      "f_domain_b2_controls_rationale": {
+        "template_placeholder": "{{ai.f_domain_b2_controls_rationale}}",
+        "description": "Contestability controls rationale",
+        "system_prompt": "You are explaining control rationale for Contestability domain. Use British English. Limit to one short paragraph.",
+        "prompt_template": "Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Contestability domain have been selected.\n\nUse ONLY:\n- Residual risk: {residual_risk}\n- Inherent risk: {inherent_risk}\n- Control effectiveness: {control_effectiveness}\n- Recommended controls (Contestability): {controls}\n\nExplain:\n- How the recommended controls address the ability to review, challenge, or escalate AI-supported outcomes\n- Whether the controls primarily strengthen process, governance, or user-facing mechanisms\n- How the controls reduce residual risk without assuming contested outcomes have occurred\n\nDo NOT restate the controls verbatim. Do NOT prescribe appeal models or policy changes.\nLimit to one short paragraph.",
+        "variables": ["system_name", "residual_risk", "inherent_risk", "control_effectiveness", "controls"]
+      },
+      "f_domain_b3_controls_rationale": {
+        "template_placeholder": "{{ai.f_domain_b3_controls_rationale}}",
+        "description": "Fairness controls rationale",
+        "system_prompt": "You are explaining control rationale for Fairness domain. Use British English. Limit to one short paragraph.",
+        "prompt_template": "Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Fairness domain have been selected.\n\nUse ONLY:\n- Residual risk: {residual_risk}\n- Inherent risk: {inherent_risk}\n- Control effectiveness: {control_effectiveness}\n- Recommended controls (Fairness): {controls}\n- Data characteristics summary: {data_types} and {sensitive_data}\n\nExplain:\n- What potential sources of fairness-related risk are being addressed (data, use context, decision impacts)\n- How the recommended controls help detect or prevent unfair outcomes without asserting bias exists\n- Whether the focus is on strengthening governance, monitoring, or assurance practices\n\nDo NOT restate the controls verbatim. Do NOT claim discrimination or bias has occurred.\nLimit to one short paragraph.",
+        "variables": ["system_name", "residual_risk", "inherent_risk", "control_effectiveness", "controls", "data_types", "sensitive_data"]
+      },
+      "f_domain_b4_controls_rationale": {
+        "template_placeholder": "{{ai.f_domain_b4_controls_rationale}}",
+        "description": "Wellbeing controls rationale (Human, Societal & Environmental)",
+        "system_prompt": "You are explaining control rationale for Wellbeing domain. Use British English. Limit to one short paragraph.",
+        "prompt_template": "Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Human, Societal & Environmental Wellbeing domain have been selected.\n\nUse ONLY:\n- Residual risk: {residual_risk}\n- Inherent risk: {inherent_risk}\n- Control effectiveness: {control_effectiveness}\n- Recommended controls (Wellbeing): {controls}\n- Impact context: {impact_scale} and {impact_severity}\n- Deployment context: {operational_env} and {third_party}\n\nExplain:\n- What types of downstream or broader impacts the controls are intended to manage (in contextual terms)\n- How the controls support monitoring, oversight, or safeguards proportional to context\n- Whether the emphasis is on strengthening existing assurance versus introducing new mitigations\n\nDo NOT restate the controls verbatim. Do NOT imply harm has occurred.\nLimit to one short paragraph.",
+        "variables": ["system_name", "residual_risk", "inherent_risk", "control_effectiveness", "controls", "impact_scale", "impact_severity", "operational_env", "third_party"]
+      },
+      "f_domain_b5_controls_rationale": {
+        "template_placeholder": "{{ai.f_domain_b5_controls_rationale}}",
+        "description": "Human-Centred Values controls rationale",
+        "system_prompt": "You are explaining control rationale for Human-Centred Values domain. Use British English. Limit to one short paragraph.",
+        "prompt_template": "Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Human-Centred Values domain have been selected.\n\nUse ONLY:\n- Residual risk: {residual_risk}\n- Inherent risk: {inherent_risk}\n- Control effectiveness: {control_effectiveness}\n- Recommended controls (Human-Centred Values): {controls}\n- Users and stakeholders: {user_groups} and {stakeholders}\n- User expertise: {user_expertise}\n\nExplain:\n- How the controls support respectful, inclusive, and human-centred use in practice\n- How user capability and stakeholder impacts shape the need for these controls\n- Whether the controls strengthen governance/process or improve safeguards around use\n\nDo NOT restate the controls verbatim. Do NOT assess user behaviour or organisational intent.\nLimit to one short paragraph.",
+        "variables": ["system_name", "residual_risk", "inherent_risk", "control_effectiveness", "controls", "user_groups", "stakeholders", "user_expertise"]
+      },
+      "f_domain_b6_controls_rationale": {
+        "template_placeholder": "{{ai.f_domain_b6_controls_rationale}}",
+        "description": "Privacy Protection & Security controls rationale",
+        "system_prompt": "You are explaining control rationale for Privacy domain. Use British English. Limit to one short paragraph.",
+        "prompt_template": "Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Privacy Protection & Security domain have been selected.\n\nUse ONLY:\n- Residual risk: {residual_risk}\n- Inherent risk: {inherent_risk}\n- Control effectiveness: {control_effectiveness}\n- Recommended controls (Privacy & Security): {controls}\n- Data sources/types: {data_sources} and {data_types}\n- Sensitive/regulated data indicator: {sensitive_data}\n- Storage/retention/access context: {storage} and {access}\n\nExplain:\n- How the recommended controls address privacy/security risk drivers implied by the data characteristics\n- Whether recommendations emphasise strengthening governance, assurance, or technical safeguards (at a high level)\n- How the controls reduce residual risk without making compliance claims\n\nDo NOT restate the controls verbatim. Do NOT state or imply legislative compliance/non-compliance.\nLimit to one short paragraph.",
+        "variables": ["system_name", "residual_risk", "inherent_risk", "control_effectiveness", "controls", "data_sources", "data_types", "sensitive_data", "storage", "access"]
+      },
+      "f_domain_b7_controls_rationale": {
+        "template_placeholder": "{{ai.f_domain_b7_controls_rationale}}",
+        "description": "Reliability & Safety controls rationale",
+        "system_prompt": "You are explaining control rationale for Reliability domain. Use British English. Limit to one short paragraph.",
+        "prompt_template": "Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Reliability & Safety domain have been selected.\n\nUse ONLY:\n- Residual risk: {residual_risk}\n- Inherent risk: {inherent_risk}\n- Control effectiveness: {control_effectiveness}\n- Recommended controls (Reliability & Safety): {controls}\n- Deployment/use context: {operational_env} and {integration}\n- Potential consequences context: {consequences}\n\nExplain:\n- How the recommended controls relate to performance consistency, error handling, monitoring, and safe use\n- Whether controls focus on strengthening assurance/monitoring versus operational safeguards\n- How the controls reduce residual risk without implying defects or unsafe operation\n\nDo NOT restate the controls verbatim. Do NOT recommend specific engineering techniques.\nLimit to one short paragraph.",
+        "variables": ["system_name", "residual_risk", "inherent_risk", "control_effectiveness", "controls", "operational_env", "integration", "consequences"]
+      },
+      "f_domain_b8_controls_rationale": {
+        "template_placeholder": "{{ai.f_domain_b8_controls_rationale}}",
+        "description": "Transparency & Explainability controls rationale",
+        "system_prompt": "You are explaining control rationale for Transparency domain. Use British English. Limit to one short paragraph.",
+        "prompt_template": "Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Transparency & Explainability domain have been selected.\n\nUse ONLY:\n- Residual risk: {residual_risk}\n- Inherent risk: {inherent_risk}\n- Control effectiveness: {control_effectiveness}\n- Recommended controls (Transparency & Explainability): {controls}\n- User groups and expertise: {user_groups} and {user_expertise}\n- How outputs are communicated: {output_comms}\n\nExplain:\n- How the recommended controls improve understanding of AI outputs and limitations in context\n- Whether emphasis is on documentation, communication, user enablement, or governance assurance (high level)\n- How the controls reduce residual risk without drifting into contestability or prescribing techniques\n\nDo NOT restate the controls verbatim. Do NOT recommend specific explainability methods.\nLimit to one short paragraph.",
+        "variables": ["system_name", "residual_risk", "inherent_risk", "control_effectiveness", "controls", "user_groups", "user_expertise", "output_comms"]
+      }
+    },
+    "section_5_summary_and_next_steps": {
+      "f_gap_and_next_steps_summary": {
+        "template_placeholder": "{{ai.f_gap_and_next_steps_summary}}",
+        "description": "Gap and next steps summary",
+        "system_prompt": "You are summarising gaps and next steps for a FAIRA assessment. Use British English.",
+        "prompt_template": "Summarise patterns across:\n- Existing controls: {existing_controls}\n- Identified gaps: {identified_gaps}\n- Top risk domains: {top_domains}\n\nExplain how these patterns inform high-level next-step considerations without prescribing actions.",
+        "variables": ["existing_controls", "identified_gaps", "top_domains"]
+      },
+      "f_governance_assurance_posture": {
+        "template_placeholder": "{{ai.f_governance_assurance_posture}}",
+        "description": "Governance posture interpretation",
+        "system_prompt": "You are interpreting governance posture for a FAIRA assessment. Use British English.",
+        "prompt_template": "Interpret the overall governance and assurance posture using:\n- Governance maturity indicators: {governance_indicators}\n- Assurance mechanisms: {assurance_mechanisms}\n- Overall risk level: {overall_risk_level}\n\nExplain how these arrangements support ongoing oversight.",
+        "variables": ["governance_indicators", "assurance_mechanisms", "overall_risk_level"]
+      },
+      "f_decision_next_steps_summary": {
+        "template_placeholder": "{{ai.f_decision_next_steps_summary}}",
+        "description": "Decision considerations summary",
+        "system_prompt": "You are summarising decision considerations for a FAIRA assessment. Use British English.",
+        "prompt_template": "Summarise decision considerations based on:\n- Overall risk level: {overall_risk_level}\n- Risk acceptance context: {risk_acceptance}\n- Top risk domains: {top_domains}\n\nFrame considerations without recommending specific actions.",
+        "variables": ["overall_risk_level", "risk_acceptance", "top_domains"]
+      },
+      "f_supporting_artefacts_summary": {
+        "template_placeholder": "{{ai.f_supporting_artefacts_summary}}",
+        "description": "Supporting artefacts summary",
+        "system_prompt": "You are summarising supporting artefacts for a FAIRA assessment. Use British English.",
+        "prompt_template": "Provide a brief summary of supporting artefacts: {artefacts}\n\nDescribe artefact types and coverage without assessing adequacy or completeness.",
+        "variables": ["artefacts"]
+      }
+    }
+  },
+  "variable_mappings": {
+    "form_field_sources": {
+      "system_name": "A1_2",
+      "system_desc": "A1_1",
+      "primary_function": "A1_2",
+      "decision_role": "A1_3",
+      "assessment_scope": "A1_4",
+      "data_sources": "A2_1",
+      "data_types": "A2_2",
+      "sensitive_data": "A2_5",
+      "data_storage": "A2_7",
+      "access": "A2_8",
+      "user_groups": "A3_1",
+      "user_expertise": "A3_3",
+      "output_comms": "A3_4",
+      "stakeholder_groups": "A3_5",
+      "deployment_model": "A4_1",
+      "operational_env": "A4_3",
+      "integration_context": "A4_4",
+      "third_party": "A4_5",
+      "impact_scale": "A5_1",
+      "impact_severity": "A5_2",
+      "affected_parties": "A5_3"
+    },
+    "computed_values": {
+      "overall_risk_level": "Derived from overall_risk_score thresholds",
+      "overall_risk_score": "Calculated from domain scores",
+      "overall_impact": "Aggregated from domain Impact scores",
+      "overall_likelihood": "Aggregated from domain Likelihood scores",
+      "overall_control": "Aggregated from domain Control_Effectiveness scores",
+      "top_domains": "Top 3 domains by Risk score (descending)",
+      "domain_summary": "Formatted list of all domain risk scores"
+    },
+    "domain_score_fields": {
+      "impact": "Domain-specific Impact score",
+      "likelihood": "Domain-specific Likelihood score",
+      "inherent_risk": "Domain-specific Inherent_Risk score",
+      "control_effectiveness": "Domain-specific Control_Effectiveness score",
+      "residual_risk": "Domain-specific Risk score"
+    }
+  },
+  "domains": [
+    {"id": "B1", "name": "Accountability", "key": "Accountability"},
+    {"id": "B2", "name": "Contestability", "key": "Contestability"},
+    {"id": "B3", "name": "Fairness", "key": "Fairness"},
+    {"id": "B4", "name": "Human, Societal & Environmental Wellbeing", "key": "Wellbeing"},
+    {"id": "B5", "name": "Human-Centred Values", "key": "Values"},
+    {"id": "B6", "name": "Privacy Protection & Security", "key": "Privacy"},
+    {"id": "B7", "name": "Reliability & Safety", "key": "Reliability"},
+    {"id": "B8", "name": "Transparency & Explainability", "key": "Transparency"}
+  ]
+}
