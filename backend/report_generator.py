@@ -4972,44 +4972,45 @@ Each cell represents the score for a specific question, enabling identification 
             try:
                 faira_form = assessment.get('faira_form') or assessment.get('form_responses') or {}
                 
-                # Build domain scores from ethics_scores or domain_scores
-                domain_scores = {}
-                ethics_scores = summary_data.get('ethics_scores', [])
-                for score in ethics_scores:
-                    domain_name = score.get('short_label', score.get('domain', ''))
-                    domain_scores[domain_name] = {
-                        'Impact': score.get('impact', 0),
-                        'Likelihood': score.get('likelihood', 0),
-                        'Inherent_Risk': score.get('inherent_risk', 0),
-                        'Control_Effectiveness': score.get('control_effectiveness', 0),
-                        'Risk': score.get('risk_score', score.get('risk', 0))
-                    }
+                # Calculate FAIRA scores using the scoring engine
+                faira_risk_summary = calculate_overall_risk(faira_form)
+                faira_radar_data = get_radar_chart_data(faira_form)
+                faira_controls = get_recommended_controls(faira_form, top_n=5)
                 
-                # Get top risk areas
-                top_risk_areas = summary_data.get('top_risk_areas', [])
+                print(f"DEBUG: FAIRA risk summary keys: {list(faira_risk_summary.keys())}")
+                print(f"DEBUG: FAIRA overall risk level: {faira_risk_summary.get('overall_risk_level')}")
+                
+                # Get domain scores from risk summary
+                domain_scores = faira_risk_summary.get('domain_scores', {})
+                top_risk_areas = faira_risk_summary.get('top_risk_areas', [])
                 
                 # Build AI report data for FAIRA
                 ai_report_data = {
-                    'system_name': faira_form.get('A1_2') or assessment.get('name', ''),
+                    'system_name': faira_form.get('ai_system_name') or faira_form.get('A1_2') or assessment.get('name', ''),
                     'faira_form': faira_form,
                     'form_responses': faira_form,
                     'domain_scores': domain_scores,
-                    'overall_risk_score': summary_data.get('overall_risk_score', 50),
-                    'overall_risk_level': summary_data.get('overall_risk_level', 'Medium'),
-                    'overall_impact_score': summary_data.get('total_impact', 50),
-                    'overall_likelihood_score': summary_data.get('total_likelihood', 50),
-                    'overall_control_effectiveness_score': summary_data.get('total_control_effectiveness', 50),
+                    'overall_risk_score': faira_risk_summary.get('overall_risk_score', 50),
+                    'overall_risk_level': faira_risk_summary.get('overall_risk_level', 'Medium'),
+                    'overall_impact_score': faira_risk_summary.get('total_impact', 50),
+                    'overall_likelihood_score': faira_risk_summary.get('total_likelihood', 50),
+                    'overall_control_effectiveness_score': faira_risk_summary.get('total_control_effectiveness', 50),
                     'top_risk_areas': top_risk_areas,
-                    'recommended_controls': assessment.get('recommended_controls', {}),
+                    'recommended_controls': faira_controls,
                     'existing_controls_summary': assessment.get('existing_controls_summary', 'Not specified'),
                     'identified_gaps': assessment.get('identified_gaps', 'Not specified'),
-                    'governance_maturity_indicators': assessment.get('governance_score', 'Not specified'),
-                    'assurance_mechanisms': assessment.get('assurance_readiness', 'Not specified'),
+                    'governance_maturity_indicators': faira_risk_summary.get('governance_score', 'Not specified'),
+                    'assurance_mechanisms': faira_risk_summary.get('assurance_readiness', 'Not specified'),
                     'supporting_artefacts': assessment.get('evidence_summary', 'Not specified'),
                     'assessment_methodology': 'FAIRA Framework v1.0 - Queensland Government AI Risk Assessment',
                     'scoring_method': 'Risk Score = (Impact × Likelihood) / Control Effectiveness',
                     'normalisation_notes': 'Scores normalised to 0-100 scale for comparability',
                 }
+                
+                # Store the calculated data for template context
+                assessment_data['faira_risk_summary'] = faira_risk_summary
+                assessment_data['faira_radar_data'] = faira_radar_data
+                assessment_data['faira_controls'] = faira_controls
                 
                 ai_narratives = await self._generate_faira_ai_narratives(ai_report_data, assessment, db)
                 assessment_data['ai_narratives'] = ai_narratives
