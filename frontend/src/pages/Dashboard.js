@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 import Logo from '../components/Logo';
 import { 
@@ -26,6 +27,22 @@ import {
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
+
+// Tier tooltip content
+const tierTooltips = {
+  1: {
+    assessments: ['AI Awareness & Foundations', 'AI Readiness Assessment'],
+    description: 'Designed for early-stage AI exploration, baseline understanding, and readiness planning.'
+  },
+  2: {
+    assessments: ['AI Awareness & Foundations', 'AI Readiness Assessment', 'Organisation-wide AI Maturity Assessment'],
+    description: 'Designed for organisations scaling AI use and formalising governance across teams.'
+  },
+  3: {
+    assessments: ['AI Awareness & Foundations', 'AI Readiness Assessment', 'Organisation-wide AI Maturity Assessment', 'AI System Maturity Assessment', 'FAIRA Risk Assessment'],
+    description: 'Designed for full-lifecycle AI governance, system-level assurance, and regulatory-ready risk assessment.'
+  }
+};
 
 function Dashboard() {
   const { user, logout } = useAuth();
