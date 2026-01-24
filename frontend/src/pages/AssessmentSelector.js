@@ -120,7 +120,7 @@ const AssessmentCard = ({
       {/* Animated glow border effect - removed */}
 
       <Badge className={`absolute top-4 right-4 text-xs ${hasAccess ? config.badgeBg : 'bg-gray-100 text-gray-700 border-gray-300'}`}>
-        {hasAccess ? 'Available Now' : 'Requires Permission'}
+        {getUpgradeMessage()}
       </Badge>
       
       <CardHeader className="pb-[10px]">
@@ -155,7 +155,7 @@ const AssessmentCard = ({
                 <span>Creating...</span>
               </div>
             ) : (
-              'Start Assessment'
+              getButtonText()
             )}
           </Button>
         </div>
@@ -428,6 +428,8 @@ export default function AssessmentSelector() {
               color={assessment.color}
               tagline={assessment.tagline}
               hasAccess={hasAccess(assessment.accessKey)}
+              accessKey={assessment.accessKey}
+              userTier={userTier}
               onClick={hasAccess(assessment.accessKey) 
                 ? assessment.onClick 
                 : () => toast.error('You do not have permission to access this assessment. Please contact your administrator.')}
