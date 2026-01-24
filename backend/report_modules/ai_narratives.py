@@ -1604,20 +1604,11 @@ async def generate_faira_top_risk_areas_analysis(report_data: Dict[str, Any], ap
     
     domain_summary = "\n".join([f"- {k}: Risk={v.get('Risk', 0):.0f}" for k, v in domain_scores.items()])
     
-    system_prompt = "You are explaining top risk areas for a FAIRA assessment. Use British English."
-    
-    prompt = f"""Explain why the domains listed as top risk areas represent the highest residual risk areas.
+    prompt = f"""Explain why the domains listed in {top_domains} represent the highest residual risk areas.
 
-Top risk domains: {top_domains}
+Base your explanation on domain score patterns and deployment context {deployment_context}."""
 
-Domain score patterns:
-{domain_summary}
-
-Deployment context: {deployment_context}
-
-Base your explanation on domain score patterns and deployment context."""
-
-    return await call_llm(prompt, system_prompt, f"faira_top_risks_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_top_risks_{id(report_data)}", api_key)
 
 
 # -----------------------------------------------------------------------------
