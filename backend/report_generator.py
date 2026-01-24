@@ -4109,7 +4109,7 @@ Each cell represents the score for a specific question, enabling identification 
                     overall_risk_score = faira_risk_summary.get('overall_risk_score', 50)
                     overall_risk_level = faira_risk_summary.get('overall_risk_level', 'Medium')
                     risk_gauge_bytes = generate_risk_gauge(overall_risk_score, overall_risk_level)
-                    risk_gauge_inline = InlineImage(doc, io.BytesIO(risk_gauge_bytes), width=Inches(3.0))
+                    risk_gauge_inline = InlineImage(doc, io.BytesIO(risk_gauge_bytes), width=Inches(6.5))
                     template_context['risk_gauge_image'] = risk_gauge_inline
                     print(f"DEBUG: Generated risk gauge image for score {overall_risk_score} ({overall_risk_level})")
                 except Exception as e:
