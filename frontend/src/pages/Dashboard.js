@@ -302,13 +302,36 @@ function Dashboard() {
                 <Building2 className="h-5 w-5" />
                 <span>{user?.organization_name} • {user?.default_industry || user?.industry}</span>
               </p>
-              <Badge 
-                variant="secondary" 
-                className="mt-2 bg-gray-100 text-gray-600 border-gray-200 cursor-default hover:bg-gray-100"
-                data-testid="user-tier-badge"
-              >
-                Partner Tier {user?.tier || 1}
-              </Badge>
+              <TooltipProvider>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
+                    <Badge 
+                      variant="secondary" 
+                      className="mt-2 bg-gray-100 text-gray-600 border-gray-200 cursor-default hover:bg-gray-100"
+                      data-testid="user-tier-badge"
+                    >
+                      Tier {user?.tier || 1} Partner
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent 
+                    side="bottom" 
+                    align="start"
+                    className="max-w-xs bg-gray-900 text-white p-3"
+                  >
+                    <div className="space-y-2">
+                      <p className="font-semibold text-sm">Included Assessments:</p>
+                      <ul className="text-xs space-y-1">
+                        {tierTooltips[user?.tier || 1]?.assessments.map((assessment, idx) => (
+                          <li key={idx}>• {assessment}</li>
+                        ))}
+                      </ul>
+                      <p className="text-xs text-gray-300 pt-1 border-t border-gray-700">
+                        {tierTooltips[user?.tier || 1]?.description}
+                      </p>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
             <Button 
               onClick={createNewAssessment}
