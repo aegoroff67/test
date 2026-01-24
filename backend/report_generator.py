@@ -3984,6 +3984,7 @@ Each cell represents the score for a specific question, enabling identification 
                     # Domain scores - both as dict and as DotDict for template flexibility
                     'domain_scores': domain_scores_obj,
                     'top_risk_areas': report_data.get('top_risk_areas', []),
+                    'top_domains': report_data.get('top_risk_areas', []),  # Alias for template compatibility
                     
                     # Full FAIRA form object for flexibility
                     'faira_form': DotDict(faira_form),
