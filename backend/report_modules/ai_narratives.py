@@ -1500,8 +1500,6 @@ async def generate_faira_domain_b4_analysis(report_data: Dict[str, Any], api_key
     impact_scale = get_faira_form_value(report_data, 'A5_1')
     impact_severity = get_faira_form_value(report_data, 'A5_2')
     
-    system_prompt = "You are analysing the Wellbeing domain for a FAIRA assessment. Use British English."
-    
     prompt = f"""Analyse the Human, Societal & Environmental Wellbeing domain using:
 Impact {well.get('Impact', 0)},
 Likelihood {well.get('Likelihood', 0)},
@@ -1513,7 +1511,7 @@ Impact context: {impact_scale}, {impact_severity}
 
 Explain how scale and downstream effects influence risk."""
 
-    return await call_llm(prompt, system_prompt, f"faira_b4_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_b4_{id(report_data)}", api_key)
 
 
 async def generate_faira_domain_b5_analysis(report_data: Dict[str, Any], api_key: str) -> str:
