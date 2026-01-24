@@ -4046,15 +4046,15 @@ Each cell represents the score for a specific question, enabling identification 
                     }),
                     
                     # Additional score variables the template expects
-                    'total_impact': report_data.get('overall_impact_score', 50),
-                    'total_likelihood': report_data.get('overall_likelihood_score', 50),
-                    'total_control_effectiveness': report_data.get('overall_control_effectiveness_score', 50),
-                    'raw_risk_score': report_data.get('overall_risk_score', 50),
-                    'autonomy_factor': faira_form.get('A1_5', ''),
-                    'data_quality_factor': faira_form.get('A2_4', ''),
-                    'expertise_factor': faira_form.get('A3_3', ''),
+                    'total_impact': round(faira_risk_summary.get('total_impact', 50), 1),
+                    'total_likelihood': round(faira_risk_summary.get('total_likelihood', 50), 1),
+                    'total_control_effectiveness': round(faira_risk_summary.get('total_control_effectiveness', 50), 1),
+                    'raw_risk_score': round(faira_risk_summary.get('raw_risk_score', 50), 1),
+                    'autonomy_factor': faira_risk_summary.get('autonomy_factor', ''),
+                    'data_quality_factor': faira_risk_summary.get('data_quality_factor', ''),
+                    'expertise_factor': faira_risk_summary.get('expertise_factor', ''),
                     'assessment_date': report_data.get('assessment_date', ''),
-                    'generation_date': report_data.get('generation_date', ''),
+                    'generation_date': datetime.now().strftime('%Y-%m-%d'),
                     
                     # Gap variable placeholder (template expects gap.domain, gap.existing_controls, etc.)
                     'gap': DotDict({
@@ -4073,7 +4073,7 @@ Each cell represents the score for a specific question, enabling identification 
                     
                     # Assessment object for template compatibility
                     'assessment': DotDict({
-                        'date': report_data.get('assessment_date', '')
+                        'date': report_data.get('assessment', {}).get('completed_at', datetime.now().strftime('%Y-%m-%d'))
                     }),
                     
                     # Image placeholders (will be replaced with actual images if available)
