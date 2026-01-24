@@ -377,6 +377,8 @@ function FairaResultsPage() {
     {
       id: 'impact',
       title: 'Domain Impact',
+      overallLabel: 'Overall Impact',
+      overallValue: riskSummary.total_impact || 0,
       data: domainImpactData,
       color: '#ef4444', // Red
       formula: 'Domain_Impact = Σ(Domain Impact modifiers)',
@@ -389,6 +391,8 @@ function FairaResultsPage() {
     {
       id: 'likelihood',
       title: 'Domain Likelihood',
+      overallLabel: 'Overall Likelihood',
+      overallValue: riskSummary.total_likelihood || 0,
       data: domainLikelihoodData,
       color: '#f97316', // Orange
       formula: 'Domain_Likelihood = Σ(Domain Likelihood modifiers)',
@@ -401,6 +405,8 @@ function FairaResultsPage() {
     {
       id: 'control',
       title: 'Domain Control Effectiveness',
+      overallLabel: 'Overall Control Effectiveness',
+      overallValue: riskSummary.total_control_effectiveness || 0,
       data: domainControlEffectivenessData,
       color: '#22c55e', // Green
       formula: 'Domain_CE = Σ(Domain CE modifiers)',
@@ -413,6 +419,8 @@ function FairaResultsPage() {
     {
       id: 'risk',
       title: riskViewType === 'inherent' ? 'Inherent Domain Risk' : 'Residual Domain Risk',
+      overallLabel: riskViewType === 'inherent' ? 'Overall Inherent Risk' : 'Overall Residual Risk',
+      overallValue: riskViewType === 'inherent' ? (riskSummary.overall_inherent_risk || 0) : (riskSummary.overall_risk_score || 0),
       data: riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData,
       color: '#8b5cf6', // Purple
       formula: riskViewType === 'inherent' 
