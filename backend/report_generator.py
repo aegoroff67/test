@@ -4372,6 +4372,65 @@ Each cell represents the score for a specific question, enabling identification 
         output_buffer.seek(0)
         return output_buffer.read()
     
+    def _post_process_markdown_formatting(self, docx_bytes: bytes) -> bytes:
+        """
+        Post-process DOCX to convert markdown formatting to Word formatting.
+        
+        Handles:
+        - **text** -> bold text
+        - ### text -> bold text (heading style)
+        """
+        import re
+        
+        # Read the DOCX (which is a ZIP file)
+        input_buffer = io.BytesIO(docx_bytes)
+        files = {}
+        
+        with zipfile.ZipFile(input_buffer, 'r') as zin:
+            for name in zin.namelist():
+                files[name] = zin.read(name)
+        
+        # Process document.xml to convert markdown to Word formatting
+        output_buffer = io.BytesIO()
+        with zipfile.ZipFile(output_buffer, 'w', zipfile.ZIP_DEFLATED) as zout:
+            for name, content in files.items():
+                if name == 'word/document.xml':
+                    content_str = content.decode('utf-8')
+                    
+                    # Convert **bold** to Word bold formatting
+                    # Find **text** patterns and wrap with bold run properties
+                    def replace_bold(match):
+                        text = match.group(1)
+                        # Return text wrapped in bold run
+                        return f'</w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>{text}</w:t></w:r><w:r><w:t>'
+                    
+                    # Pattern to match **text** (non-greedy, doesn't span tags)
+                    content_str = re.sub(r'\*\*([^*<>]+)\*\*', replace_bold, content_str)
+                    
+                    # Convert ### headings to bold
+                    # Find ### at start of text and make the line bold
+                    def replace_heading(match):
+                        text = match.group(1).strip()
+                        # Return text wrapped in bold run (remove the ###)
+                        return f'</w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>{text}</w:t></w:r><w:r><w:t>'
+                    
+                    # Pattern to match ### text (heading markers)
+                    content_str = re.sub(r'###\s*([^<>\n]+)', replace_heading, content_str)
+                    
+                    # Also handle ## headings
+                    content_str = re.sub(r'##\s*([^<>\n]+)', replace_heading, content_str)
+                    
+                    # Clean up any empty runs created by the replacements
+                    content_str = re.sub(r'<w:r><w:t></w:t></w:r>', '', content_str)
+                    
+                    content = content_str.encode('utf-8')
+                    
+                zout.writestr(name, content)
+        
+        output_buffer.seek(0)
+        print("DEBUG: Markdown formatting converted to Word formatting")
+        return output_buffer.read()
+    
     async def generate_report_for_assessment(self, assessment_id: str, db, current_user, view_type: str = "heatmap", use_ai: bool = False) -> Tuple[bytes, str]:
         """
         Generate report for a specific assessment ID.
