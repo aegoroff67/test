@@ -4333,6 +4333,10 @@ Each cell represents the score for a specific question, enabling identification 
             # This is needed because docxtpl strips & in paragraph loops
             docx_bytes = self._post_process_ampersands(docx_bytes)
             
+            # Post-process: Convert markdown formatting to Word formatting
+            # This handles **bold** and ### headings in AI narratives
+            docx_bytes = self._post_process_markdown_formatting(docx_bytes)
+            
             return docx_bytes
             
         except Exception as e:
