@@ -496,7 +496,8 @@ def generate_radar_chart_with_benchmark(report_data: Dict[str, Any],
 
 def generate_risk_gauge(risk_score: float, risk_level: str = None) -> bytes:
     """
-    Generate a semi-circular risk gauge image showing the overall risk score.
+    Generate a semi-circular risk gauge image showing the overall risk score
+    with a risk level description table on the right.
     
     Risk Levels:
     - Very High (81-100): Critical Risk - Dark Red
@@ -514,14 +515,16 @@ def generate_risk_gauge(risk_score: float, risk_level: str = None) -> bytes:
     """
     from matplotlib.patches import Wedge
     
-    # Create figure with transparent background
-    fig, ax = plt.subplots(figsize=(6, 4), subplot_kw={'aspect': 'equal'})
+    # Create figure - wider to accommodate the description table
+    fig, (ax_gauge, ax_table) = plt.subplots(1, 2, figsize=(10, 4), 
+                                              gridspec_kw={'width_ratios': [1, 1.2]})
     fig.patch.set_facecolor('white')
-    ax.set_facecolor('white')
+    
+    # === LEFT: GAUGE ===
+    ax_gauge.set_facecolor('white')
+    ax_gauge.set_aspect('equal')
     
     # Define the 5 gauge segments (from left to right: Very Low to Very High)
-    # Angles go from 180 (left) to 0 (right) for a semi-circle
-    # Each segment is 36 degrees (180 / 5 = 36)
     segments = [
         {'start': 144, 'end': 180, 'color': '#22c55e', 'label': 'Very Low'},   # Green (0-20)
         {'start': 108, 'end': 144, 'color': '#eab308', 'label': 'Low'},        # Yellow (21-40)
@@ -536,19 +539,16 @@ def generate_risk_gauge(risk_score: float, risk_level: str = None) -> bytes:
     inner_radius = 0.6
     
     for seg in segments:
-        # Create wedge for this segment
         wedge = Wedge(center, outer_radius, seg['start'], seg['end'], 
                       width=outer_radius - inner_radius,
                       facecolor=seg['color'], edgecolor='white', linewidth=2)
-        ax.add_patch(wedge)
+        ax_gauge.add_patch(wedge)
     
     # Clamp score to 0-100
     score = max(0, min(100, risk_score))
     
     # Calculate needle angle based on risk score (0-100 maps to 180-0 degrees)
     needle_angle = 180 - (score / 100) * 180
-    
-    # Convert to radians for calculation
     angle_rad = np.radians(needle_angle)
     
     # Draw the needle
@@ -556,16 +556,15 @@ def generate_risk_gauge(risk_score: float, risk_level: str = None) -> bytes:
     needle_x = needle_length * np.cos(angle_rad)
     needle_y = needle_length * np.sin(angle_rad)
     
-    # Draw needle as a line with arrow
-    ax.annotate('', xy=(needle_x, needle_y), xytext=(0, 0),
+    ax_gauge.annotate('', xy=(needle_x, needle_y), xytext=(0, 0),
                 arrowprops=dict(arrowstyle='->', color='#1f2937', lw=3))
     
     # Draw center circle
     center_circle = plt.Circle((0, 0), 0.12, color='#1f2937', zorder=5)
-    ax.add_patch(center_circle)
+    ax_gauge.add_patch(center_circle)
     
-    # Add risk score text in center
-    ax.text(0, -0.35, f'{score:.0f}', ha='center', va='center', 
+    # Add risk score text
+    ax_gauge.text(0, -0.35, f'{score:.0f}', ha='center', va='center', 
             fontsize=28, fontweight='bold', color='#1f2937')
     
     # Determine risk level from score if not provided
@@ -583,17 +582,56 @@ def generate_risk_gauge(risk_score: float, risk_level: str = None) -> bytes:
         else:
             level_text = 'Very High'
     
-    ax.text(0, -0.55, level_text, ha='center', va='center', 
+    ax_gauge.text(0, -0.55, level_text, ha='center', va='center', 
             fontsize=14, fontweight='bold', color='#6b7280')
     
     # Add "Overall Risk" title
-    ax.text(0, 1.15, 'Overall Risk', ha='center', va='center', 
+    ax_gauge.text(0, 1.15, 'Overall Risk', ha='center', va='center', 
             fontsize=14, fontweight='bold', color='#1f2937')
     
-    # Set axis limits and remove axes
-    ax.set_xlim(-1.3, 1.3)
-    ax.set_ylim(-0.7, 1.3)
-    ax.axis('off')
+    ax_gauge.set_xlim(-1.3, 1.3)
+    ax_gauge.set_ylim(-0.7, 1.3)
+    ax_gauge.axis('off')
+    
+    # === RIGHT: RISK LEVEL DESCRIPTION TABLE ===
+    ax_table.set_facecolor('white')
+    ax_table.axis('off')
+    
+    # Title
+    ax_table.text(0.0, 0.95, 'Risk Level Description', ha='left', va='top',
+                  fontsize=14, fontweight='bold', color='#1f2937',
+                  transform=ax_table.transAxes)
+    
+    # Risk level descriptions
+    descriptions = [
+        ('Very High (81-100):', 'Critical Risk', '#991b1b'),
+        ('High (61-80):', 'Significant Risk', '#ef4444'),
+        ('Medium (41-60):', 'Moderate Risk', '#f97316'),
+        ('Low (21-40):', 'Minor Risk', '#eab308'),
+        ('Very Low (0-20):', 'Minimal Risk', '#22c55e'),
+    ]
+    
+    y_pos = 0.80
+    for label, desc, color in descriptions:
+        # Color indicator square
+        square = plt.Rectangle((0.0, y_pos - 0.03), 0.04, 0.06, 
+                               facecolor=color, transform=ax_table.transAxes,
+                               clip_on=False)
+        ax_table.add_patch(square)
+        
+        # Bold label
+        ax_table.text(0.07, y_pos, label, ha='left', va='center',
+                      fontsize=11, fontweight='bold', color='#1f2937',
+                      transform=ax_table.transAxes)
+        
+        # Description
+        ax_table.text(0.48, y_pos, desc, ha='left', va='center',
+                      fontsize=11, color='#4b5563',
+                      transform=ax_table.transAxes)
+        
+        y_pos -= 0.14
+    
+    plt.tight_layout()
     
     # Save to bytes
     buf = io.BytesIO()
