@@ -3416,7 +3416,7 @@ async def get_assessment_status(assessment_id: str, current_user: UserResponse =
 @api_router.get("/assessments/{assessment_id}/report")
 async def generate_report_docx(
     assessment_id: str, 
-    view_type: str = Query(default="heatmap", regex="^(heatmap|radar)$"),
+    view_type: str = Query(default="heatmap", regex="^(heatmap|radar|detailed)$"),
     use_ai: bool = Query(default=False, description="Use AI to generate enhanced narrative content"),
     use_test_template: bool = Query(default=False, description="Use the test template and prompts for report generation"),
     use_smart_priority: bool = Query(default=None, description="Use smart priority ordering (impact × gap × effort). Defaults to True for test template, False otherwise"),
