@@ -325,6 +325,207 @@ function FairaResultsPage() {
     top_risk_areas: []
   });
 
+  // Warning Light System - determines indicator colour, tier, and tooltip based on score and chart type
+  const getWarningLight = (chartId, score, riskViewType = 'residual') => {
+    const numScore = Number(score) || 0;
+    
+    switch (chartId) {
+      case 'impact':
+        // Domain Impact: Red ≥70, Amber 40-69, Green <40
+        if (numScore >= 70) {
+          return {
+            colour: 'red',
+            tier: 'High Impact',
+            microLabel: 'Impact Signal',
+            tooltipTitle: 'High Impact Potential',
+            tooltipText: "This domain exhibits a high potential for significant consequences if risks materialise. Impacts may be substantial in scale, severity, or scope, even if likelihood is currently limited."
+          };
+        } else if (numScore >= 40) {
+          return {
+            colour: 'amber',
+            tier: 'Moderate Impact',
+            microLabel: 'Impact Signal',
+            tooltipTitle: 'Moderate Impact Potential',
+            tooltipText: "Potential impacts within this domain are assessed as moderate. Consequences may be material but are generally more limited in scale or severity."
+          };
+        } else {
+          return {
+            colour: 'green',
+            tier: 'Low Impact',
+            microLabel: 'Impact Signal',
+            tooltipTitle: 'Low Impact Potential',
+            tooltipText: "Potential impacts associated with this domain are assessed as limited, indicating lower consequence severity if risks were to occur."
+          };
+        }
+      
+      case 'likelihood':
+        // Domain Likelihood: Red ≥60, Amber 30-59, Green <30
+        if (numScore >= 60) {
+          return {
+            colour: 'red',
+            tier: 'High Likelihood',
+            microLabel: 'Likelihood Signal',
+            tooltipTitle: 'Elevated Likelihood',
+            tooltipText: "Risk events within this domain are assessed as likely to occur under current conditions, indicating ongoing exposure."
+          };
+        } else if (numScore >= 30) {
+          return {
+            colour: 'amber',
+            tier: 'Moderate Likelihood',
+            microLabel: 'Likelihood Signal',
+            tooltipTitle: 'Moderate Likelihood',
+            tooltipText: "The likelihood of risk events occurring within this domain is assessed as moderate, suggesting some exposure depending on context and conditions."
+          };
+        } else {
+          return {
+            colour: 'green',
+            tier: 'Low Likelihood',
+            microLabel: 'Likelihood Signal',
+            tooltipTitle: 'Low Likelihood',
+            tooltipText: "Risk events within this domain are considered unlikely to occur based on current information and conditions."
+          };
+        }
+      
+      case 'control':
+        // Domain Control Effectiveness: Inverted - Red <30, Amber 30-59, Green ≥60
+        if (numScore < 30) {
+          return {
+            colour: 'red',
+            tier: 'Low Effectiveness',
+            microLabel: 'Control Signal',
+            tooltipTitle: 'Low Control Effectiveness',
+            tooltipText: "Existing controls may not sufficiently mitigate identified risks within this domain, increasing reliance on monitoring or future control strengthening."
+          };
+        } else if (numScore < 60) {
+          return {
+            colour: 'amber',
+            tier: 'Partial Effectiveness',
+            microLabel: 'Control Signal',
+            tooltipTitle: 'Partially Effective Controls',
+            tooltipText: "Controls provide some mitigation of risk but may not fully address all relevant risk drivers within this domain."
+          };
+        } else {
+          return {
+            colour: 'green',
+            tier: 'Effective Controls',
+            microLabel: 'Control Signal',
+            tooltipTitle: 'Effective Controls',
+            tooltipText: "Controls within this domain are generally effective in mitigating identified risks, contributing to reduced residual risk."
+          };
+        }
+      
+      case 'risk':
+        // Risk chart - depends on whether viewing inherent or residual
+        if (riskViewType === 'inherent') {
+          // Inherent Domain Risk: Red ≥60, Amber 20-59, Green <20
+          if (numScore >= 60) {
+            return {
+              colour: 'red',
+              tier: 'High Inherent Exposure',
+              microLabel: 'Inherent Exposure Signal',
+              tooltipTitle: 'High Baseline Exposure',
+              tooltipText: "This domain exhibits a high level of baseline risk in the absence of controls. This reflects the nature, scale, or context of the system rather than any control deficiencies."
+            };
+          } else if (numScore >= 20) {
+            return {
+              colour: 'amber',
+              tier: 'Moderate Inherent Exposure',
+              microLabel: 'Inherent Exposure Signal',
+              tooltipTitle: 'Moderate Baseline Exposure',
+              tooltipText: "Baseline risk within this domain is assessed as moderate, indicating some inherent exposure prior to the application of controls."
+            };
+          } else {
+            return {
+              colour: 'green',
+              tier: 'Low Inherent Exposure',
+              microLabel: 'Inherent Exposure Signal',
+              tooltipTitle: 'Low Baseline Exposure',
+              tooltipText: "Baseline risk within this domain is assessed as low, reflecting limited inherent exposure based on system context."
+            };
+          }
+        } else {
+          // Residual Domain Risk: Red ≥60, Amber 20-59, Green <20
+          if (numScore >= 60) {
+            return {
+              colour: 'red',
+              tier: 'High Residual Risk',
+              microLabel: 'Residual Risk Signal',
+              tooltipTitle: 'Elevated Residual Risk',
+              tooltipText: "After considering impact, likelihood, and control effectiveness, this domain retains a high level of residual risk, indicating areas requiring prioritised attention."
+            };
+          } else if (numScore >= 20) {
+            return {
+              colour: 'amber',
+              tier: 'Moderate Residual Risk',
+              microLabel: 'Residual Risk Signal',
+              tooltipTitle: 'Moderate Residual Risk',
+              tooltipText: "Residual risk within this domain is assessed as moderate, suggesting some ongoing exposure that may warrant monitoring or further consideration."
+            };
+          } else {
+            return {
+              colour: 'green',
+              tier: 'Low Residual Risk',
+              microLabel: 'Residual Risk Signal',
+              tooltipTitle: 'Low Residual Risk',
+              tooltipText: "Residual risk within this domain is currently assessed as low, indicating that existing controls are generally sufficient under current conditions."
+            };
+          }
+        }
+      
+      default:
+        return {
+          colour: 'green',
+          tier: 'Normal',
+          microLabel: 'Signal',
+          tooltipTitle: 'Status',
+          tooltipText: 'No specific concerns identified.'
+        };
+    }
+  };
+
+  // Warning Light Component
+  const WarningLight = ({ chartId, score, riskViewType }) => {
+    const [showTooltip, setShowTooltip] = useState(false);
+    const warning = getWarningLight(chartId, score, riskViewType);
+    
+    const colourClasses = {
+      red: 'bg-red-500',
+      amber: 'bg-amber-400',
+      green: 'bg-green-500'
+    };
+    
+    const glowClasses = {
+      red: 'shadow-[0_0_8px_2px_rgba(239,68,68,0.6)]',
+      amber: 'shadow-[0_0_8px_2px_rgba(251,191,36,0.6)]',
+      green: 'shadow-[0_0_8px_2px_rgba(34,197,94,0.6)]'
+    };
+    
+    return (
+      <div className="relative flex flex-col items-center">
+        <span className="text-[8px] text-gray-500 mb-0.5 whitespace-nowrap">{warning.microLabel}</span>
+        <button
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => setShowTooltip(false)}
+          onClick={() => setShowTooltip(!showTooltip)}
+          className={`w-4 h-4 rounded-full ${colourClasses[warning.colour]} ${glowClasses[warning.colour]} border border-white/50 cursor-pointer transition-all hover:scale-110`}
+          aria-label={warning.tier}
+        />
+        <span className="text-[8px] text-gray-600 mt-0.5 font-medium whitespace-nowrap">{warning.tier}</span>
+        
+        {/* Tooltip */}
+        {showTooltip && (
+          <div className="absolute top-full mt-2 right-0 z-50 w-56 bg-white border border-gray-200 rounded-lg shadow-xl p-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className={`w-3 h-3 rounded-full ${colourClasses[warning.colour]}`} />
+              <h4 className="text-xs font-semibold text-gray-900">{warning.tooltipTitle}</h4>
+            </div>
+            <p className="text-[10px] text-gray-600 leading-relaxed">{warning.tooltipText}</p>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   // The 8 FAIRA Part B domains with short labels for radar chart display
   const fairadomains = [
     { id: 'B1', shortLabel: 'Wellbeing', fullName: 'Human, Societal and Environmental Wellbeing' },
