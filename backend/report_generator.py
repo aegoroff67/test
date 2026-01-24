@@ -4090,6 +4090,67 @@ Each cell represents the score for a specific question, enabling identification 
                     'faira_form': DotDict(faira_form),
                 })
                 
+                # Add FAIRA controls to template context
+                faira_controls_data = report_data.get('faira_controls', {})
+                if faira_controls_data:
+                    top_controls = faira_controls_data.get('top_controls', [])
+                    # Convert each control to DotDict for template dot notation access
+                    controls_list = []
+                    for ctrl in top_controls:
+                        controls_list.append(DotDict({
+                            'rank': ctrl.get('rank', 0),
+                            'control_id': ctrl.get('control_id', ''),
+                            'title': ctrl.get('title', ''),
+                            'description': ctrl.get('description', ''),
+                            'detailed_description': ctrl.get('detailed_description', ''),
+                            'domains': ', '.join(ctrl.get('domains', [])) if isinstance(ctrl.get('domains'), list) else ctrl.get('domains', ''),
+                            'control_type': ctrl.get('control_type', ''),
+                            'implementation_effort': ctrl.get('implementation_effort', ''),
+                            'implementation_horizon': ctrl.get('implementation_horizon', ''),
+                            'evidence_examples': ctrl.get('evidence_examples', []),
+                            'priority': ctrl.get('priority', ''),
+                            'rationale': ctrl.get('rationale', ''),
+                        }))
+                    
+                    # Ensure we have at least 3 controls (pad with empty if needed)
+                    while len(controls_list) < 3:
+                        controls_list.append(DotDict({
+                            'rank': len(controls_list) + 1,
+                            'control_id': '',
+                            'title': 'N/A',
+                            'description': '',
+                            'detailed_description': '',
+                            'domains': '',
+                            'control_type': '',
+                            'implementation_effort': '',
+                            'implementation_horizon': '',
+                            'evidence_examples': [],
+                            'priority': '',
+                            'rationale': '',
+                        }))
+                    
+                    template_context['faira_controls'] = DotDict({
+                        'top_controls': controls_list,
+                        'total_matched': faira_controls_data.get('total_matched', 0),
+                        'risk_summary': DotDict(faira_controls_data.get('risk_summary', {}))
+                    })
+                    
+                    # Also add individual top control shortcuts for template convenience
+                    # Access via: {{top_control_1.title}}, {{top_control_2.title}}, etc.
+                    for i, ctrl in enumerate(controls_list[:5], 1):
+                        template_context[f'top_control_{i}'] = ctrl
+                    
+                    print(f"DEBUG: Added {len(controls_list)} FAIRA controls to template context")
+                    for i, ctrl in enumerate(controls_list[:3]):
+                        print(f"  - Control {i+1}: {ctrl.get('title', 'N/A')[:50]}")
+                else:
+                    # Empty controls structure
+                    template_context['faira_controls'] = DotDict({
+                        'top_controls': [],
+                        'total_matched': 0,
+                        'risk_summary': DotDict({})
+                    })
+                
                 # Add AI narratives for FAIRA reports (32 placeholders)
                 # Using variable naming convention: ai.f_* for FAIRA
                 ai_narratives = report_data.get('ai_narratives', {})
