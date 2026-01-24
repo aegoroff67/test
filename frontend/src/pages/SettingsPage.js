@@ -1176,7 +1176,7 @@ function SettingsPage() {
                   <div className="text-center py-12">
                     <Bell className="h-12 w-12 mx-auto text-gray-300 mb-3" />
                     <p className="text-gray-500 text-lg">No notifications</p>
-                    <p className="text-gray-400 text-sm mt-2">You're all caught up!</p>
+                    <p className="text-gray-400 text-sm mt-2">You&apos;re all caught up!</p>
                   </div>
                 ) : (
                   <>
