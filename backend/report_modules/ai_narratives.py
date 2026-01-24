@@ -1692,8 +1692,6 @@ async def generate_faira_domain_b3_controls_rationale(report_data: Dict[str, Any
     data_types = get_faira_form_value(report_data, 'A2_2')
     sensitive_data = get_faira_form_value(report_data, 'A2_5')
     
-    system_prompt = "You are explaining control rationale for Fairness domain. Use British English. Limit to one short paragraph."
-    
     prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Fairness domain have been selected.
 
 Use ONLY:
@@ -1711,7 +1709,7 @@ Explain:
 Do NOT restate the controls verbatim. Do NOT claim discrimination or bias has occurred.
 Limit to one short paragraph."""
 
-    return await call_llm(prompt, system_prompt, f"faira_b3_controls_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_b3_controls_{id(report_data)}", api_key)
 
 
 async def generate_faira_domain_b4_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
