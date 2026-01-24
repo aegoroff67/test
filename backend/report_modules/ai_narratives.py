@@ -1016,7 +1016,7 @@ async def generate_awareness_narratives(
                 {'id': assessment_id},
                 {'$set': {'ai_narratives': {**cached_narratives, **narratives}}}
             )
-            print(f"DEBUG: Cached AI narratives to database (Awareness)")
+            print("DEBUG: Cached AI narratives to database (Awareness)")
         except Exception as e:
             print(f"WARNING: Failed to cache AI narratives: {e}")
     
@@ -1064,7 +1064,7 @@ async def generate_readiness_narratives(
                 {'id': assessment_id},
                 {'$set': {'ai_narratives': {**cached_narratives, **narratives}}}
             )
-            print(f"DEBUG: Cached AI narratives to database (Readiness)")
+            print("DEBUG: Cached AI narratives to database (Readiness)")
         except Exception as e:
             print(f"WARNING: Failed to cache AI narratives: {e}")
     
@@ -1112,7 +1112,7 @@ async def generate_orgwide_narratives(
                 {'id': assessment_id},
                 {'$set': {'ai_narratives': {**cached_narratives, **narratives}}}
             )
-            print(f"DEBUG: Cached AI narratives to database (Orgwide)")
+            print("DEBUG: Cached AI narratives to database (Orgwide)")
         except Exception as e:
             print(f"WARNING: Failed to cache AI narratives: {e}")
     
@@ -1160,7 +1160,7 @@ async def generate_system_narratives(
                 {'id': assessment_id},
                 {'$set': {'ai_narratives': {**cached_narratives, **narratives}}}
             )
-            print(f"DEBUG: Cached AI narratives to database (System)")
+            print("DEBUG: Cached AI narratives to database (System)")
         except Exception as e:
             print(f"WARNING: Failed to cache AI narratives: {e}")
     
@@ -2087,7 +2087,7 @@ async def generate_faira_narratives(
                 {'id': assessment_id},
                 {'$set': {'ai_narratives': {**cached_narratives, **narratives}}}
             )
-            print(f"DEBUG: Cached AI narratives to database (FAIRA)")
+            print("DEBUG: Cached AI narratives to database (FAIRA)")
         except Exception as e:
             print(f"WARNING: Failed to cache AI narratives: {e}")
     
