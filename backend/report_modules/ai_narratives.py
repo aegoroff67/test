@@ -1348,8 +1348,6 @@ async def generate_faira_data_context_notes(report_data: Dict[str, Any], api_key
     sensitive_data = get_faira_form_value(report_data, 'A2_5')
     data_storage = get_faira_form_value(report_data, 'A2_7')
     
-    system_prompt = "You are summarising data context for a FAIRA AI risk assessment. Use British English."
-    
     prompt = f"""Summarise the data context relevant to the assessed AI system.
 
 Base the summary ONLY on:
@@ -1360,7 +1358,7 @@ Base the summary ONLY on:
 
 Explain how data characteristics influence risk context without assessing safeguards."""
 
-    return await call_llm(prompt, system_prompt, f"faira_data_context_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_data_context_{id(report_data)}", api_key)
 
 
 async def generate_faira_user_stakeholder_notes(report_data: Dict[str, Any], api_key: str) -> str:
