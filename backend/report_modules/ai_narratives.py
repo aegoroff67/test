@@ -1443,8 +1443,6 @@ async def generate_faira_domain_b1_analysis(report_data: Dict[str, Any], api_key
     domain_scores = get_faira_domain_scores(report_data)
     acc = domain_scores.get('Accountability', {})
     
-    system_prompt = "You are analysing the Accountability domain for a FAIRA assessment. Use British English."
-    
     prompt = f"""Analyse the Accountability domain using:
 Impact {acc.get('Impact', 0)},
 Likelihood {acc.get('Likelihood', 0)},
@@ -1454,7 +1452,7 @@ Residual risk {acc.get('Risk', 0)}.
 
 Explain factors influencing residual risk and the role of accountability arrangements."""
 
-    return await call_llm(prompt, system_prompt, f"faira_b1_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_b1_{id(report_data)}", api_key)
 
 
 async def generate_faira_domain_b2_analysis(report_data: Dict[str, Any], api_key: str) -> str:
