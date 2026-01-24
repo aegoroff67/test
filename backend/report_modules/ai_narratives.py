@@ -1913,16 +1913,14 @@ async def generate_faira_decision_next_steps_summary(report_data: Dict[str, Any]
     risk_acceptance = report_data.get('risk_acceptance_context', 'Standard organisational risk tolerance')
     top_domains = get_faira_top_domains(report_data)
     
-    system_prompt = "You are summarising decision considerations for a FAIRA assessment. Use British English."
-    
     prompt = f"""Summarise decision considerations based on:
-- Overall risk level: {overall_risk_level}
-- Risk acceptance context: {risk_acceptance}
-- Top risk domains: {top_domains}
+- Overall risk level {overall_risk_level}
+- Risk acceptance context {risk_acceptance}
+- Top risk domains {top_domains}.
 
 Frame considerations without recommending specific actions."""
 
-    return await call_llm(prompt, system_prompt, f"faira_decisions_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_decisions_{id(report_data)}", api_key)
 
 
 async def generate_faira_supporting_artefacts_summary(report_data: Dict[str, Any], api_key: str) -> str:
