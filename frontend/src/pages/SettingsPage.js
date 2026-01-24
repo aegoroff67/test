@@ -762,76 +762,52 @@ function SettingsPage() {
                           {isSuperAdmin && (
                             <td className="p-3">
                               <div className="flex flex-col gap-1">
-                                <label className="flex items-center gap-1 text-xs">
-                                  <input
-                                    type="checkbox"
-                                    checked={u.assessment_access?.includes('awareness') || false}
-                                    onChange={(e) => {
-                                      const newAccess = e.target.checked
-                                        ? [...(u.assessment_access || []), 'awareness']
-                                        : (u.assessment_access || []).filter(a => a !== 'awareness');
-                                      updateAssessmentAccess(u.id, newAccess);
-                                    }}
-                                    className="rounded"
-                                  />
-                                  <span className="text-gray-700">Awareness</span>
-                                </label>
-                                <label className="flex items-center gap-1 text-xs">
-                                  <input
-                                    type="checkbox"
-                                    checked={u.assessment_access?.includes('readiness') || false}
-                                    onChange={(e) => {
-                                      const newAccess = e.target.checked
-                                        ? [...(u.assessment_access || []), 'readiness']
-                                        : (u.assessment_access || []).filter(a => a !== 'readiness');
-                                      updateAssessmentAccess(u.id, newAccess);
-                                    }}
-                                    className="rounded"
-                                  />
-                                  <span className="text-gray-700">Readiness</span>
-                                </label>
-                                <label className="flex items-center gap-1 text-xs">
-                                  <input
-                                    type="checkbox"
-                                    checked={u.assessment_access?.includes('orgwide') || false}
-                                    onChange={(e) => {
-                                      const newAccess = e.target.checked
-                                        ? [...(u.assessment_access || []), 'orgwide']
-                                        : (u.assessment_access || []).filter(a => a !== 'orgwide');
-                                      updateAssessmentAccess(u.id, newAccess);
-                                    }}
-                                    className="rounded"
-                                  />
-                                  <span className="text-gray-700">Org-wide</span>
-                                </label>
-                                <label className="flex items-center gap-1 text-xs">
-                                  <input
-                                    type="checkbox"
-                                    checked={u.assessment_access?.includes('system') || false}
-                                    onChange={(e) => {
-                                      const newAccess = e.target.checked
-                                        ? [...(u.assessment_access || []), 'system']
-                                        : (u.assessment_access || []).filter(a => a !== 'system');
-                                      updateAssessmentAccess(u.id, newAccess);
-                                    }}
-                                    className="rounded"
-                                  />
-                                  <span className="text-gray-700">System</span>
-                                </label>
-                                <label className="flex items-center gap-1 text-xs">
-                                  <input
-                                    type="checkbox"
-                                    checked={u.assessment_access?.includes('faira') || false}
-                                    onChange={(e) => {
-                                      const newAccess = e.target.checked
-                                        ? [...(u.assessment_access || []), 'faira']
-                                        : (u.assessment_access || []).filter(a => a !== 'faira');
-                                      updateAssessmentAccess(u.id, newAccess);
-                                    }}
-                                    className="rounded"
-                                  />
-                                  <span className="text-gray-700">FAIRA</span>
-                                </label>
+                                {/* Define tier-based access - these cannot be removed */}
+                                {(() => {
+                                  const tierAccess = {
+                                    1: ['awareness', 'readiness'],
+                                    2: ['awareness', 'readiness', 'orgwide'],
+                                    3: ['awareness', 'readiness', 'orgwide', 'system', 'faira']
+                                  };
+                                  const userTier = u.tier || 1;
+                                  const baseTierAccess = tierAccess[userTier] || [];
+                                  
+                                  const assessmentTypes = [
+                                    { key: 'awareness', label: 'Awareness' },
+                                    { key: 'readiness', label: 'Readiness' },
+                                    { key: 'orgwide', label: 'Org-wide' },
+                                    { key: 'system', label: 'System' },
+                                    { key: 'faira', label: 'FAIRA' }
+                                  ];
+                                  
+                                  return assessmentTypes.map(({ key, label }) => {
+                                    const isBaseTier = baseTierAccess.includes(key);
+                                    const isChecked = u.assessment_access?.includes(key) || false;
+                                    
+                                    return (
+                                      <label key={key} className="flex items-center gap-1 text-xs">
+                                        <input
+                                          type="checkbox"
+                                          checked={isChecked}
+                                          disabled={isBaseTier}
+                                          onChange={(e) => {
+                                            if (isBaseTier) return; // Cannot remove tier-based access
+                                            const newAccess = e.target.checked
+                                              ? [...(u.assessment_access || []), key]
+                                              : (u.assessment_access || []).filter(a => a !== key);
+                                            updateAssessmentAccess(u.id, newAccess);
+                                          }}
+                                          className="rounded"
+                                          title={isBaseTier ? `Included in Tier ${userTier} (cannot remove)` : `Add ${label} access`}
+                                        />
+                                        <span className={isBaseTier ? 'text-gray-400' : 'text-gray-700'}>
+                                          {label}
+                                          {isBaseTier && <span className="text-xs text-gray-400 ml-1">(Tier)</span>}
+                                        </span>
+                                      </label>
+                                    );
+                                  });
+                                })()}
                               </div>
                             </td>
                           )}
