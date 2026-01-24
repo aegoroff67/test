@@ -3946,6 +3946,26 @@ Each cell represents the score for a specific question, enabling identification 
             elif self.assessment_type == 'FAIRA':
                 faira_form = report_data.get('faira_form') or report_data.get('form_responses') or {}
                 
+                # Get domain scores and convert to namespace for dot access in template
+                raw_domain_scores = report_data.get('domain_scores', {})
+                
+                # Create a SimpleNamespace-like dict class for dot access
+                class DotDict(dict):
+                    """Dict that allows dot notation access for Jinja2 templates."""
+                    def __getattr__(self, key):
+                        try:
+                            value = self[key]
+                            if isinstance(value, dict):
+                                return DotDict(value)
+                            return value
+                        except KeyError:
+                            return DotDict({})  # Return empty DotDict for missing keys
+                    def __setattr__(self, key, value):
+                        self[key] = value
+                
+                # Convert domain scores to DotDict for template dot notation access
+                domain_scores_obj = DotDict(raw_domain_scores)
+                
                 # Add FAIRA form responses as top-level variables
                 template_context.update({
                     # Organization and System info from Part A
@@ -3961,12 +3981,12 @@ Each cell represents the score for a specific question, enabling identification 
                     'overall_likelihood_score': report_data.get('overall_likelihood_score', 50),
                     'overall_control_effectiveness_score': report_data.get('overall_control_effectiveness_score', 50),
                     
-                    # Domain scores
-                    'domain_scores': report_data.get('domain_scores', {}),
+                    # Domain scores - both as dict and as DotDict for template flexibility
+                    'domain_scores': domain_scores_obj,
                     'top_risk_areas': report_data.get('top_risk_areas', []),
                     
                     # Full FAIRA form object for flexibility
-                    'faira_form': faira_form,
+                    'faira_form': DotDict(faira_form),
                 })
                 
                 # Add AI narratives for FAIRA reports (32 placeholders)
