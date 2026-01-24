@@ -1582,8 +1582,6 @@ async def generate_faira_domain_b8_analysis(report_data: Dict[str, Any], api_key
     trans = domain_scores.get('Transparency', {})
     user_expertise = get_faira_form_value(report_data, 'A3_3')
     
-    system_prompt = "You are analysing the Transparency & Explainability domain for a FAIRA assessment. Use British English."
-    
     prompt = f"""Analyse the Transparency & Explainability domain using:
 Impact {trans.get('Impact', 0)},
 Likelihood {trans.get('Likelihood', 0)},
@@ -1595,7 +1593,7 @@ User expertise context: {user_expertise}
 
 Explain how understanding of outputs influences residual risk."""
 
-    return await call_llm(prompt, system_prompt, f"faira_b8_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_b8_{id(report_data)}", api_key)
 
 
 async def generate_faira_top_risk_areas_analysis(report_data: Dict[str, Any], api_key: str) -> str:
