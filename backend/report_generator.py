@@ -4189,9 +4189,31 @@ Each cell represents the score for a specific question, enabling identification 
                     # Also add recommended_controls as alias for backward compatibility
                     template_context['recommended_controls'] = DotDict(controls_by_domain)
                     
-                    print(f"DEBUG: Added controls_by_domain with {len(all_controls)} total controls")
+                    # Create recommended_controls_top3 - top 3 controls per domain
+                    # Sorted by: 1) implementation_horizon (Immediate > Short-term > Medium-term > Long-term)
+                    #            2) implementation_effort (Low > Medium > High)
+                    horizon_priority = {'Immediate': 1, 'Short-term': 2, 'Medium-term': 3, 'Long-term': 4}
+                    effort_priority = {'Low': 1, 'Medium': 2, 'High': 3}
+                    
+                    def sort_key(ctrl):
+                        horizon = ctrl.get('implementation_horizon', 'Long-term')
+                        effort = ctrl.get('implementation_effort', 'High')
+                        return (horizon_priority.get(horizon, 99), effort_priority.get(effort, 99))
+                    
+                    controls_top3_by_domain = {}
                     for domain in domain_names:
-                        print(f"  - {domain}: {len(controls_by_domain.get(domain, []))} controls")
+                        domain_ctrls = controls_by_domain.get(domain, [])
+                        # Sort by horizon then effort
+                        sorted_ctrls = sorted(domain_ctrls, key=sort_key)
+                        # Take top 3 (or all if fewer than 3)
+                        controls_top3_by_domain[domain] = sorted_ctrls[:3]
+                    
+                    template_context['recommended_controls_top3'] = DotDict(controls_top3_by_domain)
+                    
+                    print(f"DEBUG: Added controls_by_domain with {len(all_controls)} total controls")
+                    print(f"DEBUG: Added recommended_controls_top3 (top 3 per domain, sorted by horizon/effort)")
+                    for domain in domain_names:
+                        print(f"  - {domain}: {len(controls_by_domain.get(domain, []))} controls, top3: {len(controls_top3_by_domain.get(domain, []))}")
                         
                 except Exception as e:
                     print(f"WARNING: Could not load controls by domain: {e}")
