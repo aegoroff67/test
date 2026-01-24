@@ -153,7 +153,7 @@ const AssessmentCard = ({
       </div>
 
       {/* CSS for glow animation */}
-      <style jsx="true">{`
+      <style>{`
         @keyframes glowPulse {
           0%, 100% { opacity: 0.2; }
           50% { opacity: 0.4; }
