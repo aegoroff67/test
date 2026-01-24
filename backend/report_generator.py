@@ -3966,6 +3966,41 @@ Each cell represents the score for a specific question, enabling identification 
                 # Convert domain scores to DotDict for template dot notation access
                 domain_scores_obj = DotDict(raw_domain_scores)
                 
+                # Build top_domains list with proper structure for template
+                # Template expects: top_domains[0].name, top_domains[0].risk
+                top_risk_areas_raw = report_data.get('top_risk_areas', [])
+                top_domains_list = []
+                
+                # If we have top_risk_areas, convert them
+                if top_risk_areas_raw:
+                    for area in top_risk_areas_raw:
+                        if isinstance(area, dict):
+                            top_domains_list.append(DotDict({
+                                'name': area.get('domain', area.get('name', area.get('fullName', 'Unknown'))),
+                                'risk': area.get('risk_score', area.get('risk', area.get('Risk', 0)))
+                            }))
+                
+                # If no top_risk_areas, build from domain_scores sorted by risk
+                if not top_domains_list and raw_domain_scores:
+                    sorted_domains = sorted(
+                        [(k, v.get('Risk', 0) if isinstance(v, dict) else 0) for k, v in raw_domain_scores.items()],
+                        key=lambda x: x[1],
+                        reverse=True
+                    )
+                    for domain_name, risk_score in sorted_domains[:3]:
+                        top_domains_list.append(DotDict({
+                            'name': domain_name,
+                            'risk': risk_score
+                        }))
+                
+                # Ensure we have at least 3 entries (pad with empty if needed)
+                while len(top_domains_list) < 3:
+                    top_domains_list.append(DotDict({'name': 'N/A', 'risk': 0}))
+                
+                print(f"DEBUG: top_domains_list built with {len(top_domains_list)} entries")
+                for i, td in enumerate(top_domains_list[:3]):
+                    print(f"  - top_domains[{i}]: name={td.get('name')}, risk={td.get('risk')}")
+                
                 # Add FAIRA form responses as top-level variables
                 template_context.update({
                     # Organization and System info from Part A
@@ -3983,8 +4018,8 @@ Each cell represents the score for a specific question, enabling identification 
                     
                     # Domain scores - both as dict and as DotDict for template flexibility
                     'domain_scores': domain_scores_obj,
-                    'top_risk_areas': report_data.get('top_risk_areas', []),
-                    'top_domains': report_data.get('top_risk_areas', []),  # Alias for template compatibility
+                    'top_risk_areas': top_risk_areas_raw,
+                    'top_domains': top_domains_list,  # List with .name and .risk attributes
                     
                     # Full FAIRA form object for flexibility
                     'faira_form': DotDict(faira_form),
