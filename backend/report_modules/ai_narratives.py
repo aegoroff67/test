@@ -1426,8 +1426,6 @@ async def generate_faira_domain_analysis(report_data: Dict[str, Any], api_key: s
     
     domain_summary = "\n".join([f"- {k}: Risk={v.get('Risk', 0):.0f}" for k, v in domain_scores.items()])
     
-    system_prompt = "You are synthesising patterns across FAIRA ethics domains. Use British English."
-    
     prompt = f"""Provide a brief synthesis of overall patterns observed across FAIRA ethics domains.
 
 Base the synthesis ONLY on:
@@ -1437,7 +1435,7 @@ Base the synthesis ONLY on:
 
 Identify high-level themes without referencing individual domain narratives or controls."""
 
-    return await call_llm(prompt, system_prompt, f"faira_domain_analysis_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_domain_analysis_{id(report_data)}", api_key)
 
 
 async def generate_faira_domain_b1_analysis(report_data: Dict[str, Any], api_key: str) -> str:
