@@ -4104,6 +4104,7 @@ Each cell represents the score for a specific question, enabling identification 
                             'description': ctrl.get('description', ''),
                             'detailed_description': ctrl.get('detailed_description', ''),
                             'domains': ', '.join(ctrl.get('domains', [])) if isinstance(ctrl.get('domains'), list) else ctrl.get('domains', ''),
+                            'domain_list': ctrl.get('domains', []),  # Keep as list for filtering
                             'control_type': ctrl.get('control_type', ''),
                             'implementation_effort': ctrl.get('implementation_effort', ''),
                             'implementation_horizon': ctrl.get('implementation_horizon', ''),
@@ -4121,6 +4122,7 @@ Each cell represents the score for a specific question, enabling identification 
                             'description': '',
                             'detailed_description': '',
                             'domains': '',
+                            'domain_list': [],
                             'control_type': '',
                             'implementation_effort': '',
                             'implementation_horizon': '',
@@ -4150,6 +4152,51 @@ Each cell represents the score for a specific question, enabling identification 
                         'total_matched': 0,
                         'risk_summary': DotDict({})
                     })
+                
+                # Load ALL controls grouped by domain for domain-specific loops
+                # This allows: {%tr for control in controls_by_domain.Accountability %}
+                try:
+                    from faira_scoring_engine import load_controls_data
+                    all_controls_data = load_controls_data()
+                    all_controls = all_controls_data.get('controls', [])
+                    
+                    # Group controls by domain
+                    domain_names = ['Accountability', 'Contestability', 'Fairness', 'Privacy', 
+                                   'Reliability', 'Transparency', 'Values', 'Wellbeing']
+                    
+                    controls_by_domain = {}
+                    for domain in domain_names:
+                        domain_controls = []
+                        for ctrl in all_controls:
+                            ctrl_domains = ctrl.get('domains', [])
+                            if domain in ctrl_domains:
+                                domain_controls.append(DotDict({
+                                    'control_id': ctrl.get('control_id', ''),
+                                    'title': ctrl.get('title', ''),
+                                    'description': ctrl.get('description', ''),
+                                    'detailed_description': ctrl.get('detailed_description', ''),
+                                    'domains': ', '.join(ctrl.get('domains', [])),
+                                    'control_type': ctrl.get('control_type', ''),
+                                    'implementation_effort': ctrl.get('implementation_effort', ''),
+                                    'implementation_horizon': ctrl.get('implementation_horizon', ''),
+                                    'evidence_examples': ctrl.get('evidence_examples', []),
+                                    'tags': ctrl.get('tags', []),
+                                }))
+                        controls_by_domain[domain] = domain_controls
+                    
+                    template_context['controls_by_domain'] = DotDict(controls_by_domain)
+                    
+                    # Also add recommended_controls as alias for backward compatibility
+                    template_context['recommended_controls'] = DotDict(controls_by_domain)
+                    
+                    print(f"DEBUG: Added controls_by_domain with {len(all_controls)} total controls")
+                    for domain in domain_names:
+                        print(f"  - {domain}: {len(controls_by_domain.get(domain, []))} controls")
+                        
+                except Exception as e:
+                    print(f"WARNING: Could not load controls by domain: {e}")
+                    template_context['controls_by_domain'] = DotDict({})
+                    template_context['recommended_controls'] = DotDict({})
                 
                 # Add AI narratives for FAIRA reports (32 placeholders)
                 # Using variable naming convention: ai.f_* for FAIRA
