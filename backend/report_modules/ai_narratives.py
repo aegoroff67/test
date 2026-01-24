@@ -1460,8 +1460,6 @@ async def generate_faira_domain_b2_analysis(report_data: Dict[str, Any], api_key
     domain_scores = get_faira_domain_scores(report_data)
     cont = domain_scores.get('Contestability', {})
     
-    system_prompt = "You are analysing the Contestability domain for a FAIRA assessment. Use British English."
-    
     prompt = f"""Analyse the Contestability domain using:
 Impact {cont.get('Impact', 0)},
 Likelihood {cont.get('Likelihood', 0)},
@@ -1471,7 +1469,7 @@ Residual risk {cont.get('Risk', 0)}.
 
 Explain how review and challenge mechanisms influence residual risk."""
 
-    return await call_llm(prompt, system_prompt, f"faira_b2_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_b2_{id(report_data)}", api_key)
 
 
 async def generate_faira_domain_b3_analysis(report_data: Dict[str, Any], api_key: str) -> str:
