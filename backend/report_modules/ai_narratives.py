@@ -1171,6 +1171,21 @@ async def generate_system_narratives(
 # FAIRA NARRATIVES (32 AI Narrative Placeholders)
 # =============================================================================
 
+# FAIRA Global Guardrails - Applied to ALL FAIRA narrative prompts
+FAIRA_GLOBAL_GUARDRAILS = """You are generating narrative content for a FAIRA (Framework for the Assurance of AI in Government) risk assessment report.
+
+STRICT RULES:
+- Base your response ONLY on the provided variables.
+- Do NOT introduce new facts, assumptions, or external references.
+- Do NOT state or imply compliance or non-compliance.
+- Do NOT assign blame, fault, or responsibility to individuals.
+- Do NOT use prescriptive language (e.g. "must", "should", "ensure").
+- Do NOT recommend specific controls unless explicitly instructed.
+- Treat all scores as normalised and relative.
+- Use neutral, professional, assurance-oriented language.
+- Output plain text only (no headings, no bullet lists)."""
+
+
 def get_faira_domain_scores(report_data: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
     """Extract domain scores from FAIRA report data."""
     domain_scores = report_data.get('domain_scores', {})
