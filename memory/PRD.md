@@ -109,6 +109,7 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 ### P4 - Future
 - [ ] Enterprise SSO (SAML/OIDC)
 - [ ] Stripe paywall for premium assessments
+- [ ] "Upgrade to Unlock" button flow (contact modal or upgrade request form)
 
 ---
 
