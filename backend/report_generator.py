@@ -4784,6 +4784,7 @@ Each cell represents the score for a specific question, enabling identification 
             "awareness_info": assessment.get('awareness_info') or {},  # Pass awareness_info for Awareness assessments
             "readiness_info": assessment.get('readiness_info') or {},  # Pass readiness_info for Readiness assessments
             "orgwide_info": assessment.get('orgwide_info') or assessment.get('org_info') or {},  # Pass orgwide_info for Orgwide assessments (fallback to org_info)
+            "faira_form": assessment.get('faira_form') or {},  # Pass faira_form for FAIRA assessments
         }
         
         # Generate AI narratives for Awareness assessments if use_ai is enabled
@@ -5641,6 +5642,7 @@ Each cell represents the score for a specific question, enabling identification 
             "awareness_info": assessment.get('awareness_info') or {},  # Pass awareness_info for Awareness assessments
             "readiness_info": assessment.get('readiness_info') or {},  # Pass readiness_info for Readiness assessments
             "orgwide_info": assessment.get('orgwide_info') or assessment.get('org_info') or {},  # Pass orgwide_info for Orgwide assessments (fallback to org_info)
+            "faira_form": assessment.get('faira_form') or {},  # Pass faira_form for FAIRA assessments
         }
         
         print(f"DEBUG: current_user type: {type(current_user)}")
