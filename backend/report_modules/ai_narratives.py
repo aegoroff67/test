@@ -1881,16 +1881,14 @@ async def generate_faira_gap_and_next_steps_summary(report_data: Dict[str, Any],
     identified_gaps = report_data.get('identified_gaps', 'Not specified')
     top_domains = get_faira_top_domains(report_data)
     
-    system_prompt = "You are summarising gaps and next steps for a FAIRA assessment. Use British English."
-    
     prompt = f"""Summarise patterns across:
-- Existing controls: {existing_controls}
-- Identified gaps: {identified_gaps}
-- Top risk domains: {top_domains}
+- Existing controls {existing_controls}
+- Identified gaps {identified_gaps}
+- Top risk domains {top_domains}
 
 Explain how these patterns inform high-level next-step considerations without prescribing actions."""
 
-    return await call_llm(prompt, system_prompt, f"faira_gaps_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_gaps_{id(report_data)}", api_key)
 
 
 async def generate_faira_governance_assurance_posture(report_data: Dict[str, Any], api_key: str) -> str:
