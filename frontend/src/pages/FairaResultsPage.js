@@ -1232,7 +1232,7 @@ function FairaResultsPage() {
               <div className="grid grid-cols-2 gap-4">
                 {radarCharts.map((chart) => (
                   <Card key={chart.id} className="relative">
-                    {/* Info Icon */}
+                    {/* Info Icon - Top Left */}
                     <button
                       onClick={() => setActiveInfoModal(chart.id)}
                       className="absolute top-2 left-2 z-10 p-1 rounded-full bg-blue-500 hover:bg-blue-600 transition-colors"
@@ -1241,42 +1241,55 @@ function FairaResultsPage() {
                       <Info className="h-3 w-3 text-white" />
                     </button>
 
-                    {/* Risk Type Toggle - only for Domain Risk chart */}
-                    {chart.hasToggle && (
-                      <div className="absolute top-2 right-2 z-10 bg-white/90 rounded-md p-1.5 shadow-sm border border-gray-200">
-                        <div className="flex flex-col gap-1">
-                          <label className="flex items-center gap-1.5 cursor-pointer">
-                            <input
-                              type="radio"
-                              name="riskViewType"
-                              value="inherent"
-                              checked={riskViewType === 'inherent'}
-                              onChange={(e) => setRiskViewType(e.target.value)}
-                              className="w-3 h-3 text-purple-600"
-                            />
-                            <span className="text-[10px] text-gray-700">Inherent Risk</span>
-                          </label>
-                          <label className="flex items-center gap-1.5 cursor-pointer">
-                            <input
-                              type="radio"
-                              name="riskViewType"
-                              value="residual"
-                              checked={riskViewType === 'residual'}
-                              onChange={(e) => setRiskViewType(e.target.value)}
-                              className="w-3 h-3 text-purple-600"
-                            />
-                            <span className="text-[10px] text-gray-700">Residual Risk</span>
-                          </label>
-                        </div>
-                      </div>
-                    )}
+                    {/* Warning Light - Top Right */}
+                    <div className="absolute top-2 right-2 z-10">
+                      <WarningLight 
+                        chartId={chart.id} 
+                        score={chart.overallValue} 
+                        riskViewType={chart.hasToggle ? riskViewType : undefined}
+                      />
+                    </div>
 
                     <CardContent className="pt-4 pb-2">
                       <h3 className="text-sm font-semibold text-gray-900 text-center mb-1">{chart.title}</h3>
                       <p className="text-xs text-gray-600 text-center mb-2">
                         {chart.overallLabel}: <span className="font-bold text-gray-900">{chart.overallValue}</span>
                       </p>
-                      <ResponsiveContainer width="100%" height={180}>
+                      
+                      {/* Risk Type Toggle - moved below title, only for Domain Risk chart */}
+                      {chart.hasToggle && (
+                        <div className="flex justify-center mb-2">
+                          <div className="bg-gray-100 rounded-md p-1.5 border border-gray-200">
+                            <span className="text-[8px] text-gray-500 block text-center mb-1">Risk View</span>
+                            <div className="flex gap-2">
+                              <label className="flex items-center gap-1 cursor-pointer">
+                                <input
+                                  type="radio"
+                                  name="riskViewType"
+                                  value="inherent"
+                                  checked={riskViewType === 'inherent'}
+                                  onChange={(e) => setRiskViewType(e.target.value)}
+                                  className="w-2.5 h-2.5 text-purple-600"
+                                />
+                                <span className="text-[9px] text-gray-700">Inherent</span>
+                              </label>
+                              <label className="flex items-center gap-1 cursor-pointer">
+                                <input
+                                  type="radio"
+                                  name="riskViewType"
+                                  value="residual"
+                                  checked={riskViewType === 'residual'}
+                                  onChange={(e) => setRiskViewType(e.target.value)}
+                                  className="w-2.5 h-2.5 text-purple-600"
+                                />
+                                <span className="text-[9px] text-gray-700">Residual</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      <ResponsiveContainer width="100%" height={chart.hasToggle ? 160 : 180}>
                         <RadarChart data={chart.data}>
                           <PolarGrid stroke="#e5e7eb" />
                           <PolarAngleAxis 
