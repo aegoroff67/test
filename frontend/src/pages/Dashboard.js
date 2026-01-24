@@ -316,16 +316,16 @@ function Dashboard() {
                   <TooltipContent 
                     side="bottom" 
                     align="start"
-                    className="max-w-xs bg-gray-900 text-white p-3"
+                    className="max-w-xs bg-white text-gray-900 border border-gray-200 shadow-lg p-3"
                   >
                     <div className="space-y-2">
                       <p className="font-semibold text-sm">Included Assessments:</p>
-                      <ul className="text-xs space-y-1">
+                      <ul className="text-xs space-y-1 text-gray-700">
                         {tierTooltips[user?.tier || 1]?.assessments.map((assessment, idx) => (
                           <li key={idx}>• {assessment}</li>
                         ))}
                       </ul>
-                      <p className="text-xs text-gray-300 pt-1 border-t border-gray-700">
+                      <p className="text-xs text-gray-500 pt-1 border-t border-gray-200">
                         {tierTooltips[user?.tier || 1]?.description}
                       </p>
                     </div>
