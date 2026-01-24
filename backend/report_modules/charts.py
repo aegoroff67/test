@@ -491,3 +491,105 @@ def generate_radar_chart_with_benchmark(report_data: Dict[str, Any],
         report_data_with_benchmark['benchmark_data'] = benchmark_data.get('benchmarks', benchmark_data)
     
     return generate_radar_chart(report_data_with_benchmark, assessment_type)
+
+
+
+def generate_risk_gauge(risk_score: float, risk_level: str = None) -> bytes:
+    """
+    Generate a semi-circular risk gauge image showing the overall risk score.
+    
+    Args:
+        risk_score: Risk score from 0-100
+        risk_level: Optional risk level text (e.g., "Very High", "High", "Medium", "Low")
+    
+    Returns:
+        PNG image bytes of the risk gauge
+    """
+    import matplotlib.patches as mpatches
+    from matplotlib.patches import Wedge, FancyArrowPatch
+    
+    # Create figure with transparent background
+    fig, ax = plt.subplots(figsize=(6, 4), subplot_kw={'aspect': 'equal'})
+    fig.patch.set_facecolor('white')
+    ax.set_facecolor('white')
+    
+    # Define the gauge segments (from left to right: Low, Medium, High, Very High)
+    # Angles go from 180 (left) to 0 (right) for a semi-circle
+    segments = [
+        {'start': 135, 'end': 180, 'color': '#22c55e', 'label': 'Low'},      # Green
+        {'start': 90, 'end': 135, 'color': '#eab308', 'label': 'Medium'},    # Yellow
+        {'start': 45, 'end': 90, 'color': '#f97316', 'label': 'High'},       # Orange
+        {'start': 0, 'end': 45, 'color': '#ef4444', 'label': 'Very High'},   # Red
+    ]
+    
+    # Draw the gauge segments
+    center = (0, 0)
+    outer_radius = 1.0
+    inner_radius = 0.6
+    
+    for seg in segments:
+        # Create wedge for this segment
+        wedge = Wedge(center, outer_radius, seg['start'], seg['end'], 
+                      width=outer_radius - inner_radius,
+                      facecolor=seg['color'], edgecolor='white', linewidth=2)
+        ax.add_patch(wedge)
+    
+    # Calculate needle angle based on risk score (0-100 maps to 180-0 degrees)
+    # Clamp score to 0-100
+    score = max(0, min(100, risk_score))
+    needle_angle = 180 - (score / 100) * 180
+    
+    # Convert to radians for calculation
+    angle_rad = np.radians(needle_angle)
+    
+    # Draw the needle
+    needle_length = 0.85
+    needle_x = needle_length * np.cos(angle_rad)
+    needle_y = needle_length * np.sin(angle_rad)
+    
+    # Draw needle as a line with arrow
+    ax.annotate('', xy=(needle_x, needle_y), xytext=(0, 0),
+                arrowprops=dict(arrowstyle='->', color='#1f2937', lw=3))
+    
+    # Draw center circle
+    center_circle = plt.Circle((0, 0), 0.12, color='#1f2937', zorder=5)
+    ax.add_patch(center_circle)
+    
+    # Add risk score text in center
+    ax.text(0, -0.35, f'{score:.0f}', ha='center', va='center', 
+            fontsize=28, fontweight='bold', color='#1f2937')
+    
+    # Add risk level text below score
+    if risk_level:
+        level_text = risk_level
+    else:
+        # Determine level from score
+        if score < 25:
+            level_text = 'Low'
+        elif score < 50:
+            level_text = 'Medium'
+        elif score < 75:
+            level_text = 'High'
+        else:
+            level_text = 'Very High'
+    
+    ax.text(0, -0.55, level_text, ha='center', va='center', 
+            fontsize=14, fontweight='bold', color='#6b7280')
+    
+    # Add "Overall Risk" title
+    ax.text(0, 1.15, 'Overall Risk', ha='center', va='center', 
+            fontsize=14, fontweight='bold', color='#1f2937')
+    
+    # Set axis limits and remove axes
+    ax.set_xlim(-1.3, 1.3)
+    ax.set_ylim(-0.7, 1.3)
+    ax.axis('off')
+    
+    # Save to bytes
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', dpi=150, bbox_inches='tight', 
+                facecolor='white', edgecolor='none', transparent=False)
+    plt.close(fig)
+    buf.seek(0)
+    
+    return buf.getvalue()
