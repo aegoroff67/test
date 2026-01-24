@@ -1385,8 +1385,6 @@ async def generate_faira_deployment_context_notes(report_data: Dict[str, Any], a
     operational_env = get_faira_form_value(report_data, 'A4_3')
     integration_context = get_faira_form_value(report_data, 'A4_4')
     
-    system_prompt = "You are summarising deployment context for a FAIRA assessment. Use British English."
-    
     prompt = f"""Summarise the deployment and operational context for the assessed AI system.
 
 Base the summary ONLY on:
@@ -1396,7 +1394,7 @@ Base the summary ONLY on:
 
 Explain how deployment characteristics influence AI risk exposure without assessing technical design."""
 
-    return await call_llm(prompt, system_prompt, f"faira_deploy_context_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_deploy_context_{id(report_data)}", api_key)
 
 
 async def generate_faira_impact_context_notes(report_data: Dict[str, Any], api_key: str) -> str:
