@@ -39,6 +39,7 @@ from report_modules.charts import (
     generate_bar_chart,
     generate_radar_chart,
     generate_radar_chart_with_benchmark,
+    generate_risk_gauge,
 )
 
 # Import utilities (refactored)
