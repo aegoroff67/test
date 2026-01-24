@@ -3983,7 +3983,25 @@ Each cell represents the score for a specific question, enabling identification 
                         self[key] = value
                 
                 # Convert domain scores to DotDict for template dot notation access
-                domain_scores_obj = DotDict(raw_domain_scores)
+                # Also calculate Inherent_Risk = Impact × Likelihood / 100 (normalized)
+                domain_scores_with_inherent = {}
+                for domain, scores in raw_domain_scores.items():
+                    impact = scores.get('Impact', 0)
+                    likelihood = scores.get('Likelihood', 0)
+                    inherent_risk = round((impact * likelihood) / 100, 1) if impact and likelihood else 0
+                    domain_scores_with_inherent[domain] = DotDict({
+                        'Impact': round(scores.get('Impact', 0), 1),
+                        'Likelihood': round(scores.get('Likelihood', 0), 1),
+                        'Inherent_Risk': inherent_risk,
+                        'Control_Effectiveness': round(scores.get('Control_Effectiveness', 0), 1),
+                        'Risk': round(scores.get('Risk', 0), 1)
+                    })
+                
+                domain_scores_obj = DotDict(domain_scores_with_inherent)
+                
+                print(f"DEBUG: Built domain_scores_obj with Inherent_Risk for {len(domain_scores_with_inherent)} domains")
+                for domain, scores in domain_scores_with_inherent.items():
+                    print(f"  - {domain}: Impact={scores['Impact']}, Likelihood={scores['Likelihood']}, Inherent_Risk={scores['Inherent_Risk']}, Control={scores['Control_Effectiveness']}, Risk={scores['Risk']}")
                 
                 # Build top_domains list with proper structure for template
                 # Template expects: top_domains[0].name, top_domains[0].risk
