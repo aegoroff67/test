@@ -3949,8 +3949,19 @@ Each cell represents the score for a specific question, enabling identification 
             elif self.assessment_type == 'FAIRA':
                 faira_form = report_data.get('faira_form') or report_data.get('form_responses') or {}
                 
-                # Get domain scores and convert to namespace for dot access in template
-                raw_domain_scores = report_data.get('domain_scores', {})
+                # Get calculated FAIRA data if available, otherwise calculate it
+                faira_risk_summary = report_data.get('faira_risk_summary')
+                if not faira_risk_summary:
+                    # Calculate FAIRA scores using the scoring engine
+                    faira_risk_summary = calculate_overall_risk(faira_form)
+                    print(f"DEBUG: Calculated FAIRA risk summary on-the-fly")
+                
+                # Get domain scores from risk summary
+                raw_domain_scores = faira_risk_summary.get('domain_scores', {})
+                top_risk_areas_raw = faira_risk_summary.get('top_risk_areas', [])
+                
+                print(f"DEBUG: FAIRA domain_scores keys: {list(raw_domain_scores.keys())}")
+                print(f"DEBUG: FAIRA top_risk_areas: {top_risk_areas_raw}")
                 
                 # Create a SimpleNamespace-like dict class for dot access
                 class DotDict(dict):
@@ -3971,7 +3982,6 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 # Build top_domains list with proper structure for template
                 # Template expects: top_domains[0].name, top_domains[0].risk
-                top_risk_areas_raw = report_data.get('top_risk_areas', [])
                 top_domains_list = []
                 
                 # If we have top_risk_areas, convert them
@@ -3980,7 +3990,7 @@ Each cell represents the score for a specific question, enabling identification 
                         if isinstance(area, dict):
                             top_domains_list.append(DotDict({
                                 'name': area.get('domain', area.get('name', area.get('fullName', 'Unknown'))),
-                                'risk': area.get('risk_score', area.get('risk', area.get('Risk', 0)))
+                                'risk': round(area.get('risk_score', area.get('risk', area.get('Risk', 0))), 1)
                             }))
                 
                 # If no top_risk_areas, build from domain_scores sorted by risk
@@ -3993,7 +4003,7 @@ Each cell represents the score for a specific question, enabling identification 
                     for domain_name, risk_score in sorted_domains[:3]:
                         top_domains_list.append(DotDict({
                             'name': domain_name,
-                            'risk': risk_score
+                            'risk': round(risk_score, 1)
                         }))
                 
                 # Ensure we have at least 3 entries (pad with empty if needed)
@@ -4004,20 +4014,23 @@ Each cell represents the score for a specific question, enabling identification 
                 for i, td in enumerate(top_domains_list[:3]):
                     print(f"  - top_domains[{i}]: name={td.get('name')}, risk={td.get('risk')}")
                 
+                # Get system name with fallbacks
+                system_name = faira_form.get('ai_system_name') or faira_form.get('A1_2') or report_data.get('assessment', {}).get('name', '')
+                
                 # Add FAIRA form responses as top-level variables
                 template_context.update({
                     # Organization and System info from Part A
-                    'system_name': faira_form.get('A1_2', ''),
-                    'org_name': faira_form.get('A1_1', ''),
-                    'assessment_scope': faira_form.get('A1_4', ''),
+                    'system_name': system_name,
+                    'org_name': faira_form.get('business_unit', ''),
+                    'assessment_scope': ', '.join(faira_form.get('A1_4', [])) if isinstance(faira_form.get('A1_4'), list) else faira_form.get('A1_4', ''),
                     'deployment_context': faira_form.get('A4_3', ''),
                     
-                    # Risk scores
-                    'overall_risk_score': report_data.get('overall_risk_score', 50),
-                    'overall_risk_level': report_data.get('overall_risk_level', 'Medium'),
-                    'overall_impact_score': report_data.get('overall_impact_score', 50),
-                    'overall_likelihood_score': report_data.get('overall_likelihood_score', 50),
-                    'overall_control_effectiveness_score': report_data.get('overall_control_effectiveness_score', 50),
+                    # Risk scores from calculated data
+                    'overall_risk_score': round(faira_risk_summary.get('overall_risk_score', 50), 1),
+                    'overall_risk_level': faira_risk_summary.get('overall_risk_level', 'Medium'),
+                    'overall_impact_score': round(faira_risk_summary.get('total_impact', 50), 1),
+                    'overall_likelihood_score': round(faira_risk_summary.get('total_likelihood', 50), 1),
+                    'overall_control_effectiveness_score': round(faira_risk_summary.get('total_control_effectiveness', 50), 1),
                     
                     # Domain scores - both as dict and as DotDict for template flexibility
                     'domain_scores': domain_scores_obj,
