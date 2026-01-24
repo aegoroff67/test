@@ -1259,8 +1259,6 @@ async def generate_faira_executive_snapshot(report_data: Dict[str, Any], api_key
     overall_risk_score = report_data.get('overall_risk_score', 50)
     top_domains = get_faira_top_domains(report_data)
     
-    system_prompt = "You are generating an executive snapshot for a FAIRA AI Risk Assessment report. Use British English. Be concise and factual."
-    
     prompt = f"""Using the FAIRA assessment results for {system_name}, generate a concise executive summary narrative.
 
 Base the narrative ONLY on:
@@ -1275,7 +1273,7 @@ Explain what the overall risk level represents in relative terms, how system con
 Do not restate tables, charts, or individual domain scores.
 Limit the output to a maximum of two short paragraphs."""
 
-    return await call_llm(prompt, system_prompt, f"faira_exec_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_exec_{id(report_data)}", api_key)
 
 
 async def generate_faira_risk_profile_interpretation(report_data: Dict[str, Any], api_key: str) -> str:
