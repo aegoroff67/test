@@ -36,7 +36,7 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 
 ### ✅ Completed (as of 2026-01-24)
 
-#### User Tier System (NEW)
+#### User Tier System - COMPLETE ✅
 - **Tier-based assessment access**:
   - Tier 1: Awareness, Readiness
   - Tier 2: Awareness, Readiness, Org-wide
@@ -44,6 +44,11 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - **Tier column** added to User Management in Settings & Administration
 - **Super-admin override**: Assessment Types checkboxes for granular access control
 - Backend API: `PUT /api/admin/users/{user_id}/tier`
+- **Assessment Selector UI** (2026-01-24):
+  - Badge shows "Available" for accessible assessments
+  - Badge shows "Upgrade to Tier X" for inaccessible assessments
+  - Button shows "Upgrade to Unlock" for locked assessments
+  - Dynamic messaging based on user tier and assessment requirements
 
 #### Report Types - ALL FUNCTIONAL
 - **AI Awareness Report** - Fully functional with AI narratives, bar charts
