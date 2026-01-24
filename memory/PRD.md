@@ -34,7 +34,16 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 
 ## What's Been Implemented
 
-### ✅ Completed (as of 2026-01-22)
+### ✅ Completed (as of 2026-01-24)
+
+#### User Tier System (NEW)
+- **Tier-based assessment access**:
+  - Tier 1: Awareness, Readiness
+  - Tier 2: Awareness, Readiness, Org-wide
+  - Tier 3: All assessments (Awareness, Readiness, Org-wide, System, FAIRA)
+- **Tier column** added to User Management in Settings & Administration
+- **Super-admin override**: Assessment Types checkboxes for granular access control
+- Backend API: `PUT /api/admin/users/{user_id}/tier`
 
 #### Report Types - ALL FUNCTIONAL
 - **AI Awareness Report** - Fully functional with AI narratives, bar charts
