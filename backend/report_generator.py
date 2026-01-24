@@ -4785,6 +4785,60 @@ Each cell represents the score for a specific question, enabling identification 
                 traceback.print_exc()
                 assessment_data['ai_narratives'] = {}
         
+        # Generate AI narratives for FAIRA assessments if use_ai is enabled
+        if use_ai and self.assessment_type == 'FAIRA':
+            print("=== GENERATING FAIRA AI NARRATIVES ===")
+            try:
+                faira_form = assessment.get('faira_form') or assessment.get('form_responses') or {}
+                
+                # Build domain scores from ethics_scores or domain_scores
+                domain_scores = {}
+                ethics_scores = summary_data.get('ethics_scores', [])
+                for score in ethics_scores:
+                    domain_name = score.get('short_label', score.get('domain', ''))
+                    domain_scores[domain_name] = {
+                        'Impact': score.get('impact', 0),
+                        'Likelihood': score.get('likelihood', 0),
+                        'Inherent_Risk': score.get('inherent_risk', 0),
+                        'Control_Effectiveness': score.get('control_effectiveness', 0),
+                        'Risk': score.get('risk_score', score.get('risk', 0))
+                    }
+                
+                # Get top risk areas
+                top_risk_areas = summary_data.get('top_risk_areas', [])
+                
+                # Build AI report data for FAIRA
+                ai_report_data = {
+                    'system_name': faira_form.get('A1_2') or assessment.get('name', ''),
+                    'faira_form': faira_form,
+                    'form_responses': faira_form,
+                    'domain_scores': domain_scores,
+                    'overall_risk_score': summary_data.get('overall_risk_score', 50),
+                    'overall_risk_level': summary_data.get('overall_risk_level', 'Medium'),
+                    'overall_impact_score': summary_data.get('total_impact', 50),
+                    'overall_likelihood_score': summary_data.get('total_likelihood', 50),
+                    'overall_control_effectiveness_score': summary_data.get('total_control_effectiveness', 50),
+                    'top_risk_areas': top_risk_areas,
+                    'recommended_controls': assessment.get('recommended_controls', {}),
+                    'existing_controls_summary': assessment.get('existing_controls_summary', 'Not specified'),
+                    'identified_gaps': assessment.get('identified_gaps', 'Not specified'),
+                    'governance_maturity_indicators': assessment.get('governance_score', 'Not specified'),
+                    'assurance_mechanisms': assessment.get('assurance_readiness', 'Not specified'),
+                    'supporting_artefacts': assessment.get('evidence_summary', 'Not specified'),
+                    'assessment_methodology': 'FAIRA Framework v1.0 - Queensland Government AI Risk Assessment',
+                    'scoring_method': 'Risk Score = (Impact × Likelihood) / Control Effectiveness',
+                    'normalisation_notes': 'Scores normalised to 0-100 scale for comparability',
+                }
+                
+                ai_narratives = await self._generate_faira_ai_narratives(ai_report_data, assessment, db)
+                assessment_data['ai_narratives'] = ai_narratives
+                print(f"DEBUG: FAIRA AI narratives generated: {list(ai_narratives.keys())}")
+            except Exception as e:
+                print(f"ERROR generating FAIRA AI narratives: {e}")
+                import traceback
+                traceback.print_exc()
+                assessment_data['ai_narratives'] = {}
+        
         print(f"DEBUG: current_user type: {type(current_user)}")
         print(f"DEBUG: current_user.organization_name: {getattr(current_user, 'organization_name', 'NOT SET')}")
         
