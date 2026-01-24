@@ -1329,8 +1329,6 @@ async def generate_faira_system_overview_notes(report_data: Dict[str, Any], api_
     primary_function = get_faira_form_value(report_data, 'A1_2')
     decision_role = get_faira_form_value(report_data, 'A1_3')
     
-    system_prompt = "You are providing a narrative overview of an AI system for a FAIRA assessment. Use British English."
-    
     prompt = f"""Provide a narrative overview of the assessed AI system.
 
 Base the narrative ONLY on:
@@ -1340,7 +1338,7 @@ Base the narrative ONLY on:
 
 Explain the system's role and purpose in context without evaluating effectiveness or suitability."""
 
-    return await call_llm(prompt, system_prompt, f"faira_sys_overview_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_sys_overview_{id(report_data)}", api_key)
 
 
 async def generate_faira_data_context_notes(report_data: Dict[str, Any], api_key: str) -> str:
