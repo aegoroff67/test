@@ -1479,8 +1479,6 @@ async def generate_faira_domain_b3_analysis(report_data: Dict[str, Any], api_key
     data_types = get_faira_form_value(report_data, 'A2_2')
     sensitive_data = get_faira_form_value(report_data, 'A2_5')
     
-    system_prompt = "You are analysing the Fairness domain for a FAIRA assessment. Use British English."
-    
     prompt = f"""Analyse the Fairness domain using:
 Impact {fair.get('Impact', 0)},
 Likelihood {fair.get('Likelihood', 0)},
@@ -1492,7 +1490,7 @@ Data context: {data_types}, {sensitive_data}
 
 Explain contextual drivers of fairness-related risk."""
 
-    return await call_llm(prompt, system_prompt, f"faira_b3_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_b3_{id(report_data)}", api_key)
 
 
 async def generate_faira_domain_b4_analysis(report_data: Dict[str, Any], api_key: str) -> str:
