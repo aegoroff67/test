@@ -40,6 +40,8 @@ from report_modules.charts import (
     generate_radar_chart,
     generate_radar_chart_with_benchmark,
     generate_risk_gauge,
+    generate_faira_domain_risk_radar,
+    generate_faira_inherent_risk_radar,
 )
 
 # Import utilities (refactored)
