@@ -1177,6 +1177,7 @@ FAIRA_GLOBAL_GUARDRAILS = """You are generating narrative content for a FAIRA (F
 STRICT RULES:
 - Base your response ONLY on the provided variables.
 - Do NOT introduce new facts, assumptions, or external references.
+- Do NOT introduce examples, sectors, impacts, or stakeholders not explicitly provided in the assessment inputs.
 - Do NOT state or imply compliance or non-compliance.
 - Do NOT assign blame, fault, or responsibility to individuals.
 - Do NOT use prescriptive language (e.g. "must", "should", "ensure").
