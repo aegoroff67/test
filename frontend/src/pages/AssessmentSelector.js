@@ -21,12 +21,38 @@ const AssessmentCard = ({
   icon: Icon, 
   color, 
   tagline,
-  hasAccess, 
+  hasAccess,
+  accessKey,
+  userTier,
   onClick, 
   creating,
   testId 
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  
+  // Determine the upgrade message based on user tier and assessment type
+  const getUpgradeMessage = () => {
+    if (hasAccess) return 'Available';
+    
+    // For Tier 1 users
+    if (userTier === 1) {
+      if (accessKey === 'orgwide') return 'Upgrade to Tier 2';
+      if (accessKey === 'system' || accessKey === 'faira') return 'Upgrade to Tier 3';
+    }
+    
+    // For Tier 2 users
+    if (userTier === 2) {
+      if (accessKey === 'system' || accessKey === 'faira') return 'Upgrade to Tier 3';
+    }
+    
+    return 'Permission Required';
+  };
+  
+  const getButtonText = () => {
+    if (creating) return null; // Will show spinner
+    if (hasAccess) return 'Start Assessment';
+    return 'Upgrade to Unlock';
+  };
   
   // Color configurations
   const colorConfig = {
