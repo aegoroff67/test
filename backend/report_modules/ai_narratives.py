@@ -1897,16 +1897,14 @@ async def generate_faira_governance_assurance_posture(report_data: Dict[str, Any
     assurance_mechanisms = report_data.get('assurance_mechanisms', report_data.get('assurance_readiness', 'Not specified'))
     overall_risk_level = report_data.get('overall_risk_level', 'Medium')
     
-    system_prompt = "You are interpreting governance posture for a FAIRA assessment. Use British English."
-    
     prompt = f"""Interpret the overall governance and assurance posture using:
-- Governance maturity indicators: {governance_indicators}
-- Assurance mechanisms: {assurance_mechanisms}
-- Overall risk level: {overall_risk_level}
+- Governance maturity indicators {governance_indicators}
+- Assurance mechanisms {assurance_mechanisms}
+- Overall risk level {overall_risk_level}.
 
 Explain how these arrangements support ongoing oversight."""
 
-    return await call_llm(prompt, system_prompt, f"faira_governance_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_governance_{id(report_data)}", api_key)
 
 
 async def generate_faira_decision_next_steps_summary(report_data: Dict[str, Any], api_key: str) -> str:
