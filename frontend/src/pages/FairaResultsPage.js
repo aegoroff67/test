@@ -1071,7 +1071,10 @@ function FairaResultsPage() {
                     )}
 
                     <CardContent className="pt-4 pb-2">
-                      <h3 className="text-sm font-semibold text-gray-900 text-center mb-2">{chart.title}</h3>
+                      <h3 className="text-sm font-semibold text-gray-900 text-center mb-1">{chart.title}</h3>
+                      <p className="text-xs text-gray-600 text-center mb-2">
+                        {chart.overallLabel}: <span className="font-bold text-gray-900">{chart.overallValue}</span>
+                      </p>
                       <ResponsiveContainer width="100%" height={180}>
                         <RadarChart data={chart.data}>
                           <PolarGrid stroke="#e5e7eb" />
