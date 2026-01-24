@@ -1198,7 +1198,12 @@ The findings should be approximately 600-800 words with clear section headers.""
             "readiness_info": assessment_data.get('readiness_info', {}),  # Pass readiness_info for Readiness assessments
             "orgwide_info": assessment_data.get('orgwide_info', {}),  # Pass orgwide_info for Orgwide assessments
             "benchmark_data": self._load_benchmark_data(sector_name),  # Load sector benchmark data
-            "ai_narratives": assessment_data.get('ai_narratives', {})  # Pass AI narratives for template use
+            "ai_narratives": assessment_data.get('ai_narratives', {}),  # Pass AI narratives for template use
+            # FAIRA-specific data
+            "faira_form": assessment_data.get('faira_form', {}),
+            "faira_risk_summary": assessment_data.get('faira_risk_summary', {}),
+            "faira_radar_data": assessment_data.get('faira_radar_data', {}),
+            "faira_controls": assessment_data.get('faira_controls', []),
         }
         
         return report_data
