@@ -1600,9 +1600,6 @@ async def generate_faira_top_risk_areas_analysis(report_data: Dict[str, Any], ap
     """Generate {{ai.f_top_risk_areas_analysis}} - Top risk areas explanation."""
     top_domains = get_faira_top_domains(report_data)
     deployment_context = get_faira_form_value(report_data, 'A4_3')
-    domain_scores = get_faira_domain_scores(report_data)
-    
-    domain_summary = "\n".join([f"- {k}: Risk={v.get('Risk', 0):.0f}" for k, v in domain_scores.items()])
     
     prompt = f"""Explain why the domains listed in {top_domains} represent the highest residual risk areas.
 
