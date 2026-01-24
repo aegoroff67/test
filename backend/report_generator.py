@@ -60,6 +60,9 @@ from report_modules.ai_narratives import (
     generate_faira_narratives,
 )
 
+# Import FAIRA scoring functions
+from faira_scoring_engine import get_radar_chart_data, calculate_overall_risk, get_recommended_controls
+
 
 class AMReportGenerator:
     """Generates AM AI SAFE assessment reports in DOCX and PDF formats."""
