@@ -1304,8 +1304,6 @@ async def generate_faira_methodology_interpretation(report_data: Dict[str, Any],
     scoring_method = report_data.get('scoring_method', 'Risk Score = (Impact × Likelihood) / Control Effectiveness')
     normalisation = report_data.get('normalisation_notes', 'Scores normalised to 0-100 scale for comparability')
     
-    system_prompt = "You are explaining the FAIRA assessment methodology. Use British English. Be clear and educational."
-    
     prompt = f"""Explain the FAIRA assessment methodology as applied to {system_name}.
 
 Base the explanation ONLY on:
@@ -1318,7 +1316,7 @@ Explain how impact, likelihood, and control effectiveness are combined to produc
 Do not justify or defend the methodology.
 Do not compare to other frameworks."""
 
-    return await call_llm(prompt, system_prompt, f"faira_methodology_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_methodology_{id(report_data)}", api_key)
 
 
 # -----------------------------------------------------------------------------
