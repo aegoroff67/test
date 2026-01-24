@@ -673,15 +673,30 @@ async def update_user_tier(
             detail="Invalid tier. Must be 1, 2, or 3"
         )
     
+    # Define tier-based assessment access
+    tier_access = {
+        1: ["awareness", "readiness"],
+        2: ["awareness", "readiness", "orgwide"],
+        3: ["awareness", "readiness", "orgwide", "system", "faira"]
+    }
+    
+    # Update both tier and assessment_access
     result = await db.users.update_one(
         {"id": user_id},
-        {"$set": {"tier": tier}}
+        {"$set": {
+            "tier": tier,
+            "assessment_access": tier_access[tier]
+        }}
     )
     
     if result.modified_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
     
-    return {"success": True, "message": f"User tier updated to {tier}"}
+    return {
+        "success": True, 
+        "message": f"User tier updated to {tier}",
+        "assessment_access": tier_access[tier]
+    }
 
 
 @api_router.put("/admin/users/{user_id}/toggle-active")
