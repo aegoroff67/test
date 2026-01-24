@@ -55,6 +55,9 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - **AI Readiness Report** - Fully functional with v0.08 template
 - **Org-wide Report** - Fully functional with v0.06 template, 8 AI narratives
 - **AI System Maturity Report** - ✅ COMPLETED with v0.15 template, 8 AI narratives
+- **FAIRA Risk Assessment Report** - ✅ AI Narratives implemented (2026-01-24):
+  - 32 AI narrative placeholder prompts added to `ai_narratives.py`
+  - Covers: Executive snapshot, risk profile, methodology, context notes, domain analysis, controls rationale, governance posture, next steps
 
 #### System Report Features (Latest Fix - 2026-01-22)
 - **Heatmap Bug Fixed**: Removed `ax.set_aspect('equal')` that was causing the heatmap to render as a square image (aspect ~0.93) instead of wide (aspect ~1.5)
