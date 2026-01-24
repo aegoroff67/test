@@ -1927,13 +1927,11 @@ async def generate_faira_supporting_artefacts_summary(report_data: Dict[str, Any
     """Generate {{ai.f_supporting_artefacts_summary}} - Supporting artefacts summary."""
     artefacts = report_data.get('supporting_artefacts', report_data.get('evidence_summary', 'Not specified'))
     
-    system_prompt = "You are summarising supporting artefacts for a FAIRA assessment. Use British English."
-    
-    prompt = f"""Provide a brief summary of supporting artefacts: {artefacts}
+    prompt = f"""Provide a brief summary of supporting artefacts {artefacts}.
 
 Describe artefact types and coverage without assessing adequacy or completeness."""
 
-    return await call_llm(prompt, system_prompt, f"faira_artefacts_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_artefacts_{id(report_data)}", api_key)
 
 
 # -----------------------------------------------------------------------------
