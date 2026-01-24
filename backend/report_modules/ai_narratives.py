@@ -1638,8 +1638,6 @@ async def generate_faira_domain_b1_controls_rationale(report_data: Dict[str, Any
     acc = domain_scores.get('Accountability', {})
     controls = get_faira_recommended_controls(report_data, 'Accountability')
     
-    system_prompt = "You are explaining control rationale for Accountability domain. Use British English. Limit to one short paragraph."
-    
     prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Accountability domain have been selected.
 
 Use ONLY:
@@ -1656,7 +1654,7 @@ Explain:
 Do NOT restate the controls verbatim. Do NOT recommend additional controls.
 Limit to one short paragraph."""
 
-    return await call_llm(prompt, system_prompt, f"faira_b1_controls_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_b1_controls_{id(report_data)}", api_key)
 
 
 async def generate_faira_domain_b2_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
