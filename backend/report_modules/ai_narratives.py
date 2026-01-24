@@ -1620,8 +1620,6 @@ async def generate_faira_controls_overview(report_data: Dict[str, Any], api_key:
     top_domains = get_faira_top_domains(report_data)
     overall_risk = report_data.get('overall_risk_score', 50)
     
-    system_prompt = "You are providing a controls overview for a FAIRA assessment. Use British English."
-    
     prompt = f"""Provide a high-level overview of the control approach used in this assessment.
 
 Base the overview ONLY on:
@@ -1630,7 +1628,7 @@ Base the overview ONLY on:
 
 Explain the balance between existing controls and recommended enhancements."""
 
-    return await call_llm(prompt, system_prompt, f"faira_controls_overview_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_controls_overview_{id(report_data)}", api_key)
 
 
 async def generate_faira_domain_b1_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
