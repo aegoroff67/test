@@ -516,6 +516,11 @@ function FairaResultsPage() {
           setRadarChartData(scoresResponse.data.radar_charts);
           if (scoresResponse.data.risk_summary) {
             const summary = scoresResponse.data.risk_summary;
+            // Calculate overall inherent risk from total_impact and total_likelihood
+            const totalImpact = summary.total_impact || 0;
+            const totalLikelihood = summary.total_likelihood || 0;
+            const overallInherentRisk = Math.round((totalImpact * totalLikelihood) / 100);
+            
             setRiskSummary({
               overall_risk_level: summary.overall_risk_level || 'Medium',
               overall_risk_score: summary.overall_risk_score || 0,
@@ -527,7 +532,12 @@ function FairaResultsPage() {
                 risk_score: scores.Risk || 0,
                 risk_level: getRiskLevelFromScore(scores.Risk || 0)
               })),
-              top_risk_areas: summary.top_risk_areas || []
+              top_risk_areas: summary.top_risk_areas || [],
+              // Store overall totals for radar chart subtitles
+              total_impact: totalImpact,
+              total_likelihood: totalLikelihood,
+              total_control_effectiveness: summary.total_control_effectiveness || 0,
+              overall_inherent_risk: overallInherentRisk
             });
           }
         }
