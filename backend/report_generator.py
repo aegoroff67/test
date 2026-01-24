@@ -4099,6 +4099,7 @@ Each cell represents the score for a specific question, enabling identification 
                     
                     # Controls
                     'f_controls_overview': replace_amp_with_placeholder(ai_narratives.get('f_controls_overview', '')),
+                    'f_control_prioritisation_rationale': replace_amp_with_placeholder(ai_narratives.get('f_control_prioritisation_rationale', '')),
                     'f_domain_b1_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b1_controls_rationale', '')),
                     'f_domain_b2_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b2_controls_rationale', '')),
                     'f_domain_b3_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b3_controls_rationale', '')),
