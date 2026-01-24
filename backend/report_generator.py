@@ -4021,6 +4021,24 @@ Each cell represents the score for a specific question, enabling identification 
                     'top_risk_areas': top_risk_areas_raw,
                     'top_domains': top_domains_list,  # List with .name and .risk attributes
                     
+                    # Control variable for template (single control placeholder)
+                    'control': DotDict({
+                        'priority': '',
+                        'area': '',
+                        'description': '',
+                        'type': ''
+                    }),
+                    
+                    # Additional score variables the template expects
+                    'total_impact': report_data.get('overall_impact_score', 50),
+                    'total_likelihood': report_data.get('overall_likelihood_score', 50),
+                    'total_control_effectiveness': report_data.get('overall_control_effectiveness_score', 50),
+                    'raw_risk_score': report_data.get('overall_risk_score', 50),
+                    'autonomy_factor': faira_form.get('A1_5', ''),
+                    'data_quality_factor': faira_form.get('A2_4', ''),
+                    'expertise_factor': faira_form.get('A3_3', ''),
+                    'assessment_date': report_data.get('assessment_date', ''),
+                    
                     # Full FAIRA form object for flexibility
                     'faira_form': DotDict(faira_form),
                 })
