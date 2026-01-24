@@ -57,6 +57,7 @@ from report_modules.ai_narratives import (
     generate_readiness_narratives,
     generate_orgwide_narratives,
     generate_system_narratives,
+    generate_faira_narratives,
 )
 
 
