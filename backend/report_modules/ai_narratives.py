@@ -1165,3 +1165,931 @@ async def generate_system_narratives(
             print(f"WARNING: Failed to cache AI narratives: {e}")
     
     return narratives
+
+
+# =============================================================================
+# FAIRA NARRATIVES (32 AI Narrative Placeholders)
+# =============================================================================
+
+def get_faira_domain_scores(report_data: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
+    """Extract domain scores from FAIRA report data."""
+    domain_scores = report_data.get('domain_scores', {})
+    if not domain_scores:
+        # Try to build from ethics_scores
+        ethics_scores = report_data.get('ethics_scores', [])
+        for score in ethics_scores:
+            domain_name = score.get('short_label', score.get('domain', ''))
+            domain_scores[domain_name] = {
+                'Impact': score.get('impact', 0),
+                'Likelihood': score.get('likelihood', 0),
+                'Inherent_Risk': score.get('inherent_risk', 0),
+                'Control_Effectiveness': score.get('control_effectiveness', 0),
+                'Risk': score.get('risk_score', score.get('risk', 0))
+            }
+    return domain_scores
+
+
+def get_faira_form_value(report_data: Dict[str, Any], key: str, default: str = "Not specified") -> str:
+    """Get a value from the FAIRA form responses."""
+    faira_form = report_data.get('faira_form', {})
+    if not faira_form:
+        faira_form = report_data.get('form_responses', {})
+    value = faira_form.get(key, default)
+    if isinstance(value, list):
+        return ", ".join(str(v) for v in value) if value else default
+    return str(value) if value else default
+
+
+def get_faira_top_domains(report_data: Dict[str, Any], n: int = 3) -> str:
+    """Get top N risk domains formatted as a string."""
+    top_risks = report_data.get('top_risk_areas', [])
+    if not top_risks:
+        domain_scores = get_faira_domain_scores(report_data)
+        sorted_domains = sorted(
+            [(k, v.get('Risk', 0)) for k, v in domain_scores.items()],
+            key=lambda x: x[1],
+            reverse=True
+        )
+        top_risks = [{'domain': d[0], 'risk_score': d[1]} for d in sorted_domains[:n]]
+    
+    return ", ".join([f"{r.get('domain', r.get('fullName', 'Unknown'))} ({r.get('risk_score', 0):.0f})" for r in top_risks[:n]])
+
+
+def get_faira_recommended_controls(report_data: Dict[str, Any], domain: str) -> str:
+    """Get recommended controls for a specific domain."""
+    controls = report_data.get('recommended_controls', {})
+    if isinstance(controls, dict):
+        domain_controls = controls.get(domain, [])
+    else:
+        domain_controls = [c for c in controls if domain in c.get('domains', [])]
+    
+    if not domain_controls:
+        return "No specific controls recommended"
+    
+    if isinstance(domain_controls, list):
+        return "; ".join([c.get('title', c) if isinstance(c, dict) else str(c) for c in domain_controls[:3]])
+    return str(domain_controls)
+
+
+# -----------------------------------------------------------------------------
+# Section 1: Executive and Overview Narratives
+# -----------------------------------------------------------------------------
+
+async def generate_faira_executive_snapshot(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_executive_snapshot}} - Executive summary narrative."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    assessment_scope = get_faira_form_value(report_data, 'A1_4', 'Not specified')
+    deployment_context = get_faira_form_value(report_data, 'A4_3', 'Not specified')
+    overall_risk_level = report_data.get('overall_risk_level', 'Medium')
+    overall_risk_score = report_data.get('overall_risk_score', 50)
+    top_domains = get_faira_top_domains(report_data)
+    
+    system_prompt = "You are generating an executive snapshot for a FAIRA AI Risk Assessment report. Use British English. Be concise and factual."
+    
+    prompt = f"""Using the FAIRA assessment results for {system_name}, generate a concise executive summary narrative.
+
+Base the narrative ONLY on:
+- Assessment scope: {assessment_scope}
+- Deployment context: {deployment_context}
+- Overall risk level: {overall_risk_level}
+- Overall risk score: {overall_risk_score}
+- Domains identified as top risk areas: {top_domains}
+
+Explain what the overall risk level represents in relative terms, how system context influences the risk profile, and how the assessment supports informed decision-making.
+
+Do not restate tables, charts, or individual domain scores.
+Limit the output to a maximum of two short paragraphs."""
+
+    return await call_llm(prompt, system_prompt, f"faira_exec_{id(report_data)}", api_key)
+
+
+async def generate_faira_risk_profile_interpretation(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_risk_profile_interpretation}} - Risk profile interpretation."""
+    overall_impact = report_data.get('overall_impact_score', report_data.get('total_impact', 50))
+    overall_likelihood = report_data.get('overall_likelihood_score', report_data.get('total_likelihood', 50))
+    overall_control = report_data.get('overall_control_effectiveness_score', report_data.get('total_control_effectiveness', 50))
+    overall_risk = report_data.get('overall_risk_score', 50)
+    
+    system_prompt = "You are interpreting a FAIRA risk profile. Use British English. Be analytical and objective."
+    
+    prompt = f"""Interpret the overall FAIRA risk profile using the following normalised scores:
+- Impact: {overall_impact}
+- Likelihood: {overall_likelihood}
+- Control effectiveness: {overall_control}
+- Residual risk: {overall_risk}
+
+Explain how these dimensions interact and why residual risk may remain even where controls are present.
+
+Do not reference individual domains.
+Do not provide recommendations."""
+
+    return await call_llm(prompt, system_prompt, f"faira_risk_profile_{id(report_data)}", api_key)
+
+
+async def generate_faira_methodology_interpretation(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_methodology_interpretation}} - Methodology explanation."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    methodology = report_data.get('assessment_methodology', 'FAIRA Framework v1.0 - Queensland Government AI Risk Assessment')
+    scoring_method = report_data.get('scoring_method', 'Risk Score = (Impact × Likelihood) / Control Effectiveness')
+    normalisation = report_data.get('normalisation_notes', 'Scores normalised to 0-100 scale for comparability')
+    
+    system_prompt = "You are explaining the FAIRA assessment methodology. Use British English. Be clear and educational."
+    
+    prompt = f"""Explain the FAIRA assessment methodology as applied to {system_name}.
+
+Base the explanation ONLY on:
+- Methodology description: {methodology}
+- Scoring approach: {scoring_method}
+- Normalisation approach: {normalisation}
+
+Explain how impact, likelihood, and control effectiveness are combined to produce relative residual risk scores.
+
+Do not justify or defend the methodology.
+Do not compare to other frameworks."""
+
+    return await call_llm(prompt, system_prompt, f"faira_methodology_{id(report_data)}", api_key)
+
+
+# -----------------------------------------------------------------------------
+# Section 2: Context Notes (Part A Sections)
+# -----------------------------------------------------------------------------
+
+async def generate_faira_system_overview_notes(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_system_overview_notes}} - System overview narrative."""
+    system_desc = get_faira_form_value(report_data, 'A1_1')
+    primary_function = get_faira_form_value(report_data, 'A1_2')
+    decision_role = get_faira_form_value(report_data, 'A1_3')
+    
+    system_prompt = "You are providing a narrative overview of an AI system for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Provide a narrative overview of the assessed AI system.
+
+Base the narrative ONLY on:
+- System description: {system_desc}
+- Primary function: {primary_function}
+- Decision support role: {decision_role}
+
+Explain the system's role and purpose in context without evaluating effectiveness or suitability."""
+
+    return await call_llm(prompt, system_prompt, f"faira_sys_overview_{id(report_data)}", api_key)
+
+
+async def generate_faira_data_context_notes(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_data_context_notes}} - Data context summary."""
+    data_sources = get_faira_form_value(report_data, 'A2_1')
+    data_types = get_faira_form_value(report_data, 'A2_2')
+    sensitive_data = get_faira_form_value(report_data, 'A2_5')
+    data_storage = get_faira_form_value(report_data, 'A2_7')
+    
+    system_prompt = "You are summarising data context for a FAIRA AI risk assessment. Use British English."
+    
+    prompt = f"""Summarise the data context relevant to the assessed AI system.
+
+Base the summary ONLY on:
+- Data sources: {data_sources}
+- Data types: {data_types}
+- Sensitive or regulated data indicators: {sensitive_data}
+- Data storage and retention context: {data_storage}
+
+Explain how data characteristics influence risk context without assessing safeguards."""
+
+    return await call_llm(prompt, system_prompt, f"faira_data_context_{id(report_data)}", api_key)
+
+
+async def generate_faira_user_stakeholder_notes(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_user_stakeholder_context_notes}} - User/stakeholder context."""
+    user_groups = get_faira_form_value(report_data, 'A3_1')
+    stakeholder_groups = get_faira_form_value(report_data, 'A3_5')
+    user_expertise = get_faira_form_value(report_data, 'A3_3')
+    
+    system_prompt = "You are summarising user and stakeholder context for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Summarise the user and stakeholder context for the assessed AI system.
+
+Base the summary ONLY on:
+- User groups: {user_groups}
+- Stakeholder groups: {stakeholder_groups}
+- User expertise levels: {user_expertise}
+
+Explain how user and stakeholder characteristics influence system interaction and risk context."""
+
+    return await call_llm(prompt, system_prompt, f"faira_user_context_{id(report_data)}", api_key)
+
+
+async def generate_faira_deployment_context_notes(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_deployment_context_notes}} - Deployment context summary."""
+    deployment_model = get_faira_form_value(report_data, 'A4_1')
+    operational_env = get_faira_form_value(report_data, 'A4_3')
+    integration_context = get_faira_form_value(report_data, 'A4_4')
+    
+    system_prompt = "You are summarising deployment context for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Summarise the deployment and operational context for the assessed AI system.
+
+Base the summary ONLY on:
+- Deployment model: {deployment_model}
+- Operational environment: {operational_env}
+- System integration context: {integration_context}
+
+Explain how deployment characteristics influence AI risk exposure without assessing technical design."""
+
+    return await call_llm(prompt, system_prompt, f"faira_deploy_context_{id(report_data)}", api_key)
+
+
+async def generate_faira_impact_context_notes(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_impact_context_notes}} - Impact context summary."""
+    impact_scale = get_faira_form_value(report_data, 'A5_1')
+    impact_severity = get_faira_form_value(report_data, 'A5_2')
+    affected_parties = get_faira_form_value(report_data, 'A5_3')
+    
+    system_prompt = "You are summarising impact context for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Summarise the potential impact context associated with the assessed AI system.
+
+Base the summary ONLY on:
+- Impact scale: {impact_scale}
+- Impact severity considerations: {impact_severity}
+- Affected parties: {affected_parties}
+
+Explain how potential impacts shape the overall risk context without implying harm has occurred."""
+
+    return await call_llm(prompt, system_prompt, f"faira_impact_context_{id(report_data)}", api_key)
+
+
+# -----------------------------------------------------------------------------
+# Section 3: Domain Analysis Narratives (Part B - 8 Ethics Domains)
+# -----------------------------------------------------------------------------
+
+async def generate_faira_domain_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_analysis}} - Overall domain patterns synthesis."""
+    domain_scores = get_faira_domain_scores(report_data)
+    overall_risk = report_data.get('overall_risk_score', 50)
+    
+    domain_summary = "\n".join([f"- {k}: Risk={v.get('Risk', 0):.0f}" for k, v in domain_scores.items()])
+    
+    system_prompt = "You are synthesising patterns across FAIRA ethics domains. Use British English."
+    
+    prompt = f"""Provide a brief synthesis of overall patterns observed across FAIRA ethics domains.
+
+Base the synthesis ONLY on:
+- Domain scores summary:
+{domain_summary}
+- Overall risk score: {overall_risk}
+
+Identify high-level themes without referencing individual domain narratives or controls."""
+
+    return await call_llm(prompt, system_prompt, f"faira_domain_analysis_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b1_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b1_analysis}} - Accountability domain analysis."""
+    domain_scores = get_faira_domain_scores(report_data)
+    acc = domain_scores.get('Accountability', {})
+    
+    system_prompt = "You are analysing the Accountability domain for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Analyse the Accountability domain using:
+Impact {acc.get('Impact', 0)},
+Likelihood {acc.get('Likelihood', 0)},
+Inherent risk {acc.get('Inherent_Risk', 0)},
+Control effectiveness {acc.get('Control_Effectiveness', 0)},
+Residual risk {acc.get('Risk', 0)}.
+
+Explain factors influencing residual risk and the role of accountability arrangements."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b1_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b2_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b2_analysis}} - Contestability domain analysis."""
+    domain_scores = get_faira_domain_scores(report_data)
+    cont = domain_scores.get('Contestability', {})
+    
+    system_prompt = "You are analysing the Contestability domain for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Analyse the Contestability domain using:
+Impact {cont.get('Impact', 0)},
+Likelihood {cont.get('Likelihood', 0)},
+Inherent risk {cont.get('Inherent_Risk', 0)},
+Control effectiveness {cont.get('Control_Effectiveness', 0)},
+Residual risk {cont.get('Risk', 0)}.
+
+Explain how review and challenge mechanisms influence residual risk."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b2_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b3_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b3_analysis}} - Fairness domain analysis."""
+    domain_scores = get_faira_domain_scores(report_data)
+    fair = domain_scores.get('Fairness', {})
+    data_types = get_faira_form_value(report_data, 'A2_2')
+    sensitive_data = get_faira_form_value(report_data, 'A2_5')
+    
+    system_prompt = "You are analysing the Fairness domain for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Analyse the Fairness domain using:
+Impact {fair.get('Impact', 0)},
+Likelihood {fair.get('Likelihood', 0)},
+Inherent risk {fair.get('Inherent_Risk', 0)},
+Control effectiveness {fair.get('Control_Effectiveness', 0)},
+Residual risk {fair.get('Risk', 0)}.
+
+Data context: {data_types}, {sensitive_data}
+
+Explain contextual drivers of fairness-related risk."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b3_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b4_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b4_analysis}} - Wellbeing domain analysis."""
+    domain_scores = get_faira_domain_scores(report_data)
+    well = domain_scores.get('Wellbeing', {})
+    impact_scale = get_faira_form_value(report_data, 'A5_1')
+    impact_severity = get_faira_form_value(report_data, 'A5_2')
+    
+    system_prompt = "You are analysing the Wellbeing domain for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Analyse the Human, Societal & Environmental Wellbeing domain using:
+Impact {well.get('Impact', 0)},
+Likelihood {well.get('Likelihood', 0)},
+Inherent risk {well.get('Inherent_Risk', 0)},
+Control effectiveness {well.get('Control_Effectiveness', 0)},
+Residual risk {well.get('Risk', 0)}.
+
+Impact context: {impact_scale}, {impact_severity}
+
+Explain how scale and downstream effects influence risk."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b4_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b5_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b5_analysis}} - Human-Centred Values domain analysis."""
+    domain_scores = get_faira_domain_scores(report_data)
+    vals = domain_scores.get('Values', {})
+    user_groups = get_faira_form_value(report_data, 'A3_1')
+    user_expertise = get_faira_form_value(report_data, 'A3_3')
+    
+    system_prompt = "You are analysing the Human-Centred Values domain for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Analyse the Human-Centred Values domain using:
+Impact {vals.get('Impact', 0)},
+Likelihood {vals.get('Likelihood', 0)},
+Inherent risk {vals.get('Inherent_Risk', 0)},
+Control effectiveness {vals.get('Control_Effectiveness', 0)},
+Residual risk {vals.get('Risk', 0)}.
+
+User groups: {user_groups}
+Expertise levels: {user_expertise}
+
+Explain how user capability influences residual risk."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b5_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b6_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b6_analysis}} - Privacy domain analysis."""
+    domain_scores = get_faira_domain_scores(report_data)
+    priv = domain_scores.get('Privacy', {})
+    sensitive_data = get_faira_form_value(report_data, 'A2_5')
+    
+    system_prompt = "You are analysing the Privacy Protection & Security domain for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Analyse the Privacy Protection & Security domain using:
+Impact {priv.get('Impact', 0)},
+Likelihood {priv.get('Likelihood', 0)},
+Inherent risk {priv.get('Inherent_Risk', 0)},
+Control effectiveness {priv.get('Control_Effectiveness', 0)},
+Residual risk {priv.get('Risk', 0)}.
+
+Data sensitivity context: {sensitive_data}
+
+Explain how data characteristics influence risk context."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b6_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b7_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b7_analysis}} - Reliability domain analysis."""
+    domain_scores = get_faira_domain_scores(report_data)
+    rel = domain_scores.get('Reliability', {})
+    impact_severity = get_faira_form_value(report_data, 'A5_2')
+    
+    system_prompt = "You are analysing the Reliability & Safety domain for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Analyse the Reliability & Safety domain using:
+Impact {rel.get('Impact', 0)},
+Likelihood {rel.get('Likelihood', 0)},
+Inherent risk {rel.get('Inherent_Risk', 0)},
+Control effectiveness {rel.get('Control_Effectiveness', 0)},
+Residual risk {rel.get('Risk', 0)}.
+
+Impact context: {impact_severity}
+
+Explain how reliability expectations shape residual risk."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b7_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b8_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b8_analysis}} - Transparency domain analysis."""
+    domain_scores = get_faira_domain_scores(report_data)
+    trans = domain_scores.get('Transparency', {})
+    user_expertise = get_faira_form_value(report_data, 'A3_3')
+    
+    system_prompt = "You are analysing the Transparency & Explainability domain for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Analyse the Transparency & Explainability domain using:
+Impact {trans.get('Impact', 0)},
+Likelihood {trans.get('Likelihood', 0)},
+Inherent risk {trans.get('Inherent_Risk', 0)},
+Control effectiveness {trans.get('Control_Effectiveness', 0)},
+Residual risk {trans.get('Risk', 0)}.
+
+User expertise context: {user_expertise}
+
+Explain how understanding of outputs influences residual risk."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b8_{id(report_data)}", api_key)
+
+
+async def generate_faira_top_risk_areas_analysis(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_top_risk_areas_analysis}} - Top risk areas explanation."""
+    top_domains = get_faira_top_domains(report_data)
+    deployment_context = get_faira_form_value(report_data, 'A4_3')
+    domain_scores = get_faira_domain_scores(report_data)
+    
+    domain_summary = "\n".join([f"- {k}: Risk={v.get('Risk', 0):.0f}" for k, v in domain_scores.items()])
+    
+    system_prompt = "You are explaining top risk areas for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Explain why the domains listed as top risk areas represent the highest residual risk areas.
+
+Top risk domains: {top_domains}
+
+Domain score patterns:
+{domain_summary}
+
+Deployment context: {deployment_context}
+
+Base your explanation on domain score patterns and deployment context."""
+
+    return await call_llm(prompt, system_prompt, f"faira_top_risks_{id(report_data)}", api_key)
+
+
+# -----------------------------------------------------------------------------
+# Section 4: Controls Overview and Domain Controls Rationale
+# -----------------------------------------------------------------------------
+
+async def generate_faira_controls_overview(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_controls_overview}} - Controls overview."""
+    top_domains = get_faira_top_domains(report_data)
+    overall_risk = report_data.get('overall_risk_score', 50)
+    
+    system_prompt = "You are providing a controls overview for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Provide a high-level overview of the control approach used in this assessment.
+
+Base the overview ONLY on:
+- Top risk domains: {top_domains}
+- Overall risk score: {overall_risk}
+
+Explain the balance between existing controls and recommended enhancements."""
+
+    return await call_llm(prompt, system_prompt, f"faira_controls_overview_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b1_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b1_controls_rationale}} - Accountability controls rationale."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    domain_scores = get_faira_domain_scores(report_data)
+    acc = domain_scores.get('Accountability', {})
+    controls = get_faira_recommended_controls(report_data, 'Accountability')
+    
+    system_prompt = "You are explaining control rationale for Accountability domain. Use British English. Limit to one short paragraph."
+    
+    prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Accountability domain have been selected.
+
+Use ONLY:
+- Residual risk: {acc.get('Risk', 0)}
+- Inherent risk: {acc.get('Inherent_Risk', 0)}
+- Control effectiveness: {acc.get('Control_Effectiveness', 0)}
+- Recommended controls (Accountability): {controls}
+
+Explain:
+- What risk drivers these controls are intended to reduce (in governance/oversight terms)
+- Whether the emphasis is on strengthening existing arrangements versus addressing gaps
+- How these controls support clearer accountability and oversight without implying deficiencies
+
+Do NOT restate the controls verbatim. Do NOT recommend additional controls.
+Limit to one short paragraph."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b1_controls_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b2_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b2_controls_rationale}} - Contestability controls rationale."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    domain_scores = get_faira_domain_scores(report_data)
+    cont = domain_scores.get('Contestability', {})
+    controls = get_faira_recommended_controls(report_data, 'Contestability')
+    
+    system_prompt = "You are explaining control rationale for Contestability domain. Use British English. Limit to one short paragraph."
+    
+    prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Contestability domain have been selected.
+
+Use ONLY:
+- Residual risk: {cont.get('Risk', 0)}
+- Inherent risk: {cont.get('Inherent_Risk', 0)}
+- Control effectiveness: {cont.get('Control_Effectiveness', 0)}
+- Recommended controls (Contestability): {controls}
+
+Explain:
+- How the recommended controls address the ability to review, challenge, or escalate AI-supported outcomes
+- Whether the controls primarily strengthen process, governance, or user-facing mechanisms
+- How the controls reduce residual risk without assuming contested outcomes have occurred
+
+Do NOT restate the controls verbatim. Do NOT prescribe appeal models or policy changes.
+Limit to one short paragraph."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b2_controls_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b3_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b3_controls_rationale}} - Fairness controls rationale."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    domain_scores = get_faira_domain_scores(report_data)
+    fair = domain_scores.get('Fairness', {})
+    controls = get_faira_recommended_controls(report_data, 'Fairness')
+    data_types = get_faira_form_value(report_data, 'A2_2')
+    sensitive_data = get_faira_form_value(report_data, 'A2_5')
+    
+    system_prompt = "You are explaining control rationale for Fairness domain. Use British English. Limit to one short paragraph."
+    
+    prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Fairness domain have been selected.
+
+Use ONLY:
+- Residual risk: {fair.get('Risk', 0)}
+- Inherent risk: {fair.get('Inherent_Risk', 0)}
+- Control effectiveness: {fair.get('Control_Effectiveness', 0)}
+- Recommended controls (Fairness): {controls}
+- Data characteristics summary: {data_types} and {sensitive_data}
+
+Explain:
+- What potential sources of fairness-related risk are being addressed (data, use context, decision impacts)
+- How the recommended controls help detect or prevent unfair outcomes without asserting bias exists
+- Whether the focus is on strengthening governance, monitoring, or assurance practices
+
+Do NOT restate the controls verbatim. Do NOT claim discrimination or bias has occurred.
+Limit to one short paragraph."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b3_controls_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b4_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b4_controls_rationale}} - Wellbeing controls rationale."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    domain_scores = get_faira_domain_scores(report_data)
+    well = domain_scores.get('Wellbeing', {})
+    controls = get_faira_recommended_controls(report_data, 'Wellbeing')
+    impact_scale = get_faira_form_value(report_data, 'A5_1')
+    impact_severity = get_faira_form_value(report_data, 'A5_2')
+    operational_env = get_faira_form_value(report_data, 'A4_3')
+    third_party = get_faira_form_value(report_data, 'A4_5')
+    
+    system_prompt = "You are explaining control rationale for Wellbeing domain. Use British English. Limit to one short paragraph."
+    
+    prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Human, Societal & Environmental Wellbeing domain have been selected.
+
+Use ONLY:
+- Residual risk: {well.get('Risk', 0)}
+- Inherent risk: {well.get('Inherent_Risk', 0)}
+- Control effectiveness: {well.get('Control_Effectiveness', 0)}
+- Recommended controls (Wellbeing): {controls}
+- Impact context: {impact_scale} and {impact_severity}
+- Deployment context: {operational_env} and {third_party}
+
+Explain:
+- What types of downstream or broader impacts the controls are intended to manage (in contextual terms)
+- How the controls support monitoring, oversight, or safeguards proportional to context
+- Whether the emphasis is on strengthening existing assurance versus introducing new mitigations
+
+Do NOT restate the controls verbatim. Do NOT imply harm has occurred.
+Limit to one short paragraph."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b4_controls_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b5_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b5_controls_rationale}} - Human-Centred Values controls rationale."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    domain_scores = get_faira_domain_scores(report_data)
+    vals = domain_scores.get('Values', {})
+    controls = get_faira_recommended_controls(report_data, 'Values')
+    user_groups = get_faira_form_value(report_data, 'A3_1')
+    stakeholders = get_faira_form_value(report_data, 'A3_5')
+    user_expertise = get_faira_form_value(report_data, 'A3_3')
+    
+    system_prompt = "You are explaining control rationale for Human-Centred Values domain. Use British English. Limit to one short paragraph."
+    
+    prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Human-Centred Values domain have been selected.
+
+Use ONLY:
+- Residual risk: {vals.get('Risk', 0)}
+- Inherent risk: {vals.get('Inherent_Risk', 0)}
+- Control effectiveness: {vals.get('Control_Effectiveness', 0)}
+- Recommended controls (Human-Centred Values): {controls}
+- Users and stakeholders: {user_groups} and {stakeholders}
+- User expertise: {user_expertise}
+
+Explain:
+- How the controls support respectful, inclusive, and human-centred use in practice
+- How user capability and stakeholder impacts shape the need for these controls
+- Whether the controls strengthen governance/process or improve safeguards around use
+
+Do NOT restate the controls verbatim. Do NOT assess user behaviour or organisational intent.
+Limit to one short paragraph."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b5_controls_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b6_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b6_controls_rationale}} - Privacy controls rationale."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    domain_scores = get_faira_domain_scores(report_data)
+    priv = domain_scores.get('Privacy', {})
+    controls = get_faira_recommended_controls(report_data, 'Privacy')
+    data_sources = get_faira_form_value(report_data, 'A2_1')
+    data_types = get_faira_form_value(report_data, 'A2_2')
+    sensitive_data = get_faira_form_value(report_data, 'A2_5')
+    storage = get_faira_form_value(report_data, 'A2_7')
+    access = get_faira_form_value(report_data, 'A2_8')
+    
+    system_prompt = "You are explaining control rationale for Privacy domain. Use British English. Limit to one short paragraph."
+    
+    prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Privacy Protection & Security domain have been selected.
+
+Use ONLY:
+- Residual risk: {priv.get('Risk', 0)}
+- Inherent risk: {priv.get('Inherent_Risk', 0)}
+- Control effectiveness: {priv.get('Control_Effectiveness', 0)}
+- Recommended controls (Privacy & Security): {controls}
+- Data sources/types: {data_sources} and {data_types}
+- Sensitive/regulated data indicator: {sensitive_data}
+- Storage/retention/access context: {storage} and {access}
+
+Explain:
+- How the recommended controls address privacy/security risk drivers implied by the data characteristics
+- Whether recommendations emphasise strengthening governance, assurance, or technical safeguards (at a high level)
+- How the controls reduce residual risk without making compliance claims
+
+Do NOT restate the controls verbatim. Do NOT state or imply legislative compliance/non-compliance.
+Limit to one short paragraph."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b6_controls_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b7_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b7_controls_rationale}} - Reliability controls rationale."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    domain_scores = get_faira_domain_scores(report_data)
+    rel = domain_scores.get('Reliability', {})
+    controls = get_faira_recommended_controls(report_data, 'Reliability')
+    operational_env = get_faira_form_value(report_data, 'A4_3')
+    integration = get_faira_form_value(report_data, 'A4_4')
+    consequences = get_faira_form_value(report_data, 'A5_2')
+    
+    system_prompt = "You are explaining control rationale for Reliability domain. Use British English. Limit to one short paragraph."
+    
+    prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Reliability & Safety domain have been selected.
+
+Use ONLY:
+- Residual risk: {rel.get('Risk', 0)}
+- Inherent risk: {rel.get('Inherent_Risk', 0)}
+- Control effectiveness: {rel.get('Control_Effectiveness', 0)}
+- Recommended controls (Reliability & Safety): {controls}
+- Deployment/use context: {operational_env} and {integration}
+- Potential consequences context: {consequences}
+
+Explain:
+- How the recommended controls relate to performance consistency, error handling, monitoring, and safe use
+- Whether controls focus on strengthening assurance/monitoring versus operational safeguards
+- How the controls reduce residual risk without implying defects or unsafe operation
+
+Do NOT restate the controls verbatim. Do NOT recommend specific engineering techniques.
+Limit to one short paragraph."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b7_controls_{id(report_data)}", api_key)
+
+
+async def generate_faira_domain_b8_controls_rationale(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_domain_b8_controls_rationale}} - Transparency controls rationale."""
+    system_name = get_faira_form_value(report_data, 'A1_2', report_data.get('system_name', 'the AI system'))
+    domain_scores = get_faira_domain_scores(report_data)
+    trans = domain_scores.get('Transparency', {})
+    controls = get_faira_recommended_controls(report_data, 'Transparency')
+    user_groups = get_faira_form_value(report_data, 'A3_1')
+    user_expertise = get_faira_form_value(report_data, 'A3_3')
+    output_comms = get_faira_form_value(report_data, 'A3_4')
+    
+    system_prompt = "You are explaining control rationale for Transparency domain. Use British English. Limit to one short paragraph."
+    
+    prompt = f"""Using the FAIRA results and control content provided for {system_name}, write a short rationale explaining why the recommended controls for the Transparency & Explainability domain have been selected.
+
+Use ONLY:
+- Residual risk: {trans.get('Risk', 0)}
+- Inherent risk: {trans.get('Inherent_Risk', 0)}
+- Control effectiveness: {trans.get('Control_Effectiveness', 0)}
+- Recommended controls (Transparency & Explainability): {controls}
+- User groups and expertise: {user_groups} and {user_expertise}
+- How outputs are communicated: {output_comms}
+
+Explain:
+- How the recommended controls improve understanding of AI outputs and limitations in context
+- Whether emphasis is on documentation, communication, user enablement, or governance assurance (high level)
+- How the controls reduce residual risk without drifting into contestability or prescribing techniques
+
+Do NOT restate the controls verbatim. Do NOT recommend specific explainability methods.
+Limit to one short paragraph."""
+
+    return await call_llm(prompt, system_prompt, f"faira_b8_controls_{id(report_data)}", api_key)
+
+
+# -----------------------------------------------------------------------------
+# Section 5: Summary and Next Steps Narratives
+# -----------------------------------------------------------------------------
+
+async def generate_faira_gap_and_next_steps_summary(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_gap_and_next_steps_summary}} - Gap and next steps summary."""
+    existing_controls = report_data.get('existing_controls_summary', 'Not specified')
+    identified_gaps = report_data.get('identified_gaps', 'Not specified')
+    top_domains = get_faira_top_domains(report_data)
+    
+    system_prompt = "You are summarising gaps and next steps for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Summarise patterns across:
+- Existing controls: {existing_controls}
+- Identified gaps: {identified_gaps}
+- Top risk domains: {top_domains}
+
+Explain how these patterns inform high-level next-step considerations without prescribing actions."""
+
+    return await call_llm(prompt, system_prompt, f"faira_gaps_{id(report_data)}", api_key)
+
+
+async def generate_faira_governance_assurance_posture(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_governance_assurance_posture}} - Governance posture interpretation."""
+    governance_indicators = report_data.get('governance_maturity_indicators', report_data.get('governance_score', 'Not specified'))
+    assurance_mechanisms = report_data.get('assurance_mechanisms', report_data.get('assurance_readiness', 'Not specified'))
+    overall_risk_level = report_data.get('overall_risk_level', 'Medium')
+    
+    system_prompt = "You are interpreting governance posture for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Interpret the overall governance and assurance posture using:
+- Governance maturity indicators: {governance_indicators}
+- Assurance mechanisms: {assurance_mechanisms}
+- Overall risk level: {overall_risk_level}
+
+Explain how these arrangements support ongoing oversight."""
+
+    return await call_llm(prompt, system_prompt, f"faira_governance_{id(report_data)}", api_key)
+
+
+async def generate_faira_decision_next_steps_summary(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_decision_next_steps_summary}} - Decision considerations summary."""
+    overall_risk_level = report_data.get('overall_risk_level', 'Medium')
+    risk_acceptance = report_data.get('risk_acceptance_context', 'Standard organisational risk tolerance')
+    top_domains = get_faira_top_domains(report_data)
+    
+    system_prompt = "You are summarising decision considerations for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Summarise decision considerations based on:
+- Overall risk level: {overall_risk_level}
+- Risk acceptance context: {risk_acceptance}
+- Top risk domains: {top_domains}
+
+Frame considerations without recommending specific actions."""
+
+    return await call_llm(prompt, system_prompt, f"faira_decisions_{id(report_data)}", api_key)
+
+
+async def generate_faira_supporting_artefacts_summary(report_data: Dict[str, Any], api_key: str) -> str:
+    """Generate {{ai.f_supporting_artefacts_summary}} - Supporting artefacts summary."""
+    artefacts = report_data.get('supporting_artefacts', report_data.get('evidence_summary', 'Not specified'))
+    
+    system_prompt = "You are summarising supporting artefacts for a FAIRA assessment. Use British English."
+    
+    prompt = f"""Provide a brief summary of supporting artefacts: {artefacts}
+
+Describe artefact types and coverage without assessing adequacy or completeness."""
+
+    return await call_llm(prompt, system_prompt, f"faira_artefacts_{id(report_data)}", api_key)
+
+
+# -----------------------------------------------------------------------------
+# FAIRA Narrative Generation Orchestrator
+# -----------------------------------------------------------------------------
+
+async def generate_faira_narratives(
+    report_data: Dict[str, Any],
+    assessment: Dict[str, Any],
+    db,
+    api_key: str
+) -> Dict[str, str]:
+    """
+    Generate all 32 AI narratives for FAIRA assessments.
+    
+    Returns a dictionary with keys matching the template placeholders:
+    - f_executive_snapshot
+    - f_risk_profile_interpretation
+    - f_methodology_interpretation
+    - f_system_overview_notes
+    - f_data_context_notes
+    - f_user_stakeholder_context_notes
+    - f_deployment_context_notes
+    - f_impact_context_notes
+    - f_domain_analysis
+    - f_domain_b1_analysis through f_domain_b8_analysis
+    - f_top_risk_areas_analysis
+    - f_controls_overview
+    - f_domain_b1_controls_rationale through f_domain_b8_controls_rationale
+    - f_gap_and_next_steps_summary
+    - f_governance_assurance_posture
+    - f_decision_next_steps_summary
+    - f_supporting_artefacts_summary
+    """
+    narratives = {}
+    assessment_id = assessment.get('id')
+    cached_narratives = assessment.get('ai_narratives', {})
+    
+    # All 32 FAIRA narrative generators
+    generators = [
+        # Section 1: Executive and Overview
+        ('f_executive_snapshot', generate_faira_executive_snapshot),
+        ('f_risk_profile_interpretation', generate_faira_risk_profile_interpretation),
+        ('f_methodology_interpretation', generate_faira_methodology_interpretation),
+        
+        # Section 2: Context Notes (Part A)
+        ('f_system_overview_notes', generate_faira_system_overview_notes),
+        ('f_data_context_notes', generate_faira_data_context_notes),
+        ('f_user_stakeholder_context_notes', generate_faira_user_stakeholder_notes),
+        ('f_deployment_context_notes', generate_faira_deployment_context_notes),
+        ('f_impact_context_notes', generate_faira_impact_context_notes),
+        
+        # Section 3: Domain Analysis (Part B)
+        ('f_domain_analysis', generate_faira_domain_analysis),
+        ('f_domain_b1_analysis', generate_faira_domain_b1_analysis),
+        ('f_domain_b2_analysis', generate_faira_domain_b2_analysis),
+        ('f_domain_b3_analysis', generate_faira_domain_b3_analysis),
+        ('f_domain_b4_analysis', generate_faira_domain_b4_analysis),
+        ('f_domain_b5_analysis', generate_faira_domain_b5_analysis),
+        ('f_domain_b6_analysis', generate_faira_domain_b6_analysis),
+        ('f_domain_b7_analysis', generate_faira_domain_b7_analysis),
+        ('f_domain_b8_analysis', generate_faira_domain_b8_analysis),
+        ('f_top_risk_areas_analysis', generate_faira_top_risk_areas_analysis),
+        
+        # Section 4: Controls
+        ('f_controls_overview', generate_faira_controls_overview),
+        ('f_domain_b1_controls_rationale', generate_faira_domain_b1_controls_rationale),
+        ('f_domain_b2_controls_rationale', generate_faira_domain_b2_controls_rationale),
+        ('f_domain_b3_controls_rationale', generate_faira_domain_b3_controls_rationale),
+        ('f_domain_b4_controls_rationale', generate_faira_domain_b4_controls_rationale),
+        ('f_domain_b5_controls_rationale', generate_faira_domain_b5_controls_rationale),
+        ('f_domain_b6_controls_rationale', generate_faira_domain_b6_controls_rationale),
+        ('f_domain_b7_controls_rationale', generate_faira_domain_b7_controls_rationale),
+        ('f_domain_b8_controls_rationale', generate_faira_domain_b8_controls_rationale),
+        
+        # Section 5: Summary and Next Steps
+        ('f_gap_and_next_steps_summary', generate_faira_gap_and_next_steps_summary),
+        ('f_governance_assurance_posture', generate_faira_governance_assurance_posture),
+        ('f_decision_next_steps_summary', generate_faira_decision_next_steps_summary),
+        ('f_supporting_artefacts_summary', generate_faira_supporting_artefacts_summary),
+    ]
+    
+    for key, generator in generators:
+        if cached_narratives.get(key):
+            narratives[key] = cached_narratives[key]
+            print(f"DEBUG: Using cached AI {key} narrative (FAIRA)")
+        else:
+            try:
+                narratives[key] = await generator(report_data, api_key)
+                print(f"DEBUG: Generated new AI {key} narrative (FAIRA) ({len(narratives[key])} chars)")
+            except Exception as e:
+                print(f"ERROR generating AI {key} (FAIRA): {e}")
+                narratives[key] = ""
+    
+    # Cache to database
+    if db and assessment_id and narratives:
+        try:
+            await db.assessments.update_one(
+                {'id': assessment_id},
+                {'$set': {'ai_narratives': {**cached_narratives, **narratives}}}
+            )
+            print(f"DEBUG: Cached AI narratives to database (FAIRA)")
+        except Exception as e:
+            print(f"WARNING: Failed to cache AI narratives: {e}")
+    
+    return narratives
+
