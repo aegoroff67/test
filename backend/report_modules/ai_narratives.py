@@ -2081,7 +2081,7 @@ async def generate_faira_narratives(
                 narratives[key] = ""
     
     # Cache to database
-    if db and assessment_id and narratives:
+    if db is not None and assessment_id and narratives:
         try:
             await db.assessments.update_one(
                 {'id': assessment_id},
