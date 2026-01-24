@@ -616,8 +616,46 @@ function FairaResultsPage() {
   const handleGenerateReport = async () => {
     setGeneratingReport(true);
     try {
-      // Placeholder - Report endpoint needs backend implementation
-      toast.info('Detailed report generation feature coming soon');
+      const response = await axios.get(`${API}/assessments/${id}/report`, {
+        params: {
+          view_type: 'detailed',
+          use_ai: true
+        },
+        responseType: 'blob',
+        headers: {
+          'Accept': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        }
+      });
+      
+      // Create blob URL and trigger download
+      const blob = new Blob([response.data], { 
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+      });
+      const url = window.URL.createObjectURL(blob);
+      
+      // Extract filename from response headers or create default
+      const contentDisposition = response.headers['content-disposition'];
+      let filename = `FAIRA_Risk_Assessment_Report_${assessment?.name || id}.docx`;
+      
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
+      }
+      
+      // Create temporary link element to trigger download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      toast.success('FAIRA report downloaded successfully');
     } catch (error) {
       console.error('Error generating report:', error);
       toast.error('Failed to generate report');
