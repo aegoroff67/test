@@ -5222,6 +5222,10 @@ Each cell represents the score for a specific question, enabling identification 
             # For System assessments, use system_name (systemName field)
             system_info = assessment.get('system_info') or {}
             assessment_name_for_file = system_info.get('systemName', '') or system_info.get('system_name', '')
+        elif self.assessment_type == 'FAIRA':
+            # For FAIRA assessments, use ai_system_name from faira_form
+            faira_form = assessment.get('faira_form') or {}
+            assessment_name_for_file = faira_form.get('ai_system_name', '') or faira_form.get('A1_2', '') or assessment.get('name', '')
         else:
             # Other types - check org_info first, then system_info
             assessment_name_for_file = (assessment.get('org_info') or {}).get('org_name', '')
