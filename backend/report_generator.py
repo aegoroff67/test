@@ -860,6 +860,11 @@ The findings should be approximately 600-800 words with clear section headers.""
         api_key = os.environ.get('EMERGENT_LLM_KEY', 'sk-emergent-01d3a5f175e7fB507B')
         return await generate_system_narratives(report_data, assessment, db, api_key)
 
+    async def _generate_faira_ai_narratives(self, report_data: Dict[str, Any], assessment: Dict[str, Any], db) -> Dict[str, str]:
+        """Generate all 32 AI narratives for FAIRA assessments. Delegates to modular ai_narratives."""
+        api_key = os.environ.get('EMERGENT_LLM_KEY', 'sk-emergent-01d3a5f175e7fB507B')
+        return await generate_faira_narratives(report_data, assessment, db, api_key)
+
     def _get_test_template_path(self) -> str:
         """Get the test template path for testing new template structure."""  
         backend_dir = Path(__file__).parent
