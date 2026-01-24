@@ -4038,6 +4038,32 @@ Each cell represents the score for a specific question, enabling identification 
                     'data_quality_factor': faira_form.get('A2_4', ''),
                     'expertise_factor': faira_form.get('A3_3', ''),
                     'assessment_date': report_data.get('assessment_date', ''),
+                    'generation_date': report_data.get('generation_date', ''),
+                    
+                    # Gap variable placeholder (template expects gap.domain, gap.existing_controls, etc.)
+                    'gap': DotDict({
+                        'domain': '',
+                        'existing_controls': '',
+                        'gaps': '',
+                        'priority': ''
+                    }),
+                    
+                    # Artefact variable placeholder (template expects artefact.name, artefact.description, etc.)
+                    'artefact': DotDict({
+                        'name': '',
+                        'description': '',
+                        'domains': ''
+                    }),
+                    
+                    # Assessment object for template compatibility
+                    'assessment': DotDict({
+                        'date': report_data.get('assessment_date', '')
+                    }),
+                    
+                    # Image placeholders (will be replaced with actual images if available)
+                    'risk_gauge_image': report_data.get('risk_gauge_image', ''),
+                    'domain_radar_risk': report_data.get('domain_radar_risk', ''),
+                    'inherent_risk_radar': report_data.get('inherent_risk_radar', ''),
                     
                     # Full FAIRA form object for flexibility
                     'faira_form': DotDict(faira_form),
