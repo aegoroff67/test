@@ -3942,6 +3942,83 @@ Each cell represents the score for a specific question, enabling identification 
                 for fw in framework_coverage_data[:2]:  # Show first 2 for debugging
                     print(f"  - {fw.get('title', 'Unknown')}: is_selected={fw.get('is_selected')}, controls={fw.get('total_controls')}")
             
+            # Add FAIRA-specific variables if this is a FAIRA assessment
+            elif self.assessment_type == 'FAIRA':
+                faira_form = report_data.get('faira_form') or report_data.get('form_responses') or {}
+                
+                # Add FAIRA form responses as top-level variables
+                template_context.update({
+                    # Organization and System info from Part A
+                    'system_name': faira_form.get('A1_2', ''),
+                    'org_name': faira_form.get('A1_1', ''),
+                    'assessment_scope': faira_form.get('A1_4', ''),
+                    'deployment_context': faira_form.get('A4_3', ''),
+                    
+                    # Risk scores
+                    'overall_risk_score': report_data.get('overall_risk_score', 50),
+                    'overall_risk_level': report_data.get('overall_risk_level', 'Medium'),
+                    'overall_impact_score': report_data.get('overall_impact_score', 50),
+                    'overall_likelihood_score': report_data.get('overall_likelihood_score', 50),
+                    'overall_control_effectiveness_score': report_data.get('overall_control_effectiveness_score', 50),
+                    
+                    # Domain scores
+                    'domain_scores': report_data.get('domain_scores', {}),
+                    'top_risk_areas': report_data.get('top_risk_areas', []),
+                    
+                    # Full FAIRA form object for flexibility
+                    'faira_form': faira_form,
+                })
+                
+                # Add AI narratives for FAIRA reports (32 placeholders)
+                # Using variable naming convention: ai.f_* for FAIRA
+                ai_narratives = report_data.get('ai_narratives', {})
+                template_context['ai'] = {
+                    # Executive and Overview
+                    'f_executive_snapshot': replace_amp_with_placeholder(ai_narratives.get('f_executive_snapshot', '')),
+                    'f_risk_profile_interpretation': replace_amp_with_placeholder(ai_narratives.get('f_risk_profile_interpretation', '')),
+                    'f_methodology_interpretation': replace_amp_with_placeholder(ai_narratives.get('f_methodology_interpretation', '')),
+                    
+                    # Context Notes (Part A)
+                    'f_system_overview_notes': replace_amp_with_placeholder(ai_narratives.get('f_system_overview_notes', '')),
+                    'f_data_context_notes': replace_amp_with_placeholder(ai_narratives.get('f_data_context_notes', '')),
+                    'f_user_stakeholder_context_notes': replace_amp_with_placeholder(ai_narratives.get('f_user_stakeholder_context_notes', '')),
+                    'f_deployment_context_notes': replace_amp_with_placeholder(ai_narratives.get('f_deployment_context_notes', '')),
+                    'f_impact_context_notes': replace_amp_with_placeholder(ai_narratives.get('f_impact_context_notes', '')),
+                    
+                    # Domain Analysis (Part B)
+                    'f_domain_analysis': replace_amp_with_placeholder(ai_narratives.get('f_domain_analysis', '')),
+                    'f_domain_b1_analysis': replace_amp_with_placeholder(ai_narratives.get('f_domain_b1_analysis', '')),
+                    'f_domain_b2_analysis': replace_amp_with_placeholder(ai_narratives.get('f_domain_b2_analysis', '')),
+                    'f_domain_b3_analysis': replace_amp_with_placeholder(ai_narratives.get('f_domain_b3_analysis', '')),
+                    'f_domain_b4_analysis': replace_amp_with_placeholder(ai_narratives.get('f_domain_b4_analysis', '')),
+                    'f_domain_b5_analysis': replace_amp_with_placeholder(ai_narratives.get('f_domain_b5_analysis', '')),
+                    'f_domain_b6_analysis': replace_amp_with_placeholder(ai_narratives.get('f_domain_b6_analysis', '')),
+                    'f_domain_b7_analysis': replace_amp_with_placeholder(ai_narratives.get('f_domain_b7_analysis', '')),
+                    'f_domain_b8_analysis': replace_amp_with_placeholder(ai_narratives.get('f_domain_b8_analysis', '')),
+                    'f_top_risk_areas_analysis': replace_amp_with_placeholder(ai_narratives.get('f_top_risk_areas_analysis', '')),
+                    
+                    # Controls
+                    'f_controls_overview': replace_amp_with_placeholder(ai_narratives.get('f_controls_overview', '')),
+                    'f_domain_b1_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b1_controls_rationale', '')),
+                    'f_domain_b2_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b2_controls_rationale', '')),
+                    'f_domain_b3_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b3_controls_rationale', '')),
+                    'f_domain_b4_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b4_controls_rationale', '')),
+                    'f_domain_b5_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b5_controls_rationale', '')),
+                    'f_domain_b6_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b6_controls_rationale', '')),
+                    'f_domain_b7_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b7_controls_rationale', '')),
+                    'f_domain_b8_controls_rationale': replace_amp_with_placeholder(ai_narratives.get('f_domain_b8_controls_rationale', '')),
+                    
+                    # Summary and Next Steps
+                    'f_gap_and_next_steps_summary': replace_amp_with_placeholder(ai_narratives.get('f_gap_and_next_steps_summary', '')),
+                    'f_governance_assurance_posture': replace_amp_with_placeholder(ai_narratives.get('f_governance_assurance_posture', '')),
+                    'f_decision_next_steps_summary': replace_amp_with_placeholder(ai_narratives.get('f_decision_next_steps_summary', '')),
+                    'f_supporting_artefacts_summary': replace_amp_with_placeholder(ai_narratives.get('f_supporting_artefacts_summary', '')),
+                }
+                print(f"DEBUG: Added FAIRA AI narratives to template context: {list(template_context['ai'].keys())}")
+                for key, value in template_context['ai'].items():
+                    if value:
+                        print(f"  - {key} length: {len(value)} chars")
+            
             print("Generated report data structure:")
             print(f"  Organization: {template_context['org']['name']}")
             print(f"  Overall score: {template_context['overall']['score']}")
