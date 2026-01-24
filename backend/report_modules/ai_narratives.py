@@ -1403,8 +1403,6 @@ async def generate_faira_impact_context_notes(report_data: Dict[str, Any], api_k
     impact_severity = get_faira_form_value(report_data, 'A5_2')
     affected_parties = get_faira_form_value(report_data, 'A5_3')
     
-    system_prompt = "You are summarising impact context for a FAIRA assessment. Use British English."
-    
     prompt = f"""Summarise the potential impact context associated with the assessed AI system.
 
 Base the summary ONLY on:
@@ -1414,7 +1412,7 @@ Base the summary ONLY on:
 
 Explain how potential impacts shape the overall risk context without implying harm has occurred."""
 
-    return await call_llm(prompt, system_prompt, f"faira_impact_context_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_impact_context_{id(report_data)}", api_key)
 
 
 # -----------------------------------------------------------------------------
