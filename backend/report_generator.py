@@ -5024,6 +5024,7 @@ Each cell represents the score for a specific question, enabling identification 
                 assessment_data['faira_risk_summary'] = faira_risk_summary
                 assessment_data['faira_radar_data'] = faira_radar_data
                 assessment_data['faira_controls'] = faira_controls
+                assessment_data['faira_form'] = faira_form  # Pass form data to template context
                 
                 ai_narratives = await self._generate_faira_ai_narratives(ai_report_data, assessment, db)
                 assessment_data['ai_narratives'] = ai_narratives
