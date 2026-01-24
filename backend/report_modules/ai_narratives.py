@@ -1562,8 +1562,6 @@ async def generate_faira_domain_b7_analysis(report_data: Dict[str, Any], api_key
     rel = domain_scores.get('Reliability', {})
     impact_severity = get_faira_form_value(report_data, 'A5_2')
     
-    system_prompt = "You are analysing the Reliability & Safety domain for a FAIRA assessment. Use British English."
-    
     prompt = f"""Analyse the Reliability & Safety domain using:
 Impact {rel.get('Impact', 0)},
 Likelihood {rel.get('Likelihood', 0)},
@@ -1575,7 +1573,7 @@ Impact context: {impact_severity}
 
 Explain how reliability expectations shape residual risk."""
 
-    return await call_llm(prompt, system_prompt, f"faira_b7_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_b7_{id(report_data)}", api_key)
 
 
 async def generate_faira_domain_b8_analysis(report_data: Dict[str, Any], api_key: str) -> str:
