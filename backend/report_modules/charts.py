@@ -641,3 +641,212 @@ def generate_risk_gauge(risk_score: float, risk_level: str = None) -> bytes:
     buf.seek(0)
     
     return buf.getvalue()
+
+
+
+def generate_faira_domain_risk_radar(domain_scores: Dict[str, Any]) -> bytes:
+    """
+    Generate a radar chart showing residual risk scores across all 8 FAIRA domains.
+    
+    Args:
+        domain_scores: Dictionary with domain names as keys, containing 'Risk' score
+        
+    Returns:
+        PNG image bytes of the radar chart
+    """
+    try:
+        # Define FAIRA domains in order
+        faira_domains = [
+            'Accountability',
+            'Contestability', 
+            'Fairness',
+            'Wellbeing',
+            'Values',
+            'Privacy',
+            'Reliability',
+            'Transparency'
+        ]
+        
+        # Domain display labels (shorter for chart)
+        domain_labels = [
+            'Accountability',
+            'Contestability',
+            'Fairness',
+            'Wellbeing',
+            'Human Values',
+            'Privacy',
+            'Reliability',
+            'Transparency'
+        ]
+        
+        # Extract risk scores
+        scores = []
+        for domain in faira_domains:
+            domain_data = domain_scores.get(domain, {})
+            risk_score = domain_data.get('Risk', 0)
+            scores.append(risk_score)
+        
+        # Number of variables
+        num_vars = len(faira_domains)
+        
+        # Compute angles
+        angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
+        
+        # Complete the loop
+        scores += scores[:1]
+        angles += angles[:1]
+        
+        # Create figure
+        fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(projection='polar'))
+        fig.patch.set_facecolor('white')
+        
+        # Plot risk scores (red gradient based on risk level)
+        ax.plot(angles, scores, 'o-', linewidth=2, color='#ef4444', label='Residual Risk')
+        ax.fill(angles, scores, alpha=0.3, color='#ef4444')
+        
+        # Fix axis orientation
+        ax.set_theta_offset(np.pi / 2)
+        ax.set_theta_direction(-1)
+        
+        # Set labels
+        ax.set_xticks(angles[:-1])
+        ax.set_xticklabels(domain_labels, size=9, fontweight='bold')
+        
+        # Set y-axis limits (0-100 for risk scores)
+        ax.set_ylim(0, 100)
+        ax.set_yticks([0, 25, 50, 75, 100])
+        ax.set_yticklabels(['0', '25', '50', '75', '100'], size=8, color='#6b7280')
+        
+        # Add grid
+        ax.grid(True, linestyle='-', alpha=0.3, color='#d1d5db')
+        
+        # Title
+        ax.set_title('Residual Risk by Domain', size=12, fontweight='bold', 
+                     color='#1f2937', pad=20)
+        
+        # Save to bytes
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=150, bbox_inches='tight',
+                    facecolor='white', edgecolor='none')
+        plt.close(fig)
+        buf.seek(0)
+        
+        return buf.getvalue()
+        
+    except Exception as e:
+        print(f"Error generating FAIRA domain risk radar: {e}")
+        import traceback
+        traceback.print_exc()
+        # Return placeholder
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.text(0.5, 0.5, 'Error generating chart', ha='center', va='center')
+        ax.axis('off')
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=150, bbox_inches='tight')
+        plt.close(fig)
+        buf.seek(0)
+        return buf.getvalue()
+
+
+def generate_faira_inherent_risk_radar(domain_scores: Dict[str, Any]) -> bytes:
+    """
+    Generate a radar chart showing inherent risk scores across all 8 FAIRA domains.
+    
+    Args:
+        domain_scores: Dictionary with domain names as keys, containing 'Inherent_Risk' score
+        
+    Returns:
+        PNG image bytes of the radar chart
+    """
+    try:
+        # Define FAIRA domains in order
+        faira_domains = [
+            'Accountability',
+            'Contestability', 
+            'Fairness',
+            'Wellbeing',
+            'Values',
+            'Privacy',
+            'Reliability',
+            'Transparency'
+        ]
+        
+        # Domain display labels
+        domain_labels = [
+            'Accountability',
+            'Contestability',
+            'Fairness',
+            'Wellbeing',
+            'Human Values',
+            'Privacy',
+            'Reliability',
+            'Transparency'
+        ]
+        
+        # Extract inherent risk scores
+        scores = []
+        for domain in faira_domains:
+            domain_data = domain_scores.get(domain, {})
+            inherent_risk = domain_data.get('Inherent_Risk', 0)
+            scores.append(inherent_risk)
+        
+        # Number of variables
+        num_vars = len(faira_domains)
+        
+        # Compute angles
+        angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
+        
+        # Complete the loop
+        scores += scores[:1]
+        angles += angles[:1]
+        
+        # Create figure
+        fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(projection='polar'))
+        fig.patch.set_facecolor('white')
+        
+        # Plot inherent risk scores (orange/amber for inherent risk)
+        ax.plot(angles, scores, 'o-', linewidth=2, color='#f97316', label='Inherent Risk')
+        ax.fill(angles, scores, alpha=0.3, color='#f97316')
+        
+        # Fix axis orientation
+        ax.set_theta_offset(np.pi / 2)
+        ax.set_theta_direction(-1)
+        
+        # Set labels
+        ax.set_xticks(angles[:-1])
+        ax.set_xticklabels(domain_labels, size=9, fontweight='bold')
+        
+        # Set y-axis limits (0-100 for risk scores)
+        ax.set_ylim(0, 100)
+        ax.set_yticks([0, 25, 50, 75, 100])
+        ax.set_yticklabels(['0', '25', '50', '75', '100'], size=8, color='#6b7280')
+        
+        # Add grid
+        ax.grid(True, linestyle='-', alpha=0.3, color='#d1d5db')
+        
+        # Title
+        ax.set_title('Inherent Risk by Domain', size=12, fontweight='bold', 
+                     color='#1f2937', pad=20)
+        
+        # Save to bytes
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=150, bbox_inches='tight',
+                    facecolor='white', edgecolor='none')
+        plt.close(fig)
+        buf.seek(0)
+        
+        return buf.getvalue()
+        
+    except Exception as e:
+        print(f"Error generating FAIRA inherent risk radar: {e}")
+        import traceback
+        traceback.print_exc()
+        # Return placeholder
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.text(0.5, 0.5, 'Error generating chart', ha='center', va='center')
+        ax.axis('off')
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=150, bbox_inches='tight')
+        plt.close(fig)
+        buf.seek(0)
+        return buf.getvalue()
