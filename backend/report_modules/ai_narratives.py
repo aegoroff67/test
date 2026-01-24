@@ -1283,8 +1283,6 @@ async def generate_faira_risk_profile_interpretation(report_data: Dict[str, Any]
     overall_control = report_data.get('overall_control_effectiveness_score', report_data.get('total_control_effectiveness', 50))
     overall_risk = report_data.get('overall_risk_score', 50)
     
-    system_prompt = "You are interpreting a FAIRA risk profile. Use British English. Be analytical and objective."
-    
     prompt = f"""Interpret the overall FAIRA risk profile using the following normalised scores:
 - Impact: {overall_impact}
 - Likelihood: {overall_likelihood}
@@ -1296,7 +1294,7 @@ Explain how these dimensions interact and why residual risk may remain even wher
 Do not reference individual domains.
 Do not provide recommendations."""
 
-    return await call_llm(prompt, system_prompt, f"faira_risk_profile_{id(report_data)}", api_key)
+    return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_risk_profile_{id(report_data)}", api_key)
 
 
 async def generate_faira_methodology_interpretation(report_data: Dict[str, Any], api_key: str) -> str:
