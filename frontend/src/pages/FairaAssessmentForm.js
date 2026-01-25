@@ -2607,12 +2607,12 @@ export default function FairaAssessmentForm() {
                     <Label>Which perspectives? (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "People with disabilities",
-                        "Cultural diversity",
-                        "Gender diversity",
-                        "Age diversity",
+                        "people with disabilities",
+                        "cultural diversity",
+                        "gender diversity",
+                        "age diversity",
                         "Indigenous perspectives",
-                        "Socioeconomic diversity"
+                        "socioeconomic diversity"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
@@ -2679,16 +2679,16 @@ export default function FairaAssessmentForm() {
                     <Label>Select testing methods (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "Statistical parity analysis",
-                        "Disparate impact analysis",
-                        "Dataset bias review",
-                        "Model interpretability testing",
-                        "Human review panels",
-                        "Synthetic scenario testing",
-                        "Accessibility testing",
-                        "Penetration/security testing",
-                        "Vendor-provided tests",
-                        "Informal or ad-hoc checks only (no formal testing) (flag as risk)"
+                        "statistical parity analysis",
+                        "disparate impact analysis",
+                        "dataset bias review",
+                        "model interpretability testing",
+                        "human review panels",
+                        "synthetic scenario testing",
+                        "accessibility testing",
+                        "penetration/security testing",
+                        "vendor-provided tests",
+                        "informal or ad-hoc checks only (no formal testing) (flag as risk)"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
@@ -2741,13 +2741,13 @@ export default function FairaAssessmentForm() {
                     <Label>Against which groups? (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "Age groups",
-                        "People with disabilities",
-                        "Racial or ethnic groups",
-                        "Religious groups",
-                        "Gender",
-                        "Sexual orientation",
-                        "Socioeconomic status"
+                        "age groups",
+                        "people with disabilities",
+                        "racial or ethnic groups",
+                        "religious groups",
+                        "gender",
+                        "sexual orientation",
+                        "socioeconomic status"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
