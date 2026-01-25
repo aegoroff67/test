@@ -34,7 +34,13 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 
 ## What's Been Implemented
 
-### ✅ Completed (as of 2026-01-24)
+### ✅ Completed (as of 2026-01-25)
+
+#### Custom Jinja2 Filter Bug Fix (2026-01-25) - FIXED ✅
+- **Issue**: `AttributeError: 'NoneType' object has no attribute 'jinja_env'` during DOCX generation
+- **Root Cause**: Custom `replace_last` filter was incorrectly registered via `doc.jinja_env.filters` (which is None before render)
+- **Fix**: Create separate `jinja2.Environment()` object, add filter to it, pass to `doc.render(template_context, jinja_env)`
+- **Result**: FAIRA DOCX report generation now works (validated with 432KB file)
 
 #### User Tier System - COMPLETE ✅
 - **Tier-based assessment access**:
