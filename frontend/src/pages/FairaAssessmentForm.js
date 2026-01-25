@@ -1025,15 +1025,15 @@ export default function FairaAssessmentForm() {
                 <Label>A1.3 Select all AI features that apply:</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Natural language processing",
-                    "Data analysis and visualization",
-                    "Automated content generation",
-                    "Integration with existing systems",
-                    "Personalized recommendations",
-                    "Collaboration enhancement",
-                    "Task automation",
-                    "Security and compliance",
-                    "Voice recognition"
+                    "natural language processing",
+                    "data analysis and visualization",
+                    "automated content generation",
+                    "integration with existing systems",
+                    "personalized recommendations",
+                    "collaboration enhancement",
+                    "task automation",
+                    "security and compliance",
+                    "voice recognition"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1066,16 +1066,16 @@ export default function FairaAssessmentForm() {
                 <Label>A1.4 What decisions will be addressed by the AI functionality? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Content development and approval",
-                    "Data interpretation and business strategy",
-                    "Prioritization of communications",
-                    "Workflow optimization",
-                    "Security and compliance oversight",
-                    "Resource allocation",
-                    "Crisis management",
-                    "Employee training",
-                    "Customer relationship management",
-                    "Administrative decision-making (regulated by law)"
+                    "content development and approval",
+                    "data interpretation and business strategy",
+                    "prioritization of communications",
+                    "workflow optimization",
+                    "security and compliance oversight",
+                    "resource allocation",
+                    "crisis management",
+                    "employee training",
+                    "customer relationship management",
+                    "administrative decision-making (regulated by law)"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1093,18 +1093,18 @@ export default function FairaAssessmentForm() {
                 <Label>A1.5 What tangible benefits does this AI solution provide? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Increased efficiency",
-                    "Reduced manual effort",
-                    "Improved decision-making",
-                    "Faster processing time",
-                    "Improved accuracy or consistency",
-                    "Enhanced user experience",
-                    "Cost reduction",
-                    "Improved accessibility",
-                    "Reduced risk or error",
-                    "Better service delivery",
-                    "Improved communication",
-                    "Increased transparency"
+                    "increased efficiency",
+                    "reduced manual effort",
+                    "improved decision-making",
+                    "faster processing time",
+                    "improved accuracy or consistency",
+                    "enhanced user experience",
+                    "cost reduction",
+                    "improved accessibility",
+                    "reduced risk or error",
+                    "better service delivery",
+                    "improved communication",
+                    "increased transparency"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
