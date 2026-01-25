@@ -1972,12 +1972,12 @@ export default function FairaAssessmentForm() {
                   className="w-full p-2 border rounded-md"
                 >
                   <option value="">Select role</option>
-                  <option value="Product owner">Product owner</option>
-                  <option value="System owner">System owner</option>
-                  <option value="Executive sponsor">Executive sponsor</option>
-                  <option value="Service manager">Service manager</option>
-                  <option value="Data custodian">Data custodian</option>
-                  <option value="Governance committee">Governance committee</option>
+                  <option value="product owner">product owner</option>
+                  <option value="system owner">system owner</option>
+                  <option value="executive sponsor">executive sponsor</option>
+                  <option value="service manager">service manager</option>
+                  <option value="data custodian">data custodian</option>
+                  <option value="governance committee">governance committee</option>
                   <option value="AI oversight board">AI oversight board</option>
                 </select>
               </div>
@@ -1999,10 +1999,10 @@ export default function FairaAssessmentForm() {
                 <Label>A5.3 What monitoring and evaluation processes are in place? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Regular system audits",
-                    "Continuous performance monitoring",
-                    "User feedback collection",
-                    "Periodic stakeholder reviews"
+                    "regular system audits",
+                    "continuous performance monitoring",
+                    "user feedback collection",
+                    "periodic stakeholder reviews"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -2067,12 +2067,12 @@ export default function FairaAssessmentForm() {
                 >
                   <option value="">Select role</option>
                   <option value="ICT operations">ICT operations</option>
-                  <option value="Data science team">Data science team</option>
-                  <option value="Risk/Compliance">Risk/Compliance</option>
-                  <option value="Business owner">Business owner</option>
-                  <option value="Vendor">Vendor</option>
-                  <option value="Customer-facing staff">Customer-facing staff</option>
-                  <option value="External auditor">External auditor</option>
+                  <option value="data science team">data science team</option>
+                  <option value="risk/compliance">risk/compliance</option>
+                  <option value="business owner">business owner</option>
+                  <option value="vendor">vendor</option>
+                  <option value="customer-facing staff">customer-facing staff</option>
+                  <option value="external auditor">external auditor</option>
                 </select>
               </div>
 
@@ -2081,13 +2081,13 @@ export default function FairaAssessmentForm() {
                 <Label>A5.7 How are stakeholders engaged in monitoring and evaluation? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Workshops",
-                    "Public consultation",
-                    "Union consultation",
-                    "Focus groups",
-                    "User feedback sessions",
-                    "Accessibility reviews",
-                    "No engagements planned (flag as risk)"
+                    "workshops",
+                    "public consultation",
+                    "union consultation",
+                    "focus groups",
+                    "user feedback sessions",
+                    "accessibility reviews",
+                    "no engagements planned (flag as risk)"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -2105,13 +2105,13 @@ export default function FairaAssessmentForm() {
                 <Label>A5.8 How are undesirable or harmful results detected? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Alerting and monitoring",
-                    "User complaints",
-                    "Human review triggers",
-                    "Automated anomaly detection",
-                    "Escalation procedures",
-                    "Incident response team",
-                    "No defined contingencies (flag as risk)"
+                    "alerting and monitoring",
+                    "user complaints",
+                    "human review triggers",
+                    "automated anomaly detection",
+                    "escalation procedures",
+                    "incident response team",
+                    "no defined contingencies (flag as risk)"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -2131,12 +2131,12 @@ export default function FairaAssessmentForm() {
                   {[
                     "Australia's AI Ethics Principles",
                     "Human Rights Act",
-                    "Data governance policies",
+                    "data governance policies",
                     "WHS",
-                    "Accessibility standards",
-                    "Agency ethics statements",
-                    "Privacy principles",
-                    "Risk management framework"
+                    "accessibility standards",
+                    "agency ethics statements",
+                    "privacy principles",
+                    "risk management framework"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
