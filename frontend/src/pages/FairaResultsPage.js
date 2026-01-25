@@ -338,7 +338,7 @@ function FairaResultsPage() {
             tier: 'High Impact',
             microLabel: 'Impact Signal',
             tooltipTitle: 'High Impact Potential',
-            tooltipText: "This domain exhibits a high potential for significant consequences if risks materialise. Impacts may be substantial in scale, severity, or scope, even if likelihood is currently limited."
+            tooltipText: "This system exhibits a high potential for significant consequences if risks materialise. Impacts may be substantial in scale, severity, or scope, even if likelihood is currently limited."
           };
         } else if (numScore >= 40) {
           return {
@@ -346,7 +346,7 @@ function FairaResultsPage() {
             tier: 'Moderate Impact',
             microLabel: 'Impact Signal',
             tooltipTitle: 'Moderate Impact Potential',
-            tooltipText: "Potential impacts within this domain are assessed as moderate. Consequences may be material but are generally more limited in scale or severity."
+            tooltipText: "Potential impacts within this system are assessed as moderate. Consequences may be material but are generally more limited in scale or severity."
           };
         } else {
           return {
@@ -354,7 +354,7 @@ function FairaResultsPage() {
             tier: 'Low Impact',
             microLabel: 'Impact Signal',
             tooltipTitle: 'Low Impact Potential',
-            tooltipText: "Potential impacts associated with this domain are assessed as limited, indicating lower consequence severity if risks were to occur."
+            tooltipText: "Potential impacts associated with this system are assessed as limited, indicating lower consequence severity if risks were to occur."
           };
         }
       
@@ -366,7 +366,7 @@ function FairaResultsPage() {
             tier: 'High Likelihood',
             microLabel: 'Likelihood Signal',
             tooltipTitle: 'Elevated Likelihood',
-            tooltipText: "Risk events within this domain are assessed as likely to occur under current conditions, indicating ongoing exposure."
+            tooltipText: "Risk events within this system are assessed as likely to occur under current conditions, indicating ongoing exposure."
           };
         } else if (numScore >= 30) {
           return {
@@ -374,7 +374,7 @@ function FairaResultsPage() {
             tier: 'Moderate Likelihood',
             microLabel: 'Likelihood Signal',
             tooltipTitle: 'Moderate Likelihood',
-            tooltipText: "The likelihood of risk events occurring within this domain is assessed as moderate, suggesting some exposure depending on context and conditions."
+            tooltipText: "The likelihood of risk events occurring within this system is assessed as moderate, suggesting some exposure depending on context and conditions."
           };
         } else {
           return {
@@ -382,7 +382,7 @@ function FairaResultsPage() {
             tier: 'Low Likelihood',
             microLabel: 'Likelihood Signal',
             tooltipTitle: 'Low Likelihood',
-            tooltipText: "Risk events within this domain are considered unlikely to occur based on current information and conditions."
+            tooltipText: "Risk events within this system are considered unlikely to occur based on current information and conditions."
           };
         }
       
@@ -394,7 +394,7 @@ function FairaResultsPage() {
             tier: 'Low Effectiveness',
             microLabel: 'Control Signal',
             tooltipTitle: 'Low Control Effectiveness',
-            tooltipText: "Existing controls may not sufficiently mitigate identified risks within this domain, increasing reliance on monitoring or future control strengthening."
+            tooltipText: "Existing controls may not sufficiently mitigate identified risks within this system, increasing reliance on monitoring or future control strengthening."
           };
         } else if (numScore < 60) {
           return {
@@ -402,7 +402,7 @@ function FairaResultsPage() {
             tier: 'Partial Effectiveness',
             microLabel: 'Control Signal',
             tooltipTitle: 'Partially Effective Controls',
-            tooltipText: "Controls provide some mitigation of risk but may not fully address all relevant risk drivers within this domain."
+            tooltipText: "Controls provide some mitigation of risk but may not fully address all relevant risk drivers within this system."
           };
         } else {
           return {
@@ -410,7 +410,7 @@ function FairaResultsPage() {
             tier: 'Effective Controls',
             microLabel: 'Control Signal',
             tooltipTitle: 'Effective Controls',
-            tooltipText: "Controls within this domain are generally effective in mitigating identified risks, contributing to reduced residual risk."
+            tooltipText: "Controls within this system are generally effective in mitigating identified risks, contributing to reduced residual risk."
           };
         }
       
@@ -424,7 +424,7 @@ function FairaResultsPage() {
               tier: 'High Inherent Exposure',
               microLabel: 'Inherent Exposure Signal',
               tooltipTitle: 'High Baseline Exposure',
-              tooltipText: "This domain exhibits a high level of baseline risk in the absence of controls. This reflects the nature, scale, or context of the system rather than any control deficiencies."
+              tooltipText: "This system exhibits a high level of baseline risk in the absence of controls. This reflects the nature, scale, or context of the system rather than any control deficiencies."
             };
           } else if (numScore >= 20) {
             return {
@@ -432,7 +432,7 @@ function FairaResultsPage() {
               tier: 'Moderate Inherent Exposure',
               microLabel: 'Inherent Exposure Signal',
               tooltipTitle: 'Moderate Baseline Exposure',
-              tooltipText: "Baseline risk within this domain is assessed as moderate, indicating some inherent exposure prior to the application of controls."
+              tooltipText: "Baseline risk within this system is assessed as moderate, indicating some inherent exposure prior to the application of controls."
             };
           } else {
             return {
@@ -440,7 +440,7 @@ function FairaResultsPage() {
               tier: 'Low Inherent Exposure',
               microLabel: 'Inherent Exposure Signal',
               tooltipTitle: 'Low Baseline Exposure',
-              tooltipText: "Baseline risk within this domain is assessed as low, reflecting limited inherent exposure based on system context."
+              tooltipText: "Baseline risk within this system is assessed as low, reflecting limited inherent exposure based on system context."
             };
           }
         } else {
@@ -451,7 +451,7 @@ function FairaResultsPage() {
               tier: 'High Residual Risk',
               microLabel: 'Residual Risk Signal',
               tooltipTitle: 'Elevated Residual Risk',
-              tooltipText: "After considering impact, likelihood, and control effectiveness, this domain retains a high level of residual risk, indicating areas requiring prioritised attention."
+              tooltipText: "After considering impact, likelihood, and control effectiveness, this system retains a high level of residual risk, indicating areas requiring prioritised attention."
             };
           } else if (numScore >= 20) {
             return {
@@ -459,7 +459,7 @@ function FairaResultsPage() {
               tier: 'Moderate Residual Risk',
               microLabel: 'Residual Risk Signal',
               tooltipTitle: 'Moderate Residual Risk',
-              tooltipText: "Residual risk within this domain is assessed as moderate, suggesting some ongoing exposure that may warrant monitoring or further consideration."
+              tooltipText: "Residual risk within this system is assessed as moderate, suggesting some ongoing exposure that may warrant monitoring or further consideration."
             };
           } else {
             return {
@@ -467,7 +467,7 @@ function FairaResultsPage() {
               tier: 'Low Residual Risk',
               microLabel: 'Residual Risk Signal',
               tooltipTitle: 'Low Residual Risk',
-              tooltipText: "Residual risk within this domain is currently assessed as low, indicating that existing controls are generally sufficient under current conditions."
+              tooltipText: "Residual risk within this system is currently assessed as low, indicating that existing controls are generally sufficient under current conditions."
             };
           }
         }
