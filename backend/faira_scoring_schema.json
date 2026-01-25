@@ -21,34 +21,34 @@
       "scoring": {
         "target_metric": "Impact",
         "options": {
-          "Information retrieval": {
+          "information retrieval": {
             "Impact": 0.5
           },
-          "Natural language understanding": {
+          "natural language understanding": {
             "Impact": 1
           },
-          "Prediction/forecasting": {
+          "prediction/forecasting": {
             "Impact": 1.5
           },
-          "Classification": {
+          "classification": {
             "Impact": 1.5
           },
-          "Recommendation": {
+          "recommendation": {
             "Impact": 2
           },
-          "Summarisation": {
+          "summarisation": {
             "Impact": 1
           },
-          "Decision support": {
+          "decision support": {
             "Impact": 3
           },
-          "Process automation": {
+          "process automation": {
             "Impact": 3
           },
-          "Compliance monitoring": {
+          "compliance monitoring": {
             "Impact": 3
           },
-          "Content generation": {
+          "content generation": {
             "Impact": 2.5
           }
         }
@@ -72,31 +72,31 @@
       "scoring": {
         "target_metric": "Likelihood",
         "options": {
-          "Natural language processing": {
+          "natural language processing": {
             "Likelihood": 1
           },
-          "Data analysis and visualization": {
+          "data analysis and visualization": {
             "Likelihood": 0.5
           },
-          "Automated content generation": {
+          "automated content generation": {
             "Likelihood": 2
           },
-          "Integration with existing systems": {
+          "integration with existing systems": {
             "Likelihood": 2
           },
-          "Personalized recommendations": {
+          "personalized recommendations": {
             "Likelihood": 1.5
           },
-          "Collaboration enhancement": {
+          "collaboration enhancement": {
             "Likelihood": 0.5
           },
-          "Task automation": {
+          "task automation": {
             "Likelihood": 2.5
           },
-          "Security and compliance": {
+          "security and compliance": {
             "Likelihood": 3
           },
-          "Voice recognition": {
+          "voice recognition": {
             "Likelihood": 1.5
           }
         }
@@ -114,34 +114,34 @@
       "scoring": {
         "target_metric": "Impact",
         "options": {
-          "Content development and approval": {
+          "content development and approval": {
             "Impact": 1
           },
-          "Data interpretation and business strategy": {
+          "data interpretation and business strategy": {
             "Impact": 3
           },
-          "Prioritization of communications": {
+          "prioritization of communications": {
             "Impact": 1
           },
-          "Workflow optimization": {
+          "workflow optimization": {
             "Impact": 1.5
           },
-          "Security and compliance oversight": {
+          "security and compliance oversight": {
             "Impact": 4
           },
-          "Resource allocation": {
+          "resource allocation": {
             "Impact": 3
           },
-          "Crisis management": {
+          "crisis management": {
             "Impact": 4
           },
-          "Employee training": {
+          "employee training": {
             "Impact": 0.5
           },
-          "Customer relationship management": {
+          "customer relationship management": {
             "Impact": 1
           },
-          "Administrative decision-making (regulated by law)": {
+          "administrative decision-making (regulated by law)": {
             "Impact": 4
           }
         }
@@ -158,40 +158,40 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Increased efficiency": {
+          "increased efficiency": {
             "Control_Effectiveness": 0.5
           },
-          "Reduced manual effort": {
+          "reduced manual effort": {
             "Control_Effectiveness": 0.5
           },
-          "Improved decision-making": {
+          "improved decision-making": {
             "Control_Effectiveness": 1
           },
-          "Faster processing time": {
+          "faster processing time": {
             "Control_Effectiveness": 0.5
           },
-          "Improved accuracy or consistency": {
+          "improved accuracy or consistency": {
             "Control_Effectiveness": 1
           },
-          "Enhanced user experience": {
+          "enhanced user experience": {
             "Control_Effectiveness": 0.5
           },
-          "Cost reduction": {
+          "cost reduction": {
             "Control_Effectiveness": 0.5
           },
-          "Improved accessibility": {
+          "improved accessibility": {
             "Control_Effectiveness": 1
           },
-          "Reduced risk or error": {
+          "reduced risk or error": {
             "Control_Effectiveness": 1
           },
-          "Better service delivery": {
+          "better service delivery": {
             "Control_Effectiveness": 1
           },
-          "Improved communication": {
+          "improved communication": {
             "Control_Effectiveness": 0.5
           },
-          "Increased transparency": {
+          "increased transparency": {
             "Control_Effectiveness": 2
           }
         }
@@ -217,38 +217,38 @@
           "Yes": {
             "Likelihood": 0,
             "Impact": 0,
-            "AutonomyFactor": 3,
+            "autonomyFactor": 3,
             "sub_question": "A1_6_actions",
             "actions": {
-              "Sends notifications": {
+              "sends notifications": {
                 "Likelihood": 1,
                 "Impact": 0
               },
-              "Updates internal records": {
+              "updates internal records": {
                 "Likelihood": 2,
                 "Impact": 1
               },
-              "Applies rules/decisions automatically": {
+              "applies rules/decisions automatically": {
                 "Likelihood": 3,
                 "Impact": 2
               },
-              "Initiates workflows": {
+              "initiates workflows": {
                 "Likelihood": 2,
                 "Impact": 2
               },
-              "Generates external communications": {
+              "generates external communications": {
                 "Likelihood": 3,
                 "Impact": 2
               },
-              "Allocates resources": {
+              "allocates resources": {
                 "Likelihood": 3,
                 "Impact": 3
               },
-              "Approves/declines items": {
+              "approves/declines items": {
                 "Likelihood": 4,
                 "Impact": 4
               },
-              "Triggers system events": {
+              "triggers system events": {
                 "Likelihood": 4,
                 "Impact": 4
               }
@@ -272,22 +272,22 @@
           "Large Language Model": {
             "Likelihood": 3
           },
-          "Computer Vision": {
+          "computer Vision": {
             "Likelihood": 3
           },
-          "Supervised learning": {
+          "supervised learning": {
             "Likelihood": 1
           },
-          "Unsupervised learning": {
+          "unsupervised learning": {
             "Likelihood": 2
           },
-          "Reinforcement learning": {
+          "reinforcement learning": {
             "Likelihood": 4
           },
-          "Rule-based system": {
+          "rule-based system": {
             "Likelihood": 0.5
           },
-          "Neural network": {
+          "neural network": {
             "Likelihood": 2
           }
         }
@@ -304,16 +304,16 @@
       "scoring": {
         "target_metric": "Likelihood",
         "options": {
-          "Commercial off-the-shelf": {
+          "commercial off-the-shelf": {
             "Likelihood": 0.5
           },
-          "Bespoke development": {
+          "bespoke development": {
             "Likelihood": 2
           },
-          "Open-source": {
+          "open-source": {
             "Likelihood": 3
           },
-          "Hybrid approach": {
+          "hybrid approach": {
             "Likelihood": 2
           }
         }
@@ -334,25 +334,25 @@
           "REST API": {
             "Likelihood": 1
           },
-          "Webhooks": {
+          "webhooks": {
             "Likelihood": 1
           },
-          "Batch data transfer": {
+          "batch data transfer": {
             "Likelihood": 0.5
           },
-          "Real-time data stream": {
+          "real-time data stream": {
             "Likelihood": 2
           },
-          "File-based integration": {
+          "file-based integration": {
             "Likelihood": 1
           },
-          "Embedded widget/iframe": {
+          "embedded widget/iframe": {
             "Likelihood": 0.5
           },
-          "Database connection": {
+          "database connection": {
             "Likelihood": 1
           },
-          "Message queue (e.g., Kafka)": {
+          "message queue (e.g., Kafka)": {
             "Likelihood": 2
           }
         }
@@ -369,22 +369,22 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Audit logs": {
+          "audit logs": {
             "Control_Effectiveness": 3
           },
-          "Access logs": {
+          "access logs": {
             "Control_Effectiveness": 2
           },
           "CRM/Case management logging": {
             "Control_Effectiveness": 2
           },
-          "System-level logging": {
+          "system-level logging": {
             "Control_Effectiveness": 3
           },
-          "Manual records": {
+          "manual records": {
             "Control_Effectiveness": 0.5
           },
-          "No inputs tracked or recorded (flag as risk)": {
+          "no inputs tracked or recorded (flag as risk)": {
             "Control_Effectiveness": 0
           }
         },
@@ -415,28 +415,28 @@
         "target_metric": "Likelihood",
         "modifier_type": "mixed",
         "options": {
-          "Input validation": {
+          "input validation": {
             "Likelihood": -1
           },
-          "Range checking": {
+          "range checking": {
             "Likelihood": -1
           },
-          "Schema enforcement": {
+          "schema enforcement": {
             "Likelihood": -1
           },
-          "Fallback defaults": {
+          "fallback defaults": {
             "Likelihood": -0.5
           },
-          "Human review": {
+          "human review": {
             "Likelihood": -1.5
           },
-          "Data quality monitoring": {
+          "data quality monitoring": {
             "Likelihood": -1
           },
-          "Error alerts": {
+          "error alerts": {
             "Likelihood": -1
           },
-          "No safeguards identified (flag as risk)": {
+          "no safeguards identified (flag as risk)": {
             "Likelihood": 3
           }
         },
@@ -454,22 +454,22 @@
       "scoring": {
         "target_metric": "Impact",
         "options": {
-          "Government data": {
+          "government data": {
             "Impact": 1
           },
-          "Open data": {
+          "open data": {
             "Impact": 0
           },
-          "Synthetic data": {
+          "synthetic data": {
             "Impact": 0
           },
-          "Personal information": {
+          "personal information": {
             "Impact": 2
           },
-          "Sensitive information": {
+          "sensitive information": {
             "Impact": 3
           },
-          "Internet data": {
+          "internet data": {
             "Impact": 2
           }
         }
@@ -518,22 +518,22 @@
       "scoring": {
         "target_metric": "Impact",
         "options": {
-          "Official": {
+          "official": {
             "Impact": 0
           },
-          "Official: Sensitive": {
+          "official: Sensitive": {
             "Impact": 1
           },
-          "Protected": {
+          "protected": {
             "Impact": 2
           },
-          "Highly Protected": {
+          "highly Protected": {
             "Impact": 3
           },
-          "Secret": {
+          "secret": {
             "Impact": 4
           },
-          "Top Secret": {
+          "top Secret": {
             "Impact": 5
           }
         }
@@ -679,22 +679,22 @@
       "scoring": {
         "target_metric": "Likelihood",
         "options": {
-          "Chat interface": {
+          "chat interface": {
             "Likelihood": 2
           },
-          "Web application": {
+          "web application": {
             "Likelihood": 1
           },
-          "Mobile application": {
+          "mobile application": {
             "Likelihood": 1
           },
           "API integration": {
             "Likelihood": 2
           },
-          "Voice interface": {
+          "voice interface": {
             "Likelihood": 2
           },
-          "Dashboard": {
+          "dashboard": {
             "Likelihood": 1
           }
         }
@@ -741,25 +741,25 @@
           "Queensland Government employees": {
             "Impact": 1
           },
-          "General public": {
+          "general public": {
             "Impact": 2
           },
-          "Vulnerable communities": {
+          "vulnerable communities": {
             "Impact": 4
           },
-          "Children": {
+          "children": {
             "Impact": 4
           },
-          "Elderly": {
+          "elderly": {
             "Impact": 3
           },
-          "People with disabilities": {
+          "people with disabilities": {
             "Impact": 4
           },
           "Indigenous peoples": {
             "Impact": 4
           },
-          "Small businesses": {
+          "small businesses": {
             "Impact": 2
           }
         },
@@ -776,28 +776,28 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Website notice": {
+          "website notice": {
             "Control_Effectiveness": 1
           },
-          "In-app notice": {
+          "in-app notice": {
             "Control_Effectiveness": 1
           },
-          "Email communication": {
+          "email communication": {
             "Control_Effectiveness": 1
           },
-          "Terms & Conditions": {
+          "terms & Conditions": {
             "Control_Effectiveness": 0.5
           },
-          "Public-facing AI statement": {
+          "public-facing AI statement": {
             "Control_Effectiveness": 2
           },
-          "Staff training": {
+          "staff training": {
             "Control_Effectiveness": 2
           },
-          "Consent/acknowledgement": {
+          "consent/acknowledgement": {
             "Control_Effectiveness": 3
           },
-          "No planned notifications (flag as risk)": {
+          "no planned notifications (flag as risk)": {
             "Control_Effectiveness": 0
           }
         },
@@ -945,25 +945,25 @@
       "scoring": {
         "target_metric": "Likelihood",
         "options": {
-          "Text responses": {
+          "text responses": {
             "Likelihood": 0.5
           },
-          "Visual outputs": {
+          "visual outputs": {
             "Likelihood": 1
           },
-          "Recommendations": {
+          "recommendations": {
             "Likelihood": 1.5
           },
-          "Decisions": {
+          "decisions": {
             "Likelihood": 2
           },
-          "Data analysis": {
+          "data analysis": {
             "Likelihood": 1
           },
-          "Predictions": {
+          "predictions": {
             "Likelihood": 1.5
           },
-          "Actions in systems": {
+          "actions in systems": {
             "Likelihood": 3
           }
         }
@@ -999,22 +999,22 @@
       "scoring": {
         "target_metric": "Impact",
         "options": {
-          "Official": {
+          "official": {
             "Impact": 0
           },
-          "Official: Sensitive": {
+          "official: Sensitive": {
             "Impact": 1
           },
-          "Protected": {
+          "protected": {
             "Impact": 2
           },
-          "Highly Protected": {
+          "highly Protected": {
             "Impact": 3
           },
-          "Secret": {
+          "secret": {
             "Impact": 4
           },
-          "Top Secret": {
+          "top Secret": {
             "Impact": 5
           }
         }
@@ -1031,22 +1031,22 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Stored in database": {
+          "stored in database": {
             "Control_Effectiveness": 2
           },
-          "Logged in audit system": {
+          "logged in audit system": {
             "Control_Effectiveness": 3
           },
-          "Logged in CRM/case system": {
+          "logged in CRM/case system": {
             "Control_Effectiveness": 2
           },
-          "Logged in activity logs": {
+          "logged in activity logs": {
             "Control_Effectiveness": 2
           },
-          "Retention based on policy": {
+          "retention based on policy": {
             "Control_Effectiveness": 1
           },
-          "Not currently tracked (flag as risk)": {
+          "not currently tracked (flag as risk)": {
             "Control_Effectiveness": 0
           }
         },
@@ -1065,23 +1065,23 @@
         "target_metric": "Impact and Likelihood",
         "modifier_type": "dual",
         "options": {
-          "Misrouted outputs": {
+          "misrouted outputs": {
             "Impact": 2,
             "Likelihood": 2
           },
-          "Excessive data exposure": {
+          "excessive data exposure": {
             "Impact": 3,
             "Likelihood": 3
           },
-          "Output reveals sensitive attributes": {
+          "output reveals sensitive attributes": {
             "Impact": 4,
             "Likelihood": 4
           },
-          "Outputs sent to incorrect system": {
+          "outputs sent to incorrect system": {
             "Impact": 3,
             "Likelihood": 3
           },
-          "Injection or poisoning risk": {
+          "injection or poisoning risk": {
             "Impact": 4,
             "Likelihood": 4
           }
@@ -1107,31 +1107,31 @@
             "Impact": 0,
             "sub_question": "A4_6_data_types",
             "data_types": {
-              "Personal": {
+              "personal": {
                 "Impact": 2
               },
-              "Sensitive": {
+              "sensitive": {
                 "Impact": 3
               },
-              "Financial": {
+              "financial": {
                 "Impact": 3
               },
-              "Health": {
+              "health": {
                 "Impact": 4
               },
-              "Child-related": {
+              "child-related": {
                 "Impact": 5
               },
-              "Law enforcement": {
+              "law enforcement": {
                 "Impact": 5
               },
               "Indigenous data": {
                 "Impact": 5
               },
-              "Confidential government data": {
+              "confidential government data": {
                 "Impact": 4
               },
-              "Operationally sensitive data": {
+              "operationally sensitive data": {
                 "Impact": 3
               }
             }
@@ -1179,22 +1179,22 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Product owner": {
+          "product owner": {
             "Control_Effectiveness": 2
           },
-          "System owner": {
+          "system owner": {
             "Control_Effectiveness": 3
           },
-          "Executive sponsor": {
+          "executive sponsor": {
             "Control_Effectiveness": 2
           },
-          "Service manager": {
+          "service manager": {
             "Control_Effectiveness": 3
           },
-          "Data custodian": {
+          "data custodian": {
             "Control_Effectiveness": 3
           },
-          "Governance committee": {
+          "governance committee": {
             "Control_Effectiveness": 4
           },
           "AI oversight board": {
@@ -1227,19 +1227,19 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Regular system audits": {
+          "regular system audits": {
             "Control_Effectiveness": 3
           },
-          "Continuous performance monitoring": {
+          "continuous performance monitoring": {
             "Control_Effectiveness": 4
           },
-          "User feedback collection": {
+          "user feedback collection": {
             "Control_Effectiveness": 2
           },
-          "Periodic stakeholder reviews": {
+          "periodic stakeholder reviews": {
             "Control_Effectiveness": 2
           },
-          "Independent evaluation": {
+          "independent evaluation": {
             "Control_Effectiveness": 4
           }
         },
@@ -1256,19 +1256,19 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Weekly": {
+          "weekly": {
             "Control_Effectiveness": 4
           },
-          "Monthly": {
+          "monthly": {
             "Control_Effectiveness": 3
           },
-          "Quarterly": {
+          "quarterly": {
             "Control_Effectiveness": 2
           },
-          "Annually": {
+          "annually": {
             "Control_Effectiveness": 1
           },
-          "Event-driven": {
+          "event-driven": {
             "Control_Effectiveness": 3
           }
         },
@@ -1308,22 +1308,22 @@
           "ICT Ops": {
             "Control_Effectiveness": 2
           },
-          "Data Science team": {
+          "data Science team": {
             "Control_Effectiveness": 2
           },
-          "Risk/Compliance": {
+          "risk/Compliance": {
             "Control_Effectiveness": 3
           },
-          "Business Owner": {
+          "business Owner": {
             "Control_Effectiveness": 2
           },
-          "Vendor": {
+          "vendor": {
             "Control_Effectiveness": 1
           },
-          "Customer-facing staff": {
+          "customer-facing staff": {
             "Control_Effectiveness": 1
           },
-          "External auditor": {
+          "external auditor": {
             "Control_Effectiveness": 4
           }
         },
@@ -1341,25 +1341,25 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Workshops": {
+          "workshops": {
             "Control_Effectiveness": 2
           },
-          "Public consultation": {
+          "public consultation": {
             "Control_Effectiveness": 3
           },
-          "Union consultation": {
+          "union consultation": {
             "Control_Effectiveness": 2
           },
-          "Focus groups": {
+          "focus groups": {
             "Control_Effectiveness": 2
           },
-          "User feedback sessions": {
+          "user feedback sessions": {
             "Control_Effectiveness": 1
           },
-          "Accessibility reviews": {
+          "accessibility reviews": {
             "Control_Effectiveness": 3
           },
-          "No engagements planned": {
+          "no engagements planned": {
             "Control_Effectiveness": 0
           }
         }
@@ -1376,25 +1376,25 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Alerting and monitoring": {
+          "alerting and monitoring": {
             "Control_Effectiveness": 3
           },
-          "User complaints": {
+          "user complaints": {
             "Control_Effectiveness": 1
           },
-          "Human review triggers": {
+          "human review triggers": {
             "Control_Effectiveness": 3
           },
-          "Automated anomaly detection": {
+          "automated anomaly detection": {
             "Control_Effectiveness": 4
           },
-          "Escalation procedures": {
+          "escalation procedures": {
             "Control_Effectiveness": 3
           },
-          "Incident response team": {
+          "incident response team": {
             "Control_Effectiveness": 4
           },
-          "No defined contingencies (flag as risk)": {
+          "no defined contingencies (flag as risk)": {
             "Control_Effectiveness": 0
           }
         }
@@ -1417,22 +1417,22 @@
           "Human Rights Act": {
             "Control_Effectiveness": 2
           },
-          "Data governance policies": {
+          "data governance policies": {
             "Control_Effectiveness": 2
           },
           "WHS": {
             "Control_Effectiveness": 1
           },
-          "Accessibility standards": {
+          "accessibility standards": {
             "Control_Effectiveness": 2
           },
-          "Agency ethics statements": {
+          "agency ethics statements": {
             "Control_Effectiveness": 1
           },
-          "Privacy principles": {
+          "privacy principles": {
             "Control_Effectiveness": 3
           },
-          "Risk management framework": {
+          "risk management framework": {
             "Control_Effectiveness": 3
           }
         }
@@ -1614,27 +1614,27 @@
         "target_metric": "Likelihood and Control_Effectiveness",
         "modifier_type": "dual",
         "options": {
-          "Internal use only": {
+          "internal use only": {
             "Likelihood": 0,
             "Control_Effectiveness": 0
           },
-          "Internal + selected partners": {
+          "internal + selected partners": {
             "Likelihood": 1,
             "Control_Effectiveness": -1
           },
-          "Public-facing": {
+          "public-facing": {
             "Likelihood": 2,
             "Control_Effectiveness": -1
           },
-          "Citizen-facing high-sensitivity": {
+          "citizen-facing high-sensitivity": {
             "Likelihood": 3,
             "Control_Effectiveness": -2
           },
-          "Embedded in another product": {
+          "embedded in another product": {
             "Likelihood": 2,
             "Control_Effectiveness": -1
           },
-          "Multi-channel deployment": {
+          "multi-channel deployment": {
             "Likelihood": 3,
             "Control_Effectiveness": -2
           }
@@ -1652,34 +1652,34 @@
       "scoring": {
         "target_metric": "Impact",
         "options": {
-          "Privacy risks": {
+          "privacy risks": {
             "Impact": 3
           },
-          "Bias/discrimination": {
+          "bias/discrimination": {
             "Impact": 3
           },
-          "Transparency issues": {
+          "transparency issues": {
             "Impact": 2
           },
-          "Safety risks": {
+          "safety risks": {
             "Impact": 4
           },
-          "Employment impacts": {
+          "employment impacts": {
             "Impact": 2
           },
-          "Social harm": {
+          "social harm": {
             "Impact": 3
           },
-          "Environmental impact": {
+          "environmental impact": {
             "Impact": 2
           },
-          "Accessibility issues": {
+          "accessibility issues": {
             "Impact": 2
           },
-          "Legal/regulatory risks": {
+          "legal/regulatory risks": {
             "Impact": 2
           },
-          "Loss of trust": {
+          "loss of trust": {
             "Impact": 2
           }
         },
@@ -2011,19 +2011,19 @@
         "target_metric": "Control_Effectiveness",
         "modifier_type": "positive",
         "options": {
-          "Access controls": {
+          "access controls": {
             "Control_Effectiveness": 1
           },
-          "Encryption": {
+          "encryption": {
             "Control_Effectiveness": 2
           },
-          "Security testing": {
+          "security testing": {
             "Control_Effectiveness": 2
           },
-          "Data anonymisation": {
+          "data anonymisation": {
             "Control_Effectiveness": 2
           },
-          "Privacy-enhancing technologies": {
+          "privacy-enhancing technologies": {
             "Control_Effectiveness": 2
           }
         },
@@ -2240,19 +2240,19 @@
       "scoring": {
         "target_metric": "Control_Effectiveness",
         "options": {
-          "Immediately": {
+          "immediately": {
             "Control_Effectiveness": 2
           },
-          "Within hours": {
+          "within hours": {
             "Control_Effectiveness": 1
           },
-          "Within days": {
+          "within days": {
             "Control_Effectiveness": 0
           },
-          "Within weeks": {
+          "within weeks": {
             "Control_Effectiveness": -1
           },
-          "Longer than weeks": {
+          "longer than weeks": {
             "Control_Effectiveness": -2
           },
           "Unknown": {
@@ -2313,25 +2313,25 @@
             "Control_Effectiveness": 2,
             "sub_question": "B8_4_safeguards",
             "actions": {
-              "Mandatory human review": {
+              "mandatory human review": {
                 "Control_Effectiveness": 0.5
               },
-              "Confidence thresholds": {
+              "confidence thresholds": {
                 "Control_Effectiveness": 0.5
               },
-              "Explainability requirements": {
+              "explainability requirements": {
                 "Control_Effectiveness": 0.5
               },
-              "Training for staff": {
+              "training for staff": {
                 "Control_Effectiveness": 0.5
               },
-              "Decision override controls": {
+              "decision override controls": {
                 "Control_Effectiveness": 0.5
               },
-              "System warnings": {
+              "system warnings": {
                 "Control_Effectiveness": 0.5
               },
-              "Monitoring of decision quality": {
+              "monitoring of decision quality": {
                 "Control_Effectiveness": 0.5
               }
             }
