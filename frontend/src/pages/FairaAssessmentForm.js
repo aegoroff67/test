@@ -987,16 +987,16 @@ export default function FairaAssessmentForm() {
                 <Label>A1.1 What is the primary function of the AI solution? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Information retrieval",
-                    "Natural language understanding",
-                    "Prediction / forecasting",
-                    "Classification",
-                    "Recommendation",
-                    "Summarisation",
-                    "Decision support",
-                    "Process automation",
-                    "Compliance monitoring",
-                    "Content generation"
+                    "information retrieval",
+                    "natural language understanding",
+                    "prediction / forecasting",
+                    "classification",
+                    "recommendation",
+                    "summarisation",
+                    "decision support",
+                    "process automation",
+                    "compliance monitoring",
+                    "content generation"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
