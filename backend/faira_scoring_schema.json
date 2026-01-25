@@ -1056,7 +1056,7 @@
     "A4_5": {
       "id": "A4_5",
       "text": "Could any AI outputs allow unauthorised access to information?",
-      "type": "yes_no_with_options",
+      "type": "multiselect",
       "domains": [
         "Privacy Protection and Security",
         "Reliability and Safety"
@@ -1065,44 +1065,34 @@
         "target_metric": "Impact and Likelihood",
         "modifier_type": "dual",
         "options": {
-          "No": {
-            "Impact": 0,
-            "Likelihood": 0
+          "misrouted outputs": {
+            "Impact": 2,
+            "Likelihood": 2
           },
-          "Yes": {
-            "Impact": 1,
-            "Likelihood": 1,
-            "sub_question": "A4_5_scenarios",
-            "actions": {
-              "misrouted outputs": {
-                "Impact": 2,
-                "Likelihood": 2
-              },
-              "excessive data exposure": {
-                "Impact": 3,
-                "Likelihood": 3
-              },
-              "output reveals sensitive attributes": {
-                "Impact": 4,
-                "Likelihood": 4
-              },
-              "outputs sent to incorrect system": {
-                "Impact": 3,
-                "Likelihood": 3
-              },
-              "injection or poisoning risk": {
-                "Impact": 4,
-                "Likelihood": 4
-              }
-            }
+          "excessive data exposure": {
+            "Impact": 3,
+            "Likelihood": 3
+          },
+          "output reveals sensitive attributes": {
+            "Impact": 4,
+            "Likelihood": 4
+          },
+          "outputs sent to incorrect system": {
+            "Impact": 3,
+            "Likelihood": 3
+          },
+          "injection or poisoning risk": {
+            "Impact": 4,
+            "Likelihood": 4
           }
-        }
+        },
+        "notes": "Each selected risk applies both Impact and Likelihood modifiers. Risks are cumulative."
       }
     },
     "A4_6": {
       "id": "A4_6",
       "text": "Do outputs involve data regulated by law?",
-      "type": "multiselect",
+      "type": "yes_no_with_options",
       "domains": [
         "Privacy Protection and Security",
         "Fairness"
@@ -1110,34 +1100,44 @@
       "scoring": {
         "target_metric": "Impact",
         "options": {
-          "personal": {
-            "Impact": 2
+          "No": {
+            "Impact": 0
           },
-          "sensitive": {
-            "Impact": 3
-          },
-          "financial": {
-            "Impact": 3
-          },
-          "health": {
-            "Impact": 4
-          },
-          "child-related": {
-            "Impact": 5
-          },
-          "law enforcement": {
-            "Impact": 5
-          },
-          "Indigenous data": {
-            "Impact": 5
-          },
-          "confidential government data": {
-            "Impact": 4
-          },
-          "operationally sensitive data": {
-            "Impact": 3
+          "Yes": {
+            "Impact": 0,
+            "sub_question": "A4_6_data_types",
+            "data_types": {
+              "personal": {
+                "Impact": 2
+              },
+              "sensitive": {
+                "Impact": 3
+              },
+              "financial": {
+                "Impact": 3
+              },
+              "health": {
+                "Impact": 4
+              },
+              "child-related": {
+                "Impact": 5
+              },
+              "law enforcement": {
+                "Impact": 5
+              },
+              "Indigenous data": {
+                "Impact": 5
+              },
+              "confidential government data": {
+                "Impact": 4
+              },
+              "operationally sensitive data": {
+                "Impact": 3
+              }
+            }
           }
-        }
+        },
+        "notes": "If Yes: select applicable regulated data types. Each selected data type adds to Impact cumulatively."
       }
     },
     "A4_7": {
