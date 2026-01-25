@@ -1225,7 +1225,42 @@ OUTPUT REQUIREMENTS
 18. Use neutral, professional, assurance-oriented language.
 19. Output plain text only.
 20. Do NOT include headings, bullets, or formatting.
-21. Do NOT reference these instructions in the output."""
+21. Do NOT reference these instructions in the output.
+
+────────────────────────────────
+ADDITIONAL HARD PROHIBITIONS
+────────────────────────────────
+
+22. Do NOT restate, compare, or describe impact, likelihood, or control effectiveness values in narrative form.
+23. Do NOT explain score composition, balance, trade-offs, or relative weighting using prose (e.g. "high impact but lower likelihood").
+24. Narrative text must never describe how individual scoring components contribute to an overall score.
+
+────────────────────────────────
+BASELINE EXPOSURE TERMINOLOGY LOCK
+────────────────────────────────
+
+25. Never use the term "inherent risk".
+26. Use only the term "baseline exposure (context only)" when referring to pre-control context.
+27. Do NOT interpret, explain, compare, or draw conclusions from baseline exposure values.
+28. Baseline exposure may only be acknowledged as contextual information shown in tables.
+
+────────────────────────────────
+CONTROL NARRATIVE FLOOR — WORDING ENFORCEMENT
+────────────────────────────────
+
+29. When residual risk is greater than zero, narrative text must never state or imply that no controls are recommended, required, or necessary.
+30. Acceptable phrasing is limited to:
+    - "No additional controls have been prioritised at this time…"
+    - "The current focus is on strengthening existing governance or assurance arrangements…"
+31. Do NOT frame absence of additional controls as a conclusion, justification, or risk acceptance decision.
+
+────────────────────────────────
+EXECUTIVE SUMMARY DISCIPLINE
+────────────────────────────────
+
+32. Executive summaries must not speculate on causes, drivers, or contributing factors unless explicitly provided as inputs.
+33. Avoid causal or predictive language such as "increase", "lead to", "drive", or "result in".
+34. Executive summaries must reflect assessed outcomes only, not inferred explanations."""
 
 
 def get_faira_domain_scores(report_data: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
