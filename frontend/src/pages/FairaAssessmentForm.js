@@ -2024,11 +2024,11 @@ export default function FairaAssessmentForm() {
                   className="w-full p-2 border rounded-md"
                 >
                   <option value="">Select frequency</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                  <option value="quarterly">Quarterly</option>
-                  <option value="annually">Annually</option>
-                  <option value="event-driven">Event-driven</option>
+                  <option value="weekly">weekly</option>
+                  <option value="monthly">monthly</option>
+                  <option value="quarterly">quarterly</option>
+                  <option value="annually">annually</option>
+                  <option value="event-driven">event-driven</option>
                 </select>
               </div>
 
