@@ -1227,10 +1227,10 @@ export default function FairaAssessmentForm() {
                 <Label>A1.8 What is the source of the AI solution? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Commercial off-the-shelf",
-                    "Bespoke development",
-                    "Open-source",
-                    "Hybrid approach"
+                    "commercial off-the-shelf",
+                    "bespoke development",
+                    "open-source",
+                    "hybrid approach"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1249,13 +1249,13 @@ export default function FairaAssessmentForm() {
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
                     "REST API",
-                    "Webhooks",
-                    "Batch data transfer",
-                    "Real-time data stream",
-                    "File-based integration",
-                    "Embedded widget/iframe",
-                    "Database connection",
-                    "Message queue (e.g., Kafka)"
+                    "webhooks",
+                    "batch data transfer",
+                    "real-time data stream",
+                    "file-based integration",
+                    "embedded widget/iframe",
+                    "database connection",
+                    "message queue (e.g., Kafka)"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
