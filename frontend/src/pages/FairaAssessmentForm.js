@@ -1464,18 +1464,18 @@ export default function FairaAssessmentForm() {
                     <Label>Select the types of regulated/sensitive data used (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "Health information",
-                        "Mental health information",
-                        "Child protection information",
-                        "Criminal justice / law enforcement data",
-                        "Biometric data (faces, fingerprints, gait, voice, etc.)",
-                        "Genetic information",
-                        "Financial information",
-                        "Taxation information",
-                        "Indigenous cultural or sacred data",
-                        "Location tracking data",
-                        "Safety-critical operational data",
-                        "Vulnerable persons data",
+                        "health information",
+                        "mental health information",
+                        "child protection information",
+                        "criminal justice / law enforcement data",
+                        "biometric data (faces, fingerprints, gait, voice, etc.)",
+                        "genetic information",
+                        "financial information",
+                        "taxation information",
+                        "indigenous cultural or sacred data",
+                        "location tracking data",
+                        "safety-critical operational data",
+                        "vulnerable persons data",
                         "Other regulated/sensitive data (specify)"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
@@ -1532,14 +1532,14 @@ export default function FairaAssessmentForm() {
                     <Label>Select the types of inputs (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "Free-text prompts",
-                        "Uploaded files",
-                        "Form fields",
+                        "free-text prompts",
+                        "uploaded files",
+                        "form fields",
                         "API request data",
-                        "Structured records",
-                        "Voice input",
-                        "Sensor data",
-                        "User selection/choices"
+                        "structured records",
+                        "voice input",
+                        "sensor data",
+                        "user selection/choices"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
