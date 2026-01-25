@@ -2326,12 +2326,12 @@ export default function FairaAssessmentForm() {
                   className="w-full p-2 border rounded-md"
                 >
                   <option value="">Select deployment location</option>
-                  <option value="Internal use only">Internal use only</option>
-                  <option value="Internal + selected partners">Internal + selected partners</option>
-                  <option value="Public-facing">Public-facing</option>
-                  <option value="Citizen-facing high-sensitivity">Citizen-facing high-sensitivity</option>
-                  <option value="Embedded in another product">Embedded in another product</option>
-                  <option value="Multi-channel deployment">Multi-channel deployment</option>
+                  <option value="internal use only">internal use only</option>
+                  <option value="internal + selected partners">internal + selected partners</option>
+                  <option value="public-facing">public-facing</option>
+                  <option value="citizen-facing high-sensitivity">citizen-facing high-sensitivity</option>
+                  <option value="embedded in another product">embedded in another product</option>
+                  <option value="multi-channel deployment">multi-channel deployment</option>
                 </select>
               </div>
 
