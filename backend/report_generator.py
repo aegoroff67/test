@@ -2962,15 +2962,6 @@ Each cell represents the score for a specific question, enabling identification 
             # Load the template
             doc = DocxTemplate(self.template_path)
             
-            # Register custom Jinja2 filters
-            def replace_last(value, old, new):
-                """Replace the last occurrence of 'old' with 'new'"""
-                if isinstance(value, str) and old in value:
-                    return new.join(value.rsplit(old, 1))
-                return value
-            
-            doc.jinja_env.filters['replace_last'] = replace_last
-            
             # Create inline image for heatmap - set to requested width
             heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(6.27))
             
