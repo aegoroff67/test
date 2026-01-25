@@ -1568,12 +1568,12 @@ export default function FairaAssessmentForm() {
                 <Label>A3.1 How does the system interface with humans? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Chat interface",
-                    "Web application",
-                    "Mobile application",
+                    "chat interface",
+                    "web application",
+                    "mobile application",
                     "API integration",
-                    "Voice interface",
-                    "Dashboard"
+                    "voice interface",
+                    "dashboard"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1620,13 +1620,13 @@ export default function FairaAssessmentForm() {
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
                     "Queensland Government employees",
-                    "General public",
-                    "Vulnerable communities",
-                    "Children",
-                    "Elderly",
-                    "People with disabilities",
+                    "general public",
+                    "vulnerable communities",
+                    "children",
+                    "elderly",
+                    "people with disabilities",
                     "Indigenous peoples",
-                    "Small businesses"
+                    "small businesses"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1659,14 +1659,14 @@ export default function FairaAssessmentForm() {
                 <Label>A3.4 How will impacted parties be informed of AI use? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Website notice",
-                    "In-app notice",
-                    "Email communication",
-                    "Terms & conditions",
-                    "Public-facing AI statement",
-                    "Staff training",
-                    "Consent/acknowledgement",
-                    "No planned notifications (flag as risk)"
+                    "website notice",
+                    "in-app notice",
+                    "email communication",
+                    "terms & conditions",
+                    "public-facing AI statement",
+                    "staff training",
+                    "consent/acknowledgement",
+                    "no planned notifications (flag as risk)"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1684,17 +1684,17 @@ export default function FairaAssessmentForm() {
                 <Label>A3.5(a) What are the expected impacts of this AI solution on staff? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Increased workload",
-                    "Reduced workload",
-                    "Reduced autonomy",
-                    "Improved autonomy",
-                    "De-skilling risk",
-                    "Skill enhancement",
-                    "Accountability ambiguity",
-                    "Increased accountability clarity",
-                    "Stress or psychological impact",
-                    "Job redesign required",
-                    "No significant impact"
+                    "increased workload",
+                    "reduced workload",
+                    "reduced autonomy",
+                    "improved autonomy",
+                    "de-skilling risk",
+                    "skill enhancement",
+                    "accountability ambiguity",
+                    "increased accountability clarity",
+                    "stress or psychological impact",
+                    "job redesign required",
+                    "no significant impact"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
