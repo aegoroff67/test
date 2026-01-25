@@ -84,7 +84,8 @@ const defaultState = {
   A4_4: [], // tracking outputs (multiselect)
   A4_5: "", // unauthorized access (Yes/No)
   A4_5_scenarios: [],
-  A4_6: [], // regulated data (multiselect)
+  A4_6: "", // regulated data (Yes/No)
+  A4_6_data_types: [], // regulated data types (multiselect)
   A4_7: "", // PII access (text)
   A4_8: "", // legal/regulatory actions (text)
   
