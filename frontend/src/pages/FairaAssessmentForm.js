@@ -3131,12 +3131,12 @@ export default function FairaAssessmentForm() {
                   className="w-full p-2 border rounded-md"
                 >
                   <option value="">Select timeframe</option>
-                  <option value="Immediately">Immediately</option>
-                  <option value="Within hours">Within hours</option>
-                  <option value="Within days">Within days</option>
-                  <option value="Within weeks">Within weeks</option>
-                  <option value="Longer than weeks">Longer than weeks</option>
-                  <option value="Unknown">Unknown</option>
+                  <option value="immediately">immediately</option>
+                  <option value="within hours">within hours</option>
+                  <option value="within days">within days</option>
+                  <option value="within weeks">within weeks</option>
+                  <option value="longer than weeks">longer than weeks</option>
+                  <option value="unknown">unknown</option>
                 </select>
               </div>
             </div>
@@ -3238,13 +3238,13 @@ export default function FairaAssessmentForm() {
                     <Label>Select safeguards (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "Mandatory human review",
-                        "Confidence thresholds",
-                        "Explainability requirements",
-                        "Training for staff",
-                        "Decision override controls",
-                        "System warnings",
-                        "Monitoring of decision quality"
+                        "mandatory human review",
+                        "confidence thresholds",
+                        "explainability requirements",
+                        "training for staff",
+                        "decision override controls",
+                        "system warnings",
+                        "monitoring of decision quality"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
