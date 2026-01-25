@@ -1722,17 +1722,17 @@ export default function FairaAssessmentForm() {
                 <Label>A3.6(a) How will each impacted group be affected? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Service quality changes",
-                    "Accessibility changes",
-                    "Decision-making impacts",
-                    "Delay reduction",
-                    "Bias or fairness concerns",
-                    "Data/privacy concerns",
-                    "Security concerns",
-                    "Communication changes",
-                    "Risk of exclusion",
-                    "Increased assistance/support",
-                    "None/minimal impact"
+                    "service quality changes",
+                    "accessibility changes",
+                    "decision-making impacts",
+                    "delay reduction",
+                    "bias or fairness concerns",
+                    "data/privacy concerns",
+                    "security concerns",
+                    "communication changes",
+                    "risk of exclusion",
+                    "increased assistance/support",
+                    "none/minimal impact"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1771,13 +1771,13 @@ export default function FairaAssessmentForm() {
                 <Label>A4.1 What are the primary outputs of the AI system? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Text responses",
-                    "Visual outputs",
-                    "Recommendations",
-                    "Decisions",
-                    "Data analysis",
-                    "Predictions",
-                    "Actions in systems"
+                    "text responses",
+                    "visual outputs",
+                    "recommendations",
+                    "decisions",
+                    "data analysis",
+                    "predictions",
+                    "actions in systems"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1838,12 +1838,12 @@ export default function FairaAssessmentForm() {
                 <Label>A4.4 How are AI outputs tracked and recorded? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Stored in database",
-                    "Logged in audit system",
-                    "Logged in CRM/case system",
-                    "Logged in activity logs",
-                    "Not currently tracked (flag as risk)",
-                    "Retention based on policy"
+                    "stored in database",
+                    "logged in audit system",
+                    "logged in CRM/case system",
+                    "logged in activity logs",
+                    "not currently tracked (flag as risk)",
+                    "retention based on policy"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1885,11 +1885,11 @@ export default function FairaAssessmentForm() {
                     <Label>Select scenarios and mitigations (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "Misrouted outputs",
-                        "Excessive data exposure",
-                        "Output reveals sensitive attributes",
-                        "Outputs sent to incorrect system",
-                        "Injection or poisoning risk"
+                        "misrouted outputs",
+                        "excessive data exposure",
+                        "output reveals sensitive attributes",
+                        "outputs sent to incorrect system",
+                        "injection or poisoning risk"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
@@ -1909,15 +1909,15 @@ export default function FairaAssessmentForm() {
                 <Label>A4.6 Do outputs involve data regulated by law? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Personal",
-                    "Sensitive",
-                    "Financial",
-                    "Health",
-                    "Child-related",
-                    "Law enforcement",
+                    "personal",
+                    "sensitive",
+                    "financial",
+                    "health",
+                    "child-related",
+                    "law enforcement",
                     "Indigenous data",
-                    "Confidential government data",
-                    "Operationally sensitive data"
+                    "confidential government data",
+                    "operationally sensitive data"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
