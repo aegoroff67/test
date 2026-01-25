@@ -1189,12 +1189,12 @@ export default function FairaAssessmentForm() {
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
                     "Large Language Model",
-                    "Computer Vision",
-                    "Supervised learning",
-                    "Unsupervised learning",
-                    "Reinforcement learning",
-                    "Rule-based system",
-                    "Neural network"
+                    "computer vision",
+                    "supervised learning",
+                    "unsupervised learning",
+                    "reinforcement learning",
+                    "rule-based system",
+                    "neural network"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
