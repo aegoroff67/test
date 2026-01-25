@@ -282,6 +282,7 @@ export default function FairaAssessmentForm() {
       'A2_7': 'A2_7_data_types',
       'A2_8': 'A2_8_types',
       'A4_5': 'A4_5_scenarios',
+      'A4_6': 'A4_6_data_types',
       'A5_10': ['A5_10_commonwealth', 'A5_10_qld', 'A5_10_sector', 'A5_10_frameworks'],
       'B2_3': 'B2_3_perspectives',
       'B3_1': 'B3_1_methods',
