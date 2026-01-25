@@ -1342,12 +1342,12 @@ export default function FairaAssessmentForm() {
                 <Label>A2.4 What data does the AI solution use? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Government data",
-                    "Open data",
-                    "Synthetic data",
-                    "Personal information",
-                    "Sensitive information",
-                    "Internet data"
+                    "government data",
+                    "open data",
+                    "synthetic data",
+                    "personal information",
+                    "sensitive information",
+                    "internet data"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
