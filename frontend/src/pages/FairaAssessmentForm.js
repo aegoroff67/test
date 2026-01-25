@@ -1282,12 +1282,12 @@ export default function FairaAssessmentForm() {
                 <Label>A2.1 How are AI use inputs tracked and recorded? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Audit logs",
-                    "Access logs",
-                    "CRM/Case management logging",
-                    "System-level logging",
-                    "Manual records",
-                    "No inputs tracked or recorded (flag as risk)"
+                    "audit logs",
+                    "access logs",
+                    "CRM/case management logging",
+                    "system-level logging",
+                    "manual records",
+                    "no inputs tracked or recorded (flag as risk)"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -1317,14 +1317,14 @@ export default function FairaAssessmentForm() {
                 <Label>A2.3 What safeguards exist to detect and handle corrupted, missing, or out-of-range data inputs? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Input validation",
-                    "Range checking",
-                    "Schema enforcement",
-                    "Fallback defaults",
-                    "Human review",
-                    "Data quality monitoring",
-                    "Error alerts",
-                    "No safeguards identified (flag as risk)"
+                    "input validation",
+                    "range checking",
+                    "schema enforcement",
+                    "fallback defaults",
+                    "human review",
+                    "data quality monitoring",
+                    "error alerts",
+                    "no safeguards identified (flag as risk)"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
