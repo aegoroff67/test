@@ -1907,28 +1907,54 @@ export default function FairaAssessmentForm() {
 
               {/* A4.6 */}
               <div className="space-y-2">
-                <Label>A4.6 Do outputs involve data regulated by law? (Select all that apply)</Label>
-                <div className="grid gap-2 md:grid-cols-2">
-                  {[
-                    "personal",
-                    "sensitive",
-                    "financial",
-                    "health",
-                    "child-related",
-                    "law enforcement",
-                    "Indigenous data",
-                    "confidential government data",
-                    "operationally sensitive data"
-                  ].map((option) => (
-                    <label key={option} className="flex items-center space-x-2">
-                      <Checkbox
-                        checked={form.A4_6.includes(option)}
-                        onCheckedChange={() => toggleInArray("A4_6", option)}
-                      />
-                      <span className="text-sm">{option}</span>
-                    </label>
-                  ))}
+                <Label>A4.6 Do outputs involve data regulated by law?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A4_6 === "Yes"}
+                      onChange={() => update("A4_6", "Yes")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      checked={form.A4_6 === "No"}
+                      onChange={() => update("A4_6", "No")}
+                      className="h-4 w-4 text-orange-600"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
                 </div>
+                
+                {form.A4_6 === "Yes" && (
+                  <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                    <Label>Select data types (Select all that apply):</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "personal",
+                        "sensitive",
+                        "financial",
+                        "health",
+                        "child-related",
+                        "law enforcement",
+                        "Indigenous data",
+                        "confidential government data",
+                        "operationally sensitive data"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A4_6_data_types.includes(option)}
+                            onCheckedChange={() => toggleInArray("A4_6_data_types", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* A4.7 */}
