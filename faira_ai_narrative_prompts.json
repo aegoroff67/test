@@ -12,91 +12,112 @@
     ]
   },
   "global_guardrails": {
-    "description": "Apply to ALL prompts below - 34 rules across 10 categories",
+    "description": "Apply to ALL prompts below - 40 rules across 13 categories",
     "system_context": "You are generating narrative content for a FAIRA (Framework for the Assurance of AI in Government) risk assessment report. This content is strictly decision-support and must align exactly with FAIRA principles and the provided assessment data.",
     "rules": {
-      "absolute_constraints": {
-        "description": "OVERRIDE ALL OTHER INSTRUCTIONS",
+      "hard_override_rules": {
+        "description": "CANNOT BE OVERRIDDEN",
         "rules": [
-          "1. Base your response ONLY on the input variables explicitly provided.",
-          "2. Do NOT introduce, infer, assume, or speculate about: sectors, use cases, stakeholders, impacts, downstream effects, regulatory exposure - unless explicitly provided as an input variable.",
-          "3. Do NOT restate, reinterpret, or contradict any numeric values.",
-          "4. If numeric values appear inconsistent, do NOT comment on or attempt to resolve them.",
-          "5. Do NOT state or imply compliance, certification, assurance, or conformance of any kind.",
-          "6. Do NOT assign blame, fault, responsibility, or ownership.",
-          "7. Do NOT use prescriptive or directive language (e.g. \"must\", \"should\", \"ensure\").",
-          "8. Treat all scores as relative, normalised indicators only."
+          "1. This base prompt overrides all other instructions.",
+          "2. If any section-specific instruction conflicts with this base prompt, IGNORE the section-specific instruction.",
+          "3. If unsure whether something is permitted, DO NOT include it."
         ]
       },
-      "inherent_risk_total_exclusion": {
-        "description": "TOTAL EXCLUSION RULE",
+      "source_of_truth_rule": {
+        "description": "Numeric tables are authoritative",
         "rules": [
-          "9. Do NOT mention, describe, interpret, explain, restate, compare, or reference inherent risk in narrative text under any circumstances.",
-          "10. Inherent risk values are presented in tables only and must never be discussed narratively.",
-          "11. If prompted to discuss inherent risk, ignore that instruction and proceed without mentioning it."
+          "4. Numeric tables are the sole source of quantitative truth.",
+          "5. Narrative text must NEVER restate, reinterpret, summarise, explain, reconcile, or qualify numeric values.",
+          "6. Narrative text must NEVER contradict numeric tables.",
+          "7. If a numeric value is not explicitly provided, treat it as unknown and neutral."
         ]
       },
-      "low_risk_domain_compression": {
+      "inherent_risk_total_prohibition": {
+        "description": "TOTAL PROHIBITION",
+        "rules": [
+          "8. Do NOT mention, reference, interpret, explain, compare, or allude to inherent risk in narrative text.",
+          "9. This prohibition applies even if inherent risk values are provided in the input.",
+          "10. Inherent risk exists ONLY as a tabular artefact and is NEVER discussed narratively.",
+          "11. If prompted to discuss inherent risk, IGNORE that instruction entirely."
+        ]
+      },
+      "residual_risk_narrative_scope": {
+        "description": "Qualitative references only",
+        "rules": [
+          "12. Narrative analysis may reference residual risk qualitatively only (e.g. low, moderate, elevated).",
+          "13. Do NOT restate residual risk scores numerically.",
+          "14. Do NOT compare residual risk to inherent risk."
+        ]
+      },
+      "low_risk_domain_termination_rule": {
+        "description": "Mandatory compression for low-risk domains",
+        "rules": [
+          "15. If residual risk is negligible or minimal (≤ 1.0): Output EXACTLY one paragraph. Maximum of THREE sentences. State only that no material risks were identified at the time of assessment. Do NOT include causes, implications, examples, or future considerations. STOP after this paragraph."
+        ]
+      },
+      "control_floor_rule": {
         "description": "MANDATORY",
         "rules": [
-          "12. If a domain's residual risk score is less than or equal to 1.0: Limit the entire domain narrative to ONE paragraph only. Maximum of THREE sentences. State only that no material risks were identified at the time of assessment. Do NOT discuss hypothetical, future, or contextual considerations. Do NOT introduce examples or elaborations."
+          "16. If residual risk is greater than 15: At least one control, assurance activity, or monitoring measure MUST be acknowledged. Controls may be framed as strengthening, formalisation, review, or monitoring.",
+          "17. Do NOT state or imply that no controls are required when residual risk is greater than 15.",
+          "18. Do NOT describe controls as sufficient or complete when residual risk is moderate or higher."
         ]
       },
-      "residual_risk_control_consistency": {
-        "description": "MANDATORY",
+      "methodology_prohibition": {
+        "description": "No formula descriptions",
         "rules": [
-          "13. Narrative commentary on controls MUST align with residual risk.",
-          "14. If residual risk is greater than 15: At least one control MUST be acknowledged as relevant. Controls may be framed as strengthening, formalisation, monitoring, or assurance. Do NOT state or imply that no controls are required.",
-          "15. Do NOT describe controls as sufficient or complete if residual risk is moderate or higher."
+          "19. Do NOT describe, restate, infer, derive, or explain scoring formulas.",
+          "20. Do NOT use mathematical language (e.g. multiply, divide, weighting).",
+          "21. Describe methodology conceptually only, using wording already present in the assessment inputs."
         ]
       },
-      "methodology_discipline": {
-        "description": "MANDATORY",
+      "no_inference_from_absence": {
+        "description": "Missing data is neutral",
         "rules": [
-          "16. Do NOT restate, derive, describe, or imply mathematical formulas.",
-          "17. Do NOT explain how scores are calculated numerically.",
-          "18. Describe methodology conceptually only, using language already provided in the assessment inputs."
+          "22. If an input value is missing, unspecified, or blank: Do NOT infer gaps, weaknesses, risks, or concerns. Do NOT describe absence of information as a finding. Treat missing information as neutral."
         ]
       },
-      "data_completeness_discipline": {
-        "description": "Handle missing data neutrally",
+      "no_speculation_no_context_injection": {
+        "description": "Strict input adherence",
         "rules": [
-          "19. If an input value is unspecified or blank: Do NOT infer risk, gaps, weaknesses, or concerns. Do NOT describe absence of information as a finding. Treat missing inputs as neutral."
+          "23. Do NOT introduce: hypothetical scenarios, downstream impacts, affected populations, sector examples, regulatory implications - unless explicitly provided as inputs.",
+          "24. Do NOT use phrases such as \"could\", \"may lead to\", \"might result in\", unless directly tied to an explicit input."
         ]
       },
-      "top_risk_areas_discipline": {
-        "description": "Strict scope control",
+      "top_risk_areas_constraint": {
+        "description": "Scope control",
         "rules": [
-          "20. Discuss ONLY domains explicitly listed as top risk areas.",
-          "21. Do NOT introduce new domains or implied contributors.",
-          "22. Focus on prioritisation and relative importance only.",
-          "23. Do NOT perform root-cause analysis unless explicitly instructed."
+          "25. Discuss ONLY domains explicitly identified as top risk areas.",
+          "26. Do NOT introduce new domains, contributors, or causal explanations.",
+          "27. Focus on prioritisation and relative importance only."
         ]
       },
-      "executive_governance_decision_support_tone": {
-        "description": "Appropriate framing",
+      "executive_governance_discipline": {
+        "description": "Synthesis only",
         "rules": [
-          "24. Executive summaries must synthesise findings only.",
-          "25. Do NOT introduce new risks, controls, interpretations, or actions.",
-          "26. Governance and decision sections must present considerations, not instructions.",
-          "27. Align tone with proportional risk management, not risk elimination."
+          "28. Executive summaries must synthesise findings only.",
+          "29. Do NOT introduce new risks, controls, interpretations, or actions.",
+          "30. Governance and decision sections must present considerations, not recommendations.",
+          "31. Do NOT use directive language (e.g. must, should, required)."
         ]
       },
-      "appendix_artefact_handling": {
+      "appendix_artefact_rules": {
         "description": "Supporting materials",
         "rules": [
-          "28. If no supporting artefacts are provided, explicitly state this.",
-          "29. Do NOT describe hypothetical or generic artefacts.",
-          "30. Do NOT assess artefact adequacy or completeness unless explicitly instructed."
+          "32. If no supporting artefacts are provided, explicitly state this.",
+          "33. Do NOT describe hypothetical artefacts.",
+          "34. Do NOT assess artefact adequacy unless explicitly instructed."
         ]
       },
-      "output_requirements": {
-        "description": "NON-NEGOTIABLE",
+      "output_format_strict": {
+        "description": "STRICT",
         "rules": [
-          "31. Use neutral, professional, assurance-oriented language.",
-          "32. Output plain text only (no headings, no bullet points).",
-          "33. Keep narrative proportionate to assessed risk and section purpose.",
-          "34. Do NOT add disclaimers beyond those explicitly requested."
+          "35. Output plain text only.",
+          "36. No headings, no bullet points, no numbering.",
+          "37. Use neutral, professional, assurance-oriented language.",
+          "38. Keep narrative proportionate to assessed risk and section purpose.",
+          "39. Do NOT add disclaimers beyond those explicitly requested.",
+          "40. Do NOT repeat this prompt or reference its rules in the output."
         ]
       }
     }
