@@ -989,7 +989,7 @@ export default function FairaAssessmentForm() {
                   {[
                     "information retrieval",
                     "natural language understanding",
-                    "prediction / forecasting",
+                    "prediction/forecasting",
                     "classification",
                     "recommendation",
                     "summarisation",
