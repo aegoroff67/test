@@ -543,6 +543,92 @@
         "environmental",
         "trust"
       ]
+    },
+    {
+      "control_id": "FAIRA-C-GOV-05",
+      "title": "Manage AI lifecycle changes",
+      "domains": [
+        "Accountability",
+        "Reliability and Safety"
+      ],
+      "control_type": "Process",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Ongoing",
+      "description": "Assess and manage risk implications arising from changes to AI systems.",
+      "detailed_description": "Establish a process to identify and assess material changes to AI systems, including changes to models, data sources, prompts, integrations, deployment context, or intended use. Require risk review and appropriate approval prior to deployment of changes, and confirm that existing controls remain effective following change implementation.",
+      "faira_part_c_reference": [
+        "Part C – Accountability and governance controls",
+        "Part C – Reliability and safety controls"
+      ],
+      "evidence_examples": [
+        "Change management procedure",
+        "AI change risk assessment",
+        "Approval records",
+        "Post-change review notes"
+      ],
+      "tags": [
+        "lifecycle",
+        "change management",
+        "risk review"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-ASSUR-05",
+      "title": "Review AI decision outcomes",
+      "domains": [
+        "Accountability",
+        "Reliability and Safety",
+        "Fairness"
+      ],
+      "control_type": "Assurance",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Ongoing",
+      "description": "Periodically review AI-influenced decisions to confirm outcomes remain appropriate.",
+      "detailed_description": "Conduct periodic reviews of AI-influenced decisions to assess whether outcomes remain appropriate, consistent, and aligned with intended use. Reviews may include sampling decisions, examining overrides, assessing error patterns, and identifying emerging issues. Record findings and track follow-up actions where concerns are identified.",
+      "faira_part_c_reference": [
+        "Part C – Monitoring and assurance",
+        "Part C – Accountability and governance controls",
+        "Part C – Fairness controls"
+      ],
+      "evidence_examples": [
+        "Decision review records",
+        "Outcome sampling reports",
+        "Override analysis",
+        "Assurance review findings"
+      ],
+      "tags": [
+        "decision quality",
+        "outcome review",
+        "assurance"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-CONT-02",
+      "title": "Monitor contestability effectiveness",
+      "domains": [
+        "Contestability",
+        "Accountability"
+      ],
+      "control_type": "Assurance",
+      "implementation_effort": "Low",
+      "implementation_horizon": "Ongoing",
+      "description": "Review whether contestability processes operate effectively in practice.",
+      "detailed_description": "Periodically review contestability processes to confirm they are accessible, timely, and result in meaningful review or correction where appropriate. Assess challenge volumes, response times, outcomes, and user feedback, and escalate systemic issues through governance arrangements.",
+      "faira_part_c_reference": [
+        "Part C – Contestability controls",
+        "Part C – Monitoring and assurance"
+      ],
+      "evidence_examples": [
+        "Contestability metrics",
+        "Review outcome summaries",
+        "User feedback",
+        "Governance escalation records"
+      ],
+      "tags": [
+        "contestability",
+        "assurance",
+        "review"
+      ]
     }
   ],
   "recommendation_rules": [
