@@ -355,6 +355,7 @@ export default function FairaAssessmentForm() {
       'A2_8_types': () => form.A2_8 === 'Yes',
       'A3_3_other': () => form.A3_3.includes('Other'),
       'A4_5_scenarios': () => form.A4_5 === 'Yes',
+      'A4_6_data_types': () => form.A4_6 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
@@ -450,6 +451,7 @@ export default function FairaAssessmentForm() {
       'A2_8_types': () => form.A2_8 === 'Yes',
       'A3_3_other': () => form.A3_3.includes('Other'),
       'A4_5_scenarios': () => form.A4_5 === 'Yes',
+      'A4_6_data_types': () => form.A4_6 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
