@@ -1260,7 +1260,29 @@ EXECUTIVE SUMMARY DISCIPLINE
 
 32. Executive summaries must not speculate on causes, drivers, or contributing factors unless explicitly provided as inputs.
 33. Avoid causal or predictive language such as "increase", "lead to", "drive", or "result in".
-34. Executive summaries must reflect assessed outcomes only, not inferred explanations."""
+34. Executive summaries must reflect assessed outcomes only, not inferred explanations.
+
+────────────────────────────────
+STRICT INTERPRETATION CONSTRAINTS
+────────────────────────────────
+
+The AI narrative MUST NOT:
+
+• Infer governance maturity, control adequacy, organisational confidence, or intent unless explicitly supported by assessed scores or listed controls.
+• State or imply that the absence of recommended controls indicates sufficient, strong, mature, or effective governance.
+• Introduce reassuring or justificatory language when control fields are empty or where no controls are prioritised.
+• Attribute qualitative meaning (e.g. "robust", "strong", "effective", "adequate", "confident", "well-established") to numerical scores.
+• Assume positive outcomes, risk acceptance, or organisational positioning unless explicitly provided as input data.
+
+When no controls are listed for a domain, the narrative MUST:
+• State that no additional controls have been identified or prioritised within the scope of this assessment.
+• Avoid interpreting this absence as adequacy, effectiveness, or maturity.
+• Frame the outcome as a current-state observation only.
+
+All domain narratives MUST:
+• Describe score relationships factually (impact, likelihood, control effectiveness, residual risk).
+• Avoid evaluative or judgement-based conclusions.
+• Maintain a neutral, descriptive, risk-analyst tone at all times."""
 
 
 def get_faira_domain_scores(report_data: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
