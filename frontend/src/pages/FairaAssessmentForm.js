@@ -2824,11 +2824,11 @@ export default function FairaAssessmentForm() {
                     <Label>Is this information (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "Identifiable",
-                        "Sensitive",
-                        "Health-related",
-                        "Financial",
-                        "Biometric"
+                        "identifiable",
+                        "sensitive",
+                        "health-related",
+                        "financial",
+                        "biometric"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
@@ -2863,11 +2863,11 @@ export default function FairaAssessmentForm() {
                 <Label>B4.3 What security measures are in place? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Access controls",
-                    "Encryption",
-                    "Security testing",
-                    "Data anonymization",
-                    "Privacy-enhancing technologies"
+                    "access controls",
+                    "encryption",
+                    "security testing",
+                    "data anonymization",
+                    "privacy-enhancing technologies"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
@@ -2977,13 +2977,13 @@ export default function FairaAssessmentForm() {
                     <Label>Which environments? (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "Essential services",
-                        "Critical infrastructure",
-                        "Health services",
-                        "Education",
-                        "Law enforcement",
-                        "Administration of justice",
-                        "Democratic processes"
+                        "essential services",
+                        "critical infrastructure",
+                        "health services",
+                        "education",
+                        "law enforcement",
+                        "administration of justice",
+                        "democratic processes"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
