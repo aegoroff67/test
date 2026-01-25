@@ -1,0 +1,734 @@
+{
+  "schema_version": "amaisafe.faira.partc.controls.v1",
+  "generated_at": "2026-01-05T03:09:42Z",
+  "controls": [
+    {
+      "control_id": "FAIRA-C-ACC-01",
+      "title": "Establish AI accountability ownership",
+      "domains": [
+        "Accountability"
+      ],
+      "control_type": "Governance",
+      "implementation_effort": "Low",
+      "implementation_horizon": "Immediate",
+      "description": "Assign clear accountability for AI outcomes.",
+      "detailed_description": "Formally assign accountability for AI system outcomes, including approval, monitoring, incident escalation, remediation, and risk acceptance. Document accountable roles (e.g., RACI/governance charter) and ensure responsibilities apply to both automated and AI-influenced decisions. Review role coverage when the system, data, or deployment context changes.",
+      "faira_part_c_reference": [
+        "Part C – Accountability and governance controls"
+      ],
+      "evidence_examples": [
+        "RACI matrix",
+        "AI governance charter",
+        "Role descriptions / position responsibilities",
+        "Delegations / decision authority register"
+      ],
+      "tags": [
+        "ownership",
+        "governance",
+        "accountability"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-ACC-02",
+      "title": "Define human-in-the-loop decision points",
+      "domains": [
+        "Accountability",
+        "Reliability and Safety"
+      ],
+      "control_type": "Process",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Define where human oversight is required for AI-influenced decisions.",
+      "detailed_description": "Identify decision points where AI outputs could materially affect individuals, service access, safety, legal rights, or compliance. Specify when human review/approval is mandatory, when overrides are permitted, and what escalation pathways apply. Document thresholds, roles, and evidence required for sign-off, and test the workflow in operational scenarios.",
+      "faira_part_c_reference": [
+        "Part C – Accountability and governance controls",
+        "Part C – Reliability and safety controls"
+      ],
+      "evidence_examples": [
+        "Workflow/SOPs",
+        "Approval thresholds",
+        "Override and escalation procedures",
+        "Operator guidance"
+      ],
+      "tags": [
+        "human oversight",
+        "HITL",
+        "decision gates"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-ACC-03",
+      "title": "Define accountability for third-party AI",
+      "domains": [
+        "Accountability"
+      ],
+      "control_type": "Governance",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Clarify accountability boundaries for vendor or partner AI components.",
+      "detailed_description": "For externally sourced AI or components, define accountability boundaries and ensure the organisation retains accountable ownership for outcomes. Include contractual requirements for risk management, incident notification, change management, assurance evidence, and audit/inspection rights. Establish processes to manage vendor updates and dependencies that affect risk.",
+      "faira_part_c_reference": [
+        "Part C – Accountability and governance controls",
+        "Part C – Procurement and third‑party risk considerations"
+      ],
+      "evidence_examples": [
+        "Contracts and schedules",
+        "Supplier assurance pack",
+        "Audit rights clauses",
+        "Change notification SLAs"
+      ],
+      "tags": [
+        "vendor",
+        "third-party",
+        "procurement"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-ACC-04",
+      "title": "Monitor accountability effectiveness",
+      "domains": [
+        "Accountability"
+      ],
+      "control_type": "Assurance",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Ongoing",
+      "description": "Periodically review whether accountability arrangements are effective in practice.",
+      "detailed_description": "Conduct periodic reviews of accountability arrangements to confirm responsibilities remain clear, exercised, and sufficient. Include checks of decision logs, escalations, incidents, staff understanding, and governance meeting outcomes. Record actions and track completion, especially following incidents or material changes.",
+      "faira_part_c_reference": [
+        "Part C – Accountability and governance controls",
+        "Part C – Monitoring and assurance"
+      ],
+      "evidence_examples": [
+        "Governance review minutes",
+        "Audit findings",
+        "Accountability review report",
+        "Action tracking register"
+      ],
+      "tags": [
+        "assurance",
+        "review",
+        "governance"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-REL-01",
+      "title": "Conduct reliability testing",
+      "domains": [
+        "Reliability and Safety"
+      ],
+      "control_type": "Technical",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Test AI behaviour for reliability under realistic operating conditions.",
+      "detailed_description": "Test the AI system against documented acceptance criteria, including performance consistency, error handling, edge cases, and failure modes. Validate behaviour across representative data and operational conditions, and repeat testing after material changes (model, data, prompts, integrations, environment). Store test results and sign-off decisions.",
+      "faira_part_c_reference": [
+        "Part C – Reliability and safety controls"
+      ],
+      "evidence_examples": [
+        "Test plan and cases",
+        "Validation report",
+        "Acceptance criteria",
+        "Release sign-off record"
+      ],
+      "tags": [
+        "testing",
+        "validation",
+        "reliability"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-REL-02",
+      "title": "Implement safe disengagement mechanisms",
+      "domains": [
+        "Reliability and Safety"
+      ],
+      "control_type": "Technical",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Provide safe pause/override/shutdown mechanisms for AI functionality.",
+      "detailed_description": "Implement controls to safely disable, pause, or override AI outputs/actions (e.g., kill switch, rollback, fallback mode). Define who can trigger disengagement, under what conditions, and how service continuity is maintained. Test disengagement procedures periodically and after changes.",
+      "faira_part_c_reference": [
+        "Part C – Reliability and safety controls"
+      ],
+      "evidence_examples": [
+        "Kill switch design",
+        "Rollback plan",
+        "Fallback procedures",
+        "Disengagement test records"
+      ],
+      "tags": [
+        "kill switch",
+        "override",
+        "safety"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-REL-03",
+      "title": "Establish AI-specific incident response",
+      "domains": [
+        "Reliability and Safety",
+        "Accountability"
+      ],
+      "control_type": "Process",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Integrate AI-specific failures into incident response and escalation.",
+      "detailed_description": "Extend incident response to cover AI-specific failure modes (harmful outputs, model drift, prompt injection, data leakage, bias incidents). Define detection signals, severity triage, escalation paths, comms templates, containment steps, and post-incident review requirements. Maintain a log of AI incidents and lessons learned.",
+      "faira_part_c_reference": [
+        "Part C – Reliability and safety controls",
+        "Part C – Monitoring and assurance"
+      ],
+      "evidence_examples": [
+        "IR playbooks",
+        "Escalation matrix",
+        "AI incident register",
+        "Post-incident reviews"
+      ],
+      "tags": [
+        "incident response",
+        "playbook",
+        "postmortem"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-REL-04",
+      "title": "Monitor ongoing system performance",
+      "domains": [
+        "Reliability and Safety"
+      ],
+      "control_type": "Assurance",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Ongoing",
+      "description": "Continuously monitor AI performance, drift, and unintended behaviour.",
+      "detailed_description": "Define performance and safety KPIs (accuracy, error rates, drift indicators, hallucination rate, override frequency) and implement monitoring with alert thresholds. Review monitoring outputs regularly and trigger retraining, prompt changes, or rollback where thresholds are exceeded. Record reviews and actions taken.",
+      "faira_part_c_reference": [
+        "Part C – Monitoring and assurance",
+        "Part C – Reliability and safety controls"
+      ],
+      "evidence_examples": [
+        "Monitoring dashboards",
+        "Alert thresholds",
+        "Performance review logs",
+        "Drift reports"
+      ],
+      "tags": [
+        "monitoring",
+        "drift",
+        "KPI"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-PRIV-01",
+      "title": "Apply data minimisation and access controls",
+      "domains": [
+        "Privacy Protection and Security"
+      ],
+      "control_type": "Technical",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Limit data to what is necessary and restrict access by role and need.",
+      "detailed_description": "Map data flows and ensure only necessary data is collected, used, and retained. Implement role-based access control to training data, inputs, outputs, and logs. Enforce least privilege, separation of duties, and secure storage. Apply retention and disposal rules aligned to records and privacy obligations.",
+      "faira_part_c_reference": [
+        "Part C – Privacy and data protection controls"
+      ],
+      "evidence_examples": [
+        "Data flow diagram",
+        "RBAC matrix",
+        "Retention schedule",
+        "Access reviews"
+      ],
+      "tags": [
+        "data minimisation",
+        "RBAC",
+        "least privilege"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-PRIV-02",
+      "title": "Implement privacy risk mitigations",
+      "domains": [
+        "Privacy Protection and Security"
+      ],
+      "control_type": "Assurance",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Implement and track mitigations identified through privacy/data assessments.",
+      "detailed_description": "Where privacy risks are identified (e.g., PIA, data risk assessment), implement mitigations such as anonymisation, pseudonymisation, redaction, consent/notice controls, access restrictions, and breach response readiness. Track mitigations to closure with owners and due dates, and re-assess after material changes.",
+      "faira_part_c_reference": [
+        "Part C – Privacy and data protection controls",
+        "Part C – Monitoring and assurance"
+      ],
+      "evidence_examples": [
+        "PIA actions register",
+        "Mitigation tracker",
+        "Updated privacy notices",
+        "Re-assessment records"
+      ],
+      "tags": [
+        "PIA",
+        "mitigation",
+        "privacy"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-PRIV-03",
+      "title": "Control sensitive output disclosure",
+      "domains": [
+        "Privacy Protection and Security",
+        "Transparency and Explainability"
+      ],
+      "control_type": "Technical",
+      "implementation_effort": "Low",
+      "implementation_horizon": "Immediate",
+      "description": "Prevent outputs from exposing sensitive or regulated information.",
+      "detailed_description": "Implement output controls to prevent leakage of sensitive or regulated data (e.g., redaction, suppression, classification-based filters, prompt guardrails). Validate controls using test cases and ensure exceptions are logged and reviewed. Where applicable, apply least disclosure principles and safe response patterns.",
+      "faira_part_c_reference": [
+        "Part C – Privacy and data protection controls",
+        "Part C – Transparency and explainability considerations"
+      ],
+      "evidence_examples": [
+        "Output filtering rules",
+        "Redaction test suite",
+        "Sensitive term lists",
+        "Exception logs"
+      ],
+      "tags": [
+        "redaction",
+        "output filtering",
+        "data leakage"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-PRIV-04",
+      "title": "Secure AI infrastructure and integrations",
+      "domains": [
+        "Privacy Protection and Security",
+        "Reliability and Safety"
+      ],
+      "control_type": "Technical",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Apply security controls across AI infrastructure and connected systems.",
+      "detailed_description": "Secure AI infrastructure, APIs, and integrations using standard security practices (authentication, encryption, network controls, vulnerability management, logging). Validate supply chain components, manage secrets, and harden integration points. Ensure security testing includes AI-specific threats (prompt injection, poisoning, model extraction) where relevant.",
+      "faira_part_c_reference": [
+        "Part C – Privacy and data protection controls",
+        "Part C – Reliability and safety controls"
+      ],
+      "evidence_examples": [
+        "Security architecture",
+        "Pen test / security test reports",
+        "Secrets management records",
+        "API access logs"
+      ],
+      "tags": [
+        "security",
+        "integration",
+        "hardening"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-FAIR-01",
+      "title": "Test and monitor for bias",
+      "domains": [
+        "Fairness"
+      ],
+      "control_type": "Technical",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Identify, mitigate, and monitor bias risks in AI outputs and decisions.",
+      "detailed_description": "Assess training data and system outputs for bias that could produce unfair impacts on individuals or groups. Define fairness metrics appropriate to the context, test for disparate impact, implement mitigations (data balancing, constraints, human review), and monitor fairness outcomes over time with periodic re-testing.",
+      "faira_part_c_reference": [
+        "Part C – Fairness controls"
+      ],
+      "evidence_examples": [
+        "Bias assessment report",
+        "Fairness metrics and tests",
+        "Mitigation actions",
+        "Ongoing monitoring results"
+      ],
+      "tags": [
+        "bias",
+        "fairness",
+        "disparate impact"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-FAIR-02",
+      "title": "Review decision impacts on affected groups",
+      "domains": [
+        "Fairness",
+        "Human-Centred Values"
+      ],
+      "control_type": "Engagement",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Medium-term",
+      "description": "Assess and address disproportionate impacts on affected groups.",
+      "detailed_description": "Identify groups potentially affected by AI outcomes and assess whether impacts are disproportionate or unfair. Incorporate feedback and lived experience where appropriate, and implement corrective actions such as policy constraints, targeted monitoring, and additional safeguards for vulnerable groups.",
+      "faira_part_c_reference": [
+        "Part C – Fairness controls",
+        "Part C – Engagement and affected persons"
+      ],
+      "evidence_examples": [
+        "Stakeholder engagement record",
+        "Impact assessment notes",
+        "Mitigation actions",
+        "Review minutes"
+      ],
+      "tags": [
+        "impact review",
+        "vulnerable groups",
+        "engagement"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-HUM-01",
+      "title": "Safeguard human autonomy and dignity",
+      "domains": [
+        "Human-Centred Values",
+        "Accountability"
+      ],
+      "control_type": "Governance",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Ensure AI supports human agency and avoids inappropriate reliance.",
+      "detailed_description": "Define appropriate use boundaries and ensure humans retain meaningful agency where judgement is required. Implement safeguards against automation bias and over-reliance (e.g., mandatory review, decision aids, training). Ensure AI outputs are framed as support, not authority, unless explicitly approved for automation with suitable safeguards.",
+      "faira_part_c_reference": [
+        "Part C – Human-centred values controls",
+        "Part C – Accountability and governance controls"
+      ],
+      "evidence_examples": [
+        "Acceptable use guidance",
+        "Automation bias training",
+        "Decision boundary definitions",
+        "Review requirements"
+      ],
+      "tags": [
+        "human agency",
+        "over-reliance",
+        "automation bias"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-HUM-02",
+      "title": "Manage workforce impacts",
+      "domains": [
+        "Human-Centred Values",
+        "Human, Societal and Environmental Wellbeing"
+      ],
+      "control_type": "Process",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Medium-term",
+      "description": "Mitigate negative impacts on staff roles, workload, and wellbeing.",
+      "detailed_description": "Assess workforce impacts (workload, job redesign, skills, stress) and implement mitigations such as training, role redesign, communications, and support arrangements. Engage affected staff early, define new responsibilities, and monitor wellbeing impacts after deployment.",
+      "faira_part_c_reference": [
+        "Part C – Human-centred values controls",
+        "Part C – Wellbeing and broader impacts"
+      ],
+      "evidence_examples": [
+        "Change management plan",
+        "Training plan",
+        "Role redesign artefacts",
+        "Staff feedback results"
+      ],
+      "tags": [
+        "workforce",
+        "change management",
+        "wellbeing"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-TRANS-01",
+      "title": "Inform people about AI use",
+      "domains": [
+        "Transparency and Explainability"
+      ],
+      "control_type": "Engagement",
+      "implementation_effort": "Low",
+      "implementation_horizon": "Immediate",
+      "description": "Provide clear disclosure when AI is used and why.",
+      "detailed_description": "Implement proportionate notices to inform users and affected parties when AI is used, its purpose, and key limitations. Ensure disclosures are accessible, understandable, and appropriate to the channel (UI notices, scripts, policies). Maintain versioned disclosure content and review when system behaviour changes.",
+      "faira_part_c_reference": [
+        "Part C – Transparency and explainability controls",
+        "Part C – Engagement and affected persons"
+      ],
+      "evidence_examples": [
+        "Disclosure copy",
+        "UI screenshots",
+        "Policy statements",
+        "Version history of notices"
+      ],
+      "tags": [
+        "disclosure",
+        "notice",
+        "transparency"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-TRANS-02",
+      "title": "Provide explainability mechanisms",
+      "domains": [
+        "Transparency and Explainability"
+      ],
+      "control_type": "Technical",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Provide meaningful explanations appropriate to the decision context.",
+      "detailed_description": "Provide explanations for outputs/decisions proportionate to impact (what inputs mattered, high-level reasoning, confidence/limits, and how to seek review). Tailor explanations to audiences (staff, citizens, oversight bodies) and document limitations where full explainability is not feasible.",
+      "faira_part_c_reference": [
+        "Part C – Transparency and explainability controls"
+      ],
+      "evidence_examples": [
+        "Explanation patterns",
+        "Model/system cards",
+        "User guidance",
+        "Explainability limitations register"
+      ],
+      "tags": [
+        "explainability",
+        "model cards",
+        "limitations"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-CONT-01",
+      "title": "Enable challenge and review of AI outcomes",
+      "domains": [
+        "Contestability",
+        "Accountability"
+      ],
+      "control_type": "Process",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Short-term",
+      "description": "Provide a clear contestability process with timely review and correction.",
+      "detailed_description": "Establish accessible channels for affected parties to challenge AI outcomes. Define SLAs for response and review, ensure human review is available where appropriate, document how decisions are reconsidered, and record outcomes and corrective actions. Ensure staff understand the process and that systemic issues are escalated to governance.",
+      "faira_part_c_reference": [
+        "Part C – Contestability controls",
+        "Part C – Transparency and explainability controls"
+      ],
+      "evidence_examples": [
+        "Contestability procedure",
+        "Review SLAs",
+        "Decision review records",
+        "Complaint handling logs"
+      ],
+      "tags": [
+        "contestability",
+        "appeals",
+        "SLA"
+      ]
+    },
+    {
+      "control_id": "FAIRA-C-WELL-01",
+      "title": "Monitor societal and environmental impacts",
+      "domains": [
+        "Human, Societal and Environmental Wellbeing"
+      ],
+      "control_type": "Assurance",
+      "implementation_effort": "Medium",
+      "implementation_horizon": "Ongoing",
+      "description": "Consider and review broader societal and environmental impacts over time.",
+      "detailed_description": "Identify potential broader impacts (community trust, exclusion, service equity, environmental footprint) and define monitoring/review cadence proportionate to scale and sensitivity. Record findings, engage stakeholders where appropriate, and implement mitigations where broader harms are identified.",
+      "faira_part_c_reference": [
+        "Part C – Wellbeing and broader impacts",
+        "Part C – Monitoring and assurance"
+      ],
+      "evidence_examples": [
+        "Impact review notes",
+        "Stakeholder engagement summaries",
+        "Environmental/usage metrics",
+        "Mitigation actions"
+      ],
+      "tags": [
+        "societal impacts",
+        "environmental",
+        "trust"
+      ]
+    }
+  ],
+  "recommendation_rules": [
+    {
+      "rule_id": "R-01-DOMAIN-RESIDUAL-HIGH",
+      "name": "High residual domain risk => all domain controls",
+      "priority": "High",
+      "when": {
+        "type": "domain_threshold",
+        "metric": "domain_residual_risk_level",
+        "operator": ">=",
+        "value": "High"
+      },
+      "then": {
+        "select_controls": {
+          "mode": "by_domain",
+          "include_all_controls_for_domain": true
+        },
+        "set_priority": "High",
+        "rationale_template": "Residual risk is {domain_residual_risk_level} in {domain}; implement targeted controls to reduce remaining exposure."
+      }
+    },
+    {
+      "rule_id": "R-02-OVERALL-RESIDUAL-HIGH",
+      "name": "Overall residual risk high => core assurance controls",
+      "priority": "High",
+      "when": {
+        "type": "overall_threshold",
+        "metric": "overall_residual_risk_level",
+        "operator": ">=",
+        "value": "High"
+      },
+      "then": {
+        "select_controls": {
+          "control_ids": [
+            "FAIRA-C-ACC-01",
+            "FAIRA-C-REL-03",
+            "FAIRA-C-TRANS-01",
+            "FAIRA-C-CONT-01"
+          ]
+        },
+        "set_priority": "High",
+        "rationale_template": "Overall residual risk is {overall_residual_risk_level}; strengthen governance, transparency, incident response, and contestability."
+      }
+    },
+    {
+      "rule_id": "R-03-PUBLIC-DEPLOYMENT",
+      "name": "Public/citizen-facing deployment => transparency + contestability",
+      "priority": "High",
+      "when": {
+        "type": "question_value",
+        "question_id": "A5.11",
+        "operator": "in",
+        "value": [
+          "Public-facing",
+          "Citizen-facing high-sensitivity",
+          "Multi-channel deployment"
+        ]
+      },
+      "then": {
+        "select_controls": {
+          "control_ids": [
+            "FAIRA-C-TRANS-01",
+            "FAIRA-C-TRANS-02",
+            "FAIRA-C-CONT-01"
+          ]
+        },
+        "set_priority": "High",
+        "rationale_template": "Deployment is {A5.11}; ensure clear disclosure, meaningful explanations, and contestability for affected parties."
+      }
+    },
+    {
+      "rule_id": "R-04-HIGH-AUTONOMY",
+      "name": "Autonomous action enabled => HITL + safety disengagement",
+      "priority": "Medium",
+      "when": {
+        "type": "question_value",
+        "question_id": "A1.6",
+        "operator": "equals",
+        "value": "Yes"
+      },
+      "then": {
+        "select_controls": {
+          "control_ids": [
+            "FAIRA-C-ACC-02",
+            "FAIRA-C-REL-02",
+            "FAIRA-C-REL-03"
+          ]
+        },
+        "set_priority": "Medium",
+        "rationale_template": "Autonomous action is enabled; define human decision gates and safe disengagement/incident response controls."
+      }
+    },
+    {
+      "rule_id": "R-05-REGULATED-SENSITIVE-DATA",
+      "name": "Regulated/sensitive data used => privacy controls",
+      "priority": "High",
+      "when": {
+        "type": "question_value",
+        "question_id": "A2.7",
+        "operator": "equals",
+        "value": "Yes"
+      },
+      "then": {
+        "select_controls": {
+          "control_ids": [
+            "FAIRA-C-PRIV-01",
+            "FAIRA-C-PRIV-02",
+            "FAIRA-C-PRIV-03",
+            "FAIRA-C-PRIV-04"
+          ]
+        },
+        "set_priority": "High",
+        "rationale_template": "Regulated/sensitive data is used; apply minimisation, access controls, privacy mitigations, output disclosure protections, and secure integrations."
+      }
+    },
+    {
+      "rule_id": "R-06-FAIRNESS-SIGNALS",
+      "name": "Fairness risks present => bias testing + affected group review",
+      "priority": "Medium",
+      "when": {
+        "type": "domain_threshold",
+        "metric": "domain_inherent_risk_level",
+        "domain": "Fairness",
+        "operator": ">=",
+        "value": "Medium"
+      },
+      "then": {
+        "select_controls": {
+          "control_ids": [
+            "FAIRA-C-FAIR-01",
+            "FAIRA-C-FAIR-02"
+          ]
+        },
+        "set_priority": "Medium",
+        "rationale_template": "Fairness inherent risk is {domain_inherent_risk_level}; test/monitor for bias and review impacts on affected groups."
+      }
+    },
+    {
+      "rule_id": "R-07-WORKFORCE-IMPACT",
+      "name": "Workforce impacts indicated => workforce impact controls",
+      "priority": "Medium",
+      "when": {
+        "type": "question_value",
+        "question_id": "B1.3",
+        "operator": "in",
+        "value": [
+          "Yes",
+          "Unknown"
+        ]
+      },
+      "then": {
+        "select_controls": {
+          "control_ids": [
+            "FAIRA-C-HUM-02",
+            "FAIRA-C-WELL-01"
+          ]
+        },
+        "set_priority": "Medium",
+        "rationale_template": "Workforce impacts are {B1.3}; manage workforce change and monitor broader wellbeing impacts."
+      }
+    },
+    {
+      "rule_id": "R-08-LOW-RESIDUAL-HIGH-INHERENT",
+      "name": "High inherent but low residual => sustain controls (future enhancements)",
+      "priority": "Low",
+      "when": {
+        "type": "domain_combo",
+        "domain_inherent_operator": ">=",
+        "domain_inherent_value": "High",
+        "domain_residual_operator": "<=",
+        "domain_residual_value": "Low"
+      },
+      "then": {
+        "select_controls": {
+          "mode": "by_domain",
+          "include_all_controls_for_domain": false,
+          "include_control_types": [
+            "Assurance",
+            "Governance"
+          ],
+          "max_controls_per_domain": 2
+        },
+        "set_priority": "Low",
+        "rationale_template": "Controls are currently effective in {domain} (low residual) despite high inherent exposure; maintain assurance to prevent regression."
+      }
+    }
+  ]
+}
