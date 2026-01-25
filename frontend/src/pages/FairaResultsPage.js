@@ -1251,30 +1251,30 @@ function FairaResultsPage() {
                       
                       {/* Risk Type Toggle - below warning light, only for Domain Risk chart */}
                       {chart.hasToggle && (
-                        <div className="mt-2 bg-white/95 rounded-md p-1.5 shadow-sm border border-gray-200">
+                        <div className="mt-2 bg-gray-100 rounded-md p-1.5 border border-gray-200">
                           <span className="text-[8px] text-gray-500 block text-center mb-1">Risk View</span>
-                          <div className="flex flex-col gap-0.5">
-                            <label className="flex items-center gap-1 cursor-pointer">
+                          <div className="flex flex-col gap-1">
+                            <label className="flex items-center gap-1.5 cursor-pointer">
                               <input
                                 type="radio"
                                 name="riskViewType"
                                 value="inherent"
                                 checked={riskViewType === 'inherent'}
                                 onChange={(e) => setRiskViewType(e.target.value)}
-                                className="w-2.5 h-2.5 text-purple-600"
+                                className="w-3 h-3 text-purple-600"
                               />
-                              <span className="text-[9px] text-gray-700">Inherent</span>
+                              <span className="text-[10px] text-gray-700">Inherent</span>
                             </label>
-                            <label className="flex items-center gap-1 cursor-pointer">
+                            <label className="flex items-center gap-1.5 cursor-pointer">
                               <input
                                 type="radio"
                                 name="riskViewType"
                                 value="residual"
                                 checked={riskViewType === 'residual'}
                                 onChange={(e) => setRiskViewType(e.target.value)}
-                                className="w-2.5 h-2.5 text-purple-600"
+                                className="w-3 h-3 text-purple-600"
                               />
-                              <span className="text-[9px] text-gray-700">Residual</span>
+                              <span className="text-[10px] text-gray-700">Residual</span>
                             </label>
                           </div>
                         </div>
