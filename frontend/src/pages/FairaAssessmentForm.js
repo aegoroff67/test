@@ -2434,16 +2434,16 @@ export default function FairaAssessmentForm() {
                 <Label>B1.2 What negative impacts might arise from the AI solution? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
                   {[
-                    "Privacy risks",
-                    "Bias/discrimination",
-                    "Transparency issues",
-                    "Safety risks",
-                    "Employment impacts",
-                    "Social harm",
-                    "Environmental impact",
-                    "Accessibility issues",
-                    "Legal/regulatory risks",
-                    "Loss of trust"
+                    "privacy risks",
+                    "bias/discrimination",
+                    "transparency issues",
+                    "safety risks",
+                    "employment impacts",
+                    "social harm",
+                    "environmental impact",
+                    "accessibility issues",
+                    "legal/regulatory risks",
+                    "loss of trust"
                   ].map((option) => (
                     <label key={option} className="flex items-center space-x-2">
                       <Checkbox
