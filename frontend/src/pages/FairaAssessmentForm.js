@@ -2231,15 +2231,15 @@ export default function FairaAssessmentForm() {
                       <p className="text-xs text-gray-600">(Select any that apply to the domain of the AI solution)</p>
                       <div className="grid gap-2 md:grid-cols-2">
                         {[
-                          "Health information / clinical safety requirements",
-                          "Law enforcement / justice sector requirements",
-                          "Education sector obligations",
-                          "Transport or safety-critical operational standards",
-                          "Financial or taxation regulatory requirements",
+                          "health information / clinical safety requirements",
+                          "law enforcement / justice sector requirements",
+                          "education sector obligations",
+                          "transport or safety-critical operational standards",
+                          "financial or taxation regulatory requirements",
                           "Indigenous cultural data governance / data sovereignty",
-                          "Workplace surveillance obligations",
-                          "Safety-of-life or emergency services obligations",
-                          "Critical infrastructure operational safety requirements"
+                          "workplace surveillance obligations",
+                          "safety-of-life or emergency services obligations",
+                          "critical infrastructure operational safety requirements"
                         ].map((option) => (
                           <label key={option} className="flex items-center space-x-2">
                             <Checkbox
