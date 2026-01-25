@@ -1150,14 +1150,14 @@ export default function FairaAssessmentForm() {
                     <Label>Describe these actions (Select all that apply):</Label>
                     <div className="grid gap-2 md:grid-cols-2">
                       {[
-                        "Sends notifications",
-                        "Updates internal records",
-                        "Applies rules/decisions automatically",
-                        "Initiates workflows",
-                        "Generates external communications",
-                        "Allocates resources",
-                        "Approves/declines items",
-                        "Triggers system events"
+                        "sends notifications",
+                        "updates internal records",
+                        "applies rules/decisions automatically",
+                        "initiates workflows",
+                        "generates external communications",
+                        "allocates resources",
+                        "approves/declines items",
+                        "triggers system events"
                       ].map((option) => (
                         <label key={option} className="flex items-center space-x-2">
                           <Checkbox
