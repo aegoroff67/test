@@ -1051,11 +1051,12 @@ function FairaResultsPage() {
                   </div>
                   <div 
                     className="flex-1"
-                    title="Available for AI System Maturity Assessments only."
+                    title="Not available in this assessment."
                   >
                     <Button 
                       className="w-full text-[10px] px-1 py-1.5 h-auto bg-gray-400 cursor-not-allowed opacity-60"
                       disabled={true}
+                      data-testid="evidence-register-btn"
                     >
                       <div className="flex items-center justify-center space-x-0.5">
                         <FileText className="h-3 w-3" />

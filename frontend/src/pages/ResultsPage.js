@@ -888,16 +888,16 @@ function ResultsPage() {
                   </div>
                   <div 
                     className="flex-1"
-                    title={assessmentType !== 'System' ? 'Available for AI System Maturity Assessments only.' : ''}
+                    title={assessmentType === 'Awareness' ? 'Not available in this assessment.' : ''}
                   >
                     <Button 
-                      onClick={() => assessmentType === 'System' && navigate(`/evidence-register/${id}`)}
+                      onClick={() => assessmentType !== 'Awareness' && navigate(`/evidence-register/${id}`)}
                       className={`w-full text-[10px] px-1 py-1.5 h-auto ${
-                        assessmentType === 'System' 
+                        assessmentType !== 'Awareness' 
                           ? 'bg-green-600 hover:bg-green-700' 
                           : 'bg-gray-400 cursor-not-allowed opacity-60'
                       }`}
-                      disabled={assessmentType !== 'System'}
+                      disabled={assessmentType === 'Awareness'}
                       data-testid="evidence-register-btn"
                     >
                       <div className="flex items-center justify-center space-x-0.5">
