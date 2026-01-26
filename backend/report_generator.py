@@ -4381,7 +4381,7 @@ Each cell represents the score for a specific question, enabling identification 
             # Render the template
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
             # Instead, we pre-escape ampersands in text variables where needed
-            doc.render(template_context, jinja_env)
+            doc.render(template_context)
             
             # Center-align images (heatmap and radar chart)
             self._center_align_images(doc)
