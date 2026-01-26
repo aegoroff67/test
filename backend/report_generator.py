@@ -4356,8 +4356,27 @@ Each cell represents the score for a specific question, enabling identification 
                     return new.join(value.rsplit(old, 1))
                 return value
             
+            def format_list(items):
+                """Format a list as lowercase comma-separated with 'and' before last item.
+                Example: ['Apple', 'Banana', 'Cherry'] -> 'apple, banana, and cherry'
+                """
+                if not items:
+                    return ''
+                if isinstance(items, str):
+                    return items.lower()
+                # Convert to list if needed and lowercase all items
+                items_list = [str(item).lower() for item in items]
+                if len(items_list) == 1:
+                    return items_list[0]
+                if len(items_list) == 2:
+                    return f"{items_list[0]} and {items_list[1]}"
+                # Join with commas, then replace last comma with ', and'
+                joined = ', '.join(items_list)
+                return ', and '.join(joined.rsplit(', ', 1))
+            
             jinja_env = Environment()
             jinja_env.filters['replace_last'] = replace_last
+            jinja_env.filters['format_list'] = format_list
             
             # Render the template
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
