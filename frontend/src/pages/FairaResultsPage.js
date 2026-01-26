@@ -1597,43 +1597,6 @@ function FairaResultsPage() {
                 </div>
               )}
             </div>
-
-            <div className="mt-4 pt-4 border-t">
-              <h3 className="text-sm font-bold text-gray-900 mb-2">Next Steps</h3>
-              <div className="space-y-1.5 text-xs">
-                <div className="flex items-start space-x-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-gray-700">Review high-risk areas and develop mitigation plans</p>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-gray-700">Consult with stakeholders on priority risk controls</p>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-gray-700">Schedule follow-up assessment after implementing controls</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Declaration Info */}
-            {fairaData.declaration_confirmed && (
-              <div className="mt-4 pt-4 border-t">
-                <h3 className="text-sm font-bold text-gray-900 mb-2">Declaration</h3>
-                <div className="space-y-1.5 text-xs">
-                  <div className="flex items-start space-x-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <p className="text-gray-700">
-                      I confirm that the information provided in this FAIRA assessment is accurate to the best of my knowledge at the time of completion.
-                    </p>
-                  </div>
-                  <div className="pl-5 space-y-0.5 text-gray-600">
-                    <p>By: {fairaData.declaration_name || fairaData.assessor_name}</p>
-                    <p>Date: {fairaData.declaration_date || 'Not specified'}</p>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
