@@ -4357,15 +4357,16 @@ Each cell represents the score for a specific question, enabling identification 
                 return value
             
             def format_list(items):
-                """Format a list as lowercase comma-separated with 'and' before last item.
-                Example: ['Apple', 'Banana', 'Cherry'] -> 'apple, banana, and cherry'
+                """Format a list as comma-separated with 'and' before last item.
+                Preserves original case of items.
+                Example: ['Apple', 'Banana', 'Cherry'] -> 'Apple, Banana, and Cherry'
                 """
                 if not items:
                     return ''
                 if isinstance(items, str):
-                    return items.lower()
-                # Convert to list if needed and lowercase all items
-                items_list = [str(item).lower() for item in items]
+                    return items
+                # Convert to list, preserving original case
+                items_list = [str(item) for item in items]
                 if len(items_list) == 1:
                     return items_list[0]
                 if len(items_list) == 2:
