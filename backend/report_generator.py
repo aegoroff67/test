@@ -4349,7 +4349,7 @@ Each cell represents the score for a specific question, enabling identification 
             # Helper function for date formatting in template
             template_context['formatDate'] = self.format_date
             
-            # Create custom Jinja2 environment with filters
+            # Define custom Jinja2 filters
             def replace_last(value, old, new):
                 """Replace the last occurrence of 'old' with 'new' in a string."""
                 if isinstance(value, str) and old in value:
@@ -4374,7 +4374,12 @@ Each cell represents the score for a specific question, enabling identification 
                 joined = ', '.join(items_list)
                 return ', and '.join(joined.rsplit(', ', 1))
             
-            jinja_env = Environment()
+            # Create Jinja2 environment with proper settings for docxtpl
+            from jinja2 import Environment
+            jinja_env = Environment(
+                autoescape=False,
+                keep_trailing_newline=True
+            )
             jinja_env.filters['replace_last'] = replace_last
             jinja_env.filters['format_list'] = format_list
             
