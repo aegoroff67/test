@@ -4393,12 +4393,27 @@ Each cell represents the score for a specific question, enabling identification 
                 }
                 return labels.get(value, str(value) if value else 'Not specified')
             
+            def severity_label(value):
+                """Convert numeric severity (1-3) to text label.
+                1 = Minor, 2 = Moderate, 3 = Major
+                """
+                labels = {
+                    1: 'Minor',
+                    2: 'Moderate',
+                    3: 'Major',
+                    '1': 'Minor',
+                    '2': 'Moderate',
+                    '3': 'Major',
+                }
+                return labels.get(value, str(value) if value else 'Not specified')
+            
             # Create Jinja2 environment with custom filters for docxtpl
             from jinja2 import Environment
             jinja_env = Environment()
             jinja_env.filters['replace_last'] = replace_last
             jinja_env.filters['format_list'] = format_list
             jinja_env.filters['rating_label'] = rating_label
+            jinja_env.filters['severity_label'] = severity_label
             
             # Render the template with custom jinja_env
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
