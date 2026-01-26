@@ -4479,6 +4479,21 @@ async def download_testing_checklist():
     )
 
 
+@api_router.get("/download/faira-scoring-schema")
+async def download_faira_scoring_schema():
+    """Download the FAIRA scoring schema JSON file"""
+    file_path = Path("/app/backend/faira_scoring_schema.json")
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="File not found")
+    
+    return FileResponse(
+        path=file_path,
+        media_type="application/json",
+        filename="faira_scoring_schema.json"
+    )
+
+
+
 # ============================================================================
 # EVIDENCE API ENDPOINTS
 # ============================================================================
