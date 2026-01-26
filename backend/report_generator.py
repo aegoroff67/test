@@ -4349,7 +4349,7 @@ Each cell represents the score for a specific question, enabling identification 
             # Helper function for date formatting in template
             template_context['formatDate'] = self.format_date
             
-            # Define custom helper functions that can be used in templates
+            # Define custom Jinja2 filters
             def replace_last(value, old, new):
                 """Replace the last occurrence of 'old' with 'new' in a string."""
                 if isinstance(value, str) and old in value:
@@ -4374,14 +4374,15 @@ Each cell represents the score for a specific question, enabling identification 
                 joined = ', '.join(items_list)
                 return ', and '.join(joined.rsplit(', ', 1))
             
-            # Add helper functions to template context so they can be called directly
-            template_context['format_list'] = format_list
-            template_context['replace_last'] = replace_last
+            # Create Jinja2 environment with custom filters for docxtpl
+            from jinja2 import Environment
+            jinja_env = Environment()
+            jinja_env.filters['replace_last'] = replace_last
+            jinja_env.filters['format_list'] = format_list
             
-            # Render the template
+            # Render the template with custom jinja_env
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
-            # Instead, we pre-escape ampersands in text variables where needed
-            doc.render(template_context)
+            doc.render(template_context, jinja_env=jinja_env)
             
             # Center-align images (heatmap and radar chart)
             self._center_align_images(doc)
