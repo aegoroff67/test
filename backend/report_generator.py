@@ -4375,11 +4375,30 @@ Each cell represents the score for a specific question, enabling identification 
                 joined = ', '.join(items_list)
                 return ', and '.join(joined.rsplit(', ', 1))
             
+            def rating_label(value):
+                """Convert numeric rating (1-5) to text label.
+                1 = Very Low, 2 = Low, 3 = Moderate, 4 = High, 5 = Very High
+                """
+                labels = {
+                    1: 'Very Low',
+                    2: 'Low',
+                    3: 'Moderate',
+                    4: 'High',
+                    5: 'Very High',
+                    '1': 'Very Low',
+                    '2': 'Low',
+                    '3': 'Moderate',
+                    '4': 'High',
+                    '5': 'Very High',
+                }
+                return labels.get(value, str(value) if value else 'Not specified')
+            
             # Create Jinja2 environment with custom filters for docxtpl
             from jinja2 import Environment
             jinja_env = Environment()
             jinja_env.filters['replace_last'] = replace_last
             jinja_env.filters['format_list'] = format_list
+            jinja_env.filters['rating_label'] = rating_label
             
             # Render the template with custom jinja_env
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
