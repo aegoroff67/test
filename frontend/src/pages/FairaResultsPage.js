@@ -1419,22 +1419,57 @@ function FairaResultsPage() {
               )}
             </div>
 
-            {/* Placeholder for additional sections */}
-            <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
-                <FileText className="h-5 w-5 text-blue-600" />
-                <span>Detailed Analysis</span>
-              </h2>
-              
+            {/* Next Steps and Declaration - Side by Side */}
+            <div className="grid grid-cols-2 gap-4">
+              {/* Next Steps */}
               <Card>
-                <CardContent className="p-6">
-                  <div className="text-center py-8">
-                    <Shield className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                    <p className="text-gray-700 font-medium mb-2">Comprehensive Risk Analysis Coming Soon</p>
-                    <p className="text-sm text-gray-600">
-                      This section will display detailed breakdowns, recommendations, compliance mappings, and actionable mitigation strategies based on your FAIRA assessment responses.
-                    </p>
+                <CardContent className="p-4">
+                  <h3 className="text-sm font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    <span>Next Steps</span>
+                  </h3>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-start space-x-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-gray-700">Review high-risk areas and develop mitigation plans</p>
+                    </div>
+                    <div className="flex items-start space-x-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-gray-700">Consult with stakeholders on priority risk controls</p>
+                    </div>
+                    <div className="flex items-start space-x-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-gray-700">Schedule follow-up assessment after implementing controls</p>
+                    </div>
                   </div>
+                </CardContent>
+              </Card>
+
+              {/* Declaration */}
+              <Card>
+                <CardContent className="p-4">
+                  <h3 className="text-sm font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                    <FileText className="h-4 w-4 text-blue-600" />
+                    <span>Declaration</span>
+                  </h3>
+                  {fairaData.declaration_confirmed ? (
+                    <div className="space-y-2 text-xs">
+                      <div className="flex items-start space-x-2">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <p className="text-gray-700">
+                          I confirm that the information provided in this FAIRA assessment is accurate to the best of my knowledge at the time of completion.
+                        </p>
+                      </div>
+                      <div className="pl-5 space-y-0.5 text-gray-600">
+                        <p>By: {fairaData.declaration_name || fairaData.assessor_name}</p>
+                        <p>Date: {fairaData.declaration_date || 'Not specified'}</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-xs text-gray-500">
+                      No declaration has been recorded for this assessment.
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
