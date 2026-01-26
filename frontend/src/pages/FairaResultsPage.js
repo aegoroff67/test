@@ -354,7 +354,7 @@ function FairaResultsPage() {
             tier: 'Low Impact',
             microLabel: 'Impact Signal',
             tooltipTitle: 'Low Impact Potential',
-            tooltipText: "Potential impacts associated with this system are assessed as limited, indicating lower consequence severity if risks were to occur."
+            tooltipText: "Potential impacts associated with this system are assessed as limited, indicating lower consequence severity if risks were to occur within the assessed context."
           };
         }
       
@@ -410,7 +410,7 @@ function FairaResultsPage() {
             tier: 'Effective Controls',
             microLabel: 'Control Signal',
             tooltipTitle: 'Effective Controls',
-            tooltipText: "Controls within this system are generally effective in mitigating identified risks, contributing to reduced residual risk."
+            tooltipText: "Controls within this system contribute to mitigating identified risks. Their presence reduces exposure but does not eliminate risk, particularly where potential impacts are high."
           };
         }
       
@@ -423,7 +423,7 @@ function FairaResultsPage() {
               colour: 'red',
               tier: 'High Inherent Exposure',
               microLabel: 'Inherent Exposure Signal',
-              tooltipTitle: 'High Baseline Exposure',
+              tooltipTitle: 'High Baseline Exposure (Contextual)',
               tooltipText: "This system exhibits a high level of baseline risk in the absence of controls. This reflects the nature, scale, or context of the system rather than any control deficiencies."
             };
           } else if (numScore >= 20) {
@@ -467,7 +467,7 @@ function FairaResultsPage() {
               tier: 'Low Residual Risk',
               microLabel: 'Residual Risk Signal',
               tooltipTitle: 'Low Residual Risk',
-              tooltipText: "Residual risk within this system is currently assessed as low, indicating that existing controls are generally sufficient under current conditions."
+              tooltipText: "Residual risk within this system is currently assessed as limited, reflecting the combined effect of impact, likelihood, and existing controls under current conditions. This does not imply the absence of risk or the need for ongoing governance."
             };
           }
         }
@@ -478,7 +478,7 @@ function FairaResultsPage() {
           tier: 'Normal',
           microLabel: 'Signal',
           tooltipTitle: 'Status',
-          tooltipText: 'No specific concerns identified.'
+          tooltipText: 'No specific signal is highlighted for this indicator based on available assessment inputs.'
         };
     }
   };
