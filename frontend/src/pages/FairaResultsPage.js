@@ -1128,8 +1128,10 @@ function FairaResultsPage() {
             </div>
             
             <div className="space-y-2">
+              {/* Domains with risk score > 0 */}
               {[...(riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData)]
-                .sort((a, b) => b.score - a.score) // Sort by score, highest first
+                .sort((a, b) => b.score - a.score)
+                .filter(domain => domain.score > 0)
                 .map((domain) => {
                 const riskLevel = getRiskLevelFromScore(domain.score);
                 const colors = getRiskColor(riskLevel);
@@ -1153,6 +1155,42 @@ function FairaResultsPage() {
                   </div>
                 );
               })}
+              
+              {/* Domains with effective risk mitigation (score = 0) */}
+              {[...(riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData)]
+                .filter(domain => domain.score === 0).length > 0 && (
+                <>
+                  <div className="pt-3 pb-1">
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Domains with effective risk mitigation</p>
+                  </div>
+                  {[...(riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData)]
+                    .sort((a, b) => a.fullName.localeCompare(b.fullName))
+                    .filter(domain => domain.score === 0)
+                    .map((domain) => {
+                    const riskLevel = getRiskLevelFromScore(domain.score);
+                    const colors = getRiskColor(riskLevel);
+                    return (
+                      <div key={domain.domain} className="space-y-0.5">
+                        <div className="flex items-center">
+                          <div 
+                            className="px-1 py-0.5 rounded text-xs font-bold min-w-[32px] text-center"
+                            style={{ backgroundColor: colors.bg, color: colors.text }}
+                          >
+                            {Math.round(domain.score)}
+                          </div>
+                          <span className="font-medium text-gray-900 text-xs ml-[15px]">{domain.fullName}</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-1.5">
+                          <div 
+                            className="h-1.5 rounded-full transition-all duration-300"
+                            style={{ width: `${domain.score}%`, backgroundColor: colors.bg }}
+                          ></div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </>
+              )}
             </div>
 
             {/* Residual Risk Distribution */}
