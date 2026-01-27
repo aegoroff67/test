@@ -1592,11 +1592,11 @@ function FairaResultsPage() {
               )}
             </div>
 
-            {/* Top 3 Domain Risks */}
+            {/* Top 3 Risk-Contributing Domains */}
             <div className="mt-4 pt-4 border-t">
               <h3 className="text-sm font-bold text-gray-900 mb-2 flex items-center space-x-2">
                 <AlertTriangle className="h-4 w-4 text-red-600" />
-                <span>Top 3 Domain Risks</span>
+                <span>Top 3 Risk-Contributing Domains</span>
               </h3>
               <div className="space-y-1.5">
                 {riskSummary.top_risk_areas.slice(0, 3).map((area, index) => {
