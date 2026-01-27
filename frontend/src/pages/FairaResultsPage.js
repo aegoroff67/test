@@ -314,6 +314,7 @@ function FairaResultsPage() {
   
   // Radar chart data from API
   const [radarChartData, setRadarChartData] = useState(null);
+  const [howToReadExpanded, setHowToReadExpanded] = useState(false);
 
   // Risk summary data from API  
   const [riskSummary, setRiskSummary] = useState({
