@@ -1531,10 +1531,16 @@ function FairaResultsPage() {
               </h3>
               <div className="space-y-2 text-gray-700" style={{ fontSize: '11px' }}>
                 <p>
-                  Individual domain scores reflect <strong>localised residual risk within each risk area</strong>, while the overall risk score reflects the <strong>combined, system-level residual risk</strong> after considering cumulative impact, likelihood, and control effectiveness across all domains.
+                  Individual domain scores reflect <strong>localised residual risk</strong> within each FAIRA risk area. The overall risk score reflects <strong>system-level residual risk</strong>, calculated by considering the combined effects of impact, likelihood, and control effectiveness across all domains.
                 </p>
                 <p>
-                  As a result, multiple low or moderate domain risks can <strong>aggregate into a higher overall system risk</strong> where controls are insufficient to offset combined impact and likelihood. This approach ensures that <strong>systemic risk is not understated</strong> when assessing AI systems.
+                  Importantly, FAIRA does not assume that risks accumulate linearly or that controls fully offset high-impact exposure. As a result, multiple low or moderate domain risks can aggregate into a higher overall system risk where potential impacts are severe or where controls do not sufficiently mitigate cumulative exposure.
+                </p>
+                <p>
+                  This approach is intended to surface <strong>systemic and cross-domain risk</strong>, ensuring that overall AI risk is not understated when individual issues interact or compound in real-world operation.
+                </p>
+                <p>
+                  Overall risk scores should be interpreted as <strong>decision-support indicators</strong>, not absolute measures of safety, compliance, or control sufficiency.
                 </p>
               </div>
             </div>
