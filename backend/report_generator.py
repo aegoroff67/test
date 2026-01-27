@@ -26,7 +26,7 @@ import requests
 import subprocess
 from jinja2 import Environment, FileSystemLoader
 import zipfile
-# from weasyprint import HTML, CSS  # Disabled - requires system libraries (pango, cairo)
+from weasyprint import HTML, CSS  # Now enabled - system libraries installed
 
 # Import framework coverage calculator
 from framework_coverage import get_all_framework_coverage, FRAMEWORK_CONFIG
