@@ -585,7 +585,7 @@ function FairaResultsPage() {
       color: '#ef4444', // Red
       formula: 'Domain_Impact = Σ(Domain Impact modifiers)',
       tooltipContent: {
-        whatItShows: 'How serious the consequences would be in this area if the AI system caused harm.',
+        whatItShows: 'How serious the consequences would be within each domain if the AI system caused harm.',
         whyItChanges: 'Higher where decisions affect people\'s rights, safety, or access to services.',
         example: 'An AI used in healthcare or law enforcement would have higher impact than one used for internal reporting.'
       }
@@ -599,7 +599,7 @@ function FairaResultsPage() {
       color: '#f97316', // Orange
       formula: 'Domain_Likelihood = Σ(Domain Likelihood modifiers)',
       tooltipContent: {
-        whatItShows: 'How likely risks in this area are to occur based on how the AI is designed and used.',
+        whatItShows: 'How likely risks within each domain are to occur based on how the AI is designed and used.',
         whyItChanges: 'Increases with higher automation, poorer data quality, or limited human oversight.',
         example: 'An AI that acts autonomously on live data is more likely to cause issues than one used only for decision support.'
       }
@@ -613,7 +613,7 @@ function FairaResultsPage() {
       color: '#22c55e', // Green
       formula: 'Domain_CE = Σ(Domain CE modifiers)',
       tooltipContent: {
-        whatItShows: 'How strong the safeguards and governance are for managing risks in this area.',
+        whatItShows: 'How strong the safeguards and governance are for managing risks within each domain.',
         whyItChanges: 'Improves when testing, oversight, training, and clear processes are in place.',
         example: 'Regular audits, documented accountability, and clear escalation paths increase control effectiveness.'
       }
