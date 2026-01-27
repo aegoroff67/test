@@ -1868,17 +1868,17 @@ async def update_faira_form(
     # Calculate progress percentage
     progress = round((filled_fields / total_fields * 100)) if total_fields > 0 else 0
     
-    # Update the assessment name if assessor name is provided
+    # Update the assessment name if ai_system_name is provided
     updated_name = assessment["name"]
-    if faira_form.get("assessor_name"):
+    if faira_form.get("ai_system_name"):
         assessment_type = assessment.get("assessment_type", "FAIRA")
         started_at = assessment["started_at"]
         if isinstance(started_at, str):
             started_at = datetime.fromisoformat(started_at.replace('Z', '+00:00'))
         started_date = started_at.strftime("%Y-%m-%d")
-        # Generate new name: [Type]_[Assessor]_Status_YYYY-MM-DD
+        # Generate new name: [Type]_[AI System Name]_Status_YYYY-MM-DD
         status_text = "Completed" if status == "completed" else "In-Progress"
-        updated_name = f"{assessment_type}_{faira_form['assessor_name']}_{status_text}_{started_date}"
+        updated_name = f"{assessment_type}_{faira_form['ai_system_name']}_{status_text}_{started_date}"
     
     # Prepare update data
     update_data = {
