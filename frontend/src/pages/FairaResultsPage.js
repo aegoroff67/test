@@ -1131,7 +1131,7 @@ function FairaResultsPage() {
               {/* Domains with risk score > 0 */}
               {[...(riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData)]
                 .sort((a, b) => b.score - a.score)
-                .filter(domain => domain.score > 0)
+                .filter(domain => Math.round(domain.score) > 0)
                 .map((domain) => {
                 const riskLevel = getRiskLevelFromScore(domain.score);
                 const colors = getRiskColor(riskLevel);
@@ -1158,14 +1158,14 @@ function FairaResultsPage() {
               
               {/* Domains with effective risk mitigation (score = 0) */}
               {[...(riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData)]
-                .filter(domain => domain.score === 0).length > 0 && (
+                .filter(domain => Math.round(domain.score) <= 0).length > 0 && (
                 <>
                   <div className="pt-3 pb-1">
                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Domains with effective risk mitigation</p>
                   </div>
                   {[...(riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData)]
                     .sort((a, b) => a.fullName.localeCompare(b.fullName))
-                    .filter(domain => domain.score === 0)
+                    .filter(domain => Math.round(domain.score) <= 0)
                     .map((domain) => {
                     const riskLevel = getRiskLevelFromScore(domain.score);
                     const colors = getRiskColor(riskLevel);
