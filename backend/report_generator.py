@@ -3957,6 +3957,40 @@ Each cell represents the score for a specific question, enabling identification 
             elif self.assessment_type == 'FAIRA':
                 faira_form = report_data.get('faira_form') or report_data.get('form_responses') or {}
                 
+                # Process faira_form to replace "Other" in multiselect fields with their _other values
+                def process_other_fields(form_data):
+                    """Replace 'Other' in multiselect arrays with the corresponding _other field value."""
+                    processed = dict(form_data)  # Create a copy
+                    
+                    # List of fields that have _other companions
+                    other_field_mappings = {
+                        'A1_3': 'A1_3_other',
+                        'A1_7': 'A1_7_other',
+                        'A1_6_actions': 'A1_6_actions_other',
+                        'A2_4': 'A2_4_other',
+                        'A2_7_data_types': 'A2_7_data_types_other',
+                        'A3_3': 'A3_3_other',
+                        'A5_10_frameworks': 'A5_10_frameworks_other',
+                        'A5_12': 'A5_12_other',
+                        'B2_3_perspectives': 'B2_3_perspectives_other',
+                        'B4_2_types': 'B4_2_types_other',
+                    }
+                    
+                    for field, other_field in other_field_mappings.items():
+                        if field in processed and isinstance(processed[field], list):
+                            other_value = processed.get(other_field, '').strip()
+                            if other_value:
+                                # Replace "Other" or similar variations with the actual text
+                                processed[field] = [
+                                    other_value if item.lower() in ['other', 'other (specify)', 'other regulated/sensitive data (specify)', 'other standards or frameworks (specify below)'] 
+                                    else item 
+                                    for item in processed[field]
+                                ]
+                    
+                    return processed
+                
+                faira_form = process_other_fields(faira_form)
+                
                 # Get calculated FAIRA data if available, otherwise calculate it
                 faira_risk_summary = report_data.get('faira_risk_summary')
                 if not faira_risk_summary:
