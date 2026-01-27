@@ -4356,9 +4356,10 @@ Each cell represents the score for a specific question, enabling identification 
                     return new.join(value.rsplit(old, 1))
                 return value
             
-            def format_list(items):
+            def format_list(items, other_value=None):
                 """Format a list as comma-separated with 'and' before last item.
                 Preserves original case of items.
+                If other_value is provided and 'Other' is in the list, replaces 'Other' with that value.
                 Example: ['Apple', 'Banana', 'Cherry'] -> 'Apple, Banana, and Cherry'
                 """
                 if not items:
@@ -4367,6 +4368,11 @@ Each cell represents the score for a specific question, enabling identification 
                     return items
                 # Convert to list, preserving original case
                 items_list = [str(item) for item in items]
+                
+                # Replace "Other" with the specified other_value if provided
+                if other_value and other_value.strip():
+                    items_list = [other_value if item.lower() == 'other' else item for item in items_list]
+                
                 if len(items_list) == 1:
                     return items_list[0]
                 if len(items_list) == 2:
