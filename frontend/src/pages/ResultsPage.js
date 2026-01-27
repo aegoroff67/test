@@ -1017,30 +1017,38 @@ function ResultsPage() {
             {/* How To Read These Results - For Readiness assessments */}
             {assessmentType === 'Readiness' && (
               <div className="mt-6">
-                <h2 className="text-base font-bold text-gray-900 mb-3 flex items-center space-x-2">
-                  <svg className="h-4 w-4 text-blue-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  <span>How To Read These Results</span>
-                </h2>
-                <ul className="space-y-2 text-xs text-gray-700">
-                  <li className="flex items-start space-x-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Scores reflect your organisation's <strong>readiness to support and govern AI initiatives</strong>, not formal compliance or system-level assurance.</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Gaps identified at this stage may <strong>delay implementation or increase risk</strong> if AI initiatives proceed without remediation.</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Priority Improvement Areas highlight <strong>foundational governance, data, and capability issues</strong> that should be addressed before scaling AI use cases.</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Progression to system-level assessments is recommended <strong>only once readiness foundations are consistently in place</strong>.</span>
-                  </li>
-                </ul>
+                <button 
+                  onClick={() => setHowToReadExpanded(!howToReadExpanded)}
+                  className="w-full flex items-center justify-between text-base font-bold text-gray-900 hover:text-gray-700 transition-colors"
+                >
+                  <div className="flex items-center space-x-2">
+                    <svg className="h-4 w-4 text-blue-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>How To Read These Results</span>
+                  </div>
+                  {howToReadExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                </button>
+                {howToReadExpanded && (
+                  <ul className="mt-3 space-y-2 text-xs text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-0.5">•</span>
+                      <span>Scores reflect your organisation's <strong>readiness to support and govern AI initiatives</strong>, not formal compliance or system-level assurance.</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-0.5">•</span>
+                      <span>Gaps identified at this stage may <strong>delay implementation or increase risk</strong> if AI initiatives proceed without remediation.</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-0.5">•</span>
+                      <span>Priority Improvement Areas highlight <strong>foundational governance, data, and capability issues</strong> that should be addressed before scaling AI use cases.</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-0.5">•</span>
+                      <span>Progression to system-level assessments is recommended <strong>only once readiness foundations are consistently in place</strong>.</span>
+                    </li>
+                  </ul>
+                )}
               </div>
             )}
 
