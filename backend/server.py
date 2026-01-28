@@ -537,6 +537,14 @@ async def signup(user_data: UserSignUp):
 async def login(user_data: UserLogin):
     user = await db.users.find_one({"email": user_data.email})
     if not user or not verify_password(user_data.password, user["hashed_password"]):
+        # Log failed login attempt
+        await log_audit_event(
+            db=db,
+            action=AuditAction.AUTH_LOGIN_FAILED,
+            actor_email=user_data.email,
+            details={"reason": "Invalid credentials"},
+            result="failed"
+        )
         raise HTTPException(
             status_code=http_status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password"
@@ -562,6 +570,26 @@ async def login(user_data: UserLogin):
         default_industry=user.get("default_industry"),
         tier=user.get("tier", 1),
         assessment_access=user.get("assessment_access", ["awareness"])
+    )
+    
+    # Log successful login
+    await log_audit_event(
+        db=db,
+        action=AuditAction.AUTH_LOGIN_SUCCESS,
+        actor_user_id=user["id"],
+        actor_email=user["email"],
+        tenant_id=user["org_id"],
+        details={"role": user["role"]}
+    )
+    
+    # Log analytics event
+    await log_analytics_event(
+        db=db,
+        event_type=AnalyticsEventType.PAGE_VIEW,
+        event_name="login",
+        user_id=user["id"],
+        tenant_id=user["org_id"],
+        user_role=user["role"]
     )
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
