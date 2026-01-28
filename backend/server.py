@@ -1418,7 +1418,8 @@ async def get_error_summary_endpoint(
 ):
     """Get error summary statistics"""
     try:
-        summary = await get_error_summary(db=db, tenant_id=admin.org_id, days=days)
+        # Super Admin sees all errors (no tenant filter)
+        summary = await get_error_summary(db=db, tenant_id=None, days=days)
         return summary
     except Exception as e:
         logger.error(f"Error fetching error summary: {str(e)}")
