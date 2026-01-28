@@ -2330,6 +2330,29 @@ async def update_faira_form(
         {"$set": update_data}
     )
     
+    # Log assessment completion
+    if status == "completed":
+        await log_audit_event(
+            db=db,
+            action=AuditAction.ASSESSMENT_COMPLETED,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="assessment",
+            object_id=assessment_id,
+            object_name=updated_name,
+            details={"assessment_type": "FAIRA"}
+        )
+        await log_analytics_event(
+            db=db,
+            event_type=AnalyticsEventType.ASSESSMENT_FUNNEL,
+            event_name="assessment_completed",
+            user_id=current_user.id,
+            tenant_id=current_user.org_id,
+            assessment_id=assessment_id,
+            assessment_type="FAIRA"
+        )
+    
     return {"status": "success", "message": "FAIRA form data saved"}
 
 
