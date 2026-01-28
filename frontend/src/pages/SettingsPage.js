@@ -20,9 +20,11 @@ import {
   Edit,
   Bell,
   AlertCircle,
-  Download
+  Download,
+  ScrollText
 } from 'lucide-react';
 import Logo from '../components/Logo';
+import LoggingTab from '../components/LoggingTab';
 import { toast } from 'sonner';
 import axios from 'axios';
 
