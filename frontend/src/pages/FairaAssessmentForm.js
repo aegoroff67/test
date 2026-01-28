@@ -48,7 +48,15 @@ const defaultState = {
   
   // A2: Data and Inputs
   A2_1: [], // tracking (multiselect)
-  A2_2: "", // environmental data (text)
+  A2_2: "", // gate question: Does AI require environmental data? (Yes/No)
+  A2_2_sources: [], // A2.2a data sources (multiselect)
+  A2_2_sources_other: "", // A2.2a other data sources
+  A2_2_data_types: [], // A2.2b data types ingested (multiselect)
+  A2_2_data_types_other: "", // A2.2b other data types
+  A2_2_user_limits: "", // A2.2c can users limit data (single select)
+  A2_2_traceability: "", // A2.2d traceability to source (single select)
+  A2_2_trace_mechanisms: [], // A2.2e traceability mechanisms (multiselect)
+  A2_2_notes: "", // A2.2f optional notes
   A2_3: [], // safeguards (multiselect)
   A2_4: [], // data types (multiselect)
   A2_4_other: "",
