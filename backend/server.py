@@ -58,25 +58,22 @@ async def startup_event():
     """Seed benchmarks on application startup if not already present"""
     await seed_benchmarks(db)
     
-    # Install Playwright browsers - check if headless_shell executable exists
-    chromium_paths = glob.glob("/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell")
-    if not chromium_paths:
-        logger.info("Playwright Chromium browser not found. Installing...")
-        try:
-            result = subprocess.run(
-                ["playwright", "install", "chromium"],
-                capture_output=True,
-                text=True,
-                timeout=300  # 5 minute timeout
-            )
-            if result.returncode == 0:
-                logger.info("Playwright Chromium browser installed successfully")
-            else:
-                logger.error(f"Failed to install Playwright browser: {result.stderr}")
-        except Exception as e:
-            logger.error(f"Error installing Playwright browser: {str(e)}")
-    else:
-        logger.info(f"Playwright Chromium browser already installed at: {chromium_paths[0]}")
+    # Always install Playwright browsers on startup to ensure they're available
+    # Production deployments don't persist /pw-browsers/ directory
+    logger.info("Ensuring Playwright Chromium browser is installed...")
+    try:
+        result = subprocess.run(
+            ["playwright", "install", "chromium"],
+            capture_output=True,
+            text=True,
+            timeout=300  # 5 minute timeout
+        )
+        if result.returncode == 0:
+            logger.info("Playwright Chromium browser installed/verified successfully")
+        else:
+            logger.error(f"Failed to install Playwright browser: {result.stderr}")
+    except Exception as e:
+        logger.error(f"Error installing Playwright browser: {str(e)}")
 
 # Helper Functions
 def normalize_org_name(raw_name: str) -> str:
