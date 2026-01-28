@@ -5130,6 +5130,24 @@ async def create_evidence(
         
         await db.evidence.insert_one(evidence_dict)
         
+        # Log evidence upload
+        await log_audit_event(
+            db=db,
+            action=AuditAction.EVIDENCE_UPLOADED,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="evidence",
+            object_id=evidence.evidence_id,
+            object_name=evidence.evidence_title,
+            details={
+                "file_name": evidence.file_name,
+                "evidence_type": evidence_data.evidence_type.value if evidence_data.evidence_type else None,
+                "linked_questions": len(evidence_data.linked_question_ids),
+                "assessment_id": evidence_data.assessment_id
+            }
+        )
+        
         return EvidenceResponse(**evidence_dict)
         
     except HTTPException:
