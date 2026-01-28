@@ -58,6 +58,67 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 24 hours - extended for long assessment
 app = FastAPI(title="AM AI SAFE API")
 api_router = APIRouter(prefix="/api")
 
+# Error logging middleware - automatically capture all API errors
+@app.middleware("http")
+async def error_logging_middleware(request, call_next):
+    """Middleware to automatically log all API errors and track response times"""
+    import time
+    start_time = time.time()
+    
+    # Get request info
+    source_ip = request.headers.get("X-Forwarded-For", request.client.host if request.client else "unknown")
+    user_agent = request.headers.get("User-Agent", "")
+    
+    try:
+        response = await call_next(request)
+        
+        # Log slow requests (>2 seconds) as performance issues
+        duration_ms = int((time.time() - start_time) * 1000)
+        if duration_ms > 2000 and request.url.path.startswith("/api"):
+            await log_error(
+                db=db,
+                error_type="slow_request",
+                error_message=f"Request took {duration_ms}ms",
+                endpoint=request.url.path,
+                method=request.method,
+                status_code=response.status_code,
+                severity=ErrorSeverity.LOW,
+                source_ip=source_ip
+            )
+        
+        # Log 5xx errors
+        if response.status_code >= 500 and request.url.path.startswith("/api"):
+            await log_error(
+                db=db,
+                error_type="server_error",
+                error_message=f"Server error {response.status_code}",
+                endpoint=request.url.path,
+                method=request.method,
+                status_code=response.status_code,
+                severity=ErrorSeverity.HIGH,
+                source_ip=source_ip
+            )
+        
+        return response
+        
+    except Exception as e:
+        # Log unhandled exceptions
+        duration_ms = int((time.time() - start_time) * 1000)
+        
+        await log_error(
+            db=db,
+            error_type=type(e).__name__,
+            error_message=str(e),
+            endpoint=request.url.path,
+            method=request.method,
+            status_code=500,
+            stack_trace=traceback.format_exc(),
+            severity=ErrorSeverity.CRITICAL,
+            source_ip=source_ip
+        )
+        
+        raise
+
 # Startup event to seed benchmarks
 @app.on_event("startup")
 async def startup_event():
