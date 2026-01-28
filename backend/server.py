@@ -1192,6 +1192,295 @@ async def bulk_delete_notifications(notification_ids: List[str], admin: UserResp
     result = await db.notifications.delete_many({"id": {"$in": notification_ids}})
     return {"success": True, "deleted_count": result.deleted_count}
 
+
+# ============================================================================
+# LOGGING ENDPOINTS (Super Admin Only)
+# ============================================================================
+
+@api_router.get("/admin/logs/audit")
+async def get_audit_logs_endpoint(
+    action: Optional[str] = None,
+    actor_user_id: Optional[str] = None,
+    object_type: Optional[str] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    skip: int = 0,
+    limit: int = 50,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Get audit logs with optional filters"""
+    try:
+        start_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00')) if start_date else None
+        end_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00')) if end_date else None
+        
+        logs, total = await get_audit_logs(
+            db=db,
+            tenant_id=admin.org_id,
+            action=action,
+            actor_user_id=actor_user_id,
+            object_type=object_type,
+            start_date=start_dt,
+            end_date=end_dt,
+            skip=skip,
+            limit=limit
+        )
+        
+        # Convert datetime objects to ISO strings
+        for log in logs:
+            if "timestamp" in log and isinstance(log["timestamp"], datetime):
+                log["timestamp"] = log["timestamp"].isoformat()
+        
+        return {
+            "logs": logs,
+            "total": total,
+            "skip": skip,
+            "limit": limit
+        }
+    except Exception as e:
+        logger.error(f"Error fetching audit logs: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/admin/logs/audit/actions")
+async def get_audit_action_types(admin: UserResponse = Depends(require_super_admin)):
+    """Get list of available audit action types"""
+    return {
+        "actions": [
+            {"value": action.value, "label": action.value.replace("_", " ").title()}
+            for action in AuditAction
+        ]
+    }
+
+
+@api_router.get("/admin/logs/analytics")
+async def get_analytics_summary_endpoint(
+    days: int = 30,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Get analytics summary for the dashboard"""
+    try:
+        summary = await get_analytics_summary(db=db, tenant_id=admin.org_id, days=days)
+        return summary
+    except Exception as e:
+        logger.error(f"Error fetching analytics summary: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/admin/logs/errors")
+async def get_error_logs_endpoint(
+    severity: Optional[str] = None,
+    resolved: Optional[bool] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    skip: int = 0,
+    limit: int = 50,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Get error logs with optional filters"""
+    try:
+        start_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00')) if start_date else None
+        end_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00')) if end_date else None
+        
+        logs, total = await get_error_logs(
+            db=db,
+            tenant_id=admin.org_id,
+            severity=severity,
+            resolved=resolved,
+            start_date=start_dt,
+            end_date=end_dt,
+            skip=skip,
+            limit=limit
+        )
+        
+        # Convert datetime objects to ISO strings
+        for log in logs:
+            if "timestamp" in log and isinstance(log["timestamp"], datetime):
+                log["timestamp"] = log["timestamp"].isoformat()
+        
+        return {
+            "logs": logs,
+            "total": total,
+            "skip": skip,
+            "limit": limit
+        }
+    except Exception as e:
+        logger.error(f"Error fetching error logs: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/admin/logs/errors/summary")
+async def get_error_summary_endpoint(
+    days: int = 7,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Get error summary statistics"""
+    try:
+        summary = await get_error_summary(db=db, tenant_id=admin.org_id, days=days)
+        return summary
+    except Exception as e:
+        logger.error(f"Error fetching error summary: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.put("/admin/logs/errors/{error_id}/resolve")
+async def resolve_error(
+    error_id: str,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Mark an error as resolved"""
+    from bson import ObjectId
+    try:
+        result = await db.error_logs.update_one(
+            {"_id": ObjectId(error_id)},
+            {"$set": {"resolved": True, "resolved_at": datetime.now(timezone.utc), "resolved_by": admin.id}}
+        )
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Error log not found")
+        return {"success": True}
+    except Exception as e:
+        logger.error(f"Error resolving error log: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/admin/logs/export")
+async def export_audit_logs(
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Export audit logs as CSV"""
+    try:
+        start_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00')) if start_date else datetime.now(timezone.utc) - timedelta(days=90)
+        end_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00')) if end_date else datetime.now(timezone.utc)
+        
+        logs, _ = await get_audit_logs(
+            db=db,
+            tenant_id=admin.org_id,
+            start_date=start_dt,
+            end_date=end_dt,
+            skip=0,
+            limit=10000  # Max export limit
+        )
+        
+        # Create CSV
+        output = io.StringIO()
+        writer = csv.writer(output)
+        
+        # Header
+        writer.writerow([
+            "Timestamp", "Action", "Actor Email", "Object Type", "Object ID", 
+            "Object Name", "Result", "Reason", "Source IP", "Details"
+        ])
+        
+        # Data rows
+        for log in logs:
+            timestamp = log.get("timestamp")
+            if isinstance(timestamp, datetime):
+                timestamp = timestamp.isoformat()
+            
+            writer.writerow([
+                timestamp,
+                log.get("action", ""),
+                log.get("actor_email", ""),
+                log.get("object_type", ""),
+                log.get("object_id", ""),
+                log.get("object_name", ""),
+                log.get("result", ""),
+                log.get("reason", ""),
+                log.get("source_ip", ""),
+                json.dumps(log.get("details", {}))
+            ])
+        
+        output.seek(0)
+        
+        # Log the export action
+        await log_audit_event(
+            db=db,
+            action=AuditAction.SETTINGS_CHANGED,
+            actor_user_id=admin.id,
+            actor_email=admin.email,
+            tenant_id=admin.org_id,
+            object_type="audit_logs",
+            details={"action": "export", "record_count": len(logs)}
+        )
+        
+        return StreamingResponse(
+            iter([output.getvalue()]),
+            media_type="text/csv",
+            headers={"Content-Disposition": f"attachment; filename=audit_logs_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"}
+        )
+        
+    except Exception as e:
+        logger.error(f"Error exporting audit logs: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.post("/admin/logs/cleanup")
+async def cleanup_logs(
+    retention_days: int = 90,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Manually trigger log cleanup (removes logs older than retention period)"""
+    try:
+        results = await cleanup_old_logs(db=db, retention_days=retention_days)
+        
+        # Log the cleanup action
+        await log_audit_event(
+            db=db,
+            action=AuditAction.SETTINGS_CHANGED,
+            actor_user_id=admin.id,
+            actor_email=admin.email,
+            tenant_id=admin.org_id,
+            object_type="logs",
+            details={"action": "cleanup", "retention_days": retention_days, "deleted_counts": results}
+        )
+        
+        return {
+            "success": True,
+            "retention_days": retention_days,
+            "deleted_counts": results
+        }
+    except Exception as e:
+        logger.error(f"Error during log cleanup: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/admin/logs/stats")
+async def get_logging_stats(admin: UserResponse = Depends(require_super_admin)):
+    """Get overall logging statistics"""
+    try:
+        now = datetime.now(timezone.utc)
+        last_24h = now - timedelta(hours=24)
+        last_7d = now - timedelta(days=7)
+        last_30d = now - timedelta(days=30)
+        
+        stats = {
+            "audit_logs": {
+                "total": await db.audit_logs.count_documents({}),
+                "last_24h": await db.audit_logs.count_documents({"timestamp": {"$gte": last_24h}}),
+                "last_7d": await db.audit_logs.count_documents({"timestamp": {"$gte": last_7d}}),
+                "last_30d": await db.audit_logs.count_documents({"timestamp": {"$gte": last_30d}})
+            },
+            "analytics_events": {
+                "total": await db.analytics_events.count_documents({}),
+                "last_24h": await db.analytics_events.count_documents({"timestamp": {"$gte": last_24h}}),
+                "last_7d": await db.analytics_events.count_documents({"timestamp": {"$gte": last_7d}}),
+                "last_30d": await db.analytics_events.count_documents({"timestamp": {"$gte": last_30d}})
+            },
+            "error_logs": {
+                "total": await db.error_logs.count_documents({}),
+                "unresolved": await db.error_logs.count_documents({"resolved": False}),
+                "last_24h": await db.error_logs.count_documents({"timestamp": {"$gte": last_24h}}),
+                "last_7d": await db.error_logs.count_documents({"timestamp": {"$gte": last_7d}})
+            }
+        }
+        
+        return stats
+    except Exception as e:
+        logger.error(f"Error fetching logging stats: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @api_router.get("/admin/metadata-fields")
 async def get_all_metadata_fields(admin: UserResponse = Depends(require_super_admin)):
     """Get all metadata fields from all collections with full hierarchical paths"""
