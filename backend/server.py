@@ -1383,9 +1383,10 @@ async def get_error_logs_endpoint(
         start_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00')) if start_date else None
         end_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00')) if end_date else None
         
+        # Super Admin sees all errors (no tenant filter)
         logs, total = await get_error_logs(
             db=db,
-            tenant_id=admin.org_id,
+            tenant_id=None,  # Super Admin sees all
             severity=severity,
             resolved=resolved,
             start_date=start_dt,
