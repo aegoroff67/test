@@ -1110,6 +1110,18 @@ async def bulk_delete_assessments(
         result = await db.assessments.delete_one({"id": assessment_id})
         if result.deleted_count > 0:
             deleted_count += 1
+            # Log assessment deletion
+            await log_audit_event(
+                db=db,
+                action=AuditAction.ASSESSMENT_DELETED,
+                actor_user_id=current_user.id,
+                actor_email=current_user.email,
+                tenant_id=current_user.org_id,
+                object_type="assessment",
+                object_id=assessment_id,
+                object_name=assessment.get("name", "Unknown"),
+                details={"assessment_type": assessment.get("assessment_type", "Unknown")}
+            )
     
     return {
         "success": True,
