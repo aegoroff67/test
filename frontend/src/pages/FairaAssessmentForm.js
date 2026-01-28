@@ -357,6 +357,15 @@ export default function FairaAssessmentForm() {
       'A1_6_actions': () => form.A1_6 === 'Yes',
       'A1_6_actions_other': () => form.A1_6 === 'Yes' && form.A1_6_actions.includes('Other'),
       'A1_7_other': () => form.A1_7.includes('Other'),
+      // A2.2 conditional fields
+      'A2_2_sources': () => form.A2_2 === 'Yes',
+      'A2_2_sources_other': () => form.A2_2 === 'Yes' && form.A2_2_sources.includes('Other'),
+      'A2_2_data_types': () => form.A2_2 === 'Yes',
+      'A2_2_data_types_other': () => form.A2_2 === 'Yes' && form.A2_2_data_types.includes('Other'),
+      'A2_2_user_limits': () => form.A2_2 === 'Yes',
+      'A2_2_traceability': () => form.A2_2 === 'Yes',
+      'A2_2_trace_mechanisms': () => form.A2_2 === 'Yes',
+      'A2_2_notes': () => form.A2_2 === 'Yes', // Optional, always shown when gate is Yes
       'A2_4_other': () => form.A2_4.includes('Other'),
       'A2_7_data_types': () => form.A2_7 === 'Yes',
       'A2_7_data_types_other': () => form.A2_7 === 'Yes' && form.A2_7_data_types.includes('Other regulated/sensitive data (specify)'),
@@ -453,6 +462,15 @@ export default function FairaAssessmentForm() {
       'A1_6_actions': () => form.A1_6 === 'Yes',
       'A1_6_actions_other': () => form.A1_6 === 'Yes' && form.A1_6_actions.includes('Other'),
       'A1_7_other': () => form.A1_7.includes('Other'),
+      // A2.2 conditional fields
+      'A2_2_sources': () => form.A2_2 === 'Yes',
+      'A2_2_sources_other': () => form.A2_2 === 'Yes' && form.A2_2_sources.includes('Other'),
+      'A2_2_data_types': () => form.A2_2 === 'Yes',
+      'A2_2_data_types_other': () => form.A2_2 === 'Yes' && form.A2_2_data_types.includes('Other'),
+      'A2_2_user_limits': () => form.A2_2 === 'Yes',
+      'A2_2_traceability': () => form.A2_2 === 'Yes',
+      'A2_2_trace_mechanisms': () => form.A2_2 === 'Yes',
+      'A2_2_notes': () => form.A2_2 === 'Yes', // Optional, always shown when gate is Yes
       'A2_4_other': () => form.A2_4.includes('Other'),
       'A2_7_data_types': () => form.A2_7 === 'Yes',
       'A2_7_data_types_other': () => form.A2_7 === 'Yes' && form.A2_7_data_types.includes('Other regulated/sensitive data (specify)'),
