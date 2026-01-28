@@ -5296,6 +5296,19 @@ async def delete_evidence(
             }
         )
         
+        # Log evidence deletion
+        await log_audit_event(
+            db=db,
+            action=AuditAction.EVIDENCE_DELETED,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="evidence",
+            object_id=evidence_id,
+            object_name=existing.get("evidence_title", "Unknown"),
+            details={"file_name": existing.get("file_name")}
+        )
+        
         return {"message": "Evidence archived successfully", "evidence_id": evidence_id}
         
     except HTTPException:
