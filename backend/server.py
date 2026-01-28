@@ -29,6 +29,12 @@ from awareness_questions import AWARENESS_QUESTIONS_DATA
 from benchmark_utils import seed_benchmarks, get_sector_benchmarks, get_all_sectors
 from faira_scoring_engine import get_radar_chart_data, calculate_overall_risk, get_recommended_controls
 from framework_coverage import get_all_framework_coverage, get_framework_coverage, FRAMEWORK_CONFIG, get_registry_summary
+from logging_service import (
+    log_audit_event, log_analytics_event, log_error,
+    get_audit_logs, get_analytics_summary, get_error_logs, get_error_summary,
+    cleanup_old_logs, ensure_log_indexes,
+    AuditAction, AnalyticsEventType, ErrorSeverity
+)
 from models.evidence import (
     Evidence, EvidenceCreate, EvidenceUpdate, EvidenceResponse,
     EvidenceType, LifecyclePhase, TrustLevel, AppliesToScope, EvidenceStatus
