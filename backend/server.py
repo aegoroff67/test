@@ -56,12 +56,14 @@ async def startup_event():
     """Seed benchmarks on application startup if not already present"""
     await seed_benchmarks(db)
     
-    # Install Playwright browsers if not already installed
+    # Install Playwright browsers - always run to ensure they're available
     import subprocess
-    import os
-    playwright_browser_path = "/pw-browsers/chromium_headless_shell-1187"
-    if not os.path.exists(playwright_browser_path):
-        logger.info("Installing Playwright Chromium browser...")
+    import glob
+    
+    # Check if any chromium headless shell exists
+    chromium_paths = glob.glob("/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell")
+    if not chromium_paths:
+        logger.info("Playwright Chromium browser not found. Installing...")
         try:
             result = subprocess.run(
                 ["playwright", "install", "chromium"],
@@ -75,6 +77,8 @@ async def startup_event():
                 logger.error(f"Failed to install Playwright browser: {result.stderr}")
         except Exception as e:
             logger.error(f"Error installing Playwright browser: {str(e)}")
+    else:
+        logger.info(f"Playwright Chromium browser already installed at: {chromium_paths[0]}")
 
 # Helper Functions
 def normalize_org_name(raw_name: str) -> str:
