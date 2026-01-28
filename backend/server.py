@@ -1661,6 +1661,31 @@ async def create_assessment(
     
     await db.assessments.insert_one(assessment.dict())
     
+    # Log assessment creation
+    await log_audit_event(
+        db=db,
+        action=AuditAction.ASSESSMENT_CREATED,
+        actor_user_id=current_user.id,
+        actor_email=current_user.email,
+        tenant_id=current_user.org_id,
+        object_type="assessment",
+        object_id=assessment.id,
+        object_name=assessment_name,
+        details={"assessment_type": assessment_type, "industry": industry_selected}
+    )
+    
+    # Log analytics event
+    await log_analytics_event(
+        db=db,
+        event_type=AnalyticsEventType.ASSESSMENT_FUNNEL,
+        event_name="assessment_created",
+        user_id=current_user.id,
+        tenant_id=current_user.org_id,
+        user_role=current_user.role,
+        assessment_id=assessment.id,
+        assessment_type=assessment_type
+    )
+    
     # Get total questions count based on assessment type
     if assessment_type == "Awareness":
         from awareness_questions import AWARENESS_QUESTIONS_DATA
