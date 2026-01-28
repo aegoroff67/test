@@ -55,6 +55,26 @@ api_router = APIRouter(prefix="/api")
 async def startup_event():
     """Seed benchmarks on application startup if not already present"""
     await seed_benchmarks(db)
+    
+    # Install Playwright browsers if not already installed
+    import subprocess
+    import os
+    playwright_browser_path = "/pw-browsers/chromium_headless_shell-1187"
+    if not os.path.exists(playwright_browser_path):
+        logger.info("Installing Playwright Chromium browser...")
+        try:
+            result = subprocess.run(
+                ["playwright", "install", "chromium"],
+                capture_output=True,
+                text=True,
+                timeout=300  # 5 minute timeout
+            )
+            if result.returncode == 0:
+                logger.info("Playwright Chromium browser installed successfully")
+            else:
+                logger.error(f"Failed to install Playwright browser: {result.stderr}")
+        except Exception as e:
+            logger.error(f"Error installing Playwright browser: {str(e)}")
 
 # Helper Functions
 def normalize_org_name(raw_name: str) -> str:
