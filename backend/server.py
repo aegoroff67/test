@@ -1583,6 +1583,42 @@ async def get_logging_stats(admin: UserResponse = Depends(require_super_admin)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+
+# Frontend error logging endpoint (no auth required to capture errors from logged-out users)
+class FrontendErrorReport(BaseModel):
+    error_type: str
+    error_message: str
+    stack_trace: Optional[str] = None
+    component_stack: Optional[str] = None
+    url: Optional[str] = None
+    user_agent: Optional[str] = None
+    user_id: Optional[str] = None
+    tenant_id: Optional[str] = None
+    timestamp: Optional[str] = None
+
+@api_router.post("/logs/frontend-error")
+async def log_frontend_error(error_report: FrontendErrorReport):
+    """Log frontend errors from React Error Boundary"""
+    try:
+        await log_error(
+            db=db,
+            error_type=error_report.error_type,
+            error_message=error_report.error_message,
+            endpoint=error_report.url,
+            method="FRONTEND",
+            user_id=error_report.user_id,
+            tenant_id=error_report.tenant_id,
+            stack_trace=f"{error_report.stack_trace}\n\nComponent Stack:\n{error_report.component_stack}" if error_report.component_stack else error_report.stack_trace,
+            severity=ErrorSeverity.HIGH,
+            request_data={"user_agent": error_report.user_agent}
+        )
+        return {"success": True, "message": "Error logged"}
+    except Exception as e:
+        logger.error(f"Failed to log frontend error: {str(e)}")
+        return {"success": False, "message": str(e)}
+
+
+
 @api_router.get("/admin/metadata-fields")
 async def get_all_metadata_fields(admin: UserResponse = Depends(require_super_admin)):
     """Get all metadata fields from all collections with full hierarchical paths"""
