@@ -4703,6 +4703,35 @@ async def submit_assessment(assessment_id: str, current_user: UserResponse = Dep
         await db.notifications.insert_one(notification.dict())
         logger.info(f"NOTIFICATION CREATED: Assessment {assessment_id} completed with {pending_review_count} answer(s) pending review")
     
+    # Log assessment completion
+    await log_audit_event(
+        db=db,
+        action=AuditAction.ASSESSMENT_COMPLETED,
+        actor_user_id=current_user.id,
+        actor_email=current_user.email,
+        tenant_id=current_user.org_id,
+        object_type="assessment",
+        object_id=assessment_id,
+        object_name=updated_name,
+        details={
+            "assessment_type": assessment_type,
+            "overall_percentage": round(overall_percentage, 1),
+            "pending_review_count": pending_review_count,
+            "is_resubmission": is_resubmission
+        }
+    )
+    
+    await log_analytics_event(
+        db=db,
+        event_type=AnalyticsEventType.ASSESSMENT_FUNNEL,
+        event_name="assessment_completed",
+        user_id=current_user.id,
+        tenant_id=current_user.org_id,
+        assessment_id=assessment_id,
+        assessment_type=assessment_type,
+        properties={"overall_percentage": round(overall_percentage, 1)}
+    )
+    
     return {
         "status": "success",
         "message": "Assessment submitted successfully",
