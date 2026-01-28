@@ -3519,6 +3519,20 @@ async def generate_executive_summary_pdf(
         # Set Playwright browser path
         os.environ['PLAYWRIGHT_BROWSERS_PATH'] = '/pw-browsers'
         
+        # Ensure Playwright browsers are installed before proceeding
+        chromium_paths = glob.glob("/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell")
+        if not chromium_paths:
+            logger.info("Playwright browser not found, installing on-demand...")
+            result = subprocess.run(
+                ["playwright", "install", "chromium"],
+                capture_output=True,
+                text=True,
+                timeout=300
+            )
+            if result.returncode != 0:
+                raise HTTPException(status_code=500, detail=f"Failed to install Playwright browser: {result.stderr}")
+            logger.info("Playwright browser installed successfully")
+        
         # Verify assessment belongs to user's organization
         assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
         if not assessment:
