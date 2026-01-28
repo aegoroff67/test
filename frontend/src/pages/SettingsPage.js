@@ -1413,6 +1413,10 @@ function SettingsPage() {
             </CardContent>
           </Card>
         )}
+
+        {activeTab === 'logging' && isSuperAdmin && (
+          <LoggingTab />
+        )}
       </div>
     </div>
   );
