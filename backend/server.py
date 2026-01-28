@@ -64,6 +64,9 @@ async def startup_event():
     """Seed benchmarks on application startup if not already present"""
     await seed_benchmarks(db)
     
+    # Ensure logging indexes exist
+    await ensure_log_indexes(db)
+    
     # Always install Playwright browsers on startup to ensure they're available
     # Production deployments don't persist /pw-browsers/ directory
     logger.info("Ensuring Playwright Chromium browser is installed...")
