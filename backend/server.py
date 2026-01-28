@@ -3835,6 +3835,31 @@ async def generate_report_docx(
         )
         await db.reports.insert_one(report.dict())
         
+        # Log report generation
+        await log_audit_event(
+            db=db,
+            action=AuditAction.REPORT_GENERATED,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="report",
+            object_id=assessment_id,
+            object_name=filename,
+            details={"report_type": "docx", "assessment_type": assessment_type, "use_ai": use_ai}
+        )
+        
+        # Log analytics event
+        await log_analytics_event(
+            db=db,
+            event_type=AnalyticsEventType.REPORT_FUNNEL,
+            event_name="report_generated",
+            user_id=current_user.id,
+            tenant_id=current_user.org_id,
+            assessment_id=assessment_id,
+            assessment_type=assessment_type,
+            properties={"report_type": "docx", "use_ai": use_ai}
+        )
+        
         # Return DOCX as streaming response
         return StreamingResponse(
             io.BytesIO(docx_bytes),
