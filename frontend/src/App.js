@@ -72,32 +72,33 @@ function ProtectedRoute({ children }) {
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="App min-h-screen bg-gray-50">
-          <Routes>
-            <Route path="/auth" element={<AuthPage />} />
-            <Route 
-              path="/dashboard" 
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/settings" 
-              element={
-                <ProtectedRoute>
-                  <SettingsPage />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/review-assessment/:assessmentId" 
-              element={
-                <ProtectedRoute>
-                  <ReviewAssessmentPage />
+    <ErrorBoundary>
+      <AuthProvider>
+        <Router>
+          <div className="App min-h-screen bg-gray-50">
+            <Routes>
+              <Route path="/auth" element={<AuthPage />} />
+              <Route 
+                path="/dashboard" 
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/settings" 
+                element={
+                  <ProtectedRoute>
+                    <SettingsPage />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/review-assessment/:assessmentId" 
+                element={
+                  <ProtectedRoute>
+                    <ReviewAssessmentPage />
                 </ProtectedRoute>
               } 
             />
