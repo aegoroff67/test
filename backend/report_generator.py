@@ -3967,6 +3967,8 @@ Each cell represents the score for a specific question, enabling identification 
                         'A1_3': 'A1_3_other',
                         'A1_7': 'A1_7_other',
                         'A1_6_actions': 'A1_6_actions_other',
+                        'A2_2_sources': 'A2_2_sources_other',
+                        'A2_2_data_types': 'A2_2_data_types_other',
                         'A2_4': 'A2_4_other',
                         'A2_7_data_types': 'A2_7_data_types_other',
                         'A3_3': 'A3_3_other',
