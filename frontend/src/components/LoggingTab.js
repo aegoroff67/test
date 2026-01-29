@@ -74,8 +74,9 @@ export default function LoggingTab() {
   const [auditLogs, setAuditLogs] = useState([]);
   const [auditTotal, setAuditTotal] = useState(0);
   const [auditPage, setAuditPage] = useState(0);
-  const [auditFilters, setAuditFilters] = useState({ action: '', search: '' });
+  const [auditFilters, setAuditFilters] = useState({ action: '', user: '' });
   const [actionTypes, setActionTypes] = useState([]);
+  const [auditUsers, setAuditUsers] = useState([]);
   const [selectedAuditLog, setSelectedAuditLog] = useState(null);
   
   // Analytics state
