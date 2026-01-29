@@ -1043,16 +1043,15 @@ export default function FairaAssessmentForm() {
             <p className="text-sm text-gray-600 mt-1">Systematic breakdown of the AI solution components</p>
           </CardHeader>
           <CardContent className="p-6 space-y-8">
-            
-            {/* A1: AI Solution Fundamentals */}
-            <div className="space-y-6" id="A1_1">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">A1. AI Solution Fundamentals</h3>
-                <p className="text-sm text-gray-600">Maps to FAIRA Table 1: AI solution (Questions 1.1-1.10)</p>
-              </div>
-              <Separator />
-              
-              {/* A1.1 */}
+            <SectionA1 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionA2 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionA3 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionA4 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionA5 form={form} update={update} toggleInArray={toggleInArray} />
+          </CardContent>
+        </Card>
+
+        {/* BLOCK 3: Part B - Values Assessment */}
               <div className="space-y-2">
                 <Label>A1.1 What is the primary function of the AI solution? (Select all that apply)</Label>
                 <div className="grid gap-2 md:grid-cols-2">
