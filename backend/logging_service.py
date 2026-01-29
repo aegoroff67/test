@@ -214,6 +214,7 @@ async def get_audit_logs(
     tenant_id: Optional[str] = None,
     action: Optional[str] = None,
     actor_user_id: Optional[str] = None,
+    actor_email: Optional[str] = None,
     object_type: Optional[str] = None,
     start_date: Optional[datetime] = None,
     end_date: Optional[datetime] = None,
@@ -232,6 +233,8 @@ async def get_audit_logs(
         query["action"] = action
     if actor_user_id:
         query["actor_user_id"] = actor_user_id
+    if actor_email:
+        query["actor_email"] = actor_email
     if object_type:
         query["object_type"] = object_type
     if start_date or end_date:
