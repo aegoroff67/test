@@ -197,12 +197,12 @@ const SectionA2 = ({ form, update, toggleInArray }) => {
             <Label>A2.2e Traceability mechanisms (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
               {[
-                "Audit logs",
-                "Data lineage tooling",
-                "Source identifiers / metadata tags",
-                "Case/record IDs",
-                "Manual records",
-                "Not in place"
+                "audit logs",
+                "data lineage tooling",
+                "source identifiers / metadata tags",
+                "case/record IDs",
+                "manual records",
+                "not in place"
               ].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <Checkbox
