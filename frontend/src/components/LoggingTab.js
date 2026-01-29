@@ -263,7 +263,8 @@ export default function LoggingTab() {
   useEffect(() => {
     fetchStats();
     fetchActionTypes();
-  }, [fetchStats, fetchActionTypes]);
+    fetchAuditUsers();
+  }, [fetchStats, fetchActionTypes, fetchAuditUsers]);
 
   useEffect(() => {
     if (activeSubTab === 'audit') {
