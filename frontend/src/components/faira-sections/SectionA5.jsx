@@ -29,10 +29,148 @@ const SectionA5 = ({ form, update, toggleInArray }) => {
         </select>
       </div>
 
-      {/* A5.2 */}
-      <div className="space-y-2">
-        <Label htmlFor="A5_2">A5.2 How are AI use inputs and outputs tracked and recorded?</Label>
-        <Textarea id="A5_2" value={form.A5_2} onChange={(e) => update("A5_2", e.target.value)} placeholder="Describe tracking mechanisms" rows={3} />
+      {/* A5.2 - Gated Section */}
+      <div className="space-y-3">
+        <Label>A5.2 Are AI inputs, outputs, and/or decisions logged or recorded?</Label>
+        <div className="flex space-x-4">
+          <label className="flex items-center space-x-2">
+            <input type="radio" checked={form.A5_2 === "Yes"} onChange={() => update("A5_2", "Yes")} className="h-4 w-4 text-orange-600" />
+            <span className="text-sm">Yes</span>
+          </label>
+          <label className="flex items-center space-x-2">
+            <input type="radio" checked={form.A5_2 === "No"} onChange={() => update("A5_2", "No")} className="h-4 w-4 text-orange-600" />
+            <span className="text-sm">No</span>
+          </label>
+        </div>
+
+        {/* Conditional subsections when Yes is selected */}
+        {form.A5_2 === "Yes" && (
+          <div className="ml-4 p-4 bg-gray-100 rounded-lg space-y-4 border border-gray-200">
+            {/* A5.2a - What is logged */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">A5.2a What is logged or recorded? (select all that apply)</Label>
+              <div className="grid gap-2 md:grid-cols-2">
+                {[
+                  "ai inputs",
+                  "ai outputs",
+                  "human decisions informed by ai",
+                  "automated actions triggered by ai",
+                  "model version / configuration",
+                  "data sources used / provenance",
+                  "access to outputs / disclosures"
+                ].map((option) => (
+                  <label key={option} className="flex items-center space-x-2">
+                    <Checkbox 
+                      checked={(form.A5_2_logged_items || []).includes(option)} 
+                      onCheckedChange={() => toggleInArray("A5_2_logged_items", option)} 
+                    />
+                    <span className="text-sm">{option}</span>
+                  </label>
+                ))}
+                <label className="flex items-center space-x-2">
+                  <Checkbox 
+                    checked={(form.A5_2_logged_items || []).includes("Other")} 
+                    onCheckedChange={() => toggleInArray("A5_2_logged_items", "Other")} 
+                  />
+                  <span className="text-sm">Other (specify)</span>
+                </label>
+              </div>
+              {(form.A5_2_logged_items || []).includes("Other") && (
+                <Input
+                  value={form.A5_2_logged_items_other || ''}
+                  onChange={(e) => update("A5_2_logged_items_other", e.target.value)}
+                  placeholder="Please specify other logged items"
+                  className="mt-2"
+                />
+              )}
+            </div>
+
+            {/* A5.2b - Logging mechanisms */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">A5.2b Logging / record-keeping mechanisms (select all that apply)</Label>
+              <div className="grid gap-2 md:grid-cols-2">
+                {[
+                  "application / system logs",
+                  "dedicated audit logs",
+                  "workflow / case management records",
+                  "database records",
+                  "centralised logging / siem",
+                  "manual records",
+                  "not in place / unknown"
+                ].map((option) => (
+                  <label key={option} className="flex items-center space-x-2">
+                    <Checkbox 
+                      checked={(form.A5_2_logging_mechanisms || []).includes(option)} 
+                      onCheckedChange={() => toggleInArray("A5_2_logging_mechanisms", option)} 
+                    />
+                    <span className="text-sm">{option}</span>
+                  </label>
+                ))}
+                <label className="flex items-center space-x-2">
+                  <Checkbox 
+                    checked={(form.A5_2_logging_mechanisms || []).includes("Other")} 
+                    onCheckedChange={() => toggleInArray("A5_2_logging_mechanisms", "Other")} 
+                  />
+                  <span className="text-sm">Other (specify)</span>
+                </label>
+              </div>
+              {(form.A5_2_logging_mechanisms || []).includes("Other") && (
+                <Input
+                  value={form.A5_2_logging_mechanisms_other || ''}
+                  onChange={(e) => update("A5_2_logging_mechanisms_other", e.target.value)}
+                  placeholder="Please specify other logging mechanisms"
+                  className="mt-2"
+                />
+              )}
+            </div>
+
+            {/* A5.2c - Retention period */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">A5.2c Log/record retention period</Label>
+              <select 
+                value={form.A5_2_retention || ''} 
+                onChange={(e) => update("A5_2_retention", e.target.value)} 
+                className="w-full p-2 border rounded-md bg-white"
+              >
+                <option value="">Select retention period</option>
+                <option value="less than 30 days">less than 30 days</option>
+                <option value="30–90 days">30–90 days</option>
+                <option value="3–12 months">3–12 months</option>
+                <option value="more than 12 months">more than 12 months</option>
+                <option value="unknown / not defined">unknown / not defined</option>
+              </select>
+            </div>
+
+            {/* A5.2d - Access scope */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">A5.2d Who can access logs/records?</Label>
+              <select 
+                value={form.A5_2_access_scope || ''} 
+                onChange={(e) => update("A5_2_access_scope", e.target.value)} 
+                className="w-full p-2 border rounded-md bg-white"
+              >
+                <option value="">Select access scope</option>
+                <option value="restricted operational staff only">restricted operational staff only</option>
+                <option value="security / risk / audit teams">security / risk / audit teams</option>
+                <option value="system administrators">system administrators</option>
+                <option value="external auditors / regulators">external auditors / regulators</option>
+                <option value="broad internal access">broad internal access</option>
+                <option value="unknown / not defined">unknown / not defined</option>
+              </select>
+            </div>
+
+            {/* A5.2e - Notes */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">A5.2e Notes / exceptions (optional)</Label>
+              <Textarea
+                value={form.A5_2_notes || ''}
+                onChange={(e) => update("A5_2_notes", e.target.value)}
+                placeholder="Any additional notes or exceptions"
+                rows={2}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* A5.3 */}
