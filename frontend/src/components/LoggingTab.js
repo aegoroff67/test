@@ -413,7 +413,26 @@ export default function LoggingTab() {
                 ))}
               </SelectContent>
             </Select>
-            <Button variant="outline" size="sm" onClick={() => { setAuditFilters({ action: '', search: '' }); setAuditPage(0); }}>
+            <Select
+              value={auditFilters.user}
+              onValueChange={(value) => {
+                setAuditFilters(prev => ({ ...prev, user: value === 'all' ? '' : value }));
+                setAuditPage(0);
+              }}
+            >
+              <SelectTrigger className="w-[220px]">
+                <SelectValue placeholder="Filter by user" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Users</SelectItem>
+                {auditUsers.map((user) => (
+                  <SelectItem key={user.value} value={user.value}>
+                    {user.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button variant="outline" size="sm" onClick={() => { setAuditFilters({ action: '', user: '' }); setAuditPage(0); }}>
               Clear Filters
             </Button>
           </div>
