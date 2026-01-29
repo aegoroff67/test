@@ -55,6 +55,28 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - **Updated** progress calculation to handle conditional fields
 - **Testing**: All features verified working (100% pass rate)
 
+#### Question B6.3 Restructuring - COMPLETE ✅ (2026-01-29)
+- **Converted** from simple text field to Yes/No gated section with 5 subsections:
+  - B6.3a: Who is informed? (multiselect with 5 options)
+  - B6.3b: How are they informed? (multiselect with 9 options + Other)
+  - B6.3c: When are they informed? (dropdown with 5 options)
+  - B6.3d: What information is provided? (multiselect with 8 options)
+  - B6.3e: Notes/exceptions (optional textarea)
+- **Updated** scoring schema with Likelihood, Control_Effectiveness modifiers
+- **Testing**: All features verified working
+
+#### Question B6.4 Restructuring - COMPLETE ✅ (2026-01-29)
+- **Converted** from Yes/No with text description to Yes/No gated section with 7 subsections:
+  - B6.4a: Who can receive explanations? (multiselect with 5 options)
+  - B6.4b: How are explanations provided? (multiselect with 8 options + Other)
+  - B6.4c: When are explanations available? (dropdown with 5 options)
+  - B6.4d: What does the explanation include? (multiselect with 8 options)
+  - B6.4e: How accessible are explanations? (dropdown with 4 options)
+  - B6.4f: Are limitations communicated? (dropdown with 4 options)
+  - B6.4g: Notes/exceptions (optional textarea)
+- **Updated** scoring schema with Likelihood, Control_Effectiveness modifiers
+- **Testing**: All features verified working (100% pass rate)
+
 ### ✅ Completed (as of 2026-01-25)
 
 #### Custom Jinja2 Filter Bug Fix (2026-01-25) - FIXED ✅
