@@ -333,6 +333,7 @@ export default function FairaAssessmentForm() {
       'A4_6': 'A4_6_data_types',
       'A4_7': ['A4_7_pii_types', 'A4_7_access_scope', 'A4_7_access_controls'],
       'A4_8': ['A4_8_action_types', 'A4_8_trigger_pathway', 'A4_8_affected_parties', 'A4_8_decision_records', 'A4_8_review_appeal', 'A4_8_legal_basis'],
+      'A5_2': ['A5_2_logged_items', 'A5_2_logging_mechanisms', 'A5_2_retention', 'A5_2_access_scope'],
       'A5_10': ['A5_10_commonwealth', 'A5_10_qld', 'A5_10_sector', 'A5_10_frameworks'],
       'B2_3': 'B2_3_perspectives',
       'B3_1': 'B3_1_methods',
