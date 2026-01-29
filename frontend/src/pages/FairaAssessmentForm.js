@@ -425,7 +425,6 @@ export default function FairaAssessmentForm() {
       'A4_8_review_appeal': () => form.A4_8 === 'Yes',
       'A4_8_legal_basis': () => form.A4_8 === 'Yes',
       'A4_8_legal_basis_other': () => form.A4_8 === 'Yes' && form.A4_8_legal_basis.includes('Other'),
-      'A4_8_notes': () => form.A4_8 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
@@ -544,7 +543,6 @@ export default function FairaAssessmentForm() {
       'A4_8_review_appeal': () => form.A4_8 === 'Yes',
       'A4_8_legal_basis': () => form.A4_8 === 'Yes',
       'A4_8_legal_basis_other': () => form.A4_8 === 'Yes' && form.A4_8_legal_basis.includes('Other'),
-      'A4_8_notes': () => form.A4_8 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
