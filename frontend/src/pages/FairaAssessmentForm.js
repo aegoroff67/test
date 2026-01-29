@@ -408,6 +408,7 @@ export default function FairaAssessmentForm() {
       'A4_7_notes',
       'A4_8_notes',
       'A5_2_notes',
+      'B6_3_notes',
       // Optional A5.10 fields
       'A5_10_other',
       'A5_10_impact'
