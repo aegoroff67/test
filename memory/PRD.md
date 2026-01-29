@@ -137,6 +137,11 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 ## Prioritized Backlog
 
 ### P0 - Critical
+- [x] **FAIRA Progress Calculation Bug** - FIXED ✅ (2026-01-29)
+  - **Issue**: Progress stuck at 98-99%, gated sub-questions not contributing to progress
+  - **Root Cause**: `getSectionCompletion` function's `sections` object was missing conditional sub-fields (B6_3_audience, B6_3_methods, etc.)
+  - **Fix**: Updated `sections` object in `FairaAssessmentForm.js` to include all conditional sub-fields for B6.3, B6.4, B7.1, A5.2, A4.7, A4.8, A2.2 gated sections
+  - **Testing**: 100% pass rate - all gated sections verified working
 - [x] **Refactor `report_generator.py`** - COMPLETE ✅
   - Original: 8,359 lines → Now: 5,394 lines (35% reduction)
   - Extracted to `/app/backend/report_modules/`:
