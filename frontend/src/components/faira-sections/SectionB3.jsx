@@ -29,7 +29,7 @@ const SectionB3 = ({ form, update, toggleInArray }) => {
             <div className="grid gap-2 md:grid-cols-2">
               {["statistical parity analysis", "disparate impact analysis", "dataset bias review", "model interpretability testing", "human review panels", "synthetic scenario testing", "accessibility testing", "penetration/security testing", "vendor-provided tests", "informal or ad-hoc checks only (no formal testing) (flag as risk)"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
-                  <Checkbox checked={form.B3_1_methods.includes(option)} onCheckedChange={() => toggleInArray("B3_1_methods", option)} />
+                  <Checkbox checked={(form.B3_1_methods || []).includes(option)} onCheckedChange={() => toggleInArray("B3_1_methods", option)} />
                   <span className="text-sm">{option}</span>
                 </label>
               ))}
@@ -56,7 +56,7 @@ const SectionB3 = ({ form, update, toggleInArray }) => {
             <div className="grid gap-2 md:grid-cols-2">
               {["age groups", "people with disabilities", "racial or ethnic groups", "religious groups", "gender", "sexual orientation", "socioeconomic status"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
-                  <Checkbox checked={form.B3_2_groups.includes(option)} onCheckedChange={() => toggleInArray("B3_2_groups", option)} />
+                  <Checkbox checked={(form.B3_2_groups || []).includes(option)} onCheckedChange={() => toggleInArray("B3_2_groups", option)} />
                   <span className="text-sm">{option}</span>
                 </label>
               ))}

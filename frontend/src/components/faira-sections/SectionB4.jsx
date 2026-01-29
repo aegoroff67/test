@@ -43,16 +43,16 @@ const SectionB4 = ({ form, update, toggleInArray }) => {
             <div className="grid gap-2 md:grid-cols-2">
               {["identifiable", "sensitive", "health-related", "financial", "biometric"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
-                  <Checkbox checked={form.B4_2_types.includes(option)} onCheckedChange={() => toggleInArray("B4_2_types", option)} />
+                  <Checkbox checked={(form.B4_2_types || []).includes(option)} onCheckedChange={() => toggleInArray("B4_2_types", option)} />
                   <span className="text-sm">{option}</span>
                 </label>
               ))}
               <label className="flex items-center space-x-2">
-                <Checkbox checked={form.B4_2_types.includes("Other")} onCheckedChange={() => toggleInArray("B4_2_types", "Other")} />
+                <Checkbox checked={(form.B4_2_types || []).includes("Other")} onCheckedChange={() => toggleInArray("B4_2_types", "Other")} />
                 <span className="text-sm">Other (specify)</span>
               </label>
             </div>
-            {form.B4_2_types.includes("Other") && (
+            {(form.B4_2_types || []).includes("Other") && (
               <Input value={form.B4_2_types_other} onChange={(e) => update("B4_2_types_other", e.target.value)} placeholder="Please specify other types" className="mt-2" />
             )}
           </div>
@@ -65,7 +65,7 @@ const SectionB4 = ({ form, update, toggleInArray }) => {
         <div className="grid gap-2 md:grid-cols-2">
           {["access controls", "encryption", "auditing", "intrusion detection", "secure development practices", "security testing", "regular security assessments", "no formal security measures (flag as risk)"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={form.B4_3.includes(option)} onCheckedChange={() => toggleInArray("B4_3", option)} />
+              <Checkbox checked={(form.B4_3 || []).includes(option)} onCheckedChange={() => toggleInArray("B4_3", option)} />
               <span className="text-sm">{option}</span>
             </label>
           ))}
