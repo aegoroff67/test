@@ -2881,6 +2881,105 @@
         }
       }
     },
+    "B7_1": {
+      "id": "B7_1",
+      "text": "Is there a defined process for challenging or reviewing AI-supported outcomes?",
+      "type": "yes_no_with_subsections",
+      "domains": [
+        "Contestability"
+      ],
+      "scoring": {
+        "target_metric": "Likelihood and Control_Effectiveness",
+        "modifier_type": "dual",
+        "options": {
+          "No": {
+            "Likelihood": 3,
+            "Control_Effectiveness": 0,
+            "notes": "Absence of a defined contestability process increases the likelihood of unaddressed errors, disputes, and loss of trust."
+          },
+          "Yes": {
+            "Likelihood": 0,
+            "Control_Effectiveness": 1,
+            "subsections": {
+              "initiators": {
+                "field": "B7_1_initiators",
+                "type": "multiselect",
+                "label": "Who can initiate a challenge or review",
+                "options": {
+                  "affected individuals (e.g., customers/citizens)": { "Control_Effectiveness": 2 },
+                  "internal users/operators": { "Control_Effectiveness": 1 },
+                  "supervisors/managers": { "Control_Effectiveness": 1 },
+                  "oversight body / governance committee": { "Control_Effectiveness": 1 },
+                  "regulators / external oversight (where applicable)": { "Control_Effectiveness": 1 },
+                  "third party / advocate": { "Control_Effectiveness": 0.5 },
+                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Allowing affected individuals to initiate review provides the strongest contestability signal."
+              },
+              "channels": {
+                "field": "B7_1_channels",
+                "type": "multiselect",
+                "label": "How a challenge or review can be initiated",
+                "options": {
+                  "formal appeal process": { "Control_Effectiveness": 2 },
+                  "service desk / support request": { "Control_Effectiveness": 1 },
+                  "case management / ticketing workflow": { "Control_Effectiveness": 1 },
+                  "manager escalation pathway": { "Control_Effectiveness": 1 },
+                  "in-application review/request feature": { "Control_Effectiveness": 1.5 },
+                  "written request (email/letter)": { "Control_Effectiveness": 0.5 },
+                  "not defined": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Formalised and trackable channels improve contestability and auditability."
+              },
+              "review_process": {
+                "field": "B7_1_review_process",
+                "type": "multiselect",
+                "label": "Review process available",
+                "options": {
+                  "human review of the decision/outcome": { "Control_Effectiveness": 2 },
+                  "second-person review (peer/supervisor)": { "Control_Effectiveness": 1.5 },
+                  "manual override available": { "Control_Effectiveness": 1 },
+                  "re-run / reassessment with updated information": { "Control_Effectiveness": 1 },
+                  "independent review function": { "Control_Effectiveness": 2 },
+                  "only explanation provided (no review)": { "Likelihood": 1, "Control_Effectiveness": 0.25 },
+                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "A meaningful review process requires human review and the ability to intervene."
+              },
+              "review_inputs": {
+                "field": "B7_1_review_inputs",
+                "type": "multiselect",
+                "label": "Information supporting review",
+                "options": {
+                  "decision record / case notes": { "Control_Effectiveness": 1 },
+                  "ai outputs / scores": { "Control_Effectiveness": 0.5 },
+                  "reason codes / explanation": { "Control_Effectiveness": 1 },
+                  "input data used": { "Control_Effectiveness": 1 },
+                  "model version / configuration recorded": { "Control_Effectiveness": 1 },
+                  "human approval record captured": { "Control_Effectiveness": 1 },
+                  "audit logs available": { "Control_Effectiveness": 1 },
+                  "none / not available": { "Likelihood": 2, "Control_Effectiveness": 0 }
+                },
+                "notes": "Review inputs improve the ability to investigate and correct outcomes."
+              },
+              "outcome_change": {
+                "field": "B7_1_outcome_change",
+                "type": "single_select",
+                "label": "Can outcomes be changed following review?",
+                "options": {
+                  "yes — decision can be reversed or amended": { "Control_Effectiveness": 2, "Likelihood": -0.5 },
+                  "partially — decision can be adjusted": { "Control_Effectiveness": 1, "Likelihood": 0 },
+                  "no — decision cannot be changed": { "Likelihood": 2, "Control_Effectiveness": 0 },
+                  "unknown / not specified": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Contestability is materially weaker if outcomes cannot be changed."
+              }
+            },
+            "notes": "B7.1 is a Yes/No gate. If Yes, contestability improves. The strength of contestability depends on who can initiate review, how it is triggered, what evidence supports it, and whether outcomes can be changed."
+          }
+        }
+      }
+    },
     "B7_2": {
       "id": "B7_2",
       "text": "How quickly can decisions be challenged or reviewed?",
