@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+// Separator import removed - now handled in section components
 import { ArrowLeft, ShieldCheck, Save, CheckCircle, AlertCircle, Check, Circle } from "lucide-react";
 import { toast } from 'sonner';
 import axios from 'axios';
