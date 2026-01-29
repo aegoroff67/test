@@ -184,9 +184,7 @@ const defaultState = {
   // B5: Reliability and Safety
   B5_1: "", // tested for reliability (Yes/No)
   B5_1_rating: null,
-  B5_1_tests: [], // NEW: testing types (multiselect)
   B5_2: "", // disengage process (Yes/No)
-  B5_2_safeguards: [], // NEW: safety safeguards (multiselect)
   B5_3: "", // high-risk environment (Yes/No)
   B5_3_environments: [],
   
@@ -200,9 +198,7 @@ const defaultState = {
   // B7: Contestability
   B7_1: "", // challenge process (Yes/No)
   B7_1_describe: "",
-  B7_1_methods: [], // NEW: contestability methods (multiselect)
   B7_2: "", // response time (select)
-  B7_3: [], // NEW: redress mechanisms (multiselect)
   
   // B8: Accountability
   B8_1: "", // oversight (text)
