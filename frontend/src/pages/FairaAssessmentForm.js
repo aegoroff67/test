@@ -1074,13 +1074,18 @@ export default function FairaAssessmentForm() {
             <p className="text-sm text-gray-600 mt-1">Assessment against core values: ethics, fairness, privacy, reliability, transparency, and accountability</p>
           </CardHeader>
           <CardContent className="p-6 space-y-8">
-            
-            {/* B1: Human, Societal, and Environmental Wellbeing */}
-            <div className="space-y-6" id="B1_1_individual">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">B1. Human, Societal, and Environmental Wellbeing</h3>
-              </div>
-              <Separator />
+            <SectionB1 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionB2 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionB3 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionB4 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionB5 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionB6 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionB7 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionB8 form={form} update={update} toggleInArray={toggleInArray} />
+          </CardContent>
+        </Card>
+
+        {/* INLINE_PLACEHOLDER_REPLACED */}
               
               {/* B1.1 */}
               <div className="space-y-4">
