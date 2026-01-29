@@ -551,6 +551,12 @@ export default function FairaAssessmentForm() {
       }
     });
 
+    // Debug: Log unfilled fields to console
+    if (unfilledFields.length > 0) {
+      console.log('Progress Debug - Unfilled fields:', unfilledFields);
+      console.log('Progress Debug - Total fields:', totalFields, 'Filled:', filledFields);
+    }
+
     return totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
   };
 
