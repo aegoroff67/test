@@ -394,7 +394,7 @@
     "A2_2": {
       "id": "A2_2",
       "text": "Does the AI require data from the digital or physical environment?",
-      "type": "yes_no",
+      "type": "yes_no_with_subsections",
       "domains": [
         "Privacy Protection and Security"
       ],
@@ -409,11 +409,151 @@
           "Yes": {
             "Impact": 0,
             "Likelihood": 1,
-            "Control_Effectiveness": 0
+            "Control_Effectiveness": 0,
+            "subsections": {
+              "sources": {
+                "field": "A2_2_sources",
+                "type": "multiselect",
+                "label": "Data sources",
+                "options": {
+                  "Digital systems (databases, internal apps, APIs)": {
+                    "Likelihood": 1
+                  },
+                  "Web / internet sources": {
+                    "Likelihood": 2
+                  },
+                  "Sensors / IoT / OT telemetry": {
+                    "Likelihood": 2
+                  },
+                  "CCTV / images / video feeds": {
+                    "Impact": 2,
+                    "Likelihood": 1
+                  },
+                  "Location / GPS / movement telemetry": {
+                    "Impact": 3,
+                    "Likelihood": 1
+                  },
+                  "User device data": {
+                    "Impact": 2,
+                    "Likelihood": 1
+                  },
+                  "Third-party data feeds": {
+                    "Likelihood": 2
+                  },
+                  "Other": {
+                    "Impact": 1,
+                    "Likelihood": 1
+                  }
+                }
+              },
+              "data_types": {
+                "field": "A2_2_data_types",
+                "type": "multiselect",
+                "label": "Data types ingested",
+                "options": {
+                  "Telemetry / operational metrics": {
+                    "Likelihood": 1
+                  },
+                  "Environmental readings (e.g., weather, air quality)": {
+                    "Likelihood": 1
+                  },
+                  "Images / video": {
+                    "Impact": 2,
+                    "Likelihood": 1
+                  },
+                  "Audio": {
+                    "Impact": 2,
+                    "Likelihood": 1
+                  },
+                  "Location data": {
+                    "Impact": 3,
+                    "Likelihood": 1
+                  },
+                  "System logs / events": {
+                    "Likelihood": 1
+                  },
+                  "Documents / free text": {
+                    "Impact": 1,
+                    "Likelihood": 1
+                  },
+                  "Other": {
+                    "Impact": 1,
+                    "Likelihood": 1
+                  }
+                }
+              },
+              "user_limits": {
+                "field": "A2_2_user_limits",
+                "type": "single_select",
+                "label": "Can users limit data collected/used?",
+                "options": {
+                  "Yes — configurable controls": {
+                    "Control_Effectiveness": 1
+                  },
+                  "Yes — per user / per transaction choice": {
+                    "Control_Effectiveness": 2
+                  },
+                  "No": {
+                    "Control_Effectiveness": 0
+                  },
+                  "Unknown / Not specified": {
+                    "Control_Effectiveness": 0
+                  }
+                }
+              },
+              "traceability": {
+                "field": "A2_2_traceability",
+                "type": "single_select",
+                "label": "Traceability to source",
+                "options": {
+                  "Fully traceable": {
+                    "Control_Effectiveness": 2
+                  },
+                  "Partially traceable": {
+                    "Control_Effectiveness": 1
+                  },
+                  "Not traceable": {
+                    "Control_Effectiveness": 0,
+                    "Likelihood": 1
+                  },
+                  "Unknown / Not specified": {
+                    "Control_Effectiveness": 0
+                  }
+                }
+              },
+              "trace_mechanisms": {
+                "field": "A2_2_trace_mechanisms",
+                "type": "multiselect",
+                "label": "Traceability mechanisms",
+                "options": {
+                  "Audit logs": {
+                    "Control_Effectiveness": 1
+                  },
+                  "Data lineage tooling": {
+                    "Control_Effectiveness": 2
+                  },
+                  "Source identifiers / metadata tags": {
+                    "Control_Effectiveness": 1
+                  },
+                  "Case/record IDs": {
+                    "Control_Effectiveness": 1
+                  },
+                  "Manual records": {
+                    "Control_Effectiveness": 0.5
+                  },
+                  "Not in place": {
+                    "Control_Effectiveness": 0,
+                    "Likelihood": 1
+                  }
+                }
+              }
+            },
+            "notes": "A2.2 is a Yes/No gate. If Yes, selections increase Impact/Likelihood based on data sensitivity and exposure pathways. User-limiting controls and traceability mechanisms improve Control Effectiveness."
           }
-        },
-        "subsections": {
-          "A2_2_sources": {
+        }
+      }
+    },
+    "A2_2_DEPRECATED": {
             "type": "multiselect",
             "label": "Data sources",
             "options": {
