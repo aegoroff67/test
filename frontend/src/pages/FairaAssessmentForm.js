@@ -100,7 +100,16 @@ const defaultState = {
   A4_7_access_scope: "", // A4.7b access scope (single select)
   A4_7_access_controls: [], // A4.7c access controls (multiselect)
   A4_7_notes: "", // A4.7d optional notes
-  A4_8: "", // legal/regulatory actions (text)
+  A4_8: "", // legal/regulatory actions gate question (Yes/No)
+  A4_8_action_types: [], // A4.8a action types (multiselect)
+  A4_8_action_types_other: "", // A4.8a other action types
+  A4_8_trigger_pathway: "", // A4.8b trigger pathway (single select)
+  A4_8_affected_parties: [], // A4.8c affected parties (multiselect)
+  A4_8_decision_records: [], // A4.8d decision records (multiselect)
+  A4_8_review_appeal: "", // A4.8e review/appeal pathway (single select)
+  A4_8_legal_basis: [], // A4.8f legal basis (multiselect)
+  A4_8_legal_basis_other: "", // A4.8f other legal basis
+  A4_8_notes: "", // A4.8g optional notes
   
   // A5: Governance and Oversight
   A5_1: "", // accountability (single select)
