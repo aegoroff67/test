@@ -661,6 +661,8 @@ async def login(user_data: UserLogin):
 async def logout(current_user: UserResponse = Depends(get_current_user)):
     """Log user logout event"""
     try:
+        logger.info(f"Logout endpoint called for user: {current_user.email}")
+        
         # Log audit event
         await log_audit_event(
             db=db,
@@ -668,11 +670,9 @@ async def logout(current_user: UserResponse = Depends(get_current_user)):
             actor_user_id=current_user.id,
             actor_email=current_user.email,
             tenant_id=current_user.org_id,
-            object_type="session",
-            object_id=current_user.id,
-            object_name=current_user.email,
             details={"user_role": current_user.role}
         )
+        logger.info("Logout audit event logged")
         
         # Log analytics event
         await log_analytics_event(
@@ -683,10 +683,11 @@ async def logout(current_user: UserResponse = Depends(get_current_user)):
             tenant_id=current_user.org_id,
             user_role=current_user.role
         )
+        logger.info("Logout analytics event logged")
         
         return {"message": "Logout successful"}
     except Exception as e:
-        logger.error(f"Error logging logout: {str(e)}")
+        logger.error(f"Error logging logout: {str(e)}", exc_info=True)
         # Still return success - logout should work even if logging fails
         return {"message": "Logout successful"}
 
