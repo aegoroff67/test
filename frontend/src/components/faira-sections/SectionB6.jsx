@@ -1,10 +1,10 @@
 import React from 'react';
-import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import { RadioScale } from './RadioScale';
 
-const SectionB6 = ({ form, update, toggleInArray }) => {
+const SectionB6 = ({ form, update }) => {
   return (
     <div className="space-y-6 pt-6 border-t" id="B6_1">
       <div>
@@ -13,35 +13,55 @@ const SectionB6 = ({ form, update, toggleInArray }) => {
       <Separator />
       
       {/* B6.1 */}
-      <div className="space-y-2">
-        <Label>B6.1 Can the AI system's decisions be explained? (Select all that apply)</Label>
-        <div className="grid gap-2 md:grid-cols-2">
-          {["model outputs interpretable", "feature importance available", "decision rationale logged", "explanation provided to users", "technical documentation available", "non-technical explanations available", "explanations not currently available (flag as risk)"].map((option) => (
-            <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={(form.B6_1 || []).includes(option)} onCheckedChange={() => toggleInArray("B6_1", option)} />
-              <span className="text-sm">{option}</span>
-            </label>
-          ))}
+      <div className="space-y-3">
+        <Label>B6.1 Rate the transparency of the AI system (1 = Very Low, 5 = Very High):</Label>
+        <div className="ml-4">
+          <RadioScale value={form.B6_1} onChange={(val) => update("B6_1", val)} />
         </div>
       </div>
 
       {/* B6.2 */}
-      <div className="space-y-2">
-        <Label>B6.2 How are users informed about AI involvement? (Select all that apply)</Label>
-        <div className="grid gap-2 md:grid-cols-2">
-          {["in-app disclosure", "terms of service", "public AI statement", "direct notification", "staff training materials", "help documentation", "users not informed (flag as risk)"].map((option) => (
-            <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={(form.B6_2 || []).includes(option)} onCheckedChange={() => toggleInArray("B6_2", option)} />
-              <span className="text-sm">{option}</span>
-            </label>
-          ))}
+      <div className="space-y-3">
+        <Label>B6.2 Rate the explainability of AI decisions (1 = Very Low, 5 = Very High):</Label>
+        <div className="ml-4">
+          <RadioScale value={form.B6_2} onChange={(val) => update("B6_2", val)} />
         </div>
       </div>
 
       {/* B6.3 */}
       <div className="space-y-2">
-        <Label htmlFor="B6_3">B6.3 What documentation exists for the AI system?</Label>
-        <Textarea id="B6_3" value={form.B6_3} onChange={(e) => update("B6_3", e.target.value)} placeholder="Describe available documentation (technical specs, user guides, data sheets, etc.)" rows={3} />
+        <Label htmlFor="B6_3">B6.3 How are users informed about AI involvement?</Label>
+        <Input 
+          id="B6_3" 
+          value={form.B6_3 || ''} 
+          onChange={(e) => update("B6_3", e.target.value)} 
+          placeholder="Describe how users are informed (e.g., in-app disclosure, terms of service, etc.)" 
+        />
+      </div>
+
+      {/* B6.4 */}
+      <div className="space-y-3">
+        <Label>B6.4 Are known limitations disclosed?</Label>
+        <div className="flex space-x-4">
+          {["Yes", "No"].map((opt) => (
+            <label key={opt} className="flex items-center space-x-2">
+              <input type="radio" checked={form.B6_4 === opt} onChange={() => update("B6_4", opt)} className="h-4 w-4 text-orange-600" />
+              <span className="text-sm">{opt}</span>
+            </label>
+          ))}
+        </div>
+        
+        {form.B6_4 === "Yes" && (
+          <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
+            <Label htmlFor="B6_4_describe">Describe the limitations disclosed:</Label>
+            <Input 
+              id="B6_4_describe" 
+              value={form.B6_4_describe || ''} 
+              onChange={(e) => update("B6_4_describe", e.target.value)} 
+              placeholder="Describe the limitations" 
+            />
+          </div>
+        )}
       </div>
     </div>
   );
