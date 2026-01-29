@@ -1052,7 +1052,6 @@ export default function FairaAssessmentForm() {
         </Card>
 
         {/* BLOCK 3: Part B - Values Assessment */}
-        {/* BLOCK 3: Part B - Values Assessment */}
         <Card>
           <CardHeader className="bg-orange-50 border-b border-orange-100">
             <CardTitle className="text-2xl font-bold">Part B: Values Assessment</CardTitle>
