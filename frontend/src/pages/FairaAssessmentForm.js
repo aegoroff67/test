@@ -441,6 +441,13 @@ export default function FairaAssessmentForm() {
       'A4_8_review_appeal': () => form.A4_8 === 'Yes',
       'A4_8_legal_basis': () => form.A4_8 === 'Yes',
       'A4_8_legal_basis_other': () => form.A4_8 === 'Yes' && form.A4_8_legal_basis.includes('Other'),
+      // A5.2 conditional fields
+      'A5_2_logged_items': () => form.A5_2 === 'Yes',
+      'A5_2_logged_items_other': () => form.A5_2 === 'Yes' && (form.A5_2_logged_items || []).includes('Other'),
+      'A5_2_logging_mechanisms': () => form.A5_2 === 'Yes',
+      'A5_2_logging_mechanisms_other': () => form.A5_2 === 'Yes' && (form.A5_2_logging_mechanisms || []).includes('Other'),
+      'A5_2_retention': () => form.A5_2 === 'Yes',
+      'A5_2_access_scope': () => form.A5_2 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
@@ -559,6 +566,13 @@ export default function FairaAssessmentForm() {
       'A4_8_review_appeal': () => form.A4_8 === 'Yes',
       'A4_8_legal_basis': () => form.A4_8 === 'Yes',
       'A4_8_legal_basis_other': () => form.A4_8 === 'Yes' && form.A4_8_legal_basis.includes('Other'),
+      // A5.2 conditional fields
+      'A5_2_logged_items': () => form.A5_2 === 'Yes',
+      'A5_2_logged_items_other': () => form.A5_2 === 'Yes' && (form.A5_2_logged_items || []).includes('Other'),
+      'A5_2_logging_mechanisms': () => form.A5_2 === 'Yes',
+      'A5_2_logging_mechanisms_other': () => form.A5_2 === 'Yes' && (form.A5_2_logging_mechanisms || []).includes('Other'),
+      'A5_2_retention': () => form.A5_2 === 'Yes',
+      'A5_2_access_scope': () => form.A5_2 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
