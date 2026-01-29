@@ -529,7 +529,8 @@ export default function FairaAssessmentForm() {
       // Check if this is a conditional field
       if (conditionalFields[key]) {
         // Only count if condition is met
-        if (conditionalFields[key]()) {
+        const conditionMet = conditionalFields[key]();
+        if (conditionMet) {
           totalFields++;
           const value = form[key];
           const isFilled = isFieldProperlyFilled(key, value);
@@ -551,6 +552,14 @@ export default function FairaAssessmentForm() {
         }
       }
     });
+
+    // Debug: Log progress calculation details for gated questions
+    const gatedQuestions = ['B6_3', 'B6_4', 'B7_1', 'A5_2', 'A2_2', 'A4_7', 'A4_8'];
+    const gatedStatus = gatedQuestions.map(q => `${q}=${form[q]}`).join(', ');
+    console.log(`Progress: ${filledFields}/${totalFields} (${Math.round((filledFields / totalFields) * 100)}%) | Gates: ${gatedStatus}`);
+    if (unfilledFields.length > 0 && unfilledFields.length < 20) {
+      console.log('Unfilled fields:', unfilledFields);
+    }
 
     return totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
   };
