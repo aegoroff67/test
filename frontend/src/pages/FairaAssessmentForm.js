@@ -505,7 +505,12 @@ export default function FairaAssessmentForm() {
       'B6_4_explanation_content': () => form.B6_4 === 'Yes',
       'B6_4_accessibility': () => form.B6_4 === 'Yes',
       'B6_4_limitations_disclosed': () => form.B6_4 === 'Yes',
-      'B7_1_describe': () => form.B7_1 === 'Yes',
+      // B7.1 conditional fields
+      'B7_1_initiators': () => form.B7_1 === 'Yes',
+      'B7_1_channels': () => form.B7_1 === 'Yes',
+      'B7_1_review_process': () => form.B7_1 === 'Yes',
+      'B7_1_review_inputs': () => form.B7_1 === 'Yes',
+      'B7_1_outcome_change': () => form.B7_1 === 'Yes',
       'B8_4_safeguards': () => form.B8_4 === 'Yes'
     };
 
@@ -643,7 +648,12 @@ export default function FairaAssessmentForm() {
       'B6_4_explanation_content': () => form.B6_4 === 'Yes',
       'B6_4_accessibility': () => form.B6_4 === 'Yes',
       'B6_4_limitations_disclosed': () => form.B6_4 === 'Yes',
-      'B7_1_describe': () => form.B7_1 === 'Yes',
+      // B7.1 conditional fields
+      'B7_1_initiators': () => form.B7_1 === 'Yes',
+      'B7_1_channels': () => form.B7_1 === 'Yes',
+      'B7_1_review_process': () => form.B7_1 === 'Yes',
+      'B7_1_review_inputs': () => form.B7_1 === 'Yes',
+      'B7_1_outcome_change': () => form.B7_1 === 'Yes',
       'B8_4_safeguards': () => form.B8_4 === 'Yes'
     };
 
