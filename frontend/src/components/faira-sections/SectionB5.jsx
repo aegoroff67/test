@@ -2,6 +2,7 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import { RadioScale } from './RadioScale';
 
 const SectionB5 = ({ form, update, toggleInArray }) => {
   return (
@@ -13,7 +14,7 @@ const SectionB5 = ({ form, update, toggleInArray }) => {
       
       {/* B5.1 */}
       <div className="space-y-3">
-        <Label>B5.1 Has the AI solution undergone reliability testing?</Label>
+        <Label>B5.1 Has the AI solution been tested for reliability?</Label>
         <div className="flex space-x-4">
           {["Yes", "No"].map((opt) => (
             <label key={opt} className="flex items-center space-x-2">
@@ -24,23 +25,20 @@ const SectionB5 = ({ form, update, toggleInArray }) => {
         </div>
         
         {form.B5_1 === "Yes" && (
-          <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
-            <Label>Select testing types (Select all that apply):</Label>
-            <div className="grid gap-2 md:grid-cols-2">
-              {["unit testing", "integration testing", "performance testing", "stress testing", "failover testing", "user acceptance testing", "regression testing", "edge case testing", "pilot / beta testing"].map((option) => (
-                <label key={option} className="flex items-center space-x-2">
-                  <Checkbox checked={(form.B5_1_tests || []).includes(option)} onCheckedChange={() => toggleInArray("B5_1_tests", option)} />
-                  <span className="text-sm">{option}</span>
-                </label>
-              ))}
+          <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-3">
+            <div>
+              <Label>Rate the reliability (1 = Very Low, 5 = Very High):</Label>
+              <div className="mt-2">
+                <RadioScale value={form.B5_1_rating} onChange={(val) => update("B5_1_rating", val)} />
+              </div>
             </div>
           </div>
         )}
       </div>
 
       {/* B5.2 */}
-      <div className="space-y-3">
-        <Label>B5.2 Is the AI used in safety-critical applications?</Label>
+      <div className="space-y-2">
+        <Label>B5.2 Is there a process to disengage if AI fails?</Label>
         <div className="flex space-x-4">
           {["Yes", "No"].map((opt) => (
             <label key={opt} className="flex items-center space-x-2">
@@ -49,33 +47,33 @@ const SectionB5 = ({ form, update, toggleInArray }) => {
             </label>
           ))}
         </div>
+      </div>
+
+      {/* B5.3 */}
+      <div className="space-y-3">
+        <Label>B5.3 Does the AI operate in a high-risk environment?</Label>
+        <div className="flex space-x-4">
+          {["Yes", "No"].map((opt) => (
+            <label key={opt} className="flex items-center space-x-2">
+              <input type="radio" checked={form.B5_3 === opt} onChange={() => update("B5_3", opt)} className="h-4 w-4 text-orange-600" />
+              <span className="text-sm">{opt}</span>
+            </label>
+          ))}
+        </div>
         
-        {form.B5_2 === "Yes" && (
+        {form.B5_3 === "Yes" && (
           <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-2">
-            <Label>What safeguards exist? (Select all that apply):</Label>
+            <Label>Which environments? (Select all that apply):</Label>
             <div className="grid gap-2 md:grid-cols-2">
-              {["human override capability", "fail-safe mechanisms", "real-time monitoring", "emergency shutdown", "redundancy systems", "safety validation", "no formal safety measures (flag as risk)"].map((option) => (
+              {["healthcare", "finance", "critical infrastructure", "public safety", "transportation", "legal/judicial", "employment decisions", "education"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
-                  <Checkbox checked={(form.B5_2_safeguards || []).includes(option)} onCheckedChange={() => toggleInArray("B5_2_safeguards", option)} />
+                  <Checkbox checked={(form.B5_3_environments || []).includes(option)} onCheckedChange={() => toggleInArray("B5_3_environments", option)} />
                   <span className="text-sm">{option}</span>
                 </label>
               ))}
             </div>
           </div>
         )}
-      </div>
-
-      {/* B5.3 */}
-      <div className="space-y-2">
-        <Label>B5.3 What fallback mechanisms exist? (Select all that apply)</Label>
-        <div className="grid gap-2 md:grid-cols-2">
-          {["human escalation", "automated fallback", "manual override", "graceful degradation", "rollback capability", "no fallback mechanisms (flag as risk)"].map((option) => (
-            <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={(form.B5_3 || []).includes(option)} onCheckedChange={() => toggleInArray("B5_3", option)} />
-              <span className="text-sm">{option}</span>
-            </label>
-          ))}
-        </div>
       </div>
     </div>
   );
