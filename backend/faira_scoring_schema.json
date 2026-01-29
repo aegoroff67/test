@@ -1613,14 +1613,91 @@
     },
     "A5_2": {
       "id": "A5_2",
-      "text": "How are AI use inputs and outputs tracked and recorded?",
-      "type": "text",
+      "text": "Are AI inputs, outputs, and/or decisions logged or recorded?",
+      "type": "yes_no_with_subsections",
       "domains": [
-        "Accountability"
+        "Accountability",
+        "Transparency and Explainability",
+        "Privacy Protection and Security",
+        "Contestability"
       ],
       "scoring": {
-        "target_metric": "TBD",
-        "logic": "Scoring to be addressed later"
+        "target_metric": "Impact_Likelihood_Control_Effectiveness",
+        "options": {
+          "No": {
+            "Impact": 1,
+            "Likelihood": 2,
+            "Control_Effectiveness": 0,
+            "notes": "Absence of logging reduces traceability and the ability to investigate outcomes; increases likelihood of undetected issues."
+          },
+          "Yes": {
+            "Impact": 0,
+            "Likelihood": 0,
+            "Control_Effectiveness": 1,
+            "subsections": {
+              "logged_items": {
+                "field": "A5_2_logged_items",
+                "type": "multiselect",
+                "label": "What is logged/recorded",
+                "options": {
+                  "ai inputs": { "Control_Effectiveness": 1 },
+                  "ai outputs": { "Control_Effectiveness": 1 },
+                  "human decisions informed by ai": { "Control_Effectiveness": 1 },
+                  "automated actions triggered by ai": { "Control_Effectiveness": 1, "Likelihood": -0.5 },
+                  "model version / configuration": { "Control_Effectiveness": 1 },
+                  "data sources used / provenance": { "Control_Effectiveness": 1 },
+                  "access to outputs / disclosures": { "Control_Effectiveness": 1 },
+                  "Other": { "Control_Effectiveness": 0.5 }
+                },
+                "notes": "Logging more artefacts increases traceability and assurance value."
+              },
+              "logging_mechanisms": {
+                "field": "A5_2_logging_mechanisms",
+                "type": "multiselect",
+                "label": "Logging mechanisms",
+                "options": {
+                  "application / system logs": { "Control_Effectiveness": 1 },
+                  "dedicated audit logs": { "Control_Effectiveness": 2 },
+                  "workflow / case management records": { "Control_Effectiveness": 1 },
+                  "database records": { "Control_Effectiveness": 1 },
+                  "centralised logging / siem": { "Control_Effectiveness": 2 },
+                  "manual records": { "Control_Effectiveness": 0.5, "Likelihood": 0.5 },
+                  "Other": { "Control_Effectiveness": 0.5 },
+                  "not in place / unknown": { "Control_Effectiveness": 0, "Likelihood": 1 }
+                },
+                "notes": "Dedicated audit logs and centralised logging improve control effectiveness; manual-only records increase likelihood of gaps."
+              },
+              "retention": {
+                "field": "A5_2_retention",
+                "type": "single_select",
+                "label": "Retention period",
+                "options": {
+                  "less than 30 days": { "Likelihood": 2, "Control_Effectiveness": 0 },
+                  "30–90 days": { "Likelihood": 1, "Control_Effectiveness": 0.5 },
+                  "3–12 months": { "Likelihood": 0, "Control_Effectiveness": 1 },
+                  "more than 12 months": { "Likelihood": -0.5, "Control_Effectiveness": 2 },
+                  "unknown / not defined": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Short or unknown retention increases likelihood that evidence will be unavailable for investigation."
+              },
+              "access_scope": {
+                "field": "A5_2_access_scope",
+                "type": "single_select",
+                "label": "Access scope",
+                "options": {
+                  "restricted operational staff only": { "Control_Effectiveness": 1 },
+                  "security / risk / audit teams": { "Control_Effectiveness": 2 },
+                  "system administrators": { "Control_Effectiveness": 1 },
+                  "external auditors / regulators": { "Control_Effectiveness": 2 },
+                  "broad internal access": { "Likelihood": 1, "Control_Effectiveness": 0.5 },
+                  "unknown / not defined": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Appropriate restriction and audit access supports assurance; overly broad or unknown access increases likelihood of misuse."
+              }
+            },
+            "notes": "A5.2 is a Yes/No gate. If Yes, traceability and governance assurance are strengthened. Specific selections adjust likelihood and control effectiveness based on auditability, retention, and access scope."
+          }
+        }
       }
     },
     "A5_3": {
