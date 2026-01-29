@@ -111,6 +111,13 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
     - `ai_narratives.py`: 1,167 lines (all 4 assessment types)
     - `utils.py`: 209 lines (formatting, utilities)
   - Total modular code: 1,893 lines
+- [x] **Refactor `FairaAssessmentForm.js`** - COMPLETE ✅
+  - Original: ~2000+ lines → Now: 1191 lines (40% reduction)
+  - Extracted to `/app/frontend/src/components/faira-sections/`:
+    - Part A (5 sections): SectionA1.jsx through SectionA5.jsx
+    - Part B (8 sections): SectionB1.jsx through SectionB8.jsx
+    - Shared: RadioScale.jsx, AssessmentOverview.jsx
+  - Total component lines: 2,217 lines (better organized)
 
 ### P1 - High Priority
 - [ ] Frontend toggle for `show_detailed_responses` parameter on Results page
