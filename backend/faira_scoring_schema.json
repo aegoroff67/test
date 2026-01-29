@@ -416,28 +416,28 @@
                 "type": "multiselect",
                 "label": "Data sources",
                 "options": {
-                  "Digital systems (databases, internal apps, APIs)": {
+                  "digital systems (databases, internal apps, APIs)": {
                     "Likelihood": 1
                   },
-                  "Web / internet sources": {
+                  "web / internet sources": {
                     "Likelihood": 2
                   },
-                  "Sensors / IoT / OT telemetry": {
+                  "sensors / IoT / OT telemetry": {
                     "Likelihood": 2
                   },
-                  "CCTV / images / video feeds": {
+                  "cCTV / images / video feeds": {
                     "Impact": 2,
                     "Likelihood": 1
                   },
-                  "Location / GPS / movement telemetry": {
+                  "location / GPS / movement telemetry": {
                     "Impact": 3,
                     "Likelihood": 1
                   },
-                  "User device data": {
+                  "user device data": {
                     "Impact": 2,
                     "Likelihood": 1
                   },
-                  "Third-party data feeds": {
+                  "third-party data feeds": {
                     "Likelihood": 2
                   },
                   "Other": {
@@ -451,28 +451,28 @@
                 "type": "multiselect",
                 "label": "Data types ingested",
                 "options": {
-                  "Telemetry / operational metrics": {
+                  "telemetry / operational metrics": {
                     "Likelihood": 1
                   },
-                  "Environmental readings (e.g., weather, air quality)": {
+                  "environmental readings (e.g., weather, air quality)": {
                     "Likelihood": 1
                   },
-                  "Images / video": {
+                  "images / video": {
                     "Impact": 2,
                     "Likelihood": 1
                   },
-                  "Audio": {
+                  "audio": {
                     "Impact": 2,
                     "Likelihood": 1
                   },
-                  "Location data": {
+                  "location data": {
                     "Impact": 3,
                     "Likelihood": 1
                   },
-                  "System logs / events": {
+                  "system logs / events": {
                     "Likelihood": 1
                   },
-                  "Documents / free text": {
+                  "documents / free text": {
                     "Impact": 1,
                     "Likelihood": 1
                   },
@@ -487,16 +487,16 @@
                 "type": "single_select",
                 "label": "Can users limit data collected/used?",
                 "options": {
-                  "Yes — configurable controls": {
+                  "yes \u2014 configurable controls": {
                     "Control_Effectiveness": 1
                   },
-                  "Yes — per user / per transaction choice": {
+                  "yes \u2014 per user / per transaction choice": {
                     "Control_Effectiveness": 2
                   },
-                  "No": {
+                  "no": {
                     "Control_Effectiveness": 0
                   },
-                  "Unknown / Not specified": {
+                  "unknown / Not specified": {
                     "Control_Effectiveness": 0
                   }
                 }
@@ -506,17 +506,17 @@
                 "type": "single_select",
                 "label": "Traceability to source",
                 "options": {
-                  "Fully traceable": {
+                  "fully traceable": {
                     "Control_Effectiveness": 2
                   },
-                  "Partially traceable": {
+                  "partially traceable": {
                     "Control_Effectiveness": 1
                   },
-                  "Not traceable": {
+                  "not traceable": {
                     "Control_Effectiveness": 0,
                     "Likelihood": 1
                   },
-                  "Unknown / Not specified": {
+                  "unknown / Not specified": {
                     "Control_Effectiveness": 0
                   }
                 }
@@ -526,22 +526,22 @@
                 "type": "multiselect",
                 "label": "Traceability mechanisms",
                 "options": {
-                  "Audit logs": {
+                  "audit logs": {
                     "Control_Effectiveness": 1
                   },
-                  "Data lineage tooling": {
+                  "data lineage tooling": {
                     "Control_Effectiveness": 2
                   },
-                  "Source identifiers / metadata tags": {
+                  "source identifiers / metadata tags": {
                     "Control_Effectiveness": 1
                   },
-                  "Case/record IDs": {
+                  "case/record IDs": {
                     "Control_Effectiveness": 1
                   },
-                  "Manual records": {
+                  "manual records": {
                     "Control_Effectiveness": 0.5
                   },
-                  "Not in place": {
+                  "not in place": {
                     "Control_Effectiveness": 0,
                     "Likelihood": 1
                   }
@@ -1317,16 +1317,39 @@
                 "type": "multiselect",
                 "label": "PII categories in outputs",
                 "options": {
-                  "Name / identity attributes": { "Impact": 1 },
-                  "Contact details (email, phone, address)": { "Impact": 1, "Likelihood": 1 },
-                  "Government identifiers (licence, Medicare, TFN)": { "Impact": 3 },
-                  "Financial information": { "Impact": 3 },
-                  "Health information": { "Impact": 4 },
-                  "Biometrics": { "Impact": 4 },
-                  "Location / movement data": { "Impact": 3, "Likelihood": 1 },
-                  "Images / video of individuals": { "Impact": 3, "Likelihood": 1 },
-                  "Employment / workplace information": { "Impact": 2 },
-                  "Other": { "Impact": 2 }
+                  "name / identity attributes": {
+                    "Impact": 1
+                  },
+                  "contact details (email, phone, address)": {
+                    "Impact": 1,
+                    "Likelihood": 1
+                  },
+                  "government identifiers (licence, Medicare, TFN)": {
+                    "Impact": 3
+                  },
+                  "financial information": {
+                    "Impact": 3
+                  },
+                  "health information": {
+                    "Impact": 4
+                  },
+                  "biometrics": {
+                    "Impact": 4
+                  },
+                  "location / movement data": {
+                    "Impact": 3,
+                    "Likelihood": 1
+                  },
+                  "images / video of individuals": {
+                    "Impact": 3,
+                    "Likelihood": 1
+                  },
+                  "employment / workplace information": {
+                    "Impact": 2
+                  },
+                  "Other": {
+                    "Impact": 2
+                  }
                 }
               },
               "access_scope": {
@@ -1334,11 +1357,21 @@
                 "type": "single_select",
                 "label": "Access scope",
                 "options": {
-                  "Internal users only": { "Likelihood": 0 },
-                  "Internal users + contractors / service providers": { "Likelihood": 1 },
-                  "External partner organisations": { "Likelihood": 2 },
-                  "Public-facing / broadly accessible": { "Likelihood": 3 },
-                  "Unknown / Not specified": { "Likelihood": 1 }
+                  "internal users only": {
+                    "Likelihood": 0
+                  },
+                  "internal users + contractors / service providers": {
+                    "Likelihood": 1
+                  },
+                  "external partner organisations": {
+                    "Likelihood": 2
+                  },
+                  "public-facing / broadly accessible": {
+                    "Likelihood": 3
+                  },
+                  "unknown / Not specified": {
+                    "Likelihood": 1
+                  }
                 }
               },
               "access_controls": {
@@ -1346,16 +1379,37 @@
                 "type": "multiselect",
                 "label": "Access controls for PII outputs",
                 "options": {
-                  "Role-based access control (RBAC)": { "Control_Effectiveness": 1 },
-                  "Least privilege / need-to-know": { "Control_Effectiveness": 1 },
-                  "Strong authentication (e.g., MFA)": { "Control_Effectiveness": 1 },
-                  "Audit logging / access logs": { "Control_Effectiveness": 1 },
-                  "Encryption at rest": { "Control_Effectiveness": 1 },
-                  "Encryption in transit": { "Control_Effectiveness": 1 },
-                  "Data masking / redaction": { "Control_Effectiveness": 2 },
-                  "DLP / egress controls": { "Control_Effectiveness": 2 },
-                  "Time-bound access / approval workflow": { "Control_Effectiveness": 1 },
-                  "Not in place / unknown": { "Control_Effectiveness": 0, "Likelihood": 1 }
+                  "role-based access control (RBAC)": {
+                    "Control_Effectiveness": 1
+                  },
+                  "least privilege / need-to-know": {
+                    "Control_Effectiveness": 1
+                  },
+                  "strong authentication (e.g., MFA)": {
+                    "Control_Effectiveness": 1
+                  },
+                  "audit logging / access logs": {
+                    "Control_Effectiveness": 1
+                  },
+                  "encryption at rest": {
+                    "Control_Effectiveness": 1
+                  },
+                  "encryption in transit": {
+                    "Control_Effectiveness": 1
+                  },
+                  "data masking / redaction": {
+                    "Control_Effectiveness": 2
+                  },
+                  "dLP / egress controls": {
+                    "Control_Effectiveness": 2
+                  },
+                  "time-bound access / approval workflow": {
+                    "Control_Effectiveness": 1
+                  },
+                  "not in place / unknown": {
+                    "Control_Effectiveness": 0,
+                    "Likelihood": 1
+                  }
                 },
                 "notes": "Controls contribute to Control Effectiveness. If controls are 'Not in place / unknown', Likelihood increases."
               }
@@ -1394,15 +1448,35 @@
                 "type": "multiselect",
                 "label": "Action types",
                 "options": {
-                  "Eligibility / access decisions": { "Impact": 2 },
-                  "Service entitlements / benefits decisions": { "Impact": 3 },
-                  "Compliance enforcement actions": { "Impact": 4 },
-                  "Penalties, sanctions, or fines": { "Impact": 5 },
-                  "Regulatory reporting / notification triggers": { "Impact": 2, "Likelihood": 1 },
-                  "Employment / workforce actions": { "Impact": 3 },
-                  "Contractual decisions (approve/decline/terminate)": { "Impact": 3 },
-                  "Safety-critical operational actions": { "Impact": 5, "Likelihood": 1 },
-                  "Other": { "Impact": 2 }
+                  "eligibility / access decisions": {
+                    "Impact": 2
+                  },
+                  "service entitlements / benefits decisions": {
+                    "Impact": 3
+                  },
+                  "compliance enforcement actions": {
+                    "Impact": 4
+                  },
+                  "penalties, sanctions, or fines": {
+                    "Impact": 5
+                  },
+                  "regulatory reporting / notification triggers": {
+                    "Impact": 2,
+                    "Likelihood": 1
+                  },
+                  "employment / workforce actions": {
+                    "Impact": 3
+                  },
+                  "contractual decisions (approve/decline/terminate)": {
+                    "Impact": 3
+                  },
+                  "safety-critical operational actions": {
+                    "Impact": 5,
+                    "Likelihood": 1
+                  },
+                  "Other": {
+                    "Impact": 2
+                  }
                 }
               },
               "trigger_pathway": {
@@ -1410,10 +1484,21 @@
                 "type": "single_select",
                 "label": "How actions are triggered",
                 "options": {
-                  "Automatically triggered (no human review)": { "Likelihood": 3, "Impact": 1 },
-                  "Automatically triggered after human approval": { "Likelihood": 1, "Control_Effectiveness": 1 },
-                  "Used as decision support (human makes final decision)": { "Likelihood": 0, "Control_Effectiveness": 1 },
-                  "Unknown / Not specified": { "Likelihood": 1 }
+                  "automatically triggered (no human review)": {
+                    "Likelihood": 3,
+                    "Impact": 1
+                  },
+                  "automatically triggered after human approval": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 1
+                  },
+                  "used as decision support (human makes final decision)": {
+                    "Likelihood": 0,
+                    "Control_Effectiveness": 1
+                  },
+                  "unknown / Not specified": {
+                    "Likelihood": 1
+                  }
                 }
               },
               "decision_records": {
@@ -1421,12 +1506,25 @@
                 "type": "multiselect",
                 "label": "Decision records / traceability",
                 "options": {
-                  "Audit logs of outputs and decisions": { "Control_Effectiveness": 1 },
-                  "Case/record identifiers linking decision to person/event": { "Control_Effectiveness": 1 },
-                  "Human approval record captured": { "Control_Effectiveness": 1 },
-                  "Reason codes / explanation recorded": { "Control_Effectiveness": 1 },
-                  "Data lineage / provenance tracking": { "Control_Effectiveness": 2 },
-                  "Not in place / unknown": { "Control_Effectiveness": 0, "Likelihood": 1 }
+                  "audit logs of outputs and decisions": {
+                    "Control_Effectiveness": 1
+                  },
+                  "case/record identifiers linking decision to person/event": {
+                    "Control_Effectiveness": 1
+                  },
+                  "human approval record captured": {
+                    "Control_Effectiveness": 1
+                  },
+                  "reason codes / explanation recorded": {
+                    "Control_Effectiveness": 1
+                  },
+                  "data lineage / provenance tracking": {
+                    "Control_Effectiveness": 2
+                  },
+                  "not in place / unknown": {
+                    "Control_Effectiveness": 0,
+                    "Likelihood": 1
+                  }
                 }
               },
               "review_appeal": {
@@ -1434,10 +1532,19 @@
                 "type": "single_select",
                 "label": "Review/appeal pathway",
                 "options": {
-                  "Yes — documented and operational": { "Control_Effectiveness": 2 },
-                  "Partially — exists but not formalised": { "Control_Effectiveness": 1 },
-                  "No": { "Control_Effectiveness": 0, "Likelihood": 1 },
-                  "Unknown / Not specified": { "Control_Effectiveness": 0 }
+                  "yes \u2014 documented and operational": {
+                    "Control_Effectiveness": 2
+                  },
+                  "partially \u2014 exists but not formalised": {
+                    "Control_Effectiveness": 1
+                  },
+                  "no": {
+                    "Control_Effectiveness": 0,
+                    "Likelihood": 1
+                  },
+                  "unknown / Not specified": {
+                    "Control_Effectiveness": 0
+                  }
                 }
               },
               "legal_basis": {
@@ -1445,11 +1552,22 @@
                 "type": "multiselect",
                 "label": "Legal/policy basis",
                 "options": {
-                  "Legislation / regulation explicitly authorising action": { "Control_Effectiveness": 1 },
-                  "Policy / procedure basis only": { "Likelihood": 1 },
-                  "Contractual terms": { "Likelihood": 1 },
-                  "Not defined / unclear": { "Likelihood": 2, "Control_Effectiveness": 0 },
-                  "Other": { "Likelihood": 1 }
+                  "legislation / regulation explicitly authorising action": {
+                    "Control_Effectiveness": 1
+                  },
+                  "policy / procedure basis only": {
+                    "Likelihood": 1
+                  },
+                  "contractual terms": {
+                    "Likelihood": 1
+                  },
+                  "not defined / unclear": {
+                    "Likelihood": 2,
+                    "Control_Effectiveness": 0
+                  },
+                  "Other": {
+                    "Likelihood": 1
+                  }
                 }
               }
             },
