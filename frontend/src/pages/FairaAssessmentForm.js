@@ -198,7 +198,13 @@ const defaultState = {
   // B6: Transparency and Explainability
   B6_1: null, // transparency 1-5
   B6_2: null, // explainability 1-5
-  B6_3: "", // how informed (text)
+  B6_3: "", // gate question: Are users/affected individuals informed about AI? (Yes/No)
+  B6_3_audience: [], // B6.3a who is informed (multiselect)
+  B6_3_methods: [], // B6.3b how are they informed (multiselect)
+  B6_3_methods_other: "", // B6.3b other notification method
+  B6_3_timing: "", // B6.3c when are they informed (single select)
+  B6_3_information_provided: [], // B6.3d what information is provided (multiselect)
+  B6_3_notes: "", // B6.3e optional notes
   B6_4: "", // limitations (Yes/No)
   B6_4_describe: "",
   
