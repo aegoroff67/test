@@ -661,36 +661,29 @@ async def login(user_data: UserLogin):
 async def logout(current_user: UserResponse = Depends(get_current_user)):
     """Log user logout event"""
     try:
-        logger.info(f"Logout endpoint called for user: {current_user.email}")
-        
-        # Direct test insert to verify db connection
-        from datetime import datetime, timezone as tz
-        test_result = await db.audit_logs.insert_one({
-            "timestamp": datetime.now(tz.utc),
-            "action": "auth_logout",
-            "actor_user_id": current_user.id,
-            "actor_email": current_user.email,
-            "tenant_id": current_user.org_id,
-            "details": {"user_role": current_user.role, "direct_insert": True},
-            "result": "success"
-        })
-        logger.info(f"Direct insert result: {test_result.inserted_id}")
+        # Log audit event using the logging service
+        await log_audit_event(
+            db=db,
+            action=AuditAction.AUTH_LOGOUT,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            details={"user_role": current_user.role}
+        )
         
         # Log analytics event
-        await db.analytics_events.insert_one({
-            "timestamp": datetime.now(tz.utc),
-            "event_type": "page_view",
-            "event_name": "logout",
-            "user_id": current_user.id,
-            "tenant_id": current_user.org_id,
-            "properties": {"user_role": current_user.role}
-        })
-        logger.info("Direct analytics insert done")
+        await log_analytics_event(
+            db=db,
+            event_type=AnalyticsEventType.PAGE_VIEW,
+            event_name="logout",
+            user_id=current_user.id,
+            tenant_id=current_user.org_id,
+            user_role=current_user.role
+        )
         
         return {"message": "Logout successful"}
     except Exception as e:
         logger.error(f"Error logging logout: {str(e)}", exc_info=True)
-        # Still return success - logout should work even if logging fails
         return {"message": "Logout successful"}
 
 
