@@ -13,6 +13,17 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import Logo from '../components/Logo';
 
+// Import refactored section components
+import {
+  RadioScale,
+  AssessmentOverview,
+  SectionA1,
+  SectionA2,
+  SectionA3,
+  SectionA4,
+  SectionA5
+} from '../components/faira-sections';
+
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
