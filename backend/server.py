@@ -2271,7 +2271,15 @@ async def update_faira_form(
     
     # Calculate progress based on filled fields (exclude auto-filled or optional fields)
     # Also exclude deprecated/renamed fields that may still exist in saved data
-    excluded_fields = ['declaration_date', 'assessor_email', 'declaration_role', 'A2_7_regulation', 'declaration_assessor']
+    excluded_fields = [
+        'declaration_date', 'assessor_email', 'declaration_role', 
+        'A2_7_regulation', 'declaration_assessor',
+        # Optional notes fields
+        'A2_2_notes', 'A4_7_notes', 'A4_8_notes', 'A5_2_notes', 
+        'B6_3_notes', 'B6_4_notes', 'B7_1_describe',  # B7_1_describe is now optional notes
+        # Optional A5.10 fields
+        'A5_10_other', 'A5_10_impact'
+    ]
     
     # Conditional fields that only count if their parent condition is met
     conditional_fields = {
@@ -2279,19 +2287,48 @@ async def update_faira_form(
         'A1_6_actions': lambda: faira_form.get('A1_6') == 'Yes',
         'A1_6_actions_other': lambda: faira_form.get('A1_6') == 'Yes' and 'Other' in faira_form.get('A1_6_actions', []),
         'A1_7_other': lambda: 'Other' in faira_form.get('A1_7', []),
+        # A2.2 conditional fields
+        'A2_2_sources': lambda: faira_form.get('A2_2') == 'Yes',
+        'A2_2_sources_other': lambda: faira_form.get('A2_2') == 'Yes' and 'Other' in faira_form.get('A2_2_sources', []),
+        'A2_2_data_types': lambda: faira_form.get('A2_2') == 'Yes',
+        'A2_2_data_types_other': lambda: faira_form.get('A2_2') == 'Yes' and 'Other' in faira_form.get('A2_2_data_types', []),
+        'A2_2_user_limits': lambda: faira_form.get('A2_2') == 'Yes',
+        'A2_2_traceability': lambda: faira_form.get('A2_2') == 'Yes',
+        'A2_2_trace_mechanisms': lambda: faira_form.get('A2_2') == 'Yes',
         'A2_4_other': lambda: 'Other' in faira_form.get('A2_4', []),
         'A2_7_data_types': lambda: faira_form.get('A2_7') == 'Yes',
         'A2_7_data_types_other': lambda: faira_form.get('A2_7') == 'Yes' and any('Other' in str(x) or 'specify' in str(x) for x in faira_form.get('A2_7_data_types', [])),
         'A2_8_types': lambda: faira_form.get('A2_8') == 'Yes',
         'A3_3_other': lambda: 'Other' in faira_form.get('A3_3', []),
         'A4_5_scenarios': lambda: faira_form.get('A4_5') == 'Yes',
+        'A4_6_data_types': lambda: faira_form.get('A4_6') == 'Yes',
+        # A4.7 conditional fields
+        'A4_7_pii_types': lambda: faira_form.get('A4_7') == 'Yes',
+        'A4_7_pii_types_other': lambda: faira_form.get('A4_7') == 'Yes' and 'Other' in faira_form.get('A4_7_pii_types', []),
+        'A4_7_access_scope': lambda: faira_form.get('A4_7') == 'Yes',
+        'A4_7_access_controls': lambda: faira_form.get('A4_7') == 'Yes',
+        # A4.8 conditional fields
+        'A4_8_action_types': lambda: faira_form.get('A4_8') == 'Yes',
+        'A4_8_action_types_other': lambda: faira_form.get('A4_8') == 'Yes' and 'Other' in faira_form.get('A4_8_action_types', []),
+        'A4_8_trigger_pathway': lambda: faira_form.get('A4_8') == 'Yes',
+        'A4_8_affected_parties': lambda: faira_form.get('A4_8') == 'Yes',
+        'A4_8_decision_records': lambda: faira_form.get('A4_8') == 'Yes',
+        'A4_8_review_appeal': lambda: faira_form.get('A4_8') == 'Yes',
+        'A4_8_legal_basis': lambda: faira_form.get('A4_8') == 'Yes',
+        'A4_8_legal_basis_other': lambda: faira_form.get('A4_8') == 'Yes' and 'Other' in faira_form.get('A4_8_legal_basis', []),
+        # A5.2 conditional fields
+        'A5_2_logged_items': lambda: faira_form.get('A5_2') == 'Yes',
+        'A5_2_logged_items_other': lambda: faira_form.get('A5_2') == 'Yes' and 'Other' in faira_form.get('A5_2_logged_items', []),
+        'A5_2_logging_mechanisms': lambda: faira_form.get('A5_2') == 'Yes',
+        'A5_2_logging_mechanisms_other': lambda: faira_form.get('A5_2') == 'Yes' and 'Other' in faira_form.get('A5_2_logging_mechanisms', []),
+        'A5_2_retention': lambda: faira_form.get('A5_2') == 'Yes',
+        'A5_2_access_scope': lambda: faira_form.get('A5_2') == 'Yes',
+        # A5.10 conditional fields
         'A5_10_commonwealth': lambda: faira_form.get('A5_10') == 'Yes',
         'A5_10_qld': lambda: faira_form.get('A5_10') == 'Yes',
         'A5_10_sector': lambda: faira_form.get('A5_10') == 'Yes',
         'A5_10_frameworks': lambda: faira_form.get('A5_10') == 'Yes',
         'A5_10_frameworks_other': lambda: faira_form.get('A5_10') == 'Yes' and any('Other' in str(x) or 'specify' in str(x) for x in faira_form.get('A5_10_frameworks', [])),
-        'A5_10_other': lambda: faira_form.get('A5_10') == 'Yes',
-        'A5_10_impact': lambda: faira_form.get('A5_10') == 'Yes',
         'A5_12_other': lambda: 'Other' in faira_form.get('A5_12', []),
         'B2_3_perspectives': lambda: faira_form.get('B2_3') == 'Yes',
         'B2_3_perspectives_other': lambda: faira_form.get('B2_3') == 'Yes' and 'Other' in faira_form.get('B2_3_perspectives', []),
@@ -2301,17 +2338,40 @@ async def update_faira_form(
         'B4_2_types_other': lambda: faira_form.get('B4_2') == 'Yes' and 'Other' in faira_form.get('B4_2_types', []),
         'B5_1_rating': lambda: faira_form.get('B5_1') == 'Yes',
         'B5_3_environments': lambda: faira_form.get('B5_3') == 'Yes',
-        'B6_4_describe': lambda: faira_form.get('B6_4') == 'Yes',
-        'B7_1_describe': lambda: faira_form.get('B7_1') == 'Yes',
+        # B6.3 conditional fields
+        'B6_3_audience': lambda: faira_form.get('B6_3') == 'Yes',
+        'B6_3_methods': lambda: faira_form.get('B6_3') == 'Yes',
+        'B6_3_methods_other': lambda: faira_form.get('B6_3') == 'Yes' and 'Other' in faira_form.get('B6_3_methods', []),
+        'B6_3_timing': lambda: faira_form.get('B6_3') == 'Yes',
+        'B6_3_information_provided': lambda: faira_form.get('B6_3') == 'Yes',
+        # B6.4 conditional fields
+        'B6_4_audience': lambda: faira_form.get('B6_4') == 'Yes',
+        'B6_4_explanation_methods': lambda: faira_form.get('B6_4') == 'Yes',
+        'B6_4_explanation_methods_other': lambda: faira_form.get('B6_4') == 'Yes' and 'Other' in faira_form.get('B6_4_explanation_methods', []),
+        'B6_4_timing': lambda: faira_form.get('B6_4') == 'Yes',
+        'B6_4_explanation_content': lambda: faira_form.get('B6_4') == 'Yes',
+        'B6_4_accessibility': lambda: faira_form.get('B6_4') == 'Yes',
+        'B6_4_limitations_disclosed': lambda: faira_form.get('B6_4') == 'Yes',
+        # B7.1 conditional fields
+        'B7_1_initiators': lambda: faira_form.get('B7_1') == 'Yes',
+        'B7_1_channels': lambda: faira_form.get('B7_1') == 'Yes',
+        'B7_1_review_process': lambda: faira_form.get('B7_1') == 'Yes',
+        'B7_1_review_inputs': lambda: faira_form.get('B7_1') == 'Yes',
+        'B7_1_outcome_change': lambda: faira_form.get('B7_1') == 'Yes',
         'B8_4_safeguards': lambda: faira_form.get('B8_4') == 'Yes'
     }
     
     # Questions with conditional selections that must be filled when "Yes" is selected
     conditional_yes_questions = {
         'A1_6': 'A1_6_actions',
+        'A2_2': ['A2_2_sources', 'A2_2_data_types', 'A2_2_user_limits', 'A2_2_traceability', 'A2_2_trace_mechanisms'],
         'A2_7': 'A2_7_data_types',
         'A2_8': 'A2_8_types',
         'A4_5': 'A4_5_scenarios',
+        'A4_6': 'A4_6_data_types',
+        'A4_7': ['A4_7_pii_types', 'A4_7_access_scope', 'A4_7_access_controls'],
+        'A4_8': ['A4_8_action_types', 'A4_8_trigger_pathway', 'A4_8_affected_parties', 'A4_8_decision_records', 'A4_8_review_appeal', 'A4_8_legal_basis'],
+        'A5_2': ['A5_2_logged_items', 'A5_2_logging_mechanisms', 'A5_2_retention', 'A5_2_access_scope'],
         'A5_10': ['A5_10_commonwealth', 'A5_10_qld', 'A5_10_sector', 'A5_10_frameworks'],
         'B2_3': 'B2_3_perspectives',
         'B3_1': 'B3_1_methods',
@@ -2319,8 +2379,9 @@ async def update_faira_form(
         'B4_2': 'B4_2_types',
         'B5_1': 'B5_1_rating',
         'B5_3': 'B5_3_environments',
-        'B6_4': 'B6_4_describe',
-        'B7_1': 'B7_1_describe',
+        'B6_3': ['B6_3_audience', 'B6_3_methods', 'B6_3_timing', 'B6_3_information_provided'],
+        'B6_4': ['B6_4_audience', 'B6_4_explanation_methods', 'B6_4_timing', 'B6_4_explanation_content', 'B6_4_accessibility', 'B6_4_limitations_disclosed'],
+        'B7_1': ['B7_1_initiators', 'B7_1_channels', 'B7_1_review_process', 'B7_1_review_inputs', 'B7_1_outcome_change'],
         'B8_4': 'B8_4_safeguards'
     }
     
