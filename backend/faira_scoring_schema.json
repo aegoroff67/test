@@ -1367,17 +1367,95 @@
     },
     "A4_8": {
       "id": "A4_8",
-      "text": "Are any AI outputs directly used to trigger actions with legal or regulatory effect? If yes, describe and justify.",
-      "type": "text",
+      "text": "Do any AI outputs directly trigger actions with legal or regulatory effect?",
+      "type": "yes_no_with_subsections",
       "domains": [
         "Accountability",
+        "Contestability",
         "Reliability and Safety",
-        "Human-centred Values"
+        "Human-centred Values",
+        "Transparency and Explainability"
       ],
       "scoring": {
-        "target_metric": "TBD",
-        "logic": "LLM-assisted classification required - scoring to be addressed later",
-        "notes": "Text response will be analyzed using LLM to determine appropriate Impact/Likelihood modifiers."
+        "target_metric": "Impact_Likelihood_Control_Effectiveness",
+        "options": {
+          "No": {
+            "Impact": 0,
+            "Likelihood": 0,
+            "Control_Effectiveness": 0
+          },
+          "Yes": {
+            "Impact": 3,
+            "Likelihood": 1,
+            "Control_Effectiveness": 0,
+            "subsections": {
+              "action_types": {
+                "field": "A4_8_action_types",
+                "type": "multiselect",
+                "label": "Action types",
+                "options": {
+                  "Eligibility / access decisions": { "Impact": 2 },
+                  "Service entitlements / benefits decisions": { "Impact": 3 },
+                  "Compliance enforcement actions": { "Impact": 4 },
+                  "Penalties, sanctions, or fines": { "Impact": 5 },
+                  "Regulatory reporting / notification triggers": { "Impact": 2, "Likelihood": 1 },
+                  "Employment / workforce actions": { "Impact": 3 },
+                  "Contractual decisions (approve/decline/terminate)": { "Impact": 3 },
+                  "Safety-critical operational actions": { "Impact": 5, "Likelihood": 1 },
+                  "Other": { "Impact": 2 }
+                }
+              },
+              "trigger_pathway": {
+                "field": "A4_8_trigger_pathway",
+                "type": "single_select",
+                "label": "How actions are triggered",
+                "options": {
+                  "Automatically triggered (no human review)": { "Likelihood": 3, "Impact": 1 },
+                  "Automatically triggered after human approval": { "Likelihood": 1, "Control_Effectiveness": 1 },
+                  "Used as decision support (human makes final decision)": { "Likelihood": 0, "Control_Effectiveness": 1 },
+                  "Unknown / Not specified": { "Likelihood": 1 }
+                }
+              },
+              "decision_records": {
+                "field": "A4_8_decision_records",
+                "type": "multiselect",
+                "label": "Decision records / traceability",
+                "options": {
+                  "Audit logs of outputs and decisions": { "Control_Effectiveness": 1 },
+                  "Case/record identifiers linking decision to person/event": { "Control_Effectiveness": 1 },
+                  "Human approval record captured": { "Control_Effectiveness": 1 },
+                  "Reason codes / explanation recorded": { "Control_Effectiveness": 1 },
+                  "Data lineage / provenance tracking": { "Control_Effectiveness": 2 },
+                  "Not in place / unknown": { "Control_Effectiveness": 0, "Likelihood": 1 }
+                }
+              },
+              "review_appeal": {
+                "field": "A4_8_review_appeal",
+                "type": "single_select",
+                "label": "Review/appeal pathway",
+                "options": {
+                  "Yes — documented and operational": { "Control_Effectiveness": 2 },
+                  "Partially — exists but not formalised": { "Control_Effectiveness": 1 },
+                  "No": { "Control_Effectiveness": 0, "Likelihood": 1 },
+                  "Unknown / Not specified": { "Control_Effectiveness": 0 }
+                }
+              },
+              "legal_basis": {
+                "field": "A4_8_legal_basis",
+                "type": "multiselect",
+                "label": "Legal/policy basis",
+                "options": {
+                  "Legislation / regulation explicitly authorising action": { "Control_Effectiveness": 1 },
+                  "Policy / procedure basis only": { "Likelihood": 1 },
+                  "Contractual terms": { "Likelihood": 1 },
+                  "Not defined / unclear": { "Likelihood": 2, "Control_Effectiveness": 0 },
+                  "Other": { "Likelihood": 1 }
+                }
+              }
+            },
+            "notes": "A4.8 is a Yes/No gate. If Yes, Impact is elevated due to legal/regulatory consequences. Likelihood increases when actions are automated without human review, when review/appeal is absent, or when the legal basis is unclear. Traceability and contestability mechanisms improve Control Effectiveness."
+          }
+        }
       }
     },
     "A5_1": {
