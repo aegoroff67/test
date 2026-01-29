@@ -83,13 +83,13 @@ const SectionA2 = ({ form, update, toggleInArray }) => {
             <Label>A2.2a Data sources (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
               {[
-                "Digital systems (databases, internal apps, APIs)",
-                "Web / internet sources",
-                "Sensors / IoT / OT telemetry",
+                "digital systems (databases, internal apps, APIs)",
+                "web / internet sources",
+                "sensors / IoT / OT telemetry",
                 "CCTV / images / video feeds",
-                "Location / GPS / movement telemetry",
-                "User device data",
-                "Third-party data feeds",
+                "location / GPS / movement telemetry",
+                "user device data",
+                "third-party data feeds",
                 "Other"
               ].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
@@ -116,13 +116,13 @@ const SectionA2 = ({ form, update, toggleInArray }) => {
             <Label>A2.2b Data types ingested (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
               {[
-                "Telemetry / operational metrics",
-                "Environmental readings (e.g., weather, air quality)",
-                "Images / video",
-                "Audio",
-                "Location data",
-                "System logs / events",
-                "Documents / free text",
+                "telemetry / operational metrics",
+                "environmental readings (e.g., weather, air quality)",
+                "images / video",
+                "audio",
+                "location data",
+                "system logs / events",
+                "documents / free text",
                 "Other"
               ].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
@@ -149,10 +149,10 @@ const SectionA2 = ({ form, update, toggleInArray }) => {
             <Label>A2.2c Can users limit what data is collected or used?</Label>
             <div className="flex flex-col space-y-2">
               {[
-                "Yes — configurable controls",
-                "Yes — per user / per transaction choice",
-                "No",
-                "Unknown / Not specified"
+                "yes — configurable controls",
+                "yes — per user / per transaction choice",
+                "no",
+                "unknown / not specified"
               ].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <input
@@ -173,10 +173,10 @@ const SectionA2 = ({ form, update, toggleInArray }) => {
             <Label>A2.2d Can the ingested data be traced back to its source?</Label>
             <div className="flex flex-col space-y-2">
               {[
-                "Fully traceable",
-                "Partially traceable",
-                "Not traceable",
-                "Unknown / Not specified"
+                "fully traceable",
+                "partially traceable",
+                "not traceable",
+                "unknown / not specified"
               ].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <input
