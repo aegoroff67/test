@@ -131,7 +131,14 @@ const defaultState = {
   
   // A5: Governance and Oversight
   A5_1: "", // accountability (single select)
-  A5_2: "", // tracking method (text)
+  A5_2: "", // gate question: Are AI inputs, outputs, and/or decisions logged or recorded? (Yes/No)
+  A5_2_logged_items: [], // A5.2a what is logged (multiselect)
+  A5_2_logged_items_other: "", // A5.2a other logged items
+  A5_2_logging_mechanisms: [], // A5.2b logging mechanisms (multiselect)
+  A5_2_logging_mechanisms_other: "", // A5.2b other logging mechanisms
+  A5_2_retention: "", // A5.2c retention period (single select)
+  A5_2_access_scope: "", // A5.2d access scope (single select)
+  A5_2_notes: "", // A5.2e optional notes
   A5_3: [], // monitoring processes (multiselect)
   A5_4: "", // frequency (single select)
   A5_5: "", // independent review (Yes/No)
