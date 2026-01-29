@@ -3972,6 +3972,7 @@ Each cell represents the score for a specific question, enabling identification 
                         'A2_4': 'A2_4_other',
                         'A2_7_data_types': 'A2_7_data_types_other',
                         'A3_3': 'A3_3_other',
+                        'A4_7_pii_types': 'A4_7_pii_types_other',
                         'A5_10_frameworks': 'A5_10_frameworks_other',
                         'A5_12': 'A5_12_other',
                         'B2_3_perspectives': 'B2_3_perspectives_other',

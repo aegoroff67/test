@@ -1287,16 +1287,77 @@
     },
     "A4_7": {
       "id": "A4_7",
-      "text": "Do outputs contain personally identifiable information? If yes, who can access it (internal / external)?",
-      "type": "text",
+      "text": "Do outputs contain personally identifiable information (PII)? If yes, who can access it?",
+      "type": "yes_no",
       "domains": [
-        "Transparency and Explainability",
-        "Accountability"
+        "Privacy Protection and Security",
+        "Accountability",
+        "Transparency and Explainability"
       ],
       "scoring": {
-        "target_metric": "TBD",
-        "logic": "LLM-assisted classification required - scoring to be addressed later",
-        "notes": "Text response will be analyzed using LLM to determine appropriate Impact/Likelihood modifiers."
+        "target_metric": "Impact_Likelihood_Control_Effectiveness",
+        "options": {
+          "No": {
+            "Impact": 0,
+            "Likelihood": 0,
+            "Control_Effectiveness": 0
+          },
+          "Yes": {
+            "Impact": 2,
+            "Likelihood": 1,
+            "Control_Effectiveness": 0,
+            "subsections": {
+              "pii_types": {
+                "field": "A4_7_pii_types",
+                "type": "multiselect",
+                "label": "PII categories in outputs",
+                "options": {
+                  "Name / identity attributes": { "Impact": 1 },
+                  "Contact details (email, phone, address)": { "Impact": 1, "Likelihood": 1 },
+                  "Government identifiers (licence, Medicare, TFN)": { "Impact": 3 },
+                  "Financial information": { "Impact": 3 },
+                  "Health information": { "Impact": 4 },
+                  "Biometrics": { "Impact": 4 },
+                  "Location / movement data": { "Impact": 3, "Likelihood": 1 },
+                  "Images / video of individuals": { "Impact": 3, "Likelihood": 1 },
+                  "Employment / workplace information": { "Impact": 2 },
+                  "Other": { "Impact": 2 }
+                }
+              },
+              "access_scope": {
+                "field": "A4_7_access_scope",
+                "type": "single_select",
+                "label": "Access scope",
+                "options": {
+                  "Internal users only": { "Likelihood": 0 },
+                  "Internal users + contractors / service providers": { "Likelihood": 1 },
+                  "External partner organisations": { "Likelihood": 2 },
+                  "Public-facing / broadly accessible": { "Likelihood": 3 },
+                  "Unknown / Not specified": { "Likelihood": 1 }
+                }
+              },
+              "access_controls": {
+                "field": "A4_7_access_controls",
+                "type": "multiselect",
+                "label": "Access controls for PII outputs",
+                "options": {
+                  "Role-based access control (RBAC)": { "Control_Effectiveness": 1 },
+                  "Least privilege / need-to-know": { "Control_Effectiveness": 1 },
+                  "Strong authentication (e.g., MFA)": { "Control_Effectiveness": 1 },
+                  "Audit logging / access logs": { "Control_Effectiveness": 1 },
+                  "Encryption at rest": { "Control_Effectiveness": 1 },
+                  "Encryption in transit": { "Control_Effectiveness": 1 },
+                  "Data masking / redaction": { "Control_Effectiveness": 2 },
+                  "DLP / egress controls": { "Control_Effectiveness": 2 },
+                  "Time-bound access / approval workflow": { "Control_Effectiveness": 1 },
+                  "Not in place / unknown": { "Control_Effectiveness": 0, "Likelihood": 1 }
+                },
+                "notes": "Controls contribute to Control Effectiveness. If controls are 'Not in place / unknown', Likelihood increases."
+              }
+            },
+            "notes": "A4.7 is a Yes/No gate. If Yes, Impact and Likelihood increase based on PII sensitivity and access scope. Strong access controls improve Control Effectiveness."
+          }
+        }
       }
     },
     "A4_8": {
