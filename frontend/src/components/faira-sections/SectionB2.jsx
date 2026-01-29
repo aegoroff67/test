@@ -67,16 +67,16 @@ const SectionB2 = ({ form, update, toggleInArray }) => {
             <div className="grid gap-2 md:grid-cols-2">
               {["people with disabilities", "cultural diversity", "gender diversity", "age diversity", "Indigenous perspectives", "socioeconomic diversity"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
-                  <Checkbox checked={form.B2_3_perspectives.includes(option)} onCheckedChange={() => toggleInArray("B2_3_perspectives", option)} />
+                  <Checkbox checked={(form.B2_3_perspectives || []).includes(option)} onCheckedChange={() => toggleInArray("B2_3_perspectives", option)} />
                   <span className="text-sm">{option}</span>
                 </label>
               ))}
               <label className="flex items-center space-x-2">
-                <Checkbox checked={form.B2_3_perspectives.includes("Other")} onCheckedChange={() => toggleInArray("B2_3_perspectives", "Other")} />
+                <Checkbox checked={(form.B2_3_perspectives || []).includes("Other")} onCheckedChange={() => toggleInArray("B2_3_perspectives", "Other")} />
                 <span className="text-sm">Other (specify)</span>
               </label>
             </div>
-            {form.B2_3_perspectives.includes("Other") && (
+            {(form.B2_3_perspectives || []).includes("Other") && (
               <Input value={form.B2_3_perspectives_other} onChange={(e) => update("B2_3_perspectives_other", e.target.value)} placeholder="Please specify other perspectives" className="mt-2" />
             )}
           </div>

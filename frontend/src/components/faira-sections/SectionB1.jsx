@@ -41,7 +41,7 @@ const SectionB1 = ({ form, update, toggleInArray }) => {
         <div className="grid gap-2 md:grid-cols-2">
           {["privacy risks", "bias/discrimination", "transparency issues", "safety risks", "employment impacts", "social harm", "environmental impact", "accessibility issues", "legal/regulatory risks", "loss of trust"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={form.B1_2.includes(option)} onCheckedChange={() => toggleInArray("B1_2", option)} />
+              <Checkbox checked={(form.B1_2 || []).includes(option)} onCheckedChange={() => toggleInArray("B1_2", option)} />
               <span className="text-sm">{option}</span>
             </label>
           ))}
