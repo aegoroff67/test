@@ -153,7 +153,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
           <div className="space-y-2">
             <Label>A4.7a PII categories included in outputs (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
-              {["Name / identity attributes", "Contact details (email, phone, address)", "Government identifiers (licence, Medicare, TFN)", "Financial information", "Health information", "Biometrics", "Location / movement data", "Images / video of individuals", "Employment / workplace information", "Other"].map((option) => (
+              {["name / identity attributes", "contact details (email, phone, address)", "government identifiers (licence, Medicare, TFN)", "financial information", "health information", "biometrics", "location / movement data", "images / video of individuals", "employment / workplace information", "Other"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <Checkbox checked={form.A4_7_pii_types.includes(option)} onCheckedChange={() => toggleInArray("A4_7_pii_types", option)} />
                   <span className="text-sm">{option}</span>
@@ -168,7 +168,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
           <div className="space-y-2">
             <Label>A4.7b Who can access outputs containing PII?</Label>
             <div className="flex flex-col space-y-2">
-              {["Internal users only", "Internal users + contractors / service providers", "External partner organisations", "Public-facing / broadly accessible", "Unknown / Not specified"].map((option) => (
+              {["internal users only", "internal users + contractors / service providers", "external partner organisations", "public-facing / broadly accessible", "unknown / not specified"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <input type="radio" name="A4_7_access_scope" checked={form.A4_7_access_scope === option} onChange={() => update("A4_7_access_scope", option)} className="form-radio" />
                   <span className="text-sm">{option}</span>
@@ -180,7 +180,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
           <div className="space-y-2">
             <Label>A4.7c Controls limiting access to PII outputs (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
-              {["Role-based access control (RBAC)", "Least privilege / need-to-know", "Strong authentication (e.g., MFA)", "Audit logging / access logs", "Encryption at rest", "Encryption in transit", "Data masking / redaction", "DLP / egress controls", "Time-bound access / approval workflow", "Not in place / unknown"].map((option) => (
+              {["role-based access control (RBAC)", "least privilege / need-to-know", "strong authentication (e.g., MFA)", "audit logging / access logs", "encryption at rest", "encryption in transit", "data masking / redaction", "DLP / egress controls", "time-bound access / approval workflow", "not in place / unknown"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <Checkbox checked={form.A4_7_access_controls.includes(option)} onCheckedChange={() => toggleInArray("A4_7_access_controls", option)} />
                   <span className="text-sm">{option}</span>
