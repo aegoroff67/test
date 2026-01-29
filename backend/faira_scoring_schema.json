@@ -2775,28 +2775,110 @@
     },
     "B6_4": {
       "id": "B6_4",
-      "text": "Are there known limitations to the system's explainability?",
-      "type": "yes_no_with_text",
+      "text": "Can meaningful explanations of AI-supported outcomes be provided to users and/or affected individuals?",
+      "type": "yes_no_with_subsections",
       "domains": [
         "Transparency and Explainability"
       ],
       "scoring": {
-        "target_metric": "Control_Effectiveness",
+        "target_metric": "Likelihood and Control_Effectiveness",
+        "modifier_type": "dual",
         "options": {
-          "Yes": {
-            "Control_Effectiveness": 2
-          },
           "No": {
-            "Control_Effectiveness": 0
+            "Likelihood": 2,
+            "Control_Effectiveness": 0,
+            "notes": "If meaningful explanations are not available, there is an increased likelihood of misunderstanding, inappropriate reliance, and disputes."
+          },
+          "Yes": {
+            "Likelihood": 0,
+            "Control_Effectiveness": -1,
+            "subsections": {
+              "audience": {
+                "field": "B6_4_audience",
+                "type": "multiselect",
+                "label": "Who can receive explanations",
+                "options": {
+                  "direct users/operators": { "Control_Effectiveness": -0.5 },
+                  "affected individuals (e.g., customers/citizens)": { "Control_Effectiveness": -1.0 },
+                  "internal decision-makers/managers": { "Control_Effectiveness": -0.25 },
+                  "regulators/oversight bodies (where applicable)": { "Control_Effectiveness": -0.25 },
+                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Providing explanations to affected individuals provides the strongest explainability benefit."
+              },
+              "explanation_methods": {
+                "field": "B6_4_explanation_methods",
+                "type": "multiselect",
+                "label": "How explanations are provided",
+                "options": {
+                  "on-screen explanation at decision/output point": { "Control_Effectiveness": -0.75 },
+                  "reason codes / factors list": { "Control_Effectiveness": -0.5 },
+                  "case notes / decision record": { "Control_Effectiveness": -0.5 },
+                  "help article / faq / knowledge base": { "Control_Effectiveness": -0.25 },
+                  "support channel (phone/email) explanation": { "Control_Effectiveness": -0.25 },
+                  "formal written explanation on request": { "Control_Effectiveness": -0.5 },
+                  "technical documentation only": { "Control_Effectiveness": -0.1, "Likelihood": 0.5 },
+                  "Other": { "Control_Effectiveness": -0.25 }
+                },
+                "notes": "Contextual explanations at the point of output provide stronger explainability than passive documentation-only approaches."
+              },
+              "timing": {
+                "field": "B6_4_timing",
+                "type": "single_select",
+                "label": "When explanations are available",
+                "options": {
+                  "before interaction/use (pre-emptive explanation)": { "Control_Effectiveness": -0.5 },
+                  "at the point outputs are presented/used": { "Control_Effectiveness": -0.75 },
+                  "after the outcome/decision (on request)": { "Control_Effectiveness": -0.25 },
+                  "only during a formal review/appeal process": { "Control_Effectiveness": 0, "Likelihood": 1 },
+                  "unknown / not specified": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Earlier and point-of-output explainability improves transparency; deferring to formal review increases likelihood of friction and disputes."
+              },
+              "explanation_content": {
+                "field": "B6_4_explanation_content",
+                "type": "multiselect",
+                "label": "What explanations include",
+                "options": {
+                  "purpose of the ai system": { "Control_Effectiveness": -0.25 },
+                  "what inputs influenced the outcome": { "Control_Effectiveness": -0.5 },
+                  "key factors/attributes driving the outcome": { "Control_Effectiveness": -0.75 },
+                  "confidence/uncertainty indicators": { "Control_Effectiveness": -0.5 },
+                  "human oversight involvement": { "Control_Effectiveness": -0.25 },
+                  "how to request further explanation": { "Control_Effectiveness": -0.25 },
+                  "how to challenge/seek review": { "Control_Effectiveness": -0.5 },
+                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Including key factors and uncertainty indicators materially improves explainability quality."
+              },
+              "accessibility": {
+                "field": "B6_4_accessibility",
+                "type": "single_select",
+                "label": "Accessibility to non-technical audiences",
+                "options": {
+                  "plain language (non-technical, easy to understand)": { "Control_Effectiveness": -0.5 },
+                  "somewhat technical (requires guidance)": { "Control_Effectiveness": -0.25 },
+                  "highly technical (specialist interpretation required)": { "Control_Effectiveness": 0, "Likelihood": 0.5 },
+                  "unknown / not specified": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Plain language explanations reduce misunderstanding and support effective challenge/review pathways."
+              },
+              "limitations_disclosed": {
+                "field": "B6_4_limitations_disclosed",
+                "type": "single_select",
+                "label": "Limitations/uncertainty communicated",
+                "options": {
+                  "yes — clearly communicated": { "Control_Effectiveness": -0.5 },
+                  "partially — mentioned but not consistently": { "Control_Effectiveness": -0.25 },
+                  "no": { "Likelihood": 1, "Control_Effectiveness": 0 },
+                  "unknown / not specified": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                },
+                "notes": "Communicating limitations supports appropriate reliance and reduces likelihood of harm from misinterpretation."
+              }
+            },
+            "notes": "B6.4 is a Yes/No gate. If Yes, explainability improves (negative CE). The quality, timing, and accessibility of explanations influences both CE and Likelihood."
           }
-        },
-        "text_field": {
-          "field": "B6_4_description",
-          "label": "Describe limitations:",
-          "scoring": null,
-          "notes": "Text field for reporting purposes only. No scoring applied."
-        },
-        "notes": "If Yes, CE +2 (increases risk). Text description is captured for reporting but does not affect scoring."
+        }
       }
     },
     "B7_2": {
