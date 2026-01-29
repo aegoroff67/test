@@ -228,7 +228,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
           <div className="space-y-2">
             <Label>A4.8a Types of legal/regulatory actions triggered (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
-              {["Eligibility / access decisions", "Service entitlements / benefits decisions", "Compliance enforcement actions", "Penalties, sanctions, or fines", "Regulatory reporting / notification triggers", "Employment / workforce actions", "Contractual decisions (approve/decline/terminate)", "Safety-critical operational actions", "Other"].map((option) => (
+              {["eligibility / access decisions", "service entitlements / benefits decisions", "compliance enforcement actions", "penalties, sanctions, or fines", "regulatory reporting / notification triggers", "employment / workforce actions", "contractual decisions (approve/decline/terminate)", "safety-critical operational actions", "Other"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <Checkbox checked={form.A4_8_action_types.includes(option)} onCheckedChange={() => toggleInArray("A4_8_action_types", option)} />
                   <span className="text-sm">{option}</span>
@@ -243,7 +243,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
           <div className="space-y-2">
             <Label>A4.8b How are actions triggered from AI outputs?</Label>
             <div className="flex flex-col space-y-2">
-              {["Automatically triggered (no human review)", "Automatically triggered after human approval", "Used as decision support (human makes final decision)", "Unknown / Not specified"].map((option) => (
+              {["automatically triggered (no human review)", "automatically triggered after human approval", "used as decision support (human makes final decision)", "unknown / not specified"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <input type="radio" name="A4_8_trigger_pathway" checked={form.A4_8_trigger_pathway === option} onChange={() => update("A4_8_trigger_pathway", option)} className="form-radio" />
                   <span className="text-sm">{option}</span>
@@ -255,7 +255,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
           <div className="space-y-2">
             <Label>A4.8c Who may be affected by these actions? (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
-              {["Individuals / citizens", "Employees / workers", "Customers / clients", "Businesses / organisations", "Regulated entities", "Vulnerable populations", "General public"].map((option) => (
+              {["individuals / citizens", "employees / workers", "customers / clients", "businesses / organisations", "regulated entities", "vulnerable populations", "general public"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <Checkbox checked={form.A4_8_affected_parties.includes(option)} onCheckedChange={() => toggleInArray("A4_8_affected_parties", option)} />
                   <span className="text-sm">{option}</span>
@@ -267,7 +267,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
           <div className="space-y-2">
             <Label>A4.8d Decision record / traceability mechanisms (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
-              {["Audit logs of outputs and decisions", "Case/record identifiers linking decision to person/event", "Human approval record captured", "Reason codes / explanation recorded", "Data lineage / provenance tracking", "Not in place / unknown"].map((option) => (
+              {["audit logs of outputs and decisions", "case/record identifiers linking decision to person/event", "human approval record captured", "reason codes / explanation recorded", "data lineage / provenance tracking", "not in place / unknown"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <Checkbox checked={form.A4_8_decision_records.includes(option)} onCheckedChange={() => toggleInArray("A4_8_decision_records", option)} />
                   <span className="text-sm">{option}</span>
@@ -279,7 +279,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
           <div className="space-y-2">
             <Label>A4.8e Is there a review/appeal/contestability pathway for affected parties?</Label>
             <div className="flex flex-col space-y-2">
-              {["Yes — documented and operational", "Partially — exists but not formalised", "No", "Unknown / Not specified"].map((option) => (
+              {["yes — documented and operational", "partially — exists but not formalised", "no", "unknown / not specified"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <input type="radio" name="A4_8_review_appeal" checked={form.A4_8_review_appeal === option} onChange={() => update("A4_8_review_appeal", option)} className="form-radio" />
                   <span className="text-sm">{option}</span>
@@ -291,7 +291,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
           <div className="space-y-2">
             <Label>A4.8f Legal / policy basis for actions (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
-              {["Legislation / regulation explicitly authorising action", "Policy / procedure basis only", "Contractual terms", "Not defined / unclear", "Other"].map((option) => (
+              {["legislation / regulation explicitly authorising action", "policy / procedure basis only", "contractual terms", "not defined / unclear", "Other"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
                   <Checkbox checked={form.A4_8_legal_basis.includes(option)} onCheckedChange={() => toggleInArray("A4_8_legal_basis", option)} />
                   <span className="text-sm">{option}</span>
