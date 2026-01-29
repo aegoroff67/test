@@ -429,40 +429,41 @@ export default function FairaAssessmentForm() {
     ];
     
     // List of conditional fields that should only count if their parent condition is met
+    // These fields are ONLY counted when the parent gate is explicitly "Yes"
     const conditionalFields = {
-      'A1_3_other': () => form.A1_3.includes('Other'),
+      'A1_3_other': () => (form.A1_3 || []).includes('Other'),
       'A1_6_actions': () => form.A1_6 === 'Yes',
-      'A1_6_actions_other': () => form.A1_6 === 'Yes' && form.A1_6_actions.includes('Other'),
-      'A1_7_other': () => form.A1_7.includes('Other'),
-      // A2.2 conditional fields
+      'A1_6_actions_other': () => form.A1_6 === 'Yes' && (form.A1_6_actions || []).includes('Other'),
+      'A1_7_other': () => (form.A1_7 || []).includes('Other'),
+      // A2.2 conditional fields - only count if gate is explicitly "Yes"
       'A2_2_sources': () => form.A2_2 === 'Yes',
-      'A2_2_sources_other': () => form.A2_2 === 'Yes' && form.A2_2_sources.includes('Other'),
+      'A2_2_sources_other': () => form.A2_2 === 'Yes' && (form.A2_2_sources || []).includes('Other'),
       'A2_2_data_types': () => form.A2_2 === 'Yes',
-      'A2_2_data_types_other': () => form.A2_2 === 'Yes' && form.A2_2_data_types.includes('Other'),
+      'A2_2_data_types_other': () => form.A2_2 === 'Yes' && (form.A2_2_data_types || []).includes('Other'),
       'A2_2_user_limits': () => form.A2_2 === 'Yes',
       'A2_2_traceability': () => form.A2_2 === 'Yes',
       'A2_2_trace_mechanisms': () => form.A2_2 === 'Yes',
-      'A2_4_other': () => form.A2_4.includes('Other'),
+      'A2_4_other': () => (form.A2_4 || []).includes('Other'),
       'A2_7_data_types': () => form.A2_7 === 'Yes',
-      'A2_7_data_types_other': () => form.A2_7 === 'Yes' && form.A2_7_data_types.includes('Other regulated/sensitive data (specify)'),
+      'A2_7_data_types_other': () => form.A2_7 === 'Yes' && (form.A2_7_data_types || []).includes('Other regulated/sensitive data (specify)'),
       'A2_8_types': () => form.A2_8 === 'Yes',
-      'A3_3_other': () => form.A3_3.includes('Other'),
+      'A3_3_other': () => (form.A3_3 || []).includes('Other'),
       'A4_5_scenarios': () => form.A4_5 === 'Yes',
       'A4_6_data_types': () => form.A4_6 === 'Yes',
       // A4.7 conditional fields
       'A4_7_pii_types': () => form.A4_7 === 'Yes',
-      'A4_7_pii_types_other': () => form.A4_7 === 'Yes' && form.A4_7_pii_types.includes('Other'),
+      'A4_7_pii_types_other': () => form.A4_7 === 'Yes' && (form.A4_7_pii_types || []).includes('Other'),
       'A4_7_access_scope': () => form.A4_7 === 'Yes',
       'A4_7_access_controls': () => form.A4_7 === 'Yes',
       // A4.8 conditional fields
       'A4_8_action_types': () => form.A4_8 === 'Yes',
-      'A4_8_action_types_other': () => form.A4_8 === 'Yes' && form.A4_8_action_types.includes('Other'),
+      'A4_8_action_types_other': () => form.A4_8 === 'Yes' && (form.A4_8_action_types || []).includes('Other'),
       'A4_8_trigger_pathway': () => form.A4_8 === 'Yes',
       'A4_8_affected_parties': () => form.A4_8 === 'Yes',
       'A4_8_decision_records': () => form.A4_8 === 'Yes',
       'A4_8_review_appeal': () => form.A4_8 === 'Yes',
       'A4_8_legal_basis': () => form.A4_8 === 'Yes',
-      'A4_8_legal_basis_other': () => form.A4_8 === 'Yes' && form.A4_8_legal_basis.includes('Other'),
+      'A4_8_legal_basis_other': () => form.A4_8 === 'Yes' && (form.A4_8_legal_basis || []).includes('Other'),
       // A5.2 conditional fields
       'A5_2_logged_items': () => form.A5_2 === 'Yes',
       'A5_2_logged_items_other': () => form.A5_2 === 'Yes' && (form.A5_2_logged_items || []).includes('Other'),
@@ -480,15 +481,15 @@ export default function FairaAssessmentForm() {
         !(form.A5_10_commonwealth?.length > 0 || form.A5_10_qld?.length > 0 || form.A5_10_frameworks?.length > 0),
       'A5_10_frameworks': () => form.A5_10 === 'Yes' && 
         !(form.A5_10_commonwealth?.length > 0 || form.A5_10_qld?.length > 0 || form.A5_10_sector?.length > 0),
-      'A5_10_frameworks_other': () => form.A5_10 === 'Yes' && form.A5_10_frameworks?.includes('Other standards or frameworks (specify below)'),
+      'A5_10_frameworks_other': () => form.A5_10 === 'Yes' && (form.A5_10_frameworks || []).includes('Other standards or frameworks (specify below)'),
       // A5_10_other and A5_10_impact are optional - removed from conditional requirements
-      'A5_12_other': () => form.A5_12.includes('Other'),
+      'A5_12_other': () => (form.A5_12 || []).includes('Other'),
       'B2_3_perspectives': () => form.B2_3 === 'Yes',
-      'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && form.B2_3_perspectives.includes('Other'),
+      'B2_3_perspectives_other': () => form.B2_3 === 'Yes' && (form.B2_3_perspectives || []).includes('Other'),
       'B3_1_methods': () => form.B3_1 === 'Yes',
       'B3_2_groups': () => form.B3_2 === 'Yes',
       'B4_2_types': () => form.B4_2 === 'Yes',
-      'B4_2_types_other': () => form.B4_2 === 'Yes' && form.B4_2_types.includes('Other'),
+      'B4_2_types_other': () => form.B4_2 === 'Yes' && (form.B4_2_types || []).includes('Other'),
       'B5_1_rating': () => form.B5_1 === 'Yes',
       'B5_3_environments': () => form.B5_3 === 'Yes',
       // B6.3 conditional fields
