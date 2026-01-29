@@ -44,6 +44,17 @@ This involves iteratively debugging user-provided DOCX templates, fixing complex
 - **Bug fixes**: Added null safety to all `.includes()` calls using `(form.field || []).includes()` pattern
 - **Testing**: All Part B sections verified working (progress tracking, auto-save, conditional fields)
 
+#### Question A5.2 Restructuring - COMPLETE ✅ (2026-01-29)
+- **Converted** from simple text field to Yes/No gated section with 5 subsections:
+  - A5.2a: What is logged or recorded? (multiselect with 8 options + Other)
+  - A5.2b: Logging mechanisms (multiselect with 8 options + Other)
+  - A5.2c: Retention period (dropdown with 5 options)
+  - A5.2d: Access scope (dropdown with 6 options)
+  - A5.2e: Notes/exceptions (optional textarea)
+- **Updated** scoring schema with Impact, Likelihood, Control_Effectiveness modifiers
+- **Updated** progress calculation to handle conditional fields
+- **Testing**: All features verified working (100% pass rate)
+
 ### ✅ Completed (as of 2026-01-25)
 
 #### Custom Jinja2 Filter Bug Fix (2026-01-25) - FIXED ✅
