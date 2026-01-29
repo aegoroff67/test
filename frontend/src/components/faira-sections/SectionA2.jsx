@@ -77,7 +77,7 @@ const SectionA2 = ({ form, update, toggleInArray }) => {
 
       {/* A2.2 Sub-questions */}
       {form.A2_2 === "Yes" && (
-        <div className="ml-4 pl-4 border-l-2 border-blue-200 space-y-4 bg-blue-50/30 p-4 rounded-r-lg">
+        <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-4">
           {/* A2.2a - Data Sources */}
           <div className="space-y-2">
             <Label>A2.2a Data sources (select all that apply)</Label>

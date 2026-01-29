@@ -149,7 +149,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
 
       {/* A4.7 Sub-questions */}
       {form.A4_7 === "Yes" && (
-        <div className="ml-4 pl-4 border-l-2 border-purple-200 space-y-4 bg-purple-50/30 p-4 rounded-r-lg">
+        <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-4">
           <div className="space-y-2">
             <Label>A4.7a PII categories included in outputs (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
@@ -224,7 +224,7 @@ const SectionA4 = ({ form, update, toggleInArray }) => {
 
       {/* A4.8 Sub-questions */}
       {form.A4_8 === "Yes" && (
-        <div className="ml-4 pl-4 border-l-2 border-red-200 space-y-4 bg-red-50/30 p-4 rounded-r-lg">
+        <div className="ml-4 p-4 bg-gray-50 rounded-lg space-y-4">
           <div className="space-y-2">
             <Label>A4.8a Types of legal/regulatory actions triggered (select all that apply)</Label>
             <div className="grid gap-2 md:grid-cols-2">
