@@ -94,7 +94,12 @@ const defaultState = {
   A4_5_scenarios: [],
   A4_6: "", // regulated data (Yes/No)
   A4_6_data_types: [], // regulated data types (multiselect)
-  A4_7: "", // PII access (text)
+  A4_7: "", // PII in outputs gate question (Yes/No)
+  A4_7_pii_types: [], // A4.7a PII categories (multiselect)
+  A4_7_pii_types_other: "", // A4.7a other PII types
+  A4_7_access_scope: "", // A4.7b access scope (single select)
+  A4_7_access_controls: [], // A4.7c access controls (multiselect)
+  A4_7_notes: "", // A4.7d optional notes
   A4_8: "", // legal/regulatory actions (text)
   
   // A5: Governance and Oversight
