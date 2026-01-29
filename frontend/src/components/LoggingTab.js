@@ -117,6 +117,7 @@ export default function LoggingTab() {
         limit: 50,
       });
       if (auditFilters.action) params.append('action', auditFilters.action);
+      if (auditFilters.user) params.append('actor_email', auditFilters.user);
       
       const response = await fetch(`${API}/admin/logs/audit?${params}`, {
         headers: { Authorization: `Bearer ${token}` }
