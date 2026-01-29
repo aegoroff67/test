@@ -1387,6 +1387,29 @@ async def get_audit_action_types(admin: UserResponse = Depends(require_super_adm
     }
 
 
+@api_router.get("/admin/logs/audit/users")
+async def get_audit_users(admin: UserResponse = Depends(require_super_admin)):
+    """Get list of unique users from audit logs"""
+    try:
+        # Get unique actor_email values from audit logs
+        pipeline = [
+            {"$match": {"actor_email": {"$ne": None}}},
+            {"$group": {"_id": "$actor_email"}},
+            {"$sort": {"_id": 1}},
+            {"$limit": 100}
+        ]
+        
+        users = []
+        async for doc in db.audit_logs.aggregate(pipeline):
+            if doc["_id"]:
+                users.append({"value": doc["_id"], "label": doc["_id"]})
+        
+        return {"users": users}
+    except Exception as e:
+        logger.error(f"Error fetching audit users: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @api_router.get("/admin/logs/analytics")
 async def get_analytics_summary_endpoint(
     days: int = 30,
