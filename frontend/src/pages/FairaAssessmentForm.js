@@ -2351,17 +2351,220 @@ export default function FairaAssessmentForm() {
                 </div>
               )}
 
-              {/* A4.8 */}
+              {/* A4.8 - Gate Question */}
               <div className="space-y-2">
-                <Label htmlFor="A4_8">A4.8 Are any AI outputs directly used to trigger actions with legal or regulatory effect? If yes, describe and justify.</Label>
-                <Textarea
-                  id="A4_8"
-                  value={form.A4_8}
-                  onChange={(e) => update("A4_8", e.target.value)}
-                  placeholder="Describe legal/regulatory actions and justification"
-                  rows={3}
-                />
+                <Label>A4.8 Do any AI outputs directly trigger actions with legal or regulatory effect?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="A4_8"
+                      checked={form.A4_8 === "Yes"}
+                      onChange={() => update("A4_8", "Yes")}
+                      className="form-radio"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="A4_8"
+                      checked={form.A4_8 === "No"}
+                      onChange={() => {
+                        update("A4_8", "No");
+                        // Clear dependent fields when No is selected
+                        update("A4_8_action_types", []);
+                        update("A4_8_action_types_other", "");
+                        update("A4_8_trigger_pathway", "");
+                        update("A4_8_affected_parties", []);
+                        update("A4_8_decision_records", []);
+                        update("A4_8_review_appeal", "");
+                        update("A4_8_legal_basis", []);
+                        update("A4_8_legal_basis_other", "");
+                        update("A4_8_notes", "");
+                      }}
+                      className="form-radio"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
               </div>
+
+              {/* A4.8 Sub-questions - Only shown when A4_8 === "Yes" */}
+              {form.A4_8 === "Yes" && (
+                <div className="ml-4 pl-4 border-l-2 border-red-200 space-y-4 bg-red-50/30 p-4 rounded-r-lg">
+                  {/* A4.8a - Action Types */}
+                  <div className="space-y-2">
+                    <Label>A4.8a Types of legal/regulatory actions triggered (select all that apply)</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Eligibility / access decisions",
+                        "Service entitlements / benefits decisions",
+                        "Compliance enforcement actions",
+                        "Penalties, sanctions, or fines",
+                        "Regulatory reporting / notification triggers",
+                        "Employment / workforce actions",
+                        "Contractual decisions (approve/decline/terminate)",
+                        "Safety-critical operational actions",
+                        "Other"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A4_8_action_types.includes(option)}
+                            onCheckedChange={() => toggleInArray("A4_8_action_types", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                    {form.A4_8_action_types.includes("Other") && (
+                      <Input
+                        value={form.A4_8_action_types_other}
+                        onChange={(e) => update("A4_8_action_types_other", e.target.value)}
+                        placeholder="Specify other action types"
+                        className="mt-2"
+                      />
+                    )}
+                  </div>
+
+                  {/* A4.8b - Trigger Pathway */}
+                  <div className="space-y-2">
+                    <Label>A4.8b How are actions triggered from AI outputs?</Label>
+                    <div className="flex flex-col space-y-2">
+                      {[
+                        "Automatically triggered (no human review)",
+                        "Automatically triggered after human approval",
+                        "Used as decision support (human makes final decision)",
+                        "Unknown / Not specified"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <input
+                            type="radio"
+                            name="A4_8_trigger_pathway"
+                            checked={form.A4_8_trigger_pathway === option}
+                            onChange={() => update("A4_8_trigger_pathway", option)}
+                            className="form-radio"
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* A4.8c - Affected Parties */}
+                  <div className="space-y-2">
+                    <Label>A4.8c Who may be affected by these actions? (select all that apply)</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Individuals / citizens",
+                        "Employees / workers",
+                        "Customers / clients",
+                        "Businesses / organisations",
+                        "Regulated entities",
+                        "Vulnerable populations",
+                        "General public"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A4_8_affected_parties.includes(option)}
+                            onCheckedChange={() => toggleInArray("A4_8_affected_parties", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* A4.8d - Decision Records */}
+                  <div className="space-y-2">
+                    <Label>A4.8d Decision record / traceability mechanisms (select all that apply)</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Audit logs of outputs and decisions",
+                        "Case/record identifiers linking decision to person/event",
+                        "Human approval record captured",
+                        "Reason codes / explanation recorded",
+                        "Data lineage / provenance tracking",
+                        "Not in place / unknown"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A4_8_decision_records.includes(option)}
+                            onCheckedChange={() => toggleInArray("A4_8_decision_records", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* A4.8e - Review/Appeal */}
+                  <div className="space-y-2">
+                    <Label>A4.8e Is there a review/appeal/contestability pathway for affected parties?</Label>
+                    <div className="flex flex-col space-y-2">
+                      {[
+                        "Yes — documented and operational",
+                        "Partially — exists but not formalised",
+                        "No",
+                        "Unknown / Not specified"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <input
+                            type="radio"
+                            name="A4_8_review_appeal"
+                            checked={form.A4_8_review_appeal === option}
+                            onChange={() => update("A4_8_review_appeal", option)}
+                            className="form-radio"
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* A4.8f - Legal Basis */}
+                  <div className="space-y-2">
+                    <Label>A4.8f Legal / policy basis for actions (select all that apply)</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Legislation / regulation explicitly authorising action",
+                        "Policy / procedure basis only",
+                        "Contractual terms",
+                        "Not defined / unclear",
+                        "Other"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A4_8_legal_basis.includes(option)}
+                            onCheckedChange={() => toggleInArray("A4_8_legal_basis", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                    {form.A4_8_legal_basis.includes("Other") && (
+                      <Input
+                        value={form.A4_8_legal_basis_other}
+                        onChange={(e) => update("A4_8_legal_basis_other", e.target.value)}
+                        placeholder="Specify other legal/policy basis"
+                        className="mt-2"
+                      />
+                    )}
+                  </div>
+
+                  {/* A4.8g - Notes */}
+                  <div className="space-y-2">
+                    <Label htmlFor="A4_8_notes">A4.8g Notes / exceptions (optional)</Label>
+                    <Textarea
+                      id="A4_8_notes"
+                      value={form.A4_8_notes}
+                      onChange={(e) => update("A4_8_notes", e.target.value)}
+                      placeholder="Add any additional notes or exceptions..."
+                      rows={2}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* A5: Governance and Oversight */}
