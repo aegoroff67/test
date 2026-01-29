@@ -18,7 +18,7 @@ const SectionB6 = ({ form, update, toggleInArray }) => {
         <div className="grid gap-2 md:grid-cols-2">
           {["model outputs interpretable", "feature importance available", "decision rationale logged", "explanation provided to users", "technical documentation available", "non-technical explanations available", "explanations not currently available (flag as risk)"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={form.B6_1.includes(option)} onCheckedChange={() => toggleInArray("B6_1", option)} />
+              <Checkbox checked={(form.B6_1 || []).includes(option)} onCheckedChange={() => toggleInArray("B6_1", option)} />
               <span className="text-sm">{option}</span>
             </label>
           ))}
@@ -31,7 +31,7 @@ const SectionB6 = ({ form, update, toggleInArray }) => {
         <div className="grid gap-2 md:grid-cols-2">
           {["in-app disclosure", "terms of service", "public AI statement", "direct notification", "staff training materials", "help documentation", "users not informed (flag as risk)"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={form.B6_2.includes(option)} onCheckedChange={() => toggleInArray("B6_2", option)} />
+              <Checkbox checked={(form.B6_2 || []).includes(option)} onCheckedChange={() => toggleInArray("B6_2", option)} />
               <span className="text-sm">{option}</span>
             </label>
           ))}

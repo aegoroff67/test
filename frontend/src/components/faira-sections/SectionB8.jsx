@@ -18,7 +18,7 @@ const SectionB8 = ({ form, update, toggleInArray }) => {
         <div className="grid gap-2 md:grid-cols-2">
           {["system owner identified", "data custodian identified", "technical lead identified", "business owner identified", "governance body identified", "external oversight identified", "roles not clearly defined (flag as risk)"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={form.B8_1.includes(option)} onCheckedChange={() => toggleInArray("B8_1", option)} />
+              <Checkbox checked={(form.B8_1 || []).includes(option)} onCheckedChange={() => toggleInArray("B8_1", option)} />
               <span className="text-sm">{option}</span>
             </label>
           ))}
@@ -31,7 +31,7 @@ const SectionB8 = ({ form, update, toggleInArray }) => {
         <div className="grid gap-2 md:grid-cols-2">
           {["regular audits scheduled", "compliance monitoring", "incident reporting", "performance metrics tracked", "third-party audits", "regulatory reporting", "no audit mechanisms (flag as risk)"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={form.B8_2.includes(option)} onCheckedChange={() => toggleInArray("B8_2", option)} />
+              <Checkbox checked={(form.B8_2 || []).includes(option)} onCheckedChange={() => toggleInArray("B8_2", option)} />
               <span className="text-sm">{option}</span>
             </label>
           ))}
@@ -62,7 +62,7 @@ const SectionB8 = ({ form, update, toggleInArray }) => {
             <div className="grid gap-2 md:grid-cols-2">
               {["compliance certification", "regulatory approval obtained", "ongoing compliance monitoring", "regular regulatory reporting", "external audit requirement", "no specific safeguards (flag as risk)"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
-                  <Checkbox checked={form.B8_4_safeguards.includes(option)} onCheckedChange={() => toggleInArray("B8_4_safeguards", option)} />
+                  <Checkbox checked={(form.B8_4_safeguards || []).includes(option)} onCheckedChange={() => toggleInArray("B8_4_safeguards", option)} />
                   <span className="text-sm">{option}</span>
                 </label>
               ))}

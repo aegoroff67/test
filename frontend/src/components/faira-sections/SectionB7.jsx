@@ -29,7 +29,7 @@ const SectionB7 = ({ form, update, toggleInArray }) => {
             <div className="grid gap-2 md:grid-cols-2">
               {["formal appeal process", "complaint mechanism", "human review request", "ombudsman / external review", "internal escalation", "informal feedback channel"].map((option) => (
                 <label key={option} className="flex items-center space-x-2">
-                  <Checkbox checked={form.B7_1_methods.includes(option)} onCheckedChange={() => toggleInArray("B7_1_methods", option)} />
+                  <Checkbox checked={(form.B7_1_methods || []).includes(option)} onCheckedChange={() => toggleInArray("B7_1_methods", option)} />
                   <span className="text-sm">{option}</span>
                 </label>
               ))}
@@ -57,7 +57,7 @@ const SectionB7 = ({ form, update, toggleInArray }) => {
         <div className="grid gap-2 md:grid-cols-2">
           {["decision reversal", "compensation", "alternative service provision", "explanation of decision", "data correction", "system adjustment", "no redress available (flag as risk)"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
-              <Checkbox checked={form.B7_3.includes(option)} onCheckedChange={() => toggleInArray("B7_3", option)} />
+              <Checkbox checked={(form.B7_3 || []).includes(option)} onCheckedChange={() => toggleInArray("B7_3", option)} />
               <span className="text-sm">{option}</span>
             </label>
           ))}
