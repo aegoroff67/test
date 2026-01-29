@@ -656,6 +656,41 @@ async def login(user_data: UserLogin):
     
     return Token(access_token=access_token, token_type="bearer", user=user_response)
 
+
+@api_router.post("/auth/logout")
+async def logout(current_user: UserResponse = Depends(get_current_user)):
+    """Log user logout event"""
+    try:
+        # Log audit event
+        await log_audit_event(
+            db=db,
+            action=AuditAction.AUTH_LOGOUT,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="session",
+            object_id=current_user.id,
+            object_name=current_user.email,
+            details={"user_role": current_user.role}
+        )
+        
+        # Log analytics event
+        await log_analytics_event(
+            db=db,
+            event_type=AnalyticsEventType.PAGE_VIEW,
+            event_name="logout",
+            user_id=current_user.id,
+            tenant_id=current_user.org_id,
+            user_role=current_user.role
+        )
+        
+        return {"message": "Logout successful"}
+    except Exception as e:
+        logger.error(f"Error logging logout: {str(e)}")
+        # Still return success - logout should work even if logging fails
+        return {"message": "Logout successful"}
+
+
 # Helper functions to check user roles
 async def require_super_admin(current_user: UserResponse = Depends(get_current_user)):
     if current_user.role != Role.SUPER_ADMIN.value:
