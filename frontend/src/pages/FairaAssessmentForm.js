@@ -2183,17 +2183,144 @@ export default function FairaAssessmentForm() {
                 )}
               </div>
 
-              {/* A4.7 */}
+              {/* A4.7 - Gate Question */}
               <div className="space-y-2">
-                <Label htmlFor="A4_7">A4.7 Do outputs contain personally identifiable information? If yes, who can access it (internal / external)?</Label>
-                <Textarea
-                  id="A4_7"
-                  value={form.A4_7}
-                  onChange={(e) => update("A4_7", e.target.value)}
-                  placeholder="Describe PII in outputs and access controls"
-                  rows={3}
-                />
+                <Label>A4.7 Do outputs contain personally identifiable information (PII)?</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="A4_7"
+                      checked={form.A4_7 === "Yes"}
+                      onChange={() => update("A4_7", "Yes")}
+                      className="form-radio"
+                    />
+                    <span className="text-sm">Yes</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="A4_7"
+                      checked={form.A4_7 === "No"}
+                      onChange={() => {
+                        update("A4_7", "No");
+                        // Clear dependent fields when No is selected
+                        update("A4_7_pii_types", []);
+                        update("A4_7_pii_types_other", "");
+                        update("A4_7_access_scope", "");
+                        update("A4_7_access_controls", []);
+                        update("A4_7_notes", "");
+                      }}
+                      className="form-radio"
+                    />
+                    <span className="text-sm">No</span>
+                  </label>
+                </div>
               </div>
+
+              {/* A4.7 Sub-questions - Only shown when A4_7 === "Yes" */}
+              {form.A4_7 === "Yes" && (
+                <div className="ml-4 pl-4 border-l-2 border-purple-200 space-y-4 bg-purple-50/30 p-4 rounded-r-lg">
+                  {/* A4.7a - PII Categories */}
+                  <div className="space-y-2">
+                    <Label>A4.7a PII categories included in outputs (select all that apply)</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Name / identity attributes",
+                        "Contact details (email, phone, address)",
+                        "Government identifiers (licence, Medicare, TFN)",
+                        "Financial information",
+                        "Health information",
+                        "Biometrics",
+                        "Location / movement data",
+                        "Images / video of individuals",
+                        "Employment / workplace information",
+                        "Other"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A4_7_pii_types.includes(option)}
+                            onCheckedChange={() => toggleInArray("A4_7_pii_types", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                    {form.A4_7_pii_types.includes("Other") && (
+                      <Input
+                        value={form.A4_7_pii_types_other}
+                        onChange={(e) => update("A4_7_pii_types_other", e.target.value)}
+                        placeholder="Specify other PII categories"
+                        className="mt-2"
+                      />
+                    )}
+                  </div>
+
+                  {/* A4.7b - Access Scope */}
+                  <div className="space-y-2">
+                    <Label>A4.7b Who can access outputs containing PII?</Label>
+                    <div className="flex flex-col space-y-2">
+                      {[
+                        "Internal users only",
+                        "Internal users + contractors / service providers",
+                        "External partner organisations",
+                        "Public-facing / broadly accessible",
+                        "Unknown / Not specified"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <input
+                            type="radio"
+                            name="A4_7_access_scope"
+                            checked={form.A4_7_access_scope === option}
+                            onChange={() => update("A4_7_access_scope", option)}
+                            className="form-radio"
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* A4.7c - Access Controls */}
+                  <div className="space-y-2">
+                    <Label>A4.7c Controls limiting access to PII outputs (select all that apply)</Label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      {[
+                        "Role-based access control (RBAC)",
+                        "Least privilege / need-to-know",
+                        "Strong authentication (e.g., MFA)",
+                        "Audit logging / access logs",
+                        "Encryption at rest",
+                        "Encryption in transit",
+                        "Data masking / redaction",
+                        "DLP / egress controls",
+                        "Time-bound access / approval workflow",
+                        "Not in place / unknown"
+                      ].map((option) => (
+                        <label key={option} className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={form.A4_7_access_controls.includes(option)}
+                            onCheckedChange={() => toggleInArray("A4_7_access_controls", option)}
+                          />
+                          <span className="text-sm">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* A4.7d - Notes */}
+                  <div className="space-y-2">
+                    <Label htmlFor="A4_7_notes">A4.7d Notes / exceptions (optional)</Label>
+                    <Textarea
+                      id="A4_7_notes"
+                      value={form.A4_7_notes}
+                      onChange={(e) => update("A4_7_notes", e.target.value)}
+                      placeholder="Add any additional notes or exceptions..."
+                      rows={2}
+                    />
+                  </div>
+                </div>
+              )}
 
               {/* A4.8 */}
               <div className="space-y-2">
