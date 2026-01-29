@@ -21,7 +21,15 @@ import {
   SectionA2,
   SectionA3,
   SectionA4,
-  SectionA5
+  SectionA5,
+  SectionB1,
+  SectionB2,
+  SectionB3,
+  SectionB4,
+  SectionB5,
+  SectionB6,
+  SectionB7,
+  SectionB8
 } from '../components/faira-sections';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
