@@ -491,7 +491,14 @@ export default function FairaAssessmentForm() {
       'B6_3_methods_other': () => form.B6_3 === 'Yes' && (form.B6_3_methods || []).includes('Other'),
       'B6_3_timing': () => form.B6_3 === 'Yes',
       'B6_3_information_provided': () => form.B6_3 === 'Yes',
-      'B6_4_describe': () => form.B6_4 === 'Yes',
+      // B6.4 conditional fields
+      'B6_4_audience': () => form.B6_4 === 'Yes',
+      'B6_4_explanation_methods': () => form.B6_4 === 'Yes',
+      'B6_4_explanation_methods_other': () => form.B6_4 === 'Yes' && (form.B6_4_explanation_methods || []).includes('Other'),
+      'B6_4_timing': () => form.B6_4 === 'Yes',
+      'B6_4_explanation_content': () => form.B6_4 === 'Yes',
+      'B6_4_accessibility': () => form.B6_4 === 'Yes',
+      'B6_4_limitations_disclosed': () => form.B6_4 === 'Yes',
       'B7_1_describe': () => form.B7_1 === 'Yes',
       'B8_4_safeguards': () => form.B8_4 === 'Yes'
     };
@@ -622,7 +629,14 @@ export default function FairaAssessmentForm() {
       'B6_3_methods_other': () => form.B6_3 === 'Yes' && (form.B6_3_methods || []).includes('Other'),
       'B6_3_timing': () => form.B6_3 === 'Yes',
       'B6_3_information_provided': () => form.B6_3 === 'Yes',
-      'B6_4_describe': () => form.B6_4 === 'Yes',
+      // B6.4 conditional fields
+      'B6_4_audience': () => form.B6_4 === 'Yes',
+      'B6_4_explanation_methods': () => form.B6_4 === 'Yes',
+      'B6_4_explanation_methods_other': () => form.B6_4 === 'Yes' && (form.B6_4_explanation_methods || []).includes('Other'),
+      'B6_4_timing': () => form.B6_4 === 'Yes',
+      'B6_4_explanation_content': () => form.B6_4 === 'Yes',
+      'B6_4_accessibility': () => form.B6_4 === 'Yes',
+      'B6_4_limitations_disclosed': () => form.B6_4 === 'Yes',
       'B7_1_describe': () => form.B7_1 === 'Yes',
       'B8_4_safeguards': () => form.B8_4 === 'Yes'
     };
