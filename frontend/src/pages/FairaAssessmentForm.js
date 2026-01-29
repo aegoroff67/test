@@ -216,8 +216,13 @@ const defaultState = {
   B6_4_notes: "", // B6.4g optional notes
   
   // B7: Contestability
-  B7_1: "", // challenge process (Yes/No)
-  B7_1_describe: "",
+  B7_1: "", // gate question: Is there a defined process for challenging/reviewing AI outcomes? (Yes/No)
+  B7_1_initiators: [], // B7.1a who can initiate a challenge (multiselect)
+  B7_1_channels: [], // B7.1b how can a challenge be initiated (multiselect)
+  B7_1_review_process: [], // B7.1c what review process is available (multiselect)
+  B7_1_review_inputs: [], // B7.1d what information supports review (multiselect)
+  B7_1_outcome_change: "", // B7.1e can outcomes be changed (single select)
+  B7_1_describe: "", // B7.1f notes/exceptions (optional)
   B7_2: "", // response time (select)
   
   // B8: Accountability
