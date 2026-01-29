@@ -148,6 +148,21 @@ export default function LoggingTab() {
     }
   }, [token]);
 
+  // Fetch audit users
+  const fetchAuditUsers = useCallback(async () => {
+    try {
+      const response = await fetch(`${API}/admin/logs/audit/users`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setAuditUsers(data.users);
+      }
+    } catch (error) {
+      console.error('Error fetching audit users:', error);
+    }
+  }, [token]);
+
   // Fetch analytics
   const fetchAnalytics = useCallback(async () => {
     setLoading(true);
