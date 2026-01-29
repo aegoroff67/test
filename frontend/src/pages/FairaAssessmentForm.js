@@ -347,6 +347,7 @@ export default function FairaAssessmentForm() {
       'B4_2': 'B4_2_types',
       'B5_1': 'B5_1_rating',
       'B5_3': 'B5_3_environments',
+      'B6_3': ['B6_3_audience', 'B6_3_methods', 'B6_3_timing', 'B6_3_information_provided'],
       'B6_4': 'B6_4_describe',
       'B7_1': 'B7_1_describe',
       'B8_4': 'B8_4_safeguards'
