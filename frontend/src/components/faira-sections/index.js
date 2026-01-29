@@ -1,6 +1,7 @@
 // FAIRA Assessment Form Section Components
 // Each section is a self-contained component for better maintainability
 
+export { RadioScale } from './RadioScale';
 export { default as AssessmentOverview } from './AssessmentOverview';
 export { default as SectionA1 } from './SectionA1';
 export { default as SectionA2 } from './SectionA2';
