@@ -393,6 +393,16 @@ export default function FairaAssessmentForm() {
       'A4_7_access_scope': () => form.A4_7 === 'Yes',
       'A4_7_access_controls': () => form.A4_7 === 'Yes',
       'A4_7_notes': () => form.A4_7 === 'Yes',
+      // A4.8 conditional fields
+      'A4_8_action_types': () => form.A4_8 === 'Yes',
+      'A4_8_action_types_other': () => form.A4_8 === 'Yes' && form.A4_8_action_types.includes('Other'),
+      'A4_8_trigger_pathway': () => form.A4_8 === 'Yes',
+      'A4_8_affected_parties': () => form.A4_8 === 'Yes',
+      'A4_8_decision_records': () => form.A4_8 === 'Yes',
+      'A4_8_review_appeal': () => form.A4_8 === 'Yes',
+      'A4_8_legal_basis': () => form.A4_8 === 'Yes',
+      'A4_8_legal_basis_other': () => form.A4_8 === 'Yes' && form.A4_8_legal_basis.includes('Other'),
+      'A4_8_notes': () => form.A4_8 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
@@ -504,6 +514,16 @@ export default function FairaAssessmentForm() {
       'A4_7_access_scope': () => form.A4_7 === 'Yes',
       'A4_7_access_controls': () => form.A4_7 === 'Yes',
       'A4_7_notes': () => form.A4_7 === 'Yes',
+      // A4.8 conditional fields
+      'A4_8_action_types': () => form.A4_8 === 'Yes',
+      'A4_8_action_types_other': () => form.A4_8 === 'Yes' && form.A4_8_action_types.includes('Other'),
+      'A4_8_trigger_pathway': () => form.A4_8 === 'Yes',
+      'A4_8_affected_parties': () => form.A4_8 === 'Yes',
+      'A4_8_decision_records': () => form.A4_8 === 'Yes',
+      'A4_8_review_appeal': () => form.A4_8 === 'Yes',
+      'A4_8_legal_basis': () => form.A4_8 === 'Yes',
+      'A4_8_legal_basis_other': () => form.A4_8 === 'Yes' && form.A4_8_legal_basis.includes('Other'),
+      'A4_8_notes': () => form.A4_8 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
