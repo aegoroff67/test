@@ -119,7 +119,7 @@ const SectionA5 = ({ form, update, toggleInArray }) => {
 
       {/* A5.9 */}
       <div className="space-y-2">
-        <Label>A5.9 Which values and principles informed the AI solution's design? (Select all that apply)</Label>
+        <Label>A5.9 Which values and principles informed the AI solution&apos;s design? (Select all that apply)</Label>
         <div className="grid gap-2 md:grid-cols-2">
           {["Australia's AI Ethics Principles", "Human Rights Act", "data governance policies", "WHS", "accessibility standards", "agency ethics statements", "privacy principles", "risk management framework"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
