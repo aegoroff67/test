@@ -663,27 +663,29 @@ async def logout(current_user: UserResponse = Depends(get_current_user)):
     try:
         logger.info(f"Logout endpoint called for user: {current_user.email}")
         
-        # Log audit event
-        await log_audit_event(
-            db=db,
-            action=AuditAction.AUTH_LOGOUT,
-            actor_user_id=current_user.id,
-            actor_email=current_user.email,
-            tenant_id=current_user.org_id,
-            details={"user_role": current_user.role}
-        )
-        logger.info("Logout audit event logged")
+        # Direct test insert to verify db connection
+        from datetime import datetime, timezone as tz
+        test_result = await db.audit_logs.insert_one({
+            "timestamp": datetime.now(tz.utc),
+            "action": "auth_logout",
+            "actor_user_id": current_user.id,
+            "actor_email": current_user.email,
+            "tenant_id": current_user.org_id,
+            "details": {"user_role": current_user.role, "direct_insert": True},
+            "result": "success"
+        })
+        logger.info(f"Direct insert result: {test_result.inserted_id}")
         
         # Log analytics event
-        await log_analytics_event(
-            db=db,
-            event_type=AnalyticsEventType.PAGE_VIEW,
-            event_name="logout",
-            user_id=current_user.id,
-            tenant_id=current_user.org_id,
-            user_role=current_user.role
-        )
-        logger.info("Logout analytics event logged")
+        await db.analytics_events.insert_one({
+            "timestamp": datetime.now(tz.utc),
+            "event_type": "page_view",
+            "event_name": "logout",
+            "user_id": current_user.id,
+            "tenant_id": current_user.org_id,
+            "properties": {"user_role": current_user.role}
+        })
+        logger.info("Direct analytics insert done")
         
         return {"message": "Logout successful"}
     except Exception as e:
