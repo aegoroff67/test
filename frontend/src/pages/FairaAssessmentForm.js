@@ -378,6 +378,12 @@ export default function FairaAssessmentForm() {
       'A3_3_other': () => form.A3_3.includes('Other'),
       'A4_5_scenarios': () => form.A4_5 === 'Yes',
       'A4_6_data_types': () => form.A4_6 === 'Yes',
+      // A4.7 conditional fields
+      'A4_7_pii_types': () => form.A4_7 === 'Yes',
+      'A4_7_pii_types_other': () => form.A4_7 === 'Yes' && form.A4_7_pii_types.includes('Other'),
+      'A4_7_access_scope': () => form.A4_7 === 'Yes',
+      'A4_7_access_controls': () => form.A4_7 === 'Yes',
+      'A4_7_notes': () => form.A4_7 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
@@ -483,6 +489,12 @@ export default function FairaAssessmentForm() {
       'A3_3_other': () => form.A3_3.includes('Other'),
       'A4_5_scenarios': () => form.A4_5 === 'Yes',
       'A4_6_data_types': () => form.A4_6 === 'Yes',
+      // A4.7 conditional fields
+      'A4_7_pii_types': () => form.A4_7 === 'Yes',
+      'A4_7_pii_types_other': () => form.A4_7 === 'Yes' && form.A4_7_pii_types.includes('Other'),
+      'A4_7_access_scope': () => form.A4_7 === 'Yes',
+      'A4_7_access_controls': () => form.A4_7 === 'Yes',
+      'A4_7_notes': () => form.A4_7 === 'Yes',
       // A5_10 multiselect sections - at least one selection from any section completes the question
       // Each section is only "required" if no other sections have selections yet
       'A5_10_commonwealth': () => form.A5_10 === 'Yes' && 
