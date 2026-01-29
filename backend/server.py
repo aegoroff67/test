@@ -2415,6 +2415,31 @@ async def update_faira_form(
         {"$set": update_data}
     )
     
+    # Log assessment started if this is the first meaningful edit (progress > 0 and wasn't started before)
+    current_progress = assessment.get("progress", 0)
+    if current_progress == 0 and progress > 0:
+        await log_audit_event(
+            db=db,
+            action=AuditAction.ASSESSMENT_STARTED,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="assessment",
+            object_id=assessment_id,
+            object_name=updated_name,
+            details={"assessment_type": "FAIRA", "initial_progress": progress}
+        )
+        
+        await log_analytics_event(
+            db=db,
+            event_type=AnalyticsEventType.ASSESSMENT_FUNNEL,
+            event_name="assessment_started",
+            user_id=current_user.id,
+            tenant_id=current_user.org_id,
+            assessment_id=assessment_id,
+            assessment_type="FAIRA"
+        )
+    
     # Log assessment completion
     if status == "completed":
         await log_audit_event(
