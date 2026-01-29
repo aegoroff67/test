@@ -312,10 +312,13 @@ export default function FairaAssessmentForm() {
     // Special handling for Yes/No questions with conditional selections
     const conditionalYesNoQuestions = {
       'A1_6': 'A1_6_actions',
+      'A2_2': ['A2_2_sources', 'A2_2_data_types', 'A2_2_user_limits', 'A2_2_traceability', 'A2_2_trace_mechanisms'],
       'A2_7': 'A2_7_data_types',
       'A2_8': 'A2_8_types',
       'A4_5': 'A4_5_scenarios',
       'A4_6': 'A4_6_data_types',
+      'A4_7': ['A4_7_pii_types', 'A4_7_access_scope', 'A4_7_access_controls'],
+      'A4_8': ['A4_8_action_types', 'A4_8_trigger_pathway', 'A4_8_affected_parties', 'A4_8_decision_records', 'A4_8_review_appeal', 'A4_8_legal_basis'],
       'A5_10': ['A5_10_commonwealth', 'A5_10_qld', 'A5_10_sector', 'A5_10_frameworks'],
       'B2_3': 'B2_3_perspectives',
       'B3_1': 'B3_1_methods',
