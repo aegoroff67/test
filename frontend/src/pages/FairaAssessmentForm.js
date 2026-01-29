@@ -205,8 +205,15 @@ const defaultState = {
   B6_3_timing: "", // B6.3c when are they informed (single select)
   B6_3_information_provided: [], // B6.3d what information is provided (multiselect)
   B6_3_notes: "", // B6.3e optional notes
-  B6_4: "", // limitations (Yes/No)
-  B6_4_describe: "",
+  B6_4: "", // gate question: Can meaningful explanations be provided? (Yes/No)
+  B6_4_audience: [], // B6.4a who can receive explanations (multiselect)
+  B6_4_explanation_methods: [], // B6.4b how are explanations provided (multiselect)
+  B6_4_explanation_methods_other: "", // B6.4b other explanation method
+  B6_4_timing: "", // B6.4c when are explanations available (single select)
+  B6_4_explanation_content: [], // B6.4d what does the explanation include (multiselect)
+  B6_4_accessibility: "", // B6.4e how accessible are explanations (single select)
+  B6_4_limitations_disclosed: "", // B6.4f are limitations communicated (single select)
+  B6_4_notes: "", // B6.4g optional notes
   
   // B7: Contestability
   B7_1: "", // challenge process (Yes/No)
