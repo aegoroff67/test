@@ -477,6 +477,12 @@ export default function FairaAssessmentForm() {
       'B4_2_types_other': () => form.B4_2 === 'Yes' && form.B4_2_types.includes('Other'),
       'B5_1_rating': () => form.B5_1 === 'Yes',
       'B5_3_environments': () => form.B5_3 === 'Yes',
+      // B6.3 conditional fields
+      'B6_3_audience': () => form.B6_3 === 'Yes',
+      'B6_3_methods': () => form.B6_3 === 'Yes',
+      'B6_3_methods_other': () => form.B6_3 === 'Yes' && (form.B6_3_methods || []).includes('Other'),
+      'B6_3_timing': () => form.B6_3 === 'Yes',
+      'B6_3_information_provided': () => form.B6_3 === 'Yes',
       'B6_4_describe': () => form.B6_4 === 'Yes',
       'B7_1_describe': () => form.B7_1 === 'Yes',
       'B8_4_safeguards': () => form.B8_4 === 'Yes'
