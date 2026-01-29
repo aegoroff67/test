@@ -416,7 +416,6 @@ export default function FairaAssessmentForm() {
       'A4_7_pii_types_other': () => form.A4_7 === 'Yes' && form.A4_7_pii_types.includes('Other'),
       'A4_7_access_scope': () => form.A4_7 === 'Yes',
       'A4_7_access_controls': () => form.A4_7 === 'Yes',
-      'A4_7_notes': () => form.A4_7 === 'Yes',
       // A4.8 conditional fields
       'A4_8_action_types': () => form.A4_8 === 'Yes',
       'A4_8_action_types_other': () => form.A4_8 === 'Yes' && form.A4_8_action_types.includes('Other'),
@@ -536,7 +535,6 @@ export default function FairaAssessmentForm() {
       'A4_7_pii_types_other': () => form.A4_7 === 'Yes' && form.A4_7_pii_types.includes('Other'),
       'A4_7_access_scope': () => form.A4_7 === 'Yes',
       'A4_7_access_controls': () => form.A4_7 === 'Yes',
-      'A4_7_notes': () => form.A4_7 === 'Yes',
       // A4.8 conditional fields
       'A4_8_action_types': () => form.A4_8 === 'Yes',
       'A4_8_action_types_other': () => form.A4_8 === 'Yes' && form.A4_8_action_types.includes('Other'),
