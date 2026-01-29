@@ -567,19 +567,53 @@ export default function FairaAssessmentForm() {
   // Calculate section completion status
   const getSectionCompletion = () => {
     const sections = {
-      'A1': ['A1_1', 'A1_2', 'A1_3', 'A1_4', 'A1_5', 'A1_6', 'A1_7', 'A1_8', 'A1_9'],
-      'A2': ['A2_1', 'A2_2', 'A2_3', 'A2_4', 'A2_5_accuracy', 'A2_5_completeness', 'A2_5_reliability', 'A2_5_relevance', 'A2_5_timeliness', 'A2_6', 'A2_7', 'A2_8'],
+      'A1': ['A1_1', 'A1_2', 'A1_3', 'A1_4', 'A1_5', 'A1_6', 'A1_6_actions', 'A1_7', 'A1_8', 'A1_9'],
+      'A2': [
+        'A2_1', 'A2_2', 
+        // A2.2 conditional sub-fields
+        'A2_2_sources', 'A2_2_data_types', 'A2_2_user_limits', 'A2_2_traceability', 'A2_2_trace_mechanisms',
+        'A2_3', 'A2_4', 'A2_5_accuracy', 'A2_5_completeness', 'A2_5_reliability', 'A2_5_relevance', 'A2_5_timeliness', 
+        'A2_6', 'A2_7', 'A2_7_data_types', 'A2_8', 'A2_8_types'
+      ],
       'A3': ['A3_1', 'A3_2_technical', 'A3_2_domain', 'A3_2_ai_literacy', 'A3_3', 'A3_4', 'A3_5a', 'A3_5b', 'A3_6a', 'A3_6b'],
-      'A4': ['A4_1', 'A4_2', 'A4_3', 'A4_4', 'A4_5', 'A4_6', 'A4_7', 'A4_8'],
-      'A5': ['A5_1', 'A5_2', 'A5_3', 'A5_4', 'A5_5', 'A5_6', 'A5_7', 'A5_8', 'A5_9', 'A5_10', 'A5_11', 'A5_12'],
+      'A4': [
+        'A4_1', 'A4_2', 'A4_3', 'A4_4', 'A4_5', 'A4_5_scenarios', 'A4_6', 'A4_6_data_types', 
+        'A4_7',
+        // A4.7 conditional sub-fields
+        'A4_7_pii_types', 'A4_7_access_scope', 'A4_7_access_controls',
+        'A4_8',
+        // A4.8 conditional sub-fields
+        'A4_8_action_types', 'A4_8_trigger_pathway', 'A4_8_affected_parties', 'A4_8_decision_records', 'A4_8_review_appeal', 'A4_8_legal_basis'
+      ],
+      'A5': [
+        'A5_1', 'A5_2',
+        // A5.2 conditional sub-fields
+        'A5_2_logged_items', 'A5_2_logging_mechanisms', 'A5_2_retention', 'A5_2_access_scope',
+        'A5_3', 'A5_4', 'A5_5', 'A5_6', 'A5_7', 'A5_8', 'A5_9', 'A5_10', 
+        // A5.10 conditional sub-fields (at least one required)
+        'A5_10_commonwealth', 'A5_10_qld', 'A5_10_sector', 'A5_10_frameworks',
+        'A5_11', 'A5_12'
+      ],
       'B1': ['B1_1_individual', 'B1_1_organizational', 'B1_1_social', 'B1_1_environmental', 'B1_2', 'B1_3'],
-      'B2': ['B2_1', 'B2_2_rights', 'B2_2_diversity', 'B2_2_autonomy', 'B2_3'],
-      'B3': ['B3_1', 'B3_2'],
-      'B4': ['B4_1', 'B4_2', 'B4_3'],
-      'B5': ['B5_1', 'B5_2', 'B5_3'],
-      'B6': ['B6_1', 'B6_2', 'B6_3', 'B6_4'],
-      'B7': ['B7_1', 'B7_2'],
-      'B8': ['B8_1', 'B8_2', 'B8_3', 'B8_4']
+      'B2': ['B2_1', 'B2_2_rights', 'B2_2_diversity', 'B2_2_autonomy', 'B2_3', 'B2_3_perspectives'],
+      'B3': ['B3_1', 'B3_1_methods', 'B3_2', 'B3_2_groups'],
+      'B4': ['B4_1', 'B4_2', 'B4_2_types', 'B4_3'],
+      'B5': ['B5_1', 'B5_1_rating', 'B5_2', 'B5_3', 'B5_3_environments'],
+      'B6': [
+        'B6_1', 'B6_2', 'B6_3',
+        // B6.3 conditional sub-fields
+        'B6_3_audience', 'B6_3_methods', 'B6_3_timing', 'B6_3_information_provided',
+        'B6_4',
+        // B6.4 conditional sub-fields
+        'B6_4_audience', 'B6_4_explanation_methods', 'B6_4_timing', 'B6_4_explanation_content', 'B6_4_accessibility', 'B6_4_limitations_disclosed'
+      ],
+      'B7': [
+        'B7_1',
+        // B7.1 conditional sub-fields
+        'B7_1_initiators', 'B7_1_channels', 'B7_1_review_process', 'B7_1_review_inputs', 'B7_1_outcome_change',
+        'B7_2'
+      ],
+      'B8': ['B8_1', 'B8_2', 'B8_3', 'B8_4', 'B8_4_safeguards']
     };
 
     const conditionalFields = {
