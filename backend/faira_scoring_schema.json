@@ -1288,7 +1288,7 @@
     "A4_7": {
       "id": "A4_7",
       "text": "Do outputs contain personally identifiable information (PII)? If yes, who can access it?",
-      "type": "yes_no",
+      "type": "yes_no_with_subsections",
       "domains": [
         "Privacy Protection and Security",
         "Accountability",
