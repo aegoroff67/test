@@ -1334,6 +1334,7 @@ async def bulk_delete_notifications(notification_ids: List[str], admin: UserResp
 async def get_audit_logs_endpoint(
     action: Optional[str] = None,
     actor_user_id: Optional[str] = None,
+    actor_email: Optional[str] = None,
     object_type: Optional[str] = None,
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
@@ -1351,6 +1352,7 @@ async def get_audit_logs_endpoint(
             tenant_id=admin.org_id,
             action=action,
             actor_user_id=actor_user_id,
+            actor_email=actor_email,
             object_type=object_type,
             start_date=start_dt,
             end_date=end_dt,
