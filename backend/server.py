@@ -1511,16 +1511,20 @@ async def resolve_error(
 async def export_audit_logs(
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
+    tenant_id: Optional[str] = None,
     admin: UserResponse = Depends(require_super_admin)
 ):
-    """Export audit logs as CSV"""
+    """Export audit logs as CSV. Super Admins export all logs by default."""
     try:
         start_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00')) if start_date else datetime.now(timezone.utc) - timedelta(days=90)
         end_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00')) if end_date else datetime.now(timezone.utc)
         
+        # Super Admins export all logs unless they filter by specific tenant
+        effective_tenant_id = tenant_id if tenant_id else None
+        
         logs, _ = await get_audit_logs(
             db=db,
-            tenant_id=admin.org_id,
+            tenant_id=effective_tenant_id,
             start_date=start_dt,
             end_date=end_dt,
             skip=0,
