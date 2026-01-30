@@ -1338,18 +1338,23 @@ async def get_audit_logs_endpoint(
     object_type: Optional[str] = None,
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
+    tenant_id: Optional[str] = None,
     skip: int = 0,
     limit: int = 50,
     admin: UserResponse = Depends(require_super_admin)
 ):
-    """Get audit logs with optional filters"""
+    """Get audit logs with optional filters. Super Admins see all logs by default."""
     try:
         start_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00')) if start_date else None
         end_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00')) if end_date else None
         
+        # Super Admins see all logs unless they filter by specific tenant
+        # Non-Super Admins would only see their own org (but this endpoint requires Super Admin)
+        effective_tenant_id = tenant_id if tenant_id else None
+        
         logs, total = await get_audit_logs(
             db=db,
-            tenant_id=admin.org_id,
+            tenant_id=effective_tenant_id,
             action=action,
             actor_user_id=actor_user_id,
             actor_email=actor_email,
