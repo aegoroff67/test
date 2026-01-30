@@ -743,7 +743,6 @@ function SettingsPage() {
                           </td>
                           <td className="p-3">
                             <p className="text-gray-700">{u.organization_name}</p>
-                            <p className="text-xs text-gray-500">{u.default_industry || u.industry || 'Not set'}</p>
                           </td>
                           <td className="p-3">
                             <select
