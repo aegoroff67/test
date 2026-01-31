@@ -2733,7 +2733,7 @@
                   "signage (physical environment)": { "Control_Effectiveness": -0.25 },
                   "email/sms notification": { "Control_Effectiveness": -0.25 },
                   "website disclosure": { "Control_Effectiveness": -0.25 },
-                  "api / technical documentation": { "Control_Effectiveness": -0.25 },
+                  "API / technical documentation": { "Control_Effectiveness": -0.25 },
                   "Other": { "Control_Effectiveness": -0.25 }
                 },
                 "notes": "Direct and contextual disclosures provide stronger transparency benefit than passive policy-only disclosures."
