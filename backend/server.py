@@ -4205,8 +4205,13 @@ async def generate_report_docx(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error generating DOCX report: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Failed to generate DOCX report: {str(e)}")
+        error_detail = str(e)
+        logger.error(f"Error generating DOCX report: {error_detail}", exc_info=True)
+        # Include more context in the error response
+        import traceback
+        tb = traceback.format_exc()
+        print(f"FULL TRACEBACK:\n{tb}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate DOCX report: {error_detail}")
 
 
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
