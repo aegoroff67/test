@@ -55,6 +55,47 @@ SECRET_KEY = os.environ.get('JWT_SECRET', 'your-secret-key-change-in-production'
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 24 hours - extended for long assessment sessions
 
+# Default timezone for the application (Australian Eastern Time)
+# This handles both AEST (UTC+10) and AEDT (UTC+11) automatically
+DEFAULT_TIMEZONE = os.environ.get("APP_TIMEZONE", "Australia/Sydney")
+
+def get_local_time(utc_time: datetime = None, tz_str: str = None) -> datetime:
+    """Convert UTC time to local timezone.
+    
+    Args:
+        utc_time: UTC datetime (defaults to now if not provided)
+        tz_str: Timezone string (defaults to DEFAULT_TIMEZONE)
+    
+    Returns:
+        Datetime in the specified timezone
+    """
+    if utc_time is None:
+        utc_time = datetime.now(timezone.utc)
+    if tz_str is None:
+        tz_str = DEFAULT_TIMEZONE
+    
+    try:
+        local_tz = pytz.timezone(tz_str)
+        if utc_time.tzinfo is None:
+            utc_time = utc_time.replace(tzinfo=timezone.utc)
+        return utc_time.astimezone(local_tz)
+    except Exception:
+        return utc_time
+
+def format_local_datetime(utc_time: datetime = None, tz_str: str = None, fmt: str = "%d %B %Y %H:%M") -> str:
+    """Format a UTC datetime as a string in local timezone.
+    
+    Args:
+        utc_time: UTC datetime (defaults to now if not provided)
+        tz_str: Timezone string (defaults to DEFAULT_TIMEZONE)
+        fmt: strftime format string
+    
+    Returns:
+        Formatted datetime string
+    """
+    local_time = get_local_time(utc_time, tz_str)
+    return local_time.strftime(fmt)
+
 # Create the main app
 app = FastAPI(title="AM AI SAFE API")
 api_router = APIRouter(prefix="/api")
