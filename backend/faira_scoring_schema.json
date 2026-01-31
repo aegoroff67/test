@@ -2814,7 +2814,7 @@
                   "on-screen explanation at decision/output point": { "Control_Effectiveness": -0.75 },
                   "reason codes / factors list": { "Control_Effectiveness": -0.5 },
                   "case notes / decision record": { "Control_Effectiveness": -0.5 },
-                  "help article / faq / knowledge base": { "Control_Effectiveness": -0.25 },
+                  "help article / FAQ / knowledge base": { "Control_Effectiveness": -0.25 },
                   "support channel (phone/email) explanation": { "Control_Effectiveness": -0.25 },
                   "formal written explanation on request": { "Control_Effectiveness": -0.5 },
                   "technical documentation only": { "Control_Effectiveness": -0.1, "Likelihood": 0.5 },
