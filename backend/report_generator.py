@@ -4136,7 +4136,7 @@ Each cell represents the score for a specific question, enabling identification 
                     'data_quality_factor': faira_risk_summary.get('data_quality_factor', ''),
                     'expertise_factor': faira_risk_summary.get('expertise_factor', ''),
                     'assessment_date': report_data.get('assessment_date', ''),
-                    'generation_date': datetime.now().strftime('%Y-%m-%d'),
+                    'generation_date': get_report_local_time().strftime('%Y-%m-%d'),
                     
                     # Gap variable placeholder (template expects gap.domain, gap.existing_controls, etc.)
                     # This will be populated with actual data after gap analysis is built
