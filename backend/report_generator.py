@@ -4354,6 +4354,24 @@ Each cell represents the score for a specific question, enabling identification 
                     # Get top 3 risk-contributing domains
                     top_3_domains = top_domains_list[:3] if top_domains_list else []
                     
+                    print(f"DEBUG: Gap analysis - top_domains_list has {len(top_domains_list)} entries before slicing")
+                    print(f"DEBUG: Gap analysis - top_3_domains has {len(top_3_domains)} entries after slicing")
+                    
+                    # CRITICAL: If top_3_domains is still empty, generate fallback from raw domain scores
+                    if not top_3_domains and raw_domain_scores:
+                        print("DEBUG: top_3_domains empty, building from raw_domain_scores as fallback")
+                        sorted_by_risk = sorted(
+                            [(k, v.get('Risk', 0) if isinstance(v, dict) else 0) for k, v in raw_domain_scores.items()],
+                            key=lambda x: x[1],
+                            reverse=True
+                        )
+                        for domain_name, risk_score in sorted_by_risk[:3]:
+                            top_3_domains.append(DotDict({
+                                'name': domain_name,
+                                'risk': round(risk_score, 1)
+                            }))
+                        print(f"DEBUG: Built {len(top_3_domains)} domains from raw_domain_scores fallback")
+                    
                     # Get top 3 controls - access from faira_controls DotDict
                     faira_controls_ctx = template_context.get('faira_controls', {})
                     if hasattr(faira_controls_ctx, 'top_controls'):
