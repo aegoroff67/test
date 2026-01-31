@@ -2756,9 +2756,9 @@
                 "type": "multiselect",
                 "label": "What information is provided",
                 "options": {
-                  "that ai is used": { "Control_Effectiveness": -0.25 },
-                  "purpose of the ai system": { "Control_Effectiveness": -0.25 },
-                  "what the ai outputs are used for": { "Control_Effectiveness": -0.25 },
+                  "that AI is used": { "Control_Effectiveness": -0.25 },
+                  "purpose of the AI system": { "Control_Effectiveness": -0.25 },
+                  "what the AI outputs are used for": { "Control_Effectiveness": -0.25 },
                   "limitations/uncertainty of outputs": { "Control_Effectiveness": -0.5 },
                   "human oversight involvement": { "Control_Effectiveness": -0.25 },
                   "how to request an explanation": { "Control_Effectiveness": -0.5 },
