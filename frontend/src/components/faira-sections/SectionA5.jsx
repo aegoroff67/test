@@ -51,10 +51,10 @@ const SectionA5 = ({ form, update, toggleInArray }) => {
               <Label className="text-sm font-medium">A5.2a What is logged or recorded? (select all that apply)</Label>
               <div className="grid gap-2 md:grid-cols-2">
                 {[
-                  "ai inputs",
-                  "ai outputs",
-                  "human decisions informed by ai",
-                  "automated actions triggered by ai",
+                  "AI inputs",
+                  "AI outputs",
+                  "human decisions informed by AI",
+                  "automated actions triggered by AI",
                   "model version / configuration",
                   "data sources used / provenance",
                   "access to outputs / disclosures"

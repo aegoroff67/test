@@ -107,7 +107,7 @@ const SectionB7 = ({ form, update, toggleInArray }) => {
               <div className="grid gap-2 md:grid-cols-2">
                 {[
                   "decision record / case notes",
-                  "ai outputs / scores",
+                  "AI outputs / scores",
                   "reason codes / explanation",
                   "input data used",
                   "model version / configuration recorded",

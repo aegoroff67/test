@@ -81,7 +81,7 @@ const SectionB6 = ({ form, update, toggleInArray }) => {
                   "signage (physical environment)",
                   "email/sms notification",
                   "website disclosure",
-                  "api / technical documentation"
+                  "API / technical documentation"
                 ].map((option) => (
                   <label key={option} className="flex items-center space-x-2">
                     <Checkbox 
@@ -131,9 +131,9 @@ const SectionB6 = ({ form, update, toggleInArray }) => {
               <Label className="text-sm font-medium">B6.3d What information is provided as part of the disclosure? (select all that apply)</Label>
               <div className="grid gap-2 md:grid-cols-2">
                 {[
-                  "that ai is used",
-                  "purpose of the ai system",
-                  "what the ai outputs are used for",
+                  "that AI is used",
+                  "purpose of the AI system",
+                  "what the AI outputs are used for",
                   "limitations/uncertainty of outputs",
                   "human oversight involvement",
                   "how to request an explanation",
@@ -212,7 +212,7 @@ const SectionB6 = ({ form, update, toggleInArray }) => {
                   "on-screen explanation at decision/output point",
                   "reason codes / factors list",
                   "case notes / decision record",
-                  "help article / faq / knowledge base",
+                  "help article / FAQ / knowledge base",
                   "support channel (phone/email) explanation",
                   "formal written explanation on request",
                   "technical documentation only"
@@ -265,7 +265,7 @@ const SectionB6 = ({ form, update, toggleInArray }) => {
               <Label className="text-sm font-medium">B6.4d What does the explanation include? (select all that apply)</Label>
               <div className="grid gap-2 md:grid-cols-2">
                 {[
-                  "purpose of the ai system",
+                  "purpose of the AI system",
                   "what inputs influenced the outcome",
                   "key factors/attributes driving the outcome",
                   "confidence/uncertainty indicators",
