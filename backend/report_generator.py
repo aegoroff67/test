@@ -4675,11 +4675,17 @@ Each cell represents the score for a specific question, enabling identification 
 
     def _post_process_ampersands(self, docx_bytes: bytes) -> bytes:
         """
-        Post-process DOCX to replace ampersand placeholders with proper XML entities.
+        Post-process DOCX to replace ampersand placeholders and fix bare ampersands.
         
-        docxtpl strips & in paragraph loops ({% for %}), so we use AMP_PLACEHOLDER
-        during rendering and replace it with &amp; after the DOCX is generated.
+        This handles two cases:
+        1. AMP_PLACEHOLDER -> &amp; (for dynamic content we protected)
+        2. Bare & -> &amp; (for static template text that Jinja2 unescaped)
+        
+        Jinja2 interprets &amp; in the template XML as a literal '&', so we need
+        to re-escape these bare ampersands after rendering to maintain valid XML.
         """
+        import re
+        
         # Read the DOCX (which is a ZIP file)
         input_buffer = io.BytesIO(docx_bytes)
         files = {}
@@ -4688,13 +4694,31 @@ Each cell represents the score for a specific question, enabling identification 
             for name in zin.namelist():
                 files[name] = zin.read(name)
         
-        # Replace placeholder with proper XML entity in all XML files
+        # Process XML files to fix ampersands
         output_buffer = io.BytesIO()
         with zipfile.ZipFile(output_buffer, 'w', zipfile.ZIP_DEFLATED) as zout:
             for name, content in files.items():
                 if name.endswith('.xml'):
-                    # Replace placeholder with &amp;
-                    content = content.replace(AMP_PLACEHOLDER.encode(), b'&amp;')
+                    try:
+                        content_str = content.decode('utf-8')
+                        
+                        # Step 1: Replace our placeholder with &amp;
+                        content_str = content_str.replace(AMP_PLACEHOLDER, '&amp;')
+                        
+                        # Step 2: Fix bare ampersands that aren't already part of XML entities
+                        # This regex matches & that is NOT followed by amp;, lt;, gt;, quot;, apos;, or #
+                        # (which are valid XML entity patterns)
+                        content_str = re.sub(
+                            r'&(?!(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)',
+                            '&amp;',
+                            content_str
+                        )
+                        
+                        content = content_str.encode('utf-8')
+                    except UnicodeDecodeError:
+                        # Keep binary content as-is
+                        pass
+                        
                 zout.writestr(name, content)
         
         output_buffer.seek(0)
