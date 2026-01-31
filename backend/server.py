@@ -1964,7 +1964,12 @@ async def delete_assessment(
 
 @api_router.get("/assessments/{assessment_id}")
 async def get_assessment(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    # Super Admins can view all assessments, regular users only their org's assessments
+    if current_user.role == "SUPER_ADMIN":
+        assessment = await db.assessments.find_one({"id": assessment_id})
+    else:
+        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
