@@ -2959,8 +2959,8 @@ Each cell represents the score for a specific question, enabling identification 
             if 'awareness_info' in report_data:
                 print(f"DEBUG: awareness_info keys = {list(report_data.get('awareness_info', {}).keys())}")
             
-            # Load the template
-            doc = DocxTemplate(self.template_path)
+            # Load the template with ampersand protection
+            doc = self._load_template_with_ampersand_protection(self.template_path)
             
             # Create inline image for heatmap - set to requested width
             heatmap_inline = InlineImage(doc, io.BytesIO(heatmap_image), width=Inches(6.27))
