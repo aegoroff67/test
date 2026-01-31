@@ -4626,6 +4626,52 @@ Each cell represents the score for a specific question, enabling identification 
             traceback.print_exc()
             raise Exception(f"Failed to generate DOCX report: {str(e)}")
     
+    def _load_template_with_ampersand_protection(self, template_path: str) -> DocxTemplate:
+        """
+        Load a DOCX template with ampersand protection.
+        
+        docxtpl has a known issue where it strips & characters from static template text
+        during rendering. This method pre-processes the template to replace &amp; with
+        a placeholder, which is then converted back after rendering.
+        """
+        import tempfile
+        
+        # Read the template and replace &amp; with placeholder in XML files
+        input_buffer = io.BytesIO()
+        with open(template_path, 'rb') as f:
+            input_buffer.write(f.read())
+        input_buffer.seek(0)
+        
+        # Create a temporary file with protected ampersands
+        output_buffer = io.BytesIO()
+        with zipfile.ZipFile(input_buffer, 'r') as zin:
+            with zipfile.ZipFile(output_buffer, 'w', zipfile.ZIP_DEFLATED) as zout:
+                for name in zin.namelist():
+                    content = zin.read(name)
+                    if name.endswith('.xml'):
+                        # Replace &amp; with placeholder to protect it during rendering
+                        # But don't replace &amp; that are part of other entities like &lt; &gt;
+                        content = content.replace(b'&amp;', AMP_PLACEHOLDER.encode())
+                    zout.writestr(name, content)
+        
+        output_buffer.seek(0)
+        
+        # Create a temporary file for DocxTemplate
+        with tempfile.NamedTemporaryFile(suffix='.docx', delete=False) as tmp:
+            tmp.write(output_buffer.read())
+            tmp_path = tmp.name
+        
+        try:
+            doc = DocxTemplate(tmp_path)
+            return doc
+        finally:
+            # Clean up temp file after loading
+            import os
+            try:
+                os.unlink(tmp_path)
+            except:
+                pass
+
     def _post_process_ampersands(self, docx_bytes: bytes) -> bytes:
         """
         Post-process DOCX to replace ampersand placeholders with proper XML entities.
