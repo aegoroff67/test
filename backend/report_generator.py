@@ -4657,10 +4657,12 @@ Each cell represents the score for a specific question, enabling identification 
         
         Note: Ampersand protection is now handled in post-processing via _post_process_ampersands
         This method now just loads the template directly for reliability.
+        
+        Version: 2026-01-31-v2 - Removed temp file logic to fix production PackageNotFound error
         """
         import os as os_module
         
-        print(f"DEBUG: Loading template from {template_path}")
+        print(f"DEBUG: Loading template from {template_path} (direct load, no temp file)")
         
         if not os_module.path.exists(template_path):
             raise Exception(f"Template file not found: {template_path}")
