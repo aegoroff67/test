@@ -4658,12 +4658,14 @@ Each cell represents the score for a specific question, enabling identification 
         Note: Ampersand protection is now handled in post-processing via _post_process_ampersands
         This method now just loads the template directly for reliability.
         """
+        import os as os_module
+        
         print(f"DEBUG: Loading template from {template_path}")
         
-        if not os.path.exists(template_path):
+        if not os_module.path.exists(template_path):
             raise Exception(f"Template file not found: {template_path}")
         
-        file_size = os.path.getsize(template_path)
+        file_size = os_module.path.getsize(template_path)
         print(f"DEBUG: Template file size: {file_size} bytes")
         
         doc = DocxTemplate(template_path)
