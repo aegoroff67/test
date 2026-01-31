@@ -4675,27 +4675,22 @@ Each cell represents the score for a specific question, enabling identification 
                     content = zin.read(name)
                     if name.endswith('.xml'):
                         # Replace &amp; with placeholder to protect it during rendering
-                        # But don't replace &amp; that are part of other entities like &lt; &gt;
                         content = content.replace(b'&amp;', AMP_PLACEHOLDER.encode())
                     zout.writestr(name, content)
         
         output_buffer.seek(0)
         
         # Create a temporary file for DocxTemplate
-        with tempfile.NamedTemporaryFile(suffix='.docx', delete=False) as tmp:
-            tmp.write(output_buffer.read())
-            tmp_path = tmp.name
+        # Note: We don't delete this file immediately as DocxTemplate needs it
+        # The OS will clean it up eventually, or it will be overwritten
+        tmp = tempfile.NamedTemporaryFile(suffix='.docx', delete=False)
+        tmp.write(output_buffer.read())
+        tmp.close()
         
-        try:
-            doc = DocxTemplate(tmp_path)
-            return doc
-        finally:
-            # Clean up temp file after loading
-            import os
-            try:
-                os.unlink(tmp_path)
-            except:
-                pass
+        doc = DocxTemplate(tmp.name)
+        # Store temp path for cleanup later if needed
+        doc._temp_template_path = tmp.name
+        return doc
 
     def _post_process_ampersands(self, docx_bytes: bytes) -> bytes:
         """
