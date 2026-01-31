@@ -27,6 +27,23 @@ import subprocess
 from jinja2 import Environment, FileSystemLoader
 import zipfile
 from weasyprint import HTML, CSS  # Now enabled - system libraries installed
+import pytz
+
+# Default timezone for reports (Australian Eastern Time)
+REPORT_TIMEZONE = os.environ.get("APP_TIMEZONE", "Australia/Sydney")
+
+def get_report_local_time(utc_time: datetime = None) -> datetime:
+    """Convert UTC time to report timezone (Australian Eastern Time)."""
+    if utc_time is None:
+        utc_time = datetime.now(timezone.utc)
+    try:
+        local_tz = pytz.timezone(REPORT_TIMEZONE)
+        if utc_time.tzinfo is None:
+            utc_time = utc_time.replace(tzinfo=timezone.utc)
+        return utc_time.astimezone(local_tz)
+    except Exception:
+        return utc_time
+
 
 # Import framework coverage calculator
 from framework_coverage import get_all_framework_coverage, FRAMEWORK_CONFIG
