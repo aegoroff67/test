@@ -3021,7 +3021,7 @@ Each cell represents the score for a specific question, enabling identification 
                     'id': report_data.get('assessment', {}).get('id', 'N/A'),
                     'date': report_data.get('assessment', {}).get('date', '2025-01-01'),
                     'version': report_data.get('assessment', {}).get('version', '1.0.0'),
-                    'generated_at': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
+                    'generated_at': get_report_local_time().strftime('%Y-%m-%dT%H:%M:%S'),
                     'type': 'AI System Maturity Assessment'
                 },
                 
