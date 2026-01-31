@@ -4653,60 +4653,20 @@ Each cell represents the score for a specific question, enabling identification 
     
     def _load_template_with_ampersand_protection(self, template_path: str) -> DocxTemplate:
         """
-        Load a DOCX template with ampersand protection.
+        Load a DOCX template.
         
-        docxtpl has a known issue where it strips & characters from static template text
-        during rendering. This method pre-processes the template to replace &amp; with
-        a placeholder, which is then converted back after rendering.
+        Note: Ampersand protection is now handled in post-processing via _post_process_ampersands
+        This method now just loads the template directly for reliability.
         """
-        import tempfile
-        import os
+        print(f"DEBUG: Loading template from {template_path}")
         
-        # Read the template and replace &amp; with placeholder in XML files
-        input_buffer = io.BytesIO()
-        with open(template_path, 'rb') as f:
-            input_buffer.write(f.read())
-        input_buffer.seek(0)
+        if not os.path.exists(template_path):
+            raise Exception(f"Template file not found: {template_path}")
         
-        # Create a temporary file with protected ampersands
-        output_buffer = io.BytesIO()
-        with zipfile.ZipFile(input_buffer, 'r') as zin:
-            with zipfile.ZipFile(output_buffer, 'w', zipfile.ZIP_DEFLATED) as zout:
-                for name in zin.namelist():
-                    content = zin.read(name)
-                    if name.endswith('.xml'):
-                        # Replace &amp; with placeholder to protect it during rendering
-                        content = content.replace(b'&amp;', AMP_PLACEHOLDER.encode())
-                    zout.writestr(name, content)
+        file_size = os.path.getsize(template_path)
+        print(f"DEBUG: Template file size: {file_size} bytes")
         
-        output_buffer.seek(0)
-        
-        # Create a temporary file for DocxTemplate
-        # Use a persistent temp directory to avoid cleanup issues
-        tmp_dir = tempfile.gettempdir()
-        tmp_filename = f"docx_template_{os.getpid()}_{id(self)}.docx"
-        tmp_path = os.path.join(tmp_dir, tmp_filename)
-        
-        # Write the modified template to the temp file
-        with open(tmp_path, 'wb') as f:
-            f.write(output_buffer.read())
-        
-        # Verify the file exists and has content
-        if not os.path.exists(tmp_path):
-            raise Exception(f"Failed to create temp template file at {tmp_path}")
-        
-        file_size = os.path.getsize(tmp_path)
-        if file_size == 0:
-            raise Exception(f"Temp template file is empty at {tmp_path}")
-        
-        print(f"DEBUG: Created temp template at {tmp_path} ({file_size} bytes)")
-        
-        # Load the template
-        doc = DocxTemplate(tmp_path)
-        
-        # Store temp path for potential cleanup later
-        doc._temp_template_path = tmp_path
-        
+        doc = DocxTemplate(template_path)
         return doc
 
     def _post_process_ampersands(self, docx_bytes: bytes) -> bytes:
