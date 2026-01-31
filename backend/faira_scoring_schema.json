@@ -2840,7 +2840,7 @@
                 "type": "multiselect",
                 "label": "What explanations include",
                 "options": {
-                  "purpose of the ai system": { "Control_Effectiveness": -0.25 },
+                  "purpose of the AI system": { "Control_Effectiveness": -0.25 },
                   "what inputs influenced the outcome": { "Control_Effectiveness": -0.5 },
                   "key factors/attributes driving the outcome": { "Control_Effectiveness": -0.75 },
                   "confidence/uncertainty indicators": { "Control_Effectiveness": -0.5 },
