@@ -4312,6 +4312,113 @@ Each cell represents the score for a specific question, enabling identification 
                     template_context['controls_by_domain'] = DotDict({})
                     template_context['recommended_controls'] = DotDict({})
                 
+                # ============================================================
+                # FAIRA GAP ANALYSIS
+                # Combines top risk domains with their recommended controls
+                # Creates a 'gaps' list for template iteration:
+                #   {%tr for gap in gaps %}
+                #     {{gap.domain}} | {{gap.existing_controls}} | {{gap.gaps}} | {{gap.priority}}
+                #   {%tr endfor %}
+                # ============================================================
+                try:
+                    gaps_list = []
+                    
+                    # Get top 3 risk-contributing domains
+                    top_3_domains = top_domains_list[:3] if top_domains_list else []
+                    
+                    # Get top 3 controls
+                    top_3_controls = template_context.get('faira_controls', {}).get('top_controls', [])[:3]
+                    
+                    # Map short domain names to full names for control matching
+                    domain_name_map = {
+                        'Wellbeing': 'Human, Societal and Environmental Wellbeing',
+                        'Values': 'Human-Centred Values',
+                        'Fairness': 'Fairness',
+                        'Privacy': 'Privacy Protection and Security',
+                        'Reliability': 'Reliability and Safety',
+                        'Transparency': 'Transparency and Explainability',
+                        'Contestability': 'Contestability',
+                        'Accountability': 'Accountability'
+                    }
+                    
+                    # Build gaps list combining domain risks and controls
+                    for i, domain in enumerate(top_3_domains):
+                        domain_name = domain.get('name', 'Unknown')
+                        domain_risk = domain.get('risk', 0)
+                        
+                        # Determine priority based on risk score
+                        if domain_risk >= 55:
+                            priority = 'High'
+                        elif domain_risk >= 35:
+                            priority = 'Medium'
+                        else:
+                            priority = 'Low'
+                        
+                        # Get domain scores for existing controls assessment
+                        domain_scores_dict = raw_domain_scores.get(domain_name, {}) if raw_domain_scores else {}
+                        control_effectiveness = domain_scores_dict.get('Control_Effectiveness', 0) if isinstance(domain_scores_dict, dict) else 0
+                        
+                        # Assess existing controls based on CE score
+                        if control_effectiveness >= 70:
+                            existing_controls = 'Strong controls in place'
+                        elif control_effectiveness >= 40:
+                            existing_controls = 'Partial controls implemented'
+                        else:
+                            existing_controls = 'Limited or no controls'
+                        
+                        # Get the corresponding top control for this domain (if any)
+                        gap_description = ''
+                        if i < len(top_3_controls):
+                            ctrl = top_3_controls[i]
+                            ctrl_title = ctrl.get('title', '')
+                            ctrl_type = ctrl.get('control_type', '')
+                            if ctrl_title:
+                                gap_description = f"{ctrl_title}"
+                                if ctrl_type:
+                                    gap_description += f" ({ctrl_type})"
+                        
+                        # If no matching control, create a generic gap based on domain
+                        if not gap_description:
+                            gap_description = f"Strengthen {domain_name} controls"
+                        
+                        gaps_list.append(DotDict({
+                            'domain': domain_name,
+                            'risk_score': round(domain_risk, 1),
+                            'existing_controls': existing_controls,
+                            'control_effectiveness': round(control_effectiveness, 1),
+                            'gaps': gap_description,
+                            'priority': priority
+                        }))
+                    
+                    # Ensure we have at least 3 gap entries
+                    while len(gaps_list) < 3:
+                        gaps_list.append(DotDict({
+                            'domain': 'N/A',
+                            'risk_score': 0,
+                            'existing_controls': 'N/A',
+                            'control_effectiveness': 0,
+                            'gaps': 'No additional gaps identified',
+                            'priority': 'Low'
+                        }))
+                    
+                    template_context['gaps'] = gaps_list
+                    
+                    # Also add individual gap shortcuts for template convenience
+                    for i, gap in enumerate(gaps_list[:3], 1):
+                        template_context[f'gap_{i}'] = gap
+                    
+                    print(f"DEBUG: Built FAIRA gap analysis with {len(gaps_list)} entries:")
+                    for i, gap in enumerate(gaps_list[:3]):
+                        print(f"  - Gap {i+1}: {gap.get('domain')} (Risk: {gap.get('risk_score')}, Priority: {gap.get('priority')})")
+                        print(f"           Existing: {gap.get('existing_controls')}")
+                        print(f"           Gap: {gap.get('gaps')}")
+                    
+                except Exception as e:
+                    print(f"WARNING: Could not build FAIRA gap analysis: {e}")
+                    import traceback
+                    traceback.print_exc()
+                    template_context['gaps'] = []
+                
                 # Add AI narratives for FAIRA reports (32 placeholders)
                 # Using variable naming convention: ai.f_* for FAIRA
                 ai_narratives = report_data.get('ai_narratives', {})
