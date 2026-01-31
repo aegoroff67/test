@@ -4122,11 +4122,14 @@ Each cell represents the score for a specific question, enabling identification 
                     'generation_date': datetime.now().strftime('%Y-%m-%d'),
                     
                     # Gap variable placeholder (template expects gap.domain, gap.existing_controls, etc.)
+                    # This will be populated with actual data after gap analysis is built
                     'gap': DotDict({
                         'domain': '',
                         'existing_controls': '',
                         'gaps': '',
-                        'priority': ''
+                        'priority': '',
+                        'risk_score': 0,
+                        'control_effectiveness': 0
                     }),
                     
                     # Artefact variable placeholder (template expects artefact.name, artefact.description, etc.)
