@@ -4603,6 +4603,13 @@ Each cell represents the score for a specific question, enabling identification 
             jinja_env.filters['rating_label'] = rating_label
             jinja_env.filters['severity_label'] = severity_label
             
+            # Debug: Verify gaps list before render
+            if self.assessment_type == 'FAIRA':
+                gaps_before_render = template_context.get('gaps', [])
+                print(f"DEBUG PRE-RENDER: gaps list has {len(gaps_before_render)} entries")
+                for i, g in enumerate(gaps_before_render[:3]):
+                    print(f"  - gaps[{i}]: domain={g.get('domain')}, gaps={g.get('gaps')}, priority={g.get('priority')}")
+            
             # Render the template with custom jinja_env
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
             doc.render(template_context, jinja_env=jinja_env)
