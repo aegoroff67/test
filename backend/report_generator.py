@@ -4329,8 +4329,16 @@ Each cell represents the score for a specific question, enabling identification 
                     # Get top 3 risk-contributing domains
                     top_3_domains = top_domains_list[:3] if top_domains_list else []
                     
-                    # Get top 3 controls
-                    top_3_controls = template_context.get('faira_controls', {}).get('top_controls', [])[:3]
+                    # Get top 3 controls - access from faira_controls DotDict
+                    faira_controls_ctx = template_context.get('faira_controls', {})
+                    if hasattr(faira_controls_ctx, 'top_controls'):
+                        top_3_controls = faira_controls_ctx.top_controls[:3] if faira_controls_ctx.top_controls else []
+                    elif isinstance(faira_controls_ctx, dict):
+                        top_3_controls = faira_controls_ctx.get('top_controls', [])[:3]
+                    else:
+                        top_3_controls = []
+                    
+                    print(f"DEBUG: Gap analysis - top_3_domains: {len(top_3_domains)}, top_3_controls: {len(top_3_controls)}")
                     
                     # Map short domain names to full names for control matching
                     domain_name_map = {
