@@ -2952,7 +2952,7 @@
                 "label": "Information supporting review",
                 "options": {
                   "decision record / case notes": { "Control_Effectiveness": 1 },
-                  "ai outputs / scores": { "Control_Effectiveness": 0.5 },
+                  "AI outputs / scores": { "Control_Effectiveness": 0.5 },
                   "reason codes / explanation": { "Control_Effectiveness": 1 },
                   "input data used": { "Control_Effectiveness": 1 },
                   "model version / configuration recorded": { "Control_Effectiveness": 1 },
