@@ -26,7 +26,15 @@ import requests
 import subprocess
 from jinja2 import Environment, FileSystemLoader
 import zipfile
-from weasyprint import HTML, CSS  # Now enabled - system libraries installed
+
+# WeasyPrint import - conditional to handle missing system libraries
+try:
+    from weasyprint import HTML, CSS
+    WEASYPRINT_AVAILABLE = True
+except (ImportError, OSError):
+    WEASYPRINT_AVAILABLE = False
+    HTML = None
+    CSS = None
 import pytz
 
 # Default timezone for reports (Australian Eastern Time)
