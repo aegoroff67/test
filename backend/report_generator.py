@@ -4660,6 +4660,7 @@ Each cell represents the score for a specific question, enabling identification 
         a placeholder, which is then converted back after rendering.
         """
         import tempfile
+        import os
         
         # Read the template and replace &amp; with placeholder in XML files
         input_buffer = io.BytesIO()
@@ -4681,15 +4682,31 @@ Each cell represents the score for a specific question, enabling identification 
         output_buffer.seek(0)
         
         # Create a temporary file for DocxTemplate
-        # Note: We don't delete this file immediately as DocxTemplate needs it
-        # The OS will clean it up eventually, or it will be overwritten
-        tmp = tempfile.NamedTemporaryFile(suffix='.docx', delete=False)
-        tmp.write(output_buffer.read())
-        tmp.close()
+        # Use a persistent temp directory to avoid cleanup issues
+        tmp_dir = tempfile.gettempdir()
+        tmp_filename = f"docx_template_{os.getpid()}_{id(self)}.docx"
+        tmp_path = os.path.join(tmp_dir, tmp_filename)
         
-        doc = DocxTemplate(tmp.name)
-        # Store temp path for cleanup later if needed
-        doc._temp_template_path = tmp.name
+        # Write the modified template to the temp file
+        with open(tmp_path, 'wb') as f:
+            f.write(output_buffer.read())
+        
+        # Verify the file exists and has content
+        if not os.path.exists(tmp_path):
+            raise Exception(f"Failed to create temp template file at {tmp_path}")
+        
+        file_size = os.path.getsize(tmp_path)
+        if file_size == 0:
+            raise Exception(f"Temp template file is empty at {tmp_path}")
+        
+        print(f"DEBUG: Created temp template at {tmp_path} ({file_size} bytes)")
+        
+        # Load the template
+        doc = DocxTemplate(tmp_path)
+        
+        # Store temp path for potential cleanup later
+        doc._temp_template_path = tmp_path
+        
         return doc
 
     def _post_process_ampersands(self, docx_bytes: bytes) -> bytes:
