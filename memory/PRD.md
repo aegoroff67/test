@@ -1,255 +1,108 @@
-# AM AI SAFE Assessment Platform - PRD
+# AM AI SAFE - AI Maturity & Risk Assessment Platform
 
 ## Original Problem Statement
-Create and debug detailed DOCX reports for four distinct assessment types:
-- AI Awareness & Foundations
-- AI Readiness  
-- Org-wide Assessment
-- AI System Maturity
-
-This involves iteratively debugging user-provided DOCX templates, fixing complex Jinja2 syntax and rendering issues, and implementing the entire backend data pipeline in `report_generator.py`.
-
-## User Personas
-- **Assessors**: Conduct AI maturity assessments for organizations
-- **Organization Admins**: Review and manage assessment results
-- **Executives**: Consume high-level reports on AI maturity
+Build a full-stack application for managing and generating AI maturity and risk assessment reports. The platform supports multiple assessment types (Awareness, Readiness, Orgwide, System, FAIRA) with comprehensive DOCX/PDF report generation, tier-based user access control, and detailed logging.
 
 ## Core Requirements
+1. Multi-type AI assessments with scoring engines
+2. DOCX/PDF report generation with customizable templates
+3. User authentication and organization-based multi-tenancy
+4. Super Admin cross-tenant access
+5. Comprehensive audit logging
+6. AI-enhanced narrative generation (optional)
 
-### Report Generation
-1. DOCX report generation for all 4 assessment types
-2. AI-generated narrative sections using GPT-4o-mini
-3. Dynamic charts (heatmaps, bar charts, radar charts)
-4. Sector-specific benchmarking and recommendations
-5. Detailed question-level response appendix (optional)
-
-### Tech Stack
-- Frontend: React
-- Backend: FastAPI (Python)
-- Database: MongoDB (`am_ai_safe_db`)
-- AI: OpenAI GPT-4o-mini via Emergent LLM Key
-- Templates: docxtpl + python-docx
-
----
-
-## What's Been Implemented
-
-### ✅ Completed (as of 2026-01-29)
-
-#### FairaAssessmentForm.js Refactoring - COMPLETE ✅
-- **Part A Refactoring**: Sections A1-A5 extracted to separate components
-- **Part B Refactoring**: Sections B1-B8 extracted to separate components
-- **File size reduction**: From ~2000+ lines to 1191 lines (40% reduction)
-- **Components created**: 16 section components in `/app/frontend/src/components/faira-sections/`
-- **Bug fixes**: Added null safety to all `.includes()` calls using `(form.field || []).includes()` pattern
-- **Testing**: All Part B sections verified working (progress tracking, auto-save, conditional fields)
-
-#### Question A5.2 Restructuring - COMPLETE ✅ (2026-01-29)
-- **Converted** from simple text field to Yes/No gated section with 5 subsections:
-  - A5.2a: What is logged or recorded? (multiselect with 8 options + Other)
-  - A5.2b: Logging mechanisms (multiselect with 8 options + Other)
-  - A5.2c: Retention period (dropdown with 5 options)
-  - A5.2d: Access scope (dropdown with 6 options)
-  - A5.2e: Notes/exceptions (optional textarea)
-- **Updated** scoring schema with Impact, Likelihood, Control_Effectiveness modifiers
-- **Updated** progress calculation to handle conditional fields
-- **Testing**: All features verified working (100% pass rate)
-
-#### Question B6.3 Restructuring - COMPLETE ✅ (2026-01-29)
-- **Converted** from simple text field to Yes/No gated section with 5 subsections:
-  - B6.3a: Who is informed? (multiselect with 5 options)
-  - B6.3b: How are they informed? (multiselect with 9 options + Other)
-  - B6.3c: When are they informed? (dropdown with 5 options)
-  - B6.3d: What information is provided? (multiselect with 8 options)
-  - B6.3e: Notes/exceptions (optional textarea)
-- **Updated** scoring schema with Likelihood, Control_Effectiveness modifiers
-- **Testing**: All features verified working
-
-#### Question B6.4 Restructuring - COMPLETE ✅ (2026-01-29)
-- **Converted** from Yes/No with text description to Yes/No gated section with 7 subsections:
-  - B6.4a: Who can receive explanations? (multiselect with 5 options)
-  - B6.4b: How are explanations provided? (multiselect with 8 options + Other)
-  - B6.4c: When are explanations available? (dropdown with 5 options)
-  - B6.4d: What does the explanation include? (multiselect with 8 options)
-  - B6.4e: How accessible are explanations? (dropdown with 4 options)
-  - B6.4f: Are limitations communicated? (dropdown with 4 options)
-  - B6.4g: Notes/exceptions (optional textarea)
-- **Updated** scoring schema with Likelihood, Control_Effectiveness modifiers
-- **Testing**: All features verified working (100% pass rate)
-
-### ✅ Completed (as of 2026-01-25)
-
-#### Custom Jinja2 Filter Bug Fix (2026-01-25) - FIXED ✅
-- **Issue**: `AttributeError: 'NoneType' object has no attribute 'jinja_env'` during DOCX generation
-- **Root Cause**: Custom `replace_last` filter was incorrectly registered via `doc.jinja_env.filters` (which is None before render)
-- **Fix**: Create separate `jinja2.Environment()` object, add filter to it, pass to `doc.render(template_context, jinja_env)`
-- **Result**: FAIRA DOCX report generation now works (validated with 432KB file)
-
-#### User Tier System - COMPLETE ✅
-- **Tier-based assessment access**:
-  - Tier 1: Awareness, Readiness
-  - Tier 2: Awareness, Readiness, Org-wide
-  - Tier 3: All assessments (Awareness, Readiness, Org-wide, System, FAIRA)
-- **Tier column** added to User Management in Settings & Administration
-- **Super-admin override**: Assessment Types checkboxes for granular access control
-- Backend API: `PUT /api/admin/users/{user_id}/tier`
-- **Assessment Selector UI** (2026-01-24):
-  - Badge shows "Available" for accessible assessments
-  - Badge shows "Upgrade to Tier X" for inaccessible assessments
-  - Button shows "Upgrade to Unlock" for locked assessments
-  - Dynamic messaging based on user tier and assessment requirements
-
-#### Report Types - ALL FUNCTIONAL
-- **AI Awareness Report** - Fully functional with AI narratives, bar charts
-- **AI Readiness Report** - Fully functional with v0.08 template
-- **Org-wide Report** - Fully functional with v0.06 template, 8 AI narratives
-- **AI System Maturity Report** - ✅ COMPLETED with v0.15 template, 8 AI narratives
-- **FAIRA Risk Assessment Report** - ✅ AI Narratives implemented (2026-01-24):
-  - 32 AI narrative placeholder prompts added to `ai_narratives.py`
-  - Covers: Executive snapshot, risk profile, methodology, context notes, domain analysis, controls rationale, governance posture, next steps
-
-#### System Report Features (Latest Fix - 2026-01-22)
-- **Heatmap Bug Fixed**: Removed `ax.set_aspect('equal')` that was causing the heatmap to render as a square image (aspect ~0.93) instead of wide (aspect ~1.5)
-- Results Summary text matching frontend
-- Bar chart image (`readiness_bar_image`)
-- Radar chart with correct sector benchmarks
-- Sector-specific action recommendations (5 per priority level)
-- Appendix A with 88 detailed question responses
-- All 8 AI-generated narratives
-
-#### Key Features
-- Jinja2 template rendering with docxtpl
-- AI narrative generation (8 narratives per report type)
-- Sector-specific action recommendations (high/medium/low priority)
-- Domain score tables with maturity tiers
-- Heatmap and radar chart generation
-- Framework alignment data
-- Benchmark comparison with sector-specific data
-
-#### Template Versions
-- Awareness: Default template
-- Readiness: `AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx`
-- Orgwide: `AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx`
-- System: `AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx`
+## Technology Stack
+- **Frontend**: React with Shadcn/UI components
+- **Backend**: FastAPI (Python)
+- **Database**: MongoDB
+- **Report Generation**: docxtpl, python-docx, WeasyPrint
+- **AI Integration**: OpenAI GPT-4o-mini via Emergent LLM Key
 
 ---
 
-## Prioritized Backlog
+## Completed Work (as of 2025-02-01)
+
+### Session 1 - Initial Build
+- Full-stack application architecture
+- Assessment form components for all types
+- Report generation system with DOCX/PDF support
+- User management with roles
+
+### Session 2 - FAIRA & Permissions
+- FAIRA assessment progress calculation bug fix
+- Super Admin permissions for cross-tenant access (logs, assessments)
+- Gap analysis logic for FAIRA reports
+- Application timezone configuration (default: Australia/Brisbane)
+- UI/Schema text casing fixes (AI, API, FAQ uppercase)
+- User management UI improvements
+
+### Session 3 - Ampersand & Gaps Debug
+- **Fixed**: Ampersand stripping in DOCX reports
+  - Updated `_post_process_ampersands()` to re-escape bare `&` characters after Jinja2 rendering
+- **Enhanced**: Debug logging for FAIRA gaps variable
+  - Added pre-render logging to confirm gaps list population
+
+---
+
+## Pending Issues (Priority Order)
 
 ### P0 - Critical
-- [x] **FAIRA Progress Calculation Bug** - FIXED ✅ (2026-01-29)
-  - **Issue**: Progress stuck at 98-99%, gated sub-questions not contributing to progress
-  - **Root Cause**: `getSectionCompletion` function's `sections` object was missing conditional sub-fields (B6_3_audience, B6_3_methods, etc.)
-  - **Fix**: Updated `sections` object in `FairaAssessmentForm.js` to include all conditional sub-fields for B6.3, B6.4, B7.1, A5.2, A4.7, A4.8, A2.2 gated sections
-  - **Testing**: 100% pass rate - all gated sections verified working
-- [x] **Refactor `report_generator.py`** - COMPLETE ✅
-  - Original: 8,359 lines → Now: 5,394 lines (35% reduction)
-  - Extracted to `/app/backend/report_modules/`:
-    - `charts.py`: 493 lines (heatmap, bar, radar charts)
-    - `ai_narratives.py`: 1,167 lines (all 4 assessment types)
-    - `utils.py`: 209 lines (formatting, utilities)
-  - Total modular code: 1,893 lines
-- [x] **Refactor `FairaAssessmentForm.js`** - COMPLETE ✅
-  - Original: ~2000+ lines → Now: 1191 lines (40% reduction)
-  - Extracted to `/app/frontend/src/components/faira-sections/`:
-    - Part A (5 sections): SectionA1.jsx through SectionA5.jsx
-    - Part B (8 sections): SectionB1.jsx through SectionB8.jsx
-    - Shared: RadioScale.jsx, AssessmentOverview.jsx
-  - Total component lines: 2,217 lines (better organized)
+- None currently
 
-### P1 - High Priority
-- [ ] Frontend toggle for `show_detailed_responses` parameter on Results page
-- [ ] FAIRA assessment DOCX templates
+### P1 - High
+- Question B7.2: Clarify if radio should be dropdown
 
-### P2 - Medium Priority
-- [ ] Test backend CRUD API endpoints for `evidence` object
-- [ ] "Coverage Gap Report" feature
-- [ ] Print-specific multi-page CSS layout for ResultsPage.js
+### P2 - Medium
+- FAIRA score discrepancy: 88.9 vs 81 user-recalled value
 
-### P3 - Lower Priority
-- [ ] Fix missing `SU-1` question from Australian Guidance framework
-- [ ] Verify sidebar scroll-to-section in FairaAssessmentForm.js
-
-### P4 - Future
-- [ ] Enterprise SSO (SAML/OIDC)
-- [ ] Stripe paywall for premium assessments
-- [ ] "Upgrade to Unlock" button flow (contact modal or upgrade request form)
+### P3-P6 - Low
+- Verify sector benchmark radar chart in Awareness report
+- Test evidence CRUD API endpoints
+- Add missing SU-1 question from Australian Guidance framework
+- Verify sidebar scroll-to-section in FairaResultsPage
 
 ---
 
-## Key Files Reference
+## Upcoming Tasks
 
-### Backend
-- `/app/backend/report_generator.py` - Main report generation (5,394 lines - refactored)
-- `/app/backend/report_modules/` - Modular components:
-  - `ai_narratives.py` - AI narrative generation for all 4 assessment types (1,167 lines)
-  - `charts.py` - Chart generation: heatmap, bar, radar (493 lines)
-  - `utils.py` - Formatting, tier calculations, utilities (209 lines)
-- `/app/backend/server.py` - FastAPI endpoints
-- `/app/backend/templates/docx/` - DOCX templates
-- `/app/backend/ai_maturity_benchmarks_SYSTEM.json` - System benchmark data
-- `/app/backend/awareness_benchmarks.json` - Awareness benchmark data
-- `/app/backend/orgwide_benchmarks.json` - Orgwide benchmark data
-- `/app/backend/readiness_benchmarks.json` - Readiness benchmark data
+### Phase 1 - Logging & UX
+- Implement `report_downloaded` logging event
+- In-app walkthroughs (React Joyride)
 
-### Frontend
-- `/app/frontend/src/pages/ResultsPage.js` - Assessment results display
-- `/app/frontend/src/pages/SystemPreAssessmentForm.js` - System pre-assessment form
-- `/app/frontend/src/pages/FrameworkCoveragePage.js` - Framework coverage view
+### Phase 2 - Features
+- Coverage Gap Report feature
+- Print-specific multi-page CSS layout for ResultsPage
 
 ---
 
-## API Endpoints
+## Future/Backlog
 
-### Report Generation
-- `GET /api/assessments/{assessment_id}/report` - Generate DOCX report
-  - Query params: `view_type`, `use_ai`, `show_detailed_responses`
-
-### Framework Coverage
-- `GET /api/assessments/{assessment_id}/framework-coverage` - Get framework coverage analytics
-
-### Schema
-- `GET /api/schema/system-preassessment-form` - System pre-assessment JSON schema
+- "Upgrade to Unlock" button workflow (currently UI-only/MOCKED)
+- Enterprise SSO (SAML/OIDC)
+- Stripe paywall for premium assessments
+- Enhanced logging with performance metrics
+- Real-time alerts
 
 ---
 
-## Template Variables (System Report)
+## Key Files
 
-### Key Variables
-- `{{org_name}}` - Organization name
-- `{{system_name}}` - AI system name
-- `{{overall.score}}` - Overall maturity score
-- `{{overall.tier}}` - Maturity tier (Leading/Established/Developing/Foundational)
-- `{{results_summary_text}}` - Pre-formatted results summary
-- `{{readiness_bar_image}}` - Bar chart image
-- `{{radar_chart_image}}` - Radar chart with benchmarks
-- `{{heatmap_image}}` - Domain heatmap
-
-### Actions
-- `{{sector_actions_high_top5}}` - Top 5 high priority actions
-- `{{sector_actions_medium_top5}}` - Top 5 medium priority actions
-- `{{sector_actions_low_top5}}` - Top 5 low priority actions
-
-### AI Narratives (ai.s_*)
-- `{{ai.s_executive_snapshot}}`
-- `{{ai.s_gov_oversight}}`
-- `{{ai.s_data_privacy_security}}`
-- `{{ai.s_reliability_safety_performance}}`
-- `{{ai.s_transparency_explainability_contestability}}`
-- `{{ai.s_fairness_bias_inclusivity}}`
-- `{{ai.s_domain_patterns}}`
-- `{{ai.s_pathway_rationale}}`
-
-### Appendix
-- `{{questions}}` - List of 88 questions with details
-- `{{show_detailed_responses}}` - Toggle for appendix
+| File | Purpose |
+|------|---------|
+| `/app/backend/report_generator.py` | Main report generation logic |
+| `/app/backend/server.py` | FastAPI endpoints (monolithic, needs refactoring) |
+| `/app/backend/faira_scoring_engine.py` | FAIRA risk calculation |
+| `/app/backend/templates/docx/` | DOCX report templates |
+| `/app/frontend/src/pages/FairaAssessmentForm.js` | FAIRA form component |
 
 ---
 
 ## Test Credentials
-- Email: `andrew@test.com`
-- Password: `password123`
+- **User**: andrew@test.com
+- **Password**: password123
 
-## Database
-- Name: `am_ai_safe_db`
-- Key collections: `assessments`, `users`, `organizations`, `questions`, `domains`
+---
+
+## Notes
+- `server.py` remains monolithic and needs refactoring into separate route files
+- The "Upgrade to Unlock" button on the assessment selector page is MOCKED (UI-only)
