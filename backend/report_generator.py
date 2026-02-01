@@ -4890,14 +4890,20 @@ Each cell represents the score for a specific question, enabling identification 
         # Write to a temporary file
         temp_fd, temp_path = tempfile.mkstemp(suffix='.docx')
         try:
+            # Close the file descriptor immediately - we'll write via ZipFile
+            os.close(temp_fd)
+            
             with zipfile.ZipFile(temp_path, 'w', zipfile.ZIP_DEFLATED) as zout:
                 for name, data in files.items():
                     zout.writestr(name, data)
             print(f"DEBUG: Created pre-processed template at {temp_path}")
             return temp_path
         except Exception as e:
-            os.close(temp_fd)
-            os.unlink(temp_path)
+            # Clean up on error
+            try:
+                os.unlink(temp_path)
+            except:
+                pass
             raise e
 
     def _post_process_ampersands(self, docx_bytes: bytes) -> bytes:
