@@ -4616,6 +4616,9 @@ Each cell represents the score for a specific question, enabling identification 
                 """Convert numeric rating (1-5) to text label.
                 1 = Very Low, 2 = Low, 3 = Moderate, 4 = High, 5 = Very High
                 """
+                # Handle DotDict or other non-hashable types
+                if hasattr(value, '__iter__') and not isinstance(value, (str, int, float)):
+                    return 'Not specified'
                 labels = {
                     1: 'Very Low',
                     2: 'Low',
@@ -4628,7 +4631,10 @@ Each cell represents the score for a specific question, enabling identification 
                     '4': 'High',
                     '5': 'Very High',
                 }
-                return labels.get(value, str(value) if value else 'Not specified')
+                try:
+                    return labels.get(value, str(value) if value else 'Not specified')
+                except TypeError:
+                    return str(value) if value else 'Not specified'
             
             def severity_label(value):
                 """Convert numeric severity (1-3) to text label.
