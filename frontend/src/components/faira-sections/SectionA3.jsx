@@ -70,7 +70,7 @@ const SectionA3 = ({ form, update, toggleInArray }) => {
       <div className="space-y-2" id="A3_4">
         <Label>A3.4 How will impacted parties be informed of AI use? (Select all that apply)</Label>
         <div className="grid gap-2 md:grid-cols-2">
-          {["website notice", "in-app notice", "email communication", "terms & conditions", "public-facing AI statement", "staff training", "consent/acknowledgement", "no planned notifications (flag as risk)"].map((option) => (
+          {["website notice", "in-app notice", "email communication", "terms/conditions", "public-facing AI statement", "staff training", "consent/acknowledgement", "no planned notifications (flag as risk)"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
               <Checkbox checked={form.A3_4.includes(option)} onCheckedChange={() => toggleInArray("A3_4", option)} />
               <span className="text-sm">{option}</span>
