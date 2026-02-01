@@ -92,6 +92,18 @@ from report_modules.ai_narratives import (
 from faira_scoring_engine import get_radar_chart_data, calculate_overall_risk, get_recommended_controls
 
 
+def _protect_ampersands_in_dict(data):
+    """Recursively apply ampersand protection to all string values in a dict/list."""
+    if isinstance(data, dict):
+        return {k: _protect_ampersands_in_dict(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [_protect_ampersands_in_dict(item) for item in data]
+    elif isinstance(data, str):
+        return replace_amp_with_placeholder(data)
+    else:
+        return data
+
+
 class AMReportGenerator:
     """Generates AM AI SAFE assessment reports in DOCX and PDF formats."""
     
