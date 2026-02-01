@@ -4761,11 +4761,10 @@ Each cell represents the score for a specific question, enabling identification 
         1. Fixes split Jinja tags caused by Word's grammar checker (<w:proofErr> tags)
         2. Loads the template for docxtpl rendering
         
-        Version: 2026-01-31-v3 - Added fix for split Jinja tags in template XML
+        Version: 2026-02-01-v1 - Uses in-memory processing to avoid temp file issues
         """
         import os as os_module
         import re
-        import tempfile
         
         print(f"DEBUG: Loading template from {template_path}")
         
@@ -4775,39 +4774,39 @@ Each cell represents the score for a specific question, enabling identification 
         file_size = os_module.path.getsize(template_path)
         print(f"DEBUG: Template file size: {file_size} bytes")
         
-        # Pre-process the template to fix split Jinja tags
+        # Pre-process the template to fix split Jinja tags (in-memory)
         try:
-            fixed_template_path = self._fix_split_jinja_tags(template_path)
-            print(f"DEBUG: Using pre-processed template: {fixed_template_path}")
-            doc = DocxTemplate(fixed_template_path)
+            fixed_template_bytes = self._fix_split_jinja_tags_in_memory(template_path)
+            if fixed_template_bytes:
+                print(f"DEBUG: Using in-memory pre-processed template")
+                doc = DocxTemplate(io.BytesIO(fixed_template_bytes))
+            else:
+                print(f"DEBUG: No fixes needed, loading template directly")
+                doc = DocxTemplate(template_path)
         except Exception as e:
             print(f"WARNING: Could not pre-process template, loading directly: {e}")
+            import traceback
+            traceback.print_exc()
             doc = DocxTemplate(template_path)
         
         return doc
     
-    def _fix_split_jinja_tags(self, template_path: str) -> str:
+    def _fix_split_jinja_tags_in_memory(self, template_path: str) -> bytes:
         """
-        Fix Jinja tags that have been split by Word's grammar checker.
+        Fix Jinja tags that have been split by Word's grammar checker (in-memory version).
         
         Word inserts <w:proofErr> tags when it detects grammar issues, which can split
-        Jinja template tags like '{%tr for gap in gaps %}' into separate <w:t> elements:
-        - '{%tr for '
-        - 'gap'
-        - ' in gaps %}'
+        Jinja template tags like '{%tr for gap in gaps %}' into separate <w:t> elements.
         
-        This method merges consecutive <w:t> elements that form a single Jinja tag.
-        
-        Returns path to a fixed temporary template file.
+        Returns fixed template as bytes, or None if no fixes were needed.
         """
         import re
-        import tempfile
         
         # Read the template as a ZIP file
-        input_buffer = io.BytesIO()
         with open(template_path, 'rb') as f:
-            input_buffer.write(f.read())
-        input_buffer.seek(0)
+            template_bytes = f.read()
+        
+        input_buffer = io.BytesIO(template_bytes)
         
         files = {}
         with zipfile.ZipFile(input_buffer, 'r') as zin:
@@ -4815,26 +4814,10 @@ Each cell represents the score for a specific question, enabling identification 
                 files[name] = zin.read(name)
         
         # Process document.xml to fix split Jinja tags
+        needs_fix = False
         if 'word/document.xml' in files:
             content = files['word/document.xml'].decode('utf-8')
             original_content = content
-            
-            # Pattern to find runs with proofErr splitting Jinja tags
-            # This regex finds: <w:t>partial_tag</w:t></w:r><w:proofErr.../><w:r...><w:t>rest_of_tag</w:t>
-            # We need to merge the text content
-            
-            # Simpler approach: Remove <w:proofErr> tags entirely from areas with Jinja syntax
-            # Step 1: Find all areas that look like they contain Jinja tags
-            
-            # Remove proofErr tags that appear between parts of Jinja tags
-            # Pattern: </w:t></w:r><w:proofErr type="..."/><w:r ...><w:rPr>...</w:rPr><w:t>
-            # This effectively merges the text runs by removing the proofErr interruption
-            
-            # First, let's handle the specific case of {%tr for gap in gaps %}
-            # The tag is split as: '{%tr for ' | 'gap' | ' in gaps %}'
-            
-            # Find and merge split Jinja tags by removing proofErr and merging consecutive w:t elements
-            # We'll do this by finding patterns where Jinja syntax is split
             
             def merge_split_jinja_tag(match):
                 """Merge split Jinja tag parts back together."""
@@ -4851,7 +4834,6 @@ Each cell represents the score for a specific question, enabling identification 
                 return f'{r_start}<w:t xml:space="preserve">{merged_text}</w:t></w:r>'
             
             # Pattern to match split Jinja for-loop tags
-            # Matches: <w:r...><w:t>{%...for </w:t></w:r> followed by proofErr and more text
             split_for_pattern = re.compile(
                 r'<w:r[^>]*>(?:<w:rPr>.*?</w:rPr>)?<w:t[^>]*>\{%[^%]*for\s*</w:t></w:r>'
                 r'(?:<w:proofErr[^>]*/?>)?'
@@ -4864,7 +4846,6 @@ Each cell represents the score for a specific question, enabling identification 
             content = split_for_pattern.sub(merge_split_jinja_tag, content)
             
             # Also fix the simpler case where just one word is split out
-            # Pattern: text1</w:t></w:r><w:proofErr.../><w:r...><w:t>text2
             simple_split_pattern = re.compile(
                 r'(<w:t[^>]*>)([^<]*\{%[^}]*)(</w:t></w:r>)'
                 r'<w:proofErr[^>]*/>'
@@ -4884,27 +4865,21 @@ Each cell represents the score for a specific question, enabling identification 
             if content != original_content:
                 print("DEBUG: Fixed split Jinja tags in template")
                 files['word/document.xml'] = content.encode('utf-8')
+                needs_fix = True
             else:
                 print("DEBUG: No split Jinja tags found to fix")
         
-        # Write to a temporary file
-        temp_fd, temp_path = tempfile.mkstemp(suffix='.docx')
-        try:
-            # Close the file descriptor immediately - we'll write via ZipFile
-            os.close(temp_fd)
-            
-            with zipfile.ZipFile(temp_path, 'w', zipfile.ZIP_DEFLATED) as zout:
-                for name, data in files.items():
-                    zout.writestr(name, data)
-            print(f"DEBUG: Created pre-processed template at {temp_path}")
-            return temp_path
-        except Exception as e:
-            # Clean up on error
-            try:
-                os.unlink(temp_path)
-            except:
-                pass
-            raise e
+        if not needs_fix:
+            return None
+        
+        # Create the fixed template in memory
+        output_buffer = io.BytesIO()
+        with zipfile.ZipFile(output_buffer, 'w', zipfile.ZIP_DEFLATED) as zout:
+            for name, data in files.items():
+                zout.writestr(name, data)
+        
+        output_buffer.seek(0)
+        return output_buffer.getvalue()
 
     def _post_process_ampersands(self, docx_bytes: bytes) -> bytes:
         """
