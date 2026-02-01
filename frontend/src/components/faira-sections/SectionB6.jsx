@@ -77,7 +77,7 @@ const SectionB6 = ({ form, update, toggleInArray }) => {
                   "in-application/on-screen notice",
                   "at point-of-service disclosure (staff script/verbal)",
                   "privacy notice / collection notice",
-                  "terms/conditions / policy document",
+                  "terms and conditions / policy document",
                   "signage (physical environment)",
                   "email/sms notification",
                   "website disclosure",
