@@ -30,9 +30,11 @@ Build a full-stack application for managing and generating AI maturity and risk 
 
 ### 2025-02-01: P0 Bug Fix - FAIRA Gaps Table
 - **Issue**: Gaps analysis table empty in FAIRA DOCX reports
-- **Root Cause**: Template had `{%tr for...%}` and `{%tr endfor %}` in same row, breaking docxtpl's regex processing
-- **Fix**: Restructured template to have each `{%tr}` tag in separate table rows
-- **Also Fixed**: 8 broken Jinja variable tags with split XML formatting
+- **Root Cause v1**: Template had `{%tr for...%}` and `{%tr endfor %}` in same row
+- **Root Cause v2 (v0.39)**: 3 malformed Jinja structures with `{% endif %}{% elif %}` (invalid syntax)
+- **Fix**: User corrected template v0.40 with proper if/elif/else/endif ordering
+- **Code Fix**: Fixed `rating_label` and `severity_label` filters to handle DotDict types
+- **Template Deployed**: v0.40 now active as AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.37_20260131.docx
 
 ## Pending Issues
 
