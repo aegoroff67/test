@@ -4181,8 +4181,8 @@ Each cell represents the score for a specific question, enabling identification 
                         'date': report_data.get('assessment', {}).get('completed_at', datetime.now().strftime('%Y-%m-%d'))
                     }),
                     
-                    # Full FAIRA form object for flexibility
-                    'faira_form': DotDict(faira_form),
+                    # Full FAIRA form object for flexibility - protect ampersands in all string values
+                    'faira_form': DotDict(_protect_ampersands_in_dict(faira_form)),
                 })
                 
                 # Generate risk gauge image for FAIRA
