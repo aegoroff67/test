@@ -1,108 +1,86 @@
 # AM AI SAFE - AI Maturity & Risk Assessment Platform
 
 ## Original Problem Statement
-Build a full-stack application for managing and generating AI maturity and risk assessment reports. The platform supports multiple assessment types (Awareness, Readiness, Orgwide, System, FAIRA) with comprehensive DOCX/PDF report generation, tier-based user access control, and detailed logging.
+Build a full-stack application for managing and generating AI maturity and risk assessment reports. The platform supports multiple assessment types (Awareness, Readiness, Orgwide, System, FAIRA) with DOCX and PDF report generation capabilities.
 
 ## Core Requirements
-1. Multi-type AI assessments with scoring engines
-2. DOCX/PDF report generation with customizable templates
-3. User authentication and organization-based multi-tenancy
-4. Super Admin cross-tenant access
-5. Comprehensive audit logging
-6. AI-enhanced narrative generation (optional)
+- Multi-type AI assessments (Awareness, Readiness, Orgwide, System, FAIRA)
+- DOCX report generation using templates with docxtpl
+- PDF report generation (WeasyPrint or LibreOffice fallback)
+- AI-powered narrative generation for reports
+- Benchmark comparisons by sector
+- Gap analysis and recommendations
 
-## Technology Stack
-- **Frontend**: React with Shadcn/UI components
-- **Backend**: FastAPI (Python)
-- **Database**: MongoDB
-- **Report Generation**: docxtpl, python-docx, WeasyPrint
-- **AI Integration**: OpenAI GPT-4o-mini via Emergent LLM Key
+## Architecture
 
----
+### Backend (FastAPI)
+- `/app/backend/server.py` - Main FastAPI application
+- `/app/backend/report_generator.py` - DOCX/PDF report generation
+- `/app/backend/faira_scoring_engine.py` - FAIRA risk calculations
+- `/app/backend/templates/docx/` - DOCX templates
 
-## Completed Work (as of 2025-02-01)
+### Frontend (React)
+- `/app/frontend/src/pages/` - Page components
+- `/app/frontend/src/components/ui/` - Shadcn UI components
 
-### Session 1 - Initial Build
-- Full-stack application architecture
-- Assessment form components for all types
-- Report generation system with DOCX/PDF support
-- User management with roles
+### Database
+- MongoDB via `MONGO_URL` environment variable
 
-### Session 2 - FAIRA & Permissions
-- FAIRA assessment progress calculation bug fix
-- Super Admin permissions for cross-tenant access (logs, assessments)
-- Gap analysis logic for FAIRA reports
-- Application timezone configuration (default: Australia/Brisbane)
-- UI/Schema text casing fixes (AI, API, FAQ uppercase)
-- User management UI improvements
+## What's Been Implemented
 
-### Session 3 - Ampersand & Gaps Debug
-- **Fixed**: Ampersand stripping in DOCX reports
-  - Updated `_post_process_ampersands()` to re-escape bare `&` characters after Jinja2 rendering
-- **Enhanced**: Debug logging for FAIRA gaps variable
-  - Added pre-render logging to confirm gaps list population
+### 2025-02-01: P0 Bug Fix - FAIRA Gaps Table
+- **Issue**: Gaps analysis table empty in FAIRA DOCX reports
+- **Root Cause**: Template had `{%tr for...%}` and `{%tr endfor %}` in same row, breaking docxtpl's regex processing
+- **Fix**: Restructured template to have each `{%tr}` tag in separate table rows
+- **Also Fixed**: 8 broken Jinja variable tags with split XML formatting
 
----
+## Pending Issues
 
-## Pending Issues (Priority Order)
+### P1 - High Priority
+- [ ] Question B7.2 - Clarify radio vs dropdown selection
+- [ ] Implement `report_downloaded` logging event
 
-### P0 - Critical
-- None currently
+### P2 - Medium Priority
+- [ ] FAIRa assessment score discrepancy (88.9 vs reported 81)
+- [ ] Test backend CRUD API endpoints for `evidence` object
 
-### P1 - High
-- Question B7.2: Clarify if radio should be dropdown
+### P3 - Low Priority
+- [ ] Verify sector benchmark radar chart in Awareness DOCX report
+- [ ] Missing SU-1 question from Australian Guidance alignment data
+- [ ] Verify sidebar scroll-to-section in FairaResultsPage.js
 
-### P2 - Medium
-- FAIRA score discrepancy: 88.9 vs 81 user-recalled value
-
-### P3-P6 - Low
-- Verify sector benchmark radar chart in Awareness report
-- Test evidence CRUD API endpoints
-- Add missing SU-1 question from Australian Guidance framework
-- Verify sidebar scroll-to-section in FairaResultsPage
-
----
-
-## Upcoming Tasks
-
-### Phase 1 - Logging & UX
-- Implement `report_downloaded` logging event
+## Backlog / Future Tasks
 - In-app walkthroughs (React Joyride)
-
-### Phase 2 - Features
 - Coverage Gap Report feature
-- Print-specific multi-page CSS layout for ResultsPage
-
----
-
-## Future/Backlog
-
-- "Upgrade to Unlock" button workflow (currently UI-only/MOCKED)
+- Print-specific multi-page CSS layout for ResultsPage.js
+- Upgrade to Unlock button workflow
 - Enterprise SSO (SAML/OIDC)
 - Stripe paywall for premium assessments
-- Enhanced logging with performance metrics
-- Real-time alerts
+- Performance metrics and real-time alerts for logging
 
----
+## Key Technical Notes
 
-## Key Files
+### docxtpl {%tr} Syntax
+- Each `{%tr}` tag must be in its own separate `<w:tr>` element
+- Do NOT put `{%tr for...%}` and `{%tr endfor %}` in the same table row
+- Working structure:
+  ```
+  Row 1: {%tr for item in items %}
+  Row 2: {{item.field1}} | {{item.field2}}
+  Row 3: {%tr endfor %}
+  ```
 
-| File | Purpose |
-|------|---------|
-| `/app/backend/report_generator.py` | Main report generation logic |
-| `/app/backend/server.py` | FastAPI endpoints (monolithic, needs refactoring) |
-| `/app/backend/faira_scoring_engine.py` | FAIRA risk calculation |
-| `/app/backend/templates/docx/` | DOCX report templates |
-| `/app/frontend/src/pages/FairaAssessmentForm.js` | FAIRA form component |
+### Template Files
+- FAIRA: `AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.37_20260131.docx`
+- System: `AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx`
+- Awareness: `AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx`
 
----
+## Test Credentials (Preview Environment)
+- Email: andrew@test.com
+- Password: password123
 
-## Test Credentials
-- **User**: andrew@test.com
-- **Password**: password123
-
----
-
-## Notes
-- `server.py` remains monolithic and needs refactoring into separate route files
-- The "Upgrade to Unlock" button on the assessment selector page is MOCKED (UI-only)
+## 3rd Party Integrations
+- OpenAI GPT-4o-mini (via Emergent LLM Key)
+- matplotlib for charts
+- docxtpl for DOCX generation
+- WeasyPrint for PDF generation
