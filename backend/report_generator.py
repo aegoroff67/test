@@ -4640,6 +4640,9 @@ Each cell represents the score for a specific question, enabling identification 
                 """Convert numeric severity (1-3) to text label.
                 1 = Minor, 2 = Moderate, 3 = Major
                 """
+                # Handle DotDict or other non-hashable types
+                if hasattr(value, '__iter__') and not isinstance(value, (str, int, float)):
+                    return 'Not specified'
                 labels = {
                     1: 'Minor',
                     2: 'Moderate',
@@ -4648,7 +4651,10 @@ Each cell represents the score for a specific question, enabling identification 
                     '2': 'Moderate',
                     '3': 'Major',
                 }
-                return labels.get(value, str(value) if value else 'Not specified')
+                try:
+                    return labels.get(value, str(value) if value else 'Not specified')
+                except TypeError:
+                    return str(value) if value else 'Not specified'
             
             # Create Jinja2 environment with custom filters for docxtpl
             from jinja2 import Environment
