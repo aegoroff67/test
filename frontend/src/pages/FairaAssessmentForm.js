@@ -1236,7 +1236,7 @@ export default function FairaAssessmentForm() {
                 <Label htmlFor="declaration_name">Name of person making this declaration: *</Label>
                 <Input
                   id="declaration_name"
-                  value={form.declaration_name || form.assessor_name}
+                  value={form.declaration_name}
                   onChange={(e) => update("declaration_name", e.target.value)}
                   required
                   placeholder="Enter your name"
