@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 
 def test_pdf_error_handling():
-    base_url = "https://faira-assessment.preview.emergentagent.com"
+    base_url = "https://risk-scan-portal.preview.emergentagent.com"
     api_url = f"{base_url}/api"
     
     # Create user and get token
