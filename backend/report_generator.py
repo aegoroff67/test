@@ -4795,10 +4795,9 @@ Each cell represents the score for a specific question, enabling identification 
         """
         Fix Jinja tags that have been split by Word's formatting across multiple XML runs.
         
-        Word can split text across multiple <w:r><w:t>...</w:t></w:r> elements, which breaks
-        Jinja template tags like '{%tr for gap in gaps %}'. This method:
-        1. Removes <w:proofErr> grammar checking tags
-        2. Merges text content from consecutive runs that form incomplete Jinja tags
+        This method removes <w:proofErr> grammar checking tags which can interfere with
+        docxtpl's template parsing. The main split gap loop tag has been fixed directly
+        in the template file (v0.37).
         
         Returns fixed template as bytes, or None if no fixes were needed.
         """
@@ -4820,94 +4819,14 @@ Each cell represents the score for a specific question, enabling identification 
             content = files['word/document.xml'].decode('utf-8')
             original_content = content
             
-            # Step 1: Remove all <w:proofErr> tags
+            # Remove all <w:proofErr> tags - they can interfere with template parsing
             proofErr_pattern = re.compile(r'<w:proofErr[^>]*/>')
             proofErr_count = len(proofErr_pattern.findall(content))
             if proofErr_count > 0:
                 content = proofErr_pattern.sub('', content)
                 print(f"DEBUG: Removed {proofErr_count} <w:proofErr> tags")
-            
-            # Step 2: Fix specific known split Jinja tags
-            # The {%tr for gap in gaps %} tag is split as:
-            # <w:t>{%tr for </w:t>...</w:t>gap</w:t>...</w:t> in gaps %}</w:t>
-            
-            # Pattern to find and merge split "{%tr for X in Y %}" patterns
-            # This handles the case where the loop variable name is in a separate run
-            
-            def merge_split_tr_for(content):
-                """Merge {%tr for X in Y %} tags that are split across runs."""
-                # Pattern: captures text ending with "{%tr for " followed by runs containing the rest
-                # We look for: {%tr for </w:t></w:r>...<w:t>WORD</w:t></w:r>...<w:t> in COLLECTION %}
-                
-                pattern = re.compile(
-                    r'(<w:t[^>]*>)(\{%tr\s+for\s*)(</w:t></w:r>)'  # {%tr for (split)
-                    r'((?:<[^>]+>)*)'  # intervening tags
-                    r'(<w:t[^>]*>)(\w+)(</w:t></w:r>)'  # loop variable (e.g., "gap")
-                    r'((?:<[^>]+>)*)'  # more intervening tags
-                    r'(<w:t[^>]*>)(\s+in\s+\w+\s*%\})',  # " in collection %}"
-                    re.DOTALL
-                )
-                
-                def replacer(m):
-                    # Merge: {%tr for  + variable + in collection %}
-                    merged_text = m.group(2) + m.group(6) + m.group(10)
-                    return f'{m.group(1)}{merged_text}</w:t></w:r>'
-                
-                return pattern.sub(replacer, content)
-            
-            content = merge_split_tr_for(content)
-            
-            # Also handle the simpler case where just part is split
-            # Pattern: "{%tr for gap" in one element, " in gaps %}" in another
-            simple_pattern = re.compile(
-                r'(<w:t[^>]*>)(\{%tr\s+for\s+\w+)(</w:t></w:r>)'
-                r'((?:<[^>]+>)*)'
-                r'(<w:t[^>]*>)(\s+in\s+\w+\s*%\})',
-                re.DOTALL
-            )
-            
-            def simple_replacer(m):
-                merged_text = m.group(2) + m.group(6)
-                return f'{m.group(1)}{merged_text}</w:t></w:r>'
-            
-            content = simple_pattern.sub(simple_replacer, content)
-            
-            # Step 3: Fix any other split Jinja tags (general pattern)
-            # This handles cases like: {%p if ... split across elements
-            def merge_general_jinja_splits(content):
-                """Fix Jinja tags split into: {% ... %} across multiple w:t elements."""
-                # Find sequences where a Jinja opening {% is in one element and %} is in another
-                pattern = re.compile(
-                    r'(<w:t[^>]*>)([^<]*\{%[^}]*)(</w:t></w:r>)'  # Start of Jinja tag
-                    r'((?:<w:r[^>]*>(?:<w:rPr>.*?</w:rPr>)?)?<w:t[^>]*>)([^<]*)(</w:t></w:r>)'  # Middle part
-                    r'(?:(?:<w:r[^>]*>(?:<w:rPr>.*?</w:rPr>)?)?<w:t[^>]*>([^<]*%\}))?',  # Optional end with %}
-                    re.DOTALL
-                )
-                
-                # Only replace if the full sequence forms a complete Jinja tag
-                def check_and_merge(m):
-                    full_text = m.group(2) + m.group(5)
-                    if m.group(7):
-                        full_text += m.group(7)
-                    
-                    # Check if this forms a complete Jinja tag
-                    if '{%' in full_text and '%}' in full_text:
-                        return f'{m.group(1)}{full_text}</w:t></w:r>'
-                    return m.group(0)  # Return unchanged
-                
-                return pattern.sub(check_and_merge, content)
-            
-            content = merge_general_jinja_splits(content)
-            
-            if content != original_content:
                 needs_fix = True
                 files['word/document.xml'] = content.encode('utf-8')
-                
-                # Verify the fix
-                if 'for gap in gaps' in content:
-                    print("DEBUG: Successfully merged 'for gap in gaps' tag")
-                else:
-                    print("DEBUG: 'for gap in gaps' still split - may need manual template fix")
         
         if not needs_fix:
             print("DEBUG: No template fixes needed")
