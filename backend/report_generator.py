@@ -4798,6 +4798,9 @@ Each cell represents the score for a specific question, enabling identification 
         Word inserts <w:proofErr> tags when it detects grammar issues, which can split
         Jinja template tags like '{%tr for gap in gaps %}' into separate <w:t> elements.
         
+        This method uses a safer approach: removing <w:proofErr> tags from areas containing
+        Jinja syntax, allowing docxtpl's internal text merging to work properly.
+        
         Returns fixed template as bytes, or None if no fixes were needed.
         """
         import re
@@ -4819,55 +4822,26 @@ Each cell represents the score for a specific question, enabling identification 
             content = files['word/document.xml'].decode('utf-8')
             original_content = content
             
-            def merge_split_jinja_tag(match):
-                """Merge split Jinja tag parts back together."""
-                full_match = match.group(0)
-                # Extract all text content
-                texts = re.findall(r'<w:t[^>]*>([^<]*)</w:t>', full_match)
-                merged_text = ''.join(texts)
-                
-                # Return a single w:t element with the merged text
-                # Keep the first w:r's properties
-                first_r_match = re.search(r'(<w:r[^>]*>(?:<w:rPr>.*?</w:rPr>)?)', full_match, re.DOTALL)
-                r_start = first_r_match.group(1) if first_r_match else '<w:r>'
-                
-                return f'{r_start}<w:t xml:space="preserve">{merged_text}</w:t></w:r>'
+            # SAFER APPROACH: Simply remove all <w:proofErr> tags from the document
+            # This allows docxtpl's internal _patch_text() to properly merge consecutive
+            # w:t elements containing Jinja syntax
+            # 
+            # proofErr tags look like: <w:proofErr w:type="gramStart"/> or <w:proofErr w:type="gramEnd"/>
             
-            # Pattern to match split Jinja for-loop tags
-            split_for_pattern = re.compile(
-                r'<w:r[^>]*>(?:<w:rPr>.*?</w:rPr>)?<w:t[^>]*>\{%[^%]*for\s*</w:t></w:r>'
-                r'(?:<w:proofErr[^>]*/?>)?'
-                r'<w:r[^>]*>(?:<w:rPr>.*?</w:rPr>)?<w:t[^>]*>[^<]*</w:t></w:r>'
-                r'(?:<w:proofErr[^>]*/?>)?'
-                r'<w:r[^>]*>(?:<w:rPr>.*?</w:rPr>)?<w:t[^>]*>[^<]*%\}</w:t></w:r>',
-                re.DOTALL
-            )
+            proofErr_pattern = re.compile(r'<w:proofErr[^>]*/>')
             
-            content = split_for_pattern.sub(merge_split_jinja_tag, content)
+            # Count how many we're removing
+            proofErr_count = len(proofErr_pattern.findall(content))
             
-            # Also fix the simpler case where just one word is split out
-            simple_split_pattern = re.compile(
-                r'(<w:t[^>]*>)([^<]*\{%[^}]*)(</w:t></w:r>)'
-                r'<w:proofErr[^>]*/>'
-                r'<w:r[^>]*>(?:<w:rPr>.*?</w:rPr>)?'
-                r'<w:t[^>]*>([^<]*)</w:t></w:r>'
-                r'<w:proofErr[^>]*/>'
-                r'<w:r[^>]*>(?:<w:rPr>.*?</w:rPr>)?'
-                r'<w:t[^>]*>([^<]*%\})',
-                re.DOTALL
-            )
-            
-            def simple_merge(match):
-                return f'{match.group(1)}{match.group(2)}{match.group(4)}{match.group(5)}{match.group(3)}'
-            
-            content = simple_split_pattern.sub(simple_merge, content)
-            
-            if content != original_content:
-                print("DEBUG: Fixed split Jinja tags in template")
-                files['word/document.xml'] = content.encode('utf-8')
+            if proofErr_count > 0:
+                content = proofErr_pattern.sub('', content)
+                print(f"DEBUG: Removed {proofErr_count} <w:proofErr> tags from template")
                 needs_fix = True
+            
+            if needs_fix:
+                files['word/document.xml'] = content.encode('utf-8')
             else:
-                print("DEBUG: No split Jinja tags found to fix")
+                print("DEBUG: No <w:proofErr> tags found to remove")
         
         if not needs_fix:
             return None
