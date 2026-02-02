@@ -4352,7 +4352,6 @@ async def debug_gaps_data(
             assessment = await db.assessments.find_one({"id": assessment_id})
             
         if not assessment:
-        if not assessment:
             return {"error": "Assessment not found", "assessment_id": assessment_id}
         
         result = {
