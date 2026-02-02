@@ -7,7 +7,7 @@ Build a full-stack application for managing and generating AI maturity and risk 
 ```
 /app/
 ├── backend/
-│   ├── server.py               # FastAPI main app
+│   ├── server.py               # FastAPI main app with debug endpoints
 │   ├── report_generator.py     # DOCX/PDF generation (docxtpl)
 │   ├── faira_scoring_engine.py # FAIRA risk calculations
 │   ├── report_modules/
@@ -15,6 +15,7 @@ Build a full-stack application for managing and generating AI maturity and risk 
 │   │   ├── utils.py            # Utility functions
 │   │   └── ai_narratives.py    # AI narrative generation
 │   └── templates/docx/         # DOCX templates
+│       └── AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.47_20260202.docx  # Current FAIRA template
 └── frontend/
     └── src/
         └── pages/              # React pages
@@ -22,18 +23,27 @@ Build a full-stack application for managing and generating AI maturity and risk 
 
 ## What's Been Implemented
 
-### 2025-02-02 - FAIRA Gaps Table Bug Fix
-**Status: FIXED (Pending User Validation)**
-- Root cause: `faira_risk_summary` only calculated when `use_ai=True`
-- Fix: Added explicit FAIRA calculation block in `generate_report_for_assessment` (line 5536-5570)
-- Now calculates `faira_risk_summary` for ALL FAIRA assessments regardless of `use_ai` flag
+### 2025-02-02 - FAIRA Gaps Table Bug FIXED ✅
+**Status: RESOLVED**
+- **Root Cause**: `_populate_recommendation_tables()` was overwriting the gaps table after Jinja2 rendering
+- **Fix 1**: Added FAIRA-specific skip for programmatic table population (line ~4860 in report_generator.py)
+- **Fix 2**: Template updated to use `{{gap_1.domain}}`, `{{gap_2.domain}}`, `{{gap_3.domain}}` instead of `{%tr for gap in gaps %}` loop
+- **Template**: Updated to v0.47 with new gap variable structure
+- **Verified**: Debug endpoint confirms gaps table now shows Reliability, Privacy, Accountability with all data
 
 ### Previous Work
-- FAIRA template debugging (v0.37 to v0.46) - RESOLVED
+- FAIRA template debugging (v0.37 to v0.47) - RESOLVED
 - Ampersand handling in reports - FIXED
 - Declaration field autofill removal - DONE
 - FAIRA domain name capitalization in AI narratives - DONE
-- Debug endpoints created: `/api/debug/template-check/{type}`, `/api/debug/gaps-data/{id}`
+- Debug endpoints created for remote diagnosis
+
+## Debug Endpoints (for troubleshooting)
+- `GET /api/debug/template-check/{assessment_type}` - Check template structure
+- `GET /api/debug/gaps-data/{assessment_id}` - Inspect assessment data and test on-the-fly calculation
+- `GET /api/debug/generate-test-report/{assessment_id}` - Test template rendering
+- `GET /api/debug/full-report-test/{assessment_id}` - Full report generation with diagnostics
+- `GET /api/debug/download-test-report/{assessment_id}` - Download test report
 
 ## Prioritized Backlog
 
@@ -62,10 +72,20 @@ Build a full-stack application for managing and generating AI maturity and risk 
 - Stripe paywall for premium assessments
 - Enhanced logging with performance metrics
 
-## Key Endpoints
-- `GET /api/assessments/{id}/report` - Generate DOCX report
-- `GET /api/debug/template-check/{type}` - Check template structure
-- `GET /api/debug/gaps-data/{id}` - Inspect assessment data
+## Key Technical Insights
+
+### FAIRA Report Generation
+- Template uses `{{gap_1.domain}}`, `{{gap_2.domain}}`, `{{gap_3.domain}}` (NOT loop-based)
+- `_populate_recommendation_tables()` must be SKIPPED for FAIRA to avoid overwriting gaps table
+- DotDict class provides dot-notation access for template variables
+- Risk calculation done on-the-fly via `calculate_overall_risk()` if not stored in assessment
+
+### Template Variable Flow
+1. `generate_report_for_assessment()` calculates `faira_risk_summary`
+2. `_transform_assessment_data()` passes it to `report_data`
+3. `_generate_docx_report()` builds `template_context` with `gap_1`, `gap_2`, `gap_3`
+4. `doc.render()` processes template
+5. Post-processing must NOT touch gaps table for FAIRA
 
 ## Test Credentials
 - User: `andrew@test.com`
@@ -78,6 +98,7 @@ Build a full-stack application for managing and generating AI maturity and risk 
 - WeasyPrint (PDF)
 - Playwright (PDF generation)
 
-## Known Issues
+## Known Issues / Technical Debt
 - Debug endpoints are public (should be secured in production)
-- DOCX template fragility - strict authoring guidelines recommended
+- DOCX template structure is sensitive to table ordering
+- Multiple fallback mechanisms for gap data (could be simplified)
