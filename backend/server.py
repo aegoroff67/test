@@ -4860,6 +4860,7 @@ async def debug_full_report_test(assessment_id: str):
     from report_generator import AMReportGenerator
     import zipfile
     import io
+    import re
     
     try:
         # Find assessment EXACTLY like the real endpoint does
@@ -4929,17 +4930,39 @@ async def debug_full_report_test(assessment_id: str):
                 "gap_3_domain_placeholder_remains": "{{gap_3.domain}}" in rendered_xml,
             }
             
-            # Check for specific text patterns
+            # Find ALL occurrences of the first domain
+            if first_domain:
+                occurrences = [m.start() for m in re.finditer(re.escape(first_domain), rendered_xml)]
+                result["domain_occurrences_count"] = len(occurrences)
+                result["domain_occurrences_positions"] = occurrences[:10]  # First 10
+                
+                # Get context around each occurrence
+                contexts = []
+                for pos in occurrences[:5]:
+                    start = max(0, pos - 100)
+                    end = min(len(rendered_xml), pos + 100)
+                    snippet = rendered_xml[start:end]
+                    # Clean XML tags for readability
+                    clean = re.sub(r'<[^>]+>', '|', snippet)
+                    contexts.append(clean)
+                result["domain_contexts"] = contexts
+            
+            # Find the gaps table specifically - look for "Existing Controls" header
+            gaps_table_match = re.search(r'Existing Controls.{0,3000}?</w:tbl>', rendered_xml, re.DOTALL)
+            if gaps_table_match:
+                gaps_table_section = gaps_table_match.group(0)
+                # Extract all text from this table
+                texts = re.findall(r'<w:t[^>]*>([^<]+)</w:t>', gaps_table_section)
+                result["gaps_table_texts"] = [t for t in texts if t.strip()][:30]
+                result["gaps_table_has_domain"] = first_domain in gaps_table_section if first_domain else False
+            else:
+                result["gaps_table_found"] = False
+            
             if first_domain and first_domain in rendered_xml:
                 result["gaps_rendered"] = True
                 result["conclusion"] = "SUCCESS - Gaps are rendering in the actual report!"
             else:
                 result["gaps_rendered"] = False
-                import re
-                gap_area = re.search(r'Priority.{0,500}', rendered_xml)
-                if gap_area:
-                    clean_snippet = re.sub(r'<[^>]+>', '|', gap_area.group(0))[:200]
-                    result["gaps_table_area_content"] = clean_snippet
                 result["conclusion"] = "FAILURE - Gaps not found in rendered output"
             
             return result
