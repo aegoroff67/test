@@ -4927,6 +4927,10 @@ async def debug_full_report_test(assessment_id: str):
                 "filename": filename,
                 "expected_first_domain": first_domain,
                 "render_debug_gap_values": render_debug,
+                "gap_1_placeholder_in_final_xml": "{{gap_1.domain}}" in rendered_xml,
+                "gap_2_placeholder_in_final_xml": "{{gap_2.domain}}" in rendered_xml,
+                "gap_3_placeholder_in_final_xml": "{{gap_3.domain}}" in rendered_xml,
+                "first_domain_in_final_xml": first_domain in rendered_xml if first_domain else None,
             }
             
             # Find the gaps table and extract its content
