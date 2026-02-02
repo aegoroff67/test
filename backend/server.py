@@ -4862,15 +4862,17 @@ async def debug_full_report_test(assessment_id: str):
     import io
     
     try:
-        # Find assessment
-        from bson import ObjectId
-        assessment = None
-        try:
-            assessment = await db.assessments.find_one({"_id": ObjectId(assessment_id)})
-        except:
-            pass
+        # Find assessment EXACTLY like the real endpoint does
+        assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
         if not assessment:
-            assessment = await db.assessments.find_one({"id": assessment_id})
+            # Fallback to other ID formats
+            from bson import ObjectId
+            try:
+                assessment = await db.assessments.find_one({"_id": ObjectId(assessment_id)})
+            except:
+                pass
+            if not assessment:
+                assessment = await db.assessments.find_one({"_id": assessment_id})
         
         if not assessment:
             return {"error": "Assessment not found"}
@@ -4891,8 +4893,12 @@ async def debug_full_report_test(assessment_id: str):
         
         mock_user = MockUser()
         
-        # Create report generator
-        report_generator = AMReportGenerator(assessment_type="FAIRA")
+        # Create report generator EXACTLY like the real endpoint
+        report_generator = AMReportGenerator(
+            use_test_template=False,
+            use_smart_priority=False,
+            assessment_type=assessment_type
+        )
         
         # Run the actual report generation
         try:
@@ -4905,7 +4911,6 @@ async def debug_full_report_test(assessment_id: str):
                 rendered_xml = zf.read('word/document.xml').decode('utf-8')
             
             # Look for evidence of gaps rendering
-            # The gaps should have domain names from the assessment
             faira_form = assessment.get("faira_form", {})
             from faira_scoring_engine import calculate_overall_risk
             risk_summary = calculate_overall_risk(faira_form)
@@ -4929,9 +4934,7 @@ async def debug_full_report_test(assessment_id: str):
                 result["conclusion"] = "SUCCESS - Gaps are rendering in the actual report!"
             else:
                 result["gaps_rendered"] = False
-                # Try to find what IS in the gaps table area
                 import re
-                # Look for text near "Gap" or "Priority" headers
                 gap_area = re.search(r'Priority.{0,500}', rendered_xml)
                 if gap_area:
                     clean_snippet = re.sub(r'<[^>]+>', '|', gap_area.group(0))[:200]
@@ -4951,6 +4954,69 @@ async def debug_full_report_test(assessment_id: str):
     except Exception as e:
         import traceback
         return {"error": str(e), "traceback": traceback.format_exc()}
+
+
+@api_router.get("/debug/download-test-report/{assessment_id}")
+async def debug_download_test_report(assessment_id: str):
+    """
+    Debug endpoint that generates and returns the actual DOCX file for download.
+    Compare this with the regular download to see if they differ.
+    """
+    from report_generator import AMReportGenerator
+    
+    try:
+        # Find assessment EXACTLY like the real endpoint does
+        assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
+        if not assessment:
+            from bson import ObjectId
+            try:
+                assessment = await db.assessments.find_one({"_id": ObjectId(assessment_id)})
+            except:
+                pass
+            if not assessment:
+                assessment = await db.assessments.find_one({"_id": assessment_id})
+        
+        if not assessment:
+            raise HTTPException(status_code=404, detail="Assessment not found")
+        
+        assessment_type = assessment.get("assessment_type", "FAIRA")
+        
+        # Create a mock user
+        class MockUser:
+            def __init__(self):
+                self.id = "debug-user"
+                self.email = "debug@test.com"
+                self.org_id = assessment.get("org_id", "debug-org")
+                self.organization_name = "Debug Org"
+                self.industry = None
+                self.primary_industry = None
+        
+        mock_user = MockUser()
+        
+        # Create report generator EXACTLY like the real endpoint
+        report_generator = AMReportGenerator(
+            use_test_template=False,
+            use_smart_priority=False,
+            assessment_type=assessment_type
+        )
+        
+        # Generate report
+        docx_bytes, filename = await report_generator.generate_report_for_assessment(
+            assessment_id, db, mock_user, view_type="heatmap", use_ai=False
+        )
+        
+        # Return as downloadable file
+        return StreamingResponse(
+            io.BytesIO(docx_bytes),
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            headers={
+                "Content-Disposition": f"attachment; filename=\"DEBUG_{filename}\"",
+            }
+        )
+        
+    except Exception as e:
+        import traceback
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}\n{traceback.format_exc()}")
 
 
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
