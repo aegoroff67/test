@@ -4759,6 +4759,19 @@ Each cell represents the score for a specific question, enabling identification 
                     template_context[f'gap_{i}'] = gap
                 print(f"CRITICAL: Ultimate fallback applied with {len(ultimate_fallback)} gaps")
             
+            # FAIRA SPECIFIC: Verify gaps list structure before render
+            if self.assessment_type == 'FAIRA':
+                gaps_final = template_context.get('gaps', [])
+                print(f"=== FAIRA GAPS FINAL CHECK ===")
+                print(f"  gaps type: {type(gaps_final)}")
+                print(f"  gaps length: {len(gaps_final) if gaps_final else 0}")
+                if gaps_final:
+                    print(f"  gaps[0] type: {type(gaps_final[0])}")
+                    print(f"  gaps[0] keys: {list(gaps_final[0].keys()) if hasattr(gaps_final[0], 'keys') else 'N/A'}")
+                    print(f"  gaps[0].domain: {gaps_final[0].get('domain', 'MISSING') if hasattr(gaps_final[0], 'get') else getattr(gaps_final[0], 'domain', 'MISSING')}")
+                    for i, g in enumerate(gaps_final[:3]):
+                        print(f"  gaps[{i}]: domain={g.get('domain') if hasattr(g, 'get') else g.domain}, priority={g.get('priority') if hasattr(g, 'get') else g.priority}")
+            
             # Render the template with custom jinja_env
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
             doc.render(template_context, jinja_env=jinja_env)
