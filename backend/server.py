@@ -4332,6 +4332,7 @@ async def debug_gaps_data(
 ):
     """Debug endpoint to check what gaps data would be generated for an assessment. No auth required for diagnostics."""
     from bson import ObjectId
+    from faira_scoring_engine import calculate_overall_risk, get_radar_chart_data, get_recommended_controls
     
     try:
         # Try to find assessment by different ID formats
@@ -4364,81 +4365,126 @@ async def debug_gaps_data(
         result["has_faira_form"] = "faira_form" in assessment
         faira_form = assessment.get("faira_form", {})
         result["faira_form_keys_count"] = len(faira_form.keys()) if faira_form else 0
-        result["faira_form_sample_keys"] = list(faira_form.keys())[:10] if faira_form else []
+        result["faira_form_sample_keys"] = list(faira_form.keys())[:20] if faira_form else []
         
-        # Get FAIRA risk summary
-        faira_risk_summary = assessment.get("faira_risk_summary", {})
-        domain_scores = faira_risk_summary.get("domain_scores", {})
-        top_risk_areas = faira_risk_summary.get("top_risk_areas", [])
+        # Get FAIRA risk summary from assessment (if stored)
+        stored_risk_summary = assessment.get("faira_risk_summary", {})
+        result["stored_faira_risk_summary_exists"] = bool(stored_risk_summary)
+        result["stored_domain_scores_count"] = len(stored_risk_summary.get("domain_scores", {}))
         
-        result["faira_risk_summary_exists"] = bool(faira_risk_summary)
+        # ALWAYS calculate on-the-fly to show what report generation should produce
+        calculated_risk_summary = None
+        if faira_form:
+            try:
+                calculated_risk_summary = calculate_overall_risk(faira_form)
+                result["calculated_on_fly"] = {
+                    "overall_risk_score": calculated_risk_summary.get("overall_risk_score"),
+                    "overall_risk_level": calculated_risk_summary.get("overall_risk_level"),
+                    "domain_scores_keys": list(calculated_risk_summary.get("domain_scores", {}).keys()),
+                    "top_risk_areas": calculated_risk_summary.get("top_risk_areas", [])[:3],
+                }
+            except Exception as calc_err:
+                result["calculated_risk_error"] = str(calc_err)
+        
+        # Use calculated data (simulating what report_generator.py does)
+        faira_risk_summary = calculated_risk_summary if calculated_risk_summary else stored_risk_summary
+        domain_scores = faira_risk_summary.get("domain_scores", {}) if faira_risk_summary else {}
+        top_risk_areas = faira_risk_summary.get("top_risk_areas", []) if faira_risk_summary else []
+        
+        result["using_data_source"] = "calculated_on_fly" if calculated_risk_summary else "stored_in_assessment"
         result["domain_scores_count"] = len(domain_scores)
         result["domain_scores_keys"] = list(domain_scores.keys())
         result["top_risk_areas_count"] = len(top_risk_areas)
-        result["top_risk_areas"] = top_risk_areas[:5] if top_risk_areas else []
         
-        # Build gaps the same way report_generator does
-        gaps = []
+        # Build gaps EXACTLY like report_generator.py does (lines 4364-4470)
+        gaps_list = []
         
-        # Method 1: From top_risk_areas
+        # Build top_domains_list from top_risk_areas
+        top_domains_list = []
         if top_risk_areas:
-            for risk_area in top_risk_areas[:3]:
-                domain = risk_area.get('domain', '')
-                domain_data = domain_scores.get(domain, {})
-                
-                gap_entry = {
-                    'domain': domain,
-                    'risk_score': round(risk_area.get('risk', domain_data.get('Risk', 0)), 1),
-                    'existing_controls': domain_data.get('existing_controls', 'Controls documented in assessment'),
-                    'control_effectiveness': round(domain_data.get('Control_Effectiveness', 0), 1),
-                    'gaps': f"Review and strengthen {domain} controls",
-                    'priority': 'High' if risk_area.get('risk', 0) >= 50 else 'Medium' if risk_area.get('risk', 0) >= 30 else 'Low'
-                }
-                gaps.append(gap_entry)
+            for area in top_risk_areas:
+                if isinstance(area, dict):
+                    top_domains_list.append({
+                        'name': area.get('domain', area.get('name', area.get('fullName', 'Unknown'))),
+                        'risk': round(area.get('risk_score', area.get('risk', area.get('Risk', 0))), 1)
+                    })
         
-        # Method 2: Fallback from domain_scores if no top_risk_areas
-        if not gaps and domain_scores:
+        # Fallback: build from domain_scores if no top_risk_areas
+        if not top_domains_list and domain_scores:
             sorted_domains = sorted(
-                [(d, s.get('Risk', 0)) for d, s in domain_scores.items()],
+                [(k, v.get('Risk', 0) if isinstance(v, dict) else 0) for k, v in domain_scores.items()],
                 key=lambda x: x[1],
                 reverse=True
             )
-            for domain, risk in sorted_domains[:3]:
-                domain_data = domain_scores.get(domain, {})
-                gap_entry = {
-                    'domain': domain,
-                    'risk_score': round(risk, 1),
-                    'existing_controls': 'Controls documented in assessment',
-                    'control_effectiveness': round(domain_data.get('Control_Effectiveness', 0), 1),
-                    'gaps': f"Review and strengthen {domain} controls",
-                    'priority': 'High' if risk >= 50 else 'Medium' if risk >= 30 else 'Low'
-                }
-                gaps.append(gap_entry)
+            for domain_name, risk_score in sorted_domains[:3]:
+                top_domains_list.append({
+                    'name': domain_name,
+                    'risk': round(risk_score, 1)
+                })
         
-        result["gaps_generated"] = len(gaps)
-        result["gaps_data"] = gaps
+        result["top_domains_list_count"] = len(top_domains_list)
+        result["top_domains_list"] = top_domains_list[:3]
         
-        if not gaps:
-            result["warning"] = "No gaps data could be generated - check if faira_risk_summary and domain_scores exist"
+        # Build gaps from top_domains_list (same logic as report_generator.py lines 4410-4457)
+        for i, domain in enumerate(top_domains_list[:3]):
+            domain_name = domain.get('name', 'Unknown')
+            domain_risk = domain.get('risk', 0)
             
-            # Try to calculate risk on-the-fly if faira_form exists
-            if faira_form:
-                try:
-                    from faira_scoring_engine import calculate_overall_risk
-                    calculated_risk = calculate_overall_risk(faira_form)
-                    result["calculated_risk_on_fly"] = {
-                        "overall_risk_score": calculated_risk.get("overall_risk_score"),
-                        "overall_risk_level": calculated_risk.get("overall_risk_level"),
-                        "domain_scores_keys": list(calculated_risk.get("domain_scores", {}).keys()),
-                        "top_risk_areas_count": len(calculated_risk.get("top_risk_areas", [])),
-                    }
-                except Exception as calc_err:
-                    result["calculated_risk_error"] = str(calc_err)
+            # Determine priority based on risk score
+            if domain_risk >= 55:
+                priority = 'High'
+            elif domain_risk >= 35:
+                priority = 'Medium'
+            else:
+                priority = 'Low'
+            
+            # Get domain scores for existing controls assessment
+            domain_scores_dict = domain_scores.get(domain_name, {}) if domain_scores else {}
+            control_effectiveness = domain_scores_dict.get('Control_Effectiveness', 0) if isinstance(domain_scores_dict, dict) else 0
+            
+            # Assess existing controls based on CE score
+            if control_effectiveness >= 70:
+                existing_controls = 'Strong controls in place'
+            elif control_effectiveness >= 40:
+                existing_controls = 'Partial controls implemented'
+            else:
+                existing_controls = 'Limited or no controls'
+            
+            gap_description = f"Strengthen {domain_name} controls"
+            
+            gaps_list.append({
+                'domain': domain_name,
+                'risk_score': round(domain_risk, 1),
+                'existing_controls': existing_controls,
+                'control_effectiveness': round(control_effectiveness, 1),
+                'gaps': gap_description,
+                'priority': priority
+            })
+        
+        # Pad to 3 entries if needed
+        while len(gaps_list) < 3:
+            gaps_list.append({
+                'domain': 'N/A',
+                'risk_score': 0,
+                'existing_controls': 'N/A',
+                'control_effectiveness': 0,
+                'gaps': 'No additional gaps identified',
+                'priority': 'Low'
+            })
+        
+        result["gaps_generated"] = len(gaps_list)
+        result["gaps_data"] = gaps_list
+        
+        if not gaps_list or all(g['domain'] == 'N/A' for g in gaps_list):
+            result["warning"] = "Gaps data is empty or only contains N/A entries"
+        else:
+            result["status"] = "SUCCESS - gaps data generated correctly"
         
         return result
         
     except Exception as e:
-        return {"error": str(e), "assessment_id": assessment_id}
+        import traceback
+        return {"error": str(e), "traceback": traceback.format_exc(), "assessment_id": assessment_id}
 
 
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
