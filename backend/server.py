@@ -4334,8 +4334,24 @@ async def debug_gaps_data(
     from bson import ObjectId
     
     try:
-        # Fetch assessment
-        assessment = await db.assessments.find_one({"_id": ObjectId(assessment_id)})
+        # Try to find assessment by different ID formats
+        assessment = None
+        
+        # Try as ObjectId first
+        try:
+            assessment = await db.assessments.find_one({"_id": ObjectId(assessment_id)})
+        except:
+            pass
+        
+        # Try as string ID
+        if not assessment:
+            assessment = await db.assessments.find_one({"_id": assessment_id})
+        
+        # Try as 'id' field
+        if not assessment:
+            assessment = await db.assessments.find_one({"id": assessment_id})
+            
+        if not assessment:
         if not assessment:
             return {"error": "Assessment not found", "assessment_id": assessment_id}
         
