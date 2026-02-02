@@ -4328,10 +4328,9 @@ async def debug_template_check(
 
 @api_router.get("/debug/gaps-data/{assessment_id}")
 async def debug_gaps_data(
-    assessment_id: str,
-    current_user: UserResponse = Depends(get_current_user)
+    assessment_id: str
 ):
-    """Debug endpoint to check what gaps data would be generated for an assessment."""
+    """Debug endpoint to check what gaps data would be generated for an assessment. No auth required for diagnostics."""
     from bson import ObjectId
     
     try:
