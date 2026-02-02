@@ -5224,6 +5224,7 @@ async def generate_executive_summary_pdf(
         
         # Generate filename - sanitize for HTTP headers (latin-1 compatible)
         assessment_name = assessment.get('name', 'Assessment')
+        assessment_type = assessment.get('assessment_type', 'Unknown')
         # Replace special characters with ASCII equivalents
         assessment_name = assessment_name.replace('–', '-')  # en-dash to hyphen
         assessment_name = assessment_name.replace('—', '-')  # em-dash to hyphen
@@ -5231,6 +5232,46 @@ async def generate_executive_summary_pdf(
         # Remove any non-ASCII characters
         assessment_name = assessment_name.encode('ascii', 'ignore').decode('ascii')
         filename = f"Executive_Summary_{assessment_name}.pdf"
+        
+        # Get file size for logging
+        pdf_file_size = os.path.getsize(temp_pdf_path)
+        
+        # Log report downloaded event
+        await log_audit_event(
+            db=db,
+            action=AuditAction.REPORT_DOWNLOADED,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="report",
+            object_id=assessment_id,
+            object_name=filename,
+            details={
+                "report_type": "pdf",
+                "pdf_type": "executive_summary",
+                "assessment_type": assessment_type,
+                "assessment_name": assessment.get("name", ""),
+                "file_size_bytes": pdf_file_size,
+                "view_type": view_type
+            }
+        )
+        
+        # Log analytics event for download
+        await log_analytics_event(
+            db=db,
+            event_type=AnalyticsEventType.REPORT_FUNNEL,
+            event_name="report_downloaded",
+            user_id=current_user.id,
+            tenant_id=current_user.org_id,
+            assessment_id=assessment_id,
+            assessment_type=assessment_type,
+            properties={
+                "report_type": "pdf",
+                "pdf_type": "executive_summary",
+                "file_size_bytes": pdf_file_size,
+                "view_type": view_type
+            }
+        )
         
         # Return PDF file
         return FileResponse(
