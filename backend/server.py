@@ -4851,6 +4851,108 @@ async def debug_generate_test_report(assessment_id: str):
         return {"error": str(e), "traceback": traceback.format_exc()}
 
 
+@api_router.get("/debug/full-report-test/{assessment_id}")
+async def debug_full_report_test(assessment_id: str):
+    """
+    Debug endpoint that runs the ACTUAL report generation code path
+    and captures diagnostic info about gaps rendering.
+    """
+    from report_generator import AMReportGenerator
+    import zipfile
+    import io
+    
+    try:
+        # Find assessment
+        from bson import ObjectId
+        assessment = None
+        try:
+            assessment = await db.assessments.find_one({"_id": ObjectId(assessment_id)})
+        except:
+            pass
+        if not assessment:
+            assessment = await db.assessments.find_one({"id": assessment_id})
+        
+        if not assessment:
+            return {"error": "Assessment not found"}
+        
+        assessment_type = assessment.get("assessment_type")
+        if assessment_type != "FAIRA":
+            return {"error": "This endpoint is for FAIRA assessments only"}
+        
+        # Create a mock user
+        class MockUser:
+            def __init__(self):
+                self.id = "debug-user"
+                self.email = "debug@test.com"
+                self.org_id = assessment.get("org_id", "debug-org")
+                self.organization_name = "Debug Org"
+                self.industry = None
+                self.primary_industry = None
+        
+        mock_user = MockUser()
+        
+        # Create report generator
+        report_generator = AMReportGenerator(assessment_type="FAIRA")
+        
+        # Run the actual report generation
+        try:
+            docx_bytes, filename = await report_generator.generate_report_for_assessment(
+                assessment_id, db, mock_user, view_type="heatmap", use_ai=False
+            )
+            
+            # Check the generated document for gaps data
+            with zipfile.ZipFile(io.BytesIO(docx_bytes), 'r') as zf:
+                rendered_xml = zf.read('word/document.xml').decode('utf-8')
+            
+            # Look for evidence of gaps rendering
+            # The gaps should have domain names from the assessment
+            faira_form = assessment.get("faira_form", {})
+            from faira_scoring_engine import calculate_overall_risk
+            risk_summary = calculate_overall_risk(faira_form)
+            top_areas = risk_summary.get("top_risk_areas", [])
+            
+            first_domain = top_areas[0].get("domain", "") if top_areas else ""
+            
+            result = {
+                "status": "Report generated successfully",
+                "filename": filename,
+                "docx_size_bytes": len(docx_bytes),
+                "expected_first_domain": first_domain,
+                "domain_found_in_output": first_domain in rendered_xml if first_domain else False,
+                "loop_tag_remains": "{%tr for gap in gaps %}" in rendered_xml,
+                "gap_placeholder_remains": "{{gap.domain}}" in rendered_xml,
+            }
+            
+            # Check for specific text patterns
+            if first_domain and first_domain in rendered_xml:
+                result["gaps_rendered"] = True
+                result["conclusion"] = "SUCCESS - Gaps are rendering in the actual report!"
+            else:
+                result["gaps_rendered"] = False
+                # Try to find what IS in the gaps table area
+                import re
+                # Look for text near "Gap" or "Priority" headers
+                gap_area = re.search(r'Priority.{0,500}', rendered_xml)
+                if gap_area:
+                    clean_snippet = re.sub(r'<[^>]+>', '|', gap_area.group(0))[:200]
+                    result["gaps_table_area_content"] = clean_snippet
+                result["conclusion"] = "FAILURE - Gaps not found in rendered output"
+            
+            return result
+            
+        except Exception as gen_err:
+            import traceback
+            return {
+                "status": "Report generation failed",
+                "error": str(gen_err),
+                "traceback": traceback.format_exc()
+            }
+        
+    except Exception as e:
+        import traceback
+        return {"error": str(e), "traceback": traceback.format_exc()}
+
+
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
 async def generate_executive_summary_pdf(
     assessment_id: str,
