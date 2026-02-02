@@ -4605,6 +4605,148 @@ async def debug_test_gaps_template():
         return {"error": str(e), "traceback": traceback.format_exc()}
 
 
+@api_router.get("/debug/generate-test-report/{assessment_id}")
+async def debug_generate_test_report(assessment_id: str):
+    """Debug endpoint to test report generation and return diagnostic info about gaps rendering."""
+    from report_generator import AMReportGenerator
+    from faira_scoring_engine import calculate_overall_risk
+    import zipfile
+    import io
+    
+    try:
+        # Find assessment
+        from bson import ObjectId
+        assessment = None
+        try:
+            assessment = await db.assessments.find_one({"_id": ObjectId(assessment_id)})
+        except:
+            pass
+        if not assessment:
+            assessment = await db.assessments.find_one({"id": assessment_id})
+        
+        if not assessment:
+            return {"error": "Assessment not found", "assessment_id": assessment_id}
+        
+        result = {
+            "assessment_id": assessment_id,
+            "assessment_type": assessment.get("assessment_type"),
+            "assessment_name": assessment.get("name"),
+        }
+        
+        # Check if FAIRA
+        if assessment.get("assessment_type") != "FAIRA":
+            return {"error": "This debug endpoint is for FAIRA assessments only", "assessment_type": assessment.get("assessment_type")}
+        
+        # Get faira_form
+        faira_form = assessment.get("faira_form", {})
+        result["faira_form_keys_count"] = len(faira_form)
+        
+        # Calculate risk on-the-fly
+        faira_risk_summary = calculate_overall_risk(faira_form)
+        result["calculated_risk"] = {
+            "overall_risk_level": faira_risk_summary.get("overall_risk_level"),
+            "domain_scores_count": len(faira_risk_summary.get("domain_scores", {})),
+            "top_risk_areas": faira_risk_summary.get("top_risk_areas", [])[:3],
+        }
+        
+        # Build gaps like report_generator does
+        domain_scores = faira_risk_summary.get("domain_scores", {})
+        top_risk_areas = faira_risk_summary.get("top_risk_areas", [])
+        
+        # Build top_domains_list
+        top_domains_list = []
+        for area in top_risk_areas:
+            if isinstance(area, dict):
+                top_domains_list.append({
+                    'name': area.get('domain', area.get('name', 'Unknown')),
+                    'risk': round(area.get('risk_score', area.get('risk', 0)), 1)
+                })
+        
+        # Build gaps
+        gaps_list = []
+        for domain in top_domains_list[:3]:
+            domain_name = domain.get('name', 'Unknown')
+            domain_risk = domain.get('risk', 0)
+            domain_data = domain_scores.get(domain_name, {})
+            ce = domain_data.get('Control_Effectiveness', 0)
+            
+            gaps_list.append({
+                'domain': domain_name,
+                'risk_score': domain_risk,
+                'existing_controls': 'Strong' if ce >= 70 else 'Partial' if ce >= 40 else 'Limited',
+                'control_effectiveness': ce,
+                'gaps': f'Strengthen {domain_name} controls',
+                'priority': 'High' if domain_risk >= 55 else 'Medium' if domain_risk >= 35 else 'Low'
+            })
+        
+        result["gaps_built"] = gaps_list
+        result["gaps_count"] = len(gaps_list)
+        
+        # Now test template rendering with this data
+        from docxtpl import DocxTemplate
+        from jinja2 import Environment
+        from pathlib import Path
+        
+        template_path = Path("/app/backend/templates/docx/AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.37_20260131.docx")
+        
+        if not template_path.exists():
+            return {"error": f"Template not found: {template_path}"}
+        
+        # Create DotDict
+        class DotDict(dict):
+            def __getattr__(self, key):
+                try:
+                    value = self[key]
+                    if isinstance(value, dict):
+                        return DotDict(value)
+                    return value
+                except KeyError:
+                    return DotDict({})
+            def __setattr__(self, key, value):
+                self[key] = value
+        
+        # Convert gaps to DotDict
+        gaps_dotdict = [DotDict(g) for g in gaps_list]
+        
+        # Create minimal context
+        context = {
+            'gaps': gaps_dotdict,
+            'system_name': faira_form.get('ai_system_name', 'Test'),
+            'org_name': faira_form.get('business_unit', 'Test'),
+            'overall_risk_score': faira_risk_summary.get('overall_risk_score', 50),
+            'overall_risk_level': faira_risk_summary.get('overall_risk_level', 'Medium'),
+            # ... minimal other fields ...
+        }
+        
+        result["context_gaps_type"] = str(type(context['gaps']))
+        result["context_gaps_0_type"] = str(type(context['gaps'][0])) if context['gaps'] else "N/A"
+        result["context_gaps_0_domain"] = context['gaps'][0].domain if context['gaps'] else "N/A"
+        
+        # Load template and check if gaps tag exists
+        doc = DocxTemplate(str(template_path))
+        
+        # Get the raw XML before render
+        raw_xml_before = doc.docx._part.blob.decode('utf-8', errors='ignore')
+        gaps_tag_present = '{%tr for gap in gaps %}' in raw_xml_before or '{%tr for gap in gaps%}' in raw_xml_before
+        
+        result["template_has_gaps_loop"] = gaps_tag_present
+        
+        # Extract snippet around gaps loop
+        import re
+        gaps_match = re.search(r'.{0,100}\{%tr\s+for\s+gap\s+in\s+gaps\s*%\}.{0,100}', raw_xml_before)
+        if gaps_match:
+            result["gaps_loop_context"] = gaps_match.group(0)[:200]
+        
+        result["status"] = "Analysis complete - gaps data can be generated"
+        result["recommendation"] = "If gaps table is still empty, the issue may be with how docxtpl handles the {%tr for %} loop in this specific template structure"
+        
+        return result
+        
+    except Exception as e:
+        import traceback
+        return {"error": str(e), "traceback": traceback.format_exc()}
+
+
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
 async def generate_executive_summary_pdf(
     assessment_id: str,
