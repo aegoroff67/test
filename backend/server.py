@@ -4216,10 +4216,9 @@ async def generate_report_docx(
 
 @api_router.get("/debug/template-check/{assessment_type}")
 async def debug_template_check(
-    assessment_type: str,
-    current_user: UserResponse = Depends(get_current_user)
+    assessment_type: str
 ):
-    """Debug endpoint to check template structure for gaps table."""
+    """Debug endpoint to check template structure for gaps table. No auth required for diagnostics."""
     import zipfile
     import re
     from pathlib import Path
