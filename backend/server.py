@@ -4907,6 +4907,9 @@ async def debug_full_report_test(assessment_id: str):
                 assessment_id, db, mock_user, view_type="heatmap", use_ai=False
             )
             
+            # Get the debug info captured during render
+            render_debug = AMReportGenerator.last_render_debug
+            
             # Check the generated document for gaps data
             with zipfile.ZipFile(io.BytesIO(docx_bytes), 'r') as zf:
                 rendered_xml = zf.read('word/document.xml').decode('utf-8')
@@ -4923,38 +4926,23 @@ async def debug_full_report_test(assessment_id: str):
                 "status": "Report generated successfully",
                 "filename": filename,
                 "expected_first_domain": first_domain,
+                "render_debug_gap_values": render_debug,
             }
             
             # Find the gaps table and extract its content
-            # Look for "Existing Controls and Identified Gaps" section
             gaps_table_start = rendered_xml.find('Existing Controls and Identified Gaps')
             if gaps_table_start > 0:
-                # Find the table after this heading
                 tbl_start = rendered_xml.find('<w:tbl', gaps_table_start)
                 tbl_end = rendered_xml.find('</w:tbl>', tbl_start) + len('</w:tbl>')
                 
                 if tbl_start > 0 and tbl_end > tbl_start:
                     gaps_table = rendered_xml[tbl_start:tbl_end]
-                    
-                    # Extract all text from this specific table
                     texts = re.findall(r'<w:t[^>]*>([^<]+)</w:t>', gaps_table)
                     non_empty = [t.strip() for t in texts if t.strip()]
                     
                     result["gaps_table_content"] = non_empty[:50]
                     result["gaps_table_has_domain"] = first_domain in gaps_table if first_domain else False
-                    result["gaps_table_length"] = len(gaps_table)
-                    
-                    # Check for specific gap values
-                    result["table_has_Reliability"] = "Reliability" in gaps_table
-                    result["table_has_Privacy"] = "Privacy" in gaps_table
-                    result["table_has_Accountability"] = "Accountability" in gaps_table
-            else:
-                result["gaps_table_found"] = False
             
-            # Check where first_domain appears
-            if first_domain:
-                result["domain_in_full_xml"] = first_domain in rendered_xml
-                
             return result
             
         except Exception as gen_err:
