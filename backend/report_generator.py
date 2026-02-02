@@ -226,7 +226,7 @@ class AMReportGenerator:
             'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
             'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
             'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
-            'FAIRA': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.37_20260131.docx',
+            'FAIRA': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.48_GAPS_FIXED.docx',
         }
         
         template_filename = template_map.get(assessment_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
