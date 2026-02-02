@@ -4494,6 +4494,7 @@ async def debug_test_gaps_template():
     from pathlib import Path
     import io
     import zipfile
+    import re
     
     try:
         # Use the actual FAIRA template
@@ -4505,12 +4506,14 @@ async def debug_test_gaps_template():
         
         # Check template structure for gaps-related tags
         gaps_tags_found = []
+        gaps_xml_context = ""
+        raw_gaps_section = ""
+        
         try:
             with zipfile.ZipFile(str(template_path), 'r') as docx_zip:
                 doc_xml = docx_zip.read('word/document.xml').decode('utf-8')
                 
                 # Check for gaps-related template tags
-                import re
                 gaps_patterns = [
                     r'\{%tr\s+for\s+gap\s+in\s+gaps\s*%\}',
                     r'\{%tr\s+endfor\s*%\}',
@@ -4522,6 +4525,20 @@ async def debug_test_gaps_template():
                     matches = re.findall(pattern, doc_xml)
                     if matches:
                         gaps_tags_found.extend(matches)
+                
+                # Extract the XML context around "{%tr for gap in gaps %}"
+                # This helps diagnose if the tag is malformed or split
+                gap_loop_match = re.search(r'.{0,500}\{%tr\s+for\s+gap\s+in\s+gaps\s*%\}.{0,500}', doc_xml)
+                if gap_loop_match:
+                    raw_gaps_section = gap_loop_match.group(0)
+                    # Clean up for readability - extract just the text content
+                    gaps_xml_context = re.sub(r'<[^>]+>', ' ', raw_gaps_section)
+                    gaps_xml_context = ' '.join(gaps_xml_context.split())[:500]
+                
+                # CRITICAL: Check if the tag might be split across XML elements
+                # Look for patterns like "{%tr" ... "for gap" (split by XML tags)
+                split_check = re.search(r'\{%tr[^}]*<[^>]+>[^}]*for\s+gap', doc_xml)
+                
         except Exception as zip_err:
             gaps_tags_found = [f"Error reading template: {zip_err}"]
         
