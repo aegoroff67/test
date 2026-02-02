@@ -4035,10 +4035,16 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 # Get calculated FAIRA data if available, otherwise calculate it
                 faira_risk_summary = report_data.get('faira_risk_summary')
+                print(f"DEBUG: faira_risk_summary from report_data = {faira_risk_summary}")
+                print(f"DEBUG: faira_risk_summary is falsy: {not faira_risk_summary}")
+                print(f"DEBUG: faira_risk_summary type: {type(faira_risk_summary)}")
+                
                 if not faira_risk_summary:
                     # Calculate FAIRA scores using the scoring engine
                     faira_risk_summary = calculate_overall_risk(faira_form)
                     print(f"DEBUG: Calculated FAIRA risk summary on-the-fly")
+                else:
+                    print(f"DEBUG: Using faira_risk_summary from report_data")
                 
                 # Get domain scores from risk summary
                 raw_domain_scores = faira_risk_summary.get('domain_scores', {})
