@@ -4771,6 +4771,15 @@ Each cell represents the score for a specific question, enabling identification 
                     print(f"  gaps[0].domain: {gaps_final[0].get('domain', 'MISSING') if hasattr(gaps_final[0], 'get') else getattr(gaps_final[0], 'domain', 'MISSING')}")
                     for i, g in enumerate(gaps_final[:3]):
                         print(f"  gaps[{i}]: domain={g.get('domain') if hasattr(g, 'get') else g.domain}, priority={g.get('priority') if hasattr(g, 'get') else g.priority}")
+                
+                # Check gap_1, gap_2, gap_3 specifically
+                print(f"=== GAP_1, GAP_2, GAP_3 CHECK ===")
+                for n in [1, 2, 3]:
+                    gap_n = template_context.get(f'gap_{n}')
+                    if gap_n:
+                        print(f"  gap_{n}: type={type(gap_n).__name__}, domain={gap_n.get('domain') if hasattr(gap_n, 'get') else getattr(gap_n, 'domain', 'N/A')}")
+                    else:
+                        print(f"  gap_{n}: NOT SET!")
             
             # Render the template with custom jinja_env
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
