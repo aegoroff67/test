@@ -4214,6 +4214,119 @@ async def generate_report_docx(
         raise HTTPException(status_code=500, detail=f"Failed to generate DOCX report: {error_detail}")
 
 
+@api_router.get("/debug/template-check/{assessment_type}")
+async def debug_template_check(
+    assessment_type: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Debug endpoint to check template structure for gaps table."""
+    import zipfile
+    import re
+    from pathlib import Path
+    
+    template_map = {
+        'System': 'AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx',
+        'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
+        'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
+        'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
+        'FAIRA': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.37_20260131.docx',
+    }
+    
+    template_filename = template_map.get(assessment_type, 'unknown')
+    backend_dir = Path(__file__).parent
+    template_path = backend_dir / "templates" / "docx" / template_filename
+    
+    result = {
+        "assessment_type": assessment_type,
+        "template_filename": template_filename,
+        "template_path": str(template_path),
+        "template_exists": template_path.exists(),
+    }
+    
+    if not template_path.exists():
+        result["error"] = "Template file not found"
+        return result
+    
+    result["file_size"] = template_path.stat().st_size
+    
+    try:
+        with zipfile.ZipFile(template_path, 'r') as z:
+            xml = z.read('word/document.xml').decode('utf-8')
+        
+        # Check gaps table structure
+        gap_for_pos = xml.find('{%tr for gap in gaps %}')
+        gap_endfor_positions = [m.start() for m in re.finditer(r'\{%tr endfor %\}', xml)]
+        gap_data_pos = xml.find('{{gap.domain}}')
+        
+        result["gaps_analysis"] = {
+            "for_loop_found": gap_for_pos != -1,
+            "for_loop_position": gap_for_pos,
+            "endfor_count": len(gap_endfor_positions),
+            "data_row_found": gap_data_pos != -1,
+            "data_row_position": gap_data_pos,
+        }
+        
+        if gap_for_pos != -1:
+            # Check if FOR and ENDFOR are in same table
+            tbl_start = xml.rfind('<w:tbl', 0, gap_for_pos)
+            tbl_end = xml.find('</w:tbl>', gap_for_pos)
+            
+            endfor_in_same_table = [p for p in gap_endfor_positions if tbl_start < p < tbl_end]
+            
+            result["gaps_analysis"]["table_start"] = tbl_start
+            result["gaps_analysis"]["table_end"] = tbl_end
+            result["gaps_analysis"]["endfor_in_same_table"] = len(endfor_in_same_table) > 0
+            
+            if endfor_in_same_table:
+                gap_table = xml[tbl_start:tbl_end+8]
+                rows = len(gap_table.split('<w:tr')) - 1
+                
+                # Check row structure
+                has_header = '>Domain<' in gap_table or 'Domain' in re.sub(r'<[^>]+>', '', gap_table)
+                has_for = '{%tr for gap' in gap_table
+                has_data = '{{gap.' in gap_table
+                has_endfor = '{%tr endfor' in gap_table
+                
+                result["gaps_analysis"]["table_rows"] = rows
+                result["gaps_analysis"]["structure"] = {
+                    "has_header": has_header,
+                    "has_for_loop": has_for,
+                    "has_data_row": has_data,
+                    "has_endfor": has_endfor,
+                    "valid": has_for and has_data and has_endfor
+                }
+                
+                # Get gap variables
+                gap_vars = list(set(re.findall(r'\{\{gap\.([^}]+)\}\}', gap_table)))
+                result["gaps_analysis"]["gap_variables"] = gap_vars
+        
+        # Check if/endif balance after processing simulation
+        src = xml
+        src = re.sub(r"(?<={)(<[^>]*>)+(?=[\{%\#])|(?<=[%\}\#])(<[^>]*>)+(?=\})", "", src, flags=re.DOTALL)
+        def strip(m): return re.sub("</w:t>.*?(<w:t>|<w:t [^>]*>)", "", m.group(0), flags=re.DOTALL)
+        src = re.sub(r"{%(?:(?!%}).)*|{#(?:(?!#}).)*|{{(?:(?!}}).)*", strip, src, flags=re.DOTALL)
+        for y in ["tr", "tc", "p", "r"]:
+            pat = r"<w:%(y)s[ >](?:(?!<w:%(y)s[ >]).)*({%%|{{)%(y)s ([^}%%]*(?:%%}|}})).*?</w:%(y)s>" % {"y": y}
+            src = re.sub(pat, r"\1 \2", src, flags=re.DOTALL)
+        
+        ifs = len([i for i in re.findall(r'\{%[^%]*\bif\b[^%]*%\}', src) if 'endif' not in i.lower()])
+        endifs = len(re.findall(r'\{%[^%]*\bendif\b[^%]*%\}', src))
+        
+        result["jinja_balance"] = {
+            "if_count": ifs,
+            "endif_count": endifs,
+            "balanced": ifs == endifs
+        }
+        
+        result["status"] = "OK" if (result["gaps_analysis"].get("structure", {}).get("valid") and ifs == endifs) else "ISSUES_FOUND"
+        
+    except Exception as e:
+        result["error"] = str(e)
+        result["status"] = "ERROR"
+    
+    return result
+
+
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
 async def generate_executive_summary_pdf(
     assessment_id: str,
