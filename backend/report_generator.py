@@ -4776,6 +4776,33 @@ Each cell represents the score for a specific question, enabling identification 
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
             doc.render(template_context, jinja_env=jinja_env)
             
+            # CRITICAL POST-RENDER CHECK for FAIRA: Verify gaps were actually rendered
+            if self.assessment_type == 'FAIRA':
+                try:
+                    import io as _io
+                    import zipfile as _zf
+                    temp_check = _io.BytesIO()
+                    doc.save(temp_check)
+                    temp_check.seek(0)
+                    with _zf.ZipFile(temp_check, 'r') as zcheck:
+                        rendered_xml = zcheck.read('word/document.xml').decode('utf-8')
+                        
+                        # Check if any gap data was rendered
+                        gaps_test = template_context.get('gaps', [])
+                        if gaps_test:
+                            first_domain = gaps_test[0].get('domain', '') if hasattr(gaps_test[0], 'get') else getattr(gaps_test[0], 'domain', '')
+                            if first_domain and first_domain in rendered_xml:
+                                print(f"✓ POST-RENDER: Gap domain '{first_domain}' found in rendered document!")
+                            else:
+                                print(f"✗ POST-RENDER: Gap domain '{first_domain}' NOT FOUND in rendered document!")
+                                # Check if template tags remain
+                                if '{%tr for gap in gaps %}' in rendered_xml:
+                                    print("  ERROR: {%tr for gap in gaps %} tag still present - loop not executed!")
+                                if '{{gap.domain}}' in rendered_xml:
+                                    print("  ERROR: {{gap.domain}} placeholder still present!")
+                except Exception as check_err:
+                    print(f"WARNING: Post-render check failed: {check_err}")
+            
             # Center-align images (heatmap and radar chart)
             self._center_align_images(doc)
             
