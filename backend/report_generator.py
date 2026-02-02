@@ -4832,10 +4832,20 @@ Each cell represents the score for a specific question, enabling identification 
                             else:
                                 print(f"✗ POST-RENDER: Gap domain '{first_domain}' NOT FOUND in rendered document!")
                                 # Check if template tags remain
+                                if '{{gap_1.domain}}' in rendered_xml:
+                                    print("  ERROR: {{gap_1.domain}} placeholder still present - NOT RENDERED!")
+                                if '{{gap_2.domain}}' in rendered_xml:
+                                    print("  ERROR: {{gap_2.domain}} placeholder still present - NOT RENDERED!")
+                                if '{{gap_3.domain}}' in rendered_xml:
+                                    print("  ERROR: {{gap_3.domain}} placeholder still present - NOT RENDERED!")
                                 if '{%tr for gap in gaps %}' in rendered_xml:
                                     print("  ERROR: {%tr for gap in gaps %} tag still present - loop not executed!")
                                 if '{{gap.domain}}' in rendered_xml:
                                     print("  ERROR: {{gap.domain}} placeholder still present!")
+                        
+                        # Store for debug endpoint
+                        AMReportGenerator.last_render_debug['first_domain_in_xml'] = first_domain in rendered_xml if first_domain else None
+                        AMReportGenerator.last_render_debug['gap_1_placeholder_remains'] = '{{gap_1.domain}}' in rendered_xml
                 except Exception as check_err:
                     print(f"WARNING: Post-render check failed: {check_err}")
             
