@@ -4360,6 +4360,12 @@ async def debug_gaps_data(
             "assessment_name": assessment.get("name"),
         }
         
+        # Check what data exists in the assessment
+        result["has_faira_form"] = "faira_form" in assessment
+        faira_form = assessment.get("faira_form", {})
+        result["faira_form_keys_count"] = len(faira_form.keys()) if faira_form else 0
+        result["faira_form_sample_keys"] = list(faira_form.keys())[:10] if faira_form else []
+        
         # Get FAIRA risk summary
         faira_risk_summary = assessment.get("faira_risk_summary", {})
         domain_scores = faira_risk_summary.get("domain_scores", {})
