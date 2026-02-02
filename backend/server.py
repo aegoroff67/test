@@ -4192,6 +4192,43 @@ async def generate_report_docx(
             properties={"report_type": "docx", "use_ai": use_ai}
         )
         
+        # Log report downloaded event (the file is being sent to the user)
+        await log_audit_event(
+            db=db,
+            action=AuditAction.REPORT_DOWNLOADED,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="report",
+            object_id=assessment_id,
+            object_name=filename,
+            details={
+                "report_type": "docx",
+                "assessment_type": assessment_type,
+                "assessment_name": assessment.get("name", ""),
+                "file_size_bytes": len(docx_bytes),
+                "view_type": view_type,
+                "use_ai": use_ai
+            }
+        )
+        
+        # Log analytics event for download
+        await log_analytics_event(
+            db=db,
+            event_type=AnalyticsEventType.REPORT_FUNNEL,
+            event_name="report_downloaded",
+            user_id=current_user.id,
+            tenant_id=current_user.org_id,
+            assessment_id=assessment_id,
+            assessment_type=assessment_type,
+            properties={
+                "report_type": "docx",
+                "file_size_bytes": len(docx_bytes),
+                "view_type": view_type,
+                "use_ai": use_ai
+            }
+        )
+        
         # Return DOCX as streaming response
         return StreamingResponse(
             io.BytesIO(docx_bytes),
