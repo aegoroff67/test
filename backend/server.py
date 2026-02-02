@@ -4326,6 +4326,87 @@ async def debug_template_check(
     return result
 
 
+@api_router.get("/debug/gaps-data/{assessment_id}")
+async def debug_gaps_data(
+    assessment_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Debug endpoint to check what gaps data would be generated for an assessment."""
+    from bson import ObjectId
+    
+    try:
+        # Fetch assessment
+        assessment = await db.assessments.find_one({"_id": ObjectId(assessment_id)})
+        if not assessment:
+            return {"error": "Assessment not found", "assessment_id": assessment_id}
+        
+        result = {
+            "assessment_id": assessment_id,
+            "assessment_type": assessment.get("assessment_type"),
+            "assessment_name": assessment.get("name"),
+        }
+        
+        # Get FAIRA risk summary
+        faira_risk_summary = assessment.get("faira_risk_summary", {})
+        domain_scores = faira_risk_summary.get("domain_scores", {})
+        top_risk_areas = faira_risk_summary.get("top_risk_areas", [])
+        
+        result["faira_risk_summary_exists"] = bool(faira_risk_summary)
+        result["domain_scores_count"] = len(domain_scores)
+        result["domain_scores_keys"] = list(domain_scores.keys())
+        result["top_risk_areas_count"] = len(top_risk_areas)
+        result["top_risk_areas"] = top_risk_areas[:5] if top_risk_areas else []
+        
+        # Build gaps the same way report_generator does
+        gaps = []
+        
+        # Method 1: From top_risk_areas
+        if top_risk_areas:
+            for risk_area in top_risk_areas[:3]:
+                domain = risk_area.get('domain', '')
+                domain_data = domain_scores.get(domain, {})
+                
+                gap_entry = {
+                    'domain': domain,
+                    'risk_score': round(risk_area.get('risk', domain_data.get('Risk', 0)), 1),
+                    'existing_controls': domain_data.get('existing_controls', 'Controls documented in assessment'),
+                    'control_effectiveness': round(domain_data.get('Control_Effectiveness', 0), 1),
+                    'gaps': f"Review and strengthen {domain} controls",
+                    'priority': 'High' if risk_area.get('risk', 0) >= 50 else 'Medium' if risk_area.get('risk', 0) >= 30 else 'Low'
+                }
+                gaps.append(gap_entry)
+        
+        # Method 2: Fallback from domain_scores if no top_risk_areas
+        if not gaps and domain_scores:
+            sorted_domains = sorted(
+                [(d, s.get('Risk', 0)) for d, s in domain_scores.items()],
+                key=lambda x: x[1],
+                reverse=True
+            )
+            for domain, risk in sorted_domains[:3]:
+                domain_data = domain_scores.get(domain, {})
+                gap_entry = {
+                    'domain': domain,
+                    'risk_score': round(risk, 1),
+                    'existing_controls': 'Controls documented in assessment',
+                    'control_effectiveness': round(domain_data.get('Control_Effectiveness', 0), 1),
+                    'gaps': f"Review and strengthen {domain} controls",
+                    'priority': 'High' if risk >= 50 else 'Medium' if risk >= 30 else 'Low'
+                }
+                gaps.append(gap_entry)
+        
+        result["gaps_generated"] = len(gaps)
+        result["gaps_data"] = gaps
+        
+        if not gaps:
+            result["warning"] = "No gaps data could be generated - check if faira_risk_summary and domain_scores exist"
+        
+        return result
+        
+    except Exception as e:
+        return {"error": str(e), "assessment_id": assessment_id}
+
+
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
 async def generate_executive_summary_pdf(
     assessment_id: str,
