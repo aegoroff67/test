@@ -107,6 +107,9 @@ def _protect_ampersands_in_dict(data):
 class AMReportGenerator:
     """Generates AM AI SAFE assessment reports in DOCX and PDF formats."""
     
+    # Class variable to store debug info from last render
+    last_render_debug = {}
+    
     def __init__(self, template_path: Optional[str] = None, use_test_template: bool = False, use_smart_priority: bool = False, assessment_type: str = "System"):
         """Initialize the report generator."""
         self.use_test_template = use_test_template
