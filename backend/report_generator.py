@@ -4729,6 +4729,15 @@ Each cell represents the score for a specific question, enabling identification 
                 for i, g in enumerate(gaps_before_render[:3]):
                     print(f"  - gaps[{i}]: domain={g.get('domain')}, gaps={g.get('gaps')}, priority={g.get('priority')}")
             
+            # CRITICAL DEBUG: Log what gaps is in template_context right before render
+            final_gaps = template_context.get('gaps', [])
+            print(f"DEBUG CRITICAL: template_context['gaps'] has {len(final_gaps) if final_gaps else 0} items right before render")
+            if final_gaps:
+                for i, g in enumerate(final_gaps[:3]):
+                    print(f"  FINAL gaps[{i}]: {dict(g) if hasattr(g, 'items') else g}")
+            else:
+                print("  WARNING: gaps is EMPTY or None!")
+            
             # Render the template with custom jinja_env
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
             doc.render(template_context, jinja_env=jinja_env)
