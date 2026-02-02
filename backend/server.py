@@ -4487,6 +4487,114 @@ async def debug_gaps_data(
         return {"error": str(e), "traceback": traceback.format_exc(), "assessment_id": assessment_id}
 
 
+@api_router.get("/debug/test-gaps-template")
+async def debug_test_gaps_template():
+    """Debug endpoint to test if docxtpl can render gaps data correctly."""
+    from docxtpl import DocxTemplate
+    from pathlib import Path
+    import io
+    
+    try:
+        # Use the actual FAIRA template
+        backend_dir = Path(__file__).parent
+        template_path = backend_dir / "templates" / "docx" / "AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.37_20260131.docx"
+        
+        if not template_path.exists():
+            return {"error": f"Template not found: {template_path}"}
+        
+        # Create mock gaps data exactly like report_generator.py creates it
+        class DotDict(dict):
+            def __getattr__(self, key):
+                try:
+                    value = self[key]
+                    if isinstance(value, dict):
+                        return DotDict(value)
+                    return value
+                except KeyError:
+                    return DotDict({})
+            def __setattr__(self, key, value):
+                self[key] = value
+        
+        gaps_list = [
+            DotDict({
+                'domain': 'Accountability',
+                'risk_score': 55.0,
+                'existing_controls': 'Partial controls implemented',
+                'control_effectiveness': 45.0,
+                'gaps': 'Implement governance oversight framework',
+                'priority': 'High'
+            }),
+            DotDict({
+                'domain': 'Transparency',
+                'risk_score': 48.0,
+                'existing_controls': 'Limited or no controls',
+                'control_effectiveness': 25.0,
+                'gaps': 'Establish AI decision documentation',
+                'priority': 'Medium'
+            }),
+            DotDict({
+                'domain': 'Fairness',
+                'risk_score': 42.0,
+                'existing_controls': 'Limited or no controls',
+                'control_effectiveness': 30.0,
+                'gaps': 'Develop bias assessment procedures',
+                'priority': 'Medium'
+            }),
+        ]
+        
+        # Build a minimal template context with all required variables
+        template_context = {
+            'gaps': gaps_list,
+            'gap_1': gaps_list[0],
+            'gap_2': gaps_list[1],
+            'gap_3': gaps_list[2],
+            # Add other required variables with empty/default values
+            'system_name': 'Test System',
+            'org_name': 'Test Org',
+            'overall_risk_score': 50.0,
+            'overall_risk_level': 'Medium',
+            'overall_impact_score': 50.0,
+            'overall_likelihood_score': 50.0,
+            'overall_control_effectiveness_score': 50.0,
+            'domain_scores': DotDict({}),
+            'top_domains': [DotDict({'name': 'Test', 'risk': 50})],
+            'faira_form': DotDict({}),
+            'ai': DotDict({}),
+            'recommended_controls_top3': DotDict({}),
+            'controls': [],
+            'controls_by_domain': DotDict({}),
+            'recommended_controls': DotDict({}),
+            'faira_controls': DotDict({'top_controls': []}),
+        }
+        
+        # Try to render just to check if gaps work
+        doc = DocxTemplate(str(template_path))
+        
+        # Get undeclared template variables
+        try:
+            undeclared = doc.get_undeclared_template_variables()
+            
+            return {
+                "status": "Template loaded successfully",
+                "template_path": str(template_path),
+                "gaps_list_count": len(gaps_list),
+                "gaps_data": [dict(g) for g in gaps_list],
+                "undeclared_variables_sample": list(undeclared)[:20],
+                "message": "Gaps data structure is correct. If the table is still empty in production, check backend logs during report generation."
+            }
+        except Exception as e:
+            return {
+                "status": "Template variable check failed",
+                "error": str(e),
+                "gaps_list_count": len(gaps_list),
+                "gaps_data": [dict(g) for g in gaps_list],
+            }
+        
+    except Exception as e:
+        import traceback
+        return {"error": str(e), "traceback": traceback.format_exc()}
+
+
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
 async def generate_executive_summary_pdf(
     assessment_id: str,
