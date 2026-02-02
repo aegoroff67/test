@@ -4420,6 +4420,20 @@ async def debug_gaps_data(
         
         if not gaps:
             result["warning"] = "No gaps data could be generated - check if faira_risk_summary and domain_scores exist"
+            
+            # Try to calculate risk on-the-fly if faira_form exists
+            if faira_form:
+                try:
+                    from faira_scoring_engine import calculate_overall_risk
+                    calculated_risk = calculate_overall_risk(faira_form)
+                    result["calculated_risk_on_fly"] = {
+                        "overall_risk_score": calculated_risk.get("overall_risk_score"),
+                        "overall_risk_level": calculated_risk.get("overall_risk_level"),
+                        "domain_scores_keys": list(calculated_risk.get("domain_scores", {}).keys()),
+                        "top_risk_areas_count": len(calculated_risk.get("top_risk_areas", [])),
+                    }
+                except Exception as calc_err:
+                    result["calculated_risk_error"] = str(calc_err)
         
         return result
         
