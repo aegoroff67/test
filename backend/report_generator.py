@@ -5533,6 +5533,42 @@ Each cell represents the score for a specific question, enabling identification 
             "faira_form": assessment.get('faira_form') or {},  # Pass faira_form for FAIRA assessments
         }
         
+        # CRITICAL FIX: Always calculate FAIRA risk summary if not present in assessment
+        # This ensures gaps table data is available regardless of use_ai flag
+        if self.assessment_type == 'FAIRA':
+            faira_form = assessment.get('faira_form') or assessment.get('form_responses') or {}
+            faira_risk_summary = assessment.get('faira_risk_summary')
+            
+            print(f"DEBUG FAIRA PRE-CALC: faira_form has {len(faira_form)} keys")
+            print(f"DEBUG FAIRA PRE-CALC: faira_risk_summary exists in assessment: {bool(faira_risk_summary)}")
+            
+            # Always calculate if not present or empty
+            if not faira_risk_summary:
+                print("DEBUG FAIRA PRE-CALC: Calculating faira_risk_summary on-the-fly...")
+                try:
+                    faira_risk_summary = calculate_overall_risk(faira_form)
+                    faira_radar_data = get_radar_chart_data(faira_form)
+                    faira_controls = get_recommended_controls(faira_form, top_n=5)
+                    
+                    # Store in assessment_data so it flows to report_data via _transform_assessment_data
+                    assessment_data['faira_risk_summary'] = faira_risk_summary
+                    assessment_data['faira_radar_data'] = faira_radar_data
+                    assessment_data['faira_controls'] = faira_controls
+                    assessment_data['faira_form'] = faira_form  # Ensure form data is passed
+                    
+                    print(f"DEBUG FAIRA PRE-CALC: Calculated successfully!")
+                    print(f"  - overall_risk_level: {faira_risk_summary.get('overall_risk_level')}")
+                    print(f"  - domain_scores keys: {list(faira_risk_summary.get('domain_scores', {}).keys())}")
+                    print(f"  - top_risk_areas count: {len(faira_risk_summary.get('top_risk_areas', []))}")
+                except Exception as e:
+                    print(f"ERROR FAIRA PRE-CALC: Failed to calculate faira_risk_summary: {e}")
+                    import traceback
+                    traceback.print_exc()
+            else:
+                # If faira_risk_summary exists in assessment, still pass it to assessment_data
+                assessment_data['faira_risk_summary'] = faira_risk_summary
+                print(f"DEBUG FAIRA PRE-CALC: Using existing faira_risk_summary from assessment")
+        
         # Generate AI narratives for Awareness assessments if use_ai is enabled
         if use_ai and self.assessment_type == 'Awareness':
             print("=== GENERATING AWARENESS AI NARRATIVES ===")
