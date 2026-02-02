@@ -4588,6 +4588,8 @@ async def debug_test_gaps_template():
             "template_exists": template_path.exists(),
             "gaps_tags_in_template": gaps_tags_found,
             "gaps_tags_count": len(gaps_tags_found),
+            "gaps_xml_context": gaps_xml_context,
+            "tag_possibly_split": bool(split_check) if 'split_check' in dir() else "check failed",
             "gaps_list_count": len(gaps_list),
             "gaps_data_sample": [dict(g) for g in gaps_list],
             "diagnosis": "If gaps_tags_in_template shows the expected tags but table is still empty, the issue is in data flow or template rendering",
