@@ -4857,6 +4857,9 @@ Each cell represents the score for a specific question, enabling identification 
                 # System template uses Jinja2 {%tr for %} loops which handle table rows correctly
                 # No programmatic table population needed - the loops use sector_actions_*_top5 (5 items)
                 print("DEBUG: System template uses Jinja2 loops for action tables - skipping programmatic population")
+            elif self.assessment_type == 'FAIRA':
+                # FAIRA uses gap_1, gap_2, gap_3 variables in template - no programmatic population needed
+                print("DEBUG: FAIRA template uses gap_1/2/3 variables - skipping programmatic table population")
             elif not self.use_test_template:
                 # Other templates use actions tables with domain, question_id, text
                 self._populate_recommendation_tables(doc, report_data)
