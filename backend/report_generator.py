@@ -4777,9 +4777,15 @@ Each cell represents the score for a specific question, enabling identification 
                 for n in [1, 2, 3]:
                     gap_n = template_context.get(f'gap_{n}')
                     if gap_n:
-                        print(f"  gap_{n}: type={type(gap_n).__name__}, domain={gap_n.get('domain') if hasattr(gap_n, 'get') else getattr(gap_n, 'domain', 'N/A')}")
+                        domain_val = gap_n.get('domain') if hasattr(gap_n, 'get') else getattr(gap_n, 'domain', 'N/A')
+                        print(f"  gap_{n}: type={type(gap_n).__name__}, domain='{domain_val}'")
                     else:
-                        print(f"  gap_{n}: NOT SET!")
+                        print(f"  gap_{n}: NOT SET OR NONE!")
+                
+                # CRITICAL: If gap_1 is not set, something went wrong in gap building
+                if not template_context.get('gap_1'):
+                    print("CRITICAL ERROR: gap_1 is not set! Checking why...")
+                    print(f"  gaps list: {template_context.get('gaps')}")
             
             # Render the template with custom jinja_env
             # Note: We use autoescape=False (default) because autoescape=True corrupts DOCX files
