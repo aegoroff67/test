@@ -4783,13 +4783,25 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 # Check gap_1, gap_2, gap_3 specifically
                 print(f"=== GAP_1, GAP_2, GAP_3 CHECK ===")
+                # Store debug info in class variable for access via debug endpoint
+                AMReportGenerator.last_render_debug = {
+                    'gap_1': None,
+                    'gap_2': None,
+                    'gap_3': None,
+                }
                 for n in [1, 2, 3]:
                     gap_n = template_context.get(f'gap_{n}')
                     if gap_n:
                         domain_val = gap_n.get('domain') if hasattr(gap_n, 'get') else getattr(gap_n, 'domain', 'N/A')
                         print(f"  gap_{n}: type={type(gap_n).__name__}, domain='{domain_val}'")
+                        AMReportGenerator.last_render_debug[f'gap_{n}'] = {
+                            'domain': domain_val,
+                            'type': type(gap_n).__name__,
+                            'full_data': dict(gap_n) if hasattr(gap_n, 'items') else str(gap_n)
+                        }
                     else:
                         print(f"  gap_{n}: NOT SET OR NONE!")
+                        AMReportGenerator.last_render_debug[f'gap_{n}'] = 'NOT SET'
                 
                 # CRITICAL: If gap_1 is not set, something went wrong in gap building
                 if not template_context.get('gap_1'):
