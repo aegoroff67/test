@@ -4723,22 +4723,126 @@ async def debug_generate_test_report(assessment_id: str):
         result["context_gaps_0_domain"] = context['gaps'][0].domain if context['gaps'] else "N/A"
         
         # Load template and check if gaps tag exists
-        doc = DocxTemplate(str(template_path))
+        with zipfile.ZipFile(str(template_path), 'r') as zf:
+            raw_xml_before = zf.read('word/document.xml').decode('utf-8')
         
-        # Get the raw XML before render
-        raw_xml_before = doc.docx._part.blob.decode('utf-8', errors='ignore')
         gaps_tag_present = '{%tr for gap in gaps %}' in raw_xml_before or '{%tr for gap in gaps%}' in raw_xml_before
-        
         result["template_has_gaps_loop"] = gaps_tag_present
         
         # Extract snippet around gaps loop
         import re
         gaps_match = re.search(r'.{0,100}\{%tr\s+for\s+gap\s+in\s+gaps\s*%\}.{0,100}', raw_xml_before)
         if gaps_match:
-            result["gaps_loop_context"] = gaps_match.group(0)[:200]
+            # Clean for readability
+            snippet = gaps_match.group(0)
+            snippet_clean = re.sub(r'<[^>]+>', '|', snippet)[:300]
+            result["gaps_loop_xml_snippet"] = snippet_clean
         
-        result["status"] = "Analysis complete - gaps data can be generated"
-        result["recommendation"] = "If gaps table is still empty, the issue may be with how docxtpl handles the {%tr for %} loop in this specific template structure"
+        # Now actually try to render the template with test gaps data and check output
+        doc = DocxTemplate(str(template_path))
+        
+        # Create jinja env with required filters
+        def format_list(value):
+            if isinstance(value, list):
+                return ', '.join(str(v) for v in value) if value else ''
+            return str(value) if value else ''
+        
+        def replace_last(value, old, new):
+            return value.rsplit(old, 1)[0] + new if isinstance(value, str) and old in value else value
+        
+        def rating_label(value):
+            try:
+                labels = {1: 'Minor', 2: 'Moderate', 3: 'Major'}
+                return labels.get(value, str(value) if value else '')
+            except:
+                return str(value) if value else ''
+        
+        jinja_env = Environment()
+        jinja_env.filters['format_list'] = format_list
+        jinja_env.filters['replace_last'] = replace_last
+        jinja_env.filters['rating_label'] = rating_label
+        jinja_env.filters['severity_label'] = rating_label
+        
+        # Build comprehensive context
+        top_domains = [DotDict({'name': d['name'], 'risk': d['risk']}) for d in [
+            {'name': gaps_list[0]['domain'] if gaps_list else 'N/A', 'risk': gaps_list[0]['risk_score'] if gaps_list else 0},
+            {'name': gaps_list[1]['domain'] if len(gaps_list) > 1 else 'N/A', 'risk': gaps_list[1]['risk_score'] if len(gaps_list) > 1 else 0},
+            {'name': gaps_list[2]['domain'] if len(gaps_list) > 2 else 'N/A', 'risk': gaps_list[2]['risk_score'] if len(gaps_list) > 2 else 0},
+        ]]
+        
+        full_context = {
+            'gaps': gaps_dotdict,
+            'gap_1': gaps_dotdict[0] if gaps_dotdict else DotDict({}),
+            'gap_2': gaps_dotdict[1] if len(gaps_dotdict) > 1 else DotDict({}),
+            'gap_3': gaps_dotdict[2] if len(gaps_dotdict) > 2 else DotDict({}),
+            'system_name': faira_form.get('ai_system_name', 'Test System'),
+            'org_name': faira_form.get('business_unit', 'Test Org'),
+            'overall_risk_score': faira_risk_summary.get('overall_risk_score', 50),
+            'overall_risk_level': faira_risk_summary.get('overall_risk_level', 'Medium'),
+            'overall_impact_score': faira_risk_summary.get('total_impact', 50),
+            'overall_likelihood_score': faira_risk_summary.get('total_likelihood', 50),
+            'overall_control_effectiveness_score': faira_risk_summary.get('total_control_effectiveness', 50),
+            'total_impact': faira_risk_summary.get('total_impact', 50),
+            'total_likelihood': faira_risk_summary.get('total_likelihood', 50),
+            'total_control_effectiveness': faira_risk_summary.get('total_control_effectiveness', 50),
+            'raw_risk_score': faira_risk_summary.get('raw_risk_score', 50),
+            'autonomy_factor': '',
+            'data_quality_factor': '',
+            'expertise_factor': '',
+            'assessment_date': '2025-02-02',
+            'generation_date': '2025-02-02',
+            'domain_scores': DotDict({d: DotDict({'Impact': 50, 'Likelihood': 50, 'Inherent_Risk': 25, 'Control_Effectiveness': 50, 'Risk': 50}) for d in ['Wellbeing', 'Values', 'Fairness', 'Privacy', 'Reliability', 'Transparency', 'Contestability', 'Accountability']}),
+            'top_domains': top_domains,
+            'top_risk_areas': [],
+            'faira_form': DotDict(faira_form),
+            'ai': DotDict({}),
+            'recommended_controls_top3': DotDict({d: [] for d in ['Accountability', 'Contestability', 'Fairness', 'Wellbeing', 'Values', 'Privacy', 'Reliability', 'Transparency']}),
+            'controls': [],
+            'controls_by_domain': DotDict({}),
+            'recommended_controls': DotDict({}),
+            'faira_controls': DotDict({'top_controls': []}),
+            'control': DotDict({}),
+            'gap': DotDict({}),
+            'artefact': DotDict({}),
+            'assessment': DotDict({'date': '2025-02-02'}),
+        }
+        
+        # Try to render
+        try:
+            doc.render(full_context, jinja_env=jinja_env)
+            
+            # Save and check output
+            output = io.BytesIO()
+            doc.save(output)
+            output.seek(0)
+            
+            with zipfile.ZipFile(output, 'r') as zf:
+                rendered_xml = zf.read('word/document.xml').decode('utf-8')
+            
+            # Check if first gap domain appears in rendered output
+            first_domain = gaps_list[0]['domain'] if gaps_list else ''
+            domain_in_output = first_domain in rendered_xml if first_domain else False
+            
+            result["render_test"] = {
+                "success": True,
+                "first_domain": first_domain,
+                "domain_found_in_output": domain_in_output,
+                "loop_tag_remains": '{%tr for gap in gaps %}' in rendered_xml,
+                "gap_placeholder_remains": '{{gap.domain}}' in rendered_xml,
+            }
+            
+            if domain_in_output:
+                result["status"] = "SUCCESS - Template renders gaps correctly!"
+                result["conclusion"] = "The issue is likely in how data flows through report_generator.py, not the template itself."
+            else:
+                result["status"] = "FAILURE - Template did not render gaps"
+                result["conclusion"] = "The {%tr for %} loop is not working in this template structure."
+                
+        except Exception as render_err:
+            result["render_test"] = {
+                "success": False,
+                "error": str(render_err),
+            }
         
         return result
         
