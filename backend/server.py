@@ -4924,8 +4924,9 @@ async def debug_full_report_test(assessment_id: str):
                 "docx_size_bytes": len(docx_bytes),
                 "expected_first_domain": first_domain,
                 "domain_found_in_output": first_domain in rendered_xml if first_domain else False,
-                "loop_tag_remains": "{%tr for gap in gaps %}" in rendered_xml,
-                "gap_placeholder_remains": "{{gap.domain}}" in rendered_xml,
+                "gap_1_domain_placeholder_remains": "{{gap_1.domain}}" in rendered_xml,
+                "gap_2_domain_placeholder_remains": "{{gap_2.domain}}" in rendered_xml,
+                "gap_3_domain_placeholder_remains": "{{gap_3.domain}}" in rendered_xml,
             }
             
             # Check for specific text patterns
