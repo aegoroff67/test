@@ -4493,6 +4493,7 @@ async def debug_test_gaps_template():
     from docxtpl import DocxTemplate
     from pathlib import Path
     import io
+    import zipfile
     
     try:
         # Use the actual FAIRA template
@@ -4501,6 +4502,28 @@ async def debug_test_gaps_template():
         
         if not template_path.exists():
             return {"error": f"Template not found: {template_path}"}
+        
+        # Check template structure for gaps-related tags
+        gaps_tags_found = []
+        try:
+            with zipfile.ZipFile(str(template_path), 'r') as docx_zip:
+                doc_xml = docx_zip.read('word/document.xml').decode('utf-8')
+                
+                # Check for gaps-related template tags
+                import re
+                gaps_patterns = [
+                    r'\{%tr\s+for\s+gap\s+in\s+gaps\s*%\}',
+                    r'\{%tr\s+endfor\s*%\}',
+                    r'\{\{gap\.domain\}\}',
+                    r'\{\{gap\.gaps\}\}',
+                    r'\{\{gap\.priority\}\}',
+                ]
+                for pattern in gaps_patterns:
+                    matches = re.findall(pattern, doc_xml)
+                    if matches:
+                        gaps_tags_found.extend(matches)
+        except Exception as zip_err:
+            gaps_tags_found = [f"Error reading template: {zip_err}"]
         
         # Create mock gaps data exactly like report_generator.py creates it
         class DotDict(dict):
@@ -4542,53 +4565,21 @@ async def debug_test_gaps_template():
             }),
         ]
         
-        # Build a minimal template context with all required variables
-        template_context = {
-            'gaps': gaps_list,
-            'gap_1': gaps_list[0],
-            'gap_2': gaps_list[1],
-            'gap_3': gaps_list[2],
-            # Add other required variables with empty/default values
-            'system_name': 'Test System',
-            'org_name': 'Test Org',
-            'overall_risk_score': 50.0,
-            'overall_risk_level': 'Medium',
-            'overall_impact_score': 50.0,
-            'overall_likelihood_score': 50.0,
-            'overall_control_effectiveness_score': 50.0,
-            'domain_scores': DotDict({}),
-            'top_domains': [DotDict({'name': 'Test', 'risk': 50})],
-            'faira_form': DotDict({}),
-            'ai': DotDict({}),
-            'recommended_controls_top3': DotDict({}),
-            'controls': [],
-            'controls_by_domain': DotDict({}),
-            'recommended_controls': DotDict({}),
-            'faira_controls': DotDict({'top_controls': []}),
+        return {
+            "status": "Template analysis complete",
+            "template_path": str(template_path),
+            "template_exists": template_path.exists(),
+            "gaps_tags_in_template": gaps_tags_found,
+            "gaps_tags_count": len(gaps_tags_found),
+            "gaps_list_count": len(gaps_list),
+            "gaps_data_sample": [dict(g) for g in gaps_list],
+            "diagnosis": "If gaps_tags_in_template shows the expected tags but table is still empty, the issue is in data flow or template rendering",
+            "next_steps": [
+                "1. Call /api/debug/gaps-data/{assessment_id} with your assessment ID",
+                "2. Check if 'gaps_generated' > 0 and 'status' is SUCCESS",
+                "3. Check backend logs during report generation for DEBUG output"
+            ]
         }
-        
-        # Try to render just to check if gaps work
-        doc = DocxTemplate(str(template_path))
-        
-        # Get undeclared template variables
-        try:
-            undeclared = doc.get_undeclared_template_variables()
-            
-            return {
-                "status": "Template loaded successfully",
-                "template_path": str(template_path),
-                "gaps_list_count": len(gaps_list),
-                "gaps_data": [dict(g) for g in gaps_list],
-                "undeclared_variables_sample": list(undeclared)[:20],
-                "message": "Gaps data structure is correct. If the table is still empty in production, check backend logs during report generation."
-            }
-        except Exception as e:
-            return {
-                "status": "Template variable check failed",
-                "error": str(e),
-                "gaps_list_count": len(gaps_list),
-                "gaps_data": [dict(g) for g in gaps_list],
-            }
         
     except Exception as e:
         import traceback
