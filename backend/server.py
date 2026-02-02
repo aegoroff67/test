@@ -5701,6 +5701,45 @@ async def generate_framework_coverage_pdf(
         assessment_name = assessment_name.encode('ascii', 'ignore').decode('ascii')
         filename = f"Framework_Coverage_{assessment_name}.pdf"
         
+        # Get file size for logging
+        pdf_file_size = os.path.getsize(temp_pdf_path)
+        assessment_type = assessment.get('assessment_type', 'Unknown')
+        
+        # Log report downloaded event
+        await log_audit_event(
+            db=db,
+            action=AuditAction.REPORT_DOWNLOADED,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="report",
+            object_id=assessment_id,
+            object_name=filename,
+            details={
+                "report_type": "pdf",
+                "pdf_type": "framework_coverage",
+                "assessment_type": assessment_type,
+                "assessment_name": assessment.get("name", ""),
+                "file_size_bytes": pdf_file_size
+            }
+        )
+        
+        # Log analytics event for download
+        await log_analytics_event(
+            db=db,
+            event_type=AnalyticsEventType.REPORT_FUNNEL,
+            event_name="report_downloaded",
+            user_id=current_user.id,
+            tenant_id=current_user.org_id,
+            assessment_id=assessment_id,
+            assessment_type=assessment_type,
+            properties={
+                "report_type": "pdf",
+                "pdf_type": "framework_coverage",
+                "file_size_bytes": pdf_file_size
+            }
+        )
+        
         return FileResponse(
             temp_pdf_path,
             media_type='application/pdf',
