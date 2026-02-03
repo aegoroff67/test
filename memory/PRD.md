@@ -23,6 +23,15 @@ Build a full-stack application for managing and generating AI maturity and risk 
 
 ## What's Been Implemented
 
+### 2025-02-02 - Report Downloaded Logging ✅
+**Status: IMPLEMENTED**
+- Added `report_downloaded` audit and analytics logging to all report endpoints:
+  - DOCX Report endpoint
+  - Executive Summary PDF endpoint
+  - FAIRA Results Summary PDF endpoint
+  - Framework Coverage PDF endpoint
+- Each log captures: user, timestamp, assessment details, file size, report type
+
 ### 2025-02-02 - FAIRA Gaps Table Bug FIXED ✅
 **Status: RESOLVED**
 - **Root Cause**: `_populate_recommendation_tables()` was overwriting the gaps table after Jinja2 rendering
