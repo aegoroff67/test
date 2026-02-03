@@ -25,10 +25,12 @@ Build a full-stack application for managing and generating AI maturity and risk 
 
 ### 2026-02-03 - AEST Timezone for Audit Logs ✅
 **Status: IMPLEMENTED**
-- Modified `logging_service.py` to add `timestamp_aest` field to all audit log entries
+- Modified `logging_service.py` to add `timestamp_aest` field to all audit and error log entries
+- Updated `LoggingTab.js` frontend to display AEST timestamps in both Audit Trail and Error Log tabs
 - UTC timestamp retained for database consistency, AEST provided for human readability
 - AEST = UTC+10 (Australian Eastern Standard Time)
 - Format: ISO 8601 with timezone offset (e.g., `2026-02-03T16:40:35.538387+10:00`)
+- Column headers updated to show "Timestamp (AEST)"
 
 ### 2025-02-02 - Report Downloaded Logging ✅
 **Status: IMPLEMENTED**
