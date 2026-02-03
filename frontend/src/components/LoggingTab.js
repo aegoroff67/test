@@ -277,9 +277,24 @@ export default function LoggingTab() {
     }
   }, [activeSubTab, fetchAuditLogs, fetchAnalytics, fetchErrorLogs, fetchErrorSummary]);
 
-  // Format timestamp
-  const formatTimestamp = (timestamp) => {
+  // Format timestamp - prefer AEST if available, otherwise convert UTC
+  const formatTimestamp = (timestamp, timestampAest) => {
+    if (timestampAest) {
+      // Use pre-formatted AEST timestamp from backend
+      const date = new Date(timestampAest);
+      return date.toLocaleString('en-AU', { 
+        timeZone: 'Australia/Sydney',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }) + ' AEST';
+    }
     if (!timestamp) return '-';
+    // Fallback for legacy entries without AEST
     const date = new Date(timestamp);
     return date.toLocaleString();
   };
