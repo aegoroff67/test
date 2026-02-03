@@ -794,8 +794,8 @@ export default function LoggingTab() {
             <div className="space-y-3 text-sm">
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <p className="text-gray-500">Timestamp</p>
-                  <p className="font-medium">{formatTimestamp(selectedAuditLog.timestamp)}</p>
+                  <p className="text-gray-500">Timestamp (AEST)</p>
+                  <p className="font-medium">{formatTimestamp(selectedAuditLog.timestamp, selectedAuditLog.timestamp_aest)}</p>
                 </div>
                 <div>
                   <p className="text-gray-500">Action</p>
