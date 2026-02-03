@@ -65,10 +65,11 @@ Build a full-stack application for managing and generating AI maturity and risk 
 
 ### P0 (Critical)
 - ✅ ~~FAIRA gaps table empty~~ - Fixed 2025-02-02
+- ✅ ~~AEST timezone for logging~~ - Fixed 2026-02-03
 
 ### P1 (High)
+- ✅ ~~Implement `report_downloaded` logging event~~ - Done
 - [ ] Clarify B7.2 question type (radio vs dropdown)
-- [ ] Implement `report_downloaded` logging event
 - [ ] Test backend CRUD API for evidence object
 
 ### P2 (Medium)
