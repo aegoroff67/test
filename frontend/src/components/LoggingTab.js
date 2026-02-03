@@ -459,7 +459,7 @@ export default function LoggingTab() {
                 <table className="w-full text-sm">
                   <thead className="bg-gray-50 border-b">
                     <tr>
-                      <th className="text-left p-3 font-medium text-gray-600">Timestamp</th>
+                      <th className="text-left p-3 font-medium text-gray-600">Timestamp (AEST)</th>
                       <th className="text-left p-3 font-medium text-gray-600">Action</th>
                       <th className="text-left p-3 font-medium text-gray-600">User</th>
                       <th className="text-left p-3 font-medium text-gray-600">Object</th>
