@@ -727,7 +727,7 @@ export default function LoggingTab() {
                     ) : (
                       errorLogs.map((log, idx) => (
                         <tr key={idx} className="hover:bg-gray-50">
-                          <td className="p-3 text-gray-600 text-xs">{formatTimestamp(log.timestamp)}</td>
+                          <td className="p-3 text-gray-600 text-xs">{formatTimestamp(log.timestamp, log.timestamp_aest)}</td>
                           <td className="p-3">
                             <Badge className={SEVERITY_COLORS[log.severity] || 'bg-gray-100'}>
                               {log.severity}
