@@ -96,8 +96,18 @@ async def log_audit_event(
     This is append-only - no updates or deletes allowed.
     """
     try:
+        # Define AEST timezone (UTC+10)
+        aest_tz = timezone(timedelta(hours=10))
+        
+        # Get current UTC timestamp
+        utc_timestamp = datetime.now(timezone.utc)
+        
+        # Convert to AEST for human-readable display
+        aest_timestamp = utc_timestamp.astimezone(aest_tz)
+        
         audit_entry = {
-            "timestamp": datetime.now(timezone.utc),
+            "timestamp": utc_timestamp,
+            "timestamp_aest": aest_timestamp.isoformat(),
             "action": action.value if isinstance(action, AuditAction) else action,
             "actor_user_id": actor_user_id,
             "actor_email": actor_email,
