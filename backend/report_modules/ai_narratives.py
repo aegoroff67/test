@@ -2022,7 +2022,7 @@ async def generate_faira_decision_next_steps_summary(report_data: Dict[str, Any]
 - Risk acceptance context {risk_acceptance}
 - Top risk domains {top_domains}.
 
-Frame considerations without recommending specific actions."""
+Explain why these factors are relevant to governance and oversight, and how they inform decision-making context, without recommending specific actions or restating domain scores."""
 
     return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_decisions_{id(report_data)}", api_key)
 
