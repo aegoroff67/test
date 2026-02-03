@@ -1997,16 +1997,16 @@ Explain how these patterns inform high-level next-step considerations without pr
 
 async def generate_faira_governance_assurance_posture(report_data: Dict[str, Any], api_key: str) -> str:
     """Generate {{ai.f_governance_assurance_posture}} - Governance posture interpretation."""
-    governance_indicators = report_data.get('governance_maturity_indicators', report_data.get('governance_score', 'Not specified'))
-    assurance_mechanisms = report_data.get('assurance_mechanisms', report_data.get('assurance_readiness', 'Not specified'))
     overall_risk_level = report_data.get('overall_risk_level', 'Medium')
+    risk_acceptance = report_data.get('risk_acceptance_context', 'Standard organisational risk tolerance')
+    top_domains = get_faira_top_domains(report_data)
     
-    prompt = f"""Interpret the overall governance and assurance posture using:
-- Governance maturity indicators {governance_indicators}
-- Assurance mechanisms {assurance_mechanisms}
-- Overall risk level {overall_risk_level}.
+    prompt = f"""Summarise decision considerations based on:
+- Overall risk level {overall_risk_level}
+- Risk acceptance context {risk_acceptance}
+- Top risk domains {top_domains}.
 
-Explain how these arrangements support ongoing oversight."""
+Explain why these factors are relevant to governance and oversight, and how they inform decision-making context, without recommending specific actions or restating domain scores."""
 
     return await call_llm(prompt, FAIRA_GLOBAL_GUARDRAILS, f"faira_governance_{id(report_data)}", api_key)
 
