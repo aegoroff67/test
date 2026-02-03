@@ -5910,7 +5910,7 @@ Each cell represents the score for a specific question, enabling identification 
                     'recommended_controls': faira_controls,
                     'existing_controls_summary': assessment.get('existing_controls_summary', 'Not specified'),
                     'identified_gaps': assessment.get('identified_gaps', 'Not specified'),
-                    'governance_maturity_indicators': faira_risk_summary.get('governance_score', 'Not specified'),
+                    'governance_maturity_indicators': faira_risk_summary.get('assurance_readiness', 'Not specified'),
                     'assurance_mechanisms': faira_risk_summary.get('assurance_readiness', 'Not specified'),
                     'supporting_artefacts': assessment.get('evidence_summary', 'Not specified'),
                     'assessment_methodology': 'FAIRA Framework v1.0 - Queensland Government AI Risk Assessment',
