@@ -191,8 +191,18 @@ async def log_error(
     Log an error event for debugging and monitoring.
     """
     try:
+        # Define AEST timezone (UTC+10)
+        aest_tz = timezone(timedelta(hours=10))
+        
+        # Get current UTC timestamp
+        utc_timestamp = datetime.now(timezone.utc)
+        
+        # Convert to AEST for human-readable display
+        aest_timestamp = utc_timestamp.astimezone(aest_tz)
+        
         error_entry = {
-            "timestamp": datetime.now(timezone.utc),
+            "timestamp": utc_timestamp,
+            "timestamp_aest": aest_timestamp.isoformat(),
             "error_type": error_type,
             "error_message": error_message,
             "endpoint": endpoint,
