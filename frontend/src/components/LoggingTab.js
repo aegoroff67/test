@@ -475,7 +475,7 @@ export default function LoggingTab() {
                     ) : (
                       auditLogs.map((log, idx) => (
                         <tr key={idx} className="hover:bg-gray-50">
-                          <td className="p-3 text-gray-600 text-xs">{formatTimestamp(log.timestamp)}</td>
+                          <td className="p-3 text-gray-600 text-xs">{formatTimestamp(log.timestamp, log.timestamp_aest)}</td>
                           <td className="p-3">
                             <Badge className={ACTION_COLORS[log.action] || 'bg-gray-100 text-gray-800'}>
                               {formatAction(log.action)}
