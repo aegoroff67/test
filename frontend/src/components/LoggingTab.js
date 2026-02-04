@@ -324,8 +324,10 @@ export default function LoggingTab() {
     } else if (activeSubTab === 'errors') {
       fetchErrorLogs();
       fetchErrorSummary();
+    } else if (activeSubTab === 'cache') {
+      fetchAiCacheStats();
     }
-  }, [activeSubTab, fetchAuditLogs, fetchAnalytics, fetchErrorLogs, fetchErrorSummary]);
+  }, [activeSubTab, fetchAuditLogs, fetchAnalytics, fetchErrorLogs, fetchErrorSummary, fetchAiCacheStats]);
 
   // Format timestamp - prefer AEST if available, otherwise convert UTC
   const formatTimestamp = (timestamp, timestampAest) => {
