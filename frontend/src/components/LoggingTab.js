@@ -225,6 +225,51 @@ export default function LoggingTab() {
     }
   }, [token]);
 
+  // Fetch AI cache stats
+  const fetchAiCacheStats = useCallback(async () => {
+    try {
+      const response = await fetch(`${API}/admin/ai-cache/stats`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setAiCacheStats(data);
+      }
+    } catch (error) {
+      console.error('Error fetching AI cache stats:', error);
+    }
+  }, [token]);
+
+  // Clear AI narrative cache
+  const handleClearAiCache = async (assessmentType = null) => {
+    const typeLabel = assessmentType ? assessmentType.toUpperCase() : 'ALL';
+    if (!window.confirm(`This will clear cached AI narratives for ${typeLabel} assessments. Reports will regenerate narratives on next generation. Continue?`)) return;
+    
+    setClearingCache(true);
+    try {
+      const response = await fetch(`${API}/admin/ai-cache/clear`, {
+        method: 'POST',
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ assessment_type: assessmentType })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        alert(`Success! ${data.message}`);
+        fetchAiCacheStats();
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.detail || 'Failed to clear cache'}`);
+      }
+    } catch (error) {
+      console.error('Error clearing AI cache:', error);
+      alert('Error clearing AI cache');
+    }
+    setClearingCache(false);
+  };
+
   // Export audit logs
   const handleExportAuditLogs = async () => {
     try {
