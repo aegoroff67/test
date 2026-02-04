@@ -1691,6 +1691,93 @@ async def get_logging_stats(admin: UserResponse = Depends(require_super_admin)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# =============================================================================
+# AI NARRATIVE CACHE MANAGEMENT
+# =============================================================================
+
+class ClearNarrativeCacheRequest(BaseModel):
+    assessment_type: Optional[str] = None  # Optional: 'faira', 'awareness', 'readiness', 'orgwide', 'system', or None for all
+    assessment_id: Optional[str] = None  # Optional: specific assessment ID
+    narrative_keys: Optional[List[str]] = None  # Optional: specific narrative keys to clear
+
+@api_router.get("/admin/ai-cache/stats")
+async def get_ai_cache_stats(admin: UserResponse = Depends(require_super_admin)):
+    """Get AI narrative cache statistics"""
+    try:
+        stats = {}
+        assessment_types = ['awareness', 'readiness', 'orgwide', 'system', 'faira']
+        
+        for atype in assessment_types:
+            total = await db.assessments.count_documents({'assessment_type': atype})
+            with_cache = await db.assessments.count_documents({
+                'assessment_type': atype,
+                'ai_narratives': {'$exists': True, '$ne': {}}
+            })
+            stats[atype] = {
+                'total_assessments': total,
+                'with_cached_narratives': with_cache
+            }
+        
+        return {
+            'by_type': stats,
+            'total_with_cache': sum(s['with_cached_narratives'] for s in stats.values())
+        }
+    except Exception as e:
+        logger.error(f"Error fetching AI cache stats: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.post("/admin/ai-cache/clear")
+async def clear_ai_narrative_cache(
+    request: ClearNarrativeCacheRequest,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Clear AI narrative cache for assessments"""
+    try:
+        query = {}
+        
+        # Build query based on request
+        if request.assessment_id:
+            query['id'] = request.assessment_id
+        elif request.assessment_type:
+            query['assessment_type'] = request.assessment_type
+        
+        # Determine update operation
+        if request.narrative_keys:
+            # Clear only specific keys
+            unset_fields = {f"ai_narratives.{key}": "" for key in request.narrative_keys}
+            update = {'$unset': unset_fields}
+        else:
+            # Clear all narratives
+            update = {'$set': {'ai_narratives': {}}}
+        
+        # Execute update
+        result = await db.assessments.update_many(query, update)
+        
+        # Log the action
+        await log_audit_event(
+            db=db,
+            action=AuditAction.SETTINGS_CHANGED,
+            actor_user_id=admin.id,
+            actor_email=admin.email,
+            object_type="ai_narrative_cache",
+            details={
+                'action': 'clear_cache',
+                'assessment_type': request.assessment_type,
+                'assessment_id': request.assessment_id,
+                'narrative_keys': request.narrative_keys,
+                'assessments_affected': result.modified_count
+            }
+        )
+        
+        return {
+            'success': True,
+            'assessments_affected': result.modified_count,
+            'message': f"Cleared AI narrative cache for {result.modified_count} assessment(s)"
+        }
+    except Exception as e:
+        logger.error(f"Error clearing AI cache: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 # Frontend error logging endpoint (no auth required to capture errors from logged-out users)
 class FrontendErrorReport(BaseModel):
