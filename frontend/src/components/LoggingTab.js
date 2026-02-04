@@ -836,6 +836,93 @@ export default function LoggingTab() {
         </div>
       )}
 
+      {activeSubTab === 'cache' && (
+        <div className="space-y-4">
+          {/* Info banner */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-start space-x-3">
+              <AlertTriangle className="h-5 w-5 text-blue-500 mt-0.5" />
+              <div>
+                <h4 className="font-medium text-blue-900">AI Narrative Cache</h4>
+                <p className="text-sm text-blue-700 mt-1">
+                  AI-generated narratives are cached after first generation to improve report performance. 
+                  Clear the cache to force regeneration with updated prompts or after template changes.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Cache stats by type */}
+          {aiCacheStats && (
+            <div className="grid grid-cols-5 gap-4">
+              {Object.entries(aiCacheStats.by_type || {}).map(([type, stats]) => (
+                <Card key={type}>
+                  <CardContent className="pt-4">
+                    <div className="text-center">
+                      <p className="text-xs text-gray-500 uppercase font-medium">{type}</p>
+                      <p className="text-2xl font-bold mt-1">{stats.with_cached_narratives}</p>
+                      <p className="text-xs text-gray-400">of {stats.total_assessments} cached</p>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mt-3 w-full"
+                        onClick={() => handleClearAiCache(type)}
+                        disabled={clearingCache || stats.with_cached_narratives === 0}
+                      >
+                        Clear
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+
+          {/* Actions */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm">Cache Actions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">Clear All AI Narrative Caches</p>
+                  <p className="text-sm text-gray-500">
+                    This will clear cached narratives for all assessment types. 
+                    Total cached: {aiCacheStats?.total_with_cache || 0} assessments.
+                  </p>
+                </div>
+                <Button
+                  variant="destructive"
+                  onClick={() => handleClearAiCache(null)}
+                  disabled={clearingCache || (aiCacheStats?.total_with_cache || 0) === 0}
+                >
+                  {clearingCache ? (
+                    <>
+                      <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                      Clearing...
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Clear All Caches
+                    </>
+                  )}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Refresh button */}
+          <div className="flex justify-end">
+            <Button variant="outline" size="sm" onClick={fetchAiCacheStats}>
+              <RefreshCw className="h-4 w-4 mr-1" />
+              Refresh Stats
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Audit Log Detail Dialog */}
       <Dialog open={!!selectedAuditLog} onOpenChange={() => setSelectedAuditLog(null)}>
         <DialogContent className="max-w-lg">
