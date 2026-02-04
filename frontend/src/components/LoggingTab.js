@@ -40,6 +40,7 @@ const SUB_TABS = [
   { id: 'audit', label: 'Audit Trail', icon: FileText },
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
   { id: 'errors', label: 'Error Log', icon: AlertTriangle },
+  { id: 'cache', label: 'AI Cache', icon: RefreshCw },
 ];
 
 // Severity colors
