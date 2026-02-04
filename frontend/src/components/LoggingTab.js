@@ -92,6 +92,10 @@ export default function LoggingTab() {
   const [errorSummary, setErrorSummary] = useState(null);
   const [selectedError, setSelectedError] = useState(null);
 
+  // AI Cache state
+  const [aiCacheStats, setAiCacheStats] = useState(null);
+  const [clearingCache, setClearingCache] = useState(false);
+
   const token = localStorage.getItem('token');
 
   // Fetch stats
