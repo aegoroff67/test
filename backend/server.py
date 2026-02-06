@@ -1779,6 +1779,91 @@ async def clear_ai_narrative_cache(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# =============================================================================
+# SYSTEM SETTINGS (Public Registration Toggle, etc.)
+# =============================================================================
+
+@api_router.get("/system/settings")
+async def get_system_settings():
+    """Get public system settings (no auth required for login page)"""
+    try:
+        settings = await db.system_settings.find_one({'_id': 'global'})
+        if not settings:
+            # Return defaults
+            return {
+                'allow_public_registration': True
+            }
+        return {
+            'allow_public_registration': settings.get('allow_public_registration', True)
+        }
+    except Exception as e:
+        logger.error(f"Error fetching system settings: {str(e)}")
+        return {'allow_public_registration': True}  # Default to enabled on error
+
+@api_router.get("/admin/system/settings")
+async def get_admin_system_settings(admin: UserResponse = Depends(require_super_admin)):
+    """Get all system settings (admin only)"""
+    try:
+        settings = await db.system_settings.find_one({'_id': 'global'})
+        if not settings:
+            return {
+                'allow_public_registration': True
+            }
+        return {
+            'allow_public_registration': settings.get('allow_public_registration', True)
+        }
+    except Exception as e:
+        logger.error(f"Error fetching system settings: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+class SystemSettingsUpdate(BaseModel):
+    allow_public_registration: Optional[bool] = None
+
+@api_router.put("/admin/system/settings")
+async def update_system_settings(
+    settings_update: SystemSettingsUpdate,
+    admin: UserResponse = Depends(require_super_admin)
+):
+    """Update system settings (super admin only)"""
+    try:
+        update_data = {}
+        if settings_update.allow_public_registration is not None:
+            update_data['allow_public_registration'] = settings_update.allow_public_registration
+        
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No settings to update")
+        
+        # Upsert the settings
+        result = await db.system_settings.update_one(
+            {'_id': 'global'},
+            {'$set': update_data},
+            upsert=True
+        )
+        
+        # Log the action
+        await log_audit_event(
+            db=db,
+            action=AuditAction.SETTINGS_CHANGED,
+            actor_user_id=admin.id,
+            actor_email=admin.email,
+            object_type="system_settings",
+            details={
+                'changes': update_data
+            }
+        )
+        
+        return {
+            'success': True,
+            'message': 'System settings updated',
+            **update_data
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating system settings: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Frontend error logging endpoint (no auth required to capture errors from logged-out users)
 class FrontendErrorReport(BaseModel):
     error_type: str
