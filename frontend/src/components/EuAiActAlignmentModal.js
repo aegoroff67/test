@@ -141,9 +141,9 @@ export default function EuAiActAlignmentModal({ isOpen, onClose, questionCode, q
                               AM AI SAFE Control
                               <div className="relative group">
                                 <Info className="h-4 w-4 text-blue-500 cursor-help" />
-                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none w-64 z-50">
+                                <div className="absolute top-full left-0 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none w-64 z-[100] shadow-lg">
                                   These codes are used internally for the Framework Coverage analysis and help generate alignment reports showing how well your organization's AI governance addresses specific regulatory requirements.
-                                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                  <div className="absolute bottom-full left-4 border-4 border-transparent border-b-gray-900"></div>
                                 </div>
                               </div>
                             </span>
