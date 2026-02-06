@@ -202,14 +202,16 @@ function AuthPage() {
           <Card className="w-full max-w-md shadow-xl border-0 bg-white/80 backdrop-blur">
             <CardHeader className="text-center pb-2">
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-4">
-                  <TabsTrigger 
-                    value="signup" 
-                    className="data-[state=active]:bg-teal-600 data-[state=active]:text-white"
-                    data-testid="create-account-tab"
-                  >
-                    Create Account
-                  </TabsTrigger>
+                <TabsList className={`grid w-full ${allowPublicRegistration ? 'grid-cols-2' : 'grid-cols-1'} mb-4`}>
+                  {allowPublicRegistration && (
+                    <TabsTrigger 
+                      value="signup" 
+                      className="data-[state=active]:bg-teal-600 data-[state=active]:text-white"
+                      data-testid="create-account-tab"
+                    >
+                      Create Account
+                    </TabsTrigger>
+                  )}
                   <TabsTrigger 
                     value="signin"
                     className="data-[state=active]:bg-teal-600 data-[state=active]:text-white"
