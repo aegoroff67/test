@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ChevronRight, ChevronDown } from 'lucide-react';
+import { X, ChevronRight, ChevronDown, Info } from 'lucide-react';
 
 export default function SingaporeMafAlignmentModal({ isOpen, onClose, questionCode, questionText, alignmentData }) {
   const [isExpanded, setIsExpanded] = useState(false);
