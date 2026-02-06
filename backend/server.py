@@ -1709,13 +1709,20 @@ async def get_ai_cache_stats(admin: UserResponse = Depends(require_super_admin))
         
         for atype in assessment_types:
             total = await db.assessments.count_documents({'assessment_type': atype})
+            # Count assessments where ai_narratives exists and has at least one key
             with_cache = await db.assessments.count_documents({
                 'assessment_type': atype,
-                'ai_narratives': {'$exists': True, '$ne': {}}
+                'ai_narratives': {'$exists': True, '$ne': {}, '$ne': None}
+            })
+            # Also count where field exists but may be empty (for debugging)
+            with_field = await db.assessments.count_documents({
+                'assessment_type': atype,
+                'ai_narratives': {'$exists': True}
             })
             stats[atype] = {
                 'total_assessments': total,
-                'with_cached_narratives': with_cache
+                'with_cached_narratives': with_cache,
+                'with_field_exists': with_field
             }
         
         return {
