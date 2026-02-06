@@ -107,6 +107,9 @@ function SettingsPage() {
     
     if (activeTab === 'users') {
       fetchUsers();
+      if (isSuperAdmin) {
+        fetchSystemSettings();
+      }
     } else if (activeTab === 'fields') {
       fetchAllData();
       fetchMetadataFields();
