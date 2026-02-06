@@ -281,6 +281,7 @@ function AuthPage() {
                   </CardContent>
                 </TabsContent>
 
+                {allowPublicRegistration && (
                 <TabsContent value="signup">
                   <CardContent className="space-y-4 px-0">
                     <form onSubmit={handleSignUp} className="space-y-4">
