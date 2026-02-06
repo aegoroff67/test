@@ -12,9 +12,12 @@ import Logo from '../components/Logo';
 import { CheckCircle2, Users, BarChart3, FileText } from 'lucide-react';
 import { INDUSTRIES } from '../constants/industries';
 
+const API = process.env.REACT_APP_BACKEND_URL;
+
 function AuthPage() {
   const [activeTab, setActiveTab] = useState('signin');
   const [loading, setLoading] = useState(false);
+  const [allowPublicRegistration, setAllowPublicRegistration] = useState(true);
   const { user, login, signup } = useAuth();
   const navigate = useNavigate();
 
@@ -32,6 +35,24 @@ function AuthPage() {
     organization_name: '',
     industry: ''
   });
+
+  // Fetch system settings to check if registration is enabled
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch(`${API}/api/system/settings`);
+        if (response.ok) {
+          const data = await response.json();
+          setAllowPublicRegistration(data.allow_public_registration);
+        }
+      } catch (error) {
+        console.error('Failed to fetch system settings:', error);
+        // Default to enabled on error
+        setAllowPublicRegistration(true);
+      }
+    };
+    fetchSettings();
+  }, []);
 
   useEffect(() => {
     if (user) {
