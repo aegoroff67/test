@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ChevronRight, ChevronDown } from 'lucide-react';
+import { X, ChevronRight, ChevronDown, Info } from 'lucide-react';
 
 /**
  * Modal component to display Australian Guidance for AI Adoption alignment information
