@@ -704,6 +704,49 @@ function SettingsPage() {
         {activeTab === 'users' && (
           <Card>
             <CardHeader>
+              {/* Public Registration Toggle - Super Admin Only */}
+              {isSuperAdmin && (
+                <div className="mb-4 p-4 bg-gray-50 rounded-lg border">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <UserCheck className="h-5 w-5 text-gray-600" />
+                      <div>
+                        <p className="font-medium text-gray-900">Public Registration</p>
+                        <p className="text-sm text-gray-500">
+                          {systemSettings.allow_public_registration 
+                            ? 'New users can create accounts via the login page' 
+                            : 'Account creation is disabled - users must be invited'}
+                        </p>
+                      </div>
+                    </div>
+                    <Button
+                      variant={systemSettings.allow_public_registration ? "default" : "outline"}
+                      size="sm"
+                      onClick={togglePublicRegistration}
+                      disabled={updatingSettings}
+                      className={systemSettings.allow_public_registration 
+                        ? "bg-green-600 hover:bg-green-700" 
+                        : "border-gray-300"}
+                      data-testid="toggle-public-registration-btn"
+                    >
+                      {updatingSettings ? (
+                        "Updating..."
+                      ) : systemSettings.allow_public_registration ? (
+                        <>
+                          <UserCheck className="h-4 w-4 mr-2" />
+                          Enabled
+                        </>
+                      ) : (
+                        <>
+                          <UserX className="h-4 w-4 mr-2" />
+                          Disabled
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              )}
+              
               <div className="flex justify-between items-center">
                 <CardTitle>User Management</CardTitle>
                 <div className="flex items-center space-x-2">
