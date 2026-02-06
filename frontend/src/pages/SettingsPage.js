@@ -74,6 +74,8 @@ function SettingsPage() {
   const [orgFilter, setOrgFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [userOrgFilter, setUserOrgFilter] = useState('all'); // Filter for user management tab
+  const [systemSettings, setSystemSettings] = useState({ allow_public_registration: true });
+  const [updatingSettings, setUpdatingSettings] = useState(false);
 
   // Check user role and permissions
   const isSuperAdmin = user?.role === 'SUPER_ADMIN';
