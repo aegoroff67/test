@@ -1001,7 +1001,7 @@ function AssessmentPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="font-medium text-gray-900 mb-0.5 text-sm sm:text-base">
-                            {option.label} ({option.score} point{option.score !== 1 ? 's' : ''})
+                            {option.label}
                           </div>
                           <div className="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">
                             {option.text}
