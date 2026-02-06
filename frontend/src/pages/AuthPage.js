@@ -360,6 +360,7 @@ function AuthPage() {
                     </form>
                   </CardContent>
                 </TabsContent>
+                )}
               </Tabs>
             </CardHeader>
           </Card>
