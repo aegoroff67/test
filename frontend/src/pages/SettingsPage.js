@@ -169,6 +169,32 @@ function SettingsPage() {
     }
   };
 
+  const fetchSystemSettings = async () => {
+    try {
+      const response = await axios.get(`${API}/admin/system/settings`);
+      setSystemSettings(response.data);
+    } catch (error) {
+      console.error('Failed to fetch system settings:', error);
+    }
+  };
+
+  const togglePublicRegistration = async () => {
+    setUpdatingSettings(true);
+    try {
+      const newValue = !systemSettings.allow_public_registration;
+      await axios.put(`${API}/admin/system/settings`, {
+        allow_public_registration: newValue
+      });
+      setSystemSettings({ ...systemSettings, allow_public_registration: newValue });
+      toast.success(newValue ? 'Public registration enabled' : 'Public registration disabled');
+    } catch (error) {
+      toast.error('Failed to update settings');
+      console.error(error);
+    } finally {
+      setUpdatingSettings(false);
+    }
+  };
+
   const fetchAllData = async () => {
     setLoading(true);
     try {
