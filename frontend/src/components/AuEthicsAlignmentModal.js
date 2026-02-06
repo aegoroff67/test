@@ -21,7 +21,8 @@ export default function AuEthicsAlignmentModal({ isOpen, onClose, questionCode, 
       }}
     >
       <div 
-        className="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+        className="bg-white rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+        style={{ maxWidth: '800px' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

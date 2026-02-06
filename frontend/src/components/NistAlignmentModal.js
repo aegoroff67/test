@@ -22,7 +22,7 @@ export default function NistAlignmentModal({ isOpen, onClose, questionCode, ques
     >
       <div 
         className="bg-white rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden flex flex-col"
-        style={{ maxWidth: '55rem' }}
+        style={{ maxWidth: '800px' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

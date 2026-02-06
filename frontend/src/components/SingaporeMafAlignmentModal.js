@@ -35,7 +35,8 @@ export default function SingaporeMafAlignmentModal({ isOpen, onClose, questionCo
       }}
     >
       <div 
-        className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col"
+        className="bg-white rounded-lg w-full max-h-[90vh] overflow-hidden flex flex-col"
+        style={{ maxWidth: '800px' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header - Rose/pink theme for Singapore MAF */}

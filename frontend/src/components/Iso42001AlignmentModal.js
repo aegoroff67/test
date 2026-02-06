@@ -34,7 +34,7 @@ export default function Iso42001AlignmentModal({ isOpen, onClose, questionCode, 
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col">
+      <div className="bg-white rounded-lg shadow-xl w-full max-h-[90vh] flex flex-col" style={{ maxWidth: '800px' }}>
         {/* Header */}
         <div className="bg-teal-700 text-white px-6 py-4 rounded-t-lg flex items-start justify-between">
           <div className="flex-1 pr-4">
