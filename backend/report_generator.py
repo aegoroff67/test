@@ -4213,12 +4213,12 @@ Each cell represents the score for a specific question, enabling identification 
                     if faira_domain_scores:
                         # Generate domain risk radar chart
                         domain_risk_radar_bytes = generate_faira_domain_risk_radar(faira_domain_scores)
-                        template_context['domain_radar_risk'] = InlineImage(doc, io.BytesIO(domain_risk_radar_bytes), width=Inches(4.5))
+                        template_context['domain_radar_risk'] = InlineImage(doc, io.BytesIO(domain_risk_radar_bytes), width=Inches(3.6))
                         print("DEBUG: Generated FAIRA domain risk radar chart")
                         
                         # Generate inherent risk radar chart
                         inherent_risk_radar_bytes = generate_faira_inherent_risk_radar(faira_domain_scores)
-                        template_context['inherent_risk_radar'] = InlineImage(doc, io.BytesIO(inherent_risk_radar_bytes), width=Inches(4.5))
+                        template_context['inherent_risk_radar'] = InlineImage(doc, io.BytesIO(inherent_risk_radar_bytes), width=Inches(3.6))
                         print("DEBUG: Generated FAIRA inherent risk radar chart")
                     else:
                         print("WARNING: No domain_scores available for FAIRA radar charts")
