@@ -1714,15 +1714,9 @@ async def get_ai_cache_stats(admin: UserResponse = Depends(require_super_admin))
                 'assessment_type': atype,
                 'ai_narratives': {'$exists': True, '$ne': {}, '$ne': None}
             })
-            # Also count where field exists but may be empty (for debugging)
-            with_field = await db.assessments.count_documents({
-                'assessment_type': atype,
-                'ai_narratives': {'$exists': True}
-            })
             stats[atype] = {
                 'total_assessments': total,
-                'with_cached_narratives': with_cache,
-                'with_field_exists': with_field
+                'with_cached_narratives': with_cache
             }
         
         return {
@@ -1731,6 +1725,28 @@ async def get_ai_cache_stats(admin: UserResponse = Depends(require_super_admin))
         }
     except Exception as e:
         logger.error(f"Error fetching AI cache stats: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/admin/ai-cache/debug/{assessment_id}")
+async def debug_ai_cache(assessment_id: str, admin: UserResponse = Depends(require_super_admin)):
+    """Debug endpoint to check AI narrative cache for a specific assessment"""
+    try:
+        assessment = await db.assessments.find_one({'id': assessment_id}, {'_id': 0, 'id': 1, 'name': 1, 'assessment_type': 1, 'ai_narratives': 1})
+        if not assessment:
+            return {'error': 'Assessment not found', 'searched_id': assessment_id}
+        
+        ai_narratives = assessment.get('ai_narratives', {})
+        return {
+            'assessment_id': assessment.get('id'),
+            'assessment_name': assessment.get('name'),
+            'assessment_type': assessment.get('assessment_type'),
+            'has_ai_narratives_field': 'ai_narratives' in assessment,
+            'ai_narratives_is_empty': ai_narratives == {} or ai_narratives is None,
+            'narrative_keys': list(ai_narratives.keys()) if ai_narratives else [],
+            'narrative_count': len(ai_narratives) if ai_narratives else 0
+        }
+    except Exception as e:
+        logger.error(f"Error debugging AI cache: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @api_router.post("/admin/ai-cache/clear")
