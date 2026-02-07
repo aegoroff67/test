@@ -1784,37 +1784,6 @@ async def debug_assessment_schema(admin: UserResponse = Depends(require_super_ad
         logger.error(f"Error debugging assessment schema: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# Temporary public debug endpoint - REMOVE AFTER DEBUGGING
-@api_router.get("/debug/assessment-schema-public")
-async def debug_assessment_schema_public():
-    """Temporary public debug endpoint - remove after use"""
-    try:
-        samples = []
-        cursor = db.assessments.find({}).limit(5)
-        async for doc in cursor:
-            samples.append({
-                'has__id': '_id' in doc,
-                '_id_value': str(doc.get('_id', 'N/A')),
-                'has_id': 'id' in doc,
-                'id_value': doc.get('id', 'N/A'),
-                'name': doc.get('name', 'N/A'),
-                'assessment_type': doc.get('assessment_type', 'N/A'),
-                'has_ai_narratives': 'ai_narratives' in doc,
-                'ai_narratives_keys': list(doc.get('ai_narratives', {}).keys()) if doc.get('ai_narratives') else []
-            })
-        
-        return {
-            'sample_count': len(samples),
-            'samples': samples,
-            'summary': {
-                'all_have_id_field': all(s['has_id'] for s in samples) if samples else False,
-                'all_have__id_field': all(s['has__id'] for s in samples) if samples else False,
-                'any_have_ai_narratives': any(s['has_ai_narratives'] for s in samples) if samples else False
-            }
-        }
-    except Exception as e:
-        return {'error': str(e)}
-
 @api_router.post("/admin/ai-cache/clear")
 async def clear_ai_narrative_cache(
     request: ClearNarrativeCacheRequest,
