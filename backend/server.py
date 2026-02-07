@@ -1705,13 +1705,16 @@ async def get_ai_cache_stats(admin: UserResponse = Depends(require_super_admin))
     """Get AI narrative cache statistics"""
     try:
         stats = {}
+        # Use regex for case-insensitive matching
         assessment_types = ['awareness', 'readiness', 'orgwide', 'system', 'faira']
         
         for atype in assessment_types:
-            total = await db.assessments.count_documents({'assessment_type': atype})
+            # Case-insensitive regex match
+            type_regex = {'$regex': f'^{atype}$', '$options': 'i'}
+            total = await db.assessments.count_documents({'assessment_type': type_regex})
             # Count assessments where ai_narratives exists and has at least one key
             with_cache = await db.assessments.count_documents({
-                'assessment_type': atype,
+                'assessment_type': type_regex,
                 'ai_narratives': {'$exists': True, '$ne': {}, '$ne': None}
             })
             stats[atype] = {
