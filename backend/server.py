@@ -1828,7 +1828,8 @@ async def clear_ai_narrative_cache(
         if request.assessment_id:
             query['id'] = request.assessment_id
         elif request.assessment_type:
-            query['assessment_type'] = request.assessment_type
+            # Case-insensitive match
+            query['assessment_type'] = {'$regex': f'^{request.assessment_type}$', '$options': 'i'}
         
         # Determine update operation
         if request.narrative_keys:
