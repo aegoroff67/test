@@ -1962,6 +1962,17 @@ async def get_faira_scoring_schema():
     except Exception as e:
         return {'error': str(e)}
 
+@api_router.get("/debug/faira-schema-readable")
+async def get_faira_schema_readable():
+    """Get the FAIRA schema in human-readable format with all scores"""
+    import json
+    try:
+        with open('/app/backend/faira_schema_readable.json', 'r') as f:
+            schema = json.load(f)
+        return schema
+    except Exception as e:
+        return {'error': str(e)}
+
 
 # Frontend error logging endpoint (no auth required to capture errors from logged-out users)
 class FrontendErrorReport(BaseModel):
