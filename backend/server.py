@@ -1940,6 +1940,28 @@ async def export_assessment_json(assessment_id: str):
     except Exception as e:
         return {'error': str(e)}
 
+@api_router.get("/debug/faira-schema")
+async def get_faira_schema():
+    """Get the FAIRA assessment questionnaire schema"""
+    import json
+    try:
+        with open('/app/backend/faira_complete_schema.json', 'r') as f:
+            schema = json.load(f)
+        return schema
+    except Exception as e:
+        return {'error': str(e)}
+
+@api_router.get("/debug/faira-scoring-schema")
+async def get_faira_scoring_schema():
+    """Get the FAIRA scoring schema with all question details"""
+    import json
+    try:
+        with open('/app/backend/faira_scoring_schema.json', 'r') as f:
+            schema = json.load(f)
+        return schema
+    except Exception as e:
+        return {'error': str(e)}
+
 
 # Frontend error logging endpoint (no auth required to capture errors from logged-out users)
 class FrontendErrorReport(BaseModel):
