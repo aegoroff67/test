@@ -4301,12 +4301,32 @@ Each cell represents the score for a specific question, enabling identification 
                     all_controls_data = load_controls_data()
                     all_controls = all_controls_data.get('controls', [])
                     
-                    # Group controls by domain
-                    domain_names = ['Accountability', 'Contestability', 'Fairness', 'Privacy', 
-                                   'Reliability', 'Transparency', 'Values', 'Wellbeing']
+                    # Group controls by domain - use FULL domain names that match the controls JSON
+                    domain_names_full = [
+                        'Accountability', 
+                        'Contestability', 
+                        'Fairness', 
+                        'Privacy Protection and Security', 
+                        'Reliability and Safety', 
+                        'Transparency and Explainability', 
+                        'Human-Centred Values', 
+                        'Human, Societal and Environmental Wellbeing'
+                    ]
+                    
+                    # Also create short name mappings for template compatibility
+                    short_to_full = {
+                        'Accountability': 'Accountability',
+                        'Contestability': 'Contestability',
+                        'Fairness': 'Fairness',
+                        'Privacy': 'Privacy Protection and Security',
+                        'Reliability': 'Reliability and Safety',
+                        'Transparency': 'Transparency and Explainability',
+                        'Values': 'Human-Centred Values',
+                        'Wellbeing': 'Human, Societal and Environmental Wellbeing'
+                    }
                     
                     controls_by_domain = {}
-                    for domain in domain_names:
+                    for domain in domain_names_full:
                         domain_controls = []
                         for ctrl in all_controls:
                             ctrl_domains = ctrl.get('domains', [])
@@ -4325,6 +4345,11 @@ Each cell represents the score for a specific question, enabling identification 
                                 }))
                         controls_by_domain[domain] = domain_controls
                     
+                    # Also add short name aliases for backward compatibility
+                    for short_name, full_name in short_to_full.items():
+                        if full_name in controls_by_domain:
+                            controls_by_domain[short_name] = controls_by_domain[full_name]
+                    
                     template_context['controls_by_domain'] = DotDict(controls_by_domain)
                     
                     # Also add recommended_controls as alias for backward compatibility
@@ -4342,7 +4367,9 @@ Each cell represents the score for a specific question, enabling identification 
                         return (horizon_priority.get(horizon, 99), effort_priority.get(effort, 99))
                     
                     controls_top3_by_domain = {}
-                    for domain in domain_names:
+                    # Build for both full and short domain names
+                    all_domain_keys = list(domain_names_full) + list(short_to_full.keys())
+                    for domain in all_domain_keys:
                         domain_ctrls = controls_by_domain.get(domain, [])
                         # Sort by horizon then effort
                         sorted_ctrls = sorted(domain_ctrls, key=sort_key)
@@ -4353,7 +4380,7 @@ Each cell represents the score for a specific question, enabling identification 
                     
                     print(f"DEBUG: Added controls_by_domain with {len(all_controls)} total controls")
                     print(f"DEBUG: Added recommended_controls_top3 (top 3 per domain, sorted by horizon/effort)")
-                    for domain in domain_names:
+                    for domain in domain_names_full:
                         print(f"  - {domain}: {len(controls_by_domain.get(domain, []))} controls, top3: {len(controls_top3_by_domain.get(domain, []))}")
                         
                 except Exception as e:
