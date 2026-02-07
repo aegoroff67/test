@@ -1923,6 +1923,24 @@ async def update_system_settings(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# Temporary public debug endpoint - REMOVE AFTER DEBUGGING
+@api_router.get("/debug/assessment-export/{assessment_id}")
+async def export_assessment_json(assessment_id: str):
+    """Export full assessment data as JSON"""
+    try:
+        assessment = await db.assessments.find_one({'id': assessment_id})
+        if not assessment:
+            return {'error': 'Assessment not found', 'searched_id': assessment_id}
+        
+        # Convert ObjectId to string for JSON serialization
+        if '_id' in assessment:
+            assessment['_id'] = str(assessment['_id'])
+        
+        return assessment
+    except Exception as e:
+        return {'error': str(e)}
+
+
 # Frontend error logging endpoint (no auth required to capture errors from logged-out users)
 class FrontendErrorReport(BaseModel):
     error_type: str
