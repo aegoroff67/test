@@ -252,6 +252,7 @@ export default function LoggingTab() {
     
     setClearingCache(true);
     try {
+      console.log('[AI Cache] Clearing cache for:', typeLabel);
       const response = await fetch(`${API}/admin/ai-cache/clear`, {
         method: 'POST',
         headers: { 
@@ -262,14 +263,17 @@ export default function LoggingTab() {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log('[AI Cache] Clear response:', JSON.stringify(data));
         alert(`Success! ${data.message}`);
-        fetchAiCacheStats();
+        // Force immediate refresh
+        await fetchAiCacheStats();
       } else {
         const error = await response.json();
+        console.error('[AI Cache] Clear error:', error);
         alert(`Error: ${error.detail || 'Failed to clear cache'}`);
       }
     } catch (error) {
-      console.error('Error clearing AI cache:', error);
+      console.error('[AI Cache] Error clearing cache:', error);
       alert('Error clearing AI cache');
     }
     setClearingCache(false);
