@@ -2587,7 +2587,7 @@
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
-        "modifier_type": "negative",
+        "modifier_type": "positive",
         "options": {
           "No": {
             "Control_Effectiveness": 0
@@ -2597,19 +2597,19 @@
             "sub_question": "B5_1_rating",
             "rating_scale": {
               "1": {
-                "Control_Effectiveness": -0.5
+                "Control_Effectiveness": 0.5
               },
               "2": {
-                "Control_Effectiveness": -1.0
+                "Control_Effectiveness": 1.0
               },
               "3": {
-                "Control_Effectiveness": -1.5
+                "Control_Effectiveness": 1.5
               },
               "4": {
-                "Control_Effectiveness": -2.0
+                "Control_Effectiveness": 2.0
               },
               "5": {
-                "Control_Effectiveness": -3.0
+                "Control_Effectiveness": 3.0
               }
             }
           }
@@ -2701,22 +2701,22 @@
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
-        "modifier_type": "negative",
+        "modifier_type": "positive",
         "rating_scale": {
           "1": {
             "Control_Effectiveness": 0
           },
           "2": {
-            "Control_Effectiveness": -0.5
+            "Control_Effectiveness": 0.5
           },
           "3": {
-            "Control_Effectiveness": -1.0
+            "Control_Effectiveness": 1.0
           },
           "4": {
-            "Control_Effectiveness": -1.5
+            "Control_Effectiveness": 1.5
           },
           "5": {
-            "Control_Effectiveness": -2.0
+            "Control_Effectiveness": 2.0
           }
         },
         "notes": "Rating scale 1-5. Higher transparency improves control effectiveness. Rating 1 (Very Low) has no effect, Rating 5 (Very High) provides strongest control benefit."
@@ -2731,22 +2731,22 @@
       ],
       "scoring": {
         "target_metric": "Control_Effectiveness",
-        "modifier_type": "negative",
+        "modifier_type": "positive",
         "rating_scale": {
           "1": {
             "Control_Effectiveness": 0
           },
           "2": {
-            "Control_Effectiveness": -0.5
+            "Control_Effectiveness": 0.5
           },
           "3": {
-            "Control_Effectiveness": -1.0
+            "Control_Effectiveness": 1.0
           },
           "4": {
-            "Control_Effectiveness": -1.5
+            "Control_Effectiveness": 1.5
           },
           "5": {
-            "Control_Effectiveness": -2.0
+            "Control_Effectiveness": 2.0
           }
         },
         "notes": "Rating scale 1-5. Higher explainability improves control effectiveness. Rating 1 (Very Low) has no effect, Rating 5 (Very High) provides strongest control benefit."
