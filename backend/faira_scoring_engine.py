@@ -687,16 +687,14 @@ def calculate_overall_risk(form_data: Dict) -> Dict[str, Any]:
     # Normalize to 0-100 using the normalization factor
     normalized_risk = min(100, (raw_risk / MAX_EXPECTED_RAW_RISK) * 100)
     
-    # Calculate inherent risk (without CE)
-    raw_inherent_risk = raw_impact * raw_likelihood
-    # Normalize inherent risk: max possible = MAX_IMPACT * MAX_LIKELIHOOD
-    max_inherent = MAX_TOTAL_IMPACT * MAX_TOTAL_LIKELIHOOD
-    normalized_inherent_risk = min(100, (raw_inherent_risk / max_inherent) * 100 * 10)  # Scale up for visibility
-    
-    # Also calculate normalized indices for display (0-100 scale)
+    # Calculate normalized indices for display (0-100 scale)
     impact_index = min(100, (raw_impact / MAX_TOTAL_IMPACT) * 100)
     likelihood_index = min(100, (raw_likelihood / MAX_TOTAL_LIKELIHOOD) * 100)
     ce_index = min(100, (raw_ce / MAX_TOTAL_CE) * 100)
+    
+    # Calculate inherent risk from normalized indices
+    # Inherent Risk = (Impact Index × Likelihood Index) / 100
+    normalized_inherent_risk = (impact_index * likelihood_index) / 100
     
     # Get risk rating
     risk_rating = get_risk_rating(normalized_risk)
