@@ -823,7 +823,8 @@ def calculate_domain_scores(form_data: Dict) -> Dict[str, Dict[str, float]]:
 
 def get_radar_chart_data(form_data: Dict) -> Dict[str, List[Dict]]:
     """
-    Get formatted radar chart data for all 4 charts.
+    Get formatted radar chart data for all charts including inherent and residual risk.
+    All values are normalized indices (0-100 scale).
     """
     domain_scores = calculate_domain_scores(form_data)
     
@@ -831,7 +832,8 @@ def get_radar_chart_data(form_data: Dict) -> Dict[str, List[Dict]]:
         "domainImpact": [],
         "domainLikelihood": [],
         "domainControlEffectiveness": [],
-        "domainRisk": []
+        "domainInherentRisk": [],
+        "domainRisk": []  # Residual risk (for backward compatibility)
     }
     
     for domain_info in FAIRA_DOMAINS:
@@ -843,6 +845,7 @@ def get_radar_chart_data(form_data: Dict) -> Dict[str, List[Dict]]:
             "domain": short_label,
             "fullName": full_name,
             "score": scores.get("Impact", 0),
+            "rawValue": scores.get("raw_impact", 0),
             "fullMark": 100
         })
         
@@ -850,6 +853,7 @@ def get_radar_chart_data(form_data: Dict) -> Dict[str, List[Dict]]:
             "domain": short_label,
             "fullName": full_name,
             "score": scores.get("Likelihood", 0),
+            "rawValue": scores.get("raw_likelihood", 0),
             "fullMark": 100
         })
         
@@ -857,6 +861,14 @@ def get_radar_chart_data(form_data: Dict) -> Dict[str, List[Dict]]:
             "domain": short_label,
             "fullName": full_name,
             "score": scores.get("Control_Effectiveness", 0),
+            "rawValue": scores.get("raw_ce", 0),
+            "fullMark": 100
+        })
+        
+        result["domainInherentRisk"].append({
+            "domain": short_label,
+            "fullName": full_name,
+            "score": scores.get("InherentRisk", 0),
             "fullMark": 100
         })
         
