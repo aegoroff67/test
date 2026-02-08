@@ -1712,10 +1712,15 @@ async def get_ai_cache_stats(admin: UserResponse = Depends(require_super_admin))
             # Case-insensitive regex match
             type_regex = {'$regex': f'^{atype}$', '$options': 'i'}
             total = await db.assessments.count_documents({'assessment_type': type_regex})
-            # Count assessments where ai_narratives exists and has at least one key
+            # Count assessments where ai_narratives exists, is not empty {}, and is not None
+            # Using $and to properly combine conditions (MongoDB only uses last $ne if in same object)
             with_cache = await db.assessments.count_documents({
                 'assessment_type': type_regex,
-                'ai_narratives': {'$exists': True, '$ne': {}, '$ne': None}
+                '$and': [
+                    {'ai_narratives': {'$exists': True}},
+                    {'ai_narratives': {'$ne': {}}},
+                    {'ai_narratives': {'$ne': None}}
+                ]
             })
             stats[atype] = {
                 'total_assessments': total,
