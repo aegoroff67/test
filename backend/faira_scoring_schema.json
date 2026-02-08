@@ -3257,27 +3257,29 @@
         "Contestability"
       ],
       "scoring": {
-        "target_metric": "Control_Effectiveness",
+        "target_metric": "Likelihood",
+        "modifier_type": "positive",
         "options": {
-          "immediately": {
-            "Control_Effectiveness": 2
+          "Immediately": {
+            "Likelihood": 0
           },
-          "within hours": {
-            "Control_Effectiveness": 1
+          "Within hours": {
+            "Likelihood": 0
           },
-          "within days": {
-            "Control_Effectiveness": 0
+          "Within days": {
+            "Likelihood": 0.25
           },
-          "within weeks": {
-            "Control_Effectiveness": -1
+          "Within weeks": {
+            "Likelihood": 0.75
           },
-          "longer than weeks": {
-            "Control_Effectiveness": -2
+          "Longer than weeks": {
+            "Likelihood": 1.25
           },
           "Unknown": {
-            "Control_Effectiveness": -1
+            "Likelihood": 0.5
           }
-        }
+        },
+        "notes": "Single select. Faster contestability response times reduce risk. Delays increase likelihood of unaddressed errors and disputes."
       }
     },
     "B8_2": {
