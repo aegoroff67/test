@@ -561,12 +561,12 @@ function FairaResultsPage() {
   const radarCharts = [
     {
       id: 'impact',
-      title: 'Domain Impact',
-      overallLabel: 'Overall Impact',
-      overallValue: riskSummary.total_impact || 0,
+      title: 'Domain Impact Index',
+      overallLabel: 'Overall Impact Index',
+      overallValue: riskSummary.impact_index || 0,
       data: domainImpactData,
       color: '#ef4444', // Red
-      formula: 'Domain_Impact = Σ(Domain Impact modifiers)',
+      formula: 'Impact Index = (Raw Impact / Max Impact) × 100',
       tooltipContent: {
         whatItShows: 'How serious the consequences would be within each domain if the AI system caused harm.',
         whyItChanges: 'Higher where decisions affect people\'s rights, safety, or access to services.',
@@ -575,12 +575,12 @@ function FairaResultsPage() {
     },
     {
       id: 'likelihood',
-      title: 'Domain Likelihood',
-      overallLabel: 'Overall Likelihood',
-      overallValue: riskSummary.total_likelihood || 0,
+      title: 'Domain Likelihood Index',
+      overallLabel: 'Overall Likelihood Index',
+      overallValue: riskSummary.likelihood_index || 0,
       data: domainLikelihoodData,
       color: '#f97316', // Orange
-      formula: 'Domain_Likelihood = Σ(Domain Likelihood modifiers)',
+      formula: 'Likelihood Index = (Raw Likelihood / Max Likelihood) × 100',
       tooltipContent: {
         whatItShows: 'How likely risks within each domain are to occur based on how the AI is designed and used.',
         whyItChanges: 'Increases with higher automation, poorer data quality, or limited human oversight.',
@@ -589,12 +589,12 @@ function FairaResultsPage() {
     },
     {
       id: 'control',
-      title: 'Domain Control Effectiveness',
-      overallLabel: 'Overall Control Effectiveness',
-      overallValue: riskSummary.total_control_effectiveness || 0,
+      title: 'Domain Control Effectiveness Index',
+      overallLabel: 'Overall CE Index',
+      overallValue: riskSummary.ce_index || 0,
       data: domainControlEffectivenessData,
       color: '#22c55e', // Green
-      formula: 'Domain_CE = Σ(Domain CE modifiers)',
+      formula: 'CE Index = (Raw CE / Max CE) × 100',
       tooltipContent: {
         whatItShows: 'How strong the safeguards and governance are for managing risks within each domain.',
         whyItChanges: 'Improves when testing, oversight, training, and clear processes are in place.',
@@ -603,14 +603,14 @@ function FairaResultsPage() {
     },
     {
       id: 'risk',
-      title: riskViewType === 'inherent' ? 'Inherent Domain Risk' : 'Residual Domain Risk',
+      title: riskViewType === 'inherent' ? 'Inherent Domain Risk Index' : 'Residual Domain Risk Index',
       overallLabel: riskViewType === 'inherent' ? 'Overall Inherent Risk' : 'Overall Residual Risk',
       overallValue: riskViewType === 'inherent' ? (riskSummary.overall_inherent_risk || 0) : (riskSummary.overall_risk_score || 0),
       data: riskViewType === 'inherent' ? domainInherentRiskData : domainRiskData,
       color: '#8b5cf6', // Purple
       formula: riskViewType === 'inherent' 
-        ? 'Domain_Risk = Domain_Impact × Domain_Likelihood'
-        : 'Domain_Risk = (Domain_Impact × Domain_Likelihood) ÷ Domain_CE',
+        ? 'Inherent Risk = (Impact Index × Likelihood Index) / 100'
+        : 'Residual Risk = Inherent Risk × (1 - CE Index / 100)',
       isRiskChart: true,
       hasToggle: true
     }
