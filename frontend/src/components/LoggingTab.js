@@ -228,15 +228,20 @@ export default function LoggingTab() {
   // Fetch AI cache stats
   const fetchAiCacheStats = useCallback(async () => {
     try {
+      console.log('[AI Cache] Fetching stats from:', `${API}/admin/ai-cache/stats`);
       const response = await fetch(`${API}/admin/ai-cache/stats`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
+        cache: 'no-store' // Prevent browser caching
       });
       if (response.ok) {
         const data = await response.json();
+        console.log('[AI Cache] Received stats:', JSON.stringify(data));
         setAiCacheStats(data);
+      } else {
+        console.error('[AI Cache] Response not OK:', response.status);
       }
     } catch (error) {
-      console.error('Error fetching AI cache stats:', error);
+      console.error('[AI Cache] Error fetching stats:', error);
     }
   }, [token]);
 
