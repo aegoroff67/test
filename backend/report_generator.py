@@ -230,7 +230,7 @@ class AMReportGenerator:
             'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
             'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
             'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
-            'FAIRA': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.60_20260208.docx',
+            'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.60_20260208.docx',
         }
         
         template_filename = template_map.get(assessment_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
@@ -3995,7 +3995,7 @@ Each cell represents the score for a specific question, enabling identification 
                     print(f"  - {fw.get('title', 'Unknown')}: is_selected={fw.get('is_selected')}, controls={fw.get('total_controls')}")
             
             # Add FAIRA-specific variables if this is a FAIRA assessment
-            elif self.assessment_type == 'FAIRA':
+            elif self.assessment_type == 'Faira':
                 faira_form = report_data.get('faira_form') or report_data.get('form_responses') or {}
                 
                 # Process faira_form to replace "Other" in multiselect fields with their _other values
@@ -4714,7 +4714,7 @@ Each cell represents the score for a specific question, enabling identification 
             jinja_env.filters['severity_label'] = severity_label
             
             # Debug: Verify gaps list before render and ensure it's never empty for FAIRA
-            if self.assessment_type == 'FAIRA':
+            if self.assessment_type == 'Faira':
                 gaps_before_render = template_context.get('gaps', [])
                 print(f"DEBUG PRE-RENDER: gaps list has {len(gaps_before_render)} entries")
                 
@@ -4777,7 +4777,7 @@ Each cell represents the score for a specific question, enabling identification 
             
             # ULTIMATE FAILSAFE: If gaps is STILL empty/None for FAIRA, force default data
             # This ensures the table NEVER renders empty
-            if self.assessment_type == 'FAIRA' and not template_context.get('gaps'):
+            if self.assessment_type == 'Faira' and not template_context.get('gaps'):
                 print("CRITICAL: ULTIMATE FAILSAFE TRIGGERED - forcing default gaps data")
                 # Define DotDict inline for this scope
                 class UltimateGapDict(dict):
@@ -4797,7 +4797,7 @@ Each cell represents the score for a specific question, enabling identification 
                 print(f"CRITICAL: Ultimate fallback applied with {len(ultimate_fallback)} gaps")
             
             # FAIRA SPECIFIC: Verify gaps list structure before render
-            if self.assessment_type == 'FAIRA':
+            if self.assessment_type == 'Faira':
                 gaps_final = template_context.get('gaps', [])
                 print(f"=== FAIRA GAPS FINAL CHECK ===")
                 print(f"  gaps type: {type(gaps_final)}")
@@ -4841,7 +4841,7 @@ Each cell represents the score for a specific question, enabling identification 
             doc.render(template_context, jinja_env=jinja_env)
             
             # CRITICAL POST-RENDER CHECK for FAIRA: Verify gaps were actually rendered
-            if self.assessment_type == 'FAIRA':
+            if self.assessment_type == 'Faira':
                 try:
                     import io as _io
                     import zipfile as _zf
@@ -4895,7 +4895,7 @@ Each cell represents the score for a specific question, enabling identification 
                 # System template uses Jinja2 {%tr for %} loops which handle table rows correctly
                 # No programmatic table population needed - the loops use sector_actions_*_top5 (5 items)
                 print("DEBUG: System template uses Jinja2 loops for action tables - skipping programmatic population")
-            elif self.assessment_type == 'FAIRA':
+            elif self.assessment_type == 'Faira':
                 # FAIRA uses gap_1, gap_2, gap_3 variables in template - no programmatic population needed
                 print("DEBUG: FAIRA template uses gap_1/2/3 variables - skipping programmatic table population")
             elif not self.use_test_template:
@@ -5673,7 +5673,7 @@ Each cell represents the score for a specific question, enabling identification 
         
         # CRITICAL FIX: Always calculate FAIRA risk summary if not present in assessment
         # This ensures gaps table data is available regardless of use_ai flag
-        if self.assessment_type == 'FAIRA':
+        if self.assessment_type == 'Faira':
             faira_form = assessment.get('faira_form') or assessment.get('form_responses') or {}
             faira_risk_summary = assessment.get('faira_risk_summary')
             
@@ -5906,7 +5906,7 @@ Each cell represents the score for a specific question, enabling identification 
                 assessment_data['ai_narratives'] = {}
         
         # Generate AI narratives for FAIRA assessments if use_ai is enabled
-        if use_ai and self.assessment_type == 'FAIRA':
+        if use_ai and self.assessment_type == 'Faira':
             print("=== GENERATING FAIRA AI NARRATIVES ===")
             try:
                 faira_form = assessment.get('faira_form') or assessment.get('form_responses') or {}
@@ -6012,7 +6012,7 @@ Each cell represents the score for a specific question, enabling identification 
             # For System assessments, use system_name (systemName field)
             system_info = assessment.get('system_info') or {}
             assessment_name_for_file = system_info.get('systemName', '') or system_info.get('system_name', '')
-        elif self.assessment_type == 'FAIRA':
+        elif self.assessment_type == 'Faira':
             # For FAIRA assessments, use ai_system_name from faira_form
             faira_form = assessment.get('faira_form') or {}
             assessment_name_for_file = faira_form.get('ai_system_name', '') or faira_form.get('A1_2', '') or assessment.get('name', '')
