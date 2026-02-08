@@ -3076,7 +3076,7 @@
                 "notes": "Communicating limitations supports appropriate reliance and reduces likelihood of harm from misinterpretation."
               }
             },
-            "notes": "B6.4 is a Yes/No gate. If Yes, explainability improves (negative CE). The quality, timing, and accessibility of explanations influences both CE and Likelihood."
+            "notes": "B6.4 is a Yes/No gate. If Yes, explainability improves (positive CE). The quality, timing, and accessibility of explanations influences both CE and Likelihood."
           }
         }
       }
