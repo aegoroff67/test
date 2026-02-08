@@ -819,30 +819,24 @@ def calculate_domain_scores(form_data: Dict) -> Dict[str, Dict[str, float]]:
         likelihood_index = min(100, (raw_likelihood / norms["maxLikelihood"]) * 100) if norms["maxLikelihood"] > 0 else 0
         ce_index = min(100, (raw_ce / norms["maxCE"]) * 100) if norms["maxCE"] > 0 else 0
         
-        # Calculate domain risk using old-style formula
-        raw_domain_risk = (raw_impact * raw_likelihood) / raw_ce
+        # Calculate inherent risk from normalized indices
+        # Inherent Risk = (Impact Index × Likelihood Index) / 100
+        # This gives a 0-100 scale where 100 = max impact AND max likelihood
+        inherent_risk = (impact_index * likelihood_index) / 100
         
-        # Calculate domain-specific normalization factor
-        # Max domain risk = (maxImpact × maxLikelihood) / minCE
-        # Using ~10% of maxCE as minimum realistic CE
-        min_ce = max(norms["maxCE"] * 0.1, 1.0)
-        max_domain_risk = (norms["maxImpact"] * norms["maxLikelihood"]) / min_ce
-        
-        # Normalize domain risk to 0-100
-        normalized_domain_risk = min(100, (raw_domain_risk / max_domain_risk) * 100 * 10)  # Scale factor for visibility
-        
-        # Calculate inherent risk (without CE)
-        raw_inherent_risk = raw_impact * raw_likelihood
-        max_inherent = norms["maxImpact"] * norms["maxLikelihood"]
-        normalized_inherent_risk = min(100, (raw_inherent_risk / max_inherent) * 100 * 10)  # Scale factor
+        # Calculate residual risk: inherent risk reduced by control effectiveness
+        # Residual Risk = Inherent Risk × (1 - CE Index / 100)
+        # When CE = 100%, residual = 0. When CE = 0%, residual = inherent
+        ce_reduction = ce_index / 100
+        residual_risk = inherent_risk * (1 - ce_reduction)
         
         domain_totals[short_label] = {
             # Normalized indices (0-100) for display
             "Impact": round(impact_index, 1),
             "Likelihood": round(likelihood_index, 1),
             "Control_Effectiveness": round(ce_index, 1),
-            "InherentRisk": round(normalized_inherent_risk, 1),
-            "Risk": round(normalized_domain_risk, 1),
+            "InherentRisk": round(inherent_risk, 1),
+            "Risk": round(residual_risk, 1),
             # Raw values for reference
             "raw_impact": round(raw["raw_impact"], 2),
             "raw_likelihood": round(raw["raw_likelihood"], 2),
