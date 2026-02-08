@@ -3004,25 +3004,25 @@
                 "label": "What explanations include",
                 "options": {
                   "purpose of the AI system": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "what inputs influenced the outcome": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "key factors/attributes driving the outcome": {
-                    "Control_Effectiveness": -0.75
+                    "Control_Effectiveness": 0.75
                   },
                   "confidence/uncertainty indicators": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "human oversight involvement": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "how to request further explanation": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "how to challenge/seek review": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "not specified / unclear": {
                     "Likelihood": 1,
@@ -3037,10 +3037,10 @@
                 "label": "Accessibility to non-technical audiences",
                 "options": {
                   "plain language (non-technical, easy to understand)": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "somewhat technical (requires guidance)": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "highly technical (specialist interpretation required)": {
                     "Control_Effectiveness": 0,
