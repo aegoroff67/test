@@ -2914,7 +2914,7 @@
           },
           "Yes": {
             "Likelihood": 0,
-            "Control_Effectiveness": -1,
+            "Control_Effectiveness": 1,
             "subsections": {
               "audience": {
                 "field": "B6_4_audience",
@@ -2922,16 +2922,16 @@
                 "label": "Who can receive explanations",
                 "options": {
                   "direct users/operators": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "affected individuals (e.g., customers/citizens)": {
-                    "Control_Effectiveness": -1.0
+                    "Control_Effectiveness": 1.0
                   },
                   "internal decision-makers/managers": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "regulators/oversight bodies (where applicable)": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "not specified / unclear": {
                     "Likelihood": 1,
@@ -2946,29 +2946,29 @@
                 "label": "How explanations are provided",
                 "options": {
                   "on-screen explanation at decision/output point": {
-                    "Control_Effectiveness": -0.75
+                    "Control_Effectiveness": 0.75
                   },
                   "reason codes / factors list": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "case notes / decision record": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "help article / FAQ / knowledge base": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "support channel (phone/email) explanation": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "formal written explanation on request": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "technical documentation only": {
-                    "Control_Effectiveness": -0.1,
+                    "Control_Effectiveness": 0.1,
                     "Likelihood": 0.5
                   },
                   "Other": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   }
                 },
                 "notes": "Contextual explanations at the point of output provide stronger explainability than passive documentation-only approaches."
@@ -2979,13 +2979,13 @@
                 "label": "When explanations are available",
                 "options": {
                   "before interaction/use (pre-emptive explanation)": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "at the point outputs are presented/used": {
-                    "Control_Effectiveness": -0.75
+                    "Control_Effectiveness": 0.75
                   },
                   "after the outcome/decision (on request)": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "only during a formal review/appeal process": {
                     "Control_Effectiveness": 0,
