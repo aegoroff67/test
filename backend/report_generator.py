@@ -124,7 +124,7 @@ class AMReportGenerator:
         elif use_test_template:
             self.template_path = self._get_test_template_path()
         else:
-            self.template_path = self._get_template_for_assessment_type(assessment_type)
+            self.template_path = self._get_template_for_assessment_type(self.assessment_type)
         self.domain_colors = {
             'Fairness': '#FF6B6B',
             'Transparency': '#4ECDC4', 
