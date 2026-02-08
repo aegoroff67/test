@@ -1995,14 +1995,14 @@
         "Privacy Protection and Security"
       ],
       "scoring": {
-        "target_metric": "Control_Effectiveness",
-        "modifier_type": "negative",
+        "target_metric": "Likelihood",
+        "modifier_type": "positive",
         "options": {
           "No": {
-            "Control_Effectiveness": 0
+            "Likelihood": 0
           },
           "Yes": {
-            "Control_Effectiveness": 0,
+            "Likelihood": 0,
             "subsections": {
               "commonwealth": {
                 "field": "A5_10_commonwealth",
@@ -2010,25 +2010,25 @@
                 "label": "Commonwealth (Federal) Legislation",
                 "options": {
                   "Privacy Act 1988": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "Australian Privacy Principles (APPs)": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "Notifiable Data Breaches (NDB) Scheme": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "Archives Act 1983": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "Freedom of Information Act 1982": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "Security of Critical Infrastructure Act (SOCI)": {
-                    "Control_Effectiveness": -3
+                    "Likelihood": 0.25
                   },
                   "Criminal Code Act (cybercrime, identity, child exploitation provisions)": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   }
                 }
               },
@@ -2038,31 +2038,31 @@
                 "label": "Queensland State Legislation",
                 "options": {
                   "Information Privacy Act 2009 (Qld)": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "Right to Information Act 2009": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "Public Records Act 2002": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "Child Protection Act": {
-                    "Control_Effectiveness": -3
+                    "Likelihood": 0.25
                   },
                   "Domestic and Family Violence Protection Act": {
-                    "Control_Effectiveness": -3
+                    "Likelihood": 0.25
                   },
                   "Youth Justice Act": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "Mental Health Act": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "Hospital and Health Boards Act (confidentiality obligations)": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "Police Powers and Responsibilities Act": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   }
                 }
               },
@@ -2072,31 +2072,31 @@
                 "label": "Sector-Specific Regulatory Obligations",
                 "options": {
                   "Health information / clinical safety requirements": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "Law enforcement / justice sector requirements": {
-                    "Control_Effectiveness": -3
+                    "Likelihood": 0.25
                   },
                   "Education sector obligations": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "Transport or safety-critical operational standards": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "Financial or taxation regulatory requirements": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "Indigenous cultural data governance / data sovereignty": {
-                    "Control_Effectiveness": -3
+                    "Likelihood": 0.25
                   },
                   "Workplace surveillance obligations": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "Safety-of-life / emergency services obligations": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "Critical infrastructure operational safety requirements": {
-                    "Control_Effectiveness": -3
+                    "Likelihood": 0.25
                   }
                 }
               },
@@ -2106,31 +2106,31 @@
                 "label": "Frameworks, Standards, and Policies",
                 "options": {
                   "QGEA / IS18:2018 Information Security Policy": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "QLD Government AI Ethical Principles": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "QLD FAIRA Framework (this assessment)": {
-                    "Control_Effectiveness": 0
+                    "Likelihood": 0.25
                   },
                   "Australian Government AI Ethics Principles": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "ISO/IEC 42001 (AI Management System)": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   },
                   "ISO/IEC 27001 / 27002 (Information Security Management)": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "ISO/IEC 27701 (Privacy Information Management)": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "ISO 31000 (Risk Management)": {
-                    "Control_Effectiveness": -1
+                    "Likelihood": 0.25
                   },
                   "NIST AI Risk Management Framework": {
-                    "Control_Effectiveness": -2
+                    "Likelihood": 0.25
                   }
                 }
               },
@@ -2139,14 +2139,14 @@
                 "type": "text",
                 "label": "Other regulations, obligations, or frameworks (optional)",
                 "default_modifier": {
-                  "Control_Effectiveness": -1
+                  "Likelihood": 0.25
                 },
-                "notes": "Free-text field with default CE -1. Can be LLM-classified later for adjustment if needed."
+                "notes": "Free-text field with default Likelihood +0.25. Each applicable regulation adds to the likelihood of compliance complexity."
               }
             }
           }
         },
-        "notes": "Multi-part question. All modifiers only apply if 'Yes' is selected. Each subsection is cumulative. Strong controls from critical infrastructure, child protection, and law enforcement obligations."
+        "notes": "Multi-part question. All modifiers only apply if 'Yes' is selected. Each selected regulation adds +0.25 to Likelihood, reflecting increased compliance complexity and scrutiny."
       }
     },
     "A5_11": {
@@ -2159,35 +2159,29 @@
         "Human, Societal and Environmental Wellbeing"
       ],
       "scoring": {
-        "target_metric": "Likelihood and Control_Effectiveness",
-        "modifier_type": "dual",
+        "target_metric": "Likelihood",
+        "modifier_type": "positive",
         "options": {
-          "internal use only": {
-            "Likelihood": 0,
-            "Control_Effectiveness": 0
+          "Internal use only": {
+            "Likelihood": 0
           },
-          "internal + selected partners": {
-            "Likelihood": 1,
-            "Control_Effectiveness": -1
+          "Limited external users (e.g. contractors, partners)": {
+            "Likelihood": 0.5
           },
-          "public-facing": {
-            "Likelihood": 2,
-            "Control_Effectiveness": -1
+          "Public-facing / citizen-facing": {
+            "Likelihood": 1.0
           },
-          "citizen-facing high-sensitivity": {
-            "Likelihood": 3,
-            "Control_Effectiveness": -2
+          "Embedded in another system / platform": {
+            "Likelihood": 1.0
           },
-          "embedded in another product": {
-            "Likelihood": 2,
-            "Control_Effectiveness": -1
+          "Embedded across multiple systems or services": {
+            "Likelihood": 1.5
           },
-          "multi-channel deployment": {
-            "Likelihood": 3,
-            "Control_Effectiveness": -2
+          "Unknown / not specified": {
+            "Likelihood": 0.5
           }
         },
-        "notes": "Single select - only ONE deployment location applies. Wider deployment increases likelihood of risk exposure but also may come with better controls. Citizen-facing and multi-channel deployments have highest risk exposure but strongest control requirements."
+        "notes": "Single select - only ONE deployment location applies. Wider deployment increases likelihood of risk exposure. Internal use has lowest risk (0), while multi-system embedding has highest (+1.5) due to propagation risk and monitoring complexity."
       }
     },
     "B1_2": {
