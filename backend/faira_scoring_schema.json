@@ -2151,7 +2151,7 @@
     },
     "A5_11": {
       "id": "A5_11",
-      "text": "Where will this AI solution be deployed?",
+      "text": "What is the operational exposure of this AI system?",
       "type": "single_select",
       "domains": [
         "Accountability",
