@@ -3326,23 +3326,53 @@
     },
     "B8_4": {
       "id": "B8_4",
-      "text": "Are there safeguards against overreliance on AI outputs?",
-      "type": "yes_no",
+      "text": "Are there safeguards in place for AI governance?",
+      "type": "yes_no_with_options",
       "domains": [
         "Accountability"
       ],
       "scoring": {
-        "target_metric": "Likelihood",
-        "modifier_type": "positive",
+        "target_metric": "Likelihood and Control_Effectiveness",
+        "modifier_type": "dual",
+        "ce_cap": 4.0,
         "options": {
           "Yes": {
-            "Likelihood": 0
+            "Control_Effectiveness": 0,
+            "Likelihood": 0,
+            "sub_question": "B8_4_safeguards",
+            "safeguards": {
+              "Regular audits": {
+                "Control_Effectiveness": 1.0
+              },
+              "Compliance monitoring": {
+                "Control_Effectiveness": 1.0
+              },
+              "Incident reporting": {
+                "Control_Effectiveness": 1.0
+              },
+              "Performance metrics": {
+                "Control_Effectiveness": 0.75
+              },
+              "Governance committee": {
+                "Control_Effectiveness": 1.25
+              },
+              "External oversight": {
+                "Control_Effectiveness": 1.25
+              },
+              "Documentation requirements": {
+                "Control_Effectiveness": 0.75
+              },
+              "Change management process": {
+                "Control_Effectiveness": 1.0
+              }
+            }
           },
           "No": {
+            "Control_Effectiveness": 0,
             "Likelihood": 1.0
           }
         },
-        "notes": "Safeguards against overreliance reduce risk. Absence of safeguards increases likelihood of blind trust in AI outputs."
+        "notes": "If Yes, each selected safeguard adds to Control Effectiveness (capped at 4.0). If No, Likelihood increases by 1.0."
       }
     }
   }
