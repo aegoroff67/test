@@ -663,38 +663,54 @@ def calculate_overall_risk(form_data: Dict) -> Dict[str, Any]:
     """
     Calculate overall risk score and all indicators.
     
-    Raw_Risk_Score = (Total_Impact × Total_Likelihood) / Total_CE
-    Normalised_Risk = min(100, (Raw_Risk_Score / Max_Expected_Raw_Risk) × 100)
+    Uses normalized indices based on theoretical maximums:
+    - Overall Impact Index = (Total_Impact / Max_Total_Impact) × 100
+    - Overall Likelihood Index = (Total_Likelihood / Max_Total_Likelihood) × 100
+    - Overall CE Index = (Total_CE / Max_Total_CE) × 100
+    - Overall Inherent Risk = (Impact Index × Likelihood Index) / 100
+    - Overall Residual Risk = Inherent Risk × (1 - CE Index / 100)
     """
+    # Overall schema maximums (no double-counting)
+    MAX_TOTAL_IMPACT = 344.0
+    MAX_TOTAL_LIKELIHOOD = 215.0
+    MAX_TOTAL_CE = 240.6
+    
     schema = load_scoring_schema()
     totals = calculate_totals(form_data)
     
-    # Calculate raw risk
-    impact = max(totals["total_impact"], 0.1)
-    likelihood = max(totals["total_likelihood"], 0.1)
-    ce = max(totals["total_control_effectiveness"], 1.0)
+    # Get raw totals
+    raw_impact = max(totals["total_impact"], 0)
+    raw_likelihood = max(totals["total_likelihood"], 0)
+    raw_ce = max(totals["total_control_effectiveness"], 0)
     
-    raw_risk = (impact * likelihood) / ce
+    # Normalize to 0-100 index
+    impact_index = min(100, (raw_impact / MAX_TOTAL_IMPACT) * 100) if MAX_TOTAL_IMPACT > 0 else 0
+    likelihood_index = min(100, (raw_likelihood / MAX_TOTAL_LIKELIHOOD) * 100) if MAX_TOTAL_LIKELIHOOD > 0 else 0
+    ce_index = min(100, (raw_ce / MAX_TOTAL_CE) * 100) if MAX_TOTAL_CE > 0 else 0
     
-    # Normalize to 0-100
-    normalized_risk = min(100, (raw_risk / MAX_EXPECTED_RAW_RISK) * 100)
+    # Calculate overall risk indices
+    overall_inherent_risk = (impact_index * likelihood_index) / 100
+    ce_reduction_factor = ce_index / 100
+    overall_residual_risk = overall_inherent_risk * (1 - ce_reduction_factor)
     
-    # Get risk rating
-    risk_rating = get_risk_rating(normalized_risk)
+    # Get risk rating based on residual risk
+    risk_rating = get_risk_rating(overall_residual_risk)
     
     # Calculate domain scores
     domain_scores = calculate_domain_scores(form_data)
     
-    # Get top risk areas (sorted by domain risk)
+    # Get top risk areas (sorted by domain residual risk)
     top_risk_areas = []
     for domain_info in FAIRA_DOMAINS:
         short_label = domain_info["shortLabel"]
         if short_label in domain_scores:
             risk_score = domain_scores[short_label].get("Risk", 0)
+            inherent_score = domain_scores[short_label].get("InherentRisk", 0)
             top_risk_areas.append({
                 "domain": short_label,
                 "fullName": domain_info["fullName"],
                 "risk_score": risk_score,
+                "inherent_risk_score": inherent_score,
                 "concern_level": get_risk_rating(risk_score)
             })
     
@@ -707,25 +723,30 @@ def calculate_overall_risk(form_data: Dict) -> Dict[str, Any]:
     governance = calculate_governance_score(form_data, schema)
     
     # Control coverage
-    control_coverage = min((totals["total_control_effectiveness"] / TARGET_CE), 1.0) * 100
+    control_coverage = min((raw_ce / TARGET_CE), 1.0) * 100
     
     return {
-        # Risk scores
-        "raw_risk_score": round(raw_risk, 2),
-        "overall_risk_score": round(normalized_risk, 1),
+        # Risk scores (normalized indices 0-100)
+        "overall_risk_score": round(overall_residual_risk, 1),
+        "overall_inherent_risk": round(overall_inherent_risk, 1),
         "overall_risk_level": risk_rating,
         
-        # Totals
-        "total_impact": round(totals["total_impact"], 1),
-        "total_likelihood": round(totals["total_likelihood"], 1),
-        "total_control_effectiveness": round(totals["total_control_effectiveness"], 1),
+        # Normalized indices (0-100)
+        "impact_index": round(impact_index, 1),
+        "likelihood_index": round(likelihood_index, 1),
+        "ce_index": round(ce_index, 1),
+        
+        # Raw totals (for reference)
+        "total_impact": round(raw_impact, 1),
+        "total_likelihood": round(raw_likelihood, 1),
+        "total_control_effectiveness": round(raw_ce, 1),
         
         # Special factors
         "autonomy_factor": round(totals["autonomy_factor"], 1),
         "data_quality_factor": round(totals["data_quality_factor"], 1),
         "expertise_factor": round(totals["expertise_factor"], 1),
         
-        # Domain scores
+        # Domain scores (with normalized indices)
         "domain_scores": domain_scores,
         "top_risk_areas": top_risk_areas[:3],
         
