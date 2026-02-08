@@ -2770,7 +2770,7 @@
           },
           "Yes": {
             "Likelihood": 0,
-            "Control_Effectiveness": -1,
+            "Control_Effectiveness": 1,
             "subsections": {
               "audience": {
                 "field": "B6_3_audience",
@@ -2778,16 +2778,16 @@
                 "label": "Who is informed",
                 "options": {
                   "direct users/operators": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "affected individuals (e.g., customers/citizens)": {
-                    "Control_Effectiveness": -1.0
+                    "Control_Effectiveness": 1.0
                   },
                   "internal decision-makers/managers": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "regulators/oversight bodies (where applicable)": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "not specified / unclear": {
                     "Likelihood": 1,
@@ -2802,31 +2802,31 @@
                 "label": "How they are informed",
                 "options": {
                   "in-application/on-screen notice": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "at point-of-service disclosure (staff script/verbal)": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "privacy notice / collection notice": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "terms & conditions / policy document": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "signage (physical environment)": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "email/sms notification": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "website disclosure": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "API / technical documentation": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "Other": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   }
                 },
                 "notes": "Direct and contextual disclosures provide stronger transparency benefit than passive policy-only disclosures."
@@ -2837,17 +2837,17 @@
                 "label": "When they are informed",
                 "options": {
                   "before interaction/use": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "at the point outputs are presented/used": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "after the outcome/decision": {
                     "Control_Effectiveness": 0,
                     "Likelihood": 1
                   },
                   "only on request": {
-                    "Control_Effectiveness": -0.25,
+                    "Control_Effectiveness": 0.25,
                     "Likelihood": 0.5
                   },
                   "unknown / not specified": {
@@ -2863,25 +2863,25 @@
                 "label": "What information is provided",
                 "options": {
                   "that AI is used": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "purpose of the AI system": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "what the AI outputs are used for": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "limitations/uncertainty of outputs": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "human oversight involvement": {
-                    "Control_Effectiveness": -0.25
+                    "Control_Effectiveness": 0.25
                   },
                   "how to request an explanation": {
-                    "Control_Effectiveness": -0.5
+                    "Control_Effectiveness": 0.5
                   },
                   "how to challenge/seek review": {
-                    "Control_Effectiveness": -0.75
+                    "Control_Effectiveness": 0.75
                   },
                   "not specified / unclear": {
                     "Likelihood": 1,
@@ -2891,7 +2891,7 @@
                 "notes": "Providing limitations and contest/review pathways materially improves transparency outcomes."
               }
             },
-            "notes": "B6.3 is a Yes/No gate. If Yes, transparency improves (negative CE). Specific disclosure quality affects both CE and Likelihood."
+            "notes": "B6.3 is a Yes/No gate. If Yes, transparency improves (positive CE). Specific disclosure quality affects both CE and Likelihood."
           }
         }
       }
