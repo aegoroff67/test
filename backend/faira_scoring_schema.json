@@ -3290,15 +3290,17 @@
         "Accountability"
       ],
       "scoring": {
-        "target_metric": "Control_Effectiveness",
+        "target_metric": "Likelihood",
+        "modifier_type": "positive",
         "options": {
           "Yes": {
-            "Control_Effectiveness": 2
+            "Likelihood": 0
           },
           "No": {
-            "Control_Effectiveness": -2
+            "Likelihood": 1.0
           }
-        }
+        },
+        "notes": "Established governance roles reduce risk. Absence of clear accountability increases likelihood of issues."
       }
     },
     "B8_3": {
@@ -3309,58 +3311,38 @@
         "Accountability"
       ],
       "scoring": {
-        "target_metric": "Control_Effectiveness",
+        "target_metric": "Likelihood",
+        "modifier_type": "positive",
         "options": {
           "Yes": {
-            "Control_Effectiveness": 2
+            "Likelihood": 0
           },
           "No": {
-            "Control_Effectiveness": -2
+            "Likelihood": 0.75
           }
-        }
+        },
+        "notes": "Trained staff reduce risk of misuse. Untrained staff increase likelihood of errors and ethical issues."
       }
     },
     "B8_4": {
       "id": "B8_4",
       "text": "Are there safeguards against overreliance on AI outputs?",
-      "type": "yes_no_with_options",
+      "type": "yes_no",
       "domains": [
         "Accountability"
       ],
       "scoring": {
-        "target_metric": "Control_Effectiveness",
+        "target_metric": "Likelihood",
+        "modifier_type": "positive",
         "options": {
           "Yes": {
-            "Control_Effectiveness": 2,
-            "sub_question": "B8_4_safeguards",
-            "actions": {
-              "mandatory human review": {
-                "Control_Effectiveness": 0.5
-              },
-              "confidence thresholds": {
-                "Control_Effectiveness": 0.5
-              },
-              "explainability requirements": {
-                "Control_Effectiveness": 0.5
-              },
-              "training for staff": {
-                "Control_Effectiveness": 0.5
-              },
-              "decision override controls": {
-                "Control_Effectiveness": 0.5
-              },
-              "system warnings": {
-                "Control_Effectiveness": 0.5
-              },
-              "monitoring of decision quality": {
-                "Control_Effectiveness": 0.5
-              }
-            }
+            "Likelihood": 0
           },
           "No": {
-            "Control_Effectiveness": -2
+            "Likelihood": 1.0
           }
-        }
+        },
+        "notes": "Safeguards against overreliance reduce risk. Absence of safeguards increases likelihood of blind trust in AI outputs."
       }
     }
   }
