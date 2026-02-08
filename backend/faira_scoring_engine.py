@@ -772,14 +772,11 @@ def calculate_overall_risk(form_data: Dict) -> Dict[str, Any]:
 
 def calculate_domain_scores(form_data: Dict) -> Dict[str, Dict[str, float]]:
     """
-    Calculate normalized domain-level scores for radar charts.
+    Calculate domain-level scores for radar charts.
     
-    All metrics are normalized to 0-100 index scale using theoretical maximums:
-    - Impact Index = (Raw_Impact / Max_Impact) × 100
-    - Likelihood Index = (Raw_Likelihood / Max_Likelihood) × 100
-    - CE Index = (Raw_CE / Max_CE) × 100
-    - Inherent Risk = (Impact Index × Likelihood Index) / 100
-    - Residual Risk = Inherent Risk × (1 - CE Index / 100)
+    Uses old-style formula with domain-specific normalization:
+    - Raw_Domain_Risk = (Domain_Impact × Domain_Likelihood) / Domain_CE
+    - Normalized indices are also calculated for display (0-100 scale)
     """
     schema = load_scoring_schema()
     questions = schema.get("questions", {})
@@ -815,34 +812,43 @@ def calculate_domain_scores(form_data: Dict) -> Dict[str, Dict[str, float]]:
         norms = DOMAIN_NORMALIZATION.get(full_name, {"maxImpact": 100, "maxLikelihood": 100, "maxCE": 100})
         
         raw = domain_raw[short_label]
-        raw_impact = max(raw["raw_impact"], 0)
-        raw_likelihood = max(raw["raw_likelihood"], 0)
-        raw_ce = max(raw["raw_ce"], 0)
+        raw_impact = max(raw["raw_impact"], 0.1)
+        raw_likelihood = max(raw["raw_likelihood"], 0.1)
+        raw_ce = max(raw["raw_ce"], 1.0)
         
-        # Normalize to 0-100 index
+        # Normalize individual metrics to 0-100 index for display
         impact_index = min(100, (raw_impact / norms["maxImpact"]) * 100) if norms["maxImpact"] > 0 else 0
         likelihood_index = min(100, (raw_likelihood / norms["maxLikelihood"]) * 100) if norms["maxLikelihood"] > 0 else 0
         ce_index = min(100, (raw_ce / norms["maxCE"]) * 100) if norms["maxCE"] > 0 else 0
         
-        # Calculate risk indices
-        inherent_risk = (impact_index * likelihood_index) / 100
+        # Calculate domain risk using old-style formula
+        raw_domain_risk = (raw_impact * raw_likelihood) / raw_ce
         
-        # Residual risk: inherent risk reduced by control effectiveness
-        # If CE is 100%, residual risk = 0. If CE is 0%, residual risk = inherent risk
-        ce_reduction_factor = ce_index / 100
-        residual_risk = inherent_risk * (1 - ce_reduction_factor)
+        # Calculate domain-specific normalization factor
+        # Max domain risk = (maxImpact × maxLikelihood) / minCE
+        # Using ~10% of maxCE as minimum realistic CE
+        min_ce = max(norms["maxCE"] * 0.1, 1.0)
+        max_domain_risk = (norms["maxImpact"] * norms["maxLikelihood"]) / min_ce
+        
+        # Normalize domain risk to 0-100
+        normalized_domain_risk = min(100, (raw_domain_risk / max_domain_risk) * 100 * 10)  # Scale factor for visibility
+        
+        # Calculate inherent risk (without CE)
+        raw_inherent_risk = raw_impact * raw_likelihood
+        max_inherent = norms["maxImpact"] * norms["maxLikelihood"]
+        normalized_inherent_risk = min(100, (raw_inherent_risk / max_inherent) * 100 * 10)  # Scale factor
         
         domain_totals[short_label] = {
-            # Normalized indices (0-100)
+            # Normalized indices (0-100) for display
             "Impact": round(impact_index, 1),
             "Likelihood": round(likelihood_index, 1),
             "Control_Effectiveness": round(ce_index, 1),
-            "InherentRisk": round(inherent_risk, 1),
-            "Risk": round(residual_risk, 1),  # Residual risk for backward compatibility
+            "InherentRisk": round(normalized_inherent_risk, 1),
+            "Risk": round(normalized_domain_risk, 1),
             # Raw values for reference
-            "raw_impact": round(raw_impact, 2),
-            "raw_likelihood": round(raw_likelihood, 2),
-            "raw_ce": round(raw_ce, 2),
+            "raw_impact": round(raw["raw_impact"], 2),
+            "raw_likelihood": round(raw["raw_likelihood"], 2),
+            "raw_ce": round(raw["raw_ce"], 2),
         }
     
     return domain_totals
