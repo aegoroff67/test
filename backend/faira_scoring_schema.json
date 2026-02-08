@@ -1988,7 +1988,7 @@
     },
     "A5_10": {
       "id": "A5_10",
-      "text": "Are there sector-specific frameworks, laws, or regulatory obligations that apply to this AI solution?",
+      "text": "Which external frameworks or legal obligations must be monitored and maintained over time?",
       "type": "yes_no_with_subsections",
       "domains": [
         "Accountability",
