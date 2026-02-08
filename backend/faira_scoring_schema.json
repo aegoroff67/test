@@ -1640,14 +1640,31 @@
                 "type": "multiselect",
                 "label": "What is logged/recorded",
                 "options": {
-                  "AI inputs": { "Control_Effectiveness": 1 },
-                  "AI outputs": { "Control_Effectiveness": 1 },
-                  "human decisions informed by AI": { "Control_Effectiveness": 1 },
-                  "automated actions triggered by AI": { "Control_Effectiveness": 1, "Likelihood": -0.5 },
-                  "model version / configuration": { "Control_Effectiveness": 1 },
-                  "data sources used / provenance": { "Control_Effectiveness": 1 },
-                  "access to outputs / disclosures": { "Control_Effectiveness": 1 },
-                  "Other": { "Control_Effectiveness": 0.5 }
+                  "AI inputs": {
+                    "Control_Effectiveness": 1
+                  },
+                  "AI outputs": {
+                    "Control_Effectiveness": 1
+                  },
+                  "human decisions informed by AI": {
+                    "Control_Effectiveness": 1
+                  },
+                  "automated actions triggered by AI": {
+                    "Control_Effectiveness": 1,
+                    "Likelihood": -0.5
+                  },
+                  "model version / configuration": {
+                    "Control_Effectiveness": 1
+                  },
+                  "data sources used / provenance": {
+                    "Control_Effectiveness": 1
+                  },
+                  "access to outputs / disclosures": {
+                    "Control_Effectiveness": 1
+                  },
+                  "Other": {
+                    "Control_Effectiveness": 0.5
+                  }
                 },
                 "notes": "Logging more artefacts increases traceability and assurance value."
               },
@@ -1656,14 +1673,32 @@
                 "type": "multiselect",
                 "label": "Logging mechanisms",
                 "options": {
-                  "application / system logs": { "Control_Effectiveness": 1 },
-                  "dedicated audit logs": { "Control_Effectiveness": 2 },
-                  "workflow / case management records": { "Control_Effectiveness": 1 },
-                  "database records": { "Control_Effectiveness": 1 },
-                  "centralised logging / siem": { "Control_Effectiveness": 2 },
-                  "manual records": { "Control_Effectiveness": 0.5, "Likelihood": 0.5 },
-                  "Other": { "Control_Effectiveness": 0.5 },
-                  "not in place / unknown": { "Control_Effectiveness": 0, "Likelihood": 1 }
+                  "application / system logs": {
+                    "Control_Effectiveness": 1
+                  },
+                  "dedicated audit logs": {
+                    "Control_Effectiveness": 2
+                  },
+                  "workflow / case management records": {
+                    "Control_Effectiveness": 1
+                  },
+                  "database records": {
+                    "Control_Effectiveness": 1
+                  },
+                  "centralised logging / siem": {
+                    "Control_Effectiveness": 2
+                  },
+                  "manual records": {
+                    "Control_Effectiveness": 0.5,
+                    "Likelihood": 0.5
+                  },
+                  "Other": {
+                    "Control_Effectiveness": 0.5
+                  },
+                  "not in place / unknown": {
+                    "Control_Effectiveness": 0,
+                    "Likelihood": 1
+                  }
                 },
                 "notes": "Dedicated audit logs and centralised logging improve control effectiveness; manual-only records increase likelihood of gaps."
               },
@@ -1672,11 +1707,26 @@
                 "type": "single_select",
                 "label": "Retention period",
                 "options": {
-                  "less than 30 days": { "Likelihood": 2, "Control_Effectiveness": 0 },
-                  "30–90 days": { "Likelihood": 1, "Control_Effectiveness": 0.5 },
-                  "3–12 months": { "Likelihood": 0, "Control_Effectiveness": 1 },
-                  "more than 12 months": { "Likelihood": -0.5, "Control_Effectiveness": 2 },
-                  "unknown / not defined": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "less than 30 days": {
+                    "Likelihood": 2,
+                    "Control_Effectiveness": 0
+                  },
+                  "30\u201390 days": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0.5
+                  },
+                  "3\u201312 months": {
+                    "Likelihood": 0,
+                    "Control_Effectiveness": 1
+                  },
+                  "more than 12 months": {
+                    "Likelihood": -0.5,
+                    "Control_Effectiveness": 2
+                  },
+                  "unknown / not defined": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Short or unknown retention increases likelihood that evidence will be unavailable for investigation."
               },
@@ -1685,12 +1735,26 @@
                 "type": "single_select",
                 "label": "Access scope",
                 "options": {
-                  "restricted operational staff only": { "Control_Effectiveness": 1 },
-                  "security / risk / audit teams": { "Control_Effectiveness": 2 },
-                  "system administrators": { "Control_Effectiveness": 1 },
-                  "external auditors / regulators": { "Control_Effectiveness": 2 },
-                  "broad internal access": { "Likelihood": 1, "Control_Effectiveness": 0.5 },
-                  "unknown / not defined": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "restricted operational staff only": {
+                    "Control_Effectiveness": 1
+                  },
+                  "security / risk / audit teams": {
+                    "Control_Effectiveness": 2
+                  },
+                  "system administrators": {
+                    "Control_Effectiveness": 1
+                  },
+                  "external auditors / regulators": {
+                    "Control_Effectiveness": 2
+                  },
+                  "broad internal access": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0.5
+                  },
+                  "unknown / not defined": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Appropriate restriction and audit access supports assurance; overly broad or unknown access increases likelihood of misuse."
               }
@@ -2204,10 +2268,10 @@
         "target_metric": "Control_Effectiveness",
         "options": {
           "Yes": {
-            "Control_Effectiveness": -2
+            "Control_Effectiveness": 2
           },
           "No": {
-            "Control_Effectiveness": 1
+            "Control_Effectiveness": 0
           }
         },
         "notes": "Completing an HRIA improves control effectiveness. Not completing one increases risk exposure."
@@ -2437,10 +2501,10 @@
         "modifier_type": "mixed",
         "options": {
           "Yes": {
-            "Control_Effectiveness": -2
+            "Control_Effectiveness": 2
           },
           "No": {
-            "Control_Effectiveness": 2
+            "Control_Effectiveness": 0
           }
         },
         "notes": "Completing a PIA improves control effectiveness. Not completing one increases risk exposure."
@@ -2565,10 +2629,10 @@
         "modifier_type": "mixed",
         "options": {
           "Yes": {
-            "Control_Effectiveness": -2
+            "Control_Effectiveness": 2
           },
           "No": {
-            "Control_Effectiveness": 2
+            "Control_Effectiveness": 0
           }
         },
         "notes": "Having a disengagement mechanism improves control effectiveness. Lacking one increases risk exposure."
@@ -2713,11 +2777,22 @@
                 "type": "multiselect",
                 "label": "Who is informed",
                 "options": {
-                  "direct users/operators": { "Control_Effectiveness": -0.5 },
-                  "affected individuals (e.g., customers/citizens)": { "Control_Effectiveness": -1.0 },
-                  "internal decision-makers/managers": { "Control_Effectiveness": -0.25 },
-                  "regulators/oversight bodies (where applicable)": { "Control_Effectiveness": -0.25 },
-                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "direct users/operators": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "affected individuals (e.g., customers/citizens)": {
+                    "Control_Effectiveness": -1.0
+                  },
+                  "internal decision-makers/managers": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "regulators/oversight bodies (where applicable)": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "not specified / unclear": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Informing affected individuals provides the strongest transparency benefit."
               },
@@ -2726,15 +2801,33 @@
                 "type": "multiselect",
                 "label": "How they are informed",
                 "options": {
-                  "in-application/on-screen notice": { "Control_Effectiveness": -0.5 },
-                  "at point-of-service disclosure (staff script/verbal)": { "Control_Effectiveness": -0.25 },
-                  "privacy notice / collection notice": { "Control_Effectiveness": -0.5 },
-                  "terms & conditions / policy document": { "Control_Effectiveness": -0.25 },
-                  "signage (physical environment)": { "Control_Effectiveness": -0.25 },
-                  "email/sms notification": { "Control_Effectiveness": -0.25 },
-                  "website disclosure": { "Control_Effectiveness": -0.25 },
-                  "API / technical documentation": { "Control_Effectiveness": -0.25 },
-                  "Other": { "Control_Effectiveness": -0.25 }
+                  "in-application/on-screen notice": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "at point-of-service disclosure (staff script/verbal)": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "privacy notice / collection notice": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "terms & conditions / policy document": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "signage (physical environment)": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "email/sms notification": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "website disclosure": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "API / technical documentation": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "Other": {
+                    "Control_Effectiveness": -0.25
+                  }
                 },
                 "notes": "Direct and contextual disclosures provide stronger transparency benefit than passive policy-only disclosures."
               },
@@ -2743,11 +2836,24 @@
                 "type": "single_select",
                 "label": "When they are informed",
                 "options": {
-                  "before interaction/use": { "Control_Effectiveness": -0.5 },
-                  "at the point outputs are presented/used": { "Control_Effectiveness": -0.5 },
-                  "after the outcome/decision": { "Control_Effectiveness": 0, "Likelihood": 1 },
-                  "only on request": { "Control_Effectiveness": -0.25, "Likelihood": 0.5 },
-                  "unknown / not specified": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "before interaction/use": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "at the point outputs are presented/used": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "after the outcome/decision": {
+                    "Control_Effectiveness": 0,
+                    "Likelihood": 1
+                  },
+                  "only on request": {
+                    "Control_Effectiveness": -0.25,
+                    "Likelihood": 0.5
+                  },
+                  "unknown / not specified": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Earlier disclosure improves transparency; after-the-fact disclosure increases likelihood of dissatisfaction and disputes."
               },
@@ -2756,14 +2862,31 @@
                 "type": "multiselect",
                 "label": "What information is provided",
                 "options": {
-                  "that AI is used": { "Control_Effectiveness": -0.25 },
-                  "purpose of the AI system": { "Control_Effectiveness": -0.25 },
-                  "what the AI outputs are used for": { "Control_Effectiveness": -0.25 },
-                  "limitations/uncertainty of outputs": { "Control_Effectiveness": -0.5 },
-                  "human oversight involvement": { "Control_Effectiveness": -0.25 },
-                  "how to request an explanation": { "Control_Effectiveness": -0.5 },
-                  "how to challenge/seek review": { "Control_Effectiveness": -0.75 },
-                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "that AI is used": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "purpose of the AI system": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "what the AI outputs are used for": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "limitations/uncertainty of outputs": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "human oversight involvement": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "how to request an explanation": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "how to challenge/seek review": {
+                    "Control_Effectiveness": -0.75
+                  },
+                  "not specified / unclear": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Providing limitations and contest/review pathways materially improves transparency outcomes."
               }
@@ -2798,11 +2921,22 @@
                 "type": "multiselect",
                 "label": "Who can receive explanations",
                 "options": {
-                  "direct users/operators": { "Control_Effectiveness": -0.5 },
-                  "affected individuals (e.g., customers/citizens)": { "Control_Effectiveness": -1.0 },
-                  "internal decision-makers/managers": { "Control_Effectiveness": -0.25 },
-                  "regulators/oversight bodies (where applicable)": { "Control_Effectiveness": -0.25 },
-                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "direct users/operators": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "affected individuals (e.g., customers/citizens)": {
+                    "Control_Effectiveness": -1.0
+                  },
+                  "internal decision-makers/managers": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "regulators/oversight bodies (where applicable)": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "not specified / unclear": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Providing explanations to affected individuals provides the strongest explainability benefit."
               },
@@ -2811,14 +2945,31 @@
                 "type": "multiselect",
                 "label": "How explanations are provided",
                 "options": {
-                  "on-screen explanation at decision/output point": { "Control_Effectiveness": -0.75 },
-                  "reason codes / factors list": { "Control_Effectiveness": -0.5 },
-                  "case notes / decision record": { "Control_Effectiveness": -0.5 },
-                  "help article / FAQ / knowledge base": { "Control_Effectiveness": -0.25 },
-                  "support channel (phone/email) explanation": { "Control_Effectiveness": -0.25 },
-                  "formal written explanation on request": { "Control_Effectiveness": -0.5 },
-                  "technical documentation only": { "Control_Effectiveness": -0.1, "Likelihood": 0.5 },
-                  "Other": { "Control_Effectiveness": -0.25 }
+                  "on-screen explanation at decision/output point": {
+                    "Control_Effectiveness": -0.75
+                  },
+                  "reason codes / factors list": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "case notes / decision record": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "help article / FAQ / knowledge base": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "support channel (phone/email) explanation": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "formal written explanation on request": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "technical documentation only": {
+                    "Control_Effectiveness": -0.1,
+                    "Likelihood": 0.5
+                  },
+                  "Other": {
+                    "Control_Effectiveness": -0.25
+                  }
                 },
                 "notes": "Contextual explanations at the point of output provide stronger explainability than passive documentation-only approaches."
               },
@@ -2827,11 +2978,23 @@
                 "type": "single_select",
                 "label": "When explanations are available",
                 "options": {
-                  "before interaction/use (pre-emptive explanation)": { "Control_Effectiveness": -0.5 },
-                  "at the point outputs are presented/used": { "Control_Effectiveness": -0.75 },
-                  "after the outcome/decision (on request)": { "Control_Effectiveness": -0.25 },
-                  "only during a formal review/appeal process": { "Control_Effectiveness": 0, "Likelihood": 1 },
-                  "unknown / not specified": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "before interaction/use (pre-emptive explanation)": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "at the point outputs are presented/used": {
+                    "Control_Effectiveness": -0.75
+                  },
+                  "after the outcome/decision (on request)": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "only during a formal review/appeal process": {
+                    "Control_Effectiveness": 0,
+                    "Likelihood": 1
+                  },
+                  "unknown / not specified": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Earlier and point-of-output explainability improves transparency; deferring to formal review increases likelihood of friction and disputes."
               },
@@ -2840,14 +3003,31 @@
                 "type": "multiselect",
                 "label": "What explanations include",
                 "options": {
-                  "purpose of the AI system": { "Control_Effectiveness": -0.25 },
-                  "what inputs influenced the outcome": { "Control_Effectiveness": -0.5 },
-                  "key factors/attributes driving the outcome": { "Control_Effectiveness": -0.75 },
-                  "confidence/uncertainty indicators": { "Control_Effectiveness": -0.5 },
-                  "human oversight involvement": { "Control_Effectiveness": -0.25 },
-                  "how to request further explanation": { "Control_Effectiveness": -0.25 },
-                  "how to challenge/seek review": { "Control_Effectiveness": -0.5 },
-                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "purpose of the AI system": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "what inputs influenced the outcome": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "key factors/attributes driving the outcome": {
+                    "Control_Effectiveness": -0.75
+                  },
+                  "confidence/uncertainty indicators": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "human oversight involvement": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "how to request further explanation": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "how to challenge/seek review": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "not specified / unclear": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Including key factors and uncertainty indicators materially improves explainability quality."
               },
@@ -2856,10 +3036,20 @@
                 "type": "single_select",
                 "label": "Accessibility to non-technical audiences",
                 "options": {
-                  "plain language (non-technical, easy to understand)": { "Control_Effectiveness": -0.5 },
-                  "somewhat technical (requires guidance)": { "Control_Effectiveness": -0.25 },
-                  "highly technical (specialist interpretation required)": { "Control_Effectiveness": 0, "Likelihood": 0.5 },
-                  "unknown / not specified": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "plain language (non-technical, easy to understand)": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "somewhat technical (requires guidance)": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "highly technical (specialist interpretation required)": {
+                    "Control_Effectiveness": 0,
+                    "Likelihood": 0.5
+                  },
+                  "unknown / not specified": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Plain language explanations reduce misunderstanding and support effective challenge/review pathways."
               },
@@ -2868,10 +3058,20 @@
                 "type": "single_select",
                 "label": "Limitations/uncertainty communicated",
                 "options": {
-                  "yes — clearly communicated": { "Control_Effectiveness": -0.5 },
-                  "partially — mentioned but not consistently": { "Control_Effectiveness": -0.25 },
-                  "no": { "Likelihood": 1, "Control_Effectiveness": 0 },
-                  "unknown / not specified": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "yes \u2014 clearly communicated": {
+                    "Control_Effectiveness": -0.5
+                  },
+                  "partially \u2014 mentioned but not consistently": {
+                    "Control_Effectiveness": -0.25
+                  },
+                  "no": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  },
+                  "unknown / not specified": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Communicating limitations supports appropriate reliance and reduces likelihood of harm from misinterpretation."
               }
@@ -2906,13 +3106,28 @@
                 "type": "multiselect",
                 "label": "Who can initiate a challenge or review",
                 "options": {
-                  "affected individuals (e.g., customers/citizens)": { "Control_Effectiveness": 2 },
-                  "internal users/operators": { "Control_Effectiveness": 1 },
-                  "supervisors/managers": { "Control_Effectiveness": 1 },
-                  "oversight body / governance committee": { "Control_Effectiveness": 1 },
-                  "regulators / external oversight (where applicable)": { "Control_Effectiveness": 1 },
-                  "third party / advocate": { "Control_Effectiveness": 0.5 },
-                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "affected individuals (e.g., customers/citizens)": {
+                    "Control_Effectiveness": 2
+                  },
+                  "internal users/operators": {
+                    "Control_Effectiveness": 1
+                  },
+                  "supervisors/managers": {
+                    "Control_Effectiveness": 1
+                  },
+                  "oversight body / governance committee": {
+                    "Control_Effectiveness": 1
+                  },
+                  "regulators / external oversight (where applicable)": {
+                    "Control_Effectiveness": 1
+                  },
+                  "third party / advocate": {
+                    "Control_Effectiveness": 0.5
+                  },
+                  "not specified / unclear": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Allowing affected individuals to initiate review provides the strongest contestability signal."
               },
@@ -2921,13 +3136,28 @@
                 "type": "multiselect",
                 "label": "How a challenge or review can be initiated",
                 "options": {
-                  "formal appeal process": { "Control_Effectiveness": 2 },
-                  "service desk / support request": { "Control_Effectiveness": 1 },
-                  "case management / ticketing workflow": { "Control_Effectiveness": 1 },
-                  "manager escalation pathway": { "Control_Effectiveness": 1 },
-                  "in-application review/request feature": { "Control_Effectiveness": 1.5 },
-                  "written request (email/letter)": { "Control_Effectiveness": 0.5 },
-                  "not defined": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "formal appeal process": {
+                    "Control_Effectiveness": 2
+                  },
+                  "service desk / support request": {
+                    "Control_Effectiveness": 1
+                  },
+                  "case management / ticketing workflow": {
+                    "Control_Effectiveness": 1
+                  },
+                  "manager escalation pathway": {
+                    "Control_Effectiveness": 1
+                  },
+                  "in-application review/request feature": {
+                    "Control_Effectiveness": 1.5
+                  },
+                  "written request (email/letter)": {
+                    "Control_Effectiveness": 0.5
+                  },
+                  "not defined": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Formalised and trackable channels improve contestability and auditability."
               },
@@ -2936,13 +3166,29 @@
                 "type": "multiselect",
                 "label": "Review process available",
                 "options": {
-                  "human review of the decision/outcome": { "Control_Effectiveness": 2 },
-                  "second-person review (peer/supervisor)": { "Control_Effectiveness": 1.5 },
-                  "manual override available": { "Control_Effectiveness": 1 },
-                  "re-run / reassessment with updated information": { "Control_Effectiveness": 1 },
-                  "independent review function": { "Control_Effectiveness": 2 },
-                  "only explanation provided (no review)": { "Likelihood": 1, "Control_Effectiveness": 0.25 },
-                  "not specified / unclear": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "human review of the decision/outcome": {
+                    "Control_Effectiveness": 2
+                  },
+                  "second-person review (peer/supervisor)": {
+                    "Control_Effectiveness": 1.5
+                  },
+                  "manual override available": {
+                    "Control_Effectiveness": 1
+                  },
+                  "re-run / reassessment with updated information": {
+                    "Control_Effectiveness": 1
+                  },
+                  "independent review function": {
+                    "Control_Effectiveness": 2
+                  },
+                  "only explanation provided (no review)": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0.25
+                  },
+                  "not specified / unclear": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "A meaningful review process requires human review and the ability to intervene."
               },
@@ -2951,14 +3197,31 @@
                 "type": "multiselect",
                 "label": "Information supporting review",
                 "options": {
-                  "decision record / case notes": { "Control_Effectiveness": 1 },
-                  "AI outputs / scores": { "Control_Effectiveness": 0.5 },
-                  "reason codes / explanation": { "Control_Effectiveness": 1 },
-                  "input data used": { "Control_Effectiveness": 1 },
-                  "model version / configuration recorded": { "Control_Effectiveness": 1 },
-                  "human approval record captured": { "Control_Effectiveness": 1 },
-                  "audit logs available": { "Control_Effectiveness": 1 },
-                  "none / not available": { "Likelihood": 2, "Control_Effectiveness": 0 }
+                  "decision record / case notes": {
+                    "Control_Effectiveness": 1
+                  },
+                  "AI outputs / scores": {
+                    "Control_Effectiveness": 0.5
+                  },
+                  "reason codes / explanation": {
+                    "Control_Effectiveness": 1
+                  },
+                  "input data used": {
+                    "Control_Effectiveness": 1
+                  },
+                  "model version / configuration recorded": {
+                    "Control_Effectiveness": 1
+                  },
+                  "human approval record captured": {
+                    "Control_Effectiveness": 1
+                  },
+                  "audit logs available": {
+                    "Control_Effectiveness": 1
+                  },
+                  "none / not available": {
+                    "Likelihood": 2,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Review inputs improve the ability to investigate and correct outcomes."
               },
@@ -2967,10 +3230,22 @@
                 "type": "single_select",
                 "label": "Can outcomes be changed following review?",
                 "options": {
-                  "yes — decision can be reversed or amended": { "Control_Effectiveness": 2, "Likelihood": -0.5 },
-                  "partially — decision can be adjusted": { "Control_Effectiveness": 1, "Likelihood": 0 },
-                  "no — decision cannot be changed": { "Likelihood": 2, "Control_Effectiveness": 0 },
-                  "unknown / not specified": { "Likelihood": 1, "Control_Effectiveness": 0 }
+                  "yes \u2014 decision can be reversed or amended": {
+                    "Control_Effectiveness": 2,
+                    "Likelihood": -0.5
+                  },
+                  "partially \u2014 decision can be adjusted": {
+                    "Control_Effectiveness": 1,
+                    "Likelihood": 0
+                  },
+                  "no \u2014 decision cannot be changed": {
+                    "Likelihood": 2,
+                    "Control_Effectiveness": 0
+                  },
+                  "unknown / not specified": {
+                    "Likelihood": 1,
+                    "Control_Effectiveness": 0
+                  }
                 },
                 "notes": "Contestability is materially weaker if outcomes cannot be changed."
               }
