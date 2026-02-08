@@ -923,12 +923,23 @@ export default function LoggingTab() {
           </Card>
 
           {/* Refresh button */}
-          <div className="flex justify-end">
-            <Button variant="outline" size="sm" onClick={fetchAiCacheStats}>
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" size="sm" onClick={() => {
+              console.log('[AI Cache] Current state:', JSON.stringify(aiCacheStats));
+              fetchAiCacheStats();
+            }}>
               <RefreshCw className="h-4 w-4 mr-1" />
               Refresh Stats
             </Button>
           </div>
+          
+          {/* Debug: Show raw API state */}
+          {process.env.NODE_ENV === 'development' && (
+            <details className="mt-4 p-2 bg-gray-100 rounded text-xs">
+              <summary className="cursor-pointer font-medium">Debug: Raw State</summary>
+              <pre className="mt-2 overflow-auto">{JSON.stringify(aiCacheStats, null, 2)}</pre>
+            </details>
+          )}
         </div>
       )}
 
