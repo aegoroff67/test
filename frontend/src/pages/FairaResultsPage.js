@@ -726,28 +726,30 @@ function FairaResultsPage() {
           setRadarChartData(scoresResponse.data.radar_charts);
           if (scoresResponse.data.risk_summary) {
             const summary = scoresResponse.data.risk_summary;
-            // Calculate overall inherent risk from total_impact and total_likelihood
-            const totalImpact = summary.total_impact || 0;
-            const totalLikelihood = summary.total_likelihood || 0;
-            const overallInherentRisk = Math.round((totalImpact * totalLikelihood) / 100);
             
+            // Use normalized indices from API (0-100 scale)
             setRiskSummary({
               overall_risk_level: summary.overall_risk_level || 'Medium',
-              overall_risk_score: summary.overall_risk_score || 0,
+              overall_risk_score: summary.overall_risk_score || 0,  // Residual risk index
+              overall_inherent_risk: summary.overall_inherent_risk || 0,  // Inherent risk index
               risk_category: getRiskCategory(summary.overall_risk_level),
               domain_scores: summary.domain_scores || {},
               section_scores: Object.entries(summary.domain_scores || {}).map(([name, scores]) => ({
                 section_id: name,
                 section_name: fairadomains.find(d => d.shortLabel === name)?.fullName || name,
                 risk_score: scores.Risk || 0,
+                inherent_risk_score: scores.InherentRisk || 0,
                 risk_level: getRiskLevelFromScore(scores.Risk || 0)
               })),
               top_risk_areas: summary.top_risk_areas || [],
-              // Store overall totals for radar chart subtitles
-              total_impact: totalImpact,
-              total_likelihood: totalLikelihood,
+              // Normalized indices (0-100)
+              impact_index: summary.impact_index || 0,
+              likelihood_index: summary.likelihood_index || 0,
+              ce_index: summary.ce_index || 0,
+              // Raw totals (for reference)
+              total_impact: summary.total_impact || 0,
+              total_likelihood: summary.total_likelihood || 0,
               total_control_effectiveness: summary.total_control_effectiveness || 0,
-              overall_inherent_risk: overallInherentRisk
             });
           }
         }
