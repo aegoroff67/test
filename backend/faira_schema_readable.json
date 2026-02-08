@@ -9,7 +9,8 @@
     "baseline_ce": 5.0,
     "max_expected_raw_risk": 120.0,
     "risk_formula": "Raw_Risk = (Total_Impact \u00d7 Total_Likelihood) / Total_CE",
-    "normalized_formula": "Normalized_Risk = min(100, (Raw_Risk / 120) \u00d7 100)"
+    "normalized_formula": "Normalized_Risk = min(100, (Raw_Risk / 120) \u00d7 100)",
+    "ce_logic": "Positive CE = control in place = adds to Total_CE = lowers risk"
   },
   "questions": {
     "A1_1": {
@@ -21,66 +22,67 @@
       ],
       "options": {
         "information retrieval": {
-          "label": "information retrieval",
+          "label": "",
           "Impact": 0.5,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "natural language understanding": {
-          "label": "natural language understanding",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "prediction/forecasting": {
-          "label": "prediction/forecasting",
+          "label": "",
           "Impact": 1.5,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "classification": {
-          "label": "classification",
+          "label": "",
           "Impact": 1.5,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "recommendation": {
-          "label": "recommendation",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "summarisation": {
-          "label": "summarisation",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "decision support": {
-          "label": "decision support",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "process automation": {
-          "label": "process automation",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "compliance monitoring": {
-          "label": "compliance monitoring",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "content generation": {
-          "label": "content generation",
+          "label": "",
           "Impact": 2.5,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact"
     },
     "A1_2": {
       "text": "What version of the AI solution does this FAIRA assessment apply to?",
@@ -97,60 +99,61 @@
       ],
       "options": {
         "natural language processing": {
-          "label": "natural language processing",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "data analysis and visualization": {
-          "label": "data analysis and visualization",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0.5,
           "Control_Effectiveness": 0
         },
         "automated content generation": {
-          "label": "automated content generation",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "integration with existing systems": {
-          "label": "integration with existing systems",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "personalized recommendations": {
-          "label": "personalized recommendations",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1.5,
           "Control_Effectiveness": 0
         },
         "collaboration enhancement": {
-          "label": "collaboration enhancement",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0.5,
           "Control_Effectiveness": 0
         },
         "task automation": {
-          "label": "task automation",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2.5,
           "Control_Effectiveness": 0
         },
         "security and compliance": {
-          "label": "security and compliance",
+          "label": "",
           "Impact": 0,
           "Likelihood": 3,
           "Control_Effectiveness": 0
         },
         "voice recognition": {
-          "label": "voice recognition",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1.5,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood"
     },
     "A1_4": {
       "text": "What decisions will be addressed by the AI functionality?",
@@ -162,66 +165,67 @@
       ],
       "options": {
         "content development and approval": {
-          "label": "content development and approval",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "data interpretation and business strategy": {
-          "label": "data interpretation and business strategy",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "prioritization of communications": {
-          "label": "prioritization of communications",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "workflow optimization": {
-          "label": "workflow optimization",
+          "label": "",
           "Impact": 1.5,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "security and compliance oversight": {
-          "label": "security and compliance oversight",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "resource allocation": {
-          "label": "resource allocation",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "crisis management": {
-          "label": "crisis management",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "employee training": {
-          "label": "employee training",
+          "label": "",
           "Impact": 0.5,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "customer relationship management": {
-          "label": "customer relationship management",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "administrative decision-making (regulated by law)": {
-          "label": "administrative decision-making (regulated by law)",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact"
     },
     "A1_5": {
       "text": "What tangible benefits does this AI solution provide?",
@@ -232,78 +236,79 @@
       ],
       "options": {
         "increased efficiency": {
-          "label": "increased efficiency",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0.5
         },
         "reduced manual effort": {
-          "label": "reduced manual effort",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0.5
         },
         "improved decision-making": {
-          "label": "improved decision-making",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "faster processing time": {
-          "label": "faster processing time",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0.5
         },
         "improved accuracy or consistency": {
-          "label": "improved accuracy or consistency",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "enhanced user experience": {
-          "label": "enhanced user experience",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0.5
         },
         "cost reduction": {
-          "label": "cost reduction",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0.5
         },
         "improved accessibility": {
-          "label": "improved accessibility",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "reduced risk or error": {
-          "label": "reduced risk or error",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "better service delivery": {
-          "label": "better service delivery",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "improved communication": {
-          "label": "improved communication",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0.5
         },
         "increased transparency": {
-          "label": "increased transparency",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness"
     },
     "A1_6": {
       "text": "Can the AI solution convert decisions into actions without human intervention?",
@@ -314,18 +319,21 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood and Impact",
+      "modifier_type": "dual",
+      "scoring_notes": "If Yes: AutonomyFactor = +3 applies to Likelihood. Each selected action adds its Likelihood and Impact modifiers."
     },
     "A1_7": {
       "text": "What type of AI model or technique is used?",
@@ -336,48 +344,49 @@
       ],
       "options": {
         "Large Language Model": {
-          "label": "Large Language Model",
+          "label": "",
           "Impact": 0,
           "Likelihood": 3,
           "Control_Effectiveness": 0
         },
         "computer Vision": {
-          "label": "computer Vision",
+          "label": "",
           "Impact": 0,
           "Likelihood": 3,
           "Control_Effectiveness": 0
         },
         "supervised learning": {
-          "label": "supervised learning",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "unsupervised learning": {
-          "label": "unsupervised learning",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "reinforcement learning": {
-          "label": "reinforcement learning",
+          "label": "",
           "Impact": 0,
           "Likelihood": 4,
           "Control_Effectiveness": 0
         },
         "rule-based system": {
-          "label": "rule-based system",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0.5,
           "Control_Effectiveness": 0
         },
         "neural network": {
-          "label": "neural network",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood"
     },
     "A1_8": {
       "text": "What is the source of the AI solution?",
@@ -388,30 +397,31 @@
       ],
       "options": {
         "commercial off-the-shelf": {
-          "label": "commercial off-the-shelf",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0.5,
           "Control_Effectiveness": 0
         },
         "bespoke development": {
-          "label": "bespoke development",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "open-source": {
-          "label": "open-source",
+          "label": "",
           "Impact": 0,
           "Likelihood": 3,
           "Control_Effectiveness": 0
         },
         "hybrid approach": {
-          "label": "hybrid approach",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood"
     },
     "A1_9": {
       "text": "How does the AI solution integrate with other systems?",
@@ -423,54 +433,55 @@
       ],
       "options": {
         "REST API": {
-          "label": "REST API",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "webhooks": {
-          "label": "webhooks",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "batch data transfer": {
-          "label": "batch data transfer",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0.5,
           "Control_Effectiveness": 0
         },
         "real-time data stream": {
-          "label": "real-time data stream",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "file-based integration": {
-          "label": "file-based integration",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "embedded widget/iframe": {
-          "label": "embedded widget/iframe",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0.5,
           "Control_Effectiveness": 0
         },
         "database connection": {
-          "label": "database connection",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "message queue (e.g., Kafka)": {
-          "label": "message queue (e.g., Kafka)",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood"
     },
     "A2_1": {
       "text": "How are AI use inputs tracked and recorded?",
@@ -481,42 +492,44 @@
       ],
       "options": {
         "audit logs": {
-          "label": "audit logs",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "access logs": {
-          "label": "access logs",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "CRM/Case management logging": {
-          "label": "CRM/Case management logging",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "system-level logging": {
-          "label": "system-level logging",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "manual records": {
-          "label": "manual records",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0.5
         },
         "no inputs tracked or recorded (flag as risk)": {
-          "label": "no inputs tracked or recorded (flag as risk)",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "scoring_notes": "Each selected option adds to CE. 'No inputs tracked or recorded' should be flagged as a risk."
     },
     "A2_2": {
       "text": "Does the AI require data from the digital or physical environment?",
@@ -526,18 +539,207 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
-          "Control_Effectiveness": 0
+          "Control_Effectiveness": 0,
+          "notes": "A2.2 is a Yes/No gate. If Yes, selections increase Impact/Likelihood based on data sensitivity and exposure pathways. User-limiting controls and traceability mechanisms improve Control Effectiveness.",
+          "subsections": {
+            "sources": {
+              "field": "A2_2_sources",
+              "type": "multiselect",
+              "label": "Data sources",
+              "options": {
+                "digital systems (databases, internal apps, APIs)": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "web / internet sources": {
+                  "Impact": 0,
+                  "Likelihood": 2,
+                  "Control_Effectiveness": 0
+                },
+                "sensors / IoT / OT telemetry": {
+                  "Impact": 0,
+                  "Likelihood": 2,
+                  "Control_Effectiveness": 0
+                },
+                "cCTV / images / video feeds": {
+                  "Impact": 2,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "location / GPS / movement telemetry": {
+                  "Impact": 3,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "user device data": {
+                  "Impact": 2,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "third-party data feeds": {
+                  "Impact": 0,
+                  "Likelihood": 2,
+                  "Control_Effectiveness": 0
+                },
+                "Other": {
+                  "Impact": 1,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "data_types": {
+              "field": "A2_2_data_types",
+              "type": "multiselect",
+              "label": "Data types ingested",
+              "options": {
+                "telemetry / operational metrics": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "environmental readings (e.g., weather, air quality)": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "images / video": {
+                  "Impact": 2,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "audio": {
+                  "Impact": 2,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "location data": {
+                  "Impact": 3,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "system logs / events": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "documents / free text": {
+                  "Impact": 1,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "Other": {
+                  "Impact": 1,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "user_limits": {
+              "field": "A2_2_user_limits",
+              "type": "single_select",
+              "label": "Can users limit data collected/used?",
+              "options": {
+                "yes \u2014 configurable controls": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "yes \u2014 per user / per transaction choice": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "no": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "unknown / Not specified": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "traceability": {
+              "field": "A2_2_traceability",
+              "type": "single_select",
+              "label": "Traceability to source",
+              "options": {
+                "fully traceable": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "partially traceable": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "not traceable": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "unknown / Not specified": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "trace_mechanisms": {
+              "field": "A2_2_trace_mechanisms",
+              "type": "multiselect",
+              "label": "Traceability mechanisms",
+              "options": {
+                "audit logs": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "data lineage tooling": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "source identifiers / metadata tags": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "case/record IDs": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "manual records": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0.5
+                },
+                "not in place": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              }
+            }
+          }
         }
-      }
+      },
+      "target_metric": "Impact_Likelihood_Control_Effectiveness"
     },
     "A2_3": {
       "text": "What safeguards exist to detect and handle corrupted, missing, or out-of-range data inputs?",
@@ -548,54 +750,57 @@
       ],
       "options": {
         "input validation": {
-          "label": "input validation",
+          "label": "",
           "Impact": 0,
           "Likelihood": -1,
           "Control_Effectiveness": 0
         },
         "range checking": {
-          "label": "range checking",
+          "label": "",
           "Impact": 0,
           "Likelihood": -1,
           "Control_Effectiveness": 0
         },
         "schema enforcement": {
-          "label": "schema enforcement",
+          "label": "",
           "Impact": 0,
           "Likelihood": -1,
           "Control_Effectiveness": 0
         },
         "fallback defaults": {
-          "label": "fallback defaults",
+          "label": "",
           "Impact": 0,
           "Likelihood": -0.5,
           "Control_Effectiveness": 0
         },
         "human review": {
-          "label": "human review",
+          "label": "",
           "Impact": 0,
           "Likelihood": -1.5,
           "Control_Effectiveness": 0
         },
         "data quality monitoring": {
-          "label": "data quality monitoring",
+          "label": "",
           "Impact": 0,
           "Likelihood": -1,
           "Control_Effectiveness": 0
         },
         "error alerts": {
-          "label": "error alerts",
+          "label": "",
           "Impact": 0,
           "Likelihood": -1,
           "Control_Effectiveness": 0
         },
         "no safeguards identified (flag as risk)": {
-          "label": "no safeguards identified (flag as risk)",
+          "label": "",
           "Impact": 0,
           "Likelihood": 3,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood",
+      "modifier_type": "mixed",
+      "scoring_notes": "Each safeguard option reduces likelihood. 'No safeguards identified' increases risk and should be flagged."
     },
     "A2_4": {
       "text": "What data does the AI solution use?",
@@ -606,42 +811,43 @@
       ],
       "options": {
         "government data": {
-          "label": "government data",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "open data": {
-          "label": "open data",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "synthetic data": {
-          "label": "synthetic data",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "personal information": {
-          "label": "personal information",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "sensitive information": {
-          "label": "sensitive information",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "internet data": {
-          "label": "internet data",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact"
     },
     "A2_5": {
       "text": "Rate the quality of the input data (1 = Very Low, 5 = Very High):",
@@ -650,7 +856,9 @@
         "Reliability and Safety",
         "Fairness"
       ],
-      "options": {}
+      "options": {},
+      "target_metric": "Likelihood",
+      "scoring_notes": "High quality (rating=5) lowers risk. Poor quality (rating=1) raises likelihood. DataQualityFactor ranges from +1 (perfect quality) to +5 (very poor quality)."
     },
     "A2_6": {
       "text": "What is the Business Impact Level (BIL) of the input data?",
@@ -660,42 +868,43 @@
       ],
       "options": {
         "official": {
-          "label": "official",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "official: Sensitive": {
-          "label": "official: Sensitive",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "protected": {
-          "label": "protected",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "highly Protected": {
-          "label": "highly Protected",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "secret": {
-          "label": "secret",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "top Secret": {
-          "label": "top Secret",
+          "label": "",
           "Impact": 5,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact"
     },
     "A2_7": {
       "text": "Does the solution use regulated or sensitive data?",
@@ -707,18 +916,21 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact and Likelihood",
+      "modifier_type": "dual",
+      "scoring_notes": "If Yes: base +2 Impact. Each selected regulated data type adds its Impact and Likelihood modifiers."
     },
     "A2_8": {
       "text": "Does the solution require user inputs to operate?",
@@ -730,18 +942,20 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood",
+      "scoring_notes": "Selecting YES does not add modifiers itself. Only when specific input types are selected does scoring occur."
     },
     "A3_1": {
       "text": "How does the system interface with humans?",
@@ -752,42 +966,43 @@
       ],
       "options": {
         "chat interface": {
-          "label": "chat interface",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "web application": {
-          "label": "web application",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "mobile application": {
-          "label": "mobile application",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "API integration": {
-          "label": "API integration",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "voice interface": {
-          "label": "voice interface",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "dashboard": {
-          "label": "dashboard",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood"
     },
     "A3_2": {
       "text": "What expertise is required to use the AI solution? (1 = Very Low, 5 = Very High):",
@@ -796,7 +1011,9 @@
         "Human-centred Values",
         "Accountability"
       ],
-      "options": {}
+      "options": {},
+      "target_metric": "Likelihood",
+      "scoring_notes": "High expertise required (rating=5) \u2192 +2. Medium (rating=3) \u2192 0. Low expertise required (rating=1) \u2192 -2. Lower expertise requirements reduce risk."
     },
     "A3_3": {
       "text": "Who will be impacted by the AI system?",
@@ -807,54 +1024,56 @@
       ],
       "options": {
         "Queensland Government employees": {
-          "label": "Queensland Government employees",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "general public": {
-          "label": "general public",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "vulnerable communities": {
-          "label": "vulnerable communities",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "children": {
-          "label": "children",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "elderly": {
-          "label": "elderly",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "people with disabilities": {
-          "label": "people with disabilities",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Indigenous peoples": {
-          "label": "Indigenous peoples",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "small businesses": {
-          "label": "small businesses",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact",
+      "scoring_notes": "Each selected group adds to Impact cumulatively."
     },
     "A3_4": {
       "text": "How will impacted parties be informed of AI use?",
@@ -864,54 +1083,56 @@
       ],
       "options": {
         "website notice": {
-          "label": "website notice",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "in-app notice": {
-          "label": "in-app notice",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "email communication": {
-          "label": "email communication",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "terms & Conditions": {
-          "label": "terms & Conditions",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0.5
         },
         "public-facing AI statement": {
-          "label": "public-facing AI statement",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "staff training": {
-          "label": "staff training",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "consent/acknowledgement": {
-          "label": "consent/acknowledgement",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "no planned notifications (flag as risk)": {
-          "label": "no planned notifications (flag as risk)",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "scoring_notes": "Each notification method adds to Control Effectiveness. 'No planned notifications' should be flagged as a risk."
     },
     "A3_5": {
       "text": "A3.5(a) What are the expected impacts of this AI solution on staff?",
@@ -921,7 +1142,9 @@
         "Human-centred Values",
         "Accountability"
       ],
-      "options": {}
+      "options": {},
+      "target_metric": "Impact",
+      "scoring_notes": "Part (a): Select all applicable staff impacts. Part (b): Rate overall severity. Final impact is base impact multiplied by severity."
     },
     "A3_6": {
       "text": "A3.6(a) How will each impacted group be affected?",
@@ -931,7 +1154,9 @@
         "Fairness",
         "Privacy Protection and Security"
       ],
-      "options": {}
+      "options": {},
+      "target_metric": "Impact",
+      "scoring_notes": "Part (a): Select all applicable group impacts. Part (b): Rate severity (1=Minor, 2=Moderate, 3=Major). Final impact is sum of modifiers multiplied by severity."
     },
     "A4_1": {
       "text": "What are the primary outputs of the AI system?",
@@ -941,48 +1166,49 @@
       ],
       "options": {
         "text responses": {
-          "label": "text responses",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0.5,
           "Control_Effectiveness": 0
         },
         "visual outputs": {
-          "label": "visual outputs",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "recommendations": {
-          "label": "recommendations",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1.5,
           "Control_Effectiveness": 0
         },
         "decisions": {
-          "label": "decisions",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "data analysis": {
-          "label": "data analysis",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": 0
         },
         "predictions": {
-          "label": "predictions",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1.5,
           "Control_Effectiveness": 0
         },
         "actions in systems": {
-          "label": "actions in systems",
+          "label": "",
           "Impact": 0,
           "Likelihood": 3,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood"
     },
     "A4_2": {
       "text": "Are outputs sent to external systems without human review?",
@@ -993,18 +1219,19 @@
       ],
       "options": {
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Likelihood"
     },
     "A4_3": {
       "text": "What is the Business Impact Level (BIL) of the outputs?",
@@ -1014,42 +1241,43 @@
       ],
       "options": {
         "official": {
-          "label": "official",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "official: Sensitive": {
-          "label": "official: Sensitive",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "protected": {
-          "label": "protected",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "highly Protected": {
-          "label": "highly Protected",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "secret": {
-          "label": "secret",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "top Secret": {
-          "label": "top Secret",
+          "label": "",
           "Impact": 5,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact"
     },
     "A4_4": {
       "text": "How are AI outputs tracked and recorded?",
@@ -1060,42 +1288,44 @@
       ],
       "options": {
         "stored in database": {
-          "label": "stored in database",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "logged in audit system": {
-          "label": "logged in audit system",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "logged in CRM/case system": {
-          "label": "logged in CRM/case system",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "logged in activity logs": {
-          "label": "logged in activity logs",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "retention based on policy": {
-          "label": "retention based on policy",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "not currently tracked (flag as risk)": {
-          "label": "not currently tracked (flag as risk)",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "scoring_notes": "Each tracking method adds to Control Effectiveness. 'Not currently tracked' should be flagged as a risk."
     },
     "A4_5": {
       "text": "Could any AI outputs allow unauthorised access to information?",
@@ -1106,36 +1336,39 @@
       ],
       "options": {
         "misrouted outputs": {
-          "label": "misrouted outputs",
+          "label": "",
           "Impact": 2,
           "Likelihood": 2,
           "Control_Effectiveness": 0
         },
         "excessive data exposure": {
-          "label": "excessive data exposure",
+          "label": "",
           "Impact": 3,
           "Likelihood": 3,
           "Control_Effectiveness": 0
         },
         "output reveals sensitive attributes": {
-          "label": "output reveals sensitive attributes",
+          "label": "",
           "Impact": 4,
           "Likelihood": 4,
           "Control_Effectiveness": 0
         },
         "outputs sent to incorrect system": {
-          "label": "outputs sent to incorrect system",
+          "label": "",
           "Impact": 3,
           "Likelihood": 3,
           "Control_Effectiveness": 0
         },
         "injection or poisoning risk": {
-          "label": "injection or poisoning risk",
+          "label": "",
           "Impact": 4,
           "Likelihood": 4,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact and Likelihood",
+      "modifier_type": "dual",
+      "scoring_notes": "Each selected risk applies both Impact and Likelihood modifiers. Risks are cumulative."
     },
     "A4_6": {
       "text": "Do outputs involve data regulated by law?",
@@ -1146,18 +1379,20 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact",
+      "scoring_notes": "If Yes: select applicable regulated data types. Each selected data type adds to Impact cumulatively."
     },
     "A4_7": {
       "text": "Do outputs contain personally identifiable information (PII)? If yes, who can access it?",
@@ -1169,18 +1404,169 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 2,
           "Likelihood": 1,
-          "Control_Effectiveness": 0
+          "Control_Effectiveness": 0,
+          "notes": "A4.7 is a Yes/No gate. If Yes, Impact and Likelihood increase based on PII sensitivity and access scope. Strong access controls improve Control Effectiveness.",
+          "subsections": {
+            "pii_types": {
+              "field": "A4_7_pii_types",
+              "type": "multiselect",
+              "label": "PII categories in outputs",
+              "options": {
+                "name / identity attributes": {
+                  "Impact": 1,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "contact details (email, phone, address)": {
+                  "Impact": 1,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "government identifiers (licence, Medicare, TFN)": {
+                  "Impact": 3,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "financial information": {
+                  "Impact": 3,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "health information": {
+                  "Impact": 4,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "biometrics": {
+                  "Impact": 4,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "location / movement data": {
+                  "Impact": 3,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "images / video of individuals": {
+                  "Impact": 3,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "employment / workplace information": {
+                  "Impact": 2,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "Other": {
+                  "Impact": 2,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "access_scope": {
+              "field": "A4_7_access_scope",
+              "type": "single_select",
+              "label": "Access scope",
+              "options": {
+                "internal users only": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "internal users + contractors / service providers": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "external partner organisations": {
+                  "Impact": 0,
+                  "Likelihood": 2,
+                  "Control_Effectiveness": 0
+                },
+                "public-facing / broadly accessible": {
+                  "Impact": 0,
+                  "Likelihood": 3,
+                  "Control_Effectiveness": 0
+                },
+                "unknown / Not specified": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "access_controls": {
+              "field": "A4_7_access_controls",
+              "type": "multiselect",
+              "label": "Access controls for PII outputs",
+              "options": {
+                "role-based access control (RBAC)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "least privilege / need-to-know": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "strong authentication (e.g., MFA)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "audit logging / access logs": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "encryption at rest": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "encryption in transit": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "data masking / redaction": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "dLP / egress controls": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "time-bound access / approval workflow": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "not in place / unknown": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Controls contribute to Control Effectiveness. If controls are 'Not in place / unknown', Likelihood increases."
+            }
+          }
         }
-      }
+      },
+      "target_metric": "Impact_Likelihood_Control_Effectiveness"
     },
     "A4_8": {
       "text": "Do any AI outputs directly trigger actions with legal or regulatory effect?",
@@ -1194,18 +1580,197 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 3,
           "Likelihood": 1,
-          "Control_Effectiveness": 0
+          "Control_Effectiveness": 0,
+          "notes": "A4.8 is a Yes/No gate. If Yes, Impact is elevated due to legal/regulatory consequences. Likelihood increases when actions are automated without human review, when review/appeal is absent, or when the legal basis is unclear. Traceability and contestability mechanisms improve Control Effectiveness.",
+          "subsections": {
+            "action_types": {
+              "field": "A4_8_action_types",
+              "type": "multiselect",
+              "label": "Action types",
+              "options": {
+                "eligibility / access decisions": {
+                  "Impact": 2,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "service entitlements / benefits decisions": {
+                  "Impact": 3,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "compliance enforcement actions": {
+                  "Impact": 4,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "penalties, sanctions, or fines": {
+                  "Impact": 5,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "regulatory reporting / notification triggers": {
+                  "Impact": 2,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "employment / workforce actions": {
+                  "Impact": 3,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "contractual decisions (approve/decline/terminate)": {
+                  "Impact": 3,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "safety-critical operational actions": {
+                  "Impact": 5,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "Other": {
+                  "Impact": 2,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "trigger_pathway": {
+              "field": "A4_8_trigger_pathway",
+              "type": "single_select",
+              "label": "How actions are triggered",
+              "options": {
+                "automatically triggered (no human review)": {
+                  "Impact": 1,
+                  "Likelihood": 3,
+                  "Control_Effectiveness": 0
+                },
+                "automatically triggered after human approval": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 1
+                },
+                "used as decision support (human makes final decision)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "unknown / Not specified": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "decision_records": {
+              "field": "A4_8_decision_records",
+              "type": "multiselect",
+              "label": "Decision records / traceability",
+              "options": {
+                "audit logs of outputs and decisions": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "case/record identifiers linking decision to person/event": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "human approval record captured": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "reason codes / explanation recorded": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "data lineage / provenance tracking": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "not in place / unknown": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "review_appeal": {
+              "field": "A4_8_review_appeal",
+              "type": "single_select",
+              "label": "Review/appeal pathway",
+              "options": {
+                "yes \u2014 documented and operational": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "partially \u2014 exists but not formalised": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "no": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "unknown / Not specified": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                }
+              }
+            },
+            "legal_basis": {
+              "field": "A4_8_legal_basis",
+              "type": "multiselect",
+              "label": "Legal/policy basis",
+              "options": {
+                "legislation / regulation explicitly authorising action": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "policy / procedure basis only": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "contractual terms": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "not defined / unclear": {
+                  "Impact": 0,
+                  "Likelihood": 2,
+                  "Control_Effectiveness": 0
+                },
+                "Other": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              }
+            }
+          }
         }
-      }
+      },
+      "target_metric": "Impact_Likelihood_Control_Effectiveness"
     },
     "A5_1": {
       "text": "Who is accountable for decisions made using this system?",
@@ -1215,48 +1780,50 @@
       ],
       "options": {
         "product owner": {
-          "label": "product owner",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "system owner": {
-          "label": "system owner",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "executive sponsor": {
-          "label": "executive sponsor",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "service manager": {
-          "label": "service manager",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "data custodian": {
-          "label": "data custodian",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "governance committee": {
-          "label": "governance committee",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 4
         },
         "AI oversight board": {
-          "label": "AI oversight board",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 4
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "scoring_notes": "Select the primary accountability role. Higher-level oversight provides stronger governance."
     },
     "A5_10": {
       "text": "Are there sector-specific frameworks, laws, or regulatory obligations that apply to this AI solution?",
@@ -1267,18 +1834,228 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": 0
+          "Control_Effectiveness": 0,
+          "subsections": {
+            "commonwealth": {
+              "field": "A5_10_commonwealth",
+              "type": "multiselect",
+              "label": "Commonwealth (Federal) Legislation",
+              "options": {
+                "Privacy Act 1988": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "Australian Privacy Principles (APPs)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "Notifiable Data Breaches (NDB) Scheme": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "Archives Act 1983": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "Freedom of Information Act 1982": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "Security of Critical Infrastructure Act (SOCI)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -3
+                },
+                "Criminal Code Act (cybercrime, identity, child exploitation provisions)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                }
+              }
+            },
+            "queensland": {
+              "field": "A5_10_qld",
+              "type": "multiselect",
+              "label": "Queensland State Legislation",
+              "options": {
+                "Information Privacy Act 2009 (Qld)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "Right to Information Act 2009": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "Public Records Act 2002": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "Child Protection Act": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -3
+                },
+                "Domestic and Family Violence Protection Act": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -3
+                },
+                "Youth Justice Act": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "Mental Health Act": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "Hospital and Health Boards Act (confidentiality obligations)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "Police Powers and Responsibilities Act": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                }
+              }
+            },
+            "sector": {
+              "field": "A5_10_sector",
+              "type": "multiselect",
+              "label": "Sector-Specific Regulatory Obligations",
+              "options": {
+                "Health information / clinical safety requirements": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "Law enforcement / justice sector requirements": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -3
+                },
+                "Education sector obligations": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "Transport or safety-critical operational standards": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "Financial or taxation regulatory requirements": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "Indigenous cultural data governance / data sovereignty": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -3
+                },
+                "Workplace surveillance obligations": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "Safety-of-life / emergency services obligations": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "Critical infrastructure operational safety requirements": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -3
+                }
+              }
+            },
+            "frameworks": {
+              "field": "A5_10_frameworks",
+              "type": "multiselect",
+              "label": "Frameworks, Standards, and Policies",
+              "options": {
+                "QGEA / IS18:2018 Information Security Policy": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "QLD Government AI Ethical Principles": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "QLD FAIRA Framework (this assessment)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0
+                },
+                "Australian Government AI Ethics Principles": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "ISO/IEC 42001 (AI Management System)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                },
+                "ISO/IEC 27001 / 27002 (Information Security Management)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "ISO/IEC 27701 (Privacy Information Management)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "ISO 31000 (Risk Management)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1
+                },
+                "NIST AI Risk Management Framework": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -2
+                }
+              }
+            },
+            "other": {
+              "field": "A5_10_other",
+              "type": "text",
+              "label": "Other regulations, obligations, or frameworks (optional)",
+              "options": {},
+              "notes": "Free-text field with default CE -1. Can be LLM-classified later for adjustment if needed."
+            }
+          }
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "modifier_type": "negative",
+      "scoring_notes": "Multi-part question. All modifiers only apply if 'Yes' is selected. Each subsection is cumulative. Strong controls from critical infrastructure, child protection, and law enforcement obligations."
     },
     "A5_11": {
       "text": "Where will this AI solution be deployed?",
@@ -1290,42 +2067,45 @@
       ],
       "options": {
         "internal use only": {
-          "label": "internal use only",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "internal + selected partners": {
-          "label": "internal + selected partners",
+          "label": "",
           "Impact": 0,
           "Likelihood": 1,
           "Control_Effectiveness": -1
         },
         "public-facing": {
-          "label": "public-facing",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": -1
         },
         "citizen-facing high-sensitivity": {
-          "label": "citizen-facing high-sensitivity",
+          "label": "",
           "Impact": 0,
           "Likelihood": 3,
           "Control_Effectiveness": -2
         },
         "embedded in another product": {
-          "label": "embedded in another product",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
           "Control_Effectiveness": -1
         },
         "multi-channel deployment": {
-          "label": "multi-channel deployment",
+          "label": "",
           "Impact": 0,
           "Likelihood": 3,
           "Control_Effectiveness": -2
         }
-      }
+      },
+      "target_metric": "Likelihood and Control_Effectiveness",
+      "modifier_type": "dual",
+      "scoring_notes": "Single select - only ONE deployment location applies. Wider deployment increases likelihood of risk exposure but also may come with better controls. Citizen-facing and multi-channel deployments have highest risk exposure but strongest control requirements."
     },
     "A5_2": {
       "text": "Are AI inputs, outputs, and/or decisions logged or recorded?",
@@ -1338,18 +2118,190 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 1,
           "Likelihood": 2,
-          "Control_Effectiveness": 0
+          "Control_Effectiveness": 0,
+          "notes": "Absence of logging reduces traceability and the ability to investigate outcomes; increases likelihood of undetected issues."
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": 1
+          "Control_Effectiveness": 1,
+          "notes": "A5.2 is a Yes/No gate. If Yes, traceability and governance assurance are strengthened. Specific selections adjust likelihood and control effectiveness based on auditability, retention, and access scope.",
+          "subsections": {
+            "logged_items": {
+              "field": "A5_2_logged_items",
+              "type": "multiselect",
+              "label": "What is logged/recorded",
+              "options": {
+                "AI inputs": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "AI outputs": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "human decisions informed by AI": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "automated actions triggered by AI": {
+                  "Impact": 0,
+                  "Likelihood": -0.5,
+                  "Control_Effectiveness": 1
+                },
+                "model version / configuration": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "data sources used / provenance": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "access to outputs / disclosures": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "Other": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0.5
+                }
+              },
+              "notes": "Logging more artefacts increases traceability and assurance value."
+            },
+            "logging_mechanisms": {
+              "field": "A5_2_logging_mechanisms",
+              "type": "multiselect",
+              "label": "Logging mechanisms",
+              "options": {
+                "application / system logs": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "dedicated audit logs": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "workflow / case management records": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "database records": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "centralised logging / siem": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "manual records": {
+                  "Impact": 0,
+                  "Likelihood": 0.5,
+                  "Control_Effectiveness": 0.5
+                },
+                "Other": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0.5
+                },
+                "not in place / unknown": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Dedicated audit logs and centralised logging improve control effectiveness; manual-only records increase likelihood of gaps."
+            },
+            "retention": {
+              "field": "A5_2_retention",
+              "type": "single_select",
+              "label": "Retention period",
+              "options": {
+                "less than 30 days": {
+                  "Impact": 0,
+                  "Likelihood": 2,
+                  "Control_Effectiveness": 0
+                },
+                "30\u201390 days": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0.5
+                },
+                "3\u201312 months": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "more than 12 months": {
+                  "Impact": 0,
+                  "Likelihood": -0.5,
+                  "Control_Effectiveness": 2
+                },
+                "unknown / not defined": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Short or unknown retention increases likelihood that evidence will be unavailable for investigation."
+            },
+            "access_scope": {
+              "field": "A5_2_access_scope",
+              "type": "single_select",
+              "label": "Access scope",
+              "options": {
+                "restricted operational staff only": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "security / risk / audit teams": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "system administrators": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "external auditors / regulators": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "broad internal access": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0.5
+                },
+                "unknown / not defined": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Appropriate restriction and audit access supports assurance; overly broad or unknown access increases likelihood of misuse."
+            }
+          }
         }
-      }
+      },
+      "target_metric": "Impact_Likelihood_Control_Effectiveness"
     },
     "A5_3": {
       "text": "What monitoring and evaluation processes are in place?",
@@ -1360,36 +2312,38 @@
       ],
       "options": {
         "regular system audits": {
-          "label": "regular system audits",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "continuous performance monitoring": {
-          "label": "continuous performance monitoring",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 4
         },
         "user feedback collection": {
-          "label": "user feedback collection",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "periodic stakeholder reviews": {
-          "label": "periodic stakeholder reviews",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "independent evaluation": {
-          "label": "independent evaluation",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 4
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "scoring_notes": "Each monitoring and evaluation process adds to Control Effectiveness. Multiple processes indicate comprehensive oversight."
     },
     "A5_4": {
       "text": "How frequently will monitoring and evaluation occur?",
@@ -1399,36 +2353,38 @@
       ],
       "options": {
         "weekly": {
-          "label": "weekly",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 4
         },
         "monthly": {
-          "label": "monthly",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "quarterly": {
-          "label": "quarterly",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "annually": {
-          "label": "annually",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "event-driven": {
-          "label": "event-driven",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "scoring_notes": "More frequent monitoring provides stronger control effectiveness."
     },
     "A5_5": {
       "text": "Has the AI solution been subject to independent review?",
@@ -1439,18 +2395,19 @@
       ],
       "options": {
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness"
     },
     "A5_6": {
       "text": "Who is responsible for monitoring and evaluation?",
@@ -1460,48 +2417,50 @@
       ],
       "options": {
         "ICT Ops": {
-          "label": "ICT Ops",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "data Science team": {
-          "label": "data Science team",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "risk/Compliance": {
-          "label": "risk/Compliance",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "business Owner": {
-          "label": "business Owner",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "vendor": {
-          "label": "vendor",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "customer-facing staff": {
-          "label": "customer-facing staff",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "external auditor": {
-          "label": "external auditor",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 4
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "scoring_notes": "Select the primary role responsible for monitoring and evaluation."
     },
     "A5_7": {
       "text": "How are stakeholders engaged in monitoring and evaluation?",
@@ -1512,48 +2471,49 @@
       ],
       "options": {
         "workshops": {
-          "label": "workshops",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "public consultation": {
-          "label": "public consultation",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "union consultation": {
-          "label": "union consultation",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "focus groups": {
-          "label": "focus groups",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "user feedback sessions": {
-          "label": "user feedback sessions",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "accessibility reviews": {
-          "label": "accessibility reviews",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "no engagements planned": {
-          "label": "no engagements planned",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness"
     },
     "A5_8": {
       "text": "How are undesirable or harmful results detected?",
@@ -1564,48 +2524,49 @@
       ],
       "options": {
         "alerting and monitoring": {
-          "label": "alerting and monitoring",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "user complaints": {
-          "label": "user complaints",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "human review triggers": {
-          "label": "human review triggers",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "automated anomaly detection": {
-          "label": "automated anomaly detection",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 4
         },
         "escalation procedures": {
-          "label": "escalation procedures",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "incident response team": {
-          "label": "incident response team",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 4
         },
         "no defined contingencies (flag as risk)": {
-          "label": "no defined contingencies (flag as risk)",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness"
     },
     "A5_9": {
       "text": "Which values and principles informed the AI solution's design?",
@@ -1616,54 +2577,55 @@
       ],
       "options": {
         "Australia's AI Ethics Principles": {
-          "label": "Australia's AI Ethics Principles",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "Human Rights Act": {
-          "label": "Human Rights Act",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "data governance policies": {
-          "label": "data governance policies",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "WHS": {
-          "label": "WHS",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "accessibility standards": {
-          "label": "accessibility standards",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "agency ethics statements": {
-          "label": "agency ethics statements",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "privacy principles": {
-          "label": "privacy principles",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         },
         "risk management framework": {
-          "label": "risk management framework",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 3
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness"
     },
     "B1_2": {
       "text": "What negative impacts could the AI system create?",
@@ -1673,66 +2635,68 @@
       ],
       "options": {
         "privacy risks": {
-          "label": "privacy risks",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "bias/discrimination": {
-          "label": "bias/discrimination",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "transparency issues": {
-          "label": "transparency issues",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "safety risks": {
-          "label": "safety risks",
+          "label": "",
           "Impact": 4,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "employment impacts": {
-          "label": "employment impacts",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "social harm": {
-          "label": "social harm",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "environmental impact": {
-          "label": "environmental impact",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "accessibility issues": {
-          "label": "accessibility issues",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "legal/regulatory risks": {
-          "label": "legal/regulatory risks",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "loss of trust": {
-          "label": "loss of trust",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact",
+      "scoring_notes": "Multiple selections are cumulative. Safety risks have the highest impact modifier."
     },
     "B1_3": {
       "text": "Could the AI system affect employee employment or job roles?",
@@ -1742,24 +2706,26 @@
       ],
       "options": {
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Unknown": {
-          "label": "Unknown",
+          "label": "",
           "Impact": 1,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact",
+      "scoring_notes": "Single select - only ONE option applies. 'Unknown' reflects uncertainty about employment impacts."
     },
     "B2_1": {
       "text": "Has a Human Rights Impact Assessment (HRIA) been completed?",
@@ -1769,18 +2735,20 @@
       ],
       "options": {
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "scoring_notes": "Completing an HRIA improves control effectiveness. Not completing one increases risk exposure."
     },
     "B2_2": {
       "text": "Rate the AI system's impact on the following dimensions:",
@@ -1788,7 +2756,9 @@
       "domains": [
         "Human-centred Values"
       ],
-      "options": {}
+      "options": {},
+      "target_metric": "Impact",
+      "scoring_notes": "Each category is rated independently. Only ONE rating per category applies. All three ratings are cumulative. Positive impacts reduce risk, negative impacts increase it significantly."
     },
     "B2_3": {
       "text": "Were diverse perspectives included in the AI system's design and development?",
@@ -1798,18 +2768,20 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": -2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact",
+      "scoring_notes": "Two-part question. If 'No', Impact +2. If 'Yes', Impact -2 PLUS each selected perspective adds -0.5. 'Other' option available but has no additional score modifier."
     },
     "B3_1": {
       "text": "Has bias testing been conducted on the AI system?",
@@ -1819,18 +2791,20 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": -2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact",
+      "scoring_notes": "Two-part question. If 'No', Impact +2. If 'Yes', Impact -2 PLUS each selected testing method adds -1. 'Informal or ad-hoc checks only' should be flagged as a risk despite the -1 modifier, as it indicates lack of formal testing."
     },
     "B3_2": {
       "text": "Could the AI system discriminate against specific groups?",
@@ -1840,24 +2814,26 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Unknown": {
-          "label": "Unknown",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 3,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact",
+      "scoring_notes": "Three-option question. If 'No', Impact 0. If 'Unknown', Impact +2 only. If 'Yes', Impact +3 PLUS each selected group adds +1. This identifies potential discrimination risks."
     },
     "B4_1": {
       "text": "Has a Privacy Impact Assessment (PIA) been completed?",
@@ -1867,18 +2843,21 @@
       ],
       "options": {
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "modifier_type": "mixed",
+      "scoring_notes": "Completing a PIA improves control effectiveness. Not completing one increases risk exposure."
     },
     "B4_2": {
       "text": "Does the AI system use personal information?",
@@ -1888,18 +2867,20 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 2,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact",
+      "scoring_notes": "Two-part question. If 'No', Impact 0. If 'Yes', Impact +2 PLUS each selected PI type adds its modifier. Health, Financial, and Biometric data carry highest impact."
     },
     "B4_3": {
       "text": "What security measures are in place to protect personal information?",
@@ -1909,36 +2890,39 @@
       ],
       "options": {
         "access controls": {
-          "label": "access controls",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "encryption": {
-          "label": "encryption",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "security testing": {
-          "label": "security testing",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "data anonymisation": {
-          "label": "data anonymisation",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "privacy-enhancing technologies": {
-          "label": "privacy-enhancing technologies",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "modifier_type": "positive",
+      "scoring_notes": "Multiple selections are cumulative. Each security measure improves control effectiveness."
     },
     "B5_1": {
       "text": "Has the system been tested for reliability?",
@@ -1948,18 +2932,21 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "modifier_type": "negative",
+      "scoring_notes": "Two-part question. If 'No', CE 0 only. If 'Yes', CE 0 but unlocks rating scale (1-5). Rating reflects robustness of testing: 1 = Minimal/ad hoc, 5 = Comprehensive/formal. Higher ratings improve control effectiveness more."
     },
     "B5_2": {
       "text": "Is there a process to disengage the system if issues arise?",
@@ -1969,18 +2956,21 @@
       ],
       "options": {
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness",
+      "modifier_type": "mixed",
+      "scoring_notes": "Having a disengagement mechanism improves control effectiveness. Lacking one increases risk exposure."
     },
     "B5_3": {
       "text": "Does the AI system operate in a high-risk environment?",
@@ -1990,18 +2980,21 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         }
-      }
+      },
+      "target_metric": "Impact and Likelihood",
+      "modifier_type": "dual",
+      "scoring_notes": "Two-part question with dual metrics. If 'No', Impact 0 and Likelihood 0 only. If 'Yes', unlocks environment options. Each selected environment applies both Impact and Likelihood modifiers. Democratic processes carry the highest impact."
     },
     "B6_1": {
       "text": "How transparent is the AI solution's operation? (1 = Very Low, 5 = Very High)",
@@ -2009,7 +3002,10 @@
       "domains": [
         "Transparency and Explainability"
       ],
-      "options": {}
+      "options": {},
+      "target_metric": "Control_Effectiveness",
+      "modifier_type": "negative",
+      "scoring_notes": "Rating scale 1-5. Higher transparency improves control effectiveness. Rating 1 (Very Low) has no effect, Rating 5 (Very High) provides strongest control benefit."
     },
     "B6_2": {
       "text": "Can the system explain its outputs or decisions? (1 = Very Low, 5 = Very High)",
@@ -2017,7 +3013,10 @@
       "domains": [
         "Transparency and Explainability"
       ],
-      "options": {}
+      "options": {},
+      "target_metric": "Control_Effectiveness",
+      "modifier_type": "negative",
+      "scoring_notes": "Rating scale 1-5. Higher explainability improves control effectiveness. Rating 1 (Very Low) has no effect, Rating 5 (Very High) provides strongest control benefit."
     },
     "B6_3": {
       "text": "Are users and/or affected individuals informed that AI is being used?",
@@ -2027,18 +3026,191 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
-          "Control_Effectiveness": 0
+          "Control_Effectiveness": 0,
+          "notes": "No disclosure increases the likelihood of misunderstanding, inappropriate reliance, and complaints/escalations."
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": -1
+          "Control_Effectiveness": -1,
+          "notes": "B6.3 is a Yes/No gate. If Yes, transparency improves (negative CE). Specific disclosure quality affects both CE and Likelihood.",
+          "subsections": {
+            "audience": {
+              "field": "B6_3_audience",
+              "type": "multiselect",
+              "label": "Who is informed",
+              "options": {
+                "direct users/operators": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "affected individuals (e.g., customers/citizens)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1.0
+                },
+                "internal decision-makers/managers": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "regulators/oversight bodies (where applicable)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "not specified / unclear": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Informing affected individuals provides the strongest transparency benefit."
+            },
+            "methods": {
+              "field": "B6_3_methods",
+              "type": "multiselect",
+              "label": "How they are informed",
+              "options": {
+                "in-application/on-screen notice": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "at point-of-service disclosure (staff script/verbal)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "privacy notice / collection notice": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "terms & conditions / policy document": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "signage (physical environment)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "email/sms notification": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "website disclosure": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "API / technical documentation": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "Other": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                }
+              },
+              "notes": "Direct and contextual disclosures provide stronger transparency benefit than passive policy-only disclosures."
+            },
+            "timing": {
+              "field": "B6_3_timing",
+              "type": "single_select",
+              "label": "When they are informed",
+              "options": {
+                "before interaction/use": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "at the point outputs are presented/used": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "after the outcome/decision": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "only on request": {
+                  "Impact": 0,
+                  "Likelihood": 0.5,
+                  "Control_Effectiveness": -0.25
+                },
+                "unknown / not specified": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Earlier disclosure improves transparency; after-the-fact disclosure increases likelihood of dissatisfaction and disputes."
+            },
+            "information_provided": {
+              "field": "B6_3_information_provided",
+              "type": "multiselect",
+              "label": "What information is provided",
+              "options": {
+                "that AI is used": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "purpose of the AI system": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "what the AI outputs are used for": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "limitations/uncertainty of outputs": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "human oversight involvement": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "how to request an explanation": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "how to challenge/seek review": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.75
+                },
+                "not specified / unclear": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Providing limitations and contest/review pathways materially improves transparency outcomes."
+            }
+          }
         }
-      }
+      },
+      "target_metric": "Likelihood and Control_Effectiveness",
+      "modifier_type": "dual"
     },
     "B6_4": {
       "text": "Can meaningful explanations of AI-supported outcomes be provided to users and/or affected individuals?",
@@ -2048,18 +3220,242 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 2,
-          "Control_Effectiveness": 0
+          "Control_Effectiveness": 0,
+          "notes": "If meaningful explanations are not available, there is an increased likelihood of misunderstanding, inappropriate reliance, and disputes."
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": -1
+          "Control_Effectiveness": -1,
+          "notes": "B6.4 is a Yes/No gate. If Yes, explainability improves (negative CE). The quality, timing, and accessibility of explanations influences both CE and Likelihood.",
+          "subsections": {
+            "audience": {
+              "field": "B6_4_audience",
+              "type": "multiselect",
+              "label": "Who can receive explanations",
+              "options": {
+                "direct users/operators": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "affected individuals (e.g., customers/citizens)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -1.0
+                },
+                "internal decision-makers/managers": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "regulators/oversight bodies (where applicable)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "not specified / unclear": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Providing explanations to affected individuals provides the strongest explainability benefit."
+            },
+            "explanation_methods": {
+              "field": "B6_4_explanation_methods",
+              "type": "multiselect",
+              "label": "How explanations are provided",
+              "options": {
+                "on-screen explanation at decision/output point": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.75
+                },
+                "reason codes / factors list": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "case notes / decision record": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "help article / FAQ / knowledge base": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "support channel (phone/email) explanation": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "formal written explanation on request": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "technical documentation only": {
+                  "Impact": 0,
+                  "Likelihood": 0.5,
+                  "Control_Effectiveness": -0.1
+                },
+                "Other": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                }
+              },
+              "notes": "Contextual explanations at the point of output provide stronger explainability than passive documentation-only approaches."
+            },
+            "timing": {
+              "field": "B6_4_timing",
+              "type": "single_select",
+              "label": "When explanations are available",
+              "options": {
+                "before interaction/use (pre-emptive explanation)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "at the point outputs are presented/used": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.75
+                },
+                "after the outcome/decision (on request)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "only during a formal review/appeal process": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "unknown / not specified": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Earlier and point-of-output explainability improves transparency; deferring to formal review increases likelihood of friction and disputes."
+            },
+            "explanation_content": {
+              "field": "B6_4_explanation_content",
+              "type": "multiselect",
+              "label": "What explanations include",
+              "options": {
+                "purpose of the AI system": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "what inputs influenced the outcome": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "key factors/attributes driving the outcome": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.75
+                },
+                "confidence/uncertainty indicators": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "human oversight involvement": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "how to request further explanation": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "how to challenge/seek review": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "not specified / unclear": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Including key factors and uncertainty indicators materially improves explainability quality."
+            },
+            "accessibility": {
+              "field": "B6_4_accessibility",
+              "type": "single_select",
+              "label": "Accessibility to non-technical audiences",
+              "options": {
+                "plain language (non-technical, easy to understand)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "somewhat technical (requires guidance)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "highly technical (specialist interpretation required)": {
+                  "Impact": 0,
+                  "Likelihood": 0.5,
+                  "Control_Effectiveness": 0
+                },
+                "unknown / not specified": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Plain language explanations reduce misunderstanding and support effective challenge/review pathways."
+            },
+            "limitations_disclosed": {
+              "field": "B6_4_limitations_disclosed",
+              "type": "single_select",
+              "label": "Limitations/uncertainty communicated",
+              "options": {
+                "yes \u2014 clearly communicated": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.5
+                },
+                "partially \u2014 mentioned but not consistently": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": -0.25
+                },
+                "no": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                },
+                "unknown / not specified": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Communicating limitations supports appropriate reliance and reduces likelihood of harm from misinterpretation."
+            }
+          }
         }
-      }
+      },
+      "target_metric": "Likelihood and Control_Effectiveness",
+      "modifier_type": "dual"
     },
     "B7_1": {
       "text": "Is there a defined process for challenging or reviewing AI-supported outcomes?",
@@ -2069,18 +3465,229 @@
       ],
       "options": {
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 3,
-          "Control_Effectiveness": 0
+          "Control_Effectiveness": 0,
+          "notes": "Absence of a defined contestability process increases the likelihood of unaddressed errors, disputes, and loss of trust."
         },
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": 1
+          "Control_Effectiveness": 1,
+          "notes": "B7.1 is a Yes/No gate. If Yes, contestability improves. The strength of contestability depends on who can initiate review, how it is triggered, what evidence supports it, and whether outcomes can be changed.",
+          "subsections": {
+            "initiators": {
+              "field": "B7_1_initiators",
+              "type": "multiselect",
+              "label": "Who can initiate a challenge or review",
+              "options": {
+                "affected individuals (e.g., customers/citizens)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "internal users/operators": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "supervisors/managers": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "oversight body / governance committee": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "regulators / external oversight (where applicable)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "third party / advocate": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0.5
+                },
+                "not specified / unclear": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Allowing affected individuals to initiate review provides the strongest contestability signal."
+            },
+            "channels": {
+              "field": "B7_1_channels",
+              "type": "multiselect",
+              "label": "How a challenge or review can be initiated",
+              "options": {
+                "formal appeal process": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "service desk / support request": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "case management / ticketing workflow": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "manager escalation pathway": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "in-application review/request feature": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1.5
+                },
+                "written request (email/letter)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0.5
+                },
+                "not defined": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Formalised and trackable channels improve contestability and auditability."
+            },
+            "review_process": {
+              "field": "B7_1_review_process",
+              "type": "multiselect",
+              "label": "Review process available",
+              "options": {
+                "human review of the decision/outcome": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "second-person review (peer/supervisor)": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1.5
+                },
+                "manual override available": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "re-run / reassessment with updated information": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "independent review function": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 2
+                },
+                "only explanation provided (no review)": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0.25
+                },
+                "not specified / unclear": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "A meaningful review process requires human review and the ability to intervene."
+            },
+            "review_inputs": {
+              "field": "B7_1_review_inputs",
+              "type": "multiselect",
+              "label": "Information supporting review",
+              "options": {
+                "decision record / case notes": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "AI outputs / scores": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 0.5
+                },
+                "reason codes / explanation": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "input data used": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "model version / configuration recorded": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "human approval record captured": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "audit logs available": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "none / not available": {
+                  "Impact": 0,
+                  "Likelihood": 2,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Review inputs improve the ability to investigate and correct outcomes."
+            },
+            "outcome_change": {
+              "field": "B7_1_outcome_change",
+              "type": "single_select",
+              "label": "Can outcomes be changed following review?",
+              "options": {
+                "yes \u2014 decision can be reversed or amended": {
+                  "Impact": 0,
+                  "Likelihood": -0.5,
+                  "Control_Effectiveness": 2
+                },
+                "partially \u2014 decision can be adjusted": {
+                  "Impact": 0,
+                  "Likelihood": 0,
+                  "Control_Effectiveness": 1
+                },
+                "no \u2014 decision cannot be changed": {
+                  "Impact": 0,
+                  "Likelihood": 2,
+                  "Control_Effectiveness": 0
+                },
+                "unknown / not specified": {
+                  "Impact": 0,
+                  "Likelihood": 1,
+                  "Control_Effectiveness": 0
+                }
+              },
+              "notes": "Contestability is materially weaker if outcomes cannot be changed."
+            }
+          }
         }
-      }
+      },
+      "target_metric": "Likelihood and Control_Effectiveness",
+      "modifier_type": "dual"
     },
     "B7_2": {
       "text": "How quickly can decisions be challenged or reviewed?",
@@ -2090,42 +3697,43 @@
       ],
       "options": {
         "immediately": {
-          "label": "immediately",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "within hours": {
-          "label": "within hours",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 1
         },
         "within days": {
-          "label": "within days",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 0
         },
         "within weeks": {
-          "label": "within weeks",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": -1
         },
         "longer than weeks": {
-          "label": "longer than weeks",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": -2
         },
         "Unknown": {
-          "label": "Unknown",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": -1
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness"
     },
     "B8_2": {
       "text": "Have roles and responsibilities for AI governance been established?",
@@ -2135,18 +3743,19 @@
       ],
       "options": {
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": -2
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness"
     },
     "B8_3": {
       "text": "Have staff been trained on AI governance and ethical use?",
@@ -2156,18 +3765,19 @@
       ],
       "options": {
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": -2
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness"
     },
     "B8_4": {
       "text": "Are there safeguards against overreliance on AI outputs?",
@@ -2177,18 +3787,19 @@
       ],
       "options": {
         "Yes": {
-          "label": "Yes",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": 2
         },
         "No": {
-          "label": "No",
+          "label": "",
           "Impact": 0,
           "Likelihood": 0,
           "Control_Effectiveness": -2
         }
-      }
+      },
+      "target_metric": "Control_Effectiveness"
     }
   }
 }
