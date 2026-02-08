@@ -552,27 +552,10 @@ function FairaResultsPage() {
   const domainLikelihoodData = radarChartData?.domainLikelihood || getDefaultChartData();
   const domainControlEffectivenessData = radarChartData?.domainControlEffectiveness || getDefaultChartData();
   const domainRiskData = radarChartData?.domainRisk || getDefaultChartData();
+  const domainInherentRiskData = radarChartData?.domainInherentRisk || getDefaultChartData();
   
   // State for Domain Risk view toggle (Inherent vs Residual)
   const [riskViewType, setRiskViewType] = useState('residual');
-  
-  // Calculate Inherent Risk data (Impact × Likelihood, without CE division)
-  const domainInherentRiskData = React.useMemo(() => {
-    return fairadomains.map(domain => {
-      const impactData = domainImpactData.find(d => d.domain === domain.shortLabel);
-      const likelihoodData = domainLikelihoodData.find(d => d.domain === domain.shortLabel);
-      const impact = impactData?.score || 0;
-      const likelihood = likelihoodData?.score || 0;
-      // Inherent Risk = (Impact × Likelihood) / 100 to normalize to 0-100
-      const inherentRisk = Math.min(100, (impact * likelihood) / 100);
-      return {
-        domain: domain.shortLabel,
-        fullName: domain.fullName,
-        score: Math.round(inherentRisk * 10) / 10,
-        fullMark: 100
-      };
-    });
-  }, [domainImpactData, domainLikelihoodData, fairadomains]);
 
   // Chart configurations for the 4 radar charts
   const radarCharts = [
