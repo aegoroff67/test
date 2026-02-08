@@ -745,64 +745,78 @@ def calculate_overall_risk(form_data: Dict) -> Dict[str, Any]:
 
 def calculate_domain_scores(form_data: Dict) -> Dict[str, Dict[str, float]]:
     """
-    Calculate domain-level scores for radar charts.
+    Calculate normalized domain-level scores for radar charts.
     
-    Domain_Impact(D) = Σ(Impact modifiers from questions mapped to domain D)
-    Domain_Likelihood(D) = Σ(Likelihood modifiers from questions mapped to domain D)
-    Domain_CE_Raw = Σ(CE modifiers mapped to domain)
-    Domain_CE_Display = clamp((Domain_CE_Raw / DOMAIN_CE_TARGET) × 100, 0, 100)
-    Domain_Risk(D) = (Domain_Impact × Domain_Likelihood) / Domain_CE
+    All metrics are normalized to 0-100 index scale using theoretical maximums:
+    - Impact Index = (Raw_Impact / Max_Impact) × 100
+    - Likelihood Index = (Raw_Likelihood / Max_Likelihood) × 100
+    - CE Index = (Raw_CE / Max_CE) × 100
+    - Inherent Risk = (Impact Index × Likelihood Index) / 100
+    - Residual Risk = Inherent Risk × (1 - CE Index / 100)
     """
     schema = load_scoring_schema()
     questions = schema.get("questions", {})
     
-    # Initialize domain totals (no baseline for CE - just sum of modifiers)
-    domain_totals = {}
+    # Initialize domain totals with raw values
+    domain_raw = {}
     for domain_info in FAIRA_DOMAINS:
         short_label = domain_info["shortLabel"]
-        domain_totals[short_label] = {
-            "Impact": 0.0,
-            "Likelihood": 0.0,
-            "Control_Effectiveness": 0.0,  # No baseline - just raw modifiers
+        domain_raw[short_label] = {
+            "raw_impact": 0.0,
+            "raw_likelihood": 0.0,
+            "raw_ce": 0.0,
         }
     
-    # Process each question
+    # Process each question and accumulate raw scores
     for question_id, question_config in questions.items():
         try:
             question_scores = calculate_question_scores(question_config, form_data)
             
             for domain, scores in question_scores.items():
-                if domain in domain_totals:
-                    domain_totals[domain]["Impact"] += scores.get("Impact", 0)
-                    domain_totals[domain]["Likelihood"] += scores.get("Likelihood", 0)
-                    domain_totals[domain]["Control_Effectiveness"] += scores.get("Control_Effectiveness", 0)
+                if domain in domain_raw:
+                    domain_raw[domain]["raw_impact"] += scores.get("Impact", 0)
+                    domain_raw[domain]["raw_likelihood"] += scores.get("Likelihood", 0)
+                    domain_raw[domain]["raw_ce"] += scores.get("Control_Effectiveness", 0)
         except Exception as e:
             logger.warning(f"Error processing question {question_id}: {e}")
     
-    # Calculate Risk for each domain and normalize for display
-    for domain, scores in domain_totals.items():
-        impact = max(scores["Impact"], 0.1)
-        likelihood = max(scores["Likelihood"], 0.1)
+    # Calculate normalized scores for each domain
+    domain_totals = {}
+    for domain_info in FAIRA_DOMAINS:
+        short_label = domain_info["shortLabel"]
+        full_name = DOMAIN_SHORT_TO_FULL.get(short_label, short_label)
+        norms = DOMAIN_NORMALIZATION.get(full_name, {"maxImpact": 100, "maxLikelihood": 100, "maxCE": 100})
         
-        # Store raw CE for risk calculation (use minimum of 1 to avoid division by zero)
-        raw_ce = scores["Control_Effectiveness"]
-        ce_for_risk = max(raw_ce, 1.0)
+        raw = domain_raw[short_label]
+        raw_impact = max(raw["raw_impact"], 0)
+        raw_likelihood = max(raw["raw_likelihood"], 0)
+        raw_ce = max(raw["raw_ce"], 0)
         
-        # Raw domain risk
-        raw_risk = (impact * likelihood) / ce_for_risk
+        # Normalize to 0-100 index
+        impact_index = min(100, (raw_impact / norms["maxImpact"]) * 100) if norms["maxImpact"] > 0 else 0
+        likelihood_index = min(100, (raw_likelihood / norms["maxLikelihood"]) * 100) if norms["maxLikelihood"] > 0 else 0
+        ce_index = min(100, (raw_ce / norms["maxCE"]) * 100) if norms["maxCE"] > 0 else 0
         
-        # Normalize risk to 0-100
-        normalized_risk = min(100, (raw_risk / MAX_EXPECTED_RAW_RISK) * 100)
+        # Calculate risk indices
+        inherent_risk = (impact_index * likelihood_index) / 100
         
-        scores["Risk"] = round(normalized_risk, 1)
+        # Residual risk: inherent risk reduced by control effectiveness
+        # If CE is 100%, residual risk = 0. If CE is 0%, residual risk = inherent risk
+        ce_reduction_factor = ce_index / 100
+        residual_risk = inherent_risk * (1 - ce_reduction_factor)
         
-        # Normalize Impact and Likelihood to 0-100 for display
-        scores["Impact"] = max(0, min(round(scores["Impact"] * 5, 1), 100))
-        scores["Likelihood"] = max(0, min(round(scores["Likelihood"] * 5, 1), 100))
-        
-        # Domain CE Display = clamp((Domain_CE_Raw / DOMAIN_CE_TARGET) × 100, 0, 100)
-        domain_ce_display = (raw_ce / DOMAIN_CE_TARGET) * 100
-        scores["Control_Effectiveness"] = max(0, min(round(domain_ce_display, 1), 100))
+        domain_totals[short_label] = {
+            # Normalized indices (0-100)
+            "Impact": round(impact_index, 1),
+            "Likelihood": round(likelihood_index, 1),
+            "Control_Effectiveness": round(ce_index, 1),
+            "InherentRisk": round(inherent_risk, 1),
+            "Risk": round(residual_risk, 1),  # Residual risk for backward compatibility
+            # Raw values for reference
+            "raw_impact": round(raw_impact, 2),
+            "raw_likelihood": round(raw_likelihood, 2),
+            "raw_ce": round(raw_ce, 2),
+        }
     
     return domain_totals
 
