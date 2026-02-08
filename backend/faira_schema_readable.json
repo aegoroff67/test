@@ -1772,13 +1772,13 @@
           "label": "Yes",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": -2
+          "Control_Effectiveness": 2
         },
         "No": {
           "label": "No",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": 1
+          "Control_Effectiveness": 0
         }
       }
     },
@@ -1870,13 +1870,13 @@
           "label": "Yes",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": -2
+          "Control_Effectiveness": 2
         },
         "No": {
           "label": "No",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": 2
+          "Control_Effectiveness": 0
         }
       }
     },
@@ -1972,13 +1972,13 @@
           "label": "Yes",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": -2
+          "Control_Effectiveness": 2
         },
         "No": {
           "label": "No",
           "Impact": 0,
           "Likelihood": 0,
-          "Control_Effectiveness": 2
+          "Control_Effectiveness": 0
         }
       }
     },
