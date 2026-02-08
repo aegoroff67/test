@@ -114,7 +114,8 @@ class AMReportGenerator:
         """Initialize the report generator."""
         self.use_test_template = use_test_template
         self.use_smart_priority = use_smart_priority
-        self.assessment_type = assessment_type
+        # Normalize assessment_type to Title case for consistent matching
+        self.assessment_type = assessment_type.title() if assessment_type else "System"
         # For test template, default to smart priority unless explicitly set to False
         if use_test_template and not use_smart_priority:
             self.use_smart_priority = True
