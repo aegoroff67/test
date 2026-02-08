@@ -65,7 +65,7 @@ BASELINE_CE = 5.0
 DOMAIN_CE_TARGET = 25.0
 
 # Normalization constant for risk score
-MAX_EXPECTED_RAW_RISK = 120.0
+MAX_EXPECTED_RAW_RISK = 700.0
 
 # Domain normalization factors (theoretical maximums from schema analysis)
 DOMAIN_NORMALIZATION = {
