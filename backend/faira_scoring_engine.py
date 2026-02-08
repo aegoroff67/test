@@ -980,7 +980,6 @@ def evaluate_rule_condition(rule: Dict, form_data: Dict, risk_summary: Dict, dom
     
     elif condition_type == "overall_threshold":
         # Check overall risk level
-        metric = condition.get("metric", "overall_residual_risk_level")
         operator = condition.get("operator", ">=")
         threshold_value = condition.get("value", "High")
         
