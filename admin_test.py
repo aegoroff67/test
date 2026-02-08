@@ -8,7 +8,7 @@ import secrets
 import string
 
 class AdminAPITester:
-    def __init__(self, base_url="https://aiassess-portal.preview.emergentagent.com"):
+    def __init__(self, base_url="https://risk-report-gen-1.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.super_admin_token = None
@@ -596,7 +596,7 @@ def main():
         base_url = sys.argv[1]
     else:
         # Use the URL from frontend/.env
-        base_url = "https://aiassess-portal.preview.emergentagent.com"
+        base_url = "https://risk-report-gen-1.preview.emergentagent.com"
     
     tester = AdminAPITester(base_url)
     success = tester.run_all_tests()
