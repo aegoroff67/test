@@ -67,6 +67,30 @@ DOMAIN_CE_TARGET = 25.0
 # Normalization constant for risk score
 MAX_EXPECTED_RAW_RISK = 120.0
 
+# Domain normalization factors (theoretical maximums from schema analysis)
+DOMAIN_NORMALIZATION = {
+    "Accountability": {"maxImpact": 122.00, "maxLikelihood": 86.75, "maxCE": 95.50},
+    "Contestability": {"maxImpact": 34.00, "maxLikelihood": 35.75, "maxCE": 71.25},
+    "Fairness": {"maxImpact": 133.00, "maxLikelihood": 22.00, "maxCE": 23.50},
+    "Human, Societal and Environmental Wellbeing": {"maxImpact": 116.00, "maxLikelihood": 18.50, "maxCE": 18.00},
+    "Human-centred Values": {"maxImpact": 35.00, "maxLikelihood": 13.00, "maxCE": 25.00},
+    "Privacy Protection and Security": {"maxImpact": 170.00, "maxLikelihood": 100.50, "maxCE": 62.50},
+    "Reliability and Safety": {"maxImpact": 112.00, "maxLikelihood": 125.50, "maxCE": 59.00},
+    "Transparency and Explainability": {"maxImpact": 62.00, "maxLikelihood": 57.50, "maxCE": 102.85},
+}
+
+# Map short labels to full domain names for normalization lookup
+DOMAIN_SHORT_TO_FULL = {
+    "Accountability": "Accountability",
+    "Contestability": "Contestability", 
+    "Fairness": "Fairness",
+    "Wellbeing": "Human, Societal and Environmental Wellbeing",
+    "Values": "Human-centred Values",
+    "Privacy": "Privacy Protection and Security",
+    "Reliability": "Reliability and Safety",
+    "Transparency": "Transparency and Explainability",
+}
+
 # Risk Rating Bands
 RISK_BANDS = {
     "Very Low": (0, 20),
