@@ -2285,7 +2285,7 @@ async def delete_assessment(
     if current_user.role == "SUPER_ADMIN":
         assessment = await db.assessments.find_one({"id": assessment_id})
     else:
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
@@ -2304,7 +2304,7 @@ async def get_assessment(assessment_id: str, current_user: UserResponse = Depend
     if current_user.role == "SUPER_ADMIN":
         assessment = await db.assessments.find_one({"id": assessment_id})
     else:
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
@@ -2343,7 +2343,7 @@ async def update_system_info(
     current_user: UserResponse = Depends(get_current_user)
 ):
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -2385,7 +2385,7 @@ async def update_org_info(
     current_user: UserResponse = Depends(get_current_user)
 ):
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -2427,7 +2427,7 @@ async def update_readiness_info(
     current_user: UserResponse = Depends(get_current_user)
 ):
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -2469,7 +2469,7 @@ async def update_awareness_info(
     current_user: UserResponse = Depends(get_current_user)
 ):
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -2612,7 +2612,7 @@ async def update_faira_form(
 ):
     """Update FAIRA assessment form data"""
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -2908,7 +2908,7 @@ async def get_faira_scores(
     if current_user.role == "SUPER_ADMIN":
         assessment = await db.assessments.find_one({"id": assessment_id})
     else:
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
@@ -2947,7 +2947,7 @@ async def get_faira_controls(
     if current_user.role == "SUPER_ADMIN":
         assessment = await db.assessments.find_one({"id": assessment_id})
     else:
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
@@ -3053,7 +3053,7 @@ async def update_organisation_info(
     current_user: UserResponse = Depends(get_current_user)
 ):
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -3088,7 +3088,7 @@ async def submit_answer(
     current_user: UserResponse = Depends(get_current_user)
 ):
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -3157,7 +3157,7 @@ async def submit_answer(
 @api_router.get("/assessments/{assessment_id}/questions")
 async def get_assessment_questions(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -3362,7 +3362,7 @@ async def get_first_pending_question(assessment_id: str, current_user: UserRespo
     """Get the first question with a pending review answer"""
     # Verify assessment belongs to user's organization (or is Super Admin)
     if current_user.role != Role.SUPER_ADMIN.value:
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        assessment = await get_assessment_with_admin_check(assessment_id, current_user)
         if not assessment:
             raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -4160,7 +4160,7 @@ async def get_system_action_steps(sector: str):
 @api_router.get("/assessments/{assessment_id}/status")
 async def get_assessment_status(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
@@ -5390,7 +5390,7 @@ async def generate_executive_summary_pdf(
             logger.info("Playwright browser installed successfully")
         
         # Verify assessment belongs to user's organization
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        assessment = await get_assessment_with_admin_check(assessment_id, current_user)
         if not assessment:
             raise HTTPException(status_code=404, detail="Assessment not found")
         
@@ -5621,7 +5621,7 @@ async def generate_faira_results_pdf(
             logger.info("Playwright browser installed successfully")
         
         # Verify assessment belongs to user's organization and is a FAIRA assessment
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        assessment = await get_assessment_with_admin_check(assessment_id, current_user)
         if not assessment:
             raise HTTPException(status_code=404, detail="Assessment not found")
         
@@ -5868,7 +5868,7 @@ async def generate_framework_coverage_pdf(
             logger.info("Playwright browser installed successfully")
         
         # Verify assessment belongs to user's organization
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        assessment = await get_assessment_with_admin_check(assessment_id, current_user)
         if not assessment:
             raise HTTPException(status_code=404, detail="Assessment not found")
         
@@ -6053,7 +6053,7 @@ async def generate_framework_coverage_pdf(
 @api_router.post("/assessments/{assessment_id}/submit")
 async def submit_assessment(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
     # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
