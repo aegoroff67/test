@@ -3378,8 +3378,8 @@ async def get_first_pending_question(assessment_id: str, current_user: UserRespo
 
 @api_router.get("/assessments/{assessment_id}/summary")
 async def get_assessment_summary(assessment_id: str, current_user: UserResponse = Depends(get_current_user)):
-    # Verify assessment belongs to user's organization
-    assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+    # Verify assessment belongs to user's organization (Super Admin can view all)
+    assessment = await get_assessment_with_admin_check(assessment_id, current_user)
     if not assessment:
         raise HTTPException(status_code=404, detail="Assessment not found")
     
