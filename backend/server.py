@@ -485,6 +485,14 @@ def hash_password(password: str) -> str:
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
 
+# Helper function to get assessment with Super Admin bypass
+async def get_assessment_with_admin_check(assessment_id: str, current_user: UserResponse):
+    """Get assessment, allowing Super Admin to access any assessment."""
+    if current_user.role == "SUPER_ADMIN":
+        return await db.assessments.find_one({"id": assessment_id})
+    else:
+        return await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
