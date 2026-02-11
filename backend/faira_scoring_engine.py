@@ -730,25 +730,25 @@ def calculate_overall_risk(form_data: Dict) -> Dict[str, Any]:
     
     return {
         # Risk scores
-        "raw_risk_score": round(raw_risk, 2),
-        "overall_risk_score": round(normalized_risk, 1),
-        "overall_inherent_risk": round(normalized_inherent_risk, 1),
+        "raw_risk_score": round(raw_risk),
+        "overall_risk_score": round(normalized_risk),
+        "overall_inherent_risk": round(normalized_inherent_risk),
         "overall_risk_level": risk_rating,
         
         # Normalized indices (0-100) for display
-        "impact_index": round(impact_index, 1),
-        "likelihood_index": round(likelihood_index, 1),
-        "ce_index": round(ce_index, 1),
+        "impact_index": round(impact_index),
+        "likelihood_index": round(likelihood_index),
+        "ce_index": round(ce_index),
         
         # Raw totals
-        "total_impact": round(raw_impact, 1),
-        "total_likelihood": round(raw_likelihood, 1),
-        "total_control_effectiveness": round(raw_ce, 1),
+        "total_impact": round(raw_impact),
+        "total_likelihood": round(raw_likelihood),
+        "total_control_effectiveness": round(raw_ce),
         
         # Special factors
-        "autonomy_factor": round(totals["autonomy_factor"], 1),
-        "data_quality_factor": round(totals["data_quality_factor"], 1),
-        "expertise_factor": round(totals["expertise_factor"], 1),
+        "autonomy_factor": round(totals["autonomy_factor"]),
+        "data_quality_factor": round(totals["data_quality_factor"]),
+        "expertise_factor": round(totals["expertise_factor"]),
         
         # Domain scores (with normalized indices)
         "domain_scores": domain_scores,
@@ -764,7 +764,7 @@ def calculate_overall_risk(form_data: Dict) -> Dict[str, Any]:
         "assurance_readiness": governance["readiness_level"],
         
         # Control coverage
-        "control_coverage_percent": round(control_coverage, 1)
+        "control_coverage_percent": round(control_coverage)
     }
 
 
@@ -832,15 +832,15 @@ def calculate_domain_scores(form_data: Dict) -> Dict[str, Dict[str, float]]:
         
         domain_totals[short_label] = {
             # Normalized indices (0-100) for display
-            "Impact": round(impact_index, 1),
-            "Likelihood": round(likelihood_index, 1),
-            "Control_Effectiveness": round(ce_index, 1),
-            "InherentRisk": round(inherent_risk, 1),
-            "Risk": round(residual_risk, 1),
+            "Impact": round(impact_index),
+            "Likelihood": round(likelihood_index),
+            "Control_Effectiveness": round(ce_index),
+            "InherentRisk": round(inherent_risk),
+            "Risk": round(residual_risk),
             # Raw values for reference
-            "raw_impact": round(raw["raw_impact"], 2),
-            "raw_likelihood": round(raw["raw_likelihood"], 2),
-            "raw_ce": round(raw["raw_ce"], 2),
+            "raw_impact": round(raw["raw_impact"]),
+            "raw_likelihood": round(raw["raw_likelihood"]),
+            "raw_ce": round(raw["raw_ce"]),
         }
     
     return domain_totals
