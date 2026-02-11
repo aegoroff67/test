@@ -67,6 +67,7 @@ const TRUST_LEVEL_OPTIONS = [
 
 const SCOPE_OPTIONS = [
   'Organisation-wide',
+  'Shared Platform / Service',
   'Specific AI System',
   'Specific Model',
   'Specific Use Case',
