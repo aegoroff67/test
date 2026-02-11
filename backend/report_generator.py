@@ -4138,11 +4138,11 @@ Each cell represents the score for a specific question, enabling identification 
                     'deployment_context': faira_form.get('A4_3', ''),
                     
                     # Risk scores from calculated data
-                    'overall_risk_score': round(faira_risk_summary.get('overall_risk_score', 50), 1),
+                    'overall_risk_score': round(faira_risk_summary.get('overall_risk_score', 50)),
                     'overall_risk_level': faira_risk_summary.get('overall_risk_level', 'Medium'),
-                    'overall_impact_score': round(faira_risk_summary.get('total_impact', 50), 1),
-                    'overall_likelihood_score': round(faira_risk_summary.get('total_likelihood', 50), 1),
-                    'overall_control_effectiveness_score': round(faira_risk_summary.get('total_control_effectiveness', 50), 1),
+                    'overall_impact_score': round(faira_risk_summary.get('total_impact', 50)),
+                    'overall_likelihood_score': round(faira_risk_summary.get('total_likelihood', 50)),
+                    'overall_control_effectiveness_score': round(faira_risk_summary.get('total_control_effectiveness', 50)),
                     
                     # Domain scores - both as dict and as DotDict for template flexibility
                     'domain_scores': domain_scores_obj,
@@ -4158,10 +4158,10 @@ Each cell represents the score for a specific question, enabling identification 
                     }),
                     
                     # Additional score variables the template expects
-                    'total_impact': round(faira_risk_summary.get('total_impact', 50), 1),
-                    'total_likelihood': round(faira_risk_summary.get('total_likelihood', 50), 1),
-                    'total_control_effectiveness': round(faira_risk_summary.get('total_control_effectiveness', 50), 1),
-                    'raw_risk_score': round(faira_risk_summary.get('raw_risk_score', 50), 1),
+                    'total_impact': round(faira_risk_summary.get('total_impact', 50)),
+                    'total_likelihood': round(faira_risk_summary.get('total_likelihood', 50)),
+                    'total_control_effectiveness': round(faira_risk_summary.get('total_control_effectiveness', 50)),
+                    'raw_risk_score': round(faira_risk_summary.get('raw_risk_score', 50)),
                     'autonomy_factor': faira_risk_summary.get('autonomy_factor', ''),
                     'data_quality_factor': faira_risk_summary.get('data_quality_factor', ''),
                     'expertise_factor': faira_risk_summary.get('expertise_factor', ''),
