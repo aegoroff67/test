@@ -4077,13 +4077,13 @@ Each cell represents the score for a specific question, enabling identification 
                 for domain, scores in raw_domain_scores.items():
                     impact = scores.get('Impact', 0)
                     likelihood = scores.get('Likelihood', 0)
-                    inherent_risk = round((impact * likelihood) / 100, 1) if impact and likelihood else 0
+                    inherent_risk = round((impact * likelihood) / 100, 0) if impact and likelihood else 0
                     domain_scores_with_inherent[domain] = DotDict({
-                        'Impact': round(scores.get('Impact', 0), 1),
-                        'Likelihood': round(scores.get('Likelihood', 0), 1),
+                        'Impact': round(scores.get('Impact', 0)),
+                        'Likelihood': round(scores.get('Likelihood', 0)),
                         'Inherent_Risk': inherent_risk,
                         'Control_Effectiveness': round(scores.get('Control_Effectiveness', 0), 1),
-                        'Risk': round(scores.get('Risk', 0), 1)
+                        'Risk': round(scores.get('Risk', 0))
                     })
                 
                 domain_scores_obj = DotDict(domain_scores_with_inherent)
@@ -4102,7 +4102,7 @@ Each cell represents the score for a specific question, enabling identification 
                         if isinstance(area, dict):
                             top_domains_list.append(DotDict({
                                 'name': area.get('domain', area.get('name', area.get('fullName', 'Unknown'))),
-                                'risk': round(area.get('risk_score', area.get('risk', area.get('Risk', 0))), 1)
+                                'risk': round(area.get('risk_score', area.get('risk', area.get('Risk', 0))))
                             }))
                 
                 # If no top_risk_areas, build from domain_scores sorted by risk
