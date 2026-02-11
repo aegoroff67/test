@@ -1225,7 +1225,7 @@ The findings should be approximately 600-800 words with clear section headers.""
                 "version": "1.0.0"
             },
             "overall": {
-                "score": round(overall_percentage, 1),
+                "score": round(overall_percentage),
                 "tier": overall_tier
             },
             "assets": {
@@ -2744,7 +2744,7 @@ Each cell represents the score for a specific question, enabling identification 
                 
                 result.append({
                     'name': domain_name_escaped,  # Escaped for safe template rendering
-                    'score': round(avg_pct, 1),  # Keep as number for comparisons
+                    'score': round(avg_pct),  # Keep as number for comparisons
                     'score_display': f"{round(avg_pct)}%",  # Formatted string for template
                     'tier': tier,
                     'question_count': len(scores),
@@ -4115,7 +4115,7 @@ Each cell represents the score for a specific question, enabling identification 
                     for domain_name, risk_score in sorted_domains[:3]:
                         top_domains_list.append(DotDict({
                             'name': domain_name,
-                            'risk': round(risk_score, 1)
+                            'risk': round(risk_score)
                         }))
                 
                 # Ensure we have at least 3 entries (pad with empty if needed)
@@ -4417,7 +4417,7 @@ Each cell represents the score for a specific question, enabling identification 
                         for domain_name, risk_score in sorted_by_risk[:3]:
                             top_3_domains.append(DotDict({
                                 'name': domain_name,
-                                'risk': round(risk_score, 1)
+                                'risk': round(risk_score)
                             }))
                         print(f"DEBUG: Built {len(top_3_domains)} domains from raw_domain_scores fallback")
                     
@@ -4486,9 +4486,9 @@ Each cell represents the score for a specific question, enabling identification 
                         
                         gaps_list.append(DotDict({
                             'domain': domain_name,
-                            'risk_score': round(domain_risk, 1),
+                            'risk_score': round(domain_risk),
                             'existing_controls': existing_controls,
-                            'control_effectiveness': round(control_effectiveness, 1),
+                            'control_effectiveness': round(control_effectiveness),
                             'gaps': gap_description,
                             'priority': priority
                         }))
