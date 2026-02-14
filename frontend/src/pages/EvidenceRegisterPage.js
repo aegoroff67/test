@@ -344,7 +344,7 @@ function EvidenceRegisterPage() {
                 variant="outline" 
                 size="sm"
                 className="w-full"
-                onClick={() => navigate(`/results/${id}`)}
+                onClick={() => navigate(`/faira-results/${id}`)}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Results
