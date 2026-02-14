@@ -81,7 +81,9 @@ function EvidenceAttachLink({ questionCode, assessmentId, currentUser, onEvidenc
             ? 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100'
             : 'bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100'
         }`}
-        title={evidenceCount > 0 ? `${evidenceCount} evidence attached - click to view` : 'Click to attach evidence'}
+        title={evidenceCount > 0 
+          ? `${evidenceCount} evidence artefact${evidenceCount === 1 ? '' : 's'} attached - click to view` 
+          : 'Click to attach evidence'}
         data-testid={`evidence-link-${questionCode}`}
       >
         <Paperclip className="h-3 w-3" />
