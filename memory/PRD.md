@@ -23,6 +23,17 @@ Build a full-stack application for managing and generating AI maturity and risk 
 
 ## What's Been Implemented
 
+### 2026-02-14 - Phase 1 Evidence Register Upgrades ✅
+**Status: COMPLETED**
+- Added "Attach evidence" links with count badges to 14 specific FAIRA questions
+- Implemented custom tooltips with formatting for each evidence link (guidance on what to upload)
+- Refactored EvidenceAttachLink component with separate Attach/View buttons for better UX
+- Added 20-character minimum validation on "What does this evidence demonstrate?" field
+- Updated EvidenceDrawer labels and warnings per user specifications
+- Fixed backend AppliesToScope enum to include "Shared Platform / Service"
+- Implemented navigation flow between FAIRA Results and Evidence Register
+- All UI text updates completed as requested
+
 ### 2026-02-03 - AEST Timezone for Audit Logs ✅
 **Status: IMPLEMENTED**
 - Modified `logging_service.py` to add `timestamp_aest` field to all audit and error log entries
@@ -68,22 +79,24 @@ Build a full-stack application for managing and generating AI maturity and risk 
 ### P0 (Critical)
 - ✅ ~~FAIRA gaps table empty~~ - Fixed 2025-02-02
 - ✅ ~~AEST timezone for logging~~ - Fixed 2026-02-03
+- ✅ ~~Phase 1 Evidence Register upgrades~~ - Completed 2026-02-14
 
 ### P1 (High)
 - ✅ ~~Implement `report_downloaded` logging event~~ - Done
 - [ ] Clarify B7.2 question type (radio vs dropdown)
-- [ ] Test backend CRUD API for evidence object
+- [ ] Sidebar scroll-to-section verification in FairaResultsPage.js
 
 ### P2 (Medium)
 - [ ] Verify FAIRA assessment score (88.9 vs user-recalled 81)
 - [ ] In-app walkthroughs (React Joyride)
+- [ ] `SU-1` question from Australian Guidance framework missing
 
 ### P3 (Low)
 - [ ] Verify sector benchmark radar chart in Awareness DOCX
-- [ ] Sidebar scroll-to-section verification in FairaResultsPage.js
-- [ ] `SU-1` question from Australian Guidance framework missing
 
 ### Future
+- Phase 2 Evidence Register (ZIP export)
+- Block evidence upload after assessment completion
 - Coverage Gap Report feature
 - Print-specific multi-page CSS layout
 - "Upgrade to Unlock" button workflow
