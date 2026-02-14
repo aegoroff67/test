@@ -464,7 +464,7 @@ function EvidenceDrawer({
                     </>
                   ) : (
                     <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-md px-3 py-2">
-                      This evidence was uploaded as question-specific and cannot be reused across other questions.
+                      This evidence was uploaded as question-specific. You can enable reuse in the Reuse section if appropriate.
                     </p>
                   )}
                 </CardContent>
