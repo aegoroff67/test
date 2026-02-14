@@ -1037,11 +1037,11 @@ function FairaResultsPage() {
                   </div>
                   <div 
                     className="flex-1"
-                    title="Not available in this assessment."
+                    title="View evidence attached to this assessment"
                   >
                     <Button 
-                      className="w-full text-[10px] px-1 py-1.5 h-auto bg-gray-400 cursor-not-allowed opacity-60"
-                      disabled={true}
+                      className="w-full text-[10px] px-1 py-1.5 h-auto bg-teal-600 hover:bg-teal-700"
+                      onClick={() => navigate(`/evidence-register?assessment_id=${id}`)}
                       data-testid="evidence-register-btn"
                     >
                       <div className="flex items-center justify-center space-x-0.5">
