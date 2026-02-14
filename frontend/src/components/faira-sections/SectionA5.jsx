@@ -202,7 +202,16 @@ const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
 
       {/* A5.5 */}
       <div className="space-y-2">
-        <Label>A5.5 Has the AI solution been subject to independent review?</Label>
+        <div className="flex items-center justify-between">
+          <Label>A5.5 Has the AI solution been subject to independent review?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A5-5" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           <label className="flex items-center space-x-2">
             <input type="radio" checked={form.A5_5 === "Yes"} onChange={() => update("A5_5", "Yes")} className="h-4 w-4 text-orange-600" />
