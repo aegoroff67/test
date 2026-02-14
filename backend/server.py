@@ -6612,7 +6612,11 @@ async def create_evidence(
             notes=evidence_data.notes,
             is_reusable=evidence_data.is_reusable or False,
             status=EvidenceStatus.ACTIVE,
-            org_id=current_user.org_id
+            org_id=current_user.org_id,
+            # Phase 1 new fields
+            evidence_summary=evidence_data.evidence_summary,
+            limitations=evidence_data.limitations,
+            checksum_sha256=None  # Will be computed when actual file upload is implemented
         )
         
         # Convert to dict for MongoDB
