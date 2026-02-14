@@ -17,7 +17,16 @@ const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
       
       {/* A5.1 */}
       <div className="space-y-2">
-        <Label>A5.1 Who is accountable for decisions made using this system?</Label>
+        <div className="flex items-center justify-between">
+          <Label>A5.1 Who is accountable for decisions made using this system?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A5-1" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <select value={form.A5_1} onChange={(e) => update("A5_1", e.target.value)} className="w-full p-2 border rounded-md">
           <option value="">Select role</option>
           <option value="product owner">product owner</option>
@@ -176,7 +185,16 @@ const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
 
       {/* A5.3 */}
       <div className="space-y-2">
-        <Label>A5.3 What monitoring and evaluation processes are in place? (Select all that apply)</Label>
+        <div className="flex items-center justify-between">
+          <Label>A5.3 What monitoring and evaluation processes are in place? (Select all that apply)</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A5-3" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="grid gap-2 md:grid-cols-2">
           {["regular system audits", "continuous performance monitoring", "user feedback collection", "periodic stakeholder reviews"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
@@ -280,7 +298,16 @@ const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
 
       {/* A5.10 */}
       <div className="space-y-3" id="A5_10">
-        <Label>A5.10 Are there sector-specific frameworks, laws, or regulatory obligations that apply to this AI solution?</Label>
+        <div className="flex items-center justify-between">
+          <Label>A5.10 Are there sector-specific frameworks, laws, or regulatory obligations that apply to this AI solution?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A5-10" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           <label className="flex items-center space-x-2">
             <input type="radio" checked={form.A5_10 === "Yes"} onChange={() => update("A5_10", "Yes")} className="h-4 w-4 text-orange-600" />

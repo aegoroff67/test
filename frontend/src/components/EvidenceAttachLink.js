@@ -86,10 +86,7 @@ function EvidenceAttachLink({ questionCode, assessmentId, currentUser, onEvidenc
         {evidenceCount > 0 ? (
           <span>{evidenceCount}</span>
         ) : (
-          <>
-            <span className="hidden sm:inline">Attach evidence</span>
-            <Plus className="h-3 w-3 sm:hidden" />
-          </>
+          <span>Attach evidence</span>
         )}
       </button>
 

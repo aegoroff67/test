@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
 const SectionA4 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
@@ -127,7 +128,16 @@ const SectionA4 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
 
       {/* A4.7 - Gate Question */}
       <div className="space-y-2">
-        <Label>A4.7 Do outputs contain personally identifiable information (PII)?</Label>
+        <div className="flex items-center justify-between">
+          <Label>A4.7 Do outputs contain personally identifiable information (PII)?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A4-7" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           <label className="flex items-center space-x-2">
             <input type="radio" name="A4_7" checked={form.A4_7 === "Yes"} onChange={() => update("A4_7", "Yes")} className="form-radio" />
@@ -198,7 +208,16 @@ const SectionA4 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
 
       {/* A4.8 - Gate Question */}
       <div className="space-y-2">
-        <Label>A4.8 Do any AI outputs directly trigger actions with legal or regulatory effect?</Label>
+        <div className="flex items-center justify-between">
+          <Label>A4.8 Do any AI outputs directly trigger actions with legal or regulatory effect?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A4-8" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           <label className="flex items-center space-x-2">
             <input type="radio" name="A4_8" checked={form.A4_8 === "Yes"} onChange={() => update("A4_8", "Yes")} className="form-radio" />

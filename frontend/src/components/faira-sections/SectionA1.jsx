@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
 const SectionA1 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
@@ -15,7 +16,16 @@ const SectionA1 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
       
       {/* A1.1 */}
       <div className="space-y-2">
-        <Label>A1.1 What is the primary function of the AI solution? (Select all that apply)</Label>
+        <div className="flex items-center justify-between">
+          <Label>A1.1 What is the primary function of the AI solution? (Select all that apply)</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A1-1" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="grid gap-2 md:grid-cols-2">
           {[
             "information retrieval",
@@ -276,7 +286,16 @@ const SectionA1 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
 
       {/* A1.9 */}
       <div className="space-y-2">
-        <Label>A1.9 How does the AI solution integrate with other systems? (Select all that apply)</Label>
+        <div className="flex items-center justify-between">
+          <Label>A1.9 How does the AI solution integrate with other systems? (Select all that apply)</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A1-9" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="grid gap-2 md:grid-cols-2">
           {[
             "REST API",

@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { RadioScale } from './RadioScale';
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
 const SectionA3 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
@@ -16,7 +17,16 @@ const SectionA3 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
       
       {/* A3.1 */}
       <div className="space-y-2" id="A3_1">
-        <Label>A3.1 How does the system interface with humans? (Select all that apply)</Label>
+        <div className="flex items-center justify-between">
+          <Label>A3.1 How does the system interface with humans? (Select all that apply)</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A3-1" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="grid gap-2 md:grid-cols-2">
           {["chat interface", "web application", "mobile application", "API integration", "voice interface", "dashboard"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
@@ -48,7 +58,16 @@ const SectionA3 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
 
       {/* A3.3 */}
       <div className="space-y-2" id="A3_3">
-        <Label>A3.3 Who will be impacted by the AI system? (Select all that apply)</Label>
+        <div className="flex items-center justify-between">
+          <Label>A3.3 Who will be impacted by the AI system? (Select all that apply)</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="A3-3" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="grid gap-2 md:grid-cols-2">
           {["Queensland Government employees", "general public", "vulnerable communities", "children", "elderly", "people with disabilities", "Indigenous peoples", "small businesses"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
