@@ -2,8 +2,9 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
-const SectionB3 = ({ form, update, toggleInArray }) => {
+const SectionB3 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
     <div className="space-y-6 pt-6 border-t" id="B3_1">
       <div>
@@ -13,7 +14,16 @@ const SectionB3 = ({ form, update, toggleInArray }) => {
       
       {/* B3.1 */}
       <div className="space-y-3">
-        <Label>B3.1 Has the AI solution been tested for fairness and bias?</Label>
+        <div className="flex items-center justify-between">
+          <Label>B3.1 Has the AI solution been tested for fairness and bias?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="B3-1" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           {["Yes", "No"].map((opt) => (
             <label key={opt} className="flex items-center space-x-2">
