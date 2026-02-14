@@ -494,6 +494,70 @@ function EvidenceDrawer({
                 </CardContent>
               </Card>
 
+              {/* Phase 1: Evidence Context Section */}
+              <Card>
+                <CardHeader className="py-3 px-4">
+                  <CardTitle className="text-sm font-semibold text-gray-900">Evidence Context</CardTitle>
+                </CardHeader>
+                <CardContent className="py-3 px-4 space-y-3">
+                  {/* Evidence Summary */}
+                  <div className="space-y-1">
+                    <Label className="text-xs font-medium text-gray-500">
+                      What does this evidence demonstrate? <span className="text-gray-400">(max 500 chars)</span>
+                    </Label>
+                    {isEditMode ? (
+                      <div>
+                        <Textarea
+                          placeholder="Briefly describe what this evidence demonstrates about your AI governance..."
+                          value={evidenceSummary}
+                          onChange={(e) => {
+                            const value = e.target.value.slice(0, 500);
+                            setEvidenceSummary(value);
+                            setHasChanges(true);
+                          }}
+                          className="min-h-[80px] text-sm"
+                          maxLength={500}
+                          data-testid="drawer-evidence-summary"
+                        />
+                        <div className="text-xs text-gray-400 text-right mt-1">{evidenceSummary.length}/500</div>
+                      </div>
+                    ) : (
+                      <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900 min-h-[40px]">
+                        {evidence.evidence_summary || <span className="text-gray-400 italic">Not provided</span>}
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Known Limitations */}
+                  <div className="space-y-1">
+                    <Label className="text-xs font-medium text-gray-500">
+                      Known limitations <span className="text-gray-400">(max 300 chars)</span>
+                    </Label>
+                    {isEditMode ? (
+                      <div>
+                        <Textarea
+                          placeholder="Note any limitations or caveats for this evidence..."
+                          value={limitations}
+                          onChange={(e) => {
+                            const value = e.target.value.slice(0, 300);
+                            setLimitations(value);
+                            setHasChanges(true);
+                          }}
+                          className="min-h-[60px] text-sm"
+                          maxLength={300}
+                          data-testid="drawer-limitations"
+                        />
+                        <div className="text-xs text-gray-400 text-right mt-1">{limitations.length}/300</div>
+                      </div>
+                    ) : (
+                      <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900 min-h-[40px]">
+                        {evidence.limitations || <span className="text-gray-400 italic">None specified</span>}
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* Archive Section */}
               {evidence.status !== 'Archived' && (
                 <Card className="border-red-200">
