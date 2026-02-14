@@ -3,8 +3,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
-const SectionB4 = ({ form, update, toggleInArray }) => {
+const SectionB4 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
     <div className="space-y-6 pt-6 border-t" id="B4_1">
       <div>
@@ -14,7 +15,16 @@ const SectionB4 = ({ form, update, toggleInArray }) => {
       
       {/* B4.1 */}
       <div className="space-y-2">
-        <Label>B4.1 Has a Privacy Impact Assessment been completed?</Label>
+        <div className="flex items-center justify-between">
+          <Label>B4.1 Has a Privacy Impact Assessment been completed?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="B4-1" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           {["Yes", "No"].map((opt) => (
             <label key={opt} className="flex items-center space-x-2">
@@ -61,7 +71,16 @@ const SectionB4 = ({ form, update, toggleInArray }) => {
 
       {/* B4.3 */}
       <div className="space-y-2">
-        <Label>B4.3 What security controls are in place? (Select all that apply)</Label>
+        <div className="flex items-center justify-between">
+          <Label>B4.3 What security controls are in place? (Select all that apply)</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="B4-3" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="grid gap-2 md:grid-cols-2">
           {["access controls", "encryption", "auditing", "intrusion detection", "secure development practices", "security testing", "regular security assessments", "no formal security measures (flag as risk)"].map((option) => (
             <label key={option} className="flex items-center space-x-2">
