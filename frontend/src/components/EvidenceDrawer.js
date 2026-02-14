@@ -97,6 +97,9 @@ function EvidenceDrawer({
       setAppliesToScope(evidence.applies_to_scope || 'Unspecified');
       setIsReusable(evidence.is_reusable || false);
       setNotes(evidence.notes || '');
+      // Phase 1 new fields
+      setEvidenceSummary(evidence.evidence_summary || '');
+      setLimitations(evidence.limitations || '');
       
       // Convert UUIDs to codes if possible
       const codes = (evidence.linked_question_ids || []).map(id => {
