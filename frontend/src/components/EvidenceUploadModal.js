@@ -363,18 +363,28 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
             <div className="mt-4 space-y-3">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  What does this evidence demonstrate? <span className="text-gray-400 font-normal">(optional, max 500 chars)</span>
+                  What does this evidence demonstrate? <span className="text-red-500">*</span> <span className="text-gray-400 font-normal">(min 20, max 500 chars)</span>
                 </label>
                 <textarea
                   value={evidenceSummary}
                   onChange={(e) => setEvidenceSummary(e.target.value.slice(0, 500))}
                   placeholder="Briefly describe what this evidence demonstrates about your AI governance..."
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500 resize-none"
+                  className={`w-full px-3 py-2 text-sm border rounded-md focus:ring-teal-500 focus:border-teal-500 resize-none ${
+                    evidenceSummary.length > 0 && evidenceSummary.length < 20 
+                      ? 'border-red-300 bg-red-50' 
+                      : 'border-gray-300'
+                  }`}
                   rows={3}
                   maxLength={500}
                   data-testid="evidence-summary-input"
                 />
-                <div className="text-xs text-gray-400 text-right mt-1">{evidenceSummary.length}/500</div>
+                <div className={`text-xs text-right mt-1 ${
+                  evidenceSummary.length > 0 && evidenceSummary.length < 20 
+                    ? 'text-red-500' 
+                    : 'text-gray-400'
+                }`}>
+                  {evidenceSummary.length}/500 {evidenceSummary.length > 0 && evidenceSummary.length < 20 && '(minimum 20 characters required)'}
+                </div>
               </div>
               
               <div>
