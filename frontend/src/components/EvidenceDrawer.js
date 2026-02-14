@@ -75,6 +75,9 @@ function EvidenceDrawer({
   const [isReusable, setIsReusable] = useState(false);
   const [linkedQuestions, setLinkedQuestions] = useState([]);
   const [notes, setNotes] = useState('');
+  // Phase 1 new fields
+  const [evidenceSummary, setEvidenceSummary] = useState('');
+  const [limitations, setLimitations] = useState('');
   
   const [newQuestionId, setNewQuestionId] = useState('');
   const [saving, setSaving] = useState(false);
