@@ -4,8 +4,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
-const SectionA5 = ({ form, update, toggleInArray }) => {
+const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
     <div className="space-y-6 pt-6 border-t" id="A5_1">
       <div>
