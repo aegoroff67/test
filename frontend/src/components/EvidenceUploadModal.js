@@ -338,6 +338,41 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
                 </div>
               )}
             </div>
+            
+            {/* Phase 1: New Context Fields */}
+            <div className="mt-4 space-y-3">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  What does this evidence demonstrate? <span className="text-gray-400 font-normal">(optional, max 500 chars)</span>
+                </label>
+                <textarea
+                  value={evidenceSummary}
+                  onChange={(e) => setEvidenceSummary(e.target.value.slice(0, 500))}
+                  placeholder="Briefly describe what this evidence demonstrates about your AI governance..."
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500 resize-none"
+                  rows={3}
+                  maxLength={500}
+                  data-testid="evidence-summary-input"
+                />
+                <div className="text-xs text-gray-400 text-right mt-1">{evidenceSummary.length}/500</div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Known limitations <span className="text-gray-400 font-normal">(optional, max 300 chars)</span>
+                </label>
+                <textarea
+                  value={limitations}
+                  onChange={(e) => setLimitations(e.target.value.slice(0, 300))}
+                  placeholder="Note any limitations or caveats for this evidence..."
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500 resize-none"
+                  rows={2}
+                  maxLength={300}
+                  data-testid="evidence-limitations-input"
+                />
+                <div className="text-xs text-gray-400 text-right mt-1">{limitations.length}/300</div>
+              </div>
+            </div>
           </div>
 
           {/* Right Panel - Classify Evidence */}
