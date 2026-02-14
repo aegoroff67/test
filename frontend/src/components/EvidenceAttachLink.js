@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Paperclip, Plus } from 'lucide-react';
+import { Paperclip } from 'lucide-react';
 import axios from 'axios';
 import EvidenceUploadModal from './EvidenceUploadModal';
 import EvidenceDrawer from './EvidenceDrawer';
