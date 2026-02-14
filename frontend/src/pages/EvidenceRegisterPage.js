@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { Button } from '@/components/ui/button';
@@ -81,9 +81,13 @@ const STATUS_OPTIONS = [
 ];
 
 function EvidenceRegisterPage() {
-  const { id } = useParams();
+  const { id: routeId } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  
+  // Support both route param (/evidence-register/:id) and query param (?assessment_id=...)
+  const id = routeId || searchParams.get('assessment_id');
   
   const [assessment, setAssessment] = useState(null);
   const [evidence, setEvidence] = useState([]);
