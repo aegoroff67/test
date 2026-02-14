@@ -87,7 +87,7 @@ function EvidenceAttachLink({ questionCode, assessmentId, currentUser, onEvidenc
           <span>{evidenceCount}</span>
         ) : (
           <>
-            <span className="hidden sm:inline">Attach</span>
+            <span className="hidden sm:inline">Attach evidence</span>
             <Plus className="h-3 w-3 sm:hidden" />
           </>
         )}
