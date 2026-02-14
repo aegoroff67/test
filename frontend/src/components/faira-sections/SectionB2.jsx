@@ -17,7 +17,7 @@ const SectionB2 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label>B2.1 Has a Human Rights Impact Assessment been completed?</Label>
-          {assessmentId && (
+          {assessmentId && form.B2_1 === "Yes" && (
             <EvidenceAttachLink 
               questionCode="B2-1" 
               assessmentId={assessmentId} 

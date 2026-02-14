@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
 const SectionB4 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
@@ -14,7 +15,16 @@ const SectionB4 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
       
       {/* B4.1 */}
       <div className="space-y-2">
-        <Label>B4.1 Has a Privacy Impact Assessment been completed?</Label>
+        <div className="flex items-center justify-between">
+          <Label>B4.1 Has a Privacy Impact Assessment been completed?</Label>
+          {assessmentId && form.B4_1 === "Yes" && (
+            <EvidenceAttachLink 
+              questionCode="B4-1" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           {["Yes", "No"].map((opt) => (
             <label key={opt} className="flex items-center space-x-2">

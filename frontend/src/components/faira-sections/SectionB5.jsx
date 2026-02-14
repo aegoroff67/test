@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { RadioScale } from './RadioScale';
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
 const SectionB5 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
@@ -14,7 +15,16 @@ const SectionB5 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
       
       {/* B5.1 */}
       <div className="space-y-3">
-        <Label>B5.1 Has the AI solution been tested for reliability?</Label>
+        <div className="flex items-center justify-between">
+          <Label>B5.1 Has the AI solution been tested for reliability?</Label>
+          {assessmentId && form.B5_1 === "Yes" && (
+            <EvidenceAttachLink 
+              questionCode="B5-1" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           {["Yes", "No"].map((opt) => (
             <label key={opt} className="flex items-center space-x-2">
