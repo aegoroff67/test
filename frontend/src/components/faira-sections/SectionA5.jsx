@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
-import EvidenceAttachLink from '../EvidenceAttachLink';
+import EvidenceAttachLink, { EVIDENCE_TOOLTIPS } from '../EvidenceAttachLink';
 
 const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
@@ -23,7 +23,8 @@ const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
             <EvidenceAttachLink 
               questionCode="A5-1" 
               assessmentId={assessmentId} 
-              currentUser={currentUser} 
+              currentUser={currentUser}
+              tooltip={EVIDENCE_TOOLTIPS['A5-1']}
             />
           )}
         </div>
@@ -191,7 +192,8 @@ const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
             <EvidenceAttachLink 
               questionCode="A5-3" 
               assessmentId={assessmentId} 
-              currentUser={currentUser} 
+              currentUser={currentUser}
+              tooltip={EVIDENCE_TOOLTIPS['A5-3']}
             />
           )}
         </div>
@@ -226,7 +228,8 @@ const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
             <EvidenceAttachLink 
               questionCode="A5-5" 
               assessmentId={assessmentId} 
-              currentUser={currentUser} 
+              currentUser={currentUser}
+              tooltip={EVIDENCE_TOOLTIPS['A5-5']}
             />
           )}
         </div>
@@ -304,7 +307,8 @@ const SectionA5 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
             <EvidenceAttachLink 
               questionCode="A5-10" 
               assessmentId={assessmentId} 
-              currentUser={currentUser} 
+              currentUser={currentUser}
+              tooltip={EVIDENCE_TOOLTIPS['A5-10']}
             />
           )}
         </div>

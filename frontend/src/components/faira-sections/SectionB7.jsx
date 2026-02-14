@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import EvidenceAttachLink from '../EvidenceAttachLink';
+import EvidenceAttachLink, { EVIDENCE_TOOLTIPS } from '../EvidenceAttachLink';
 
 const SectionB7 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
@@ -21,7 +21,8 @@ const SectionB7 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
             <EvidenceAttachLink 
               questionCode="B7-1" 
               assessmentId={assessmentId} 
-              currentUser={currentUser} 
+              currentUser={currentUser}
+              tooltip={EVIDENCE_TOOLTIPS['B7-1']}
             />
           )}
         </div>

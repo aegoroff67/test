@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { RadioScale } from './RadioScale';
-import EvidenceAttachLink from '../EvidenceAttachLink';
+import EvidenceAttachLink, { EVIDENCE_TOOLTIPS } from '../EvidenceAttachLink';
 
 const SectionA3 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
@@ -23,7 +23,8 @@ const SectionA3 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
             <EvidenceAttachLink 
               questionCode="A3-1" 
               assessmentId={assessmentId} 
-              currentUser={currentUser} 
+              currentUser={currentUser}
+              tooltip={EVIDENCE_TOOLTIPS['A3-1']}
             />
           )}
         </div>
@@ -64,7 +65,8 @@ const SectionA3 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
             <EvidenceAttachLink 
               questionCode="A3-3" 
               assessmentId={assessmentId} 
-              currentUser={currentUser} 
+              currentUser={currentUser}
+              tooltip={EVIDENCE_TOOLTIPS['A3-3']}
             />
           )}
         </div>
