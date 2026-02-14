@@ -5,8 +5,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { RadioScale } from './RadioScale';
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
-const SectionB6 = ({ form, update, toggleInArray }) => {
+const SectionB6 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
     <div className="space-y-6 pt-6 border-t" id="B6_1">
       <div>
@@ -32,7 +33,16 @@ const SectionB6 = ({ form, update, toggleInArray }) => {
 
       {/* B6.3 - Gated Section */}
       <div className="space-y-3">
-        <Label>B6.3 Are users and/or affected individuals informed that AI is being used?</Label>
+        <div className="flex items-center justify-between">
+          <Label>B6.3 Are users and/or affected individuals informed that AI is being used?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="B6-3" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           <label className="flex items-center space-x-2">
             <input type="radio" checked={form.B6_3 === "Yes"} onChange={() => update("B6_3", "Yes")} className="h-4 w-4 text-orange-600" />
