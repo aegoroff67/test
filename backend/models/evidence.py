@@ -172,3 +172,7 @@ class EvidenceResponse(BaseModel):
     notes: Optional[str] = None
     is_reusable: bool
     status: str
+    # Phase 1 new fields
+    evidence_summary: Optional[str] = None
+    limitations: Optional[str] = None
+    checksum_sha256: Optional[str] = None
