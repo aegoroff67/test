@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { RadioScale } from './RadioScale';
 
-const SectionA3 = ({ form, update, toggleInArray }) => {
+const SectionA3 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
     <div className="space-y-6 pt-6 border-t" id="A3_1">
       <div>
