@@ -195,6 +195,8 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
     setTrustLevel('Unspecified');
     setAppliesToScope('Unspecified');
     setIsReusable(false);
+    setEvidenceSummary('');
+    setLimitations('');
     onClose();
   };
 
