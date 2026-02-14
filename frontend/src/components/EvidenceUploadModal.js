@@ -180,7 +180,21 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
       }
     } catch (error) {
       console.error('Error uploading evidence:', error);
-      const errorMessage = error.response?.data?.detail || 'Failed to upload evidence';
+      // Handle Pydantic validation errors which return as array of objects
+      let errorMessage = 'Failed to upload evidence';
+      if (error.response?.data?.detail) {
+        const detail = error.response.data.detail;
+        if (Array.isArray(detail)) {
+          // Pydantic validation error - extract message from first error
+          errorMessage = detail.map(err => err.msg || String(err)).join(', ');
+        } else if (typeof detail === 'object') {
+          // Single error object
+          errorMessage = detail.msg || JSON.stringify(detail);
+        } else {
+          // String error message
+          errorMessage = String(detail);
+        }
+      }
       toast.error(errorMessage);
     } finally {
       setUploading(false);
