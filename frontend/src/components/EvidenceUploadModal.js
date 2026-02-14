@@ -139,7 +139,10 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
         assessment_id: assessmentId,
         linked_question_ids: [questionCode],
         is_reusable: isReusable,
-        notes: null
+        notes: null,
+        // Phase 1 new fields
+        evidence_summary: evidenceSummary || null,
+        limitations: limitations || null
       };
       
       const response = await axios.post(`${BACKEND_URL}/api/evidence`, evidenceData);
