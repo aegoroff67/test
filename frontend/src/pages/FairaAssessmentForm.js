@@ -243,6 +243,7 @@ const defaultState = {
 export default function FairaAssessmentForm() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { user } = useAuth(); // Get current user for evidence attachment
   const [form, setForm] = useState(defaultState);
   const [submitting, setSubmitting] = useState(false);
   const [autoSaving, setAutoSaving] = useState(false);
