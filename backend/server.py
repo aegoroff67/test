@@ -6825,6 +6825,108 @@ async def delete_evidence(
         raise HTTPException(status_code=500, detail=f"Failed to delete evidence: {str(e)}")
 
 
+@api_router.post("/evidence/{evidence_id}/archive")
+async def archive_evidence(
+    evidence_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Archive an evidence record (soft delete)"""
+    try:
+        # Find existing evidence
+        existing = await db.evidence.find_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id}
+        )
+        
+        if not existing:
+            raise HTTPException(status_code=404, detail="Evidence not found")
+        
+        if existing.get("status") == EvidenceStatus.ARCHIVED.value:
+            raise HTTPException(status_code=400, detail="Evidence is already archived")
+        
+        # Archive the evidence
+        await db.evidence.update_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id},
+            {
+                "$set": {
+                    "status": EvidenceStatus.ARCHIVED.value,
+                    "last_updated_date": datetime.now(timezone.utc).isoformat()
+                }
+            }
+        )
+        
+        # Log archive action
+        await log_audit_event(
+            db=db,
+            action=AuditAction.EVIDENCE_DELETED,
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="evidence",
+            object_id=evidence_id,
+            object_name=existing.get("evidence_title", "Unknown"),
+            details={"action": "archived", "file_name": existing.get("file_name")}
+        )
+        
+        return {"message": "Evidence archived successfully", "evidence_id": evidence_id, "status": "Archived"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error archiving evidence: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to archive evidence: {str(e)}")
+
+
+@api_router.post("/evidence/{evidence_id}/restore")
+async def restore_evidence(
+    evidence_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Restore an archived evidence record"""
+    try:
+        # Find existing evidence
+        existing = await db.evidence.find_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id}
+        )
+        
+        if not existing:
+            raise HTTPException(status_code=404, detail="Evidence not found")
+        
+        if existing.get("status") != EvidenceStatus.ARCHIVED.value:
+            raise HTTPException(status_code=400, detail="Evidence is not archived")
+        
+        # Restore the evidence to Active status
+        await db.evidence.update_one(
+            {"evidence_id": evidence_id, "org_id": current_user.org_id},
+            {
+                "$set": {
+                    "status": EvidenceStatus.ACTIVE.value,
+                    "last_updated_date": datetime.now(timezone.utc).isoformat()
+                }
+            }
+        )
+        
+        # Log restore action
+        await log_audit_event(
+            db=db,
+            action=AuditAction.SETTINGS_CHANGED,  # Using SETTINGS_CHANGED as a generic action
+            actor_user_id=current_user.id,
+            actor_email=current_user.email,
+            tenant_id=current_user.org_id,
+            object_type="evidence",
+            object_id=evidence_id,
+            object_name=existing.get("evidence_title", "Unknown"),
+            details={"action": "restored", "file_name": existing.get("file_name")}
+        )
+        
+        return {"message": "Evidence restored successfully", "evidence_id": evidence_id, "status": "Active"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error restoring evidence: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to restore evidence: {str(e)}")
+
+
 @api_router.get("/evidence/by-question/{question_id}", response_model=List[EvidenceResponse])
 async def get_evidence_by_question(
     question_id: str,
