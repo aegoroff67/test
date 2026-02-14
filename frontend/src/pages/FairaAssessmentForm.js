@@ -11,6 +11,7 @@ import { ArrowLeft, ShieldCheck, Save, CheckCircle, AlertCircle, Check, Circle }
 import { toast } from 'sonner';
 import axios from 'axios';
 import Logo from '../components/Logo';
+import { useAuth } from '../context/AuthContext';
 
 // Import refactored section components
 import {
