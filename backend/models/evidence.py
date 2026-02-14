@@ -137,6 +137,10 @@ class Evidence(BaseModel):
     is_reusable: bool = Field(False, description="Whether evidence can be reused across assessments")
     status: EvidenceStatus = Field(EvidenceStatus.ACTIVE, description="Evidence status")
     org_id: str = Field(..., description="Organization ID for multi-tenancy")
+    # Phase 1 new fields
+    evidence_summary: Optional[str] = Field(None, description="What does this evidence demonstrate? (max 500 chars)")
+    limitations: Optional[str] = Field(None, description="Known limitations of this evidence (max 300 chars)")
+    checksum_sha256: Optional[str] = Field(None, description="SHA256 checksum of the uploaded file")
 
     class Config:
         json_encoders = {
