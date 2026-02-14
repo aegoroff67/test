@@ -3,8 +3,9 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { RadioScale } from './RadioScale';
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
-const SectionB5 = ({ form, update, toggleInArray }) => {
+const SectionB5 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
     <div className="space-y-6 pt-6 border-t" id="B5_1">
       <div>
@@ -14,7 +15,16 @@ const SectionB5 = ({ form, update, toggleInArray }) => {
       
       {/* B5.1 */}
       <div className="space-y-3">
-        <Label>B5.1 Has the AI solution been tested for reliability?</Label>
+        <div className="flex items-center justify-between">
+          <Label>B5.1 Has the AI solution been tested for reliability?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="B5-1" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           {["Yes", "No"].map((opt) => (
             <label key={opt} className="flex items-center space-x-2">
@@ -38,7 +48,16 @@ const SectionB5 = ({ form, update, toggleInArray }) => {
 
       {/* B5.2 */}
       <div className="space-y-2">
-        <Label>B5.2 Is there a process to disengage if AI fails?</Label>
+        <div className="flex items-center justify-between">
+          <Label>B5.2 Is there a process to disengage if AI fails?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="B5-2" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           {["Yes", "No"].map((opt) => (
             <label key={opt} className="flex items-center space-x-2">
