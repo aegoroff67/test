@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 
-const SectionA4 = ({ form, update, toggleInArray }) => {
+const SectionA4 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
     <div className="space-y-6 pt-6 border-t" id="A4_1">
       <div>
