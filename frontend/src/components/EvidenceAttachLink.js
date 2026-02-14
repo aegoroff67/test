@@ -111,7 +111,7 @@ function EvidenceAttachLink({ questionCode, assessmentId, currentUser, onEvidenc
           
           {showTooltip && (
             <div className="absolute right-0 top-6 z-50 w-72 p-3 text-xs bg-gray-900 text-white rounded-lg shadow-lg">
-              <div className="whitespace-pre-line">{tooltip}</div>
+              <div className="whitespace-pre-line">{typeof tooltip === 'string' ? tooltip : tooltip}</div>
               <div className="absolute -top-1.5 right-2 w-3 h-3 bg-gray-900 transform rotate-45"></div>
             </div>
           )}
@@ -146,115 +146,185 @@ function EvidenceAttachLink({ questionCode, assessmentId, currentUser, onEvidenc
 
 // Tooltip content for each question
 export const EVIDENCE_TOOLTIPS = {
-  'A1-1': `Suitable evidence may include:
-• System overview or architecture diagrams
-• Workflow or process flow charts
-• Screenshots of dashboards or user interfaces
-• Project initiation or business case summaries
+  'A1-1': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • System overview or architecture diagrams
+      <br />• Workflow or process flow charts
+      <br />• Screenshots of dashboards or user interfaces
+      <br />• Project initiation or business case summaries
+      <br /><br />
+      <strong>Upload evidence if it helps clarify how the AI system operates in practice.</strong>
+    </>
+  ),
 
-Upload evidence if it helps clarify how the AI system operates in practice.`,
+  'A1-9': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • System integration diagrams
+      <br />• Data flow diagrams
+      <br />• API documentation excerpts
+      <br />• Infrastructure or hosting architecture diagrams
+      <br /><br />
+      <strong>Upload evidence to illustrate how the AI system connects to other systems.</strong>
+    </>
+  ),
 
-  'A1-9': `Suitable evidence may include:
-• System integration diagrams
-• Data flow diagrams
-• API documentation excerpts
-• Infrastructure or hosting architecture diagrams
+  'A3-1': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Source system screenshots
+      <br />• Data inventory extracts
+      <br />• Data schema or data dictionary excerpts
+      <br />• Vendor documentation describing data inputs
+      <br /><br />
+      <strong>Upload evidence to demonstrate provenance and ownership of data sources.</strong>
+    </>
+  ),
 
-Upload evidence to illustrate how the AI system connects to other systems.`,
+  'A3-3': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Data quality reports
+      <br />• Validation or reconciliation procedures
+      <br />• Testing results or audit findings
+      <br />• Documented data governance processes
+      <br /><br />
+      <strong>Upload evidence if data quality controls are formally documented.</strong>
+    </>
+  ),
 
-  'A3-1': `Suitable evidence may include:
-• Source system screenshots
-• Data inventory extracts
-• Data schema or data dictionary excerpts
-• Vendor documentation describing data inputs
+  'A4-7': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Privacy Impact Assessment extracts
+      <br />• Security configuration screenshots
+      <br />• Access control policies
+      <br />• Encryption or de-identification documentation
+      <br /><br />
+      <strong>Upload evidence where safeguards are formally defined or implemented.</strong>
+    </>
+  ),
 
-Upload evidence to demonstrate provenance and ownership of data sources.`,
+  'A4-8': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Decision pathway or escalation diagrams
+      <br />• Delegations or approval workflows
+      <br />• Relevant policy or legislative references
+      <br />• Records demonstrating human review steps
+      <br /><br />
+      <strong>Upload evidence to support how legal or regulatory effects are managed.</strong>
+    </>
+  ),
 
-  'A3-3': `Suitable evidence may include:
-• Data quality reports
-• Validation or reconciliation procedures
-• Testing results or audit findings
-• Documented data governance processes
+  'A5-1': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Governance charters or terms of reference
+      <br />• Organisational charts
+      <br />• Role descriptions
+      <br />• Delegations or accountability statements
+      <br /><br />
+      <strong>Upload evidence to demonstrate clear ownership of AI-related decisions.</strong>
+    </>
+  ),
 
-Upload evidence if data quality controls are formally documented.`,
+  'A5-3': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Monitoring plans or review schedules
+      <br />• Performance dashboards
+      <br />• Risk registers
+      <br />• Evaluation reports
+      <br /><br />
+      <strong>Upload evidence where monitoring arrangements are documented.</strong>
+    </>
+  ),
 
-  'A4-7': `Suitable evidence may include:
-• Privacy Impact Assessment extracts
-• Security configuration screenshots
-• Access control policies
-• Encryption or de-identification documentation
+  'A5-5': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Independent review reports
+      <br />• Audit findings
+      <br />• External assurance statements
+      <br />• Peer review documentation
+      <br /><br />
+      <strong>Upload evidence if an independent review has been conducted.</strong>
+    </>
+  ),
 
-Upload evidence where safeguards are formally defined or implemented.`,
+  'A5-10': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Legislative mapping tables
+      <br />• Compliance registers
+      <br />• Framework alignment documentation
+      <br />• Legal advice extracts (where appropriate)
+      <br /><br />
+      <strong>Upload evidence if compliance obligations are formally documented.</strong>
+    </>
+  ),
 
-  'A4-8': `Suitable evidence may include:
-• Decision pathway or escalation diagrams
-• Delegations or approval workflows
-• Relevant policy or legislative references
-• Records demonstrating human review steps
+  'B2-1': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Completed HRIA report
+      <br />• Impact analysis documentation
+      <br />• Consultation records
+      <br /><br />
+      <strong>Upload evidence if a formal human rights assessment has been undertaken.</strong>
+    </>
+  ),
 
-Upload evidence to support how legal or regulatory effects are managed.`,
+  'B4-1': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Completed PIA report
+      <br />• Risk treatment plan
+      <br />• Privacy mitigation documentation
+      <br /><br />
+      <strong>Upload evidence if a Privacy Impact Assessment has been completed.</strong>
+    </>
+  ),
 
-  'A5-1': `Suitable evidence may include:
-• Governance charters or terms of reference
-• Organisational charts
-• Role descriptions
-• Delegations or accountability statements
+  'B5-1': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Test plans and test results
+      <br />• QA documentation
+      <br />• Model validation reports
+      <br />• Performance benchmarking outputs
+      <br /><br />
+      <strong>Upload evidence if reliability or safety testing has been performed.</strong>
+    </>
+  ),
 
-Upload evidence to demonstrate clear ownership of AI-related decisions.`,
-
-  'A5-3': `Suitable evidence may include:
-• Monitoring plans or review schedules
-• Performance dashboards
-• Risk registers
-• Evaluation reports
-
-Upload evidence where monitoring arrangements are documented.`,
-
-  'A5-5': `Suitable evidence may include:
-• Independent review reports
-• Audit findings
-• External assurance statements
-• Peer review documentation
-
-Upload evidence if an independent review has been conducted.`,
-
-  'A5-10': `Suitable evidence may include:
-• Legislative mapping tables
-• Compliance registers
-• Framework alignment documentation
-• Legal advice extracts (where appropriate)
-
-Upload evidence if compliance obligations are formally documented.`,
-
-  'B2-1': `Suitable evidence may include:
-• Completed HRIA report
-• Impact analysis documentation
-• Consultation records
-
-Upload evidence if a formal human rights assessment has been undertaken.`,
-
-  'B4-1': `Suitable evidence may include:
-• Completed PIA report
-• Risk treatment plan
-• Privacy mitigation documentation
-
-Upload evidence if a Privacy Impact Assessment has been completed.`,
-
-  'B5-1': `Suitable evidence may include:
-• Test plans and test results
-• QA documentation
-• Model validation reports
-• Performance benchmarking outputs
-
-Upload evidence if reliability or safety testing has been performed.`,
-
-  'B7-1': `Suitable evidence may include:
-• Complaints or review procedures
-• Escalation workflows
-• Service standards documentation
-• Policy extracts describing appeal rights
-
-Upload evidence to demonstrate how affected parties can challenge outcomes.`
+  'B7-1': (
+    <>
+      <strong>Suitable evidence may include:</strong>
+      <br /><br />
+      • Complaints or review procedures
+      <br />• Escalation workflows
+      <br />• Service standards documentation
+      <br />• Policy extracts describing appeal rights
+      <br /><br />
+      <strong>Upload evidence to demonstrate how affected parties can challenge outcomes.</strong>
+    </>
+  )
 };
 
 export default EvidenceAttachLink;
