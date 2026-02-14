@@ -1185,11 +1185,11 @@ export default function FairaAssessmentForm() {
             <p className="text-sm text-gray-600 mt-1">Systematic breakdown of the AI solution components</p>
           </CardHeader>
           <CardContent className="p-6 space-y-8">
-            <SectionA1 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionA2 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionA3 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionA4 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionA5 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionA1 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionA2 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionA3 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionA4 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionA5 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
           </CardContent>
         </Card>
 
@@ -1200,14 +1200,14 @@ export default function FairaAssessmentForm() {
             <p className="text-sm text-gray-600 mt-1">Assessment against core values: ethics, fairness, privacy, reliability, transparency, and accountability</p>
           </CardHeader>
           <CardContent className="p-6 space-y-8">
-            <SectionB1 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionB2 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionB3 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionB4 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionB5 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionB6 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionB7 form={form} update={update} toggleInArray={toggleInArray} />
-            <SectionB8 form={form} update={update} toggleInArray={toggleInArray} />
+            <SectionB1 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionB2 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionB3 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionB4 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionB5 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionB6 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionB7 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
+            <SectionB8 form={form} update={update} toggleInArray={toggleInArray} assessmentId={id} currentUser={user} />
           </CardContent>
         </Card>
 
