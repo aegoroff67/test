@@ -3,8 +3,9 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
+import EvidenceAttachLink from '../EvidenceAttachLink';
 
-const SectionB7 = ({ form, update, toggleInArray }) => {
+const SectionB7 = ({ form, update, toggleInArray, assessmentId, currentUser }) => {
   return (
     <div className="space-y-6 pt-6 border-t" id="B7_1">
       <div>
@@ -14,7 +15,16 @@ const SectionB7 = ({ form, update, toggleInArray }) => {
       
       {/* B7.1 - Gated Section */}
       <div className="space-y-3">
-        <Label>B7.1 Is there a defined process for challenging or reviewing AI-supported outcomes?</Label>
+        <div className="flex items-center justify-between">
+          <Label>B7.1 Is there a defined process for challenging or reviewing AI-supported outcomes?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="B7-1" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           <label className="flex items-center space-x-2">
             <input type="radio" checked={form.B7_1 === "Yes"} onChange={() => update("B7_1", "Yes")} className="h-4 w-4 text-orange-600" />
