@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Paperclip, HelpCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Paperclip, HelpCircle, ChevronDown, FileText } from 'lucide-react';
 import axios from 'axios';
 import EvidenceUploadModal from './EvidenceUploadModal';
 import EvidenceDrawer from './EvidenceDrawer';
@@ -24,6 +24,19 @@ function EvidenceAttachLink({ questionCode, assessmentId, currentUser, onEvidenc
   const [selectedEvidence, setSelectedEvidence] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Fetch evidence count for this question
   const fetchEvidence = async () => {
@@ -55,15 +68,14 @@ function EvidenceAttachLink({ questionCode, assessmentId, currentUser, onEvidenc
     if (onEvidenceChange) onEvidenceChange();
   };
 
-  const handleEvidenceClick = () => {
-    if (evidenceCount > 0) {
-      // Show the first evidence in drawer
-      setSelectedEvidence(evidence[0]);
-      setShowDrawer(true);
-    } else {
-      // Open upload modal
-      setShowUploadModal(true);
-    }
+  const handleAttachClick = () => {
+    setShowUploadModal(true);
+  };
+
+  const handleViewEvidenceClick = (evidenceItem) => {
+    setSelectedEvidence(evidenceItem);
+    setShowDrawer(true);
+    setShowDropdown(false);
   };
 
   const handleDrawerUpdate = () => {
@@ -73,26 +85,66 @@ function EvidenceAttachLink({ questionCode, assessmentId, currentUser, onEvidenc
 
   return (
     <div className="inline-flex items-center gap-1.5">
+      {/* Attach Evidence Button - Always visible */}
       <button
         type="button"
-        onClick={handleEvidenceClick}
-        className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-full transition-colors ${
-          evidenceCount > 0
-            ? 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100'
-            : 'bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100'
-        }`}
-        title={evidenceCount > 0 
-          ? `${evidenceCount} evidence artefact${evidenceCount === 1 ? '' : 's'} attached - click to view` 
-          : 'Click to attach evidence'}
-        data-testid={`evidence-link-${questionCode}`}
+        onClick={handleAttachClick}
+        className="inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-full transition-colors bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100"
+        title="Click to attach evidence"
+        data-testid={`evidence-attach-${questionCode}`}
       >
         <Paperclip className="h-3 w-3" />
-        {evidenceCount > 0 ? (
-          <span>{evidenceCount}</span>
-        ) : (
-          <span>Attach evidence</span>
-        )}
+        <span>Attach evidence</span>
       </button>
+
+      {/* View Evidence Dropdown - Only shown when evidence exists */}
+      {evidenceCount > 0 && (
+        <div className="relative" ref={dropdownRef}>
+          <button
+            type="button"
+            onClick={() => setShowDropdown(!showDropdown)}
+            className="inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-full transition-colors bg-green-50 text-green-700 border border-green-200 hover:bg-green-100"
+            title={`${evidenceCount} evidence artefact${evidenceCount === 1 ? '' : 's'} attached - click to view`}
+            data-testid={`evidence-view-${questionCode}`}
+          >
+            <FileText className="h-3 w-3" />
+            <span>{evidenceCount}</span>
+            <ChevronDown className={`h-3 w-3 transition-transform ${showDropdown ? 'rotate-180' : ''}`} />
+          </button>
+
+          {/* Dropdown menu */}
+          {showDropdown && (
+            <div className="absolute right-0 top-7 z-50 w-64 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+              <div className="px-3 py-2 bg-gray-50 border-b border-gray-200">
+                <span className="text-xs font-medium text-gray-700">
+                  {evidenceCount} evidence artefact{evidenceCount === 1 ? '' : 's'}
+                </span>
+              </div>
+              <ul className="max-h-48 overflow-y-auto">
+                {evidence.map((item, index) => (
+                  <li key={item.id || index}>
+                    <button
+                      type="button"
+                      onClick={() => handleViewEvidenceClick(item)}
+                      className="w-full px-3 py-2 text-left text-xs hover:bg-gray-50 flex items-start gap-2 border-b border-gray-100 last:border-b-0"
+                    >
+                      <FileText className="h-3.5 w-3.5 text-gray-400 mt-0.5 flex-shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <div className="font-medium text-gray-900 truncate">
+                          {item.evidence_title || item.file_name || `Evidence ${index + 1}`}
+                        </div>
+                        <div className="text-gray-500 truncate">
+                          {item.evidence_type || 'Document'}
+                        </div>
+                      </div>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
       
       {/* Tooltip help icon */}
       {tooltip && (
@@ -113,7 +165,7 @@ function EvidenceAttachLink({ questionCode, assessmentId, currentUser, onEvidenc
           
           {showTooltip && (
             <div className="absolute right-0 top-6 z-50 w-72 p-3 text-xs bg-gray-900 text-white rounded-lg shadow-lg">
-              <div className="whitespace-pre-line">{typeof tooltip === 'string' ? tooltip : tooltip}</div>
+              <div>{tooltip}</div>
               <div className="absolute -top-1.5 right-2 w-3 h-3 bg-gray-900 transform rotate-45"></div>
             </div>
           )}
