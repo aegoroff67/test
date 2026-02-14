@@ -117,6 +117,12 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
   const handleUpload = async () => {
     if (!selectedFile) return;
     
+    // Validate evidence summary - minimum 20 characters required
+    if (!evidenceSummary || evidenceSummary.trim().length < 20) {
+      toast.error('Please provide at least 20 characters describing what this evidence demonstrates.');
+      return;
+    }
+    
     setUploading(true);
     
     try {
