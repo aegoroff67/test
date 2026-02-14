@@ -175,7 +175,10 @@ function EvidenceDrawer({
     try {
       const updateData = {
         linked_question_ids: linkedQuestions,
-        notes: notes
+        notes: notes,
+        // Phase 1 new fields
+        evidence_summary: evidenceSummary || null,
+        limitations: limitations || null
       };
 
       // In edit mode (assessment in progress), include all classification fields
