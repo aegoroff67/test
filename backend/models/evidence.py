@@ -86,6 +86,9 @@ class EvidenceCreate(BaseModel):
     linked_am_control_ids: Optional[List[str]] = Field(default_factory=list, description="Linked AM AI SAFE control IDs")
     notes: Optional[str] = Field(None, description="Additional notes")
     is_reusable: Optional[bool] = Field(False, description="Whether evidence can be reused across assessments")
+    # Phase 1 new fields
+    evidence_summary: Optional[str] = Field(None, max_length=500, description="What does this evidence demonstrate? (max 500 chars)")
+    limitations: Optional[str] = Field(None, max_length=300, description="Known limitations of this evidence (max 300 chars)")
 
 
 class EvidenceUpdate(BaseModel):
