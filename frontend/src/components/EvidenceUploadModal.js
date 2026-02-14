@@ -72,6 +72,9 @@ function EvidenceUploadModal({ isOpen, onClose, onUpload, questionCode, question
   const [appliesToScope, setAppliesToScope] = useState('Unspecified');
   const [isReusable, setIsReusable] = useState(false);
   const [uploading, setUploading] = useState(false);
+  // Phase 1 new fields
+  const [evidenceSummary, setEvidenceSummary] = useState('');
+  const [limitations, setLimitations] = useState('');
   const fileInputRef = useRef(null);
 
   const handleDrag = (e) => {
