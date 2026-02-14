@@ -107,6 +107,9 @@ class EvidenceUpdate(BaseModel):
     notes: Optional[str] = None
     is_reusable: Optional[bool] = None
     status: Optional[EvidenceStatus] = None
+    # Phase 1 new fields
+    evidence_summary: Optional[str] = Field(None, max_length=500, description="What does this evidence demonstrate? (max 500 chars)")
+    limitations: Optional[str] = Field(None, max_length=300, description="Known limitations of this evidence (max 300 chars)")
 
 
 class Evidence(BaseModel):
