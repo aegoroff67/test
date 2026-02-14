@@ -473,7 +473,7 @@ function EvidenceDrawer({
               {/* Notes Section */}
               <Card>
                 <CardHeader className="py-3 px-4">
-                  <CardTitle className="text-sm font-semibold text-gray-900">Notes</CardTitle>
+                  <CardTitle className="text-sm font-semibold text-gray-900">Internal Notes (not included in report)</CardTitle>
                 </CardHeader>
                 <CardContent className="py-3 px-4">
                   {isEditMode ? (
