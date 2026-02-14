@@ -54,6 +54,7 @@ class TrustLevel(str, Enum):
 
 class AppliesToScope(str, Enum):
     ORGANISATION_WIDE = "Organisation-wide"
+    SHARED_PLATFORM_SERVICE = "Shared Platform / Service"
     SPECIFIC_AI_SYSTEM = "Specific AI System"
     SPECIFIC_MODEL = "Specific Model"
     SPECIFIC_USE_CASE = "Specific Use Case"
