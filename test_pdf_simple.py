@@ -7,7 +7,7 @@ from datetime import datetime
 
 # Test PDF generation with a simple request
 def test_pdf_simple():
-    base_url = "https://evidence-phase1.preview.emergentagent.com"
+    base_url = "https://evidence-upgrade-p1.preview.emergentagent.com"
     api_url = f"{base_url}/api"
     
     # First, create a user and get token
