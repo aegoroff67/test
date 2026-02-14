@@ -39,7 +39,16 @@ const SectionB8 = ({ form, update, toggleInArray, assessmentId, currentUser }) =
 
       {/* B8.3 */}
       <div className="space-y-2">
-        <Label>B8.3 Is staff trained in AI system management?</Label>
+        <div className="flex items-center justify-between">
+          <Label>B8.3 Is staff trained in AI system management?</Label>
+          {assessmentId && (
+            <EvidenceAttachLink 
+              questionCode="B8-3" 
+              assessmentId={assessmentId} 
+              currentUser={currentUser} 
+            />
+          )}
+        </div>
         <div className="flex space-x-4">
           {["Yes", "No"].map((opt) => (
             <label key={opt} className="flex items-center space-x-2">
