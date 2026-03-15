@@ -7021,9 +7021,48 @@ async def shutdown_db_client():
     client.close()
 
 @app.on_event("startup")
-async def startup_event():
-    logger.info("Starting AM AI SAFE API")
+async def startup_seed_event():
+    logger.info("Starting AM AI SAFE API - Seeding data")
     await seed_data()
+    await seed_demo_user()
+
+async def seed_demo_user():
+    """Seed a demo user and organization for testing"""
+    # Check if demo user already exists
+    existing_user = await db.users.find_one({"email": "andrew@test.com"})
+    if existing_user:
+        logger.info("Demo user already exists, skipping seed")
+        return
+    
+    logger.info("Seeding demo user and organization...")
+    
+    # Create demo organization
+    demo_org_id = str(uuid.uuid4())
+    demo_org = {
+        "id": demo_org_id,
+        "name": "Demo Organisation",
+        "industry": "Technology",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.organizations.insert_one(demo_org)
+    
+    # Create demo user with hashed password
+    demo_user_id = str(uuid.uuid4())
+    demo_user = {
+        "id": demo_user_id,
+        "email": "andrew@test.com",
+        "name": "Andrew Test",
+        "hashed_password": hash_password("password123"),
+        "org_id": demo_org_id,
+        "role": "SUPER_ADMIN",
+        "is_active": True,
+        "tier": 3,
+        "assessment_access": ["awareness", "readiness", "orgwide", "system", "faira"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.users.insert_one(demo_user)
+    
+    logger.info(f"Demo user seeded: andrew@test.com (password: password123)")
 
 async def seed_data():
     """Seed the database with initial data"""

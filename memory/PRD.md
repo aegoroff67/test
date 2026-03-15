@@ -23,6 +23,12 @@ Build a full-stack application for managing and generating AI maturity and risk 
 
 ## What's Been Implemented
 
+### 2026-03-15 - Production Deployment Fix ✅
+**Status: COMPLETED**
+- Fixed "Login failed" error in production by adding demo user seeding on startup
+- Added `seed_demo_user()` function that creates test user/org if not present in Atlas
+- Demo credentials: andrew@test.com / password123
+
 ### 2026-02-14 - Phase 1 Evidence Register Upgrades ✅
 **Status: COMPLETED**
 - Added "Attach evidence" links with count badges to 14 specific FAIRA questions
