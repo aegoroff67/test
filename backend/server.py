@@ -4608,6 +4608,96 @@ async def debug_list_templates():
     
     return result
 
+@api_router.get("/debug/test-docx/{assessment_id}")
+async def debug_test_docx(assessment_id: str):
+    """Debug endpoint to test DOCX generation and capture detailed errors."""
+    import traceback
+    from pathlib import Path
+    
+    result = {
+        "assessment_id": assessment_id,
+        "steps": [],
+        "error": None,
+        "success": False
+    }
+    
+    try:
+        # Step 1: Check assessment exists
+        assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
+        if not assessment:
+            result["steps"].append({"step": "find_assessment", "status": "FAILED", "error": "Assessment not found"})
+            return result
+        result["steps"].append({
+            "step": "find_assessment", 
+            "status": "OK",
+            "assessment_type": assessment.get("assessment_type"),
+            "status_field": assessment.get("status"),
+            "org_id": assessment.get("org_id")
+        })
+        
+        # Step 2: Check template exists
+        assessment_type = assessment.get("assessment_type", "System")
+        backend_dir = Path(__file__).parent
+        template_map = {
+            'System': 'AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx',
+            'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
+            'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
+            'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
+            'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
+        }
+        template_filename = template_map.get(assessment_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
+        template_path = backend_dir / "templates" / "docx" / template_filename
+        
+        result["steps"].append({
+            "step": "check_template",
+            "status": "OK" if template_path.exists() else "FAILED",
+            "template": template_filename,
+            "exists": template_path.exists()
+        })
+        
+        if not template_path.exists():
+            result["error"] = f"Template not found: {template_filename}"
+            return result
+        
+        # Step 3: Try to load template
+        try:
+            from docxtpl import DocxTemplate
+            doc = DocxTemplate(str(template_path))
+            result["steps"].append({"step": "load_template", "status": "OK"})
+        except Exception as e:
+            result["steps"].append({"step": "load_template", "status": "FAILED", "error": str(e)})
+            result["error"] = f"Failed to load template: {str(e)}"
+            return result
+        
+        # Step 4: Try to initialize report generator
+        try:
+            from report_generator import AMReportGenerator
+            report_generator = AMReportGenerator(assessment_type=assessment_type)
+            result["steps"].append({"step": "init_generator", "status": "OK"})
+        except Exception as e:
+            result["steps"].append({"step": "init_generator", "status": "FAILED", "error": str(e)})
+            result["error"] = f"Failed to init generator: {str(e)}"
+            return result
+        
+        # Step 5: Get FAIRA-specific data if applicable
+        if assessment_type == 'Faira':
+            faira_form = assessment.get('faira_form') or assessment.get('form_responses') or {}
+            result["steps"].append({
+                "step": "check_faira_data",
+                "status": "OK",
+                "faira_form_keys": len(faira_form),
+                "has_faira_risk_summary": bool(assessment.get('faira_risk_summary'))
+            })
+        
+        result["success"] = True
+        result["message"] = "All pre-checks passed. Issue may be in report generation logic."
+        
+    except Exception as e:
+        result["error"] = str(e)
+        result["traceback"] = traceback.format_exc()
+    
+    return result
+
 @api_router.get("/debug/template-check/{assessment_type}")
 async def debug_template_check(
     assessment_type: str
