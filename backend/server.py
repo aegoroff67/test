@@ -4709,6 +4709,95 @@ async def debug_test_docx(assessment_id: str):
     
     return result
 
+@api_router.get("/debug/generate-docx-test/{assessment_id}")
+async def debug_generate_docx_test(assessment_id: str):
+    """Debug endpoint to actually attempt DOCX generation and capture detailed errors."""
+    import traceback
+    from pathlib import Path
+    
+    result = {
+        "assessment_id": assessment_id,
+        "steps": [],
+        "error": None,
+        "success": False
+    }
+    
+    try:
+        # Step 1: Get assessment
+        assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
+        if not assessment:
+            result["error"] = "Assessment not found"
+            return result
+        
+        assessment_type = assessment.get("assessment_type", "System")
+        # Normalize
+        normalized_type = assessment_type.strip().title() if assessment_type else "System"
+        if normalized_type.upper() == "FAIRA":
+            normalized_type = "Faira"
+        
+        result["steps"].append({
+            "step": "get_assessment",
+            "status": "OK",
+            "assessment_type": assessment_type,
+            "normalized_type": normalized_type,
+            "status_field": assessment.get("status")
+        })
+        
+        # Step 2: Initialize report generator
+        try:
+            from report_generator import AMReportGenerator
+            report_generator = AMReportGenerator(assessment_type=normalized_type)
+            result["steps"].append({
+                "step": "init_generator",
+                "status": "OK",
+                "template_path": report_generator.template_path
+            })
+        except Exception as e:
+            result["steps"].append({"step": "init_generator", "status": "FAILED", "error": str(e), "traceback": traceback.format_exc()})
+            result["error"] = f"Failed to init generator: {str(e)}"
+            return result
+        
+        # Step 3: Create a mock user for testing
+        class MockUser:
+            def __init__(self):
+                self.id = "debug-user"
+                self.email = "debug@test.com"
+                self.org_id = assessment.get("org_id", "unknown")
+                self.organization_name = "Debug Org"
+                self.name = "Debug User"
+        
+        mock_user = MockUser()
+        result["steps"].append({"step": "create_mock_user", "status": "OK", "org_id": mock_user.org_id})
+        
+        # Step 4: Attempt to generate report
+        try:
+            docx_bytes, filename = await report_generator.generate_report_for_assessment(
+                assessment_id, db, mock_user, view_type="heatmap", use_ai=False
+            )
+            result["steps"].append({
+                "step": "generate_report",
+                "status": "OK",
+                "filename": filename,
+                "size_bytes": len(docx_bytes)
+            })
+            result["success"] = True
+            result["message"] = "DOCX generation successful!"
+        except Exception as e:
+            result["steps"].append({
+                "step": "generate_report",
+                "status": "FAILED",
+                "error": str(e),
+                "traceback": traceback.format_exc()
+            })
+            result["error"] = f"Report generation failed: {str(e)}"
+            return result
+        
+    except Exception as e:
+        result["error"] = str(e)
+        result["traceback"] = traceback.format_exc()
+    
+    return result
+
 @api_router.get("/debug/template-check/{assessment_type}")
 async def debug_template_check(
     assessment_type: str
