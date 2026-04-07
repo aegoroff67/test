@@ -4740,7 +4740,8 @@ async def debug_generate_docx_test(assessment_id: str):
             "status": "OK",
             "assessment_type": assessment_type,
             "normalized_type": normalized_type,
-            "status_field": assessment.get("status")
+            "status_field": assessment.get("status"),
+            "assessment_org_id": assessment.get("org_id")
         })
         
         # Step 2: Initialize report generator
@@ -4757,12 +4758,12 @@ async def debug_generate_docx_test(assessment_id: str):
             result["error"] = f"Failed to init generator: {str(e)}"
             return result
         
-        # Step 3: Create a mock user for testing
+        # Step 3: Create a mock user with MATCHING org_id from assessment
         class MockUser:
             def __init__(self):
                 self.id = "debug-user"
                 self.email = "debug@test.com"
-                self.org_id = assessment.get("org_id", "unknown")
+                self.org_id = assessment.get("org_id", "unknown")  # Use assessment's org_id
                 self.organization_name = "Debug Org"
                 self.name = "Debug User"
         
@@ -4797,6 +4798,27 @@ async def debug_generate_docx_test(assessment_id: str):
         result["traceback"] = traceback.format_exc()
     
     return result
+
+@api_router.get("/debug/check-user-org/{assessment_id}")
+async def debug_check_user_org(
+    assessment_id: str,
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """Debug endpoint to check if user's org_id matches assessment's org_id."""
+    assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
+    
+    if not assessment:
+        return {"error": "Assessment not found"}
+    
+    return {
+        "assessment_id": assessment_id,
+        "assessment_org_id": assessment.get("org_id"),
+        "user_org_id": current_user.org_id,
+        "user_email": current_user.email,
+        "user_role": current_user.role,
+        "org_ids_match": assessment.get("org_id") == current_user.org_id,
+        "assessment_status": assessment.get("status")
+    }
 
 @api_router.get("/debug/template-check/{assessment_type}")
 async def debug_template_check(
