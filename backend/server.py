@@ -4421,8 +4421,19 @@ async def generate_report_docx(
 ):
     """Generate and download DOCX report for assessment using DOCX template."""
     from report_generator import AMReportGenerator
+    from pathlib import Path
     
     try:
+        # Verify template exists before proceeding
+        backend_dir = Path(__file__).parent
+        template_map = {
+            'System': 'AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx',
+            'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
+            'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
+            'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
+            'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
+        }
+        
         # Fetch assessment to get its type
         assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
         if not assessment:
@@ -4430,18 +4441,25 @@ async def generate_report_docx(
         
         assessment_type = assessment.get("assessment_type", "System")
         
+        # Check if template file exists
+        template_filename = template_map.get(assessment_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
+        template_path = backend_dir / "templates" / "docx" / template_filename
+        if not template_path.exists():
+            available_templates = list((backend_dir / "templates" / "docx").glob("*.docx")) if (backend_dir / "templates" / "docx").exists() else []
+            logger.error(f"Template not found: {template_path}. Available templates: {len(available_templates)}")
+            raise HTTPException(status_code=500, detail=f"Report template not found for {assessment_type}. Please contact support.")
+        
         # Determine smart priority default based on template
         if use_smart_priority is None:
             use_smart_priority = use_test_template  # Default to True for test template
         
-        print(f"=== REPORT GENERATION DEBUG ===")
-        print(f"Assessment ID: {assessment_id}")
-        print(f"Assessment Type: {assessment_type}")
-        print(f"View Type: {view_type}")
-        print(f"Use AI: {use_ai}")
-        print(f"Use Test Template: {use_test_template}")
-        print(f"Use Smart Priority: {use_smart_priority}")
-        print(f"User: {current_user.email}")
+        logger.info(f"=== REPORT GENERATION DEBUG ===")
+        logger.info(f"Assessment ID: {assessment_id}")
+        logger.info(f"Assessment Type: {assessment_type}")
+        logger.info(f"Template: {template_filename}")
+        logger.info(f"View Type: {view_type}")
+        logger.info(f"Use AI: {use_ai}")
+        logger.info(f"User: {current_user.email}")
         
         # Initialize report generator with assessment type, test template flag and smart priority
         report_generator = AMReportGenerator(
@@ -4538,12 +4556,19 @@ async def generate_report_docx(
         raise
     except Exception as e:
         error_detail = str(e)
-        logger.error(f"Error generating DOCX report: {error_detail}", exc_info=True)
+        logger.error(f"Error generating DOCX report for assessment {assessment_id}: {error_detail}", exc_info=True)
         # Include more context in the error response
         import traceback
         tb = traceback.format_exc()
-        print(f"FULL TRACEBACK:\n{tb}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate DOCX report: {error_detail}")
+        logger.error(f"FULL TRACEBACK:\n{tb}")
+        
+        # Provide more helpful error message
+        if "Template" in error_detail or "template" in error_detail or "not found" in error_detail.lower():
+            raise HTTPException(status_code=500, detail=f"Report template issue: {error_detail}. Please contact support.")
+        elif "mongodb" in error_detail.lower() or "connection" in error_detail.lower():
+            raise HTTPException(status_code=500, detail="Database connection error. Please try again later.")
+        else:
+            raise HTTPException(status_code=500, detail=f"Failed to generate report: {error_detail}")
 
 
 @api_router.get("/debug/template-check/{assessment_type}")
