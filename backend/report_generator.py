@@ -115,7 +115,11 @@ class AMReportGenerator:
         self.use_test_template = use_test_template
         self.use_smart_priority = use_smart_priority
         # Normalize assessment_type to Title case for consistent matching
-        self.assessment_type = assessment_type.title() if assessment_type else "System"
+        # Special handling for FAIRA which should always be "Faira"
+        normalized_type = assessment_type.strip().title() if assessment_type else "System"
+        if normalized_type.upper() == "FAIRA":
+            normalized_type = "Faira"
+        self.assessment_type = normalized_type
         # For test template, default to smart priority unless explicitly set to False
         if use_test_template and not use_smart_priority:
             self.use_smart_priority = True
@@ -224,6 +228,12 @@ class AMReportGenerator:
         """Get the appropriate template path based on assessment type."""
         backend_dir = Path(__file__).parent
         
+        # Normalize assessment type to handle case variations (e.g., "FAIRA" vs "Faira")
+        normalized_type = assessment_type.strip().title() if assessment_type else "System"
+        # Special handling for FAIRA which should map to "Faira"
+        if normalized_type.upper() == "FAIRA":
+            normalized_type = "Faira"
+        
         # Template mapping for each assessment type
         template_map = {
             'System': 'AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx',
@@ -233,15 +243,15 @@ class AMReportGenerator:
             'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
         }
         
-        template_filename = template_map.get(assessment_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
+        template_filename = template_map.get(normalized_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
         template_path = backend_dir / "templates" / "docx" / template_filename
         
         # Check if template exists, fallback to default if not
         if not template_path.exists():
-            print(f"Warning: Template for {assessment_type} not found at {template_path}, using default")
+            print(f"Warning: Template for {assessment_type} (normalized: {normalized_type}) not found at {template_path}, using default")
             template_path = backend_dir / "templates" / "docx" / "AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx"
         
-        print(f"DEBUG: Using template for {assessment_type}: {template_path.name}")
+        print(f"DEBUG: Using template for {assessment_type} (normalized: {normalized_type}): {template_path.name}")
         return str(template_path)
 
     def _get_sector_average(self, sector_name: str) -> float:

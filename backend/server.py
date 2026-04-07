@@ -4440,13 +4440,17 @@ async def generate_report_docx(
             raise HTTPException(status_code=404, detail="Assessment not found")
         
         assessment_type = assessment.get("assessment_type", "System")
+        # Normalize assessment type (handle FAIRA vs Faira case)
+        normalized_type = assessment_type.strip().title() if assessment_type else "System"
+        if normalized_type.upper() == "FAIRA":
+            normalized_type = "Faira"
         
         # Check if template file exists
-        template_filename = template_map.get(assessment_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
+        template_filename = template_map.get(normalized_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
         template_path = backend_dir / "templates" / "docx" / template_filename
         if not template_path.exists():
             available_templates = list((backend_dir / "templates" / "docx").glob("*.docx")) if (backend_dir / "templates" / "docx").exists() else []
-            logger.error(f"Template not found: {template_path}. Available templates: {len(available_templates)}")
+            logger.error(f"Template not found: {template_path}. Assessment type: {assessment_type}, normalized: {normalized_type}. Available templates: {len(available_templates)}")
             raise HTTPException(status_code=500, detail=f"Report template not found for {assessment_type}. Please contact support.")
         
         # Determine smart priority default based on template
@@ -4455,17 +4459,17 @@ async def generate_report_docx(
         
         logger.info(f"=== REPORT GENERATION DEBUG ===")
         logger.info(f"Assessment ID: {assessment_id}")
-        logger.info(f"Assessment Type: {assessment_type}")
+        logger.info(f"Assessment Type: {assessment_type} (normalized: {normalized_type})")
         logger.info(f"Template: {template_filename}")
         logger.info(f"View Type: {view_type}")
         logger.info(f"Use AI: {use_ai}")
         logger.info(f"User: {current_user.email}")
         
-        # Initialize report generator with assessment type, test template flag and smart priority
+        # Initialize report generator with normalized assessment type
         report_generator = AMReportGenerator(
             use_test_template=use_test_template, 
             use_smart_priority=use_smart_priority,
-            assessment_type=assessment_type
+            assessment_type=normalized_type
         )
         
         # Generate report with specified view type
@@ -4637,6 +4641,11 @@ async def debug_test_docx(assessment_id: str):
         
         # Step 2: Check template exists
         assessment_type = assessment.get("assessment_type", "System")
+        # Normalize assessment type (handle FAIRA vs Faira case)
+        normalized_type = assessment_type.strip().title() if assessment_type else "System"
+        if normalized_type.upper() == "FAIRA":
+            normalized_type = "Faira"
+        
         backend_dir = Path(__file__).parent
         template_map = {
             'System': 'AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx',
@@ -4645,13 +4654,15 @@ async def debug_test_docx(assessment_id: str):
             'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
             'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
         }
-        template_filename = template_map.get(assessment_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
+        template_filename = template_map.get(normalized_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
         template_path = backend_dir / "templates" / "docx" / template_filename
         
         result["steps"].append({
             "step": "check_template",
             "status": "OK" if template_path.exists() else "FAILED",
             "template": template_filename,
+            "original_type": assessment_type,
+            "normalized_type": normalized_type,
             "exists": template_path.exists()
         })
         
