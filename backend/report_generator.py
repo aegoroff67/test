@@ -5147,10 +5147,19 @@ Each cell represents the score for a specific question, enabling identification 
         """
         print(f"DEBUG: Generating report for assessment_id: {assessment_id}")
         print(f"DEBUG: Current user org_id: {getattr(current_user, 'org_id', 'NOT SET')}")
+        print(f"DEBUG: Current user role: {getattr(current_user, 'role', 'NOT SET')}")
         print(f"DEBUG: Current user: {current_user}")
         
-        # Get assessment data
-        assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
+        # Check if user is SUPER_ADMIN - they can access any assessment
+        user_role = getattr(current_user, 'role', None)
+        is_super_admin = user_role == 'SUPER_ADMIN'
+        
+        # Get assessment data - SUPER_ADMIN can access any assessment
+        if is_super_admin:
+            assessment = await db.assessments.find_one({"id": assessment_id})
+            print(f"DEBUG: SUPER_ADMIN access - fetching assessment without org_id filter")
+        else:
+            assessment = await db.assessments.find_one({"id": assessment_id, "org_id": current_user.org_id})
         print(f"DEBUG: Assessment found: {assessment is not None}")
         
         if not assessment:
