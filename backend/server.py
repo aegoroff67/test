@@ -4571,6 +4571,43 @@ async def generate_report_docx(
             raise HTTPException(status_code=500, detail=f"Failed to generate report: {error_detail}")
 
 
+@api_router.get("/debug/list-templates")
+async def debug_list_templates():
+    """Debug endpoint to list all available DOCX templates. No auth required for diagnostics."""
+    from pathlib import Path
+    
+    backend_dir = Path(__file__).parent
+    templates_dir = backend_dir / "templates" / "docx"
+    
+    result = {
+        "templates_dir": str(templates_dir),
+        "templates_dir_exists": templates_dir.exists(),
+        "templates": []
+    }
+    
+    if templates_dir.exists():
+        templates = list(templates_dir.glob("*.docx"))
+        result["template_count"] = len(templates)
+        # List the main templates we care about
+        important_templates = [
+            'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
+            'AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx',
+            'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
+            'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
+            'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
+        ]
+        for t in important_templates:
+            t_path = templates_dir / t
+            result["templates"].append({
+                "name": t,
+                "exists": t_path.exists(),
+                "size": t_path.stat().st_size if t_path.exists() else None
+            })
+    else:
+        result["error"] = "Templates directory not found"
+    
+    return result
+
 @api_router.get("/debug/template-check/{assessment_type}")
 async def debug_template_check(
     assessment_type: str
@@ -4585,7 +4622,8 @@ async def debug_template_check(
         'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
         'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
         'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
-        'FAIRA': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.37_20260131.docx',
+        'FAIRA': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
+        'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
     }
     
     template_filename = template_map.get(assessment_type, 'unknown')
