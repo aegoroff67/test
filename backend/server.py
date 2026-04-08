@@ -2930,8 +2930,45 @@ async def get_faira_scores(
         "risk_summary": risk_summary
     }
 
+@api_router.get("/debug/faira-scores/{assessment_id}")
+async def debug_faira_scores(assessment_id: str):
+    """Debug endpoint to see all FAIRA score details"""
+    from faira_scoring_engine import calculate_overall_risk, get_radar_chart_data, calculate_domain_scores, calculate_totals
+    
+    assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
+    if not assessment:
+        return {"error": "Assessment not found"}
+    
+    faira_form = assessment.get("faira_form", {})
+    
+    # Get all calculation details
+    totals = calculate_totals(faira_form)
+    domain_scores = calculate_domain_scores(faira_form)
+    risk_summary = calculate_overall_risk(faira_form)
+    radar_data = get_radar_chart_data(faira_form)
+    
+    return {
+        "assessment_id": assessment_id,
+        "totals": totals,
+        "domain_scores": domain_scores,
+        "risk_summary": {
+            "ce_index": risk_summary.get("ce_index"),
+            "total_control_effectiveness": risk_summary.get("total_control_effectiveness"),
+            "impact_index": risk_summary.get("impact_index"),
+            "likelihood_index": risk_summary.get("likelihood_index"),
+            "overall_risk_score": risk_summary.get("overall_risk_score"),
+        },
+        "domain_ce_values": [
+            {
+                "domain": item["domain"],
+                "ce_score": item["score"],
+                "raw_ce": item.get("rawValue", 0)
+            }
+            for item in radar_data.get("domainControlEffectiveness", [])
+        ]
+    }
 
-@api_router.get("/assessments/{assessment_id}/faira-controls")
+
 async def get_faira_controls(
     assessment_id: str,
     top_n: int = Query(default=3, ge=1, le=10, description="Number of top controls to return"),
