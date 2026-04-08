@@ -669,9 +669,10 @@ def calculate_overall_risk(form_data: Dict) -> Dict[str, Any]:
     Also calculates normalized indices (0-100) for display purposes.
     """
     # Overall schema maximums (for normalized indices)
-    MAX_TOTAL_IMPACT = 344.0
-    MAX_TOTAL_LIKELIHOOD = 215.0
-    MAX_TOTAL_CE = 240.6
+    # These should match the sum of all domain maximums from DOMAIN_NORMALIZATION
+    MAX_TOTAL_IMPACT = 784.0   # Sum of all domain maxImpact values
+    MAX_TOTAL_LIKELIHOOD = 459.5  # Sum of all domain maxLikelihood values
+    MAX_TOTAL_CE = 457.6  # Sum of all domain maxCE values (95.50+71.25+23.50+18.00+25.00+62.50+59.00+102.85)
     
     schema = load_scoring_schema()
     totals = calculate_totals(form_data)
