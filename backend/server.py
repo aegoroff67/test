@@ -5669,6 +5669,86 @@ async def debug_download_test_report(assessment_id: str):
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}\n{traceback.format_exc()}")
 
 
+@api_router.get("/debug/test-pdf/{assessment_id}")
+async def debug_test_pdf(assessment_id: str):
+    """Debug endpoint to test PDF generation and capture detailed errors."""
+    import traceback
+    import glob
+    
+    result = {
+        "assessment_id": assessment_id,
+        "steps": [],
+        "error": None
+    }
+    
+    try:
+        # Step 1: Check assessment exists
+        assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
+        if not assessment:
+            result["error"] = "Assessment not found"
+            return result
+        result["steps"].append({
+            "step": "find_assessment",
+            "status": "OK",
+            "assessment_type": assessment.get("assessment_type")
+        })
+        
+        # Step 2: Check Playwright browser
+        os.environ['PLAYWRIGHT_BROWSERS_PATH'] = '/pw-browsers'
+        chromium_paths = glob.glob("/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell")
+        result["steps"].append({
+            "step": "check_playwright",
+            "status": "OK" if chromium_paths else "MISSING",
+            "chromium_paths": chromium_paths[:2] if chromium_paths else [],
+            "pw_browsers_path": os.environ.get('PLAYWRIGHT_BROWSERS_PATH')
+        })
+        
+        # Step 3: Check frontend URL
+        frontend_url = os.environ.get('REACT_APP_BACKEND_URL', 'NOT_SET')
+        result["steps"].append({
+            "step": "check_frontend_url",
+            "status": "OK" if frontend_url != 'NOT_SET' else "MISSING",
+            "frontend_url": frontend_url
+        })
+        
+        # Step 4: Try to import playwright
+        try:
+            from playwright.async_api import async_playwright
+            result["steps"].append({"step": "import_playwright", "status": "OK"})
+        except Exception as e:
+            result["steps"].append({"step": "import_playwright", "status": "FAILED", "error": str(e)})
+            result["error"] = f"Playwright import failed: {str(e)}"
+            return result
+        
+        # Step 5: Try to launch browser
+        try:
+            async with async_playwright() as p:
+                browser = await p.chromium.launch(
+                    headless=True,
+                    args=['--no-sandbox', '--disable-setuid-sandbox']
+                )
+                result["steps"].append({"step": "launch_browser", "status": "OK"})
+                await browser.close()
+        except Exception as e:
+            result["steps"].append({
+                "step": "launch_browser",
+                "status": "FAILED",
+                "error": str(e),
+                "traceback": traceback.format_exc()
+            })
+            result["error"] = f"Browser launch failed: {str(e)}"
+            return result
+        
+        result["success"] = True
+        result["message"] = "All PDF generation prerequisites OK"
+        
+    except Exception as e:
+        result["error"] = str(e)
+        result["traceback"] = traceback.format_exc()
+    
+    return result
+
+
 @api_router.get("/assessments/{assessment_id}/executive-summary-pdf")
 async def generate_executive_summary_pdf(
     assessment_id: str,
@@ -5891,8 +5971,11 @@ async def generate_executive_summary_pdf(
         )
         
     except Exception as e:
-        logger.error(f"Error generating executive summary PDF: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Failed to generate PDF: {str(e)}")
+        import traceback
+        error_detail = str(e)
+        tb = traceback.format_exc()
+        logger.error(f"Error generating executive summary PDF: {error_detail}\n{tb}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate PDF: {error_detail}")
 
 
 @api_router.get("/assessments/{assessment_id}/faira-results-pdf")
