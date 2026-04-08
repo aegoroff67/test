@@ -174,8 +174,12 @@ async def startup_event():
     # Production deployments don't persist /pw-browsers/ directory
     logger.info("Ensuring Playwright Chromium browser is installed...")
     try:
+        # Set the browser path environment variable
+        os.environ['PLAYWRIGHT_BROWSERS_PATH'] = '/pw-browsers'
+        
+        # First try to install with dependencies
         result = subprocess.run(
-            ["playwright", "install", "chromium"],
+            ["playwright", "install", "chromium", "--with-deps"],
             capture_output=True,
             text=True,
             timeout=300  # 5 minute timeout
@@ -183,7 +187,28 @@ async def startup_event():
         if result.returncode == 0:
             logger.info("Playwright Chromium browser installed/verified successfully")
         else:
-            logger.error(f"Failed to install Playwright browser: {result.stderr}")
+            # Try without --with-deps as fallback
+            logger.warning(f"Install with deps failed, trying without: {result.stderr}")
+            result = subprocess.run(
+                ["playwright", "install", "chromium"],
+                capture_output=True,
+                text=True,
+                timeout=300
+            )
+            if result.returncode == 0:
+                logger.info("Playwright Chromium browser installed successfully (without deps)")
+            else:
+                logger.error(f"Failed to install Playwright browser: {result.stderr}")
+        
+        # Verify installation
+        import glob
+        chromium_paths = glob.glob("/pw-browsers/chromium*/chrome-linux/headless_shell") + \
+                        glob.glob("/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell")
+        if chromium_paths:
+            logger.info(f"Playwright browser found at: {chromium_paths[0]}")
+        else:
+            logger.warning("Playwright browser not found after installation attempt")
+            
     except Exception as e:
         logger.error(f"Error installing Playwright browser: {str(e)}")
 
@@ -5711,7 +5736,32 @@ async def debug_test_pdf(assessment_id: str):
             "frontend_url": frontend_url
         })
         
-        # Step 4: Try to import playwright
+        # Step 4: If Playwright browser missing, try to install it
+        if not chromium_paths:
+            result["steps"].append({"step": "installing_playwright", "status": "ATTEMPTING"})
+            try:
+                install_result = subprocess.run(
+                    ["playwright", "install", "chromium"],
+                    capture_output=True,
+                    text=True,
+                    timeout=300
+                )
+                if install_result.returncode == 0:
+                    result["steps"].append({"step": "install_playwright", "status": "OK"})
+                    # Re-check paths
+                    chromium_paths = glob.glob("/pw-browsers/chromium*/chrome-linux/headless_shell") + \
+                                    glob.glob("/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell")
+                else:
+                    result["steps"].append({
+                        "step": "install_playwright",
+                        "status": "FAILED",
+                        "stdout": install_result.stdout[:500],
+                        "stderr": install_result.stderr[:500]
+                    })
+            except Exception as e:
+                result["steps"].append({"step": "install_playwright", "status": "ERROR", "error": str(e)})
+        
+        # Step 5: Try to import playwright
         try:
             from playwright.async_api import async_playwright
             result["steps"].append({"step": "import_playwright", "status": "OK"})
