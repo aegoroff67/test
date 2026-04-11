@@ -158,9 +158,20 @@ const FRAMEWORKS = [
 
 const REGULATIONS = [
   "GDPR",
-  "Australian Privacy Act / APPs",
-  "Sectoral (e.g., Health, Finance)",
+  "Australian Privacy Act 1988",
+  "EU AI Act",
+  "Sector-specific regulation (e.g., Health, Finance)",
   "Other / Not sure",
+];
+
+const PRIMARY_JURISDICTIONS = [
+  "Australia",
+  "European Union",
+  "United States",
+  "United Kingdom",
+  "Singapore",
+  "Canada",
+  "Multiple / Global",
 ];
 
 const defaultState = {
@@ -189,6 +200,7 @@ const defaultState = {
   artefacts: [],
   frameworks: [],
   regulations: [],
+  primary_jurisdiction: "", // New field for jurisdiction
   ethicsCommitments: "",
   sustainabilityGoals: "",
   dependencies: "",
@@ -219,6 +231,13 @@ export default function SystemPreAssessmentForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!form.primary_jurisdiction) {
+      toast.error('Please select a primary jurisdiction before proceeding');
+      return;
+    }
+    
     setSubmitting(true);
     try {
       // Parse the combined cloudProviderRegion value
@@ -541,10 +560,39 @@ export default function SystemPreAssessmentForm() {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
 
+            <Separator />
+
+            {/* Regulatory obligations & applicable jurisdictions */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-800">Regulatory obligations & applicable jurisdictions</h3>
+              
+              {/* Primary Jurisdiction - New Required Field */}
               <div className="space-y-2">
-                <Label>Regulatory obligations</Label>
-                <div className="grid grid-cols-1 gap-2">
+                <Label htmlFor="primary_jurisdiction">
+                  Primary jurisdiction of operation / regulatory exposure <span className="text-red-500">*</span>
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  Select the primary country or region where this AI system is used, impacts users, or is subject to regulatory oversight. This may differ from where the system is hosted or where your organisation is headquartered.
+                </p>
+                <Select value={form.primary_jurisdiction} onValueChange={(v) => update("primary_jurisdiction", v)}>
+                  <SelectTrigger id="primary_jurisdiction" className={!form.primary_jurisdiction ? "border-amber-300" : ""}>
+                    <SelectValue placeholder="Select primary jurisdiction" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PRIMARY_JURISDICTIONS.map((j) => (<SelectItem key={j} value={j}>{j}</SelectItem>))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Regulatory Obligations Checkboxes */}
+              <div className="space-y-2">
+                <Label>Applicable regulations / legal obligations</Label>
+                <p className="text-xs text-muted-foreground">
+                  Select known regulatory obligations that apply to this system. If unsure, these may be inferred based on jurisdiction and industry.
+                </p>
+                <div className="grid grid-cols-1 gap-2 mt-2">
                   {REGULATIONS.map((r) => (
                     <label key={r} className="inline-flex items-center gap-2">
                       <Checkbox checked={form.regulations.includes(r)} onCheckedChange={() => toggleInArray("regulations", r)} />
