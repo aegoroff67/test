@@ -4190,6 +4190,7 @@ Each cell represents the score for a specific question, enabling identification 
                     }),
                     
                     # Artefact variable placeholder (template expects artefact.name, artefact.description, etc.)
+                    # Note: This is a placeholder for single artefact reference. The actual list is in 'artefacts'
                     'artefact': DotDict({
                         'name': '',
                         'description': '',
@@ -4204,6 +4205,77 @@ Each cell represents the score for a specific question, enabling identification 
                     # Full FAIRA form object for flexibility - protect ampersands in all string values
                     'faira_form': DotDict(_protect_ampersands_in_dict(faira_form)),
                 })
+                
+                # Fetch and add evidence artefacts for the Appendix A - Supporting Artefacts table
+                # Evidence artefacts should have been fetched in generate_report_for_assessment
+                evidence_list = report_data.get('evidence_artefacts', [])
+                
+                # Transform evidence into artefact format for template
+                artefacts = []
+                for ev in evidence_list:
+                    # Get linked question codes
+                    linked_questions = ev.get('linked_question_ids', [])
+                    # Map to domain names based on question codes
+                    domains_set = set()
+                    for q_code in linked_questions:
+                        # Extract domain from FAIRA question code (e.g., A1-1 -> Accountability, B3-2 -> Reliability)
+                        if q_code.startswith('A1') or q_code.startswith('A2') or q_code.startswith('A3'):
+                            domains_set.add('System Context')
+                        elif q_code.startswith('A4'):
+                            domains_set.add('Privacy')
+                        elif q_code.startswith('A5'):
+                            domains_set.add('Accountability')
+                        elif q_code.startswith('B1'):
+                            domains_set.add('Fairness')
+                        elif q_code.startswith('B2'):
+                            domains_set.add('Values')
+                        elif q_code.startswith('B3'):
+                            domains_set.add('Reliability')
+                        elif q_code.startswith('B4'):
+                            domains_set.add('Transparency')
+                        elif q_code.startswith('B5'):
+                            domains_set.add('Contestability')
+                        elif q_code.startswith('B6'):
+                            domains_set.add('Wellbeing')
+                        elif q_code.startswith('B7'):
+                            domains_set.add('Accountability')
+                        elif q_code.startswith('B8'):
+                            domains_set.add('Governance')
+                    
+                    artefacts.append(DotDict({
+                        'name': ev.get('evidence_title') or ev.get('file_name', 'Untitled'),
+                        'description': ev.get('what_it_demonstrates', '') or ev.get('notes', ''),
+                        'domains': ', '.join(sorted(domains_set)) if domains_set else 'General',
+                        'type': ev.get('evidence_type', 'Other'),
+                        'linked_questions': ', '.join(linked_questions) if linked_questions else 'N/A',
+                        'status': ev.get('status', 'Active'),
+                        'last_updated': (ev.get('updated_at') or ev.get('created_at', ''))[:10] if ev.get('updated_at') or ev.get('created_at') else 'N/A'
+                    }))
+                
+                template_context['artefacts'] = artefacts
+                print(f"DEBUG: Added {len(artefacts)} evidence artefacts to template context")
+                
+                # Generate a text summary of supporting artefacts for the ai.f_supporting_artefacts_summary field
+                # This is a fallback when AI is not used
+                if artefacts:
+                    artefacts_summary_lines = ["The following supporting artefacts have been attached to this assessment:\n"]
+                    for i, art in enumerate(artefacts, 1):
+                        art_name = art.get('name', 'Untitled')
+                        art_desc = art.get('description', '')
+                        art_domains = art.get('domains', 'General')
+                        art_questions = art.get('linked_questions', 'N/A')
+                        
+                        line = f"{i}. {art_name}"
+                        if art_desc:
+                            line += f" - {art_desc[:100]}{'...' if len(art_desc) > 100 else ''}"
+                        line += f" (Domains: {art_domains})"
+                        if art_questions != 'N/A':
+                            line += f" [Questions: {art_questions}]"
+                        artefacts_summary_lines.append(line)
+                    
+                    template_context['supporting_artefacts_summary'] = '\n'.join(artefacts_summary_lines)
+                else:
+                    template_context['supporting_artefacts_summary'] = "No supporting artefacts have been attached to this assessment."
                 
                 # Generate risk gauge image for FAIRA
                 try:
@@ -5725,6 +5797,19 @@ Each cell represents the score for a specific question, enabling identification 
                 # If faira_risk_summary exists in assessment, still pass it to assessment_data
                 assessment_data['faira_risk_summary'] = faira_risk_summary
                 print(f"DEBUG FAIRA PRE-CALC: Using existing faira_risk_summary from assessment")
+            
+            # Fetch evidence artefacts for FAIRA Appendix A - Supporting Artefacts
+            try:
+                evidence_cursor = db.evidence.find(
+                    {"assessment_id": assessment_id, "status": {"$ne": "Archived"}},
+                    {"_id": 0}
+                )
+                evidence_list = await evidence_cursor.to_list(length=500)
+                assessment_data['evidence_artefacts'] = evidence_list
+                print(f"DEBUG FAIRA: Fetched {len(evidence_list)} evidence artefacts for report")
+            except Exception as e:
+                print(f"DEBUG FAIRA: Error fetching evidence artefacts: {e}")
+                assessment_data['evidence_artefacts'] = []
         
         # Generate AI narratives for Awareness assessments if use_ai is enabled
         if use_ai and self.assessment_type == 'Awareness':
