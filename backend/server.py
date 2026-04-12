@@ -6714,29 +6714,47 @@ async def get_questions(domain_id: Optional[str] = None):
 
 
 @api_router.get("/questions/summaries")
-async def get_question_summaries():
-    """Get all question codes with their short summaries (risk_category from metadata)"""
+async def get_question_summaries(assessment_type: str = Query(default="System")):
+    """Get all question codes with their short summaries based on assessment type"""
     try:
-        # Load system question metadata
-        metadata_path = Path(__file__).parent / "system_question_metadata.json"
-        question_metadata = {}
-        if metadata_path.exists():
-            with open(metadata_path, 'r') as f:
-                question_metadata = json.load(f)
-        
-        # Build list of question summaries
         summaries = []
-        for code, meta in question_metadata.items():
-            summaries.append({
-                "code": code,
-                "summary": meta.get("risk_category", ""),
-                "domain": meta.get("domain", "")
-            })
+        
+        if assessment_type.upper() == "FAIRA" or assessment_type == "Faira":
+            # Load FAIRA questions from schema
+            faira_schema_path = Path(__file__).parent / "faira_complete_schema.json"
+            if faira_schema_path.exists():
+                with open(faira_schema_path, 'r') as f:
+                    faira_data = json.load(f)
+                
+                questions = faira_data.get('questions', {})
+                for code, q_data in questions.items():
+                    # Convert A1_1 format to A1-1 for consistency
+                    display_code = code.replace('_', '-')
+                    summaries.append({
+                        "code": display_code,
+                        "summary": q_data.get("text", "")[:80] + ("..." if len(q_data.get("text", "")) > 80 else ""),
+                        "domain": ", ".join(q_data.get("domains", []))
+                    })
+        else:
+            # Load system question metadata (default behavior)
+            metadata_path = Path(__file__).parent / "system_question_metadata.json"
+            question_metadata = {}
+            if metadata_path.exists():
+                with open(metadata_path, 'r') as f:
+                    question_metadata = json.load(f)
+            
+            # Build list of question summaries
+            for code, meta in question_metadata.items():
+                summaries.append({
+                    "code": code,
+                    "summary": meta.get("risk_category", ""),
+                    "domain": meta.get("domain", "")
+                })
         
         # Sort by domain and then by question number
         def sort_key(item):
             code = item["code"]
-            # Extract prefix (e.g., "FA") and number (e.g., "1")
+            # Extract prefix (e.g., "FA" or "A1") and number
             parts = code.split("-")
             prefix = parts[0] if parts else ""
             num = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else 0

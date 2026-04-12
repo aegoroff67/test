@@ -174,18 +174,23 @@ function EvidenceRegisterPage() {
     try {
       const token = localStorage.getItem('token');
       
-      // Fetch assessment, questions, evidence data, and question summaries in parallel
-      const [assessmentRes, questionsRes, evidenceRes, summariesRes] = await Promise.all([
-        axios.get(`${API}/assessments/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        }),
+      // First fetch the assessment to get its type
+      const assessmentRes = await axios.get(`${API}/assessments/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      const assessmentType = assessmentRes.data?.assessment_type || 'System';
+      
+      // Fetch questions, evidence data, and question summaries in parallel
+      // Pass assessment_type to get the right question summaries
+      const [questionsRes, evidenceRes, summariesRes] = await Promise.all([
         axios.get(`${API}/assessments/${id}/questions`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
         axios.get(`${API}/evidence?assessment_id=${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
-        axios.get(`${API}/questions/summaries`, {
+        axios.get(`${API}/questions/summaries?assessment_type=${encodeURIComponent(assessmentType)}`, {
           headers: { Authorization: `Bearer ${token}` }
         })
       ]);
