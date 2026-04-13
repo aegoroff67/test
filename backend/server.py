@@ -170,47 +170,41 @@ async def startup_event():
     # Ensure logging indexes exist
     await ensure_log_indexes(db)
     
-    # Always install Playwright browsers on startup to ensure they're available
+    # Install Playwright browsers in background - don't block startup
     # Production deployments don't persist /pw-browsers/ directory
-    logger.info("Ensuring Playwright Chromium browser is installed...")
+    logger.info("Scheduling Playwright Chromium browser installation...")
     try:
         # Set the browser path environment variable
         os.environ['PLAYWRIGHT_BROWSERS_PATH'] = '/pw-browsers'
         
-        # First try to install with dependencies
-        result = subprocess.run(
-            ["playwright", "install", "chromium", "--with-deps"],
-            capture_output=True,
-            text=True,
-            timeout=300  # 5 minute timeout
-        )
-        if result.returncode == 0:
-            logger.info("Playwright Chromium browser installed/verified successfully")
-        else:
-            # Try without --with-deps as fallback
-            logger.warning(f"Install with deps failed, trying without: {result.stderr}")
-            result = subprocess.run(
-                ["playwright", "install", "chromium"],
-                capture_output=True,
-                text=True,
-                timeout=300
-            )
-            if result.returncode == 0:
-                logger.info("Playwright Chromium browser installed successfully (without deps)")
-            else:
-                logger.error(f"Failed to install Playwright browser: {result.stderr}")
+        # Run installation in a non-blocking way with shorter timeout
+        import asyncio
         
-        # Verify installation
-        import glob
-        chromium_paths = glob.glob("/pw-browsers/chromium*/chrome-linux/headless_shell") + \
-                        glob.glob("/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell")
-        if chromium_paths:
-            logger.info(f"Playwright browser found at: {chromium_paths[0]}")
-        else:
-            logger.warning("Playwright browser not found after installation attempt")
+        async def install_playwright():
+            try:
+                loop = asyncio.get_event_loop()
+                result = await loop.run_in_executor(
+                    None,
+                    lambda: subprocess.run(
+                        ["playwright", "install", "chromium"],
+                        capture_output=True,
+                        text=True,
+                        timeout=120  # 2 minute timeout
+                    )
+                )
+                if result.returncode == 0:
+                    logger.info("Playwright Chromium browser installed/verified successfully")
+                else:
+                    logger.warning(f"Playwright install returned non-zero: {result.stderr[:200]}")
+            except Exception as e:
+                logger.warning(f"Playwright installation error (non-blocking): {str(e)}")
+        
+        # Schedule the installation but don't wait for it
+        asyncio.create_task(install_playwright())
+        logger.info("Playwright installation scheduled (running in background)")
             
     except Exception as e:
-        logger.error(f"Error installing Playwright browser: {str(e)}")
+        logger.warning(f"Error scheduling Playwright installation: {str(e)}")
 
 # Helper Functions
 def normalize_org_name(raw_name: str) -> str:
