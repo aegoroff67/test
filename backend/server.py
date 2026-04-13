@@ -4493,7 +4493,7 @@ async def generate_report_docx(
             'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
             'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
             'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
-            'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
+            'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.62_20260413.docx',
         }
         
         # Fetch assessment to get its type
@@ -4656,7 +4656,7 @@ async def debug_list_templates():
         result["template_count"] = len(templates)
         # List the main templates we care about
         important_templates = [
-            'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
+            'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.62_20260413.docx',
             'AM_AI_SAFE_System_Report_TEMPLATE_v0.15_20260122.docx',
             'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
             'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
@@ -4714,7 +4714,7 @@ async def debug_test_docx(assessment_id: str):
             'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
             'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
             'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
-            'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
+            'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.62_20260413.docx',
         }
         template_filename = template_map.get(normalized_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
         template_path = backend_dir / "templates" / "docx" / template_filename
@@ -4896,8 +4896,8 @@ async def debug_template_check(
         'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
         'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
         'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
-        'FAIRA': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
-        'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
+        'FAIRA': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.62_20260413.docx',
+        'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.62_20260413.docx',
     }
     
     template_filename = template_map.get(assessment_type, 'unknown')
@@ -5168,7 +5168,7 @@ async def debug_test_gaps_template():
     try:
         # Use the actual FAIRA template
         backend_dir = Path(__file__).parent
-        template_path = backend_dir / "templates" / "docx" / "AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.37_20260131.docx"
+        template_path = backend_dir / "templates" / "docx" / "AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.62_20260413.docx"
         
         if not template_path.exists():
             return {"error": f"Template not found: {template_path}"}
@@ -5356,7 +5356,7 @@ async def debug_generate_test_report(assessment_id: str):
         from jinja2 import Environment
         from pathlib import Path
         
-        template_path = Path("/app/backend/templates/docx/AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.37_20260131.docx")
+        template_path = Path("/app/backend/templates/docx/AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.62_20260413.docx")
         
         if not template_path.exists():
             return {"error": f"Template not found: {template_path}"}

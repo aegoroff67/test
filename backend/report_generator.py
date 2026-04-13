@@ -240,7 +240,7 @@ class AMReportGenerator:
             'Awareness': 'AM_AI_SAFE_Awareness_Report_TEMPLATE_v0.9.34_20260117.docx',
             'Readiness': 'AM_AI_SAFE_Readiness_Report_TEMPLATE_v0.08_20260118_FINAL.docx',
             'Orgwide': 'AM_AI_SAFE_Organisation_Report_TEMPLATE_v0.06_20260121.docx',
-            'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.61_20260208.docx',
+            'Faira': 'AM_AI_SAFE_FAIRA_Report_TEMPLATE_v0.62_20260413.docx',
         }
         
         template_filename = template_map.get(normalized_type, 'AM_AI_SAFE_Report_TEMPLATE_v9_10072025.docx')
@@ -4253,6 +4253,7 @@ Each cell represents the score for a specific question, enabling identification 
                     }))
                 
                 template_context['artefacts'] = artefacts
+                template_context['evidence_artefacts'] = artefacts  # For template loop: {%tr for artefact in evidence_artefacts %}
                 print(f"DEBUG: Added {len(artefacts)} evidence artefacts to template context")
                 
                 # Generate a text summary of supporting artefacts for the ai.f_supporting_artefacts_summary field
