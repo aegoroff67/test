@@ -4247,7 +4247,9 @@ Each cell represents the score for a specific question, enabling identification 
                             domains_set.add(domain_mapping[prefix])
                     
                     # Get description - try multiple fields
+                    # The field "What does this evidence demonstrate?" is stored as 'evidence_summary'
                     description = (
+                        ev.get('evidence_summary') or
                         ev.get('evidence_description') or 
                         ev.get('what_it_demonstrates') or 
                         ev.get('notes') or 

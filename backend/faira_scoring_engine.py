@@ -1199,10 +1199,30 @@ def get_recommended_controls(form_data: Dict, top_n: int = 3) -> Dict[str, Any]:
     
     top_controls = sorted_controls[:top_n]
     
+    # FALLBACK: If no controls matched (e.g., low-risk assessment), 
+    # provide general best-practice controls
+    if not top_controls:
+        # Get some general governance controls for low-risk scenarios
+        fallback_control_ids = [
+            "C1.1",  # AI governance policy
+            "C2.1",  # AI system inventory
+            "C8.1",  # Continuous monitoring
+        ]
+        fallback_controls = get_controls_by_ids(all_controls, fallback_control_ids)
+        
+        for control in fallback_controls[:top_n]:
+            top_controls.append({
+                "control": control,
+                "priority": 1,
+                "priority_label": "Low",
+                "rationale": "Recommended as a general best practice for maintaining AI governance standards, even in low-risk scenarios.",
+                "triggered_by": ["fallback_low_risk"]
+            })
+    
     # Format output
     result = {
         "top_controls": [],
-        "total_matched": len(matched_controls),
+        "total_matched": len(matched_controls) if matched_controls else len(top_controls),
         "risk_summary": {
             "overall_risk_level": risk_summary.get("overall_risk_level"),
             "overall_risk_score": risk_summary.get("overall_risk_score")
