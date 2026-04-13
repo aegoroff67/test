@@ -299,14 +299,6 @@ function FairaResultsPage() {
   const [generatingPDF, setGeneratingPDF] = useState(false);
   const [generatingReport, setGeneratingReport] = useState(false);
   
-  // Report generation status for pre-generated reports
-  const [reportStatus, setReportStatus] = useState({
-    pdf_status: 'not_started',
-    docx_status: 'not_started',
-    pdf_error: null,
-    docx_error: null
-  });
-  
   // Top 3 Controls from API
   const [topControls, setTopControls] = useState([]);
   const [controlsLoading, setControlsLoading] = useState(false);
@@ -763,16 +755,6 @@ function FairaResultsPage() {
         setControlsLoading(false);
       }
       
-      // Fetch report generation status
-      try {
-        const statusResponse = await axios.get(`${API}/assessments/${id}/report-status`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setReportStatus(statusResponse.data);
-      } catch (statusError) {
-        console.warn('Could not fetch report status:', statusError);
-      }
-      
       setLoading(false);
     } catch (error) {
       console.error('Error fetching FAIRA results:', error);
@@ -796,46 +778,6 @@ function FairaResultsPage() {
     if (score >= 50) return 'High';
     if (score >= 25) return 'Medium';
     return 'Low';
-  };
-
-  // Poll for report status updates when status is "generating"
-  useEffect(() => {
-    const shouldPoll = reportStatus.pdf_status === 'generating' || reportStatus.docx_status === 'generating';
-    
-    if (!shouldPoll || !id) return;
-    
-    const pollInterval = setInterval(async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const statusResponse = await axios.get(`${API}/assessments/${id}/report-status`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setReportStatus(statusResponse.data);
-        
-        // Stop polling if both are done
-        if (statusResponse.data.pdf_status !== 'generating' && statusResponse.data.docx_status !== 'generating') {
-          clearInterval(pollInterval);
-        }
-      } catch (error) {
-        console.warn('Error polling report status:', error);
-      }
-    }, 5000); // Poll every 5 seconds
-    
-    return () => clearInterval(pollInterval);
-  }, [id, reportStatus.pdf_status, reportStatus.docx_status]);
-
-  // Helper to get status dot color
-  const getStatusDot = (status) => {
-    switch (status) {
-      case 'ready':
-        return <span className="inline-block w-2 h-2 rounded-full bg-green-500 mr-1" title="Report ready" />;
-      case 'generating':
-        return <span className="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse mr-1" title="Generating..." />;
-      case 'failed':
-        return <span className="inline-block w-2 h-2 rounded-full bg-red-500 mr-1" title="Generation failed" />;
-      default:
-        return <span className="inline-block w-2 h-2 rounded-full bg-gray-400 mr-1" title="Not started" />;
-    }
   };
 
   const handleGeneratePDF = async () => {
@@ -1043,7 +985,6 @@ function FairaResultsPage() {
                     </div>
                   ) : (
                     <div className="flex items-center justify-center space-x-1">
-                      {getStatusDot(reportStatus.docx_status)}
                       <Download className="h-3 w-3" />
                       <span>Detailed Report (DOCX)</span>
                     </div>
@@ -1067,7 +1008,6 @@ function FairaResultsPage() {
                     </div>
                   ) : (
                     <div className="flex items-center justify-center space-x-1">
-                      {getStatusDot(reportStatus.pdf_status)}
                       <FileText className="h-3 w-3" />
                       <span>Results Summary Report (PDF)</span>
                     </div>
