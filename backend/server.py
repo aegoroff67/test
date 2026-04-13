@@ -4899,6 +4899,31 @@ async def generate_report_docx(
             raise HTTPException(status_code=500, detail=f"Failed to generate report: {error_detail}")
 
 
+@api_router.get("/debug/check-assessment/{assessment_id}")
+async def debug_check_assessment(assessment_id: str):
+    """Debug endpoint to check what data exists for an assessment."""
+    assessment = await db.assessments.find_one({"id": assessment_id}, {"_id": 0})
+    
+    if not assessment:
+        return {"error": "Assessment not found", "assessment_id": assessment_id}
+    
+    faira_form = assessment.get("faira_form", {})
+    
+    return {
+        "assessment_id": assessment_id,
+        "status": assessment.get("status"),
+        "assessment_type": assessment.get("assessment_type"),
+        "created_at": assessment.get("created_at"),
+        "completed_at": assessment.get("completed_at"),
+        "has_faira_form": bool(faira_form),
+        "faira_form_keys_count": len(faira_form.keys()) if faira_form else 0,
+        "sample_faira_form_keys": list(faira_form.keys())[:10] if faira_form else [],
+        "has_faira_risk_summary": bool(assessment.get("faira_risk_summary")),
+        "name": assessment.get("name"),
+        "org_id": assessment.get("org_id")
+    }
+
+
 @api_router.get("/debug/list-templates")
 async def debug_list_templates():
     """Debug endpoint to list all available DOCX templates. No auth required for diagnostics."""
