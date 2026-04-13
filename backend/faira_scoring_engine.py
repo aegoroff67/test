@@ -697,6 +697,16 @@ def calculate_overall_risk(form_data: Dict) -> Dict[str, Any]:
     # Inherent Risk = (Impact Index × Likelihood Index) / 100
     normalized_inherent_risk = (impact_index * likelihood_index) / 100
     
+    # Calculate residual risk (inherent risk reduced by control effectiveness)
+    # Residual Risk = Inherent Risk × (1 - CE Index / 100)
+    # This ensures residual risk is always <= inherent risk
+    ce_reduction = ce_index / 100
+    normalized_residual_risk = normalized_inherent_risk * (1 - ce_reduction)
+    
+    # Use the new residual risk calculation instead of the old formula
+    # The old formula (raw_risk / MAX_EXPECTED_RAW_RISK) could give counterintuitive results
+    normalized_risk = normalized_residual_risk
+    
     # Get risk rating
     risk_rating = get_risk_rating(normalized_risk)
     
@@ -1203,10 +1213,11 @@ def get_recommended_controls(form_data: Dict, top_n: int = 3) -> Dict[str, Any]:
     # provide general best-practice controls
     if not top_controls:
         # Get some general governance controls for low-risk scenarios
+        # Using actual FAIRA control IDs from the schema
         fallback_control_ids = [
-            "C1.1",  # AI governance policy
-            "C2.1",  # AI system inventory
-            "C8.1",  # Continuous monitoring
+            "FAIRA-C-ACC-01",  # Establish AI accountability ownership
+            "FAIRA-C-REL-04",  # Monitor ongoing system performance
+            "FAIRA-C-TRANS-01",  # Ensure AI decision explainability
         ]
         fallback_controls = get_controls_by_ids(all_controls, fallback_control_ids)
         
