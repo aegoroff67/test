@@ -4219,36 +4219,44 @@ Each cell represents the score for a specific question, enabling identification 
                     print(f"DEBUG FAIRA TEMPLATE: Processing evidence item: {ev.get('evidence_title', ev.get('file_name', 'unknown'))}")
                     # Get linked question codes
                     linked_questions = ev.get('linked_question_ids', [])
-                    # Map to domain names based on question codes
+                    # Map to FAIRA domain names based on question codes
                     domains_set = set()
                     for q_code in linked_questions:
-                        # Extract domain from FAIRA question code (e.g., A1-1 -> Accountability, B3-2 -> Reliability)
-                        if q_code.startswith('A1') or q_code.startswith('A2') or q_code.startswith('A3'):
-                            domains_set.add('System Context')
-                        elif q_code.startswith('A4'):
-                            domains_set.add('Privacy')
-                        elif q_code.startswith('A5'):
-                            domains_set.add('Accountability')
-                        elif q_code.startswith('B1'):
-                            domains_set.add('Fairness')
-                        elif q_code.startswith('B2'):
-                            domains_set.add('Values')
-                        elif q_code.startswith('B3'):
-                            domains_set.add('Reliability')
-                        elif q_code.startswith('B4'):
-                            domains_set.add('Transparency')
-                        elif q_code.startswith('B5'):
-                            domains_set.add('Contestability')
-                        elif q_code.startswith('B6'):
-                            domains_set.add('Wellbeing')
-                        elif q_code.startswith('B7'):
-                            domains_set.add('Accountability')
-                        elif q_code.startswith('B8'):
-                            domains_set.add('Governance')
+                        # Convert format (e.g., "A1-1" to "A1" prefix)
+                        q_code_normalized = q_code.replace('-', '_')
+                        prefix = q_code_normalized.split('_')[0] if '_' in q_code_normalized else q_code[:2]
+                        
+                        # FAIRA domain mapping based on question prefix
+                        domain_mapping = {
+                            'A1': 'Human, Societal and Environmental Wellbeing',
+                            'A2': 'Privacy Protection and Security',
+                            'A3': 'Human, Societal and Environmental Wellbeing',
+                            'A4': 'Accountability',
+                            'A5': 'Accountability',
+                            'B1': 'Human, Societal and Environmental Wellbeing',
+                            'B2': 'Human-centred Values',
+                            'B3': 'Fairness',
+                            'B4': 'Privacy Protection and Security',
+                            'B5': 'Reliability and Safety',
+                            'B6': 'Transparency and Explainability',
+                            'B7': 'Contestability',
+                            'B8': 'Accountability',
+                        }
+                        
+                        if prefix in domain_mapping:
+                            domains_set.add(domain_mapping[prefix])
+                    
+                    # Get description - try multiple fields
+                    description = (
+                        ev.get('evidence_description') or 
+                        ev.get('what_it_demonstrates') or 
+                        ev.get('notes') or 
+                        ''
+                    )
                     
                     artefacts.append(DotDict({
                         'name': ev.get('evidence_title') or ev.get('file_name', 'Untitled'),
-                        'description': ev.get('what_it_demonstrates', '') or ev.get('notes', ''),
+                        'description': description if description else 'No description provided',
                         'domains': ', '.join(sorted(domains_set)) if domains_set else 'General',
                         'type': ev.get('evidence_type', 'Other'),
                         'linked_questions': ', '.join(linked_questions) if linked_questions else 'N/A',
