@@ -1258,6 +1258,8 @@ The findings should be approximately 600-800 words with clear section headers.""
             "faira_risk_summary": assessment_data.get('faira_risk_summary', {}),
             "faira_radar_data": assessment_data.get('faira_radar_data', {}),
             "faira_controls": assessment_data.get('faira_controls', []),
+            # Evidence artefacts for Appendix A
+            "evidence_artefacts": assessment_data.get('evidence_artefacts', []),
         }
         
         return report_data
@@ -4209,10 +4211,12 @@ Each cell represents the score for a specific question, enabling identification 
                 # Fetch and add evidence artefacts for the Appendix A - Supporting Artefacts table
                 # Evidence artefacts should have been fetched in generate_report_for_assessment
                 evidence_list = report_data.get('evidence_artefacts', [])
+                print(f"DEBUG FAIRA TEMPLATE: Got {len(evidence_list)} evidence items from report_data")
                 
                 # Transform evidence into artefact format for template
                 artefacts = []
                 for ev in evidence_list:
+                    print(f"DEBUG FAIRA TEMPLATE: Processing evidence item: {ev.get('evidence_title', ev.get('file_name', 'unknown'))}")
                     # Get linked question codes
                     linked_questions = ev.get('linked_question_ids', [])
                     # Map to domain names based on question codes
